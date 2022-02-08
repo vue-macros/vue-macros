@@ -29,6 +29,7 @@ export default createUnplugin<Options>((options = {}) => {
   const name = 'unplugin-vue-define-options'
   return {
     name,
+    enforce: 'pre',
 
     transformInclude(id) {
       return filter(id)

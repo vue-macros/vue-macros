@@ -49,9 +49,6 @@ import DefineOptions from 'unplugin-vue-define-options/vite'
 import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [
-    DefineOptions(), // ⚠️ must be placed before `Vue()`
-    Vue(),
-  ],
+  plugins: [Vue(), DefineOptions()],
 })
 ```
