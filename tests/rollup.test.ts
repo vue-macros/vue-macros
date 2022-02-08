@@ -7,7 +7,7 @@ import type { Plugin } from 'rollup'
 const ToString: Plugin = {
   name: 'to-string',
   transform(code) {
-    return `export default \`${code}\``
+    return `export default \`${code.replaceAll('`', '\\`')}\``
   },
 }
 

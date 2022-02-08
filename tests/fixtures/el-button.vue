@@ -1,34 +1,7 @@
-// Vitest Snapshot v1
-
-exports[`transform > fixtures > tests/fixtures/basic.vue 1`] = `
-"var basic = \`<script lang=\\"js\\">
-export default {
-  name: 'Foo',
-}</script>
-<script setup>
-
-</script>
-
-<template>
-  <div>
-    <h1>Hello World</h1>
-  </div>
-</template>
-\`;
-
-export { basic as default };
-"
-`;
-
-exports[`transform > fixtures > tests/fixtures/el-button.vue 1`] = `
-"var elButton = \`<script lang=\\"ts\\">
-export default {
-  name: 'ElButton',
-}</script>
 <template>
   <button
-    ref=\\"buttonRef\\"
-    :class=\\"[
+    ref="buttonRef"
+    :class="[
       ns.b(),
       ns.m(buttonType),
       ns.m(buttonSize),
@@ -37,32 +10,32 @@ export default {
       ns.is('plain', plain),
       ns.is('round', round),
       ns.is('circle', circle),
-    ]\\"
-    :disabled=\\"buttonDisabled || loading\\"
-    :autofocus=\\"autofocus\\"
-    :type=\\"nativeType\\"
-    :style=\\"buttonStyle\\"
-    @click=\\"handleClick\\"
+    ]"
+    :disabled="buttonDisabled || loading"
+    :autofocus="autofocus"
+    :type="nativeType"
+    :style="buttonStyle"
+    @click="handleClick"
   >
-    <template v-if=\\"loading\\">
-      <slot v-if=\\"$slots.loading\\" name=\\"loading\\"></slot>
-      <el-icon v-else :class=\\"ns.is('loading')\\">
-        <component :is=\\"loadingIcon\\" />
+    <template v-if="loading">
+      <slot v-if="$slots.loading" name="loading"></slot>
+      <el-icon v-else :class="ns.is('loading')">
+        <component :is="loadingIcon" />
       </el-icon>
     </template>
-    <el-icon v-else-if=\\"icon\\">
-      <component :is=\\"icon\\" />
+    <el-icon v-else-if="icon">
+      <component :is="icon" />
     </el-icon>
     <span
-      v-if=\\"$slots.default\\"
-      :class=\\"{ [ns.em('text', 'expand')]: shouldAddSpace }\\"
+      v-if="$slots.default"
+      :class="{ [ns.em('text', 'expand')]: shouldAddSpace }"
     >
       <slot></slot>
     </span>
   </button>
 </template>
 
-<script lang=\\"ts\\" setup>
+<script lang="ts" setup>
 import { computed, inject, Text, ref, useSlots } from 'vue'
 import { useCssVar } from '@vueuse/core'
 import { TinyColor } from '@ctrl/tinycolor'
@@ -77,7 +50,9 @@ import {
 import { buttonGroupContextKey } from '@element-plus/tokens'
 import { buttonEmits, buttonProps } from './button'
 
-
+defineOptions({
+  name: 'ElButton',
+})
 
 const props = defineProps(buttonProps)
 const emit = defineEmits(buttonEmits)
@@ -98,7 +73,7 @@ const shouldAddSpace = computed(() => {
     const slot = defaultSlot[0]
     if (slot?.type === Text) {
       const text = slot.children
-      return /^\\\\p{Unified_Ideograph}{2}$/u.test(text as string)
+      return /^\p{Unified_Ideograph}{2}$/u.test(text as string)
     }
   }
   return false
@@ -110,7 +85,7 @@ const buttonDisabled = useDisabled()
 const buttonType = computed(() => props.type || buttonGroupContext?.type || '')
 
 // calculate hover & active color by color
-const typeColor = computed(() => useCssVar(\\\\\`--el-color-\${props.type}\\\\\`).value)
+const typeColor = computed(() => useCssVar(`--el-color-${props.type}`).value)
 const buttonStyle = computed(() => {
   let styles = {}
 
@@ -158,56 +133,3 @@ const handleClick = (evt: MouseEvent) => {
   emit('click', evt)
 }
 </script>
-\`;
-
-export { elButton as default };
-"
-`;
-
-exports[`transform > fixtures > tests/fixtures/error1.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function. If your component options require initialization in the module scope, use a separate normal <script> to export the options instead.]`;
-
-exports[`transform > fixtures > tests/fixtures/error2.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function. If your component options require initialization in the module scope, use a separate normal <script> to export the options instead.]`;
-
-exports[`transform > fixtures > tests/fixtures/not-transform.vue 1`] = `
-"var notTransform = \`<script setup>
-console.log('setup')
-</script>
-
-<script>
-export default {
-  name: 'Hello',
-}
-</script>
-
-<template>
-  <div>
-    <h1>Hello World</h1>
-  </div>
-</template>
-\`;
-
-export { notTransform as default };
-"
-`;
-
-exports[`transform > fixtures > tests/fixtures/typescript.vue 1`] = `
-"var typescript = \`<script lang=\\"ts\\">
-export default {
-  name: 'Foo',
-}</script>
-<script lang=\\"ts\\" setup>
-
-
-console.log('Hello')
-</script>
-
-<template>
-  <div>
-    <h1>Hello World</h1>
-  </div>
-</template>
-\`;
-
-export { typescript as default };
-"
-`;
