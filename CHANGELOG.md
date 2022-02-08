@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.0.2...v0.0.3) (2022-02-08)
+
+
+### Bug Fixes
+
+* babel parser version ([8764b42](https://github.com/sxzz/unplugin-vue-define-options/commit/8764b4271b16a1e3b2dd2795270c2a91497db7f4))
+
 ### 0.0.2 (2022-02-08)
 
 
