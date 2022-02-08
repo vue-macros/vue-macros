@@ -46,7 +46,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "vitest",
-    "build": "tsup",
+    "build": "rm -fr dist && tsup",
     "release": "standard-version",
     "lint": "eslint . --ext .vue,.ts --max-warnings 0",
     "prepublishOnly": "pnpm run build"
