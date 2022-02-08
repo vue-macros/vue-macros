@@ -1,4 +1,5 @@
-import { babelParse, parse, walkIdentifiers } from 'vue/compiler-sfc'
+import { parse, walkIdentifiers } from 'vue/compiler-sfc'
+import { parse as babelParse } from '@babel/parser'
 import { DEFINE_OPTIONS_NAME } from './constants'
 import type { SFCScriptBlock } from 'vue/compiler-sfc'
 import type { ParserOptions } from '@babel/parser'
