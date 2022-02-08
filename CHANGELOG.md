@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.0.3...v0.0.4) (2022-02-08)
+
+
+### Features
+
+* add type declaration ([bd826f3](https://github.com/sxzz/unplugin-vue-define-options/commit/bd826f341c7f5ed6ea477ddb34283e50592caea4))
+
 ### [0.0.3](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.0.2...v0.0.3) (2022-02-08)
 
 
