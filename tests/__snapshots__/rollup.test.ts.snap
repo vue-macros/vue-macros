@@ -1,0 +1,69 @@
+// Vitest Snapshot v1
+
+exports[`transform > fixtures > tests/fixtures/basic.vue 1`] = `
+"var basic = \`<script>
+export default {
+  name: 'Foo',
+}</script>
+<script setup>
+
+</script>
+
+<template>
+  <div>
+    <h1>Hello World</h1>
+  </div>
+</template>
+\`;
+
+export { basic as default };
+"
+`;
+
+exports[`transform > fixtures > tests/fixtures/error1.vue 1`] = `[Error: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function. If your component options require initialization in the module scope, use a separate normal <script> to export the options instead.]`;
+
+exports[`transform > fixtures > tests/fixtures/error2.vue 1`] = `[Error: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function. If your component options require initialization in the module scope, use a separate normal <script> to export the options instead.]`;
+
+exports[`transform > fixtures > tests/fixtures/not-transform.vue 1`] = `
+"var notTransform = \`<script setup>
+console.log('setup')
+</script>
+
+<script>
+export default {
+  name: 'Hello',
+}
+</script>
+
+<template>
+  <div>
+    <h1>Hello World</h1>
+  </div>
+</template>
+\`;
+
+export { notTransform as default };
+"
+`;
+
+exports[`transform > fixtures > tests/fixtures/typescript.vue 1`] = `
+"var typescript = \`<script lang=\\"ts\\">
+export default {
+  name: 'Foo',
+}</script>
+<script lang=\\"ts\\" setup>
+
+
+console.log('Hello')
+</script>
+
+<template>
+  <div>
+    <h1>Hello World</h1>
+  </div>
+</template>
+\`;
+
+export { typescript as default };
+"
+`;
