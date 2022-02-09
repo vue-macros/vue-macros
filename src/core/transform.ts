@@ -6,8 +6,9 @@ import {
   parseScriptSetup,
   parseSFC,
 } from './utils'
+import type { TransformResult } from 'unplugin'
 
-export const transform = (code: string, id: string) => {
+export const transform = (code: string, id: string): TransformResult => {
   const { script, scriptSetup, source } = parseSFC(code, id)
   if (!scriptSetup || script) return
 
@@ -50,7 +51,7 @@ export const transform = (code: string, id: string) => {
       return s.generateMap({
         source: id,
         includeContent: true,
-      }) as any
+      })
     },
   }
 }

@@ -6,5 +6,6 @@
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals"],
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": ["dist", "./*.d.ts"]
 }
