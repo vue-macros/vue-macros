@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.0.5...v0.0.6) (2022-02-09)
+
+
+### Features
+
+* export transfom ([caa69c2](https://github.com/sxzz/unplugin-vue-define-options/commit/caa69c2835a65c66adc7ff5c0bf5a327a2072f40))
+
 ### [0.0.5](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.0.4...v0.0.5) (2022-02-08)
 
 
