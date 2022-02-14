@@ -2,10 +2,15 @@
 
 Provide a Vue 3 new marco `defineOptions`.
 
+## Features
+
 - ✨ With this marco, you can use Options API in `script-setup`.
 - ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 
-[Related issue](https://github.com/vuejs/core/issues/5218#issuecomment-1032107354)
+### Discussion
+
+- [Related issue](https://github.com/vuejs/core/issues/5218#issuecomment-1032107354)
+- [RFC](https://github.com/vuejs/rfcs/discussions/430)
 
 Example:
 
