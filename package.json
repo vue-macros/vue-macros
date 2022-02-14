@@ -48,8 +48,7 @@
     "test": "vitest",
     "build": "rm -fr dist && tsup",
     "release": "standard-version",
-    "lint": "eslint . --ext .vue,.ts --max-warnings 0",
-    "prepublishOnly": "pnpm run build"
+    "lint": "eslint . --ext .vue,.ts --max-warnings 0"
   },
   "bugs": {
     "url": "https://github.com/sxzz/unplugin-vue-define-options/issues"
