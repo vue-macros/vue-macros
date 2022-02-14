@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.1.0...v0.1.1) (2022-02-14)
+
+
+### Bug Fixes
+
+* emit error when both script and script-setup ([c53c4b9](https://github.com/sxzz/unplugin-vue-define-options/commit/c53c4b95d24886ab36837015b8dfe99b3f969626))
+
 ## [0.1.0](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.0.6...v0.1.0) (2022-02-14)
 
 
