@@ -61,13 +61,21 @@ export function checkInvalidScopeReference(
   method: string
 ) {
   if (!node) return
-  walkIdentifiers(node, () => {
+  walkIdentifiers(node, (id, parent, parentStack) => {
+    if (
+      parentStack.some(
+        (node) =>
+          node.type === 'ObjectMethod' ||
+          node.type === 'ArrowFunctionExpression' ||
+          node.type === 'FunctionExpression'
+      )
+    ) {
+      return
+    }
     throw new SyntaxError(
       `\`${method}()\` in <script setup> cannot reference locally ` +
         `declared variables because it will be hoisted outside of the ` +
-        `setup() function. If your component options require initialization ` +
-        `in the module scope, use a separate normal <script> to export ` +
-        `the options instead.`
+        `setup() function.`
     )
   })
 }

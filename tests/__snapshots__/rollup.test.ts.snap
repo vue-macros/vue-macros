@@ -164,12 +164,39 @@ export { elButton as default };
 "
 `;
 
-exports[`transform > fixtures > tests/fixtures/error1.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function. If your component options require initialization in the module scope, use a separate normal <script> to export the options instead.]`;
+exports[`transform > fixtures > tests/fixtures/error1.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function.]`;
 
-exports[`transform > fixtures > tests/fixtures/error2.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function. If your component options require initialization in the module scope, use a separate normal <script> to export the options instead.]`;
+exports[`transform > fixtures > tests/fixtures/error2.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function.]`;
 
-exports[`transform > fixtures > tests/fixtures/not-transform.vue 1`] = `
-"var notTransform = \`<script setup>
+exports[`transform > fixtures > tests/fixtures/function.vue 1`] = `
+"var _function = \`<script lang=\\"ts\\">
+export default {
+  foo() {
+    console.log('hello')
+  },
+  bar: () => console.log('world'),
+  baz: class {
+    a() {
+      const a = () => 'b'
+      return a
+    }
+  },
+  fun: function () {
+    console.log('fun')
+  },
+  iife: (() => Math.random())(),
+}</script>
+<script lang=\\"ts\\" setup>
+
+</script>
+\`;
+
+export { _function as default };
+"
+`;
+
+exports[`transform > fixtures > tests/fixtures/no-transform.vue 1`] = `
+"var noTransform = \`<script setup>
 console.log('setup')
 </script>
 
@@ -186,7 +213,7 @@ export default {
 </template>
 \`;
 
-export { notTransform as default };
+export { noTransform as default };
 "
 `;
 
