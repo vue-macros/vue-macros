@@ -10,15 +10,19 @@ import type { TransformResult } from 'unplugin'
 
 export const transform = (code: string, id: string): TransformResult => {
   const { script, scriptSetup, source } = parseSFC(code, id)
-  if (!scriptSetup || script) return
+  if (!scriptSetup) return
 
   parseScriptSetup(scriptSetup)
 
   const nodes = filterMarco(scriptSetup)
   if (nodes.length === 0) return
-  else if (nodes.length > 1) {
+  else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS_NAME}() call`)
-  }
+
+  if (script)
+    throw new SyntaxError(
+      `${DEFINE_OPTIONS_NAME} cannot be used, with both script and script-setup.`
+    )
 
   const node = nodes[0]
   const arg = node.arguments[0]

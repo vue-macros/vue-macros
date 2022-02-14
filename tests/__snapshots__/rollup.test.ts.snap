@@ -168,6 +168,8 @@ exports[`transform > fixtures > tests/fixtures/error1.vue 1`] = `[Error: unplugi
 
 exports[`transform > fixtures > tests/fixtures/error2.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function.]`;
 
+exports[`transform > fixtures > tests/fixtures/error3.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: defineOptions cannot be used, with both script and script-setup.]`;
+
 exports[`transform > fixtures > tests/fixtures/function.vue 1`] = `
 "var _function = \`<script lang=\\"ts\\">
 export default {
@@ -214,6 +216,22 @@ export default {
 \`;
 
 export { noTransform as default };
+"
+`;
+
+exports[`transform > fixtures > tests/fixtures/no-transform2.vue 1`] = `
+"var noTransform2 = \`<script setup>
+console.log('setup')
+</script>
+
+<template>
+  <div>
+    <h1>Hello World</h1>
+  </div>
+</template>
+\`;
+
+export { noTransform2 as default };
 "
 `;
 
