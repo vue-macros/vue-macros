@@ -1,5 +1,7 @@
 # unplugin-vue-define-options
 
+[![Unit Test](https://github.com/sxzz/unplugin-vue-define-options/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-define-options/actions/workflows/unit-test.yml)
+
 Provide a Vue 3 new marco `defineOptions`.
 
 ## Features
