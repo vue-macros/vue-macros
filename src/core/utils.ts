@@ -1,8 +1,6 @@
 import { parse, walkIdentifiers } from 'vue/compiler-sfc'
-import { parse as babelParse } from '@babel/parser'
 import { DEFINE_OPTIONS_NAME } from './constants'
-import type { SFCScriptBlock } from 'vue/compiler-sfc'
-import type { ParserOptions } from '@babel/parser'
+import type { SFCScriptBlock, BindingMetadata } from 'vue/compiler-sfc'
 import type { CallExpression, Node } from '@babel/types'
 
 export function isCallOf(
@@ -20,30 +18,10 @@ export function isCallOf(
 }
 
 export const parseSFC = (code: string, id: string) => {
-  const {
-    descriptor: { script, scriptSetup, source },
-  } = parse(code, {
+  const { descriptor } = parse(code, {
     filename: id,
   })
-
-  return { script, scriptSetup, source }
-}
-
-export const parseScriptSetup = (scriptSetup: SFCScriptBlock) => {
-  const parserOptions: ParserOptions = {
-    sourceType: 'module',
-    plugins: [],
-  }
-  const lang = scriptSetup.attrs.lang || 'js'
-  if (lang === 'ts') parserOptions.plugins!.push('typescript')
-  else if (lang === 'jsx') parserOptions.plugins!.push('jsx')
-  else if (lang === 'tsx') parserOptions.plugins!.push('typescript', 'jsx')
-  else if (lang !== 'js')
-    throw new SyntaxError(`Unsupported script language: ${lang}`)
-  scriptSetup.scriptSetupAst = babelParse(
-    scriptSetup.content,
-    parserOptions
-  ).program.body
+  return descriptor
 }
 
 export const filterMarco = (scriptSetup: SFCScriptBlock) => {
@@ -58,7 +36,8 @@ export const filterMarco = (scriptSetup: SFCScriptBlock) => {
 
 export function checkInvalidScopeReference(
   node: Node | undefined,
-  method: string
+  method: string,
+  bindings: BindingMetadata
 ) {
   if (!node) return
   walkIdentifiers(node, (id, parent, parentStack) => {
@@ -72,10 +51,11 @@ export function checkInvalidScopeReference(
     ) {
       return
     }
-    throw new SyntaxError(
-      `\`${method}()\` in <script setup> cannot reference locally ` +
-        `declared variables because it will be hoisted outside of the ` +
-        `setup() function.`
-    )
+    if (Object.keys(bindings).includes(id.name))
+      throw new SyntaxError(
+        `\`${method}()\` in <script setup> cannot reference locally ` +
+          `declared variables because it will be hoisted outside of the ` +
+          `setup() function.`
+      )
   })
 }

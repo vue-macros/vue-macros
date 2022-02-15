@@ -1,18 +1,16 @@
-import { MagicString } from 'vue/compiler-sfc'
+import { compileScript, MagicString } from 'vue/compiler-sfc'
 import { DEFINE_OPTIONS_NAME } from './constants'
-import {
-  checkInvalidScopeReference,
-  filterMarco,
-  parseScriptSetup,
-  parseSFC,
-} from './utils'
+import { checkInvalidScopeReference, filterMarco, parseSFC } from './utils'
 import type { TransformResult } from 'unplugin'
 
 export const transform = (code: string, id: string): TransformResult => {
-  const { script, scriptSetup, source } = parseSFC(code, id)
-  if (!scriptSetup) return
+  const sfc = parseSFC(code, id)
+  if (!sfc.scriptSetup) return
 
-  parseScriptSetup(scriptSetup)
+  sfc.scriptSetup = compileScript(sfc, {
+    id,
+  })
+  const { script, scriptSetup, source } = sfc
 
   const nodes = filterMarco(scriptSetup)
   if (nodes.length === 0) return
@@ -30,10 +28,10 @@ export const transform = (code: string, id: string): TransformResult => {
     throw new SyntaxError(`${DEFINE_OPTIONS_NAME}() arguments error`)
   }
 
-  checkInvalidScopeReference(arg, DEFINE_OPTIONS_NAME)
+  checkInvalidScopeReference(arg, DEFINE_OPTIONS_NAME, scriptSetup.bindings)
 
   const argLoc: any = arg.loc
-  const argText = scriptSetup.content.slice(
+  const argText = scriptSetup.loc.source.slice(
     argLoc.start.index,
     argLoc.end.index
   )

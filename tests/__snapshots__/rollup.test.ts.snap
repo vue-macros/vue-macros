@@ -235,6 +235,24 @@ export { noTransform2 as default };
 "
 `;
 
+exports[`transform > fixtures > tests/fixtures/props.vue 1`] = `
+"var props = \`<script lang=\\"js\\">
+export default {
+  props: { foo: Number },
+  emits: [],
+}</script>
+<script setup>
+
+defineProps({
+  foo: String,
+})
+</script>
+\`;
+
+export { props as default };
+"
+`;
+
 exports[`transform > fixtures > tests/fixtures/typescript.vue 1`] = `
 "var typescript = \`<script lang=\\"ts\\">
 export default {
