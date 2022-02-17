@@ -30,11 +30,7 @@ export const transform = (code: string, id: string): TransformResult => {
 
   checkInvalidScopeReference(arg, DEFINE_OPTIONS_NAME, scriptSetup)
 
-  const argLoc: any = arg.loc
-  const argText = scriptSetup.loc.source.slice(
-    argLoc.start.index,
-    argLoc.end.index
-  )
+  const argText = scriptSetup.loc.source.slice(arg.start, arg.end)
 
   const s = new MagicString(source)
   s.prepend(
@@ -43,8 +39,8 @@ export const transform = (code: string, id: string): TransformResult => {
     }">\nexport default ${argText}</script>\n`
   )
   s.remove(
-    scriptSetup.loc.start.offset + (node.loc.start as any).index,
-    scriptSetup.loc.start.offset + (node.loc.end as any).index
+    scriptSetup.loc.start.offset + node.start,
+    scriptSetup.loc.start.offset + node.end
   )
 
   return {
