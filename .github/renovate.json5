@@ -1,0 +1,14 @@
+{
+  extends: ['config:js-lib', 'schedule:weekly', 'group:allNonMajor'],
+  labels: ['dependencies'],
+  pin: false,
+  rangeStrategy: 'bump',
+  node: false,
+  packageRules: [
+    {
+      depTypeList: ['peerDependencies'],
+      enabled: false,
+    },
+  ],
+  ignoreDeps: ['node', 'typescript'],
+}

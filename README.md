@@ -1,4 +1,4 @@
-# unplugin-vue-define-options
+# unplugin-vue-define-options [![npm](https://img.shields.io/npm/v/unplugin-vue-define-options.svg)](https://npmjs.com/package/unplugin-vue-define-options)
 
 [![Unit Test](https://github.com/sxzz/unplugin-vue-define-options/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-define-options/actions/workflows/unit-test.yml)
 
