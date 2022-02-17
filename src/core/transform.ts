@@ -28,7 +28,7 @@ export const transform = (code: string, id: string): TransformResult => {
     throw new SyntaxError(`${DEFINE_OPTIONS_NAME}() arguments error`)
   }
 
-  checkInvalidScopeReference(arg, DEFINE_OPTIONS_NAME, scriptSetup.bindings)
+  checkInvalidScopeReference(arg, DEFINE_OPTIONS_NAME, scriptSetup)
 
   const argLoc: any = arg.loc
   const argText = scriptSetup.loc.source.slice(

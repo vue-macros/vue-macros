@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const a = 'hello'
 defineOptions({
   foo() {
     console.log('hello')

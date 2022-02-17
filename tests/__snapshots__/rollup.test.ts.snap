@@ -189,11 +189,30 @@ export default {
   iife: (() => Math.random())(),
 }</script>
 <script lang=\\"ts\\" setup>
+const a = 'hello'
 
 </script>
 \`;
 
 export { _function as default };
+"
+`;
+
+exports[`transform > fixtures > tests/fixtures/imports.vue 1`] = `
+"var imports = \`<script lang=\\"ts\\">
+export default {
+  components: {
+    Basic,
+  },
+}</script>
+<script setup lang=\\"ts\\">
+import Basic from './basic.vue'
+
+
+</script>
+\`;
+
+export { imports as default };
 "
 `;
 

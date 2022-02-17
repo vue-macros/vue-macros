@@ -1,6 +1,6 @@
 import { parse, walkIdentifiers } from 'vue/compiler-sfc'
 import { DEFINE_OPTIONS_NAME } from './constants'
-import type { SFCScriptBlock, BindingMetadata } from 'vue/compiler-sfc'
+import type { SFCScriptBlock } from 'vue/compiler-sfc'
 import type { CallExpression, Node } from '@babel/types'
 
 export function isCallOf(
@@ -37,21 +37,14 @@ export const filterMarco = (scriptSetup: SFCScriptBlock) => {
 export function checkInvalidScopeReference(
   node: Node | undefined,
   method: string,
-  bindings: BindingMetadata
+  scriptSetup: SFCScriptBlock
 ) {
   if (!node) return
-  walkIdentifiers(node, (id, parent, parentStack) => {
+  walkIdentifiers(node, (id) => {
     if (
-      parentStack.some(
-        (node) =>
-          node.type === 'ObjectMethod' ||
-          node.type === 'ArrowFunctionExpression' ||
-          node.type === 'FunctionExpression'
-      )
-    ) {
-      return
-    }
-    if (Object.keys(bindings).includes(id.name))
+      Object.keys(scriptSetup.bindings).includes(id.name) &&
+      !Object.keys(scriptSetup.imports).includes(id.name)
+    )
       throw new SyntaxError(
         `\`${method}()\` in <script setup> cannot reference locally ` +
           `declared variables because it will be hoisted outside of the ` +
