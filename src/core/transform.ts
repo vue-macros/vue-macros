@@ -7,9 +7,11 @@ export const transform = (code: string, id: string): TransformResult => {
   const sfc = parseSFC(code, id)
   if (!sfc.scriptSetup) return
 
-  sfc.scriptSetup = compileScript(sfc, {
-    id,
-  })
+  if (!sfc.scriptSetup.scriptSetupAst) {
+    sfc.scriptSetup = compileScript(sfc, {
+      id,
+    })
+  }
   const { script, scriptSetup, source } = sfc
 
   const nodes = filterMarco(scriptSetup)
