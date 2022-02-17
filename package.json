@@ -54,25 +54,29 @@
     "url": "https://github.com/sxzz/unplugin-vue-define-options/issues"
   },
   "homepage": "https://github.com/sxzz/unplugin-vue-define-options#readme",
+  "peerDependencies": {
+    "vue": "^3.2.25"
+  },
+  "dependencies": {
+    "@rollup/pluginutils": "^4.1.2",
+    "unplugin": "^0.3.2"
+  },
   "devDependencies": {
     "@babel/types": "^7.17.0",
-    "@rollup/pluginutils": "^4.1.2",
     "@sxzz/eslint-config-prettier": "^1.6.1",
     "@sxzz/eslint-config-vue": "^1.6.4",
     "@types/node": "*",
-    "@vitest/ui": "^0.3.5",
+    "@vitest/ui": "^0.3.6",
     "eslint": "^8.9.0",
     "eslint-define-config": "^1.2.5",
     "fast-glob": "^3.2.11",
     "rollup": "^2.67.2",
-    "rollup-plugin-string": "^3.0.0",
     "standard-version": "^9.3.2",
     "tsup": "^5.11.13",
     "typescript": "^4.5.5",
-    "unplugin": "^0.3.2",
     "unplugin-vue": "^0.2.2",
-    "vite": "^2.8.2",
-    "vitest": "^0.3.5",
+    "vite": "^2.8.3",
+    "vitest": "^0.3.6",
     "vue": "^3.2.31"
   }
 }
