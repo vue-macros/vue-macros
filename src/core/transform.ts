@@ -4,6 +4,8 @@ import { checkInvalidScopeReference, filterMarco, parseSFC } from './utils'
 import type { TransformResult } from 'unplugin'
 
 export const transform = (code: string, id: string): TransformResult => {
+  if (!code.includes(DEFINE_OPTIONS_NAME)) return
+
   const sfc = parseSFC(code, id)
   if (!sfc.scriptSetup) return
 
