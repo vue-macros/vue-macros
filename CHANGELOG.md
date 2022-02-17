@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.3.0...v0.3.1) (2022-02-17)
+
+
+### Bug Fixes
+
+* improve default export for cjs ([a8b4b37](https://github.com/sxzz/unplugin-vue-define-options/commit/a8b4b37ff5d7af15878f0d636f1e2094c7409115))
+
 ## [0.3.0](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.2.2...v0.3.0) (2022-02-17)
 
 ### [0.2.2](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.2.1...v0.2.2) (2022-02-17)
