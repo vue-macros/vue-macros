@@ -46,7 +46,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "vitest",
-    "build": "rm -fr dist && tsup",
+    "build": "rm -fr dist && tsup && esno scripts/postbuild.ts",
     "release": "standard-version",
     "lint": "eslint . --ext .vue,.ts --max-warnings 0"
   },
@@ -69,6 +69,7 @@
     "@vitest/ui": "^0.3.6",
     "eslint": "^8.9.0",
     "eslint-define-config": "^1.2.5",
+    "esno": "^0.14.1",
     "fast-glob": "^3.2.11",
     "rollup": "^2.67.2",
     "standard-version": "^9.3.2",
