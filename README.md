@@ -16,7 +16,7 @@ Introduce a macro in script setup, `defineOptions`, to use Options API in script
 
 ## Example
 
-# Basic example
+### Basic example
 
 ```vue
 <script setup lang="ts">
