@@ -1,11 +1,10 @@
-name: Unit Test
+name: PR Unit Test
 
 on:
-  push:
-    branches: [main]
+  pull_request:
 
 jobs:
-  test:
+  pr-unit-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
