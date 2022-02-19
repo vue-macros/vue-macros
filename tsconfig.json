@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "target": "ES2021",
+    "target": "ES2019",
+    "module": "ESNext",
+    "lib": ["ES2019"],
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals"],

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-string-replace-all */
 import { resolve } from 'path'
 import { rollup } from 'rollup'
 import glob from 'fast-glob'
@@ -7,7 +8,7 @@ import type { Plugin } from 'rollup'
 const ToString: Plugin = {
   name: 'to-string',
   transform(code) {
-    return `export default \`${code.replaceAll('`', '\\`')}\``
+    return `export default \`${code.replace(/`/g, '\\`')}\``
   },
 }
 
@@ -38,7 +39,7 @@ describe('transform', () => {
     })
 
     for (const file of files) {
-      it(file.replaceAll('\\', '/'), async () => {
+      it(file.replace(/\\/g, '/'), async () => {
         const filepath = resolve(root, file)
 
         const unpluginCode = await getCode(filepath, [
