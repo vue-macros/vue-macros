@@ -7,7 +7,9 @@
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals"],
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
-  "exclude": ["dist", "./*.d.ts"]
+  "include": ["src", "tests"],
+  "exclude": ["tests/fixtures"]
 }
