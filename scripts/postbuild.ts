@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { basename, resolve } from 'path'
 import { promises as fs } from 'fs'
 import fg from 'fast-glob'
@@ -10,7 +11,6 @@ async function run() {
     cwd: resolve(__dirname, '../dist'),
   })
   for (const file of files) {
-    // eslint-disable-next-line no-console
     console.log('[postbuild]', basename(file))
     const name = basename(file, '.js')
     let code = await fs.readFile(file, 'utf8')
