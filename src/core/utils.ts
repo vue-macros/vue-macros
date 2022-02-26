@@ -1,7 +1,7 @@
 import { parse, walkIdentifiers } from 'vue/compiler-sfc'
 import { DEFINE_OPTIONS_NAME } from './constants'
 import type { SFCScriptBlock } from 'vue/compiler-sfc'
-import type { CallExpression, Node } from '@babel/types'
+import type { CallExpression, Node, ObjectExpression } from '@babel/types'
 
 export function isCallOf(
   node: Node | null | undefined,
@@ -52,3 +52,11 @@ export function checkInvalidScopeReference(
       )
   })
 }
+
+export const hasPropsOrEmits = (node: ObjectExpression) =>
+  node.properties.some(
+    (prop) =>
+      (prop.type === 'ObjectProperty' || prop.type === 'ObjectMethod') &&
+      prop.key.type === 'Identifier' &&
+      (prop.key.name === 'props' || prop.key.name === 'emits')
+  )

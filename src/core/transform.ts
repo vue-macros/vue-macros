@@ -1,6 +1,11 @@
 import { compileScript, MagicString } from 'vue/compiler-sfc'
 import { DEFINE_OPTIONS_NAME } from './constants'
-import { checkInvalidScopeReference, filterMarco, parseSFC } from './utils'
+import {
+  checkInvalidScopeReference,
+  filterMarco,
+  hasPropsOrEmits,
+  parseSFC,
+} from './utils'
 import type { TransformResult } from 'unplugin'
 
 export const transform = (code: string, id: string): TransformResult => {
@@ -30,6 +35,12 @@ export const transform = (code: string, id: string): TransformResult => {
   const arg = node.arguments[0]
   if (!(node.arguments.length === 1 && arg.type === 'ObjectExpression')) {
     throw new SyntaxError(`${DEFINE_OPTIONS_NAME}() arguments error`)
+  }
+
+  if (hasPropsOrEmits(arg)) {
+    throw new SyntaxError(
+      `${DEFINE_OPTIONS_NAME}() please use defineProps or defineEmits instead.`
+    )
   }
 
   checkInvalidScopeReference(arg, DEFINE_OPTIONS_NAME, scriptSetup)
