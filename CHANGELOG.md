@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.3.1...v0.4.0) (2022-02-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* restrict props and emits
+
+### Features
+
+* restrict props and emits ([67670dc](https://github.com/sxzz/unplugin-vue-define-options/commit/67670dcb83330c0125675e2b2a25de496136a639))
+* support node 12 ([0bd6131](https://github.com/sxzz/unplugin-vue-define-options/commit/0bd6131ff9b3be4bdd975261044b457e5ed8a943))
+
 ### [0.3.1](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.3.0...v0.3.1) (2022-02-17)
 
 
