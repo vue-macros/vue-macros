@@ -1,6 +1,6 @@
-import { parse, walkIdentifiers } from 'vue/compiler-sfc'
+import { parse, walkIdentifiers } from '@vue/compiler-sfc'
 import { DEFINE_OPTIONS_NAME } from './constants'
-import type { SFCScriptBlock } from 'vue/compiler-sfc'
+import type { SFCScriptBlock } from '@vue/compiler-sfc'
 import type { CallExpression, Node, ObjectExpression } from '@babel/types'
 
 export function isCallOf(
