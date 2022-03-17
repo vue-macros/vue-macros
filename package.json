@@ -47,6 +47,7 @@
   "scripts": {
     "test": "vitest",
     "build": "rm -fr dist && tsup && esno scripts/postbuild.ts",
+    "dev": "MODE=dev tsup",
     "release": "standard-version",
     "lint": "eslint . --ext .vue,.ts --max-warnings 0"
   },
