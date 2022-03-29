@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.5.0...v0.6.0) (2022-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop nodejs 12 support
+
+### Features
+
+* drop nodejs 12 support ([d6e57df](https://github.com/sxzz/unplugin-vue-define-options/commit/d6e57dfdb72af7320594e94fda8d6b654b0743c7))
+
 ## [0.5.0](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.4.0...v0.5.0) (2022-03-17)
 
 
