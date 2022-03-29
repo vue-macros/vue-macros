@@ -1,4 +1,4 @@
-import { compileScript, MagicString } from '@vue/compiler-sfc'
+import { MagicString, compileScript } from '@vue/compiler-sfc'
 import { DEFINE_OPTIONS_NAME } from './constants'
 import {
   checkInvalidScopeReference,

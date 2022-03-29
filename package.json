@@ -8,16 +8,18 @@
     "script-setup",
     "defineOptions"
   ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-define-options.git"
+  "homepage": "https://github.com/sxzz/unplugin-vue-define-options#readme",
+  "bugs": {
+    "url": "https://github.com/sxzz/unplugin-vue-define-options/issues"
   },
+  "license": "MIT",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
     "dist",
     "*.d.ts"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -41,20 +43,18 @@
     },
     "./*": "./*"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/unplugin-vue-define-options.git"
+  },
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "vitest",
     "build": "rm -fr dist && tsup && esno scripts/postbuild.ts",
     "dev": "MODE=dev tsup",
     "release": "standard-version",
-    "lint": "eslint . --ext .vue,.ts --max-warnings 0"
+    "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
   },
-  "bugs": {
-    "url": "https://github.com/sxzz/unplugin-vue-define-options/issues"
-  },
-  "homepage": "https://github.com/sxzz/unplugin-vue-define-options#readme",
   "peerDependencies": {
     "vue": "^3.2.25"
   },
@@ -83,6 +83,6 @@
     "vue": "^3.2.31"
   },
   "engines": {
-    "node": ">=12.20.0"
+    "node": ">=14.17.0"
   }
 }

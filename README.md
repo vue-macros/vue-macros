@@ -25,7 +25,7 @@ defineOptions({
   name: 'Foo',
   inheritAttrs: false,
   props: {
-    msg: { type: String, required: false },
+    msg: { type: String, default: 'bar' },
   },
   emits: ['change', 'update'],
 })
@@ -42,7 +42,7 @@ export default {
   name: 'Foo',
   inheritAttrs: false,
   props: {
-    msg: { type: String, required: false },
+    msg: { type: String, default: 'bar' },
   },
   emits: ['change', 'update'],
 }
