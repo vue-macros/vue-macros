@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`transform > fixtures > tests/fixtures/basic.vue 1`] = `
-"var basic = \`<script lang=\\"js\\">
+"var basic = \`<script>
 export default {
   name: 'Foo',
 }</script>
@@ -217,6 +217,28 @@ import Basic from './basic.vue'
 \`;
 
 export { imports as default };
+"
+`;
+
+exports[`transform > fixtures > tests/fixtures/js.vue 1`] = `
+"var js = \`<script>
+export default {
+  name: 'Foo',
+}</script>
+<script setup>
+
+
+console.log('Hello')
+</script>
+
+<template>
+  <div>
+    <h1>Hello World</h1>
+  </div>
+</template>
+\`;
+
+export { js as default };
 "
 `;
 

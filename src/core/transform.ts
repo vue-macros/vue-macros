@@ -48,11 +48,8 @@ export const transform = (code: string, id: string): TransformResult => {
   const argText = scriptSetup.loc.source.slice(arg.start, arg.end)
 
   const s = new MagicString(source)
-  s.prepend(
-    `<script lang="${
-      scriptSetup.attrs.lang || 'js'
-    }">\nexport default ${argText}</script>\n`
-  )
+  const lang = scriptSetup.attrs.lang ? ` lang="${scriptSetup.attrs.lang}"` : ''
+  s.prepend(`<script${lang}>\nexport default ${argText}</script>\n`)
   s.remove(
     scriptSetup.loc.start.offset + node.start,
     scriptSetup.loc.start.offset + node.end
