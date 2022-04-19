@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.6.0...v0.6.1) (2022-04-19)
+
+
+### Bug Fixes
+
+* lang ([3d7d12c](https://github.com/sxzz/unplugin-vue-define-options/commit/3d7d12c58d0447751a315fc62ae9bb03ef3544a7))
+
 ## [0.6.0](https://github.com/sxzz/unplugin-vue-define-options/compare/v0.5.0...v0.6.0) (2022-03-29)
 
 
