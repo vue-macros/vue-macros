@@ -6,7 +6,7 @@ specifiers:
   '@sxzz/eslint-config-prettier': ^2.1.0
   '@sxzz/eslint-config-vue': ^2.1.0
   '@types/node': '*'
-  '@vitest/ui': 0.8.0
+  '@vitest/ui': 0.10.0
   '@vue/compiler-sfc': ^3.2.31
   eslint: ^8.12.0
   eslint-define-config: ^1.3.0
@@ -17,9 +17,9 @@ specifiers:
   tsup: ^5.12.1
   typescript: ^4.6.3
   unplugin: ^0.6.0
-  unplugin-vue: 2.0.0
+  unplugin-vue: 2.1.0
   vite: ^2.8.6
-  vitest: 0.8.0
+  vitest: 0.10.0
   vue: ^3.2.31
 
 dependencies:
@@ -32,7 +32,7 @@ devDependencies:
   '@sxzz/eslint-config-prettier': 2.1.0_eslint@8.12.0
   '@sxzz/eslint-config-vue': 2.1.0_thk3xo4exzjr5rl6cnexo7v6re
   '@types/node': 17.0.23
-  '@vitest/ui': 0.8.0
+  '@vitest/ui': 0.10.0
   eslint: 8.12.0
   eslint-define-config: 1.3.0
   esno: 0.14.1
@@ -41,9 +41,9 @@ devDependencies:
   standard-version: 9.3.2
   tsup: 5.12.1_typescript@4.6.3
   typescript: 4.6.3
-  unplugin-vue: 2.0.0_e2avi57x4qc2gidtdy5pehn3de
+  unplugin-vue: 2.1.0_e2avi57x4qc2gidtdy5pehn3de
   vite: 2.8.6
-  vitest: 0.8.0_@vitest+ui@0.8.0
+  vitest: 0.10.0_@vitest+ui@0.10.0
   vue: 3.2.31
 
 packages:
@@ -150,6 +150,15 @@ packages:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.3.1
+    dev: false
+
+  /@rollup/pluginutils/4.2.1:
+    resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    dev: true
 
   /@sxzz/eslint-config-basic/2.1.0_eslint@8.12.0:
     resolution: {integrity: sha512-UieBbwT7VQQQyh88WHFy7YprAzZ74MNu3oK0dzcgVrudsyztYBgmgLOXh98PNKsECtitw+jhu83Fazrx2vetGA==}
@@ -217,11 +226,11 @@ packages:
   /@types/chai-subset/1.3.3:
     resolution: {integrity: sha512-frBecisrNGz+F4T6bcc+NLeolfiojh5FxW2klu669+8BARtyQv2C/GkNW6FUodVe4BroGMP/wER/YDGc7rEllw==}
     dependencies:
-      '@types/chai': 4.3.0
+      '@types/chai': 4.3.1
     dev: true
 
-  /@types/chai/4.3.0:
-    resolution: {integrity: sha512-/ceqdqeRraGolFTcfoXNiqjyQhZzbINDngeoAq9GoHa8PPK1yNzTaxWjA6BFWp5Ua9JpXEMSS4s5i9tS0hOJtw==}
+  /@types/chai/4.3.1:
+    resolution: {integrity: sha512-/zPMqDkzSZ8t3VtxOa4KPq7uzzW978M9Tvh+j7GHKuo6k6GTLxPJ4J5gE5cjfJ26pnXst0N5Hax8Sr0T2Mi9zQ==}
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -380,8 +389,8 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vitest/ui/0.8.0:
-    resolution: {integrity: sha512-eCrU2lvYTA1YAI3cBrmaHC1539X7r8HMF/bLUEdSJE+eb+fW78brXYJXS7bDywQsFg9TI592xZVpPlRg95dfZA==}
+  /@vitest/ui/0.10.0:
+    resolution: {integrity: sha512-GMxAQV5b14YJg1so9rmaXRASsnCY04acNHKoNkJegHpVCxFQkMavZM14KT1qAxg2xLdFbUd903JDAncpyJDBTw==}
     dependencies:
       sirv: 2.0.2
     dev: true
@@ -3285,8 +3294,8 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: true
 
-  /tinyspy/0.3.0:
-    resolution: {integrity: sha512-c5uFHqtUp74R2DJE3/Efg0mH5xicmgziaQXMm/LvuuZn3RdpADH32aEGDRyCzObXT1DNfwDMqRQ/Drh1MlO12g==}
+  /tinyspy/0.3.2:
+    resolution: {integrity: sha512-2+40EP4D3sFYy42UkgkFFB+kiX2Tg3URG/lVvAZFfLxgGpnWl5qQJuBw1gaLttq8UOS+2p3C0WrhJnQigLTT2Q==}
     engines: {node: '>=14.0.0'}
     dev: true
 
@@ -3438,19 +3447,19 @@ packages:
       '@types/unist': 2.0.6
     dev: true
 
-  /unplugin-vue/2.0.0_e2avi57x4qc2gidtdy5pehn3de:
-    resolution: {integrity: sha512-aTUEW026kqAm5YwGM1Gx4ZTBd3vmzIMRDMz5srgaCSIxJ1ck2Cmhd9fV3KkEOmZwBh1mVsXGqZr70thDsdT6RQ==}
+  /unplugin-vue/2.1.0_e2avi57x4qc2gidtdy5pehn3de:
+    resolution: {integrity: sha512-5R/gwBI+3qkQJ64Odx5XgI7z/ZhLVL4kECGOmmtIG8cXIqaTKiiCR5UU8VUv15hEnaAvAO0PMUTBZ20fk7df3A==}
     engines: {node: '>=14.17.0'}
     peerDependencies:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      '@rollup/pluginutils': 4.2.0
+      '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
       hash-sum: 2.0.0
       querystring: 0.2.1
       source-map: 0.6.1
-      unplugin: 0.6.0_rollup@2.70.1+vite@2.8.6
+      unplugin: 0.6.2_rollup@2.70.1+vite@2.8.6
       vite: 2.8.6
       vue: 3.2.31
     transitivePeerDependencies:
@@ -3482,6 +3491,31 @@ packages:
       vite: 2.8.6
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.4.3
+    dev: false
+
+  /unplugin/0.6.2_rollup@2.70.1+vite@2.8.6:
+    resolution: {integrity: sha512-+QONc2uBFQbeo4x5mlJHjTKjR6pmuchMpGVrWhwdGFFMb4ttFZ4E9KqhOOrNcm3Q8NNyB1vJ4s5e36IZC7UWYw==}
+    peerDependencies:
+      esbuild: '>=0.13'
+      rollup: ^2.50.0
+      vite: ^2.3.0
+      webpack: 4 || 5
+    peerDependenciesMeta:
+      esbuild:
+        optional: true
+      rollup:
+        optional: true
+      vite:
+        optional: true
+      webpack:
+        optional: true
+    dependencies:
+      chokidar: 3.5.3
+      rollup: 2.70.1
+      vite: 2.8.6
+      webpack-sources: 3.2.3
+      webpack-virtual-modules: 0.4.3
+    dev: true
 
   /uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
@@ -3528,9 +3562,33 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.8.0_@vitest+ui@0.8.0:
-    resolution: {integrity: sha512-8m8OufAQWXlNpjm5dTe5Lc60zruguKJljunveueYrd4aoeXaQvggLX0SPmIW3G6PDtnBdNEynSi+6pibjnutQA==}
-    engines: {node: '>=v14.19.1'}
+  /vite/2.9.6:
+    resolution: {integrity: sha512-3IffdrByHW95Yjv0a13TQOQfJs7L5dVlSPuTt432XLbRMriWbThqJN2k/IS6kXn5WY4xBLhK9XoaWay1B8VzUw==}
+    engines: {node: '>=12.2.0'}
+    hasBin: true
+    peerDependencies:
+      less: '*'
+      sass: '*'
+      stylus: '*'
+    peerDependenciesMeta:
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+    dependencies:
+      esbuild: 0.14.28
+      postcss: 8.4.12
+      resolve: 1.22.0
+      rollup: 2.70.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /vitest/0.10.0_@vitest+ui@0.10.0:
+    resolution: {integrity: sha512-8UXemUg9CA4QYppDTsDV76nH0e1p6C8lV9q+o9i0qMSK9AQ7vA2sjoxtkDP0M+pwNmc3ZGYetBXgSJx0M1D/gg==}
+    engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
       '@vitest/ui': '*'
@@ -3547,14 +3605,14 @@ packages:
       jsdom:
         optional: true
     dependencies:
-      '@types/chai': 4.3.0
+      '@types/chai': 4.3.1
       '@types/chai-subset': 1.3.3
-      '@vitest/ui': 0.8.0
+      '@vitest/ui': 0.10.0
       chai: 4.3.6
       local-pkg: 0.4.1
       tinypool: 0.1.2
-      tinyspy: 0.3.0
-      vite: 2.8.6
+      tinyspy: 0.3.2
+      vite: 2.9.6
     transitivePeerDependencies:
       - less
       - sass
