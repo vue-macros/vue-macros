@@ -9,11 +9,15 @@
     "script-setup",
     "defineOptions"
   ],
+  "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-define-options#readme",
   "bugs": {
     "url": "https://github.com/sxzz/unplugin-vue-define-options/issues"
   },
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/unplugin-vue-define-options.git"
+  },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
     "dist",
@@ -21,6 +25,7 @@
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "types": "index.d.ts",
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -44,14 +49,16 @@
     },
     "./*": "./*"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-define-options.git"
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
   },
-  "types": "dist/index.d.ts",
   "scripts": {
     "test": "vitest",
-    "build": "rm -fr dist && tsup && tsx scripts/postbuild.ts",
+    "build": "rm -fr dist && tsup && tsx scripts/postbuild.mts",
     "dev": "MODE=dev tsup",
     "release": "standard-version",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
@@ -60,28 +67,28 @@
     "vue": "^3.2.25"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^4.2.0",
-    "@vue/compiler-sfc": "^3.2.31",
-    "unplugin": "^0.6.0"
+    "@rollup/pluginutils": "^4.2.1",
+    "@vue/compiler-sfc": "^3.2.36",
+    "unplugin": "^0.6.3"
   },
   "devDependencies": {
-    "@babel/types": "^7.17.0",
-    "@sxzz/eslint-config-prettier": "^2.1.0",
-    "@sxzz/eslint-config-vue": "^2.1.0",
+    "@babel/types": "^7.18.0",
+    "@sxzz/eslint-config-prettier": "^2.2.1",
+    "@sxzz/eslint-config-vue": "^2.2.1",
     "@types/node": "*",
     "@vitest/ui": "0.12.9",
-    "eslint": "^8.12.0",
-    "eslint-define-config": "^1.3.0",
+    "eslint": "^8.16.0",
+    "eslint-define-config": "^1.4.1",
     "fast-glob": "^3.2.11",
-    "rollup": "^2.70.1",
-    "standard-version": "^9.3.2",
-    "tsup": "^5.12.1",
+    "rollup": "^2.74.1",
+    "standard-version": "^9.5.0",
+    "tsup": "^5.12.8",
     "tsx": "^3.4.0",
-    "typescript": "^4.6.3",
+    "typescript": "^4.6.4",
     "unplugin-vue": "2.1.0",
-    "vite": "^2.8.6",
+    "vite": "^2.9.9",
     "vitest": "0.12.9",
-    "vue": "^3.2.31"
+    "vue": "^3.2.36"
   },
   "engines": {
     "node": ">=14.19.0"
