@@ -6,42 +6,28 @@ on:
       - 'v**'
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-          registry-url: https://registry.npmjs.com/
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: latest
+      - name: Setup
+        run: npm i -g @antfu/ni
 
-      - name: Cache ~/.pnpm-store
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-pnpm-store
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-${{ matrix.node-version }}-test-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-test-${{ env.cache-name }}-
-            ${{ runner.os }}-${{ matrix.node-version }}-test-
-            ${{ runner.os }}-
-
-      - name: Install deps
-        run: pnpm i --frozen-lockfile
+      - name: Install
+        run: nci
 
       - name: Build
-        run: pnpm build
+        run: nr build
 
       - name: Publish
         run: npm publish
         env:
-          REGISTRY: https://registry.npmjs.com/
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
 
       - run: npx conventional-github-releaser -p angular
