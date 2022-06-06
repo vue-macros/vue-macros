@@ -14,7 +14,7 @@ Introduce a macro in script setup, `defineOptions`, to use Options API in script
 - [Related issue](https://github.com/vuejs/core/issues/5218#issuecomment-1032107354)
 - [RFC](https://github.com/vuejs/rfcs/discussions/430)
 
-## Example
+## Usage
 
 ### Basic example
 
@@ -159,6 +159,18 @@ module.exports = {
 ```
 
 <br></details>
+
+#### TypeScript Support
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    // ...
+    "types": ["unplugin-vue-define-options" /* ... */]
+  }
+}
+```
 
 ## Sponsors
 
