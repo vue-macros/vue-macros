@@ -58,7 +58,7 @@
   },
   "scripts": {
     "test": "vitest",
-    "build": "rm -fr dist && tsup && tsx scripts/postbuild.mts",
+    "build": "rimraf dist && tsup && tsx scripts/postbuild.mts",
     "dev": "MODE=dev tsup",
     "release": "standard-version",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
@@ -80,6 +80,7 @@
     "eslint": "^8.19.0",
     "eslint-define-config": "^1.5.1",
     "fast-glob": "^3.2.11",
+    "rimraf": "^3.0.2",
     "rollup": "^2.75.7",
     "standard-version": "^9.5.0",
     "tsup": "^6.1.3",
