@@ -4,17 +4,22 @@ on:
   push:
     tags:
       - 'v**'
+  # eslint-disable-next-line yml/no-empty-mapping-value
+  workflow_dispatch:
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Setup node
+      - name: Set node
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: 16.x
+          registry-url: https://registry.npmjs.com/
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -30,6 +35,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
 
-      - run: npx conventional-github-releaser -p angular
+      - run: npx changelogithub
         env:
-          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

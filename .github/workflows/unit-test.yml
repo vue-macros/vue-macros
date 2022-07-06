@@ -53,8 +53,5 @@ jobs:
       - name: Build
         run: nr build
 
-      - name: Build Examples
-        run: pnpm run -r --parallel build
-
       - name: Unit Test
         run: nr test

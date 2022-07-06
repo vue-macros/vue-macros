@@ -60,7 +60,7 @@
     "test": "vitest",
     "build": "rimraf dist && tsup && tsx scripts/postbuild.mts",
     "dev": "MODE=dev tsup",
-    "release": "standard-version",
+    "release": "bumpp",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
   },
   "peerDependencies": {
@@ -77,12 +77,12 @@
     "@sxzz/eslint-config-vue": "^2.2.2",
     "@types/node": "*",
     "@vitest/ui": "0.17.0",
+    "bumpp": "^8.2.1",
     "eslint": "^8.19.0",
     "eslint-define-config": "^1.5.1",
     "fast-glob": "^3.2.11",
     "rimraf": "^3.0.2",
     "rollup": "^2.75.7",
-    "standard-version": "^9.5.0",
     "tsup": "^6.1.3",
     "tsx": "^3.7.1",
     "typescript": "^4.7.4",
