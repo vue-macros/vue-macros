@@ -6,6 +6,7 @@
   "description": "Monorepo for Vue macros.",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
+    "build": "pnpm run -r build",
     "test": "vitest",
     "release": "bumpp",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
