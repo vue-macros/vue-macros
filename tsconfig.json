@@ -6,10 +6,10 @@
     "lib": ["ES2019"],
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-    "types": ["vitest/globals"],
+    "types": [],
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["src", "tests", "scripts"],
+  "include": ["packages", "scripts"],
   "exclude": ["tests/fixtures"]
 }
