@@ -59,9 +59,7 @@
   "scripts": {
     "test": "vitest",
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "tsup --watch",
-    "release": "bumpp",
-    "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
+    "dev": "tsup --watch"
   },
   "peerDependencies": {
     "vue": "^3.2.25"
