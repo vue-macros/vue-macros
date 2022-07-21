@@ -3,6 +3,7 @@ import MagicString from 'magic-string'
 import { DEFINE_EMITS, DEFINE_MODEL, DEFINE_PROPS } from './constants'
 import { isCallOf, parseSFC } from './utils'
 import type {
+  LVal,
   Node,
   Statement,
   TSInterfaceBody,
@@ -16,6 +17,7 @@ export const transform = (code: string, filename: string) => {
   let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let modelTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
+  let modelIdentifier: string | undefined
 
   function processDefinePropsOrEmits(node: Node) {
     let type: 'props' | 'emits'
@@ -55,7 +57,7 @@ export const transform = (code: string, filename: string) => {
     else emitsTypeDecl = typeDecl
   }
 
-  function processDefineModel(node: Node) {
+  function processDefineModel(node: Node, declId: LVal) {
     if (!isCallOf(node, DEFINE_MODEL)) {
       return false
     }
@@ -80,6 +82,8 @@ export const transform = (code: string, filename: string) => {
           `or a reference to an interface or literal type.`
       )
     }
+
+    modelIdentifier = scriptSetup.loc.source.slice(declId.start!, declId.end!)
   }
 
   function resolveQualifiedType(
@@ -169,7 +173,7 @@ export const transform = (code: string, filename: string) => {
         const decl = node.declarations[i]
         if (decl.init) {
           processDefinePropsOrEmits(decl.init)
-          processDefineModel(decl.init)
+          processDefineModel(decl.init, decl.id)
 
           if (hasDefineModelCall) {
             if (left === 1) {
@@ -216,7 +220,7 @@ export const transform = (code: string, filename: string) => {
   } else {
     s.appendLeft(
       startOffset,
-      `const props = defineProps<{
+      `const ${modelIdentifier} = defineProps<{
   ${propsText}
 }>();\n`
     )
@@ -226,7 +230,7 @@ export const transform = (code: string, filename: string) => {
   } else {
     s.appendLeft(
       startOffset,
-      `const emit = defineEmits<{
+      `const _${DEFINE_MODEL}_emit = defineEmits<{
   ${emitsText}
 }>();\n`
     )

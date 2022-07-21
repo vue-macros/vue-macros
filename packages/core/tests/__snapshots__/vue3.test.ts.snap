@@ -1,11 +1,11 @@
 // Vitest Snapshot v1
 
 exports[`vue 3 > fixtures > tests/fixtures/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">const props = defineProps<{
+"<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
 }>();
-const emit = defineEmits<{
+const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
 }>();
@@ -23,11 +23,11 @@ modelValue = 'newValue'
 `;
 
 exports[`vue 3 > fixtures > tests/fixtures/decls.vue 1`] = `
-"<script setup lang=\\"ts\\">const props = defineProps<{
+"<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
 }>();
-const emit = defineEmits<{
+const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
 }>();
@@ -38,7 +38,7 @@ let a = 'b'
 `;
 
 exports[`vue 3 > fixtures > tests/fixtures/with-define-emits.vue 1`] = `
-"<script setup lang=\\"ts\\">const props = defineProps<{
+"<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
   modelValue: string
 }>();
 
@@ -53,7 +53,7 @@ defineEmits<{(evt: 'update:modelValue', value: string): void
 `;
 
 exports[`vue 3 > fixtures > tests/fixtures/with-define-props.vue 1`] = `
-"<script setup lang=\\"ts\\">const emit = defineEmits<{
+"<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
 }>();
@@ -70,7 +70,7 @@ visible: boolean
 `;
 
 exports[`vue 3 > fixtures > tests/fixtures/with-define-props-empty.vue 1`] = `
-"<script setup lang=\\"ts\\">const emit = defineEmits<{
+"<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
 }>();
@@ -85,7 +85,7 @@ visible: boolean
 `;
 
 exports[`vue 3 > fixtures > tests/fixtures/with-define-props-ref.vue 1`] = `
-"<script setup lang=\\"ts\\">const emit = defineEmits<{
+"<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
 }>();
