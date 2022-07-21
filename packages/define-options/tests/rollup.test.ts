@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prefer-string-replace-all */
 import { resolve } from 'path'
+import { describe, expect, it } from 'vitest'
 import { rollup } from 'rollup'
 import glob from 'fast-glob'
 import VueDefineOptions from '../src/rollup'
