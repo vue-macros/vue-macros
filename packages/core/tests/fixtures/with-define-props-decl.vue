@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { modelValue } = defineModel<{
+let { modelValue } = defineModel<{
   modelValue: string
   visible: boolean
 }>()

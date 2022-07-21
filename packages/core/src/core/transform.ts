@@ -9,6 +9,7 @@ import type {
   Statement,
   TSInterfaceBody,
   TSTypeLiteral,
+  VariableDeclaration,
 } from '@babel/types'
 
 export const transform = (code: string, filename: string) => {
@@ -17,10 +18,10 @@ export const transform = (code: string, filename: string) => {
   let hasDefineModelCall = false
   let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let propsDestructureDecl: Node | undefined
-  let propsIdentifier: string | undefined
   let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let modelTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let modelIdentifier: string | undefined
+  let modelDeclKind: string | undefined
   let modelDestructureDecl: ObjectPattern | undefined
 
   function processDefinePropsOrEmits(node: Node, declId?: LVal) {
@@ -60,21 +61,18 @@ export const transform = (code: string, filename: string) => {
     if (type === 'props') propsTypeDecl = typeDecl
     else emitsTypeDecl = typeDecl
 
-    if (declId) {
-      if (declId.type === 'ObjectPattern') {
-        propsDestructureDecl = declId
-      } else {
-        propsIdentifier = scriptSetup.loc.source.slice(
-          declId.start!,
-          declId.end!
-        )
-      }
+    if (declId && declId.type === 'ObjectPattern') {
+      propsDestructureDecl = declId
     }
 
     return true
   }
 
-  function processDefineModel(node: Node, declId?: LVal) {
+  function processDefineModel(
+    node: Node,
+    declId?: LVal,
+    kind?: VariableDeclaration['kind']
+  ) {
     if (!isCallOf(node, DEFINE_MODEL)) {
       return false
     }
@@ -115,6 +113,7 @@ export const transform = (code: string, filename: string) => {
         )
       }
     }
+    if (kind) modelDeclKind = kind
 
     return true
   }
@@ -210,7 +209,7 @@ export const transform = (code: string, filename: string) => {
         if (decl.init) {
           processDefinePropsOrEmits(decl.init, decl.id)
 
-          if (processDefineModel(decl.init, decl.id)) {
+          if (processDefineModel(decl.init, decl.id, node.kind)) {
             if (left === 1) {
               s.remove(node.start! + startOffset, node.end! + startOffset)
             } else {
@@ -262,16 +261,19 @@ export const transform = (code: string, filename: string) => {
       }
   } else {
     let text = ''
-    if (modelIdentifier) text = modelIdentifier
-    else if (modelDestructureDecl)
+    const kind = modelDeclKind || 'let'
+    if (modelIdentifier) {
+      text = modelIdentifier
+    } else if (modelDestructureDecl) {
       text = code.slice(
         startOffset + modelDestructureDecl.start!,
         startOffset + modelDestructureDecl.end!
       )
+    }
 
     s.appendLeft(
       startOffset,
-      `${text ? `const ${text} = ` : ''}defineProps<{
+      `${text ? `${kind} ${text} = ` : ''}defineProps<{
   ${propsText}
 }>();\n`
     )

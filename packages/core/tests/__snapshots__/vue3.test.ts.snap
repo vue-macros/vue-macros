@@ -1,7 +1,7 @@
 // Vitest Snapshot v1
 
 exports[`vue 3 > fixtures > tests/fixtures/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
+"<script setup lang=\\"ts\\">var { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
 }>();
@@ -23,7 +23,7 @@ modelValue = 'newValue'
 `;
 
 exports[`vue 3 > fixtures > tests/fixtures/decls.vue 1`] = `
-"<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
+"<script setup lang=\\"ts\\">let { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
 }>();
