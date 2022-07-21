@@ -103,6 +103,11 @@ export const transform = (code: string, filename: string) => {
     if (declId) {
       if (declId.type === 'ObjectPattern') {
         modelDestructureDecl = declId
+        for (const property of declId.properties) {
+          if (property.type === 'RestElement') {
+            throw new SyntaxError('not supported')
+          }
+        }
       } else {
         modelIdentifier = scriptSetup.loc.source.slice(
           declId.start!,
@@ -253,7 +258,7 @@ export const transform = (code: string, filename: string) => {
           startOffset + property.start!,
           startOffset + property.end!
         )
-        s.appendLeft(startOffset + propsDestructureDecl.end! - 1, `, ${text}`)
+        s.appendLeft(startOffset + propsDestructureDecl.start! + 1, `${text}, `)
       }
   } else {
     let text = ''

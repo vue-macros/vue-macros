@@ -19,8 +19,15 @@ describe('vue 3', () => {
       it(file.replace(/\\/g, '/'), async () => {
         const filepath = resolve(root, file)
 
-        const { code } = transform(await readFile(filepath, 'utf-8'), filepath)
-        expect(code).toMatchSnapshot()
+        try {
+          const { code } = transform(
+            await readFile(filepath, 'utf-8'),
+            filepath
+          )
+          expect(code).toMatchSnapshot()
+        } catch (err) {
+          expect(err).toMatchSnapshot()
+        }
 
         // const unpluginCode = await getCode(filepath, [
         //   // VueDefineOptions({}),

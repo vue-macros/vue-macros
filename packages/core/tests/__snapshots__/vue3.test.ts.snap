@@ -37,6 +37,8 @@ let a = 'b'
 "
 `;
 
+exports[`vue 3 > fixtures > tests/fixtures/error-rest.vue 1`] = `[SyntaxError: not supported]`;
+
 exports[`vue 3 > fixtures > tests/fixtures/with-define-emits.vue 1`] = `
 "<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
   modelValue: string
@@ -77,7 +79,7 @@ exports[`vue 3 > fixtures > tests/fixtures/with-define-props-decl.vue 1`] = `
 
 
 
-const { title , modelValue} = defineProps<{modelValue: string
+const {modelValue,  title } = defineProps<{modelValue: string
 visible: boolean
 
   title?: string
@@ -116,6 +118,25 @@ visible: boolean
 defineProps<Props>()
 
 
+</script>
+"
+`;
+
+exports[`vue 3 > fixtures > tests/fixtures/with-define-props-rest.vue 1`] = `
+"<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+}>();
+
+
+
+const {modelValue,  title, ...props } = defineProps<{modelValue: string
+visible: boolean
+
+  title?: string
+}>()
+
+console.log(props)
 </script>
 "
 `;
