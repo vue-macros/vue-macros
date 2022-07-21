@@ -55,9 +55,11 @@ export const transform = (code: string, filename: string) => {
 
     if (type === 'props') propsTypeDecl = typeDecl
     else emitsTypeDecl = typeDecl
+
+    return true
   }
 
-  function processDefineModel(node: Node, declId: LVal) {
+  function processDefineModel(node: Node, declId?: LVal) {
     if (!isCallOf(node, DEFINE_MODEL)) {
       return false
     }
@@ -83,7 +85,11 @@ export const transform = (code: string, filename: string) => {
       )
     }
 
-    modelIdentifier = scriptSetup.loc.source.slice(declId.start!, declId.end!)
+    modelIdentifier = declId
+      ? scriptSetup.loc.source.slice(declId.start!, declId.end!)
+      : undefined
+
+    return true
   }
 
   function resolveQualifiedType(
@@ -163,6 +169,9 @@ export const transform = (code: string, filename: string) => {
   for (const node of scriptSetup.scriptSetupAst as Statement[]) {
     if (node.type === 'ExpressionStatement') {
       processDefinePropsOrEmits(node.expression)
+      if (processDefineModel(node.expression)) {
+        s.remove(node.start! + startOffset, node.end! + startOffset)
+      }
     }
 
     if (node.type === 'VariableDeclaration' && !node.declare) {
@@ -220,7 +229,7 @@ export const transform = (code: string, filename: string) => {
   } else {
     s.appendLeft(
       startOffset,
-      `const ${modelIdentifier} = defineProps<{
+      `${modelIdentifier ? `const ${modelIdentifier} = ` : ''}defineProps<{
   ${propsText}
 }>();\n`
     )

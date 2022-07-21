@@ -102,3 +102,18 @@ defineProps<Props>()
 </script>
 "
 `;
+
+exports[`vue 3 > fixtures > tests/fixtures/without-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">defineProps<{
+  modelValue: string
+visible: boolean
+}>();
+const _defineModel_emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+}>();
+
+
+</script>
+"
+`;
