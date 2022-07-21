@@ -94,6 +94,7 @@ importers:
     specifiers:
       '@vitejs/plugin-vue': ^3.0.0
       typescript: ^4.6.4
+      unplugin-vue-macros: workspace:*
       vite: ^3.0.0
       vue: ^3.2.37
       vue-tsc: ^0.38.4
@@ -102,6 +103,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue': 3.0.1_vite@3.0.2+vue@3.2.37
       typescript: 4.7.4
+      unplugin-vue-macros: link:../packages/core
       vite: 3.0.2
       vue-tsc: 0.38.9_typescript@4.7.4
 
