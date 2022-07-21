@@ -5,6 +5,7 @@ import { isCallOf, parseSFC } from './utils'
 import type {
   LVal,
   Node,
+  ObjectPattern,
   Statement,
   TSInterfaceBody,
   TSTypeLiteral,
@@ -15,11 +16,14 @@ export const transform = (code: string, filename: string) => {
   let hasDefineEmits = false
   let hasDefineModelCall = false
   let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
+  let propsDestructureDecl: Node | undefined
+  let propsIdentifier: string | undefined
   let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let modelTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let modelIdentifier: string | undefined
+  let modelDestructureDecl: ObjectPattern | undefined
 
-  function processDefinePropsOrEmits(node: Node) {
+  function processDefinePropsOrEmits(node: Node, declId?: LVal) {
     let type: 'props' | 'emits'
     if (isCallOf(node, DEFINE_PROPS)) {
       type = 'props'
@@ -56,6 +60,17 @@ export const transform = (code: string, filename: string) => {
     if (type === 'props') propsTypeDecl = typeDecl
     else emitsTypeDecl = typeDecl
 
+    if (declId) {
+      if (declId.type === 'ObjectPattern') {
+        propsDestructureDecl = declId
+      } else {
+        propsIdentifier = scriptSetup.loc.source.slice(
+          declId.start!,
+          declId.end!
+        )
+      }
+    }
+
     return true
   }
 
@@ -85,9 +100,16 @@ export const transform = (code: string, filename: string) => {
       )
     }
 
-    modelIdentifier = declId
-      ? scriptSetup.loc.source.slice(declId.start!, declId.end!)
-      : undefined
+    if (declId) {
+      if (declId.type === 'ObjectPattern') {
+        modelDestructureDecl = declId
+      } else {
+        modelIdentifier = scriptSetup.loc.source.slice(
+          declId.start!,
+          declId.end!
+        )
+      }
+    }
 
     return true
   }
@@ -181,10 +203,9 @@ export const transform = (code: string, filename: string) => {
       for (let i = 0; i < total; i++) {
         const decl = node.declarations[i]
         if (decl.init) {
-          processDefinePropsOrEmits(decl.init)
-          processDefineModel(decl.init, decl.id)
+          processDefinePropsOrEmits(decl.init, decl.id)
 
-          if (hasDefineModelCall) {
+          if (processDefineModel(decl.init, decl.id)) {
             if (left === 1) {
               s.remove(node.start! + startOffset, node.end! + startOffset)
             } else {
@@ -226,10 +247,26 @@ export const transform = (code: string, filename: string) => {
 
   if (hasDefineProps) {
     s.appendLeft(startOffset + propsTypeDecl!.start! + 1, `${propsText}\n`)
+    if (propsDestructureDecl && modelDestructureDecl)
+      for (const property of modelDestructureDecl.properties) {
+        const text = code.slice(
+          startOffset + property.start!,
+          startOffset + property.end!
+        )
+        s.appendLeft(startOffset + propsDestructureDecl.end! - 1, `, ${text}`)
+      }
   } else {
+    let text = ''
+    if (modelIdentifier) text = modelIdentifier
+    else if (modelDestructureDecl)
+      text = code.slice(
+        startOffset + modelDestructureDecl.start!,
+        startOffset + modelDestructureDecl.end!
+      )
+
     s.appendLeft(
       startOffset,
-      `${modelIdentifier ? `const ${modelIdentifier} = ` : ''}defineProps<{
+      `${text ? `const ${text} = ` : ''}defineProps<{
   ${propsText}
 }>();\n`
     )

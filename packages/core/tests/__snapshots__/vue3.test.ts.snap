@@ -69,6 +69,23 @@ visible: boolean
 "
 `;
 
+exports[`vue 3 > fixtures > tests/fixtures/with-define-props-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+}>();
+
+
+
+const { title , modelValue} = defineProps<{modelValue: string
+visible: boolean
+
+  title?: string
+}>()
+</script>
+"
+`;
+
 exports[`vue 3 > fixtures > tests/fixtures/with-define-props-empty.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
