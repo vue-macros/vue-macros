@@ -1,16 +1,15 @@
 // Vitest Snapshot v1
 
 exports[`vue 3 > fixtures > tests/fixtures/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">
-  const props = defineProps<{
-    modelValue: string
+"<script setup lang=\\"ts\\">const props = defineProps<{
+  modelValue: string
 visible: boolean
-  }>()
-
-  const emit = defineEmits<{
-    (evt: 'update:modelValue', value: string): void
+}>();
+const emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-  }>()
+}>();
+
 
 
 console.log(modelValue)
@@ -24,17 +23,82 @@ modelValue = 'newValue'
 `;
 
 exports[`vue 3 > fixtures > tests/fixtures/decls.vue 1`] = `
-"<script setup lang=\\"ts\\">
-  const props = defineProps<{
-    modelValue: string
+"<script setup lang=\\"ts\\">const props = defineProps<{
+  modelValue: string
 visible: boolean
-  }>()
-
-  const emit = defineEmits<{
-    (evt: 'update:modelValue', value: string): void
+}>();
+const emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-  }>()
+}>();
+
 let a = 'b'
+</script>
+"
+`;
+
+exports[`vue 3 > fixtures > tests/fixtures/with-define-emits.vue 1`] = `
+"<script setup lang=\\"ts\\">const props = defineProps<{
+  modelValue: string
+}>();
+
+
+
+defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+</script>
+"
+`;
+
+exports[`vue 3 > fixtures > tests/fixtures/with-define-props.vue 1`] = `
+"<script setup lang=\\"ts\\">const emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+}>();
+
+
+
+defineProps<{modelValue: string
+visible: boolean
+
+  title?: string
+}>()
+</script>
+"
+`;
+
+exports[`vue 3 > fixtures > tests/fixtures/with-define-props-empty.vue 1`] = `
+"<script setup lang=\\"ts\\">const emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+}>();
+
+
+
+defineProps< {modelValue: string
+visible: boolean
+  } > ()
+</script>
+"
+`;
+
+exports[`vue 3 > fixtures > tests/fixtures/with-define-props-ref.vue 1`] = `
+"<script setup lang=\\"ts\\">const emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+}>();
+
+interface Props {modelValue: string
+visible: boolean
+
+  title?: string
+}
+
+defineProps<Props>()
+
+
 </script>
 "
 `;

@@ -1,6 +1,6 @@
 import { compileScript } from '@vue/compiler-sfc'
 import MagicString from 'magic-string'
-import { DEFINE_MODEL } from './constants'
+import { DEFINE_EMITS, DEFINE_MODEL, DEFINE_PROPS } from './constants'
 import { isCallOf, parseSFC } from './utils'
 import type {
   Node,
@@ -10,8 +10,50 @@ import type {
 } from '@babel/types'
 
 export const transform = (code: string, filename: string) => {
+  let hasDefineProps = false
+  let hasDefineEmits = false
   let hasDefineModelCall = false
   let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
+  let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
+  let modelTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
+
+  function processDefinePropsOrEmits(node: Node) {
+    let type: 'props' | 'emits'
+    if (isCallOf(node, DEFINE_PROPS)) {
+      type = 'props'
+    } else if (isCallOf(node, DEFINE_EMITS)) {
+      type = 'emits'
+    } else {
+      return false
+    }
+    const fnName = type === 'props' ? DEFINE_PROPS : DEFINE_EMITS
+
+    if (type === 'props') hasDefineProps = true
+    else hasDefineEmits = true
+
+    if (node.arguments[0]) {
+      throw new SyntaxError('error: 2')
+    }
+
+    const typeDeclRaw = node.typeParameters?.params?.[0]
+    if (!typeDeclRaw) {
+      throw new SyntaxError('Error: 3')
+    }
+    const typeDecl = resolveQualifiedType(
+      typeDeclRaw,
+      (node) => node.type === 'TSTypeLiteral'
+    ) as TSTypeLiteral | TSInterfaceBody | undefined
+
+    if (!typeDecl) {
+      throw new Error(
+        `type argument passed to ${fnName}() must be a literal type, ` +
+          `or a reference to an interface or literal type.`
+      )
+    }
+
+    if (type === 'props') propsTypeDecl = typeDecl
+    else emitsTypeDecl = typeDecl
+  }
 
   function processDefineModel(node: Node) {
     if (!isCallOf(node, DEFINE_MODEL)) {
@@ -27,12 +69,12 @@ export const transform = (code: string, filename: string) => {
     if (!propsTypeDeclRaw) {
       throw new SyntaxError('Error: 1')
     }
-    propsTypeDecl = resolveQualifiedType(
+    modelTypeDecl = resolveQualifiedType(
       propsTypeDeclRaw,
       (node) => node.type === 'TSTypeLiteral'
     ) as TSTypeLiteral | TSInterfaceBody | undefined
 
-    if (!propsTypeDecl) {
+    if (!modelTypeDecl) {
       throw new Error(
         `type argument passed to ${DEFINE_MODEL}() must be a literal type, ` +
           `or a reference to an interface or literal type.`
@@ -78,6 +120,26 @@ export const transform = (code: string, filename: string) => {
     }
   }
 
+  function extractRuntimeProps(
+    node: TSTypeLiteral | TSInterfaceBody
+  ): Record<string, string> {
+    const members = node.type === 'TSTypeLiteral' ? node.members : node.body
+    const map: Record<string, string> = {}
+    for (const m of members) {
+      if (
+        (m.type === 'TSPropertySignature' || m.type === 'TSMethodSignature') &&
+        m.key.type === 'Identifier'
+      ) {
+        const value = scriptSetup.loc.source.slice(
+          m.typeAnnotation!.start!,
+          m.typeAnnotation!.end!
+        )
+        map[m.key.name] = value
+      }
+    }
+    return map
+  }
+
   if (!code.includes(DEFINE_MODEL)) return
 
   const sfc = parseSFC(code, filename)
@@ -95,6 +157,10 @@ export const transform = (code: string, filename: string) => {
   const s = new MagicString(code)
 
   for (const node of scriptSetup.scriptSetupAst as Statement[]) {
+    if (node.type === 'ExpressionStatement') {
+      processDefinePropsOrEmits(node.expression)
+    }
+
     if (node.type === 'VariableDeclaration' && !node.declare) {
       const total = node.declarations.length
       let left = total
@@ -102,6 +168,7 @@ export const transform = (code: string, filename: string) => {
       for (let i = 0; i < total; i++) {
         const decl = node.declarations[i]
         if (decl.init) {
+          processDefinePropsOrEmits(decl.init)
           processDefineModel(decl.init)
 
           if (hasDefineModelCall) {
@@ -126,48 +193,44 @@ export const transform = (code: string, filename: string) => {
     }
   }
 
-  if (!propsTypeDecl) return
+  if (!modelTypeDecl) return
 
-  if (propsTypeDecl.type !== 'TSTypeLiteral') {
+  if (modelTypeDecl.type !== 'TSTypeLiteral') {
     throw new SyntaxError(
       `type argument passed to ${DEFINE_MODEL}() must be a literal type, or a reference to an interface or literal type.`
     )
   }
 
-  const map: Record<string, string> = {}
-  for (const member of propsTypeDecl.members) {
-    if (
-      member.type !== 'TSPropertySignature' ||
-      member.key.type !== 'Identifier' ||
-      !member.typeAnnotation?.typeAnnotation
-    ) {
-      throw new SyntaxError(
-        `type argument passed to ${DEFINE_MODEL}() must be a literal type, or a reference to an interface or literal type.`
-      )
-    }
+  const map = extractRuntimeProps(modelTypeDecl)
 
-    const value = scriptSetup.loc.source.slice(
-      member.typeAnnotation.typeAnnotation.start!,
-      member.typeAnnotation.typeAnnotation.end!
+  const propsText = Object.entries(map)
+    .map(([key, value]) => `${key}${value}`)
+    .join('\n')
+
+  const emitsText = Object.entries(map)
+    .map(([key, value]) => `(evt: 'update:${key}', value${value}): void`)
+    .join('\n')
+
+  if (hasDefineProps) {
+    s.appendLeft(startOffset + propsTypeDecl!.start! + 1, `${propsText}\n`)
+  } else {
+    s.appendLeft(
+      startOffset,
+      `const props = defineProps<{
+  ${propsText}
+}>();\n`
     )
-
-    map[member.key.name] = value
   }
-
-  const str = `
-  const props = defineProps<{
-    ${Object.entries(map)
-      .map(([key, value]) => `${key}: ${value}`)
-      .join('\n')}
-  }>()
-
-  const emit = defineEmits<{
-    ${Object.entries(map)
-      .map(([key, value]) => `(evt: 'update:${key}', value: ${value}): void`)
-      .join('\n')}
-  }>()`
-
-  s.prependLeft(scriptSetup.loc.start.offset, str)
+  if (hasDefineEmits) {
+    s.appendLeft(startOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
+  } else {
+    s.appendLeft(
+      startOffset,
+      `const emit = defineEmits<{
+  ${emitsText}
+}>();\n`
+    )
+  }
 
   return {
     code: s.toString(),
