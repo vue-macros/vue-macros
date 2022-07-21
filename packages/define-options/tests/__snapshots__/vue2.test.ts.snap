@@ -1,0 +1,41 @@
+// Vitest Snapshot v1
+
+exports[`vue 2 > fixtures > tests/fixtures/vue2/basic.vue 1`] = `
+"var basic = \`<script>
+export default {
+  name: 'Foo',
+}</script>
+<script setup>
+
+</script>
+
+<template>
+  <div>
+    <h1>Hello World</h1>
+  </div>
+</template>
+\`;
+
+export { basic as default };
+"
+`;
+
+exports[`vue3 > fixtures > tests/fixtures/vue2/basic.vue 1`] = `
+"var basic = \`<script>
+export default {
+  name: 'Foo',
+}</script>
+<script setup>
+
+</script>
+
+<template>
+  <div>
+    <h1>Hello World</h1>
+  </div>
+</template>
+\`;
+
+export { basic as default };
+"
+`;
