@@ -2,7 +2,7 @@
   "name": "unplugin-vue-define-options",
   "version": "0.6.2",
   "packageManager": "pnpm@7.5.2",
-  "description": "Add defineOptions support for Vue script-setup",
+  "description": "Add defineOptions support for Vue <script setup>.",
   "keywords": [
     "unplugin",
     "vue",
@@ -16,7 +16,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-define-options.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-define-options.git",
+    "directory": "packages/define-options"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -73,8 +74,6 @@
   },
   "devDependencies": {
     "@babel/types": "^7.18.9",
-    "eslint": "^8.20.0",
-    "eslint-define-config": "^1.5.1",
     "fast-glob": "^3.2.11",
     "rollup": "^2.77.0",
     "tsup": "^6.1.3",

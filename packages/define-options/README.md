@@ -1,12 +1,10 @@
 # unplugin-vue-define-options [![npm](https://img.shields.io/npm/v/unplugin-vue-define-options.svg)](https://npmjs.com/package/unplugin-vue-define-options)
 
-[![Unit Test](https://github.com/sxzz/unplugin-vue-define-options/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-define-options/actions/workflows/unit-test.yml)
-
 Introduce a macro in script setup, `defineOptions`, to use Options API in script setup, specifically to be able to set `name`, `props`, `emits` and `render` in one function.
 
 ## Features
 
-- ✨ With this marco, you can use Options API in `script-setup`.
+- ✨ With this marco, you can use Options API in Vue `<script setup>`.
 - ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
 
