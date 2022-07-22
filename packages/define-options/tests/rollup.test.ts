@@ -6,10 +6,10 @@ import glob from 'fast-glob'
 import VueDefineOptions from '../src/rollup'
 import { ToString, getCode } from './_utils'
 
-describe('vue 2', () => {
+describe('Rollup', () => {
   describe('fixtures', async () => {
     const root = resolve(__dirname, '..')
-    const files = await glob('tests/fixtures/vue2/*.{vue,js,ts}', {
+    const files = await glob('tests/fixtures/*.{vue,js,ts}', {
       cwd: root,
       onlyFiles: true,
     })
