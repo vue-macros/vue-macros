@@ -1,36 +1,12 @@
 /* eslint-disable unicorn/prefer-string-replace-all */
+
 import { resolve } from 'path'
-import { rollup } from 'rollup'
+import { describe, expect, it } from 'vitest'
 import glob from 'fast-glob'
 import VueDefineOptions from '../src/rollup'
-import type { Plugin } from 'rollup'
+import { ToString, getCode } from './_utils'
 
-const ToString: Plugin = {
-  name: 'to-string',
-  transform(code) {
-    return `export default \`${code.replace(/`/g, '\\`')}\``
-  },
-}
-
-async function getCode(file: string, plugins: Plugin[]) {
-  const bundle = await rollup({
-    input: [file],
-    external: ['vue'],
-    plugins,
-  })
-  const output = await bundle.generate({ format: 'esm' })
-  return output.output
-    .map((file) => {
-      if (file.type === 'chunk') {
-        return file.code
-      } else {
-        return file.fileName
-      }
-    })
-    .join('\n')
-}
-
-describe('transform', () => {
+describe('Rollup', () => {
   describe('fixtures', async () => {
     const root = resolve(__dirname, '..')
     const files = await glob('tests/fixtures/*.{vue,js,ts}', {

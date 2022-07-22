@@ -1,5 +1,5 @@
 import { parse, walkIdentifiers } from '@vue/compiler-sfc'
-import { DEFINE_OPTIONS_NAME } from './constants'
+import { DEFINE_OPTIONS } from './constants'
 import type { SFCScriptBlock } from '@vue/compiler-sfc'
 import type { CallExpression, Node, ObjectExpression } from '@babel/types'
 
@@ -25,13 +25,13 @@ export const parseSFC = (code: string, id: string) => {
 }
 
 export const filterMarco = (scriptSetup: SFCScriptBlock) => {
-  return scriptSetup.scriptSetupAst
-    .map((raw: Node) => {
+  return scriptSetup
+    .scriptSetupAst!.map((raw: Node) => {
       let node = raw
       if (raw.type === 'ExpressionStatement') node = raw.expression
-      return isCallOf(node, DEFINE_OPTIONS_NAME) ? node : undefined
+      return isCallOf(node, DEFINE_OPTIONS) ? node : undefined
     })
-    .filter((node) => !!node)
+    .filter((node): node is CallExpression => !!node)
 }
 
 export function checkInvalidScopeReference(
@@ -42,8 +42,8 @@ export function checkInvalidScopeReference(
   if (!node) return
   walkIdentifiers(node, (id) => {
     if (
-      Object.keys(scriptSetup.bindings).includes(id.name) &&
-      !Object.keys(scriptSetup.imports).includes(id.name)
+      Object.keys(scriptSetup.bindings!).includes(id.name) &&
+      !Object.keys(scriptSetup.imports!).includes(id.name)
     )
       throw new SyntaxError(
         `\`${method}()\` in <script setup> cannot reference locally ` +

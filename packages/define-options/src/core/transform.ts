@@ -1,5 +1,5 @@
 import { MagicString, compileScript } from '@vue/compiler-sfc'
-import { DEFINE_OPTIONS_NAME } from './constants'
+import { DEFINE_OPTIONS } from './constants'
 import {
   checkInvalidScopeReference,
   filterMarco,
@@ -9,7 +9,7 @@ import {
 import type { TransformResult } from 'unplugin'
 
 export const transform = (code: string, id: string): TransformResult => {
-  if (!code.includes(DEFINE_OPTIONS_NAME)) return
+  if (!code.includes(DEFINE_OPTIONS)) return
 
   const sfc = parseSFC(code, id)
   if (!sfc.scriptSetup) return
@@ -20,40 +20,38 @@ export const transform = (code: string, id: string): TransformResult => {
     })
   }
   const { script, scriptSetup, source } = sfc
+  const startOffset = scriptSetup.loc.start.offset
 
   const nodes = filterMarco(scriptSetup)
   if (nodes.length === 0) return
   else if (nodes.length > 1)
-    throw new SyntaxError(`duplicate ${DEFINE_OPTIONS_NAME}() call`)
+    throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
 
   if (script)
     throw new SyntaxError(
-      `${DEFINE_OPTIONS_NAME} cannot be used, with both script and script-setup.`
+      `${DEFINE_OPTIONS} cannot be used, with both script and <script setup>.`
     )
 
-  const node = nodes[0]
-  const arg = node.arguments[0]
+  const [node] = nodes
+  const [arg] = node.arguments
   if (!(node.arguments.length === 1 && arg.type === 'ObjectExpression')) {
-    throw new SyntaxError(`${DEFINE_OPTIONS_NAME}() arguments error`)
+    throw new SyntaxError(`${DEFINE_OPTIONS}() arguments error`)
   }
 
   if (hasPropsOrEmits(arg)) {
     throw new SyntaxError(
-      `${DEFINE_OPTIONS_NAME}() please use defineProps or defineEmits instead.`
+      `${DEFINE_OPTIONS}() please use defineProps or defineEmits instead.`
     )
   }
 
-  checkInvalidScopeReference(arg, DEFINE_OPTIONS_NAME, scriptSetup)
+  checkInvalidScopeReference(arg, DEFINE_OPTIONS, scriptSetup)
 
-  const argText = scriptSetup.loc.source.slice(arg.start, arg.end)
+  const argText = code.slice(startOffset + arg.start!, startOffset + arg.end!)
 
   const s = new MagicString(source)
   const lang = scriptSetup.attrs.lang ? ` lang="${scriptSetup.attrs.lang}"` : ''
   s.prepend(`<script${lang}>\nexport default ${argText}</script>\n`)
-  s.remove(
-    scriptSetup.loc.start.offset + node.start,
-    scriptSetup.loc.start.offset + node.end
-  )
+  s.remove(startOffset + node.start!, startOffset + node.end!)
 
   return {
     code: s.toString(),

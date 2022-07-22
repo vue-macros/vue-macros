@@ -4,12 +4,14 @@
     "target": "ES2019",
     "module": "ESNext",
     "lib": ["ES2019"],
+    "strict": true,
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-    "types": ["vitest/globals"],
+    "types": [],
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true
   },
-  "include": ["src", "tests", "scripts"],
-  "exclude": ["tests/fixtures"]
+  "include": ["packages", "scripts"],
+  "exclude": ["**/dist", "**/tests/fixtures"]
 }

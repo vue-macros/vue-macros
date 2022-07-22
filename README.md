@@ -1,91 +1,22 @@
-# unplugin-vue-define-options [![npm](https://img.shields.io/npm/v/unplugin-vue-define-options.svg)](https://npmjs.com/package/unplugin-vue-define-options)
+# unplugin-vue-macros [![npm](https://img.shields.io/npm/v/unplugin-vue-macros.svg)](https://npmjs.com/package/unplugin-vue-macros)
 
-[![Unit Test](https://github.com/sxzz/unplugin-vue-define-options/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-define-options/actions/workflows/unit-test.yml)
+[![Unit Test](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml)
 
-Introduce a macro in script setup, `defineOptions`, to use Options API in script setup, specifically to be able to set `name`, `props`, `emits` and `render` in one function.
+Extend macros and syntax in Vue.
 
 ## Features
 
-- ✨ With this marco, you can use Options API in `script-setup`.
-- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
-
-### Discussion
-
-- [Related issue](https://github.com/vuejs/core/issues/5218#issuecomment-1032107354)
-- [RFC](https://github.com/vuejs/rfcs/discussions/430)
+- ✨ Extend macros and syntax in Vue.
+- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
+- 🦾 Full TypeScript support.
+- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).
 
 ## Usage
-
-### Basic example
-
-```vue
-<script setup lang="ts">
-import { useSlots } from 'vue'
-defineOptions({
-  name: 'Foo',
-  inheritAttrs: false,
-  props: {
-    msg: { type: String, default: 'bar' },
-  },
-  emits: ['change', 'update'],
-})
-const slots = useSlots()
-</script>
-```
-
-<details>
-<summary>Output</summary>
-
-```vue
-<script lang="ts">
-export default {
-  name: 'Foo',
-  inheritAttrs: false,
-  props: {
-    msg: { type: String, default: 'bar' },
-  },
-  emits: ['change', 'update'],
-}
-</script>
-
-<script setup>
-const slots = useSlots()
-</script>
-```
-
-</details>
-
-### JSX in `script-setup`
-
-```vue
-<script setup lang="tsx">
-defineOptions({
-  render() {
-    return <h1>Hello World</h1>
-  },
-})
-</script>
-```
-
-<details>
-<summary>Output</summary>
-
-```vue
-<script lang="tsx">
-export default {
-  render() {
-    return <h1>Hello World</h1>
-  },
-}
-</script>
-```
-
-</details>
 
 ## Installation
 
 ```bash
-npm i unplugin-vue-define-options -D
+npm i unplugin-vue-macros -D
 ```
 
 <details>
@@ -93,11 +24,11 @@ npm i unplugin-vue-define-options -D
 
 ```ts
 // vite.config.ts
-import DefineOptions from 'unplugin-vue-define-options/vite'
+import VueMarcos from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [Vue(), DefineOptions()],
+  plugins: [Vue(), VueMarcos()],
 })
 ```
 
@@ -108,10 +39,10 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import DefineOptions from 'unplugin-vue-define-options/rollup'
+import VueMarcos from 'unplugin-vue-macros/rollup'
 
 export default {
-  plugins: [DefineOptions()], // Must be before Vue plugin!
+  plugins: [VueMarcos()], // Must be before Vue plugin!
 }
 ```
 
@@ -126,7 +57,7 @@ import { build } from 'esbuild'
 
 build({
   plugins: [
-    require('unplugin-vue-define-options/esbuild')(), // Must be before Vue plugin!
+    require('unplugin-vue-macros/esbuild')(), // Must be before Vue plugin!
   ],
 })
 ```
@@ -140,7 +71,7 @@ build({
 // webpack.config.js
 module.exports = {
   /* ... */
-  plugins: [require('unplugin-vue-define-options/webpack')()],
+  plugins: [require('unplugin-vue-macros/webpack')()],
 }
 ```
 
@@ -153,7 +84,7 @@ module.exports = {
 // vue.config.js
 module.exports = {
   configureWebpack: {
-    plugins: [require('unplugin-vue-define-options/webpack')()],
+    plugins: [require('unplugin-vue-macros/webpack')()],
   },
 }
 ```
@@ -167,7 +98,7 @@ module.exports = {
 {
   "compilerOptions": {
     // ...
-    "types": ["unplugin-vue-define-options" /* ... */]
+    "types": ["unplugin-vue-macros" /* ... */]
   }
 }
 ```
