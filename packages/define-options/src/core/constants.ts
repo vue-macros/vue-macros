@@ -1,1 +1,1 @@
-export const DEFINE_OPTIONS_NAME = 'defineOptions'
+export const DEFINE_OPTIONS = 'defineOptions'
