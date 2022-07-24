@@ -15,7 +15,7 @@ import type {
 export const transform = (code: string, filename: string) => {
   let hasDefineProps = false
   let hasDefineEmits = false
-  let hasDefineModelCall = false
+  let hasDefineModel = false
   let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let propsDestructureDecl: Node | undefined
   let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
@@ -77,10 +77,10 @@ export const transform = (code: string, filename: string) => {
       return false
     }
 
-    if (hasDefineModelCall) {
+    if (hasDefineModel) {
       throw new SyntaxError(`duplicate ${DEFINE_MODEL}() call`)
     }
-    hasDefineModelCall = true
+    hasDefineModel = true
 
     const propsTypeDeclRaw = node.typeParameters?.params[0]
     if (!propsTypeDeclRaw) {
