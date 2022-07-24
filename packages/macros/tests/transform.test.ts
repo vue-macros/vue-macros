@@ -5,7 +5,6 @@ import { readFile } from 'fs/promises'
 import { describe, expect, it } from 'vitest'
 import glob from 'fast-glob'
 import { transform } from '../src'
-// import { ToString, getCode } from './_utils'
 
 describe('vue 3', () => {
   describe('fixtures', async () => {
@@ -20,20 +19,14 @@ describe('vue 3', () => {
         const filepath = resolve(root, file)
 
         try {
-          const { code } = transform(
+          const code = transform(
             await readFile(filepath, 'utf-8'),
             filepath
-          )
+          )?.code
           expect(code).toMatchSnapshot()
         } catch (err) {
           expect(err).toMatchSnapshot()
         }
-
-        // const unpluginCode = await getCode(filepath, [
-        //   // VueDefineOptions({}),
-        //   ToString,
-        // ]).catch((err) => err)
-        // expect(unpluginCode).toMatchSnapshot()
       })
     }
   })

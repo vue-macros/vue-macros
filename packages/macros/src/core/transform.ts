@@ -1,7 +1,7 @@
 import { compileScript } from '@vue/compiler-sfc'
 import MagicString from 'magic-string'
+import { isCallOf, parseSFC } from '@vue-macros/common'
 import { DEFINE_EMITS, DEFINE_MODEL, DEFINE_PROPS } from './constants'
-import { isCallOf, parseSFC } from './utils'
 import type {
   LVal,
   Node,

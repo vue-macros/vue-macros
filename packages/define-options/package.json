@@ -58,7 +58,6 @@
     }
   },
   "scripts": {
-    "test": "vitest",
     "build": "tsup && tsx ../../scripts/postbuild.mts",
     "dev": "tsup --watch"
   },
@@ -72,6 +71,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.18.9",
+    "@vue-macros/common": "workspace:*",
     "fast-glob": "^3.2.11",
     "rollup": "^2.77.0",
     "tsup": "^6.1.3",

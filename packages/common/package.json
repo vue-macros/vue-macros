@@ -1,0 +1,30 @@
+{
+  "name": "@vue-macros/common",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.5.2",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "homepage": "https://github.com/sxzz/unplugin-vue-define-macros#readme",
+  "bugs": {
+    "url": "https://github.com/sxzz/unplugin-vue-define-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/unplugin-vue-define-macros.git"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "dist"
+  ],
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {},
+  "dependencies": {
+    "@babel/types": "^7.18.9",
+    "@vue/compiler-sfc": "^3.2.37"
+  },
+  "engines": {
+    "node": ">=14.19.0"
+  }
+}
