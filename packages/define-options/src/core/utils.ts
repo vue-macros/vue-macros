@@ -1,5 +1,4 @@
-import { isCallOf } from '@vue-macros/common'
-import { DEFINE_OPTIONS } from './constants'
+import { DEFINE_OPTIONS, isCallOf } from '@vue-macros/common'
 import type { SFCScriptBlock } from '@vue/compiler-sfc'
 import type { CallExpression, Node, ObjectExpression } from '@babel/types'
 

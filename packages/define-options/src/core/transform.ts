@@ -1,6 +1,9 @@
 import { MagicString, compileScript } from '@vue/compiler-sfc'
-import { checkInvalidScopeReference, parseSFC } from '@vue-macros/common'
-import { DEFINE_OPTIONS } from './constants'
+import {
+  DEFINE_OPTIONS,
+  checkInvalidScopeReference,
+  parseSFC,
+} from '@vue-macros/common'
 import { filterMarco, hasPropsOrEmits } from './utils'
 import type { TransformResult } from 'unplugin'
 
