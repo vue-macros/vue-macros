@@ -2,10 +2,10 @@
 const { modelValue } = defineModel<{
   modelValue: number
 }>()
-const emit = defineEmits<{}>()
+const emit = defineEmits<any>()
 
 const updateCount = (val: number) => {
-  // @ts-expect-error
+  // eslint-disable-next-line vue/require-explicit-emits
   emit('update:modelValue', modelValue + val)
 }
 </script>
