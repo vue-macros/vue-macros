@@ -5,12 +5,17 @@
     "module": "ESNext",
     "lib": ["ES2019"],
     "strict": true,
+    "strictNullChecks": true,
+    "exactOptionalPropertyTypes": true,
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "types": [],
+    "baseUrl": ".",
+    "paths": {
+      "@vue-macros/utils": ["packages/utils/src/index.ts"]
+    },
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "exactOptionalPropertyTypes": true
+    "skipLibCheck": true
   },
   "include": ["packages", "scripts"],
   "exclude": ["**/dist", "**/tests/fixtures"]

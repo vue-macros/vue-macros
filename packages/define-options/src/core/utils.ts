@@ -1,28 +1,6 @@
-import { parse, walkIdentifiers } from '@vue/compiler-sfc'
-import { DEFINE_OPTIONS } from './constants'
+import { DEFINE_OPTIONS, isCallOf } from '@vue-macros/common'
 import type { SFCScriptBlock } from '@vue/compiler-sfc'
 import type { CallExpression, Node, ObjectExpression } from '@babel/types'
-
-export function isCallOf(
-  node: Node | null | undefined,
-  test: string | ((id: string) => boolean)
-): node is CallExpression {
-  return !!(
-    node &&
-    node.type === 'CallExpression' &&
-    node.callee.type === 'Identifier' &&
-    (typeof test === 'string'
-      ? node.callee.name === test
-      : test(node.callee.name))
-  )
-}
-
-export const parseSFC = (code: string, id: string) => {
-  const { descriptor } = parse(code, {
-    filename: id,
-  })
-  return descriptor
-}
 
 export const filterMarco = (scriptSetup: SFCScriptBlock) => {
   return scriptSetup
@@ -32,25 +10,6 @@ export const filterMarco = (scriptSetup: SFCScriptBlock) => {
       return isCallOf(node, DEFINE_OPTIONS) ? node : undefined
     })
     .filter((node): node is CallExpression => !!node)
-}
-
-export function checkInvalidScopeReference(
-  node: Node | undefined,
-  method: string,
-  scriptSetup: SFCScriptBlock
-) {
-  if (!node) return
-  walkIdentifiers(node, (id) => {
-    if (
-      Object.keys(scriptSetup.bindings!).includes(id.name) &&
-      !Object.keys(scriptSetup.imports!).includes(id.name)
-    )
-      throw new SyntaxError(
-        `\`${method}()\` in <script setup> cannot reference locally ` +
-          `declared variables because it will be hoisted outside of the ` +
-          `setup() function.`
-      )
-  })
 }
 
 export const hasPropsOrEmits = (node: ObjectExpression) =>

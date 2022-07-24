@@ -1,11 +1,10 @@
 import { MagicString, compileScript } from '@vue/compiler-sfc'
-import { DEFINE_OPTIONS } from './constants'
 import {
+  DEFINE_OPTIONS,
   checkInvalidScopeReference,
-  filterMarco,
-  hasPropsOrEmits,
   parseSFC,
-} from './utils'
+} from '@vue-macros/common'
+import { filterMarco, hasPropsOrEmits } from './utils'
 import type { TransformResult } from 'unplugin'
 
 export const transform = (code: string, id: string): TransformResult => {

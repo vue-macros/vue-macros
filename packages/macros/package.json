@@ -1,27 +1,27 @@
 {
-  "name": "unplugin-vue-define-options",
-  "version": "0.6.2",
+  "name": "unplugin-vue-macros",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.5.2",
-  "description": "Add defineOptions support for Vue <script setup>.",
+  "description": "",
   "keywords": [
     "unplugin",
     "vue",
     "script-setup",
-    "defineOptions"
+    "defineModel"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/sxzz/unplugin-vue-define-options#readme",
+  "homepage": "https://github.com/sxzz/unplugin-vue-define-macros#readme",
   "bugs": {
-    "url": "https://github.com/sxzz/unplugin-vue-define-options/issues"
+    "url": "https://github.com/sxzz/unplugin-vue-define-macros/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-define-options.git",
-    "directory": "packages/define-options"
+    "url": "git+https://github.com/sxzz/unplugin-vue-define-macros.git"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
-    "dist"
+    "dist",
+    "macros-global.d.ts"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -47,6 +47,7 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
+    "./macros-global": "./macros-global.d.ts",
     "./*": "./*"
   },
   "typesVersions": {
@@ -65,13 +66,17 @@
     "vue": "^3.2.25"
   },
   "dependencies": {
+    "@babel/generator": "^7.18.9",
     "@rollup/pluginutils": "^4.2.1",
     "@vue/compiler-sfc": "^3.2.37",
+    "magic-string": "^0.26.2",
     "unplugin": "^0.7.2"
   },
   "devDependencies": {
     "@babel/types": "^7.18.9",
     "@vue-macros/common": "workspace:*",
+    "eslint": "^8.20.0",
+    "eslint-define-config": "^1.5.1",
     "fast-glob": "^3.2.11",
     "rollup": "^2.77.0",
     "tsup": "^6.1.3",

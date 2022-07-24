@@ -4,6 +4,8 @@
 
 Extend macros and syntax in Vue.
 
+> **Note**: WIP, please check out [defineOptions](./packages/define-options/README.md).
+
 ## Features
 
 - ✨ Extend macros and syntax in Vue.
