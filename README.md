@@ -4,7 +4,7 @@
 
 Extend macros and syntax in Vue.
 
-> **Note**: WIP, please check out [defineOptions](./packages/define-options/README.md).
+> **Note**: WIP, **please check out [unplugin-vue-define-options](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options).**
 
 ## Features
 
