@@ -49,7 +49,12 @@ export const transform = (code: string, id: string): TransformResult => {
 
   const s = new MagicString(source)
   const lang = scriptSetup.attrs.lang ? ` lang="${scriptSetup.attrs.lang}"` : ''
-  s.prepend(`<script${lang}>\nexport default ${argText}</script>\n`)
+  s.prepend(
+    `<script${lang}>
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent(${argText});
+</script>\n`
+  )
   s.remove(startOffset + node.start!, startOffset + node.end!)
 
   return {

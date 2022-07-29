@@ -2,9 +2,11 @@
 
 exports[`Rollup > fixtures > tests/fixtures/basic.vue 1`] = `
 "var basic = \`<script>
-export default {
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
   name: 'Foo',
-}</script>
+});
+</script>
 <script setup>
 
 </script>
@@ -22,9 +24,11 @@ export { basic as default };
 
 exports[`Rollup > fixtures > tests/fixtures/el-button.vue 1`] = `
 "var elButton = \`<script lang=\\"ts\\">
-export default {
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
   name: 'ElButton',
-}</script>
+});
+</script>
 <template>
   <button
     ref=\\"buttonRef\\"
@@ -176,7 +180,8 @@ exports[`Rollup > fixtures > tests/fixtures/error5.vue 1`] = `[Error: unplugin-v
 
 exports[`Rollup > fixtures > tests/fixtures/function.vue 1`] = `
 "var _function = \`<script lang=\\"ts\\">
-export default {
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
   foo() {
     console.log('hello')
   },
@@ -191,7 +196,8 @@ export default {
     console.log('fun')
   },
   iife: (() => Math.random())(),
-}</script>
+});
+</script>
 <script lang=\\"ts\\" setup>
 const a = 'hello'
 
@@ -204,11 +210,13 @@ export { _function as default };
 
 exports[`Rollup > fixtures > tests/fixtures/imports.vue 1`] = `
 "var imports = \`<script lang=\\"ts\\">
-export default {
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
   components: {
     Basic,
   },
-}</script>
+});
+</script>
 <script setup lang=\\"ts\\">
 import Basic from './basic.vue'
 
@@ -222,9 +230,11 @@ export { imports as default };
 
 exports[`Rollup > fixtures > tests/fixtures/js.vue 1`] = `
 "var js = \`<script>
-export default {
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
   name: 'Foo',
-}</script>
+});
+</script>
 <script setup>
 
 
@@ -282,9 +292,11 @@ export { noTransform2 as default };
 
 exports[`Rollup > fixtures > tests/fixtures/typescript.vue 1`] = `
 "var typescript = \`<script lang=\\"ts\\">
-export default {
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
   name: 'Foo',
-}</script>
+});
+</script>
 <script lang=\\"ts\\" setup>
 
 
