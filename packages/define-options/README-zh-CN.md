@@ -1,24 +1,25 @@
 # unplugin-vue-define-options [![npm](https://img.shields.io/npm/v/unplugin-vue-define-options.svg)](https://npmjs.com/package/unplugin-vue-define-options)
 
-English | [简体中文](./README-zh-CN.md)
+[English](./README.md) | 简体中文
 
-Introduce a macro in `<script setup>`, `defineOptions`, to use Options API in `<script setup>`, specifically to be able to set `name`, `props`, `emits` and `render` in one function.
+在 `<script setup>` 中可使用 `defineOptions` 宏，以便在 `<script setup>` 中使用 Options API。
+尤其是能够在一个函数中设置 `name`、`props`、`emit` 和 `render` 属性。
 
-## Features
+## 特性
 
-- ✨ With this marco, you can use Options API in Vue `<script setup>`.
-- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
-- 🦾 Full TypeScript support.
-- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- ✨ 有了这个宏，你就可以在 `<script setup>` 使用 Options API；
+- 💚 开箱即用支持 Vue 2 和 Vue 3；
+- 🦾 完全支持 TypeScript；
+- ⚡️ 支持 Vite、Webpack、Vue CLI、Rollup、esbuild 等, 由 [unplugin](https://github.com/unjs/unplugin) 提供支持。
 
-### Discussion
+### 讨论
 
-- [Related issue](https://github.com/vuejs/core/issues/5218#issuecomment-1032107354)
+- [相关 issue](https://github.com/vuejs/core/issues/5218#issuecomment-1032107354)
 - [RFC](https://github.com/vuejs/rfcs/discussions/430)
 
-## Usage
+## 使用
 
-### Basic example
+### 基本示例
 
 ```vue
 <script setup lang="ts">
@@ -36,7 +37,7 @@ const slots = useSlots()
 ```
 
 <details>
-<summary>Output</summary>
+<summary>输出代码</summary>
 
 ```vue
 <script lang="ts">
@@ -57,7 +58,7 @@ const slots = useSlots()
 
 </details>
 
-### JSX in `<script setup>`
+### 在 `<script setup>` 使用 JSX
 
 ```vue
 <script setup lang="tsx">
@@ -70,7 +71,7 @@ defineOptions({
 ```
 
 <details>
-<summary>Output</summary>
+<summary>输出代码</summary>
 
 ```vue
 <script lang="tsx">
@@ -84,7 +85,7 @@ export default {
 
 </details>
 
-## Installation
+## 安装
 
 ```bash
 npm i unplugin-vue-define-options -D
@@ -162,7 +163,7 @@ module.exports = {
 
 <br></details>
 
-#### TypeScript Support
+#### TypeScript 支持
 
 ```jsonc
 // tsconfig.json
@@ -174,7 +175,7 @@ module.exports = {
 }
 ```
 
-## Sponsors
+## 赞助
 
 <p align="center">
   <a href="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg">
@@ -182,6 +183,6 @@ module.exports = {
   </a>
 </p>
 
-## License
+## 许可证
 
 [MIT](./LICENSE) License © 2022 [三咲智子](https://github.com/sxzz)

@@ -2,22 +2,22 @@
 
 [![Unit Test](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml)
 
-English | [简体中文](./README-zh-CN.md)
+[English](./README.md) | 简体中文
 
-Extend macros and syntax sugar in Vue.
+扩充 Vue 宏和语法糖。
 
-> **Note**: WIP, **please check out [unplugin-vue-define-options](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options)**.
+> **Note**: 主仓库仍在开发中，**请查阅 [unplugin-vue-define-options](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options)**。
 
-## Features
+## 特性
 
-- ✨ Extend macros and syntax sugar in Vue.
-- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
-- 🦾 Full TypeScript support.
-- ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).
+- 扩充 Vue 宏和语法糖；
+- 💚 开箱即用支持 Vue 2 和 Vue 3；
+- 🦾 完全支持 TypeScript；
+- ⚡️ 支持 Vite、Webpack、Vue CLI、Rollup、esbuild 等, 由 [unplugin](https://github.com/unjs/unplugin) 提供支持。
 
-## Usage
+## 使用
 
-## Installation
+## 安装
 
 ```bash
 npm i unplugin-vue-macros -D
@@ -95,7 +95,7 @@ module.exports = {
 
 <br></details>
 
-#### TypeScript Support
+#### TypeScript 支持
 
 ```jsonc
 // tsconfig.json
@@ -107,7 +107,7 @@ module.exports = {
 }
 ```
 
-## Sponsors
+## 赞助
 
 <p align="center">
   <a href="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg">
@@ -115,6 +115,6 @@ module.exports = {
   </a>
 </p>
 
-## License
+## 许可证
 
 [MIT](./LICENSE) License © 2022 [三咲智子](https://github.com/sxzz)
