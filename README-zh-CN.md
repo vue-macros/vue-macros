@@ -6,16 +6,12 @@
 
 扩充 Vue 宏和语法糖。
 
-> **Note**: 主仓库仍在开发中，**请查阅 [unplugin-vue-define-options](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options)**。
-
 ## 特性
 
 - 扩充 Vue 宏和语法糖；
 - 💚 开箱即用支持 Vue 2 和 Vue 3；
 - 🦾 完全支持 TypeScript；
 - ⚡️ 支持 Vite、Webpack、Vue CLI、Rollup、esbuild 等, 由 [unplugin](https://github.com/unjs/unplugin) 提供支持。
-
-## 使用
 
 ## 安装
 
@@ -95,7 +91,120 @@ module.exports = {
 
 <br></details>
 
-#### TypeScript 支持
+## 使用
+
+### `defineOptions`
+
+在 `<script setup>` 中可使用 `defineOptions` 宏，以便在 `<script setup>` 中使用 Options API。
+尤其是能够在一个函数中设置 `name`、`props`、`emit` 和 `render` 属性。
+
+> **Note**: 如果你只需要 `defineOptions`，那么[单独的版本](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options)更适合你。
+
+#### 基础使用
+
+```vue
+<script setup lang="ts">
+import { useSlots } from 'vue'
+defineOptions({
+  name: 'Foo',
+  inheritAttrs: false,
+})
+const slots = useSlots()
+</script>
+```
+
+<details>
+<summary>输出代码</summary>
+
+```vue
+<script lang="ts">
+export default {
+  name: 'Foo',
+  inheritAttrs: false,
+  props: {
+    msg: { type: String, default: 'bar' },
+  },
+  emits: ['change', 'update'],
+}
+</script>
+
+<script setup>
+const slots = useSlots()
+</script>
+```
+
+</details>
+
+#### 在 `<script setup>` 使用 JSX
+
+```vue
+<script setup lang="tsx">
+defineOptions({
+  render() {
+    return <h1>Hello World</h1>
+  },
+})
+</script>
+```
+
+<details>
+<summary>输出代码</summary>
+
+```vue
+<script lang="tsx">
+export default {
+  render() {
+    return <h1>Hello World</h1>
+  },
+}
+</script>
+```
+
+</details>
+
+### `defineModel`
+
+Introduce a macro in `<script setup>`, `defineModel`. To be able define and change `v-model` props as the same as normal variable.
+
+在 `<script setup>` 中可使用 `defineModel` 宏。
+可以像普通变量一样定义和使用 `v-model` 参数。
+
+> **Warning**: 需要依赖 [Reactivity Transform](https://vuejs.org/guide/extras/reactivity-transform.html)。你应该先启动这个功能，否则会丢失响应式。
+
+#### 基础使用
+
+```vue
+<script setup lang="ts">
+let { modelValue } = defineModel<{
+  modelValue: string
+}>()
+
+console.log(modelValue)
+modelValue = 'newValue'
+</script>
+```
+
+<details>
+<summary>输出代码</summary>
+
+```vue
+<script setup lang="ts">
+const { modelValue } = defineProps<{
+  modelValue: string
+}>()
+
+const emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+}>()
+
+console.log(modelValue)
+console.log(emit('update:modelValue', 'newValue'))
+</script>
+```
+
+</details>
+
+### TypeScript 支持
 
 ```jsonc
 // tsconfig.json

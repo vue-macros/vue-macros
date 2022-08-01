@@ -6,16 +6,12 @@ English | [简体中文](./README-zh-CN.md)
 
 Extend macros and syntax sugar in Vue.
 
-> **Note**: WIP, **please check out [unplugin-vue-define-options](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options)**.
-
 ## Features
 
 - ✨ Extend macros and syntax sugar in Vue.
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
 - 🦾 Full TypeScript support.
 - ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).
-
-## Usage
 
 ## Installation
 
@@ -95,7 +91,118 @@ module.exports = {
 
 <br></details>
 
-#### TypeScript Support
+## Usage
+
+### `defineOptions`
+
+Introduce a macro in `<script setup>`, `defineOptions`,
+to use Options API in `<script setup>`, specifically to be able to set `name`, `props`, `emits` and `render` in one function.
+
+> **Note**: if you only need `defineOptions`, [the standalone version](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options) is better for you.
+
+#### Basic Usage
+
+```vue
+<script setup lang="ts">
+import { useSlots } from 'vue'
+defineOptions({
+  name: 'Foo',
+  inheritAttrs: false,
+})
+const slots = useSlots()
+</script>
+```
+
+<details>
+<summary>Output</summary>
+
+```vue
+<script lang="ts">
+export default {
+  name: 'Foo',
+  inheritAttrs: false,
+  props: {
+    msg: { type: String, default: 'bar' },
+  },
+  emits: ['change', 'update'],
+}
+</script>
+
+<script setup>
+const slots = useSlots()
+</script>
+```
+
+</details>
+
+#### JSX in `<script setup>`
+
+```vue
+<script setup lang="tsx">
+defineOptions({
+  render() {
+    return <h1>Hello World</h1>
+  },
+})
+</script>
+```
+
+<details>
+<summary>Output</summary>
+
+```vue
+<script lang="tsx">
+export default {
+  render() {
+    return <h1>Hello World</h1>
+  },
+}
+</script>
+```
+
+</details>
+
+### `defineModel`
+
+Introduce a macro in `<script setup>`, `defineModel`.
+To be able define and change `v-model` props as the same as normal variable.
+
+> **Warning**: [Reactivity Transform](https://vuejs.org/guide/extras/reactivity-transform.html) is required. You should enable it first. Otherwise, it will lose the reactivity connection.
+
+#### Basic Usage
+
+```vue
+<script setup lang="ts">
+let { modelValue } = defineModel<{
+  modelValue: string
+}>()
+
+console.log(modelValue)
+modelValue = 'newValue'
+</script>
+```
+
+<details>
+<summary>Output</summary>
+
+```vue
+<script setup lang="ts">
+const { modelValue } = defineProps<{
+  modelValue: string
+}>()
+
+const emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+}>()
+
+console.log(modelValue)
+console.log(emit('update:modelValue', 'newValue'))
+</script>
+```
+
+</details>
+
+### TypeScript Support
 
 ```jsonc
 // tsconfig.json
