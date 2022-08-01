@@ -1,7 +1,8 @@
 // Vitest Snapshot v1
 
 exports[`transform > tests/fixtures/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">var { modelValue } = defineProps<{
+"<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+var { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
 }>();
@@ -13,7 +14,7 @@ const _defineModel_emit = defineEmits<{
 
 
 console.log(modelValue)
-_defineModel_emit('update:modelValue', 'newValue')
+__emitHelper(_defineModel_emit, 'update:modelValue', 'newValue')
 </script>
 
 <template>
@@ -40,7 +41,8 @@ let a = 'b'
 exports[`transform > tests/fixtures/error-rest.vue 1`] = `[SyntaxError: not supported]`;
 
 exports[`transform > tests/fixtures/vue2.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+
 
 
 const {value, title,  id } = defineProps<{value: string
@@ -54,8 +56,8 @@ const emit = defineEmits<{(evt: 'input', value: string): void
 }>()
 
 {
-  emit('input', 'hello')
-  emit('update:title', 'world')
+  __emitHelper(emit, 'input', 'hello')
+  __emitHelper(emit, 'update:title', 'world')
   emit('change')
 
   {
@@ -84,8 +86,27 @@ emit('change')
 "
 `;
 
+exports[`transform > tests/fixtures/with-define-emits-assignment.vue 1`] = `
+"<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+let { modelValue, title } = defineProps<{
+  modelValue: string
+title: string
+}>();
+const _defineModel_emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:title', value: string): void
+}>();
+
+
+
+__emitHelper(_defineModel_emit, 'update:modelValue', __emitHelper(_defineModel_emit, 'update:title', '123'))
+</script>
+"
+`;
+
 exports[`transform > tests/fixtures/with-define-emits-decl.vue 1`] = `
-"<script setup lang=\\"ts\\">let { modelValue } = defineProps<{
+"<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+let { modelValue } = defineProps<{
   modelValue: string
 }>();
 
@@ -97,7 +118,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 }>()
 
 {
-  emit('update:modelValue', 'hello')
+  __emitHelper(emit, 'update:modelValue', 'hello')
   emit('change')
 
   {

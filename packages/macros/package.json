@@ -47,6 +47,10 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
+    "./helper": {
+      "require": "./dist/helper.js",
+      "import": "./dist/helper.mjs"
+    },
     "./macros-global": "./macros-global.d.ts",
     "./*": "./*"
   },

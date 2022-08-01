@@ -8,7 +8,8 @@ const emit = defineEmits<{
 }>()
 
 const updateCount = (val: number) => {
-  modelValue = modelValue + val
+  // eslint-disable-next-line no-console
+  console.log((modelValue = modelValue + val))
   emit('change')
 }
 </script>

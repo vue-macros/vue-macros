@@ -208,24 +208,35 @@ export const transform = (code: string, filename: string, version: 2 | 3) => {
       sourceType: 'module',
       sourceFile: '',
     }
+    let hasTransfromed = false
     walkAST(program, {
-      enter(node) {
+      leave(node) {
         if (node.type !== 'AssignmentExpression') return
         if (node.left.type !== 'Identifier') return
 
         const idDecl = this.scope[node.left.name] as Identifier
         if (!modelIdentifiers.has(idDecl)) return
 
+        hasTransfromed = true
         s.overwrite(
           startOffset + node.start!,
           startOffset + node.end!,
-          `${emitsIdentifier}('${getEventKey(idDecl.name)}', ${s.slice(
+          `__emitHelper(${emitsIdentifier}, '${getEventKey(
+            idDecl.name
+          )}', ${s.slice(
             startOffset + node.right.start!,
             startOffset + node.right.end!
           )})`
         )
       },
     })
+
+    if (hasTransfromed) {
+      s.prependLeft(
+        startOffset,
+        "import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'\n"
+      )
+    }
   }
 
   if (!code.includes(DEFINE_MODEL)) return

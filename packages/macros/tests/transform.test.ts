@@ -2,7 +2,7 @@
 
 import { resolve } from 'path'
 import { readFile } from 'fs/promises'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import glob from 'fast-glob'
 import { transform } from '../src'
 
@@ -14,7 +14,7 @@ describe('transform', async () => {
   })
 
   for (const file of files) {
-    it(file.replace(/\\/g, '/'), async () => {
+    test(file.replace(/\\/g, '/'), async () => {
       const filepath = resolve(root, file)
       const version = filepath.includes('vue2') ? 2 : 3
       try {
