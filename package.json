@@ -1,5 +1,5 @@
 {
-  "name": "unplugin-vue-macros-monorepo",
+  "name": "monorepo-unplugin-vue-macros",
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@7.8.0",
@@ -9,8 +9,9 @@
     "build": "pnpm run -C ./packages/define-options build && pnpm run -C ./packages/macros build",
     "play": "pnpm run -C ./playground dev",
     "test": "vitest",
-    "release": "bumpp",
-    "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
+    "release": "bumpp package.json ./packages/*/package.json && pnpm publish --filter \"unplugin-vue*\"",
+    "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0",
+    "prepublishOnly": "pnpm run build"
   },
   "peerDependencies": {
     "vue": "^3.2.25"
