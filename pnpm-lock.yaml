@@ -13,7 +13,7 @@ importers:
       tsup: ^6.1.3
       tsx: ^3.8.0
       typescript: ^4.7.4
-      vitest: ^0.19.0
+      vitest: 0.20.2
       vue: ^3.2.37
     devDependencies:
       '@sxzz/eslint-config': 2.3.3_eslint@8.20.0+vue@3.2.37
@@ -25,7 +25,7 @@ importers:
       tsup: 6.1.3_typescript@4.7.4
       tsx: 3.8.0
       typescript: 4.7.4
-      vitest: 0.19.0
+      vitest: 0.20.2
       vue: 3.2.37
 
   packages/common:
@@ -46,14 +46,14 @@ importers:
       rollup: ^2.77.0
       tsup: ^6.1.3
       tsx: ^3.8.0
-      unplugin: ^0.7.2
+      unplugin: ^0.8.0
       unplugin-vue: ^3.0.0-beta.0
       vite: ^3.0.2
       vue: ^3.2.37
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue/compiler-sfc': 3.2.37
-      unplugin: 0.7.2_rollup@2.77.0+vite@3.0.2
+      unplugin: 0.8.0_rollup@2.77.0+vite@3.0.2
     devDependencies:
       '@babel/types': 7.18.9
       '@vue-macros/common': link:../common
@@ -79,7 +79,7 @@ importers:
       rollup: ^2.77.0
       tsup: ^6.1.3
       tsx: ^3.8.0
-      unplugin: ^0.7.2
+      unplugin: ^0.8.0
       unplugin-vue: ^3.0.0-beta.0
       vite: ^3.0.2
       vue: ^3.2.37
@@ -88,7 +88,7 @@ importers:
       '@rollup/pluginutils': 4.2.1
       '@vue/compiler-sfc': 3.2.37
       magic-string: 0.26.2
-      unplugin: 0.7.2_rollup@2.77.0+vite@3.0.2
+      unplugin: 0.8.0_rollup@2.77.0+vite@3.0.2
     devDependencies:
       '@babel/types': 7.18.9
       '@vue-macros/common': link:../common
@@ -3072,6 +3072,32 @@ packages:
       vite: 3.0.2
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.4.4
+    dev: true
+
+  /unplugin/0.8.0_rollup@2.77.0+vite@3.0.2:
+    resolution: {integrity: sha512-OzOkJ9XOPlD1Cph6qy/p4i/KSUbs76GToXjH/STHpfo6D7y+EqpfAL6G6HaoOw5QLkt9+KWwcxYUmPFkDf1upQ==}
+    peerDependencies:
+      esbuild: '>=0.13'
+      rollup: ^2.50.0
+      vite: ^2.3.0 || ^3.0.0-0
+      webpack: 4 || 5
+    peerDependenciesMeta:
+      esbuild:
+        optional: true
+      rollup:
+        optional: true
+      vite:
+        optional: true
+      webpack:
+        optional: true
+    dependencies:
+      acorn: 8.8.0
+      chokidar: 3.5.3
+      rollup: 2.77.0
+      vite: 3.0.2
+      webpack-sources: 3.2.3
+      webpack-virtual-modules: 0.4.4
+    dev: false
 
   /uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
@@ -3120,8 +3146,8 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vitest/0.19.0:
-    resolution: {integrity: sha512-nU80Gm95tMchigHpAMukxv1LoWbBGgknX/1MqrXCOoJoJL7/wfq4h2aow61o2jwf5szQrahoNqBqaGb+fYdYrQ==}
+  /vitest/0.20.2:
+    resolution: {integrity: sha512-AFXTHrwG4d2OO6SAL8WP5ZkOwLtgeF4tlrHfXFqrHc+5chNegeR53pge0lv/C4316SqJ2DbYaUBH8vh3CdF+BQ==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
