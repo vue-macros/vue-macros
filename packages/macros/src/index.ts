@@ -57,7 +57,7 @@ export default createUnplugin<Options>((userOptions = {}) => {
         }
         if (options.defineOptions) {
           const newString = transform(code, id, s)
-          if (newString) s ||= newString
+          if (newString) s = newString
         }
 
         if (!s) return
