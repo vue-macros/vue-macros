@@ -20,7 +20,7 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export const transform = (code: string, filename: string) => {
+export const transform = (code: string, filename: string, version: 2 | 3) => {
   let hasDefineProps = false
   let hasDefineEmits = false
   let hasDefineModel = false
@@ -193,6 +193,11 @@ export const transform = (code: string, filename: string) => {
     return map
   }
 
+  function getEventKey(key: string) {
+    if (key === 'value' && version === 2) return 'input'
+    return `update:${key}`
+  }
+
   function processEmitValue() {
     if (!emitsIdentifier) throw new Error('Error: 4')
 
@@ -214,7 +219,7 @@ export const transform = (code: string, filename: string) => {
         s.overwrite(
           startOffset + node.start!,
           startOffset + node.end!,
-          `${emitsIdentifier}('update:${idDecl.name}', ${s.slice(
+          `${emitsIdentifier}('${getEventKey(idDecl.name)}', ${s.slice(
             startOffset + node.right.start!,
             startOffset + node.right.end!
           )})`
@@ -292,7 +297,7 @@ export const transform = (code: string, filename: string) => {
     .join('\n')
 
   const emitsText = Object.entries(map)
-    .map(([key, value]) => `(evt: 'update:${key}', value${value}): void`)
+    .map(([key, value]) => `(evt: '${getEventKey(key)}', value${value}): void`)
     .join('\n')
 
   if (hasDefineProps) {

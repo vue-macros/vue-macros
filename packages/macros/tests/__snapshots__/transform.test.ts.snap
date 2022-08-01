@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`vue 3 > fixtures > tests/fixtures/basic.vue 1`] = `
+exports[`transform > tests/fixtures/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">var { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
@@ -22,7 +22,7 @@ _defineModel_emit('update:modelValue', 'newValue')
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/decls.vue 1`] = `
+exports[`transform > tests/fixtures/decls.vue 1`] = `
 "<script setup lang=\\"ts\\">let { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
@@ -37,9 +37,37 @@ let a = 'b'
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/error-rest.vue 1`] = `[SyntaxError: not supported]`;
+exports[`transform > tests/fixtures/error-rest.vue 1`] = `[SyntaxError: not supported]`;
 
-exports[`vue 3 > fixtures > tests/fixtures/with-define-emits.vue 1`] = `
+exports[`transform > tests/fixtures/vue2.vue 1`] = `
+"<script setup lang=\\"ts\\">
+
+
+const {value, title,  id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'input', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  emit('input', 'hello')
+  emit('update:title', 'world')
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`transform > tests/fixtures/with-define-emits.vue 1`] = `
 "<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
   modelValue: string
 }>();
@@ -56,7 +84,7 @@ emit('change')
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/with-define-emits-decl.vue 1`] = `
+exports[`transform > tests/fixtures/with-define-emits-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">let { modelValue } = defineProps<{
   modelValue: string
 }>();
@@ -81,7 +109,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/with-define-props.vue 1`] = `
+exports[`transform > tests/fixtures/with-define-props.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -98,7 +126,7 @@ visible: boolean
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/with-define-props-decl.vue 1`] = `
+exports[`transform > tests/fixtures/with-define-props-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -115,7 +143,7 @@ visible: boolean
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/with-define-props-empty.vue 1`] = `
+exports[`transform > tests/fixtures/with-define-props-empty.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -130,7 +158,7 @@ visible: boolean
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/with-define-props-ref.vue 1`] = `
+exports[`transform > tests/fixtures/with-define-props-ref.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -149,7 +177,7 @@ defineProps<Props>()
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/with-define-props-rest.vue 1`] = `
+exports[`transform > tests/fixtures/with-define-props-rest.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -168,7 +196,7 @@ console.log(props)
 "
 `;
 
-exports[`vue 3 > fixtures > tests/fixtures/without-decl.vue 1`] = `
+exports[`transform > tests/fixtures/without-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">defineProps<{
   modelValue: string
 visible: boolean
