@@ -3,7 +3,9 @@ const { modelValue } = defineModel<{
   modelValue: string
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   (evt: 'change'): void
 }>()
+
+emit('change')
 </script>

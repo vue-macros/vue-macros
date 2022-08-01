@@ -13,7 +13,7 @@ const _defineModel_emit = defineEmits<{
 
 
 console.log(modelValue)
-modelValue = 'newValue'
+_defineModel_emit('update:modelValue', 'newValue')
 </script>
 
 <template>
@@ -46,10 +46,37 @@ exports[`vue 3 > fixtures > tests/fixtures/with-define-emits.vue 1`] = `
 
 
 
-defineEmits<{(evt: 'update:modelValue', value: string): void
+const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 
   (evt: 'change'): void
 }>()
+
+emit('change')
+</script>
+"
+`;
+
+exports[`vue 3 > fixtures > tests/fixtures/with-define-emits-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">let { modelValue } = defineProps<{
+  modelValue: string
+}>();
+
+
+
+const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  emit('update:modelValue', 'hello')
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
 </script>
 "
 `;

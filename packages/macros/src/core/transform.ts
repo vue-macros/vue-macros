@@ -1,5 +1,6 @@
 import { compileScript } from '@vue/compiler-sfc'
 import MagicString from 'magic-string'
+import { extractIdentifiers, walkAST } from 'ast-walker-scope'
 import {
   DEFINE_EMITS,
   DEFINE_MODEL,
@@ -8,9 +9,11 @@ import {
   parseSFC,
 } from '@vue-macros/common'
 import type {
+  Identifier,
   LVal,
   Node,
   ObjectPattern,
+  Program,
   Statement,
   TSInterfaceBody,
   TSTypeLiteral,
@@ -24,10 +27,12 @@ export const transform = (code: string, filename: string) => {
   let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let propsDestructureDecl: Node | undefined
   let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
+  let emitsIdentifier: string | undefined
   let modelTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let modelIdentifier: string | undefined
   let modelDeclKind: string | undefined
   let modelDestructureDecl: ObjectPattern | undefined
+  const modelIdentifiers = new Set<Identifier>()
 
   function processDefinePropsOrEmits(node: Node, declId?: LVal) {
     let type: 'props' | 'emits'
@@ -66,8 +71,12 @@ export const transform = (code: string, filename: string) => {
     if (type === 'props') propsTypeDecl = typeDecl
     else emitsTypeDecl = typeDecl
 
-    if (declId && declId.type === 'ObjectPattern') {
-      propsDestructureDecl = declId
+    if (declId) {
+      if (type === 'props' && declId.type === 'ObjectPattern') {
+        propsDestructureDecl = declId
+      } else if (type === 'emits' && declId.type === 'Identifier') {
+        emitsIdentifier = declId.name
+      }
     }
 
     return true
@@ -104,6 +113,9 @@ export const transform = (code: string, filename: string) => {
     }
 
     if (declId) {
+      const ids = extractIdentifiers(declId)
+      ids.forEach((id) => modelIdentifiers.add(id))
+
       if (declId.type === 'ObjectPattern') {
         modelDestructureDecl = declId
         for (const property of declId.properties) {
@@ -181,6 +193,36 @@ export const transform = (code: string, filename: string) => {
     return map
   }
 
+  function processEmitValue() {
+    if (!emitsIdentifier) throw new Error('Error: 4')
+
+    const program: Program = {
+      type: 'Program',
+      body: scriptSetup.scriptSetupAst as Statement[],
+      directives: [],
+      sourceType: 'module',
+      sourceFile: '',
+    }
+    walkAST(program, {
+      enter(node) {
+        if (node.type !== 'AssignmentExpression') return
+        if (node.left.type !== 'Identifier') return
+
+        const idDecl = this.scope[node.left.name] as Identifier
+        if (!modelIdentifiers.has(idDecl)) return
+
+        s.overwrite(
+          startOffset + node.start!,
+          startOffset + node.end!,
+          `${emitsIdentifier}('update:${idDecl.name}', ${s.slice(
+            startOffset + node.right.start!,
+            startOffset + node.right.end!
+          )})`
+        )
+      },
+    })
+  }
+
   if (!code.includes(DEFINE_MODEL)) return
 
   const sfc = parseSFC(code, filename)
@@ -237,7 +279,6 @@ export const transform = (code: string, filename: string) => {
   }
 
   if (!modelTypeDecl) return
-
   if (modelTypeDecl.type !== 'TSTypeLiteral') {
     throw new SyntaxError(
       `type argument passed to ${DEFINE_MODEL}() must be a literal type, or a reference to an interface or literal type.`
@@ -286,12 +327,17 @@ export const transform = (code: string, filename: string) => {
   if (hasDefineEmits) {
     s.appendLeft(startOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
   } else {
+    emitsIdentifier = `_${DEFINE_MODEL}_emit`
     s.appendLeft(
       startOffset,
-      `const _${DEFINE_MODEL}_emit = defineEmits<{
+      `const ${emitsIdentifier} = defineEmits<{
   ${emitsText}
 }>();\n`
     )
+  }
+
+  if (hasDefineModel) {
+    processEmitValue()
   }
 
   return {
