@@ -27,10 +27,6 @@ import { useSlots } from 'vue'
 defineOptions({
   name: 'Foo',
   inheritAttrs: false,
-  props: {
-    msg: { type: String, default: 'bar' },
-  },
-  emits: ['change', 'update'],
 })
 const slots = useSlots()
 </script>
