@@ -7,6 +7,7 @@
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
     "build": "pnpm run -C ./packages/define-options build && pnpm run -C ./packages/macros build",
+    "play": "pnpm run -C ./playground dev",
     "test": "vitest",
     "release": "bumpp",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
