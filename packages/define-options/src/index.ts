@@ -37,7 +37,14 @@ export default createUnplugin<Options>((options = {}) => {
 
     transform(code, id) {
       try {
-        return transform(code, id)
+        const s = transform(code, id)
+        if (!s) return
+        return {
+          code: s.toString(),
+          get map() {
+            return s.generateMap()
+          },
+        }
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }

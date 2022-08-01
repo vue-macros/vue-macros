@@ -4,9 +4,9 @@ import { describe, expect, test } from 'vitest'
 import glob from 'fast-glob'
 import { transformDefineModel } from '../src/define-model'
 
-describe('transform', async () => {
+describe('define-model', async () => {
   const root = resolve(__dirname, '..')
-  const files = await glob('tests/fixtures/*.{vue,js,ts}', {
+  const files = await glob('tests/fixtures/define-model/*.{vue,js,ts}', {
     cwd: root,
     onlyFiles: true,
   })
@@ -15,16 +15,17 @@ describe('transform', async () => {
     test(file.replace(/\\/g, '/'), async () => {
       const filepath = resolve(root, file)
       const version = filepath.includes('vue2') ? 2 : 3
+      let result: any
       try {
-        const code = transformDefineModel(
+        result = transformDefineModel(
           await readFile(filepath, 'utf-8'),
           filepath,
           version
-        )?.code
-        expect(code).toMatchSnapshot()
+        )?.toString()
       } catch (err) {
-        expect(err).toMatchSnapshot()
+        result = err
       }
+      expect(result).toMatchSnapshot()
     })
   }
 })

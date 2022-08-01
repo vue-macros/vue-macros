@@ -1,0 +1,32 @@
+// Vitest Snapshot v1
+
+exports[`Rollup > fixtures > tests/fixtures/mixed.vue 1`] = `
+"var mixed = \`<script lang=\\"ts\\">
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
+  name: 'Foo',
+});
+</script>
+<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+
+
+const {modelValue,  title } = defineProps<{modelValue: string
+
+  title: string
+}>()
+const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+
+const handleClick = () => {
+  emit('change')
+  __emitHelper(emit, 'update:modelValue', 'hello, ' + title)
+}
+</script>
+\`;
+
+export { mixed as default };
+"
+`;

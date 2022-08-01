@@ -6,7 +6,7 @@
   "description": "Monorepo for Vue macros.",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
-    "build": "pnpm run --filter \"./packages/*\" --parallel build",
+    "build": "pnpm run -C ./packages/define-options build && pnpm run -C ./packages/macros build",
     "test": "vitest",
     "release": "bumpp",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"

@@ -5,11 +5,13 @@ import {
   parseSFC,
 } from '@vue-macros/common'
 import { filterMarco, hasPropsOrEmits } from './utils'
-import type { TransformResult } from 'unplugin'
 
-export const transform = (code: string, id: string): TransformResult => {
+export const transform = (
+  code: string,
+  id: string,
+  s: MagicString = new MagicString(code)
+): MagicString | undefined => {
   if (!code.includes(DEFINE_OPTIONS)) return
-
   const sfc = parseSFC(code, id)
   if (!sfc.scriptSetup) return
 
@@ -18,7 +20,7 @@ export const transform = (code: string, id: string): TransformResult => {
       id,
     })
   }
-  const { script, scriptSetup, source } = sfc
+  const { script, scriptSetup } = sfc
   const startOffset = scriptSetup.loc.start.offset
 
   const nodes = filterMarco(scriptSetup)
@@ -47,7 +49,6 @@ export const transform = (code: string, id: string): TransformResult => {
 
   const argText = code.slice(startOffset + arg.start!, startOffset + arg.end!)
 
-  const s = new MagicString(source)
   const lang = scriptSetup.attrs.lang ? ` lang="${scriptSetup.attrs.lang}"` : ''
   s.prepend(
     `<script${lang}>
@@ -57,13 +58,5 @@ export default /*#__PURE__*/ DO_defineComponent(${argText});
   )
   s.remove(startOffset + node.start!, startOffset + node.end!)
 
-  return {
-    code: s.toString(),
-    get map() {
-      return s.generateMap({
-        source: id,
-        includeContent: true,
-      })
-    },
-  }
+  return s
 }

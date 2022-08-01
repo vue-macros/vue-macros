@@ -360,10 +360,5 @@ export const transformDefineModel = (
     processEmitValue()
   }
 
-  return {
-    code: s.toString(),
-    get map() {
-      return s.generateMap()
-    },
-  }
+  return s
 }

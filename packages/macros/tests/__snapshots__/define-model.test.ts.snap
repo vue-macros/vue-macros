@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`transform > tests/fixtures/basic.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
 var { modelValue } = defineProps<{
   modelValue: string
@@ -23,7 +23,7 @@ __emitHelper(_defineModel_emit, 'update:modelValue', 'newValue')
 "
 `;
 
-exports[`transform > tests/fixtures/decls.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/decls.vue 1`] = `
 "<script setup lang=\\"ts\\">let { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
@@ -38,9 +38,9 @@ let a = 'b'
 "
 `;
 
-exports[`transform > tests/fixtures/error-rest.vue 1`] = `[SyntaxError: not supported]`;
+exports[`define-model > tests/fixtures/define-model/error-rest.vue 1`] = `[SyntaxError: not supported]`;
 
-exports[`transform > tests/fixtures/vue2.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/vue2.vue 1`] = `
 "<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
 
 
@@ -69,7 +69,7 @@ const emit = defineEmits<{(evt: 'input', value: string): void
 "
 `;
 
-exports[`transform > tests/fixtures/with-define-emits.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/with-define-emits.vue 1`] = `
 "<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
   modelValue: string
 }>();
@@ -86,7 +86,7 @@ emit('change')
 "
 `;
 
-exports[`transform > tests/fixtures/with-define-emits-assignment.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/with-define-emits-assignment.vue 1`] = `
 "<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
 let { modelValue, title } = defineProps<{
   modelValue: string
@@ -104,7 +104,7 @@ __emitHelper(_defineModel_emit, 'update:modelValue', __emitHelper(_defineModel_e
 "
 `;
 
-exports[`transform > tests/fixtures/with-define-emits-decl.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/with-define-emits-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
 let { modelValue } = defineProps<{
   modelValue: string
@@ -130,7 +130,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 "
 `;
 
-exports[`transform > tests/fixtures/with-define-props.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/with-define-props.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -147,7 +147,7 @@ visible: boolean
 "
 `;
 
-exports[`transform > tests/fixtures/with-define-props-decl.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/with-define-props-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -164,7 +164,7 @@ visible: boolean
 "
 `;
 
-exports[`transform > tests/fixtures/with-define-props-empty.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/with-define-props-empty.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -179,7 +179,7 @@ visible: boolean
 "
 `;
 
-exports[`transform > tests/fixtures/with-define-props-ref.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/with-define-props-ref.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -198,7 +198,7 @@ defineProps<Props>()
 "
 `;
 
-exports[`transform > tests/fixtures/with-define-props-rest.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/with-define-props-rest.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -217,7 +217,7 @@ console.log(props)
 "
 `;
 
-exports[`transform > tests/fixtures/without-decl.vue 1`] = `
+exports[`define-model > tests/fixtures/define-model/without-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">defineProps<{
   modelValue: string
 visible: boolean
