@@ -1,8 +1,8 @@
 import { parse, walkIdentifiers } from '@vue/compiler-sfc'
-import type { SFCScriptBlock } from '@vue/compiler-sfc'
+import type { SFCDescriptor, SFCScriptBlock } from '@vue/compiler-sfc'
 import type { CallExpression, Node } from '@babel/types'
 
-export const parseSFC = (code: string, id: string) => {
+export const parseSFC = (code: string, id: string): SFCDescriptor => {
   const { descriptor } = parse(code, {
     filename: id,
   })

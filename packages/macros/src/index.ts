@@ -1,13 +1,14 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { getPackageInfoSync } from 'local-pkg'
-import { transform } from './core/transform'
+import { transformDefineModel } from './define-model'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
   include?: FilterPattern
   exclude?: FilterPattern | undefined
   version?: 2 | 3
+  defineModel?: boolean
 }
 
 export type OptionsResolved = Required<Options>
@@ -27,6 +28,7 @@ function resolveOption(options: Options): OptionsResolved {
     include: options.include || [/\.vue$/, /\.vue\?vue/],
     exclude: options.exclude || undefined,
     version,
+    defineModel: options.defineModel ?? true,
   }
 }
 
@@ -34,7 +36,7 @@ export default createUnplugin<Options>((options = {}) => {
   const opt = resolveOption(options)
   const filter = createFilter(opt.include, opt.exclude)
 
-  const name = 'unplugin-vue-define-options'
+  const name = 'unplugin-vue-macros'
   return {
     name,
     enforce: 'pre',
@@ -45,12 +47,12 @@ export default createUnplugin<Options>((options = {}) => {
 
     transform(code, id) {
       try {
-        return transform(code, id, opt.version)
+        if (opt.defineModel) {
+          return transformDefineModel(code, id, opt.version)
+        }
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }
     },
   }
 })
-
-export { transform }

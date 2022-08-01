@@ -20,7 +20,11 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export const transform = (code: string, filename: string, version: 2 | 3) => {
+export const transformDefineModel = (
+  code: string,
+  filename: string,
+  version: 2 | 3
+) => {
   let hasDefineProps = false
   let hasDefineEmits = false
   let hasDefineModel = false

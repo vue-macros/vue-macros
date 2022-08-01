@@ -1,10 +1,8 @@
-/* eslint-disable unicorn/prefer-string-replace-all */
-
-import { resolve } from 'path'
-import { readFile } from 'fs/promises'
+import { resolve } from 'node:path'
+import { readFile } from 'node:fs/promises'
 import { describe, expect, test } from 'vitest'
 import glob from 'fast-glob'
-import { transform } from '../src'
+import { transformDefineModel } from '../src/define-model'
 
 describe('transform', async () => {
   const root = resolve(__dirname, '..')
@@ -18,7 +16,7 @@ describe('transform', async () => {
       const filepath = resolve(root, file)
       const version = filepath.includes('vue2') ? 2 : 3
       try {
-        const code = transform(
+        const code = transformDefineModel(
           await readFile(filepath, 'utf-8'),
           filepath,
           version
