@@ -196,7 +196,7 @@ const emit = defineEmits<{
 }>()
 
 console.log(modelValue)
-console.log(emit('update:modelValue', 'newValue'))
+emit('update:modelValue', 'newValue')
 </script>
 ```
 
