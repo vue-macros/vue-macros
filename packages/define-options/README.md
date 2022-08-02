@@ -2,7 +2,9 @@
 
 English | [简体中文](./README-zh-CN.md)
 
-Introduce a macro in `<script setup>`, `defineOptions`, to use Options API in `<script setup>`, specifically to be able to set `name`, `props`, `emits` and `render` in one function.
+Introduce a macro in `<script setup>`, `defineOptions`,
+to use Options API in `<script setup>`,
+specifically to be able to set `name`, `props`, `emits` and `render` in one function.
 
 ## Features
 

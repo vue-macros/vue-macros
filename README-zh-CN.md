@@ -164,8 +164,6 @@ export default {
 
 ### `defineModel`
 
-Introduce a macro in `<script setup>`, `defineModel`. To be able define and change `v-model` props as the same as normal variable.
-
 在 `<script setup>` 中可使用 `defineModel` 宏。
 可以像普通变量一样定义和使用 `v-model` 参数。
 
