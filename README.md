@@ -209,7 +209,7 @@ emit('update:modelValue', 'newValue')
 {
   "compilerOptions": {
     // ...
-    "types": ["unplugin-vue-macros" /* ... */]
+    "types": ["unplugin-vue-macros/macros-global" /* ... */]
   }
 }
 ```
