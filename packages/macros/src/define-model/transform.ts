@@ -4,6 +4,7 @@ import { extractIdentifiers, walkAST } from 'ast-walker-scope'
 import {
   DEFINE_EMITS,
   DEFINE_MODEL,
+  DEFINE_OPTIONS,
   DEFINE_PROPS,
   isCallOf,
   parseSFC,
@@ -148,6 +149,11 @@ export const transformDefineModel = (
     if (kind) modelDeclKind = kind
 
     return true
+  }
+  function processDefineOptionIsModel(node: Node) {
+    if (isCallOf(node, DEFINE_OPTIONS)) {
+      node.arguments.forEach((item) => processV2Model(item))
+    }
   }
 
   function processV2Model(node: Node) {
@@ -331,6 +337,7 @@ export const transformDefineModel = (
   for (const node of scriptSetup.scriptSetupAst as Statement[]) {
     if (node.type === 'ExpressionStatement') {
       processDefinePropsOrEmits(node.expression)
+      processDefineOptionIsModel(node.expression)
       if (processDefineModel(node.expression)) {
         s.remove(node.start! + startOffset, node.end! + startOffset)
       }
