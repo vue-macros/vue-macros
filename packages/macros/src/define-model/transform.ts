@@ -6,6 +6,7 @@ import {
   DEFINE_MODEL,
   DEFINE_OPTIONS,
   DEFINE_PROPS,
+  REPO_ISSUE_URL,
   isCallOf,
   parseSFC,
 } from '@vue-macros/common'
@@ -58,13 +59,13 @@ export const transformDefineModel = (
 
     if (node.arguments[0])
       throw new SyntaxError(
-        `Error: ${fnName}() cannot accept non-type arguments when used with ${DEFINE_MODEL}()`
+        `${fnName}() cannot accept non-type arguments when used with ${DEFINE_MODEL}()`
       )
 
     const typeDeclRaw = node.typeParameters?.params?.[0]
     if (!typeDeclRaw)
       throw new SyntaxError(
-        `Error: ${fnName}() expected a type parameter when used with ${DEFINE_MODEL}.`
+        `${fnName}() expected a type parameter when used with ${DEFINE_MODEL}.`
       )
 
     const typeDecl = resolveQualifiedType(
@@ -73,7 +74,7 @@ export const transformDefineModel = (
     ) as TSTypeLiteral | TSInterfaceBody | undefined
 
     if (!typeDecl) {
-      throw new Error(
+      throw new SyntaxError(
         `type argument passed to ${fnName}() must be a literal type, ` +
           `or a reference to an interface or literal type.`
       )
@@ -112,7 +113,7 @@ export const transformDefineModel = (
 
     const propsTypeDeclRaw = node.typeParameters?.params[0]
     if (!propsTypeDeclRaw) {
-      throw new SyntaxError('Error: 1')
+      throw new SyntaxError(`expected a type parameter for ${DEFINE_MODEL}.`)
     }
     modelTypeDecl = resolveQualifiedType(
       propsTypeDeclRaw,
@@ -120,7 +121,7 @@ export const transformDefineModel = (
     ) as TSTypeLiteral | TSInterfaceBody | undefined
 
     if (!modelTypeDecl) {
-      throw new Error(
+      throw new SyntaxError(
         `type argument passed to ${DEFINE_MODEL}() must be a literal type, ` +
           `or a reference to an interface or literal type.`
       )
@@ -134,7 +135,7 @@ export const transformDefineModel = (
         modelDestructureDecl = declId
         for (const property of declId.properties) {
           if (property.type === 'RestElement') {
-            throw new SyntaxError('not supported')
+            throw new SyntaxError('rest element is not supported')
           }
         }
       } else {
@@ -150,9 +151,12 @@ export const transformDefineModel = (
   }
 
   function processDefineOptions(node: Node) {
-    if (isCallOf(node, DEFINE_OPTIONS)) {
-      node.arguments.forEach((item) => processVue2Model(item))
-    }
+    if (!isCallOf(node, DEFINE_OPTIONS)) return false
+
+    const [arg] = node.arguments
+    if (arg) processVue2Model(arg)
+
+    return true
   }
 
   function processVue2Model(node: Node) {
@@ -160,31 +164,30 @@ export const transformDefineModel = (
     //   prop: 'checked',
     //   event: 'change'
     // }
-    if (node.type === 'ObjectExpression') {
-      const model = node.properties.find(
-        (prop) =>
-          prop.type === 'ObjectProperty' &&
-          prop.key.type === 'Identifier' &&
-          prop.key.name === 'model' &&
-          prop.value.type === 'ObjectExpression' &&
-          prop.value.properties.length === 2
-      ) as ObjectProperty
+    if (node.type !== 'ObjectExpression') return false
 
-      if (!model) return false
-      ;(model.value as ObjectExpression).properties.forEach((propertyItem) => {
-        if (
-          propertyItem.type === 'ObjectProperty' &&
-          propertyItem.key.type === 'Identifier' &&
-          propertyItem.value.type === 'StringLiteral' &&
-          ['prop', 'event'].includes(propertyItem.key.name)
-        ) {
-          const key = propertyItem.key.name as 'prop' | 'event'
-          modelVue2[key] = propertyItem.value.value
-        }
-      })
-      return true
-    }
-    return false
+    const model = node.properties.find(
+      (prop) =>
+        prop.type === 'ObjectProperty' &&
+        prop.key.type === 'Identifier' &&
+        prop.key.name === 'model' &&
+        prop.value.type === 'ObjectExpression' &&
+        prop.value.properties.length === 2
+    ) as ObjectProperty
+
+    if (!model) return false
+    ;(model.value as ObjectExpression).properties.forEach((propertyItem) => {
+      if (
+        propertyItem.type === 'ObjectProperty' &&
+        propertyItem.key.type === 'Identifier' &&
+        propertyItem.value.type === 'StringLiteral' &&
+        ['prop', 'event'].includes(propertyItem.key.name)
+      ) {
+        const key = propertyItem.key.name as 'prop' | 'event'
+        modelVue2[key] = propertyItem.value.value
+      }
+    })
+    return true
   }
 
   function resolveQualifiedType(
@@ -256,8 +259,11 @@ export const transformDefineModel = (
     return `update:${key}`
   }
 
-  function processEmitValue() {
-    if (!emitsIdentifier) throw new Error('Error: 4')
+  function processAssignModelVariable() {
+    if (!emitsIdentifier)
+      throw new Error(
+        `Identifier of returning value of ${DEFINE_EMITS} is not found, please report this issue.\n${REPO_ISSUE_URL}`
+      )
 
     const program: Program = {
       type: 'Program',
@@ -309,7 +315,6 @@ export const transformDefineModel = (
   }
   const { scriptSetup } = sfc
   const startOffset = scriptSetup.loc.start.offset
-  // const endOffset = scriptSetup.loc.end.offset
 
   const s = new MagicString(code)
 
@@ -441,7 +446,7 @@ export const transformDefineModel = (
   }
 
   if (hasDefineModel) {
-    processEmitValue()
+    processAssignModelVariable()
   }
 
   return s
