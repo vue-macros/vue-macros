@@ -30,3 +30,41 @@ const handleClick = () => {
 export { mixed as default };
 "
 `;
+
+exports[`Rollup > fixtures > tests/fixtures/mixed-vue2-model.vue 1`] = `
+"var mixedVue2Model = \`<script lang=\\"ts\\">
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
+  name: 'Foo',
+  model: {
+    prop: 'value',
+    event: 'changeInput'
+  },
+});
+</script>
+<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+
+
+const {modelValue, value,  title } = defineProps<{modelValue: string
+value: string
+
+  title: string
+}>()
+const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+(evt: 'changeInput', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+
+const handleClick = () => {
+  emit('change')
+  __emitHelper(emit, 'update:modelValue', 'hello, ' + title)
+  __emitHelper(emit, 'changeInput', 'Word,' + title)
+}
+</script>
+\`;
+
+export { mixedVue2Model as default };
+"
+`;

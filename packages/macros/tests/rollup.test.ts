@@ -17,9 +17,10 @@ describe('Rollup', () => {
     for (const file of files) {
       it(file.replace(/\\/g, '/'), async () => {
         const filepath = resolve(root, file)
+        const version = filepath.includes('vue2') ? 2 : 3
 
         const unpluginCode = await getCode(filepath, [
-          VueMacros({}),
+          VueMacros({ version }),
           ToString,
         ]).catch((err) => err)
         expect(unpluginCode).toMatchSnapshot()

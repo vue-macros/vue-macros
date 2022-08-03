@@ -69,6 +69,81 @@ const emit = defineEmits<{(evt: 'input', value: string): void
 "
 `;
 
+exports[`define-model > tests/fixtures/define-model/vue2-custom-vmodel.vue 1`] = `
+"<script lang=\\"ts\\">
+export default {
+  model: {
+    prop: 'value',
+    event: 'changeInput'
+  },
+}
+</script>
+<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+
+
+
+const {value, title,  id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'changeInput', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  __emitHelper(emit, 'changeInput', 'hello')
+  __emitHelper(emit, 'update:title', 'world')
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`define-model > tests/fixtures/define-model/vue2-custom-vmodel-defineComponent.vue 1`] = `
+"<script lang=\\"ts\\">
+import { defineComponent } from 'vue'
+export default defineComponent({
+  model: {
+    prop: 'value',
+    event: 'changeInput'
+  },
+})
+</script>
+<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+
+
+
+const {value, title,  id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'changeInput', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  __emitHelper(emit, 'changeInput', 'hello')
+  __emitHelper(emit, 'update:title', 'world')
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
 exports[`define-model > tests/fixtures/define-model/with-define-emits.vue 1`] = `
 "<script setup lang=\\"ts\\">const { modelValue } = defineProps<{
   modelValue: string
