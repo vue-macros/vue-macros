@@ -13,6 +13,7 @@ import type {
   LVal,
   Node,
   ObjectPattern,
+  ObjectProperty,
   Program,
   Statement,
   TSInterfaceBody,
@@ -37,6 +38,10 @@ export const transformDefineModel = (
   let modelDeclKind: string | undefined
   let modelDestructureDecl: ObjectPattern | undefined
   const modelIdentifiers = new Set<Identifier>()
+  const v2Model: {
+    event: string
+    prop: string
+  } = { prop: '', event: '' }
 
   function processDefinePropsOrEmits(node: Node, declId?: LVal) {
     let type: 'props' | 'emits'
@@ -139,6 +144,39 @@ export const transformDefineModel = (
     return true
   }
 
+  function processV2Model(node: Node) {
+    // model: {
+    //   prop: 'checked',
+    //   event: 'change'
+    // }
+    if (node.type === 'ObjectExpression') {
+      const model = node.properties.find(
+        (item) =>
+          item.type === 'ObjectProperty' &&
+          item.key.type === 'Identifier' &&
+          item.key.name === 'model' &&
+          item.value.type === 'ObjectExpression' &&
+          item.value.properties.length === 2
+      ) as ObjectProperty
+
+      if (model && model.value.type === 'ObjectExpression') {
+        model.value.properties.forEach((propertyItem) => {
+          if (
+            propertyItem.type === 'ObjectProperty' &&
+            propertyItem.key.type === 'Identifier' &&
+            propertyItem.value.type === 'StringLiteral' &&
+            ['prop', 'event'].includes(propertyItem.key.name)
+          ) {
+            const key = propertyItem.key.name as 'prop' | 'event'
+            v2Model[key] = propertyItem.value.value
+          }
+        })
+        return true
+      }
+    }
+    return false
+  }
+
   function resolveQualifiedType(
     node: Node,
     qualifier: (node: Node) => boolean
@@ -198,7 +236,13 @@ export const transformDefineModel = (
   }
 
   function getEventKey(key: string) {
-    if (key === 'value' && version === 2) return 'input'
+    if (version === 2) {
+      if (v2Model.prop === key) {
+        return v2Model.event
+      } else if (key === 'value') {
+        return 'input'
+      }
+    }
     return `update:${key}`
   }
 
@@ -258,7 +302,16 @@ export const transformDefineModel = (
   // const endOffset = scriptSetup.loc.end.offset
 
   const s = new MagicString(code)
-
+  if (scriptSetup.scriptAst && scriptSetup.scriptAst.length > 0) {
+    for (const node of scriptSetup.scriptAst as Statement[]) {
+      if (node.type === 'ExportDefaultDeclaration') {
+        const declaration = node.declaration
+        if (declaration.type === 'ObjectExpression') {
+          processV2Model(declaration)
+        }
+      }
+    }
+  }
   for (const node of scriptSetup.scriptSetupAst as Statement[]) {
     if (node.type === 'ExpressionStatement') {
       processDefinePropsOrEmits(node.expression)
