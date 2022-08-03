@@ -314,6 +314,16 @@ export const transformDefineModel = (
         const declaration = node.declaration
         if (declaration.type === 'ObjectExpression') {
           processV2Model(declaration)
+        } else if (
+          declaration.type === 'CallExpression' &&
+          declaration.callee.type === 'Identifier' &&
+          declaration.callee.name === 'defineComponent'
+        ) {
+          declaration.arguments.forEach((item) => {
+            if (item.type === 'ObjectExpression') {
+              processV2Model(item)
+            }
+          })
         }
       }
     }
