@@ -130,6 +130,24 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 "
 `;
 
+exports[`define-model > tests/fixtures/define-model/with-define-emits-no-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
+let { modelValue } = defineProps<{
+  modelValue: string
+}>();
+
+
+
+const _defineModel_emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+__emitHelper(_defineModel_emit, 'update:modelValue', '1')
+</script>
+"
+`;
+
 exports[`define-model > tests/fixtures/define-model/with-define-props.vue 1`] = `
 "<script setup lang=\\"ts\\">const _defineModel_emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void

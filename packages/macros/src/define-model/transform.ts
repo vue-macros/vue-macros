@@ -84,6 +84,9 @@ export const transformDefineModel = (
       } else if (type === 'emits' && declId.type === 'Identifier') {
         emitsIdentifier = declId.name
       }
+    } else if (type === 'emits') {
+      emitsIdentifier = `_${DEFINE_MODEL}_emit`
+      s.prependRight(startOffset + node.start!, `const ${emitsIdentifier} = `)
     }
 
     return true
@@ -268,9 +271,7 @@ export const transformDefineModel = (
       if (processDefineModel(node.expression)) {
         s.remove(node.start! + startOffset, node.end! + startOffset)
       }
-    }
-
-    if (node.type === 'VariableDeclaration' && !node.declare) {
+    } else if (node.type === 'VariableDeclaration' && !node.declare) {
       const total = node.declarations.length
       let left = total
 
