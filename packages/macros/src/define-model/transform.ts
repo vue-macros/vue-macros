@@ -52,14 +52,17 @@ export const transformDefineModel = (
     if (type === 'props') hasDefineProps = true
     else hasDefineEmits = true
 
-    if (node.arguments[0]) {
-      throw new SyntaxError('error: 2')
-    }
+    if (node.arguments[0])
+      throw new SyntaxError(
+        `Error: ${fnName}() cannot accept non-type arguments when used with ${DEFINE_MODEL}()`
+      )
 
     const typeDeclRaw = node.typeParameters?.params?.[0]
-    if (!typeDeclRaw) {
-      throw new SyntaxError('Error: 3')
-    }
+    if (!typeDeclRaw)
+      throw new SyntaxError(
+        `Error: ${fnName}() expected a type parameter when used with ${DEFINE_MODEL}.`
+      )
+
     const typeDecl = resolveQualifiedType(
       typeDeclRaw,
       (node) => node.type === 'TSTypeLiteral'
