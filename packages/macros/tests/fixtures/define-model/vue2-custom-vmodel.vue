@@ -2,7 +2,7 @@
 export default {
   model: {
     prop: 'value',
-    event: 'changeInput'
+    event: 'changeInput',
   },
 }
 </script>
