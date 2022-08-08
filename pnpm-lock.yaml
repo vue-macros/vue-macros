@@ -13,7 +13,7 @@ importers:
       tsup: ^6.2.1
       tsx: ^3.8.0
       typescript: ^4.7.4
-      vitest: 0.20.2
+      vitest: 0.21.0
       vue: ^3.2.37
     devDependencies:
       '@sxzz/eslint-config': 2.3.5_eslint@8.21.0+vue@3.2.37
@@ -25,7 +25,7 @@ importers:
       tsup: 6.2.1_typescript@4.7.4
       tsx: 3.8.0
       typescript: 4.7.4
-      vitest: 0.20.2
+      vitest: 0.21.0
       vue: 3.2.37
 
   packages/common:
@@ -46,14 +46,14 @@ importers:
       rollup: ^2.77.2
       tsup: ^6.2.1
       tsx: ^3.8.0
-      unplugin: ^0.8.0
+      unplugin: ^0.9.0
       unplugin-vue: ^3.0.1
       vite: ^3.0.4
       vue: ^3.2.37
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue/compiler-sfc': 3.2.37
-      unplugin: 0.8.0_rollup@2.77.2+vite@3.0.4
+      unplugin: 0.9.0_rollup@2.77.2+vite@3.0.4
     devDependencies:
       '@babel/types': 7.18.10
       '@vue-macros/common': link:../common
@@ -80,7 +80,7 @@ importers:
       rollup: ^2.77.2
       tsup: ^6.2.1
       tsx: ^3.8.0
-      unplugin: ^0.8.0
+      unplugin: ^0.9.0
       unplugin-vue: ^3.0.1
       unplugin-vue-define-options: workspace:^
       vite: ^3.0.4
@@ -91,7 +91,7 @@ importers:
       '@vue/compiler-sfc': 3.2.37
       ast-walker-scope: 0.2.1
       local-pkg: 0.4.2
-      unplugin: 0.8.0_rollup@2.77.2+vite@3.0.4
+      unplugin: 0.9.0_rollup@2.77.2+vite@3.0.4
       unplugin-vue-define-options: link:../define-options
     devDependencies:
       '@babel/types': 7.18.10
@@ -3152,8 +3152,8 @@ packages:
       webpack-virtual-modules: 0.4.4
     dev: true
 
-  /unplugin/0.8.0_rollup@2.77.2+vite@3.0.4:
-    resolution: {integrity: sha512-OzOkJ9XOPlD1Cph6qy/p4i/KSUbs76GToXjH/STHpfo6D7y+EqpfAL6G6HaoOw5QLkt9+KWwcxYUmPFkDf1upQ==}
+  /unplugin/0.9.0_rollup@2.77.2+vite@3.0.4:
+    resolution: {integrity: sha512-6o7q8Y9yxdPi5yCPmRuFfeNnVzGumRNZSK6hIkvZ6hd0cfigVdm0qBx/GgQ/NEjs54eUV1qTjvMYKRs9yh3rzw==}
     peerDependencies:
       esbuild: '>=0.13'
       rollup: ^2.50.0
@@ -3240,8 +3240,8 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vitest/0.20.2:
-    resolution: {integrity: sha512-AFXTHrwG4d2OO6SAL8WP5ZkOwLtgeF4tlrHfXFqrHc+5chNegeR53pge0lv/C4316SqJ2DbYaUBH8vh3CdF+BQ==}
+  /vitest/0.21.0:
+    resolution: {integrity: sha512-+BQB2swk4wQdw5loOoL8esIYh/1ifAliuwj2HWHNE2F8SAl/jF7/aoCJBoXGSf/Ws19k3pH4NrWeVtcSwM0j2w==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
