@@ -1,5 +1,4 @@
-import { compileScript } from '@vue/compiler-sfc'
-import MagicString from 'magic-string'
+import { MagicString, compileScript } from '@vue/compiler-sfc'
 import { extractIdentifiers, walkAST } from 'ast-walker-scope'
 import {
   DEFINE_EMITS,

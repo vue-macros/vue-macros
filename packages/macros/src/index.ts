@@ -3,7 +3,7 @@ import { createFilter } from '@rollup/pluginutils'
 import { getPackageInfoSync } from 'local-pkg'
 import { transform } from 'unplugin-vue-define-options/cores'
 import { transformDefineModel } from './define-model'
-import type MagicString from 'magic-string'
+import type { MagicString } from 'vue/compiler-sfc'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
