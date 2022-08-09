@@ -1,15 +1,16 @@
 import { MagicString, compileScript } from '@vue/compiler-sfc'
 import {
   DEFINE_OPTIONS,
+  appendToScript,
   checkInvalidScopeReference,
   parseSFC,
 } from '@vue-macros/common'
 import { filterMarco, hasPropsOrEmits } from './utils'
+import type { Statement } from '@babel/types'
 
 export const transform = (
   code: string,
-  id: string,
-  s: MagicString = new MagicString(code)
+  id: string
 ): MagicString | undefined => {
   if (!code.includes(DEFINE_OPTIONS)) return
   const sfc = parseSFC(code, id)
@@ -20,7 +21,7 @@ export const transform = (
       id,
     })
   }
-  const { script, scriptSetup } = sfc
+  const { scriptSetup } = sfc
   const startOffset = scriptSetup.loc.start.offset
 
   const nodes = filterMarco(scriptSetup)
@@ -28,9 +29,13 @@ export const transform = (
   else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
 
-  if (script)
+  if (
+    (scriptSetup.scriptAst as Statement[])?.some(
+      (node) => node.type === 'ExportDefaultDeclaration'
+    )
+  )
     throw new SyntaxError(
-      `${DEFINE_OPTIONS} cannot be used, with both script and <script setup>.`
+      `${DEFINE_OPTIONS} cannot be used with default export within <script>.`
     )
 
   const [node] = nodes
@@ -49,13 +54,13 @@ export const transform = (
 
   const argText = code.slice(startOffset + arg.start!, startOffset + arg.end!)
 
-  const lang = scriptSetup.attrs.lang ? ` lang="${scriptSetup.attrs.lang}"` : ''
-  s.prepend(
-    `<script${lang}>
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent(${argText});
-</script>\n`
-  )
+  const text = `import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent(${argText});\n`
+
+  const s = new MagicString(code)
+  appendToScript(sfc, s, text)
+
+  // removes defineOptions()
   s.remove(startOffset + node.start!, startOffset + node.end!)
 
   return s

@@ -48,9 +48,9 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
-    "./cores": {
-      "require": "./dist/cores.js",
-      "import": "./dist/cores.mjs"
+    "./unplugin": {
+      "require": "./dist/unplugin.js",
+      "import": "./dist/unplugin.mjs"
     },
     "./*": "./*"
   },

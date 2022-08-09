@@ -1,7 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { getPackageInfoSync } from 'local-pkg'
-import { transform } from 'unplugin-vue-define-options/cores'
+import { transform } from 'unplugin-vue-define-options'
 import { transformDefineModel } from './define-model'
 import type { MagicString } from 'vue/compiler-sfc'
 import type { FilterPattern } from '@rollup/pluginutils'
@@ -56,7 +56,7 @@ export default createUnplugin<Options>((userOptions = {}) => {
           s = transformDefineModel(code, id, options.version)
         }
         if (options.defineOptions) {
-          const newString = transform(code, id, s)
+          const newString = transform(code, id)
           if (newString) s = newString
         }
 
