@@ -1,10 +1,14 @@
 import { DEFINE_OPTIONS, isCallOf } from '@vue-macros/common'
-import type { SFCScriptBlock } from '@vue/compiler-sfc'
-import type { CallExpression, Node, ObjectExpression } from '@babel/types'
+import type {
+  CallExpression,
+  Node,
+  ObjectExpression,
+  Statement,
+} from '@babel/types'
 
-export const filterMarco = (scriptSetup: SFCScriptBlock) => {
-  return scriptSetup
-    .scriptSetupAst!.map((raw: Node) => {
+export const filterMarco = (stmts: Statement[]) => {
+  return stmts
+    .map((raw: Node) => {
       let node = raw
       if (raw.type === 'ExpressionStatement') node = raw.expression
       return isCallOf(node, DEFINE_OPTIONS) ? node : undefined

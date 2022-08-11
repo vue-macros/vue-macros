@@ -1,5 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
+import { finalizeContext, initContext } from '@vue-macros/common'
 import { transform } from './core/transform'
 import type { defineComponent } from 'vue'
 import type { FilterPattern } from '@rollup/pluginutils'
@@ -37,13 +38,18 @@ export default createUnplugin<Options>((options = {}) => {
 
     transform(code, id) {
       try {
-        const s = transform(code, id)
-        if (!s) return
-        return {
-          code: s.toString(),
-          get map() {
-            return s.generateMap()
-          },
+        const { ctx, getMagicString } = initContext(code, id)
+        transform(ctx)
+        finalizeContext(ctx)
+
+        const s = getMagicString()
+        if (s && s.original !== s.toString()) {
+          return {
+            code: s.toString(),
+            get map() {
+              return s.generateMap()
+            },
+          }
         }
       } catch (err: unknown) {
         this.error(`${name} ${err}`)

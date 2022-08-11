@@ -7,8 +7,8 @@ export default /*#__PURE__*/ DO_defineComponent({
   name: 'Foo',
 });
 </script>
-<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
-
+<script setup lang=\\"ts\\">
+import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
 
 const {modelValue,  title } = defineProps<{modelValue: string
 
@@ -31,6 +31,24 @@ export { mixed as default };
 "
 `;
 
+exports[`Rollup > fixtures > tests/fixtures/mixed-hoist-static.vue 1`] = `
+"var mixedHoistStatic = \`<script>
+const name = 'App'
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent({
+  name,
+});
+</script>
+<script setup>
+
+
+</script>
+\`;
+
+export { mixedHoistStatic as default };
+"
+`;
+
 exports[`Rollup > fixtures > tests/fixtures/mixed-vue2-model.vue 1`] = `
 "var mixedVue2Model = \`<script lang=\\"ts\\">
 import { defineComponent as DO_defineComponent } from 'vue';
@@ -42,8 +60,8 @@ export default /*#__PURE__*/ DO_defineComponent({
   },
 });
 </script>
-<script setup lang=\\"ts\\">import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'
-
+<script setup lang=\\"ts\\">
+import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
 
 const {modelValue, value,  title } = defineProps<{modelValue: string
 value: string

@@ -1,36 +1,30 @@
-import { MagicString, compileScript } from '@vue/compiler-sfc'
 import {
   DEFINE_OPTIONS,
-  appendToScript,
   checkInvalidScopeReference,
   parseSFC,
 } from '@vue-macros/common'
+import { walkAST } from 'ast-walker-scope'
 import { filterMarco, hasPropsOrEmits } from './utils'
+import type { TransformContext } from '@vue-macros/common'
 import type { Statement } from '@babel/types'
 
-export const transform = (
-  code: string,
-  id: string
-): MagicString | undefined => {
+export const transform = (ctx: TransformContext) => {
+  const { code } = ctx
   if (!code.includes(DEFINE_OPTIONS)) return
-  const sfc = parseSFC(code, id)
-  if (!sfc.scriptSetup) return
 
-  if (!sfc.scriptSetup.scriptSetupAst) {
-    sfc.scriptSetup = compileScript(sfc, {
-      id,
-    })
-  }
-  const { scriptSetup } = sfc
+  const { sfc, s, id } = ctx
+  const { scriptSetup, scriptCompiled } = sfc
+  if (!scriptSetup) return
+
   const startOffset = scriptSetup.loc.start.offset
 
-  const nodes = filterMarco(scriptSetup)
+  const nodes = filterMarco(scriptCompiled!.scriptSetupAst as Statement[])
   if (nodes.length === 0) return
   else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
 
   if (
-    (scriptSetup.scriptAst as Statement[])?.some(
+    (scriptCompiled!.scriptAst as Statement[])?.some(
       (node) => node.type === 'ExportDefaultDeclaration'
     )
   )
@@ -50,18 +44,43 @@ export const transform = (
     )
   }
 
-  checkInvalidScopeReference(arg, DEFINE_OPTIONS, scriptSetup)
+  const scriptBindings = []
+  {
+    // re-parse sfc
+    const sfc = parseSFC(s.toString(), id)
+    if (sfc.scriptCompiled?.scriptSetupAst)
+      scriptBindings.push(
+        ...getIdentifiers(sfc.scriptCompiled.scriptSetupAst as any)
+      )
+  }
+  checkInvalidScopeReference(arg, DEFINE_OPTIONS, scriptBindings)
 
   const argText = code.slice(startOffset + arg.start!, startOffset + arg.end!)
 
-  const text = `import { defineComponent as DO_defineComponent } from 'vue';
+  ctx.scriptCode.append += `import { defineComponent as DO_defineComponent } from 'vue';
 export default /*#__PURE__*/ DO_defineComponent(${argText});\n`
-
-  const s = new MagicString(code)
-  appendToScript(sfc, s, text)
 
   // removes defineOptions()
   s.remove(startOffset + node.start!, startOffset + node.end!)
+}
 
-  return s
+const getIdentifiers = (stmts: Statement[]) => {
+  let ids: string[] = []
+  walkAST(
+    {
+      type: 'Program',
+      body: stmts,
+      directives: [],
+      sourceType: 'module',
+      sourceFile: '',
+    },
+    {
+      leave(node) {
+        if (node.type !== 'Program') return
+        ids = Object.keys(this.scope)
+      },
+    }
+  )
+
+  return ids
 }

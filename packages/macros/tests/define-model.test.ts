@@ -1,31 +1,27 @@
-import { resolve } from 'node:path'
-import { readFile } from 'node:fs/promises'
+/// <reference types="vite/client" />
+
 import { describe, expect, test } from 'vitest'
-import glob from 'fast-glob'
+import { initContext } from '@vue-macros/common'
 import { transformDefineModel } from '../src/define-model'
 
 describe('define-model', async () => {
-  const root = resolve(__dirname, '..')
-  const files = await glob('tests/fixtures/define-model/*.{vue,js,ts}', {
-    cwd: root,
-    onlyFiles: true,
+  const files = import.meta.glob('./fixtures/define-model/*.{vue,js,ts}', {
+    eager: true,
+    as: 'raw',
   })
 
-  for (const file of files) {
-    test(file.replace(/\\/g, '/'), async () => {
-      const filepath = resolve(root, file)
-      const version = filepath.includes('vue2') ? 2 : 3
-      let result: any
-      try {
-        result = transformDefineModel(
-          await readFile(filepath, 'utf-8'),
-          filepath,
-          version
-        )?.toString()
-      } catch (err) {
-        result = err
+  for (const [id, code] of Object.entries(files)) {
+    test(id.replace(/\\/g, '/'), async () => {
+      const version = id.includes('vue2') ? 2 : 3
+      const exec = () => {
+        const { ctx } = initContext(code, id)
+        return transformDefineModel(ctx, version)?.toString()
       }
-      expect(result).toMatchSnapshot()
+      if (id.includes('error')) {
+        expect(exec).toThrowErrorMatchingSnapshot()
+      } else {
+        expect(exec()).toMatchSnapshot()
+      }
     })
   }
 })

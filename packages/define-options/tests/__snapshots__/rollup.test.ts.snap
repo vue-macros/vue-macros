@@ -168,9 +168,9 @@ export { elButton as default };
 "
 `;
 
-exports[`Rollup > fixtures > tests/fixtures/error1.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function.]`;
+exports[`Rollup > fixtures > tests/fixtures/error1.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables (name) because it will be hoisted outside of the setup() function.]`;
 
-exports[`Rollup > fixtures > tests/fixtures/error2.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function.]`;
+exports[`Rollup > fixtures > tests/fixtures/error2.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables (foo) because it will be hoisted outside of the setup() function.]`;
 
 exports[`Rollup > fixtures > tests/fixtures/error3.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: defineOptions cannot be used with default export within <script>.]`;
 

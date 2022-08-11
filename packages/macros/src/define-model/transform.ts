@@ -1,4 +1,3 @@
-import { MagicString, compileScript } from '@vue/compiler-sfc'
 import { extractIdentifiers, walkAST } from 'ast-walker-scope'
 import {
   DEFINE_EMITS,
@@ -7,8 +6,8 @@ import {
   DEFINE_PROPS,
   REPO_ISSUE_URL,
   isCallOf,
-  parseSFC,
 } from '@vue-macros/common'
+import type { TransformContext } from '@vue-macros/common'
 import type {
   Identifier,
   LVal,
@@ -23,11 +22,9 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export const transformDefineModel = (
-  code: string,
-  filename: string,
-  version: 2 | 3
-) => {
+export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
+  const { s, code } = ctx
+
   let hasDefineProps = false
   let hasDefineEmits = false
   let hasDefineModel = false
@@ -138,7 +135,7 @@ export const transformDefineModel = (
           }
         }
       } else {
-        modelIdentifier = scriptSetup.loc.source.slice(
+        modelIdentifier = scriptCompiled!.loc.source.slice(
           declId.start!,
           declId.end!
         )
@@ -217,7 +214,7 @@ export const transformDefineModel = (
           return isQualifiedType(node.declaration)
         }
       }
-      const body = sfc.scriptSetup!.scriptSetupAst!
+      const body = sfc!.scriptCompiled!.scriptSetupAst!
       for (const node of body) {
         const qualified = isQualifiedType(node)
         if (qualified) {
@@ -237,7 +234,7 @@ export const transformDefineModel = (
         (m.type === 'TSPropertySignature' || m.type === 'TSMethodSignature') &&
         m.key.type === 'Identifier'
       ) {
-        const value = scriptSetup.loc.source.slice(
+        const value = scriptCompiled!.loc.source.slice(
           m.typeAnnotation!.start!,
           m.typeAnnotation!.end!
         )
@@ -266,7 +263,7 @@ export const transformDefineModel = (
 
     const program: Program = {
       type: 'Program',
-      body: scriptSetup.scriptSetupAst as Statement[],
+      body: scriptCompiled!.scriptSetupAst as Statement[],
       directives: [],
       sourceType: 'module',
       sourceFile: '',
@@ -297,33 +294,26 @@ export const transformDefineModel = (
     if (hasTransfromed) {
       s.prependLeft(
         startOffset,
-        "import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper'\n"
+        "\nimport { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';"
       )
     }
   }
 
   if (!code.includes(DEFINE_MODEL)) return
 
-  const sfc = parseSFC(code, filename)
-  if (!sfc.scriptSetup) return
+  const { sfc } = ctx
+  const { scriptCompiled } = sfc
+  if (!scriptCompiled) return
 
-  if (!sfc.scriptSetup.scriptSetupAst) {
-    sfc.scriptSetup = compileScript(sfc, {
-      id: filename,
-    })
-  }
-  const { scriptSetup } = sfc
-  const startOffset = scriptSetup.loc.start.offset
-
-  const s = new MagicString(code)
+  const startOffset = scriptCompiled.loc.start.offset
 
   if (
     version === 2 &&
-    scriptSetup.scriptAst &&
-    scriptSetup.scriptAst.length > 0
+    scriptCompiled.scriptAst &&
+    scriptCompiled.scriptAst.length > 0
   ) {
     // process normal <script>
-    for (const node of scriptSetup.scriptAst as Statement[]) {
+    for (const node of scriptCompiled!.scriptAst as Statement[]) {
       if (node.type === 'ExportDefaultDeclaration') {
         const { declaration } = node
         if (declaration.type === 'ObjectExpression') {
@@ -344,7 +334,7 @@ export const transformDefineModel = (
   }
 
   // process <script setup>
-  for (const node of scriptSetup.scriptSetupAst as Statement[]) {
+  for (const node of scriptCompiled.scriptSetupAst as Statement[]) {
     if (node.type === 'ExpressionStatement') {
       processDefinePropsOrEmits(node.expression)
 
@@ -427,9 +417,9 @@ export const transformDefineModel = (
 
     s.appendLeft(
       startOffset,
-      `${text ? `${kind} ${text} = ` : ''}defineProps<{
+      `\n${text ? `${kind} ${text} = ` : ''}defineProps<{
   ${propsText}
-}>();\n`
+}>();`
     )
   }
   if (hasDefineEmits) {
@@ -438,9 +428,9 @@ export const transformDefineModel = (
     emitsIdentifier = `_${DEFINE_MODEL}_emit`
     s.appendLeft(
       startOffset,
-      `const ${emitsIdentifier} = defineEmits<{
+      `\nconst ${emitsIdentifier} = defineEmits<{
   ${emitsText}
-}>();\n`
+}>();`
     )
   }
 

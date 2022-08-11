@@ -1,9 +1,10 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { getPackageInfoSync } from 'local-pkg'
-import { transform } from 'unplugin-vue-define-options'
+import { transform as transformDefineOptions } from 'unplugin-vue-define-options'
+import { finalizeContext, initContext } from '@vue-macros/common'
 import { transformDefineModel } from './define-model'
-import type { MagicString } from 'vue/compiler-sfc'
+import { transformHoistStatic } from './hoist-static/transfrom'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -12,6 +13,7 @@ export interface Options {
   version?: 2 | 3
   defineOptions?: boolean
   defineModel?: boolean
+  hoistStatic?: boolean
 }
 
 export type OptionsResolved = Required<Options>
@@ -33,6 +35,7 @@ function resolveOption(options: Options): OptionsResolved {
     version,
     defineOptions: options.defineOptions ?? true,
     defineModel: options.defineModel ?? true,
+    hoistStatic: options.defineModel ?? true,
   }
 }
 
@@ -51,22 +54,26 @@ export default createUnplugin<Options>((userOptions = {}) => {
 
     transform(code, id) {
       try {
-        let s: MagicString | undefined
-        if (options.defineModel) {
-          s = transformDefineModel(code, id, options.version)
+        const { ctx, getMagicString } = initContext(code, id)
+        if (options.hoistStatic) {
+          transformHoistStatic(ctx)
         }
         if (options.defineOptions) {
-          const newString = transform(code, id)
-          if (newString) s = newString
+          transformDefineOptions(ctx)
         }
+        if (options.defineModel) {
+          transformDefineModel(ctx, options.version)
+        }
+        finalizeContext(ctx)
 
-        if (!s) return
-
-        return {
-          code: s.toString(),
-          get map() {
-            return s!.generateMap()
-          },
+        const s = getMagicString()
+        if (s && s.original !== s.toString()) {
+          return {
+            code: s.toString(),
+            get map() {
+              return s.generateMap()
+            },
+          }
         }
       } catch (err: unknown) {
         this.error(`${name} ${err}`)

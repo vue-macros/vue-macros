@@ -22,7 +22,7 @@ describe('Rollup', () => {
         const unpluginCode = await getCode(filepath, [
           VueMacros({ version }),
           ToString,
-        ]).catch((err) => err)
+        ])
         expect(unpluginCode).toMatchSnapshot()
       })
     }

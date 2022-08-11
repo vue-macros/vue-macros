@@ -1,5 +1,4 @@
 import { walkIdentifiers } from '@vue/compiler-sfc'
-import type { SFCScriptBlock } from '@vue/compiler-sfc'
 import type { CallExpression, Node } from '@babel/types'
 
 export function isCallOf(
@@ -19,17 +18,14 @@ export function isCallOf(
 export function checkInvalidScopeReference(
   node: Node | undefined,
   method: string,
-  scriptSetup: SFCScriptBlock
+  setupBindings: string[]
 ) {
   if (!node) return
   walkIdentifiers(node, (id) => {
-    if (
-      Object.keys(scriptSetup.bindings!).includes(id.name) &&
-      !Object.keys(scriptSetup.imports!).includes(id.name)
-    )
+    if (setupBindings.includes(id.name))
       throw new SyntaxError(
         `\`${method}()\` in <script setup> cannot reference locally ` +
-          `declared variables because it will be hoisted outside of the ` +
+          `declared variables (${id.name}) because it will be hoisted outside of the ` +
           `setup() function.`
       )
   })
