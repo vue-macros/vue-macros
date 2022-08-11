@@ -96,7 +96,8 @@ module.exports = {
 ### `defineOptions`
 
 Introduce a macro in `<script setup>`, `defineOptions`,
-to use Options API in `<script setup>`, specifically to be able to set `name`, `props`, `emits` and `render` in one function.
+to use Options API in `<script setup>`, specifically to be able to set `name`, `props`, `emits`
+and `render` in one function.
 
 > **Note**: if you only need `defineOptions`, [the standalone version](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options) is better for you.
 
@@ -121,10 +122,6 @@ const slots = useSlots()
 export default {
   name: 'Foo',
   inheritAttrs: false,
-  props: {
-    msg: { type: String, default: 'bar' },
-  },
-  emits: ['change', 'update'],
 }
 </script>
 
@@ -197,6 +194,60 @@ const emit = defineEmits<{
 
 console.log(modelValue)
 emit('update:modelValue', 'newValue')
+</script>
+```
+
+</details>
+
+### `hoistStatic`
+
+If you want to reference a constant declared in `<script setup>`, then this feature may help you.
+
+#### Basic Usage
+
+```vue
+<script setup lang="ts">
+const name = 'AppFoo'
+defineOptions({
+  name,
+})
+</script>
+```
+
+<details>
+<summary>Output</summary>
+
+```vue
+<script lang="ts">
+const name = 'AppFoo'
+export default {
+  name,
+}
+</script>
+```
+
+</details>
+
+#### Magic Comments
+
+```vue
+<script setup lang="ts">
+const name = /* hoist-static */ fn() // a value that's even not a constant
+defineOptions({
+  name,
+})
+</script>
+```
+
+<details>
+<summary>Output</summary>
+
+```vue
+<script lang="ts">
+const name = fn()
+export default {
+  name,
+}
 </script>
 ```
 

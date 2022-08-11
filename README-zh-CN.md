@@ -121,10 +121,6 @@ const slots = useSlots()
 export default {
   name: 'Foo',
   inheritAttrs: false,
-  props: {
-    msg: { type: String, default: 'bar' },
-  },
-  emits: ['change', 'update'],
 }
 </script>
 
@@ -197,6 +193,60 @@ const emit = defineEmits<{
 
 console.log(modelValue)
 emit('update:modelValue', 'newValue')
+</script>
+```
+
+</details>
+
+### `hoistStatic`
+
+如果你想中引用一个在 `<script setup>` 声明的常量，这个功能可能会帮到你。
+
+#### 基础使用
+
+```vue
+<script setup lang="ts">
+const name = 'AppFoo'
+defineOptions({
+  name,
+})
+</script>
+```
+
+<details>
+<summary>输出代码</summary>
+
+```vue
+<script lang="ts">
+const name = 'AppFoo'
+export default {
+  name,
+}
+</script>
+```
+
+</details>
+
+#### 魔法注释
+
+```vue
+<script setup lang="ts">
+const name = /* hoist-static */ fn() // 一个甚至不是常量的值
+defineOptions({
+  name,
+})
+</script>
+```
+
+<details>
+<summary>输出代码</summary>
+
+```vue
+<script lang="ts">
+const name = fn()
+export default {
+  name,
+}
 </script>
 ```
 
