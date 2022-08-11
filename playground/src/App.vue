@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Counter from './Counter.vue'
 
+const name = 'AppDemo'
 defineOptions({
-  name: 'AppDemo',
+  name,
 })
 
 const count = $ref(0)
