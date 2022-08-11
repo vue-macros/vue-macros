@@ -1,4 +1,9 @@
 <script setup lang="ts">
+const name = /* hoist-static */ `Comp${Date.now()}`
+defineOptions({
+  name,
+})
+
 let { modelValue } = defineModel<{
   modelValue: number
 }>()

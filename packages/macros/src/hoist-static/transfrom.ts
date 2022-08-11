@@ -44,6 +44,15 @@ export const transformHoistStatic = (ctx: TransformContext) => {
 }
 
 function isLiteral(node: Node): boolean {
+  // magic comment
+  if (
+    node.leadingComments?.some(
+      (comment) => comment.value.trim() === 'hoist-static'
+    )
+  ) {
+    return true
+  }
+
   switch (node.type) {
     case 'UnaryExpression': // !true
       return isLiteral(node.argument)
@@ -62,12 +71,10 @@ function isLiteral(node: Node): boolean {
     case 'SequenceExpression': // (1, 2)
     case 'TemplateLiteral': // `123`
       return node.expressions.every((expr) => isLiteral(expr))
-    default:
-      if (isLiteralType(node)) {
-        return true
-      }
-      return false
   }
+
+  if (isLiteralType(node)) return true
+  return false
 }
 
 function isLiteralType(node: Node) {
