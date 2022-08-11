@@ -2,7 +2,11 @@ import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { getPackageInfoSync } from 'local-pkg'
 import { transform as transformDefineOptions } from 'unplugin-vue-define-options'
-import { finalizeContext, initContext } from '@vue-macros/common'
+import {
+  finalizeContext,
+  getTransformResult,
+  initContext,
+} from '@vue-macros/common'
 import { transformDefineModel } from './define-model'
 import { transformHoistStatic } from './hoist-static/transfrom'
 import type { FilterPattern } from '@rollup/pluginutils'
@@ -66,15 +70,7 @@ export default createUnplugin<Options>((userOptions = {}) => {
         }
         finalizeContext(ctx)
 
-        const s = getMagicString()
-        if (s && s.original !== s.toString()) {
-          return {
-            code: s.toString(),
-            get map() {
-              return s.generateMap()
-            },
-          }
-        }
+        return getTransformResult(getMagicString(), id)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }

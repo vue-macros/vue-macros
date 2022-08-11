@@ -1,5 +1,5 @@
 export * from './ast'
 export * from './constants'
 export * from './context'
-export * from './types'
+export * from './unplugin'
 export * from './vue'
