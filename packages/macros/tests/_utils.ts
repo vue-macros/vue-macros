@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/prefer-string-replace-all */
-
 import { rollup } from 'rollup'
 import type { Plugin } from 'rollup'
 
