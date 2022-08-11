@@ -101,6 +101,9 @@ and `render` in one function.
 
 > **Note**: if you only need `defineOptions`, [the standalone version](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options) is better for you.
 
+If you support this feature, you can go to [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430)
+and hit like 👍 or comment. Thanks!
+
 #### Basic Usage
 
 ```vue
@@ -202,6 +205,9 @@ emit('update:modelValue', 'newValue')
 ### `hoistStatic`
 
 If you want to reference a constant declared in `<script setup>`, then this feature may help you.
+
+If you support this feature, please go to [Vue PR](https://github.com/vuejs/core/pull/5752)
+and hit like 👍. Thanks!
 
 #### Basic Usage
 
