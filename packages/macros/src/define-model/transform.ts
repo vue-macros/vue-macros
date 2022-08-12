@@ -437,6 +437,4 @@ export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
   if (hasDefineModel) {
     processAssignModelVariable()
   }
-
-  return s
 }

@@ -1,0 +1,25 @@
+// Vitest Snapshot v1
+
+exports[`define-model > ./fixtures/hoist-static/basic.vue 1`] = `
+"<script lang=\\"ts\\">
+const name = 'Foo'
+</script>
+<script setup lang=\\"ts\\">
+
+</script>
+
+<template>
+  <div />
+</template>
+"
+`;
+
+exports[`define-model > ./fixtures/hoist-static/magic-comment.vue 1`] = `
+"<script lang=\\"ts\\">
+const name = /* hoist-static */ fn()
+</script>
+<script setup lang=\\"ts\\">
+
+</script>
+"
+`;

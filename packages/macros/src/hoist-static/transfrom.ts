@@ -43,7 +43,7 @@ export const transformHoistStatic = (ctx: TransformContext) => {
   }
 }
 
-function isLiteral(node: Node): boolean {
+const isLiteral = (node: Node): boolean => {
   // magic comment
   if (
     node.leadingComments?.some(
@@ -77,6 +77,4 @@ function isLiteral(node: Node): boolean {
   return false
 }
 
-function isLiteralType(node: Node) {
-  return node.type.endsWith('Literal')
-}
+const isLiteralType = (node: Node) => node.type.endsWith('Literal')
