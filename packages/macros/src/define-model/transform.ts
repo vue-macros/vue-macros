@@ -135,7 +135,7 @@ export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
           }
         }
       } else {
-        modelIdentifier = scriptCompiled!.loc.source.slice(
+        modelIdentifier = scriptCompiled.loc.source.slice(
           declId.start!,
           declId.end!
         )
@@ -214,7 +214,7 @@ export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
           return isQualifiedType(node.declaration)
         }
       }
-      const body = sfc!.scriptCompiled!.scriptSetupAst!
+      const body = sfc!.scriptCompiled.scriptSetupAst!
       for (const node of body) {
         const qualified = isQualifiedType(node)
         if (qualified) {
@@ -234,7 +234,7 @@ export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
         (m.type === 'TSPropertySignature' || m.type === 'TSMethodSignature') &&
         m.key.type === 'Identifier'
       ) {
-        const value = scriptCompiled!.loc.source.slice(
+        const value = scriptCompiled.loc.source.slice(
           m.typeAnnotation!.start!,
           m.typeAnnotation!.end!
         )
@@ -263,7 +263,7 @@ export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
 
     const program: Program = {
       type: 'Program',
-      body: scriptCompiled!.scriptSetupAst as Statement[],
+      body: scriptCompiled.scriptSetupAst as Statement[],
       directives: [],
       sourceType: 'module',
       sourceFile: '',
@@ -313,7 +313,7 @@ export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
     scriptCompiled.scriptAst.length > 0
   ) {
     // process normal <script>
-    for (const node of scriptCompiled!.scriptAst as Statement[]) {
+    for (const node of scriptCompiled.scriptAst as Statement[]) {
       if (node.type === 'ExportDefaultDeclaration') {
         const { declaration } = node
         if (declaration.type === 'ObjectExpression') {

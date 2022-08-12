@@ -18,13 +18,13 @@ export const transform = (ctx: TransformContext) => {
 
   const startOffset = scriptSetup.loc.start.offset
 
-  const nodes = filterMarco(scriptCompiled!.scriptSetupAst as Statement[])
+  const nodes = filterMarco(scriptCompiled.scriptSetupAst as Statement[])
   if (nodes.length === 0) return
   else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
 
   if (
-    (scriptCompiled!.scriptAst as Statement[])?.some(
+    (scriptCompiled.scriptAst as Statement[])?.some(
       (node) => node.type === 'ExportDefaultDeclaration'
     )
   )
@@ -48,7 +48,7 @@ export const transform = (ctx: TransformContext) => {
   {
     // re-parse sfc
     const sfc = parseSFC(s.toString(), id)
-    if (sfc.scriptCompiled?.scriptSetupAst)
+    if (sfc.scriptCompiled.scriptSetupAst)
       scriptBindings.push(
         ...getIdentifiers(sfc.scriptCompiled.scriptSetupAst as any)
       )
@@ -75,6 +75,11 @@ const getIdentifiers = (stmts: Statement[]) => {
       sourceFile: '',
     },
     {
+      enter(node) {
+        if (node.type === 'BlockStatement') {
+          this.skip()
+        }
+      },
       leave(node) {
         if (node.type !== 'Program') return
         ids = Object.keys(this.scope)

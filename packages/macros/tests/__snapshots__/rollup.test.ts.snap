@@ -34,6 +34,7 @@ export { mixed as default };
 exports[`Rollup > fixtures > tests/fixtures/mixed-hoist-static.vue 1`] = `
 "var mixedHoistStatic = \`<script>
 const name = 'App'
+const propName = 'title'
 import { defineComponent as DO_defineComponent } from 'vue';
 export default /*#__PURE__*/ DO_defineComponent({
   name,
@@ -42,6 +43,9 @@ export default /*#__PURE__*/ DO_defineComponent({
 <script setup>
 
 
+
+
+defineProps([propName])
 </script>
 \`;
 

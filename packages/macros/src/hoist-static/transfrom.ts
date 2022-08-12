@@ -1,18 +1,43 @@
+import { babelParse } from 'vue/compiler-sfc'
+import type { ParserPlugin } from '@babel/parser'
 import type { TransformContext } from '@vue-macros/common'
-import type { Node, Statement } from '@babel/types'
+import type { Node } from '@babel/types'
 
 export const transformHoistStatic = (ctx: TransformContext) => {
   function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
     const text = s.slice(startOffset + decl.start!, startOffset + decl.end!)
-    s.remove(startOffset + decl.start!, startOffset + decl.end!)
     ctx.scriptCode.prepend += `\n${prefix}${text}`
+
+    removeScriptSetup(decl.start!, decl.end!)
+  }
+
+  function removeScriptSetup(start: number, end: number) {
+    s.remove(startOffset + start, startOffset + end)
+    const content = ctx.sfc.scriptSetup!.content
+    ctx.sfc.scriptSetup!.content = `${content.slice(0, start)}${' '.repeat(
+      end - start
+    )}${content.slice(end)}`
   }
 
   const { sfc, s } = ctx
   if (!sfc.scriptSetup) return
   const startOffset = sfc.scriptSetup.loc.start.offset
 
-  for (const stmt of sfc.scriptCompiled!.scriptSetupAst as Statement[]) {
+  const lang = sfc.scriptSetup.attrs.lang
+
+  const plugins: ParserPlugin[] = []
+  if (lang === 'ts' || lang === 'tsx') {
+    plugins.push('typescript')
+  }
+  if (lang === 'jsx' || lang === 'tsx') {
+    plugins.push('jsx')
+  }
+  const { program } = babelParse(sfc.scriptSetup.loc.source, {
+    sourceType: 'module',
+    plugins,
+  })
+
+  for (const stmt of program.body) {
     if (stmt.type === 'VariableDeclaration' && stmt.kind === 'const') {
       const decls = stmt.declarations
       let count = 0
@@ -31,7 +56,7 @@ export const transformHoistStatic = (ctx: TransformContext) => {
         }
       }
       if (count === decls.length) {
-        s.remove(startOffset + stmt.start!, startOffset + stmt.end!)
+        removeScriptSetup(stmt.start!, stmt.end!)
       }
     } else if (stmt.type === 'TSEnumDeclaration') {
       const isAllConstant = stmt.members.every(

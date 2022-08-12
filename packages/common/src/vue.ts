@@ -1,5 +1,5 @@
 import { compileScript, parse } from '@vue/compiler-sfc'
-import type { TransformContext } from './types'
+import type { TransformContext } from './context'
 import type { SFCDescriptor, SFCScriptBlock } from '@vue/compiler-sfc'
 
 export type _SFCScriptBlock = Omit<
@@ -10,45 +10,53 @@ export type _SFCScriptBlock = Omit<
 export type SFCCompiled = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   script?: _SFCScriptBlock | null
   scriptSetup?: _SFCScriptBlock | null
-  scriptCompiled: SFCScriptBlock | undefined
+  scriptCompiled: SFCScriptBlock
 }
 
 export const parseSFC = (code: string, id: string): SFCCompiled => {
   const { descriptor } = parse(code, {
     filename: id,
   })
-  let compiledScript: SFCScriptBlock | undefined
-  if (descriptor.script || descriptor.scriptSetup) {
-    compiledScript = compileScript(descriptor, {
-      id,
-    })
-  }
+
+  let scriptCompiled: SFCScriptBlock | undefined
   return {
     ...descriptor,
-    scriptCompiled: compiledScript,
+    get scriptCompiled() {
+      if (scriptCompiled) return scriptCompiled
+      return (scriptCompiled = compileScript(descriptor, {
+        id,
+      }))
+    },
   }
 }
 
-export const addToScript = ({
-  sfc: { script, scriptCompiled },
-  s,
-  scriptCode,
-}: TransformContext) => {
+export const addToScript = (ctx: TransformContext) => {
+  const { scriptCode } = ctx
   if (scriptCode.prepend.length + scriptCode.append.length === 0) {
     return
   }
 
+  const { sfc, s } = ctx
+  const { script, scriptSetup } = sfc
   if (script) {
-    if (scriptCode.prepend)
+    if (scriptCode.prepend) {
       s.appendRight(script.loc.start.offset, scriptCode.prepend)
-    if (scriptCode.append)
+      script.content = scriptCode.prepend + script.content
+    }
+    if (scriptCode.append) {
       s.appendRight(script.loc.end.offset, scriptCode.append)
+      script.content = script.content + scriptCode.append
+    }
   } else {
-    const lang = scriptCompiled?.attrs.lang
+    const lang = scriptSetup?.attrs.lang
     const attrs = lang ? ` lang="${lang}"` : ''
-    s.prependLeft(
-      0,
-      `<script${attrs}>${scriptCode.prepend}\n${scriptCode.append}</script>\n`
-    )
+    const content = `${scriptCode.prepend}\n${scriptCode.append}`
+    s.prependLeft(0, `<script${attrs}>${content}</script>\n`)
+    sfc.script = {
+      type: 'script',
+      content,
+      attrs: scriptSetup?.attrs || {},
+      loc: undefined as any,
+    }
   }
 }

@@ -23,3 +23,15 @@ const name = /* hoist-static */ fn()
 </script>
 "
 `;
+
+exports[`define-model > ./fixtures/hoist-static/props.vue 1`] = `
+"<script lang=\\"ts\\">
+const name = 'title'
+</script>
+<script setup lang=\\"ts\\">
+
+
+defineProps([name])
+</script>
+"
+`;
