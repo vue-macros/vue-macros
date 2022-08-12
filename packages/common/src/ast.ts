@@ -1,8 +1,8 @@
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
 import type { ParserPlugin } from '@babel/parser'
-import type { CallExpression, Node } from '@babel/types'
+import type { CallExpression, Node, Program } from '@babel/types'
 
-export function babelParse(code: string, lang?: string) {
+export function babelParse(code: string, lang?: string): Program {
   const plugins: ParserPlugin[] = []
   if (lang === 'ts' || lang === 'tsx') plugins.push('typescript')
   if (lang === 'jsx' || lang === 'tsx') plugins.push('jsx')
