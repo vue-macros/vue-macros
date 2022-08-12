@@ -87,8 +87,7 @@ const isLiteral = (node: Node): boolean => {
       return node.properties.every(
         (prop) =>
           prop.type === 'ObjectProperty' &&
-          (isLiteral(prop.key) ||
-            (!prop.computed && prop.key.type === 'Identifier')) &&
+          (isLiteral(prop.key) || !prop.computed) &&
           isLiteral(prop.value)
       )
 
