@@ -34,7 +34,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 
   return {
-    include: options.include || [/\.vue$/, /\.vue\?vue/],
+    include: options.include || [/\.vue$/],
     exclude: options.exclude || undefined,
     version,
     defineOptions: options.defineOptions ?? true,
