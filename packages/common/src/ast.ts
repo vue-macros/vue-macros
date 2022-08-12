@@ -1,5 +1,17 @@
-import { walkIdentifiers } from '@vue/compiler-sfc'
+import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
+import type { ParserPlugin } from '@babel/parser'
 import type { CallExpression, Node } from '@babel/types'
+
+export function babelParse(code: string, lang?: string) {
+  const plugins: ParserPlugin[] = []
+  if (lang === 'ts' || lang === 'tsx') plugins.push('typescript')
+  if (lang === 'jsx' || lang === 'tsx') plugins.push('jsx')
+  const { program } = _babelParse(code, {
+    sourceType: 'module',
+    plugins,
+  })
+  return program
+}
 
 export function isCallOf(
   node: Node | null | undefined,

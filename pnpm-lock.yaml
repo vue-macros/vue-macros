@@ -30,11 +30,14 @@ importers:
 
   packages/common:
     specifiers:
+      '@babel/parser': ^7.18.11
       '@babel/types': ^7.18.10
       '@vue/compiler-sfc': ^3.2.37
     dependencies:
       '@babel/types': 7.18.10
       '@vue/compiler-sfc': 3.2.37
+    devDependencies:
+      '@babel/parser': 7.18.11
 
   packages/define-options:
     specifiers:
@@ -69,7 +72,6 @@ importers:
 
   packages/macros:
     specifiers:
-      '@babel/parser': ^7.18.11
       '@babel/types': ^7.18.10
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:*
@@ -95,7 +97,6 @@ importers:
       unplugin: 0.9.0_rollup@2.77.3+vite@3.0.5
       unplugin-vue-define-options: link:../define-options
     devDependencies:
-      '@babel/parser': 7.18.11
       '@babel/types': 7.18.10
       '@vue-macros/common': link:../common
       eslint: 8.21.0

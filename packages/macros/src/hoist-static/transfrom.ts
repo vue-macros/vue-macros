@@ -1,41 +1,29 @@
-import { babelParse } from 'vue/compiler-sfc'
-import type { ParserPlugin } from '@babel/parser'
+import { babelParse } from '@vue-macros/common'
 import type { TransformContext } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
 export const transformHoistStatic = (ctx: TransformContext) => {
   function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
     const text = s.slice(startOffset + decl.start!, startOffset + decl.end!)
-    ctx.scriptCode.prepend += `\n${prefix}${text}`
+    scriptCode.prepend += `\n${prefix}${text}`
 
     removeScriptSetup(decl.start!, decl.end!)
   }
 
   function removeScriptSetup(start: number, end: number) {
     s.remove(startOffset + start, startOffset + end)
-    const content = ctx.sfc.scriptSetup!.content
-    ctx.sfc.scriptSetup!.content = `${content.slice(0, start)}${' '.repeat(
+    const { content } = scriptSetup!
+    scriptSetup!.content = `${content.slice(0, start)}${' '.repeat(
       end - start
     )}${content.slice(end)}`
   }
 
-  const { sfc, s } = ctx
-  if (!sfc.scriptSetup) return
-  const startOffset = sfc.scriptSetup.loc.start.offset
+  const { sfc, s, scriptCode } = ctx
+  const { scriptSetup, lang } = sfc
+  if (!scriptSetup) return
 
-  const lang = sfc.scriptSetup.attrs.lang
-
-  const plugins: ParserPlugin[] = []
-  if (lang === 'ts' || lang === 'tsx') {
-    plugins.push('typescript')
-  }
-  if (lang === 'jsx' || lang === 'tsx') {
-    plugins.push('jsx')
-  }
-  const { program } = babelParse(sfc.scriptSetup.loc.source, {
-    sourceType: 'module',
-    plugins,
-  })
+  const startOffset = scriptSetup.loc.start.offset
+  const program = babelParse(scriptSetup.loc.source, lang)
 
   for (const stmt of program.body) {
     if (stmt.type === 'VariableDeclaration' && stmt.kind === 'const') {
@@ -74,15 +62,25 @@ const isLiteral = (node: Node): boolean => {
     node.leadingComments?.some(
       (comment) => comment.value.trim() === 'hoist-static'
     )
-  ) {
+  )
     return true
-  }
 
   switch (node.type) {
     case 'UnaryExpression': // !true
       return isLiteral(node.argument)
+    case 'LogicalExpression': // 1 > 2
     case 'BinaryExpression': // 1 + 2
       return isLiteral(node.left) && isLiteral(node.right)
+
+    case 'ConditionalExpression': // 1 ? 2 : 3
+      return isLiteral(node.test)
+        ? isLiteral(node.consequent)
+        : isLiteral(node.alternate)
+
+    case 'SequenceExpression': // (1, 2)
+    case 'TemplateLiteral': // `123`
+      return node.expressions.every((expr) => isLiteral(expr))
+
     case 'ArrayExpression': // [1, 2]
       return node.elements.every((element) => element && isLiteral(element))
     case 'ObjectExpression': // { foo: 1 }
@@ -93,9 +91,12 @@ const isLiteral = (node: Node): boolean => {
             (!prop.computed && prop.key.type === 'Identifier')) &&
           isLiteral(prop.value)
       )
-    case 'SequenceExpression': // (1, 2)
-    case 'TemplateLiteral': // `123`
-      return node.expressions.every((expr) => isLiteral(expr))
+
+    case 'ParenthesizedExpression': // (1)
+    case 'TSNonNullExpression': // 1!
+    case 'TSAsExpression': // 1 as number
+    case 'TSTypeAssertion': // (<number>2)
+      return isLiteral(node.expression)
   }
 
   if (isLiteralType(node)) return true
