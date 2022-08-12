@@ -214,7 +214,7 @@ export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
           return isQualifiedType(node.declaration)
         }
       }
-      const body = sfc!.scriptCompiled.scriptSetupAst!
+      const body = sfc.scriptCompiled.scriptSetupAst!
       for (const node of body) {
         const qualified = isQualifiedType(node)
         if (qualified) {
