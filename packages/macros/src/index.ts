@@ -39,7 +39,7 @@ function resolveOption(options: Options): OptionsResolved {
     version,
     defineOptions: options.defineOptions ?? true,
     defineModel: options.defineModel ?? true,
-    hoistStatic: options.defineModel ?? true,
+    hoistStatic: options.hoistStatic ?? true,
   }
 }
 
