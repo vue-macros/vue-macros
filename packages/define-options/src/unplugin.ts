@@ -6,12 +6,7 @@ import {
   initContext,
 } from '@vue-macros/common'
 import { transform } from './core/transform'
-import type { defineComponent } from 'vue'
 import type { FilterPattern } from '@rollup/pluginutils'
-
-declare global {
-  const defineOptions: typeof defineComponent
-}
 
 export interface Options {
   include?: FilterPattern
