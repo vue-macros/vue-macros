@@ -72,13 +72,9 @@
     "build": "tsup && tsx ../../scripts/postbuild.mts",
     "dev": "tsup --watch"
   },
-  "peerDependencies": {
-    "vue": "^3.2.0"
-  },
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",
     "@vue-macros/common": "workspace:*",
-    "@vue/compiler-sfc": "^3.2.37",
     "ast-walker-scope": "^0.2.1",
     "local-pkg": "^0.4.2",
     "unplugin": "^0.9.0",

@@ -35,20 +35,23 @@ importers:
       '@babel/parser': ^7.18.11
       '@babel/types': ^7.18.10
       '@vue/compiler-sfc': ^3.2.37
+      magic-string: ^0.26.2
       tsup: ^6.2.1
+      vue: ^3.2.37
     dependencies:
       '@babel/types': 7.18.10
       '@vue/compiler-sfc': 3.2.37
+      magic-string: 0.26.2
     devDependencies:
       '@babel/parser': 7.18.11
       tsup: 6.2.1
+      vue: 3.2.37
 
   packages/define-options:
     specifiers:
       '@babel/types': ^7.18.10
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:*
-      '@vue/compiler-sfc': ^3.2.37
       ast-walker-scope: ^0.2.1
       fast-glob: ^3.2.11
       rollup: ^2.77.3
@@ -61,7 +64,6 @@ importers:
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
-      '@vue/compiler-sfc': 3.2.37
       ast-walker-scope: 0.2.1
       unplugin: 0.9.0_rollup@2.77.3+vite@3.0.5
     devDependencies:
@@ -79,7 +81,6 @@ importers:
       '@babel/types': ^7.18.10
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:*
-      '@vue/compiler-sfc': ^3.2.37
       ast-walker-scope: ^0.2.1
       eslint: ^8.21.0
       eslint-define-config: ^1.6.0
@@ -96,7 +97,6 @@ importers:
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
-      '@vue/compiler-sfc': 3.2.37
       ast-walker-scope: 0.2.1
       local-pkg: 0.4.2
       unplugin: 0.9.0_rollup@2.77.3+vite@3.0.5
@@ -2230,6 +2230,13 @@ packages:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
     dependencies:
       sourcemap-codec: 1.4.8
+
+  /magic-string/0.26.2:
+    resolution: {integrity: sha512-NzzlXpclt5zAbmo6h6jNc8zl2gNRGHvmsZW4IvZhTC4W7k4OlLP+S5YLussa/r3ixNT66KOQfNORlXHSOy/X4A==}
+    engines: {node: '>=12'}
+    dependencies:
+      sourcemap-codec: 1.4.8
+    dev: false
 
   /mdast-util-from-markdown/0.8.5:
     resolution: {integrity: sha512-2hkTXtYYnr+NubD/g6KGBS/0mFmBcifAsI0yIWRiRo0PjVs6SSOSOdtzbp6kSGnShDN6G5aWZpKQ2lWRy27mWQ==}

@@ -1,10 +1,10 @@
-import type { MagicString } from '@vue/compiler-sfc'
+import type MagicString from 'magic-string'
 
 export const getTransformResult = (
   s: MagicString | undefined,
   id: string
 ): { code: string; map: any } | undefined => {
-  if (s && s.original !== s.toString()) {
+  if (s?.hasChanged()) {
     return {
       code: s.toString(),
       get map() {

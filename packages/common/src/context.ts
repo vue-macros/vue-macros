@@ -1,4 +1,4 @@
-import { MagicString } from 'vue/compiler-sfc'
+import MagicString from 'magic-string'
 import { addToScript, parseSFC } from './vue'
 import type { SFCCompiled } from './vue'
 
