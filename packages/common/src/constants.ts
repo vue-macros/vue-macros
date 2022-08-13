@@ -5,3 +5,5 @@ export const DEFINE_MODEL = 'defineModel'
 
 export const REPO_ISSUE_URL =
   'https://github.com/sxzz/unplugin-vue-macros/issues'
+
+export const MAGIC_COMMENT_STATIC = 'hoist-static'

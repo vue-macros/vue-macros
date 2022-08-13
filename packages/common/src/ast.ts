@@ -1,6 +1,7 @@
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
+import { MAGIC_COMMENT_STATIC } from './constants'
+import type { CallExpression, Literal, Node, Program } from '@babel/types'
 import type { ParserPlugin } from '@babel/parser'
-import type { CallExpression, Node, Program } from '@babel/types'
 
 export function babelParse(code: string, lang?: string): Program {
   const plugins: ParserPlugin[] = []
@@ -41,4 +42,56 @@ export function checkInvalidScopeReference(
           `setup() function.`
       )
   })
+}
+
+export function isStaticExpression(node: Node): boolean {
+  // magic comment
+  if (
+    node.leadingComments?.some(
+      (comment) => comment.value.trim() === MAGIC_COMMENT_STATIC
+    )
+  )
+    return true
+
+  switch (node.type) {
+    case 'UnaryExpression': // !true
+      return isStaticExpression(node.argument)
+    case 'LogicalExpression': // 1 > 2
+    case 'BinaryExpression': // 1 + 2
+      return isStaticExpression(node.left) && isStaticExpression(node.right)
+
+    case 'ConditionalExpression': // 1 ? 2 : 3
+      return isStaticExpression(node.test)
+        ? isStaticExpression(node.consequent)
+        : isStaticExpression(node.alternate)
+
+    case 'SequenceExpression': // (1, 2)
+    case 'TemplateLiteral': // `123`
+      return node.expressions.every((expr) => isStaticExpression(expr))
+
+    case 'ArrayExpression': // [1, 2]
+      return node.elements.every(
+        (element) => element && isStaticExpression(element)
+      )
+    case 'ObjectExpression': // { foo: 1 }
+      return node.properties.every(
+        (prop) =>
+          prop.type === 'ObjectProperty' &&
+          (isStaticExpression(prop.key) || !prop.computed) &&
+          isStaticExpression(prop.value)
+      )
+
+    case 'ParenthesizedExpression': // (1)
+    case 'TSNonNullExpression': // 1!
+    case 'TSAsExpression': // 1 as number
+    case 'TSTypeAssertion': // (<number>2)
+      return isStaticExpression(node.expression)
+  }
+
+  if (isLiteralType(node)) return true
+  return false
+}
+
+export function isLiteralType(node: Node): node is Literal {
+  return node.type.endsWith('Literal')
 }

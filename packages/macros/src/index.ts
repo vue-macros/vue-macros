@@ -8,7 +8,7 @@ import {
   initContext,
 } from '@vue-macros/common'
 import { transformDefineModel } from './define-model'
-import { transformHoistStatic } from './hoist-static/transfrom'
+import { transformHoistStatic } from './hoist-static'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -34,12 +34,13 @@ function resolveOption(options: Options): OptionsResolved {
   }
 
   return {
-    include: options.include || [/\.vue$/],
-    exclude: options.exclude || undefined,
+    include: [/\.vue$/],
+    exclude: undefined,
     version,
-    defineOptions: options.defineOptions ?? true,
-    defineModel: options.defineModel ?? true,
-    hoistStatic: options.hoistStatic ?? true,
+    defineOptions: true,
+    defineModel: true,
+    hoistStatic: true,
+    ...options,
   }
 }
 
@@ -59,17 +60,11 @@ export default createUnplugin<Options>((userOptions = {}) => {
     transform(code, id) {
       try {
         const { ctx, getMagicString } = initContext(code, id)
-        if (options.hoistStatic) {
-          transformHoistStatic(ctx)
-        }
-        if (options.defineOptions) {
-          transformDefineOptions(ctx)
-        }
-        if (options.defineModel) {
-          transformDefineModel(ctx, options.version)
-        }
-        finalizeContext(ctx)
+        if (options.hoistStatic) transformHoistStatic(ctx)
+        if (options.defineOptions) transformDefineOptions(ctx)
+        if (options.defineModel) transformDefineModel(ctx, options.version)
 
+        finalizeContext(ctx)
         return getTransformResult(getMagicString(), id)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)

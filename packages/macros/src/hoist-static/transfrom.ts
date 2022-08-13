@@ -1,4 +1,4 @@
-import { babelParse } from '@vue-macros/common'
+import { babelParse, isStaticExpression } from '@vue-macros/common'
 import type { TransformContext } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
@@ -30,7 +30,7 @@ export const transformHoistStatic = (ctx: TransformContext) => {
       const decls = stmt.declarations
       let count = 0
       for (const [i, decl] of decls.entries()) {
-        if (!decl.init || !isLiteral(decl.init)) continue
+        if (!decl.init || !isStaticExpression(decl.init)) continue
 
         count++
         moveToScript(decl, 'const ')
@@ -48,58 +48,11 @@ export const transformHoistStatic = (ctx: TransformContext) => {
       }
     } else if (stmt.type === 'TSEnumDeclaration') {
       const isAllConstant = stmt.members.every(
-        (member) => !member.initializer || isLiteral(member.initializer)
+        (member) =>
+          !member.initializer || isStaticExpression(member.initializer)
       )
       if (!isAllConstant) continue
       moveToScript(stmt)
     }
   }
 }
-
-const isLiteral = (node: Node): boolean => {
-  // magic comment
-  if (
-    node.leadingComments?.some(
-      (comment) => comment.value.trim() === 'hoist-static'
-    )
-  )
-    return true
-
-  switch (node.type) {
-    case 'UnaryExpression': // !true
-      return isLiteral(node.argument)
-    case 'LogicalExpression': // 1 > 2
-    case 'BinaryExpression': // 1 + 2
-      return isLiteral(node.left) && isLiteral(node.right)
-
-    case 'ConditionalExpression': // 1 ? 2 : 3
-      return isLiteral(node.test)
-        ? isLiteral(node.consequent)
-        : isLiteral(node.alternate)
-
-    case 'SequenceExpression': // (1, 2)
-    case 'TemplateLiteral': // `123`
-      return node.expressions.every((expr) => isLiteral(expr))
-
-    case 'ArrayExpression': // [1, 2]
-      return node.elements.every((element) => element && isLiteral(element))
-    case 'ObjectExpression': // { foo: 1 }
-      return node.properties.every(
-        (prop) =>
-          prop.type === 'ObjectProperty' &&
-          (isLiteral(prop.key) || !prop.computed) &&
-          isLiteral(prop.value)
-      )
-
-    case 'ParenthesizedExpression': // (1)
-    case 'TSNonNullExpression': // 1!
-    case 'TSAsExpression': // 1 as number
-    case 'TSTypeAssertion': // (<number>2)
-      return isLiteral(node.expression)
-  }
-
-  if (isLiteralType(node)) return true
-  return false
-}
-
-const isLiteralType = (node: Node) => node.type.endsWith('Literal')

@@ -77,6 +77,7 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",
+    "@vue-macros/common": "workspace:*",
     "@vue/compiler-sfc": "^3.2.37",
     "ast-walker-scope": "^0.2.1",
     "local-pkg": "^0.4.2",
@@ -85,7 +86,6 @@
   },
   "devDependencies": {
     "@babel/types": "^7.18.10",
-    "@vue-macros/common": "workspace:*",
     "eslint": "^8.21.0",
     "eslint-define-config": "^1.6.0",
     "fast-glob": "^3.2.11",
