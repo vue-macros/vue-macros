@@ -6,10 +6,13 @@
   "description": "Monorepo for Vue macros.",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
-    "build": "pnpm run -C ./packages/define-options build && pnpm run -C ./packages/macros build",
+    "build": "run-s build:common build:define-options build:macros",
+    "build:common": "pnpm run -C ./packages/common build",
+    "build:define-options": "pnpm run -C ./packages/define-options build",
+    "build:macros": "pnpm run -C ./packages/macros build",
     "play": "pnpm run -C ./playground dev",
     "test": "vitest",
-    "release": "bumpp package.json ./packages/*/package.json && pnpm run build && pnpm publish --filter \"unplugin-vue*\"",
+    "release": "bumpp package.json ./packages/*/package.json && pnpm run build && pnpm publish -r",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
   },
   "peerDependencies": {
@@ -22,6 +25,7 @@
     "eslint": "^8.21.0",
     "eslint-define-config": "^1.6.0",
     "fast-glob": "^3.2.11",
+    "npm-run-all": "^4.1.5",
     "tsup": "^6.2.1",
     "tsx": "^3.8.2",
     "typescript": "^4.7.4",
