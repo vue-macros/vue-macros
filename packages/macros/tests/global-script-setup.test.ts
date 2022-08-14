@@ -33,7 +33,7 @@ describe('global-script-setup', async () => {
         esbuild(),
       ])
       expect(
-        unpluginCode.replace(/global-setup-component:.*?:/, '#ID#')
+        unpluginCode.replace(/global-setup-component:.*?\.vue/, '#ID#')
       ).toMatchSnapshot()
     })
   }
