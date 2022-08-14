@@ -1,0 +1,17 @@
+{
+  "name": "@vue-macros/volar",
+  "version": "1.0.0",
+  "description": "Volar plugin for Vue Macros.",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@esbuild-kit/cjs-loader": "^2.3.3",
+    "@volar/vue-language-core": "^0.40.1",
+    "vue-tsc": "^0.40.1"
+  }
+}
