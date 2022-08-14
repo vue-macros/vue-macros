@@ -6,7 +6,7 @@ import type {
   Statement,
 } from '@babel/types'
 
-export const filtermacro = (stmts: Statement[]) => {
+export const filterMacro = (stmts: Statement[]) => {
   return stmts
     .map((raw: Node) => {
       let node = raw
