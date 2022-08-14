@@ -259,6 +259,30 @@ export default {
 
 </details>
 
+### `setupComponent`
+
+With `defineSetupComponent`, `<script setup>` code can be put in pure JS/TS(X) without [Volar](https://github.com/johnsoncodehk/volar) extension.
+
+#### Basic Usage
+
+```ts
+export const App = defineSetupComponent(() => {
+  defineProps<{
+    foo: string
+  }>()
+
+  defineEmits<{
+    (evt: 'change'): void
+  }>()
+
+  defineOptions({
+    name: 'App',
+  })
+
+  // ...
+})
+```
+
 ### TypeScript Support
 
 ```jsonc

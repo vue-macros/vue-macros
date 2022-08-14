@@ -254,6 +254,30 @@ export default {
 
 </details>
 
+### `setupComponent`
+
+使用 `defineSetupComponent`，`<script setup>` 的代码可以在纯 JS/TS(X) 中使用，不需要 [Volar](https://github.com/johnsoncodehk/volar) 扩展。
+
+#### 基础使用
+
+```ts
+export const App = defineSetupComponent(() => {
+  defineProps<{
+    foo: string
+  }>()
+
+  defineEmits<{
+    (evt: 'change'): void
+  }>()
+
+  defineOptions({
+    name: 'App',
+  })
+
+  // ...
+})
+```
+
 ### TypeScript 支持
 
 ```jsonc
