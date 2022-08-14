@@ -24,11 +24,11 @@ npm i unplugin-vue-macros -D
 
 ```ts
 // vite.config.ts
-import VueMarcos from 'unplugin-vue-macros/vite'
+import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [Vue(), VueMarcos()],
+  plugins: [Vue(), VueMacros()],
 })
 ```
 
@@ -39,10 +39,10 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import VueMarcos from 'unplugin-vue-macros/rollup'
+import VueMacros from 'unplugin-vue-macros/rollup'
 
 export default {
-  plugins: [VueMarcos()], // Must be before Vue plugin!
+  plugins: [VueMacros()], // Must be before Vue plugin!
 }
 ```
 
