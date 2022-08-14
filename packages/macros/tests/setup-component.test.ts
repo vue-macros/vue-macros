@@ -8,15 +8,12 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import VueMacros from '../src/rollup'
 import { getCode } from './_utils'
 
-describe('global-script-setup', async () => {
+describe('setup-component', async () => {
   const root = resolve(__dirname, '..')
-  const files = await glob(
-    'tests/fixtures/global-script-setup/*.{vue,[jt]s?(x)}',
-    {
-      cwd: root,
-      onlyFiles: true,
-    }
-  )
+  const files = await glob('tests/fixtures/setup-component/*.{vue,[jt]s?(x)}', {
+    cwd: root,
+    onlyFiles: true,
+  })
 
   for (const file of files) {
     it(file.replace(/\\/g, '/'), async () => {
@@ -26,14 +23,14 @@ describe('global-script-setup', async () => {
       const unpluginCode = await getCode(filepath, [
         VueMacros({
           version,
-          globalScriptSetup: true,
+          setupComponent: true,
         }),
         Vue(),
         VueJsx(),
         esbuild(),
       ])
       expect(
-        unpluginCode.replace(/global-setup-component:.*?\.vue/, '#ID#')
+        unpluginCode.replace(/setup-component:.*?\.vue/, '#ID#')
       ).toMatchSnapshot()
     })
   }

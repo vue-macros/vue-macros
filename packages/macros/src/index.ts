@@ -10,11 +10,11 @@ import {
 import { transformDefineModel } from './define-model'
 import { transformHoistStatic } from './hoist-static'
 import {
-  GLOBAL_SCRIPT_SETUP_ID_REGEX,
-  loadGlobalScriptSetup,
-  transformGlobalScriptSetup,
-} from './global-script-setup'
-import type { GlobalScriptSetupContext } from './global-script-setup'
+  SETUP_COMPONENT_ID_REGEX,
+  loadSetupComponent,
+  transformSetupComponent,
+} from './setup-component'
+import type { SetupComponentContext } from './setup-component'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -24,11 +24,11 @@ export interface Options {
   defineOptions?: boolean
   defineModel?: boolean
   hoistStatic?: boolean
-  globalScriptSetup?: boolean | FilterPattern
+  setupComponent?: boolean | FilterPattern
 }
 
-export type OptionsResolved = Omit<Required<Options>, 'globalScriptSetup'> & {
-  globalScriptSetup: false | FilterPattern
+export type OptionsResolved = Omit<Required<Options>, 'setupComponent'> & {
+  setupComponent: false | FilterPattern
 }
 
 function resolveOption(options: Options): OptionsResolved {
@@ -41,8 +41,8 @@ function resolveOption(options: Options): OptionsResolved {
       version = 3
     }
   }
-  const globalScriptSetup =
-    options.globalScriptSetup === false ? false : [/\.[cm]?[jt]sx?/]
+  const setupComponent =
+    options.setupComponent === false ? false : [/\.[cm]?[jt]sx?/]
 
   return {
     include: [/\.vue$/],
@@ -52,7 +52,7 @@ function resolveOption(options: Options): OptionsResolved {
     hoistStatic: true,
     ...options,
     version,
-    globalScriptSetup,
+    setupComponent,
   }
 }
 
@@ -71,11 +71,11 @@ function transformVueSFC(code: string, id: string, options: OptionsResolved) {
 export default createUnplugin<Options>((userOptions = {}) => {
   const options = resolveOption(userOptions)
   const filter = createFilter(options.include, options.exclude)
-  const filterGlobalScriptSetup = options.globalScriptSetup
-    ? createFilter(options.globalScriptSetup)
+  const filterGlobalScriptSetup = options.setupComponent
+    ? createFilter(options.setupComponent)
     : undefined
 
-  const globalScriptSetupContext: GlobalScriptSetupContext = {}
+  const setupComponentContext: SetupComponentContext = {}
 
   return {
     name,
@@ -86,12 +86,12 @@ export default createUnplugin<Options>((userOptions = {}) => {
     },
 
     resolveId(id) {
-      if (GLOBAL_SCRIPT_SETUP_ID_REGEX.test(id)) return id
+      if (SETUP_COMPONENT_ID_REGEX.test(id)) return id
     },
 
     load(id) {
-      if (!GLOBAL_SCRIPT_SETUP_ID_REGEX.test(id)) return
-      return loadGlobalScriptSetup(id, globalScriptSetupContext)
+      if (!SETUP_COMPONENT_ID_REGEX.test(id)) return
+      return loadSetupComponent(id, setupComponentContext)
     },
 
     transform(code, id) {
@@ -99,7 +99,7 @@ export default createUnplugin<Options>((userOptions = {}) => {
         if (filter(id)) {
           return transformVueSFC(code, id, options)
         } else if (filterGlobalScriptSetup?.(id)) {
-          return transformGlobalScriptSetup(code, id, globalScriptSetupContext)
+          return transformSetupComponent(code, id, setupComponentContext)
         }
       } catch (err: unknown) {
         this.error(`${name} ${err}`)

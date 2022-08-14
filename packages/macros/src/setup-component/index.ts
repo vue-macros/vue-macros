@@ -7,7 +7,7 @@ import {
 } from '@vue-macros/common'
 import { walk } from 'estree-walker'
 import { normalizePath } from '@rollup/pluginutils'
-import { GLOBAL_SCRIPT_SETUP_ID_PREFIX } from './constants'
+import { SETUP_COMPONENT_ID_PREFIX } from './constants'
 import type { CallExpression, Function, Node } from '@babel/types'
 
 export * from './constants'
@@ -17,12 +17,12 @@ interface NodeContext {
   body: string
   node: CallExpression
 }
-export type GlobalScriptSetupContext = Record<string, NodeContext[]>
+export type SetupComponentContext = Record<string, NodeContext[]>
 
-export const transformGlobalScriptSetup = (
+export const transformSetupComponent = (
   code: string,
   id: string,
-  ctx: GlobalScriptSetupContext
+  ctx: SetupComponentContext
 ) => {
   const normalizedId = normalizePath(id)
   const program = babelParse(code, path.extname(id).replace(/^\./, ''))
@@ -55,7 +55,7 @@ export const transformGlobalScriptSetup = (
     const importName = `setupComponent_${i}`
     s.overwrite(node.start!, node.end!, importName)
     s.prepend(
-      `import ${importName} from '${GLOBAL_SCRIPT_SETUP_ID_PREFIX}${normalizedId}/${i}.vue'\n`
+      `import ${importName} from '${SETUP_COMPONENT_ID_PREFIX}${normalizedId}/${i}.vue'\n`
     )
     const body: Node = (node.arguments[0] as Function).body
     let bodyStart = body.start!
@@ -75,12 +75,9 @@ export const transformGlobalScriptSetup = (
   return getTransformResult(s, id)
 }
 
-export const loadGlobalScriptSetup = (
-  id: string,
-  ctx: GlobalScriptSetupContext
-) => {
+export const loadSetupComponent = (id: string, ctx: SetupComponentContext) => {
   const { dir: file, name: i } = path.parse(
-    id.replace(GLOBAL_SCRIPT_SETUP_ID_PREFIX, '')
+    id.replace(SETUP_COMPONENT_ID_PREFIX, '')
   )
   const index = +i
   if (!ctx[file]?.[index]) return
