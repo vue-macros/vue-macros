@@ -5,8 +5,10 @@ import type { ParserPlugin } from '@babel/parser'
 
 export function babelParse(code: string, lang?: string): Program {
   const plugins: ParserPlugin[] = []
-  if (lang === 'ts' || lang === 'tsx') plugins.push('typescript')
-  if (lang === 'jsx' || lang === 'tsx') plugins.push('jsx')
+  if (lang) {
+    if (/^[cm]?tsx?$/.test(lang)) plugins.push('typescript')
+    if (/^[cm]?[jt]sx$/.test(lang)) plugins.push('jsx')
+  }
   const { program } = _babelParse(code, {
     sourceType: 'module',
     plugins,

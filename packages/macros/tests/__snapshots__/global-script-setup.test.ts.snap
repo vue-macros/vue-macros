@@ -1,0 +1,108 @@
+// Vitest Snapshot v1
+
+exports[`global-script-setup > tests/fixtures/global-script-setup/async.tsx 1`] = `
+"import { defineComponent, withAsyncContext } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"async.tsx:0\\",
+  props: {
+    foo: {
+      type: String,
+      required: true
+    }
+  },
+  async setup(__props) {
+    let __temp, __restore;
+    [__temp, __restore] = withAsyncContext(() => foo()), await __temp, __restore();
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var setupComponent_0 = /*#__PURE__*/_export_sfc(_sfc_main, [['__file',\\"global-setup-component:/Users/kevin/Developer/open-source/unplugin-vue-macros/packages/macros/tests/fixtures/global-script-setup/async.tsx:0.vue\\"]]);
+
+const App = setupComponent_0;
+
+export { App };
+"
+`;
+
+exports[`global-script-setup > tests/fixtures/global-script-setup/basic.ts 1`] = `
+"import { defineComponent } from 'vue';
+
+const __default__ = defineComponent({
+  name: \\"App\\"
+});
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  ...__default__,
+  props: {
+    foo: { type: String, required: true }
+  },
+  emits: [\\"change\\"],
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var setupComponent_0 = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"__file\\", \\"global-setup-component:/Users/kevin/Developer/open-source/unplugin-vue-macros/packages/macros/tests/fixtures/global-script-setup/basic.ts:0.vue\\"]]);
+
+const App = setupComponent_0;
+
+export { App };
+"
+`;
+
+exports[`global-script-setup > tests/fixtures/global-script-setup/render.tsx 1`] = `
+"import { defineComponent, createVNode } from 'vue';
+
+const __default__ = defineComponent({
+  name: \\"RenderApp\\",
+  render() {
+    return createVNode(\\"div\\", null, null);
+  }
+});
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  ...__default__,
+  props: {
+    foo: {
+      type: String,
+      required: true
+    }
+  },
+  setup(__props) {
+    return {};
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var setupComponent_0 = /*#__PURE__*/_export_sfc(_sfc_main, [['__file',\\"global-setup-component:/Users/kevin/Developer/open-source/unplugin-vue-macros/packages/macros/tests/fixtures/global-script-setup/render.tsx:0.vue\\"]]);
+
+const App = setupComponent_0;
+
+export { App };
+"
+`;

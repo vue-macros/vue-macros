@@ -1,8 +1,8 @@
 import MagicString from 'magic-string'
-import { addToScript, parseSFC } from './vue'
-import type { SFCCompiled } from './vue'
+import { addToScript, parseSFC } from './utils'
+import type { SFCCompiled } from './utils'
 
-export interface TransformContext {
+export interface SFCContext {
   code: string
   id: string
 
@@ -19,7 +19,7 @@ export const initContext = (code: string, id: string) => {
   let s: MagicString | undefined
   let sfc: SFCCompiled | undefined
 
-  const ctx: TransformContext = {
+  const ctx: SFCContext = {
     code,
     id,
 
@@ -54,6 +54,6 @@ export const initContext = (code: string, id: string) => {
   }
 }
 
-export const finalizeContext = (ctx: TransformContext) => {
+export const finalizeContext = (ctx: SFCContext) => {
   addToScript(ctx)
 }

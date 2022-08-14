@@ -5,10 +5,10 @@ import {
 } from '@vue-macros/common'
 import { walkAST } from 'ast-walker-scope'
 import { filterMarco, hasPropsOrEmits } from './utils'
-import type { TransformContext } from '@vue-macros/common'
+import type { SFCContext } from '@vue-macros/common'
 import type { Statement } from '@babel/types'
 
-export const transform = (ctx: TransformContext) => {
+export const transform = (ctx: SFCContext) => {
   const { code } = ctx
   if (!code.includes(DEFINE_OPTIONS)) return
 

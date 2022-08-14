@@ -12,10 +12,12 @@
     "types": [],
     "baseUrl": ".",
     "paths": {
-      "@vue-macros/utils": ["packages/utils/src/index.ts"]
+      "@vue-macros/common": ["packages/common/src/index.ts"],
+      "unplugin-vue-define-options": ["packages/define-options/src/index.ts"]
     },
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "jsx": "preserve"
   },
   "include": ["packages", "scripts"],
   "exclude": ["**/dist", "**/tests/fixtures", "**/macros-global.d.ts"]

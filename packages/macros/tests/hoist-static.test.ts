@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 import { finalizeContext, initContext } from '@vue-macros/common'
 import { transformHoistStatic } from '../src/hoist-static/transfrom'
 
-describe('define-model', async () => {
+describe('hoist-static', async () => {
   const files = import.meta.glob('./fixtures/hoist-static/*.{vue,js,ts}', {
     eager: true,
     as: 'raw',

@@ -7,7 +7,7 @@ import {
   REPO_ISSUE_URL,
   isCallOf,
 } from '@vue-macros/common'
-import type { TransformContext } from '@vue-macros/common'
+import type { SFCContext } from '@vue-macros/common'
 import type {
   Identifier,
   LVal,
@@ -22,7 +22,7 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export const transformDefineModel = (ctx: TransformContext, version: 2 | 3) => {
+export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
   const { s, code } = ctx
 
   let hasDefineProps = false

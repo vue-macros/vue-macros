@@ -1,5 +1,5 @@
 import { compileScript, parse } from 'vue/compiler-sfc'
-import type { TransformContext } from './context'
+import type { SFCContext } from './context'
 import type { SFCDescriptor, SFCScriptBlock } from 'vue/compiler-sfc'
 
 export type _SFCScriptBlock = Omit<
@@ -33,7 +33,7 @@ export const parseSFC = (code: string, id: string): SFCCompiled => {
   }
 }
 
-export const addToScript = (ctx: TransformContext) => {
+export const addToScript = (ctx: SFCContext) => {
   const { scriptCode } = ctx
   if (scriptCode.prepend.length + scriptCode.append.length === 0) {
     return

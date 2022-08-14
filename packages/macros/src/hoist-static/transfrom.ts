@@ -1,8 +1,8 @@
 import { babelParse, isStaticExpression } from '@vue-macros/common'
-import type { TransformContext } from '@vue-macros/common'
+import type { SFCContext } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
-export const transformHoistStatic = (ctx: TransformContext) => {
+export const transformHoistStatic = (ctx: SFCContext) => {
   function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
     const text = s.slice(startOffset + decl.start!, startOffset + decl.end!)
     scriptCode.prepend += `\n${prefix}${text}`

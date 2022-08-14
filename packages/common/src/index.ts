@@ -1,5 +1,5 @@
+export * from './vue'
 export * from './ast'
 export * from './constants'
-export * from './context'
 export * from './unplugin'
-export * from './vue'
+export { default as MagicString } from 'magic-string'
