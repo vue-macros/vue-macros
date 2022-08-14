@@ -4,7 +4,7 @@ import {
   parseSFC,
 } from '@vue-macros/common'
 import { walkAST } from 'ast-walker-scope'
-import { filterMarco, hasPropsOrEmits } from './utils'
+import { filtermacro, hasPropsOrEmits } from './utils'
 import type { SFCContext } from '@vue-macros/common'
 import type { Statement } from '@babel/types'
 
@@ -18,7 +18,7 @@ export const transform = (ctx: SFCContext) => {
 
   const startOffset = scriptSetup.loc.start.offset
 
-  const nodes = filterMarco(scriptCompiled.scriptSetupAst as Statement[])
+  const nodes = filtermacro(scriptCompiled.scriptSetupAst as Statement[])
   if (nodes.length === 0) return
   else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
