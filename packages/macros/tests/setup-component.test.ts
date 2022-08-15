@@ -21,10 +21,7 @@ describe('setup-component', async () => {
       const version = filepath.includes('vue2') ? 2 : 3
 
       const unpluginCode = await getCode(filepath, [
-        VueMacros({
-          version,
-          setupComponent: true,
-        }),
+        VueMacros({ version }),
         Vue(),
         VueJsx(),
         esbuild(),

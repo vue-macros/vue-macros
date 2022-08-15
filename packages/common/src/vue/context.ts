@@ -1,4 +1,4 @@
-import MagicString from 'magic-string'
+import { MagicString } from '../magic-string'
 import { addToScript, parseSFC } from './utils'
 import type { SFCCompiled } from './utils'
 

@@ -3,6 +3,7 @@ import {
   DEFINE_SETUP_COMPONENT,
   MagicString,
   babelParse,
+  getLang,
   getTransformResult,
 } from '@vue-macros/common'
 import { walk } from 'estree-walker'
@@ -25,7 +26,7 @@ export const transformSetupComponent = (
   ctx: SetupComponentContext
 ) => {
   const normalizedId = normalizePath(id)
-  const program = babelParse(code, path.extname(id).replace(/^\./, ''))
+  const program = babelParse(code, getLang(id))
   const nodes: CallExpression[] = []
   walk(program, {
     enter(node: Node) {

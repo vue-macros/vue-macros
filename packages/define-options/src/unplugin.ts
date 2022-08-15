@@ -13,7 +13,9 @@ export interface Options {
   exclude?: FilterPattern | undefined
 }
 
-export type OptionsResolved = Required<Options>
+export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
+  exclude?: FilterPattern
+}
 
 function resolveOption(options: Options): OptionsResolved {
   return {

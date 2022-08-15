@@ -1,4 +1,5 @@
-<script setup lang="ts">
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 const name = /* hoist-static */ `Comp${Date.now()}`
 defineOptions({
   name,
@@ -17,10 +18,12 @@ const updateCount = (val: number) => {
   console.log((modelValue = modelValue + val))
   emit('change')
 }
-</script>
 
-<template>
-  <button @click="updateCount(-1)">-</button>
-  {{ modelValue }}
-  <button @click="updateCount(1)">+</button>
-</template>
+export default ({ updateCount, modelValue }: any) => (
+  <>
+    <h2>Counter</h2>
+    <button onClick={() => updateCount(-1)}>-</button> {''}
+    {modelValue} {''}
+    <button onClick={() => updateCount(+1)}>+</button>
+  </>
+)

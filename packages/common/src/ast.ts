@@ -1,7 +1,12 @@
+import path from 'node:path'
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
 import { MAGIC_COMMENT_STATIC } from './constants'
 import type { CallExpression, Literal, Node, Program } from '@babel/types'
 import type { ParserPlugin } from '@babel/parser'
+
+export function getLang(filename: string) {
+  return path.extname(filename).replace(/^\./, '')
+}
 
 export function babelParse(code: string, lang?: string): Program {
   const plugins: ParserPlugin[] = []

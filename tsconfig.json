@@ -6,10 +6,9 @@
     "lib": ["ES2019"],
     "strict": true,
     "strictNullChecks": true,
-    "exactOptionalPropertyTypes": true,
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-    "types": [],
+    "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "@vue-macros/common": ["packages/common/src/index.ts"],
