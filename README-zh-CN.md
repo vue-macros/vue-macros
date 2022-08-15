@@ -200,7 +200,7 @@ emit('update:modelValue', 'newValue')
 
 ### `hoistStatic`
 
-如果你想中引用一个在 `<script setup>` 声明的常量，这个功能可能会帮到你。
+如果你想引用一个在 `<script setup>` 中声明的常量，这个功能可能会帮到你。
 
 如果支持本特性，请到 [Vue PR](https://github.com/vuejs/core/pull/5752) 中点赞 👍，非常感谢！
 
