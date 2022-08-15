@@ -1,6 +1,7 @@
 <script setup lang="ts">
+const name = 'Foo'
 defineOptions({
-  name: 'Foo',
+  name,
 })
 const { title } = defineProps<{
   title: string

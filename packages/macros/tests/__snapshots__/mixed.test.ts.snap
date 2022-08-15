@@ -1,14 +1,16 @@
 // Vitest Snapshot v1
 
-exports[`Rollup > fixtures > tests/fixtures/mixed.vue 1`] = `
-"var mixed = \`<script lang=\\"ts\\">
+exports[`mixed > tests/fixtures/mixed/basic.vue 1`] = `
+"var basic = \`<script lang=\\"ts\\">
+const name = 'Foo'
 import { defineComponent as DO_defineComponent } from 'vue';
 export default /*#__PURE__*/ DO_defineComponent({
-  name: 'Foo',
+  name,
 });
 </script>
 <script setup lang=\\"ts\\">
 import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+
 
 const {modelValue,  title } = defineProps<{modelValue: string
 
@@ -27,12 +29,12 @@ const handleClick = () => {
 </script>
 \`;
 
-export { mixed as default };
+export { basic as default };
 "
 `;
 
-exports[`Rollup > fixtures > tests/fixtures/mixed-hoist-static.vue 1`] = `
-"var mixedHoistStatic = \`<script>
+exports[`mixed > tests/fixtures/mixed/hoist-static.vue 1`] = `
+"var hoistStatic = \`<script>
 const name = 'App'
 const propName = 'title'
 import { defineComponent as DO_defineComponent } from 'vue';
@@ -49,12 +51,12 @@ defineProps([propName])
 </script>
 \`;
 
-export { mixedHoistStatic as default };
+export { hoistStatic as default };
 "
 `;
 
-exports[`Rollup > fixtures > tests/fixtures/mixed-vue2-model.vue 1`] = `
-"var mixedVue2Model = \`<script lang=\\"ts\\">
+exports[`mixed > tests/fixtures/mixed/vue2-model.vue 1`] = `
+"var vue2Model = \`<script lang=\\"ts\\">
 import { defineComponent as DO_defineComponent } from 'vue';
 export default /*#__PURE__*/ DO_defineComponent({
   name: 'Foo',
@@ -87,6 +89,6 @@ const handleClick = () => {
 </script>
 \`;
 
-export { mixedVue2Model as default };
+export { vue2Model as default };
 "
 `;

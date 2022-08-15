@@ -5,7 +5,7 @@ import { finalizeContext, initContext } from '@vue-macros/common'
 import { transformDefineModel } from '../src/define-model'
 
 describe('define-model', async () => {
-  const files = import.meta.glob('./fixtures/define-model/*.{vue,js,ts}', {
+  const files = import.meta.glob('./fixtures/define-model/**/*.{vue,js,ts}', {
     eager: true,
     as: 'raw',
   })

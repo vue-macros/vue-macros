@@ -1,5 +1,23 @@
 // Vitest Snapshot v1
 
+exports[`define-model > ./fixtures/define-model/assignment.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+let { modelValue, title } = defineProps<{
+  modelValue: string
+title: string
+}>();
+const _defineModel_emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:title', value: string): void
+}>();
+
+
+__emitHelper(_defineModel_emit, 'update:modelValue', __emitHelper(_defineModel_emit, 'update:title', '123'))
+</script>
+"
+`;
+
 exports[`define-model > ./fixtures/define-model/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
@@ -23,7 +41,9 @@ __emitHelper(_defineModel_emit, 'update:modelValue', 'newValue')
 "
 `;
 
-exports[`define-model > ./fixtures/define-model/decls.vue 1`] = `
+exports[`define-model > ./fixtures/define-model/error-rest.vue 1`] = `"rest element is not supported"`;
+
+exports[`define-model > ./fixtures/define-model/multi-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
 let { modelValue } = defineProps<{
   modelValue: string
@@ -38,9 +58,22 @@ let a = 'b'
 "
 `;
 
-exports[`define-model > ./fixtures/define-model/error-rest.vue 1`] = `"rest element is not supported"`;
+exports[`define-model > ./fixtures/define-model/no-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+defineProps<{
+  modelValue: string
+visible: boolean
+}>();
+const _defineModel_emit = defineEmits<{
+  (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+}>();
 
-exports[`define-model > ./fixtures/define-model/vue2.vue 1`] = `
+</script>
+"
+`;
+
+exports[`define-model > ./fixtures/define-model/vue2/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
 
@@ -69,7 +102,7 @@ const emit = defineEmits<{(evt: 'input', value: string): void
 "
 `;
 
-exports[`define-model > ./fixtures/define-model/vue2-custom-vmodel.vue 1`] = `
+exports[`define-model > ./fixtures/define-model/vue2/custom-model.vue 1`] = `
 "<script lang=\\"ts\\">
 export default {
   model: {
@@ -106,7 +139,7 @@ const emit = defineEmits<{(evt: 'changeInput', value: string): void
 "
 `;
 
-exports[`define-model > ./fixtures/define-model/vue2-custom-vmodel-defineComponent.vue 1`] = `
+exports[`define-model > ./fixtures/define-model/vue2/custom-model-defineComponent.vue 1`] = `
 "<script lang=\\"ts\\">
 import { defineComponent } from 'vue'
 export default defineComponent({
@@ -157,24 +190,6 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 }>()
 
 emit('change')
-</script>
-"
-`;
-
-exports[`define-model > ./fixtures/define-model/with-define-emits-assignment.vue 1`] = `
-"<script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
-let { modelValue, title } = defineProps<{
-  modelValue: string
-title: string
-}>();
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
-(evt: 'update:title', value: string): void
-}>();
-
-
-__emitHelper(_defineModel_emit, 'update:modelValue', __emitHelper(_defineModel_emit, 'update:title', '123'))
 </script>
 "
 `;
@@ -306,21 +321,6 @@ visible: boolean
 }>()
 
 console.log(props)
-</script>
-"
-`;
-
-exports[`define-model > ./fixtures/define-model/without-decl.vue 1`] = `
-"<script setup lang=\\"ts\\">
-defineProps<{
-  modelValue: string
-visible: boolean
-}>();
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
-(evt: 'update:visible', value: boolean): void
-}>();
-
 </script>
 "
 `;
