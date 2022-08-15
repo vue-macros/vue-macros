@@ -252,6 +252,25 @@ export { js as default };
 "
 `;
 
+exports[`Rollup > fixtures > tests/fixtures/multi-macros.vue 1`] = `
+"var multiMacros = \`<script>
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent(Object.assign({}, {
+  name: 'Foo',
+}, {
+  inheritAttrs: true,
+}));
+</script>
+<script setup>
+
+
+</script>
+\`;
+
+export { multiMacros as default };
+"
+`;
+
 exports[`Rollup > fixtures > tests/fixtures/no-transform.vue 1`] = `
 "var noTransform = \`<script setup>
 console.log('setup')
@@ -287,6 +306,21 @@ console.log('setup')
 \`;
 
 export { noTransform2 as default };
+"
+`;
+
+exports[`Rollup > fixtures > tests/fixtures/reference-var.vue 1`] = `
+"var referenceVar = \`<script>
+import { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent(options);
+</script>
+<script setup>
+import options from './options'
+
+</script>
+\`;
+
+export { referenceVar as default };
 "
 `;
 

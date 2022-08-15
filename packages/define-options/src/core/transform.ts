@@ -6,7 +6,7 @@ import {
 import { walkAST } from 'ast-walker-scope'
 import { filterMacro, hasPropsOrEmits } from './utils'
 import type { SFCContext } from '@vue-macros/common'
-import type { Statement } from '@babel/types'
+import type { ExportDefaultDeclaration, Statement } from '@babel/types'
 
 export const transform = (ctx: SFCContext) => {
   const { code } = ctx
@@ -20,48 +20,46 @@ export const transform = (ctx: SFCContext) => {
 
   const nodes = filterMacro(scriptCompiled.scriptSetupAst as Statement[])
   if (nodes.length === 0) return
-  else if (nodes.length > 1)
-    throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
 
-  if (
-    (scriptCompiled.scriptAst as Statement[])?.some(
-      (node) => node.type === 'ExportDefaultDeclaration'
-    )
+  const hasDefaultExport = (scriptCompiled.scriptAst as Statement[])?.some(
+    (node): node is ExportDefaultDeclaration =>
+      node.type === 'ExportDefaultDeclaration'
   )
+  if (hasDefaultExport)
     throw new SyntaxError(
       `${DEFINE_OPTIONS} cannot be used with default export within <script>.`
     )
 
-  const [node] = nodes
-  const [arg] = node.arguments
-  if (!(node.arguments.length === 1 && arg.type === 'ObjectExpression')) {
-    throw new SyntaxError(`${DEFINE_OPTIONS}() arguments error`)
-  }
+  const options: string[] = []
+  for (const node of nodes) {
+    const [arg] = node.arguments
+    if (!arg) continue
 
-  if (hasPropsOrEmits(arg)) {
-    throw new SyntaxError(
-      `${DEFINE_OPTIONS}() please use defineProps or defineEmits instead.`
-    )
-  }
-
-  const scriptBindings = []
-  {
-    // re-parse sfc
-    const sfc = parseSFC(s.toString(), id)
-    if (sfc.scriptCompiled.scriptSetupAst)
-      scriptBindings.push(
-        ...getIdentifiers(sfc.scriptCompiled.scriptSetupAst as any)
+    if (arg.type === 'ObjectExpression' && hasPropsOrEmits(arg))
+      throw new SyntaxError(
+        `${DEFINE_OPTIONS}() please use defineProps or defineEmits instead.`
       )
+
+    const scriptBindings = []
+    {
+      // re-parse sfc
+      const sfc = parseSFC(s.toString(), id)
+      if (sfc.scriptCompiled.scriptSetupAst)
+        scriptBindings.push(
+          ...getIdentifiers(sfc.scriptCompiled.scriptSetupAst as any)
+        )
+    }
+    checkInvalidScopeReference(arg, DEFINE_OPTIONS, scriptBindings)
+
+    options.push(code.slice(startOffset + arg.start!, startOffset + arg.end!))
+    // removes defineOptions()
+    s.remove(startOffset + node.start!, startOffset + node.end!)
   }
-  checkInvalidScopeReference(arg, DEFINE_OPTIONS, scriptBindings)
 
-  const argText = code.slice(startOffset + arg.start!, startOffset + arg.end!)
-
+  const optionsCode =
+    options.length > 1 ? `Object.assign({}, ${options.join(', ')})` : options[0]
   ctx.scriptCode.append += `import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent(${argText});\n`
-
-  // removes defineOptions()
-  s.remove(startOffset + node.start!, startOffset + node.end!)
+export default /*#__PURE__*/ DO_defineComponent(${optionsCode});\n`
 }
 
 const getIdentifiers = (stmts: Statement[]) => {
