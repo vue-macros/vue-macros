@@ -1,8 +1,6 @@
-import { createFilter } from '@rollup/pluginutils'
 import { MagicString, babelParse, getLang } from '@vue-macros/common'
 
 export const SETUP_SFC_REGEX = /\.setup\.[cm]?[jt]sx?$/
-export const defaultSetupSFCFilter = createFilter(SETUP_SFC_REGEX)
 
 export const transfromSetupSFC = (code: string, id: string) => {
   const lang = getLang(id)

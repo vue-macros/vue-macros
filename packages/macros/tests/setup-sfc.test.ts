@@ -6,17 +6,19 @@ import esbuild from 'rollup-plugin-esbuild'
 import Vue from 'unplugin-vue/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import VueMacros from '../src/rollup'
-import { defaultSetupSFCFilter } from '../src/setup-sfc'
+import { SETUP_SFC_REGEX } from '../src/setup-sfc'
 import { getCode } from './_utils'
 
 describe('setup-component', async () => {
   test('isSetupSFC', () => {
-    expect(defaultSetupSFCFilter('foo.setup.ts')).toBe(true)
-    expect(defaultSetupSFCFilter('foo.setup.tsx')).toBe(true)
-    expect(defaultSetupSFCFilter('foo.setup.jsx')).toBe(true)
-    expect(defaultSetupSFCFilter('foo.setup.js')).toBe(true)
-    expect(defaultSetupSFCFilter('foo.setup.mjs')).toBe(true)
-    expect(defaultSetupSFCFilter('foo.setup.cts')).toBe(true)
+    expect(SETUP_SFC_REGEX.test('foo.setup.ts')).toBe(true)
+    expect(SETUP_SFC_REGEX.test('foo.setup.tsx')).toBe(true)
+    expect(SETUP_SFC_REGEX.test('foo.setup.jsx')).toBe(true)
+    expect(SETUP_SFC_REGEX.test('foo.setup.js')).toBe(true)
+    expect(SETUP_SFC_REGEX.test('foo.setup.mjs')).toBe(true)
+    expect(SETUP_SFC_REGEX.test('foo.setup.cts')).toBe(true)
+
+    expect(SETUP_SFC_REGEX.test('foo.ts')).toBe(false)
   })
 
   describe('fixtures', async () => {
