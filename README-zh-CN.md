@@ -254,7 +254,11 @@ export default {
 
 </details>
 
-### `setupComponent`
+### `setupComponent` (⚠️ 实验性)
+
+> **Note**: 热重载目前尚不可用。
+
+> **Warning**: 实验性功能，使用风险自负！
 
 使用 `defineSetupComponent`，`<script setup>` 的代码可以在纯 JS/TS(X) 中使用，不需要 [Volar](https://github.com/johnsoncodehk/volar) 扩展。
 
@@ -276,6 +280,33 @@ export const App = defineSetupComponent(() => {
 
   // ...
 })
+```
+
+### `setupSFC` (⚠️ experimental)
+
+> **Warning**: 实验性功能，使用风险自负！
+>
+> **Note**: 依赖 `defineOptions`。如果你正使用 `setupComponent`，那么 `defineOptions` 特性不能被禁用。
+
+`<script setup>` 的代码可以在纯 JS/TS(X) 中使用，不需要 [Volar](https://github.com/johnsoncodehk/volar) 扩展。
+
+#### 基础使用
+
+```tsx
+// Foo.setup.tsx
+defineProps<{
+  foo: string
+}>()
+
+defineEmits<{
+  (evt: 'change'): void
+}>()
+
+export default () => (
+  <div>
+    <h1>Hello World</h1>
+  </div>
+)
 ```
 
 ### TypeScript 支持

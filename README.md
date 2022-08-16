@@ -259,7 +259,11 @@ export default {
 
 </details>
 
-### `setupComponent`
+### `setupComponent` (⚠️ experimental)
+
+> **Note**: Hot Reload is not avaliable at the moment.
+
+> **Warning**: Under experimental, use at your risk!
 
 With `defineSetupComponent`, `<script setup>` code can be put in pure JS/TS(X) without [Volar](https://github.com/johnsoncodehk/volar) extension.
 
@@ -281,6 +285,33 @@ export const App = defineSetupComponent(() => {
 
   // ...
 })
+```
+
+### `setupSFC` (⚠️ experimental)
+
+> **Warning**: Under experimental, use at your risk!
+
+> **Note**: `defineOptions` is required. If you're using `setupComponent`, then `defineOptions` cannot be disabled.
+
+`<script setup>` code can be put in pure JS/TS(X) without [Volar](https://github.com/johnsoncodehk/volar) extension.
+
+#### Basic Usage
+
+```tsx
+// Foo.setup.tsx
+defineProps<{
+  foo: string
+}>()
+
+defineEmits<{
+  (evt: 'change'): void
+}>()
+
+export default () => (
+  <div>
+    <h1>Hello World</h1>
+  </div>
+)
 ```
 
 ### TypeScript Support

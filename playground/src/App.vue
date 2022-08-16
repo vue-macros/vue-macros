@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Counter from './Counter.setup'
+import { CounterA } from './CounterA'
 
 const name = 'AppDemo'
 defineOptions({
@@ -17,4 +18,5 @@ const handleChange = () => {
 <template>
   <h1>Hello</h1>
   <Counter v-model="count" @change="handleChange" />
+  <CounterA v-model="count" />
 </template>
