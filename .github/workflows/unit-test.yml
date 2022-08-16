@@ -53,5 +53,8 @@ jobs:
       - name: Build
         run: nr build
 
+      - name: Type Check
+        run: nr typecheck
+
       - name: Unit Test
         run: nr test
