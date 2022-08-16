@@ -10,6 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "types": ["node"],
     "baseUrl": ".",
+    "outDir": "dist",
     "paths": {
       "@vue-macros/common": ["packages/common/src/index.ts"],
       "unplugin-vue-define-options": ["packages/define-options/src/index.ts"]
@@ -19,5 +20,6 @@
     "jsx": "preserve"
   },
   "include": ["packages", "scripts"],
-  "exclude": ["**/dist", "**/tests/fixtures", "**/macros-global.d.ts"]
+  "exclude": ["**/dist", "**/tests/fixtures", "**/macros-global.d.ts"],
+  "references": [{ "path": "./tsconfig.fixture.json" }]
 }

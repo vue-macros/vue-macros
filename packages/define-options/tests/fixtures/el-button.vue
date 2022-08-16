@@ -35,7 +35,7 @@
   </button>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { computed, inject, Text, ref, useSlots } from 'vue'
 import { useCssVar } from '@vueuse/core'
 import { TinyColor } from '@ctrl/tinycolor'
@@ -73,7 +73,7 @@ const shouldAddSpace = computed(() => {
     const slot = defaultSlot[0]
     if (slot?.type === Text) {
       const text = slot.children
-      return /^\p{Unified_Ideograph}{2}$/u.test(text as string)
+      return /^\p{Unified_Ideograph}{2}$/u.test(text)
     }
   }
   return false
@@ -126,7 +126,7 @@ const buttonStyle = computed(() => {
   return styles
 })
 
-const handleClick = (evt: MouseEvent) => {
+const handleClick = (evt) => {
   if (props.nativeType === 'reset') {
     form?.resetFields()
   }

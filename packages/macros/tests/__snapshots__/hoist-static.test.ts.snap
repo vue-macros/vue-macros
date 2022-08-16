@@ -38,7 +38,7 @@ const i = {
 
 exports[`hoist-static > ./fixtures/hoist-static/magic-comment.vue 1`] = `
 "<script lang=\\"ts\\">
-const name = /* hoist-static */ fn()
+const name = /* hoist-static */ (globalThis as any).fn()
 </script>
 <script setup lang=\\"ts\\">
 

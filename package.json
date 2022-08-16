@@ -13,7 +13,8 @@
     "play": "pnpm run -C ./playground dev",
     "test": "vitest",
     "release": "bumpp package.json ./packages/*/package.json && pnpm run build && pnpm publish -r",
-    "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0"
+    "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"

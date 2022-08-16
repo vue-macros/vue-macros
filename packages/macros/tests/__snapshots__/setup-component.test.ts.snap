@@ -13,7 +13,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   async setup(__props) {
     let __temp, __restore;
-    [__temp, __restore] = withAsyncContext(() => foo()), await __temp, __restore();
+    [__temp, __restore] = withAsyncContext(() => globalThis.foo()), await __temp, __restore();
     return () => {
     };
   }
