@@ -1,5 +1,4 @@
 import { MagicString, babelParse, getLang } from '@vue-macros/common'
-import { OptionsResolved } from '..'
 import type { HmrContext } from 'vite'
 
 export const SETUP_SFC_REGEX = /\.setup\.[cm]?[jt]sx?$/
