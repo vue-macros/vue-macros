@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Counter from './Counter.setup'
-import { CounterA } from './CounterA'
+import Counter from './SetupSFC.setup'
+import { CounterA, CounterB } from './SetupComponent'
 
 const name = 'AppDemo'
 defineOptions({
@@ -19,4 +19,5 @@ const handleChange = () => {
   <h1>Hello</h1>
   <Counter v-model="count" @change="handleChange" />
   <CounterA v-model="count" />
+  <CounterB v-model="count" />
 </template>

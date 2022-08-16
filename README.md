@@ -261,8 +261,6 @@ export default {
 
 ### `setupComponent` (⚠️ experimental)
 
-> **Note**: Hot Reload is not avaliable at the moment.
-
 > **Warning**: Under experimental, use at your risk!
 
 With `defineSetupComponent`, `<script setup>` code can be put in pure JS/TS(X) without [Volar](https://github.com/johnsoncodehk/volar) extension.

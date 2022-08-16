@@ -11,16 +11,22 @@ import { transformDefineModel } from './define-model'
 import { transformHoistStatic } from './hoist-static'
 import {
   SETUP_COMPONENT_ID_REGEX,
+  hotUpdateSetupComponent,
   loadSetupComponent,
   transformSetupComponent,
 } from './setup-component'
-import { SETUP_SFC_REGEX, transfromSetupSFC } from './setup-sfc'
+import {
+  SETUP_SFC_REGEX,
+  hotUpdateSetupSFC,
+  transfromSetupSFC,
+} from './setup-sfc'
 import type { SetupComponentContext } from './setup-component'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
   include?: FilterPattern
   exclude?: FilterPattern
+  root?: string
   version?: 2 | 3
   defineOptions?: boolean
   defineModel?: boolean
@@ -58,6 +64,7 @@ function resolveOption(options: Options): OptionsResolved {
     defineOptions: true,
     defineModel: true,
     hoistStatic: true,
+    root: process.cwd(),
     ...options,
     version,
     setupComponent,
@@ -92,12 +99,8 @@ export default createUnplugin<Options>((userOptions = {}) => {
     name,
 
     transformInclude(id) {
-      if (filterSetupSFC?.(id)) {
-        return true
-      }
-      if (filterSetupComponent?.(id)) {
-        return true
-      }
+      if (filterSetupSFC?.(id)) return true
+      if (filterSetupComponent?.(id)) return true
       return filterSFC(id)
     },
 
@@ -109,8 +112,8 @@ export default createUnplugin<Options>((userOptions = {}) => {
 
     load: options.setupComponent
       ? (id) => {
-          if (!SETUP_COMPONENT_ID_REGEX.test(id)) return
-          return loadSetupComponent(id, setupComponentContext)
+          if (SETUP_COMPONENT_ID_REGEX.test(id))
+            return loadSetupComponent(id, setupComponentContext, options.root)
         }
       : undefined,
 
@@ -141,23 +144,20 @@ export default createUnplugin<Options>((userOptions = {}) => {
               }
           }
         : undefined,
-      handleHotUpdate: filterSetupSFC
-        ? ({ file, modules }) => {
-            if (!filterSetupSFC(file)) return
 
-            function isSubModule(id: string) {
-              const [filename, query] = id.split('?')
-              if (!query) return false
-              if (!filterSetupSFC!(filename)) return false
-              return true
+      configResolved(config) {
+        options.root = config.root
+      },
+
+      handleHotUpdate:
+        filterSetupSFC || filterSetupComponent
+          ? (ctx) => {
+              if (filterSetupSFC?.(ctx.file))
+                return hotUpdateSetupSFC(ctx, filterSetupSFC)
+              else if (filterSetupComponent?.(ctx.file))
+                return hotUpdateSetupComponent(ctx, setupComponentContext)
             }
-
-            const affectedModules = modules.filter(
-              (mod) => mod.id && isSubModule(mod.id)
-            )
-            return affectedModules
-          }
-        : undefined,
+          : undefined,
     },
   }
 })

@@ -256,8 +256,6 @@ export default {
 
 ### `setupComponent` (⚠️ 实验性)
 
-> **Note**: 热重载目前尚不可用。
-
 > **Warning**: 实验性功能，使用风险自负！
 
 使用 `defineSetupComponent`，`<script setup>` 的代码可以在纯 JS/TS(X) 中使用，不需要 [Volar](https://github.com/johnsoncodehk/volar) 扩展。

@@ -1,4 +1,6 @@
 import { MagicString, babelParse, getLang } from '@vue-macros/common'
+import { OptionsResolved } from '..'
+import type { HmrContext } from 'vite'
 
 export const SETUP_SFC_REGEX = /\.setup\.[cm]?[jt]sx?$/
 
@@ -28,4 +30,18 @@ export const transfromSetupSFC = (code: string, id: string) => {
   s.append(`\n</script>`)
 
   return s
+}
+
+export const hotUpdateSetupSFC = (
+  { modules }: HmrContext,
+  filter: (id: unknown) => boolean
+) => {
+  function isSubModule(id: string) {
+    const [filename, query] = id.split('?')
+    if (!query) return false
+    if (!filter(filename)) return false
+    return true
+  }
+  const affectedModules = modules.filter((mod) => mod.id && isSubModule(mod.id))
+  return affectedModules
 }
