@@ -90,7 +90,6 @@ export default createUnplugin<Options>((userOptions = {}) => {
 
   return {
     name,
-    enforce: 'pre',
 
     transformInclude(id) {
       if (filterSetupSFC?.(id)) {
