@@ -20,7 +20,7 @@ npm i unplugin-vue-macros -D
 ```
 
 <details>
-<summary>Vite</summary><br>
+<summary>Vite（一流支持）</summary><br>
 
 ```ts
 // vite.config.ts
@@ -28,21 +28,25 @@ import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [Vue(), VueMacros()],
+  plugins: [VueMacros(), Vue()],
 })
 ```
 
 <br></details>
 
 <details>
-<summary>Rollup</summary><br>
+<summary>Rollup（一流支持）</summary><br>
 
 ```ts
 // rollup.config.js
+import Vue from 'unplugin-vue/rollup'
 import VueMacros from 'unplugin-vue-macros/rollup'
 
 export default {
-  plugins: [VueMacros()], // Must be before Vue plugin!
+  plugins: [
+    VueMacros(), // 必须在 Vue 插件之前！
+    Vue(),
+  ],
 }
 ```
 
@@ -57,7 +61,8 @@ import { build } from 'esbuild'
 
 build({
   plugins: [
-    require('unplugin-vue-macros/esbuild')(), // Must be before Vue plugin!
+    require('unplugin-vue-macros/esbuild')(), // 必须在 Vue 插件之前！
+    require('unplugin-vue/esbuild')(),
   ],
 })
 ```
@@ -71,7 +76,10 @@ build({
 // webpack.config.js
 module.exports = {
   /* ... */
-  plugins: [require('unplugin-vue-macros/webpack')()],
+  plugins: [
+    require('unplugin-vue-macros/webpack')(), // 必须在 Vue 插件之前！
+    require('unplugin-vue/webpack')(),
+  ],
 }
 ```
 
@@ -287,6 +295,25 @@ export const App = defineSetupComponent(() => {
 > **Note**: 依赖 `defineOptions`。如果你正使用 `setupComponent`，那么 `defineOptions` 特性不能被禁用。
 
 `<script setup>` 的代码可以在纯 JS/TS(X) 中使用，不需要 [Volar](https://github.com/johnsoncodehk/volar) 扩展。
+
+#### 配置
+
+以 Vite 为例：
+
+```ts
+// vite.config.ts
+import VueMacros from 'unplugin-vue-macros/vite'
+import Vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [
+    VueMacros(),
+    Vue({
+      include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/], // ⬅️ 需要添加额外的匹配
+    }),
+  ],
+})
+```
 
 #### 基础使用
 

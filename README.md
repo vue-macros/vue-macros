@@ -20,7 +20,7 @@ npm i unplugin-vue-macros -D
 ```
 
 <details>
-<summary>Vite</summary><br>
+<summary>Vite (first-class support)</summary><br>
 
 ```ts
 // vite.config.ts
@@ -28,21 +28,22 @@ import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [Vue(), VueMacros()],
+  plugins: [VueMacros(), Vue()],
 })
 ```
 
 <br></details>
 
 <details>
-<summary>Rollup</summary><br>
+<summary>Rollup (first-class support)</summary><br>
 
 ```ts
 // rollup.config.js
+import Vue from 'unplugin-vue/rollup'
 import VueMacros from 'unplugin-vue-macros/rollup'
 
 export default {
-  plugins: [VueMacros()], // Must be before Vue plugin!
+  plugins: [VueMacros(), Vue()], // must be before Vue plugin!
 }
 ```
 
@@ -57,7 +58,8 @@ import { build } from 'esbuild'
 
 build({
   plugins: [
-    require('unplugin-vue-macros/esbuild')(), // Must be before Vue plugin!
+    require('unplugin-vue-macros/esbuild')(), // must be before Vue plugin!
+    require('unplugin-vue/esbuild')(),
   ],
 })
 ```
@@ -71,7 +73,10 @@ build({
 // webpack.config.js
 module.exports = {
   /* ... */
-  plugins: [require('unplugin-vue-macros/webpack')()],
+  plugins: [
+    require('unplugin-vue-macros/webpack')(), // must be before Vue plugin!
+    require('unplugin-vue/webpack')(),
+  ],
 }
 ```
 
@@ -292,6 +297,25 @@ export const App = defineSetupComponent(() => {
 > **Note**: `defineOptions` is required. If you're using `setupComponent`, then `defineOptions` cannot be disabled.
 
 `<script setup>` code can be put in pure JS/TS(X) without [Volar](https://github.com/johnsoncodehk/volar) extension.
+
+#### Setup
+
+Using Vite as an example:
+
+```ts
+// vite.config.ts
+import VueMacros from 'unplugin-vue-macros/vite'
+import Vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [
+    VueMacros(),
+    Vue({
+      include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/], // ⬅️ setupSFC pattern need to be added
+    }),
+  ],
+})
+```
 
 #### Basic Usage
 
