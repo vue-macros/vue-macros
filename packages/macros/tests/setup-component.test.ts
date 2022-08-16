@@ -26,9 +26,7 @@ describe('setup-component', async () => {
         VueJsx(),
         esbuild(),
       ])
-      expect(
-        unpluginCode.replace(/setup-component:.*?\.vue/, '#ID#')
-      ).toMatchSnapshot()
+      expect(unpluginCode).toMatchSnapshot()
     })
   }
 })

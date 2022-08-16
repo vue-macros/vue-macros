@@ -8,6 +8,10 @@ export const ToString: Plugin = {
   },
 }
 
+export function removeFilePath(code: string) {
+  return code.replace(/\[["']__file["'], ?"(.*?)"]/, '__FILE__')
+}
+
 export async function getCode(file: string, plugins: Plugin[]) {
   const bundle = await rollup({
     input: [file],
@@ -18,7 +22,7 @@ export async function getCode(file: string, plugins: Plugin[]) {
   return output.output
     .map((file) => {
       if (file.type === 'chunk') {
-        return file.code
+        return removeFilePath(file.code)
       } else {
         return file.fileName
       }
