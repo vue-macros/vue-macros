@@ -24,7 +24,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-export default createUnplugin<Options>((options = {}) => {
+export default createUnplugin((options: Options = {}) => {
   const opt = resolveOption(options)
   const filter = createFilter(opt.include, opt.exclude)
 

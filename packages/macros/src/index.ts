@@ -83,7 +83,7 @@ function transformVueSFC(code: string, id: string, options: OptionsResolved) {
   return getTransformResult(getMagicString(), id)
 }
 
-export default createUnplugin<Options>((userOptions = {}) => {
+export default createUnplugin((userOptions: Options = {}) => {
   const options = resolveOption(userOptions)
   const filterSFC = createFilter(options.include, options.exclude)
   const filterSetupComponent = options.setupComponent
