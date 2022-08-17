@@ -10,6 +10,7 @@
     "build:common": "pnpm run -C ./packages/common build",
     "build:define-options": "pnpm run -C ./packages/define-options build",
     "build:macros": "pnpm run -C ./packages/macros build",
+    "dev": "pnpm run --filter \"./packages/*\" --parallel dev",
     "play": "pnpm run -C ./playground dev",
     "test": "vitest",
     "release": "bumpp package.json ./packages/*/package.json && pnpm run build && pnpm publish -r",
