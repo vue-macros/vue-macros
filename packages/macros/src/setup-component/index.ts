@@ -41,7 +41,6 @@ export const scanSetupComponent = (code: string, id: string) => {
 
   if (nodes.length === 0) return []
 
-  // const s = new MagicString(code)
   const nodeContexts: NodeContext[] = nodes.map((node) => {
     if (
       !['FunctionExpression', 'ArrowFunctionExpression'].includes(
@@ -52,11 +51,6 @@ export const scanSetupComponent = (code: string, id: string) => {
         `${DEFINE_SETUP_COMPONENT}: Invalid setup component definition`
       )
 
-    // const importName = `setupComponent_${i}`
-    // s.overwrite(node.start!, node.end!, importName)
-    // s.prepend(
-    //   `import ${importName} from '${normalizedId}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`
-    // )
     const body: Node = (node.arguments[0] as Function).body
     let bodyStart = body.start!
     let bodyEnd = body.end!
