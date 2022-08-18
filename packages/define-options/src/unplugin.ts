@@ -1,16 +1,11 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
-import {
-  finalizeContext,
-  getTransformResult,
-  initContext,
-} from '@vue-macros/common'
 import { transform } from './core/transform'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
   include?: FilterPattern
-  exclude?: FilterPattern | undefined
+  exclude?: FilterPattern
 }
 
 export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
@@ -24,14 +19,13 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-export default createUnplugin((options: Options = {}) => {
-  const opt = resolveOption(options)
-  const filter = createFilter(opt.include, opt.exclude)
+export default createUnplugin((userOptions: Options = {}) => {
+  const options = resolveOption(userOptions)
+  const filter = createFilter(options.include, options.exclude)
 
   const name = 'unplugin-vue-define-options'
   return {
     name,
-    enforce: 'pre',
 
     transformInclude(id) {
       return filter(id)
@@ -39,11 +33,7 @@ export default createUnplugin((options: Options = {}) => {
 
     transform(code, id) {
       try {
-        const { ctx, getMagicString } = initContext(code, id)
-        transform(ctx)
-        finalizeContext(ctx)
-
-        return getTransformResult(getMagicString(), id)
+        return transform(code, id)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }

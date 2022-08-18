@@ -168,6 +168,18 @@ export { elButton as default };
 "
 `;
 
+exports[`Rollup > fixtures > tests/fixtures/empty.vue 1`] = `
+"var empty = \`<script setup>
+
+
+console.log(123)
+</script>
+\`;
+
+export { empty as default };
+"
+`;
+
 exports[`Rollup > fixtures > tests/fixtures/error1.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables (name) because it will be hoisted outside of the setup() function.]`;
 
 exports[`Rollup > fixtures > tests/fixtures/error2.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables (foo) because it will be hoisted outside of the setup() function.]`;
@@ -177,6 +189,8 @@ exports[`Rollup > fixtures > tests/fixtures/error3.vue 1`] = `[Error: unplugin-v
 exports[`Rollup > fixtures > tests/fixtures/error4.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: defineOptions() please use defineProps or defineEmits instead.]`;
 
 exports[`Rollup > fixtures > tests/fixtures/error5.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: defineOptions() please use defineProps or defineEmits instead.]`;
+
+exports[`Rollup > fixtures > tests/fixtures/error6.vue 1`] = `[Error: unplugin-vue-define-options SyntaxError: duplicate defineOptions() call]`;
 
 exports[`Rollup > fixtures > tests/fixtures/function.vue 1`] = `
 "var _function = \`<script lang=\\"ts\\">
@@ -249,25 +263,6 @@ console.log('Hello')
 \`;
 
 export { js as default };
-"
-`;
-
-exports[`Rollup > fixtures > tests/fixtures/multi-macros.vue 1`] = `
-"var multiMacros = \`<script>
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent(Object.assign({}, {
-  name: 'Foo',
-}, {
-  inheritAttrs: true,
-}));
-</script>
-<script setup>
-
-
-</script>
-\`;
-
-export { multiMacros as default };
 "
 `;
 
@@ -351,6 +346,7 @@ export { typescript as default };
 exports[`Rollup > fixtures > tests/fixtures/with-script.vue 1`] = `
 "var withScript = \`<script>
 const name = '123'
+
 import { defineComponent as DO_defineComponent } from 'vue';
 export default /*#__PURE__*/ DO_defineComponent({
   name: 'Foo',
