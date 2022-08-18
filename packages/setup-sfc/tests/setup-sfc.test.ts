@@ -5,8 +5,8 @@ import glob from 'fast-glob'
 import esbuild from 'rollup-plugin-esbuild'
 import Vue from 'unplugin-vue/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import VueMacros from '../src/rollup'
-import { SETUP_SFC_REGEX } from '../src/setup-sfc'
+import VueSetupSFC from '../src/rollup'
+import { SETUP_SFC_REGEX } from '../src/core'
 import { getCode } from './_utils'
 
 describe('setup-component', async () => {
@@ -23,7 +23,7 @@ describe('setup-component', async () => {
 
   describe('fixtures', async () => {
     const root = resolve(__dirname, '..')
-    const files = await glob('tests/fixtures/setup-sfc/*.{vue,[jt]s?(x)}', {
+    const files = await glob('tests/fixtures/*.{vue,[jt]s?(x)}', {
       cwd: root,
       onlyFiles: true,
     })
@@ -31,13 +31,12 @@ describe('setup-component', async () => {
     for (const file of files) {
       test(file.replace(/\\/g, '/'), async () => {
         const filepath = resolve(root, file)
-        const version = filepath.includes('vue2') ? 2 : 3
 
         const unpluginCode = await getCode(filepath, [
-          VueMacros({ version }),
+          VueSetupSFC(),
           Vue({
             include: [/\.setup\.[jt]sx?/],
-          }),
+          }) as any,
           VueJsx(),
           esbuild(),
         ])

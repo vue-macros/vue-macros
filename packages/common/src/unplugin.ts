@@ -11,6 +11,7 @@ export const getTransformResult = (
         return s.generateMap({
           source: id,
           includeContent: true,
+          hires: true,
         })
       },
     }

@@ -1,15 +1,16 @@
 {
-  "name": "unplugin-vue-macros",
+  "name": "@vue-macros/setup-sfc",
   "version": "0.10.0",
   "packageManager": "pnpm@7.9.0",
   "description": "",
   "keywords": [
     "unplugin",
     "vue",
+    "sfc",
+    "setup",
     "macros",
     "script-setup",
-    "defineOptions",
-    "defineModel"
+    "setup-sfc"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -49,15 +50,6 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
-    "./helper": {
-      "require": "./dist/helper.js",
-      "import": "./dist/helper.mjs"
-    },
-    "./define-model": {
-      "require": "./dist/define-model/index.js",
-      "import": "./dist/define-model/index.mjs"
-    },
-    "./macros-global": "./macros-global.d.ts",
     "./*": "./*"
   },
   "typesVersions": {
@@ -75,10 +67,8 @@
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",
     "@vue-macros/common": "workspace:*",
-    "ast-walker-scope": "^0.2.1",
-    "local-pkg": "^0.4.2",
     "unplugin": "^0.9.2",
-    "unplugin-vue-define-options": "workspace:*"
+    "unplugin-vue": "^3.0.1"
   },
   "devDependencies": {
     "@babel/types": "^7.18.10",
@@ -90,7 +80,6 @@
     "rollup-plugin-esbuild": "^4.9.3",
     "tsup": "^6.2.2",
     "tsx": "^3.8.2",
-    "unplugin-vue": "^3.0.1",
     "vite": "^3.0.8",
     "vue": "^3.2.37"
   },

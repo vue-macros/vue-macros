@@ -15,11 +15,7 @@ import {
   loadSetupComponent,
   transformSetupComponent,
 } from './setup-component'
-import {
-  SETUP_SFC_REGEX,
-  hotUpdateSetupSFC,
-  transfromSetupSFC,
-} from './setup-sfc'
+
 import type { SetupComponentContext } from './setup-component'
 import type { FilterPattern } from '@rollup/pluginutils'
 
@@ -32,7 +28,6 @@ export interface Options {
   defineModel?: boolean
   hoistStatic?: boolean
   setupComponent?: boolean | FilterPattern
-  setupSFC?: boolean | FilterPattern
 }
 
 export type OptionsResolved = Omit<
@@ -41,7 +36,6 @@ export type OptionsResolved = Omit<
 > & {
   exclude?: FilterPattern
   setupComponent: false | FilterPattern
-  setupSFC: false | FilterPattern
 }
 
 function resolveOption(options: Options): OptionsResolved {
@@ -57,8 +51,6 @@ function resolveOption(options: Options): OptionsResolved {
   const setupComponent =
     options.setupComponent === false ? false : [/\.[cm]?[jt]sx?/]
 
-  const setupSFC = options.setupSFC === false ? false : [SETUP_SFC_REGEX]
-
   return {
     include: [/\.vue$/],
     defineOptions: true,
@@ -68,7 +60,6 @@ function resolveOption(options: Options): OptionsResolved {
     ...options,
     version,
     setupComponent,
-    setupSFC,
   }
 }
 
@@ -89,9 +80,6 @@ export default createUnplugin((userOptions: Options = {}) => {
   const filterSetupComponent = options.setupComponent
     ? createFilter(options.setupComponent)
     : undefined
-  const filterSetupSFC = options.setupSFC
-    ? createFilter(options.setupSFC)
-    : undefined
 
   const setupComponentContext: SetupComponentContext = {}
 
@@ -99,7 +87,6 @@ export default createUnplugin((userOptions: Options = {}) => {
     name,
 
     transformInclude(id) {
-      if (filterSetupSFC?.(id)) return true
       if (filterSetupComponent?.(id)) return true
       return filterSFC(id)
     },
@@ -119,11 +106,7 @@ export default createUnplugin((userOptions: Options = {}) => {
 
     transform(code, id) {
       try {
-        if (filterSetupSFC?.(id)) {
-          code = transfromSetupSFC(code, id).toString()
-          const result = transformVueSFC(code, id, options)
-          return result || code
-        } else if (filterSFC(id)) {
+        if (filterSFC(id)) {
           return transformVueSFC(code, id, options)
         } else if (filterSetupComponent?.(id)) {
           return transformSetupComponent(code, id, setupComponentContext)
@@ -134,30 +117,16 @@ export default createUnplugin((userOptions: Options = {}) => {
     },
 
     vite: {
-      config: options.setupSFC
-        ? () => {
-            if (options.setupSFC)
-              return {
-                esbuild: {
-                  exclude: options.setupSFC as any,
-                },
-              }
-          }
-        : undefined,
-
       configResolved(config) {
         options.root = config.root
       },
 
-      handleHotUpdate:
-        filterSetupSFC || filterSetupComponent
-          ? (ctx) => {
-              if (filterSetupSFC?.(ctx.file))
-                return hotUpdateSetupSFC(ctx, filterSetupSFC)
-              else if (filterSetupComponent?.(ctx.file))
-                return hotUpdateSetupComponent(ctx, setupComponentContext)
-            }
-          : undefined,
+      handleHotUpdate: filterSetupComponent
+        ? (ctx) => {
+            if (filterSetupComponent(ctx.file))
+              return hotUpdateSetupComponent(ctx, setupComponentContext)
+          }
+        : undefined,
     },
   }
 })

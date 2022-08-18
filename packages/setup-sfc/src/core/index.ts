@@ -1,4 +1,9 @@
-import { MagicString, babelParse, getLang } from '@vue-macros/common'
+import {
+  MagicString,
+  babelParse,
+  getLang,
+  getTransformResult,
+} from '@vue-macros/common'
 import type { HmrContext } from 'vite'
 
 export const SETUP_SFC_REGEX = /\.setup\.[cm]?[jt]sx?$/
@@ -25,10 +30,10 @@ export const transfromSetupSFC = (code: string, id: string) => {
   }
 
   const attrs = `${lang ? ` lang="${lang}"` : ''}`
-  s.prependRight(0, `<script setup${attrs}>\n`)
-  s.append(`\n</script>`)
+  s.prepend(`<script setup${attrs}>`)
+  s.append(`</script>`)
 
-  return s
+  return getTransformResult(s, id)
 }
 
 export const hotUpdateSetupSFC = (

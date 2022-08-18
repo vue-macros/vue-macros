@@ -1,15 +1,9 @@
 // Vitest Snapshot v1
 
-exports[`setup-component > fixtures > tests/fixtures/setup-sfc/basic.setup.tsx 1`] = `
+exports[`setup-component > fixtures > tests/fixtures/basic.setup.tsx 1`] = `
 "import { defineComponent, createVNode } from 'vue';
 
-const __default__ = defineComponent({
-  render: () => {
-    return createVNode(\\"div\\", null, null);
-  }
-});
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  ...__default__,
   __name: \\"basic.setup\\",
   props: {
     foo: {
@@ -18,7 +12,13 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     }
   },
   setup(__props) {
-    return {};
+    defineOptions({
+      render: () => {
+        return createVNode(\\"div\\", null, null);
+      }
+    });
+    return () => {
+    };
   }
 });
 
@@ -36,20 +36,20 @@ export { basic_setup as default };
 "
 `;
 
-exports[`setup-component > fixtures > tests/fixtures/setup-sfc/with-define-options.setup.tsx 1`] = `
+exports[`setup-component > fixtures > tests/fixtures/with-define-options.setup.tsx 1`] = `
 "import { defineComponent, createVNode } from 'vue';
 
-const __default__ = defineComponent(Object.assign({}, {
-  name: \\"App\\"
-}, {
-  render: () => {
-    return createVNode(\\"div\\", null, null);
-  }
-}));
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  ...__default__,
   __name: \\"with-define-options.setup\\",
   setup(__props) {
+    defineOptions({
+      name: \\"App\\"
+    });
+    defineOptions({
+      render: () => {
+        return createVNode(\\"div\\", null, null);
+      }
+    });
     return () => {
     };
   }
