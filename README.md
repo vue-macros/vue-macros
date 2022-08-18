@@ -96,6 +96,18 @@ module.exports = {
 
 <br></details>
 
+### TypeScript Support
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    // ...
+    "types": ["unplugin-vue-macros/macros-global" /* ... */]
+  }
+}
+```
+
 ## Usage
 
 ### `defineOptions`
@@ -174,16 +186,20 @@ To be able define and change `v-model` props as the same as normal variable.
 
 > **Warning**: [Reactivity Transform](https://vuejs.org/guide/extras/reactivity-transform.html) is required. You should enable it first. Otherwise, it will lose the reactivity connection.
 
+> **Warning**: Assignment expression is only supported in `<script setup>` block. In other words invalid in `<template>`.
+
 #### Basic Usage
 
 ```vue
 <script setup lang="ts">
 let { modelValue } = defineModel<{
   modelValue: string
+  count: number
 }>()
 
 console.log(modelValue)
 modelValue = 'newValue'
+count++
 </script>
 ```
 
@@ -192,16 +208,19 @@ modelValue = 'newValue'
 
 ```vue
 <script setup lang="ts">
-const { modelValue } = defineProps<{
+const { modelValue, count } = defineProps<{
   modelValue: string
+  modelValue: number
 }>()
 
 const emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
+  (evt: 'update:count', value: number): void
 }>()
 
 console.log(modelValue)
 emit('update:modelValue', 'newValue')
+emit('update:count', count + 1)
 </script>
 ```
 
@@ -290,6 +309,12 @@ export const App = defineSetupComponent(() => {
 })
 ```
 
+#### Known issues
+
+- [ ] The source map does not correspond properly.
+- [ ] The render function cannot refer to variables. However, you can use the first argument of the render function to receive the context.
+- [ ] TypeScript support is not yet complete.
+
 ### `setupSFC` (⚠️ experimental)
 
 > **Warning**: Under experimental, use at your risk!
@@ -336,17 +361,11 @@ export default () => (
 )
 ```
 
-### TypeScript Support
+#### Known issues
 
-```jsonc
-// tsconfig.json
-{
-  "compilerOptions": {
-    // ...
-    "types": ["unplugin-vue-macros/macros-global" /* ... */]
-  }
-}
-```
+- [ ] The source map does not correspond properly in JSX/TSX files.
+- [ ] The render function cannot refer to variables. However, you can use the first argument of the render function to receive the context.
+- [ ] TypeScript support is not yet complete.
 
 ## Sponsors
 

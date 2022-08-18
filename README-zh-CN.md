@@ -99,6 +99,18 @@ module.exports = {
 
 <br></details>
 
+### TypeScript 支持
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    // ...
+    "types": ["unplugin-vue-macros/macros-global" /* ... */]
+  }
+}
+```
+
 ## 使用
 
 ### `defineOptions`
@@ -173,16 +185,20 @@ export default {
 
 > **Warning**: 需要依赖 [Reactivity Transform](https://vuejs.org/guide/extras/reactivity-transform.html)。你应该先启动这个功能，否则会丢失响应式。
 
+> **Warning**: 赋值表达式仅在 `<script setup>` 块中有效，换言之在 `<template>` 中无效。
+
 #### 基础使用
 
 ```vue
 <script setup lang="ts">
 let { modelValue } = defineModel<{
   modelValue: string
+  count: number
 }>()
 
 console.log(modelValue)
 modelValue = 'newValue'
+count++
 </script>
 ```
 
@@ -193,14 +209,17 @@ modelValue = 'newValue'
 <script setup lang="ts">
 const { modelValue } = defineProps<{
   modelValue: string
+  count: number
 }>()
 
 const emit = defineEmits<{
   (evt: 'update:modelValue', value: string): void
+  (evt: 'update:count', value: number): void
 }>()
 
 console.log(modelValue)
 emit('update:modelValue', 'newValue')
+emit('update:count', count + 1)
 </script>
 ```
 
@@ -261,6 +280,12 @@ export default {
 ```
 
 </details>
+
+#### 已知问题
+
+- [ ] source map 无法正常对应
+- [ ] render 函数中无法引用变量。但可以使用 render 函数的第一个参数来接收 context
+- [ ] TypeScript 支持尚未完善
 
 ### `setupComponent` (⚠️ 实验性)
 
@@ -334,17 +359,11 @@ export default () => (
 )
 ```
 
-### TypeScript 支持
+#### 已知问题
 
-```jsonc
-// tsconfig.json
-{
-  "compilerOptions": {
-    // ...
-    "types": ["unplugin-vue-macros/macros-global" /* ... */]
-  }
-}
-```
+- [ ] JSX/TSX 文件中，source map 无法正常对应
+- [ ] render 函数中无法引用变量。但可以使用 render 函数的第一个参数来接收 context
+- [ ] TypeScript 支持尚未完善
 
 ## 赞助
 
