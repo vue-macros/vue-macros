@@ -22,7 +22,7 @@ describe('setup-component', async () => {
 
       const unpluginCode = await getCode(filepath, [
         VueMacros({ version }),
-        Vue(),
+        Vue() as any,
         VueJsx(),
         esbuild(),
       ])
