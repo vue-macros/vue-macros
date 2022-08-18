@@ -14,7 +14,7 @@ export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
 
 function resolveOption(options: Options): OptionsResolved {
   return {
-    include: [/\.vue$/, /\.vue\?vue/],
+    include: [/\.vue$/, /(\.vue|\.setup\.[cm]?[jt]sx?)\?vue/],
     ...options,
   }
 }
@@ -39,12 +39,6 @@ export default createUnplugin((userOptions: Options = {}) => {
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }
-    },
-
-    vite: {
-      // handleHotUpdate: (ctx) => {
-      //   if (filter(ctx.file)) return hotUpdateSetupSFC(ctx, filter)
-      // },
     },
   }
 })

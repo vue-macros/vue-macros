@@ -12,10 +12,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     }
   },
   setup(__props) {
-    defineOptions({
-      render: () => {
-        return createVNode(\\"div\\", null, null);
-      }
+    defineRender(() => {
+      return createVNode(\\"div\\", null, null);
     });
     return () => {
     };
@@ -45,10 +43,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     defineOptions({
       name: \\"App\\"
     });
-    defineOptions({
-      render: () => {
-        return createVNode(\\"div\\", null, null);
-      }
+    defineRender(() => {
+      return createVNode(\\"div\\", null, null);
     });
     return () => {
     };

@@ -4,6 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import VueMacros from 'unplugin-vue-macros/vite'
 import VueSetupSFC from '@vue-macros/setup-sfc/vite'
+import VueDefineRender from '@vue-macros/define-render/vite'
 
 export default defineConfig({
   plugins: [
@@ -16,6 +17,7 @@ export default defineConfig({
       reactivityTransform: true,
     }),
     VueJsx(),
+    VueDefineRender(),
     Inspect(),
   ],
 })

@@ -196,6 +196,7 @@ importers:
     specifiers:
       '@vitejs/plugin-vue': ^3.0.3
       '@vitejs/plugin-vue-jsx': ^2.0.0
+      '@vue-macros/define-render': workspace:*
       '@vue-macros/setup-sfc': workspace:*
       typescript: ^4.7.4
       unplugin-vue-define-options: workspace:*
@@ -209,6 +210,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue': 3.0.3_vite@3.0.8+vue@3.2.37
       '@vitejs/plugin-vue-jsx': 2.0.0_vite@3.0.8+vue@3.2.37
+      '@vue-macros/define-render': link:../packages/define-render
       '@vue-macros/setup-sfc': link:../packages/setup-sfc
       typescript: 4.7.4
       unplugin-vue-define-options: link:../packages/define-options

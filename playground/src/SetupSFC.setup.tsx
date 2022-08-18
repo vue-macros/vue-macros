@@ -19,7 +19,7 @@ const updateCount = (val: number) => {
   emit('change')
 }
 
-export default ({ updateCount, modelValue }: any) => (
+export default () => (
   <>
     <h2>Counter - setupSFC</h2>
     <button onClick={() => updateCount(-1)}>-</button> {''}

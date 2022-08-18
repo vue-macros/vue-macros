@@ -10,16 +10,14 @@ export const CounterA = defineSetupComponent(() => {
     console.log((modelValue = modelValue + val))
   }
 
-  defineOptions({
-    render: ({ modelValue, updateCount }: any) => (
-      <>
-        <h2>SetupComponent - CounterA</h2>
-        <button onClick={() => updateCount(-1)}>-</button> {''}
-        {modelValue} {''}
-        <button onClick={() => updateCount(+1)}>+</button>
-      </>
-    ),
-  })
+  defineRender(() => (
+    <>
+      <h2>SetupComponent - CounterA</h2>
+      <button onClick={() => updateCount(-1)}>-</button> {''}
+      {modelValue} {''}
+      <button onClick={() => updateCount(+1)}>+</button>
+    </>
+  ))
 })
 
 export const CounterB = defineSetupComponent(() => {
@@ -32,14 +30,12 @@ export const CounterB = defineSetupComponent(() => {
     console.log((modelValue = modelValue + val))
   }
 
-  defineOptions({
-    render: ({ modelValue, updateCount }: any) => (
-      <>
-        <h2>SetupComponent - CounterB</h2>
-        <button onClick={() => updateCount(-1)}>-</button> {''}
-        {modelValue} {''}
-        <button onClick={() => updateCount(+1)}>+</button>
-      </>
-    ),
-  })
+  defineRender(() => (
+    <>
+      <h2>SetupComponent - CounterB</h2>
+      <button onClick={() => updateCount(-1)}>-</button> {''}
+      {modelValue} {''}
+      <button onClick={() => updateCount(+1)}>+</button>
+    </>
+  ))
 })

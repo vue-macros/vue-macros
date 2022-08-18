@@ -23,9 +23,7 @@ export const transfromSetupSFC = (code: string, id: string) => {
     )
       throw new SyntaxError(`Default export must be a function`)
 
-    s.append(`defineOptions({
-  render: ${s.sliceNode(stmt.declaration)}
-});`)
+    s.append(`defineRender(${s.sliceNode(stmt.declaration)});`)
     s.removeNode(stmt)
   }
 
