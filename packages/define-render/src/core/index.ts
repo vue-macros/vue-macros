@@ -47,8 +47,9 @@ export const transfromDefineRender = (code: string, id: string) => {
     )
     const index = returnStmt ? returnStmt.start! : parent.end! - 1
     if (returnStmt) s.removeNode(returnStmt)
-    s.appendLeft(index, 'return')
+    s.appendLeft(index, 'return ')
     s.moveNode(arg, index)
+
     s.remove(node.start!, arg.start!)
     s.remove(arg.end!, node.end!)
   }
