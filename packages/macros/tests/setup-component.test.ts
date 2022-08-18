@@ -1,12 +1,11 @@
-/// <reference types="vite/client" />
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import glob from 'fast-glob'
 import esbuild from 'rollup-plugin-esbuild'
 import Vue from 'unplugin-vue/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
+import { RemoveVueFilePathPlugin, rollupBuild } from '@vue-macros/test-utils'
 import VueMacros from '../src/rollup'
-import { getCode } from './_utils'
 
 describe('setup-component', async () => {
   const root = resolve(__dirname, '..')
@@ -20,13 +19,16 @@ describe('setup-component', async () => {
       const filepath = resolve(root, file)
       const version = filepath.includes('vue2') ? 2 : 3
 
-      const unpluginCode = await getCode(filepath, [
+      const code = await rollupBuild(filepath, [
         VueMacros({ version }),
         Vue() as any,
         VueJsx(),
-        esbuild(),
+        RemoveVueFilePathPlugin(),
+        esbuild({
+          target: 'esnext',
+        }),
       ])
-      expect(unpluginCode).toMatchSnapshot()
+      expect(code).toMatchSnapshot()
     })
   }
 })

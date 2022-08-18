@@ -1,8 +1,8 @@
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import glob from 'fast-glob'
+import { ToStringPlugin, rollupBuild } from '@vue-macros/test-utils'
 import VueMacros from '../src/rollup'
-import { ToString, getCode } from './_utils'
 
 describe('mixed', async () => {
   const root = resolve(__dirname, '..')
@@ -16,13 +16,13 @@ describe('mixed', async () => {
       const filepath = resolve(root, file)
       const version = filepath.includes('vue2') ? 2 : 3
 
-      const unpluginCode = await getCode(filepath, [
+      const code = await rollupBuild(filepath, [
         VueMacros({
           version,
         }),
-        ToString,
+        ToStringPlugin(),
       ])
-      expect(unpluginCode).toMatchSnapshot()
+      expect(code).toMatchSnapshot()
     })
   }
 })

@@ -1,25 +1,8 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "target": "ES2019",
-    "module": "ESNext",
-    "lib": ["ES2019"],
-    "strict": true,
-    "strictNullChecks": true,
-    "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true,
-    "types": ["node"],
-    "baseUrl": ".",
-    "outDir": "dist",
-    "paths": {
-      "@vue-macros/common": ["packages/common/src/index.ts"],
-      "unplugin-vue-define-options": ["packages/define-options/src/index.ts"]
-    },
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "jsx": "preserve"
-  },
-  "include": ["packages", "scripts"],
-  "exclude": ["**/dist", "**/tests/fixtures", "**/macros-global.d.ts"],
-  "references": [{ "path": "./tsconfig.fixture.json" }]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.lib.json" },
+    { "path": "./tsconfig.test.json" },
+    { "path": "./tsconfig.fixture.json" }
+  ]
 }

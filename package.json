@@ -15,7 +15,9 @@
     "test": "vitest",
     "release": "bumpp package.json ./packages/*/package.json && pnpm run build && pnpm publish -r",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "run-p typecheck:lib typecheck:test",
+    "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
+    "typecheck:test": "tsc --noEmit -p tsconfig.test.json"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@sxzz/eslint-config": "^2.4.1",
     "@types/node": "*",
+    "@vue-macros/test-utils": "workspace:*",
     "bumpp": "^8.2.1",
     "eslint": "^8.22.0",
     "eslint-define-config": "^1.6.0",
@@ -31,6 +34,7 @@
     "tsup": "^6.2.2",
     "tsx": "^3.8.2",
     "typescript": "^4.7.4",
+    "vite": "^3.0.8",
     "vitest": "0.22.0",
     "vue": "^3.2.37"
   },

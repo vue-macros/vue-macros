@@ -1,13 +1,12 @@
-/// <reference types="vite/client" />
 import { resolve } from 'node:path'
 import { describe, expect, test } from 'vitest'
 import glob from 'fast-glob'
 import esbuild from 'rollup-plugin-esbuild'
 import Vue from 'unplugin-vue/vite'
 import VueJsx from '@vitejs/plugin-vue-jsx'
+import { RemoveVueFilePathPlugin, rollupBuild } from '@vue-macros/test-utils'
 import VueSetupSFC from '../src/rollup'
 import { SETUP_SFC_REGEX } from '../src/core'
-import { getCode } from './_utils'
 
 describe('setup-component', async () => {
   test('isSetupSFC', () => {
@@ -32,15 +31,16 @@ describe('setup-component', async () => {
       test(file.replace(/\\/g, '/'), async () => {
         const filepath = resolve(root, file)
 
-        const unpluginCode = await getCode(filepath, [
+        const code = await rollupBuild(filepath, [
           VueSetupSFC(),
           Vue({
             include: [/\.setup\.[jt]sx?/],
           }) as any,
           VueJsx(),
+          RemoveVueFilePathPlugin(),
           esbuild(),
         ])
-        expect(unpluginCode).toMatchSnapshot()
+        expect(code).toMatchSnapshot()
       })
     }
   })

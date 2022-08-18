@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["DOM"],
+    "types": ["vite/client"]
+  },
+  "include": ["packages/*/tests", "packages/*/src"],
+  "exclude": ["**/dist", "**/tests/fixtures", "**/macros-global.d.ts"]
+}

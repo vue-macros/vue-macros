@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 import { describe, expect, test } from 'vitest'
 import { finalizeContext, initContext } from '@vue-macros/common'
 import { transformDefineModel } from '../src/define-model'

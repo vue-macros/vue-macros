@@ -1,8 +1,8 @@
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import glob from 'fast-glob'
+import { ToStringPlugin, rollupBuild } from '@vue-macros/test-utils'
 import VueDefineOptions from '../src/rollup'
-import { ToString, getCode } from './_utils'
 
 describe('Rollup', () => {
   describe('fixtures', async () => {
@@ -16,11 +16,11 @@ describe('Rollup', () => {
       it(file.replace(/\\/g, '/'), async () => {
         const filepath = resolve(root, file)
 
-        const unpluginCode = await getCode(filepath, [
+        const code = await rollupBuild(filepath, [
           VueDefineOptions({}),
-          ToString,
+          ToStringPlugin(),
         ]).catch((err) => err)
-        expect(unpluginCode).toMatchSnapshot()
+        expect(code).toMatchSnapshot()
       })
     }
   })
