@@ -6,5 +6,6 @@ export default defineConfig({
   target: 'node14',
   splitting: true,
   dts: true,
+  tsconfig: '../../tsconfig.lib.json',
   clean: true,
 })

@@ -20,10 +20,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "tsup --watch"
-  },
+  "scripts": {},
   "dependencies": {
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "esbuild": "^0.15.5",
@@ -31,11 +28,11 @@
     "rollup-plugin-esbuild": "^4.9.3",
     "unplugin-vue": "^3.0.1"
   },
-  "engines": {
-    "node": ">=14.19.0"
-  },
   "devDependencies": {
     "vite": "^3.0.8",
     "vue": "^3.2.37"
+  },
+  "engines": {
+    "node": ">=14.19.0"
   }
 }
