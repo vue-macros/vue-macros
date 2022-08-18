@@ -18,6 +18,36 @@ __emitHelper(_defineModel_emit, 'update:modelValue', __emitHelper(_defineModel_e
 "
 `;
 
+exports[`define-model > ./fixtures/define-model/assignment-update.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+let { count } = defineProps<{
+  count: number
+}>();
+const _defineModel_emit = defineEmits<{
+  (evt: 'update:count', value: number): void
+}>();
+
+
+__emitHelper(_defineModel_emit, 'update:count', count + 1, count)
+__emitHelper(_defineModel_emit, 'update:count', count - 1, count)
+__emitHelper(_defineModel_emit, 'update:count', count + 1)
+__emitHelper(_defineModel_emit, 'update:count', count - 1)
+__emitHelper(_defineModel_emit, 'update:count', 1)
+__emitHelper(_defineModel_emit, 'update:count', count + 1)
+__emitHelper(_defineModel_emit, 'update:count', count - 1)
+__emitHelper(_defineModel_emit, 'update:count', count * 1)
+__emitHelper(_defineModel_emit, 'update:count', count / 1)
+
+__emitHelper(_defineModel_emit, 'update:count', count + 1)
+
+const additionAssignment = () => (__emitHelper(_defineModel_emit, 'update:count', count + 1))
+const increment = () => __emitHelper(_defineModel_emit, 'update:count', count + 1, count)
+const add = () => (__emitHelper(_defineModel_emit, 'update:count', count + 1))
+</script>
+"
+`;
+
 exports[`define-model > ./fixtures/define-model/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';

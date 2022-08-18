@@ -269,25 +269,45 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
       sourceFile: '',
     }
     let hasTransfromed = false
+
+    function overwrite(
+      node: Node,
+      id: Identifier,
+      value: string,
+      original = false
+    ) {
+      hasTransfromed = true
+      const content = `__emitHelper(${emitsIdentifier}, '${getEventKey(
+        id.name
+      )}', ${value}${original ? `, ${id.name}` : ''})`
+      s.overwrite(startOffset + node.start!, startOffset + node.end!, content)
+    }
+
     walkAST(program, {
       leave(node) {
-        if (node.type !== 'AssignmentExpression') return
-        if (node.left.type !== 'Identifier') return
+        if (node.type === 'AssignmentExpression') {
+          if (node.left.type !== 'Identifier') return
+          const id = this.scope[node.left.name] as Identifier
+          if (!modelIdentifiers.has(id)) return
 
-        const idDecl = this.scope[node.left.name] as Identifier
-        if (!modelIdentifiers.has(idDecl)) return
+          const left = s.sliceNode(node.left, startOffset)
+          let right = s.sliceNode(node.right, startOffset)
+          if (node.operator !== '=') {
+            right = `${left} ${node.operator.replace(/=$/, '')} ${right}`
+          }
 
-        hasTransfromed = true
-        s.overwrite(
-          startOffset + node.start!,
-          startOffset + node.end!,
-          `__emitHelper(${emitsIdentifier}, '${getEventKey(
-            idDecl.name
-          )}', ${s.slice(
-            startOffset + node.right.start!,
-            startOffset + node.right.end!
-          )})`
-        )
+          overwrite(node, id, right)
+        } else if (node.type === 'UpdateExpression') {
+          if (node.argument.type !== 'Identifier') return
+          const id = this.scope[node.argument.name] as Identifier
+          if (!modelIdentifiers.has(id)) return
+
+          let value = node.argument.name
+          if (node.operator === '++') value += ' + 1'
+          else value += ' - 1'
+
+          overwrite(node, id, value, !node.prefix)
+        }
       },
     })
 
