@@ -1,0 +1,49 @@
+// Vitest Snapshot v1
+
+exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+"import { defineComponent, h } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  setup(__props) {
+    return () => h(\\"div\\");
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/tsx.vue 1`] = `
+"import { defineComponent, createVNode, createTextVNode } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"tsx\\",
+  setup(__props) {
+    return () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var tsx = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { tsx as default };
+"
+`;

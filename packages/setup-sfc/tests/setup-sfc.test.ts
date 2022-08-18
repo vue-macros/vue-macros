@@ -1,10 +1,13 @@
 import { resolve } from 'node:path'
 import { describe, expect, test } from 'vitest'
 import glob from 'fast-glob'
-import esbuild from 'rollup-plugin-esbuild'
-import Vue from 'unplugin-vue/vite'
+import Vue from 'unplugin-vue/rollup'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import { RemoveVueFilePathPlugin, rollupBuild } from '@vue-macros/test-utils'
+import {
+  RollupEsbuildPlugin,
+  RollupRemoveVueFilePathPlugin,
+  rollupBuild,
+} from '@vue-macros/test-utils'
 import VueSetupSFC from '../src/rollup'
 import { SETUP_SFC_REGEX } from '../src/core'
 
@@ -35,10 +38,12 @@ describe('setup-component', async () => {
           VueSetupSFC(),
           Vue({
             include: [/\.setup\.[jt]sx?/],
-          }) as any,
-          VueJsx(),
-          RemoveVueFilePathPlugin(),
-          esbuild(),
+          }),
+          VueJsx() as any,
+          RollupRemoveVueFilePathPlugin(),
+          RollupEsbuildPlugin({
+            target: 'esnext',
+          }),
         ])
         expect(code).toMatchSnapshot()
       })

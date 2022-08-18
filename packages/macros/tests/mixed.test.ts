@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import glob from 'fast-glob'
-import { ToStringPlugin, rollupBuild } from '@vue-macros/test-utils'
+import { RollupToStringPlugin, rollupBuild } from '@vue-macros/test-utils'
 import VueMacros from '../src/rollup'
 
 describe('mixed', async () => {
@@ -20,7 +20,7 @@ describe('mixed', async () => {
         VueMacros({
           version,
         }),
-        ToStringPlugin(),
+        RollupToStringPlugin(),
       ])
       expect(code).toMatchSnapshot()
     })

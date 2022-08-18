@@ -1,18 +1,18 @@
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import glob from 'fast-glob'
-import Vue from 'unplugin-vue/rollup'
-import VueJsx from '@vitejs/plugin-vue-jsx'
 import {
   RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
+  RollupVue,
+  RollupVueJsx,
   rollupBuild,
 } from '@vue-macros/test-utils'
-import VueMacros from '../src/rollup'
+import VueDefineRender from '../src/rollup'
 
-describe('setup-component', async () => {
+describe('fixtures', async () => {
   const root = resolve(__dirname, '..')
-  const files = await glob('tests/fixtures/setup-component/*.{vue,[jt]s?(x)}', {
+  const files = await glob('tests/fixtures/*.{vue,js,ts}', {
     cwd: root,
     onlyFiles: true,
   })
@@ -20,12 +20,11 @@ describe('setup-component', async () => {
   for (const file of files) {
     it(file.replace(/\\/g, '/'), async () => {
       const filepath = resolve(root, file)
-      const version = filepath.includes('vue2') ? 2 : 3
 
       const code = await rollupBuild(filepath, [
-        VueMacros({ version }),
-        Vue(),
-        VueJsx() as any,
+        RollupVue(),
+        RollupVueJsx(),
+        VueDefineRender(),
         RollupRemoveVueFilePathPlugin(),
         RollupEsbuildPlugin({
           target: 'esnext',

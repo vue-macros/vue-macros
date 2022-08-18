@@ -1,14 +1,20 @@
 import { rollup } from 'rollup'
+import { default as ViteVueJsx } from '@vitejs/plugin-vue-jsx'
+import type { Options as VueJsxOptions } from '@vitejs/plugin-vue-jsx'
 import type { Plugin } from 'rollup'
 
-export const ToStringPlugin = (): Plugin => {
+export { default as RollupEsbuildPlugin } from 'rollup-plugin-esbuild'
+export { default as RollupVue } from 'unplugin-vue/rollup'
+export const RollupVueJsx = ViteVueJsx as (options?: VueJsxOptions) => Plugin
+
+export const RollupToStringPlugin = (): Plugin => {
   return {
     name: 'to-string',
     transform: (code) => `export default \`${code.replace(/`/g, '\\`')}\``,
   }
 }
 
-export const RemoveVueFilePathPlugin = (): Plugin => {
+export const RollupRemoveVueFilePathPlugin = (): Plugin => {
   const REGEX = /\[["']__file["'],\s*["'](.*?)["']]/g
   return {
     name: 'remove-vue-filepath',
