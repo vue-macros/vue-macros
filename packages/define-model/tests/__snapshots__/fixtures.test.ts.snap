@@ -2,7 +2,7 @@
 
 exports[`fixtures > ./fixtures/assignment.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+import { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';
 let { modelValue, title } = defineProps<{
   modelValue: string
 title: string
@@ -20,7 +20,7 @@ __emitHelper(_defineModel_emit, 'update:modelValue', __emitHelper(_defineModel_e
 
 exports[`fixtures > ./fixtures/assignment-update.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+import { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';
 let { count } = defineProps<{
   count: number
 }>();
@@ -50,7 +50,7 @@ const add = () => (__emitHelper(_defineModel_emit, 'update:count', count + 1))
 
 exports[`fixtures > ./fixtures/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+import { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';
 var { modelValue } = defineProps<{
   modelValue: string
 visible: boolean
@@ -105,7 +105,7 @@ const _defineModel_emit = defineEmits<{
 
 exports[`fixtures > ./fixtures/vue2/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+import { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';
 
 
 const {value, title,  id } = defineProps<{value: string
@@ -142,7 +142,7 @@ export default {
 }
 </script>
 <script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+import { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';
 
 
 const {value, title,  id } = defineProps<{value: string
@@ -180,7 +180,7 @@ export default defineComponent({
 })
 </script>
 <script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+import { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';
 
 
 const {value, title,  id } = defineProps<{value: string
@@ -226,7 +226,7 @@ emit('change')
 
 exports[`fixtures > ./fixtures/with-define-emits-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+import { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';
 let { modelValue } = defineProps<{
   modelValue: string
 }>();
@@ -252,7 +252,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 
 exports[`fixtures > ./fixtures/with-define-emits-no-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';
+import { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';
 let { modelValue } = defineProps<{
   modelValue: string
 }>();

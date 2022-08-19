@@ -318,7 +318,7 @@ export const transformDefineModel = (
     if (hasTransfromed) {
       s.prependLeft(
         setupOffset,
-        "\nimport { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';"
+        "\nimport { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';"
       )
     }
   }
