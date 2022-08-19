@@ -1,14 +1,14 @@
 <script setup lang="ts">
-// import { ref } from 'vue'
+import { ref } from 'vue'
 
 import DefineRenderVue from './demo/define-render.vue'
 import DefineOptionsVue from './demo/define-options.vue'
 import DefineOptionsEmptyVue from './demo/define-options-empty.vue'
 import DefineOptionsTsx from './demo/define-options-tsx.vue'
 import HoistStaticVue from './demo/hoist-static.vue'
-// import DefineModelVue from './demo/define-model.vue'
+import DefineModelVue from './demo/define-model.vue'
 
-// const title = ref('hello')
+const title = ref('hello')
 </script>
 
 <template>
@@ -22,5 +22,5 @@ import HoistStaticVue from './demo/hoist-static.vue'
   <hr />
   <HoistStaticVue />
   <hr />
-  <!-- <DefineModelVue v-model:title="title" /> -->
+  <DefineModelVue v-model:title="title" />
 </template>

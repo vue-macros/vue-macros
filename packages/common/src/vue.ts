@@ -1,6 +1,5 @@
 import { compileScript, parse } from 'vue/compiler-sfc'
-import type { MagicString } from '../magic-string'
-import type { SFCContext } from './context'
+import type { MagicString } from './magic-string'
 import type { SFCDescriptor, SFCScriptBlock } from 'vue/compiler-sfc'
 
 export type _SFCScriptBlock = Omit<
@@ -31,36 +30,6 @@ export const parseSFC = (code: string, id: string): SFCCompiled => {
         id,
       }))
     },
-  }
-}
-
-export const addToScript = (ctx: SFCContext) => {
-  const { scriptCode } = ctx
-  if (scriptCode.prepend.length + scriptCode.append.length === 0) {
-    return
-  }
-
-  const { sfc, s } = ctx
-  const { script, scriptSetup, lang } = sfc
-  if (script) {
-    if (scriptCode.prepend) {
-      s.appendRight(script.loc.start.offset, scriptCode.prepend)
-      script.content = scriptCode.prepend + script.content
-    }
-    if (scriptCode.append) {
-      s.appendRight(script.loc.end.offset, scriptCode.append)
-      script.content = script.content + scriptCode.append
-    }
-  } else {
-    const attrs = lang ? ` lang="${lang}"` : ''
-    const content = `${scriptCode.prepend}\n${scriptCode.append}`
-    s.prependLeft(0, `<script${attrs}>${content}</script>\n`)
-    sfc.script = {
-      type: 'script',
-      content,
-      attrs: scriptSetup?.attrs || {},
-      loc: undefined as any,
-    }
   }
 }
 

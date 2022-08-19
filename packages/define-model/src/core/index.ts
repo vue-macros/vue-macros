@@ -4,10 +4,12 @@ import {
   DEFINE_MODEL,
   DEFINE_OPTIONS,
   DEFINE_PROPS,
+  MagicString,
   REPO_ISSUE_URL,
+  getTransformResult,
   isCallOf,
+  parseSFC,
 } from '@vue-macros/common'
-import type { SFCContext } from '@vue-macros/common'
 import type {
   Identifier,
   LVal,
@@ -22,9 +24,11 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
-  const { s, code } = ctx
-
+export const transformDefineModel = (
+  code: string,
+  id: string,
+  version: 2 | 3
+) => {
   let hasDefineProps = false
   let hasDefineEmits = false
   let hasDefineModel = false
@@ -87,7 +91,7 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
       }
     } else if (type === 'emits') {
       emitsIdentifier = `_${DEFINE_MODEL}_emit`
-      s.prependRight(startOffset + node.start!, `const ${emitsIdentifier} = `)
+      s.prependRight(setupOffset + node.start!, `const ${emitsIdentifier} = `)
     }
 
     return true
@@ -280,7 +284,7 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
       const content = `__emitHelper(${emitsIdentifier}, '${getEventKey(
         id.name
       )}', ${value}${original ? `, ${id.name}` : ''})`
-      s.overwrite(startOffset + node.start!, startOffset + node.end!, content)
+      s.overwrite(setupOffset + node.start!, setupOffset + node.end!, content)
     }
 
     walkAST(program, {
@@ -290,8 +294,8 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
           const id = this.scope[node.left.name] as Identifier
           if (!modelIdentifiers.has(id)) return
 
-          const left = s.sliceNode(node.left, startOffset)
-          let right = s.sliceNode(node.right, startOffset)
+          const left = s.sliceNode(node.left, { offset: setupOffset })
+          let right = s.sliceNode(node.right, { offset: setupOffset })
           if (node.operator !== '=') {
             right = `${left} ${node.operator.replace(/=$/, '')} ${right}`
           }
@@ -313,19 +317,21 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
 
     if (hasTransfromed) {
       s.prependLeft(
-        startOffset,
+        setupOffset,
         "\nimport { emitHelper as __emitHelper } from 'unplugin-vue-macros/helper';"
       )
     }
   }
 
   if (!code.includes(DEFINE_MODEL)) return
+  const sfc = parseSFC(code, id)
+  if (!sfc.scriptSetup) return
 
-  const { sfc } = ctx
   const { scriptCompiled } = sfc
   if (!scriptCompiled) return
 
-  const startOffset = scriptCompiled.loc.start.offset
+  const s = new MagicString(code)
+  const setupOffset = scriptCompiled.loc.start.offset
 
   if (
     version === 2 &&
@@ -363,7 +369,7 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
       }
 
       if (processDefineModel(node.expression)) {
-        s.remove(node.start! + startOffset, node.end! + startOffset)
+        s.remove(node.start! + setupOffset, node.end! + setupOffset)
       }
     } else if (node.type === 'VariableDeclaration' && !node.declare) {
       const total = node.declarations.length
@@ -376,16 +382,16 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
 
           if (processDefineModel(decl.init, decl.id, node.kind)) {
             if (left === 1) {
-              s.remove(node.start! + startOffset, node.end! + startOffset)
+              s.remove(node.start! + setupOffset, node.end! + setupOffset)
             } else {
-              let start = decl.start! + startOffset
-              let end = decl.end! + startOffset
+              let start = decl.start! + setupOffset
+              let end = decl.end! + setupOffset
               if (i < total - 1) {
                 // not the last one, locate the start of the next
-                end = node.declarations[i + 1].start! + startOffset
+                end = node.declarations[i + 1].start! + setupOffset
               } else {
                 // last one, locate the end of the prev
-                start = node.declarations[i - 1].end! + startOffset
+                start = node.declarations[i - 1].end! + setupOffset
               }
               s.remove(start, end)
               left--
@@ -414,14 +420,14 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
     .join('\n')
 
   if (hasDefineProps) {
-    s.appendLeft(startOffset + propsTypeDecl!.start! + 1, `${propsText}\n`)
+    s.appendLeft(setupOffset + propsTypeDecl!.start! + 1, `${propsText}\n`)
     if (propsDestructureDecl && modelDestructureDecl)
       for (const property of modelDestructureDecl.properties) {
         const text = code.slice(
-          startOffset + property.start!,
-          startOffset + property.end!
+          setupOffset + property.start!,
+          setupOffset + property.end!
         )
-        s.appendLeft(startOffset + propsDestructureDecl.start! + 1, `${text}, `)
+        s.appendLeft(setupOffset + propsDestructureDecl.start! + 1, `${text}, `)
       }
   } else {
     let text = ''
@@ -430,24 +436,24 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
       text = modelIdentifier
     } else if (modelDestructureDecl) {
       text = code.slice(
-        startOffset + modelDestructureDecl.start!,
-        startOffset + modelDestructureDecl.end!
+        setupOffset + modelDestructureDecl.start!,
+        setupOffset + modelDestructureDecl.end!
       )
     }
 
     s.appendLeft(
-      startOffset,
+      setupOffset,
       `\n${text ? `${kind} ${text} = ` : ''}defineProps<{
   ${propsText}
 }>();`
     )
   }
   if (hasDefineEmits) {
-    s.appendLeft(startOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
+    s.appendLeft(setupOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
   } else {
     emitsIdentifier = `_${DEFINE_MODEL}_emit`
     s.appendLeft(
-      startOffset,
+      setupOffset,
       `\nconst ${emitsIdentifier} = defineEmits<{
   ${emitsText}
 }>();`
@@ -457,4 +463,6 @@ export const transformDefineModel = (ctx: SFCContext, version: 2 | 3) => {
   if (hasDefineModel) {
     processAssignModelVariable()
   }
+
+  return getTransformResult(s, id)
 }

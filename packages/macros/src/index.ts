@@ -2,12 +2,6 @@ import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { getPackageInfoSync } from 'local-pkg'
 import {
-  finalizeContext,
-  getTransformResult,
-  initContext,
-} from '@vue-macros/common'
-import { transformDefineModel } from './define-model'
-import {
   SETUP_COMPONENT_ID_REGEX,
   hotUpdateSetupComponent,
   loadSetupComponent,
@@ -63,13 +57,6 @@ function resolveOption(options: Options): OptionsResolved {
 
 const name = 'unplugin-vue-macros'
 
-function transformVueSFC(code: string, id: string, options: OptionsResolved) {
-  const { ctx, getMagicString } = initContext(code, id)
-  if (options.defineModel) transformDefineModel(ctx, options.version)
-  finalizeContext(ctx)
-  return getTransformResult(getMagicString(), id)
-}
-
 export default createUnplugin((userOptions: Options = {}) => {
   const options = resolveOption(userOptions)
   const filterSFC = createFilter(options.include, options.exclude)
@@ -102,9 +89,7 @@ export default createUnplugin((userOptions: Options = {}) => {
 
     transform(code, id) {
       try {
-        if (filterSFC(id)) {
-          return transformVueSFC(code, id, options)
-        } else if (filterSetupComponent?.(id)) {
+        if (filterSetupComponent?.(id)) {
           return transformSetupComponent(code, id, setupComponentContext)
         }
       } catch (err: unknown) {
