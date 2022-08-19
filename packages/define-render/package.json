@@ -24,6 +24,7 @@
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
     "dist",
+    "macros.d.ts",
     "macros-global.d.ts"
   ],
   "main": "dist/index.js",
@@ -50,6 +51,8 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
+    "./macros": "./macros.d.ts",
+    "./macros-global": "./macros-global.d.ts",
     "./*": "./*"
   },
   "typesVersions": {

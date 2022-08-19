@@ -22,7 +22,8 @@
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
-    "dist"
+    "dist",
+    "macros.d.ts"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -52,6 +53,7 @@
       "require": "./dist/unplugin.js",
       "import": "./dist/unplugin.mjs"
     },
+    "./macros": "./macros.d.ts",
     "./*": "./*"
   },
   "typesVersions": {

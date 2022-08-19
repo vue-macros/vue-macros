@@ -1,7 +1,7 @@
-import type { defineComponent } from 'vue'
-
-export * from './core'
+import type { defineOptions as _defineOptions } from '../macros'
 
 declare global {
-  const defineOptions: typeof defineComponent
+  const defineOptions: typeof _defineOptions
 }
+
+export * from './core'
