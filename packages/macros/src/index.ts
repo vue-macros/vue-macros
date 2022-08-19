@@ -1,14 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { getPackageInfoSync } from 'local-pkg'
-import {
-  SETUP_COMPONENT_ID_REGEX,
-  hotUpdateSetupComponent,
-  loadSetupComponent,
-  transformSetupComponent,
-} from './setup-component'
-
-import type { SetupComponentContext } from './setup-component'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -63,8 +55,6 @@ export default createUnplugin((userOptions: Options = {}) => {
   const filterSetupComponent = options.setupComponent
     ? createFilter(options.setupComponent)
     : undefined
-
-  const setupComponentContext: SetupComponentContext = {}
 
   return {
     name,

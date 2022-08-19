@@ -2,10 +2,10 @@ import { resolve } from 'node:path'
 import { describe, expect, test } from 'vitest'
 import glob from 'fast-glob'
 import Vue from 'unplugin-vue/rollup'
-import VueJsx from '@vitejs/plugin-vue-jsx'
 import {
   RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
+  RollupVueJsx,
   rollupBuild,
 } from '@vue-macros/test-utils'
 import VueSetupSFC from '../src/rollup'
@@ -39,7 +39,7 @@ describe('setup-component', async () => {
           Vue({
             include: [/\.setup\.[jt]sx?/],
           }),
-          VueJsx() as any,
+          RollupVueJsx(),
           RollupRemoveVueFilePathPlugin(),
           RollupEsbuildPlugin({
             target: 'esnext',

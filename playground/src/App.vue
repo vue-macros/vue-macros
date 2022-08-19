@@ -7,6 +7,7 @@ import DefineOptionsEmptyVue from './demo/define-options-empty.vue'
 import DefineOptionsTsx from './demo/define-options-tsx.vue'
 import HoistStaticVue from './demo/hoist-static.vue'
 import DefineModelVue from './demo/define-model.vue'
+import { SetupComponentFoo } from './demo/setup-component'
 
 const title = ref('hello')
 </script>
@@ -23,4 +24,6 @@ const title = ref('hello')
   <HoistStaticVue />
   <hr />
   <DefineModelVue v-model:title="title" />
+  <hr />
+  <SetupComponentFoo />
 </template>
