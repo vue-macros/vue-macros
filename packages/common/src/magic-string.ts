@@ -3,17 +3,21 @@ import type { OverwriteOptions } from 'magic-string'
 import type { Node } from '@babel/types'
 
 export class MagicString extends MagicStringBase {
-  removeNode(node: Node, offset = 0) {
+  removeNode(node: Node, { offset = 0 }: { offset?: number } = {}) {
     this.remove(offset + node.start!, offset + node.end!)
     return this
   }
 
-  moveNode(node: Node, index: number, offset = 0) {
+  moveNode(
+    node: Node,
+    index: number,
+    { offset = 0 }: { offset?: number } = {}
+  ) {
     this.move(offset + node.start!, offset + node.end!, index)
     return this
   }
 
-  sliceNode(node: Node, offset = 0) {
+  sliceNode(node: Node, { offset = 0 }: { offset?: number } = {}) {
     return this.slice(offset + node.start!, offset + node.end!)
   }
 

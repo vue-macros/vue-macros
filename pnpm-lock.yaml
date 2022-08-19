@@ -105,6 +105,31 @@ importers:
       vite: 3.0.8
       vue: 3.2.37
 
+  packages/hoist-static:
+    specifiers:
+      '@babel/types': ^7.18.10
+      '@rollup/pluginutils': ^4.2.1
+      '@vue-macros/common': workspace:*
+      estree-walker: ^3.0.1
+      fast-glob: ^3.2.11
+      tsup: ^6.2.2
+      tsx: ^3.8.2
+      unplugin: ^0.9.2
+      vite: ^3.0.8
+      vue: ^3.2.37
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      '@vue-macros/common': link:../common
+      unplugin: 0.9.2_vite@3.0.8
+    devDependencies:
+      '@babel/types': 7.18.10
+      estree-walker: 3.0.1
+      fast-glob: 3.2.11
+      tsup: 6.2.2
+      tsx: 3.8.2
+      vite: 3.0.8
+      vue: 3.2.37
+
   packages/macros:
     specifiers:
       '@babel/types': ^7.18.10
@@ -197,6 +222,7 @@ importers:
       '@vitejs/plugin-vue': ^3.0.3
       '@vitejs/plugin-vue-jsx': ^2.0.0
       '@vue-macros/define-render': workspace:*
+      '@vue-macros/hoist-static': workspace:*
       '@vue-macros/setup-sfc': workspace:*
       typescript: ^4.7.4
       unplugin-vue-define-options: workspace:*
@@ -211,6 +237,7 @@ importers:
       '@vitejs/plugin-vue': 3.0.3_vite@3.0.8+vue@3.2.37
       '@vitejs/plugin-vue-jsx': 2.0.0_vite@3.0.8+vue@3.2.37
       '@vue-macros/define-render': link:../packages/define-render
+      '@vue-macros/hoist-static': link:../packages/hoist-static
       '@vue-macros/setup-sfc': link:../packages/setup-sfc
       typescript: 4.7.4
       unplugin-vue-define-options: link:../packages/define-options

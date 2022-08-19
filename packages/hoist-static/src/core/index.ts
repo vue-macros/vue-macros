@@ -1,29 +1,34 @@
-import { babelParse, isStaticExpression } from '@vue-macros/common'
-import type { SFCContext } from '@vue-macros/common'
+import {
+  MagicString,
+  addNormalScript,
+  babelParse,
+  getTransformResult,
+  isStaticExpression,
+  parseSFC,
+} from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
-export const transformHoistStatic = (ctx: SFCContext) => {
+export const transformHoistStatic = (code: string, id: string) => {
   function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
-    const text = s.slice(startOffset + decl.start!, startOffset + decl.end!)
-    scriptCode.prepend += `\n${prefix}${text}`
+    if (scriptOffset === undefined) scriptOffset = normalScript.start()
 
-    removeScriptSetup(decl.start!, decl.end!)
+    const text = `\n${prefix}${s.sliceNode(decl, { offset: setupOffset })}`
+    s.appendRight(scriptOffset, text)
+
+    s.removeNode(decl, { offset: setupOffset })
   }
 
-  function removeScriptSetup(start: number, end: number) {
-    s.remove(startOffset + start, startOffset + end)
-    const { content } = scriptSetup!
-    scriptSetup!.content = `${content.slice(0, start)}${' '.repeat(
-      end - start
-    )}${content.slice(end)}`
-  }
-
-  const { sfc, s, scriptCode } = ctx
-  const { scriptSetup, lang } = sfc
+  const ctx = parseSFC(code, id)
+  const { scriptSetup, lang } = ctx
   if (!scriptSetup) return
 
-  const startOffset = scriptSetup.loc.start.offset
+  const setupOffset = scriptSetup.loc.start.offset
+  const s = new MagicString(code)
+  // TODO use SWC
   const program = babelParse(scriptSetup.loc.source, lang)
+
+  let normalScript = addNormalScript(ctx, s)
+  let scriptOffset: number | undefined
 
   for (const stmt of program.body) {
     if (stmt.type === 'VariableDeclaration' && stmt.kind === 'const') {
@@ -40,11 +45,11 @@ export const transformHoistStatic = (ctx: SFCContext) => {
           const isLast = i === decls.length - 1
           const start = isLast ? decls[i - 1].end! : decl.end!
           const end = isLast ? decl.start! : decls[i + 1].start!
-          s.remove(startOffset + start, startOffset + end)
+          s.remove(setupOffset + start, setupOffset + end)
         }
       }
       if (count === decls.length) {
-        removeScriptSetup(stmt.start!, stmt.end!)
+        s.removeNode(stmt, { offset: setupOffset })
       }
     } else if (stmt.type === 'TSEnumDeclaration') {
       const isAllConstant = stmt.members.every(
@@ -55,4 +60,8 @@ export const transformHoistStatic = (ctx: SFCContext) => {
       moveToScript(stmt)
     }
   }
+
+  if (scriptOffset !== undefined) normalScript.end()
+
+  return getTransformResult(s, id)
 }

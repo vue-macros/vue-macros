@@ -1,14 +1,12 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { getPackageInfoSync } from 'local-pkg'
-import { transform as transformDefineOptions } from 'unplugin-vue-define-options'
 import {
   finalizeContext,
   getTransformResult,
   initContext,
 } from '@vue-macros/common'
 import { transformDefineModel } from './define-model'
-import { transformHoistStatic } from './hoist-static'
 import {
   SETUP_COMPONENT_ID_REGEX,
   hotUpdateSetupComponent,
@@ -67,8 +65,6 @@ const name = 'unplugin-vue-macros'
 
 function transformVueSFC(code: string, id: string, options: OptionsResolved) {
   const { ctx, getMagicString } = initContext(code, id)
-  if (options.hoistStatic) transformHoistStatic(ctx)
-  if (options.defineOptions) transformDefineOptions(ctx)
   if (options.defineModel) transformDefineModel(ctx, options.version)
   finalizeContext(ctx)
   return getTransformResult(getMagicString(), id)

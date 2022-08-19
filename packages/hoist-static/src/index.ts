@@ -1,6 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
-import { transform } from './core/transform'
+import { transformHoistStatic } from './core'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -14,16 +14,17 @@ export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
 
 function resolveOption(options: Options): OptionsResolved {
   return {
-    include: options.include || [/\.vue$/],
-    exclude: options.exclude || undefined,
+    include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?/],
+    ...options,
   }
 }
+
+const name = 'unplugin-vue-hoist-static'
 
 export default createUnplugin((userOptions: Options = {}) => {
   const options = resolveOption(userOptions)
   const filter = createFilter(options.include, options.exclude)
 
-  const name = 'unplugin-vue-define-options'
   return {
     name,
     enforce: 'pre',
@@ -34,12 +35,10 @@ export default createUnplugin((userOptions: Options = {}) => {
 
     transform(code, id) {
       try {
-        return transform(code, id)
+        return transformHoistStatic(code, id)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }
     },
   }
 })
-
-export { transform }

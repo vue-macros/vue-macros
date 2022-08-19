@@ -1,4 +1,5 @@
 import { compileScript, parse } from 'vue/compiler-sfc'
+import type { MagicString } from '../magic-string'
 import type { SFCContext } from './context'
 import type { SFCDescriptor, SFCScriptBlock } from 'vue/compiler-sfc'
 
@@ -60,5 +61,24 @@ export const addToScript = (ctx: SFCContext) => {
       attrs: scriptSetup?.attrs || {},
       loc: undefined as any,
     }
+  }
+}
+
+export const addNormalScript = (
+  { script, lang }: SFCCompiled,
+  s: MagicString
+) => {
+  return {
+    start() {
+      if (script) return script.loc.end.offset
+
+      const attrs = lang ? ` lang="${lang}"` : ''
+      s.prependLeft(0, `<script${attrs}>`)
+      return 0
+    },
+
+    end() {
+      if (!script) s.appendRight(0, `\n</script>\n`)
+    },
   }
 }

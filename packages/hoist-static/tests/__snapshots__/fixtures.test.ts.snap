@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`hoist-static > ./fixtures/hoist-static/basic.vue 1`] = `
+exports[`fixtures > ./fixtures/basic.vue 1`] = `
 "<script lang=\\"ts\\">
 const a = 'Foo'
 const b = 'Foo'!
@@ -36,7 +36,7 @@ const i = {
 "
 `;
 
-exports[`hoist-static > ./fixtures/hoist-static/magic-comment.vue 1`] = `
+exports[`fixtures > ./fixtures/magic-comment.vue 1`] = `
 "<script lang=\\"ts\\">
 const name = /* hoist-static */ (globalThis as any).fn()
 </script>
@@ -46,7 +46,9 @@ const name = /* hoist-static */ (globalThis as any).fn()
 "
 `;
 
-exports[`hoist-static > ./fixtures/hoist-static/props.vue 1`] = `
+exports[`fixtures > ./fixtures/no-hoist.vue 1`] = `undefined`;
+
+exports[`fixtures > ./fixtures/props.vue 1`] = `
 "<script lang=\\"ts\\">
 const name = 'title'
 </script>

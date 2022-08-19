@@ -1,6 +1,7 @@
 import {
   DEFINE_OPTIONS,
   MagicString,
+  addNormalScript,
   checkInvalidScopeReference,
   getTransformResult,
   parseSFC,
@@ -15,7 +16,7 @@ export const transform = (code: string, id: string) => {
   const sfc = parseSFC(code, id)
   if (!sfc.scriptSetup) return
 
-  const { script, scriptSetup, scriptCompiled, lang } = sfc
+  const { script, scriptSetup, scriptCompiled } = sfc
   const setupOffset = scriptSetup.loc.start.offset
 
   const nodes = filterMacro(scriptCompiled.scriptSetupAst as Statement[])
@@ -35,19 +36,14 @@ export const transform = (code: string, id: string) => {
   const [node] = nodes
   const [arg] = node.arguments
   if (arg) {
-    let scriptOffset: number
-    if (script) {
-      scriptOffset = script.loc.end.offset
-    } else {
-      scriptOffset = 0
-      const attrs = lang ? ` lang="${lang}"` : ''
-      s.prependLeft(scriptOffset, `<script${attrs}>`)
-    }
+    const normalScript = addNormalScript(sfc, s)
+
+    const scriptOffset = normalScript.start()
 
     s.appendLeft(
       scriptOffset,
-      `import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent(`.replace('\n', '')
+      `\nimport { defineComponent as DO_defineComponent } from 'vue';
+export default /*#__PURE__*/ DO_defineComponent(`
     )
 
     if (arg.type === 'ObjectExpression' && hasPropsOrEmits(arg))
@@ -57,17 +53,17 @@ export default /*#__PURE__*/ DO_defineComponent(`.replace('\n', '')
 
     checkInvalidScopeReference(arg, DEFINE_OPTIONS, scriptBindings)
 
-    s.moveNode(arg, scriptOffset, setupOffset)
+    s.moveNode(arg, scriptOffset, { offset: setupOffset })
 
     // removes defineOptions()
     s.remove(setupOffset + node.start!, setupOffset + arg.start!)
     s.remove(setupOffset + arg.end!, setupOffset + node.end!)
 
     s.appendRight(scriptOffset, ');')
-    if (!script) s.appendRight(scriptOffset, `</script>`)
+    normalScript.end()
   } else {
     // removes defineOptions()
-    s.removeNode(node, setupOffset)
+    s.removeNode(node, { offset: setupOffset })
   }
 
   return getTransformResult(s, id)

@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 export const CounterA = defineSetupComponent(() => {
   let { modelValue } = defineModel<{
     modelValue: number
   }>()
 
   const updateCount = (val: number) => {
-    // eslint-disable-next-line no-console
     console.log((modelValue = modelValue + val))
   }
 
@@ -26,7 +23,6 @@ export const CounterB = defineSetupComponent(() => {
   }>()
 
   const updateCount = (val: number) => {
-    // eslint-disable-next-line no-console
     console.log((modelValue = modelValue + val))
   }
 

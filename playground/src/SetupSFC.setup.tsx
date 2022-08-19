@@ -14,7 +14,6 @@ const emit = defineEmits<{
 }>()
 
 const updateCount = (val: number) => {
-  // eslint-disable-next-line no-console
   console.log((modelValue = modelValue + val))
   emit('change')
 }
@@ -24,6 +23,13 @@ export default () => (
     <h2>Counter - setupSFC</h2>
     <button onClick={() => updateCount(-1)}>-</button> {''}
     {modelValue} {''}
-    <button onClick={() => updateCount(+1)}>+</button>
+    <button
+      onClick={() => {
+        updateCount(+1)
+        debugger
+      }}
+    >
+      +
+    </button>
   </>
 )
