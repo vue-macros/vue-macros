@@ -192,7 +192,7 @@ To be able define and change `v-model` props as the same as normal variable.
 
 ```vue
 <script setup lang="ts">
-let { modelValue } = defineModel<{
+let { modelValue, count } = defineModel<{
   modelValue: string
   count: number
 }>()
