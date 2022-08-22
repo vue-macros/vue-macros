@@ -7,7 +7,7 @@ import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 
 import { getVueVersion } from './utils'
-// import type { UnpluginInstance } from 'unplugin'
+import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Unplugin } from 'unplugin-combine'
 import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options/unplugin'
@@ -87,7 +87,7 @@ function resolveOptions({
 
 function resolvePlugin(
   options: FeatureOptions | false,
-  unplugin: any //UnpluginInstance<any>
+  unplugin: UnpluginInstance<any>
 ): Unplugin<any> | undefined {
   if (!options) return
   return [unplugin, options]
