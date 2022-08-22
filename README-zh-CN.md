@@ -120,6 +120,8 @@ module.exports = {
 
 > **Note**: 如果你只需要 `defineOptions`，那么[单独的版本](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options)更适合你。
 
+如果支持本特性，请到 [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430) 中点赞 👍，非常感谢！
+
 #### 基础使用
 
 ```vue
