@@ -1,103 +1,116 @@
-import { createUnplugin } from 'unplugin'
-import { createFilter } from '@rollup/pluginutils'
-import { getPackageInfoSync } from 'local-pkg'
-import type { FilterPattern } from '@rollup/pluginutils'
+import { createCombinePlugin } from 'unplugin-combine'
+import VueDefineModel from '@vue-macros/define-model'
+import VueDefineOptions from 'unplugin-vue-define-options/unplugin'
+import VueDefineRender from '@vue-macros/define-render'
+import VueHoistStatic from '@vue-macros/hoist-static'
+import VueSetupComponent from '@vue-macros/setup-component'
+import VueSetupSFC from '@vue-macros/setup-sfc'
 
-export interface Options {
-  include?: FilterPattern
-  exclude?: FilterPattern
+import { getVueVersion } from './utils'
+// import type { UnpluginInstance } from 'unplugin'
+import type { OptionsPlugin, Unplugin } from 'unplugin-combine'
+import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
+import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options/unplugin'
+import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
+import type { Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
+import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
+import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
+
+export interface FeatureOptionsMap {
+  defineModel: OptionsDefineModel
+  defineOptions: OptionsDefineOptions
+  defineRender: OptionsDefineRender
+  hoistStatic: OptionsHoistStatic
+  setupComponent: OptionsSetupComponent
+  setupSFC: OptionsSetupSFC
+}
+export type FeatureName = keyof FeatureOptionsMap
+export type FeatureOptions = FeatureOptionsMap[FeatureName]
+
+export interface OptionsCommon {
   root?: string
   version?: 2 | 3
-  defineOptions?: boolean
-  defineModel?: boolean
-  hoistStatic?: boolean
-  setupComponent?: boolean | FilterPattern
-}
-
-export type OptionsResolved = Omit<
-  Required<Options>,
-  'exclude' | 'setupComponent' | 'setupSFC'
-> & {
-  exclude?: FilterPattern
-  setupComponent: false | FilterPattern
-}
-
-function resolveOption(options: Options): OptionsResolved {
-  let version: 2 | 3 | undefined = options.version
-  if (version === undefined) {
-    const vuePkg = getPackageInfoSync('vue')
-    if (vuePkg) {
-      version = +vuePkg.version.slice(0, 1) as 2 | 3
-    } else {
-      version = 3
-    }
+  plugins: {
+    vue: any
+    vueJsx?: any
   }
-  const setupComponent =
-    options.setupComponent === false ? false : [/\.[cm]?[jt]sx?/]
+}
+
+type OptionalSubOptions<T> = boolean | Omit<T, keyof OptionsCommon> | undefined
+
+export type Options = OptionsCommon & {
+  [K in FeatureName]?: OptionalSubOptions<FeatureOptionsMap[K]>
+}
+
+export type OptionsResolved = Required<OptionsCommon> & {
+  [K in FeatureName]: false | FeatureOptionsMap[K]
+}
+
+function resolveOptions({
+  root,
+  version,
+  plugins,
+  defineModel,
+  defineOptions,
+  defineRender,
+  hoistStatic,
+  setupComponent,
+  setupSFC,
+}: Options): OptionsResolved {
+  function resolveSubOptions<K extends FeatureName>(
+    options: OptionalSubOptions<FeatureOptionsMap[K]>,
+    commonOptions: Partial<
+      Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
+    > = {}
+  ): FeatureOptionsMap[K] | false {
+    if (options === false) return false
+    else if (options === true || options === undefined)
+      return { ...commonOptions }
+    else return { ...options, ...commonOptions }
+  }
 
   return {
-    include: [/\.vue$/],
-    defineOptions: true,
-    defineModel: true,
-    hoistStatic: true,
-    root: process.cwd(),
-    ...options,
-    version,
-    setupComponent,
+    root: root || process.cwd(),
+    version: version || getVueVersion(),
+    plugins,
+
+    defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
+    defineOptions: resolveSubOptions<'defineOptions'>(defineOptions),
+    defineRender: resolveSubOptions<'defineRender'>(defineRender),
+    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
+    setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
+      root,
+    }),
+    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC),
   }
+}
+
+function resolvePlugin(
+  options: FeatureOptions | false,
+  unplugin: any //UnpluginInstance<any>
+): Unplugin<any> | undefined {
+  if (!options) return
+  return [unplugin, options]
 }
 
 const name = 'unplugin-vue-macros'
 
-export default createUnplugin((userOptions: Options = {}) => {
-  const options = resolveOption(userOptions)
-  const filterSFC = createFilter(options.include, options.exclude)
-  const filterSetupComponent = options.setupComponent
-    ? createFilter(options.setupComponent)
-    : undefined
+export default createCombinePlugin((userOptions: Options) => {
+  const options = resolveOptions(userOptions)
+
+  const plugins: OptionsPlugin[] = [
+    resolvePlugin(options.setupSFC, VueSetupSFC),
+    resolvePlugin(options.setupComponent, VueSetupComponent),
+    resolvePlugin(options.hoistStatic, VueHoistStatic),
+    resolvePlugin(options.defineOptions, VueDefineOptions),
+    resolvePlugin(options.defineModel, VueDefineModel),
+    options.plugins.vue,
+    options.plugins.vueJsx,
+    resolvePlugin(options.defineRender, VueDefineRender),
+  ].filter(Boolean)
 
   return {
     name,
-
-    transformInclude(id) {
-      if (filterSetupComponent?.(id)) return true
-      return filterSFC(id)
-    },
-
-    resolveId: options.setupComponent
-      ? (id) => {
-          if (SETUP_COMPONENT_ID_REGEX.test(id)) return id
-        }
-      : undefined,
-
-    load: options.setupComponent
-      ? (id) => {
-          if (SETUP_COMPONENT_ID_REGEX.test(id))
-            return loadSetupComponent(id, setupComponentContext, options.root)
-        }
-      : undefined,
-
-    transform(code, id) {
-      try {
-        if (filterSetupComponent?.(id)) {
-          return transformSetupComponent(code, id, setupComponentContext)
-        }
-      } catch (err: unknown) {
-        this.error(`${name} ${err}`)
-      }
-    },
-
-    vite: {
-      configResolved(config) {
-        options.root = config.root
-      },
-
-      handleHotUpdate: filterSetupComponent
-        ? (ctx) => {
-            if (filterSetupComponent(ctx.file))
-              return hotUpdateSetupComponent(ctx, setupComponentContext)
-          }
-        : undefined,
-    },
+    plugins,
   }
 })

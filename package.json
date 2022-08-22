@@ -6,10 +6,7 @@
   "description": "Monorepo for Vue macros.",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
-    "build": "run-s build:common build:define-options build:macros",
-    "build:common": "pnpm run -C ./packages/common build",
-    "build:define-options": "pnpm run -C ./packages/define-options build",
-    "build:macros": "pnpm run -C ./packages/macros build",
+    "build": "pnpm run --filter \"./packages/*\" --stream build",
     "dev": "pnpm run --filter \"./packages/*\" --parallel dev",
     "play": "pnpm run -C ./playground dev",
     "test": "vitest",
