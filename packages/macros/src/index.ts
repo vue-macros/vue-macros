@@ -30,8 +30,8 @@ export type FeatureOptions = FeatureOptionsMap[FeatureName]
 export interface OptionsCommon {
   root?: string
   version?: 2 | 3
-  plugins: {
-    vue: any
+  plugins?: {
+    vue?: any
     vueJsx?: any
   }
 }
@@ -72,7 +72,7 @@ function resolveOptions({
   return {
     root: root || process.cwd(),
     version: version || getVueVersion(),
-    plugins,
+    plugins: plugins || {},
 
     defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
     defineOptions: resolveSubOptions<'defineOptions'>(defineOptions),
