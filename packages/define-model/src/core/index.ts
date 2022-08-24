@@ -348,7 +348,9 @@ export const transformDefineModel = (
         } else if (
           declaration.type === 'CallExpression' &&
           declaration.callee.type === 'Identifier' &&
-          declaration.callee.name === 'defineComponent'
+          ['defineComponent', 'DO_defineComponent'].includes(
+            declaration.callee.name
+          )
         ) {
           declaration.arguments.forEach((arg) => {
             if (arg.type === 'ObjectExpression') {
