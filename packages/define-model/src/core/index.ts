@@ -10,6 +10,7 @@ import {
   isCallOf,
   parseSFC,
 } from '@vue-macros/common'
+import { emitHelperId } from './helper'
 import type {
   Identifier,
   LVal,
@@ -318,7 +319,7 @@ export const transformDefineModel = (
     if (hasTransfromed) {
       s.prependLeft(
         setupOffset,
-        "\nimport { emitHelper as __emitHelper } from '@vue-macros/define-model/helper';"
+        `\nimport __emitHelper from '${emitHelperId}';`
       )
     }
   }

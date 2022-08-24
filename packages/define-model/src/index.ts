@@ -1,6 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { transformDefineModel } from './core'
+import { emitHelperCode, emitHelperId } from './core/helper'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -34,6 +35,14 @@ export default createUnplugin((userOptions: Options = {}) => {
   return {
     name,
     enforce: 'pre',
+
+    resolveId(id) {
+      if (id === emitHelperId) return id
+    },
+
+    load(id) {
+      if (id === emitHelperId) return emitHelperCode
+    },
 
     transformInclude(id) {
       return filter(id)
