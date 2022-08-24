@@ -1,0 +1,109 @@
+// Vitest Snapshot v1
+
+exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+"import { defineComponent } from 'vue';
+
+const name = \\"Foo\\";
+const __default__ = defineComponent({
+  name
+});
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  ...__default__,
+  props: {
+    modelValue: { type: String, required: true },
+    title: { type: String, required: true }
+  },
+  emits: [\\"update:modelValue\\", \\"change\\"],
+  setup(__props, { emit }) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/hoist-static.vue 1`] = `
+"import { defineComponent } from 'vue';
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+const name = 'App';
+const propName = 'title';
+const __default__ = defineComponent({
+  name,
+});
+const _sfc_main = /*#__PURE__*/Object.assign(__default__, {
+  props: [propName],
+  setup(__props) {
+
+
+
+
+
+
+
+return () => {}
+}
+
+});
+var hoistStatic = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { hoistStatic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
+"import { defineComponent } from 'vue';
+
+const __default__ = defineComponent({
+  name: \\"Foo\\",
+  model: {
+    prop: \\"value\\",
+    event: \\"changeInput\\"
+  }
+});
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  ...__default__,
+  props: {
+    modelValue: { type: String, required: true },
+    value: { type: String, required: true },
+    title: { type: String, required: true }
+  },
+  emits: [\\"update:modelValue\\", \\"changeInput\\", \\"change\\"],
+  setup(__props, { emit }) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var vue2Model = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { vue2Model as default };
+"
+`;

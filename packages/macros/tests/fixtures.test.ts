@@ -1,12 +1,18 @@
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import glob from 'fast-glob'
-import { RollupToStringPlugin, rollupBuild } from '@vue-macros/test-utils'
+import {
+  RollupEsbuildPlugin,
+  RollupRemoveVueFilePathPlugin,
+  RollupVue,
+  RollupVueJsx,
+  rollupBuild,
+} from '@vue-macros/test-utils'
 import VueMacros from '../src/rollup'
 
-describe('mixed', async () => {
+describe('fixtures', async () => {
   const root = resolve(__dirname, '..')
-  const files = await glob('tests/fixtures/mixed/**/*.{vue,js,ts}', {
+  const files = await glob('tests/fixtures/**/*.{vue,js,ts}', {
     cwd: root,
     onlyFiles: true,
   })
@@ -20,7 +26,12 @@ describe('mixed', async () => {
         VueMacros({
           version,
         }),
-        RollupToStringPlugin(),
+        RollupVue(),
+        RollupVueJsx(),
+        RollupEsbuildPlugin({
+          target: 'esnext',
+        }),
+        RollupRemoveVueFilePathPlugin(),
       ])
       expect(code).toMatchSnapshot()
     })
