@@ -336,7 +336,6 @@ export const App = defineSetupComponent(() => {
 #### Known issues
 
 - [ ] The source map does not correspond properly.
-- [ ] The render function cannot refer to variables. However, you can use the first argument of the render function to receive the context.
 - [ ] TypeScript support is not yet complete.
 
 ### `setupSFC` (⚠️ experimental)
@@ -388,7 +387,6 @@ export default () => (
 #### Known issues
 
 - [ ] The source map does not correspond properly in JSX/TSX files.
-- [ ] The render function cannot refer to variables. However, you can use the first argument of the render function to receive the context.
 - [ ] TypeScript support is not yet complete.
 
 ## Sponsors
