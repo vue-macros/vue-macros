@@ -30,6 +30,7 @@ export async function rollupBuild(file: string, plugins: Plugin[]) {
     input: [file],
     external: ['vue'],
     plugins,
+    treeshake: false,
   })
   const output = await bundle.generate({
     format: 'esm',

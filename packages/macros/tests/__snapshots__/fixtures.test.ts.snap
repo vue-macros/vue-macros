@@ -3,6 +3,11 @@
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { defineComponent } from 'vue';
 
+var __emitHelper = (emitFn, key, value, ...args) => {
+  emitFn(key, value);
+  return args.length > 0 ? args[0] : value
+};
+
 const name = \\"Foo\\";
 const __default__ = defineComponent({
   name
@@ -15,6 +20,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"update:modelValue\\", \\"change\\"],
   setup(__props, { emit }) {
+    const { modelValue, title } = __props;
+    const handleClick = () => {
+      emit(\\"change\\");
+      __emitHelper(emit, \\"update:modelValue\\", \\"hello, \\" + title);
+    };
     return () => {
     };
   }
@@ -73,6 +83,11 @@ export { hoistStatic as default };
 exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
 "import { defineComponent } from 'vue';
 
+var __emitHelper = (emitFn, key, value, ...args) => {
+  emitFn(key, value);
+  return args.length > 0 ? args[0] : value
+};
+
 const __default__ = defineComponent({
   name: \\"Foo\\",
   model: {
@@ -89,6 +104,12 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"update:modelValue\\", \\"changeInput\\", \\"change\\"],
   setup(__props, { emit }) {
+    const { modelValue, value, title } = __props;
+    const handleClick = () => {
+      emit(\\"change\\");
+      __emitHelper(emit, \\"update:modelValue\\", \\"hello, \\" + title);
+      __emitHelper(emit, \\"changeInput\\", \\"Word,\\" + title);
+    };
     return () => {
     };
   }
