@@ -1,10 +1,10 @@
 import { resolve } from 'node:path'
 import { describe, expect, test } from 'vitest'
 import glob from 'fast-glob'
-import Vue from 'unplugin-vue/rollup'
 import {
   RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
+  RollupVue,
   RollupVueJsx,
   rollupBuild,
 } from '@vue-macros/test-utils'
@@ -36,7 +36,7 @@ describe('setup-component', async () => {
 
         const code = await rollupBuild(filepath, [
           VueSetupSFC(),
-          Vue({
+          RollupVue({
             include: [/\.setup\.[jt]sx?/],
           }),
           RollupVueJsx(),
