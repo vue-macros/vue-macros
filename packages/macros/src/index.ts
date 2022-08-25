@@ -95,7 +95,7 @@ function resolvePlugin(
 
 const name = 'unplugin-vue-macros'
 
-export default createCombinePlugin((userOptions: Options) => {
+export default createCombinePlugin((userOptions: Options = {}) => {
   const options = resolveOptions(userOptions)
 
   const plugins: OptionsPlugin[] = [
