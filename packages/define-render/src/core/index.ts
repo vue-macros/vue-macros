@@ -7,6 +7,7 @@ import {
   isCallOf,
 } from '@vue-macros/common'
 import { walk } from 'estree-walker'
+import { isFunction } from '@babel/types'
 import type { BlockStatement, ExpressionStatement, Node } from '@babel/types'
 
 // TODO: replace Babel with SWC
@@ -47,12 +48,17 @@ export const transfromDefineRender = (code: string, id: string) => {
     const returnStmt = parent.body.find(
       (node) => node.type === 'ReturnStatement'
     )
-    const index = returnStmt ? returnStmt.start! : parent.end! - 1
     if (returnStmt) s.removeNode(returnStmt)
-    s.appendLeft(index, 'return ')
-    s.moveNode(arg, index)
 
+    const index = returnStmt ? returnStmt.start! : parent.end! - 1
+    const isFn = isFunction(arg)
+    s.appendLeft(index, `return ${isFn ? '' : '() => ('}`)
+    s.moveNode(arg, index)
+    if (!isFn) s.appendRight(index, `)`)
+
+    // removes `defineRender(`
     s.remove(node.start!, arg.start!)
+    // removes `)`
     s.remove(arg.end!, node.end!)
   }
 

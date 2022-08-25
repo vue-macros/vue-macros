@@ -47,3 +47,27 @@ var tsx = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
 export { tsx as default };
 "
 `;
+
+exports[`fixtures > tests/fixtures/without-fn.vue 1`] = `
+"import { defineComponent, createVNode, createTextVNode } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"without-fn\\",
+  setup(__props) {
+    return () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var withoutFn = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { withoutFn as default };
+"
+`;

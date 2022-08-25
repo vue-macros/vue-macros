@@ -227,6 +227,30 @@ emit('update:count', count + 1)
 
 </details>
 
+### `defineRender`
+
+#### Basic Usage
+
+```vue
+<script setup lang="tsx">
+// 直接传递 JSX
+defineRender(
+  <div>
+    <span>Hello</span>
+  </div>
+)
+
+// 或者使用渲染函数
+defineRender(() => {
+  return (
+    <div>
+      <h1>Hello World</h1>
+    </div>
+  )
+})
+</script>
+```
+
 ### `hoistStatic`
 
 如果你想引用一个在 `<script setup>` 中声明的常量，这个功能可能会帮到你。
