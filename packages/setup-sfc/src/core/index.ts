@@ -17,14 +17,6 @@ export const transfromSetupSFC = (code: string, id: string) => {
   const s = new MagicString(code)
   for (const stmt of program.body) {
     if (stmt.type !== 'ExportDefaultDeclaration') continue
-
-    if (
-      !['FunctionExpression', 'ArrowFunctionExpression'].includes(
-        stmt.declaration.type
-      )
-    )
-      throw new SyntaxError(`Default export must be a function`)
-
     s.append(`defineRender(${s.sliceNode(stmt.declaration)});`)
     s.removeNode(stmt)
   }

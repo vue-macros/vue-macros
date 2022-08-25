@@ -1,7 +1,7 @@
 export const SetupComponentFoo = defineSetupComponent(() => {
   defineRender(() => (
     <>
-      <p>SetupComponent - Foo</p>
+      SetupComponent - Foo{' '}
       <button
         onClick={() => {
           // TODO: sourcemap

@@ -8,6 +8,7 @@ import DefineOptionsTsx from './demo/define-options-tsx.vue'
 import HoistStaticVue from './demo/hoist-static.vue'
 import DefineModelVue from './demo/define-model.vue'
 import { SetupComponentFoo } from './demo/setup-component'
+import SetupSFC from './demo/setup-sfc.setup'
 
 const title = ref('hello')
 </script>
@@ -26,4 +27,6 @@ const title = ref('hello')
   <DefineModelVue v-model:title="title" />
   <hr />
   <SetupComponentFoo />
+  <hr />
+  <SetupSFC />
 </template>
