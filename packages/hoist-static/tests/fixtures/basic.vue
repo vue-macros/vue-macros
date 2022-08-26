@@ -9,12 +9,9 @@ const g = 1 as number
 // const h = <number>2
 const i = {
   a: 'hello',
-  ['b']: 123,
-  'd': true,
-  nested: {
-    a: 'b',
-  },
 }
+const j = [1, 2, 3]
+const k = Symbol()
 </script>
 
 <template>

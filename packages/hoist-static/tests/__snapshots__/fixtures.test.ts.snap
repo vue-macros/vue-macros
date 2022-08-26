@@ -9,14 +9,6 @@ const d = 1 || 2
 const e = !1
 const f = 1 ? 2 : 3
 const g = 1 as number
-const i = {
-  a: 'hello',
-  ['b']: 123,
-  'd': true,
-  nested: {
-    a: 'b',
-  },
-}
 </script>
 <script setup lang=\\"ts\\">
 
@@ -27,7 +19,11 @@ const i = {
 
 
 // const h = <number>2
-
+const i = {
+  a: 'hello',
+}
+const j = [1, 2, 3]
+const k = Symbol()
 </script>
 
 <template>

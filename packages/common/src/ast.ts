@@ -76,18 +76,6 @@ export function isStaticExpression(node: Node): boolean {
     case 'TemplateLiteral': // `123`
       return node.expressions.every((expr) => isStaticExpression(expr))
 
-    case 'ArrayExpression': // [1, 2]
-      return node.elements.every(
-        (element) => element && isStaticExpression(element)
-      )
-    case 'ObjectExpression': // { foo: 1 }
-      return node.properties.every(
-        (prop) =>
-          prop.type === 'ObjectProperty' &&
-          (isStaticExpression(prop.key) || !prop.computed) &&
-          isStaticExpression(prop.value)
-      )
-
     case 'ParenthesizedExpression': // (1)
     case 'TSNonNullExpression': // 1!
     case 'TSAsExpression': // 1 as number
