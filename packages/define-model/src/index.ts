@@ -40,8 +40,12 @@ export default createUnplugin((userOptions: Options = {}) => {
       if (id === emitHelperId) return id
     },
 
-    load(id) {
-      if (id === emitHelperId) return emitHelperCode
+    loadInclude(id) {
+      return id === emitHelperId
+    },
+
+    load() {
+      return emitHelperCode
     },
 
     transformInclude(id) {

@@ -42,9 +42,12 @@ export default createUnplugin((userOptions: Options = {}) => {
       if (SETUP_COMPONENT_ID_REGEX.test(id)) return id
     },
 
+    loadInclude(id) {
+      return SETUP_COMPONENT_ID_REGEX.test(id)
+    },
+
     load(id) {
-      if (SETUP_COMPONENT_ID_REGEX.test(id))
-        return loadSetupComponent(id, setupComponentContext, options.root)
+      return loadSetupComponent(id, setupComponentContext, options.root)
     },
 
     transformInclude(id) {
