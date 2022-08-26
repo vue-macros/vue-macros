@@ -68,9 +68,11 @@ export function isStaticExpression(node: Node): boolean {
       return isStaticExpression(node.left) && isStaticExpression(node.right)
 
     case 'ConditionalExpression': // 1 ? 2 : 3
-      return isStaticExpression(node.test)
-        ? isStaticExpression(node.consequent)
-        : isStaticExpression(node.alternate)
+      return (
+        isStaticExpression(node.test) &&
+        isStaticExpression(node.consequent) &&
+        isStaticExpression(node.alternate)
+      )
 
     case 'SequenceExpression': // (1, 2)
     case 'TemplateLiteral': // `123`
