@@ -26,11 +26,16 @@ npm i unplugin-vue-macros -D
 // vite.config.ts
 import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
+// import VueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
   plugins: [
-    VueMacros(), // must be before Vue plugin!
-    Vue(),
+    VueMacros({
+      plugins: {
+        vue: Vue(),
+        // vueJsx: VueJsx(), // if needed
+      },
+    }),
   ],
 })
 ```
@@ -46,7 +51,14 @@ import Vue from 'unplugin-vue/rollup'
 import VueMacros from 'unplugin-vue-macros/rollup'
 
 export default {
-  plugins: [VueMacros(), Vue()], // must be before Vue plugin!
+  plugins: [
+    VueMacros({
+      plugins: {
+        vue: Vue(),
+        // vueJsx: VueJsx(), // if needed
+      },
+    }),
+  ],
 }
 ```
 
@@ -61,8 +73,12 @@ import { build } from 'esbuild'
 
 build({
   plugins: [
-    require('unplugin-vue-macros/esbuild')(), // must be before Vue plugin!
-    require('unplugin-vue/esbuild')(),
+    require('unplugin-vue-macros/esbuild')({
+      plugins: {
+        vue: require('unplugin-vue/esbuild')(),
+        // vueJsx: VueJsx(), // if needed
+      },
+    }),
   ],
 })
 ```
@@ -77,23 +93,13 @@ build({
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-macros/webpack')(), // must be before Vue plugin!
-    require('unplugin-vue/webpack')(),
+    require('unplugin-vue-macros/webpack')({
+      plugins: {
+        vue: require('unplugin-vue/webpack')(),
+        // vueJsx: VueJsx(), // if needed
+      },
+    }),
   ],
-}
-```
-
-<br></details>
-
-<details>
-<summary>Vue CLI</summary><br>
-
-```ts
-// vue.config.js
-module.exports = {
-  configureWebpack: {
-    plugins: [require('unplugin-vue-macros/webpack')()],
-  },
 }
 ```
 

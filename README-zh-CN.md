@@ -20,22 +20,30 @@ npm i unplugin-vue-macros -D
 ```
 
 <details>
-<summary>Vite（一流支持）</summary><br>
+<summary>Vite (一流支持)</summary><br>
 
 ```ts
 // vite.config.ts
 import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
+// import VueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
-  plugins: [VueMacros(), Vue()],
+  plugins: [
+    VueMacros({
+      plugins: {
+        vue: Vue(),
+        // vueJsx: VueJsx(), // 如有需要
+      },
+    }),
+  ],
 })
 ```
 
 <br></details>
 
 <details>
-<summary>Rollup（一流支持）</summary><br>
+<summary>Rollup (一流支持)</summary><br>
 
 ```ts
 // rollup.config.js
@@ -44,8 +52,12 @@ import VueMacros from 'unplugin-vue-macros/rollup'
 
 export default {
   plugins: [
-    VueMacros(), // 必须在 Vue 插件之前！
-    Vue(),
+    VueMacros({
+      plugins: {
+        vue: Vue(),
+        // vueJsx: VueJsx(), // 如有需要
+      },
+    }),
   ],
 }
 ```
@@ -61,8 +73,12 @@ import { build } from 'esbuild'
 
 build({
   plugins: [
-    require('unplugin-vue-macros/esbuild')(), // 必须在 Vue 插件之前！
-    require('unplugin-vue/esbuild')(),
+    require('unplugin-vue-macros/esbuild')({
+      plugins: {
+        vue: require('unplugin-vue/esbuild')(),
+        // vueJsx: VueJsx(), // 如有需要
+      },
+    }),
   ],
 })
 ```
@@ -77,23 +93,13 @@ build({
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-macros/webpack')(), // 必须在 Vue 插件之前！
-    require('unplugin-vue/webpack')(),
+    require('unplugin-vue-macros/webpack')({
+      plugins: {
+        vue: require('unplugin-vue/webpack')(),
+        // vueJsx: VueJsx(), // 如有需要
+      },
+    }),
   ],
-}
-```
-
-<br></details>
-
-<details>
-<summary>Vue CLI</summary><br>
-
-```ts
-// vue.config.js
-module.exports = {
-  configureWebpack: {
-    plugins: [require('unplugin-vue-macros/webpack')()],
-  },
 }
 ```
 
