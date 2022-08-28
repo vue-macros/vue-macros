@@ -28,7 +28,10 @@ import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [VueMacros(), Vue()],
+  plugins: [
+    VueMacros(), // must be before Vue plugin!
+    Vue(),
+  ],
 })
 ```
 
