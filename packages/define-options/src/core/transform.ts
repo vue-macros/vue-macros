@@ -27,8 +27,8 @@ export const transform = (code: string, id: string) => {
 
   if (script) checkDefaultExport(scriptCompiled.scriptAst as any)
 
-  const scriptBindings = sfc.scriptCompiled.scriptSetupAst
-    ? getIdentifiers(sfc.scriptCompiled.scriptSetupAst as any)
+  const setupBindings = scriptCompiled.scriptSetupAst
+    ? getIdentifiers(scriptCompiled.scriptSetupAst as any)
     : []
 
   const s = new MagicString(code)
@@ -51,7 +51,7 @@ export default /*#__PURE__*/ DO_defineComponent(`
         `${DEFINE_OPTIONS}() please use defineProps or defineEmits instead.`
       )
 
-    checkInvalidScopeReference(arg, DEFINE_OPTIONS, scriptBindings)
+    checkInvalidScopeReference(arg, DEFINE_OPTIONS, setupBindings)
 
     s.moveNode(arg, scriptOffset, { offset: setupOffset })
 

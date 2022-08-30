@@ -80,6 +80,37 @@ export { hoistStatic as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/hoist-static-scope.vue 1`] = `
+"import { defineComponent, openBlock, createElementBlock } from 'vue';
+
+const [name] = [\\"VarCompName\\"];
+const __default__ = defineComponent({
+  name
+});
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  ...__default__,
+  setup(__props) {
+    const test = (name2) => name2;
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(\\"div\\", null, \\"1\\");
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var hoistStaticScope = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { hoistStaticScope as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
 "import { defineComponent } from 'vue';
 
