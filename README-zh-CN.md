@@ -405,6 +405,10 @@ export default () => (
   </a>
 </p>
 
+## 相关库
+
+- [vue-functional-ref](https://github.com/sxzz/vue-functional-ref) - Vue 的函数式 Ref。
+
 ## 许可证
 
 [MIT](./LICENSE) License © 2022 [三咲智子](https://github.com/sxzz)

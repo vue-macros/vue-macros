@@ -406,6 +406,10 @@ export default () => (
   </a>
 </p>
 
+## Related Libraries
+
+- [vue-functional-ref](https://github.com/sxzz/vue-functional-ref) - Functional-style refs for Vue.
+
 ## License
 
 [MIT](./LICENSE) License © 2022 [三咲智子](https://github.com/sxzz)
