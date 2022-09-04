@@ -24,6 +24,31 @@ export { basic as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/id.vue 1`] = `
+"import { defineComponent, createVNode, createTextVNode } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"id\\",
+  setup(__props) {
+    const renderFn = () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+    return renderFn;
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var id = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { id as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/tsx.vue 1`] = `
 "import { defineComponent, createVNode, createTextVNode } from 'vue';
 

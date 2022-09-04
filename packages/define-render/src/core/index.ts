@@ -51,10 +51,10 @@ export const transfromDefineRender = (code: string, id: string) => {
     if (returnStmt) s.removeNode(returnStmt)
 
     const index = returnStmt ? returnStmt.start! : parent.end! - 1
-    const isFn = isFunction(arg)
-    s.appendLeft(index, `return ${isFn ? '' : '() => ('}`)
+    const shouldAddFn = !isFunction(arg) && arg.type !== 'Identifier'
+    s.appendLeft(index, `return ${shouldAddFn ? '() => (' : ''}`)
     s.moveNode(arg, index)
-    if (!isFn) s.appendRight(index, `)`)
+    if (shouldAddFn) s.appendRight(index, `)`)
 
     // removes `defineRender(`
     s.remove(node.start!, arg.start!)
