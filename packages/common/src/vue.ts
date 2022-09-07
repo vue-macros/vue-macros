@@ -1,6 +1,6 @@
-import { compileScript, parse } from 'vue/compiler-sfc'
+import { compileScript, parse } from '@vue/compiler-sfc'
 import type { MagicString } from './magic-string'
-import type { SFCDescriptor, SFCScriptBlock } from 'vue/compiler-sfc'
+import type { SFCDescriptor, SFCScriptBlock } from '@vue/compiler-sfc'
 
 export type _SFCScriptBlock = Omit<
   SFCScriptBlock,
