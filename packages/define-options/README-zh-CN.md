@@ -166,7 +166,7 @@ module.exports = {
 {
   "compilerOptions": {
     // ...
-    "types": ["unplugin-vue-define-options" /* ... */]
+    "types": ["unplugin-vue-define-options/macros-global" /* ... */]
   }
 }
 ```
