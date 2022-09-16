@@ -219,7 +219,7 @@ count++
 <script setup lang="ts">
 const { modelValue, count } = defineProps<{
   modelValue: string
-  modelValue: number
+  count: number
 }>()
 
 const emit = defineEmits<{
