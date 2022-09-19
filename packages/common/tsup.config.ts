@@ -5,7 +5,11 @@ export default defineConfig({
   format: ['cjs', 'esm'],
   target: 'node14',
   splitting: true,
-  dts: true,
+  dts: {
+    compilerOptions: {
+      paths: {},
+    },
+  },
   tsconfig: '../../tsconfig.lib.json',
   clean: true,
 })
