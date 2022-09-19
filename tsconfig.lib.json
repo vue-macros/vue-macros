@@ -15,6 +15,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "unplugin-vue-define-options": ["./packages/define-options/src"],
+      "unplugin-vue-macros": ["./packages/macros/src"],
       "@vue-macros/*": ["packages/*/src"]
     }
   },
