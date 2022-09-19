@@ -12,7 +12,10 @@
     "outDir": "dist",
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "@vue-macros/*": ["packages/*/src"]
+    }
   },
   "include": ["packages", "scripts"],
   "exclude": ["**/dist", "**/tests", "**/macros-global.d.ts"]
