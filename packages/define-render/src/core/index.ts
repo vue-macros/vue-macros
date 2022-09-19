@@ -1,67 +1,66 @@
 import {
   DEFINE_RENDER,
   MagicString,
-  babelParse,
   getLang,
   getTransformResult,
-  isCallOf,
-  isFunctionType,
-  walkAST,
 } from '@vue-macros/common'
-import {
-  type BlockStatement,
-  type ExpressionStatement,
-  type Node,
-} from '@babel/types'
+import { js, jsx, ts, tsx } from '@ast-grep/napi'
 
-export function transformDefineRender(code: string, id: string) {
+const isFunction = (kind: string) => kind.includes('function')
+
+export const transformDefineRender = (code: string, id: string) => {
   if (!code.includes(DEFINE_RENDER)) return
 
   const lang = getLang(id)
-  const program = babelParse(code, lang === 'vue' ? 'js' : lang)
 
-  const nodes: {
-    parent: BlockStatement
-    node: ExpressionStatement
-    arg: Node
-  }[] = []
-  walkAST<Node>(program, {
-    enter(node, parent) {
-      if (
-        node.type !== 'ExpressionStatement' ||
-        !isCallOf(node.expression, DEFINE_RENDER) ||
-        parent?.type !== 'BlockStatement'
-      )
-        return
+  const processor = { js, jsx, ts, tsx, vue: jsx }[lang]
+  if (!processor) {
+    throw new Error(`not supported lang: ${lang}`)
+  }
+  const root = processor.parse(code).root()
 
-      nodes.push({
-        parent,
-        node,
-        arg: node.expression.arguments[0],
-      })
-    },
-  })
+  const nodes = root.findAll('defineRender($$$)')
   if (nodes.length === 0) return
 
   const s = new MagicString(code)
 
-  for (const { parent, node, arg } of nodes) {
-    // check parent
-    const returnStmt = parent.body.find(
-      (node) => node.type === 'ReturnStatement'
-    )
-    if (returnStmt) s.removeNode(returnStmt)
+  for (const node of nodes) {
+    const args = node.field('arguments')?.children()
+    if (!args || args.length < 3 /* '(', first arg, ')' */)
+      throw new SyntaxError(`bad arguments: ${node.text()}`)
 
-    const index = returnStmt ? returnStmt.start! : parent.end! - 1
-    const shouldAddFn = !isFunctionType(arg) && arg.type !== 'Identifier'
+    const [, arg] = args
+    const argRng = arg.range()
+
+    const parents = node.ancestors()
+    if (parents[0].kind() !== 'expression_statement' || !parents[1]) {
+      throw new SyntaxError(`bad case: ${node.text()}`)
+    }
+
+    // remove ReturnStatement of the parent
+    const returnStmtRange = parents[1]
+      .children()
+      .find((n) => n.kind() === 'return_statement')
+      ?.range()
+
+    if (returnStmtRange)
+      s.remove(returnStmtRange.start.index, returnStmtRange.end.index)
+
+    const lastChild = parents[1].children().at(-1)!
+    const index = returnStmtRange
+      ? returnStmtRange.start.index
+      : lastChild.range()[lastChild.kind() === '}' ? 'start' : 'end'].index
+
+    const shouldAddFn = !isFunction(arg.kind()) && arg.kind() !== 'identifier'
     s.appendLeft(index, `return ${shouldAddFn ? '() => (' : ''}`)
-    s.moveNode(arg, index)
+    s.move(argRng.start.index, argRng.end.index, index)
     if (shouldAddFn) s.appendRight(index, `)`)
 
+    const nodeRng = node.range()
     // removes `defineRender(`
-    s.remove(node.start!, arg.start!)
+    s.remove(nodeRng.start.index, argRng.start.index)
     // removes `)`
-    s.remove(arg.end!, node.end!)
+    s.remove(argRng.end.index, parents[0].range().end.index)
   }
 
   return getTransformResult(s, id)

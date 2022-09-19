@@ -284,6 +284,9 @@ importers:
 
   packages/define-render:
     dependencies:
+      '@ast-grep/napi':
+        specifier: ^0.1.5
+        version: 0.1.5
       '@vue-macros/common':
         specifier: workspace:~
         version: link:../common
@@ -906,6 +909,52 @@ packages:
       jsonpointer: 5.0.1
       leven: 3.1.0
     dev: true
+
+  /@ast-grep/napi-darwin-arm64@0.1.5:
+    resolution: {integrity: sha512-OYXE6G/eHMowLWsOIPFqIX4jzBxNvGdv0HfI2F7d8DpIc43HBmWehjG3dZzzwWSJLZ1YRS2tQW4eaR+myi9Org==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@ast-grep/napi-darwin-x64@0.1.5:
+    resolution: {integrity: sha512-nkvXMjKHhMWTiMbJ4aeMcXqCX9EW9pvVmdTDO6+Ares059xQVqoUL82QgXTxiO1riIYt6/z0U4++lfSqgokyPw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@ast-grep/napi-linux-x64-gnu@0.1.5:
+    resolution: {integrity: sha512-yvrtPZbCJjXUxJ9Yn9aV0BnhNlilPzz96UWYcPGUVNQc0l68++61s0zZeOB8Z1Wid1Lq72IL9mNmkRJqoBTzVw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@ast-grep/napi-win32-x64-msvc@0.1.5:
+    resolution: {integrity: sha512-3tFkI/DUeMg+fhlRx5Tunpu0aqqVQU+5ag5eicRx3X0ckSd/sOaZVVU/BV1eEw+AOpYeYJ/oPmUm/IXf4PIu7Q==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@ast-grep/napi@0.1.5:
+    resolution: {integrity: sha512-pGz5LxMXw4DPQ/fvDYAvHLd+2hJqXKcWbYP51tZu9ueKvrOKG6ueNpKi8TjbHnq8bgfydwYP/a1uDC+1051WTA==}
+    engines: {node: '>= 10'}
+    optionalDependencies:
+      '@ast-grep/napi-darwin-arm64': 0.1.5
+      '@ast-grep/napi-darwin-x64': 0.1.5
+      '@ast-grep/napi-linux-x64-gnu': 0.1.5
+      '@ast-grep/napi-win32-x64-msvc': 0.1.5
+    dev: false
 
   /@babel/code-frame@7.21.4:
     resolution: {integrity: sha512-LYvhNKfwWSPpocw8GI7gpK2nq3HSDuEPC/uSYaALSJu9xjsalaaYFOq0Pwt5KmVqwEbZlDu81aLXwBOmD/Fv9g==}

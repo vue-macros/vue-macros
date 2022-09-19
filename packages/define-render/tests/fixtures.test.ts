@@ -11,7 +11,7 @@ import VueDefineRender from '../src/rollup'
 
 describe('fixtures', async () => {
   await testFixtures(
-    'tests/fixtures/*.{vue,js,ts}',
+    'tests/fixtures/*.{vue,[jt]s?(x)}',
     (args, id) =>
       rollupBuild(id, [
         RollupVue(),
