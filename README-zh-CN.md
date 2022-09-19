@@ -316,7 +316,6 @@ export default {
 #### 已知问题
 
 - [ ] source map 无法正常对应
-- [ ] render 函数中无法引用变量。但可以使用 render 函数的第一个参数来接收 context
 - [ ] TypeScript 支持尚未完善
 
 ### `setupComponent` (⚠️ 实验性)
@@ -394,7 +393,6 @@ export default () => (
 #### 已知问题
 
 - [ ] JSX/TSX 文件中，source map 无法正常对应
-- [ ] render 函数中无法引用变量。但可以使用 render 函数的第一个参数来接收 context
 - [ ] TypeScript 支持尚未完善
 
 ## 赞助
