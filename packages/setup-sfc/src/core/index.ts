@@ -6,8 +6,6 @@ import {
 } from '@vue-macros/common'
 import type { HmrContext } from 'vite'
 
-export const SETUP_SFC_REGEX = /\.setup\.[cm]?[jt]sx?$/
-
 // TODO: replace Babel with SWC
 
 export const transfromSetupSFC = (code: string, id: string) => {

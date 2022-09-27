@@ -3,5 +3,6 @@
 /// <reference types="unplugin-vue-define-options/macros-global" />
 /// <reference types="@vue-macros/define-render/macros-global" />
 /// <reference types="@vue-macros/setup-component/macros-global" />
+/// <reference types="@vue-macros/short-emits/macros-global" />
 
 export {}

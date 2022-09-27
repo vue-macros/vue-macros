@@ -8,19 +8,19 @@ import {
   RollupVueJsx,
   rollupBuild,
 } from '@vue-macros/test-utils'
+import { REGEX_SETUP_SFC } from '@vue-macros/common'
 import VueSetupSFC from '../src/rollup'
-import { SETUP_SFC_REGEX } from '../src/core'
 
 describe('setup-component', async () => {
   test('isSetupSFC', () => {
-    expect(SETUP_SFC_REGEX.test('foo.setup.ts')).toBe(true)
-    expect(SETUP_SFC_REGEX.test('foo.setup.tsx')).toBe(true)
-    expect(SETUP_SFC_REGEX.test('foo.setup.jsx')).toBe(true)
-    expect(SETUP_SFC_REGEX.test('foo.setup.js')).toBe(true)
-    expect(SETUP_SFC_REGEX.test('foo.setup.mjs')).toBe(true)
-    expect(SETUP_SFC_REGEX.test('foo.setup.cts')).toBe(true)
+    expect(REGEX_SETUP_SFC.test('foo.setup.ts')).toBe(true)
+    expect(REGEX_SETUP_SFC.test('foo.setup.tsx')).toBe(true)
+    expect(REGEX_SETUP_SFC.test('foo.setup.jsx')).toBe(true)
+    expect(REGEX_SETUP_SFC.test('foo.setup.js')).toBe(true)
+    expect(REGEX_SETUP_SFC.test('foo.setup.mjs')).toBe(true)
+    expect(REGEX_SETUP_SFC.test('foo.setup.cts')).toBe(true)
 
-    expect(SETUP_SFC_REGEX.test('foo.ts')).toBe(false)
+    expect(REGEX_SETUP_SFC.test('foo.ts')).toBe(false)
   })
 
   describe('fixtures', async () => {
@@ -37,7 +37,7 @@ describe('setup-component', async () => {
         const code = await rollupBuild(filepath, [
           VueSetupSFC(),
           RollupVue({
-            include: [/\.setup\.[jt]sx?/],
+            include: [REGEX_SETUP_SFC],
           }),
           RollupVueJsx(),
           RollupRemoveVueFilePathPlugin(),

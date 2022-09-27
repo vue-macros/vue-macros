@@ -21,6 +21,13 @@ export class MagicString extends MagicStringBase {
     return this.slice(offset + node.start!, offset + node.end!)
   }
 
+  sliceNodes(nodes: Node[], { offset = 0 }: { offset?: number } = {}) {
+    return this.slice(
+      offset + nodes[0].start!,
+      offset + nodes.slice(-1)[0].end!
+    )
+  }
+
   overwriteNode(
     node: Node,
     content: string | Node,

@@ -1,5 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
+import { REGEX_SETUP_SFC, REGEX_VUE_SFC } from '@vue-macros/common'
 import { transformHoistStatic } from './core'
 import type { FilterPattern } from '@rollup/pluginutils'
 
@@ -14,7 +15,7 @@ export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
 
 function resolveOption(options: Options): OptionsResolved {
   return {
-    include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?/],
+    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC],
     ...options,
   }
 }

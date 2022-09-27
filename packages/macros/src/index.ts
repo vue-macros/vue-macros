@@ -5,6 +5,7 @@ import VueDefineRender from '@vue-macros/define-render'
 import VueHoistStatic from '@vue-macros/hoist-static'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
+import VueShortEmits from '@vue-macros/short-emits'
 
 import { getVueVersion } from './utils'
 import type { UnpluginInstance } from 'unplugin'
@@ -15,6 +16,7 @@ import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
 import type { Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
 import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
 import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
+import type { Options as OptionsShortEmits } from '@vue-macros/short-emits'
 
 export interface FeatureOptionsMap {
   defineModel: OptionsDefineModel
@@ -23,6 +25,7 @@ export interface FeatureOptionsMap {
   hoistStatic: OptionsHoistStatic
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
+  shortEmits: OptionsShortEmits
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -56,6 +59,7 @@ function resolveOptions({
   hoistStatic,
   setupComponent,
   setupSFC,
+  shortEmits,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
@@ -82,6 +86,7 @@ function resolveOptions({
       root,
     }),
     setupSFC: resolveSubOptions<'setupSFC'>(setupSFC),
+    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits),
   }
 }
 
@@ -102,6 +107,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
     resolvePlugin(options.setupSFC, VueSetupSFC),
     resolvePlugin(options.setupComponent, VueSetupComponent),
     resolvePlugin(options.hoistStatic, VueHoistStatic),
+    resolvePlugin(options.shortEmits, VueShortEmits),
     resolvePlugin(options.defineOptions, VueDefineOptions),
     resolvePlugin(options.defineModel, VueDefineModel),
     options.plugins.vue,

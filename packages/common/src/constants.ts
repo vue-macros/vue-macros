@@ -9,3 +9,9 @@ export const REPO_ISSUE_URL =
   'https://github.com/sxzz/unplugin-vue-macros/issues'
 
 export const MAGIC_COMMENT_STATIC = 'hoist-static'
+
+export const REGEX_SRC_FILE = /\.[cm]?[jt]sx?$/
+export const REGEX_TS_FILE = /^[cm]?tsx?$/
+export const REGEX_JSX_FILE = /^[cm]?[jt]sx$/
+export const REGEX_SETUP_SFC = /\.setup\.[cm]?[jt]sx?$/
+export const REGEX_VUE_SFC = /\.vue$/

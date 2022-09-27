@@ -1,0 +1,32 @@
+// Vitest Snapshot v1
+
+exports[`fixtures > ./fixtures/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+const emits = defineEmits<
+  {
+    // TSPropertySignature
+    (evt: 'input', ...args: []): void
+    (evt: 'update:modelValue', ...args: [val: string]): void
+    (evt: 'update:color', ...args: [val: number]): void
+    (evt: 'change', value: boolean): void
+
+    // TSMethodSignature
+    (evt: 'update'): void
+
+    (evt: 'foo\\"\\\\'', value: boolean): void
+
+    (evt: 0, value: boolean): void
+  }
+>()
+
+const e = defineEmits<{
+  (evt: 'update:modelValue', ...args: [val: string]): void
+}>()
+
+emits('update:color', 1)
+emits('update:modelValue', 'foo')
+emits('change', false)
+emits(0, false)
+</script>
+"
+`;

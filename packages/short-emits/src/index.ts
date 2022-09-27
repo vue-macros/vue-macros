@@ -1,7 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { REGEX_SETUP_SFC, REGEX_VUE_SFC } from '@vue-macros/common'
-import { transform } from './core/transform'
+import { transformShortEmits } from './core'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -15,16 +15,17 @@ export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
 
 function resolveOption(options: Options): OptionsResolved {
   return {
-    include: options.include || [REGEX_VUE_SFC, REGEX_SETUP_SFC],
-    exclude: options.exclude || undefined,
+    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC],
+    ...options,
   }
 }
+
+const name = 'unplugin-vue-short-emits'
 
 export default createUnplugin((userOptions: Options = {}) => {
   const options = resolveOption(userOptions)
   const filter = createFilter(options.include, options.exclude)
 
-  const name = 'unplugin-vue-define-options'
   return {
     name,
     enforce: 'pre',
@@ -35,12 +36,10 @@ export default createUnplugin((userOptions: Options = {}) => {
 
     transform(code, id) {
       try {
-        return transform(code, id)
+        return transformShortEmits(code, id)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }
     },
   }
 })
-
-export { transform }

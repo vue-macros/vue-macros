@@ -162,6 +162,7 @@ importers:
       '@vue-macros/hoist-static': workspace:^
       '@vue-macros/setup-component': workspace:^
       '@vue-macros/setup-sfc': workspace:^
+      '@vue-macros/short-emits': workspace:^
       fast-glob: ^3.2.12
       local-pkg: ^0.4.2
       tsup: ^6.2.3
@@ -178,6 +179,7 @@ importers:
       '@vue-macros/hoist-static': link:../hoist-static
       '@vue-macros/setup-component': link:../setup-component
       '@vue-macros/setup-sfc': link:../setup-sfc
+      '@vue-macros/short-emits': link:../short-emits
       local-pkg: 0.4.2
       unplugin-combine: 0.2.2
       unplugin-vue-define-options: link:../define-options
@@ -241,6 +243,29 @@ importers:
       tsx: 3.9.0
       vite: 3.1.2
       vue: 3.2.39
+
+  packages/short-emits:
+    specifiers:
+      '@babel/types': ^7.19.0
+      '@rollup/pluginutils': ^4.2.1
+      '@vue-macros/common': workspace:*
+      estree-walker: ^3.0.1
+      fast-glob: ^3.2.12
+      tsup: ^6.2.3
+      tsx: ^3.9.0
+      unplugin: ^0.9.5
+      vite: ^3.1.2
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      '@vue-macros/common': link:../common
+      unplugin: 0.9.5_vite@3.1.2
+    devDependencies:
+      '@babel/types': 7.19.0
+      estree-walker: 3.0.1
+      fast-glob: 3.2.12
+      tsup: 6.2.3
+      tsx: 3.9.0
+      vite: 3.1.2
 
   packages/test-utils:
     specifiers:

@@ -1,6 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
-import { SETUP_SFC_REGEX, hotUpdateSetupSFC, transfromSetupSFC } from './core'
+import { REGEX_SETUP_SFC } from '@vue-macros/common'
+import { hotUpdateSetupSFC, transfromSetupSFC } from './core'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -14,7 +15,7 @@ export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
 
 function resolveOption(options: Options): OptionsResolved {
   return {
-    include: [SETUP_SFC_REGEX],
+    include: [REGEX_SETUP_SFC],
     ...options,
   }
 }

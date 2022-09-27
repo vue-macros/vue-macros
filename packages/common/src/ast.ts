@@ -1,6 +1,10 @@
 import path from 'node:path'
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
-import { MAGIC_COMMENT_STATIC } from './constants'
+import {
+  MAGIC_COMMENT_STATIC,
+  REGEX_JSX_FILE,
+  REGEX_TS_FILE,
+} from './constants'
 import type { CallExpression, Literal, Node, Program } from '@babel/types'
 import type { ParserPlugin } from '@babel/parser'
 
@@ -8,11 +12,15 @@ export function getLang(filename: string) {
   return path.extname(filename).replace(/^\./, '')
 }
 
+export function isTs(lang?: string) {
+  return lang && REGEX_TS_FILE.test(lang)
+}
+
 export function babelParse(code: string, lang?: string): Program {
   const plugins: ParserPlugin[] = []
   if (lang) {
-    if (/^[cm]?tsx?$/.test(lang)) plugins.push('typescript')
-    if (/^[cm]?[jt]sx$/.test(lang)) plugins.push('jsx')
+    if (isTs(lang)) plugins.push('typescript')
+    if (REGEX_JSX_FILE.test(lang)) plugins.push('jsx')
   }
   const { program } = _babelParse(code, {
     sourceType: 'module',
@@ -91,4 +99,17 @@ export function isStaticExpression(node: Node): boolean {
 
 export function isLiteralType(node: Node): node is Literal {
   return node.type.endsWith('Literal')
+}
+
+export function getStaticKey(node: Node, computed = false, raw = true) {
+  switch (node.type) {
+    case 'StringLiteral':
+    case 'NumericLiteral':
+      return raw ? node.extra!.raw : node.value
+    case 'Identifier':
+      if (!computed) return raw ? `'${node.name}'` : node.name
+    // break omitted intentionally
+    default:
+      throw new SyntaxError(`Unexpected node type: ${node.type}`)
+  }
 }

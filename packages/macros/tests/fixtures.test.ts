@@ -12,7 +12,7 @@ import VueMacros from '../src/rollup'
 
 describe('fixtures', async () => {
   const root = resolve(__dirname, '..')
-  const files = await glob('tests/fixtures/**/*.{vue,js,ts}', {
+  const files = await glob('tests/fixtures/**/*.{vue,js,jsx,ts,tsx}', {
     cwd: root,
     onlyFiles: true,
   })
@@ -25,9 +25,13 @@ describe('fixtures', async () => {
       const code = await rollupBuild(filepath, [
         VueMacros({
           version,
+          plugins: {
+            vue: RollupVue({
+              include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?/],
+            }),
+            vueJsx: RollupVueJsx(),
+          },
         }),
-        RollupVue(),
-        RollupVueJsx(),
         RollupEsbuildPlugin({
           target: 'esnext',
         }),

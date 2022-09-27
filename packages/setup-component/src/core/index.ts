@@ -4,6 +4,7 @@ import {
   babelParse,
   getLang,
   getTransformResult,
+  isCallOf,
 } from '@vue-macros/common'
 import { walk } from 'estree-walker'
 import { normalizePath } from '@rollup/pluginutils'
@@ -32,11 +33,7 @@ export const scanSetupComponent = (code: string, id: string) => {
   const nodes: { fn: Node; src?: Node }[] = []
   walk(program, {
     enter(node: Node) {
-      if (
-        node.type === 'CallExpression' &&
-        node.callee.type === 'Identifier' &&
-        node.callee.name === DEFINE_SETUP_COMPONENT
-      ) {
+      if (isCallOf(node, DEFINE_SETUP_COMPONENT)) {
         nodes.push({ fn: node.arguments[0], src: node })
       } else if (
         node.type === 'VariableDeclarator' &&

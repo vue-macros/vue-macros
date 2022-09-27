@@ -1,5 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
+import { REGEX_SETUP_SFC, REGEX_SRC_FILE } from '@vue-macros/common'
 import {
   SETUP_COMPONENT_ID_REGEX,
   hotUpdateSetupComponent,
@@ -21,7 +22,8 @@ export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
 
 function resolveOption(options: Options): OptionsResolved {
   return {
-    include: [/\.[cm]?[jt]sx?$/],
+    include: [REGEX_SRC_FILE],
+    exclude: [REGEX_SETUP_SFC],
     root: process.cwd(),
     ...options,
   }

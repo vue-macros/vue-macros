@@ -1,18 +1,16 @@
 {
-  "name": "unplugin-vue-macros",
-  "version": "0.12.0-beta.0",
+  "name": "@vue-macros/short-emits",
+  "version": "0.11.2",
   "packageManager": "pnpm@7.12.2",
   "description": "",
   "keywords": [
     "unplugin",
     "vue",
+    "sfc",
+    "setup",
     "macros",
     "script-setup",
-    "define-options",
-    "define-model",
-    "define-render",
-    "setup-sfc",
-    "setup-component"
+    "short-emits"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -25,8 +23,7 @@
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
-    "dist",
-    "macros-global.d.ts"
+    "dist"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -52,6 +49,7 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
+    "./macros": "./macros.d.ts",
     "./macros-global": "./macros-global.d.ts",
     "./*": "./*"
   },
@@ -67,28 +65,18 @@
     "build": "tsup && tsx ../../scripts/postbuild.mts",
     "dev": "tsup --watch"
   },
-  "peerDependencies": {
-    "vue": "^2.7.0 || ^3.2.25"
-  },
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",
     "@vue-macros/common": "workspace:*",
-    "@vue-macros/define-model": "workspace:^",
-    "@vue-macros/define-render": "workspace:^",
-    "@vue-macros/hoist-static": "workspace:^",
-    "@vue-macros/setup-component": "workspace:^",
-    "@vue-macros/setup-sfc": "workspace:^",
-    "@vue-macros/short-emits": "workspace:^",
-    "local-pkg": "^0.4.2",
-    "unplugin-combine": "^0.2.2",
-    "unplugin-vue-define-options": "workspace:*"
+    "unplugin": "^0.9.5"
   },
   "devDependencies": {
+    "@babel/types": "^7.19.0",
+    "estree-walker": "^3.0.1",
     "fast-glob": "^3.2.12",
     "tsup": "^6.2.3",
     "tsx": "^3.9.0",
-    "unplugin": "^0.9.5",
-    "vue": "^3.2.39"
+    "vite": "^3.1.2"
   },
   "engines": {
     "node": ">=14.19.0"
