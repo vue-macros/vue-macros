@@ -1,5 +1,5 @@
 export const SetupComponentFoo = defineSetupComponent(() => {
-  defineRender(() => (
+  return () => (
     <>
       SetupComponent - Foo{' '}
       <button
@@ -11,5 +11,5 @@ export const SetupComponentFoo = defineSetupComponent(() => {
         Check sourcemap
       </button>
     </>
-  ))
+  )
 })

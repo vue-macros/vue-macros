@@ -6,7 +6,7 @@ import {
   REGEX_TS_FILE,
 } from './constants'
 import type { CallExpression, Literal, Node, Program } from '@babel/types'
-import type { ParserPlugin } from '@babel/parser'
+import type { ParserOptions, ParserPlugin } from '@babel/parser'
 
 export function getLang(filename: string) {
   return path.extname(filename).replace(/^\./, '')
@@ -16,7 +16,11 @@ export function isTs(lang?: string) {
   return lang && REGEX_TS_FILE.test(lang)
 }
 
-export function babelParse(code: string, lang?: string): Program {
+export function babelParse(
+  code: string,
+  lang?: string,
+  options: ParserOptions = {}
+): Program {
   const plugins: ParserPlugin[] = []
   if (lang) {
     if (isTs(lang)) plugins.push('typescript')
@@ -25,6 +29,7 @@ export function babelParse(code: string, lang?: string): Program {
   const { program } = _babelParse(code, {
     sourceType: 'module',
     plugins,
+    ...options,
   })
   return program
 }

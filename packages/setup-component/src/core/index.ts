@@ -107,10 +107,19 @@ export const loadSetupComponent = (
 
   const { body } = nodeCtx
   const lang = getLang(id)
-  const code = `<script setup${lang ? ` lang="${lang}"` : ''}>
-${body}
-</script>`
-  return code
+
+  const program = babelParse(body, lang, { allowReturnOutsideFunction: true })
+  const s = new MagicString(body)
+  for (const stmt of program.body) {
+    // transform return
+    if (stmt.type !== 'ReturnStatement' || !stmt.argument) continue
+    s.overwriteNode(stmt, `defineRender(${s.sliceNode(stmt.argument)});`)
+  }
+
+  s.prepend(`<script setup${lang ? ` lang="${lang}"` : ''}>`)
+  s.append(`</script>`)
+
+  return s.toString()
 }
 
 export const hotUpdateSetupComponent = async (
