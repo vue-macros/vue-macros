@@ -39,6 +39,7 @@ export default createUnplugin((userOptions: Options = {}) => {
 
   return {
     name,
+    enforce: 'pre',
 
     resolveId(id) {
       if (SETUP_COMPONENT_ID_REGEX.test(id)) return id

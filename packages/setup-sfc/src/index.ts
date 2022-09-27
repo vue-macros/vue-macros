@@ -28,6 +28,7 @@ export default createUnplugin((userOptions: Options = {}) => {
 
   return {
     name,
+    enforce: 'pre',
 
     transformInclude(id) {
       return filter(id)

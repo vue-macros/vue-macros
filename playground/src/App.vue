@@ -9,6 +9,7 @@ import HoistStaticVue from './demo/hoist-static.vue'
 import DefineModelVue from './demo/define-model.vue'
 import { SetupComponentFoo } from './demo/setup-component'
 import SetupSFC from './demo/setup-sfc.setup'
+import Full from './demo/full.setup'
 
 const title = ref('hello')
 </script>
@@ -29,4 +30,6 @@ const title = ref('hello')
   <SetupComponentFoo />
   <hr />
   <SetupSFC />
+  <hr />
+  <Full />
 </template>

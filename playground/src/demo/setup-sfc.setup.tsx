@@ -2,7 +2,7 @@ import { ref } from 'vue'
 
 const msg = ref('Hello')
 
-export default (
+export default () => (
   <div>
     setupSFC demo. {msg.value}{' '}
     <button
