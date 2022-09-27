@@ -22,9 +22,6 @@
     "require": "./dist/index.js",
     "import": "./dist/index.mjs"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
     "dev": "tsup --watch"

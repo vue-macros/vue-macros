@@ -10,7 +10,7 @@
     "dev": "pnpm run --filter \"./packages/*\" --parallel dev",
     "play": "pnpm run -C ./playground dev",
     "test": "vitest",
-    "release": "bumpp package.json ./packages/*/package.json && pnpm run build && pnpm publish -r",
+    "release": "bumpp package.json ./packages/*/package.json && pnpm run build && pnpm publish -r --access public",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0",
     "typecheck": "run-p typecheck:*",
     "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
