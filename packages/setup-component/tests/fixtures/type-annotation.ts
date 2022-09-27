@@ -1,6 +1,6 @@
 import { h } from 'vue'
 
-export const App = defineSetupComponent(() => {
+export const App: SetupFC = () => {
   defineProps<{
     foo: string
   }>()
@@ -12,6 +12,6 @@ export const App = defineSetupComponent(() => {
   defineOptions({
     name: 'App',
   })
-})
+}
 
 h(App)

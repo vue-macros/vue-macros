@@ -1,5 +1,10 @@
-import type { DefineComponent } from 'vue'
+import type { EmitsOptions, FunctionalComponent } from 'vue'
 
-export declare const defineSetupComponent: (
-  fn: () => void | Promise<void> | (() => JSX.Element | Promise<JSX.Element>)
-) => DefineComponent<any, any, any, any>
+export declare const defineSetupComponent: <T extends FunctionalComponent>(
+  fn: T
+) => T
+
+export declare type SetupFC<
+  P = {},
+  E extends EmitsOptions = {}
+> = FunctionalComponent<P, E>

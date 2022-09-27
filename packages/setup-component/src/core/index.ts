@@ -11,9 +11,10 @@ import {
   SETUP_COMPONENT_ID_REGEX,
   SETUP_COMPONENT_ID_SUFFIX,
   SETUP_COMPONENT_SUB_MODULE,
+  SETUP_COMPONENT_TYPE,
 } from './constants'
 import type { HmrContext, ModuleNode } from 'vite'
-import type { CallExpression, Function, Node } from '@babel/types'
+import type { Function, Node } from '@babel/types'
 
 export * from './constants'
 
@@ -22,13 +23,13 @@ export * from './constants'
 interface NodeContext {
   code: string
   body: string
-  node: CallExpression
+  node: Node
 }
 export type SetupComponentContext = Record<string, NodeContext[]>
 
 export const scanSetupComponent = (code: string, id: string) => {
   const program = babelParse(code, getLang(id))
-  const nodes: CallExpression[] = []
+  const nodes: { fn: Node; src?: Node }[] = []
   walk(program, {
     enter(node: Node) {
       if (
@@ -36,24 +37,31 @@ export const scanSetupComponent = (code: string, id: string) => {
         node.callee.type === 'Identifier' &&
         node.callee.name === DEFINE_SETUP_COMPONENT
       ) {
-        nodes.push(node)
+        nodes.push({ fn: node.arguments[0], src: node })
+      } else if (
+        node.type === 'VariableDeclarator' &&
+        node.id.type === 'Identifier' &&
+        node.id.typeAnnotation?.type === 'TSTypeAnnotation' &&
+        node.id.typeAnnotation.typeAnnotation.type === 'TSTypeReference' &&
+        node.id.typeAnnotation.typeAnnotation.typeName.type === 'Identifier' &&
+        node.id.typeAnnotation.typeAnnotation.typeName.name ===
+          SETUP_COMPONENT_TYPE &&
+        node.init
+      ) {
+        nodes.push({ fn: node.init })
       }
     },
   })
 
   if (nodes.length === 0) return []
 
-  const nodeContexts: NodeContext[] = nodes.map((node) => {
-    if (
-      !['FunctionExpression', 'ArrowFunctionExpression'].includes(
-        node.arguments[0].type
-      )
-    )
+  return nodes.map(({ fn, src }): NodeContext => {
+    if (!['FunctionExpression', 'ArrowFunctionExpression'].includes(fn.type))
       throw new SyntaxError(
-        `${DEFINE_SETUP_COMPONENT}: Invalid setup component definition`
+        `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
       )
 
-    const body: Node = (node.arguments[0] as Function).body
+    const body: Node = (fn as Function).body
     let bodyStart = body.start!
     let bodyEnd = body.end!
     if (body.type === 'BlockStatement') {
@@ -61,12 +69,11 @@ export const scanSetupComponent = (code: string, id: string) => {
       bodyEnd--
     }
     return {
-      code: code.slice(node.start!, node.end!),
+      code: code.slice(fn.start!, fn.end!),
       body: code.slice(bodyStart, bodyEnd),
-      node,
+      node: src || fn,
     }
   })
-  return nodeContexts
 }
 
 export const transformSetupComponent = (

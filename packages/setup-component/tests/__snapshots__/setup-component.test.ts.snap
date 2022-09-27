@@ -36,7 +36,7 @@ export { App };
 `;
 
 exports[`setup-component > tests/fixtures/basic.ts 1`] = `
-"import { defineComponent } from 'vue';
+"import { defineComponent, h } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"0\\",
@@ -64,6 +64,7 @@ var _export_sfc = (sfc, props) => {
 var setupComponent_0 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 const App = setupComponent_0;
+h(App);
 
 export { App };
 "
@@ -98,6 +99,41 @@ var _export_sfc = (sfc, props) => {
 var setupComponent_0 = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
 
 const App = setupComponent_0;
+
+export { App };
+"
+`;
+
+exports[`setup-component > tests/fixtures/type-annotation.ts 1`] = `
+"import { defineComponent, h } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"0\\",
+  props: {
+    foo: { type: String, required: true }
+  },
+  emits: [\\"change\\"],
+  setup(__props) {
+    defineOptions({
+      name: \\"App\\"
+    });
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var setupComponent_0 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+const App = setupComponent_0;
+h(App);
 
 export { App };
 "

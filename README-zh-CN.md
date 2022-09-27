@@ -344,6 +344,24 @@ export const App = defineSetupComponent(() => {
 })
 ```
 
+### 类型标注
+
+```ts
+export const App: SetupFC = () => {
+  defineProps<{
+    foo: string
+  }>()
+
+  defineEmits<{
+    (evt: 'change'): void
+  }>()
+
+  defineOptions({
+    name: 'App',
+  })
+}
+```
+
 ### `setupSFC` (⚠️ experimental)
 
 > **Warning**: 实验性功能，使用风险自负！

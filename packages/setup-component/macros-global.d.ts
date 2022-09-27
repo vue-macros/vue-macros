@@ -1,7 +1,9 @@
-import type { defineSetupComponent as _defineSetupComponent } from './macros'
-
 declare global {
-  const defineSetupComponent: _defineSetupComponent
+  const defineSetupComponent: typeof import('./macros').defineSetupComponent
+  type SetupFC<
+    P = {},
+    E extends EmitsOptions = {}
+  > = import('./macros').SetupFC<P, E>
 }
 
 export {}

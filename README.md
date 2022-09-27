@@ -342,6 +342,24 @@ export const App = defineSetupComponent(() => {
 })
 ```
 
+#### Type Annotation
+
+```ts
+export const App: SetupFC = () => {
+  defineProps<{
+    foo: string
+  }>()
+
+  defineEmits<{
+    (evt: 'change'): void
+  }>()
+
+  defineOptions({
+    name: 'App',
+  })
+}
+```
+
 #### Known issues
 
 - [ ] The source map does not correspond properly.
