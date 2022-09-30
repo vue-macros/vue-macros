@@ -29,6 +29,7 @@ interface NodeContext {
   node: Node
   type: NodeContextType
 }
+
 export type SetupComponentContext = Record<string, NodeContext[]>
 
 export const scanSetupComponent = (code: string, id: string) => {
