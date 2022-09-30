@@ -10,7 +10,7 @@
     "dev": "turbo run dev --filter=\"./packages/*\"",
     "play": "pnpm run -C ./playground dev",
     "test": "vitest",
-    "release": "bumpp package.json ./packages/*/package.json && pnpm run build && pnpm publish -r --access public",
+    "release": "changeset version && pnpm run build && changeset publish",
     "lint": "eslint . --ext .vue,.ts,.md,.json --max-warnings 0",
     "typecheck": "run-p typecheck:*",
     "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
@@ -20,13 +20,13 @@
     "vue": "^2.7.0 || ^3.2.25"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.24.4",
     "@pnpm/find-workspace-packages": "^4.0.37",
     "@pnpm/logger": "^4.0.0",
     "@sxzz/eslint-config": "^2.4.3",
     "@types/node": "*",
     "@vitest/ui": "0.23.4",
     "@vue-macros/test-utils": "workspace:*",
-    "bumpp": "^8.2.1",
     "eslint": "^8.23.1",
     "eslint-define-config": "^1.7.0",
     "fast-glob": "^3.2.12",
