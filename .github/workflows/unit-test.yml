@@ -36,6 +36,11 @@ jobs:
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
+
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: sxzz
+
     steps:
       - uses: actions/checkout@v3
 
