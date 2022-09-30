@@ -15,28 +15,34 @@ import {
   SETUP_COMPONENT_TYPE,
 } from './constants'
 import type { HmrContext, ModuleNode } from 'vite'
-import type { Function, Node } from '@babel/types'
+import type { Function, ImportDeclaration, ImportSpecifier, Node } from '@babel/types'
 
 export * from './constants'
 
 // TODO SWC
 
+type NodeContextType = 'Body' | 'Import'
+
 interface NodeContext {
   code: string
   body: string
   node: Node
+  type: NodeContextType
 }
 export type SetupComponentContext = Record<string, NodeContext[]>
 
 export const scanSetupComponent = (code: string, id: string) => {
   const program = babelParse(code, getLang(id))
-  const nodes: { fn: Node; src?: Node }[] = []
+  const nodes: { fn?: Node; src?: Node; statement?: string; type: NodeContextType}[] = []
   walk(program, {
     enter(node: Node) {
+      if (node.type === 'ImportDeclaration') {
+        nodes.push({ statement: code.slice(node.start!, node.end!), type: 'Import', src: node })
+      }
       if (isCallOf(node, DEFINE_SETUP_COMPONENT)) {
-        nodes.push({ fn: node.arguments[0], src: node })
+        nodes.push({ fn: node.arguments[0], src: node, type: 'Body' })
       } else if (
-        node.type === 'VariableDeclarator' &&
+        (node.type === 'VariableDeclarator') &&
         node.id.type === 'Identifier' &&
         node.id.typeAnnotation?.type === 'TSTypeAnnotation' &&
         node.id.typeAnnotation.typeAnnotation.type === 'TSTypeReference' &&
@@ -45,30 +51,41 @@ export const scanSetupComponent = (code: string, id: string) => {
           SETUP_COMPONENT_TYPE &&
         node.init
       ) {
-        nodes.push({ fn: node.init })
+        nodes.push({ fn: node.init, type: 'Body' })
       }
     },
   })
 
   if (nodes.length === 0) return []
 
-  return nodes.map(({ fn, src }): NodeContext => {
-    if (!['FunctionExpression', 'ArrowFunctionExpression'].includes(fn.type))
-      throw new SyntaxError(
-        `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
-      )
+  return nodes.map(({ fn, statement, src,type }): NodeContext => {
+    if (type === 'Body') {
+      if (!['FunctionExpression', 'ArrowFunctionExpression'].includes(fn!.type))
+        throw new SyntaxError(
+          `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
+        )
 
-    const body: Node = (fn as Function).body
-    let bodyStart = body.start!
-    let bodyEnd = body.end!
-    if (body.type === 'BlockStatement') {
-      bodyStart++
-      bodyEnd--
+      const body: Node = (fn as Function)?.body
+      let bodyStart = body.start!
+      let bodyEnd = body.end!
+      if (body.type === 'BlockStatement') {
+        bodyStart++
+        bodyEnd--
+      }
+
+      return {
+        code: code.slice(fn!.start!, fn!.end!),
+        body: code.slice(bodyStart, bodyEnd),
+        node: src || fn!,
+        type
+      }
     }
+
     return {
-      code: code.slice(fn.start!, fn.end!),
-      body: code.slice(bodyStart, bodyEnd),
-      node: src || fn,
+      code: statement!,
+      body: statement!,
+      node: src!,
+      type
     }
   })
 }
@@ -82,38 +99,83 @@ export const transformSetupComponent = (
   const s = new MagicString(code)
 
   const nodeContexts = scanSetupComponent(code, id)
+
   ctx[normalizedId] = nodeContexts
 
-  for (const [i, { node }] of nodeContexts.entries()) {
-    const importName = `setupComponent_${i}`
-    s.overwrite(node.start!, node.end!, importName)
-    s.prepend(
-      `import ${importName} from '${normalizedId}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`
-    )
+  for (const [i, { node, type }] of nodeContexts.entries()) {
+    if (type === 'Body') {
+      const importName = `setupComponent_${i}`
+
+      s.overwrite(node.start!, node.end!, importName)
+
+      s.prepend(
+        `import ${importName} from '${normalizedId}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`
+      )
+    }
   }
 
   return getTransformResult(s, id)
 }
 
-export const loadSetupComponent = (
+export const loadSetupComponent = async (
   virtualId: string,
   ctx: SetupComponentContext,
   root: string
 ) => {
   const index = +(SETUP_COMPONENT_ID_REGEX.exec(virtualId)?.[1] ?? -1)
   const id = virtualId.replace(SETUP_COMPONENT_ID_REGEX, '')
-  const nodeCtx = ctx[id]?.[index] || ctx[root + id]?.[index]
+  const currentCtx = ctx[id] || ctx[root + id]
+  const nodeCtx = currentCtx?.[index]
   if (!nodeCtx) return
 
-  const { body } = nodeCtx
+  const { body, type } = nodeCtx
   const lang = getLang(id)
 
-  const program = babelParse(body, lang, { allowReturnOutsideFunction: true })
-  const s = new MagicString(body)
-  for (const stmt of program.body) {
-    // transform return
-    if (stmt.type !== 'ReturnStatement' || !stmt.argument) continue
-    s.overwriteNode(stmt, `defineRender(${s.sliceNode(stmt.argument)});`)
+  const importStatements = currentCtx.filter(item => item.type === 'Import')
+
+  const s = new MagicString(body!)
+
+  if (type === 'Body') {
+    const program = babelParse(body!, lang, { allowReturnOutsideFunction: true, allowImportExportEverywhere: true })
+    for (const stmt of program.body) {
+      // transform return
+      if (stmt.type !== 'ReturnStatement' || !stmt.argument) continue
+      s.overwriteNode(stmt, `defineRender(${s.sliceNode(stmt.argument)});`)
+    }
+  }
+
+  if (importStatements.length) {
+    const statements = new MagicString(importStatements.map(item => item.code).join('\n'))
+
+    const parsed = babelParse(statements.original, lang)
+
+
+    for (const item of parsed.body.filter(item => item.type === 'ImportDeclaration')) {
+      const source = ((item as ImportDeclaration)).source
+      let imported  = source.extra!.rawValue as string
+      let pathMap = id.split('/').filter(item => item.length && !item.endsWith('.tsx') && !item.endsWith('.jsx'))
+
+      // filter absolute path
+      if (imported.startsWith('.')) {
+        if (imported.startsWith('./')) {
+          imported = imported.replace('./', '')
+        } else if (imported.startsWith('../')) {
+          pathMap = pathMap.reverse()
+          const count = imported.split('../').length - 1
+          for (let i = 0; i < count; i++) {
+            imported = imported.replace('../', '')
+            pathMap.shift()
+          }
+
+          pathMap = pathMap.reverse()
+        }
+        imported = `"/${pathMap.join('/')}/${imported}"`
+
+        statements.overwrite(source.start!, source.end!, imported)
+      }
+
+    }
+    s.prepend(statements.toString())
   }
 
   s.prepend(`<script setup${lang ? ` lang="${lang}"` : ''}>`)
