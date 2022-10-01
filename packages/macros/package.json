@@ -65,7 +65,7 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "tsup --watch"
+    "dev": "DEV=1 tsup"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"

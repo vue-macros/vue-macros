@@ -65,7 +65,7 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "tsup --watch"
+    "dev": "DEV=1 tsup"
   },
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",

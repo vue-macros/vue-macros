@@ -1,15 +1,3 @@
-import { defineConfig } from 'tsup'
+import cfg from '../common/tsup.config.js'
 
-export default defineConfig({
-  entry: ['./src/**/*.ts'],
-  format: ['cjs', 'esm'],
-  target: 'node14',
-  splitting: true,
-  dts: {
-    compilerOptions: {
-      paths: {},
-    },
-  },
-  tsconfig: '../../tsconfig.lib.json',
-  clean: true,
-})
+export default cfg
