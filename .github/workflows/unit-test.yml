@@ -9,6 +9,8 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -27,6 +29,9 @@ jobs:
 
       - name: Lint
         run: nr lint
+
+      - name: Type Check
+        run: nr typecheck
 
   test:
     strategy:
@@ -58,8 +63,8 @@ jobs:
       - name: Build
         run: nr build
 
-      - name: Type Check
-        run: nr typecheck
-
       - name: Unit Test
         run: nr test
+
+      - name: Build Playground
+        run: cd playground && pnpm build

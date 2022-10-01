@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - 'v**'
-  # eslint-disable-next-line yml/no-empty-mapping-value
   workflow_dispatch:
 
 jobs:
