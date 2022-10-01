@@ -178,7 +178,7 @@ export const loadSetupComponent = async (
 
       let imported = source.extra!.rawValue as string
 
-      let pathMap = id
+      const pathMap = id
         .split('/')
         .filter(
           (item) =>
