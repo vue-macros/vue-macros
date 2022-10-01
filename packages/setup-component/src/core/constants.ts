@@ -1,5 +1,5 @@
 export const SETUP_COMPONENT_ID_SUFFIX = '/setup-component/'
-export const SETUP_COMPONENT_ID_REGEX = /\/setup-component\/(\d+).(vue|tsx)$/
+export const SETUP_COMPONENT_ID_REGEX = /\/setup-component\/(\d+).(vue|[tj]sx)$/
 
 export const SETUP_COMPONENT_SUB_MODULE = /\/setup-component\/(\d+).vue/
 
