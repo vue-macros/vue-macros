@@ -15,7 +15,7 @@ import {
   SETUP_COMPONENT_TYPE,
 } from './constants'
 import type { HmrContext, ModuleNode } from 'vite'
-import type { Function, ImportDeclaration, ImportSpecifier, Node } from '@babel/types'
+import type { Function, ImportDeclaration, Node } from '@babel/types'
 
 export * from './constants'
 
@@ -32,18 +32,24 @@ interface NodeContext {
 
 export type SetupComponentContext = Record<string, NodeContext[]>
 
+const isBodyNodeContext = (type: NodeContextType) => type === 'Body'
+
+const isImportNodeContext = (type: NodeContextType) => type === 'Import'
+
 export const scanSetupComponent = (code: string, id: string) => {
   const program = babelParse(code, getLang(id))
-  const nodes: { fn?: Node; src?: Node; statement?: string; type: NodeContextType}[] = []
+  const nodes: {
+    fn?: Node
+    src?: Node
+    statement?: string
+    type: NodeContextType
+  }[] = []
   walk(program, {
     enter(node: Node) {
-      if (node.type === 'ImportDeclaration') {
-        nodes.push({ statement: code.slice(node.start!, node.end!), type: 'Import', src: node })
-      }
       if (isCallOf(node, DEFINE_SETUP_COMPONENT)) {
         nodes.push({ fn: node.arguments[0], src: node, type: 'Body' })
       } else if (
-        (node.type === 'VariableDeclarator') &&
+        node.type === 'VariableDeclarator' &&
         node.id.type === 'Identifier' &&
         node.id.typeAnnotation?.type === 'TSTypeAnnotation' &&
         node.id.typeAnnotation.typeAnnotation.type === 'TSTypeReference' &&
@@ -53,14 +59,20 @@ export const scanSetupComponent = (code: string, id: string) => {
         node.init
       ) {
         nodes.push({ fn: node.init, type: 'Body' })
+      } else if (node.type === 'ImportDeclaration') {
+        nodes.push({
+          statement: code.slice(node.start!, node.end!),
+          type: 'Import',
+          src: node,
+        })
       }
     },
   })
 
   if (nodes.length === 0) return []
 
-  return nodes.map(({ fn, statement, src,type }): NodeContext => {
-    if (type === 'Body') {
+  return nodes.map(({ fn, statement, src, type }): NodeContext => {
+    if (isBodyNodeContext(type)) {
       if (!['FunctionExpression', 'ArrowFunctionExpression'].includes(fn!.type))
         throw new SyntaxError(
           `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
@@ -78,7 +90,7 @@ export const scanSetupComponent = (code: string, id: string) => {
         code: code.slice(fn!.start!, fn!.end!),
         body: code.slice(bodyStart, bodyEnd),
         node: src || fn!,
-        type
+        type,
       }
     }
 
@@ -86,7 +98,7 @@ export const scanSetupComponent = (code: string, id: string) => {
       code: statement!,
       body: statement!,
       node: src!,
-      type
+      type,
     }
   })
 }
@@ -104,7 +116,7 @@ export const transformSetupComponent = (
   ctx[normalizedId] = nodeContexts
 
   for (const [i, { node, type }] of nodeContexts.entries()) {
-    if (type === 'Body') {
+    if (isBodyNodeContext(type)) {
       const importName = `setupComponent_${i}`
 
       s.overwrite(node.start!, node.end!, importName)
@@ -132,12 +144,13 @@ export const loadSetupComponent = async (
   const { body, type } = nodeCtx
   const lang = getLang(id)
 
-  const importStatements = currentCtx.filter(item => item.type === 'Import')
-
   const s = new MagicString(body!)
 
-  if (type === 'Body') {
-    const program = babelParse(body!, lang, { allowReturnOutsideFunction: true, allowImportExportEverywhere: true })
+  if (isBodyNodeContext(type)) {
+    const program = babelParse(body!, lang, {
+      allowReturnOutsideFunction: true,
+      allowImportExportEverywhere: true,
+    })
     for (const stmt of program.body) {
       // transform return
       if (stmt.type !== 'ReturnStatement' || !stmt.argument) continue
@@ -145,24 +158,41 @@ export const loadSetupComponent = async (
     }
   }
 
-  if (importStatements.length) {
-    const statements = new MagicString(importStatements.map(item => item.code).join('\n'))
+  const importStatements = currentCtx.filter((item) =>
+    isImportNodeContext(item.type)
+  )
 
-    const parsed = babelParse(statements.original, lang)
+  if (importStatements.length > 0) {
+    const statements = new MagicString(
+      importStatements.map((item) => item.code).join('\n')
+    )
 
+    const program = babelParse(statements.original, lang)
 
-    for (const item of parsed.body.filter(item => item.type === 'ImportDeclaration')) {
-      const source = ((item as ImportDeclaration)).source
-      let imported  = source.extra!.rawValue as string
-      let pathMap = id.split('/').filter(item => item.length && !item.endsWith('.tsx') && !item.endsWith('.jsx'))
+    const importDeclarations = program.body.filter(
+      (item) => item.type === 'ImportDeclaration'
+    )
+
+    for (const item of importDeclarations) {
+      const source = (item as ImportDeclaration).source
+
+      let imported = source.extra!.rawValue as string
+
+      let pathMap = id
+        .split('/')
+        .filter(
+          (item) =>
+            item.length > 0 && !item.endsWith('.tsx') && !item.endsWith('.jsx')
+        )
 
       // filter absolute path
       if (imported.startsWith('.')) {
         if (imported.startsWith('./')) {
           imported = imported.replace('./', '')
         } else if (imported.startsWith('../')) {
-          pathMap = pathMap.reverse()
           const count = imported.split('../').length - 1
+          pathMap = pathMap.reverse()
+
           for (let i = 0; i < count; i++) {
             imported = imported.replace('../', '')
             pathMap.shift()
@@ -174,7 +204,6 @@ export const loadSetupComponent = async (
 
         statements.overwrite(source.start!, source.end!, imported)
       }
-
     }
     s.prepend(statements.toString())
   }
