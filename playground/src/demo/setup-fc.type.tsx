@@ -1,9 +1,13 @@
 import { computed, ref } from 'vue'
-import { a } from './foo'
+import { foo } from './foo'
+
+console.log(foo)
 
 export const SetupFCType: SetupFC = () => {
   const count = ref(0)
   const double = computed(() => count.value * 2)
+
+  console.log(foo)
 
   return () => (
     <div>

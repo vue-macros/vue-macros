@@ -1,4 +1,7 @@
+import { foo } from './foo'
 import type { DefineComponent } from 'vue'
+
+console.log(foo)
 
 const name = 'Greet'
 defineOptions({

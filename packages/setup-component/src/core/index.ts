@@ -11,43 +11,48 @@ import { normalizePath } from '@rollup/pluginutils'
 import {
   SETUP_COMPONENT_ID_REGEX,
   SETUP_COMPONENT_ID_SUFFIX,
-  SETUP_COMPONENT_SUB_MODULE,
   SETUP_COMPONENT_TYPE,
 } from './constants'
+import { isSubModule } from './sub-module'
+import type { Function, Node } from '@babel/types'
 import type { HmrContext, ModuleNode } from 'vite'
-import type { Function, ImportDeclaration, Node } from '@babel/types'
 
 export * from './constants'
 
 // TODO SWC
 
-type NodeContextType = 'Body' | 'Import'
-
-interface NodeContext {
+interface FileContextComponent {
   code: string
   body: string
   node: Node
-  type: NodeContextType
 }
 
-export type SetupComponentContext = Record<string, NodeContext[]>
+interface FileContext {
+  components: FileContextComponent[]
+  imports: string[]
+}
 
-const isBodyNodeContext = (type: NodeContextType) => type === 'Body'
+export type SetupComponentContext = Record<string, FileContext>
 
-const isImportNodeContext = (type: NodeContextType) => type === 'Import'
-
-export const scanSetupComponent = (code: string, id: string) => {
+export const scanSetupComponent = (code: string, id: string): FileContext => {
   const program = babelParse(code, getLang(id))
-  const nodes: {
+
+  const components: {
+    /** defineSetupComponent(...) */
     fn?: Node
-    src?: Node
-    statement?: string
-    type: NodeContextType
+    /** component decl */
+    decl: Node
   }[] = []
+  const imports: FileContext['imports'] = []
+
   walk(program, {
     enter(node: Node) {
+      // defineSetupComponent(...)
       if (isCallOf(node, DEFINE_SETUP_COMPONENT)) {
-        nodes.push({ fn: node.arguments[0], src: node, type: 'Body' })
+        components.push({
+          fn: node,
+          decl: node.arguments[0],
+        })
       } else if (
         node.type === 'VariableDeclarator' &&
         node.id.type === 'Identifier' &&
@@ -58,49 +63,41 @@ export const scanSetupComponent = (code: string, id: string) => {
           SETUP_COMPONENT_TYPE &&
         node.init
       ) {
-        nodes.push({ fn: node.init, type: 'Body' })
-      } else if (node.type === 'ImportDeclaration') {
-        nodes.push({
-          statement: code.slice(node.start!, node.end!),
-          type: 'Import',
-          src: node,
+        // const comp: SetupFC = ...
+        components.push({
+          decl: node.init,
         })
+      } else if (node.type === 'ImportDeclaration') {
+        imports.push(code.slice(node.start!, node.end!))
       }
     },
   })
 
-  if (nodes.length === 0) return []
+  const ctxComponents = components.map(({ decl, fn }): FileContextComponent => {
+    if (!['FunctionExpression', 'ArrowFunctionExpression'].includes(decl.type))
+      throw new SyntaxError(
+        `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
+      )
 
-  return nodes.map(({ fn, statement, src, type }): NodeContext => {
-    if (isBodyNodeContext(type)) {
-      if (!['FunctionExpression', 'ArrowFunctionExpression'].includes(fn!.type))
-        throw new SyntaxError(
-          `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
-        )
-
-      const body: Node = (fn as Function)?.body
-      let bodyStart = body.start!
-      let bodyEnd = body.end!
-      if (body.type === 'BlockStatement') {
-        bodyStart++
-        bodyEnd--
-      }
-
-      return {
-        code: code.slice(fn!.start!, fn!.end!),
-        body: code.slice(bodyStart, bodyEnd),
-        node: src || fn!,
-        type,
-      }
+    const body = (decl as Function)?.body
+    let bodyStart = body.start!
+    let bodyEnd = body.end!
+    if (body.type === 'BlockStatement') {
+      bodyStart++
+      bodyEnd--
     }
 
     return {
-      code: statement!,
-      body: statement!,
-      node: src!,
-      type,
+      code: code.slice(decl.start!, decl.end!),
+      body: code.slice(bodyStart, bodyEnd),
+      node: fn || decl,
     }
   })
+
+  return {
+    components: ctxComponents,
+    imports,
+  }
 }
 
 export const transformSetupComponent = (
@@ -111,20 +108,17 @@ export const transformSetupComponent = (
   const normalizedId = normalizePath(id)
   const s = new MagicString(code)
 
-  const nodeContexts = scanSetupComponent(code, id)
+  const fileContext = scanSetupComponent(code, id)
+  ctx[normalizedId] = fileContext
 
-  ctx[normalizedId] = nodeContexts
+  for (const [i, { node }] of fileContext.components.entries()) {
+    const importName = `setupComponent_${i}`
 
-  for (const [i, { node, type }] of nodeContexts.entries()) {
-    if (isBodyNodeContext(type)) {
-      const importName = `setupComponent_${i}`
+    s.overwrite(node.start!, node.end!, importName)
 
-      s.overwrite(node.start!, node.end!, importName)
-
-      s.prepend(
-        `import ${importName} from '${normalizedId}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`
-      )
-    }
+    s.prepend(
+      `import ${importName} from '${normalizedId}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`
+    )
   }
 
   return getTransformResult(s, id)
@@ -137,73 +131,25 @@ export const loadSetupComponent = async (
 ) => {
   const index = +(SETUP_COMPONENT_ID_REGEX.exec(virtualId)?.[1] ?? -1)
   const id = virtualId.replace(SETUP_COMPONENT_ID_REGEX, '')
-  const currentCtx = ctx[id] || ctx[root + id]
-  const nodeCtx = currentCtx?.[index]
-  if (!nodeCtx) return
+  const { components, imports } = ctx[id] || ctx[root + id] || {}
+  const component = components[index]
+  if (!component) return
 
-  const { body, type } = nodeCtx
+  const { body } = component
   const lang = getLang(id)
 
-  const s = new MagicString(body!)
-
-  if (isBodyNodeContext(type)) {
-    const program = babelParse(body!, lang, {
-      allowReturnOutsideFunction: true,
-      allowImportExportEverywhere: true,
-    })
-    for (const stmt of program.body) {
-      // transform return
-      if (stmt.type !== 'ReturnStatement' || !stmt.argument) continue
-      s.overwriteNode(stmt, `defineRender(${s.sliceNode(stmt.argument)});`)
-    }
+  const s = new MagicString(body)
+  const program = babelParse(body, lang, {
+    allowReturnOutsideFunction: true,
+    allowImportExportEverywhere: true,
+  })
+  for (const stmt of program.body) {
+    // transform return
+    if (stmt.type !== 'ReturnStatement' || !stmt.argument) continue
+    s.overwriteNode(stmt, `defineRender(${s.sliceNode(stmt.argument)});`)
   }
 
-  const importStatements = currentCtx.filter((item) =>
-    isImportNodeContext(item.type)
-  )
-
-  if (importStatements.length > 0) {
-    const statements = new MagicString(
-      importStatements.map((item) => item.code).join('\n')
-    )
-
-    const program = babelParse(statements.original, lang)
-
-    const importDeclarations = program.body.filter(
-      (item) => item.type === 'ImportDeclaration'
-    )
-
-    for (const item of importDeclarations) {
-      const source = (item as ImportDeclaration).source
-
-      let imported = source.extra!.rawValue as string
-
-      const pathMap = id
-        .split('/')
-        .filter(
-          (item) =>
-            item.length > 0 && !item.endsWith('.tsx') && !item.endsWith('.jsx')
-        )
-
-      // filter absolute path
-      if (imported.startsWith('.')) {
-        if (imported.startsWith('./')) {
-          imported = imported.replace('./', '')
-        } else if (imported.startsWith('../')) {
-          const count = imported.split('../').length - 1
-          
-          for (let i = count; i > 0; i--) {
-            imported = imported.replace('../', '')
-            pathMap.pop()
-          }
-        }
-        imported = `"/${pathMap.join('/')}/${imported}"`
-
-        statements.overwrite(source.start!, source.end!, imported)
-      }
-    }
-    s.prepend(statements.toString())
-  }
+  for (const i of imports) s.prepend(`${i}\n`)
 
   s.prepend(`<script setup${lang ? ` lang="${lang}"` : ''}>`)
   s.append(`</script>`)
@@ -215,20 +161,17 @@ export const hotUpdateSetupComponent = async (
   { file, modules, read }: HmrContext,
   ctx: SetupComponentContext
 ) => {
-  const isSubModule = (id: string) => SETUP_COMPONENT_SUB_MODULE.test(id)
   const getSubModule = (module: ModuleNode): ModuleNode[] => {
     const importedModules = Array.from(module.importedModules)
     if (importedModules.length === 0) return []
 
     return importedModules
       .filter(({ id }) => id && isSubModule(id!))
-      .flatMap((module) => {
-        return [module, ...getSubModule(module)]
-      })
+      .flatMap((module) => [module, ...getSubModule(module)])
   }
 
   const module = modules.find((mod) => mod.file === file)
-  if (!module || !module.id) return
+  if (!module?.id) return
 
   const affectedModules = getSubModule(module)
 

@@ -4,7 +4,7 @@ exports[`setup-component > tests/fixtures/SetupFC.tsx 1`] = `
 "import { defineComponent, ref, createVNode, createTextVNode } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"2\\",
+  __name: \\"SetupFC.tsx-setup-component-0\\",
   setup(__props) {
     const count = ref(0);
     defineRender(() => createVNode(\\"div\\", null, [createVNode(\\"p\\", null, [createTextVNode(\\"hi, this is \\"), props.name]), createVNode(\\"p\\", null, [count.value]), createVNode(\\"button\\", {
@@ -23,9 +23,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_2 = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+var setupComponent_0 = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
 
-const App = setupComponent_2;
+const App = setupComponent_0;
 
 export { App };
 "
@@ -35,7 +35,7 @@ exports[`setup-component > tests/fixtures/async.tsx 1`] = `
 "import { defineComponent, withAsyncContext } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"0\\",
+  __name: \\"async.tsx-setup-component-0\\",
   props: {
     foo: {
       type: String,
@@ -70,7 +70,7 @@ exports[`setup-component > tests/fixtures/basic.ts 1`] = `
 "import { defineComponent, h } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"1\\",
+  __name: \\"basic.ts-setup-component-0\\",
   props: {
     foo: { type: String, required: true }
   },
@@ -92,9 +92,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_1 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+var setupComponent_0 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
-const App = setupComponent_1;
+const App = setupComponent_0;
 h(App);
 
 export { App };
@@ -105,7 +105,7 @@ exports[`setup-component > tests/fixtures/render.tsx 1`] = `
 "import { defineComponent, createVNode } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"0\\",
+  __name: \\"render.tsx-setup-component-0\\",
   props: {
     foo: {
       type: String,
@@ -139,7 +139,7 @@ exports[`setup-component > tests/fixtures/return-render.tsx 1`] = `
 "import { defineComponent, computed, createVNode } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"1\\",
+  __name: \\"return-render.tsx-setup-component-0\\",
   props: {
     foo: {
       type: String,
@@ -162,9 +162,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_1 = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+var setupComponent_0 = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
 
-const App = setupComponent_1;
+const App = setupComponent_0;
 
 export { App };
 "
@@ -174,7 +174,7 @@ exports[`setup-component > tests/fixtures/type-annotation.ts 1`] = `
 "import { defineComponent, h } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"1\\",
+  __name: \\"type-annotation.ts-setup-component-0\\",
   props: {
     foo: { type: String, required: true }
   },
@@ -196,9 +196,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_1 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+var setupComponent_0 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
-const App = setupComponent_1;
+const App = setupComponent_0;
 h(App);
 
 export { App };

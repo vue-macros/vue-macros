@@ -7,6 +7,8 @@ import {
   loadSetupComponent,
   transformSetupComponent,
 } from './core'
+import { getMainModule, isSubModule } from './core/sub-module'
+import type { PluginContext } from 'rollup'
 import type { FilterPattern } from '@rollup/pluginutils'
 import type { SetupComponentContext } from './core'
 
@@ -31,7 +33,7 @@ function resolveOption(options: Options): OptionsResolved {
 
 const name = 'unplugin-vue-setup-component'
 
-export default createUnplugin((userOptions: Options = {}) => {
+export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
   const options = resolveOption(userOptions)
   const filter = createFilter(options.include, options.exclude)
 
@@ -41,8 +43,19 @@ export default createUnplugin((userOptions: Options = {}) => {
     name,
     enforce: 'pre',
 
-    resolveId(id) {
+    resolveId(id, importer) {
       if (SETUP_COMPONENT_ID_REGEX.test(id)) return id
+
+      if (
+        ['rollup', 'vite'].includes(meta.framework) &&
+        importer &&
+        isSubModule(importer)
+      ) {
+        const mainModule = getMainModule(importer, options.root)
+        return (this as unknown as PluginContext).resolve(id, mainModule, {
+          skipSelf: true,
+        }) as any
+      }
     },
 
     loadInclude(id) {
