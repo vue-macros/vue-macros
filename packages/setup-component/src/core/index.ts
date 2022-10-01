@@ -191,14 +191,11 @@ export const loadSetupComponent = async (
           imported = imported.replace('./', '')
         } else if (imported.startsWith('../')) {
           const count = imported.split('../').length - 1
-          pathMap = pathMap.reverse()
-
-          for (let i = 0; i < count; i++) {
+          
+          for (let i = count; i > 0; i--) {
             imported = imported.replace('../', '')
-            pathMap.shift()
+            pathMap.pop()
           }
-
-          pathMap = pathMap.reverse()
         }
         imported = `"/${pathMap.join('/')}/${imported}"`
 
