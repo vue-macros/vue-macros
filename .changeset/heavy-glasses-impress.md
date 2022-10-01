@@ -1,6 +1,5 @@
 ---
-"@vue-macros/setup-component": patch
-"playground": patch
+"@vue-macros/setup-component": minor
 ---
 
-feat(setup-component): support resolve import statements
+support resolve import statements
