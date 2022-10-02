@@ -11,6 +11,7 @@
     "play": "pnpm run -C ./playground dev",
     "test": "vitest",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0",
+    "publish": "pnpm build && changeset publish",
     "typecheck": "run-p \"typecheck:*\"",
     "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
     "typecheck:test": "tsc --noEmit -p tsconfig.test.json"
