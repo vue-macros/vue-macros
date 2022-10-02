@@ -160,13 +160,12 @@ importers:
   packages/macros:
     specifiers:
       '@rollup/pluginutils': ^4.2.1
-      '@vue-macros/common': workspace:*
-      '@vue-macros/define-model': workspace:^
-      '@vue-macros/define-render': workspace:^
-      '@vue-macros/hoist-static': workspace:^
-      '@vue-macros/setup-component': workspace:^
-      '@vue-macros/setup-sfc': workspace:^
-      '@vue-macros/short-emits': workspace:^
+      '@vue-macros/define-model': workspace:*
+      '@vue-macros/define-render': workspace:*
+      '@vue-macros/hoist-static': workspace:*
+      '@vue-macros/setup-component': workspace:*
+      '@vue-macros/setup-sfc': workspace:*
+      '@vue-macros/short-emits': workspace:*
       fast-glob: ^3.2.12
       local-pkg: ^0.4.2
       tsup: ^6.2.3
@@ -177,7 +176,6 @@ importers:
       vue: ^3.2.39
     dependencies:
       '@rollup/pluginutils': 4.2.1
-      '@vue-macros/common': link:../common
       '@vue-macros/define-model': link:../define-model
       '@vue-macros/define-render': link:../define-render
       '@vue-macros/hoist-static': link:../hoist-static
