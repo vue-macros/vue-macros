@@ -237,6 +237,9 @@ emit('update:count', count + 1)
 
 ### `defineRender`
 
+Introduce a macro in `<script setup>`, `defineRender`.
+To be able define render function in `<script setup>`.
+
 #### Basic Usage
 
 ```vue
@@ -256,6 +259,26 @@ defineRender(() => {
     </div>
   )
 })
+</script>
+```
+
+### `shortEmits`
+
+Simplify the definition of emits.
+
+#### Basic Usage
+
+```vue
+<script setup lang="ts">
+const emits = defineEmits<
+  // `ShortEmits` or for short `SE`
+  SE<{
+    // tuple
+    'update:modelValue': [val: string]
+    // function
+    update(val: string): void
+  }>
+>()
 </script>
 ```
 

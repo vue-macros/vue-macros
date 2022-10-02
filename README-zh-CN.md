@@ -235,6 +235,9 @@ emit('update:count', count + 1)
 
 ### `defineRender`
 
+在 `<script setup>` 中可使用 `defineRender` 宏。
+可以在 `<script setup>` 定义渲染函数。
+
 #### Basic Usage
 
 ```vue
@@ -254,6 +257,26 @@ defineRender(() => {
     </div>
   )
 })
+</script>
+```
+
+### `shortEmits`
+
+简化 emits 的定义。
+
+#### 基础使用
+
+```vue
+<script setup lang="ts">
+const emits = defineEmits<
+  // `ShortEmits` 或缩写成 `SE`
+  SE<{
+    // 元组
+    'update:modelValue': [val: string]
+    // 函数
+    update(val: string): void
+  }>
+>()
 </script>
 ```
 
