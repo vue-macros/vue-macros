@@ -1,10 +1,41 @@
 // Vitest Snapshot v1
 
+exports[`setup-component > tests/fixtures/SetupFC.tsx 1`] = `
+"import { defineComponent, ref, createVNode, createTextVNode } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"SetupFC.tsx-setup-component-0\\",
+  setup(__props) {
+    const count = ref(0);
+    defineRender(() => createVNode(\\"div\\", null, [createVNode(\\"p\\", null, [createTextVNode(\\"hi, this is \\"), props.name]), createVNode(\\"p\\", null, [count.value]), createVNode(\\"button\\", {
+      \\"onClick\\": () => count.value++
+    }, [createTextVNode(\\"inc\\")])]));
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var setupComponent_0 = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+const App = setupComponent_0;
+
+export { App };
+"
+`;
+
 exports[`setup-component > tests/fixtures/async.tsx 1`] = `
 "import { defineComponent, withAsyncContext } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"0\\",
+  __name: \\"async.tsx-setup-component-0\\",
   props: {
     foo: {
       type: String,
@@ -39,7 +70,7 @@ exports[`setup-component > tests/fixtures/basic.ts 1`] = `
 "import { defineComponent, h } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"0\\",
+  __name: \\"basic.ts-setup-component-0\\",
   props: {
     foo: { type: String, required: true }
   },
@@ -74,7 +105,7 @@ exports[`setup-component > tests/fixtures/render.tsx 1`] = `
 "import { defineComponent, createVNode } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"0\\",
+  __name: \\"render.tsx-setup-component-0\\",
   props: {
     foo: {
       type: String,
@@ -105,10 +136,10 @@ export { App };
 `;
 
 exports[`setup-component > tests/fixtures/return-render.tsx 1`] = `
-"import { defineComponent, createVNode } from 'vue';
+"import { defineComponent, computed, createVNode } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"0\\",
+  __name: \\"return-render.tsx-setup-component-0\\",
   props: {
     foo: {
       type: String,
@@ -116,7 +147,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     }
   },
   setup(__props) {
-    defineRender(() => createVNode(\\"div\\", null, null));
+    const sum = computed(() => 1 + 2);
+    defineRender(() => createVNode(\\"div\\", null, [sum.value]));
     return () => {
     };
   }
@@ -142,7 +174,7 @@ exports[`setup-component > tests/fixtures/type-annotation.ts 1`] = `
 "import { defineComponent, h } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"0\\",
+  __name: \\"type-annotation.ts-setup-component-0\\",
   props: {
     foo: { type: String, required: true }
   },

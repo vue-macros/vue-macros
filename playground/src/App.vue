@@ -10,6 +10,7 @@ import DefineModelVue from './demo/define-model.vue'
 import { SetupComponentFoo } from './demo/setup-component'
 import SetupSFC from './demo/setup-sfc.setup'
 import Full from './demo/full.setup'
+import { SetupFCType } from './demo/setup-fc.type'
 
 const title = ref('hello')
 </script>
@@ -32,4 +33,6 @@ const title = ref('hello')
   <SetupSFC />
   <hr />
   <Full />
+  <hr />
+  <SetupFCType />
 </template>
