@@ -1,22 +1,10 @@
-import path from 'node:path'
-import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
-import {
-  MAGIC_COMMENT_STATIC,
-  REGEX_JSX_FILE,
-  REGEX_TS_FILE,
-} from './constants'
+import { babelParse, walkIdentifiers } from '@vue/compiler-sfc'
+import { MAGIC_COMMENT_STATIC, REGEX_JSX_FILE } from '../constants'
+import { isTs } from '../lang'
 import type { CallExpression, Literal, Node, Program } from '@babel/types'
 import type { ParserOptions, ParserPlugin } from '@babel/parser'
 
-export function getLang(filename: string) {
-  return path.extname(filename).replace(/^\./, '')
-}
-
-export function isTs(lang?: string) {
-  return lang && REGEX_TS_FILE.test(lang)
-}
-
-export function babelParse(
+export function parse(
   code: string,
   lang?: string,
   options: ParserOptions = {}
@@ -26,7 +14,7 @@ export function babelParse(
     if (isTs(lang)) plugins.push('typescript')
     if (REGEX_JSX_FILE.test(lang)) plugins.push('jsx')
   }
-  const { program } = _babelParse(code, {
+  const { program } = babelParse(code, {
     sourceType: 'module',
     plugins,
     ...options,
