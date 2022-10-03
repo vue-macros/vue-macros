@@ -1,14 +1,14 @@
 import { describe, expect, test } from 'vitest'
 import { transformShortEmits } from '../src/core'
 
-describe('fixtures', async () => {
+describe('fixtures', () => {
   const files = import.meta.glob('./fixtures/*.{vue,js,ts}', {
     eager: true,
     as: 'raw',
   })
 
   for (const [id, code] of Object.entries(files)) {
-    test(id.replace(/\\/g, '/'), async () => {
+    test(id.replace(/\\/g, '/'), () => {
       const exec = () => transformShortEmits(code, id)?.code
 
       if (id.includes('error')) {

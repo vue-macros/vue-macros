@@ -124,7 +124,7 @@ export const transformSetupComponent = (
   return getTransformResult(s, id)
 }
 
-export const loadSetupComponent = async (
+export const loadSetupComponent = (
   virtualId: string,
   ctx: SetupComponentContext,
   root: string

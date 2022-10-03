@@ -11,7 +11,7 @@ import {
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
 import VueSetupSFC from '../src/rollup'
 
-describe('setup-component', async () => {
+describe('setup-component', () => {
   test('isSetupSFC', () => {
     expect(REGEX_SETUP_SFC.test('foo.setup.ts')).toBe(true)
     expect(REGEX_SETUP_SFC.test('foo.setup.tsx')).toBe(true)
