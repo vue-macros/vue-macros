@@ -1,5 +1,6 @@
 import path from 'node:path'
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
+import { walk } from 'estree-walker'
 import {
   MAGIC_COMMENT_STATIC,
   REGEX_JSX_FILE,
@@ -117,4 +118,34 @@ export function getStaticKey(node: Node, computed = false, raw = true) {
     default:
       throw new SyntaxError(`Unexpected node type: ${node.type}`)
   }
+}
+
+export function walkAST<T = Node>(
+  node: T,
+  options: {
+    enter?: (
+      this: {
+        skip: () => void
+        remove: () => void
+        replace: (node: T) => void
+      },
+      node: T,
+      parent: T,
+      key: string,
+      index: number
+    ) => void
+    leave?: (
+      this: {
+        skip: () => void
+        remove: () => void
+        replace: (node: T) => void
+      },
+      node: T,
+      parent: T,
+      key: string,
+      index: number
+    ) => void
+  }
+): T {
+  return walk(node as any, options as any) as any
 }

@@ -5,8 +5,8 @@ import {
   getLang,
   getTransformResult,
   isCallOf,
+  walkAST,
 } from '@vue-macros/common'
-import { walk } from 'estree-walker'
 import { normalizePath } from '@rollup/pluginutils'
 import {
   SETUP_COMPONENT_ID_REGEX,
@@ -45,8 +45,8 @@ export const scanSetupComponent = (code: string, id: string): FileContext => {
   }[] = []
   const imports: FileContext['imports'] = []
 
-  walk(program, {
-    enter(node: Node) {
+  walkAST<Node>(program, {
+    enter(node) {
       // defineSetupComponent(...)
       if (isCallOf(node, DEFINE_SETUP_COMPONENT)) {
         components.push({

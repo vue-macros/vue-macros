@@ -5,8 +5,8 @@ import {
   getLang,
   getTransformResult,
   isCallOf,
+  walkAST,
 } from '@vue-macros/common'
-import { walk } from 'estree-walker'
 import { isFunction } from '@babel/types'
 import type { BlockStatement, ExpressionStatement, Node } from '@babel/types'
 
@@ -23,8 +23,8 @@ export const transfromDefineRender = (code: string, id: string) => {
     node: ExpressionStatement
     arg: Node
   }[] = []
-  walk(program, {
-    enter(node: Node, parent: Node) {
+  walkAST<Node>(program, {
+    enter(node, parent) {
       if (
         node.type !== 'ExpressionStatement' ||
         !isCallOf(node.expression, DEFINE_RENDER) ||

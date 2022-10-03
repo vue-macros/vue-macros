@@ -5,8 +5,8 @@ import {
   getTransformResult,
   isTs,
   parseSFC,
+  walkAST,
 } from '@vue-macros/common'
-import { walk } from 'estree-walker'
 import type {
   Identifier,
   Node,
@@ -33,8 +33,8 @@ export const transformShortEmits = (code: string, id: string) => {
     type: TSTypeReference
   }[] = []
 
-  walk(program, {
-    enter(node: Node) {
+  walkAST<Node>(program, {
+    enter(node) {
       if (
         node.type === 'TSTypeReference' &&
         node.typeName.type === 'Identifier' &&

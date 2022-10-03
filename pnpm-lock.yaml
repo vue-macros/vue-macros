@@ -49,6 +49,7 @@ importers:
       '@babel/parser': ^7.19.1
       '@babel/types': ^7.19.0
       '@vue/compiler-sfc': ^3.2.39
+      estree-walker: ^3.0.1
       magic-string: ^0.26.3
       tsup: ^6.2.3
     dependencies:
@@ -57,6 +58,7 @@ importers:
       magic-string: 0.26.3
     devDependencies:
       '@babel/parser': 7.19.1
+      estree-walker: 3.0.1
       tsup: 6.2.3
 
   packages/define-model:
@@ -116,7 +118,6 @@ importers:
       '@babel/types': ^7.19.0
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:*
-      estree-walker: ^3.0.1
       fast-glob: ^3.2.12
       tsup: ^6.2.3
       tsx: ^3.9.0
@@ -129,7 +130,6 @@ importers:
       unplugin: 0.9.5_vite@3.1.2
     devDependencies:
       '@babel/types': 7.19.0
-      estree-walker: 3.0.1
       fast-glob: 3.2.12
       tsup: 6.2.3
       tsx: 3.9.0
@@ -197,7 +197,6 @@ importers:
       '@babel/types': ^7.19.0
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:*
-      estree-walker: ^3.0.1
       fast-glob: ^3.2.12
       rollup: ^2.79.0
       tsup: ^6.2.3
@@ -211,7 +210,6 @@ importers:
       unplugin: 0.9.5_rollup@2.79.0+vite@3.1.2
     devDependencies:
       '@babel/types': 7.19.0
-      estree-walker: 3.0.1
       fast-glob: 3.2.12
       rollup: 2.79.0
       tsup: 6.2.3
@@ -224,7 +222,6 @@ importers:
       '@babel/types': ^7.19.0
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:*
-      estree-walker: ^3.0.1
       fast-glob: ^3.2.12
       rollup: ^2.79.0
       tsup: ^6.2.3
@@ -238,7 +235,6 @@ importers:
       unplugin: 0.9.5_rollup@2.79.0+vite@3.1.2
     devDependencies:
       '@babel/types': 7.19.0
-      estree-walker: 3.0.1
       fast-glob: 3.2.12
       rollup: 2.79.0
       tsup: 6.2.3
@@ -251,7 +247,6 @@ importers:
       '@babel/types': ^7.19.0
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:*
-      estree-walker: ^3.0.1
       fast-glob: ^3.2.12
       tsup: ^6.2.3
       tsx: ^3.9.0
@@ -263,7 +258,6 @@ importers:
       unplugin: 0.9.5_vite@3.1.2
     devDependencies:
       '@babel/types': 7.19.0
-      estree-walker: 3.0.1
       fast-glob: 3.2.12
       tsup: 6.2.3
       tsx: 3.9.0
