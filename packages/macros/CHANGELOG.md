@@ -1,5 +1,18 @@
 # unplugin-vue-macros
 
+## 0.12.0-beta.4
+
+### Patch Changes
+
+- Updated dependencies [[`f3a1b08`](https://github.com/sxzz/unplugin-vue-macros/commit/f3a1b08f49060740a5e53a8f3e91db0dc47c366f)]:
+  - @vue-macros/define-render@0.12.0-beta.3
+  - @vue-macros/setup-component@0.12.0-beta.4
+  - @vue-macros/setup-sfc@0.12.0-beta.3
+  - @vue-macros/short-emits@0.12.0-beta.3
+  - @vue-macros/define-model@0.12.0-beta.3
+  - unplugin-vue-define-options@0.12.0-beta.3
+  - @vue-macros/hoist-static@0.12.0-beta.3
+
 ## 0.12.0-beta.3
 
 ### Minor Changes
