@@ -8,7 +8,7 @@
 
 ## 特性
 
-- 扩充 Vue 宏和语法糖；
+- ✨ 扩充 Vue 宏和语法糖；
 - 💚 开箱即用支持 Vue 2 和 Vue 3；
 - 🦾 完全支持 TypeScript；
 - ⚡️ 支持 Vite、Webpack、Vue CLI、Rollup、esbuild 等, 由 [unplugin](https://github.com/unjs/unplugin) 提供支持。
@@ -199,7 +199,7 @@ export default {
 
 ```vue
 <script setup lang="ts">
-let { modelValue } = defineModel<{
+let { modelValue, count } = defineModel<{
   modelValue: string
   count: number
 }>()
@@ -215,7 +215,7 @@ count++
 
 ```vue
 <script setup lang="ts">
-const { modelValue } = defineProps<{
+const { modelValue, count } = defineProps<{
   modelValue: string
   count: number
 }>()
@@ -336,11 +336,6 @@ export default {
 
 </details>
 
-#### 已知问题
-
-- [ ] source map 无法正常对应
-- [ ] TypeScript 支持尚未完善
-
 ### `setupComponent` (⚠️ 实验性)
 
 > **Warning**: 实验性功能，使用风险自负！
@@ -384,6 +379,11 @@ export const App: SetupFC = () => {
   })
 }
 ```
+
+#### 已知问题
+
+- [ ] source map 无法正常对应
+- [ ] TypeScript 支持尚未完善
 
 ### `setupSFC` (⚠️ experimental)
 
