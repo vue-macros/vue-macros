@@ -263,6 +263,23 @@ importers:
       tsx: 3.9.0
       vite: 3.1.4
 
+  packages/short-vmodel:
+    specifiers:
+      '@vue-macros/common': workspace:*
+      '@vue/compiler-core': ^3.2.40
+      '@vue/compiler-sfc': ^3.2.40
+      fast-glob: ^3.2.12
+      tsup: ^6.2.3
+      tsx: ^3.9.0
+    dependencies:
+      '@vue-macros/common': link:../common
+      '@vue/compiler-core': 3.2.40
+    devDependencies:
+      '@vue/compiler-sfc': 3.2.40
+      fast-glob: 3.2.12
+      tsup: 6.2.3
+      tsx: 3.9.0
+
   packages/test-utils:
     specifiers:
       '@vitejs/plugin-vue-jsx': ^2.0.1
