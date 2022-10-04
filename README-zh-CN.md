@@ -126,7 +126,7 @@ module.exports = {
 
 > **Note**: 如果你只需要 `defineOptions`，那么[单独的版本](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options)更适合你。
 
-如果支持本特性，请到 [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430) 中点赞 👍，非常感谢！
+如果支持本特性，请到 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/430) 中点赞 👍，非常感谢！
 
 #### 基础使用
 
@@ -279,6 +279,52 @@ const emits = defineEmits<
 >()
 </script>
 ```
+
+### `shortVmodel`
+
+`v-model:` -> `::`
+
+`v-model` 的简写：`::`。
+
+如果有任何关于本功能的疑问，可以到 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/430) 中留言。
+
+#### 安装
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { transformShortVmodel } from '@vue-macros/short-vmodel'
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          nodeTransforms: [transformShortVmodel()],
+        },
+      },
+    }),
+  ],
+})
+```
+
+#### 使用
+
+```vue
+<template>
+  <!-- prettier-ignore -->
+  <input ::="msg" />
+  <!-- => <input v-model="msg" /> -->
+  <demo ::msg="msg" />
+  <!-- => <input v-model:msg="msg" /> -->
+</template>
+```
+
+#### 已知问题
+
+- TypeScript / Volar 暂不支持；
+- Prettier 会把 `::=` 格式化为 `:=`, 需要使用 `prettier-ignore`。
 
 ### `hoistStatic`
 

@@ -282,6 +282,52 @@ const emits = defineEmits<
 </script>
 ```
 
+### `shortVmodel`
+
+`v-model:` -> `::`
+
+A shorthand for `v-model`: `::`.
+
+If you have any questions about this feature, you can comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430).
+
+#### Setup
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { transformShortVmodel } from '@vue-macros/short-vmodel'
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          nodeTransforms: [transformShortVmodel()],
+        },
+      },
+    }),
+  ],
+})
+```
+
+#### Usage
+
+```vue
+<template>
+  <!-- prettier-ignore -->
+  <input ::="msg" />
+  <!-- => <input v-model="msg" /> -->
+  <demo ::msg="msg" />
+  <!-- => <input v-model:msg="msg" /> -->
+</template>
+```
+
+#### Known issues
+
+- TypeScript / Volar is not supported.
+- Prettier will format `::=` to `:=`, `prettier-ignore` is required.
+
 ### `hoistStatic`
 
 If you want to reference a constant declared in `<script setup>`, then this feature may help you.
@@ -385,8 +431,8 @@ export const App: SetupFC = () => {
 
 #### Known issues
 
-- [ ] The source map does not correspond properly.
-- [ ] TypeScript support is not yet complete.
+- The source map does not correspond properly.
+- TypeScript support is not yet complete.
 
 ### `setupSFC` (⚠️ experimental)
 
@@ -436,8 +482,8 @@ export default () => (
 
 #### Known issues
 
-- [ ] The source map does not correspond properly in JSX/TSX files.
-- [ ] TypeScript support is not yet complete.
+- The source map does not correspond properly in JSX/TSX files.
+- TypeScript support is not yet complete.
 
 ## Sponsors
 
