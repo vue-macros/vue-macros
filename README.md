@@ -4,11 +4,11 @@
 
 English | [简体中文](./README-zh-CN.md)
 
-Extend macros and syntax sugar in Vue.
+Explore and extend more macros and syntax sugar to Vue.
 
 ## Features
 
-- ✨ Extend macros and syntax sugar in Vue.
+- ✨ Explore and extend more macros and syntax sugar to Vue.
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
 - 🦾 Full TypeScript support.
 - ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).
