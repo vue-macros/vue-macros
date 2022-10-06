@@ -1,0 +1,301 @@
+// Vitest Snapshot v1
+
+exports[`compiler > asterisk sign > default name 1`] = `
+{
+  "arg": undefined,
+  "exp": {
+    "constType": 0,
+    "content": "_ctx.foo",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 15,
+        "line": 1,
+        "offset": 14,
+      },
+      "source": "*=\\"foo\\"",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 15,
+      "line": 1,
+      "offset": 14,
+    },
+    "source": "*=\\"foo\\"",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "model",
+  "type": 7,
+}
+`;
+
+exports[`compiler > asterisk sign > w/ name 1`] = `
+{
+  "arg": {
+    "constType": 3,
+    "content": "foo",
+    "isStatic": true,
+    "loc": {
+      "end": {
+        "column": 21,
+        "line": 1,
+        "offset": 20,
+      },
+      "source": "<input *foo=\\"foo\\" />",
+      "start": {
+        "column": 1,
+        "line": 1,
+        "offset": 0,
+      },
+    },
+    "type": 4,
+  },
+  "exp": {
+    "constType": 0,
+    "content": "_ctx.foo",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 18,
+        "line": 1,
+        "offset": 17,
+      },
+      "source": "*foo=\\"foo\\"",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 18,
+      "line": 1,
+      "offset": 17,
+    },
+    "source": "*foo=\\"foo\\"",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "model",
+  "type": 7,
+}
+`;
+
+exports[`compiler > dollar sign > default name 1`] = `
+{
+  "arg": undefined,
+  "exp": {
+    "constType": 0,
+    "content": "_ctx.foo",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 15,
+        "line": 1,
+        "offset": 14,
+      },
+      "source": "$=\\"foo\\"",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 15,
+      "line": 1,
+      "offset": 14,
+    },
+    "source": "$=\\"foo\\"",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "model",
+  "type": 7,
+}
+`;
+
+exports[`compiler > dollar sign > w/ name 1`] = `
+{
+  "arg": {
+    "constType": 3,
+    "content": "foo",
+    "isStatic": true,
+    "loc": {
+      "end": {
+        "column": 21,
+        "line": 1,
+        "offset": 20,
+      },
+      "source": "<input $foo=\\"foo\\" />",
+      "start": {
+        "column": 1,
+        "line": 1,
+        "offset": 0,
+      },
+    },
+    "type": 4,
+  },
+  "exp": {
+    "constType": 0,
+    "content": "_ctx.foo",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 18,
+        "line": 1,
+        "offset": 17,
+      },
+      "source": "$foo=\\"foo\\"",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 18,
+      "line": 1,
+      "offset": 17,
+    },
+    "source": "$foo=\\"foo\\"",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "model",
+  "type": 7,
+}
+`;
+
+exports[`compiler > double bind > default name 1`] = `
+{
+  "arg": undefined,
+  "exp": {
+    "constType": 0,
+    "content": "_ctx.foo",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 15,
+        "line": 1,
+        "offset": 14,
+      },
+      "source": "foo",
+      "start": {
+        "column": 12,
+        "line": 1,
+        "offset": 11,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 16,
+      "line": 1,
+      "offset": 15,
+    },
+    "source": "::=\\"foo\\"",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "model",
+  "type": 7,
+}
+`;
+
+exports[`compiler > double bind > w/ name 1`] = `
+{
+  "arg": {
+    "constType": 3,
+    "content": "foo",
+    "isStatic": true,
+    "loc": {
+      "end": {
+        "column": 13,
+        "line": 1,
+        "offset": 12,
+      },
+      "source": ":foo",
+      "start": {
+        "column": 9,
+        "line": 1,
+        "offset": 8,
+      },
+    },
+    "type": 4,
+  },
+  "exp": {
+    "constType": 0,
+    "content": "_ctx.foo",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 18,
+        "line": 1,
+        "offset": 17,
+      },
+      "source": "foo",
+      "start": {
+        "column": 15,
+        "line": 1,
+        "offset": 14,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 19,
+      "line": 1,
+      "offset": 18,
+    },
+    "source": "::foo=\\"foo\\"",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "model",
+  "type": 7,
+}
+`;

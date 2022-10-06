@@ -10,21 +10,21 @@ import {
 import { transformShortVmodel } from '../src/index'
 
 describe('short-vmodel', async () => {
-  const root = resolve(__dirname, '..')
-  const files = await glob('tests/fixtures/*.{vue,[jt]s?(x)}', {
-    cwd: root,
+  const fixtures = resolve(__dirname, 'fixtures')
+  const files = await glob('*.{vue,[jt]s?(x)}', {
+    cwd: fixtures,
     onlyFiles: true,
   })
 
   for (const file of files) {
     it(file.replace(/\\/g, '/'), async () => {
-      const filepath = resolve(root, file)
+      const filepath = resolve(fixtures, file)
 
       const code = await rollupBuild(filepath, [
         RollupVue({
           template: {
             compilerOptions: {
-              nodeTransforms: [transformShortVmodel()],
+              nodeTransforms: [transformShortVmodel({ prefix: '::' })],
             },
           },
         }),
