@@ -1,5 +1,11 @@
 # @vue-macros/short-vmodel
 
+## 0.2.0
+
+### Minor Changes
+
+- [`ed9e84a`](https://github.com/sxzz/unplugin-vue-macros/commit/ed9e84ad4e856e6d2041e5c42e108f12dfb4127b) Thanks [@sxzz](https://github.com/sxzz)! - support dollar and asterisk sign
+
 ## 0.1.0
 
 ### Minor Changes
