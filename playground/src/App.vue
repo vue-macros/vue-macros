@@ -11,6 +11,7 @@ import { SetupComponentFoo } from './demo/setup-component'
 import SetupSFC from './demo/setup-sfc.setup'
 import Full from './demo/full.setup'
 import { SetupFCType } from './demo/setup-fc.type'
+import ShortVmodel from './demo/short-vmodel.vue'
 
 const title = ref('hello')
 </script>
@@ -35,4 +36,6 @@ const title = ref('hello')
   <Full />
   <hr />
   <SetupFCType />
+  <hr />
+  <short-vmodel />
 </template>
