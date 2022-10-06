@@ -17,7 +17,11 @@ export default defineConfig({
           reactivityTransform: true,
           template: {
             compilerOptions: {
-              nodeTransforms: [transformShortVmodel()],
+              nodeTransforms: [
+                transformShortVmodel({
+                  prefix: '$',
+                }),
+              ],
             },
           },
         }),

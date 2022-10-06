@@ -7,6 +7,5 @@ const val = ref('')
 <template>
   <h1>Short Vmodel</h1>
   <p>{{ val }}</p>
-  <!-- prettier-ignore -->
-  <input ::="val" />
+  <input $="val" />
 </template>
