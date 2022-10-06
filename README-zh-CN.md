@@ -282,11 +282,11 @@ const emits = defineEmits<
 
 ### `shortVmodel`
 
-`v-model:` -> `::`
+`v-model:` -> `::` / `$`/ `*`
 
-`v-model` 的简写：`::`。
+缩写 `v-model`。
 
-如果有任何关于本功能的疑问，可以到 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/430) 中留言。
+如果有任何关于本功能的疑问，可以到 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/395) 中留言。
 
 #### 安装
 
@@ -301,7 +301,12 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          nodeTransforms: [transformShortVmodel()],
+          nodeTransforms: [
+            transformShortVmodel({
+              // prefix: '::' | '$' | '*'
+              prefix: '$', // defaults to '::'
+            }),
+          ],
         },
       },
     }),
@@ -310,6 +315,8 @@ export default defineConfig({
 ```
 
 #### 使用
+
+##### `::` 双重绑定
 
 ```vue
 <template>
@@ -321,10 +328,21 @@ export default defineConfig({
 </template>
 ```
 
+##### `$` 符号 (推荐)
+
+```vue
+<template>
+  <input $="msg" />
+  <!-- => <input v-model="msg" /> -->
+  <demo $msg="msg" />
+  <!-- => <input v-model:msg="msg" /> -->
+</template>
+```
+
 #### 已知问题
 
 - TypeScript / Volar 暂不支持；
-- Prettier 会把 `::=` 格式化为 `:=`, 需要使用 `prettier-ignore`。
+- Prettier 会把 `::=` 格式化为 `:=`。如果 `prefix` 为 `::`，需要使用 `prettier-ignore`。
 
 ### `hoistStatic`
 

@@ -284,11 +284,11 @@ const emits = defineEmits<
 
 ### `shortVmodel`
 
-`v-model:` -> `::`
+`v-model:` -> `::` / `$`/ `*`
 
-A shorthand for `v-model`: `::`.
+A shorthand for `v-model`.
 
-If you have any questions about this feature, you can comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430).
+If you have any questions about this feature, you can comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/395).
 
 #### Setup
 
@@ -303,7 +303,12 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          nodeTransforms: [transformShortVmodel()],
+          nodeTransforms: [
+            transformShortVmodel({
+              // prefix: '::' | '$' | '*'
+              prefix: '$', // defaults to '::'
+            }),
+          ],
         },
       },
     }),
@@ -312,6 +317,8 @@ export default defineConfig({
 ```
 
 #### Usage
+
+##### `::` Double Binding
 
 ```vue
 <template>
@@ -323,10 +330,21 @@ export default defineConfig({
 </template>
 ```
 
+##### `$` Dollar Sign (Recommended)
+
+```vue
+<template>
+  <input $="msg" />
+  <!-- => <input v-model="msg" /> -->
+  <demo $msg="msg" />
+  <!-- => <input v-model:msg="msg" /> -->
+</template>
+```
+
 #### Known issues
 
 - TypeScript / Volar is not supported.
-- Prettier will format `::=` to `:=`, `prettier-ignore` is required.
+- Prettier will format `::=` to `:=`, `prettier-ignore` is required if `prefix` is `::`.
 
 ### `hoistStatic`
 
