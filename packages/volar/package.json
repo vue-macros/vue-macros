@@ -1,0 +1,50 @@
+{
+  "name": "@vue-macros/volar",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.13.3",
+  "description": "Volar plugin for Vue Macros.",
+  "keywords": [
+    "unplugin",
+    "vue",
+    "macros",
+    "script-setup",
+    "define-options",
+    "define-model",
+    "define-render",
+    "setup-sfc",
+    "setup-component",
+    "volar"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
+  "bugs": {
+    "url": "https://github.com/sxzz/unplugin-vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "dist",
+    "*.js"
+  ],
+  "exports": {
+    "./define-model": {
+      "require": "./define-model.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "@volar/language-core": "^1.0.3"
+  },
+  "devDependencies": {
+    "@volar/vue-language-core": "^1.0.3",
+    "muggle-string": "^0.1.0",
+    "typescript": "^4.8.4",
+    "vue-tsc": "^1.0.3"
+  }
+}
