@@ -3,7 +3,7 @@
     "jsx": "preserve"
   },
   "vueCompilerOptions": {
-    "plugins": ["./src/index.js"]
+    "plugins": ["../define-model.js"]
   },
-  "include": "./**/*"
+  "include": ["**/*"]
 }

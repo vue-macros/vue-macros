@@ -1,9 +1,10 @@
 <script setup lang="ts">
-defineOptions()
-
 const check = () => {
   debugger
 }
+
+// @ts-expect-error
+defineOptions()
 </script>
 
 <template>
