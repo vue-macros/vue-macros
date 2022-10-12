@@ -28,7 +28,7 @@ exports[`compiler > asterisk sign > default name 1`] = `
       "line": 1,
       "offset": 14,
     },
-    "source": "v-model=\\"foo\\"",
+    "source": "*=\\"foo\\"",
     "start": {
       "column": 8,
       "line": 1,
@@ -87,7 +87,7 @@ exports[`compiler > asterisk sign > w/ name 1`] = `
       "line": 1,
       "offset": 17,
     },
-    "source": "v-modelfoo=\\"foo\\"",
+    "source": "*foo=\\"foo\\"",
     "start": {
       "column": 8,
       "line": 1,
@@ -128,7 +128,7 @@ exports[`compiler > dollar sign > default name 1`] = `
       "line": 1,
       "offset": 14,
     },
-    "source": "v-model=\\"foo\\"",
+    "source": "$=\\"foo\\"",
     "start": {
       "column": 8,
       "line": 1,
@@ -187,7 +187,7 @@ exports[`compiler > dollar sign > w/ name 1`] = `
       "line": 1,
       "offset": 17,
     },
-    "source": "v-modelfoo=\\"foo\\"",
+    "source": "$foo=\\"foo\\"",
     "start": {
       "column": 8,
       "line": 1,
