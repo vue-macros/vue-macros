@@ -57,7 +57,7 @@ const processDirective = (node: NodeElement) => {
   }
 }
 
-const processAttribute = (
+export const processAttribute = (
   prefix: string,
   node: NodeElement,
   context: TransformContext
@@ -72,10 +72,16 @@ const processAttribute = (
     )
       continue
 
+    const expLoc = prop.value.loc
+    expLoc.start.offset++
+    expLoc.start.column++
+    expLoc.end.offset--
+    expLoc.end.column--
+    expLoc.source = expLoc.source.slice(1, -1)
     const simpleExpression = createSimpleExpression(
       prop.value.content,
       false,
-      prop.loc,
+      expLoc,
       0 /* ConstantTypes.NOT_CONSTANT */
     )
     const exp = processExpression(simpleExpression, context)
@@ -91,12 +97,32 @@ const processAttribute = (
               content: argName,
               constType: 3 /* ConstantTypes.CAN_STRINGIFY */,
               isStatic: true,
-              loc: node.loc,
+              loc: {
+                source: argName,
+                start: {
+                  offset: prop.loc.start.offset + prefix.length,
+                  column: prop.loc.start.line + prefix.length,
+                  line: prop.loc.start.line,
+                },
+                end: {
+                  offset:
+                    prop.loc.start.offset + prefix.length + argName.length,
+                  column: prop.loc.start.line + prefix.length + argName.length,
+                  line: prop.loc.start.line,
+                },
+              },
             }
           : undefined,
       exp,
       modifiers: [],
-      loc: prop.loc,
+      loc: {
+        ...prop.loc,
+        end: {
+          ...prop.loc.end,
+          offset: prop.loc.end.offset,
+          column: prop.loc.end.column,
+        },
+      },
     }
   }
 }

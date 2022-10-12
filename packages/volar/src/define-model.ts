@@ -1,4 +1,5 @@
 import { EmbeddedFileKind } from '@volar/language-core'
+import { getVueLibraryName } from './common'
 import type { Segment, SegmentWithData } from 'muggle-string'
 import type { PositionCapabilities } from '@volar/language-core'
 import type {
@@ -7,10 +8,6 @@ import type {
   VueEmbeddedFile,
   VueLanguagePlugin,
 } from '@volar/vue-language-core'
-
-export function getVueLibraryName(vueVersion: number) {
-  return vueVersion < 2.7 ? '@vue/runtime-dom' : 'vue'
-}
 
 function transformDefineModel(
   codes: SegmentWithData<PositionCapabilities>[],

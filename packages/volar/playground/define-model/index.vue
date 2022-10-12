@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Foo } from './types'
+import type { Foo } from '../types'
 
 defineProps<{
   title: string

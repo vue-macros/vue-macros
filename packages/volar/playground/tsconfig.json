@@ -3,7 +3,8 @@
     "jsx": "preserve"
   },
   "vueCompilerOptions": {
-    "plugins": ["../define-model.js"]
+    "plugins": ["../define-model.js", "../short-vmodel.js"],
+    "experimentalTemplateCompilerOptions": {}
   },
   "include": ["**/*"]
 }
