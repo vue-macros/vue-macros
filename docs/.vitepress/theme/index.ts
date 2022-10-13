@@ -6,9 +6,6 @@ import CodeGroupItemVue from './components/CodeGroupItem.vue'
 import type { EnhanceAppContext } from 'vitepress'
 import 'uno.css'
 import './style.css'
-import CodeGroup from './components/CodeGroup.vue'
-import CodeGroupItemVue from './components/CodeGroupItem.vue'
-import type { EnhanceAppContext } from 'vitepress'
 
 export default {
   ...Theme,
