@@ -13,7 +13,6 @@ export const markdownConfig: MarkdownOptions = {
   lineNumbers: true,
   theme: 'material-palenight',
   config: (md) => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     md.use(useCodeGroup.container, useCodeGroup.type, {
       render: useCodeGroup.render,
     })
