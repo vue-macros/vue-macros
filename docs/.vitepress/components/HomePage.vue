@@ -6,7 +6,7 @@
     </div>
 
     <h2 text-center text-lg font-bold mb-5>
-      💕 Thanks you to all the contributors!
+      💕 Thanks to all the contributors!
     </h2>
 
     <a href="https://github.com/sxzz/unplugin-vue-macros/graphs/contributors">
