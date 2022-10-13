@@ -14,7 +14,8 @@
     "publish": "pnpm build && changeset publish",
     "typecheck": "run-p \"typecheck:*\"",
     "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
-    "typecheck:test": "tsc --noEmit -p tsconfig.test.json"
+    "typecheck:test": "tsc --noEmit -p tsconfig.test.json",
+    "docs:play": "pnpm --filter docs docs:dev"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
