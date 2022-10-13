@@ -64,7 +64,6 @@ export default defineComponent({
   },
 })
 </script>
-<!-- <template /> -->
 
 <style scoped>
 .active {
