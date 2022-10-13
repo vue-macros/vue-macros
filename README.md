@@ -2,21 +2,27 @@
   <img src="./docs/public/logo.svg" width="200px" />
 </p>
 
-# unplugin-vue-macros [![npm](https://img.shields.io/npm/v/unplugin-vue-macros.svg)](https://npmjs.com/package/unplugin-vue-macros)
+<h1 align="center">Vue Macros</h1>
 
-[![Unit Test](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml)
+<p align="center">Explore and extend more macros and syntax sugar to Vue.</p>
+
+<p align="center">
+  <a href="https://npmjs.com/package/unplugin-vue-macros">
+    <img src="https://img.shields.io/npm/v/unplugin-vue-macros.svg" alt="NPM version">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://vue-macros.sxzz.moe/">📜 Documentation</a>
+</p>
 
 English | [简体中文](./README-zh-CN.md)
-
-Explore and extend more macros and syntax sugar to Vue.
-
-[📄 Documentation](https://vue-macros.sxzz.moe/)
 
 ## Features
 
 - ✨ Explore and extend more macros and syntax sugar to Vue.
 - 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
-- 🦾 Full TypeScript support.
+- 🦾 Full TypeScript / Volar support.
 - ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).
 
 ## Installation

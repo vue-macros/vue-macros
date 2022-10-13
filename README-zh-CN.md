@@ -2,13 +2,21 @@
   <img src="./docs/public/logo.svg" width="200px" />
 </p>
 
-# unplugin-vue-macros [![npm](https://img.shields.io/npm/v/unplugin-vue-macros.svg)](https://npmjs.com/package/unplugin-vue-macros)
+<h1 align="center">Vue Macros</h1>
 
-[![Unit Test](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml)
+<p align="center">探索并扩充更多宏和语法糖到 Vue。</p>
+
+<p align="center">
+  <a href="https://npmjs.com/package/unplugin-vue-macros">
+    <img src="https://img.shields.io/npm/v/unplugin-vue-macros.svg" alt="NPM version">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://vue-macros.sxzz.moe/">📜 文档</a>
+</p>
 
 [English](./README.md) | 简体中文
-
-探索并扩充更多宏和语法糖到 Vue。
 
 ## 特性
 
