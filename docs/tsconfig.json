@@ -3,10 +3,7 @@
     "baseUrl": ".",
     "module": "esnext",
     "target": "esnext",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
+    "lib": ["DOM", "ESNext"],
     "strict": true,
     "jsx": "preserve",
     "jsxImportSource": "",
@@ -23,18 +20,9 @@
       "unplugin-vue-define-options/macros-global"
     ],
     "paths": {
-      "~/*": [
-        "src/*"
-      ]
+      "~/*": ["src/*"]
     }
   },
-  "include": [
-    "./*.ts",
-    "./.vitepress/**/*.ts",
-    "./.vitepress/**/*.vue"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "include": ["./*.ts", "./.vitepress/**/*.ts", "./.vitepress/**/*.vue"],
+  "exclude": ["dist", "node_modules"]
 }
