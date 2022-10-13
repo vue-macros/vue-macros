@@ -117,6 +117,26 @@ module.exports = {
 }
 ```
 
+### Volar 支持
+
+```bash
+npm i -D @vue-macros/volar
+```
+
+```jsonc
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/define-model",
+      "@vue-macros/volar/short-vmodel"
+    ],
+    // `shortVmodel` 特性的 prefix
+    "shortVmodelPrefix": "$"
+  }
+}
+```
+
 ## 使用
 
 ### `defineOptions`
@@ -187,6 +207,8 @@ export default {
 </details>
 
 ### `defineModel`
+
+✅ Volar 支持
 
 在 `<script setup>` 中可使用 `defineModel` 宏。
 可以像普通变量一样定义和使用 `v-model` 参数。
@@ -282,6 +304,8 @@ const emits = defineEmits<
 
 ### `shortVmodel`
 
+✅ Volar 支持
+
 `v-model:` -> `::` / `$`/ `*`
 
 缩写 `v-model`。
@@ -289,6 +313,10 @@ const emits = defineEmits<
 如果有任何关于本功能的疑问，可以到 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/395) 中留言。
 
 #### 安装
+
+```bash
+npm i @vue-macros/short-vmodel
+```
 
 ```ts
 // vite.config.ts
@@ -341,7 +369,6 @@ export default defineConfig({
 
 #### 已知问题
 
-- TypeScript / Volar 暂不支持；
 - Prettier 会把 `::=` 格式化为 `:=`。如果 `prefix` 为 `::`，需要使用 `prettier-ignore`。
 
 ### `hoistStatic`
