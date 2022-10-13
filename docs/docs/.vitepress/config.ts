@@ -33,11 +33,15 @@ function getSidebar() {
 
 function getNavs() {
   const navs: DefaultTheme.NavItem[] = []
-  Object.keys(sidebars).forEach((key) => {
+  Object.keys(sidebars).forEach((key: keyof DefaultTheme.SidebarMulti) => {
     const item = sidebars[key][0]
     navs.push({
       text: item.text,
-      items: item.items,
+      // for type compatible
+      items: item.items.map((item) => ({
+        text: item.text,
+        link: item.text,
+      })),
     })
   })
   return navs

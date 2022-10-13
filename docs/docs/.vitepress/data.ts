@@ -1,6 +1,6 @@
 import type { DefaultTheme } from 'vitepress'
 
-export const sidebars: DefaultTheme.Sidebar = {
+export const sidebars: DefaultTheme.SidebarMulti = {
   '/guide/': [
     {
       text: 'Guide',
