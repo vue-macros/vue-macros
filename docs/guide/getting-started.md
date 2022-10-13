@@ -32,7 +32,9 @@ pnpm add -D unplugin-vue-macros
 
 ::::
 
-#### Vite (first-class support)
+:::: code-group
+
+::: code-group-item Vite (first-class support)
 
 ```ts
 // vite.config.ts
@@ -52,7 +54,9 @@ export default defineConfig({
 })
 ```
 
-#### Rollup (first-class support)
+:::
+
+::: code-group-item Rollup (first-class support)
 
 ```ts
 // rollup.config.js
@@ -71,7 +75,9 @@ export default {
 }
 ```
 
-#### esbuild
+:::
+
+::: code-group-item esbuild
 
 ```js
 // esbuild.config.js
@@ -89,7 +95,9 @@ build({
 })
 ```
 
-#### Webpack
+:::
+
+::: code-group-item Webpack
 
 ```js
 // webpack.config.js
@@ -105,6 +113,10 @@ module.exports = {
   ],
 }
 ```
+
+:::
+
+::::
 
 ## TypeScript Support
 
