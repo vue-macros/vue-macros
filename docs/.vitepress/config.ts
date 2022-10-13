@@ -4,7 +4,21 @@ import { nav, sidebar } from './data'
 export default defineConfig({
   lang: 'en-US',
   title: 'Vue Macros',
-  titleTemplate: 'Vue Macros',
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:title', content: 'Vue Macros' }],
+    ['meta', { property: 'og:url', content: 'https://vue-macros.sxzz.moe' }],
+    [
+      'meta',
+      {
+        property: 'og:description',
+        content: 'Explore and extend more macros and syntax sugar to Vue.',
+      },
+    ],
+    ['meta', { name: 'theme-color', content: '#914796' }],
+  ],
+
   description: 'Explore and extend more macros and syntax sugar to Vue.',
   lastUpdated: true,
   cleanUrls: 'with-subfolders',
@@ -12,6 +26,11 @@ export default defineConfig({
     theme: 'material-palenight',
     lineNumbers: true,
   },
+
+  vue: {
+    reactivityTransform: true,
+  },
+
   themeConfig: {
     logo: '/logo.svg',
     footer: {
