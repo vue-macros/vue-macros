@@ -6,33 +6,31 @@
 
 :::: code-group
 
-::: code-group-item NPM
+::: code-group-item npm
 
 ```bash
-aaa
+npm i -D unplugin-vue-macros
 ```
 
 :::
 
-::: code-group-item Yarn
+::: code-group-item yarn
 
 ```bash
-bbb
+yarn add -D unplugin-vue-macros
+```
+
+:::
+
+::: code-group-item pnpm
+
+```bash
+pnpm add -D unplugin-vue-macros
 ```
 
 :::
 
 ::::
-
-```bash
-npm i -D unplugin-vue-macros
-
-# or yarn
-yarn add -D unplugin-vue-macros
-
-# or pnpm
-pnpm add -D unplugin-vue-macros
-```
 
 #### Vite (first-class support)
 
