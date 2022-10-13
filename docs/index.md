@@ -5,7 +5,7 @@ hero:
   name: Vue Macros
   tagline: Explore and extend more macros and syntax sugar to Vue.
   image:
-    src: /public/logo.svg
+    src: /logo.svg
     alt: Vue Macros
   actions:
     - theme: brand
