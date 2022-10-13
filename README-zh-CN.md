@@ -1,10 +1,12 @@
+<p align="center">
+<img src="./docs/public/logo.svg" style="width:200px;" />
+</p>
+
 # unplugin-vue-macros [![npm](https://img.shields.io/npm/v/unplugin-vue-macros.svg)](https://npmjs.com/package/unplugin-vue-macros)
 
 [![Unit Test](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml/badge.svg)](https://github.com/sxzz/unplugin-vue-macros/actions/workflows/unit-test.yml)
 
 [English](./README.md) | 简体中文
-
-![vue-macros](./docs/public/logo.svg)
 
 探索并扩充更多宏和语法糖到 Vue。
 

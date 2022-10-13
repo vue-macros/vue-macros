@@ -13,7 +13,7 @@ export default defineConfig({
     lineNumbers: true,
   },
   themeConfig: {
-    // logo: '/logo.png',
+    logo: '../public/logo.svg',
     footer: {
       message: 'Made with ❤️',
       copyright: 'MIT License © 2022 三咲智子',
