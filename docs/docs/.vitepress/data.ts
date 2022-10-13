@@ -28,6 +28,10 @@ export const sidebars: DefaultTheme.Sidebar = {
           text: 'defineModel',
           link: '/marcos/define-model',
         },
+        {
+          text: 'defineRender',
+          link: '/marcos/define-render',
+        },
       ],
     },
   ],
