@@ -40,6 +40,18 @@ export const sidebars: DefaultTheme.Sidebar = {
           text: 'shortVModel',
           link: '/marcos/short-vmodel',
         },
+        {
+          text: 'hoistStatic',
+          link: '/marcos/hoist-static',
+        },
+        {
+          text: 'setupComponent',
+          link: '/marcos/setup-component',
+        },
+        {
+          text: 'setupSFC',
+          link: '/marcos/setup-sfc',
+        },
       ],
     },
   ],
