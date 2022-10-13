@@ -73,11 +73,14 @@ export const processAttribute = (
       continue
 
     const expLoc = prop.value.loc
-    expLoc.start.offset++
-    expLoc.start.column++
-    expLoc.end.offset--
-    expLoc.end.column--
-    expLoc.source = expLoc.source.slice(1, -1)
+    {
+      // remove "
+      expLoc.start.offset++
+      expLoc.start.column++
+      expLoc.end.offset--
+      expLoc.end.column--
+      expLoc.source = expLoc.source.slice(1, -1)
+    }
     const simpleExpression = createSimpleExpression(
       prop.value.content,
       false,
@@ -87,42 +90,36 @@ export const processAttribute = (
     const exp = processExpression(simpleExpression, context)
 
     const argName = prop.name.slice(prefix.length)
+    const arg =
+      argName.length > 0
+        ? {
+            type: 4 /* NodeTypes.SIMPLE_EXPRESSION */,
+            content: argName,
+            constType: 3 /* ConstantTypes.CAN_STRINGIFY */,
+            isStatic: true,
+            loc: {
+              source: argName,
+              start: {
+                offset: prop.loc.start.offset + prefix.length,
+                column: prop.loc.start.line + prefix.length,
+                line: prop.loc.start.line,
+              },
+              end: {
+                offset: prop.loc.start.offset + prefix.length + argName.length,
+                column: prop.loc.start.line + prefix.length + argName.length,
+                line: prop.loc.start.line,
+              },
+            },
+          }
+        : undefined
+
     node.props[i] = {
       type: 7 /* NodeTypes.DIRECTIVE */,
       name: 'model',
-      arg:
-        argName.length > 0
-          ? {
-              type: 4 /* NodeTypes.SIMPLE_EXPRESSION */,
-              content: argName,
-              constType: 3 /* ConstantTypes.CAN_STRINGIFY */,
-              isStatic: true,
-              loc: {
-                source: argName,
-                start: {
-                  offset: prop.loc.start.offset + prefix.length,
-                  column: prop.loc.start.line + prefix.length,
-                  line: prop.loc.start.line,
-                },
-                end: {
-                  offset:
-                    prop.loc.start.offset + prefix.length + argName.length,
-                  column: prop.loc.start.line + prefix.length + argName.length,
-                  line: prop.loc.start.line,
-                },
-              },
-            }
-          : undefined,
+      arg,
       exp,
       modifiers: [],
-      loc: {
-        ...prop.loc,
-        end: {
-          ...prop.loc.end,
-          offset: prop.loc.end.offset,
-          column: prop.loc.end.column,
-        },
-      },
+      loc: prop.loc,
     }
   }
 }

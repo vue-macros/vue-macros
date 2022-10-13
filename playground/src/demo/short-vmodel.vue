@@ -13,5 +13,5 @@ const val = ref('')
   <test-comp v-model:foo="val" />
 
   <input $="val" />
-  <test-comp $:foo="val" />
+  <test-comp $foo="val" />
 </template>
