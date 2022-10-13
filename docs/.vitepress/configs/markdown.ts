@@ -11,11 +11,7 @@ import type { MarkdownOptions } from 'vitepress'
  */
 export const markdownConfig: MarkdownOptions = {
   lineNumbers: true,
-  // material-palenight
-  theme: {
-    light: 'vitesse-light',
-    dark: 'vitesse-dark',
-  },
+  theme: 'material-palenight',
   config: (md) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     md.use(useCodeGroup.container, useCodeGroup.type, {

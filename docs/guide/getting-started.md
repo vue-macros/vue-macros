@@ -14,6 +14,14 @@ aaa
 
 :::
 
+::: code-group-item Yarn
+
+```bash
+bbb
+```
+
+:::
+
 ::::
 
 ```bash
