@@ -7,6 +7,7 @@ export default defineConfig({
   titleTemplate: 'Vue Macros',
   description: 'Explore and extend more macros and syntax sugar to Vue.',
   lastUpdated: true,
+  cleanUrls: 'with-subfolders',
   markdown: {
     theme: 'material-palenight',
     lineNumbers: true,
