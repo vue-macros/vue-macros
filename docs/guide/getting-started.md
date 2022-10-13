@@ -1,22 +1,20 @@
 # Getting Started
 
-Let's do this !
-
-## Installation
-
-```bash
-npm i unplugin-vue-macros -D
-
-# or yarn
-yarn add unplugin-vue-macros -D
-
-# or pnpm
-pnpm add unplugin-vue-macros -D
-```
-
 ## Bundler integrations
 
-:::details Vite (first-class support)
+### Installation
+
+```bash
+npm i -D unplugin-vue-macros
+
+# or yarn
+yarn add -D unplugin-vue-macros
+
+# or pnpm
+pnpm add -D unplugin-vue-macros
+```
+
+#### Vite (first-class support)
 
 ```ts
 // vite.config.ts
@@ -36,9 +34,7 @@ export default defineConfig({
 })
 ```
 
-:::
-
-:::details Rollup (first-class support)
+#### Rollup (first-class support)
 
 ```ts
 // rollup.config.js
@@ -57,9 +53,7 @@ export default {
 }
 ```
 
-:::
-
-:::details ESBuild
+#### esbuild
 
 ```js
 // esbuild.config.js
@@ -77,9 +71,7 @@ build({
 })
 ```
 
-:::
-
-:::details Webpack
+#### Webpack
 
 ```js
 // webpack.config.js
@@ -96,8 +88,6 @@ module.exports = {
 }
 ```
 
-:::
-
 ## TypeScript Support
 
 ```json
@@ -112,6 +102,8 @@ module.exports = {
 
 ## Volar Support
 
+For detailed configuration, please refer to the description of the specific macro.
+
 ```bash
 npm i -D @vue-macros/volar
 ```
@@ -123,13 +115,13 @@ npm i -D @vue-macros/volar
     "plugins": [
       "@vue-macros/volar/define-model",
       "@vue-macros/volar/short-vmodel"
-    ],
-    // prefix for `shortVmodel` feature
-    "shortVmodelPrefix": "$"
+      // ...more feature
+    ]
+    // ...
   }
 }
 ```
 
-:tada: Congratulations ! You have successfully set up unplugin-vue-macros.
+:tada: Congratulations! You have successfully set up unplugin-vue-macros.
 
-To learn more about the macros, please visit [Macros](/macros/) :).
+To learn more about the macros, please visit [All Macros](/macros/) :laughing:.

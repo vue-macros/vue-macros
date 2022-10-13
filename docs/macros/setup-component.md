@@ -1,4 +1,4 @@
-# setupComponent (Experimental)
+# setupComponent
 
 ::: warning
 
@@ -7,6 +7,12 @@ Under experimental, use at your risk!
 :::
 
 With `defineSetupComponent`, `<script setup>` code can be put in **pure JS/TS(X)** without [Volar](https://github.com/johnsoncodehk/volar) extension.
+
+|  Features  |        Supported        |
+| :--------: | :---------------------: |
+|   Vue 3    |   :white_check_mark:    |
+|   Vue 2    | :question: (Not Tested) |
+| TypeScript |           :x:           |
 
 ## Basic Usage
 
@@ -48,5 +54,5 @@ export const App: SetupFC = () => {
 
 ## Known Issues
 
-- The source map does not correspond properly.
 - TypeScript support is not yet complete.
+- The source map does not correspond properly.

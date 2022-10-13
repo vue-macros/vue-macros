@@ -1,9 +1,10 @@
 import { defineConfig } from 'vitepress'
-import { sidebars } from './data'
-import type { DefaultTheme } from 'vitepress'
+import { nav, sidebar } from './data'
 
 export default defineConfig({
-  title: 'unplugin-vue-macros',
+  lang: 'en-US',
+  title: 'Vue Macros',
+  titleTemplate: 'Vue Macros',
   description: 'Explore and extend more macros and syntax sugar to Vue.',
   lastUpdated: true,
   markdown: {
@@ -13,6 +14,7 @@ export default defineConfig({
   themeConfig: {
     // logo: '/logo.png',
     footer: {
+      message: 'Made with ❤️',
       copyright: 'MIT License © 2022 三咲智子',
     },
     socialLinks: [
@@ -22,27 +24,7 @@ export default defineConfig({
       pattern: 'https://github.com/sxzz/unplugin-vue-macros/docs/docs/:path',
       text: 'Edit this page on GitHub',
     },
-    nav: getNavs(),
-    sidebar: getSidebar(),
+    nav,
+    sidebar,
   },
 })
-
-function getSidebar() {
-  return sidebars
-}
-
-function getNavs() {
-  const navs: DefaultTheme.NavItem[] = []
-  Object.keys(sidebars).forEach((key: keyof DefaultTheme.SidebarMulti) => {
-    const item = sidebars[key][0]
-    navs.push({
-      text: item.text,
-      // for type compatible
-      items: item.items.map((item) => ({
-        text: item.text,
-        link: item.text,
-      })),
-    })
-  })
-  return navs
-}

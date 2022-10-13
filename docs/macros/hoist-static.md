@@ -1,10 +1,14 @@
 # hoistStatic
 
-`hoistStatic` allow you to reference a constant declared in `<script setup>`, then this feature may help you.
+With enabling `hoistStatic`, constants declared in macros of `<script setup>` can be referenced.
 
 If you support this feature, you can go to [Vue PR](https://github.com/vuejs/core/pull/5752) and hit like :+1: or comment. Thanks!
 
-Notice that you don't need to use any API.
+|      Features      |     Supported      |
+| :----------------: | :----------------: |
+|       Vue 3        | :white_check_mark: |
+|       Vue 2        | :white_check_mark: |
+| TypeScript / Volar | :white_check_mark: |
 
 ## Basic Usage
 
@@ -17,7 +21,7 @@ defineOptions({
 </script>
 ```
 
-::: details Output
+::: details Compiled Code
 
 ```vue
 <script lang="ts">
@@ -34,14 +38,15 @@ export default {
 
 ```vue
 <script setup lang="ts">
-const name = /* hoist-static */ fn() // a value that's even not a constant
+// A value that's even not a constant
+const name = /* hoist-static */ fn() 
 defineOptions({
   name,
 })
 </script>
 ```
 
-::: details Output
+::: details Compiled Code
 
 ```vue
 <script lang="ts">

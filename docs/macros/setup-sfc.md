@@ -1,4 +1,4 @@
-# setupSFC (Experimental)
+# setupSFC
 
 ::: warning
 
@@ -8,15 +8,21 @@ Under experimental, use at your risk!
 
 ::: tip
 
-`defineOptions` is required. If you're using setupComponent, then defineOptions cannot be disabled.
+If you're using `setupSFC`, then `defineRender` cannot be disabled.
 
 :::
+
+|      Features      |        Supported        |
+| :----------------: | :---------------------: |
+|       Vue 3        |   :white_check_mark:    |
+|       Vue 2        | :question: (Not Tested) |
+| TypeScript / Volar |           :x:           |
 
 ## Setup
 
 Using Vite as an example:
 
-```ts
+```ts{7,9}
 // vite.config.ts
 import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
@@ -25,7 +31,8 @@ export default defineConfig({
   plugins: [
     VueMacros(),
     Vue({
-      include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/], // ⬅️ setupSFC pattern need to be added
+      include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
+      //                   ⬆️ setupSFC pattern need to be added
     }),
   ],
 })

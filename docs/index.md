@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: unplugin-vue-macros
+  name: Vue Macros
   tagline: Explore and extend more macros and syntax sugar to Vue.
   actions:
     - theme: brand
@@ -12,15 +12,15 @@ hero:
       text: View on GitHub
       link: https://github.com/sxzz/unplugin-vue-macros
 features:
-  - icon: ✨ 
+  - icon: ✨
     title: More syntax sugar and macros
-    details: Explore and extend more macros and syntax sugar to Vue. 
+    details: Explore and extend more macros and syntax sugar to Vue.
   - icon: 💚
     title: Out-of-the-box and good compatibility
-    details: Supports both Vue 2 and Vue 3 out-of-the-box. 
+    details: Supports both Vue 2 and Vue 3 out-of-the-box.
   - icon: 🦾
     title: Type Safe
-    details: Full TypeScript support. 
+    details: Full TypeScript and Volar support.
   - icon: ⚡️
     title: Multiple bundlers are supported
     details: Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by unplugin.

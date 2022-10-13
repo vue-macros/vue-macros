@@ -1,36 +1,41 @@
-# shortVModel
+# shortVmodel
 
-Volar support :white_check_mark:
+A shorthand for `v-model`.
 
-v-model: -> `::` / `$` / `*`
-
-A shorthand for v-model.
+`v-model` -> `::` / `$` / `*`
 
 If you have any questions about this feature, you can comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/395).
 
+|      Features      |     Supported      |
+| :----------------: | :----------------: |
+|       Vue 3        | :white_check_mark: |
+|       Vue 2        |        :x:         |
+| TypeScript / Volar | :white_check_mark: |
+
 ## Setup
+
+### Installation
 
 ```bash
 npm i @vue-macros/short-vmodel
 ```
 
-Vite integration
+### Vite Integration
 
-```ts
+```ts{9-17}
 // vite.config.ts
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import Vue from '@vitejs/plugin-vue'
 import { transformShortVmodel } from '@vue-macros/short-vmodel'
 
 export default defineConfig({
   plugins: [
-    vue({
+    Vue({
       template: {
         compilerOptions: {
           nodeTransforms: [
             transformShortVmodel({
-              // prefix: '::' | '$' | '*'
-              prefix: '$', // defaults to '::'
+              prefix: '$',
             }),
           ],
         },
@@ -40,9 +45,13 @@ export default defineConfig({
 })
 ```
 
+## Options
+
+`prefix`: `'::' | '$' | '*'`, defaults to `'::'`
+
 ## Usage
 
-### `::` Double Binding
+### `::` Double Binding (Default)
 
 ```vue
 <template>
@@ -63,6 +72,33 @@ export default defineConfig({
   <demo $msg="msg" />
   <!-- => <input v-model:msg="msg" /> -->
 </template>
+```
+
+### `*` Asterisk Sign
+
+```vue
+<template>
+  <input $="msg" />
+  <!-- => <input v-model="msg" /> -->
+  <demo $msg="msg" />
+  <!-- => <input v-model:msg="msg" /> -->
+</template>
+```
+
+## Volar Configuration
+
+```jsonc{5,9}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/short-vmodel"
+      // ...
+    ],
+    // prefix
+    "shortVmodelPrefix": "$"
+  }
+}
 ```
 
 ## Known Issues
