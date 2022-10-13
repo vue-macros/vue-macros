@@ -13,7 +13,7 @@ hero:
       link: https://github.com/sxzz/unplugin-vue-macros
 features:
   - icon: ✨ 
-    title: More syntax sugar and marcos
+    title: More syntax sugar and macros
     details: Explore and extend more macros and syntax sugar to Vue. 
   - icon: 💚
     title: Out-of-the-box and good compatibility

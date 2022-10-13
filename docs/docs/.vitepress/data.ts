@@ -12,45 +12,45 @@ export const sidebars: DefaultTheme.Sidebar = {
       ],
     },
   ],
-  '/marcos/': [
+  '/macros/': [
     {
-      text: 'Marcos',
+      text: 'Macros',
       items: [
         {
           text: 'All Macros',
-          link: '/marcos/',
+          link: '/macros/',
         },
         {
           text: 'defineOptions',
-          link: '/marcos/define-options',
+          link: '/macros/define-options',
         },
         {
           text: 'defineModel',
-          link: '/marcos/define-model',
+          link: '/macros/define-model',
         },
         {
           text: 'defineRender',
-          link: '/marcos/define-render',
+          link: '/macros/define-render',
         },
         {
           text: 'shortEmits',
-          link: '/marcos/short-emits',
+          link: '/macros/short-emits',
         },
         {
           text: 'shortVModel',
-          link: '/marcos/short-vmodel',
+          link: '/macros/short-vmodel',
         },
         {
           text: 'hoistStatic',
-          link: '/marcos/hoist-static',
+          link: '/macros/hoist-static',
         },
         {
           text: 'setupComponent',
-          link: '/marcos/setup-component',
+          link: '/macros/setup-component',
         },
         {
           text: 'setupSFC',
-          link: '/marcos/setup-sfc',
+          link: '/macros/setup-sfc',
         },
       ],
     },
