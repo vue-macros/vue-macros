@@ -535,6 +535,16 @@ export default () => (
   </a>
 </p>
 
+## 贡献者
+
+💕 感谢所有的贡献者！
+
+<p align="center">
+  <a href="https://github.com/sxzz/unplugin-vue-macros/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=sxzz/unplugin-vue-macros" />
+  </a>
+</p>
+
 ## 相关库
 
 - [vue-functional-ref](https://github.com/sxzz/vue-functional-ref) - Vue 的函数式 Ref。

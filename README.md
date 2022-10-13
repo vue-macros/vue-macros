@@ -29,6 +29,16 @@ npm i unplugin-vue-macros -D
   </a>
 </p>
 
+## Contributors
+
+💕 Thanks you to all the contributors!
+
+<p align="center">
+  <a href="https://github.com/sxzz/unplugin-vue-macros/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=sxzz/unplugin-vue-macros" />
+  </a>
+</p>
+
 ## Related Libraries
 
 - [vue-functional-ref](https://github.com/sxzz/vue-functional-ref) - Functional-style refs for Vue.
