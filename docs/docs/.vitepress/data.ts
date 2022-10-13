@@ -32,6 +32,14 @@ export const sidebars: DefaultTheme.Sidebar = {
           text: 'defineRender',
           link: '/marcos/define-render',
         },
+        {
+          text: 'shortEmits',
+          link: '/marcos/short-emits',
+        },
+        {
+          text: 'shortVModel',
+          link: '/marcos/short-vmodel',
+        },
       ],
     },
   ],
