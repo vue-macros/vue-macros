@@ -1,0 +1,12 @@
+{
+  "include": ["**/*"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "baseUrl": "."
+  },
+  "vueCompilerOptions": {
+    "plugins": ["@vue-macros/volar/define-model"]
+  }
+}
