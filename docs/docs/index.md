@@ -22,6 +22,6 @@ features:
     title: Type Safe
     details: Full TypeScript support. 
   - icon: ⚡️
-    title: Multiple packagers are supported
+    title: Multiple bundlers are supported
     details: Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by unplugin.
 ---
