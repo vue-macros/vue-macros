@@ -22,7 +22,7 @@ export default defineConfig({
     ],
     editLink: {
       pattern:
-        'https://github.com/sxzz/unplugin-vue-macros/edit/main//docs/:path',
+        'https://github.com/sxzz/unplugin-vue-macros/edit/main/docs/:path',
       text: 'Edit this page on GitHub',
     },
     nav,
