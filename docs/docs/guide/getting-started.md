@@ -129,3 +129,7 @@ npm i -D @vue-macros/volar
   }
 }
 ```
+
+:tada: Congratulations ! You have successfully set up unplugin-vue-macros.
+
+To learn more about the macros, please visit [Macros](/marcos/) :).

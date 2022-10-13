@@ -12,4 +12,19 @@ export const sidebars: DefaultTheme.Sidebar = {
       ],
     },
   ],
+  '/marcos/': [
+    {
+      text: 'Marcos',
+      items: [
+        {
+          text: 'All Macros',
+          link: '/marcos/',
+        },
+        {
+          text: 'defineOptions',
+          link: '/marcos/define-options',
+        },
+      ],
+    },
+  ],
 }
