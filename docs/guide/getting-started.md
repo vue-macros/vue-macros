@@ -4,15 +4,33 @@
 
 ### Installation
 
+:::: code-group
+
+::: code-group-item npm
+
 ```bash
 npm i -D unplugin-vue-macros
+```
 
-# or yarn
+:::
+
+::: code-group-item yarn
+
+```bash
 yarn add -D unplugin-vue-macros
+```
 
-# or pnpm
+:::
+
+::: code-group-item pnpm
+
+```bash
 pnpm add -D unplugin-vue-macros
 ```
+
+:::
+
+::::
 
 #### Vite (first-class support)
 

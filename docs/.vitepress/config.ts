@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { nav, sidebar } from './data'
+import { markdownConfig, nav, sidebar } from './configs'
 
 export default defineConfig({
   lang: 'en-US',
@@ -37,10 +37,7 @@ gtag('config', 'G-29NKGSL23C');`,
   description: 'Explore and extend more macros and syntax sugar to Vue.',
   lastUpdated: true,
   cleanUrls: 'with-subfolders',
-  markdown: {
-    theme: 'material-palenight',
-    lineNumbers: true,
-  },
+  markdown: markdownConfig,
 
   vue: {
     reactivityTransform: true,

@@ -13,7 +13,11 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["vite/client", "vitepress"],
+    "types": [
+      "vite/client",
+      "vitepress",
+      "unplugin-vue-define-options/macros-global"
+    ],
     "paths": {
       "~/*": ["src/*"]
     }
