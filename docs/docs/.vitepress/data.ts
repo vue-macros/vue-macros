@@ -24,6 +24,10 @@ export const sidebars: DefaultTheme.Sidebar = {
           text: 'defineOptions',
           link: '/marcos/define-options',
         },
+        {
+          text: 'defineModel',
+          link: '/marcos/define-model',
+        },
       ],
     },
   ],
