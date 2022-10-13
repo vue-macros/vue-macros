@@ -4,6 +4,18 @@
 
 ### Installation
 
+:::: code-group
+
+::: code-group-item NPM
+
+```bash
+aaa
+```
+
+:::
+
+::::
+
 ```bash
 npm i -D unplugin-vue-macros
 

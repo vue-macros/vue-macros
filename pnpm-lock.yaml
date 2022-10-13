@@ -46,10 +46,12 @@ importers:
 
   docs:
     specifiers:
+      markdown-it-container: ^3.0.0
       unocss: ^0.45.29
       vitepress: 1.0.0-alpha.20
       vue: ^3.2.40
     devDependencies:
+      markdown-it-container: 3.0.0
       unocss: 0.45.29
       vitepress: 1.0.0-alpha.20
       vue: 3.2.40
@@ -5945,6 +5947,10 @@ packages:
   /map-obj/4.3.0:
     resolution: {integrity: sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==}
     engines: {node: '>=8'}
+    dev: true
+
+  /markdown-it-container/3.0.0:
+    resolution: {integrity: sha512-y6oKTq4BB9OQuY/KLfk/O3ysFhB3IMYoIWhGJEidXt1NQFocFK2sA2t0NYZAMyMShAGL6x5OPIbrmXPIqaN9rw==}
     dev: true
 
   /mdast-util-from-markdown/0.8.5:
