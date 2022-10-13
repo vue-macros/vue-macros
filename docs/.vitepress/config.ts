@@ -17,6 +17,21 @@ export default defineConfig({
       },
     ],
     ['meta', { name: 'theme-color', content: '#914796' }],
+    [
+      'script',
+      {
+        async: '',
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-29NKGSL23C',
+      },
+    ],
+    [
+      'script',
+      {},
+      `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-29NKGSL23C');`,
+    ],
   ],
 
   description: 'Explore and extend more macros and syntax sugar to Vue.',
