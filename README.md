@@ -117,6 +117,26 @@ module.exports = {
 }
 ```
 
+### Volar Support
+
+```bash
+npm i -D @vue-macros/volar
+```
+
+```jsonc
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/define-model",
+      "@vue-macros/volar/short-vmodel"
+    ],
+    // prefix for `shortVmodel` feature
+    "shortVmodelPrefix": "$"
+  }
+}
+```
+
 ## Usage
 
 ### `defineOptions`
@@ -189,6 +209,8 @@ export default {
 </details>
 
 ### `defineModel`
+
+✅ Volar Support
 
 Introduce a macro in `<script setup>`, `defineModel`.
 To be able define and change `v-model` props as the same as normal variable.
@@ -284,6 +306,8 @@ const emits = defineEmits<
 
 ### `shortVmodel`
 
+✅ Volar Support
+
 `v-model:` -> `::` / `$`/ `*`
 
 A shorthand for `v-model`.
@@ -291,6 +315,10 @@ A shorthand for `v-model`.
 If you have any questions about this feature, you can comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/395).
 
 #### Setup
+
+```bash
+npm i @vue-macros/short-vmodel
+```
 
 ```ts
 // vite.config.ts
@@ -343,7 +371,6 @@ export default defineConfig({
 
 #### Known issues
 
-- TypeScript / Volar is not supported.
 - Prettier will format `::=` to `:=`, `prettier-ignore` is required if `prefix` is `::`.
 
 ### `hoistStatic`

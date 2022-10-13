@@ -32,6 +32,9 @@
   "exports": {
     "./define-model": {
       "require": "./define-model.js"
+    },
+    "./short-vmodel": {
+      "require": "./short-vmodel.js"
     }
   },
   "scripts": {
@@ -39,12 +42,14 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@volar/language-core": "^1.0.3"
+    "@volar/language-core": "^1.0.7",
+    "@vue-macros/short-vmodel": "workspace:^"
   },
   "devDependencies": {
-    "@volar/vue-language-core": "^1.0.3",
+    "@volar/vue-language-core": "^1.0.7",
+    "@vue/compiler-dom": "^3.2.40",
     "muggle-string": "^0.1.0",
     "typescript": "^4.8.4",
-    "vue-tsc": "^1.0.3"
+    "vue-tsc": "^1.0.7"
   }
 }
