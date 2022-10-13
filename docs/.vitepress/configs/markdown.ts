@@ -1,8 +1,4 @@
-// import { useCodeGroup, useCodeGroupItem } from '../theme/components/markdown'
-import {
-  useCodeGroup,
-  useCodeGroupItem,
-} from '../theme/components/markdown/index'
+import { useCodeGroup, useCodeGroupItem } from '../theme/components/markdown'
 import type { MarkdownOptions } from 'vitepress'
 
 /**
