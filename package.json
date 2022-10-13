@@ -10,7 +10,7 @@
     "dev": "turbo run dev --filter=\"./packages/*\"",
     "play": "pnpm run -C ./playground dev",
     "docs:dev": "pnpm run -C ./docs dev",
-    "docs:build": "pnpm run -C ./docs build",
+    "docs:build": "turbo run build --filter docs",
     "test": "vitest",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0",
     "publish": "pnpm build && changeset publish",
