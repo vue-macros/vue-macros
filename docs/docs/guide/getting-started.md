@@ -1,1 +1,131 @@
 # Getting Started
+
+Let's do this !
+
+## Installation
+
+```bash
+npm i unplugin-vue-macros -D
+
+# or yarn
+yarn add unplugin-vue-macros -D
+
+# or pnpm
+pnpm add unplugin-vue-macros -D
+```
+
+## Bundler integrations
+
+:::details Vite (first-class support)
+
+```ts
+// vite.config.ts
+import VueMacros from 'unplugin-vue-macros/vite'
+import Vue from '@vitejs/plugin-vue'
+// import VueJsx from '@vitejs/plugin-vue-jsx'
+
+export default defineConfig({
+  plugins: [
+    VueMacros({
+      plugins: {
+        vue: Vue(),
+        // vueJsx: VueJsx(), // if needed
+      },
+    }),
+  ],
+})
+```
+
+:::
+
+:::details Rollup (first-class support)
+
+```ts
+// rollup.config.js
+import Vue from 'unplugin-vue/rollup'
+import VueMacros from 'unplugin-vue-macros/rollup'
+
+export default {
+  plugins: [
+    VueMacros({
+      plugins: {
+        vue: Vue(),
+        // vueJsx: VueJsx(), // if needed
+      },
+    }),
+  ],
+}
+```
+
+:::
+
+:::details ESBuild
+
+```js
+// esbuild.config.js
+import { build } from 'esbuild'
+
+build({
+  plugins: [
+    require('unplugin-vue-macros/esbuild')({
+      plugins: {
+        vue: require('unplugin-vue/esbuild')(),
+        // vueJsx: VueJsx(), // if needed
+      },
+    }),
+  ],
+})
+```
+
+:::
+
+:::details Webpack
+
+```js
+// webpack.config.js
+module.exports = {
+  /* ... */
+  plugins: [
+    require('unplugin-vue-macros/webpack')({
+      plugins: {
+        vue: require('unplugin-vue/webpack')(),
+        // vueJsx: VueJsx(), // if needed
+      },
+    }),
+  ],
+}
+```
+
+:::
+
+## TypeScript Support
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    // ...
+    "types": ["unplugin-vue-macros/macros-global" /* ... */]
+  }
+}
+```
+
+## Volar Support
+
+```bash
+npm i -D @vue-macros/volar
+```
+
+```json
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/define-model",
+      "@vue-macros/volar/short-vmodel"
+    ],
+    // prefix for `shortVmodel` feature
+    "shortVmodelPrefix": "$"
+  }
+}
+```
