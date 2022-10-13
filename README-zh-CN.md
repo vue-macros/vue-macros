@@ -4,6 +4,8 @@
 
 [English](./README.md) | 简体中文
 
+![vue-macros](./docs/public/logo.svg)
+
 探索并扩充更多宏和语法糖到 Vue。
 
 ## 特性

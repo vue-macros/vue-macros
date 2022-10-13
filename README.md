@@ -4,6 +4,8 @@
 
 English | [简体中文](./README-zh-CN.md)
 
+![vue-macros](./docs/public/logo.svg)
+
 Explore and extend more macros and syntax sugar to Vue.
 
 [📄 Documentation](https://vue-macros.sxzz.moe/)
