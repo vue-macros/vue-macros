@@ -78,9 +78,9 @@ export default defineConfig({
 
 ```vue
 <template>
-  <input $="msg" />
+  <input *="msg" />
   <!-- => <input v-model="msg" /> -->
-  <demo $msg="msg" />
+  <demo *msg="msg" />
   <!-- => <input v-model:msg="msg" /> -->
 </template>
 ```
