@@ -100,4 +100,4 @@ export default () => (
 ## Known Issues
 
 - The source map does not correspond properly in JSX/TSX files.
-- TypeScript support is not yet complete.
+- TypeScript support is not yet completed.
