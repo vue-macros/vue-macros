@@ -54,5 +54,5 @@ export const App: SetupFC = () => {
 
 ## Known Issues
 
-- TypeScript support is not yet complete.
+- TypeScript support is not yet completed.
 - The source map does not correspond properly.
