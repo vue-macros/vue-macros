@@ -336,25 +336,37 @@ importers:
 
   playground/vue2:
     specifiers:
-      '@types/node': ^16.11.45
-      '@vitejs/plugin-vue2': ^1.1.2
-      '@vitejs/plugin-vue2-jsx': ^1.0.2
+      '@rollup/plugin-node-resolve': ^14.1.0
+      '@vitejs/plugin-vue2': ^2.0.0
+      '@vitejs/plugin-vue2-jsx': ^1.0.3
       '@vue-macros/volar': workspace:^
-      typescript: ^4.7.4
-      unplugin-vue-macros: workspace:^
-      vite: ^3.0.2
-      vue: ^2.7.7
-      vue-tsc: ^1.0.7
+      esbuild: ^0.15.10
+      npm-run-all: ^4.1.5
+      rollup: ^2.79.1
+      rollup-plugin-esbuild: ^4.10.1
+      tsx: ^3.9.0
+      typescript: ^4.8.4
+      unplugin-vue-macros: workspace:*
+      vite: ^3.1.4
+      vite-plugin-inspect: ^0.7.4
+      vue: ^2.7.13
+      vue-tsc: ^1.0.3
     dependencies:
       vue: 2.7.13
     devDependencies:
-      '@types/node': 16.11.66
-      '@vitejs/plugin-vue2': 1.1.2_vite@3.1.4+vue@2.7.13
+      '@rollup/plugin-node-resolve': 14.1.0_rollup@2.79.1
+      '@vitejs/plugin-vue2': 2.0.0_vite@3.1.4+vue@2.7.13
       '@vitejs/plugin-vue2-jsx': 1.0.3_vite@3.1.4+vue@2.7.13
       '@vue-macros/volar': link:../../packages/volar
+      esbuild: 0.15.10
+      npm-run-all: 4.1.5
+      rollup: 2.79.1
+      rollup-plugin-esbuild: 4.10.1_fwemgdvumxap6dfcd4fpjmg6cy
+      tsx: 3.9.0
       typescript: 4.8.4
       unplugin-vue-macros: link:../../packages/macros
       vite: 3.1.4
+      vite-plugin-inspect: 0.7.4_vite@3.1.4
       vue-tsc: 1.0.7_typescript@4.8.4
 
   playground/vue3:
@@ -2437,10 +2449,6 @@ packages:
     resolution: {integrity: sha512-s3nugnZumCC//n4moGGe6tkNMyYEdaDBitVjwPxXmR5lnMG5dHePinH2EdxkG3Rh1ghFHHixAG4NJhpJW1rthQ==}
     dev: true
 
-  /@types/node/16.11.66:
-    resolution: {integrity: sha512-+xvMrGl3eAygKcf5jm+4zA4tbfEgmKM9o6/glTmN0RFVdu2VuFXMYYtRmuv3zTGCgAYMnEZLde3B7BTp+Yxcig==}
-    dev: true
-
   /@types/node/18.8.0:
     resolution: {integrity: sha512-u+h43R6U8xXDt2vzUaVP3VwjjLyOJk6uEciZS8OSyziUQGOwmk+l+4drxcsDboHXwyTaqS1INebghmWMRxq3LA==}
     dev: true
@@ -2856,11 +2864,11 @@ packages:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-vue2/1.1.2_vite@3.1.4+vue@2.7.13:
-    resolution: {integrity: sha512-y6OEA+2UdJ0xrEQHodq20v9r3SpS62IOHrgN92JPLvVpNkhcissu7yvD5PXMzMESyazj0XNWGsc8UQk8+mVrjQ==}
-    engines: {node: '>=14.6.0'}
+  /@vitejs/plugin-vue2/2.0.0_vite@3.1.4+vue@2.7.13:
+    resolution: {integrity: sha512-VJOCDtBNcRv7kYLQRbbERDP0OqW0EKgMQp6wwbqZRpU3kg38OP891avx6Xl3szntGkf9mK4i8k3TjsAlmkzWFg==}
+    engines: {node: ^14.18.0 || >= 16.0.0}
     peerDependencies:
-      vite: '>=2.5.10'
+      vite: ^3.0.0
       vue: ^2.7.0-0
     peerDependenciesMeta:
       vite:
@@ -3150,7 +3158,7 @@ packages:
       '@types/semver': 7.3.12
       '@types/treeify': 1.0.0
       '@yarnpkg/fslib': 3.0.0-rc.22
-      '@yarnpkg/libzip': 3.0.0-rc.22_@yarnpkg+fslib@3.0.0-rc.22
+      '@yarnpkg/libzip': 3.0.0-rc.22
       '@yarnpkg/parsers': 3.0.0-rc.22
       '@yarnpkg/shell': 4.0.0-rc.22
       camelcase: 5.3.1
@@ -3181,7 +3189,7 @@ packages:
       '@types/semver': 7.3.12
       '@types/treeify': 1.0.0
       '@yarnpkg/fslib': 3.0.0-rc.22
-      '@yarnpkg/libzip': 3.0.0-rc.22_@yarnpkg+fslib@3.0.0-rc.22
+      '@yarnpkg/libzip': 3.0.0-rc.22
       '@yarnpkg/parsers': 3.0.0-rc.22
       '@yarnpkg/shell': 4.0.0-rc.22
       camelcase: 5.3.1
@@ -3237,11 +3245,9 @@ packages:
       tslib: 1.14.1
     dev: true
 
-  /@yarnpkg/libzip/3.0.0-rc.22_@yarnpkg+fslib@3.0.0-rc.22:
+  /@yarnpkg/libzip/3.0.0-rc.22:
     resolution: {integrity: sha512-VU9qGf0jiGOrC7ySDjB9onPt+tdzllNaZVhjk+tVy1dVFNE/UoGmUXiFSAKHLj7hFmPk7o8e96aYxaPnHzjhcA==}
     engines: {node: '>=14.15.0'}
-    peerDependencies:
-      '@yarnpkg/fslib': ^3.0.0-rc.22
     dependencies:
       '@types/emscripten': 1.39.6
       '@yarnpkg/fslib': 3.0.0-rc.22

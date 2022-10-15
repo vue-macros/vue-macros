@@ -1,12 +1,21 @@
 {
-  "include": ["**/*"],
   "compilerOptions": {
     "target": "ESNext",
+    "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "baseUrl": "."
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true
   },
   "vueCompilerOptions": {
+    "target": 2.7,
     "plugins": ["@vue-macros/volar/define-model"]
-  }
+  },
+  "include": ["src", "*"]
 }

@@ -36,13 +36,13 @@ import ShortVmodel from './examples/short-vmodel.vue'
   <fieldset>
     <legend>setupComponent</legend>
     <SetupComponentFoo />
+    <hr />
+    <SetupComponentType />
   </fieldset>
 
   <fieldset>
     <legend>setupSFC</legend>
     <SetupSFC />
-    <hr />
-    <SetupComponentType />
   </fieldset>
 
   <fieldset>
