@@ -488,7 +488,7 @@ export const App: SetupFC = () => {
 - [ ] source map 无法正常对应
 - [ ] TypeScript 支持尚未完善
 
-### `setupSFC` (⚠️ experimental)
+### `setupSFC` (⚠️ 实验性)
 
 > **Warning**: 实验性功能，使用风险自负！
 >
