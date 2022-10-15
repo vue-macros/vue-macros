@@ -1,41 +1,57 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import DefineRenderVue from './examples/define-render/index.vue'
+import DefineOptionsVue from './examples/define-options/index.vue'
+import HoistStaticVue from './examples/hoist-static/index.vue'
+import DefineModelVue from './examples/define-model/parent.vue'
 
-import DefineRenderVue from './demo/define-render.vue'
-import DefineOptionsVue from './demo/define-options.vue'
-import DefineOptionsEmptyVue from './demo/define-options-empty.vue'
-import DefineOptionsTsx from './demo/define-options-tsx.vue'
-import HoistStaticVue from './demo/hoist-static.vue'
-import DefineModelVue from './demo/define-model.vue'
-import { SetupComponentFoo } from './demo/setup-component'
-import SetupSFC from './demo/setup-sfc.setup'
-import Full from './demo/full.setup'
-import { SetupFCType } from './demo/setup-fc.type'
-import ShortVmodel from './demo/short-vmodel.vue'
+import { SetupComponentFoo } from './examples/setup-component'
+import { SetupComponentType } from './examples/setup-component/types'
 
-const title = ref('hello')
+import SetupSFC from './examples/setup-sfc/index.setup'
+import Full from './examples/full.setup'
+import ShortVmodel from './examples/short-vmodel.vue'
 </script>
 
 <template>
-  <DefineRenderVue />
-  <hr />
-  <DefineOptionsVue />
-  <hr />
-  <DefineOptionsEmptyVue />
-  <hr />
-  <DefineOptionsTsx />
-  <hr />
-  <HoistStaticVue />
-  <hr />
-  <DefineModelVue v-model:title="title" />
-  <hr />
-  <SetupComponentFoo />
-  <hr />
-  <SetupSFC />
-  <hr />
-  <Full />
-  <hr />
-  <SetupFCType />
-  <hr />
-  <short-vmodel />
+  <fieldset>
+    <legend>defineOptions</legend>
+    <DefineOptionsVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>defineRender</legend>
+    <DefineRenderVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>hostStatic</legend>
+    <HoistStaticVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>defineModel</legend>
+    <DefineModelVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>setupComponent</legend>
+    <SetupComponentFoo />
+  </fieldset>
+
+  <fieldset>
+    <legend>setupSFC</legend>
+    <SetupSFC />
+    <hr />
+    <SetupComponentType />
+  </fieldset>
+
+  <fieldset>
+    <legend>Short v-model</legend>
+    <short-vmodel />
+  </fieldset>
+
+  <fieldset>
+    <legend>Full example</legend>
+    <Full />
+  </fieldset>
 </template>

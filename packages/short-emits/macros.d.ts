@@ -4,7 +4,7 @@ type UnionToIntersection<U> = (
 ) extends (arg: infer I) => 0
   ? I
   : never
-export type ShortEmits<T extends Record<string, any[]>> = UnionToIntersection<
+export type ShortEmits<T extends Record<string, any>> = UnionToIntersection<
   RecordToUnion<{
     [K in keyof T]: T[K] extends (...args: any[]) => any
       ? (evt: K, ...args: Parameters<T[K]>) => void

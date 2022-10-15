@@ -1,4 +1,4 @@
-import { foo } from './foo'
+import { foo } from './setup-component/foo'
 import type { DefineComponent } from 'vue'
 
 console.log(foo)

@@ -1,11 +1,13 @@
 <script setup lang="tsx">
-defineProps<{
-  foo?: string
-}>()
+import { ref } from 'vue'
+
+console.log('defineRender: hello world')
+
+const msg = ref('hello')
 
 defineRender(() => (
   <div>
-    defineRender TSX demo.
+    defineRender TSX demo: {msg.value}{' '}
     <button
       onClick={() => {
         debugger
