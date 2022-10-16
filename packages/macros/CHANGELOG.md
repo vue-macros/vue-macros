@@ -1,5 +1,15 @@
 # unplugin-vue-macros
 
+## 0.12.1
+
+### Patch Changes
+
+- [#101](https://github.com/sxzz/unplugin-vue-macros/pull/101) [`4153f51`](https://github.com/sxzz/unplugin-vue-macros/commit/4153f51274146c0282b82749a9e04eaefd60414a) Thanks [@sxzz](https://github.com/sxzz)! - add dts for Vue 2.7
+
+- Updated dependencies [[`4153f51`](https://github.com/sxzz/unplugin-vue-macros/commit/4153f51274146c0282b82749a9e04eaefd60414a)]:
+  - @vue-macros/define-render@0.13.0
+  - @vue-macros/short-emits@0.12.1
+
 ## 0.12.0
 
 ### Minor Changes
