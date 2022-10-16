@@ -307,7 +307,11 @@ export const transformDefineModel = (
 
       if (hasDefineProps) {
         s.appendLeft(setupOffset + propsTypeDecl!.start! + 1, `${propsText}\n`)
-        if (propsDestructureDecl && modelDestructureDecl)
+        if (
+          mode === 'reactivity-transform' &&
+          propsDestructureDecl &&
+          modelDestructureDecl
+        )
           for (const property of modelDestructureDecl.properties) {
             const text = code.slice(
               setupOffset + property.start!,
@@ -321,13 +325,15 @@ export const transformDefineModel = (
       } else {
         let text = ''
         const kind = modelDeclKind || 'let'
-        if (modelIdentifier) {
-          text = modelIdentifier
-        } else if (modelDestructureDecl) {
-          text = code.slice(
-            setupOffset + modelDestructureDecl.start!,
-            setupOffset + modelDestructureDecl.end!
-          )
+        if (mode === 'reactivity-transform') {
+          if (modelIdentifier) {
+            text = modelIdentifier
+          } else if (modelDestructureDecl) {
+            text = code.slice(
+              setupOffset + modelDestructureDecl.start!,
+              setupOffset + modelDestructureDecl.end!
+            )
+          }
         }
 
         s.appendLeft(
@@ -337,13 +343,16 @@ export const transformDefineModel = (
   }>();`
         )
       }
+
       if (hasDefineEmits) {
         s.appendLeft(setupOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
       } else {
-        emitsIdentifier = `_${DEFINE_MODEL}_emit`
+        emitsIdentifier = `_DM_emit`
         s.appendLeft(
           setupOffset,
-          `\nconst ${emitsIdentifier} = defineEmits<{
+          `\n${
+            mode === 'reactivity-transform' ? `const ${emitsIdentifier} = ` : ''
+          }defineEmits<{
     ${emitsText}
   }>();`
         )
@@ -391,7 +400,7 @@ export const transformDefineModel = (
       original = false
     ) {
       hasTransfromed = true
-      const content = `_DM_emit(${emitsIdentifier}, '${getEventKey(
+      const content = `_DM_emitHelper(${emitsIdentifier}, '${getEventKey(
         id.name
       )}', ${value}${original ? `, ${id.name}` : ''})`
       s.overwrite(setupOffset + node.start!, setupOffset + node.end!, content)
@@ -426,7 +435,10 @@ export const transformDefineModel = (
     })
 
     if (hasTransfromed) {
-      s.prependLeft(setupOffset, `\nimport _DM_emit from '${emitHelperId}';`)
+      s.prependLeft(
+        setupOffset,
+        `\nimport _DM_emitHelper from '${emitHelperId}';`
+      )
     }
   }
 
