@@ -1,6 +1,6 @@
 {
   "name": "monorepo-unplugin-vue-macros",
-  "version": "0.12.0-beta.1",
+  "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@7.13.3",
   "description": "Monorepo for Vue macros.",
@@ -8,18 +8,17 @@
   "scripts": {
     "build": "turbo run build --filter=\"./packages/*\"",
     "dev": "turbo run dev --filter=\"./packages/*\"",
-    "play": "pnpm run -C ./playground dev",
     "docs:dev": "pnpm run -C ./docs dev",
     "docs:build": "turbo run build --filter docs",
+    "play": "pnpm run play:vue3",
+    "play:vue2": "pnpm run -C ./playground/vue2 dev",
+    "play:vue3": "pnpm run -C ./playground/vue3 dev",
     "test": "vitest",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0",
     "publish": "pnpm build && changeset publish",
     "typecheck": "run-p \"typecheck:*\"",
     "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
     "typecheck:test": "tsc --noEmit -p tsconfig.test.json"
-  },
-  "peerDependencies": {
-    "vue": "^2.7.0 || ^3.2.25"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.7",

@@ -6,7 +6,7 @@ const val = ref('')
 </script>
 
 <template>
-  <h1>Short Vmodel</h1>
+  <p>Short Vmodel</p>
   <p>{{ val }}</p>
 
   <input v-model="val" />

@@ -14,11 +14,8 @@
     "skipLibCheck": true
   },
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/define-model",
-      "@vue-macros/volar/short-vmodel"
-    ],
-    "shortVmodelPrefix": "$"
+    "target": 2.7,
+    "plugins": ["@vue-macros/volar/define-model"]
   },
-  "include": ["src"]
+  "include": ["src", "*"]
 }

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { getCurrentInstance } from 'vue'
+import Empty from './empty.vue'
+import Tsx from './tsx.vue'
 
 defineOptions({
-  name: 'DemoDefineOptions',
+  name: 'ExampleDefineOptions',
   inheritAttrs: false,
   custom() {
     debugger
@@ -20,5 +22,8 @@ const check = () => {
   <p>
     defineOptions demo.
     <button @click="check">Check source map</button>
+
+    <empty />
+    <tsx />
   </p>
 </template>
