@@ -1,5 +1,11 @@
 # @vue-macros/define-model
 
+## 0.13.2
+
+### Patch Changes
+
+- [`7877ac7`](https://github.com/sxzz/unplugin-vue-macros/commit/7877ac7d92c0c9b90297364abddae3562236e2d2) Thanks [@sxzz](https://github.com/sxzz)! - fix unifed key
+
 ## 0.13.1
 
 ### Patch Changes
