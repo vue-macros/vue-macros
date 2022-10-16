@@ -9,6 +9,5 @@ Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, 
 - [defineRender](/macros/define-render)
 - [shortEmits](/macros/short-emits)
 - [shortVmodel](/macros/short-vmodel)
-- [hoistStatic](/macros/hoist-static)
 - [setupComponent](/macros/setup-component) <WarnBadge>Experimental</WarnBadge>
 - [setupSFC](/macros/setup-sfc) <WarnBadge>Experimental</WarnBadge>
