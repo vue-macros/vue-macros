@@ -29,7 +29,8 @@ import type {
 export const transformDefineModel = (
   code: string,
   id: string,
-  version: 2 | 3
+  version: 2 | 3,
+  unified: boolean
 ) => {
   let hasDefineProps = false
   let hasDefineEmits = false
@@ -282,11 +283,18 @@ export const transformDefineModel = (
     return map
   }
 
+  function getPropKey(key: string) {
+    if (unified && version === 2 && key === 'modelValue') {
+      return 'value'
+    }
+    return key
+  }
+
   function getEventKey(key: string) {
     if (version === 2) {
       if (modelVue2.prop === key) {
         return modelVue2.event
-      } else if (key === 'value') {
+      } else if (key === 'value' || (unified && key === 'modelValue')) {
         return 'input'
       }
     }
@@ -294,14 +302,19 @@ export const transformDefineModel = (
   }
 
   function rewriteMacros() {
+    rewriteDefines()
+    if (mode === 'runtime') {
+      rewriteRuntime()
+    }
+
     function rewriteDefines() {
       const propsText = Object.entries(map)
-        .map(([key, value]) => `${key}${value}`)
+        .map(([key, type]) => `${getPropKey(key)}${type}`)
         .join('\n')
 
       const emitsText = Object.entries(map)
         .map(
-          ([key, value]) => `(evt: '${getEventKey(key)}', value${value}): void`
+          ([key, type]) => `(evt: '${getEventKey(key)}', value${type}): void`
         )
         .join('\n')
 
@@ -367,14 +380,9 @@ export const transformDefineModel = (
 
       const names = Object.keys(map)
       const text = `_DM_useVModel(${names
-        .map((n) => `['${n}', '${getEventKey(n)}']`)
+        .map((n) => `['${getPropKey(n)}', '${getEventKey(n)}']`)
         .join(', ')})`
       s.overwriteNode(modelDecl!, text, { offset: setupOffset })
-    }
-
-    rewriteDefines()
-    if (mode === 'runtime') {
-      rewriteRuntime()
     }
   }
 

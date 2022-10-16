@@ -10,7 +10,7 @@ describe('fixtures', () => {
   for (const [id, code] of Object.entries(files)) {
     test(id.replace(/\\/g, '/'), () => {
       const version = id.includes('vue2') ? 2 : 3
-      const exec = () => transformDefineModel(code, id, version)?.code
+      const exec = () => transformDefineModel(code, id, version, true)?.code
       if (id.includes('error')) {
         expect(exec).toThrowErrorMatchingSnapshot()
       } else {

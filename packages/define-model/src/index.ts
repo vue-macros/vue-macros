@@ -19,6 +19,12 @@ export interface Options {
    * @default 3
    */
   version?: 2 | 3
+  /**
+   * Unified mode, only works for Vue 2
+   *
+   * Converts `modelValue` to `value`
+   */
+  unified?: boolean
 }
 
 export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
@@ -29,6 +35,7 @@ function resolveOption(options: Options): OptionsResolved {
   return {
     include: [REGEX_VUE_SFC, REGEX_SETUP_SFC],
     version: 3,
+    unified: true,
     ...options,
   }
 }
@@ -63,7 +70,7 @@ export default createUnplugin((userOptions: Options = {}) => {
 
     transform(code, id) {
       try {
-        return transformDefineModel(code, id, options.version)
+        return transformDefineModel(code, id, options.version, options.unified)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }

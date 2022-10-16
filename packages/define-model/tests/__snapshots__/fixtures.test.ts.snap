@@ -355,6 +355,22 @@ const emit = defineEmits<{(evt: 'changeInput', value: string): void
 "
 `;
 
+exports[`fixtures > ./fixtures/runtime/vue2/v-model.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    value: string
+  }>();
+defineEmits<{
+    (evt: 'input', value: string): void
+  }>();
+const { modelValue } = _DM_useVModel(['value', 'input'])
+
+modelValue.value = 'hello'
+</script>
+"
+`;
+
 exports[`fixtures > ./fixtures/runtime/vue3/assignment.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';

@@ -164,14 +164,13 @@ const __default__ = defineComponent({
 var _sfc_main = /* @__PURE__ */ defineComponent({
   ...__default__,
   props: {
-    modelValue: { type: String, required: true },
     value: { type: String, required: true },
     title: { type: String, required: true }
   },
-  emits: [\\"update:modelValue\\", \\"changeInput\\", \\"change\\"],
+  emits: [\\"input\\", \\"changeInput\\", \\"change\\"],
   setup(__props, { emit }) {
     const { title } = __props;
-    let { modelValue, value } = _DM_useVModel([\\"modelValue\\", \\"update:modelValue\\"], [\\"value\\", \\"changeInput\\"]);
+    let { modelValue, value } = _DM_useVModel([\\"value\\", \\"input\\"], [\\"value\\", \\"changeInput\\"]);
     const handleClick = () => {
       emit(\\"change\\");
       modelValue.value = \\"hello, \\" + title;
