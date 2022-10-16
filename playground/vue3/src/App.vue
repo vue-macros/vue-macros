@@ -2,7 +2,8 @@
 import DefineRenderVue from './examples/define-render/index.vue'
 import DefineOptionsVue from './examples/define-options/index.vue'
 import HoistStaticVue from './examples/hoist-static/index.vue'
-import DefineModelVue from './examples/define-model/parent.vue'
+import DefineModelReactivityVue from './examples/define-model/reactivity-transform/parent.vue'
+import DefineModelRuntimeVue from './examples/define-model/runtime/parent.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
 import { SetupComponentType } from './examples/setup-component/types'
@@ -30,7 +31,9 @@ import Full from './examples/full.setup'
 
   <fieldset>
     <legend>defineModel</legend>
-    <DefineModelVue />
+    <DefineModelReactivityVue />
+    <hr />
+    <DefineModelRuntimeVue />
   </fieldset>
 
   <fieldset>

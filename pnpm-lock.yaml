@@ -319,6 +319,7 @@ importers:
     specifiers:
       '@volar/language-core': ^1.0.7
       '@volar/vue-language-core': ^1.0.7
+      '@vue-macros/common': workspace:^
       '@vue-macros/short-vmodel': workspace:^
       '@vue/compiler-dom': ^3.2.40
       muggle-string: ^0.1.0
@@ -329,6 +330,7 @@ importers:
       '@vue-macros/short-vmodel': link:../short-vmodel
     devDependencies:
       '@volar/vue-language-core': 1.0.7
+      '@vue-macros/common': link:../common
       '@vue/compiler-dom': 3.2.40
       muggle-string: 0.1.0
       typescript: 4.8.4
@@ -378,6 +380,7 @@ importers:
       '@vitejs/plugin-vue-jsx': ^2.0.1
       '@vue-macros/short-vmodel': workspace:^
       '@vue-macros/volar': workspace:^
+      '@vueuse/core': ^9.3.0
       esbuild: ^0.15.10
       npm-run-all: ^4.1.5
       rollup: ^2.79.1
@@ -390,6 +393,7 @@ importers:
       vue: ^3.2.40
       vue-tsc: ^1.0.7
     dependencies:
+      '@vueuse/core': 9.3.0_vue@3.2.40
       vue: 3.2.40
     devDependencies:
       '@rollup/plugin-node-resolve': 14.1.0_rollup@2.79.1
@@ -3148,7 +3152,6 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: true
 
   /@vueuse/metadata/9.3.0:
     resolution: {integrity: sha512-GnnfjbzIPJIh9ngL9s9oGU1+Hx/h5/KFqTfJykzh/1xjaHkedV9g0MASpdmPZIP+ynNhKAcEfA6g5i8KXwtoMA==}
@@ -3169,7 +3172,6 @@ packages:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
-    dev: true
 
   /@yarnpkg/core/4.0.0-rc.14:
     resolution: {integrity: sha512-SWq+T56I7GiRMrMECGsvCJvQmbXi+pBexjX9sYICPj+OgTHbWDmIOh/OrSC8honE6WEE2ZzPNmwF4Y355NKgew==}
@@ -8602,7 +8604,6 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.40
-    dev: true
 
   /vue-eslint-parser/9.1.0_eslint@8.24.0:
     resolution: {integrity: sha512-NGn/iQy8/Wb7RrRa4aRkokyCZfOUWk19OP5HP6JEozQFX5AoS/t+Z0ZN7FY4LlmWc4FNI922V7cvX28zctN8dQ==}
