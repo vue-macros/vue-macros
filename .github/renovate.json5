@@ -1,5 +1,5 @@
 {
-  extends: ['config:js-lib', 'schedule:weekly', 'group:allNonMajor'],
+  extends: ['config:base', 'schedule:weekly', 'group:allNonMajor'],
   labels: ['dependencies'],
   pin: false,
   rangeStrategy: 'bump',
@@ -15,5 +15,10 @@
       enabled: false,
     },
   ],
-  ignoreDeps: ['node'],
+  ignoreDeps: [
+    'node',
+    '@rollup/pluginutils',
+    '@rollup/plugin-node-resolve',
+    'rollup',
+  ],
 }
