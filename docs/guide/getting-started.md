@@ -126,6 +126,35 @@ module.exports = {
 
 ::::
 
+### Options
+
+```ts
+VueMacros({
+  root: '/your-project-path',
+  /**
+   * Vue version, 2 or 3.
+   *
+   * optional, detecting automatically.
+   */
+  version: 3,
+
+  plugins: {
+    vue: Vue(),
+    vueJsx: VueJsx(),
+  },
+
+  /** Defaults to true  */
+  defineModel: {
+    /**
+     * Unified mode, only works for Vue 2
+     *
+     * Converts `modelValue` to `value`
+     */
+    unified: true,
+  },
+})
+```
+
 ## TypeScript Support
 
 :::: code-group

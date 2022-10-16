@@ -8,6 +8,21 @@ Declaring and mutate `v-model` props as the same as normal variable using the `d
 |       Vue 2        | :white_check_mark: |
 | TypeScript / Volar | :white_check_mark: |
 
+## Options
+
+```ts
+VueMacros({
+  defineModel: {
+    /**
+     * Unified mode, only works for Vue 2
+     *
+     * Converts `modelValue` to `value`
+     */
+    unified: false,
+  },
+})
+```
+
 ## Usage
 
 ```vue
