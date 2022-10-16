@@ -1,68 +1,68 @@
 // Vitest Snapshot v1
 
-exports[`fixtures > ./fixtures/assignment.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/assignment.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import __emitHelper from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue, title } = defineProps<{
-  modelValue: string
+    modelValue: string
 title: string
-}>();
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+  }>();
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:title', value: string): void
-}>();
+  }>();
 
 
-__emitHelper(_defineModel_emit, 'update:modelValue', __emitHelper(_defineModel_emit, 'update:title', '123'))
+_DM_emitHelper(_DM_emit, 'update:modelValue', _DM_emitHelper(_DM_emit, 'update:title', '123'))
 </script>
 "
 `;
 
-exports[`fixtures > ./fixtures/assignment-update.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/assignment-update.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import __emitHelper from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 let { count } = defineProps<{
-  count: number
-}>();
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:count', value: number): void
-}>();
+    count: number
+  }>();
+const _DM_emit = defineEmits<{
+    (evt: 'update:count', value: number): void
+  }>();
 
 
-__emitHelper(_defineModel_emit, 'update:count', count + 1, count)
-__emitHelper(_defineModel_emit, 'update:count', count - 1, count)
-__emitHelper(_defineModel_emit, 'update:count', count + 1)
-__emitHelper(_defineModel_emit, 'update:count', count - 1)
-__emitHelper(_defineModel_emit, 'update:count', 1)
-__emitHelper(_defineModel_emit, 'update:count', count + 1)
-__emitHelper(_defineModel_emit, 'update:count', count - 1)
-__emitHelper(_defineModel_emit, 'update:count', count * 1)
-__emitHelper(_defineModel_emit, 'update:count', count / 1)
+_DM_emitHelper(_DM_emit, 'update:count', count + 1, count)
+_DM_emitHelper(_DM_emit, 'update:count', count - 1, count)
+_DM_emitHelper(_DM_emit, 'update:count', count + 1)
+_DM_emitHelper(_DM_emit, 'update:count', count - 1)
+_DM_emitHelper(_DM_emit, 'update:count', 1)
+_DM_emitHelper(_DM_emit, 'update:count', count + 1)
+_DM_emitHelper(_DM_emit, 'update:count', count - 1)
+_DM_emitHelper(_DM_emit, 'update:count', count * 1)
+_DM_emitHelper(_DM_emit, 'update:count', count / 1)
 
-__emitHelper(_defineModel_emit, 'update:count', count + 1)
+_DM_emitHelper(_DM_emit, 'update:count', count + 1)
 
-const additionAssignment = () => (__emitHelper(_defineModel_emit, 'update:count', count + 1))
-const increment = () => __emitHelper(_defineModel_emit, 'update:count', count + 1, count)
-const add = () => (__emitHelper(_defineModel_emit, 'update:count', count + 1))
+const additionAssignment = () => (_DM_emitHelper(_DM_emit, 'update:count', count + 1))
+const increment = () => _DM_emitHelper(_DM_emit, 'update:count', count + 1, count)
+const add = () => (_DM_emitHelper(_DM_emit, 'update:count', count + 1))
 </script>
 "
 `;
 
-exports[`fixtures > ./fixtures/basic.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import __emitHelper from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 var { modelValue } = defineProps<{
-  modelValue: string
+    modelValue: string
 visible: boolean
-}>();
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+  }>();
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-}>();
+  }>();
 
 
 console.log(modelValue)
-__emitHelper(_defineModel_emit, 'update:modelValue', 'newValue')
+_DM_emitHelper(_DM_emit, 'update:modelValue', 'newValue')
 </script>
 
 <template>
@@ -71,147 +71,43 @@ __emitHelper(_defineModel_emit, 'update:modelValue', 'newValue')
 "
 `;
 
-exports[`fixtures > ./fixtures/error-rest.vue 1`] = `"rest element is not supported"`;
+exports[`fixtures > ./fixtures/reactivity-transform/error-rest.vue 1`] = `"rest element is not supported"`;
 
-exports[`fixtures > ./fixtures/multi-decl.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/multi-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
 let { modelValue } = defineProps<{
-  modelValue: string
+    modelValue: string
 visible: boolean
-}>();
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+  }>();
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-}>();
+  }>();
 let a = 'b'
 </script>
 "
 `;
 
-exports[`fixtures > ./fixtures/no-decl.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/no-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
 defineProps<{
-  modelValue: string
+    modelValue: string
 visible: boolean
-}>();
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+  }>();
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-}>();
+  }>();
 
 </script>
 "
 `;
 
-exports[`fixtures > ./fixtures/vue2/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">
-import __emitHelper from '/plugin-define-model/emit-helper';
-
-
-const {value, title,  id } = defineProps<{value: string
-title: string
- id: string }>()
-
-const emit = defineEmits<{(evt: 'input', value: string): void
-(evt: 'update:title', value: string): void
-
-  (evt: 'change'): void
-}>()
-
-{
-  __emitHelper(emit, 'input', 'hello')
-  __emitHelper(emit, 'update:title', 'world')
-  emit('change')
-
-  {
-    let modelValue = 'world'
-    modelValue = 'foo'
-  }
-}
-</script>
-"
-`;
-
-exports[`fixtures > ./fixtures/vue2/custom-model.vue 1`] = `
-"<script lang=\\"ts\\">
-export default {
-  model: {
-    prop: 'value',
-    event: 'changeInput',
-  },
-}
-</script>
-<script setup lang=\\"ts\\">
-import __emitHelper from '/plugin-define-model/emit-helper';
-
-
-const {value, title,  id } = defineProps<{value: string
-title: string
- id: string }>()
-
-const emit = defineEmits<{(evt: 'changeInput', value: string): void
-(evt: 'update:title', value: string): void
-
-  (evt: 'change'): void
-}>()
-
-{
-  __emitHelper(emit, 'changeInput', 'hello')
-  __emitHelper(emit, 'update:title', 'world')
-  emit('change')
-
-  {
-    let modelValue = 'world'
-    modelValue = 'foo'
-  }
-}
-</script>
-"
-`;
-
-exports[`fixtures > ./fixtures/vue2/custom-model-defineComponent.vue 1`] = `
-"<script lang=\\"ts\\">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  model: {
-    prop: 'value',
-    event: 'changeInput'
-  },
-})
-</script>
-<script setup lang=\\"ts\\">
-import __emitHelper from '/plugin-define-model/emit-helper';
-
-
-const {value, title,  id } = defineProps<{value: string
-title: string
- id: string }>()
-
-const emit = defineEmits<{(evt: 'changeInput', value: string): void
-(evt: 'update:title', value: string): void
-
-  (evt: 'change'): void
-}>()
-
-{
-  __emitHelper(emit, 'changeInput', 'hello')
-  __emitHelper(emit, 'update:title', 'world')
-  emit('change')
-
-  {
-    let modelValue = 'world'
-    modelValue = 'foo'
-  }
-}
-</script>
-"
-`;
-
-exports[`fixtures > ./fixtures/with-define-emits.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits.vue 1`] = `
 "<script setup lang=\\"ts\\">
 const { modelValue } = defineProps<{
-  modelValue: string
-}>();
+    modelValue: string
+  }>();
 
 
 const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
@@ -224,12 +120,12 @@ emit('change')
 "
 `;
 
-exports[`fixtures > ./fixtures/with-define-emits-decl.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import __emitHelper from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue } = defineProps<{
-  modelValue: string
-}>();
+    modelValue: string
+  }>();
 
 
 const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
@@ -238,7 +134,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 }>()
 
 {
-  __emitHelper(emit, 'update:modelValue', 'hello')
+  _DM_emitHelper(emit, 'update:modelValue', 'hello')
   emit('change')
 
   {
@@ -250,12 +146,12 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 "
 `;
 
-exports[`fixtures > ./fixtures/with-define-emits-no-decl.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits-no-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import __emitHelper from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue } = defineProps<{
-  modelValue: string
-}>();
+    modelValue: string
+  }>();
 
 
 const _defineModel_emit = defineEmits<{(evt: 'update:modelValue', value: string): void
@@ -263,17 +159,17 @@ const _defineModel_emit = defineEmits<{(evt: 'update:modelValue', value: string)
   (evt: 'change'): void
 }>()
 
-__emitHelper(_defineModel_emit, 'update:modelValue', '1')
+_DM_emitHelper(_defineModel_emit, 'update:modelValue', '1')
 </script>
 "
 `;
 
-exports[`fixtures > ./fixtures/with-define-props.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-}>();
+  }>();
 
 
 defineProps<{modelValue: string
@@ -285,12 +181,12 @@ visible: boolean
 "
 `;
 
-exports[`fixtures > ./fixtures/with-define-props-decl.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-}>();
+  }>();
 
 
 const {modelValue,  title } = defineProps<{modelValue: string
@@ -302,12 +198,12 @@ visible: boolean
 "
 `;
 
-exports[`fixtures > ./fixtures/with-define-props-empty.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-empty.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-}>();
+  }>();
 
 
 defineProps< {modelValue: string
@@ -317,12 +213,12 @@ visible: boolean
 "
 `;
 
-exports[`fixtures > ./fixtures/with-define-props-ref.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-ref.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-}>();
+  }>();
 interface Props {modelValue: string
 visible: boolean
 
@@ -336,12 +232,12 @@ defineProps<Props>()
 "
 `;
 
-exports[`fixtures > ./fixtures/with-define-props-rest.vue 1`] = `
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-rest.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
-  (evt: 'update:modelValue', value: string): void
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
-}>();
+  }>();
 
 
 const {modelValue,  title, ...props } = defineProps<{modelValue: string
@@ -351,6 +247,275 @@ visible: boolean
 }>()
 
 console.log(props)
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue2/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+let { value, title } = _DM_useVModel(['value', 'input'], ['title', 'update:title'])
+
+const { id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'input', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  value = 'hello'
+  title = 'world'
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue2/custom-model.vue 1`] = `
+"<script lang=\\"ts\\">
+export default {
+  model: {
+    prop: 'value',
+    event: 'changeInput',
+  },
+}
+</script>
+<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+let { value, title } = _DM_useVModel(['value', 'changeInput'], ['title', 'update:title'])
+
+const { id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'changeInput', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  value = 'hello'
+  title = 'world'
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue2/custom-model-defineComponent.vue 1`] = `
+"<script lang=\\"ts\\">
+import { defineComponent } from 'vue'
+export default defineComponent({
+  model: {
+    prop: 'value',
+    event: 'changeInput'
+  },
+})
+</script>
+<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+let { value, title } = _DM_useVModel(['value', 'changeInput'], ['title', 'update:title'])
+
+const { id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'changeInput', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  value = 'hello'
+  title = 'world'
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/assignment.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    modelValue: string
+title: string
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:title', value: string): void
+  }>();
+const { modelValue, title } = _DM_useVModel(['modelValue', 'update:modelValue'], ['title', 'update:title'])
+
+modelValue.value = title.value = '123'
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+
+console.log(modelValue.value)
+modelValue.value = 'newValue'
+</script>
+
+<template>
+  <h1>123</h1>
+</template>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/multi-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const a = 'b',
+  { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/no-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+_DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/rest.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const { ...rest } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+
+rest.modelValue.value = 'foo'
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-define-emits.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    modelValue: string
+  }>();
+const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'])
+
+const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+emit('change')
+modelValue.value = 'hello'
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-define-props.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+
+defineProps<{modelValue: string
+visible: boolean
+
+  title?: string
+}>()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-define-props-empty.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+
+defineProps< {modelValue: string
+visible: boolean
+  } > ()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-define-props-ref.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+interface Props {modelValue: string
+visible: boolean
+
+  title?: string
+}
+
+defineProps<Props>()
+
+const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
 </script>
 "
 `;

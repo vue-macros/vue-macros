@@ -4,9 +4,10 @@ const { modelValue } = defineModel<{
   visible: boolean
 }>()
 
-const { title, ...props } = defineProps<{
-  title?: string
-}>()
-
-console.log(props)
+console.log(modelValue.value)
+modelValue.value = 'newValue'
 </script>
+
+<template>
+  <h1>123</h1>
+</template>

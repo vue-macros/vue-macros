@@ -1,10 +1,10 @@
 <script setup lang="ts">
-let { title } = defineModel<{
+const { title } = defineModel<{
   title: string
 }>()
 
 const update = () => {
-  title += ' Updated!'
+  title.value += ' Updated!'
   debugger
 }
 
@@ -14,7 +14,7 @@ const check = () => {
 </script>
 
 <template>
-  <div>defineModel demo.</div>
+  <div>defineModel runtime demo.</div>
   <div>current value: {{ title }}</div>
   <button @click="update">Update</button>
   <button @click="check">Check source map</button>

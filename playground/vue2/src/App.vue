@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import DefineOptionsVue from './examples/define-options/index.vue'
+import DefineModelVue from './examples/define-model/parent.vue'
 import DefineRenderVue from './examples/define-render/index.vue'
 import HoistStaticVue from './examples/hoist-static/index.vue'
-// import DefineModelVue from './examples/define-model/parent.vue'
 
 // import { SetupComponentFoo } from './examples/setup-component'
 // import { SetupComponentType } from './examples/setup-component/types'
@@ -21,6 +21,11 @@ import SetupSFC from './examples/setup-sfc/index.setup'
     </fieldset>
 
     <fieldset>
+      <legend>defineModel</legend>
+      <DefineModelVue />
+    </fieldset>
+
+    <fieldset>
       <legend>defineRender</legend>
       <DefineRenderVue />
     </fieldset>
@@ -36,11 +41,6 @@ import SetupSFC from './examples/setup-sfc/index.setup'
     </fieldset>
 
     <!-- <fieldset>
-      <legend>defineModel</legend>
-      <DefineModelVue />
-    </fieldset>
-
-    <fieldset>
       <legend>setupComponent</legend>
       <SetupComponentFoo />
       <hr />

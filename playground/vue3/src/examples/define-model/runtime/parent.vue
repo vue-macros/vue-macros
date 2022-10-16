@@ -6,7 +6,5 @@ const title = ref('hello')
 </script>
 
 <template>
-  <div>
-    <child :title.sync="title" />
-  </div>
+  <child v-model:title="title" />
 </template>

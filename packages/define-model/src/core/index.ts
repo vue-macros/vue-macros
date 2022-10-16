@@ -2,6 +2,7 @@ import { extractIdentifiers, walkAST } from 'ast-walker-scope'
 import {
   DEFINE_EMITS,
   DEFINE_MODEL,
+  DEFINE_MODEL_DOLLAR,
   DEFINE_OPTIONS,
   DEFINE_PROPS,
   MagicString,
@@ -10,7 +11,7 @@ import {
   isCallOf,
   parseSFC,
 } from '@vue-macros/common'
-import { emitHelperId } from './helper'
+import { emitHelperId, useVmodelHelperId } from './helper'
 import type {
   Identifier,
   LVal,
@@ -37,12 +38,16 @@ export const transformDefineModel = (
   let propsDestructureDecl: Node | undefined
   let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let emitsIdentifier: string | undefined
+
+  let modelDecl: Node | undefined
+  let modelDeclKind: string | undefined
   let modelTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let modelIdentifier: string | undefined
-  let modelDeclKind: string | undefined
   let modelDestructureDecl: ObjectPattern | undefined
+
   const modelIdentifiers = new Set<Identifier>()
   const modelVue2: { event: string; prop: string } = { prop: '', event: '' }
+  let mode: 'reactivity-transform' | 'runtime' | undefined
 
   function processDefinePropsOrEmits(node: Node, declId?: LVal) {
     let type: 'props' | 'emits'
@@ -103,14 +108,15 @@ export const transformDefineModel = (
     declId?: LVal,
     kind?: VariableDeclaration['kind']
   ) {
-    if (!isCallOf(node, DEFINE_MODEL)) {
-      return false
-    }
+    if (isCallOf(node, DEFINE_MODEL)) mode = 'runtime'
+    else if (isCallOf(node, DEFINE_MODEL_DOLLAR)) mode = 'reactivity-transform'
+    else return false
 
     if (hasDefineModel) {
       throw new SyntaxError(`duplicate ${DEFINE_MODEL}() call`)
     }
     hasDefineModel = true
+    modelDecl = node
 
     const propsTypeDeclRaw = node.typeParameters?.params[0]
     if (!propsTypeDeclRaw) {
@@ -128,7 +134,7 @@ export const transformDefineModel = (
       )
     }
 
-    if (declId) {
+    if (mode === 'reactivity-transform' && declId) {
       const ids = extractIdentifiers(declId)
       ids.forEach((id) => modelIdentifiers.add(id))
 
@@ -158,6 +164,33 @@ export const transformDefineModel = (
     if (arg) processVue2Model(arg)
 
     return true
+  }
+
+  function processVue2Script() {
+    if (!scriptCompiled.scriptAst || scriptCompiled.scriptAst.length === 0)
+      return
+
+    // process normal <script>
+    for (const node of scriptCompiled.scriptAst as Statement[]) {
+      if (node.type === 'ExportDefaultDeclaration') {
+        const { declaration } = node
+        if (declaration.type === 'ObjectExpression') {
+          processVue2Model(declaration)
+        } else if (
+          declaration.type === 'CallExpression' &&
+          declaration.callee.type === 'Identifier' &&
+          ['defineComponent', 'DO_defineComponent'].includes(
+            declaration.callee.name
+          )
+        ) {
+          declaration.arguments.forEach((arg) => {
+            if (arg.type === 'ObjectExpression') {
+              processVue2Model(arg)
+            }
+          })
+        }
+      }
+    }
   }
 
   function processVue2Model(node: Node) {
@@ -260,6 +293,91 @@ export const transformDefineModel = (
     return `update:${key}`
   }
 
+  function rewriteMacros() {
+    function rewriteDefines() {
+      const propsText = Object.entries(map)
+        .map(([key, value]) => `${key}${value}`)
+        .join('\n')
+
+      const emitsText = Object.entries(map)
+        .map(
+          ([key, value]) => `(evt: '${getEventKey(key)}', value${value}): void`
+        )
+        .join('\n')
+
+      if (hasDefineProps) {
+        s.appendLeft(setupOffset + propsTypeDecl!.start! + 1, `${propsText}\n`)
+        if (
+          mode === 'reactivity-transform' &&
+          propsDestructureDecl &&
+          modelDestructureDecl
+        )
+          for (const property of modelDestructureDecl.properties) {
+            const text = code.slice(
+              setupOffset + property.start!,
+              setupOffset + property.end!
+            )
+            s.appendLeft(
+              setupOffset + propsDestructureDecl.start! + 1,
+              `${text}, `
+            )
+          }
+      } else {
+        let text = ''
+        const kind = modelDeclKind || 'let'
+        if (mode === 'reactivity-transform') {
+          if (modelIdentifier) {
+            text = modelIdentifier
+          } else if (modelDestructureDecl) {
+            text = code.slice(
+              setupOffset + modelDestructureDecl.start!,
+              setupOffset + modelDestructureDecl.end!
+            )
+          }
+        }
+
+        s.appendLeft(
+          setupOffset,
+          `\n${text ? `${kind} ${text} = ` : ''}defineProps<{
+    ${propsText}
+  }>();`
+        )
+      }
+
+      if (hasDefineEmits) {
+        s.appendLeft(setupOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
+      } else {
+        emitsIdentifier = `_DM_emit`
+        s.appendLeft(
+          setupOffset,
+          `\n${
+            mode === 'reactivity-transform' ? `const ${emitsIdentifier} = ` : ''
+          }defineEmits<{
+    ${emitsText}
+  }>();`
+        )
+      }
+    }
+
+    function rewriteRuntime() {
+      s.prependLeft(
+        setupOffset,
+        `\nimport _DM_useVModel from '${useVmodelHelperId}';`
+      )
+
+      const names = Object.keys(map)
+      const text = `_DM_useVModel(${names
+        .map((n) => `['${n}', '${getEventKey(n)}']`)
+        .join(', ')})`
+      s.overwriteNode(modelDecl!, text, { offset: setupOffset })
+    }
+
+    rewriteDefines()
+    if (mode === 'runtime') {
+      rewriteRuntime()
+    }
+  }
+
   function processAssignModelVariable() {
     if (!emitsIdentifier)
       throw new Error(
@@ -282,7 +400,7 @@ export const transformDefineModel = (
       original = false
     ) {
       hasTransfromed = true
-      const content = `__emitHelper(${emitsIdentifier}, '${getEventKey(
+      const content = `_DM_emitHelper(${emitsIdentifier}, '${getEventKey(
         id.name
       )}', ${value}${original ? `, ${id.name}` : ''})`
       s.overwrite(setupOffset + node.start!, setupOffset + node.end!, content)
@@ -319,7 +437,7 @@ export const transformDefineModel = (
     if (hasTransfromed) {
       s.prependLeft(
         setupOffset,
-        `\nimport __emitHelper from '${emitHelperId}';`
+        `\nimport _DM_emitHelper from '${emitHelperId}';`
       )
     }
   }
@@ -334,33 +452,7 @@ export const transformDefineModel = (
   const s = new MagicString(code)
   const setupOffset = scriptCompiled.loc.start.offset
 
-  if (
-    version === 2 &&
-    scriptCompiled.scriptAst &&
-    scriptCompiled.scriptAst.length > 0
-  ) {
-    // process normal <script>
-    for (const node of scriptCompiled.scriptAst as Statement[]) {
-      if (node.type === 'ExportDefaultDeclaration') {
-        const { declaration } = node
-        if (declaration.type === 'ObjectExpression') {
-          processVue2Model(declaration)
-        } else if (
-          declaration.type === 'CallExpression' &&
-          declaration.callee.type === 'Identifier' &&
-          ['defineComponent', 'DO_defineComponent'].includes(
-            declaration.callee.name
-          )
-        ) {
-          declaration.arguments.forEach((arg) => {
-            if (arg.type === 'ObjectExpression') {
-              processVue2Model(arg)
-            }
-          })
-        }
-      }
-    }
-  }
+  if (version === 2) processVue2Script()
 
   // process <script setup>
   for (const node of scriptCompiled.scriptSetupAst as Statement[]) {
@@ -371,9 +463,11 @@ export const transformDefineModel = (
         processDefineOptions(node.expression)
       }
 
-      if (processDefineModel(node.expression)) {
+      if (
+        processDefineModel(node.expression) &&
+        mode === 'reactivity-transform'
+      )
         s.remove(node.start! + setupOffset, node.end! + setupOffset)
-      }
     } else if (node.type === 'VariableDeclaration' && !node.declare) {
       const total = node.declarations.length
       let left = total
@@ -383,7 +477,10 @@ export const transformDefineModel = (
         if (decl.init) {
           processDefinePropsOrEmits(decl.init, decl.id)
 
-          if (processDefineModel(decl.init, decl.id, node.kind)) {
+          if (
+            processDefineModel(decl.init, decl.id, node.kind) &&
+            mode === 'reactivity-transform'
+          ) {
             if (left === 1) {
               s.remove(node.start! + setupOffset, node.end! + setupOffset)
             } else {
@@ -414,58 +511,10 @@ export const transformDefineModel = (
 
   const map = extractRuntimeProps(modelTypeDecl)
 
-  const propsText = Object.entries(map)
-    .map(([key, value]) => `${key}${value}`)
-    .join('\n')
+  rewriteMacros()
 
-  const emitsText = Object.entries(map)
-    .map(([key, value]) => `(evt: '${getEventKey(key)}', value${value}): void`)
-    .join('\n')
-
-  if (hasDefineProps) {
-    s.appendLeft(setupOffset + propsTypeDecl!.start! + 1, `${propsText}\n`)
-    if (propsDestructureDecl && modelDestructureDecl)
-      for (const property of modelDestructureDecl.properties) {
-        const text = code.slice(
-          setupOffset + property.start!,
-          setupOffset + property.end!
-        )
-        s.appendLeft(setupOffset + propsDestructureDecl.start! + 1, `${text}, `)
-      }
-  } else {
-    let text = ''
-    const kind = modelDeclKind || 'let'
-    if (modelIdentifier) {
-      text = modelIdentifier
-    } else if (modelDestructureDecl) {
-      text = code.slice(
-        setupOffset + modelDestructureDecl.start!,
-        setupOffset + modelDestructureDecl.end!
-      )
-    }
-
-    s.appendLeft(
-      setupOffset,
-      `\n${text ? `${kind} ${text} = ` : ''}defineProps<{
-  ${propsText}
-}>();`
-    )
-  }
-  if (hasDefineEmits) {
-    s.appendLeft(setupOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
-  } else {
-    emitsIdentifier = `_${DEFINE_MODEL}_emit`
-    s.appendLeft(
-      setupOffset,
-      `\nconst ${emitsIdentifier} = defineEmits<{
-  ${emitsText}
-}>();`
-    )
-  }
-
-  if (hasDefineModel) {
+  if (mode === 'reactivity-transform' && hasDefineModel)
     processAssignModelVariable()
-  }
 
   return getTransformResult(s, id)
 }

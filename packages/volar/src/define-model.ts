@@ -1,4 +1,5 @@
 import { EmbeddedFileKind } from '@volar/language-core'
+import { DEFINE_MODEL, DEFINE_MODEL_DOLLAR } from '@vue-macros/common'
 import { getVueLibraryName } from './common'
 import type { Segment, SegmentWithData } from 'muggle-string'
 import type { PositionCapabilities } from '@volar/language-core'
@@ -92,7 +93,7 @@ function getTypeArg(
       !(
         ts.isCallExpression(node) &&
         ts.isIdentifier(node.expression) &&
-        node.expression.text === 'defineModel' &&
+        [DEFINE_MODEL, DEFINE_MODEL_DOLLAR].includes(node.expression.text) &&
         node.typeArguments?.length === 1
       )
     )

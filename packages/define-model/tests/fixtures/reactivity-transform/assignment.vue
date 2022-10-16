@@ -1,5 +1,5 @@
 <script setup lang="ts">
-let { modelValue, title } = defineModel<{
+let { modelValue, title } = $defineModel<{
   modelValue: string
   title: string
 }>()

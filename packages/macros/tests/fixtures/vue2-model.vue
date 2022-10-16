@@ -19,7 +19,7 @@ let { modelValue, value } = defineModel<{
 
 const handleClick = () => {
   emit('change')
-  modelValue = 'hello, ' + title
-  value = 'Word,' + title
+  modelValue.value = 'hello, ' + title
+  value.value = 'Word,' + title
 }
 </script>
