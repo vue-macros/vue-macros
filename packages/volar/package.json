@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/volar",
   "version": "0.3.0",
-  "packageManager": "pnpm@7.13.3",
+  "packageManager": "pnpm@7.13.5",
   "description": "Volar plugin for Vue Macros.",
   "keywords": [
     "unplugin",
@@ -42,15 +42,15 @@
     "dev": "tsup --watch"
   },
   "dependencies": {
-    "@volar/language-core": "^1.0.7",
+    "@volar/language-core": "^1.0.8",
     "@vue-macros/short-vmodel": "workspace:~"
   },
   "devDependencies": {
-    "@volar/vue-language-core": "^1.0.7",
+    "@volar/vue-language-core": "^1.0.8",
     "@vue-macros/common": "workspace:~",
-    "@vue/compiler-dom": "^3.2.40",
+    "@vue/compiler-dom": "^3.2.41",
     "muggle-string": "^0.1.0",
     "typescript": "^4.8.4",
-    "vue-tsc": "^1.0.7"
+    "vue-tsc": "^1.0.8"
   }
 }
