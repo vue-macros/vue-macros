@@ -1,5 +1,24 @@
 # unplugin-vue-macros
 
+## 0.13.0
+
+### Minor Changes
+
+- [#104](https://github.com/sxzz/unplugin-vue-macros/pull/104) [`97d82c6`](https://github.com/sxzz/unplugin-vue-macros/commit/97d82c62a3aad1b1158b9697ad6bd9d052c1c086) Thanks [@sxzz](https://github.com/sxzz)! - add runtime defineModel, requires `@vueuse/core`.
+
+  ⚠️ BREAKING CHANGE: original `defineModel` renamed to `$defineModel`.
+
+### Patch Changes
+
+- Updated dependencies [[`97d82c6`](https://github.com/sxzz/unplugin-vue-macros/commit/97d82c62a3aad1b1158b9697ad6bd9d052c1c086)]:
+  - @vue-macros/define-model@0.13.0
+  - unplugin-vue-define-options@0.12.1
+  - @vue-macros/define-render@0.13.1
+  - @vue-macros/hoist-static@0.12.1
+  - @vue-macros/setup-component@0.12.1
+  - @vue-macros/setup-sfc@0.12.1
+  - @vue-macros/short-emits@0.12.2
+
 ## 0.12.1
 
 ### Patch Changes
