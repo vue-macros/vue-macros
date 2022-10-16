@@ -25,6 +25,8 @@ VueMacros({
 
 ## Usage
 
+Requires [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core), install it by yourself before using.
+
 ```vue
 <script setup lang="ts">
 const { modelValue, count } = defineModel<{
@@ -65,6 +67,8 @@ Assignment expression is only supported in `<script setup>` block. In other word
 
 :::
 
+[`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) is not required.
+
 ```vue{7-9}
 <script setup lang="ts">
 let { modelValue, count } = $defineModel<{
@@ -102,14 +106,19 @@ emit('update:count', count + 1)
 
 ## Volar Configuration
 
-```jsonc{5}
+```jsonc{6,9-12}
 // tsconfig.json
 {
   "vueCompilerOptions": {
+    "target": 3,
     "plugins": [
       "@vue-macros/volar/define-model"
       // ...more feature
-    ]
+    ],
+    "defineModel": {
+      // Only works when target is 2.7.
+      "unified": true
+    }
   }
 }
 ```

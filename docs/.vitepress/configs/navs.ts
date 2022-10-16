@@ -3,6 +3,7 @@ import type { DefaultTheme } from 'vitepress'
 export const nav: DefaultTheme.NavItem[] = [
   { text: 'Guide', link: '/guide/getting-started' },
   { text: 'Macros', link: '/macros/' },
+  { text: 'Features', link: '/features/hoist-static' },
 ]
 
 export const sidebar: DefaultTheme.Sidebar = [
@@ -43,16 +44,21 @@ export const sidebar: DefaultTheme.Sidebar = [
         link: '/macros/short-vmodel',
       },
       {
-        text: 'hoistStatic',
-        link: '/macros/hoist-static',
-      },
-      {
         text: 'setupComponent',
         link: '/macros/setup-component',
       },
       {
         text: 'setupSFC',
         link: '/macros/setup-sfc',
+      },
+    ],
+  },
+  {
+    text: 'Features',
+    items: [
+      {
+        text: 'hoistStatic',
+        link: '/features/hoist-static',
       },
     ],
   },
