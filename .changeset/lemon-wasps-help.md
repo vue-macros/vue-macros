@@ -1,5 +1,5 @@
 ---
-'@vue-macros/define-render': patch
+'@vue-macros/define-render': minor
 'unplugin-vue-macros': patch
 '@vue-macros/short-emits': patch
 ---
