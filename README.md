@@ -21,7 +21,7 @@ English | [简体中文](./README-zh-CN.md)
 ## Features
 
 - ✨ Explore and extend more macros and syntax sugar to Vue.
-- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
+- 💚 Supports both Vue 2.7 and Vue 3 out-of-the-box.
 - 🦾 Full TypeScript / Volar support.
 - ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).
 

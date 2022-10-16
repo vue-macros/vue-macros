@@ -9,7 +9,7 @@ specifically to be able to set `name`, `props`, `emits` and `render` in one func
 ## Features
 
 - ✨ With this macro, you can use Options API in Vue `<script setup>`.
-- 💚 Supports both Vue 2 and Vue 3 out-of-the-box.
+- 💚 Supports both Vue 2.7 and Vue 3 out-of-the-box.
 - 🦾 Full TypeScript support.
 - ⚡️ Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 
