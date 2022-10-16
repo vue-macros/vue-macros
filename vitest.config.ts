@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { defineConfig } from 'vitest/config'
-import findWorkspacePackages from '@pnpm/find-workspace-packages'
+import { findWorkspacePackages } from '@pnpm/find-workspace-packages'
 
 const pathPackages = path.resolve(__dirname, 'packages')
 
