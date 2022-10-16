@@ -10,6 +10,7 @@ export default defineConfig({
   },
   plugins: [
     VueMacros({
+      version: 2,
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],

@@ -2,11 +2,12 @@
 import { ref } from 'vue'
 import Child from './child.vue'
 
+const value = ref(0)
 const title = ref('hello')
 </script>
 
 <template>
   <div>
-    <child :title.sync="title" />
+    <child v-model="value" :title.sync="title" />
   </div>
 </template>

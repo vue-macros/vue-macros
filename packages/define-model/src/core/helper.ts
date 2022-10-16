@@ -12,8 +12,8 @@ import { useVModel } from '@vueuse/core';
 export default (...keys) => {
   const props = getCurrentInstance().proxy.$props
   const ret = {}
-  for (const [key, eventName] of keys)
-    ret[key] = useVModel(props, key, undefined, { eventName })
+  for (const [key, prop, eventName] of keys)
+    ret[key] = useVModel(props, prop, undefined, { eventName })
   return ret
 }
 `

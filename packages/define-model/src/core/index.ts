@@ -380,7 +380,7 @@ export const transformDefineModel = (
 
       const names = Object.keys(map)
       const text = `_DM_useVModel(${names
-        .map((n) => `['${getPropKey(n)}', '${getEventKey(n)}']`)
+        .map((n) => `['${n}', '${getPropKey(n)}', '${getEventKey(n)}']`)
         .join(', ')})`
       s.overwriteNode(modelDecl!, text, { offset: setupOffset })
     }
