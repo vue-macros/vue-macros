@@ -1,8 +1,14 @@
 import { createUnplugin } from 'unplugin'
-import { createFilter } from '@rollup/pluginutils'
+import { createFilter, normalizePath } from '@rollup/pluginutils'
 import { REGEX_SETUP_SFC, REGEX_VUE_SFC } from '@vue-macros/common'
 import { transformDefineModel } from './core'
-import { emitHelperCode, emitHelperId } from './core/helper'
+import {
+  emitHelperCode,
+  emitHelperId,
+  helperPrefix,
+  useVmodelHelperCode,
+  useVmodelHelperId,
+} from './core/helper'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -38,15 +44,17 @@ export default createUnplugin((userOptions: Options = {}) => {
     enforce: 'pre',
 
     resolveId(id) {
-      if (id === emitHelperId) return id
+      if (id.startsWith(helperPrefix)) return id
     },
 
     loadInclude(id) {
-      return id === emitHelperId
+      return id.startsWith(helperPrefix)
     },
 
-    load() {
-      return emitHelperCode
+    load(_id) {
+      const id = normalizePath(_id)
+      if (id === emitHelperId) return emitHelperCode
+      else if (id === useVmodelHelperId) return useVmodelHelperCode
     },
 
     transformInclude(id) {

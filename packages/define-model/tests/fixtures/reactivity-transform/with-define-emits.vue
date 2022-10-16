@@ -1,11 +1,11 @@
 <script setup lang="ts">
-let { modelValue } = defineModel<{
+const { modelValue } = $defineModel<{
   modelValue: string
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   (evt: 'change'): void
 }>()
 
-modelValue = '1'
+emit('change')
 </script>

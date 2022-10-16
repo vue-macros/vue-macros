@@ -67,6 +67,14 @@
     "build": "tsup && tsx ../../scripts/postbuild.mts",
     "dev": "DEV=1 tsup"
   },
+  "peerDependencies": {
+    "@vueuse/core": "^9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vueuse/core": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",
     "@vue-macros/common": "workspace:*",

@@ -28,7 +28,7 @@ export const RollupRemoveVueFilePathPlugin = (): Plugin => {
 export async function rollupBuild(file: string, plugins: Plugin[]) {
   const bundle = await rollup({
     input: [file],
-    external: ['vue'],
+    external: ['vue', '@vueuse/core'],
     plugins,
     treeshake: false,
   })

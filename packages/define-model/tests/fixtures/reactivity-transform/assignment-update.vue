@@ -1,5 +1,5 @@
 <script setup lang="ts">
-let { count } = defineModel<{
+let { count } = $defineModel<{
   count: number
 }>()
 

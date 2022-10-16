@@ -8,8 +8,8 @@ import { SetupComponentFoo } from './examples/setup-component'
 import { SetupComponentType } from './examples/setup-component/types'
 
 import SetupSFC from './examples/setup-sfc/index.setup'
+import ShortVmodel from './examples/short-vmodel/parent.vue'
 import Full from './examples/full.setup'
-import ShortVmodel from './examples/short-vmodel.vue'
 </script>
 
 <template>
@@ -52,6 +52,6 @@ import ShortVmodel from './examples/short-vmodel.vue'
 
   <fieldset>
     <legend>Full example</legend>
-    <Full />
+    <Full model-value="123" />
   </fieldset>
 </template>

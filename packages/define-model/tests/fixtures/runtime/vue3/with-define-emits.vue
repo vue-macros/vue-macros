@@ -8,4 +8,5 @@ const emit = defineEmits<{
 }>()
 
 emit('change')
+modelValue.value = 'hello'
 </script>

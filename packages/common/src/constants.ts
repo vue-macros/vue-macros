@@ -2,6 +2,7 @@ export const DEFINE_PROPS = 'defineProps'
 export const DEFINE_EMITS = 'defineEmits'
 export const DEFINE_OPTIONS = 'defineOptions'
 export const DEFINE_MODEL = 'defineModel'
+export const DEFINE_MODEL_DOLLAR = '$defineModel'
 export const DEFINE_SETUP_COMPONENT = 'defineSetupComponent'
 export const DEFINE_RENDER = 'defineRender'
 
