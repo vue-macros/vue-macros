@@ -18,7 +18,9 @@
       "@vue-macros/volar/define-model",
       "@vue-macros/volar/short-vmodel"
     ],
-    "shortVmodelPrefix": "$"
+    "shortVmodel": {
+      "prefix": "$"
+    }
   },
   "include": ["src", "*"]
 }

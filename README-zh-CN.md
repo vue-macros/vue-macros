@@ -144,7 +144,9 @@ npm i -D @vue-macros/volar
       "@vue-macros/volar/short-vmodel"
     ],
     // `shortVmodel` 特性的 prefix
-    "shortVmodelPrefix": "$"
+    "shortVmodel": {
+      "prefix": "$"
+    }
   }
 }
 ```

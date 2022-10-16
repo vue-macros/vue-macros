@@ -9,7 +9,7 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
       options.nodeTransforms ||= []
       options.nodeTransforms.push(
         transformShortVmodel({
-          prefix: (vueCompilerOptions as any)?.shortVmodelPrefix ?? '$',
+          prefix: (vueCompilerOptions as any)?.shortVmodel?.prefix ?? '$',
         })
       )
       return options

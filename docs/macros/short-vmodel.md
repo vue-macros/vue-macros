@@ -96,7 +96,9 @@ export default defineConfig({
       // ...
     ],
     // prefix
-    "shortVmodelPrefix": "$"
+    "shortVmodel": {
+      "prefix": "$"
+    }
   }
 }
 ```
