@@ -1,5 +1,11 @@
 # @vue-macros/define-render
 
+## 0.13.2
+
+### Patch Changes
+
+- [`b00600a`](https://github.com/sxzz/unplugin-vue-macros/commit/b00600a64ec39381613d2b9b069d82e82b1a39e6) Thanks [@sxzz](https://github.com/sxzz)! - add missing dts file
+
 ## 0.13.1
 
 ### Patch Changes
