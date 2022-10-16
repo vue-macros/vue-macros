@@ -81,7 +81,7 @@ importers:
     specifiers:
       '@babel/types': ^7.19.3
       '@rollup/pluginutils': ^4.2.1
-      '@vue-macros/common': workspace:*
+      '@vue-macros/common': workspace:~
       ast-walker-scope: ^0.2.3
       fast-glob: ^3.2.12
       tsup: ^6.2.3
@@ -106,7 +106,7 @@ importers:
     specifiers:
       '@babel/types': ^7.19.3
       '@rollup/pluginutils': ^4.2.1
-      '@vue-macros/common': workspace:*
+      '@vue-macros/common': workspace:~
       ast-walker-scope: ^0.2.3
       fast-glob: ^3.2.12
       rollup: ^2.79.1
@@ -133,7 +133,7 @@ importers:
     specifiers:
       '@babel/types': ^7.19.3
       '@rollup/pluginutils': ^4.2.1
-      '@vue-macros/common': workspace:*
+      '@vue-macros/common': workspace:~
       fast-glob: ^3.2.12
       tsup: ^6.2.3
       tsx: ^3.9.0
@@ -156,7 +156,7 @@ importers:
     specifiers:
       '@babel/types': ^7.19.3
       '@rollup/pluginutils': ^4.2.1
-      '@vue-macros/common': workspace:*
+      '@vue-macros/common': workspace:~
       fast-glob: ^3.2.12
       tsup: ^6.2.3
       tsx: ^3.9.0
@@ -212,7 +212,7 @@ importers:
     specifiers:
       '@babel/types': ^7.19.3
       '@rollup/pluginutils': ^4.2.1
-      '@vue-macros/common': workspace:*
+      '@vue-macros/common': workspace:~
       fast-glob: ^3.2.12
       rollup: ^2.79.1
       tsup: ^6.2.3
@@ -237,7 +237,7 @@ importers:
     specifiers:
       '@babel/types': ^7.19.3
       '@rollup/pluginutils': ^4.2.1
-      '@vue-macros/common': workspace:*
+      '@vue-macros/common': workspace:~
       fast-glob: ^3.2.12
       rollup: ^2.79.1
       tsup: ^6.2.3
@@ -262,7 +262,7 @@ importers:
     specifiers:
       '@babel/types': ^7.19.3
       '@rollup/pluginutils': ^4.2.1
-      '@vue-macros/common': workspace:*
+      '@vue-macros/common': workspace:~
       fast-glob: ^3.2.12
       tsup: ^6.2.3
       tsx: ^3.9.0
@@ -281,7 +281,7 @@ importers:
 
   packages/short-vmodel:
     specifiers:
-      '@vue-macros/common': workspace:*
+      '@vue-macros/common': workspace:~
       '@vue/compiler-core': ^3.2.40
       '@vue/compiler-sfc': ^3.2.40
       fast-glob: ^3.2.12
@@ -319,8 +319,8 @@ importers:
     specifiers:
       '@volar/language-core': ^1.0.7
       '@volar/vue-language-core': ^1.0.7
-      '@vue-macros/common': workspace:*
-      '@vue-macros/short-vmodel': workspace:*
+      '@vue-macros/common': workspace:~
+      '@vue-macros/short-vmodel': workspace:~
       '@vue/compiler-dom': ^3.2.40
       muggle-string: ^0.1.0
       typescript: ^4.8.4
@@ -341,7 +341,7 @@ importers:
       '@rollup/plugin-node-resolve': ^14.1.0
       '@vitejs/plugin-vue2': ^2.0.0
       '@vitejs/plugin-vue2-jsx': ^1.0.3
-      '@vue-macros/volar': workspace:^
+      '@vue-macros/volar': workspace:*
       '@vueuse/core': ^9.3.0
       esbuild: ^0.15.10
       npm-run-all: ^4.1.5
@@ -378,8 +378,8 @@ importers:
       '@rollup/plugin-node-resolve': ^14.1.0
       '@vitejs/plugin-vue': ^3.1.2
       '@vitejs/plugin-vue-jsx': ^2.0.1
-      '@vue-macros/short-vmodel': workspace:^
-      '@vue-macros/volar': workspace:^
+      '@vue-macros/short-vmodel': workspace:*
+      '@vue-macros/volar': workspace:*
       '@vueuse/core': ^9.3.0
       esbuild: ^0.15.10
       npm-run-all: ^4.1.5
