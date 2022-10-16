@@ -1,5 +1,13 @@
 # @vue-macros/volar
 
+## 0.3.0
+
+### Minor Changes
+
+- [`901bbe3`](https://github.com/sxzz/unplugin-vue-macros/commit/901bbe36148ff664462c9332d7bafb52bdade1ba) Thanks [@sxzz](https://github.com/sxzz)! - ⚠️ BREAKING: rename `shortVmodelPrefix` to `shortVmodel.prefix`
+
+- [`e1db377`](https://github.com/sxzz/unplugin-vue-macros/commit/e1db377fd2d2a1bd32da648454aa834cc17143cb) Thanks [@sxzz](https://github.com/sxzz)! - support unified defineModel
+
 ## 0.2.0
 
 ### Minor Changes
