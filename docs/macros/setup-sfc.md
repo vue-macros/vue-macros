@@ -1,10 +1,4 @@
-# setupSFC
-
-::: warning
-
-Under experimental, use at your risk!
-
-:::
+# setupSFC <WarnBadge>Experimental, use at your risk</WarnBadge>
 
 ::: tip
 

@@ -20,7 +20,7 @@ features:
     details: Explore and extend more macros and syntax sugar to Vue.
   - icon: 💚
     title: Out-of-the-box and good compatibility
-    details: Supports both Vue 2 and Vue 3 out-of-the-box.
+    details: Supports both Vue 2.7 and Vue 3 out-of-the-box.
   - icon: 🦾
     title: Type Safe
     details: Full TypeScript and Volar support.

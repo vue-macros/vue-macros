@@ -1,8 +1,8 @@
-# setupComponent
+# setupComponent <WarnBadge>Experimental, use at your risk</WarnBadge>
 
-::: warning
+::: tip
 
-Under experimental, use at your risk!
+If you're using `setupComponent`, then `defineRender` cannot be disabled.
 
 :::
 

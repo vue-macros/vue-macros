@@ -1,5 +1,13 @@
 # Getting Started
 
+## Requirements
+
+- Developers who are familiar with Vue.
+- Vue 2.7 or Vue >= 3.0.
+  - Some features need Vue >= 3.2.25.
+- VSCode with Volar.
+  - ❌ WebStorm is not supported.
+
 ## Bundler integrations
 
 ### Installation
@@ -120,6 +128,10 @@ module.exports = {
 
 ## TypeScript Support
 
+:::: code-group
+
+::: code-group-item Vue 3
+
 ```json
 // tsconfig.json
 {
@@ -129,6 +141,24 @@ module.exports = {
   }
 }
 ```
+
+:::
+
+::: code-group-item Vue 2
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    // ...
+    "types": ["unplugin-vue-macros/vue2-macros-global" /* ... */]
+  }
+}
+```
+
+:::
+
+::::
 
 ## Volar Support
 
@@ -152,6 +182,6 @@ npm i -D @vue-macros/volar
 }
 ```
 
-:tada: Congratulations! You have successfully set up unplugin-vue-macros.
+:tada: Congratulations! You have successfully set up `unplugin-vue-macros`.
 
 To learn more about the macros, please visit [All Macros](/macros/) :laughing:.
