@@ -2,67 +2,67 @@
 
 exports[`fixtures > ./fixtures/reactivity-transform/assignment.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emit from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue, title } = defineProps<{
     modelValue: string
 title: string
   }>();
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:title', value: string): void
   }>();
 
 
-_DM_emit(_defineModel_emit, 'update:modelValue', _DM_emit(_defineModel_emit, 'update:title', '123'))
+_DM_emitHelper(_DM_emit, 'update:modelValue', _DM_emitHelper(_DM_emit, 'update:title', '123'))
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/reactivity-transform/assignment-update.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emit from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 let { count } = defineProps<{
     count: number
   }>();
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:count', value: number): void
   }>();
 
 
-_DM_emit(_defineModel_emit, 'update:count', count + 1, count)
-_DM_emit(_defineModel_emit, 'update:count', count - 1, count)
-_DM_emit(_defineModel_emit, 'update:count', count + 1)
-_DM_emit(_defineModel_emit, 'update:count', count - 1)
-_DM_emit(_defineModel_emit, 'update:count', 1)
-_DM_emit(_defineModel_emit, 'update:count', count + 1)
-_DM_emit(_defineModel_emit, 'update:count', count - 1)
-_DM_emit(_defineModel_emit, 'update:count', count * 1)
-_DM_emit(_defineModel_emit, 'update:count', count / 1)
+_DM_emitHelper(_DM_emit, 'update:count', count + 1, count)
+_DM_emitHelper(_DM_emit, 'update:count', count - 1, count)
+_DM_emitHelper(_DM_emit, 'update:count', count + 1)
+_DM_emitHelper(_DM_emit, 'update:count', count - 1)
+_DM_emitHelper(_DM_emit, 'update:count', 1)
+_DM_emitHelper(_DM_emit, 'update:count', count + 1)
+_DM_emitHelper(_DM_emit, 'update:count', count - 1)
+_DM_emitHelper(_DM_emit, 'update:count', count * 1)
+_DM_emitHelper(_DM_emit, 'update:count', count / 1)
 
-_DM_emit(_defineModel_emit, 'update:count', count + 1)
+_DM_emitHelper(_DM_emit, 'update:count', count + 1)
 
-const additionAssignment = () => (_DM_emit(_defineModel_emit, 'update:count', count + 1))
-const increment = () => _DM_emit(_defineModel_emit, 'update:count', count + 1, count)
-const add = () => (_DM_emit(_defineModel_emit, 'update:count', count + 1))
+const additionAssignment = () => (_DM_emitHelper(_DM_emit, 'update:count', count + 1))
+const increment = () => _DM_emitHelper(_DM_emit, 'update:count', count + 1, count)
+const add = () => (_DM_emitHelper(_DM_emit, 'update:count', count + 1))
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/reactivity-transform/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emit from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 var { modelValue } = defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
 
 
 console.log(modelValue)
-_DM_emit(_defineModel_emit, 'update:modelValue', 'newValue')
+_DM_emitHelper(_DM_emit, 'update:modelValue', 'newValue')
 </script>
 
 <template>
@@ -79,7 +79,7 @@ let { modelValue } = defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -94,7 +94,7 @@ defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -122,7 +122,7 @@ emit('change')
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emit from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue } = defineProps<{
     modelValue: string
   }>();
@@ -134,7 +134,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 }>()
 
 {
-  _DM_emit(emit, 'update:modelValue', 'hello')
+  _DM_emitHelper(emit, 'update:modelValue', 'hello')
   emit('change')
 
   {
@@ -148,7 +148,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits-no-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emit from '/plugin-define-model/emit-helper';
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue } = defineProps<{
     modelValue: string
   }>();
@@ -159,14 +159,14 @@ const _defineModel_emit = defineEmits<{(evt: 'update:modelValue', value: string)
   (evt: 'change'): void
 }>()
 
-_DM_emit(_defineModel_emit, 'update:modelValue', '1')
+_DM_emitHelper(_defineModel_emit, 'update:modelValue', '1')
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -183,7 +183,7 @@ visible: boolean
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -200,7 +200,7 @@ visible: boolean
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-empty.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -215,7 +215,7 @@ visible: boolean
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-ref.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -234,7 +234,7 @@ defineProps<Props>()
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-rest.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _defineModel_emit = defineEmits<{
+const _DM_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -362,7 +362,7 @@ defineProps<{
     modelValue: string
 title: string
   }>();
-const _defineModel_emit = defineEmits<{
+defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:title', value: string): void
   }>();
@@ -380,7 +380,7 @@ defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _defineModel_emit = defineEmits<{
+defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -403,7 +403,7 @@ defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _defineModel_emit = defineEmits<{
+defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -420,7 +420,7 @@ defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _defineModel_emit = defineEmits<{
+defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -436,7 +436,7 @@ defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _defineModel_emit = defineEmits<{
+defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -469,7 +469,7 @@ modelValue.value = 'hello'
 exports[`fixtures > ./fixtures/runtime/vue3/with-define-props.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';
-const _defineModel_emit = defineEmits<{
+defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -487,7 +487,7 @@ visible: boolean
 exports[`fixtures > ./fixtures/runtime/vue3/with-define-props-empty.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';
-const _defineModel_emit = defineEmits<{
+defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -503,7 +503,7 @@ visible: boolean
 exports[`fixtures > ./fixtures/runtime/vue3/with-define-props-ref.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';
-const _defineModel_emit = defineEmits<{
+defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
