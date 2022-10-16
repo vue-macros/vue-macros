@@ -1,5 +1,11 @@
 # @vue-macros/define-model
 
+## 0.13.1
+
+### Patch Changes
+
+- [`ac603d0`](https://github.com/sxzz/unplugin-vue-macros/commit/ac603d0018637a615133899940f5ca8bd76b7435) Thanks [@sxzz](https://github.com/sxzz)! - add unified
+
 ## 0.13.0
 
 ### Minor Changes

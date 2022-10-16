@@ -1,5 +1,17 @@
 # unplugin-vue-macros
 
+## 0.13.1
+
+### Patch Changes
+
+- [`ac603d0`](https://github.com/sxzz/unplugin-vue-macros/commit/ac603d0018637a615133899940f5ca8bd76b7435) Thanks [@sxzz](https://github.com/sxzz)! - add unified
+
+- [`b00600a`](https://github.com/sxzz/unplugin-vue-macros/commit/b00600a64ec39381613d2b9b069d82e82b1a39e6) Thanks [@sxzz](https://github.com/sxzz)! - add missing dts file
+
+- Updated dependencies [[`ac603d0`](https://github.com/sxzz/unplugin-vue-macros/commit/ac603d0018637a615133899940f5ca8bd76b7435), [`b00600a`](https://github.com/sxzz/unplugin-vue-macros/commit/b00600a64ec39381613d2b9b069d82e82b1a39e6)]:
+  - @vue-macros/define-model@0.13.1
+  - @vue-macros/define-render@0.13.2
+
 ## 0.13.0
 
 ### Minor Changes
