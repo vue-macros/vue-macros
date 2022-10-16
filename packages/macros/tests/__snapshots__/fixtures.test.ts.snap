@@ -7,8 +7,8 @@ import { useVModel } from '@vueuse/core';
 var _DM_useVModel = (...keys) => {
   const props = getCurrentInstance().proxy.$props;
   const ret = {};
-  for (const [key, eventName] of keys)
-    ret[key] = useVModel(props, key, undefined, { eventName });
+  for (const [key, prop, eventName] of keys)
+    ret[key] = useVModel(props, prop, undefined, { eventName });
   return ret
 };
 
@@ -25,7 +25,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   emits: [\\"update:modelValue\\", \\"change\\"],
   setup(__props, { emit }) {
     const { title } = __props;
-    let { modelValue } = _DM_useVModel([\\"modelValue\\", \\"update:modelValue\\"]);
+    let { modelValue } = _DM_useVModel([\\"modelValue\\", \\"modelValue\\", \\"update:modelValue\\"]);
     const handleClick = () => {
       emit(\\"change\\");
       modelValue.value = \\"hello, \\" + title;
@@ -149,8 +149,8 @@ import { useVModel } from '@vueuse/core';
 var _DM_useVModel = (...keys) => {
   const props = getCurrentInstance().proxy.$props;
   const ret = {};
-  for (const [key, eventName] of keys)
-    ret[key] = useVModel(props, key, undefined, { eventName });
+  for (const [key, prop, eventName] of keys)
+    ret[key] = useVModel(props, prop, undefined, { eventName });
   return ret
 };
 
@@ -170,7 +170,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   emits: [\\"input\\", \\"changeInput\\", \\"change\\"],
   setup(__props, { emit }) {
     const { title } = __props;
-    let { modelValue, value } = _DM_useVModel([\\"value\\", \\"input\\"], [\\"value\\", \\"changeInput\\"]);
+    let { modelValue, value } = _DM_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"], [\\"value\\", \\"value\\", \\"changeInput\\"]);
     const handleClick = () => {
       emit(\\"change\\");
       modelValue.value = \\"hello, \\" + title;

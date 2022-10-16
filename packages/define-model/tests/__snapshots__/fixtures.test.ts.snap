@@ -254,7 +254,7 @@ console.log(props)
 exports[`fixtures > ./fixtures/runtime/vue2/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';
-let { value, title } = _DM_useVModel(['value', 'input'], ['title', 'update:title'])
+let { value, title } = _DM_useVModel(['value', 'value', 'input'], ['title', 'title', 'update:title'])
 
 const { id } = defineProps<{value: string
 title: string
@@ -291,7 +291,7 @@ export default {
 </script>
 <script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';
-let { value, title } = _DM_useVModel(['value', 'changeInput'], ['title', 'update:title'])
+let { value, title } = _DM_useVModel(['value', 'value', 'changeInput'], ['title', 'title', 'update:title'])
 
 const { id } = defineProps<{value: string
 title: string
@@ -329,7 +329,7 @@ export default defineComponent({
 </script>
 <script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';
-let { value, title } = _DM_useVModel(['value', 'changeInput'], ['title', 'update:title'])
+let { value, title } = _DM_useVModel(['value', 'value', 'changeInput'], ['title', 'title', 'update:title'])
 
 const { id } = defineProps<{value: string
 title: string
@@ -364,7 +364,7 @@ defineProps<{
 defineEmits<{
     (evt: 'input', value: string): void
   }>();
-const { modelValue } = _DM_useVModel(['value', 'input'])
+const { modelValue } = _DM_useVModel(['modelValue', 'value', 'input'])
 
 modelValue.value = 'hello'
 </script>
@@ -382,7 +382,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:title', value: string): void
   }>();
-const { modelValue, title } = _DM_useVModel(['modelValue', 'update:modelValue'], ['title', 'update:title'])
+const { modelValue, title } = _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['title', 'title', 'update:title'])
 
 modelValue.value = title.value = '123'
 </script>
@@ -400,7 +400,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+const { modelValue } = _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['visible', 'visible', 'update:visible'])
 
 console.log(modelValue.value)
 modelValue.value = 'newValue'
@@ -424,7 +424,7 @@ defineEmits<{
 (evt: 'update:visible', value: boolean): void
   }>();
 const a = 'b',
-  { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+  { modelValue } = _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['visible', 'visible', 'update:visible'])
 </script>
 "
 `;
@@ -440,7 +440,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-_DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+_DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['visible', 'visible', 'update:visible'])
 </script>
 "
 `;
@@ -456,7 +456,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-const { ...rest } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+const { ...rest } = _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['visible', 'visible', 'update:visible'])
 
 rest.modelValue.value = 'foo'
 </script>
@@ -469,7 +469,7 @@ import _DM_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     modelValue: string
   }>();
-const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'])
+const { modelValue } = _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'])
 
 const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 
@@ -489,7 +489,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+const { modelValue } = _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['visible', 'visible', 'update:visible'])
 
 defineProps<{modelValue: string
 visible: boolean
@@ -507,7 +507,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+const { modelValue } = _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['visible', 'visible', 'update:visible'])
 
 defineProps< {modelValue: string
 visible: boolean
@@ -531,7 +531,7 @@ visible: boolean
 
 defineProps<Props>()
 
-const { modelValue } = _DM_useVModel(['modelValue', 'update:modelValue'], ['visible', 'update:visible'])
+const { modelValue } = _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['visible', 'visible', 'update:visible'])
 </script>
 "
 `;
