@@ -1,21 +1,36 @@
-import { describe, expect, test } from 'vitest'
-import { transformHoistStatic } from '../src/core'
+import { resolve } from 'node:path'
+import { describe, expect, it } from 'vitest'
+import glob from 'fast-glob'
+import {
+  RollupEsbuildPlugin,
+  RollupRemoveVueFilePathPlugin,
+  RollupVue,
+  RollupVueJsx,
+  rollupBuild,
+} from '@vue-macros/test-utils'
+import VueNamedTemplate from '../src/rollup'
 
-describe('fixtures', () => {
-  const files = import.meta.glob('./fixtures/*.{vue,js,ts}', {
-    eager: true,
-    as: 'raw',
+describe('named-template', async () => {
+  const root = resolve(__dirname, '..')
+  const files = await glob('tests/fixtures/*.vue', {
+    cwd: root,
+    onlyFiles: true,
   })
 
-  for (const [id, code] of Object.entries(files)) {
-    test(id.replace(/\\/g, '/'), () => {
-      const exec = () => transformHoistStatic(code, id)?.code
+  for (const file of files) {
+    it(file.replace(/\\/g, '/'), async () => {
+      const filepath = resolve(root, file)
 
-      if (id.includes('error')) {
-        expect(exec).toThrowErrorMatchingSnapshot()
-      } else {
-        expect(exec()).toMatchSnapshot()
-      }
+      const code = await rollupBuild(filepath, [
+        VueNamedTemplate(),
+        RollupVue(),
+        RollupVueJsx(),
+        RollupRemoveVueFilePathPlugin(),
+        RollupEsbuildPlugin({
+          target: 'esnext',
+        }),
+      ])
+      expect(code).toMatchSnapshot()
     })
   }
 })

@@ -1,11 +1,13 @@
 <script setup lang="ts">
-const foo = 'foo'
+const msg = 'foo'
+console.log(msg)
 </script>
 
 <template name="test">
-  <div>Test</div>
+  {{ msg }}
 </template>
 
 <template>
+  <div>Test</div>
   <template is="test" />
 </template>
