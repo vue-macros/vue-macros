@@ -188,7 +188,7 @@ importers:
       tsup: ^6.2.3
       tsx: ^3.10.1
       unplugin: ^0.9.6
-      unplugin-combine: ^0.2.3
+      unplugin-combine: ^0.2.4
       unplugin-vue-define-options: workspace:*
       vue: ^3.2.41
     dependencies:
@@ -201,7 +201,7 @@ importers:
       '@vue-macros/setup-sfc': link:../setup-sfc
       '@vue-macros/short-emits': link:../short-emits
       local-pkg: 0.4.2
-      unplugin-combine: 0.2.3
+      unplugin-combine: 0.2.4
       unplugin-vue-define-options: link:../define-options
     devDependencies:
       fast-glob: 3.2.12
@@ -221,7 +221,7 @@ importers:
       tsup: ^6.2.3
       tsx: ^3.10.1
       unplugin: ^0.9.6
-      unplugin-combine: ^0.2.3
+      unplugin-combine: ^0.2.4
       vite: ^3.1.8
       vue: ^3.2.41
     dependencies:
@@ -230,7 +230,7 @@ importers:
       '@vue-macros/common': link:../common
       '@vue/compiler-dom': 3.2.41
       unplugin: 0.9.6
-      unplugin-combine: 0.2.3_vite@3.1.8
+      unplugin-combine: 0.2.4_vite@3.1.8
     devDependencies:
       '@babel/types': 7.19.4
       fast-glob: 3.2.12
@@ -329,8 +329,10 @@ importers:
 
   packages/test-utils:
     specifiers:
+      '@types/prettier': ^2.7.1
       '@vitejs/plugin-vue-jsx': ^2.0.1
       esbuild: ^0.15.11
+      prettier: ^2.7.1
       rollup: ^2.79.1
       rollup-plugin-esbuild: ^4.10.1
       unplugin-vue: ^3.1.3
@@ -339,10 +341,12 @@ importers:
     dependencies:
       '@vitejs/plugin-vue-jsx': 2.0.1_vite@3.1.8+vue@3.2.41
       esbuild: 0.15.11
+      prettier: 2.7.1
       rollup: 2.79.1
       rollup-plugin-esbuild: 4.10.1_26fn44kgnn4dbpw7vpa7kndfqm
       unplugin-vue: 3.1.3_vite@3.1.8+vue@3.2.41
     devDependencies:
+      '@types/prettier': 2.7.1
       vite: 3.1.8
       vue: 3.2.41
 
@@ -574,7 +578,6 @@ packages:
 
   /@antfu/utils/0.5.2:
     resolution: {integrity: sha512-CQkeV+oJxUazwjlHD0/3ZD08QWKuGQkhnrKo3e6ly5pd48VUpXbb77q0xMU4+vc2CkJnDS02Eq/M9ugyX20XZA==}
-    dev: true
 
   /@arcanis/slice-ansi/1.1.1:
     resolution: {integrity: sha512-xguP2WR2Dv0gQ7Ykbdb7BNCnPnIPB94uTi0Z2NvkRBEnhbwjOQ7QyQKJXrVQg4qDpiD9hA5l5cCwy/z2OXgc3w==}
@@ -2486,6 +2489,10 @@ packages:
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
+    dev: true
+
+  /@types/prettier/2.7.1:
+    resolution: {integrity: sha512-ri0UmynRRvZiiUJdiz38MmIblKK+oH30MztdBVR95dv/Ubw6neWSb8u1XpRb72L4qsZOhz+L+z9JD40SJmfWow==}
     dev: true
 
   /@types/resolve/1.17.1:
@@ -6999,7 +7006,6 @@ packages:
     resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-    dev: true
 
   /pretty-bytes/5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
@@ -8275,8 +8281,8 @@ packages:
       - vite
     dev: true
 
-  /unplugin-combine/0.2.3:
-    resolution: {integrity: sha512-B9n+MT7ivN47Adppx2s4OYIC3jFCR9a7ebaDZP1IZHhzCRQUaNkilOGH/8kHVgetw+nzTOm8fuLw+jaQ7DTq1A==}
+  /unplugin-combine/0.2.4:
+    resolution: {integrity: sha512-W1oyK+KnxBOKuZiEgejpWpYd1uWxSRGWCK0Z4Z8UziAb/E11Z/XNlImUVmJ307X+s2FkGIr5My32JWq+wMETdA==}
     engines: {node: '>=14.19.0'}
     peerDependencies:
       esbuild: '>=0.13'
@@ -8293,11 +8299,12 @@ packages:
       webpack:
         optional: true
     dependencies:
+      '@antfu/utils': 0.5.2
       unplugin: 0.9.6
     dev: false
 
-  /unplugin-combine/0.2.3_vite@3.1.8:
-    resolution: {integrity: sha512-B9n+MT7ivN47Adppx2s4OYIC3jFCR9a7ebaDZP1IZHhzCRQUaNkilOGH/8kHVgetw+nzTOm8fuLw+jaQ7DTq1A==}
+  /unplugin-combine/0.2.4_vite@3.1.8:
+    resolution: {integrity: sha512-W1oyK+KnxBOKuZiEgejpWpYd1uWxSRGWCK0Z4Z8UziAb/E11Z/XNlImUVmJ307X+s2FkGIr5My32JWq+wMETdA==}
     engines: {node: '>=14.19.0'}
     peerDependencies:
       esbuild: '>=0.13'
@@ -8314,6 +8321,7 @@ packages:
       webpack:
         optional: true
     dependencies:
+      '@antfu/utils': 0.5.2
       unplugin: 0.9.6
       vite: 3.1.8
     dev: false

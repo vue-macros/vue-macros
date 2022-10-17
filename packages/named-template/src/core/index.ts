@@ -8,13 +8,19 @@ import {
 } from '@vue-macros/common'
 import { createTransformContext, parse, traverseNode } from '@vue/compiler-dom'
 import { parseVueRequest } from '@vitejs/plugin-vue'
-import { QUERY_NAMED_TEMPLATE } from './constants'
-import type { CallExpression, Identifier, Node } from '@babel/types'
-import type { FileTemplateContext } from '..'
+import {
+  MAIN_TEMPLATE,
+  QUERY_NAMED_TEMPLATE,
+  QUERY_TEMPLATE_MAIN,
+} from './constants'
+import { getChildrenLocation } from './utils'
+import type { CallExpression, Identifier, Node, Program } from '@babel/types'
+import type { CustomBlocks, TemplateContent } from '..'
 import type {
   AttributeNode,
   ElementNode,
   NodeTransform,
+  RootNode,
 } from '@vue/compiler-dom'
 
 export const transformTemplateIs =
@@ -37,25 +43,27 @@ export const transformTemplateIs =
     )
   }
 
-export const transformSubTemplates = (
+export const preTransform = (
   code: string,
   id: string,
-  fileTemplateContext: FileTemplateContext
+  templateContent: TemplateContent
 ) => {
   const root = parse(code)
 
+  const templates = root.children.filter(
+    (node): node is ElementNode =>
+      node.type === 1 /* NodeTypes.ELEMENT */ && node.tag === 'template'
+  )
+  if (templates.length <= 1) return
+
   const s = new MagicString(code)
-
-  for (const node of root.children) {
-    if (node.type !== 1 /* NodeTypes.ELEMENT */ || node.tag !== 'template')
-      continue
-
+  for (const node of templates) {
     const propName = node.props.find(
       (prop): prop is AttributeNode =>
         prop.type === 6 /* NodeTypes.ATTRIBUTE */ && prop.name === 'name'
     )
     if (!propName) {
-      transformMainTemplate(node)
+      preTransformMainTemplate(s, root, node, id, templateContent)
       continue
     } else if (!propName.value) {
       continue
@@ -64,44 +72,86 @@ export const transformSubTemplates = (
     const name = propName.value.content
 
     let template = ''
-    if (node.children.length > 0) {
-      const lastChild = node.children[node.children.length - 1]
-      template = s.slice(
-        node.children[0].loc.start.offset,
-        lastChild.loc.end.offset
-      )
+    const templateLoc = getChildrenLocation(node)
+    if (templateLoc) {
+      template = s.slice(...templateLoc)
     }
 
-    if (!fileTemplateContext[id]) fileTemplateContext[id] = {}
-    fileTemplateContext[id][name] = template
+    if (!templateContent[id]) templateContent[id] = {}
+    templateContent[id][name] = template
 
     s.appendLeft(node.loc.start.offset, `<named-template name="${name}">`)
     s.appendLeft(node.loc.end.offset, '</named-template>')
   }
 
   return getTransformResult(s, id)
-
-  function transformMainTemplate(node: ElementNode) {
-    const ctx = createTransformContext(root, {
-      filename: id,
-      nodeTransforms: [transformTemplateIs(s)],
-    })
-    traverseNode(node, ctx)
-  }
 }
 
-export const transformMainTemplate = (code: string, id: string) => {
+function preTransformMainTemplate(
+  s: MagicString,
+  root: RootNode,
+  node: ElementNode,
+  id: string,
+  templateContent: TemplateContent
+) {
+  const ctx = createTransformContext(root, {
+    filename: id,
+    nodeTransforms: [transformTemplateIs(s)],
+  })
+  traverseNode(node, ctx)
+
+  const loc = getChildrenLocation(node)
+  if (!loc) return
+
+  if (!templateContent[id]) templateContent[id] = {}
+  templateContent[id][MAIN_TEMPLATE] = s.slice(...loc)
+
+  s.remove(...loc)
+  const offset = node.loc.start.offset + 1 /* < */ + node.tag.length
+  s.appendLeft(offset, ` src="${id}?vue&${QUERY_TEMPLATE_MAIN}"`)
+}
+
+export const postTransform = (
+  code: string,
+  id: string,
+  customBlocks: CustomBlocks
+) => {
   const lang = getLang(id)
   const program = babelParse(code, lang)
+  const { filename } = parseVueRequest(id)
+
+  if (!id.includes(QUERY_TEMPLATE_MAIN)) {
+    postTransformMainEntry(program, filename, customBlocks)
+    return
+  }
+
+  const s = new MagicString(code)
   const subTemplates: {
     name: string
     vnode: CallExpression
     component: Node
     fnName: string
   }[] = []
-  const customBlocks: Record<string, string> = {}
 
-  const s = new MagicString(code)
+  for (const node of program.body) {
+    if (
+      node.type === 'ExportNamedDeclaration' &&
+      node.declaration?.type === 'FunctionDeclaration' &&
+      node.declaration.id?.name === 'render'
+    ) {
+      const params = node.declaration.params
+      if (params.length > 0) {
+        const lastParams = params[node.declaration.params.length - 1]
+        const loc = [params[0].start!, lastParams.end!] as const
+        const paramsText = s.slice(...loc)
+        s.overwrite(...loc, '...args')
+        s.appendLeft(
+          node.declaration.body.start! + 1,
+          `\n let [${paramsText}] = args`
+        )
+      }
+    }
+  }
 
   walkAST<Node>(program, {
     enter(node) {
@@ -120,13 +170,6 @@ export const transformMainTemplate = (code: string, id: string) => {
           ),
           fnName: (node.callee as Identifier).name,
         })
-      } else if (
-        node.type === 'ImportDeclaration' &&
-        node.source.value.includes(QUERY_NAMED_TEMPLATE)
-      ) {
-        const { name } = parseVueRequest(node.source.value).query as any
-        const local = node.specifiers[0].local.name
-        customBlocks[name] = local
       }
     },
   })
@@ -135,9 +178,10 @@ export const transformMainTemplate = (code: string, id: string) => {
 
   let importFragment = false
   for (const { vnode, component, name, fnName } of subTemplates) {
-    const block = customBlocks[name]
-    if (!block) continue
-    const render = `${block}.render(_ctx, _cache, $props, $setup, $data, $options)`
+    const block = customBlocks[filename]?.[name]
+    if (!block) throw new SyntaxError(`Unknown named template: ${name}`)
+
+    const render = `_NT_block_${name}.render(...args)`
     if (fnName === '_createVNode') {
       s.overwriteNode(vnode, render)
     } else if (fnName === '_createBlock') {
@@ -148,9 +192,30 @@ export const transformMainTemplate = (code: string, id: string) => {
     }
   }
 
+  for (const [name, source] of Object.entries(customBlocks[filename])) {
+    s.prepend(`import { default as _NT_block_${name} } from '${source}'\n`)
+  }
+
   if (importFragment) {
     s.prepend(`import { Fragment as _NT_Fragment } from 'vue'\n`)
   }
 
   return getTransformResult(s, id)
+}
+
+export const postTransformMainEntry = (
+  program: Program,
+  id: string,
+  customBlocks: CustomBlocks
+) => {
+  for (const node of program.body) {
+    if (
+      node.type === 'ImportDeclaration' &&
+      node.source.value.includes(QUERY_NAMED_TEMPLATE)
+    ) {
+      const { name } = parseVueRequest(node.source.value).query as any
+      if (!customBlocks[id]) customBlocks[id] = {}
+      customBlocks[id][name] = node.source.value
+    }
+  }
 }

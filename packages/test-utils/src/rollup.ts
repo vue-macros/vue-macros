@@ -1,5 +1,6 @@
 import { rollup } from 'rollup'
 import { default as ViteVueJsx } from '@vitejs/plugin-vue-jsx'
+import { format } from 'prettier'
 import type { Options as VueJsxOptions } from '@vitejs/plugin-vue-jsx'
 import type { Plugin } from 'rollup'
 
@@ -31,12 +32,25 @@ export async function rollupBuild(file: string, plugins: Plugin[]) {
     external: ['vue', '@vueuse/core'],
     plugins,
     treeshake: false,
+    onwarn(warning, defaultHandler) {
+      if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return
+      defaultHandler(warning)
+    },
   })
   const output = await bundle.generate({
     format: 'esm',
     sourcemap: false,
   })
   return output.output
-    .map((file) => (file.type === 'chunk' ? file.code : file.fileName))
+    .map((file) =>
+      file.type === 'chunk'
+        ? format(file.code, {
+            semi: false,
+            singleQuote: true,
+            filepath: file.fileName,
+            printWidth: 120,
+          })
+        : file.fileName
+    )
     .join('\n')
 }

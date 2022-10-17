@@ -4,8 +4,10 @@ const foo = 'foo'
 
 <template name="test">
   <div>Test</div>
+  <span>{{ foo }}</span>
 </template>
 
 <template>
+  <span>hello</span>
   <template is="test" />
 </template>
