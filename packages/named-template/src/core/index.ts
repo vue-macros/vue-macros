@@ -8,6 +8,7 @@ import {
 } from '@vue-macros/common'
 import { createTransformContext, parse, traverseNode } from '@vue/compiler-dom'
 import { parseVueRequest } from '@vitejs/plugin-vue'
+import {} from '@rollup/pluginutils'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
@@ -108,7 +109,7 @@ function preTransformMainTemplate(
 
   s.remove(...loc)
   const offset = node.loc.start.offset + 1 /* < */ + node.tag.length
-  s.appendLeft(offset, ` src="${id}?vue&${QUERY_TEMPLATE_MAIN}"`)
+  s.appendLeft(offset, ` src="${`${id}?vue&${QUERY_TEMPLATE_MAIN}`}"`)
 }
 
 export const postTransform = (
@@ -193,7 +194,9 @@ export const postTransform = (
   }
 
   for (const [name, source] of Object.entries(customBlocks[filename])) {
-    s.prepend(`import { default as _NT_block_${name} } from '${source}'\n`)
+    s.prepend(
+      `import { default as _NT_block_${name} } from ${JSON.stringify(source)}\n`
+    )
   }
 
   if (importFragment) {

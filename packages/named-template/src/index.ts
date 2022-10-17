@@ -66,7 +66,7 @@ export const PrePlugin = createUnplugin((options: OptionsResolved) => {
           const { name } = query as any
           const request = `${filename}?vue&${QUERY_TEMPLATE}&name=${name}`
           return `import { createTextVNode } from 'vue'
-          import { render } from '${request}'
+          import { render } from ${JSON.stringify(request)}
 export default {
   render: (...args) => {
     const r = render(...args)
