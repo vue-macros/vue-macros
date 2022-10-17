@@ -14,8 +14,7 @@ If you support this feature, you can go to [the Discussion](https://github.com/v
 
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
-|    Vue 3 (Dev)     | :white_check_mark: |
-| Vue 3 (Production) |        :x:         |
+|       Vue 3        | :white_check_mark: |
 |       Vue 2        |        :x:         |
 | TypeScript / Volar |        :x:         |
 
