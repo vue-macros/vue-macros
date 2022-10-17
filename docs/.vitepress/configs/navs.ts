@@ -60,6 +60,10 @@ export const sidebar: DefaultTheme.Sidebar = [
         text: 'hoistStatic',
         link: '/features/hoist-static',
       },
+      {
+        text: 'namedTemplate',
+        link: '/features/named-template',
+      },
     ],
   },
 ]
