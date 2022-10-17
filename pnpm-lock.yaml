@@ -188,7 +188,7 @@ importers:
       tsup: ^6.2.3
       tsx: ^3.10.1
       unplugin: ^0.9.6
-      unplugin-combine: ^0.2.2
+      unplugin-combine: ^0.2.3
       unplugin-vue-define-options: workspace:*
       vue: ^3.2.41
     dependencies:
@@ -201,7 +201,7 @@ importers:
       '@vue-macros/setup-sfc': link:../setup-sfc
       '@vue-macros/short-emits': link:../short-emits
       local-pkg: 0.4.2
-      unplugin-combine: 0.2.2
+      unplugin-combine: 0.2.3
       unplugin-vue-define-options: link:../define-options
     devDependencies:
       fast-glob: 3.2.12
@@ -221,7 +221,7 @@ importers:
       tsup: ^6.2.3
       tsx: ^3.10.1
       unplugin: ^0.9.6
-      unplugin-combine: ^0.2.2
+      unplugin-combine: ^0.2.3
       vite: ^3.1.8
       vue: ^3.2.41
     dependencies:
@@ -230,7 +230,7 @@ importers:
       '@vue-macros/common': link:../common
       '@vue/compiler-dom': 3.2.41
       unplugin: 0.9.6
-      unplugin-combine: 0.2.2_vite@3.1.8
+      unplugin-combine: 0.2.3_vite@3.1.8
     devDependencies:
       '@babel/types': 7.19.4
       fast-glob: 3.2.12
@@ -8275,8 +8275,8 @@ packages:
       - vite
     dev: true
 
-  /unplugin-combine/0.2.2:
-    resolution: {integrity: sha512-KkO9B40wjW3ige0a+lYkr1/Q97qZSbtXBTJY5MQdAJCVvSPXtG1mxaSYMoQABN1yF9RHcE9WeOxdl+zdOljeOQ==}
+  /unplugin-combine/0.2.3:
+    resolution: {integrity: sha512-B9n+MT7ivN47Adppx2s4OYIC3jFCR9a7ebaDZP1IZHhzCRQUaNkilOGH/8kHVgetw+nzTOm8fuLw+jaQ7DTq1A==}
     engines: {node: '>=14.19.0'}
     peerDependencies:
       esbuild: '>=0.13'
@@ -8296,8 +8296,8 @@ packages:
       unplugin: 0.9.6
     dev: false
 
-  /unplugin-combine/0.2.2_vite@3.1.8:
-    resolution: {integrity: sha512-KkO9B40wjW3ige0a+lYkr1/Q97qZSbtXBTJY5MQdAJCVvSPXtG1mxaSYMoQABN1yF9RHcE9WeOxdl+zdOljeOQ==}
+  /unplugin-combine/0.2.3_vite@3.1.8:
+    resolution: {integrity: sha512-B9n+MT7ivN47Adppx2s4OYIC3jFCR9a7ebaDZP1IZHhzCRQUaNkilOGH/8kHVgetw+nzTOm8fuLw+jaQ7DTq1A==}
     engines: {node: '>=14.19.0'}
     peerDependencies:
       esbuild: '>=0.13'
