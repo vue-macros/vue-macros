@@ -24,7 +24,19 @@ const bundle = await rollup({
       target: 'esnext',
     }),
   ],
-  external: ['vue'],
+  external: (id) => {
+    if (id === 'vue') return true
+    return id.endsWith('.css')
+  },
+  onwarn(warning, defaultHandler) {
+    if (
+      ['UNRESOLVED_IMPORT', 'UNUSED_EXTERNAL_IMPORT'].includes(
+        warning.code || ''
+      )
+    )
+      return
+    defaultHandler(warning)
+  },
 })
 
 await bundle.write({

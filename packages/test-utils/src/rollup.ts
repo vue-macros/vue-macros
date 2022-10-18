@@ -31,6 +31,10 @@ export async function rollupBuild(file: string, plugins: Plugin[]) {
     external: ['vue', '@vueuse/core'],
     plugins,
     treeshake: false,
+    onwarn(warning, defaultHandler) {
+      if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return
+      defaultHandler(warning)
+    },
   })
   const output = await bundle.generate({
     format: 'esm',

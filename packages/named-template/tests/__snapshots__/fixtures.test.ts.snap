@@ -1,0 +1,56 @@
+// Vitest Snapshot v1
+
+exports[`named-template > tests/fixtures/basic.vue 1`] = `
+"import { defineComponent, createElementVNode, openBlock, createElementBlock, Fragment, toDisplayString, createTextVNode, createBlock } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  setup(__props, { expose }) {
+    expose();
+    const foo = \\"foo\\";
+    const __returned__ = { foo };
+    Object.defineProperty(__returned__, \\"__isScriptSetup\\", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+const _hoisted_1$1 = /*#__PURE__*/createElementVNode(\\"div\\", null, \\"Test\\", -1 /* HOISTED */);
+
+function render$1(_ctx, _cache, $props, $setup, $data, $options) {
+  return (openBlock(), createElementBlock(Fragment, null, [
+    _hoisted_1$1,
+    createElementVNode(\\"span\\", null, toDisplayString($setup.foo))
+  ], 64 /* STABLE_FRAGMENT */))
+}
+
+var block0 = {
+  render: (...args) => {
+    const r = render$1(...args);
+    return typeof r === 'string' ? createTextVNode(r) : r
+  }
+};
+
+const _hoisted_1 = /* @__PURE__ */ createElementVNode(\\"span\\", null, \\"hello\\", -1);
+function render(...args) {
+ let [_ctx, _cache, $props, $setup, $data, $options] = args;
+  return openBlock(), createElementBlock(Fragment, null, [
+    _hoisted_1,
+    (openBlock(), createBlock(Fragment, null, [block0.render(...args)]))
+  ], 64);
+}
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+if (typeof block0 === \\"function\\")
+  block0(_sfc_main);
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", render], __FILE__]);
+
+export { basic as default };
+"
+`;

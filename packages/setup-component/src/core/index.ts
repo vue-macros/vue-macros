@@ -14,7 +14,7 @@ import {
   SETUP_COMPONENT_TYPE,
 } from './constants'
 import { isSubModule } from './sub-module'
-import type { Function, Node } from '@babel/types'
+import type { Function, Node, Program } from '@babel/types'
 import type { HmrContext, ModuleNode } from 'vite'
 
 export * from './constants'
@@ -34,8 +34,17 @@ interface FileContext {
 
 export type SetupComponentContext = Record<string, FileContext>
 
-export const scanSetupComponent = (code: string, id: string): FileContext => {
-  const program = babelParse(code, getLang(id))
+export const scanSetupComponent = (
+  code: string,
+  id: string
+): FileContext | undefined => {
+  let program: Program
+
+  try {
+    program = babelParse(code, getLang(id))
+  } catch {
+    return undefined
+  }
 
   const components: {
     /** defineSetupComponent(...) */
@@ -109,6 +118,7 @@ export const transformSetupComponent = (
   const s = new MagicString(code)
 
   const fileContext = scanSetupComponent(code, id)
+  if (!fileContext) return
   ctx[normalizedId] = fileContext
 
   for (const [i, { node }] of fileContext.components.entries()) {
@@ -177,7 +187,7 @@ export const hotUpdateSetupComponent = async (
 
   const normalizedId = normalizePath(file)
   const nodeContexts = scanSetupComponent(await read(), normalizedId)
-  ctx[normalizedId] = nodeContexts
+  if (nodeContexts) ctx[normalizedId] = nodeContexts
 
   return [...modules, ...affectedModules]
 }

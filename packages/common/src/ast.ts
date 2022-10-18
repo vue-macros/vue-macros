@@ -37,7 +37,7 @@ export function babelParse(
 
 export function isCallOf(
   node: Node | null | undefined,
-  test: string | ((id: string) => boolean)
+  test: string | string[] | ((id: string) => boolean)
 ): node is CallExpression {
   return !!(
     node &&
@@ -45,6 +45,8 @@ export function isCallOf(
     node.callee.type === 'Identifier' &&
     (typeof test === 'string'
       ? node.callee.name === test
+      : Array.isArray(test)
+      ? test.includes(node.callee.name)
       : test(node.callee.name))
   )
 }

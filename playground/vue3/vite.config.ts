@@ -11,10 +11,12 @@ export default defineConfig({
   },
   plugins: [
     VueMacros({
+      // setupComponent: false,
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
           reactivityTransform: true,
+          inlineTemplate: false,
           template: {
             compilerOptions: {
               nodeTransforms: [

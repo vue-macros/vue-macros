@@ -11,7 +11,7 @@ export const SetupComponentType: SetupFC = () => {
 
   return () => (
     <div>
-      <h3>SetupComponent type declaration</h3>
+      <p>SetupComponent type declaration</p>
       <p>count: {count.value}</p>
       <p>double: {double.value}</p>
       <button
