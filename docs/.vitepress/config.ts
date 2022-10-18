@@ -1,63 +1,98 @@
 import { defineConfig } from 'vitepress'
 import { markdownConfig, nav, sidebar } from './configs'
+import { withPwa } from './pwa'
 
-export default defineConfig({
-  lang: 'en-US',
-  title: 'Vue Macros',
-  head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
-    ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'Vue Macros' }],
-    ['meta', { property: 'og:url', content: 'https://vue-macros.sxzz.moe' }],
-    [
-      'meta',
-      {
-        property: 'og:description',
-        content: 'Explore and extend more macros and syntax sugar to Vue.',
-      },
-    ],
-    ['meta', { name: 'theme-color', content: '#914796' }],
-    [
-      'script',
-      {
-        async: '',
-        src: 'https://www.googletagmanager.com/gtag/js?id=G-29NKGSL23C',
-      },
-    ],
-    [
-      'script',
-      {},
-      `window.dataLayer = window.dataLayer || [];
+export default withPwa(
+  defineConfig({
+    lang: 'en-US',
+    title: 'Vue Macros',
+    head: [
+      ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+      ['meta', { property: 'og:type', content: 'website' }],
+      ['meta', { property: 'og:title', content: 'Vue Macros' }],
+      ['meta', { property: 'og:url', content: 'https://vue-macros.sxzz.moe' }],
+      [
+        'meta',
+        {
+          property: 'og:description',
+          content: 'Explore and extend more macros and syntax sugar to Vue.',
+        },
+      ],
+      ['meta', { name: 'theme-color', content: '#914796' }],
+      [
+        'script',
+        {
+          async: '',
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-29NKGSL23C',
+        },
+      ],
+      [
+        'script',
+        {},
+        `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-29NKGSL23C');`,
+      ],
     ],
-  ],
 
-  description: 'Explore and extend more macros and syntax sugar to Vue.',
-  lastUpdated: true,
-  cleanUrls: 'with-subfolders',
-  markdown: markdownConfig,
+    description: 'Explore and extend more macros and syntax sugar to Vue.',
+    lastUpdated: true,
+    cleanUrls: 'with-subfolders',
+    markdown: markdownConfig,
 
-  vue: {
-    reactivityTransform: true,
-  },
-
-  themeConfig: {
-    logo: '/logo.svg',
-    footer: {
-      message: 'Made with ❤️',
-      copyright: 'MIT License © 2022 三咲智子',
+    vue: {
+      reactivityTransform: true,
     },
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/sxzz/unplugin-vue-macros' },
-    ],
-    editLink: {
-      pattern:
-        'https://github.com/sxzz/unplugin-vue-macros/edit/main/docs/:path',
-      text: 'Edit this page on GitHub',
+
+    themeConfig: {
+      logo: '/logo.svg',
+      footer: {
+        message: 'Made with ❤️',
+        copyright: 'MIT License © 2022 三咲智子',
+      },
+      socialLinks: [
+        { icon: 'github', link: 'https://github.com/sxzz/unplugin-vue-macros' },
+      ],
+      editLink: {
+        pattern:
+          'https://github.com/sxzz/unplugin-vue-macros/edit/main/docs/:path',
+        text: 'Edit this page on GitHub',
+      },
+      nav,
+      sidebar,
     },
-    nav,
-    sidebar,
-  },
-})
+    pwa: {
+      manifest: {
+        name: 'Vue Macros',
+        short_name: 'Vue Macros',
+        theme_color: '#914796',
+        id: '/',
+        icons: [
+          {
+            src: '/logo.svg',
+            type: 'image/svg+xml',
+          },
+        ],
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module',
+      },
+      registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg}'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) =>
+              /(.svg|.jpg|.png)$/.test(url.pathname) &&
+              url.origin !== location.origin,
+            method: 'GET',
+            handler: 'NetworkFirst',
+          },
+        ],
+        clientsClaim: true,
+      },
+    },
+  })
+)
