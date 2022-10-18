@@ -23,6 +23,7 @@ export const transformHoistStatic = (code: string, id: string) => {
   if (!scriptSetup) return
 
   const setupOffset = scriptSetup.loc.start.offset
+  const setupOffsetEnd = scriptSetup.loc.end.offset
   const s = new MagicString(code)
   // TODO use SWC
   const program = babelParse(scriptSetup.loc.source, lang)
@@ -59,6 +60,11 @@ export const transformHoistStatic = (code: string, id: string) => {
       if (!isAllConstant) continue
       moveToScript(stmt)
     }
+  }
+
+  const restSetup = s.slice(setupOffset, setupOffsetEnd)
+  if (restSetup.trim().length === 0) {
+    s.appendLeft(setupOffsetEnd, '/**/')
   }
 
   if (scriptOffset !== undefined) normalScript.end()
