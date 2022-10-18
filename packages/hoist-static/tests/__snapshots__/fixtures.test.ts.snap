@@ -1,5 +1,19 @@
 // Vitest Snapshot v1
 
+exports[`fixtures > ./fixtures/all-hoist.vue 1`] = `
+"<script lang=\\"ts\\">
+const name = 'title'
+</script>
+<script setup lang=\\"ts\\">
+
+/**/</script>
+
+<template>
+  {{ name }}
+</template>
+"
+`;
+
 exports[`fixtures > ./fixtures/basic.vue 1`] = `
 "<script lang=\\"ts\\">
 const a = 'Foo'
@@ -38,7 +52,7 @@ const name = /* hoist-static */ (globalThis as any).fn()
 </script>
 <script setup lang=\\"ts\\">
 
-</script>
+/**/</script>
 "
 `;
 
