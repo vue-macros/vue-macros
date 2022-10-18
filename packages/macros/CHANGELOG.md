@@ -1,5 +1,20 @@
 # unplugin-vue-macros
 
+## 0.13.3
+
+### Patch Changes
+
+- [#108](https://github.com/sxzz/unplugin-vue-macros/pull/108) [`d036273`](https://github.com/sxzz/unplugin-vue-macros/commit/d036273e88368d6b6ef33a31b7bc13f2c0c0f005) Thanks [@renovate](https://github.com/apps/renovate)! - upgrade deps
+
+- Updated dependencies [[`d036273`](https://github.com/sxzz/unplugin-vue-macros/commit/d036273e88368d6b6ef33a31b7bc13f2c0c0f005), [`0d46d80`](https://github.com/sxzz/unplugin-vue-macros/commit/0d46d801aea08a73c8e637d2a2ffabbd03565b37)]:
+  - @vue-macros/define-model@0.13.3
+  - unplugin-vue-define-options@0.12.2
+  - @vue-macros/define-render@0.13.3
+  - @vue-macros/hoist-static@0.12.2
+  - @vue-macros/setup-component@0.12.2
+  - @vue-macros/setup-sfc@0.12.2
+  - @vue-macros/short-emits@0.12.3
+
 ## 0.13.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @vue-macros/setup-component
 
+## 0.12.2
+
+### Patch Changes
+
+- [#108](https://github.com/sxzz/unplugin-vue-macros/pull/108) [`d036273`](https://github.com/sxzz/unplugin-vue-macros/commit/d036273e88368d6b6ef33a31b7bc13f2c0c0f005) Thanks [@renovate](https://github.com/apps/renovate)! - upgrade deps
+
+- Updated dependencies [[`d036273`](https://github.com/sxzz/unplugin-vue-macros/commit/d036273e88368d6b6ef33a31b7bc13f2c0c0f005)]:
+  - @vue-macros/common@0.12.2
+
 ## 0.12.1
 
 ### Patch Changes
