@@ -10,7 +10,7 @@ With enabling `namedTemplate`, `<template>` can be referenced like a variable.
 
 Sometimes we need to reverse the order of the very simple components, and don't want to give the features of Vue template up and use JSX/TSX. Then this feature is much helpful.
 
-If you support this feature, you can go to [the Discussion](https://github.com/vuejs/core/discussions/6898) and hit like :+1: or comment.
+If you support this feature, you can go to [the discussion](https://github.com/vuejs/core/discussions/6898) and hit like :+1: or comment.
 
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
