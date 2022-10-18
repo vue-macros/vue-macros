@@ -3,6 +3,7 @@ import VueDefineModel from '@vue-macros/define-model'
 import VueDefineOptions from 'unplugin-vue-define-options'
 import VueDefineRender from '@vue-macros/define-render'
 import VueHoistStatic from '@vue-macros/hoist-static'
+import VueNamedTemplate from '@vue-macros/named-template'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortEmits from '@vue-macros/short-emits'
@@ -14,6 +15,7 @@ import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
 import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
 import type { Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
+import type { Options as OptionsNamedTemplate } from '@vue-macros/named-template'
 import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
 import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
 import type { Options as OptionsShortEmits } from '@vue-macros/short-emits'
@@ -23,6 +25,7 @@ export interface FeatureOptionsMap {
   defineOptions: OptionsDefineOptions
   defineRender: OptionsDefineRender
   hoistStatic: OptionsHoistStatic
+  namedTemplate: OptionsNamedTemplate
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
@@ -57,6 +60,7 @@ function resolveOptions({
   defineOptions,
   defineRender,
   hoistStatic,
+  namedTemplate,
   setupComponent,
   setupSFC,
   shortEmits,
@@ -82,6 +86,7 @@ function resolveOptions({
     defineOptions: resolveSubOptions<'defineOptions'>(defineOptions),
     defineRender: resolveSubOptions<'defineRender'>(defineRender),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
+    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
       root,
     }),
@@ -107,6 +112,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
     resolvePlugin(options.setupSFC, VueSetupSFC),
     resolvePlugin(options.setupComponent, VueSetupComponent),
     resolvePlugin(options.hoistStatic, VueHoistStatic),
+    resolvePlugin(options.namedTemplate, VueNamedTemplate as any),
     resolvePlugin(options.shortEmits, VueShortEmits),
     resolvePlugin(options.defineOptions, VueDefineOptions),
     resolvePlugin(options.defineModel, VueDefineModel),

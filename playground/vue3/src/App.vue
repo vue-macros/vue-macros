@@ -4,6 +4,7 @@ import DefineOptionsVue from './examples/define-options/index.vue'
 import HoistStaticVue from './examples/hoist-static/index.vue'
 import DefineModelReactivityVue from './examples/define-model/reactivity-transform/parent.vue'
 import DefineModelRuntimeVue from './examples/define-model/runtime/parent.vue'
+import NamedTemplateVue from './examples/named-template/index.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
 import { SetupComponentType } from './examples/setup-component/types'
@@ -27,6 +28,11 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>hostStatic</legend>
     <HoistStaticVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>namedTemplate</legend>
+    <NamedTemplateVue />
   </fieldset>
 
   <fieldset>
@@ -58,3 +64,11 @@ import Full from './examples/full.setup'
     <Full model-value="123" />
   </fieldset>
 </template>
+
+<style>
+legend {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>
