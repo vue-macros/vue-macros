@@ -81,7 +81,7 @@ gtag('config', 'G-29NKGSL23C');`,
       },
       registerType: 'autoUpdate',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,woff,woff2}'],
         runtimeCaching: [
           {
             urlPattern: ({ url }) =>
