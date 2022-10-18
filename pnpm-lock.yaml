@@ -9,7 +9,7 @@ importers:
       '@pnpm/find-workspace-packages': ^5.0.0
       '@pnpm/logger': ^5.0.0
       '@sxzz/eslint-config': ^2.4.4
-      '@types/node': '*'
+      '@types/node': 18.8.0
       '@vitest/ui': ^0.24.3
       '@vue-macros/test-utils': workspace:*
       eslint: ^8.25.0
@@ -29,7 +29,7 @@ importers:
       '@pnpm/find-workspace-packages': 5.0.0_@pnpm+logger@5.0.0
       '@pnpm/logger': 5.0.0
       '@sxzz/eslint-config': 2.4.4_s6jeshzhc5cdln4g7cuxbedvyq
-      '@types/node': 18.11.0
+      '@types/node': 18.8.0
       '@vitest/ui': 0.24.3
       '@vue-macros/test-utils': link:packages/test-utils
       eslint: 8.25.0
@@ -2447,6 +2447,10 @@ packages:
 
   /@types/node/18.11.0:
     resolution: {integrity: sha512-IOXCvVRToe7e0ny7HpT/X9Rb2RYtElG1a+VshjwT00HxrM2dWBApHQoqsI6WiY7Q03vdf2bCrIGzVrkF/5t10w==}
+    dev: true
+
+  /@types/node/18.8.0:
+    resolution: {integrity: sha512-u+h43R6U8xXDt2vzUaVP3VwjjLyOJk6uEciZS8OSyziUQGOwmk+l+4drxcsDboHXwyTaqS1INebghmWMRxq3LA==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
