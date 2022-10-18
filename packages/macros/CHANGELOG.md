@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 0.14.0-beta.1
+
+### Patch Changes
+
+- Updated dependencies [[`73a42b0`](https://github.com/sxzz/unplugin-vue-macros/commit/73a42b00acc87644c2bbc563bd34cb6b3e06f809)]:
+  - @vue-macros/hoist-static@0.12.2-beta.1
+
 ## 0.14.0-beta.0
 
 ### Minor Changes
