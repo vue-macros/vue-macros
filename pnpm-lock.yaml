@@ -53,16 +53,14 @@ importers:
       vite-plugin-pwa: ^0.13.1
       vitepress: ^1.0.0-alpha.21
       vue: ^3.2.41
-      workbox-window: ^6.5.4
     devDependencies:
       '@vitejs/plugin-vue-jsx': 2.0.1_vue@3.2.41
       markdown-it-container: 3.0.0
       unocss: 0.45.29
       unplugin-vue-define-options: link:../packages/define-options
-      vite-plugin-pwa: 0.13.1_workbox-window@6.5.4
+      vite-plugin-pwa: 0.13.1
       vitepress: 1.0.0-alpha.21
       vue: 3.2.41
-      workbox-window: 6.5.4
 
   packages/common:
     specifiers:
@@ -9179,11 +9177,10 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-pwa/0.13.1_workbox-window@6.5.4:
+  /vite-plugin-pwa/0.13.1:
     resolution: {integrity: sha512-NR3dIa+o2hzlzo4lF4Gu0cYvoMjSw2DdRc6Epw1yjmCqWaGuN86WK9JqZie4arNlE1ZuWT3CLiMdiX5wcmmUmg==}
     peerDependencies:
       vite: ^3.1.0
-      workbox-window: ^6.5.4
     peerDependenciesMeta:
       vite:
         optional: true
