@@ -44,7 +44,7 @@ gtag('config', 'G-29NKGSL23C');`,
   },
 
   themeConfig: {
-    logo: '/logo.svg',
+    logo: '/favicon.png',
     footer: {
       message: 'Made with ❤️',
       copyright: 'MIT License © 2022 三咲智子',
