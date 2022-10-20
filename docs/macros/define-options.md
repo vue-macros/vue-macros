@@ -69,3 +69,53 @@ export default {
 ```
 
 :::
+
+## ℹ️ Vue 2.7 + Webpack
+
+For Vue 2.7 (Vue loader 15) + Webpack, an additional option is required.
+
+:::: code-group
+
+::: code-group-item unplugin-vue-define-options
+
+```ts
+const config = {
+  plugins: [
+    defineOptions({
+      include: [/\.vue$/, /\.vue\?vue/],
+    }),
+  ],
+}
+```
+
+::: code-group-item unplugin-vue-define-options
+
+```ts
+const config = {
+  plugins: [
+    defineOptions({
+      include: [/\.vue$/, /\.vue\?vue/],
+    }),
+  ],
+}
+```
+
+:::
+
+::: code-group-item unplugin-vue-macros
+
+```ts
+const config = {
+  plugins: [
+    VueMacros({
+      defineOptions: {
+        include: [/\.vue$/, /\.vue\?vue/],
+      },
+    }),
+  ],
+}
+```
+
+:::
+
+::::
