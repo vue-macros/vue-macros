@@ -11,8 +11,10 @@ defineSlots<Slots & { title: never }>()
 </script>
 
 <template>
-  <div>defineSlots</div>
   <div>
-    <slot name="title" foo="bar">title</slot>
+    <div>defineSlots</div>
+    <div>
+      <slot name="title" foo="bar">title</slot>
+    </div>
   </div>
 </template>

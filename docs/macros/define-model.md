@@ -110,7 +110,7 @@ emit('update:count', count + 1)
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3,
+    "target": 3, // or 2.7 for Vue 2
     "plugins": [
       "@vue-macros/volar/define-model"
       // ...more feature

@@ -4,12 +4,12 @@ import Child from './child.vue'
 
 <template>
   <child>
-    <template #title="{ foo }">
-      {{ foo }}
-    </template>
+    <template #title />
 
     <template #foo="{ foo }">
       {{ foo }}
     </template>
+
+    <template #default="{ bar }">{{ bar }}</template>
   </child>
 </template>
