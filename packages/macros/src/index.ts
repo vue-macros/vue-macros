@@ -2,6 +2,7 @@ import { createCombinePlugin } from 'unplugin-combine'
 import VueDefineModel from '@vue-macros/define-model'
 import VueDefineOptions from 'unplugin-vue-define-options'
 import VueDefineRender from '@vue-macros/define-render'
+import VueDefineSlots from '@vue-macros/define-slots'
 import VueHoistStatic from '@vue-macros/hoist-static'
 import VueNamedTemplate from '@vue-macros/named-template'
 import VueSetupComponent from '@vue-macros/setup-component'
@@ -14,6 +15,7 @@ import type { OptionsPlugin, Unplugin } from 'unplugin-combine'
 import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
 import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
+import type { Options as OptionsDefineSlots } from '@vue-macros/define-slots'
 import type { Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
 import type { Options as OptionsNamedTemplate } from '@vue-macros/named-template'
 import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
@@ -24,6 +26,7 @@ export interface FeatureOptionsMap {
   defineModel: OptionsDefineModel
   defineOptions: OptionsDefineOptions
   defineRender: OptionsDefineRender
+  defineSlots: OptionsDefineSlots
   hoistStatic: OptionsHoistStatic
   namedTemplate: OptionsNamedTemplate
   setupComponent: OptionsSetupComponent
@@ -59,6 +62,7 @@ function resolveOptions({
   defineModel,
   defineOptions,
   defineRender,
+  defineSlots,
   hoistStatic,
   namedTemplate,
   setupComponent,
@@ -85,6 +89,7 @@ function resolveOptions({
     defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
     defineOptions: resolveSubOptions<'defineOptions'>(defineOptions),
     defineRender: resolveSubOptions<'defineRender'>(defineRender),
+    defineSlots: resolveSubOptions<'defineSlots'>(defineSlots),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
@@ -116,6 +121,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
     resolvePlugin(options.shortEmits, VueShortEmits),
     resolvePlugin(options.defineOptions, VueDefineOptions),
     resolvePlugin(options.defineModel, VueDefineModel),
+    resolvePlugin(options.defineSlots, VueDefineSlots),
     options.plugins.vue,
     options.plugins.vueJsx,
     resolvePlugin(options.defineRender, VueDefineRender),
