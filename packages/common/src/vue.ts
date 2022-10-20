@@ -1,4 +1,5 @@
 import { compileScript, parse } from '@vue/compiler-sfc'
+import type { Statement } from '@babel/types'
 import type { MagicString } from './magic-string'
 import type { SFCDescriptor, SFCScriptBlock } from '@vue/compiler-sfc'
 
@@ -10,7 +11,10 @@ export type _SFCScriptBlock = Omit<
 export type SFCCompiled = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   script?: _SFCScriptBlock | null
   scriptSetup?: _SFCScriptBlock | null
-  scriptCompiled: SFCScriptBlock
+  scriptCompiled: Omit<SFCScriptBlock, 'scriptAst' | 'scriptSetupAst'> & {
+    scriptAst?: Statement[]
+    scriptSetupAst?: Statement[]
+  }
   lang: string | undefined
 }
 

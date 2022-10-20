@@ -15,7 +15,10 @@
   },
   "vueCompilerOptions": {
     "target": 2.7,
-    "plugins": ["@vue-macros/volar/define-model"],
+    "plugins": [
+      "@vue-macros/volar/define-model",
+      "@vue-macros/volar/define-slots"
+    ],
     "defineModel": {
       "unified": true
     }

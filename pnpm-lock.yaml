@@ -154,6 +154,29 @@ importers:
       vite: 3.1.8
       vue: 3.2.41
 
+  packages/define-slots:
+    specifiers:
+      '@babel/types': ^7.19.4
+      '@rollup/pluginutils': ^4.2.1
+      '@vue-macros/common': workspace:~
+      fast-glob: ^3.2.12
+      tsup: ^6.2.3
+      tsx: ^3.10.1
+      unplugin: ^0.9.6
+      vite: ^3.1.8
+      vue: ^3.2.41
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      '@vue-macros/common': link:../common
+      unplugin: 0.9.6
+    devDependencies:
+      '@babel/types': 7.19.4
+      fast-glob: 3.2.12
+      tsup: 6.2.3
+      tsx: 3.10.1
+      vite: 3.1.8
+      vue: 3.2.41
+
   packages/hoist-static:
     specifiers:
       '@babel/types': ^7.19.4
@@ -180,6 +203,7 @@ importers:
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/define-model': workspace:*
       '@vue-macros/define-render': workspace:*
+      '@vue-macros/define-slots': workspace:*
       '@vue-macros/hoist-static': workspace:*
       '@vue-macros/named-template': workspace:*
       '@vue-macros/setup-component': workspace:*
@@ -197,6 +221,7 @@ importers:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/define-model': link:../define-model
       '@vue-macros/define-render': link:../define-render
+      '@vue-macros/define-slots': link:../define-slots
       '@vue-macros/hoist-static': link:../hoist-static
       '@vue-macros/named-template': link:../named-template
       '@vue-macros/setup-component': link:../setup-component
@@ -361,11 +386,11 @@ importers:
     dependencies:
       '@volar/language-core': 1.0.8
       '@vue-macros/short-vmodel': link:../short-vmodel
+      muggle-string: 0.1.0
     devDependencies:
       '@volar/vue-language-core': 1.0.8
       '@vue-macros/common': link:../common
       '@vue/compiler-dom': 3.2.41
-      muggle-string: 0.1.0
       typescript: 4.8.4
       vue-tsc: 1.0.8_typescript@4.8.4
 

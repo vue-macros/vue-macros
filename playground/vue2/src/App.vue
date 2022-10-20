@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import DefineOptionsVue from './examples/define-options/index.vue'
 import DefineModelVue from './examples/define-model/parent.vue'
+import DefineSlotsVue from './examples/define-slots/parent.vue'
 import DefineRenderVue from './examples/define-render/index.vue'
 import HoistStaticVue from './examples/hoist-static/index.vue'
 
@@ -23,6 +24,11 @@ import SetupSFC from './examples/setup-sfc/index.setup'
     <fieldset>
       <legend>defineModel</legend>
       <DefineModelVue />
+    </fieldset>
+
+    <fieldset>
+      <legend>defineSlots</legend>
+      <DefineSlotsVue />
     </fieldset>
 
     <fieldset>
