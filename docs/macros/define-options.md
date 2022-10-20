@@ -2,7 +2,7 @@
 
 Options API can be declared using the `defineOptions` in `<script setup>`, specifically to be able to set `name`, `props`, `emits`, and `render` inside of one function.
 
-If you support this feature, you can go to [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430) and hit like :+1: or comment. Thanks!
+If you support this feature, feel free to hit like :+1: or comment on the [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430). Thanks!
 
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
@@ -10,9 +10,94 @@ If you support this feature, you can go to [RFC Discussion](https://github.com/v
 |       Vue 2        | :white_check_mark: |
 | TypeScript / Volar | :white_check_mark: |
 
-::: tip
-if you need `defineOptions` only, the [standalone version](https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options) is better for you.
+## Installation Standalone Version
+
+if you need `defineOptions` feature only, the standalone version is more appropriate for you.
+
+### Installation
+
+:::: code-group
+
+::: code-group-item npm
+
+```bash
+npm i -D unplugin-vue-define-options
+```
+
 :::
+
+::: code-group-item yarn
+
+```bash
+yarn add -D unplugin-vue-define-options
+```
+
+:::
+
+::: code-group-item pnpm
+
+```bash
+pnpm add -D unplugin-vue-define-options
+```
+
+:::
+
+::::
+
+:::: code-group
+
+::: code-group-item Vite
+
+```ts
+// vite.config.ts
+import DefineOptions from 'unplugin-vue-define-options/vite'
+
+export default defineConfig({
+  plugins: [DefineOptions()],
+})
+```
+
+:::
+
+::: code-group-item Rollup
+
+```ts
+// rollup.config.js
+import DefineOptions from 'unplugin-vue-define-options/rollup'
+
+export default {
+  plugins: [DefineOptions()],
+}
+```
+
+:::
+
+::: code-group-item esbuild
+
+```js
+// esbuild.config.js
+import { build } from 'esbuild'
+
+build({
+  plugins: [require('unplugin-vue-define-options/esbuild')()],
+})
+```
+
+:::
+
+::: code-group-item Webpack
+
+```js
+// webpack.config.js
+module.exports = {
+  /* ... */
+  plugins: [require('unplugin-vue-define-options/webpack')()],
+}
+```
+
+:::
+
+::::
 
 ## Basic Usage
 
