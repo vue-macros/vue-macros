@@ -1,5 +1,16 @@
 # @vue-macros/volar
 
+## 0.4.0-beta.1
+
+### Minor Changes
+
+- [#116](https://github.com/sxzz/unplugin-vue-macros/pull/116) [`a9209ea`](https://github.com/sxzz/unplugin-vue-macros/commit/a9209ea6ab81e1a15bb4a8fa05e3ca853193dac7) Thanks [@sxzz](https://github.com/sxzz)! - add defineSlots macro
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vue-macros/short-vmodel@0.3.2-beta.1
+
 ## 0.3.1-beta.0
 
 ### Patch Changes

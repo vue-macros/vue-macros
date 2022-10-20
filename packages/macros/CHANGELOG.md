@@ -1,5 +1,22 @@
 # unplugin-vue-macros
 
+## 0.14.0-beta.2
+
+### Patch Changes
+
+- [#116](https://github.com/sxzz/unplugin-vue-macros/pull/116) [`a9209ea`](https://github.com/sxzz/unplugin-vue-macros/commit/a9209ea6ab81e1a15bb4a8fa05e3ca853193dac7) Thanks [@sxzz](https://github.com/sxzz)! - add defineSlots macro
+
+- Updated dependencies [[`a9209ea`](https://github.com/sxzz/unplugin-vue-macros/commit/a9209ea6ab81e1a15bb4a8fa05e3ca853193dac7)]:
+  - @vue-macros/define-slots@0.0.1-beta.0
+  - @vue-macros/define-model@0.13.3-beta.1
+  - unplugin-vue-define-options@0.12.2-beta.1
+  - @vue-macros/define-render@0.13.3-beta.1
+  - @vue-macros/hoist-static@0.12.2-beta.2
+  - @vue-macros/named-template@0.0.1-beta.1
+  - @vue-macros/setup-component@0.12.2-beta.1
+  - @vue-macros/setup-sfc@0.12.2-beta.1
+  - @vue-macros/short-emits@0.12.3-beta.1
+
 ## 0.14.0-beta.1
 
 ### Patch Changes
