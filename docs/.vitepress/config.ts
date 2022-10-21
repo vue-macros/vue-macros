@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { withPwa } from '@vite-pwa/vitepress'
+import { withPwa } from './pwa'
 import { markdownConfig, nav, sidebar } from './configs'
 
 export default withPwa(
@@ -41,13 +41,13 @@ gtag('config', 'G-29NKGSL23C');`,
 
     description: 'Explore and extend more macros and syntax sugar to Vue.',
     lastUpdated: true,
-    cleanUrls: 'with-subfolders',
+    cleanUrls: 'disabled',
     markdown: markdownConfig,
 
     vue: {
       reactivityTransform: true,
     },
-    
+
     themeConfig: {
       logo: '/logo.svg',
       footer: {
@@ -83,11 +83,8 @@ gtag('config', 'G-29NKGSL23C');`,
         enabled: true,
       },
       registerType: 'autoUpdate',
-      mode: 'development',
       workbox: {
-        directoryIndex: '/index.html',
         globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
-        globStrict: true,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
