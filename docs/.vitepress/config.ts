@@ -1,7 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from './pwa'
-import { markdownConfig, nav, sidebar } from './configs'
-import icons from './pwa/icons'
+import { markdownConfig, nav, pwa, sidebar } from './configs'
 
 export default withPwa(
   defineConfig({
@@ -63,67 +62,6 @@ gtag('config', 'G-29NKGSL23C');`,
       nav,
       sidebar,
     },
-    pwa: {
-      outDir: '.vitepress/dist',
-      manifest: {
-        name: 'Vue Macros',
-        short_name: 'Vue Macros',
-        description: 'Explore and extend more macros and syntax sugar to Vue.',
-        theme_color: '#914796',
-        id: '/',
-        icons,
-      },
-      devOptions: {
-        enabled: true,
-      },
-      registerType: 'autoUpdate',
-      workbox: {
-        globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'gstatic-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'jsdelivr-images-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 7, // <== 7 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-        ],
-      },
-    },
+    pwa,
   })
 )
