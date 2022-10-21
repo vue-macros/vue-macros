@@ -67,6 +67,7 @@ gtag('config', 'G-29NKGSL23C');`,
       manifest: {
         name: 'Vue Macros',
         short_name: 'Vue Macros',
+        description: 'Explore and extend more macros and syntax sugar to Vue.',
         theme_color: '#914796',
         id: '/',
         icons: [
