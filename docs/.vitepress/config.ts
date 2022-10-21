@@ -7,7 +7,7 @@ export default withPwa(
     lang: 'en-US',
     title: 'Vue Macros',
     head: [
-      ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
       ['meta', { property: 'og:type', content: 'website' }],
       ['meta', { property: 'og:title', content: 'Vue Macros' }],
       ['meta', { property: 'og:url', content: 'https://vue-macros.sxzz.moe' }],
@@ -46,7 +46,7 @@ gtag('config', 'G-29NKGSL23C');`,
     },
 
     themeConfig: {
-      logo: '/favicon.svg',
+      logo: '/logo.svg',
       footer: {
         message: 'Made with ❤️',
         copyright: 'MIT License © 2022 三咲智子',
@@ -73,8 +73,6 @@ gtag('config', 'G-29NKGSL23C');`,
           {
             src: '/favicon.svg',
             type: 'image/svg+xml',
-            sizes: 'any',
-            purpose: 'maskable any',
           },
         ],
       },
