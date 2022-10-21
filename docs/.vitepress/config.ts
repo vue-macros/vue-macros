@@ -71,7 +71,7 @@ gtag('config', 'G-29NKGSL23C');`,
         id: '/',
         icons: [
           {
-            src: '/logo.svg',
+            src: '/favicon.svg',
             type: 'image/svg+xml',
             sizes: 'any',
             purpose: 'maskable any',
