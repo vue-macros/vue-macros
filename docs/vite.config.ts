@@ -5,8 +5,6 @@ import Jsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
   build: {
-    // sourcemap: true,
-    // minify: false,
     ssrManifest: false,
     manifest: false,
   },
