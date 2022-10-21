@@ -4,9 +4,6 @@ import { markdownConfig, nav, sidebar } from './configs'
 
 export default withPwa(
   defineConfig({
-    vite: {
-      logLevel: 'info',
-    },
     lang: 'en-US',
     title: 'Vue Macros',
     head: [
