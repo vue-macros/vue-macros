@@ -47,7 +47,7 @@ gtag('config', 'G-29NKGSL23C');`,
     vue: {
       reactivityTransform: true,
     },
-
+    
     themeConfig: {
       logo: '/logo.svg',
       footer: {
