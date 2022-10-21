@@ -92,6 +92,7 @@ gtag('config', 'G-29NKGSL23C');`,
           },
         ],
         clientsClaim: true,
+        directoryIndex: 'index.html',
       },
     },
   })
