@@ -62,6 +62,15 @@ importers:
       vitepress: 1.0.0-alpha.23
       vue: 3.2.41
 
+  packages/api:
+    specifiers:
+      '@babel/types': ^7.19.4
+      '@vue-macros/common': workspace:~
+    dependencies:
+      '@vue-macros/common': link:../common
+    devDependencies:
+      '@babel/types': 7.19.4
+
   packages/common:
     specifiers:
       '@babel/parser': ^7.19.6
