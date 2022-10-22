@@ -12,7 +12,7 @@ export const pwa: PwaOptions = {
     icons,
   },
   devOptions: {
-    enabled: true,
+    enabled: false,
   },
   registerType: 'autoUpdate',
   workbox: {
