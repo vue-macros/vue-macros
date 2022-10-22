@@ -12,7 +12,7 @@ export const pwa: PwaOptions = {
     icons,
   },
   devOptions: {
-    enabled: true,
+    enabled: false,
   },
   registerType: 'autoUpdate',
   workbox: {
@@ -52,7 +52,20 @@ export const pwa: PwaOptions = {
         options: {
           cacheName: 'jsdelivr-images-cache',
           expiration: {
-            maxEntries: 10,
+            maxAgeSeconds: 60 * 60 * 24 * 7, // <== 7 days
+          },
+          cacheableResponse: {
+            statuses: [0, 200],
+          },
+        },
+      },
+      {
+        // For `https://contrib.rocks/image?repo=sxzz/unplugin-vue-macros`
+        urlPattern: /^https:\/\/contrib.rocks\/.*/i,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'contrib-rocks-images-cache',
+          expiration: {
             maxAgeSeconds: 60 * 60 * 24 * 7, // <== 7 days
           },
           cacheableResponse: {
