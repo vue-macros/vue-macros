@@ -2,24 +2,23 @@ import { MagicString, parseSFC } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
 import { DefinitionKind, analyzeSFC } from '../src'
 import { hideAstLocation } from './_util'
+import type { TSEmits } from '../src/vue/emits'
 import type { TSProps } from '../src'
 
 describe('analyzeSFC', () => {
   describe('props', () => {
-    const propsDef = `
+    const code = `<script setup lang="ts">
+type AliasString1 = string
+type AliasString2 = AliasString1
+
+defineProps<{
   foo: AliasString2
   str: string
   shouldBeRemovedProperty: number
   onClick(): void
   onClick(param: string): any
   shouldBeRemovedMethod(): void
-  shouldBeRemovedMethod(param: string): any`
-
-    const code = `<script setup lang="ts">
-type AliasString1 = string
-type AliasString2 = AliasString1
-
-defineProps<{${propsDef}
+  shouldBeRemovedMethod(param: string): any
 }>()
 </script>`
     const s = new MagicString(code)
@@ -148,6 +147,42 @@ defineProps<{${propsDef}
           addedPropertyProp: number | string;
         }>()
         </script>"
+      `)
+    })
+  })
+
+  describe('emits', () => {
+    const code = `<script setup lang="ts">
+defineEmits<{
+  (evt: 'foo', arg: string): void
+  (evt: 'foo', arg: number): void
+}>()
+</script>`
+    const s = new MagicString(code)
+    const sfc = parseSFC(code, 'test.vue')
+
+    const result = analyzeSFC(s, sfc)
+
+    const emits = result.emits as TSEmits
+    expect(emits).not.toBeFalsy()
+    expect(emits.kind).toBe(DefinitionKind.TS)
+
+    const definitions = () => hideAstLocation(emits.definitions)
+
+    test('emit name should be correct', () => {
+      expect(definitions()).toMatchInlineSnapshot(`
+        {
+          "foo": [
+            {
+              "ast": "TSCallSignatureDeclaration...",
+              "code": "(evt: 'foo', arg: string): void",
+            },
+            {
+              "ast": "TSCallSignatureDeclaration...",
+              "code": "(evt: 'foo', arg: number): void",
+            },
+          ],
+        }
       `)
     })
   })

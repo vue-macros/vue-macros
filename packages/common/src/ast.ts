@@ -6,7 +6,13 @@ import {
   REGEX_JSX_FILE,
   REGEX_TS_FILE,
 } from './constants'
-import type { CallExpression, Literal, Node, Program } from '@babel/types'
+import type {
+  CallExpression,
+  Literal,
+  Node,
+  Program,
+  TemplateLiteral,
+} from '@babel/types'
 import type { ParserOptions, ParserPlugin } from '@babel/parser'
 
 export function getLang(filename: string) {
@@ -107,6 +113,40 @@ export function isStaticExpression(node: Node): boolean {
 
 export function isLiteralType(node: Node): node is Literal {
   return node.type.endsWith('Literal')
+}
+
+export function resolveTemplateLiteral(node: TemplateLiteral) {
+  return node.quasis.reduce((prev, curr, idx) => {
+    if (node.expressions[idx]) {
+      return (
+        prev +
+        curr.value.cooked +
+        resolveLiteral(node.expressions[idx] as Literal)
+      )
+    }
+    return prev + curr.value.cooked
+  }, '')
+}
+
+export function resolveLiteral(
+  node: Literal
+): string | number | boolean | null | RegExp | bigint {
+  switch (node.type) {
+    case 'TemplateLiteral':
+      return resolveTemplateLiteral(node)
+    case 'NullLiteral':
+      return null
+    case 'BigIntLiteral':
+      return BigInt(node.value)
+    case 'RegExpLiteral':
+      return new RegExp(node.pattern, node.flags)
+
+    case 'BooleanLiteral':
+    case 'NumericLiteral':
+    case 'StringLiteral':
+      return node.value
+  }
+  return undefined as never
 }
 
 export function getStaticKey(node: Node, computed?: boolean, raw?: true): string

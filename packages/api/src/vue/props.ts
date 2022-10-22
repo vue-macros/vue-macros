@@ -19,7 +19,7 @@ import type {
   TSTypeLiteral,
 } from '@babel/types'
 
-export function handleTSDefinition({
+export function handleTSPropsDefinition({
   s,
   offset,
   body,
@@ -149,6 +149,7 @@ export interface PropsBase {
   declId: LVal | undefined
 }
 
+// TODO: not implement yet
 export interface RuntimeProps extends PropsBase {
   /**
    * @example addProp('foo', 'String')
