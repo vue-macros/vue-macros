@@ -1,7 +1,7 @@
 import { isStringLiteral } from '@babel/types'
 import { computed, getCurrentInstance } from 'vue'
-import { inferRuntimeType } from '../utils'
-import { defineMacro } from '..'
+import { inferRuntimeType } from '../src/utils'
+import { defineMacro } from '../src'
 
 declare global {
   const defineVModel: typeof defineVModelRuntime
