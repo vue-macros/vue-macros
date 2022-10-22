@@ -30,7 +30,7 @@ export function handleTSEmitsDefinition({
   const typeDecl = resolveTSReferencedDecl(body, typeDeclRaw)
   if (!typeDecl) throw new SyntaxError(`Cannot resolve TS definition.`)
 
-  const properties = resolveTSProperties(typeDecl)
+  const properties = resolveTSProperties(body, typeDecl)
   const definitions: TSEmits['definitions'] = {}
 
   for (const sign of properties.callSignatures) {

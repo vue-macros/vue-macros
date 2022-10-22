@@ -10,8 +10,7 @@ import type {
 describe('ts', () => {
   test('resolveTSProperties', () => {
     const stmts = babelParse(
-      `type Alias = string
-interface Foo {
+      `interface Foo extends Base1, Base2 {
   foo: string | number
   ['bar']: Alias
   new (): Foo
@@ -23,20 +22,39 @@ interface Foo {
   hello(): void
   hello(param: string): string
 
+  // override
+  itShouldBeNumber: number
+
   // ignore
   hello: string
 
   // unsupported
   [key: string]: any
-}`,
+}
+
+type Alias = string
+type Base1 = {
+  itShouldBeBoolean: boolean
+  itShouldBeNumber: string
+  (): void
+}
+type Base2 = {
+  itShouldBeBoolean: number
+  itShouldBeNumber: boolean
+  (): string
+}
+`,
       'ts'
     ).body
-    const node = stmts[1] as TSInterfaceDeclaration
-    const result = resolveTSProperties(node.body)
+    const node = stmts[0] as TSInterfaceDeclaration
+    const result = resolveTSProperties(stmts, node)
 
     expect(hideAstLocation(result)).toMatchInlineSnapshot(`
       {
-        "callSignatures": [],
+        "callSignatures": [
+          "TSCallSignatureDeclaration...",
+          "TSCallSignatureDeclaration...",
+        ],
         "constructSignatures": [
           "TSConstructSignatureDeclaration...",
           "TSConstructSignatureDeclaration...",
@@ -62,12 +80,22 @@ interface Foo {
             "signature": "TSPropertySignature...",
             "value": "TSUnionType...",
           },
+          "itShouldBeBoolean": {
+            "optional": false,
+            "signature": "TSPropertySignature...",
+            "value": "TSBooleanKeyword...",
+          },
+          "itShouldBeNumber": {
+            "optional": false,
+            "signature": "TSPropertySignature...",
+            "value": "TSNumberKeyword...",
+          },
         },
       }
     `)
   })
 
-  test('resolveTSProperties', () => {
+  test('resolveTSReferencedType', () => {
     const stmts = babelParse(
       `export type AliasString1 = string
 type AliasString2 = AliasString1
