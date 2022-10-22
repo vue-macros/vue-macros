@@ -166,7 +166,7 @@ export interface RuntimeProps extends PropsBase {
    *
    * @returns `true` if prop was removed, `false` if prop was not found.
    */
-  remove(name: string | StringLiteral): boolean
+  removeProp(name: string | StringLiteral): boolean
 }
 
 export interface ReferenceProps extends RuntimeProps {
