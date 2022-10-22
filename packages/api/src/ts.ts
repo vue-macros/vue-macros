@@ -1,15 +1,17 @@
 import { getStaticKey } from '@vue-macros/common'
 
 import type {
+  Identifier,
   Node,
   TSCallSignatureDeclaration,
   TSConstructSignatureDeclaration,
-  TSInterfaceBody,
+  TSInterfaceDeclaration,
   TSMethodSignature,
   TSPropertySignature,
   TSType,
   TSTypeElement,
   TSTypeLiteral,
+  TSTypeReference,
 } from '@babel/types'
 
 export interface TSProperties {
@@ -22,17 +24,49 @@ export interface TSProperties {
   >
 }
 
-export function resolveTSProperties(node: TSInterfaceBody | TSTypeLiteral) {
-  const properties: TSProperties = {
+export function mergeTSProperties(
+  a: TSProperties,
+  b: TSProperties
+): TSProperties {
+  return {
+    callSignatures: [...a.callSignatures, ...b.callSignatures],
+    constructSignatures: [...a.constructSignatures, ...b.constructSignatures],
+    methods: { ...a.methods, ...b.methods },
+    properties: { ...a.properties, ...b.properties },
+  }
+}
+
+export function resolveTSProperties(
+  body: Node[],
+  node: TSInterfaceDeclaration | TSTypeLiteral
+) {
+  let properties: TSProperties = {
     callSignatures: [],
     constructSignatures: [],
     methods: {},
     properties: {},
   }
-  resolveTypeElements(
-    properties,
-    node.type === 'TSInterfaceBody' ? node.body : node.members
-  )
+  if (node.type === 'TSInterfaceDeclaration') {
+    resolveTypeElements(properties, node.body.body)
+    if (node.extends) {
+      const ext = node.extends
+        .map((node) =>
+          node.expression.type === 'Identifier'
+            ? resolveTSReferencedType(body, node.expression)
+            : undefined
+        )
+        .filter(
+          (node): node is TSInterfaceDeclaration | TSTypeLiteral =>
+            node?.type === 'TSInterfaceDeclaration' ||
+            node?.type === 'TSTypeLiteral'
+        )
+        .map((node) => resolveTSProperties(body, node))
+        .reduceRight((accu, curr) => mergeTSProperties(accu, curr))
+      properties = mergeTSProperties(ext, properties)
+    }
+  } else {
+    resolveTypeElements(properties, node.members)
+  }
   return properties
 }
 
@@ -90,7 +124,7 @@ export function resolveTSReferencedDecl(body: Node[], reference: TSType) {
   const resolved = resolveTSReferencedType(body, reference)
   if (!resolved) return
   else if (
-    resolved.type === 'TSInterfaceBody' ||
+    resolved.type === 'TSInterfaceDeclaration' ||
     resolved.type === 'TSTypeLiteral'
   )
     return resolved
@@ -99,21 +133,26 @@ export function resolveTSReferencedDecl(body: Node[], reference: TSType) {
 
 export function resolveTSReferencedType(
   body: Node[],
-  reference: TSType
-): Exclude<TSType, 'TSTypeReference'> | TSInterfaceBody | undefined {
-  if (reference.type !== 'TSTypeReference') {
+  reference: TSType | Identifier
+): Exclude<TSType, TSTypeReference> | TSInterfaceDeclaration | undefined {
+  if (reference.type !== 'TSTypeReference' && reference.type !== 'Identifier')
     return reference
-  } else if (reference.typeName.type !== 'Identifier') {
-    return undefined
+
+  let refName: string
+  if (reference.type === 'Identifier') {
+    refName = reference.name
+  } else {
+    if (reference.typeName.type !== 'Identifier') return undefined
+    refName = reference.typeName.name
   }
-  const refName = reference.typeName.name
+
   for (let node of body) {
     if (node.type === 'ExportNamedDeclaration' && node.declaration) {
       node = node.declaration
     }
 
     if (node.type === 'TSInterfaceDeclaration' && node.id.name === refName) {
-      return node.body
+      return node
     } else if (
       node.type === 'TSTypeAliasDeclaration' &&
       node.id.name === refName

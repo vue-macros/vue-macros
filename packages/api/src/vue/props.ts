@@ -35,7 +35,7 @@ export function handleTSPropsDefinition({
   const typeDecl = resolveTSReferencedDecl(body, typeDeclRaw)
   if (!typeDecl) throw new SyntaxError(`Cannot resolve TS definition.`)
 
-  const properties = resolveTSProperties(typeDecl)
+  const properties = resolveTSProperties(body, typeDecl)
   const definitions: TSProps['definitions'] = {}
   for (const [key, sign] of Object.entries(properties.methods)) {
     definitions[key] = {
