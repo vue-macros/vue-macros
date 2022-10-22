@@ -211,7 +211,7 @@ export interface TSProps extends PropsBase {
   /**
    * Add raw defintions to TS interface.
    *
-   * @internal not stable API. `definitions` will not updated after this call.
+   * @internal not a stable API. `definitions` will NOT updated after this call.
    *
    * @example addRaw('foo: string; bar: number')
    */
