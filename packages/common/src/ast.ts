@@ -109,6 +109,12 @@ export function isLiteralType(node: Node): node is Literal {
   return node.type.endsWith('Literal')
 }
 
+export function getStaticKey(node: Node, computed?: boolean, raw?: true): string
+export function getStaticKey(
+  node: Node,
+  computed: boolean | undefined,
+  raw: false
+): string | number
 export function getStaticKey(node: Node, computed = false, raw = true) {
   switch (node.type) {
     case 'StringLiteral':
