@@ -1,36 +1,36 @@
 import { isStaticExpression, resolveLiteral } from '@vue-macros/common'
 import { resolveTSProperties, resolveTSReferencedDecl } from '../ts'
 import { DefinitionKind } from './types'
+import type { TSFile } from '../ts'
 import type { MagicString } from '@vue-macros/common'
 import type { Definition } from './types'
 import type {
   LVal,
   Node,
-  Statement,
   StringLiteral,
   TSCallSignatureDeclaration,
-  TSInterfaceBody,
+  TSInterfaceDeclaration,
   TSType,
   TSTypeLiteral,
 } from '@babel/types'
 
-export function handleTSEmitsDefinition({
+export async function handleTSEmitsDefinition({
   s,
+  file,
   offset,
-  body,
   typeDeclRaw,
   declId,
 }: {
   s: MagicString
+  file: TSFile
   offset: number
-  body: Statement[]
   typeDeclRaw: TSType
   declId?: LVal
-}): TSEmits {
-  const typeDecl = resolveTSReferencedDecl(body, typeDeclRaw)
+}): Promise<TSEmits> {
+  const typeDecl = await resolveTSReferencedDecl(file, typeDeclRaw)
   if (!typeDecl) throw new SyntaxError(`Cannot resolve TS definition.`)
 
-  const properties = resolveTSProperties(body, typeDecl)
+  const properties = await resolveTSProperties(file, typeDecl)
   const definitions: TSEmits['definitions'] = {}
 
   for (const sign of properties.callSignatures) {
@@ -87,7 +87,7 @@ export interface TSEmits extends EmitsBase {
 
   /** emitName -> tsType */
   definitions: Record<string, Definition<TSCallSignatureDeclaration>[]>
-  definitionsAst: TSTypeLiteral | TSInterfaceBody
+  definitionsAst: TSTypeLiteral | TSInterfaceDeclaration
 
   /**
    * Adds a new emit to the definitions. If the definition already exists, it will be overwrote.
