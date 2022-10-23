@@ -7,6 +7,7 @@ import { isDeclaration } from '@babel/types'
 import type {
   Declaration,
   Identifier,
+  ImportSpecifier,
   Statement,
   TSCallSignatureDeclaration,
   TSConstructSignatureDeclaration,
@@ -195,7 +196,7 @@ export async function resolveTSReferencedType(
       const resolved = await resolveTSFileId(node.source.value, file.filePath)
       if (!resolved) continue
       const specifier = node.specifiers.find(
-        (specifier) =>
+        (specifier): specifier is ImportSpecifier =>
           specifier.type === 'ImportSpecifier' &&
           specifier.imported.type === 'Identifier' &&
           specifier.imported.name === refName
@@ -216,11 +217,20 @@ export async function resolveTSReferencedType(
   }
 }
 
+export type TSFileExports = Record<
+  string,
+  Awaited<ReturnType<typeof resolveTSReferencedType>>
+>
+export const tsFileExportsCache: Map<TSFile, TSFileExports> = new Map()
+
 export async function resolveTSFileExports(file: TSFile) {
+  if (tsFileExportsCache.has(file)) return tsFileExportsCache.get(file)!
+
   const exports: Record<
     string,
     Awaited<ReturnType<typeof resolveTSReferencedType>>
   > = {}
+  tsFileExportsCache.set(file, exports)
 
   for (const stmt of file.ast) {
     if (stmt.type === 'ExportDefaultDeclaration') {
@@ -256,11 +266,12 @@ export async function resolveTSFileExports(file: TSFile) {
 
         if (stmt.source) {
           exports[exportedName] = sourceExports![specifier.local.name]
-        } else
+        } else {
           exports[exportedName] = await resolveTSReferencedType(
             file,
             specifier.local
           )
+        }
       }
 
       if (isTSDeclaration(stmt.declaration)) {
