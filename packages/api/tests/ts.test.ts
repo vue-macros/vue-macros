@@ -136,5 +136,32 @@ type Foo = AliasString`
         "StrAlias": "TSStringKeyword...",
       }
     `)
+
+    expect(
+      hideAstLocation(
+        await resolveTSProperties(
+          file,
+          exports.Inferface as TSInterfaceDeclaration
+        )
+      )
+    ).toMatchInlineSnapshot(`
+      {
+        "callSignatures": [],
+        "constructSignatures": [],
+        "methods": {},
+        "properties": {
+          "base": {
+            "optional": false,
+            "signature": "TSPropertySignature...",
+            "value": "TSBooleanKeyword...",
+          },
+          "foo": {
+            "optional": false,
+            "signature": "TSPropertySignature...",
+            "value": "TSLiteralType...",
+          },
+        },
+      }
+    `)
   })
 })
