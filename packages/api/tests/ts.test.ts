@@ -109,6 +109,21 @@ type Base2 = {
         },
       }
     `)
+
+    expect(
+      hideAstLocation(
+        await resolveTSReferencedType(file, result.properties.bar.value!)
+      )
+    ).toMatchInlineSnapshot('"TSStringKeyword..."')
+
+    expect(
+      hideAstLocation(
+        await resolveTSReferencedType(
+          file,
+          result.properties.intersection.value!
+        )
+      )
+    ).toMatchInlineSnapshot('"TSIntersectionType..."')
   })
 
   test('resolveTSReferencedType', async () => {
@@ -122,46 +137,68 @@ type Foo = AliasString`
     expect(result.type).toBe('TSStringKeyword')
   })
 
-  test('resolveTSFileExports', async () => {
-    const file = await getTSFile(path.resolve(fixtures, 'basic.ts'))
-    const exports = await resolveTSFileExports(file)
-    expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
-      {
-        "Foo": "TSLiteralType...",
-        "FooAlias": "TSLiteralType...",
-        "Inferface": "TSInterfaceDeclaration...",
-        "Num": "TSNumberKeyword...",
-        "OuterTest": "TSLiteralType...",
-        "Str": "TSStringKeyword...",
-        "StrAlias": "TSStringKeyword...",
-      }
-    `)
+  describe('resolveTSFileExports', () => {
+    test('basic', async () => {
+      const file = await getTSFile(path.resolve(fixtures, 'basic/index.ts'))
+      const exports = await resolveTSFileExports(file)
+      expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
+        {
+          "ExportAll": "TSLiteralType...",
+          "Foo": "TSLiteralType...",
+          "FooAlias": "TSLiteralType...",
+          "Inferface": "TSInterfaceDeclaration...",
+          "Num": "TSNumberKeyword...",
+          "OuterTest": "TSLiteralType...",
+          "Str": "TSStringKeyword...",
+          "StrAlias": "TSStringKeyword...",
+          "Test": "TSLiteralType...",
+        }
+      `)
 
-    expect(
-      hideAstLocation(
-        await resolveTSProperties(
-          file,
-          exports.Inferface as TSInterfaceDeclaration
+      expect(
+        hideAstLocation(
+          await resolveTSProperties(
+            file,
+            exports.Inferface as TSInterfaceDeclaration
+          )
         )
+      ).toMatchInlineSnapshot(`
+        {
+          "callSignatures": [],
+          "constructSignatures": [],
+          "methods": {},
+          "properties": {
+            "base1": {
+              "optional": false,
+              "signature": "TSPropertySignature...",
+              "value": "TSBooleanKeyword...",
+            },
+            "base2": {
+              "optional": false,
+              "signature": "TSPropertySignature...",
+              "value": "TSBooleanKeyword...",
+            },
+            "foo": {
+              "optional": false,
+              "signature": "TSPropertySignature...",
+              "value": "TSLiteralType...",
+            },
+          },
+        }
+      `)
+    })
+
+    test('circular referencing', async () => {
+      const file = await getTSFile(
+        path.resolve(fixtures, 'circular-referencing/foo.ts')
       )
-    ).toMatchInlineSnapshot(`
-      {
-        "callSignatures": [],
-        "constructSignatures": [],
-        "methods": {},
-        "properties": {
-          "base": {
-            "optional": false,
-            "signature": "TSPropertySignature...",
-            "value": "TSBooleanKeyword...",
-          },
-          "foo": {
-            "optional": false,
-            "signature": "TSPropertySignature...",
-            "value": "TSLiteralType...",
-          },
-        },
-      }
-    `)
+      const exports = await resolveTSFileExports(file)
+      expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
+        {
+          "Bar": "TSLiteralType...",
+          "Foo": "TSLiteralType...",
+        }
+      `)
+    })
   })
 })
