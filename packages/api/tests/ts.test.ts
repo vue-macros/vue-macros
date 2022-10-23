@@ -115,15 +115,6 @@ type Base2 = {
         await resolveTSReferencedType(file, result.properties.bar.value!)
       )
     ).toMatchInlineSnapshot('"TSStringKeyword..."')
-
-    expect(
-      hideAstLocation(
-        await resolveTSReferencedType(
-          file,
-          result.properties.intersection.value!
-        )
-      )
-    ).toMatchInlineSnapshot('"TSIntersectionType..."')
   })
 
   test('resolveTSReferencedType', async () => {

@@ -8,6 +8,7 @@ import type {
   Declaration,
   Identifier,
   ImportSpecifier,
+  Node,
   Statement,
   TSCallSignatureDeclaration,
   TSConstructSignatureDeclaration,
@@ -54,6 +55,9 @@ export async function getTSFile(filePath: string): Promise<TSFile> {
   })
 }
 
+export const isTSDeclaration = (node: any): node is TSDeclaration =>
+  isDeclaration(node) && node.type.startsWith('TS')
+
 export function mergeTSProperties(
   a: TSProperties,
   b: TSProperties
@@ -66,6 +70,11 @@ export function mergeTSProperties(
   }
 }
 
+/**
+ * get properties of `interface` or `type` declaration
+ *
+ * @limitation don't support index signature
+ */
 export async function resolveTSProperties(
   file: TSFile,
   node: TSInterfaceDeclaration | TSTypeLiteral
@@ -99,21 +108,27 @@ export async function resolveTSProperties(
       ).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
       properties = mergeTSProperties(ext, properties)
     }
-  } else {
+  } else if (node.type === 'TSTypeLiteral') {
     resolveTypeElements(properties, node.members)
+  } else {
+    throw new Error(`unknown node: ${(node as Node)?.type}`)
   }
   return properties
 }
 
+/**
+ * @limitation don't support index signature
+ */
 export function resolveTypeElements(
   properties: TSProperties,
   elements: Array<TSTypeElement>
 ) {
-  const getKey = (element: TSMethodSignature | TSPropertySignature) => {
+  const tryGetKey = (element: TSMethodSignature | TSPropertySignature) => {
     try {
       return getStaticKey(element.key, element.computed, false)
     } catch {}
   }
+
   for (const element of elements) {
     switch (element.type) {
       case 'TSCallSignatureDeclaration':
@@ -123,7 +138,7 @@ export function resolveTypeElements(
         properties.constructSignatures.push(element)
         break
       case 'TSMethodSignature': {
-        const key = getKey(element)
+        const key = tryGetKey(element)
         if (!key) continue
 
         // cannot overwrite if already exists
@@ -136,7 +151,7 @@ export function resolveTypeElements(
         break
       }
       case 'TSPropertySignature': {
-        const key = getKey(element)
+        const key = tryGetKey(element)
         if (!key) continue
 
         if (!properties.properties[key] && !properties.methods[key])
@@ -149,12 +164,14 @@ export function resolveTypeElements(
         break
       }
       case 'TSIndexSignature':
-        // unsupported
+        // TODO: unsupported
         break
     }
   }
 }
 
+// TODO move to vue
+/** @internal */
 export async function resolveTSReferencedDecl(file: TSFile, reference: TSType) {
   const resolved = await resolveTSReferencedType(file, reference)
   if (!resolved) return
@@ -166,9 +183,13 @@ export async function resolveTSReferencedDecl(file: TSFile, reference: TSType) {
   return undefined
 }
 
-export const isTSDeclaration = (node: any): node is TSDeclaration =>
-  isDeclaration(node) && node.type.startsWith('TS')
-
+/**
+ * Resolve a reference to a type.
+ *
+ * Supports `type` and `interface` only.
+ *
+ * @limitation don't support non-TS declaration (e.g. class, function...)
+ */
 export async function resolveTSReferencedType(
   file: TSFile,
   ref: TSType | Identifier | TSDeclaration
@@ -223,6 +244,13 @@ export type TSFileExports = Record<
 >
 export const tsFileExportsCache: Map<TSFile, TSFileExports> = new Map()
 
+/**
+ * Get exports of the TS file.
+ *
+ * @limitation don't support non-TS declaration (e.g. class, function...)
+ * @limitation don't support `export default`, since TS don't support it currently.
+ * @limitation don't support `export * as xxx from '...'` (aka namespace).
+ */
 export async function resolveTSFileExports(file: TSFile) {
   if (tsFileExportsCache.has(file)) return tsFileExportsCache.get(file)!
 
@@ -234,7 +262,7 @@ export async function resolveTSFileExports(file: TSFile) {
 
   for (const stmt of file.ast) {
     if (stmt.type === 'ExportDefaultDeclaration') {
-      // TODO: unsupported
+      // TS don't support it.
     } else if (stmt.type === 'ExportAllDeclaration') {
       const resolved = await resolveTSFileId(stmt.source.value, file.filePath)
       if (!resolved) continue
@@ -255,7 +283,8 @@ export async function resolveTSFileExports(file: TSFile) {
           specifier.type === 'ExportDefaultSpecifier' ||
           specifier.type === 'ExportNamespaceSpecifier'
         ) {
-          // TODO: unsupported
+          // default export: TS don't support it.
+          // TODO: namespace: we don't support it.
           continue
         }
 
