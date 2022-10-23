@@ -1,4 +1,4 @@
-import { Foo } from './exported'
+import { Base, Foo } from './exported'
 
 type Str = string
 export type { Str }
@@ -6,7 +6,7 @@ export type { Str as StrAlias }
 
 export type Num = number
 
-export interface Inferface {
+export interface Inferface extends Base {
   foo: 'foo'
 }
 
