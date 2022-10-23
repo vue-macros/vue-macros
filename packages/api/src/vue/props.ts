@@ -5,37 +5,39 @@ import {
 } from '../ts'
 import { keyToString } from '../utils'
 import { DefinitionKind } from './types'
+import type { TSDeclaration, TSFile } from '../ts'
 import type { Definition } from './types'
 import type { MagicString } from '@vue-macros/common'
 import type {
   LVal,
   Node,
-  Statement,
   StringLiteral,
-  TSInterfaceBody,
+  TSInterfaceDeclaration,
   TSMethodSignature,
   TSPropertySignature,
   TSType,
+  TSTypeAliasDeclaration,
   TSTypeLiteral,
+  TSTypeReference,
 } from '@babel/types'
 
-export function handleTSPropsDefinition({
+export async function handleTSPropsDefinition({
   s,
+  file,
   offset,
-  body,
   typeDeclRaw,
   declId,
 }: {
   s: MagicString
+  file: TSFile
   offset: number
-  body: Statement[]
   typeDeclRaw: TSType
   declId?: LVal
-}): TSProps {
-  const typeDecl = resolveTSReferencedDecl(body, typeDeclRaw)
+}): Promise<TSProps> {
+  const typeDecl = await resolveTSReferencedDecl(file, typeDeclRaw)
   if (!typeDecl) throw new SyntaxError(`Cannot resolve TS definition.`)
 
-  const properties = resolveTSProperties(body, typeDecl)
+  const properties = await resolveTSProperties(file, typeDecl)
   const definitions: TSProps['definitions'] = {}
   for (const [key, sign] of Object.entries(properties.methods)) {
     definitions[key] = {
@@ -46,11 +48,11 @@ export function handleTSPropsDefinition({
 
   for (const [key, value] of Object.entries(properties.properties)) {
     const referenced = value.value
-      ? resolveTSReferencedType(body, value.value)
-      : null
+      ? await resolveTSReferencedType(file, value.value)
+      : undefined
     definitions[key] = {
       type: 'property',
-      value: referenced ? buildDefinition(referenced) : null,
+      value: referenced ? buildDefinition(referenced) : undefined,
       optional: value.optional,
       signature: buildDefinition(value.signature),
     }
@@ -188,7 +190,12 @@ export interface TSPropsMethod {
 
 export interface TSPropsProperty {
   type: 'property'
-  value: Definition<TSType | TSInterfaceBody> | null
+  value:
+    | Definition<
+        | Exclude<TSType, TSTypeReference>
+        | Exclude<TSDeclaration, TSTypeAliasDeclaration>
+      >
+    | undefined
   optional: boolean
   signature: Definition<TSPropertySignature>
 }
@@ -198,7 +205,7 @@ export interface TSProps extends PropsBase {
 
   /** propName -> tsType */
   definitions: Record<string | number, TSPropsMethod | TSPropsProperty>
-  definitionsAst: TSTypeLiteral | TSInterfaceBody
+  definitionsAst: TSInterfaceDeclaration | TSTypeLiteral
 
   /**
    * Adds a new prop to the definitions. If the definition already exists, it will be overwrote.

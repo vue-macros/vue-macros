@@ -6,7 +6,7 @@ import type { TSEmits } from '../src/vue/emits'
 import type { TSProps } from '../src'
 
 describe('analyzeSFC', () => {
-  describe('props', () => {
+  describe('props', async () => {
     const code = `<script setup lang="ts">
 type AliasString1 = string
 type AliasString2 = AliasString1
@@ -24,7 +24,7 @@ defineProps<{
     const s = new MagicString(code)
     const sfc = parseSFC(code, 'test.vue')
 
-    const result = analyzeSFC(s, sfc)
+    const result = await analyzeSFC(s, sfc)
 
     const props = result.props as TSProps
     expect(props).not.toBeFalsy()
@@ -44,19 +44,19 @@ defineProps<{
 
     test('property prop should be correct', () => {
       expect(definitions().foo).toMatchInlineSnapshot(`
-      {
-        "optional": false,
-        "signature": {
-          "ast": "TSPropertySignature...",
-          "code": "foo: AliasString2",
-        },
-        "type": "property",
-        "value": {
-          "ast": "TSStringKeyword...",
-          "code": "string",
-        },
-      }
-    `)
+        {
+          "optional": false,
+          "signature": {
+            "ast": "TSPropertySignature...",
+            "code": "foo: AliasString2",
+          },
+          "type": "property",
+          "value": {
+            "ast": "TSStringKeyword...",
+            "code": "string",
+          },
+        }
+      `)
     })
 
     test('method prop should be correct', () => {
@@ -151,7 +151,7 @@ defineProps<{
     })
   })
 
-  describe('emits', () => {
+  describe('emits', async () => {
     const code = `<script setup lang="ts">
 defineEmits<{
   (evt: 'foo', arg: string): void
@@ -161,7 +161,7 @@ defineEmits<{
     const s = new MagicString(code)
     const sfc = parseSFC(code, 'test.vue')
 
-    const result = analyzeSFC(s, sfc)
+    const result = await analyzeSFC(s, sfc)
 
     const emits = result.emits as TSEmits
     expect(emits).not.toBeFalsy()

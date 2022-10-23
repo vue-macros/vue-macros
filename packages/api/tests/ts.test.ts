@@ -1,15 +1,32 @@
+import path from 'node:path'
 import { babelParse } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
-import { resolveTSProperties, resolveTSReferencedType } from '../src/ts'
+import {
+  getTSFile,
+  resolveTSFileExports,
+  resolveTSProperties,
+  resolveTSReferencedType,
+} from '../src/ts'
 import { hideAstLocation } from './_util'
+import type { TSFile } from '../src/ts'
 import type {
   TSInterfaceDeclaration,
   TSTypeAliasDeclaration,
 } from '@babel/types'
 
+const fixtures = path.resolve(__dirname, 'fixtures')
+
+function mockTSFile(content: string): TSFile {
+  return {
+    filePath: '/foo.ts',
+    content,
+    ast: babelParse(content, 'ts').body,
+  }
+}
+
 describe('ts', () => {
-  test('resolveTSProperties', () => {
-    const stmts = babelParse(
+  test('resolveTSProperties', async () => {
+    const file = mockTSFile(
       `interface Foo extends Base1, Base2 {
   foo: string | number
   ['bar']: Alias
@@ -43,11 +60,10 @@ type Base2 = {
   itShouldBeNumber: boolean
   (): string
 }
-`,
-      'ts'
-    ).body
-    const node = stmts[0] as TSInterfaceDeclaration
-    const result = resolveTSProperties(stmts, node)
+`
+    )
+    const node = file.ast[0] as TSInterfaceDeclaration
+    const result = await resolveTSProperties(file, node)
 
     expect(hideAstLocation(result)).toMatchInlineSnapshot(`
       {
@@ -95,15 +111,30 @@ type Base2 = {
     `)
   })
 
-  test('resolveTSReferencedType', () => {
-    const stmts = babelParse(
+  test('resolveTSReferencedType', async () => {
+    const file = mockTSFile(
       `export type AliasString1 = string
 type AliasString2 = AliasString1
-type Foo = AliasString`,
-      'ts'
-    ).body
-    const node = stmts[1] as TSTypeAliasDeclaration
-    const result = resolveTSReferencedType(stmts, node.typeAnnotation)!
+type Foo = AliasString`
+    )
+    const node = file.ast[1] as TSTypeAliasDeclaration
+    const result = (await resolveTSReferencedType(file, node.typeAnnotation))!
     expect(result.type).toBe('TSStringKeyword')
+  })
+
+  test('resolveTSFileExports', async () => {
+    const file = await getTSFile(path.resolve(fixtures, 'basic.ts'))
+    const exports = await resolveTSFileExports(file)
+    expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
+      {
+        "Foo": "TSLiteralType...",
+        "FooAlias": "TSLiteralType...",
+        "Inferface": "TSInterfaceDeclaration...",
+        "Num": "TSNumberKeyword...",
+        "OuterTest": "TSLiteralType...",
+        "Str": "TSStringKeyword...",
+        "StrAlias": "TSStringKeyword...",
+      }
+    `)
   })
 })

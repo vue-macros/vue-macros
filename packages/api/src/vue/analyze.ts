@@ -1,6 +1,7 @@
 import { DEFINE_EMITS, DEFINE_PROPS, isCallOf } from '@vue-macros/common'
 import { handleTSPropsDefinition } from './props'
 import { handleTSEmitsDefinition } from './emits'
+import type { TSFile } from '../ts'
 import type { Emits } from './emits'
 import type { Props } from './props'
 import type { MagicString, SFC } from '@vue-macros/common'
@@ -14,7 +15,10 @@ export interface AnalyzeResult {
   emits: Emits
 }
 
-export function analyzeSFC(s: MagicString, sfc: SFC): AnalyzeResult {
+export async function analyzeSFC(
+  s: MagicString,
+  sfc: SFC
+): Promise<AnalyzeResult> {
   if (sfc.script || !sfc.scriptSetup)
     throw new Error('Only <script setup> is supported')
 
@@ -24,19 +28,24 @@ export function analyzeSFC(s: MagicString, sfc: SFC): AnalyzeResult {
 
   const offset = scriptSetup.loc.start.offset
   const body = scriptCompiled.scriptSetupAst
+  const file: TSFile = {
+    filePath: sfc.filename,
+    content: s.original,
+    ast: sfc.scriptCompiled.scriptSetupAst!,
+  }
 
   let props: Props
   let emits: Emits
 
   for (const node of body) {
     if (node.type === 'ExpressionStatement') {
-      processDefineProps(node.expression)
-      processDefineEmits(node.expression)
+      await processDefineProps(node.expression)
+      await processDefineEmits(node.expression)
     } else if (node.type === 'VariableDeclaration' && !node.declare) {
       for (const decl of node.declarations) {
         if (!decl.init) continue
-        processDefineProps(decl.init, decl.id)
-        processDefineEmits(decl.init, decl.id)
+        await processDefineProps(decl.init, decl.id)
+        await processDefineEmits(decl.init, decl.id)
       }
     }
   }
@@ -46,12 +55,18 @@ export function analyzeSFC(s: MagicString, sfc: SFC): AnalyzeResult {
     emits,
   }
 
-  function processDefineProps(node: Node, declId?: LVal) {
+  async function processDefineProps(node: Node, declId?: LVal) {
     if (!isCallOf(node, DEFINE_PROPS) || props) return false
 
     const typeDeclRaw = node.typeParameters?.params[0]
     if (typeDeclRaw) {
-      props = handleTSPropsDefinition({ s, offset, body, typeDeclRaw, declId })
+      props = await handleTSPropsDefinition({
+        s,
+        file,
+        offset,
+        typeDeclRaw,
+        declId,
+      })
     } else {
       throw new Error('Runtime definition is not supported yet.')
     }
@@ -59,12 +74,18 @@ export function analyzeSFC(s: MagicString, sfc: SFC): AnalyzeResult {
     return true
   }
 
-  function processDefineEmits(node: Node, declId?: LVal) {
+  async function processDefineEmits(node: Node, declId?: LVal) {
     if (!isCallOf(node, DEFINE_EMITS) || emits) return false
 
     const typeDeclRaw = node.typeParameters?.params[0]
     if (typeDeclRaw) {
-      emits = handleTSEmitsDefinition({ s, offset, body, typeDeclRaw, declId })
+      emits = await handleTSEmitsDefinition({
+        s,
+        file,
+        offset,
+        typeDeclRaw,
+        declId,
+      })
     } else {
       throw new Error('Runtime definition is not supported yet.')
     }
