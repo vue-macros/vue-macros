@@ -67,9 +67,8 @@ importers:
       '@babel/types': ^7.19.4
       '@vue-macros/common': workspace:~
     dependencies:
-      '@vue-macros/common': link:../common
-    devDependencies:
       '@babel/types': 7.19.4
+      '@vue-macros/common': link:../common
 
   packages/better-define:
     specifiers:

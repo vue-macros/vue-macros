@@ -5,27 +5,35 @@ import { babelParse, getLang, getStaticKey } from '@vue-macros/common'
 import { isDeclaration } from '@babel/types'
 
 import type {
-  Declaration,
   Identifier,
   ImportSpecifier,
   Node,
   Statement,
   TSCallSignatureDeclaration,
   TSConstructSignatureDeclaration,
+  TSDeclareFunction,
+  TSEnumDeclaration,
   TSInterfaceBody,
   TSInterfaceDeclaration,
   TSIntersectionType,
   TSMethodSignature,
+  TSModuleDeclaration,
   TSParenthesizedType,
   TSPropertySignature,
   TSType,
   TSTypeAliasDeclaration,
   TSTypeElement,
   TSTypeLiteral,
-  TypeScript,
 } from '@babel/types'
 
-export type TSDeclaration = TypeScript & Declaration
+export type TSDeclaration =
+  /* TypeScript & Declaration */
+  | TSDeclareFunction
+  | TSInterfaceDeclaration
+  | TSTypeAliasDeclaration
+  | TSEnumDeclaration
+  | TSModuleDeclaration
+
 export interface TSFile {
   filePath: string
   content: string
