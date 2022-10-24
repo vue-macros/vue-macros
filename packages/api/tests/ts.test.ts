@@ -11,6 +11,7 @@ import { hideAstLocation } from './_util'
 import type { TSFile } from '../src'
 import type {
   TSInterfaceDeclaration,
+  TSIntersectionType,
   TSTypeAliasDeclaration,
 } from '@babel/types'
 
@@ -49,6 +50,8 @@ describe('ts', () => {
   [key: string]: any
 }
 
+type Intersection =  Base2 & Base1 & { itShouldBeNumber: number }
+
 type Alias = string
 type Base1 = {
   itShouldBeBoolean: boolean
@@ -62,10 +65,12 @@ type Base2 = {
 }
 `
     )
-    const node = file.ast[0] as TSInterfaceDeclaration
-    const result = await resolveTSProperties(file, node)
+    const interfaceProperties = await resolveTSProperties(
+      file,
+      file.ast[0] as TSInterfaceDeclaration
+    )
 
-    expect(hideAstLocation(result)).toMatchInlineSnapshot(`
+    expect(hideAstLocation(interfaceProperties)).toMatchInlineSnapshot(`
       {
         "callSignatures": [
           "TSCallSignatureDeclaration...",
@@ -109,12 +114,42 @@ type Base2 = {
         },
       }
     `)
-
     expect(
       hideAstLocation(
-        await resolveTSReferencedType(file, result.properties.bar.value!)
+        await resolveTSReferencedType(
+          file,
+          interfaceProperties.properties.bar.value!
+        )
       )
     ).toMatchInlineSnapshot('"TSStringKeyword..."')
+
+    const intersectionProperties = await resolveTSProperties(
+      file,
+      (file.ast[1] as TSTypeAliasDeclaration)
+        .typeAnnotation as TSIntersectionType
+    )
+    expect(hideAstLocation(intersectionProperties)).toMatchInlineSnapshot(`
+      {
+        "callSignatures": [
+          "TSCallSignatureDeclaration...",
+          "TSCallSignatureDeclaration...",
+        ],
+        "constructSignatures": [],
+        "methods": {},
+        "properties": {
+          "itShouldBeBoolean": {
+            "optional": false,
+            "signature": "TSPropertySignature...",
+            "value": "TSBooleanKeyword...",
+          },
+          "itShouldBeNumber": {
+            "optional": false,
+            "signature": "TSPropertySignature...",
+            "value": "TSNumberKeyword...",
+          },
+        },
+      }
+    `)
   })
 
   test('resolveTSReferencedType', async () => {
