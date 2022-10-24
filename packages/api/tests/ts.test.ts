@@ -6,9 +6,9 @@ import {
   resolveTSFileExports,
   resolveTSProperties,
   resolveTSReferencedType,
-} from '../src/ts'
+} from '../src'
 import { hideAstLocation } from './_util'
-import type { TSFile } from '../src/ts'
+import type { TSFile } from '../src'
 import type {
   TSInterfaceDeclaration,
   TSTypeAliasDeclaration,

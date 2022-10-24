@@ -14,6 +14,7 @@ import type {
   TSConstructSignatureDeclaration,
   TSInterfaceDeclaration,
   TSMethodSignature,
+  TSParenthesizedType,
   TSPropertySignature,
   TSType,
   TSTypeAliasDeclaration,
@@ -170,18 +171,10 @@ export function resolveTypeElements(
   }
 }
 
-// TODO move to vue
-/** @internal */
-export async function resolveTSReferencedDecl(file: TSFile, reference: TSType) {
-  const resolved = await resolveTSReferencedType(file, reference)
-  if (!resolved) return
-  else if (
-    resolved.type === 'TSInterfaceDeclaration' ||
-    resolved.type === 'TSTypeLiteral'
-  )
-    return resolved
-  return undefined
-}
+export type TSResolvedType =
+  | Exclude<TSType, TSTypeReference | TSParenthesizedType>
+  | Exclude<TSDeclaration, TSTypeAliasDeclaration>
+  | undefined
 
 /**
  * Resolve a reference to a type.
@@ -193,12 +186,11 @@ export async function resolveTSReferencedDecl(file: TSFile, reference: TSType) {
 export async function resolveTSReferencedType(
   file: TSFile,
   ref: TSType | Identifier | TSDeclaration
-): Promise<
-  | Exclude<TSType, TSTypeReference>
-  | Exclude<TSDeclaration, TSTypeAliasDeclaration>
-  | undefined
-> {
-  if (ref.type === 'TSTypeAliasDeclaration') {
+): Promise<TSResolvedType> {
+  if (
+    ref.type === 'TSTypeAliasDeclaration' ||
+    ref.type === 'TSParenthesizedType'
+  ) {
     return resolveTSReferencedType(file, ref.typeAnnotation)
   }
 
@@ -238,10 +230,7 @@ export async function resolveTSReferencedType(
   }
 }
 
-export type TSFileExports = Record<
-  string,
-  Awaited<ReturnType<typeof resolveTSReferencedType>>
->
+export type TSFileExports = Record<string, TSResolvedType>
 export const tsFileExportsCache: Map<TSFile, TSFileExports> = new Map()
 
 /**
@@ -325,13 +314,15 @@ export function resolveTSFileId(id: string, importer: string) {
   return resolveTSFileIdImpl(id, importer)
 }
 
-function tryResolve(id: string, importer: string) {
-  const filePath = path.resolve(importer, '..', id)
-  if (!existsSync(filePath)) return
-  return filePath
-}
-
+/**
+ * @limitation don't node_modules and JavaScript file
+ */
 export function resolveTSFileIdNode(id: string, importer: string) {
+  function tryResolve(id: string, importer: string) {
+    const filePath = path.resolve(importer, '..', id)
+    if (!existsSync(filePath)) return
+    return filePath
+  }
   return (
     tryResolve(id, importer) ||
     tryResolve(`${id}.ts`, importer) ||

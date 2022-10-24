@@ -1,5 +1,5 @@
 import { isStaticExpression, resolveLiteral } from '@vue-macros/common'
-import { resolveTSProperties, resolveTSReferencedDecl } from '../ts'
+import { resolveTSProperties, resolveTSReferencedType } from '../ts'
 import { DefinitionKind } from './types'
 import type { TSFile } from '../ts'
 import type { MagicString } from '@vue-macros/common'
@@ -27,8 +27,13 @@ export async function handleTSEmitsDefinition({
   typeDeclRaw: TSType
   declId?: LVal
 }): Promise<TSEmits> {
-  const typeDecl = await resolveTSReferencedDecl(file, typeDeclRaw)
-  if (!typeDecl) throw new SyntaxError(`Cannot resolve TS definition.`)
+  const typeDecl = await resolveTSReferencedType(file, typeDeclRaw)
+  if (
+    !typeDecl ||
+    (typeDecl.type !== 'TSInterfaceDeclaration' &&
+      typeDecl.type !== 'TSTypeLiteral')
+  )
+    throw new SyntaxError(`Cannot resolve TS definition.`)
 
   const properties = await resolveTSProperties(file, typeDecl)
   const definitions: TSEmits['definitions'] = {}
