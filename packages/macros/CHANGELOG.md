@@ -1,5 +1,26 @@
 # unplugin-vue-macros
 
+## 0.14.0
+
+### Minor Changes
+
+- [`6fa5b3e`](https://github.com/sxzz/unplugin-vue-macros/commit/6fa5b3eed9de69a19921f0b38809d80d2cde3d50) Thanks [@sxzz](https://github.com/sxzz)! - add named template
+
+### Patch Changes
+
+- [`1ac6e49`](https://github.com/sxzz/unplugin-vue-macros/commit/1ac6e496b3039a78f0288ca53698f88461ab6efc) Thanks [@sxzz](https://github.com/sxzz)! - add defineSlots macro
+
+- Updated dependencies [[`6fa5b3e`](https://github.com/sxzz/unplugin-vue-macros/commit/6fa5b3eed9de69a19921f0b38809d80d2cde3d50), [`1ac6e49`](https://github.com/sxzz/unplugin-vue-macros/commit/1ac6e496b3039a78f0288ca53698f88461ab6efc)]:
+  - @vue-macros/named-template@0.0.1
+  - @vue-macros/setup-component@0.12.3
+  - @vue-macros/define-slots@0.0.1
+  - @vue-macros/define-model@0.13.4
+  - unplugin-vue-define-options@0.12.3
+  - @vue-macros/define-render@0.13.4
+  - @vue-macros/hoist-static@0.12.3
+  - @vue-macros/setup-sfc@0.12.3
+  - @vue-macros/short-emits@0.12.4
+
 ## 0.13.3
 
 ### Patch Changes
