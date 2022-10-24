@@ -20,7 +20,6 @@ import type {
   TSTypeAliasDeclaration,
   TSTypeElement,
   TSTypeLiteral,
-  TSTypeReference,
   TypeScript,
 } from '@babel/types'
 
@@ -172,7 +171,7 @@ export function resolveTypeElements(
 }
 
 export type TSResolvedType =
-  | Exclude<TSType, TSTypeReference | TSParenthesizedType>
+  | Exclude<TSType, TSParenthesizedType>
   | Exclude<TSDeclaration, TSTypeAliasDeclaration>
   | undefined
 
@@ -228,6 +227,8 @@ export async function resolveTSReferencedType(
       return resolveTSReferencedType(file, node)
     }
   }
+
+  if (ref.type === 'TSTypeReference') return ref
 }
 
 export type TSFileExports = Record<string, TSResolvedType>

@@ -18,8 +18,6 @@ defineProps<{
   onClick(param: string): any
   shouldBeRemovedMethod(): void
   shouldBeRemovedMethod(param: string): any
-
-  union?: string | number | boolean
 }>()
 </script>`
     const s = new MagicString(code)
@@ -41,7 +39,6 @@ defineProps<{
           "foo",
           "str",
           "shouldBeRemovedProperty",
-          "union",
         ]
       `)
     })
@@ -165,8 +162,6 @@ defineProps<{
           
           
           
-
-          union?: string | number | boolean
           addedPropertyProp: number | string
           testProp: number | string
           testProp2: any
@@ -174,7 +169,7 @@ defineProps<{
         </script>"
       `)
 
-      expect(await props.getRuntimeProps()).toMatchInlineSnapshot(`
+      expect(await props.getRuntimeDefinitions()).toMatchInlineSnapshot(`
         {
           "addedPropertyProp": {
             "required": true,
@@ -207,17 +202,79 @@ defineProps<{
               "String",
             ],
           },
-          "union": {
-            "required": false,
-            "type": [
-              "String",
-              "Number",
-              "Boolean",
-            ],
-          },
         }
       `)
     })
+  })
+
+  test('props resolve', async () => {
+    const code = `<script setup lang="ts">
+    defineProps<{
+      str: string
+      num: number
+      bool: boolean
+      optional?: string
+      union: string | number | boolean
+      jsObj: Array<any> | Map | Record
+      unionBoolean: string | boolean
+    }>()
+    </script>`
+    const s = new MagicString(code)
+    const sfc = parseSFC(code, 'test.vue')
+
+    const result = await analyzeSFC(s, sfc)
+    const props = result.props as TSProps
+    expect(await props.getRuntimeDefinitions()).toMatchInlineSnapshot(`
+      {
+        "bool": {
+          "required": true,
+          "type": [
+            "Boolean",
+          ],
+        },
+        "jsObj": {
+          "required": true,
+          "type": [
+            "Array",
+            "Map",
+            "Object",
+          ],
+        },
+        "num": {
+          "required": true,
+          "type": [
+            "Number",
+          ],
+        },
+        "optional": {
+          "required": false,
+          "type": [
+            "String",
+          ],
+        },
+        "str": {
+          "required": true,
+          "type": [
+            "String",
+          ],
+        },
+        "union": {
+          "required": true,
+          "type": [
+            "String",
+            "Number",
+            "Boolean",
+          ],
+        },
+        "unionBoolean": {
+          "required": true,
+          "type": [
+            "String",
+            "Boolean",
+          ],
+        },
+      }
+    `)
   })
 
   describe('emits', async () => {
