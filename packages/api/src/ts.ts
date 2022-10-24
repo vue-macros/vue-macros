@@ -12,7 +12,9 @@ import type {
   Statement,
   TSCallSignatureDeclaration,
   TSConstructSignatureDeclaration,
+  TSInterfaceBody,
   TSInterfaceDeclaration,
+  TSIntersectionType,
   TSMethodSignature,
   TSParenthesizedType,
   TSPropertySignature,
@@ -77,52 +79,83 @@ export function mergeTSProperties(
  */
 export async function resolveTSProperties(
   file: TSFile,
-  node: TSInterfaceDeclaration | TSTypeLiteral
-) {
-  let properties: TSProperties = {
-    callSignatures: [],
-    constructSignatures: [],
-    methods: {},
-    properties: {},
-  }
-  if (node.type === 'TSInterfaceDeclaration') {
-    resolveTypeElements(properties, node.body.body)
+  node:
+    | TSInterfaceDeclaration
+    | TSInterfaceBody
+    | TSTypeLiteral
+    | TSIntersectionType
+): Promise<TSProperties> {
+  if (node.type === 'TSInterfaceBody') {
+    return resolveTypeElements(node.body)
+  } else if (node.type === 'TSTypeLiteral') {
+    return resolveTypeElements(node.members)
+  } else if (node.type === 'TSInterfaceDeclaration') {
+    let properties = resolveTypeElements(node.body.body)
     if (node.extends) {
-      const newLocal = await Promise.all(
-        node.extends.map((node) =>
-          node.expression.type === 'Identifier'
-            ? resolveTSReferencedType(file, node.expression)
-            : undefined
+      const resolvedExtends = (
+        await Promise.all(
+          node.extends.map((node) =>
+            node.expression.type === 'Identifier'
+              ? resolveTSReferencedType(file, node.expression)
+              : undefined
+          )
         )
       )
-      const ext = (
-        await Promise.all(
-          newLocal
-            .filter((node): node is TSInterfaceDeclaration | TSTypeLiteral =>
-              ['TSInterfaceDeclaration', 'TSTypeLiteral'].includes(
-                node?.type as any
-              )
-            )
-            .map((node) => resolveTSProperties(file, node))
-        )
-      ).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
-      properties = mergeTSProperties(ext, properties)
+        // eslint-disable-next-line unicorn/no-array-callback-reference
+        .filter(filterValidExtends)
+
+      if (resolvedExtends.length > 0) {
+        const ext = (
+          await Promise.all(
+            resolvedExtends.map((node) => resolveTSProperties(file, node))
+          )
+        ).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
+        properties = mergeTSProperties(ext, properties)
+      }
     }
-  } else if (node.type === 'TSTypeLiteral') {
-    resolveTypeElements(properties, node.members)
+    return properties
+  } else if (node.type === 'TSIntersectionType') {
+    let properties: TSProperties = {
+      callSignatures: [],
+      constructSignatures: [],
+      methods: {},
+      properties: {},
+    }
+    for (const type of node.types) {
+      const resolved = await resolveTSReferencedType(file, type)
+      if (!filterValidExtends(resolved)) continue
+      properties = mergeTSProperties(
+        properties,
+        await resolveTSProperties(file, resolved)
+      )
+    }
+    return properties
   } else {
     throw new Error(`unknown node: ${(node as Node)?.type}`)
   }
-  return properties
+
+  function filterValidExtends(
+    node: TSResolvedType
+  ): node is TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType {
+    return [
+      'TSInterfaceDeclaration',
+      'TSTypeLiteral',
+      'TSIntersectionType',
+    ].includes(node?.type as any)
+  }
 }
 
 /**
  * @limitation don't support index signature
  */
-export function resolveTypeElements(
-  properties: TSProperties,
-  elements: Array<TSTypeElement>
-) {
+export function resolveTypeElements(elements: Array<TSTypeElement>) {
+  const properties: TSProperties = {
+    callSignatures: [],
+    constructSignatures: [],
+    methods: {},
+    properties: {},
+  }
+
   const tryGetKey = (element: TSMethodSignature | TSPropertySignature) => {
     try {
       return getStaticKey(element.key, element.computed, false)
@@ -168,6 +201,8 @@ export function resolveTypeElements(
         break
     }
   }
+
+  return properties
 }
 
 export type TSResolvedType =
