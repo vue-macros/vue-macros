@@ -1,11 +1,21 @@
-import { DEFINE_EMITS, DEFINE_PROPS, isCallOf } from '@vue-macros/common'
+import {
+  DEFINE_EMITS,
+  DEFINE_PROPS,
+  babelParse,
+  isCallOf,
+} from '@vue-macros/common'
 import { handleTSPropsDefinition } from './props'
 import { handleTSEmitsDefinition } from './emits'
 import type { TSFile } from '../ts'
 import type { Emits } from './emits'
 import type { Props } from './props'
 import type { MagicString, SFC } from '@vue-macros/common'
-import type { LVal, Node } from '@babel/types'
+import type {
+  ExpressionStatement,
+  LVal,
+  Node,
+  VariableDeclaration,
+} from '@babel/types'
 
 export type { SFC } from '@vue-macros/common'
 export { parseSFC } from '@vue-macros/common'
@@ -15,6 +25,8 @@ export interface AnalyzeResult {
   emits: Emits
 }
 
+export type DefinePropsStatement = VariableDeclaration | ExpressionStatement
+
 export async function analyzeSFC(
   s: MagicString,
   sfc: SFC
@@ -22,16 +34,18 @@ export async function analyzeSFC(
   if (sfc.script || !sfc.scriptSetup)
     throw new Error('Only <script setup> is supported')
 
-  const { scriptSetup, scriptCompiled } = sfc
-  if (!scriptCompiled.scriptSetupAst)
-    throw new Error('Cannot parse <script setup>.')
+  const { scriptSetup } = sfc
+
+  const body = babelParse(
+    scriptSetup.content,
+    sfc.scriptSetup.lang || 'js'
+  ).body
 
   const offset = scriptSetup.loc.start.offset
-  const body = scriptCompiled.scriptSetupAst
   const file: TSFile = {
     filePath: sfc.filename,
     content: s.original,
-    ast: sfc.scriptCompiled.scriptSetupAst!,
+    ast: body,
   }
 
   let props: Props
@@ -39,12 +53,19 @@ export async function analyzeSFC(
 
   for (const node of body) {
     if (node.type === 'ExpressionStatement') {
-      await processDefineProps(node.expression)
+      await processDefineProps({
+        stmt: node,
+        node: node.expression,
+      })
       await processDefineEmits(node.expression)
     } else if (node.type === 'VariableDeclaration' && !node.declare) {
       for (const decl of node.declarations) {
         if (!decl.init) continue
-        await processDefineProps(decl.init, decl.id)
+        await processDefineProps({
+          stmt: node,
+          node: decl.init,
+          declId: decl.id,
+        })
         await processDefineEmits(decl.init, decl.id)
       }
     }
@@ -55,7 +76,15 @@ export async function analyzeSFC(
     emits,
   }
 
-  async function processDefineProps(node: Node, declId?: LVal) {
+  async function processDefineProps({
+    node,
+    declId,
+    stmt,
+  }: {
+    node: Node
+    declId?: LVal
+    stmt: DefinePropsStatement
+  }) {
     if (!isCallOf(node, DEFINE_PROPS) || props) return false
 
     const typeDeclRaw = node.typeParameters?.params[0]
@@ -66,6 +95,8 @@ export async function analyzeSFC(
         sfc,
         offset,
         typeDeclRaw,
+        statement: stmt,
+        callExpression: node,
         declId,
       })
     } else {
