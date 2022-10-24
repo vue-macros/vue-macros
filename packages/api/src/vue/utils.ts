@@ -37,32 +37,32 @@ export async function inferRuntimeType(
           return [`null`]
       }
 
-    // case 'TSTypeReference':
-    //   if (node.typeName.type === 'Identifier') {
-    //     switch (node.typeName.name) {
-    //       case 'Array':
-    //       case 'Function':
-    //       case 'Object':
-    //       case 'Set':
-    //       case 'Map':
-    //       case 'WeakSet':
-    //       case 'WeakMap':
-    //       case 'Date':
-    //       case 'Promise':
-    //         return [node.typeName.name]
-    //       case 'Record':
-    //       case 'Partial':
-    //       case 'Readonly':
-    //       case 'Pick':
-    //       case 'Omit':
-    //       case 'Exclude':
-    //       case 'Extract':
-    //       case 'Required':
-    //       case 'InstanceType':
-    //         return ['Object']
-    //     }
-    //   }
-    //   return [`null`]
+    case 'TSTypeReference':
+      if (node.typeName.type === 'Identifier') {
+        switch (node.typeName.name) {
+          case 'Array':
+          case 'Function':
+          case 'Object':
+          case 'Set':
+          case 'Map':
+          case 'WeakSet':
+          case 'WeakMap':
+          case 'Date':
+          case 'Promise':
+            return [node.typeName.name]
+          case 'Record':
+          case 'Partial':
+          case 'Readonly':
+          case 'Pick':
+          case 'Omit':
+          case 'Exclude':
+          case 'Extract':
+          case 'Required':
+          case 'InstanceType':
+            return ['Object']
+        }
+      }
+      return [`null`]
 
     case 'TSUnionType': {
       const types = (

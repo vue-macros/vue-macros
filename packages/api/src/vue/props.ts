@@ -20,7 +20,6 @@ import type {
 export async function handleTSPropsDefinition({
   s,
   file,
-  sfc,
   offset,
   typeDeclRaw,
   declId,
@@ -160,11 +159,11 @@ export async function handleTSPropsDefinition({
     return true
   }
 
-  const getRuntimeProps: TSProps['getRuntimeProps'] = async () => {
-    const props: Record<string, PropTypeData> = {}
+  const getRuntimeDefinitions: TSProps['getRuntimeDefinitions'] = async () => {
+    const props: Record<string, RuntimePropDefinition> = {}
 
     for (const [propName, def] of Object.entries(definitions)) {
-      let prop: PropTypeData
+      let prop: RuntimePropDefinition
       if (def.type === 'method') {
         prop = { type: ['Function'], required: true }
       } else {
@@ -191,7 +190,7 @@ export async function handleTSPropsDefinition({
     addProp,
     setProp,
     removeProp,
-    getRuntimeProps,
+    getRuntimeDefinitions,
   }
 
   function buildNewProp(
@@ -220,7 +219,7 @@ export async function handleTSPropsDefinition({
   }
 }
 
-export type Props = ReferenceProps | ObjectProps | TSProps | undefined
+export type Props = /* ReferenceProps | ObjectProps | */ TSProps | undefined
 
 export interface PropsBase {
   declId: LVal | undefined
@@ -322,12 +321,12 @@ export interface TSProps extends PropsBase {
   removeProp(name: string | StringLiteral): boolean
 
   /**
-   * Generate JS code of the definition.
+   * Generate runtime definitions.
    */
-  getRuntimeProps(): Promise<Record<string, PropTypeData>>
+  getRuntimeDefinitions(): Promise<Record<string, RuntimePropDefinition>>
 }
 
-export interface PropTypeData {
+export interface RuntimePropDefinition {
   type: string[]
   required: boolean
 }
