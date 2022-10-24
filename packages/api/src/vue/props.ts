@@ -3,12 +3,15 @@ import { resolveTSProperties, resolveTSReferencedType } from '../ts'
 import { keyToString } from '../utils'
 import { DefinitionKind } from './types'
 import { inferRuntimeType } from './utils'
+import type { DefinePropsStatement } from './analyze'
 import type { MagicString, SFC } from '@vue-macros/common'
 import type { TSFile, TSResolvedType } from '../ts'
 import type { Definition } from './types'
 import type {
+  CallExpression,
   LVal,
   Node,
+  Statement,
   StringLiteral,
   TSInterfaceDeclaration,
   TSMethodSignature,
@@ -22,6 +25,8 @@ export async function handleTSPropsDefinition({
   file,
   offset,
   typeDeclRaw,
+  statement,
+  callExpression,
   declId,
 }: {
   s: MagicString
@@ -29,6 +34,8 @@ export async function handleTSPropsDefinition({
   sfc: SFC
   offset: number
   typeDeclRaw: TSType
+  callExpression: CallExpression
+  statement: DefinePropsStatement
   declId?: LVal
 }): Promise<TSProps> {
   const typeDecl = await resolveTSReferencedType(file, typeDeclRaw)
@@ -191,6 +198,10 @@ export async function handleTSPropsDefinition({
     setProp,
     removeProp,
     getRuntimeDefinitions,
+
+    // AST
+    statementAst: statement,
+    callExpressionAst: callExpression,
   }
 
   function buildNewProp(
@@ -223,6 +234,8 @@ export type Props = /* ReferenceProps | ObjectProps | */ TSProps | undefined
 
 export interface PropsBase {
   declId: LVal | undefined
+  statementAst: Statement
+  callExpressionAst: CallExpression
 }
 
 // TODO: not implement yet
