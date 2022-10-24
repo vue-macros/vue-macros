@@ -14,6 +14,7 @@ import type {
   Statement,
   StringLiteral,
   TSInterfaceDeclaration,
+  TSIntersectionType,
   TSMethodSignature,
   TSPropertySignature,
   TSType,
@@ -42,7 +43,8 @@ export async function handleTSPropsDefinition({
   if (
     !typeDecl ||
     (typeDecl.type !== 'TSInterfaceDeclaration' &&
-      typeDecl.type !== 'TSTypeLiteral')
+      typeDecl.type !== 'TSTypeLiteral' &&
+      typeDecl.type !== 'TSIntersectionType')
   )
     throw new SyntaxError(`Cannot resolve TS definition.`)
 
@@ -290,7 +292,7 @@ export interface TSProps extends PropsBase {
 
   /** propName -> tsType */
   definitions: Record<string | number, TSPropsMethod | TSPropsProperty>
-  definitionsAst: TSInterfaceDeclaration | TSTypeLiteral
+  definitionsAst: TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType
 
   /**
    * Adds a new prop to the definitions. If the definition already exists, it will be overwrote.

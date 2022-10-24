@@ -6,6 +6,9 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
   props: {
+    base: { type: String, required: true },
+    str: { type: String, required: true },
+    num: { type: Number, required: true },
     map: { type: Map, required: true },
     arr: { type: Array, required: true },
     union: { type: [String, Number], required: true }
@@ -28,5 +31,39 @@ var _export_sfc = (sfc, props) => {
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/intersection.vue 1`] = `
+"import { defineComponent, renderSlot } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"intersection\\",
+  props: {
+    base: { type: String, required: true },
+    str: { type: String, required: true },
+    num: { type: Number, required: true },
+    map: { type: Map, required: true },
+    arr: { type: Array, required: true },
+    union: { type: [String, Number], required: true }
+  },
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return renderSlot(_ctx.$slots, \\"default\\");
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var intersection = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { intersection as default };
 "
 `;

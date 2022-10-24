@@ -11,7 +11,7 @@ export const transformBetterDefine = async (code: string, id: string) => {
   const offset = sfc.scriptSetup.loc.start.offset
   const result = await analyzeSFC(s, sfc)
   if (result.props) {
-    processProps(result.props)
+    await processProps(result.props)
   }
 
   return getTransformResult(s, id)
