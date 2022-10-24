@@ -1,13 +1,11 @@
-import {
-  resolveTSProperties,
-  resolveTSReferencedDecl,
-  resolveTSReferencedType,
-} from '../ts'
+import { babelParse } from '@vue-macros/common'
+import { resolveTSProperties, resolveTSReferencedType } from '../ts'
 import { keyToString } from '../utils'
 import { DefinitionKind } from './types'
-import type { TSDeclaration, TSFile } from '../ts'
+import { inferRuntimeType } from './utils'
+import type { MagicString, SFC } from '@vue-macros/common'
+import type { TSFile, TSResolvedType } from '../ts'
 import type { Definition } from './types'
-import type { MagicString } from '@vue-macros/common'
 import type {
   LVal,
   Node,
@@ -16,26 +14,31 @@ import type {
   TSMethodSignature,
   TSPropertySignature,
   TSType,
-  TSTypeAliasDeclaration,
   TSTypeLiteral,
-  TSTypeReference,
 } from '@babel/types'
 
 export async function handleTSPropsDefinition({
   s,
   file,
+  sfc,
   offset,
   typeDeclRaw,
   declId,
 }: {
   s: MagicString
   file: TSFile
+  sfc: SFC
   offset: number
   typeDeclRaw: TSType
   declId?: LVal
 }): Promise<TSProps> {
-  const typeDecl = await resolveTSReferencedDecl(file, typeDeclRaw)
-  if (!typeDecl) throw new SyntaxError(`Cannot resolve TS definition.`)
+  const typeDecl = await resolveTSReferencedType(file, typeDeclRaw)
+  if (
+    !typeDecl ||
+    (typeDecl.type !== 'TSInterfaceDeclaration' &&
+      typeDecl.type !== 'TSTypeLiteral')
+  )
+    throw new SyntaxError(`Cannot resolve TS definition.`)
 
   const properties = await resolveTSProperties(file, typeDecl)
   const definitions: TSProps['definitions'] = {}
@@ -52,61 +55,87 @@ export async function handleTSPropsDefinition({
       : undefined
     definitions[key] = {
       type: 'property',
+      addByAPI: false,
       value: referenced ? buildDefinition(referenced) : undefined,
       optional: value.optional,
       signature: buildDefinition(value.signature),
     }
   }
 
-  const addRaw: TSProps['addRaw'] = (def) => {
-    s.appendLeft(typeDecl.end! + offset - 1, `  ${def}`)
+  const addProp: TSProps['addProp'] = (_key, value, optional) => {
+    const { key, signature, valueAst, signatureAst } = buildNewProp(
+      _key,
+      value,
+      optional
+    )
+    if (definitions[key]) return false
+
+    s.appendLeft(typeDecl.end! + offset - 1, `  ${signature}\n`)
+
+    definitions[key] = {
+      type: 'property',
+      value: {
+        code: value,
+        ast: valueAst,
+      },
+      optional: !!optional,
+      signature: {
+        code: signature,
+        ast: signatureAst,
+      },
+      addByAPI: true,
+    }
+    return true
   }
 
-  const overwriteRaw = (
-    def: TSPropsMethod | TSPropsProperty,
-    signature: string
-  ) => {
+  const setProp: TSProps['setProp'] = (_key, value, optional) => {
+    function attachNodeLoc(node: Node, newNode: Node) {
+      newNode.start = node.start
+      newNode.end = node.end
+    }
+
+    const { key, signature, signatureAst, valueAst } = buildNewProp(
+      _key,
+      value,
+      optional
+    )
+
+    const def = definitions[key]
+    if (!definitions[key]) return false
+
     switch (def.type) {
       case 'method': {
         s.overwriteNode(def.methods[0].ast!, signature, { offset })
+        attachNodeLoc(def.methods[0].ast!, signatureAst)
         def.methods
           .slice(1)
           .forEach((method) => s.removeNode(method.ast!, { offset }))
         break
       }
       case 'property': {
-        if (!def.signature.ast)
-          throw new Error(
-            'Cannot overwrite prop definition added by `addProp`.'
-          )
-        s.overwriteNode(def.signature.ast, signature, { offset })
+        if (!def.addByAPI) {
+          s.overwriteNode(def.signature.ast, signature, { offset })
+        }
+
+        attachNodeLoc(def.signature.ast, signatureAst)
         break
       }
-    }
-  }
-
-  const addProp: TSProps['addProp'] = (_key, value, optional) => {
-    const key = keyToString(_key)
-    const signature = `${_key}${optional ? '?' : ''}: ${value}`
-
-    const def = definitions[key]
-    if (!def) {
-      addRaw(`${signature};\n`)
-    } else {
-      // override existing prop definition
-      overwriteRaw(def, `${signature};`)
     }
 
     definitions[key] = {
       type: 'property',
       value: {
         code: value,
+        ast: valueAst,
       },
       optional: !!optional,
       signature: {
         code: signature,
+        ast: signatureAst,
       },
+      addByAPI: false,
     }
+    return true
   }
 
   const removeProp: TSProps['removeProp'] = (_key) => {
@@ -115,16 +144,43 @@ export async function handleTSPropsDefinition({
 
     const def = definitions[key]
     switch (def.type) {
-      case 'property':
-        if (!def.signature.ast) return false
-        s.removeNode(def.signature.ast, { offset })
+      case 'property': {
+        if (!def.addByAPI) {
+          s.removeNode(def.signature.ast, { offset })
+        }
         break
+      }
       case 'method':
         def.methods.forEach((method) => s.removeNode(method.ast!, { offset }))
         break
     }
 
+    delete definitions[key]
+
     return true
+  }
+
+  const getRuntimeProps: TSProps['getRuntimeProps'] = async () => {
+    const props: Record<string, PropTypeData> = {}
+
+    for (const [propName, def] of Object.entries(definitions)) {
+      let prop: PropTypeData
+      if (def.type === 'method') {
+        prop = { type: ['Function'], required: true }
+      } else {
+        const resolvedType = def.value?.ast
+        if (resolvedType) {
+          prop = {
+            type: await inferRuntimeType(file, resolvedType),
+            required: !def.optional,
+          }
+        } else {
+          prop = { type: ['null'], required: false }
+        }
+      }
+      props[propName] = prop
+    }
+    return props
   }
 
   return {
@@ -133,8 +189,27 @@ export async function handleTSPropsDefinition({
     definitionsAst: typeDecl,
     declId,
     addProp,
-    addRaw,
+    setProp,
     removeProp,
+    getRuntimeProps,
+  }
+
+  function buildNewProp(
+    _key: string | StringLiteral,
+    value: string,
+    optional: boolean | undefined
+  ) {
+    const key = keyToString(_key)
+    const signature = `${_key}${optional ? '?' : ''}: ${value}`
+
+    const valueAst = (babelParse(`type T = (${value})`, 'ts').body[0] as any)
+      .typeAnnotation.typeAnnotation
+
+    const signatureAst = (
+      babelParse(`interface T {${signature}}`, 'ts').body[0] as any
+    ).body.body[0]
+
+    return { key, signature, signatureAst, valueAst }
   }
 
   function buildDefinition<T extends Node>(node: T): Definition<T> {
@@ -190,14 +265,12 @@ export interface TSPropsMethod {
 
 export interface TSPropsProperty {
   type: 'property'
-  value:
-    | Definition<
-        | Exclude<TSType, TSTypeReference>
-        | Exclude<TSDeclaration, TSTypeAliasDeclaration>
-      >
-    | undefined
+  value: Definition<TSResolvedType> | undefined
   optional: boolean
   signature: Definition<TSPropertySignature>
+
+  /** Whether added by `addProp` API */
+  addByAPI: boolean
 }
 
 export interface TSProps extends PropsBase {
@@ -210,29 +283,51 @@ export interface TSProps extends PropsBase {
   /**
    * Adds a new prop to the definitions. If the definition already exists, it will be overwrote.
    *
-   * Added definition cannot be removed and overwrote again.
+   * Added definition cannot be set and removed again.
    *
-   * @example add('foo', 'string ｜ boolean')
+   * @example addProp('foo', 'string ｜ boolean')
+   *
+   * @returns false if the definition already exists.
    */
-  addProp(name: string | StringLiteral, type: string, optional?: boolean): void
+  addProp(
+    name: string | StringLiteral,
+    type: string,
+    optional?: boolean
+  ): boolean
 
   /**
-   * Add raw defintions to TS interface.
+   * Modify a definition of a prop.
    *
-   * @internal not a stable API. `definitions` will NOT updated after this call.
+   * @limitation Cannot set prop added by `addProp`.
    *
-   * @example addRaw('foo: string; bar: number')
+   * @example setProp('foo', 'string ｜ boolean')
+   *
+   * @returns false if the definition does not exist.
    */
-  addRaw(definitions: string): void
+  setProp(
+    name: string | StringLiteral,
+    type: string,
+    optional?: boolean
+  ): boolean
 
   /**
    * Removes specified prop from TS interface.
    *
    * `definitions` will updated after this call.
    *
-   * Cannot remove prop added by `addProp`.
+   * @limitation Cannot remove prop added by `addProp`.
    *
    * @returns `true` if prop was removed, `false` if prop was not found.
    */
   removeProp(name: string | StringLiteral): boolean
+
+  /**
+   * Generate JS code of the definition.
+   */
+  getRuntimeProps(): Promise<Record<string, PropTypeData>>
+}
+
+export interface PropTypeData {
+  type: string[]
+  required: boolean
 }

@@ -1,9 +1,8 @@
 import { MagicString, parseSFC } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
-import { DefinitionKind, analyzeSFC } from '../src'
+import { DefinitionKind, analyzeSFC } from '../src/vue'
 import { hideAstLocation } from './_util'
-import type { TSEmits } from '../src/vue/emits'
-import type { TSProps } from '../src'
+import type { TSEmits, TSProps } from '../src/vue'
 
 describe('analyzeSFC', () => {
   describe('props', async () => {
@@ -19,6 +18,8 @@ defineProps<{
   onClick(param: string): any
   shouldBeRemovedMethod(): void
   shouldBeRemovedMethod(param: string): any
+
+  union?: string | number | boolean
 }>()
 </script>`
     const s = new MagicString(code)
@@ -33,18 +34,22 @@ defineProps<{
     const definitions = () => hideAstLocation(props.definitions)
 
     test('prop name should be correct', () => {
-      expect(Object.keys(props.definitions)).toStrictEqual([
-        'onClick',
-        'shouldBeRemovedMethod',
-        'foo',
-        'str',
-        'shouldBeRemovedProperty',
-      ])
+      expect(Object.keys(props.definitions)).toMatchInlineSnapshot(`
+        [
+          "onClick",
+          "shouldBeRemovedMethod",
+          "foo",
+          "str",
+          "shouldBeRemovedProperty",
+          "union",
+        ]
+      `)
     })
 
     test('property prop should be correct', () => {
       expect(definitions().foo).toMatchInlineSnapshot(`
         {
+          "addByAPI": false,
           "optional": false,
           "signature": {
             "ast": "TSPropertySignature...",
@@ -77,22 +82,26 @@ defineProps<{
     `)
     })
 
-    test('addRaw should work', () => {
-      props.addRaw('addedRawProp: number\n')
-      expect(s.toString()).toContain(`addedRawProp: number\n`)
-    })
-
     test('addProp should work', () => {
-      props.addProp('addedPropertyProp', 'number | string')
-      expect(s.toString()).toContain(`addedPropertyProp: number | string;\n`)
+      expect(props.addProp('addedPropertyProp', 'number | string')).toBe(true)
+
+      // existing
+      expect(
+        props.addProp('addedPropertyProp', 'number | string | boolean')
+      ).toBe(false)
+
+      expect(s.toString()).toContain(`addedPropertyProp: number | string\n`)
       expect(definitions().addedPropertyProp).toMatchInlineSnapshot(`
         {
+          "addByAPI": true,
           "optional": false,
           "signature": {
+            "ast": "TSPropertySignature...",
             "code": "addedPropertyProp: number | string",
           },
           "type": "property",
           "value": {
+            "ast": "TSUnionType...",
             "code": "number | string",
           },
         }
@@ -109,27 +118,40 @@ defineProps<{
 
       test('remove method prop', () => {
         expect(props.removeProp('shouldBeRemovedMethod')).toBe(true)
+        expect(Object.keys(props.definitions)).not.contain(
+          'shouldBeRemovedMethod'
+        )
         expect(s.toString()).not.toContain(`shouldBeRemovedMethod(): void
   shouldBeRemovedMethod(param: string): any`)
       })
+
+      test('remove props added by API', () => {
+        expect(props.addProp('testProp', 'number | string')).toBe(true)
+        expect(props.removeProp('testProp')).toBe(true)
+      })
     })
 
-    describe('overwriting prop', () => {
-      test('overwrite property prop', () => {
-        props.addProp('str', 'OverwrotePropertyProp', true)
+    describe('set prop', () => {
+      test('set property prop', () => {
+        expect(props.setProp('str', 'OverwrotePropertyProp', true)).toBe(true)
         expect(s.toString()).not.toContain(`str: string`)
-        expect(s.toString()).toContain(`str?: OverwrotePropertyProp;`)
+        expect(s.toString()).toContain(`str?: OverwrotePropertyProp`)
       })
 
       test('overwrite method prop', () => {
-        props.addProp('onClick', '() => OverwroteMethodProp')
+        expect(props.setProp('onClick', '() => OverwroteMethodProp')).toBe(true)
         expect(s.toString()).not.toContain(`onClick(): void
   onClick(param: string): any`)
-        expect(s.toString()).toContain(`onClick: () => OverwroteMethodProp;`)
+        expect(s.toString()).toContain(`onClick: () => OverwroteMethodProp`)
+      })
+
+      test('set props added by API', () => {
+        expect(props.addProp('testProp2', 'any')).toBe(true)
+        expect(props.setProp('testProp2', 'string')).toBe(true)
       })
     })
 
-    test('final', () => {
+    test('getRuntimeProps', async () => {
       expect(s.toString()).toMatchInlineSnapshot(`
         "<script setup lang=\\"ts\\">
         type AliasString1 = string
@@ -137,16 +159,63 @@ defineProps<{
 
         defineProps<{
           foo: AliasString2
-          str?: OverwrotePropertyProp;
+          str?: OverwrotePropertyProp
           
-          onClick: () => OverwroteMethodProp;
+          onClick: () => OverwroteMethodProp
           
           
           
-          addedRawProp: number
-          addedPropertyProp: number | string;
+
+          union?: string | number | boolean
+          addedPropertyProp: number | string
+          testProp: number | string
+          testProp2: any
         }>()
         </script>"
+      `)
+
+      expect(await props.getRuntimeProps()).toMatchInlineSnapshot(`
+        {
+          "addedPropertyProp": {
+            "required": true,
+            "type": [
+              "Number",
+              "String",
+            ],
+          },
+          "foo": {
+            "required": true,
+            "type": [
+              "String",
+            ],
+          },
+          "onClick": {
+            "required": true,
+            "type": [
+              "Function",
+            ],
+          },
+          "str": {
+            "required": false,
+            "type": [
+              "null",
+            ],
+          },
+          "testProp2": {
+            "required": true,
+            "type": [
+              "String",
+            ],
+          },
+          "union": {
+            "required": false,
+            "type": [
+              "String",
+              "Number",
+              "Boolean",
+            ],
+          },
+        }
       `)
     })
   })

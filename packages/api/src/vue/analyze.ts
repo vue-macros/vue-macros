@@ -63,6 +63,7 @@ export async function analyzeSFC(
       props = await handleTSPropsDefinition({
         s,
         file,
+        sfc,
         offset,
         typeDeclRaw,
         declId,

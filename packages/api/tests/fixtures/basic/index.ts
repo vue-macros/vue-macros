@@ -10,7 +10,7 @@ export interface Inferface extends Base1, Base2 {
   foo: 'foo'
 }
 
-export type { Foo }
+export { Foo }
 export type { Foo as FooAlias }
 export { Test as OuterTest } from './export-all'
 export * from './export-all'

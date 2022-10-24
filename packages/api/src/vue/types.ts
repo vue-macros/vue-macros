@@ -21,5 +21,5 @@ export enum DefinitionKind {
 
 export interface Definition<T> {
   code: string
-  ast?: T
+  ast: T
 }
