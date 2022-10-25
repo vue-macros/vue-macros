@@ -10,11 +10,12 @@
       enabled: false,
     },
 
-    // wait Vite 4
     {
       matchUpdateTypes: ['major'],
       matchPackageNames: [
         'vue',
+
+        // wait Vite 4
         'rollup',
         '@rollup/pluginutils',
         '@rollup/plugin-node-resolve',
@@ -23,7 +24,7 @@
     },
     {
       matchUpdateTypes: ['minor'],
-      matchPackageNames: ['unplugin-combine', 'unplugin'],
+      matchPackageNames: ['unplugin-combine'],
       enabled: false,
     },
   ],
