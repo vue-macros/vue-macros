@@ -102,7 +102,7 @@ function resolveOptions({
 
 function resolvePlugin(
   options: FeatureOptions | false,
-  unplugin: UnpluginInstance<any>
+  unplugin: UnpluginInstance<any, false>
 ): Unplugin<any> | undefined {
   if (!options) return
   return [unplugin, options]
