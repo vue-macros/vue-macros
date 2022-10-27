@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import type { BaseProps } from './types'
+import type { BaseEmits, BaseProps } from './types'
 
 export interface Props extends BaseProps {
   msg: string
+}
+export interface Emits extends BaseEmits {
+  (evt: 'click'): void
 }
 withDefaults(
   defineProps<
@@ -10,10 +13,10 @@ withDefaults(
       union?: string | number
     }
   >(),
-  {
-    union: 'defaultValue',
-  }
+  { union: 'defaultValue' }
 )
+
+defineEmits<Emits>()
 </script>
 
 <template>

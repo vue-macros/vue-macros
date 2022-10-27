@@ -1,5 +1,73 @@
 // Vitest Snapshot v1
 
+exports[`analyzeSFC > defineEmits > definitions should be correct 1`] = `
+{
+  "1": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 1): void",
+    },
+  ],
+  "change": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'change', param: string): void",
+    },
+  ],
+  "click": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'click'): void",
+    },
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'click', param: string): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineEmits > should resolve interface extends 1`] = `
+{
+  "foo": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'foo'): void",
+    },
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'foo', param?: string): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineEmits > should resolve intersection 1`] = `
+{
+  "foo": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'foo'): void",
+    },
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'foo', param?: string): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineEmits > should resolve referenced type 1`] = `
+{
+  "foo": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: Foo): void",
+    },
+  ],
+}
+`;
+
 exports[`analyzeSFC > defineProps > addProp should work 1`] = `
 {
   "foo": {

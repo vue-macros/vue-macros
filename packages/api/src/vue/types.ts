@@ -1,3 +1,4 @@
+import type { Node } from '@babel/types'
 import type { TSFile } from '../ts'
 
 export enum DefinitionKind {
@@ -21,7 +22,7 @@ export enum DefinitionKind {
   TS = 'TS',
 }
 
-export interface Definition<T> {
+export interface ASTDefinition<T extends Node> {
   code: string
   file: TSFile | undefined
   ast: T

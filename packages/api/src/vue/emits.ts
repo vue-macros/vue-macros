@@ -1,125 +1,230 @@
-import { isStaticExpression, resolveLiteral } from '@vue-macros/common'
+import {
+  babelParse,
+  isStaticExpression,
+  resolveLiteral,
+} from '@vue-macros/common'
 import { resolveTSProperties, resolveTSReferencedType } from '../ts'
+import { keyToString } from '../utils'
 import { DefinitionKind } from './types'
-import type { TSFile } from '../ts'
-import type { MagicString } from '@vue-macros/common'
-import type { Definition } from './types'
+import { attachNodeLoc } from './utils'
+import type { TSFile, TSResolvedType } from '../ts'
+import type { MagicString, SFC } from '@vue-macros/common'
+import type { ASTDefinition } from './types'
 import type {
+  CallExpression,
+  ExpressionStatement,
   LVal,
   Node,
   StringLiteral,
   TSCallSignatureDeclaration,
   TSInterfaceDeclaration,
+  TSIntersectionType,
   TSType,
   TSTypeLiteral,
+  UnaryExpression,
+  VariableDeclaration,
 } from '@babel/types'
 
 export async function handleTSEmitsDefinition({
   s,
   file,
   offset,
+
+  defineEmitsAst,
   typeDeclRaw,
+
   declId,
+  statement,
 }: {
   s: MagicString
   file: TSFile
+  sfc: SFC
   offset: number
+
+  defineEmitsAst: CallExpression
   typeDeclRaw: TSType
+
+  statement: DefineEmitsStatement
   declId?: LVal
 }): Promise<TSEmits> {
-  const typeDecl = await resolveTSReferencedType(file, typeDeclRaw)
-  if (
-    !typeDecl ||
-    (typeDecl.type !== 'TSInterfaceDeclaration' &&
-      typeDecl.type !== 'TSTypeLiteral')
-  )
-    throw new SyntaxError(`Cannot resolve TS definition.`)
+  const { definitions, definitionsAst } = await resolveDefinitions({
+    type: typeDeclRaw,
+    file,
+  })
 
-  const properties = await resolveTSProperties(file, typeDecl)
-  const definitions: TSEmits['definitions'] = {}
+  const addEmit: TSEmits['addEmit'] = (name, signature) => {
+    const key = keyToString(name)
 
-  for (const sign of properties.callSignatures) {
-    const evtArg = sign.parameters[0]
-    if (
-      !evtArg ||
-      evtArg.type !== 'Identifier' ||
-      evtArg.typeAnnotation?.type !== 'TSTypeAnnotation' ||
-      evtArg.typeAnnotation.typeAnnotation.type !== 'TSLiteralType'
-    )
-      continue
+    if (definitionsAst.file === file)
+      // TODO: intersection
+      s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
 
-    const literal = evtArg.typeAnnotation.typeAnnotation.literal
-    if (!isStaticExpression(literal) || literal.type === 'UnaryExpression')
-      continue
-
-    const evt = String(resolveLiteral(literal))
-    if (!definitions[evt]) definitions[evt] = []
-    definitions[evt].push(buildDefinition(sign))
+    if (!definitions[key]) definitions[key] = []
+    const ast = parseSignature(signature)
+    definitions[key].push({
+      code: signature,
+      ast,
+      file: undefined,
+    })
   }
+  const setEmit: TSEmits['setEmit'] = (name, idx, signature) => {
+    const key = keyToString(name)
 
-  const addEmit: TSEmits['addEmit'] = (name, definition) => {}
-  const addRaw: TSEmits['addRaw'] = (definitions) => {}
-  const removeEmit: TSEmits['removeEmit'] = (name) => {
+    const def = definitions[key][idx]
+    if (!def) return false
+
+    const ast = parseSignature(signature)
+    attachNodeLoc(def.ast, ast)
+    if (def.file === file) s.overwriteNode(def.ast, signature, { offset })
+
+    definitions[key][idx] = {
+      code: signature,
+      ast,
+      file: undefined,
+    }
+
+    return true
+  }
+  const removeEmit: TSEmits['removeEmit'] = (name, idx) => {
+    const key = keyToString(name)
+
+    const def = definitions[key][idx]
+    if (!def) return false
+
+    if (def.file === file) s.removeNode(def.ast, { offset })
+    delete definitions[key][idx]
     return true
   }
 
   return {
     kind: DefinitionKind.TS,
     definitions,
-    definitionsAst: typeDecl,
+    definitionsAst,
     declId,
     addEmit,
-    addRaw,
+    setEmit,
     removeEmit,
+
+    statementAst: statement,
+    defineEmitsAst,
   }
 
-  function buildDefinition<T extends Node>(node: T): Definition<T> {
+  function parseSignature(signature: string): TSCallSignatureDeclaration {
+    return (babelParse(`interface T {${signature}}`, 'ts').body[0] as any).body
+      .body[0]
+  }
+
+  async function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
+    const resolved = await resolveTSReferencedType(typeDeclRaw)
+    if (!resolved) throw new SyntaxError(`Cannot resolve TS definition.`)
+
+    const { type: definitionsAst, file } = resolved
+    if (
+      definitionsAst.type !== 'TSInterfaceDeclaration' &&
+      definitionsAst.type !== 'TSTypeLiteral' &&
+      definitionsAst.type !== 'TSIntersectionType'
+    )
+      throw new SyntaxError(`Cannot resolve TS definition.`)
+
+    const properties = await resolveTSProperties({
+      file,
+      type: definitionsAst,
+    })
+
+    const definitions: TSEmits['definitions'] = {}
+    for (const signature of properties.callSignatures) {
+      const evtArg = signature.type.parameters[0]
+      if (
+        !evtArg ||
+        evtArg.type !== 'Identifier' ||
+        evtArg.typeAnnotation?.type !== 'TSTypeAnnotation'
+      )
+        continue
+
+      const evtType = await resolveTSReferencedType({
+        type: evtArg.typeAnnotation.typeAnnotation,
+        file: signature.file,
+      })
+      if (evtType?.type.type !== 'TSLiteralType') continue
+
+      const literal = evtType.type.literal
+      if (!isStaticExpression(literal)) continue
+      const evt = String(
+        resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>)
+      )
+      if (!definitions[evt]) definitions[evt] = []
+      definitions[evt].push(buildDefinition(signature))
+    }
+
     return {
-      code: s.sliceNode(node, { offset }),
-      ast: node,
+      definitions,
+      definitionsAst: buildDefinition({ file, type: definitionsAst }),
+    }
+  }
+
+  function buildDefinition<T extends Node>({
+    type,
+    file,
+  }: {
+    type: T
+    file: TSFile
+  }): ASTDefinition<T> {
+    return {
+      code: file.content.slice(type.start!, type.end!),
+      ast: type,
+      file,
     }
   }
 }
 
 export type Emits = TSEmits | undefined
 
+export type DefineEmitsStatement = VariableDeclaration | ExpressionStatement
+
 export interface EmitsBase {
-  declId: LVal | undefined
+  declId?: LVal
+  statementAst: DefineEmitsStatement
+  defineEmitsAst: CallExpression
 }
 
 export interface TSEmits extends EmitsBase {
   kind: DefinitionKind.TS
 
-  /** emitName -> tsType */
-  definitions: Record<string, Definition<TSCallSignatureDeclaration>[]>
-  definitionsAst: TSTypeLiteral | TSInterfaceDeclaration
+  definitions: Record<string, ASTDefinition<TSCallSignatureDeclaration>[]>
+  definitionsAst: ASTDefinition<
+    TSTypeLiteral | TSIntersectionType | TSInterfaceDeclaration
+  >
 
   /**
-   * Adds a new emit to the definitions. If the definition already exists, it will be overwrote.
+   * Adds a new emit to the definitions. `definitions` will updated after this call.
    *
-   * Added definition cannot be removed and overwrote again.
+   * Added definition cannot be set and removed again.
    *
    * @example add('change', '(evt: "change", value: string): void')
    */
-  addEmit(name: string | StringLiteral, definition: string): void
+  addEmit(name: string | StringLiteral, signature: string): void
 
   /**
-   * Add raw defintions to TS interface.
+   * Modify a definition of a emit. `definitions` will updated after this call.
    *
-   * @internal not a stable API. `definitions` will NOT updated after this call.
+   * @limitation Cannot set the emit added by `addEmit`.
    *
-   * @example addRaw('(evt: "change", value: string): void')
+   * @example setEmit('foo', 0, '(evt: "change", value: string): void')
+   *
+   * @returns false if the definition does not exist.
    */
-  addRaw(definitions: string): void
+  setEmit(
+    name: string | StringLiteral,
+    index: number,
+    signature: string
+  ): boolean
 
   /**
-   * Removes specified emit from TS interface.
+   * Removes specified emit from TS interface. `definitions` will updated after this call.
    *
-   * `definitions` will updated after this call.
-   *
-   * Cannot remove emit added by `addEmit`.
+   * @limitation Cannot remove emit added by `addEmit`. (it will be removed in definitions though)
    *
    * @returns `true` if emit was removed, `false` if emit was not found.
    */
-  removeEmit(name: string | StringLiteral): boolean
+  removeEmit(name: string | StringLiteral, index: number): boolean
 }

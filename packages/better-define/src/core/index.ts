@@ -1,6 +1,6 @@
 import { MagicString, getTransformResult, parseSFC } from '@vue-macros/common'
 import { analyzeSFC } from '@vue-macros/api'
-import type { TSProps } from '@vue-macros/api'
+import type { TSEmits, TSProps } from '@vue-macros/api'
 import type {} from '@babel/types'
 
 export const transformBetterDefine = async (code: string, id: string) => {
@@ -12,6 +12,9 @@ export const transformBetterDefine = async (code: string, id: string) => {
   const result = await analyzeSFC(s, sfc)
   if (result.props) {
     await processProps(result.props)
+  }
+  if (result.emits) {
+    processEmits(result.emits)
   }
 
   return getTransformResult(s, id)
@@ -39,6 +42,15 @@ export const transformBetterDefine = async (code: string, id: string) => {
         offset,
       }
     )
+  }
+
+  function processEmits(emits: TSEmits) {
+    const runtimeDecls = `[${Object.keys(emits.definitions)
+      .map((name) => JSON.stringify(name))
+      .join(', ')}]`
+    s.overwriteNode(emits.defineEmitsAst, `defineEmits(${runtimeDecls})`, {
+      offset,
+    })
   }
 
   function toRuntimeTypeString(types: string[]) {

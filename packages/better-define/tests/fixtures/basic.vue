@@ -11,7 +11,15 @@ export interface BasicProps extends Props {
   arr: string[]
   union: string | number
 }
+
+export interface BasicEmits {
+  (evt: 'click'): void
+  (evt: 'click', action: string): void
+  (evt: 'change', value: string): void
+}
+
 defineProps<BasicProps>()
+defineEmits<BasicEmits>()
 </script>
 
 <template>

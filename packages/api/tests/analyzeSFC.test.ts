@@ -174,6 +174,8 @@ describe('analyzeSFC', () => {
       snapshot(hideAstLocation(props!.definitions))
     })
 
+    test.todo('add props in intersection')
+
     describe('removeProp should work', () => {
       test('remove property prop', async () => {
         const { props, s } = await complie(`defineProps<{
@@ -367,7 +369,7 @@ describe('analyzeSFC', () => {
       qux: {
         type: ['String'],
         required: false,
-        default: "'hello'",
+        default: "default: 'hello'",
       },
       quux: {
         type: ['String'],
@@ -383,8 +385,122 @@ describe('analyzeSFC', () => {
 
     snapshot(props!.defaults)
   })
+  test.todo('mutate defaults')
 
-  test.todo('add props in intersection')
-  test.todo('no define macro')
-  test.todo('emits')
+  describe('defineEmits', () => {
+    test('definitions should be correct', async () => {
+      const { emits } = await complie(`defineEmits<{
+       (evt: 'click'): void
+       (evt: 'click', param: string): void
+       (evt: 'change', param: string): void
+       (evt: 1): void
+      }>()`)
+      expect(emits!.kind).toBe(DefinitionKind.TS)
+      expect(emits!.definitions).to.be.a('object')
+      expect(Object.keys(emits!.definitions)).toEqual(['1', 'click', 'change'])
+      expect(hideAstLocation(emits!.definitions.click[0])).toEqual({
+        ast: 'TSCallSignatureDeclaration...',
+        code: "(evt: 'click'): void",
+      })
+      expect(hideAstLocation(emits!.definitions.click[1])).toEqual({
+        ast: 'TSCallSignatureDeclaration...',
+        code: "(evt: 'click', param: string): void",
+      })
+      expect(hideAstLocation(emits!.definitions.change[0])).toEqual({
+        ast: 'TSCallSignatureDeclaration...',
+        code: "(evt: 'change', param: string): void",
+      })
+      expect(hideAstLocation(emits!.definitions[1][0])).toEqual({
+        ast: 'TSCallSignatureDeclaration...',
+        code: '(evt: 1): void',
+      })
+
+      snapshot(hideAstLocation(emits!.definitions))
+    })
+
+    test('should resolve referenced type', async () => {
+      const { emits } = await complie(
+        `type Foo = 'foo'
+        defineEmits<{ (evt: Foo): void }>()`
+      )
+      expect(hideAstLocation(emits!.definitions.foo)).toEqual([
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: '(evt: Foo): void',
+        },
+      ])
+      snapshot(hideAstLocation(emits!.definitions))
+    })
+
+    test('should resolve interface extends', async () => {
+      const { emits } = await complie(
+        `interface Base {
+          (evt: 'foo'): void
+        }
+        interface Emits extends Base {
+          (evt: 'foo', param?: string): void
+        }
+        defineEmits<Emits>()`
+      )
+      expect(Object.keys(hideAstLocation(emits!.definitions))).toEqual(['foo'])
+      expect(hideAstLocation(emits!.definitions.foo)).toEqual([
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: "(evt: 'foo'): void",
+        },
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: "(evt: 'foo', param?: string): void",
+        },
+      ])
+      snapshot(hideAstLocation(emits!.definitions))
+    })
+
+    test('should resolve intersection', async () => {
+      const { emits } = await complie(
+        `interface Base {
+          (evt: 'foo'): void
+        }
+        interface Emits {
+          (evt: 'foo', param?: string): void
+        }
+        defineEmits<Base & Emits>()`
+      )
+      expect(Object.keys(hideAstLocation(emits!.definitions))).toEqual(['foo'])
+      expect(hideAstLocation(emits!.definitions.foo)).toEqual([
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: "(evt: 'foo'): void",
+        },
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: "(evt: 'foo', param?: string): void",
+        },
+      ])
+      snapshot(hideAstLocation(emits!.definitions))
+    })
+
+    test.todo('addEmit should work')
+    test.todo('add emit in intersection')
+
+    describe.todo('removeProp should work', () => {
+      test.todo('remove property prop')
+
+      test.todo('remove props added by API')
+    })
+
+    describe.todo('setProp should work', () => {
+      test.todo('set property prop')
+
+      test.todo('set method prop')
+
+      test.todo('set props added by API')
+    })
+  })
+
+  test('no define macro', async () => {
+    const result = await complie(`console.log('test')`)
+    expect(result.props).toBeUndefined()
+    expect(result.emits).toBeUndefined()
+  })
 })

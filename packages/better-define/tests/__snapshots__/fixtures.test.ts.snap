@@ -13,6 +13,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     arr: { type: Array, required: true },
     union: { type: [String, Number], required: true }
   },
+  emits: [\\"click\\", \\"change\\"],
   setup(__props) {
     return (_ctx, _cache) => {
       return renderSlot(_ctx.$slots, \\"default\\");

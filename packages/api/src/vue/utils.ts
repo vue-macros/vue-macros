@@ -1,8 +1,9 @@
 import { resolveTSReferencedType } from '../ts'
+import type { Node } from '@babel/types'
 import type { TSResolvedType } from '../ts'
 
 export async function inferRuntimeType(
-  node: NonNullable<TSResolvedType>
+  node: TSResolvedType
 ): Promise<string[]> {
   switch (node.type.type) {
     case 'TSStringKeyword':
@@ -88,4 +89,9 @@ export async function inferRuntimeType(
     default:
       return [`null`] // no runtime check
   }
+}
+
+export function attachNodeLoc(node: Node, newNode: Node) {
+  newNode.start = node.start
+  newNode.end = node.end
 }

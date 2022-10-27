@@ -110,13 +110,8 @@ export function mergeTSProperties(
 export async function resolveTSProperties({
   type,
   file,
-}: NonNullable<
-  TSResolvedType<
-    | TSInterfaceDeclaration
-    | TSInterfaceBody
-    | TSTypeLiteral
-    | TSIntersectionType
-  >
+}: TSResolvedType<
+  TSInterfaceDeclaration | TSInterfaceBody | TSTypeLiteral | TSIntersectionType
 >): Promise<TSProperties> {
   if (type.type === 'TSInterfaceBody') {
     return resolveTypeElements(file, type.body)
@@ -174,9 +169,9 @@ export async function resolveTSProperties({
   }
 
   function filterValidExtends(
-    node: TSResolvedType
-  ): node is NonNullable<
-    TSResolvedType<TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType>
+    node: TSResolvedType | undefined
+  ): node is TSResolvedType<
+    TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType
   > {
     return [
       'TSInterfaceDeclaration',
@@ -251,16 +246,14 @@ export function resolveTypeElements(
   return properties
 }
 
-export type TSResolvedType<
+export interface TSResolvedType<
   T =
     | Exclude<TSType, TSParenthesizedType>
     | Exclude<TSDeclaration, TSTypeAliasDeclaration>
-> =
-  | {
-      file: TSFile
-      type: T
-    }
-  | undefined
+> {
+  file: TSFile
+  type: T
+}
 
 /**
  * Resolve a reference to a type.
@@ -272,9 +265,9 @@ export type TSResolvedType<
 export async function resolveTSReferencedType({
   file,
   type,
-}: NonNullable<
-  TSResolvedType<TSType | Identifier | TSDeclaration>
->): Promise<TSResolvedType> {
+}: TSResolvedType<TSType | Identifier | TSDeclaration>): Promise<
+  TSResolvedType | undefined
+> {
   if (
     type.type === 'TSTypeAliasDeclaration' ||
     type.type === 'TSParenthesizedType'
@@ -326,7 +319,7 @@ export async function resolveTSReferencedType({
   if (type.type === 'TSTypeReference') return { file, type }
 }
 
-export type TSFileExports = Record<string, TSResolvedType>
+export type TSFileExports = Record<string, TSResolvedType | undefined>
 export const tsFileExportsCache: Map<TSFile, TSFileExports> = new Map()
 
 /**
