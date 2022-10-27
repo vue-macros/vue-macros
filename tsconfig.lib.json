@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "allowJs": true,
     "target": "ES2019",
     "module": "ESNext",
@@ -21,5 +22,10 @@
     }
   },
   "include": ["packages", "scripts"],
-  "exclude": ["**/dist", "**/tests", "**/macros-global.d.ts"]
+  "exclude": [
+    "**/dist",
+    "**/tests",
+    "**/macros-global.d.ts",
+    "packages/volar/*.js"
+  ]
 }

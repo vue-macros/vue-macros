@@ -11,6 +11,7 @@ export default defineConfig({
     : {
         compilerOptions: {
           paths: {},
+          composite: false,
         },
       },
   tsconfig: '../../tsconfig.lib.json',
