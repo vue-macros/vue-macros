@@ -1,4 +1,4 @@
-export default [
+export const icons = [
   {
     src: '/favicon.svg',
     type: 'image/svg+xml',

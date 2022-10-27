@@ -1,6 +1,14 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from './pwa'
-import { markdownConfig, nav, pwa, sidebar } from './configs'
+import {
+  markdownConfig,
+  nav,
+  pwa,
+  sidebar,
+  webDescription,
+  webLink,
+  webName,
+} from './configs'
 
 export default withPwa(
   defineConfig({
@@ -9,15 +17,9 @@ export default withPwa(
     head: [
       ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
       ['meta', { property: 'og:type', content: 'website' }],
-      ['meta', { property: 'og:title', content: 'Vue Macros' }],
-      ['meta', { property: 'og:url', content: 'https://vue-macros.sxzz.moe' }],
-      [
-        'meta',
-        {
-          property: 'og:description',
-          content: 'Explore and extend more macros and syntax sugar to Vue.',
-        },
-      ],
+      ['meta', { property: 'og:title', content: webName }],
+      ['meta', { property: 'og:url', content: webLink }],
+      ['meta', { property: 'og:description', content: webDescription }],
       ['meta', { name: 'theme-color', content: '#914796' }],
       [
         'script',
@@ -36,7 +38,7 @@ gtag('config', 'G-29NKGSL23C');`,
       ],
     ],
 
-    description: 'Explore and extend more macros and syntax sugar to Vue.',
+    description: webDescription,
     lastUpdated: true,
     cleanUrls: 'disabled',
     markdown: markdownConfig,
@@ -49,7 +51,8 @@ gtag('config', 'G-29NKGSL23C');`,
       logo: '/favicon.svg',
       footer: {
         message: 'Made with ❤️',
-        copyright: 'MIT License © 2022 三咲智子',
+        copyright:
+          'MIT License © 2022 <a href="https://github.com/sxzz">三咲智子</a>',
       },
       socialLinks: [
         { icon: 'github', link: 'https://github.com/sxzz/unplugin-vue-macros' },

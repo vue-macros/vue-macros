@@ -1,4 +1,4 @@
-import icons from './icons'
+import { icons } from './icons'
 import type { PwaOptions } from '../pwa'
 
 export const pwa: PwaOptions = {
