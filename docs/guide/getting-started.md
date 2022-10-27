@@ -131,6 +131,7 @@ module.exports = {
 ```ts
 VueMacros({
   root: '/your-project-path',
+
   /**
    * Vue version, 2 or 3.
    *
@@ -152,6 +153,11 @@ VueMacros({
      */
     unified: true,
   },
+
+  // Disable features
+  hoistStatic: false,
+
+  // ... more features
 })
 ```
 
