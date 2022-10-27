@@ -1,0 +1,1075 @@
+// Vitest Snapshot v1
+
+exports[`analyzeSFC > defineEmits > definitions should be correct 1`] = `
+{
+  "1": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 1): void",
+    },
+  ],
+  "change": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'change', param: string): void",
+    },
+  ],
+  "click": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'click'): void",
+    },
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'click', param: string): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineEmits > should resolve interface extends 1`] = `
+{
+  "foo": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'foo'): void",
+    },
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'foo', param?: string): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineEmits > should resolve intersection 1`] = `
+{
+  "foo": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'foo'): void",
+    },
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'foo', param?: string): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineEmits > should resolve referenced type 1`] = `
+{
+  "foo": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: Foo): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineProps > addProp should work 1`] = `
+{
+  "foo": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+  "newProp": {
+    "addByAPI": true,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "newProp: number | string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSUnionType...",
+      "code": "number | string",
+    },
+  },
+  "newProp2": {
+    "addByAPI": true,
+    "optional": true,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "newProp2?: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > definitions should be correct 1`] = `
+{
+  "bar": {
+    "methods": [
+      {
+        "ast": "TSMethodSignature...",
+        "code": "bar(): void",
+      },
+    ],
+    "type": "method",
+  },
+  "baz": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "baz: string | number",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSUnionType...",
+      "code": "string | number",
+    },
+  },
+  "foo": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+  "qux": {
+    "addByAPI": false,
+    "optional": true,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "qux?: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > getRuntimeProps 1`] = `
+{
+  "bar": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "bar: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+  "baz": {
+    "methods": [
+      {
+        "ast": "TSMethodSignature...",
+        "code": "baz(): string",
+      },
+    ],
+    "type": "method",
+  },
+  "foo": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: AliasString2",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+  "onClick": {
+    "methods": [
+      {
+        "ast": "TSMethodSignature...",
+        "code": "onClick(): void",
+      },
+      {
+        "ast": "TSMethodSignature...",
+        "code": "onClick(param: string): any",
+      },
+    ],
+    "type": "method",
+  },
+  "optional": {
+    "addByAPI": false,
+    "optional": true,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "optional?: string[]",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSArrayType...",
+      "code": "string[]",
+    },
+  },
+  "union": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "union: string | Map<string, string>",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSUnionType...",
+      "code": "string | Map<string, string>",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > removeProp should work > remove method prop 1`] = `
+{
+  "bar": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "bar: number",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSNumberKeyword...",
+      "code": "number",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > removeProp should work > remove property prop 1`] = `
+{
+  "bar": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "bar: number",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSNumberKeyword...",
+      "code": "number",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > removeProp should work > remove props added by API 1`] = `
+{
+  "foo": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > removeProp should work > remove props added by API 2`] = `
+"<script setup lang=\\"ts\\">
+defineProps<{
+          foo: string
+          testProp: number | string
+}>()</script>"
+`;
+
+exports[`analyzeSFC > defineProps > setProp should work > set method prop 1`] = `
+{
+  "onClick": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "onClick: () => OverwroteMethodProp",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSFunctionType...",
+      "code": "() => OverwroteMethodProp",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > setProp should work > set method prop 2`] = `
+"<script setup lang=\\"ts\\">
+defineProps<{
+          onClick: () => OverwroteMethodProp 
+        }>()</script>"
+`;
+
+exports[`analyzeSFC > defineProps > setProp should work > set property prop 1`] = `
+{
+  "foo": {
+    "addByAPI": false,
+    "optional": true,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo?: OverwrotePropertyProp",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSTypeReference...",
+      "code": "OverwrotePropertyProp",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > setProp should work > set property prop 2`] = `
+"<script setup lang=\\"ts\\">
+defineProps<{
+          foo?: OverwrotePropertyProp
+        }>()</script>"
+`;
+
+exports[`analyzeSFC > defineProps > setProp should work > set props added by API 1`] = `
+{
+  "foo": {
+    "addByAPI": true,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > setProp should work > set props added by API 2`] = `
+"<script setup lang=\\"ts\\">
+defineProps<{  foo: number | string
+}>()</script>"
+`;
+
+exports[`analyzeSFC > defineProps > should resolve interface extends 1`] = `
+{
+  "base": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "base: boolean",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSBooleanKeyword...",
+      "code": "boolean",
+    },
+  },
+  "foo": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > should resolve intersection 1`] = `
+{
+  "base": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "base: boolean",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSBooleanKeyword...",
+      "code": "boolean",
+    },
+  },
+  "foo": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > should resolve referenced type 1`] = `
+{
+  "foo": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: Foo",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps w/ withDefaults 1`] = `
+{
+  "bar": Node {
+    "async": false,
+    "body": Node {
+      "body": [
+        Node {
+          "argument": Node {
+            "end": 207,
+            "extra": {
+              "raw": "'bar'",
+              "rawValue": "bar",
+            },
+            "loc": SourceLocation {
+              "end": Position {
+                "column": 33,
+                "index": 207,
+                "line": 10,
+              },
+              "filename": undefined,
+              "identifierName": undefined,
+              "start": Position {
+                "column": 28,
+                "index": 202,
+                "line": 10,
+              },
+            },
+            "start": 202,
+            "type": "StringLiteral",
+            "value": "bar",
+          },
+          "end": 207,
+          "loc": SourceLocation {
+            "end": Position {
+              "column": 33,
+              "index": 207,
+              "line": 10,
+            },
+            "filename": undefined,
+            "identifierName": undefined,
+            "start": Position {
+              "column": 21,
+              "index": 195,
+              "line": 10,
+            },
+          },
+          "start": 195,
+          "type": "ReturnStatement",
+        },
+      ],
+      "directives": [],
+      "end": 209,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 35,
+          "index": 209,
+          "line": 10,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 19,
+          "index": 193,
+          "line": 10,
+        },
+      },
+      "start": 193,
+      "type": "BlockStatement",
+    },
+    "computed": false,
+    "end": 209,
+    "generator": false,
+    "id": null,
+    "key": Node {
+      "end": 183,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 9,
+          "index": 183,
+          "line": 10,
+        },
+        "filename": undefined,
+        "identifierName": "bar",
+        "start": Position {
+          "column": 6,
+          "index": 180,
+          "line": 10,
+        },
+      },
+      "name": "bar",
+      "start": 180,
+      "type": "Identifier",
+    },
+    "kind": "method",
+    "loc": SourceLocation {
+      "end": Position {
+        "column": 35,
+        "index": 209,
+        "line": 10,
+      },
+      "filename": undefined,
+      "identifierName": undefined,
+      "start": Position {
+        "column": 6,
+        "index": 180,
+        "line": 10,
+      },
+    },
+    "method": true,
+    "params": [
+      Node {
+        "argument": Node {
+          "end": 191,
+          "loc": SourceLocation {
+            "end": Position {
+              "column": 17,
+              "index": 191,
+              "line": 10,
+            },
+            "filename": undefined,
+            "identifierName": "args",
+            "start": Position {
+              "column": 13,
+              "index": 187,
+              "line": 10,
+            },
+          },
+          "name": "args",
+          "start": 187,
+          "type": "Identifier",
+        },
+        "end": 191,
+        "loc": SourceLocation {
+          "end": Position {
+            "column": 17,
+            "index": 191,
+            "line": 10,
+          },
+          "filename": undefined,
+          "identifierName": undefined,
+          "start": Position {
+            "column": 10,
+            "index": 184,
+            "line": 10,
+          },
+        },
+        "start": 184,
+        "type": "RestElement",
+      },
+    ],
+    "start": 180,
+    "type": "ObjectMethod",
+  },
+  "fred": Node {
+    "async": true,
+    "body": Node {
+      "body": [
+        Node {
+          "end": 317,
+          "expression": Node {
+            "argument": Node {
+              "arguments": [
+                Node {
+                  "end": 316,
+                  "extra": {
+                    "raw": "'fred'",
+                    "rawValue": "fred",
+                  },
+                  "loc": SourceLocation {
+                    "end": Position {
+                      "column": 49,
+                      "index": 316,
+                      "line": 13,
+                    },
+                    "filename": undefined,
+                    "identifierName": undefined,
+                    "start": Position {
+                      "column": 43,
+                      "index": 310,
+                      "line": 13,
+                    },
+                  },
+                  "start": 310,
+                  "type": "StringLiteral",
+                  "value": "fred",
+                },
+              ],
+              "callee": Node {
+                "computed": false,
+                "end": 309,
+                "loc": SourceLocation {
+                  "end": Position {
+                    "column": 42,
+                    "index": 309,
+                    "line": 13,
+                  },
+                  "filename": undefined,
+                  "identifierName": undefined,
+                  "start": Position {
+                    "column": 27,
+                    "index": 294,
+                    "line": 13,
+                  },
+                },
+                "object": Node {
+                  "end": 301,
+                  "loc": SourceLocation {
+                    "end": Position {
+                      "column": 34,
+                      "index": 301,
+                      "line": 13,
+                    },
+                    "filename": undefined,
+                    "identifierName": "Promise",
+                    "start": Position {
+                      "column": 27,
+                      "index": 294,
+                      "line": 13,
+                    },
+                  },
+                  "name": "Promise",
+                  "start": 294,
+                  "type": "Identifier",
+                },
+                "property": Node {
+                  "end": 309,
+                  "loc": SourceLocation {
+                    "end": Position {
+                      "column": 42,
+                      "index": 309,
+                      "line": 13,
+                    },
+                    "filename": undefined,
+                    "identifierName": "resolve",
+                    "start": Position {
+                      "column": 35,
+                      "index": 302,
+                      "line": 13,
+                    },
+                  },
+                  "name": "resolve",
+                  "start": 302,
+                  "type": "Identifier",
+                },
+                "start": 294,
+                "type": "MemberExpression",
+              },
+              "end": 317,
+              "loc": SourceLocation {
+                "end": Position {
+                  "column": 50,
+                  "index": 317,
+                  "line": 13,
+                },
+                "filename": undefined,
+                "identifierName": undefined,
+                "start": Position {
+                  "column": 27,
+                  "index": 294,
+                  "line": 13,
+                },
+              },
+              "start": 294,
+              "type": "CallExpression",
+            },
+            "end": 317,
+            "loc": SourceLocation {
+              "end": Position {
+                "column": 50,
+                "index": 317,
+                "line": 13,
+              },
+              "filename": undefined,
+              "identifierName": undefined,
+              "start": Position {
+                "column": 21,
+                "index": 288,
+                "line": 13,
+              },
+            },
+            "start": 288,
+            "type": "AwaitExpression",
+          },
+          "loc": SourceLocation {
+            "end": Position {
+              "column": 50,
+              "index": 317,
+              "line": 13,
+            },
+            "filename": undefined,
+            "identifierName": undefined,
+            "start": Position {
+              "column": 21,
+              "index": 288,
+              "line": 13,
+            },
+          },
+          "start": 288,
+          "type": "ExpressionStatement",
+        },
+      ],
+      "directives": [],
+      "end": 319,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 52,
+          "index": 319,
+          "line": 13,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 19,
+          "index": 286,
+          "line": 13,
+        },
+      },
+      "start": 286,
+      "type": "BlockStatement",
+    },
+    "computed": false,
+    "end": 319,
+    "generator": false,
+    "id": null,
+    "key": Node {
+      "end": 283,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 16,
+          "index": 283,
+          "line": 13,
+        },
+        "filename": undefined,
+        "identifierName": "fred",
+        "start": Position {
+          "column": 12,
+          "index": 279,
+          "line": 13,
+        },
+      },
+      "name": "fred",
+      "start": 279,
+      "type": "Identifier",
+    },
+    "kind": "method",
+    "loc": SourceLocation {
+      "end": Position {
+        "column": 52,
+        "index": 319,
+        "line": 13,
+      },
+      "filename": undefined,
+      "identifierName": undefined,
+      "start": Position {
+        "column": 6,
+        "index": 273,
+        "line": 13,
+      },
+    },
+    "method": true,
+    "params": [],
+    "start": 273,
+    "type": "ObjectMethod",
+  },
+  "quux": Node {
+    "async": false,
+    "body": Node {
+      "body": [
+        Node {
+          "argument": Node {
+            "end": 263,
+            "extra": {
+              "raw": "'quux'",
+              "rawValue": "quux",
+            },
+            "loc": SourceLocation {
+              "end": Position {
+                "column": 32,
+                "index": 263,
+                "line": 12,
+              },
+              "filename": undefined,
+              "identifierName": undefined,
+              "start": Position {
+                "column": 26,
+                "index": 257,
+                "line": 12,
+              },
+            },
+            "start": 257,
+            "type": "StringLiteral",
+            "value": "quux",
+          },
+          "end": 263,
+          "loc": SourceLocation {
+            "end": Position {
+              "column": 32,
+              "index": 263,
+              "line": 12,
+            },
+            "filename": undefined,
+            "identifierName": undefined,
+            "start": Position {
+              "column": 19,
+              "index": 250,
+              "line": 12,
+            },
+          },
+          "start": 250,
+          "type": "ReturnStatement",
+        },
+      ],
+      "directives": [],
+      "end": 265,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 34,
+          "index": 265,
+          "line": 12,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 17,
+          "index": 248,
+          "line": 12,
+        },
+      },
+      "start": 248,
+      "type": "BlockStatement",
+    },
+    "computed": false,
+    "end": 265,
+    "generator": false,
+    "id": null,
+    "key": Node {
+      "end": 245,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 14,
+          "index": 245,
+          "line": 12,
+        },
+        "filename": undefined,
+        "identifierName": "quux",
+        "start": Position {
+          "column": 10,
+          "index": 241,
+          "line": 12,
+        },
+      },
+      "name": "quux",
+      "start": 241,
+      "type": "Identifier",
+    },
+    "kind": "get",
+    "loc": SourceLocation {
+      "end": Position {
+        "column": 34,
+        "index": 265,
+        "line": 12,
+      },
+      "filename": undefined,
+      "identifierName": undefined,
+      "start": Position {
+        "column": 6,
+        "index": 237,
+        "line": 12,
+      },
+    },
+    "method": false,
+    "params": [],
+    "start": 237,
+    "type": "ObjectMethod",
+  },
+  "qux": Node {
+    "computed": false,
+    "end": 229,
+    "key": Node {
+      "end": 220,
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 9,
+          "index": 220,
+          "line": 11,
+        },
+        "filename": undefined,
+        "identifierName": "qux",
+        "start": Position {
+          "column": 6,
+          "index": 217,
+          "line": 11,
+        },
+      },
+      "name": "qux",
+      "start": 217,
+      "type": "Identifier",
+    },
+    "loc": SourceLocation {
+      "end": Position {
+        "column": 18,
+        "index": 229,
+        "line": 11,
+      },
+      "filename": undefined,
+      "identifierName": undefined,
+      "start": Position {
+        "column": 6,
+        "index": 217,
+        "line": 11,
+      },
+    },
+    "method": false,
+    "shorthand": false,
+    "start": 217,
+    "type": "ObjectProperty",
+    "value": Node {
+      "end": 229,
+      "extra": {
+        "raw": "'hello'",
+        "rawValue": "hello",
+      },
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 18,
+          "index": 229,
+          "line": 11,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 11,
+          "index": 222,
+          "line": 11,
+        },
+      },
+      "start": 222,
+      "type": "StringLiteral",
+      "value": "hello",
+    },
+  },
+  "unknown": Node {
+    "computed": true,
+    "end": 347,
+    "key": Node {
+      "end": 337,
+      "extra": {
+        "raw": "'unknown'",
+        "rawValue": "unknown",
+      },
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 16,
+          "index": 337,
+          "line": 14,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 7,
+          "index": 328,
+          "line": 14,
+        },
+      },
+      "start": 328,
+      "type": "StringLiteral",
+      "value": "unknown",
+    },
+    "loc": SourceLocation {
+      "end": Position {
+        "column": 26,
+        "index": 347,
+        "line": 14,
+      },
+      "filename": undefined,
+      "identifierName": undefined,
+      "start": Position {
+        "column": 6,
+        "index": 327,
+        "line": 14,
+      },
+    },
+    "method": false,
+    "shorthand": false,
+    "start": 327,
+    "type": "ObjectProperty",
+    "value": Node {
+      "end": 347,
+      "extra": {
+        "raw": "'world'",
+        "rawValue": "world",
+      },
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 26,
+          "index": 347,
+          "line": 14,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 19,
+          "index": 340,
+          "line": 14,
+        },
+      },
+      "start": 340,
+      "type": "StringLiteral",
+      "value": "world",
+    },
+  },
+}
+`;

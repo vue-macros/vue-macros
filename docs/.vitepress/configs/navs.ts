@@ -68,6 +68,10 @@ export const sidebar: DefaultTheme.Sidebar = [
         text: 'namedTemplate',
         link: '/features/named-template',
       },
+      {
+        text: 'betterDefine',
+        link: '/features/better-define',
+      },
     ],
   },
 ]

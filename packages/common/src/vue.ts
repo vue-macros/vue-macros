@@ -1,14 +1,18 @@
 import { compileScript, parse } from '@vue/compiler-sfc'
 import type { Statement } from '@babel/types'
 import type { MagicString } from './magic-string'
-import type { SFCDescriptor, SFCScriptBlock } from '@vue/compiler-sfc'
+import type {
+  SFCDescriptor,
+  SFCParseResult,
+  SFCScriptBlock,
+} from '@vue/compiler-sfc'
 
 export type _SFCScriptBlock = Omit<
   SFCScriptBlock,
   'scriptAst' | 'scriptSetupAst'
 >
 
-export type SFCCompiled = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
+export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   script?: _SFCScriptBlock | null
   scriptSetup?: _SFCScriptBlock | null
   scriptCompiled: Omit<SFCScriptBlock, 'scriptAst' | 'scriptSetupAst'> & {
@@ -16,10 +20,10 @@ export type SFCCompiled = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
     scriptSetupAst?: Statement[]
   }
   lang: string | undefined
-}
+} & Pick<SFCParseResult, 'errors'>
 
-export const parseSFC = (code: string, id: string): SFCCompiled => {
-  const { descriptor } = parse(code, {
+export const parseSFC = (code: string, id: string): SFC => {
+  const { descriptor, errors } = parse(code, {
     filename: id,
   })
   const lang = (descriptor.script || descriptor.scriptSetup)?.lang
@@ -28,6 +32,7 @@ export const parseSFC = (code: string, id: string): SFCCompiled => {
   return {
     ...descriptor,
     lang,
+    errors,
     get scriptCompiled() {
       if (scriptCompiled) return scriptCompiled
       return (scriptCompiled = compileScript(descriptor, {
@@ -37,10 +42,7 @@ export const parseSFC = (code: string, id: string): SFCCompiled => {
   }
 }
 
-export const addNormalScript = (
-  { script, lang }: SFCCompiled,
-  s: MagicString
-) => {
+export const addNormalScript = ({ script, lang }: SFC, s: MagicString) => {
   return {
     start() {
       if (script) return script.loc.end.offset

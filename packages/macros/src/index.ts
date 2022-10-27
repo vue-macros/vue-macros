@@ -1,4 +1,5 @@
 import { createCombinePlugin } from 'unplugin-combine'
+import VueBetterDefine from '@vue-macros/better-define'
 import VueDefineModel from '@vue-macros/define-model'
 import VueDefineOptions from 'unplugin-vue-define-options'
 import VueDefineRender from '@vue-macros/define-render'
@@ -12,6 +13,7 @@ import VueShortEmits from '@vue-macros/short-emits'
 import { getVueVersion } from './utils'
 import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Unplugin } from 'unplugin-combine'
+import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
 import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
 import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
@@ -23,6 +25,7 @@ import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
 import type { Options as OptionsShortEmits } from '@vue-macros/short-emits'
 
 export interface FeatureOptionsMap {
+  betterDefine: OptionsBetterDefine
   defineModel: OptionsDefineModel
   defineOptions: OptionsDefineOptions
   defineRender: OptionsDefineRender
@@ -59,6 +62,7 @@ function resolveOptions({
   root,
   version,
   plugins,
+  betterDefine,
   defineModel,
   defineOptions,
   defineRender,
@@ -86,6 +90,7 @@ function resolveOptions({
     version: version || getVueVersion(),
     plugins: plugins || {},
 
+    betterDefine: resolveSubOptions<'betterDefine'>(betterDefine, { version }),
     defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
     defineOptions: resolveSubOptions<'defineOptions'>(defineOptions),
     defineRender: resolveSubOptions<'defineRender'>(defineRender),
@@ -122,6 +127,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
     resolvePlugin(options.defineOptions, VueDefineOptions),
     resolvePlugin(options.defineModel, VueDefineModel),
     resolvePlugin(options.defineSlots, VueDefineSlots),
+    resolvePlugin(options.betterDefine, VueBetterDefine),
     options.plugins.vue,
     options.plugins.vueJsx,
     resolvePlugin(options.defineRender, VueDefineRender),

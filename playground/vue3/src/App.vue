@@ -5,6 +5,7 @@ import HoistStaticVue from './examples/hoist-static/index.vue'
 import DefineModelReactivityVue from './examples/define-model/reactivity-transform/parent.vue'
 import DefineModelRuntimeVue from './examples/define-model/runtime/parent.vue'
 import DefineSlotsVue from './examples/define-slots/parent.vue'
+import BetterDefineVue from './examples/better-define/index.vue'
 import NamedTemplateVue from './examples/named-template/index.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
@@ -46,6 +47,11 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>defineSlots</legend>
     <DefineSlotsVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>betterDefine</legend>
+    <BetterDefineVue />
   </fieldset>
 
   <fieldset>
