@@ -361,7 +361,7 @@ export async function resolveTSFileExports(
           specifier.type === 'ExportNamespaceSpecifier'
         ) {
           // default export: TS don't support it.
-          // TODO: namespace: we don't support it.
+          // TODO: namespace: doesn't support it yet.
           continue
         }
 

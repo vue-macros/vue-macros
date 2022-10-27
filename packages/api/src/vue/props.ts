@@ -296,7 +296,6 @@ export async function handleTSPropsDefinition({
         objectMethod: true,
         unary: true,
       })
-    // TODO check and throw
     if (!isStatic) return { defaultsAst: defaultsAst as Expression }
 
     const defaults = resolveObjectExpression(defaultsAst)

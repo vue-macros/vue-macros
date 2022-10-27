@@ -122,7 +122,7 @@ export async function analyzeSFC(
       })
     } else {
       // TODO: runtime
-      throw new Error('Runtime definition is not supported yet.')
+      return false
     }
 
     return true
@@ -184,7 +184,7 @@ export async function analyzeSFC(
       })
     } else {
       // TODO: runtime
-      throw new Error('Runtime definition is not supported yet.')
+      return false
     }
 
     return true
