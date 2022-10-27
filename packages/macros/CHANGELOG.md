@@ -1,5 +1,27 @@
 # unplugin-vue-macros
 
+## 0.15.0
+
+### Minor Changes
+
+- [#126](https://github.com/sxzz/unplugin-vue-macros/pull/126) [`d88fe67`](https://github.com/sxzz/unplugin-vue-macros/commit/d88fe674258c2d9d418d5b2e56aea6f70a199776) Thanks [@sxzz](https://github.com/sxzz)! - add better define
+
+### Patch Changes
+
+- [#128](https://github.com/sxzz/unplugin-vue-macros/pull/128) [`977dbe6`](https://github.com/sxzz/unplugin-vue-macros/commit/977dbe6649f8016e3bee43ec8fd91d399f749151) Thanks [@sxzz](https://github.com/sxzz)! - upgrade unplugin
+
+- Updated dependencies [[`977dbe6`](https://github.com/sxzz/unplugin-vue-macros/commit/977dbe6649f8016e3bee43ec8fd91d399f749151), [`d88fe67`](https://github.com/sxzz/unplugin-vue-macros/commit/d88fe674258c2d9d418d5b2e56aea6f70a199776)]:
+  - @vue-macros/define-model@0.13.5
+  - unplugin-vue-define-options@0.12.4
+  - @vue-macros/define-render@0.13.5
+  - @vue-macros/define-slots@0.0.2
+  - @vue-macros/hoist-static@0.12.4
+  - @vue-macros/named-template@0.0.2
+  - @vue-macros/setup-component@0.12.4
+  - @vue-macros/setup-sfc@0.12.4
+  - @vue-macros/short-emits@0.12.5
+  - @vue-macros/better-define@0.0.1
+
 ## 0.14.0
 
 ### Minor Changes
