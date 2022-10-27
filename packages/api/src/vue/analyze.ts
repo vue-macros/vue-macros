@@ -1,6 +1,7 @@
 import {
   DEFINE_EMITS,
   DEFINE_PROPS,
+  WITH_DEFAULTS,
   babelParse,
   isCallOf,
 } from '@vue-macros/common'
@@ -8,9 +9,10 @@ import { handleTSPropsDefinition } from './props'
 import { handleTSEmitsDefinition } from './emits'
 import type { TSFile } from '../ts'
 import type { Emits } from './emits'
-import type { Props } from './props'
+import type { DefaultsASTRaw, Props } from './props'
 import type { MagicString, SFC } from '@vue-macros/common'
 import type {
+  CallExpression,
   ExpressionStatement,
   LVal,
   Node,
@@ -44,7 +46,7 @@ export async function analyzeSFC(
   const offset = scriptSetup.loc.start.offset
   const file: TSFile = {
     filePath: sfc.filename,
-    content: s.original,
+    content: scriptSetup.content,
     ast: body,
   }
 
@@ -54,19 +56,23 @@ export async function analyzeSFC(
   for (const node of body) {
     if (node.type === 'ExpressionStatement') {
       await processDefineProps({
+        statement: node,
+        node: node.expression,
+      })
+      await processWithDefaults({
         stmt: node,
         node: node.expression,
       })
-      await processDefineEmits(node.expression)
+      // await processDefineEmits(node.expression)
     } else if (node.type === 'VariableDeclaration' && !node.declare) {
       for (const decl of node.declarations) {
         if (!decl.init) continue
         await processDefineProps({
-          stmt: node,
+          statement: node,
           node: decl.init,
           declId: decl.id,
         })
-        await processDefineEmits(decl.init, decl.id)
+        // await processDefineEmits(decl.init, decl.id)
       }
     }
   }
@@ -79,13 +85,21 @@ export async function analyzeSFC(
   async function processDefineProps({
     node,
     declId,
-    stmt,
+    statement,
+
+    withDefaultsAst,
+    defaultsDeclRaw,
   }: {
     node: Node
     declId?: LVal
-    stmt: DefinePropsStatement
+    statement: DefinePropsStatement
+
+    withDefaultsAst?: CallExpression
+    defaultsDeclRaw?: DefaultsASTRaw
   }) {
-    if (!isCallOf(node, DEFINE_PROPS) || props) return false
+    if (!isCallOf(node, DEFINE_PROPS) || props)
+      // TODO throw errors
+      return false
 
     const typeDeclRaw = node.typeParameters?.params[0]
     if (typeDeclRaw) {
@@ -94,14 +108,42 @@ export async function analyzeSFC(
         file,
         sfc,
         offset,
+
         typeDeclRaw,
-        statement: stmt,
-        callExpression: node,
+        defaultsDeclRaw,
+
+        definePropsAst: node,
+        withDefaultsAst,
+
+        statement,
         declId,
       })
     } else {
       throw new Error('Runtime definition is not supported yet.')
     }
+
+    return true
+  }
+
+  async function processWithDefaults({
+    node,
+    declId,
+    stmt,
+  }: {
+    node: Node
+    declId?: LVal
+    stmt: DefinePropsStatement
+  }): Promise<boolean> {
+    if (!isCallOf(node, WITH_DEFAULTS)) return false
+
+    const isDefineProps = await processDefineProps({
+      node: node.arguments[0],
+      declId,
+      statement: stmt,
+      withDefaultsAst: node,
+      defaultsDeclRaw: node.arguments[1],
+    })
+    if (!isDefineProps) return false
 
     return true
   }

@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
-import { babelParse, getLang, getStaticKey } from '@vue-macros/common'
+import { babelParse, getLang, resolveObjectKey } from '@vue-macros/common'
 import { isDeclaration } from '@babel/types'
 
 import type {
@@ -41,12 +41,34 @@ export interface TSFile {
 }
 
 export interface TSProperties {
-  callSignatures: TSCallSignatureDeclaration[]
-  constructSignatures: TSConstructSignatureDeclaration[]
-  methods: Record<string | number, Array<TSMethodSignature>>
+  callSignatures: Array<{
+    type: TSCallSignatureDeclaration
+    file: TSFile
+  }>
+  constructSignatures: Array<{
+    type: TSConstructSignatureDeclaration
+    file: TSFile
+  }>
+  methods: Record<
+    string | number,
+    Array<{
+      type: TSMethodSignature
+      file: TSFile
+    }>
+  >
   properties: Record<
     string | number,
-    { value: TSType | null; optional: boolean; signature: TSPropertySignature }
+    {
+      value: {
+        type: TSType
+        file: TSFile
+      } | null
+      optional: boolean
+      signature: {
+        type: TSPropertySignature
+        file: TSFile
+      }
+    }
   >
 }
 
@@ -85,26 +107,32 @@ export function mergeTSProperties(
  *
  * @limitation don't support index signature
  */
-export async function resolveTSProperties(
-  file: TSFile,
-  node:
+export async function resolveTSProperties({
+  type,
+  file,
+}: NonNullable<
+  TSResolvedType<
     | TSInterfaceDeclaration
     | TSInterfaceBody
     | TSTypeLiteral
     | TSIntersectionType
-): Promise<TSProperties> {
-  if (node.type === 'TSInterfaceBody') {
-    return resolveTypeElements(node.body)
-  } else if (node.type === 'TSTypeLiteral') {
-    return resolveTypeElements(node.members)
-  } else if (node.type === 'TSInterfaceDeclaration') {
-    let properties = resolveTypeElements(node.body.body)
-    if (node.extends) {
+  >
+>): Promise<TSProperties> {
+  if (type.type === 'TSInterfaceBody') {
+    return resolveTypeElements(file, type.body)
+  } else if (type.type === 'TSTypeLiteral') {
+    return resolveTypeElements(file, type.members)
+  } else if (type.type === 'TSInterfaceDeclaration') {
+    let properties = resolveTypeElements(file, type.body.body)
+    if (type.extends) {
       const resolvedExtends = (
         await Promise.all(
-          node.extends.map((node) =>
+          type.extends.map((node) =>
             node.expression.type === 'Identifier'
-              ? resolveTSReferencedType(file, node.expression)
+              ? resolveTSReferencedType({
+                  file,
+                  type: node.expression,
+                })
               : undefined
           )
         )
@@ -115,48 +143,56 @@ export async function resolveTSProperties(
       if (resolvedExtends.length > 0) {
         const ext = (
           await Promise.all(
-            resolvedExtends.map((node) => resolveTSProperties(file, node))
+            resolvedExtends.map((resolved) => resolveTSProperties(resolved))
           )
         ).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
         properties = mergeTSProperties(ext, properties)
       }
     }
     return properties
-  } else if (node.type === 'TSIntersectionType') {
+  } else if (type.type === 'TSIntersectionType') {
     let properties: TSProperties = {
       callSignatures: [],
       constructSignatures: [],
       methods: {},
       properties: {},
     }
-    for (const type of node.types) {
-      const resolved = await resolveTSReferencedType(file, type)
+    for (const subType of type.types) {
+      const resolved = await resolveTSReferencedType({
+        file,
+        type: subType,
+      })
       if (!filterValidExtends(resolved)) continue
       properties = mergeTSProperties(
         properties,
-        await resolveTSProperties(file, resolved)
+        await resolveTSProperties(resolved)
       )
     }
     return properties
   } else {
-    throw new Error(`unknown node: ${(node as Node)?.type}`)
+    throw new Error(`unknown node: ${(type as Node)?.type}`)
   }
 
   function filterValidExtends(
     node: TSResolvedType
-  ): node is TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType {
+  ): node is NonNullable<
+    TSResolvedType<TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType>
+  > {
     return [
       'TSInterfaceDeclaration',
       'TSTypeLiteral',
       'TSIntersectionType',
-    ].includes(node?.type as any)
+    ].includes(node?.type.type as any)
   }
 }
 
 /**
  * @limitation don't support index signature
  */
-export function resolveTypeElements(elements: Array<TSTypeElement>) {
+export function resolveTypeElements(
+  file: TSFile,
+  elements: Array<TSTypeElement>
+) {
   const properties: TSProperties = {
     callSignatures: [],
     constructSignatures: [],
@@ -166,17 +202,17 @@ export function resolveTypeElements(elements: Array<TSTypeElement>) {
 
   const tryGetKey = (element: TSMethodSignature | TSPropertySignature) => {
     try {
-      return getStaticKey(element.key, element.computed, false)
+      return resolveObjectKey(element.key, element.computed, false)
     } catch {}
   }
 
   for (const element of elements) {
     switch (element.type) {
       case 'TSCallSignatureDeclaration':
-        properties.callSignatures.push(element)
+        properties.callSignatures.push({ file, type: element })
         break
       case 'TSConstructSignatureDeclaration':
-        properties.constructSignatures.push(element)
+        properties.constructSignatures.push({ file, type: element })
         break
       case 'TSMethodSignature': {
         const key = tryGetKey(element)
@@ -187,7 +223,7 @@ export function resolveTypeElements(elements: Array<TSTypeElement>) {
 
         if (!properties.methods[key]) properties.methods[key] = []
         if (element.typeAnnotation) {
-          properties.methods[key].push(element)
+          properties.methods[key].push({ file, type: element })
         }
         break
       }
@@ -195,13 +231,15 @@ export function resolveTypeElements(elements: Array<TSTypeElement>) {
         const key = tryGetKey(element)
         if (!key) continue
 
-        if (!properties.properties[key] && !properties.methods[key])
+        if (!properties.properties[key] && !properties.methods[key]) {
           // cannot be override
+          const type = element.typeAnnotation?.typeAnnotation
           properties.properties[key] = {
-            value: element.typeAnnotation?.typeAnnotation ?? null,
+            value: type ? { type, file } : null,
             optional: !!element.optional,
-            signature: element,
+            signature: { type: element, file },
           }
+        }
         break
       }
       case 'TSIndexSignature':
@@ -213,9 +251,15 @@ export function resolveTypeElements(elements: Array<TSTypeElement>) {
   return properties
 }
 
-export type TSResolvedType =
-  | Exclude<TSType, TSParenthesizedType>
-  | Exclude<TSDeclaration, TSTypeAliasDeclaration>
+export type TSResolvedType<
+  T =
+    | Exclude<TSType, TSParenthesizedType>
+    | Exclude<TSDeclaration, TSTypeAliasDeclaration>
+> =
+  | {
+      file: TSFile
+      type: T
+    }
   | undefined
 
 /**
@@ -225,25 +269,30 @@ export type TSResolvedType =
  *
  * @limitation don't support non-TS declaration (e.g. class, function...)
  */
-export async function resolveTSReferencedType(
-  file: TSFile,
-  ref: TSType | Identifier | TSDeclaration
-): Promise<TSResolvedType> {
+export async function resolveTSReferencedType({
+  file,
+  type,
+}: NonNullable<
+  TSResolvedType<TSType | Identifier | TSDeclaration>
+>): Promise<TSResolvedType> {
   if (
-    ref.type === 'TSTypeAliasDeclaration' ||
-    ref.type === 'TSParenthesizedType'
+    type.type === 'TSTypeAliasDeclaration' ||
+    type.type === 'TSParenthesizedType'
   ) {
-    return resolveTSReferencedType(file, ref.typeAnnotation)
+    return resolveTSReferencedType({
+      file,
+      type: type.typeAnnotation,
+    })
   }
 
   let refName: string
-  if (ref.type === 'Identifier') {
-    refName = ref.name
-  } else if (ref.type === 'TSTypeReference') {
-    if (ref.typeName.type !== 'Identifier') return undefined
-    refName = ref.typeName.name
+  if (type.type === 'Identifier') {
+    refName = type.name
+  } else if (type.type === 'TSTypeReference') {
+    if (type.typeName.type !== 'Identifier') return undefined
+    refName = type.typeName.name
   } else {
-    return ref
+    return { file, type }
   }
 
   for (let node of file.ast) {
@@ -267,11 +316,14 @@ export async function resolveTSReferencedType(
     if (isTSDeclaration(node)) {
       if (node.id?.type !== 'Identifier') continue
       if (node.id.name !== refName) continue
-      return resolveTSReferencedType(file, node)
+      return resolveTSReferencedType({
+        file,
+        type: node,
+      })
     }
   }
 
-  if (ref.type === 'TSTypeReference') return ref
+  if (type.type === 'TSTypeReference') return { file, type }
 }
 
 export type TSFileExports = Record<string, TSResolvedType>
@@ -284,13 +336,12 @@ export const tsFileExportsCache: Map<TSFile, TSFileExports> = new Map()
  * @limitation don't support `export default`, since TS don't support it currently.
  * @limitation don't support `export * as xxx from '...'` (aka namespace).
  */
-export async function resolveTSFileExports(file: TSFile) {
+export async function resolveTSFileExports(
+  file: TSFile
+): Promise<TSFileExports> {
   if (tsFileExportsCache.has(file)) return tsFileExportsCache.get(file)!
 
-  const exports: Record<
-    string,
-    Awaited<ReturnType<typeof resolveTSReferencedType>>
-  > = {}
+  const exports: TSFileExports = {}
   tsFileExportsCache.set(file, exports)
 
   for (const stmt of file.ast) {
@@ -329,10 +380,10 @@ export async function resolveTSFileExports(file: TSFile) {
         if (stmt.source) {
           exports[exportedName] = sourceExports![specifier.local.name]
         } else {
-          exports[exportedName] = await resolveTSReferencedType(
+          exports[exportedName] = await resolveTSReferencedType({
             file,
-            specifier.local
-          )
+            type: specifier.local,
+          })
         }
       }
 
@@ -340,7 +391,10 @@ export async function resolveTSFileExports(file: TSFile) {
         const decl = stmt.declaration
         if (decl.id?.type === 'Identifier') {
           const exportedName = decl.id.name
-          exports[exportedName] = await resolveTSReferencedType(file, decl)
+          exports[exportedName] = await resolveTSReferencedType({
+            file,
+            type: decl,
+          })
         }
       }
     }

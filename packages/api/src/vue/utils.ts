@@ -1,11 +1,10 @@
 import { resolveTSReferencedType } from '../ts'
-import type { TSFile, TSResolvedType } from '../ts'
+import type { TSResolvedType } from '../ts'
 
 export async function inferRuntimeType(
-  file: TSFile,
   node: NonNullable<TSResolvedType>
 ): Promise<string[]> {
-  switch (node.type) {
+  switch (node.type.type) {
     case 'TSStringKeyword':
       return ['String']
     case 'TSNumberKeyword':
@@ -25,7 +24,7 @@ export async function inferRuntimeType(
       return ['Array']
 
     case 'TSLiteralType':
-      switch (node.literal.type) {
+      switch (node.type.literal.type) {
         case 'StringLiteral':
           return ['String']
         case 'BooleanLiteral':
@@ -38,8 +37,8 @@ export async function inferRuntimeType(
       }
 
     case 'TSTypeReference':
-      if (node.typeName.type === 'Identifier') {
-        switch (node.typeName.name) {
+      if (node.type.typeName.type === 'Identifier') {
+        switch (node.type.typeName.name) {
           case 'Array':
           case 'Function':
           case 'Object':
@@ -49,7 +48,7 @@ export async function inferRuntimeType(
           case 'WeakMap':
           case 'Date':
           case 'Promise':
-            return [node.typeName.name]
+            return [node.type.typeName.name]
           case 'Record':
           case 'Partial':
           case 'Readonly':
@@ -67,9 +66,12 @@ export async function inferRuntimeType(
     case 'TSUnionType': {
       const types = (
         await Promise.all(
-          node.types.map(async (t) => {
-            const resolved = await resolveTSReferencedType(file, t)
-            return resolved ? inferRuntimeType(file, resolved) : undefined
+          node.type.types.map(async (subType) => {
+            const resolved = await resolveTSReferencedType({
+              file: node.file,
+              type: subType,
+            })
+            return resolved ? inferRuntimeType(resolved) : undefined
           })
         )
       )

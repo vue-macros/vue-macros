@@ -1,3 +1,5 @@
+import type { TSFile } from '../ts'
+
 export enum DefinitionKind {
   /**
    * Definition is a referenced variable.
@@ -21,5 +23,6 @@ export enum DefinitionKind {
 
 export interface Definition<T> {
   code: string
+  file: TSFile | undefined
   ast: T
 }

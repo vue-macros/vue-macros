@@ -1,10 +1,10 @@
 import {
   MagicString,
   babelParse,
-  getStaticKey,
   getTransformResult,
   isTs,
   parseSFC,
+  resolveObjectKey,
   walkAST,
 } from '@vue-macros/common'
 import type {
@@ -75,7 +75,7 @@ export const transformShortEmits = (code: string, id: string) => {
 
       const member = _member as TSPropertySignature | TSMethodSignature
 
-      const key = getStaticKey(member.key, member.computed)
+      const key = resolveObjectKey(member.key, member.computed)
       let params = ''
 
       switch (member.type) {

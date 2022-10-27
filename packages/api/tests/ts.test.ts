@@ -65,87 +65,132 @@ type Base2 = {
 }
 `
     )
-    const interfaceProperties = await resolveTSProperties(
+    const interfaceProperties = await resolveTSProperties({
       file,
-      file.ast[0] as TSInterfaceDeclaration
-    )
+      type: file.ast[0] as TSInterfaceDeclaration,
+    })
 
     expect(hideAstLocation(interfaceProperties)).toMatchInlineSnapshot(`
       {
         "callSignatures": [
-          "TSCallSignatureDeclaration...",
-          "TSCallSignatureDeclaration...",
+          {
+            "type": "TSCallSignatureDeclaration...",
+          },
+          {
+            "type": "TSCallSignatureDeclaration...",
+          },
         ],
         "constructSignatures": [
-          "TSConstructSignatureDeclaration...",
-          "TSConstructSignatureDeclaration...",
+          {
+            "type": "TSConstructSignatureDeclaration...",
+          },
+          {
+            "type": "TSConstructSignatureDeclaration...",
+          },
         ],
         "methods": {
           "hello": [
-            "TSMethodSignature...",
-            "TSMethodSignature...",
+            {
+              "type": "TSMethodSignature...",
+            },
+            {
+              "type": "TSMethodSignature...",
+            },
           ],
           "todo": [
-            "TSMethodSignature...",
-            "TSMethodSignature...",
+            {
+              "type": "TSMethodSignature...",
+            },
+            {
+              "type": "TSMethodSignature...",
+            },
           ],
         },
         "properties": {
           "bar": {
             "optional": false,
-            "signature": "TSPropertySignature...",
-            "value": "TSTypeReference...",
+            "signature": {
+              "type": "TSPropertySignature...",
+            },
+            "value": {
+              "type": "TSTypeReference...",
+            },
           },
           "foo": {
             "optional": false,
-            "signature": "TSPropertySignature...",
-            "value": "TSUnionType...",
+            "signature": {
+              "type": "TSPropertySignature...",
+            },
+            "value": {
+              "type": "TSUnionType...",
+            },
           },
           "itShouldBeBoolean": {
             "optional": false,
-            "signature": "TSPropertySignature...",
-            "value": "TSBooleanKeyword...",
+            "signature": {
+              "type": "TSPropertySignature...",
+            },
+            "value": {
+              "type": "TSBooleanKeyword...",
+            },
           },
           "itShouldBeNumber": {
             "optional": false,
-            "signature": "TSPropertySignature...",
-            "value": "TSNumberKeyword...",
+            "signature": {
+              "type": "TSPropertySignature...",
+            },
+            "value": {
+              "type": "TSNumberKeyword...",
+            },
           },
         },
       }
     `)
     expect(
       hideAstLocation(
-        await resolveTSReferencedType(
-          file,
-          interfaceProperties.properties.bar.value!
-        )
+        (
+          await resolveTSReferencedType(
+            interfaceProperties.properties.bar.value!
+          )
+        )?.type
       )
     ).toMatchInlineSnapshot('"TSStringKeyword..."')
 
-    const intersectionProperties = await resolveTSProperties(
+    const intersectionProperties = await resolveTSProperties({
       file,
-      (file.ast[1] as TSTypeAliasDeclaration)
-        .typeAnnotation as TSIntersectionType
-    )
+      type: (file.ast[1] as TSTypeAliasDeclaration)
+        .typeAnnotation as TSIntersectionType,
+    })
     expect(hideAstLocation(intersectionProperties)).toMatchInlineSnapshot(`
       {
         "callSignatures": [
-          "TSCallSignatureDeclaration...",
-          "TSCallSignatureDeclaration...",
+          {
+            "type": "TSCallSignatureDeclaration...",
+          },
+          {
+            "type": "TSCallSignatureDeclaration...",
+          },
         ],
         "constructSignatures": [],
         "methods": {},
         "properties": {
           "itShouldBeBoolean": {
             "optional": false,
-            "signature": "TSPropertySignature...",
-            "value": "TSBooleanKeyword...",
+            "signature": {
+              "type": "TSPropertySignature...",
+            },
+            "value": {
+              "type": "TSBooleanKeyword...",
+            },
           },
           "itShouldBeNumber": {
             "optional": false,
-            "signature": "TSPropertySignature...",
-            "value": "TSNumberKeyword...",
+            "signature": {
+              "type": "TSPropertySignature...",
+            },
+            "value": {
+              "type": "TSNumberKeyword...",
+            },
           },
         },
       }
@@ -159,8 +204,11 @@ type AliasString2 = AliasString1
 type Foo = AliasString`
     )
     const node = file.ast[1] as TSTypeAliasDeclaration
-    const result = (await resolveTSReferencedType(file, node.typeAnnotation))!
-    expect(result.type).toBe('TSStringKeyword')
+    const result = (await resolveTSReferencedType({
+      file,
+      type: node.typeAnnotation,
+    }))!
+    expect(result.type.type).toBe('TSStringKeyword')
   })
 
   describe('resolveTSFileExports', () => {
@@ -169,24 +217,42 @@ type Foo = AliasString`
       const exports = await resolveTSFileExports(file)
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
-          "ExportAll": "TSLiteralType...",
-          "Foo": "TSLiteralType...",
-          "FooAlias": "TSLiteralType...",
-          "Inferface": "TSInterfaceDeclaration...",
-          "Num": "TSNumberKeyword...",
-          "OuterTest": "TSLiteralType...",
-          "Str": "TSStringKeyword...",
-          "StrAlias": "TSStringKeyword...",
-          "Test": "TSLiteralType...",
+          "ExportAll": {
+            "type": "TSLiteralType...",
+          },
+          "Foo": {
+            "type": "TSLiteralType...",
+          },
+          "FooAlias": {
+            "type": "TSLiteralType...",
+          },
+          "Inferface": {
+            "type": "TSInterfaceDeclaration...",
+          },
+          "Num": {
+            "type": "TSNumberKeyword...",
+          },
+          "OuterTest": {
+            "type": "TSLiteralType...",
+          },
+          "Str": {
+            "type": "TSStringKeyword...",
+          },
+          "StrAlias": {
+            "type": "TSStringKeyword...",
+          },
+          "Test": {
+            "type": "TSLiteralType...",
+          },
         }
       `)
 
       expect(
         hideAstLocation(
-          await resolveTSProperties(
+          await resolveTSProperties({
             file,
-            exports.Inferface as TSInterfaceDeclaration
-          )
+            type: exports.Inferface?.type as any,
+          })
         )
       ).toMatchInlineSnapshot(`
         {
@@ -196,18 +262,30 @@ type Foo = AliasString`
           "properties": {
             "base1": {
               "optional": false,
-              "signature": "TSPropertySignature...",
-              "value": "TSBooleanKeyword...",
+              "signature": {
+                "type": "TSPropertySignature...",
+              },
+              "value": {
+                "type": "TSBooleanKeyword...",
+              },
             },
             "base2": {
               "optional": false,
-              "signature": "TSPropertySignature...",
-              "value": "TSBooleanKeyword...",
+              "signature": {
+                "type": "TSPropertySignature...",
+              },
+              "value": {
+                "type": "TSBooleanKeyword...",
+              },
             },
             "foo": {
               "optional": false,
-              "signature": "TSPropertySignature...",
-              "value": "TSLiteralType...",
+              "signature": {
+                "type": "TSPropertySignature...",
+              },
+              "value": {
+                "type": "TSLiteralType...",
+              },
             },
           },
         }
@@ -221,8 +299,12 @@ type Foo = AliasString`
       const exports = await resolveTSFileExports(file)
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
-          "Bar": "TSLiteralType...",
-          "Foo": "TSLiteralType...",
+          "Bar": {
+            "type": "TSLiteralType...",
+          },
+          "Foo": {
+            "type": "TSLiteralType...",
+          },
         }
       `)
     })

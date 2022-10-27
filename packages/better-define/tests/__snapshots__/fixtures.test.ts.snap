@@ -34,6 +34,41 @@ export { basic as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/defaults.vue 1`] = `
+"import { defineComponent, openBlock, createElementBlock } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"defaults\\",
+  props: {
+    foo: { type: String, required: false, default: \\"foo\\" },
+    bar: { type: Number, required: false, get default() {
+      return 10;
+    } },
+    baz: { type: Promise, required: false, async default() {
+      return 10;
+    } }
+  },
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(\\"div\\");
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var defaults = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { defaults as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/intersection.vue 1`] = `
 "import { defineComponent, renderSlot } from 'vue';
 

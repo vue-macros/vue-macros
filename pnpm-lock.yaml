@@ -234,6 +234,7 @@ importers:
   packages/macros:
     specifiers:
       '@rollup/pluginutils': ^4.2.1
+      '@vue-macros/better-define': workspace:*
       '@vue-macros/define-model': workspace:*
       '@vue-macros/define-render': workspace:*
       '@vue-macros/define-slots': workspace:*
@@ -252,6 +253,7 @@ importers:
       vue: ^3.2.41
     dependencies:
       '@rollup/pluginutils': 4.2.1
+      '@vue-macros/better-define': link:../better-define
       '@vue-macros/define-model': link:../define-model
       '@vue-macros/define-render': link:../define-render
       '@vue-macros/define-slots': link:../define-slots

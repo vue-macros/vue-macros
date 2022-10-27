@@ -36,7 +36,11 @@ export const transformHoistStatic = (code: string, id: string) => {
       const decls = stmt.declarations
       let count = 0
       for (const [i, decl] of decls.entries()) {
-        if (!decl.init || !isStaticExpression(decl.init)) continue
+        if (
+          !decl.init ||
+          !isStaticExpression(decl.init, { unary: true, magicComment: true })
+        )
+          continue
 
         count++
         moveToScript(decl, 'const ')
@@ -55,7 +59,11 @@ export const transformHoistStatic = (code: string, id: string) => {
     } else if (stmt.type === 'TSEnumDeclaration') {
       const isAllConstant = stmt.members.every(
         (member) =>
-          !member.initializer || isStaticExpression(member.initializer)
+          !member.initializer ||
+          isStaticExpression(member.initializer, {
+            unary: true,
+            magicComment: true,
+          })
       )
       if (!isAllConstant) continue
       moveToScript(stmt)

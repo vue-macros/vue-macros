@@ -19,19 +19,26 @@ export const transformBetterDefine = async (code: string, id: string) => {
   async function processProps(props: TSProps) {
     const runtimeDefs = await props.getRuntimeDefinitions()
 
-    // TODO prod, default
+    // TODO prod mode
     const runtimeDecls = `{\n  ${Object.entries(runtimeDefs)
-      .map(
-        ([key, { type, required }]) =>
-          `${key}: { type: ${toRuntimeTypeString(
-            type
-          )}, required: ${required} }`
-      )
+      .map(([key, { type, required, default: defaultDecl }]) => {
+        let defaultString = ''
+        if (defaultDecl) {
+          defaultString = `, ${defaultDecl('default')}`
+        }
+        return `${key}: { type: ${toRuntimeTypeString(
+          type
+        )}, required: ${required}${defaultString} }`
+      })
       .join(',\n  ')}\n}`
 
-    s.overwriteNode(props.callExpressionAst, `defineProps(${runtimeDecls})`, {
-      offset,
-    })
+    s.overwriteNode(
+      props.withDefaultsAst || props.definePropsAst,
+      `defineProps(${runtimeDecls})`,
+      {
+        offset,
+      }
+    )
   }
 
   function toRuntimeTypeString(types: string[]) {
