@@ -12,7 +12,11 @@ import VueShortEmits from '@vue-macros/short-emits'
 
 import { getVueVersion } from './utils'
 import type { UnpluginInstance } from 'unplugin'
-import type { OptionsPlugin, Unplugin } from 'unplugin-combine'
+import type {
+  OptionsPlugin,
+  Unplugin,
+  UnpluginCombineInstance,
+} from 'unplugin-combine'
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
 import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
@@ -107,9 +111,22 @@ function resolveOptions({
 
 function resolvePlugin(
   options: FeatureOptions | false,
+  unplugin: UnpluginCombineInstance<any>,
+  index: number
+): Unplugin<any> | undefined
+function resolvePlugin(
+  options: FeatureOptions | false,
   unplugin: UnpluginInstance<any, false>
+): Unplugin<any> | undefined
+function resolvePlugin(
+  options: FeatureOptions | false,
+  unplugin: UnpluginInstance<any, false> | UnpluginCombineInstance<any>,
+  idx?: number
 ): Unplugin<any> | undefined {
   if (!options) return
+  if ('plugins' in unplugin) {
+    return ((unplugin.plugins as any)(options) as Unplugin<any>)[idx!]
+  }
   return [unplugin, options]
 }
 
@@ -122,7 +139,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
     resolvePlugin(options.setupSFC, VueSetupSFC),
     resolvePlugin(options.setupComponent, VueSetupComponent),
     resolvePlugin(options.hoistStatic, VueHoistStatic),
-    resolvePlugin(options.namedTemplate, VueNamedTemplate as any),
+    resolvePlugin(options.namedTemplate, VueNamedTemplate, 0),
     resolvePlugin(options.shortEmits, VueShortEmits),
     resolvePlugin(options.defineOptions, VueDefineOptions),
     resolvePlugin(options.defineModel, VueDefineModel),
@@ -131,6 +148,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
     options.plugins.vue,
     options.plugins.vueJsx,
     resolvePlugin(options.defineRender, VueDefineRender),
+    resolvePlugin(options.namedTemplate, VueNamedTemplate, 1),
   ].filter(Boolean)
 
   return {
