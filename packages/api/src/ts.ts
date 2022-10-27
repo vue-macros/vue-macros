@@ -262,20 +262,21 @@ export interface TSResolvedType<
  *
  * @limitation don't support non-TS declaration (e.g. class, function...)
  */
-export async function resolveTSReferencedType({
-  file,
-  type,
-}: TSResolvedType<TSType | Identifier | TSDeclaration>): Promise<
-  TSResolvedType | undefined
-> {
+export async function resolveTSReferencedType(
+  ref: TSResolvedType<TSType | Identifier | TSDeclaration>,
+  stacks: TSResolvedType<any>[] = []
+): Promise<TSResolvedType | undefined> {
+  const { file, type } = ref
+  if (stacks.some((stack) => stack.file === file && stack.type === type)) {
+    return ref as any
+  }
+  stacks.push(ref)
+
   if (
     type.type === 'TSTypeAliasDeclaration' ||
     type.type === 'TSParenthesizedType'
   ) {
-    return resolveTSReferencedType({
-      file,
-      type: type.typeAnnotation,
-    })
+    return resolveTSReferencedType({ file, type: type.typeAnnotation }, stacks)
   }
 
   let refName: string
@@ -309,10 +310,7 @@ export async function resolveTSReferencedType({
     if (isTSDeclaration(node)) {
       if (node.id?.type !== 'Identifier') continue
       if (node.id.name !== refName) continue
-      return resolveTSReferencedType({
-        file,
-        type: node,
-      })
+      return resolveTSReferencedType({ file, type: node }, stacks)
     }
   }
 

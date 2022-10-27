@@ -299,6 +299,12 @@ type Foo = AliasString`
       const exports = await resolveTSFileExports(file)
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
+          "A": {
+            "type": "TSTypeAliasDeclaration...",
+          },
+          "B": {
+            "type": "TSTypeAliasDeclaration...",
+          },
           "Bar": {
             "type": "TSLiteralType...",
           },
