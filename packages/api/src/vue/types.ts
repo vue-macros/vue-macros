@@ -1,5 +1,5 @@
-import type { Node } from '@babel/types'
-import type { TSFile } from '../ts'
+import type { Node, TSModuleBlock } from '@babel/types'
+import type { TSFile, TSResolvedType } from '../ts'
 
 export enum DefinitionKind {
   /**
@@ -24,6 +24,6 @@ export enum DefinitionKind {
 
 export interface ASTDefinition<T extends Node> {
   code: string
-  file: TSFile | undefined
+  scope: TSFile | TSResolvedType<TSModuleBlock> | undefined
   ast: T
 }

@@ -3,7 +3,7 @@ import { babelParse } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
 import {
   getTSFile,
-  resolveTSFileExports,
+  resolveTSExports,
   resolveTSProperties,
   resolveTSReferencedType,
 } from '../src'
@@ -66,7 +66,7 @@ type Base2 = {
 `
     )
     const interfaceProperties = await resolveTSProperties({
-      file,
+      scope: file,
       type: file.ast[0] as TSInterfaceDeclaration,
     })
 
@@ -157,7 +157,7 @@ type Base2 = {
     ).toMatchInlineSnapshot('"TSStringKeyword..."')
 
     const intersectionProperties = await resolveTSProperties({
-      file,
+      scope: file,
       type: (file.ast[1] as TSTypeAliasDeclaration)
         .typeAnnotation as TSIntersectionType,
     })
@@ -205,16 +205,16 @@ type Foo = AliasString`
     )
     const node = file.ast[1] as TSTypeAliasDeclaration
     const result = (await resolveTSReferencedType({
-      file,
+      scope: file,
       type: node.typeAnnotation,
     }))!
-    expect(result.type.type).toBe('TSStringKeyword')
+    expect(result.type!.type).toBe('TSStringKeyword')
   })
 
   describe('resolveTSFileExports', () => {
     test('basic', async () => {
       const file = await getTSFile(path.resolve(fixtures, 'basic/index.ts'))
-      const exports = await resolveTSFileExports(file)
+      const exports = await resolveTSExports(file)
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
           "ExportAll": {
@@ -250,7 +250,7 @@ type Foo = AliasString`
       expect(
         hideAstLocation(
           await resolveTSProperties({
-            file,
+            scope: file,
             type: exports.Inferface?.type as any,
           })
         )
@@ -296,7 +296,7 @@ type Foo = AliasString`
       const file = await getTSFile(
         path.resolve(fixtures, 'circular-referencing/foo.ts')
       )
-      const exports = await resolveTSFileExports(file)
+      const exports = await resolveTSExports(file)
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
           "A": {
@@ -310,6 +310,36 @@ type Foo = AliasString`
           },
           "Foo": {
             "type": "TSLiteralType...",
+          },
+        }
+      `)
+    })
+
+    test('namespace', async () => {
+      const file = await getTSFile(path.resolve(fixtures, 'namespace/index.ts'))
+      const exports = await resolveTSExports(file)
+      expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
+        {
+          "BarStr": {
+            "type": "TSStringKeyword...",
+          },
+          "Foo": {
+            "type": "TSLiteralType...",
+          },
+          "NSBar": {
+            "type": "TSStringKeyword...",
+          },
+          "NSFoo": {
+            "type": "TSBooleanKeyword...",
+          },
+          "NestedNestedFoo": {
+            "type": "TSUnionType...",
+          },
+          "Num": {
+            "type": "TSNumberKeyword...",
+          },
+          "Str": {
+            "type": "TSStringKeyword...",
           },
         }
       `)

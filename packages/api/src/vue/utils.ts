@@ -1,4 +1,4 @@
-import { resolveTSReferencedType } from '../ts'
+import { isTSExports, resolveTSReferencedType } from '../ts'
 import type { Node } from '@babel/types'
 import type { TSResolvedType } from '../ts'
 
@@ -69,10 +69,12 @@ export async function inferRuntimeType(
         await Promise.all(
           node.type.types.map(async (subType) => {
             const resolved = await resolveTSReferencedType({
-              file: node.file,
+              scope: node.scope,
               type: subType,
             })
-            return resolved ? inferRuntimeType(resolved) : undefined
+            return resolved && !isTSExports(resolved)
+              ? inferRuntimeType(resolved)
+              : undefined
           })
         )
       )

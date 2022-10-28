@@ -3,7 +3,12 @@ import {
   isStaticExpression,
   resolveLiteral,
 } from '@vue-macros/common'
-import { resolveTSProperties, resolveTSReferencedType } from '../ts'
+import {
+  isTSExports,
+  resolveTSProperties,
+  resolveTSReferencedType,
+  resolveTSScope,
+} from '../ts'
 import { keyToString } from '../utils'
 import { DefinitionKind } from './types'
 import { attachNodeLoc } from './utils'
@@ -49,13 +54,13 @@ export async function handleTSEmitsDefinition({
 }): Promise<TSEmits> {
   const { definitions, definitionsAst } = await resolveDefinitions({
     type: typeDeclRaw,
-    file,
+    scope: file,
   })
 
   const addEmit: TSEmits['addEmit'] = (name, signature) => {
     const key = keyToString(name)
 
-    if (definitionsAst.file === file)
+    if (definitionsAst.scope === file)
       // TODO: intersection
       s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
 
@@ -64,7 +69,7 @@ export async function handleTSEmitsDefinition({
     definitions[key].push({
       code: signature,
       ast,
-      file: undefined,
+      scope: undefined,
     })
   }
   const setEmit: TSEmits['setEmit'] = (name, idx, signature) => {
@@ -75,12 +80,12 @@ export async function handleTSEmitsDefinition({
 
     const ast = parseSignature(signature)
     attachNodeLoc(def.ast, ast)
-    if (def.file === file) s.overwriteNode(def.ast, signature, { offset })
+    if (def.scope === file) s.overwriteNode(def.ast, signature, { offset })
 
     definitions[key][idx] = {
       code: signature,
       ast,
-      file: undefined,
+      scope: undefined,
     }
 
     return true
@@ -91,7 +96,7 @@ export async function handleTSEmitsDefinition({
     const def = definitions[key][idx]
     if (!def) return false
 
-    if (def.file === file) s.removeNode(def.ast, { offset })
+    if (def.scope === file) s.removeNode(def.ast, { offset })
     delete definitions[key][idx]
     return true
   }
@@ -116,9 +121,10 @@ export async function handleTSEmitsDefinition({
 
   async function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
     const resolved = await resolveTSReferencedType(typeDeclRaw)
-    if (!resolved) throw new SyntaxError(`Cannot resolve TS definition.`)
+    if (!resolved || isTSExports(resolved))
+      throw new SyntaxError(`Cannot resolve TS definition.`)
 
-    const { type: definitionsAst, file } = resolved
+    const { type: definitionsAst, scope } = resolved
     if (
       definitionsAst.type !== 'TSInterfaceDeclaration' &&
       definitionsAst.type !== 'TSTypeLiteral' &&
@@ -127,7 +133,7 @@ export async function handleTSEmitsDefinition({
       throw new SyntaxError(`Cannot resolve TS definition.`)
 
     const properties = await resolveTSProperties({
-      file,
+      scope,
       type: definitionsAst,
     })
 
@@ -143,9 +149,10 @@ export async function handleTSEmitsDefinition({
 
       const evtType = await resolveTSReferencedType({
         type: evtArg.typeAnnotation.typeAnnotation,
-        file: signature.file,
+        scope: signature.scope,
       })
-      if (evtType?.type.type !== 'TSLiteralType') continue
+      if (isTSExports(evtType) || evtType?.type.type !== 'TSLiteralType')
+        continue
 
       const literal = evtType.type.literal
       if (!isStaticExpression(literal)) continue
@@ -158,21 +165,18 @@ export async function handleTSEmitsDefinition({
 
     return {
       definitions,
-      definitionsAst: buildDefinition({ file, type: definitionsAst }),
+      definitionsAst: buildDefinition({ scope, type: definitionsAst }),
     }
   }
 
   function buildDefinition<T extends Node>({
     type,
-    file,
-  }: {
-    type: T
-    file: TSFile
-  }): ASTDefinition<T> {
+    scope,
+  }: TSResolvedType<T>): ASTDefinition<T> {
     return {
-      code: file.content.slice(type.start!, type.end!),
+      code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
       ast: type,
-      file,
+      scope,
     }
   }
 }

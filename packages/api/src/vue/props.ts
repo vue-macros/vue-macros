@@ -3,7 +3,12 @@ import {
   isStaticExpression,
   resolveObjectExpression,
 } from '@vue-macros/common'
-import { resolveTSProperties, resolveTSReferencedType } from '../ts'
+import {
+  isTSExports,
+  resolveTSProperties,
+  resolveTSReferencedType,
+  resolveTSScope,
+} from '../ts'
 import { keyToString } from '../utils'
 import { DefinitionKind } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
@@ -58,7 +63,7 @@ export async function handleTSPropsDefinition({
 }): Promise<TSProps> {
   const { definitions, definitionsAst } = await resolveDefinitions({
     type: typeDeclRaw,
-    file,
+    scope: file,
   })
   const { defaults, defaultsAst } = resolveDefaults(defaultsDeclRaw)
 
@@ -70,7 +75,7 @@ export async function handleTSPropsDefinition({
     )
     if (definitions[key]) return false
 
-    if (definitionsAst.file === file)
+    if (definitionsAst.scope === file)
       // TODO: intersection
       s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
 
@@ -79,13 +84,13 @@ export async function handleTSPropsDefinition({
       value: {
         code: value,
         ast: valueAst,
-        file: undefined,
+        scope: undefined,
       },
       optional: !!optional,
       signature: {
         code: signature,
         ast: signatureAst,
-        file: undefined,
+        scope: undefined,
       },
       addByAPI: true,
     }
@@ -106,11 +111,11 @@ export async function handleTSPropsDefinition({
       case 'method': {
         attachNodeLoc(def.methods[0].ast, signatureAst)
 
-        if (def.methods[0].file === file)
+        if (def.methods[0].scope === file)
           s.overwriteNode(def.methods[0].ast, signature, { offset })
 
         def.methods.slice(1).forEach((method) => {
-          if (method.file === file) {
+          if (method.scope === file) {
             s.removeNode(method.ast, { offset })
           }
         })
@@ -119,7 +124,7 @@ export async function handleTSPropsDefinition({
       case 'property': {
         attachNodeLoc(def.signature.ast, signatureAst)
 
-        if (def.signature.file === file && !def.addByAPI) {
+        if (def.signature.scope === file && !def.addByAPI) {
           s.overwriteNode(def.signature.ast, signature, { offset })
         }
         break
@@ -131,13 +136,13 @@ export async function handleTSPropsDefinition({
       value: {
         code: value,
         ast: valueAst,
-        file: undefined as any,
+        scope: undefined as any,
       },
       optional: !!optional,
       signature: {
         code: signature,
         ast: signatureAst,
-        file: undefined as any,
+        scope: undefined as any,
       },
       addByAPI: def.type === 'property' && def.addByAPI,
     }
@@ -151,14 +156,14 @@ export async function handleTSPropsDefinition({
     const def = definitions[key]
     switch (def.type) {
       case 'property': {
-        if (def.signature.file === file && !def.addByAPI) {
+        if (def.signature.scope === file && !def.addByAPI) {
           s.removeNode(def.signature.ast, { offset })
         }
         break
       }
       case 'method':
         def.methods.forEach((method) => {
-          if (method.file === file) s.removeNode(method.ast, { offset })
+          if (method.scope === file) s.removeNode(method.ast, { offset })
         })
         break
     }
@@ -183,7 +188,7 @@ export async function handleTSPropsDefinition({
         if (resolvedType) {
           prop = {
             type: await inferRuntimeType({
-              file: resolvedType.file || file,
+              scope: resolvedType.scope || file,
               type: resolvedType.ast,
             }),
             required: !def.optional,
@@ -240,9 +245,10 @@ export async function handleTSPropsDefinition({
     definitionsAst: TSProps['definitionsAst']
   }> {
     const resolved = await resolveTSReferencedType(typeDeclRaw)
-    if (!resolved) throw new SyntaxError(`Cannot resolve TS definition.`)
+    if (!resolved || isTSExports(resolved))
+      throw new SyntaxError(`Cannot resolve TS definition.`)
 
-    const { type: definitionsAst, file } = resolved
+    const { type: definitionsAst, scope } = resolved
     if (
       definitionsAst.type !== 'TSInterfaceDeclaration' &&
       definitionsAst.type !== 'TSTypeLiteral' &&
@@ -251,7 +257,7 @@ export async function handleTSPropsDefinition({
       throw new SyntaxError(`Cannot resolve TS definition.`)
 
     const properties = await resolveTSProperties({
-      file,
+      scope,
       type: definitionsAst,
     })
 
@@ -270,7 +276,10 @@ export async function handleTSPropsDefinition({
       definitions[key] = {
         type: 'property',
         addByAPI: false,
-        value: referenced ? buildDefinition(referenced) : undefined,
+        value:
+          referenced && !isTSExports(referenced)
+            ? buildDefinition(referenced)
+            : undefined,
         optional: value.optional,
         signature: buildDefinition(value.signature),
       }
@@ -278,7 +287,7 @@ export async function handleTSPropsDefinition({
 
     return {
       definitions,
-      definitionsAst: buildDefinition({ file, type: definitionsAst }),
+      definitionsAst: buildDefinition({ scope, type: definitionsAst }),
     }
   }
 
@@ -324,12 +333,12 @@ export async function handleTSPropsDefinition({
 
   function buildDefinition<T extends Node>({
     type,
-    file,
+    scope,
   }: TSResolvedType<T>): ASTDefinition<T> {
     return {
-      code: file.content.slice(type.start!, type.end!),
+      code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
       ast: type,
-      file,
+      scope,
     }
   }
 }
