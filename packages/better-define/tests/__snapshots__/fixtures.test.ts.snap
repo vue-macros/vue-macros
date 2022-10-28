@@ -35,11 +35,42 @@ export { basic as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/defaults.vue 1`] = `
+exports[`fixtures > tests/fixtures/defaults-dynamic.vue 1`] = `
+"import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"defaults-dynamic\\",
+  props: mergeDefaults({
+    foo: { type: String, required: false }
+  }, {
+    [\\"foo\\"]: \\"foo\\"
+  }),
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(\\"div\\");
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var defaultsDynamic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { defaultsDynamic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/defaults-static.vue 1`] = `
 "import { defineComponent, openBlock, createElementBlock } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"defaults\\",
+  __name: \\"defaults-static\\",
   props: {
     foo: { type: String, required: false, default: \\"foo\\" },
     bar: { type: Number, required: false, get default() {
@@ -64,9 +95,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var defaults = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+var defaultsStatic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
-export { defaults as default };
+export { defaultsStatic as default };
 "
 `;
 

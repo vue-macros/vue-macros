@@ -335,7 +335,7 @@ describe('analyzeSFC', () => {
     })
   })
 
-  test('defineProps w/ withDefaults', async () => {
+  test('defineProps w/ withDefaults (static)', async () => {
     const { props } = await complie(`withDefaults(defineProps<{
       foo: string
       bar?(): void
@@ -395,6 +395,18 @@ describe('analyzeSFC', () => {
     })
 
     snapshot(props!.defaults)
+  })
+
+  test('defineProps w/ withDefaults (dynamic)', async () => {
+    const { props } = await complie(`withDefaults(defineProps<{
+      foo: string
+      bar?: number
+    }>(), {
+      ['b' + 'ar']: 'bar'
+    })`)
+    const defaults = await props!.getRuntimeDefinitions()
+    expect(defaults.bar.default).toBeUndefined()
+    expect(props!.defaults).toBeUndefined()
   })
   test.todo('mutate defaults')
 

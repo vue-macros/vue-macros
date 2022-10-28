@@ -121,7 +121,9 @@ export function isStaticExpression(
     case 'ArrayExpression': // [1, 2]
       return (
         !!array &&
-        node.elements.every((element) => element && isStaticExpression(element))
+        node.elements.every(
+          (element) => element && isStaticExpression(element, options)
+        )
       )
 
     case 'ObjectExpression': // { foo: 1 }
@@ -133,11 +135,11 @@ export function isStaticExpression(
               prop.argument.type === 'ObjectExpression' &&
               isStaticExpression(prop.argument, options)
             )
-          } else if (!isStaticExpression(prop.key) && prop.computed) {
+          } else if (!isLiteralType(prop.key) && prop.computed) {
             return false
           } else if (
             prop.type === 'ObjectProperty' &&
-            !isStaticExpression(prop.value)
+            !isStaticExpression(prop.value, options)
           ) {
             return false
           }

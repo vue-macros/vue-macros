@@ -307,7 +307,6 @@ export async function handleTSPropsDefinition({
         array: true,
         object: true,
         objectMethod: true,
-        unary: true,
       })
     if (!isStatic) return { defaultsAst: defaultsAst as Expression }
 

@@ -11,9 +11,13 @@ withDefaults(
   defineProps<
     Props & {
       union?: string | number
+      nonStaticValue?: string
     }
   >(),
-  { union: 'defaultValue' }
+  {
+    ...{ union: 'defaultValue' },
+    ['non' + 'StaticValue']: 'defaultValue',
+  }
 )
 
 defineEmits<Emits>()

@@ -35,13 +35,24 @@ export const transformBetterDefine = async (code: string, id: string) => {
       })
       .join(',\n  ')}\n}`
 
-    s.overwriteNode(
-      props.withDefaultsAst || props.definePropsAst,
-      `defineProps(${runtimeDecls})`,
-      {
+    let decl = runtimeDecls
+    if (props.withDefaultsAst && !props.defaults) {
+      // dynamic defaults
+      decl = `_BD_mergeDefaults(${decl}, ${s.sliceNode(
+        props.withDefaultsAst.arguments[1],
+        { offset }
+      )})`
+      // add helper
+      s.prependLeft(
         offset,
-      }
-    )
+        `import { mergeDefaults as _BD_mergeDefaults } from 'vue'`
+      )
+    }
+    decl = `defineProps(${decl})`
+
+    s.overwriteNode(props.withDefaultsAst || props.definePropsAst, decl, {
+      offset,
+    })
   }
 
   function processEmits(emits: TSEmits) {
