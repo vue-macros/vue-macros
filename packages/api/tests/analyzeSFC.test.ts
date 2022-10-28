@@ -172,9 +172,20 @@ describe('analyzeSFC', () => {
       )
 
       snapshot(hideAstLocation(props!.definitions))
+      snapshot(s.toString())
     })
 
-    test.todo('add props in intersection')
+    test('addProp should work in intersection', async () => {
+      const { props, s } = await complie(`
+      type Foo = { foo: string }
+      type Bar = { bar: number }
+      defineProps<Foo & Bar>()`)
+      expect(props!.addProp('newProp', 'number | string')).toBe(true)
+      expect(s.toString()).toContain(`Foo & Bar`)
+
+      snapshot(hideAstLocation(props!.definitions))
+      snapshot(s.toString())
+    })
 
     describe('removeProp should work', () => {
       test('remove property prop', async () => {
@@ -480,8 +491,52 @@ describe('analyzeSFC', () => {
       snapshot(hideAstLocation(emits!.definitions))
     })
 
-    test.todo('addEmit should work')
-    test.todo('add emit in intersection')
+    test('addEmit should work', async () => {
+      const { emits, s } = await complie(`defineEmits<{
+        (evt: 'click'): void
+      }>()`)
+      emits!.addEmit('change', `(evt: 'change'): void`)
+      emits!.addEmit('click', `(evt: 'click', param: string): void`)
+      expect(s.toString()).toContain(`(evt: 'change'): void\n`)
+      expect(s.toString()).toContain(`(evt: 'click', param: string): void\n`)
+
+      expect(hideAstLocation(emits!.definitions.click)).toEqual([
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: "(evt: 'click'): void",
+        },
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: "(evt: 'click', param: string): void",
+        },
+      ])
+      expect(hideAstLocation(emits!.definitions.change)).toEqual([
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: "(evt: 'change'): void",
+        },
+      ])
+
+      snapshot(hideAstLocation(emits!.definitions))
+      snapshot(s.toString())
+    })
+
+    test('addEmit should work in intersection', async () => {
+      const { emits, s } = await complie(`defineEmits<{
+        (evt: 'click'): void
+      } & { (evt: 'change'): void }>()`)
+      emits!.addEmit('update', `(evt: 'update'): void`)
+      expect(s.toString()).toContain(` & { (evt: 'update'): void }`)
+
+      expect(hideAstLocation(emits!.definitions.update)).toEqual([
+        {
+          ast: 'TSCallSignatureDeclaration...',
+          code: "(evt: 'update'): void",
+        },
+      ])
+      snapshot(hideAstLocation(emits!.definitions))
+      snapshot(s.toString())
+    })
 
     describe.todo('removeProp should work', () => {
       test.todo('remove property prop')

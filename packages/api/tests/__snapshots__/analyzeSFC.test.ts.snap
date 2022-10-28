@@ -1,5 +1,65 @@
 // Vitest Snapshot v1
 
+exports[`analyzeSFC > defineEmits > addEmit should work 1`] = `
+{
+  "change": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'change'): void",
+    },
+  ],
+  "click": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'click'): void",
+    },
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'click', param: string): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineEmits > addEmit should work 2`] = `
+"<script setup lang=\\"ts\\">
+defineEmits<{
+        (evt: 'click'): void
+        (evt: 'change'): void
+  (evt: 'click', param: string): void
+}>()</script>"
+`;
+
+exports[`analyzeSFC > defineEmits > addEmit should work in intersection 1`] = `
+{
+  "change": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'change'): void",
+    },
+  ],
+  "click": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'click'): void",
+    },
+  ],
+  "update": [
+    {
+      "ast": "TSCallSignatureDeclaration...",
+      "code": "(evt: 'update'): void",
+    },
+  ],
+}
+`;
+
+exports[`analyzeSFC > defineEmits > addEmit should work in intersection 2`] = `
+"<script setup lang=\\"ts\\">
+defineEmits<{
+        (evt: 'click'): void
+      } & { (evt: 'change'): void } & { (evt: 'update'): void }>()</script>"
+`;
+
 exports[`analyzeSFC > defineEmits > definitions should be correct 1`] = `
 {
   "1": [
@@ -110,6 +170,67 @@ exports[`analyzeSFC > defineProps > addProp should work 1`] = `
     },
   },
 }
+`;
+
+exports[`analyzeSFC > defineProps > addProp should work 2`] = `
+"<script setup lang=\\"ts\\">
+defineProps<{
+        foo: string
+        newProp: number | string
+  newProp2?: string
+}>()</script>"
+`;
+
+exports[`analyzeSFC > defineProps > addProp should work in intersection 1`] = `
+{
+  "bar": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "bar: number",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSNumberKeyword...",
+      "code": "number",
+    },
+  },
+  "foo": {
+    "addByAPI": false,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "foo: string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSStringKeyword...",
+      "code": "string",
+    },
+  },
+  "newProp": {
+    "addByAPI": true,
+    "optional": false,
+    "signature": {
+      "ast": "TSPropertySignature...",
+      "code": "newProp: number | string",
+    },
+    "type": "property",
+    "value": {
+      "ast": "TSUnionType...",
+      "code": "number | string",
+    },
+  },
+}
+`;
+
+exports[`analyzeSFC > defineProps > addProp should work in intersection 2`] = `
+"<script setup lang=\\"ts\\">
+
+      type Foo = { foo: string }
+      type Bar = { bar: number }
+      defineProps<Foo & Bar & { newProp: number | string }>()</script>"
 `;
 
 exports[`analyzeSFC > defineProps > definitions should be correct 1`] = `

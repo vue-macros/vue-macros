@@ -75,9 +75,13 @@ export async function handleTSPropsDefinition({
     )
     if (definitions[key]) return false
 
-    if (definitionsAst.scope === file)
-      // TODO: intersection
-      s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
+    if (definitionsAst.scope === file) {
+      if (definitionsAst.ast.type === 'TSIntersectionType') {
+        s.appendLeft(definitionsAst.ast.end! + offset, ` & { ${signature} }`)
+      } else {
+        s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
+      }
+    }
 
     definitions[key] = {
       type: 'property',

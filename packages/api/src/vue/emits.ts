@@ -60,10 +60,13 @@ export async function handleTSEmitsDefinition({
   const addEmit: TSEmits['addEmit'] = (name, signature) => {
     const key = keyToString(name)
 
-    if (definitionsAst.scope === file)
-      // TODO: intersection
-      s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
-
+    if (definitionsAst.scope === file) {
+      if (definitionsAst.ast.type === 'TSIntersectionType') {
+        s.appendLeft(definitionsAst.ast.end! + offset, ` & { ${signature} }`)
+      } else {
+        s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
+      }
+    }
     if (!definitions[key]) definitions[key] = []
     const ast = parseSignature(signature)
     definitions[key].push({
