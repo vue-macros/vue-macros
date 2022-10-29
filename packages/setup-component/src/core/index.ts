@@ -14,7 +14,13 @@ import {
   SETUP_COMPONENT_TYPE,
 } from './constants'
 import { isSubModule } from './sub-module'
-import type { Function, Node, Program } from '@babel/types'
+import type {
+  Function,
+  Node,
+  Program,
+  VariableDeclaration,
+  VariableDeclarator,
+} from '@babel/types'
 import type { HmrContext, ModuleNode } from 'vite'
 
 export * from './constants'
@@ -30,9 +36,31 @@ interface FileContextComponent {
 interface FileContext {
   components: FileContextComponent[]
   imports: string[]
+  declartions: Declartions
 }
 
+type Declartions = string[]
+
 export type SetupComponentContext = Record<string, FileContext>
+
+const isFCType = (val: unknown): val is VariableDeclarator => {
+  const node = val as Node
+
+  if (!node) return false
+
+  return !!(
+    node.type === 'VariableDeclarator' &&
+    node.id.type === 'Identifier' &&
+    node.id.typeAnnotation?.type === 'TSTypeAnnotation' &&
+    node.id.typeAnnotation.typeAnnotation.type === 'TSTypeReference' &&
+    node.id.typeAnnotation.typeAnnotation.typeName.type === 'Identifier' &&
+    node.id.typeAnnotation.typeAnnotation.typeName.name ===
+      SETUP_COMPONENT_TYPE &&
+    node.init
+  )
+}
+
+const validIds = new Set()
 
 export const scanSetupComponent = (
   code: string,
@@ -53,6 +81,7 @@ export const scanSetupComponent = (
     decl: Node
   }[] = []
   const imports: FileContext['imports'] = []
+  const declartions: Declartions = []
 
   walkAST<Node>(program, {
     enter(node) {
@@ -62,25 +91,32 @@ export const scanSetupComponent = (
           fn: node,
           decl: node.arguments[0],
         })
-      } else if (
-        node.type === 'VariableDeclarator' &&
-        node.id.type === 'Identifier' &&
-        node.id.typeAnnotation?.type === 'TSTypeAnnotation' &&
-        node.id.typeAnnotation.typeAnnotation.type === 'TSTypeReference' &&
-        node.id.typeAnnotation.typeAnnotation.typeName.type === 'Identifier' &&
-        node.id.typeAnnotation.typeAnnotation.typeName.name ===
-          SETUP_COMPONENT_TYPE &&
-        node.init
-      ) {
+        validIds.add(id)
+      } else if (isFCType(node)) {
         // const comp: SetupFC = ...
         components.push({
-          decl: node.init,
+          decl: node.init!,
         })
+        validIds.add(id)
       } else if (node.type === 'ImportDeclaration') {
         imports.push(code.slice(node.start!, node.end!))
       }
     },
   })
+
+  if (validIds.has(id)) {
+    for (const body of program.body) {
+      if (
+        body.type !== 'ImportDeclaration' &&
+        !body.type.includes('Export') &&
+        !isFCType((body as VariableDeclaration)?.declarations?.[0]) &&
+        !isCallOf(body, DEFINE_SETUP_COMPONENT) &&
+        !(body.type === 'ExpressionStatement' && isCallOf(body.expression, 'h'))
+      ) {
+        declartions.push(code.slice(body.start!, body.end!))
+      }
+    }
+  }
 
   const ctxComponents = components.map(({ decl, fn }): FileContextComponent => {
     if (!['FunctionExpression', 'ArrowFunctionExpression'].includes(decl.type))
@@ -106,6 +142,7 @@ export const scanSetupComponent = (
   return {
     components: ctxComponents,
     imports,
+    declartions,
   }
 }
 
@@ -141,7 +178,7 @@ export const loadSetupComponent = (
 ) => {
   const index = +(SETUP_COMPONENT_ID_REGEX.exec(virtualId)?.[1] ?? -1)
   const id = virtualId.replace(SETUP_COMPONENT_ID_REGEX, '')
-  const { components, imports } = ctx[id] || ctx[root + id] || {}
+  const { components, imports, declartions } = ctx[id] || ctx[root + id] || {}
   const component = components[index]
   if (!component) return
 
@@ -160,9 +197,18 @@ export const loadSetupComponent = (
   }
 
   for (const i of imports) s.prepend(`${i}\n`)
-
   s.prepend(`<script setup${lang ? ` lang="${lang}"` : ''}>`)
   s.append(`</script>`)
+
+  // resolve declartions which is not valid component.
+  if (declartions?.length) {
+    const declBody = new MagicString('')
+
+    declBody.prepend(`<script${lang ? ` lang="${lang}"` : ''}>`)
+    for (const i of declartions) declBody.append(`${i}\n`)
+    declBody.append(`</script>`)
+    s.prepend(declBody.toString())
+  }
 
   return s.toString()
 }
