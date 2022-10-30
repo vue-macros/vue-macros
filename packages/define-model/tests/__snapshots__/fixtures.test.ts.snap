@@ -463,6 +463,28 @@ rest.modelValue.value = 'foo'
 "
 `;
 
+exports[`fixtures > ./fixtures/runtime/vue3/with-defaults.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineEmits<{
+    (evt: 'update:foo', value: string): void
+  }>();
+export interface Props {foo: string
+
+  color: string
+}
+
+const { foo } = _DM_useVModel(['foo', 'foo', 'update:foo'])
+
+withDefaults(defineProps<Props>(), {
+  color: 'blue'
+})
+
+console.log(foo)
+</script>
+"
+`;
+
 exports[`fixtures > ./fixtures/runtime/vue3/with-define-emits.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';

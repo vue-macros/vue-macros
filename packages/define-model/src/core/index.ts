@@ -7,6 +7,7 @@ import {
   DEFINE_PROPS,
   MagicString,
   REPO_ISSUE_URL,
+  WITH_DEFAULTS,
   getTransformResult,
   isCallOf,
   parseSFC,
@@ -51,6 +52,10 @@ export const transformDefineModel = (
   let mode: 'reactivity-transform' | 'runtime' | undefined
 
   function processDefinePropsOrEmits(node: Node, declId?: LVal) {
+    if (isCallOf(node, WITH_DEFAULTS)) {
+      node = node.arguments[0]
+    }
+
     let type: 'props' | 'emits'
     if (isCallOf(node, DEFINE_PROPS)) {
       type = 'props'
