@@ -1,5 +1,14 @@
 # @vue-macros/named-template
 
+## 0.0.3
+
+### Patch Changes
+
+- [`b4f6dbc`](https://github.com/sxzz/unplugin-vue-macros/commit/b4f6dbcaa7bfd42b2d7e5df6c33b73c63ee5e091) Thanks [@sxzz](https://github.com/sxzz)! - resolve combine plugin
+
+- Updated dependencies [[`b5fa188`](https://github.com/sxzz/unplugin-vue-macros/commit/b5fa18833b2262e9e416af7e96f83391efc877bb)]:
+  - @vue-macros/common@0.13.1
+
 ## 0.0.2
 
 ### Patch Changes

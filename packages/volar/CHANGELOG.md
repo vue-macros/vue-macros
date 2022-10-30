@@ -1,5 +1,12 @@
 # @vue-macros/volar
 
+## 0.4.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vue-macros/short-vmodel@0.3.5
+
 ## 0.4.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 0.13.1
+
+### Patch Changes
+
+- [`b5fa188`](https://github.com/sxzz/unplugin-vue-macros/commit/b5fa18833b2262e9e416af7e96f83391efc877bb) Thanks [@sxzz](https://github.com/sxzz)! - support dynamic default definitions of props
+
 ## 0.13.0
 
 ### Minor Changes

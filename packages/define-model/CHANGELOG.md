@@ -1,5 +1,14 @@
 # @vue-macros/define-model
 
+## 0.13.6
+
+### Patch Changes
+
+- [`459f26b`](https://github.com/sxzz/unplugin-vue-macros/commit/459f26bc806097e3531131177d9dd73e7e3cdde9) Thanks [@sxzz](https://github.com/sxzz)! - support withDefaults in defineModel
+
+- Updated dependencies [[`b5fa188`](https://github.com/sxzz/unplugin-vue-macros/commit/b5fa18833b2262e9e416af7e96f83391efc877bb)]:
+  - @vue-macros/common@0.13.1
+
 ## 0.13.5
 
 ### Patch Changes
