@@ -1,5 +1,23 @@
 # unplugin-vue-macros
 
+## 0.15.1
+
+### Patch Changes
+
+- [`b4f6dbc`](https://github.com/sxzz/unplugin-vue-macros/commit/b4f6dbcaa7bfd42b2d7e5df6c33b73c63ee5e091) Thanks [@sxzz](https://github.com/sxzz)! - resolve combine plugin
+
+- Updated dependencies [[`459f26b`](https://github.com/sxzz/unplugin-vue-macros/commit/459f26bc806097e3531131177d9dd73e7e3cdde9), [`b4f6dbc`](https://github.com/sxzz/unplugin-vue-macros/commit/b4f6dbcaa7bfd42b2d7e5df6c33b73c63ee5e091), [`b5fa188`](https://github.com/sxzz/unplugin-vue-macros/commit/b5fa18833b2262e9e416af7e96f83391efc877bb)]:
+  - @vue-macros/define-model@0.13.6
+  - @vue-macros/named-template@0.0.3
+  - @vue-macros/better-define@0.0.2
+  - unplugin-vue-define-options@0.12.5
+  - @vue-macros/define-render@0.13.6
+  - @vue-macros/define-slots@0.0.3
+  - @vue-macros/hoist-static@0.12.5
+  - @vue-macros/setup-component@0.12.5
+  - @vue-macros/setup-sfc@0.12.5
+  - @vue-macros/short-emits@0.12.6
+
 ## 0.15.0
 
 ### Minor Changes

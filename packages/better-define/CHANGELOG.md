@@ -1,5 +1,15 @@
 # @vue-macros/better-define
 
+## 0.0.2
+
+### Patch Changes
+
+- [`b5fa188`](https://github.com/sxzz/unplugin-vue-macros/commit/b5fa18833b2262e9e416af7e96f83391efc877bb) Thanks [@sxzz](https://github.com/sxzz)! - support dynamic default definitions of props
+
+- Updated dependencies [[`e1f7bdc`](https://github.com/sxzz/unplugin-vue-macros/commit/e1f7bdca122b07a64d2da0227b7ed7450cc9d8d0), [`385d9bb`](https://github.com/sxzz/unplugin-vue-macros/commit/385d9bbea219192d69ffc7396a7f288182de7813), [`91dfbff`](https://github.com/sxzz/unplugin-vue-macros/commit/91dfbff9918c7289f744cdd00e4b14a7fec2ee98), [`b5fa188`](https://github.com/sxzz/unplugin-vue-macros/commit/b5fa18833b2262e9e416af7e96f83391efc877bb)]:
+  - @vue-macros/api@0.1.0
+  - @vue-macros/common@0.13.1
+
 ## 0.0.1
 
 ### Patch Changes
