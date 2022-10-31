@@ -1,11 +1,7 @@
-import path from 'node:path'
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
 import { walk } from 'estree-walker'
-import {
-  MAGIC_COMMENT_STATIC,
-  REGEX_JSX_FILE,
-  REGEX_TS_FILE,
-} from './constants'
+import { REGEX_JSX_FILE } from './constants'
+import { isTs } from './lang'
 import type {
   CallExpression,
   Literal,
@@ -17,14 +13,6 @@ import type {
   TemplateLiteral,
 } from '@babel/types'
 import type { ParserOptions, ParserPlugin } from '@babel/parser'
-
-export function getLang(filename: string) {
-  return path.extname(filename).replace(/^\./, '')
-}
-
-export function isTs(lang?: string) {
-  return lang && REGEX_TS_FILE.test(lang)
-}
 
 export function babelParse(
   code: string,
@@ -79,10 +67,9 @@ export function checkInvalidScopeReference(
 export function isStaticExpression(
   node: Node,
   options: Partial<
-    Record<
-      'object' | 'objectMethod' | 'array' | 'unary' | 'magicComment',
-      boolean
-    >
+    Record<'object' | 'objectMethod' | 'array' | 'unary', boolean> & {
+      magicComment?: string
+    }
   > = {}
 ): boolean {
   const { magicComment, object, objectMethod, array, unary } = options
@@ -91,7 +78,7 @@ export function isStaticExpression(
   if (
     magicComment &&
     node.leadingComments?.some(
-      (comment) => comment.value.trim() === MAGIC_COMMENT_STATIC
+      (comment) => comment.value.trim() === magicComment
     )
   )
     return true

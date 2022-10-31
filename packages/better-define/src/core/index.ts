@@ -63,8 +63,8 @@ export const transformBetterDefine = async (code: string, id: string) => {
       offset,
     })
   }
+}
 
-  function toRuntimeTypeString(types: string[]) {
-    return types.length > 1 ? `[${types.join(', ')}]` : types[0]
-  }
+function toRuntimeTypeString(types: string[]) {
+  return types.length > 1 ? `[${types.join(', ')}]` : types[0]
 }

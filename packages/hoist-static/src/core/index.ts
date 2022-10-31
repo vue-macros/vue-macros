@@ -8,6 +8,8 @@ import {
 } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
+export const MAGIC_COMMENT = 'hoist-static'
+
 export const transformHoistStatic = (code: string, id: string) => {
   function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
     if (scriptOffset === undefined) scriptOffset = normalScript.start()
@@ -38,7 +40,10 @@ export const transformHoistStatic = (code: string, id: string) => {
       for (const [i, decl] of decls.entries()) {
         if (
           !decl.init ||
-          !isStaticExpression(decl.init, { unary: true, magicComment: true })
+          !isStaticExpression(decl.init, {
+            unary: true,
+            magicComment: MAGIC_COMMENT,
+          })
         )
           continue
 
@@ -62,7 +67,7 @@ export const transformHoistStatic = (code: string, id: string) => {
           !member.initializer ||
           isStaticExpression(member.initializer, {
             unary: true,
-            magicComment: true,
+            magicComment: MAGIC_COMMENT,
           })
       )
       if (!isAllConstant) continue
@@ -72,7 +77,7 @@ export const transformHoistStatic = (code: string, id: string) => {
 
   const restSetup = s.slice(setupOffset, setupOffsetEnd)
   if (restSetup.trim().length === 0) {
-    s.appendLeft(setupOffsetEnd, '/**/')
+    s.appendLeft(setupOffsetEnd, '/* hoist static placeholder */')
   }
 
   if (scriptOffset !== undefined) normalScript.end()
