@@ -1,5 +1,12 @@
 # @vue-macros/short-vmodel
 
+## 0.3.6
+
+### Patch Changes
+
+- Updated dependencies [[`85f1c86`](https://github.com/sxzz/unplugin-vue-macros/commit/85f1c8621ffaaeac313974445a0ef41fafdd2137)]:
+  - @vue-macros/common@0.13.2
+
 ## 0.3.5
 
 ### Patch Changes
