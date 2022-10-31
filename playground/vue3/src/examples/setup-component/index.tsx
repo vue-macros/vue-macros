@@ -1,4 +1,8 @@
+import { SetupComponentTypeDecl } from './type-decl'
+import Context from './context'
+
 export const SetupComponentFoo = defineSetupComponent(() => {
+  const Ctx = Context()
   return () => (
     <>
       SetupComponent - Foo{' '}
@@ -10,6 +14,10 @@ export const SetupComponentFoo = defineSetupComponent(() => {
       >
         Check sourcemap
       </button>
+      <hr />
+      <SetupComponentTypeDecl />
+      <hr />
+      <Ctx />
     </>
   )
 })

@@ -9,7 +9,6 @@ import BetterDefineVue from './examples/better-define/index.vue'
 import NamedTemplateVue from './examples/named-template/index.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
-import { SetupComponentType } from './examples/setup-component/types'
 
 import SetupSFC from './examples/setup-sfc/index.setup'
 import ShortVmodel from './examples/short-vmodel/parent.vue'
@@ -57,8 +56,6 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>setupComponent</legend>
     <SetupComponentFoo />
-    <hr />
-    <SetupComponentType />
   </fieldset>
 
   <fieldset>

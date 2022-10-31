@@ -137,7 +137,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
 
   const plugins: OptionsPlugin[] = [
     resolvePlugin(options.setupSFC, VueSetupSFC),
-    resolvePlugin(options.setupComponent, VueSetupComponent),
+    resolvePlugin(options.setupComponent, VueSetupComponent, 0),
     resolvePlugin(options.hoistStatic, VueHoistStatic),
     resolvePlugin(options.namedTemplate, VueNamedTemplate, 0),
     resolvePlugin(options.shortEmits, VueShortEmits),
@@ -148,6 +148,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
     options.plugins.vue,
     options.plugins.vueJsx,
     resolvePlugin(options.defineRender, VueDefineRender),
+    resolvePlugin(options.setupComponent, VueSetupComponent, 1),
     resolvePlugin(options.namedTemplate, VueNamedTemplate, 1),
   ].filter(Boolean)
 

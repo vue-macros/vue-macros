@@ -3,7 +3,7 @@ import { foo } from './foo'
 
 console.log(foo)
 
-export const SetupComponentType: SetupFC = () => {
+export const SetupComponentTypeDecl: SetupFC = () => {
   const count = ref(0)
   const double = computed(() => count.value * 2)
 
@@ -11,9 +11,9 @@ export const SetupComponentType: SetupFC = () => {
 
   return () => (
     <div>
-      <p>SetupComponent type declaration</p>
-      <p>count: {count.value}</p>
-      <p>double: {double.value}</p>
+      <div>SetupComponent type declaration</div>
+      <div>count: {count.value}</div>
+      <div>double: {double.value}</div>
       <button
         onClick={() => {
           count.value++

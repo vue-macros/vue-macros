@@ -7,13 +7,14 @@ import {
   isCallOf,
   walkAST,
 } from '@vue-macros/common'
-import { normalizePath } from '@rollup/pluginutils'
+import { attachScopes, normalizePath } from '@rollup/pluginutils'
 import {
   SETUP_COMPONENT_ID_REGEX,
   SETUP_COMPONENT_ID_SUFFIX,
   SETUP_COMPONENT_TYPE,
 } from './constants'
 import { isSubModule } from './sub-module'
+import type { AttachedScope } from '@rollup/pluginutils'
 import type { Function, Node, Program } from '@babel/types'
 import type { HmrContext, ModuleNode } from 'vite'
 
@@ -25,6 +26,7 @@ interface FileContextComponent {
   code: string
   body: string
   node: Node
+  scopes: string[]
 }
 
 interface FileContext {
@@ -51,16 +53,23 @@ export const scanSetupComponent = (
     fn?: Node
     /** component decl */
     decl: Node
+    scopes: string[]
   }[] = []
   const imports: FileContext['imports'] = []
 
-  walkAST<Node>(program, {
+  let scope: AttachedScope = attachScopes(program as any, 'scope')
+  walkAST<Node & { scope?: AttachedScope }>(program, {
     enter(node) {
+      if (node.scope) scope = node.scope
+
+      const scopes = getScopeDecls(scope)
+
       // defineSetupComponent(...)
       if (isCallOf(node, DEFINE_SETUP_COMPONENT)) {
         components.push({
           fn: node,
           decl: node.arguments[0],
+          scopes,
         })
       } else if (
         node.type === 'VariableDeclarator' &&
@@ -75,33 +84,42 @@ export const scanSetupComponent = (
         // const comp: SetupFC = ...
         components.push({
           decl: node.init,
+          scopes,
         })
       } else if (node.type === 'ImportDeclaration') {
         imports.push(code.slice(node.start!, node.end!))
       }
     },
+    leave(node) {
+      if (node.scope) scope = scope.parent!
+    },
   })
 
-  const ctxComponents = components.map(({ decl, fn }): FileContextComponent => {
-    if (!['FunctionExpression', 'ArrowFunctionExpression'].includes(decl.type))
-      throw new SyntaxError(
-        `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
+  const ctxComponents = components.map(
+    ({ decl, fn, scopes }): FileContextComponent => {
+      if (
+        !['FunctionExpression', 'ArrowFunctionExpression'].includes(decl.type)
       )
+        throw new SyntaxError(
+          `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
+        )
 
-    const body = (decl as Function)?.body
-    let bodyStart = body.start!
-    let bodyEnd = body.end!
-    if (body.type === 'BlockStatement') {
-      bodyStart++
-      bodyEnd--
-    }
+      const body = (decl as Function)?.body
+      let bodyStart = body.start!
+      let bodyEnd = body.end!
+      if (body.type === 'BlockStatement') {
+        bodyStart++
+        bodyEnd--
+      }
 
-    return {
-      code: code.slice(decl.start!, decl.end!),
-      body: code.slice(bodyStart, bodyEnd),
-      node: fn || decl,
+      return {
+        code: code.slice(decl.start!, decl.end!),
+        body: code.slice(bodyStart, bodyEnd),
+        node: fn || decl,
+        scopes,
+      }
     }
-  })
+  )
 
   return {
     components: ctxComponents,
@@ -111,23 +129,28 @@ export const scanSetupComponent = (
 
 export const transformSetupComponent = (
   code: string,
-  id: string,
+  _id: string,
   ctx: SetupComponentContext
 ) => {
-  const normalizedId = normalizePath(id)
+  const id = normalizePath(_id)
   const s = new MagicString(code)
 
   const fileContext = scanSetupComponent(code, id)
   if (!fileContext) return
-  ctx[normalizedId] = fileContext
+  const { components } = fileContext
+  ctx[id] = fileContext
 
-  for (const [i, { node }] of fileContext.components.entries()) {
+  for (const [i, { node, scopes }] of components.entries()) {
     const importName = `setupComponent_${i}`
 
-    s.overwrite(node.start!, node.end!, importName)
+    s.overwrite(
+      node.start!,
+      node.end!,
+      `${importName}(() => ({ ${scopes.join(', ')} }))`
+    )
 
     s.prepend(
-      `import ${importName} from '${normalizedId}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`
+      `import ${importName} from '${id}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`
     )
   }
 
@@ -145,7 +168,7 @@ export const loadSetupComponent = (
   const component = components[index]
   if (!component) return
 
-  const { body } = component
+  const { body, scopes } = component
   const lang = getLang(id)
 
   const s = new MagicString(body)
@@ -159,9 +182,18 @@ export const loadSetupComponent = (
     s.overwriteNode(stmt, `defineRender(${s.sliceNode(stmt.argument)});`)
   }
 
+  const rootVars = Object.keys(
+    attachScopes(program as any, 'scope').declarations
+  )
+  s.prepend(
+    `const { ${scopes
+      .filter((name) => !rootVars.includes(name))
+      .join(', ')} } = _SC_ctx();\n`
+  )
+
   for (const i of imports) s.prepend(`${i}\n`)
 
-  s.prepend(`<script setup${lang ? ` lang="${lang}"` : ''}>`)
+  s.prepend(`<script setup${lang ? ` lang="${lang}"` : ''}>\n`)
   s.append(`</script>`)
 
   return s.toString()
@@ -190,4 +222,67 @@ export const hotUpdateSetupComponent = async (
   if (nodeContexts) ctx[normalizedId] = nodeContexts
 
   return [...modules, ...affectedModules]
+}
+
+export const transformPost = (code: string, _id: string) => {
+  const s = new MagicString(code)
+
+  const id = normalizePath(_id)
+
+  if (id.endsWith('.vue')) {
+    return transformMainEntry()
+  } else if (id.includes('type=script')) {
+    return transformScript()
+  }
+
+  function transformMainEntry() {
+    const program = babelParse(code, 'js')
+    walkAST<Node>(program, {
+      enter(node, parent) {
+        if (node.type === 'ExportDefaultDeclaration' && node.declaration) {
+          const exportDefault = node.declaration
+          s.prependLeft(
+            exportDefault.leadingComments?.[0].start ?? exportDefault.start!,
+            '(ctx) => '
+          )
+        } else if (
+          node.type === 'Identifier' &&
+          parent.type === 'CallExpression' &&
+          parent.callee.type === 'Identifier' &&
+          parent.callee.name === '_export_sfc' &&
+          node.name === '_sfc_main'
+        ) {
+          s.appendLeft(node.end!, '(ctx)')
+        }
+      },
+    })
+
+    return getTransformResult(s, id)
+  }
+
+  function transformScript() {
+    const program = babelParse(code, getLang(id))
+    walkAST<Node>(program, {
+      enter(node) {
+        if (node.type === 'ExportDefaultDeclaration' && node.declaration) {
+          const exportDefault = node.declaration
+          s.prependLeft(
+            exportDefault.leadingComments?.[0].start ?? exportDefault.start!,
+            '(_SC_ctx) => '
+          )
+        }
+      },
+    })
+
+    return getTransformResult(s, id)
+  }
+}
+
+export const getScopeDecls = (scope: AttachedScope | undefined) => {
+  const scopes = new Set<string>()
+  do {
+    if (!scope?.declarations) continue
+    Object.keys(scope.declarations).forEach((name) => scopes.add(name))
+  } while ((scope = scope?.parent))
+  return Array.from(scopes)
 }

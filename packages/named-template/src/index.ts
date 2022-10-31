@@ -9,6 +9,7 @@ import {
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE,
 } from './core/constants'
+import type { UnpluginCombineInstance } from 'unplugin-combine'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -32,40 +33,42 @@ export type TemplateContent = Record<
   Record<string, string> & { [MAIN_TEMPLATE]?: string }
 >
 
-export const PrePlugin = createUnplugin((options: OptionsResolved) => {
-  const filter = createFilter(options.include, options.exclude)
+const name = 'unplugin-vue-named-template'
+export const PrePlugin = createUnplugin<Options | undefined>(
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
+    const filter = createFilter(options.include, options.exclude)
 
-  const templateContent: TemplateContent = {}
+    const templateContent: TemplateContent = {}
 
-  const name = 'unplugin-vue-named-template-pre'
-  return {
-    name,
-    enforce: 'pre',
+    return {
+      name: `${name}-pre`,
+      enforce: 'pre',
 
-    loadInclude(id) {
-      return id.includes(QUERY_TEMPLATE)
-    },
+      loadInclude(id) {
+        return id.includes(QUERY_TEMPLATE)
+      },
 
-    load(id) {
-      const { filename, query } = parseVueRequest(id) as any
-      const content =
-        templateContent[filename]?.[
-          'mainTemplate' in query ? MAIN_TEMPLATE : query.name
-        ]
-      return content
-    },
+      load(id) {
+        const { filename, query } = parseVueRequest(id) as any
+        const content =
+          templateContent[filename]?.[
+            'mainTemplate' in query ? MAIN_TEMPLATE : query.name
+          ]
+        return content
+      },
 
-    transformInclude(id) {
-      return filter(id) || id.includes(QUERY_NAMED_TEMPLATE)
-    },
+      transformInclude(id) {
+        return filter(id) || id.includes(QUERY_NAMED_TEMPLATE)
+      },
 
-    transform(code, id) {
-      try {
-        if (id.includes(QUERY_NAMED_TEMPLATE)) {
-          const { filename, query } = parseVueRequest(id)
-          const { name } = query as any
-          const request = `${filename}?vue&${QUERY_TEMPLATE}&name=${name}`
-          return `import { createTextVNode } from 'vue'
+      transform(code, id) {
+        try {
+          if (id.includes(QUERY_NAMED_TEMPLATE)) {
+            const { filename, query } = parseVueRequest(id)
+            const { name } = query as any
+            const request = `${filename}?vue&${QUERY_TEMPLATE}&name=${name}`
+            return `import { createTextVNode } from 'vue'
           import { render } from ${JSON.stringify(request)}
 export default {
   render: (...args) => {
@@ -73,55 +76,59 @@ export default {
     return typeof r === 'string' ? createTextVNode(r) : r
   }
 }`
-        } else {
-          return preTransform(code, id, templateContent)
+          } else {
+            return preTransform(code, id, templateContent)
+          }
+        } catch (err: unknown) {
+          this.error(`${name} ${err}`)
         }
-      } catch (err: unknown) {
-        this.error(`${name} ${err}`)
-      }
-    },
+      },
+    }
   }
-})
+)
 
 export type CustomBlocks = Record<string, Record<string, string>>
-export const PostPlugin = createUnplugin((options: OptionsResolved) => {
-  const filter = createFilter(options.include, options.exclude)
-  const customBlocks: CustomBlocks = {}
+export const PostPlugin = createUnplugin<Options | undefined>(
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
+    const filter = createFilter(options.include, options.exclude)
+    const customBlocks: CustomBlocks = {}
 
-  function transformInclude(id: string) {
-    return filter(id) || id.includes(QUERY_TEMPLATE)
-  }
+    function transformInclude(id: string) {
+      return filter(id) || id.includes(QUERY_TEMPLATE)
+    }
 
-  const name = 'unplugin-vue-named-template-post'
-  return {
-    name,
-    enforce: 'post',
+    return {
+      name: `${name}-post`,
+      enforce: 'post',
 
-    transformInclude,
-    transform(code, id) {
-      return postTransform(code, id, customBlocks)
-    },
+      transformInclude,
+      transform(code, id) {
+        return postTransform(code, id, customBlocks)
+      },
 
-    rollup: {
-      transform: {
-        order: 'post',
-        handler(code, id) {
-          if (!transformInclude(id)) return
-          return postTransform(code, id, customBlocks)
+      rollup: {
+        transform: {
+          order: 'post',
+          handler(code, id) {
+            if (!transformInclude(id)) return
+            return postTransform(code, id, customBlocks)
+          },
         },
       },
-    },
+    }
   }
-})
+)
 
-const name = 'unplugin-vue-named-template'
-export default createCombinePlugin((userOptions: Options = {}) => {
-  const options = resolveOption(userOptions)
-  return {
-    name,
-    plugins: [
-      [PrePlugin, options],
-      [PostPlugin, options],
-    ],
-  }
-})
+const plugin: UnpluginCombineInstance<Options | undefined> =
+  createCombinePlugin((userOptions: Options = {}) => {
+    return {
+      name,
+      plugins: [
+        [PrePlugin, userOptions],
+        [PostPlugin, userOptions],
+      ],
+    }
+  })
+
+export default plugin
