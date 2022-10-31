@@ -1,5 +1,23 @@
 # unplugin-vue-macros
 
+## 0.15.2
+
+### Patch Changes
+
+- [`85f1c86`](https://github.com/sxzz/unplugin-vue-macros/commit/85f1c8621ffaaeac313974445a0ef41fafdd2137) Thanks [@sxzz](https://github.com/sxzz)! - support context in setupComponent
+
+- Updated dependencies [[`85f1c86`](https://github.com/sxzz/unplugin-vue-macros/commit/85f1c8621ffaaeac313974445a0ef41fafdd2137)]:
+  - @vue-macros/better-define@0.0.3
+  - @vue-macros/define-model@0.13.7
+  - unplugin-vue-define-options@0.12.6
+  - @vue-macros/define-render@0.13.7
+  - @vue-macros/define-slots@0.0.4
+  - @vue-macros/hoist-static@0.12.6
+  - @vue-macros/named-template@0.0.4
+  - @vue-macros/setup-component@0.12.6
+  - @vue-macros/setup-sfc@0.12.6
+  - @vue-macros/short-emits@0.12.7
+
 ## 0.15.1
 
 ### Patch Changes
