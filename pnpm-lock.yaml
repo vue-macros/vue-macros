@@ -15,6 +15,7 @@ importers:
       '@vue-macros/test-utils': workspace:*
       eslint: ^8.26.0
       eslint-define-config: ^1.11.0
+      expect-type: ^0.15.0
       fast-glob: ^3.2.12
       npm-run-all: ^4.1.5
       tsup: ^6.3.0
@@ -36,6 +37,7 @@ importers:
       '@vue-macros/test-utils': link:packages/test-utils
       eslint: 8.26.0
       eslint-define-config: 1.11.0
+      expect-type: 0.15.0
       fast-glob: 3.2.12
       npm-run-all: 4.1.5
       tsup: 6.3.0_typescript@4.8.4
@@ -166,6 +168,29 @@ importers:
       vite: 3.2.2
       vue: 3.2.41
 
+  packages/define-props:
+    specifiers:
+      '@babel/types': ^7.20.0
+      '@rollup/pluginutils': ^4.2.1
+      '@vue-macros/common': workspace:~
+      fast-glob: ^3.2.12
+      tsup: ^6.3.0
+      tsx: ^3.11.0
+      unplugin: ^0.10.2
+      vite: ^3.2.2
+      vue: ^3.2.41
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      '@vue-macros/common': link:../common
+      unplugin: 0.10.2
+    devDependencies:
+      '@babel/types': 7.20.0
+      fast-glob: 3.2.12
+      tsup: 6.3.0
+      tsx: 3.11.0
+      vite: 3.2.2
+      vue: 3.2.41
+
   packages/define-render:
     specifiers:
       '@babel/types': ^7.20.0
@@ -238,6 +263,7 @@ importers:
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/better-define': workspace:*
       '@vue-macros/define-model': workspace:*
+      '@vue-macros/define-props': workspace:*
       '@vue-macros/define-render': workspace:*
       '@vue-macros/define-slots': workspace:*
       '@vue-macros/hoist-static': workspace:*
@@ -257,6 +283,7 @@ importers:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/better-define': link:../better-define
       '@vue-macros/define-model': link:../define-model
+      '@vue-macros/define-props': link:../define-props
       '@vue-macros/define-render': link:../define-render
       '@vue-macros/define-slots': link:../define-slots
       '@vue-macros/hoist-static': link:../hoist-static
@@ -689,7 +716,7 @@ packages:
       '@babel/parser': 7.20.0
       '@babel/template': 7.18.10
       '@babel/traverse': 7.19.4
-      '@babel/types': 7.19.4
+      '@babel/types': 7.20.0
       convert-source-map: 1.9.0
       debug: 4.3.4
       gensync: 1.0.0-beta.2
@@ -1798,15 +1825,6 @@ packages:
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
-
-  /@babel/types/7.19.4:
-    resolution: {integrity: sha512-M5LK7nAeS6+9j7hAq+b3fQs+pNfUtTGq+yFFfHnauFA8zQtLRfmuipmsKDKKLuyG+wC8ABW43A153YNawNTEtw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/helper-string-parser': 7.19.4
-      '@babel/helper-validator-identifier': 7.19.1
-      to-fast-properties: 2.0.0
-    dev: true
 
   /@babel/types/7.20.0:
     resolution: {integrity: sha512-Jlgt3H0TajCW164wkTOTzHkZb075tMQMULzrLUoUeKmO7eFL96GgDxf7/Axhc5CAuKE3KFyVW1p6ysKsi2oXAg==}
@@ -6131,6 +6149,10 @@ packages:
       onetime: 5.1.2
       signal-exit: 3.0.7
       strip-final-newline: 2.0.0
+    dev: true
+
+  /expect-type/0.15.0:
+    resolution: {integrity: sha512-yWnriYB4e8G54M5/fAFj7rCIBiKs1HAACaY13kCz6Ku0dezjS9aMcfcdVK2X8Tv2tEV1BPz/wKfQ7WA4S/d8aA==}
     dev: true
 
   /extendable-error/0.1.7:

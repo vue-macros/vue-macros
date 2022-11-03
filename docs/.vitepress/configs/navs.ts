@@ -32,6 +32,10 @@ export const sidebar: DefaultTheme.Sidebar = [
         link: '/macros/define-model',
       },
       {
+        text: 'defineProps',
+        link: '/macros/define-props',
+      },
+      {
         text: 'defineSlots',
         link: '/macros/define-slots',
       },

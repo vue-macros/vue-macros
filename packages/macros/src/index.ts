@@ -2,6 +2,7 @@ import { createCombinePlugin } from 'unplugin-combine'
 import VueBetterDefine from '@vue-macros/better-define'
 import VueDefineModel from '@vue-macros/define-model'
 import VueDefineOptions from 'unplugin-vue-define-options'
+import VueDefineProps from '@vue-macros/define-props'
 import VueDefineRender from '@vue-macros/define-render'
 import VueDefineSlots from '@vue-macros/define-slots'
 import VueHoistStatic from '@vue-macros/hoist-static'
@@ -20,6 +21,7 @@ import type {
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
 import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
+import type { Options as OptionsDefineProps } from '@vue-macros/define-props'
 import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
 import type { Options as OptionsDefineSlots } from '@vue-macros/define-slots'
 import type { Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
@@ -32,6 +34,7 @@ export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
   defineModel: OptionsDefineModel
   defineOptions: OptionsDefineOptions
+  defineProps: OptionsDefineProps
   defineRender: OptionsDefineRender
   defineSlots: OptionsDefineSlots
   hoistStatic: OptionsHoistStatic
@@ -69,6 +72,7 @@ function resolveOptions({
   betterDefine,
   defineModel,
   defineOptions,
+  defineProps,
   defineRender,
   defineSlots,
   hoistStatic,
@@ -97,6 +101,7 @@ function resolveOptions({
     betterDefine: resolveSubOptions<'betterDefine'>(betterDefine, { version }),
     defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
     defineOptions: resolveSubOptions<'defineOptions'>(defineOptions),
+    defineProps: resolveSubOptions<'defineProps'>(defineProps),
     defineRender: resolveSubOptions<'defineRender'>(defineRender),
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
@@ -140,6 +145,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
     resolvePlugin(options.setupComponent, VueSetupComponent, 0),
     resolvePlugin(options.hoistStatic, VueHoistStatic),
     resolvePlugin(options.namedTemplate, VueNamedTemplate, 0),
+    resolvePlugin(options.defineProps, VueDefineProps),
     resolvePlugin(options.shortEmits, VueShortEmits),
     resolvePlugin(options.defineOptions, VueDefineOptions),
     resolvePlugin(options.defineModel, VueDefineModel),
