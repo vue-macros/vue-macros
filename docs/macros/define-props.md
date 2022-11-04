@@ -8,7 +8,7 @@ See also [Vue issue](https://github.com/vuejs/core/issues/6876), [Reactivity Tra
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
 |       Vue 2        |        :x:         |
-| TypeScript / Volar |        WIP         |
+| TypeScript / Volar | :white_check_mark: |
 
 ::: warning
 
