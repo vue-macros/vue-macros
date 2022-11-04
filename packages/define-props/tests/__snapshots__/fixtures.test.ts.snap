@@ -6,7 +6,7 @@ import { $$ } from 'vue/macros'
 import { expectTypeOf } from 'expect-type'
 import type { Ref } from 'vue'
 
-const { foo, bar } = defineProps<{
+const { foo, bar } =  defineProps<{
   foo: string[]
   bar: Ref<number>
 }>()
