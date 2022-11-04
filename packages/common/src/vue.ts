@@ -13,6 +13,7 @@ export type _SFCScriptBlock = Omit<
 >
 
 export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
+  sfc: SFCParseResult
   script?: _SFCScriptBlock | null
   scriptSetup?: _SFCScriptBlock | null
   scriptCompiled: Omit<SFCScriptBlock, 'scriptAst' | 'scriptSetupAst'> & {
@@ -23,13 +24,15 @@ export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
 } & Pick<SFCParseResult, 'errors'>
 
 export const parseSFC = (code: string, id: string): SFC => {
-  const { descriptor, errors } = parse(code, {
+  const sfc = parse(code, {
     filename: id,
   })
+  const { descriptor, errors } = sfc
   const lang = (descriptor.script || descriptor.scriptSetup)?.lang
 
   let scriptCompiled: SFCScriptBlock | undefined
   return {
+    sfc,
     ...descriptor,
     lang,
     errors,

@@ -38,6 +38,9 @@
     },
     "./define-slots": {
       "require": "./define-slots.js"
+    },
+    "./define-props": {
+      "require": "./define-props.js"
     }
   },
   "scripts": {
@@ -46,6 +49,7 @@
   },
   "dependencies": {
     "@volar/language-core": "^1.0.9",
+    "@vue-macros/define-props": "workspace:~",
     "@vue-macros/short-vmodel": "workspace:~",
     "muggle-string": "^0.1.0"
   },

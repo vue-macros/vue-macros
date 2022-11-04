@@ -4,6 +4,8 @@ import { REGEX_SETUP_SFC, REGEX_VUE_SFC } from '@vue-macros/common'
 import { transfromDefineProps } from './core'
 import type { FilterPattern } from '@rollup/pluginutils'
 
+export { transfromDefineProps } from './core'
+
 export interface Options {
   include?: FilterPattern
   exclude?: FilterPattern

@@ -25,7 +25,12 @@ export const transfromDefineProps = (code: string, id: string) => {
   walkAST<Node>(program, {
     enter(node) {
       if (isCallOf(node, DEFINE_PROPS_DOLLAR)) {
-        s.overwriteNode(node.callee, DEFINE_PROPS, { offset })
+        s.overwriteNode(
+          node.callee,
+          // add space for fixing mapping
+          ` ${DEFINE_PROPS}`,
+          { offset }
+        )
       }
     },
   })
