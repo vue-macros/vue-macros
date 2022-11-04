@@ -31,3 +31,18 @@ const { foo } = $defineProps<{
 const fooRef = $$(foo)
 </script>
 ```
+
+## Volar Configuration
+
+```jsonc{6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/define-props"
+      // ...more feature
+    ],
+  }
+}
+```
