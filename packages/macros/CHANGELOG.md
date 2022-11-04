@@ -1,5 +1,26 @@
 # unplugin-vue-macros
 
+## 0.16.0
+
+### Minor Changes
+
+- [`b7998af`](https://github.com/sxzz/unplugin-vue-macros/commit/b7998afd69a0c8f8a619fab9a379c15ba4ad889f) Thanks [@sxzz](https://github.com/sxzz)! - add `$defineProps`
+
+### Patch Changes
+
+- Updated dependencies [[`b7998af`](https://github.com/sxzz/unplugin-vue-macros/commit/b7998afd69a0c8f8a619fab9a379c15ba4ad889f), [`d889b02`](https://github.com/sxzz/unplugin-vue-macros/commit/d889b028adb80ef02a2c17b7b7d687688cb5d5e5)]:
+  - @vue-macros/define-props@0.0.1
+  - @vue-macros/better-define@0.0.4
+  - @vue-macros/define-model@0.13.8
+  - unplugin-vue-define-options@0.12.7
+  - @vue-macros/define-render@0.13.8
+  - @vue-macros/define-slots@0.0.5
+  - @vue-macros/hoist-static@0.12.7
+  - @vue-macros/named-template@0.0.5
+  - @vue-macros/setup-component@0.12.7
+  - @vue-macros/setup-sfc@0.12.7
+  - @vue-macros/short-emits@0.12.8
+
 ## 0.15.2
 
 ### Patch Changes
