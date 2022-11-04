@@ -62,8 +62,8 @@ function getTypeArg(
     return node.typeArguments[0]
   }
 
-  const sourceFile = sfc.scriptSetupAst!
-  return sourceFile.forEachChild((node) => {
+  const sourceFile = sfc.scriptSetupAst
+  return sourceFile?.forEachChild((node) => {
     if (!ts.isExpressionStatement(node)) return
     return getCallArg(node.expression)
   })
