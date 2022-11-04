@@ -1,5 +1,17 @@
 # @vue-macros/volar
 
+## 0.5.0
+
+### Minor Changes
+
+- [`d889b02`](https://github.com/sxzz/unplugin-vue-macros/commit/d889b028adb80ef02a2c17b7b7d687688cb5d5e5) Thanks [@sxzz](https://github.com/sxzz)! - support `$defineProps` for Volar
+
+### Patch Changes
+
+- Updated dependencies [[`b7998af`](https://github.com/sxzz/unplugin-vue-macros/commit/b7998afd69a0c8f8a619fab9a379c15ba4ad889f), [`d889b02`](https://github.com/sxzz/unplugin-vue-macros/commit/d889b028adb80ef02a2c17b7b7d687688cb5d5e5)]:
+  - @vue-macros/define-props@0.0.1
+  - @vue-macros/short-vmodel@0.3.7
+
 ## 0.4.3
 
 ### Patch Changes
