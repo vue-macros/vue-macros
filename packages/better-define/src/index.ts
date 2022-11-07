@@ -29,7 +29,6 @@ const name = 'unplugin-vue-better-define'
 export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
   const options = resolveOption(userOptions)
   const filter = createFilter(options.include, options.exclude)
-  let root = ''
 
   return {
     name,
@@ -61,12 +60,6 @@ export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
         this.warn(`${name} ${err}`)
         console.warn(err)
       }
-    },
-
-    vite: {
-      configResolved(config) {
-        root = config.root
-      },
     },
   }
 })
