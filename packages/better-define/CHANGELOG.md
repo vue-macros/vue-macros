@@ -1,5 +1,11 @@
 # @vue-macros/better-define
 
+## 0.1.0
+
+### Minor Changes
+
+- [`43f7e6b`](https://github.com/sxzz/unplugin-vue-macros/commit/43f7e6bf3dc3164c7da54174abc225f973ba8460) Thanks [@sxzz](https://github.com/sxzz)! - support vite resolve alias for betterDefine
+
 ## 0.0.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.5.1
+
+### Patch Changes
+
+- [#138](https://github.com/sxzz/unplugin-vue-macros/pull/138) [`73be65e`](https://github.com/sxzz/unplugin-vue-macros/commit/73be65e9ec53588542813523340a8868da22b835) Thanks [@mtorromeo](https://github.com/mtorromeo)! - fix defineSlots without <script setup>
+
 ## 0.5.0
 
 ### Minor Changes
