@@ -29,19 +29,22 @@ const name = 'unplugin-vue-better-define'
 export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
   const options = resolveOption(userOptions)
   const filter = createFilter(options.include, options.exclude)
+  let root = ''
 
   return {
     name,
     enforce: 'pre',
 
     buildStart() {
-      if (meta.framework === 'rollup') {
+      if (meta.framework === 'rollup' || meta.framework === 'vite') {
         const ctx = this as PluginContext
         const resolveFn: ResolveTSFileIdImpl = async (id, importer) => {
-          const resolved = (await ctx.resolve(id, importer))?.id
+          let resolved = (await ctx.resolve(id, importer))?.id
           if (!resolved) return
-          if (!existsSync(resolved)) return
-          return resolved
+          if (existsSync(resolved)) return resolved
+
+          resolved = (await ctx.resolve(resolved))?.id
+          if (resolved && existsSync(resolved)) return resolved
         }
         setResolveTSFileIdImpl(resolveFn)
       }
@@ -58,6 +61,12 @@ export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
         this.warn(`${name} ${err}`)
         console.warn(err)
       }
+    },
+
+    vite: {
+      configResolved(config) {
+        root = config.root
+      },
     },
   }
 })
