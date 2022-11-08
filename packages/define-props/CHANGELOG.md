@@ -1,5 +1,11 @@
 # @vue-macros/define-props
 
+## 0.0.2
+
+### Patch Changes
+
+- [`078d7ca`](https://github.com/sxzz/unplugin-vue-macros/commit/078d7cafdefc06f0ce5b1651822f4f15d052c33c) Thanks [@sxzz](https://github.com/sxzz)! - fix $defineProps retuning type
+
 ## 0.0.1
 
 ### Patch Changes
