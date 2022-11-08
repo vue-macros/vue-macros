@@ -1,7 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { REGEX_VUE_SFC } from '@vue-macros/common'
-import { transfromDefineRender } from './core'
+import { transformDefineRender } from './core'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -36,7 +36,7 @@ export default createUnplugin((userOptions: Options = {}) => {
 
     transform(code, id) {
       try {
-        return transfromDefineRender(code, id)
+        return transformDefineRender(code, id)
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }

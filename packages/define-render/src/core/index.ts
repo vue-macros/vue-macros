@@ -12,7 +12,7 @@ import type { BlockStatement, ExpressionStatement, Node } from '@babel/types'
 
 // TODO: replace Babel with SWC
 
-export const transfromDefineRender = (code: string, id: string) => {
+export const transformDefineRender = (code: string, id: string) => {
   if (!code.includes(DEFINE_RENDER)) return
 
   const lang = getLang(id)
