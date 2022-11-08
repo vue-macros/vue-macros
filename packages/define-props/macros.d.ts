@@ -1,4 +1,9 @@
+import type { ComponentObjectPropsOptions, ExtractPropTypes } from 'vue'
 import type { RefValue } from 'vue/macros'
+
+export type RefValueObject<T> = {
+  [K in keyof T]: RefValue<T[K]>
+}
 
 export declare function $defineProps<PropNames extends string = string>(
   props: PropNames[]
@@ -7,7 +12,5 @@ export declare function $defineProps<PropNames extends string = string>(
 }>
 export declare function $defineProps<
   PP extends ComponentObjectPropsOptions = ComponentObjectPropsOptions
->(props: PP): Readonly<ExtractPropTypes<PP>>
-export declare function $defineProps<TypeProps>(): {
-  [Key in keyof TypeProps]: RefValue<TypeProps[Key]>
-}
+>(props: PP): RefValueObject<ExtractPropTypes<PP>>
+export declare function $defineProps<TypeProps>(): RefValueObject<TypeProps>
