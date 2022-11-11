@@ -271,7 +271,7 @@ export const transformDefineModel = (
     }
   }
 
-  function extractRuntimeProps(
+  function extractPropsDefinitions(
     node: TSTypeLiteral | TSInterfaceBody
   ): Record<string, string> {
     const members = node.type === 'TSTypeLiteral' ? node.members : node.body
@@ -281,10 +281,13 @@ export const transformDefineModel = (
         (m.type === 'TSPropertySignature' || m.type === 'TSMethodSignature') &&
         m.key.type === 'Identifier'
       ) {
-        const value = scriptCompiled.loc.source.slice(
-          m.typeAnnotation!.start!,
-          m.typeAnnotation!.end!
-        )
+        const type = m.typeAnnotation?.typeAnnotation
+        const value = type
+          ? `${m.optional ? '?' : ''}: ${scriptCompiled.loc.source.slice(
+              type.start!,
+              type.end!
+            )}`
+          : ''
         map[m.key.name] = value
       }
     }
@@ -531,7 +534,7 @@ export const transformDefineModel = (
     )
   }
 
-  const map = extractRuntimeProps(modelTypeDecl)
+  const map = extractPropsDefinitions(modelTypeDecl)
 
   rewriteMacros()
 

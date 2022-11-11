@@ -465,6 +465,36 @@ _DM_useVModel(['modelValue', 'modelValue', 'update:modelValue'], ['visible', 'vi
 "
 `;
 
+exports[`fixtures > ./fixtures/runtime/vue3/no-type.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    foo
+bar
+  }>();
+defineEmits<{
+    (evt: 'update:foo', value): void
+(evt: 'update:bar', value): void
+  }>();
+_DM_useVModel(['foo', 'foo', 'update:foo'], ['bar', 'bar', 'update:bar'])
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/optional.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    foo?: string
+  }>();
+defineEmits<{
+    (evt: 'update:foo', value?: string): void
+  }>();
+_DM_useVModel(['foo', 'foo', 'update:foo'])
+</script>
+"
+`;
+
 exports[`fixtures > ./fixtures/runtime/vue3/rest.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';
