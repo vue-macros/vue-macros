@@ -36,10 +36,13 @@ export const transformDefineModel = (
   let hasDefineProps = false
   let hasDefineEmits = false
   let hasDefineModel = false
+
   let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let propsDestructureDecl: Node | undefined
   let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let emitsIdentifier: string | undefined
+
+  let runtimeDefineFn: string | undefined
 
   let modelDecl: Node | undefined
   let modelDeclKind: string | undefined
@@ -66,13 +69,13 @@ export const transformDefineModel = (
     }
     const fnName = type === 'props' ? DEFINE_PROPS : DEFINE_EMITS
 
+    if (node.arguments[0]) {
+      runtimeDefineFn = fnName
+      return false
+    }
+
     if (type === 'props') hasDefineProps = true
     else hasDefineEmits = true
-
-    if (node.arguments[0])
-      throw new SyntaxError(
-        `${fnName}() cannot accept non-type arguments when used with ${DEFINE_MODEL}()`
-      )
 
     const typeDeclRaw = node.typeParameters?.params?.[0]
     if (!typeDeclRaw)
@@ -516,6 +519,12 @@ export const transformDefineModel = (
   }
 
   if (!modelTypeDecl) return
+
+  if (runtimeDefineFn)
+    throw new SyntaxError(
+      `${runtimeDefineFn}() cannot accept non-type arguments when used with ${DEFINE_MODEL}()`
+    )
+
   if (modelTypeDecl.type !== 'TSTypeLiteral') {
     throw new SyntaxError(
       `type argument passed to ${DEFINE_MODEL}() must be a literal type, or a reference to an interface or literal type.`

@@ -412,6 +412,26 @@ modelValue.value = 'newValue'
 "
 `;
 
+exports[`fixtures > ./fixtures/runtime/vue3/define-props-runtime.vue 1`] = `undefined`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/empty.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    
+  }>();
+defineEmits<{
+    
+  }>();
+_DM_useVModel()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/error-empty-define-props.vue 1`] = `"defineProps() expected a type parameter when used with defineModel."`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/error-runtime.vue 1`] = `"defineProps() cannot accept non-type arguments when used with defineModel()"`;
+
 exports[`fixtures > ./fixtures/runtime/vue3/multi-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import _DM_useVModel from '/plugin-define-model/use-vmodel';
