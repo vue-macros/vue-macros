@@ -1,5 +1,15 @@
 # @vue-macros/define-model
 
+## 0.14.0
+
+### Minor Changes
+
+- [`8c2bf9a`](https://github.com/sxzz/unplugin-vue-macros/commit/8c2bf9ab5eb8e399bc51d75270cf871667ff0166) Thanks [@sxzz](https://github.com/sxzz)! - support optional model
+
+### Patch Changes
+
+- [`bb50fa6`](https://github.com/sxzz/unplugin-vue-macros/commit/bb50fa6522e1f9a32de13fcf50e2152370c74e03) Thanks [@sxzz](https://github.com/sxzz)! - improve limit
+
 ## 0.13.8
 
 ### Patch Changes
