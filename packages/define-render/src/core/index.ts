@@ -5,9 +5,9 @@ import {
   getLang,
   getTransformResult,
   isCallOf,
+  isFunctionType,
   walkAST,
 } from '@vue-macros/common'
-import { isFunction } from '@babel/types'
 import type { BlockStatement, ExpressionStatement, Node } from '@babel/types'
 
 // TODO: replace Babel with SWC
@@ -51,7 +51,7 @@ export const transformDefineRender = (code: string, id: string) => {
     if (returnStmt) s.removeNode(returnStmt)
 
     const index = returnStmt ? returnStmt.start! : parent.end! - 1
-    const shouldAddFn = !isFunction(arg) && arg.type !== 'Identifier'
+    const shouldAddFn = !isFunctionType(arg) && arg.type !== 'Identifier'
     s.appendLeft(index, `return ${shouldAddFn ? '() => (' : ''}`)
     s.moveNode(arg, index)
     if (shouldAddFn) s.appendRight(index, `)`)
