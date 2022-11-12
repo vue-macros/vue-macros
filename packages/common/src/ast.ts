@@ -4,6 +4,7 @@ import { REGEX_JSX_FILE } from './constants'
 import { isTs } from './lang'
 import type {
   CallExpression,
+  Function,
   Literal,
   Node,
   ObjectExpression,
@@ -67,12 +68,12 @@ export function checkInvalidScopeReference(
 export function isStaticExpression(
   node: Node,
   options: Partial<
-    Record<'object' | 'objectMethod' | 'array' | 'unary', boolean> & {
+    Record<'object' | 'fn' | 'objectMethod' | 'array' | 'unary', boolean> & {
       magicComment?: string
     }
   > = {}
 ): boolean {
-  const { magicComment, object, objectMethod, array, unary } = options
+  const { magicComment, fn, object, objectMethod, array, unary } = options
 
   // magic comment
   if (
@@ -82,6 +83,7 @@ export function isStaticExpression(
     )
   )
     return true
+  else if (fn && isFunctionType(node)) return true
 
   switch (node.type) {
     case 'UnaryExpression': // !true
@@ -186,6 +188,18 @@ export function resolveLiteral(
   return undefined as never
 }
 
+export function isStaticObjectKey(node: ObjectExpression): boolean {
+  return node.properties.every((prop) => {
+    if (prop.type === 'SpreadElement') {
+      return (
+        prop.argument.type === 'ObjectExpression' &&
+        isStaticObjectKey(prop.argument)
+      )
+    }
+    return !prop.computed || isLiteralType(prop.key)
+  })
+}
+
 /**
  * @param node must be a static expression, SpreadElement is not supported
  */
@@ -257,4 +271,8 @@ export function walkAST<T = Node>(
   }
 ): T {
   return walk(node as any, options as any) as any
+}
+
+export function isFunctionType(node: Node): node is Function {
+  return /Function(?:Expression|Declaration)$|Method$/.test(node.type)
 }

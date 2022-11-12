@@ -11,15 +11,17 @@ import type { FilterPattern } from '@rollup/pluginutils'
 export interface Options {
   include?: FilterPattern
   exclude?: FilterPattern
+  isProduction?: boolean
 }
 
 export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
   exclude?: FilterPattern
 }
 
-function resolveOption(options: Options): OptionsResolved {
+function resolveOptions(options: Options): OptionsResolved {
   return {
     include: [REGEX_VUE_SFC, REGEX_SETUP_SFC],
+    isProduction: process.env.NODE_ENV === 'production',
     ...options,
   }
 }
@@ -27,7 +29,7 @@ function resolveOption(options: Options): OptionsResolved {
 const name = 'unplugin-vue-better-define'
 
 export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
-  const options = resolveOption(userOptions)
+  const options = resolveOptions(userOptions)
   const filter = createFilter(options.include, options.exclude)
 
   return {
@@ -55,11 +57,17 @@ export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
 
     async transform(code, id) {
       try {
-        return await transformBetterDefine(code, id)
+        return await transformBetterDefine(code, id, options.isProduction)
       } catch (err: unknown) {
         this.warn(`${name} ${err}`)
         console.warn(err)
       }
+    },
+
+    vite: {
+      configResolved(config) {
+        options.isProduction = config.isProduction
+      },
     },
   }
 })

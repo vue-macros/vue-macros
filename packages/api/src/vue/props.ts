@@ -1,6 +1,6 @@
 import {
   babelParse,
-  isStaticExpression,
+  isStaticObjectKey,
   resolveObjectExpression,
 } from '@vue-macros/common'
 import {
@@ -302,12 +302,7 @@ export async function handleTSPropsDefinition({
     if (!defaultsAst) return {}
 
     const isStatic =
-      defaultsAst.type === 'ObjectExpression' &&
-      isStaticExpression(defaultsAst, {
-        array: true,
-        object: true,
-        objectMethod: true,
-      })
+      defaultsAst.type === 'ObjectExpression' && isStaticObjectKey(defaultsAst)
     if (!isStatic) return { defaultsAst: defaultsAst as Expression }
 
     const defaults = resolveObjectExpression(defaultsAst)

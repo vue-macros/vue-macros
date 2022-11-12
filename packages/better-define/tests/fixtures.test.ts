@@ -1,5 +1,5 @@
 import { resolve } from 'node:path'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import glob from 'fast-glob'
 import {
   RollupEsbuildPlugin,
@@ -18,19 +18,23 @@ describe('fixtures', async () => {
   })
 
   for (const file of files) {
-    it(file.replace(/\\/g, '/'), async () => {
+    describe(file.replace(/\\/g, '/'), () => {
       const filepath = resolve(root, file)
 
-      const code = await rollupBuild(filepath, [
-        VueBetterDefine(),
-        RollupVue(),
-        RollupVueJsx(),
-        RollupRemoveVueFilePathPlugin(),
-        RollupEsbuildPlugin({
-          target: 'esnext',
-        }),
-      ])
-      expect(code).toMatchSnapshot()
+      for (const isProduction of [true, false]) {
+        test(`isProduction is ${isProduction}`, async () => {
+          const code = await rollupBuild(filepath, [
+            VueBetterDefine({ isProduction }),
+            RollupVue(),
+            RollupVueJsx(),
+            RollupRemoveVueFilePathPlugin(),
+            RollupEsbuildPlugin({
+              target: 'esnext',
+            }),
+          ])
+          expect(code).toMatchSnapshot()
+        })
+      }
     })
   }
 })

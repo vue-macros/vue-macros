@@ -3,7 +3,11 @@ import { analyzeSFC } from '@vue-macros/api'
 import type { TSEmits, TSProps } from '@vue-macros/api'
 import type {} from '@babel/types'
 
-export const transformBetterDefine = async (code: string, id: string) => {
+export const transformBetterDefine = async (
+  code: string,
+  id: string,
+  isProduction?: boolean
+) => {
   const s = new MagicString(code)
   const sfc = parseSFC(code, id)
   if (sfc.script || !sfc.scriptSetup) return
@@ -22,16 +26,24 @@ export const transformBetterDefine = async (code: string, id: string) => {
   async function processProps(props: TSProps) {
     const runtimeDefs = await props.getRuntimeDefinitions()
 
-    // TODO prod mode
     const runtimeDecls = `{\n  ${Object.entries(runtimeDefs)
       .map(([key, { type, required, default: defaultDecl }]) => {
         let defaultString = ''
         if (defaultDecl) {
-          defaultString = `, ${defaultDecl('default')}`
+          defaultString = defaultDecl('default')
         }
-        return `${key}: { type: ${toRuntimeTypeString(
-          type
-        )}, required: ${required}${defaultString} }`
+        if (!isProduction) {
+          return `${key}: { type: ${toRuntimeTypeString(
+            type
+          )}, required: ${required}, ${defaultString} }`
+        } else if (type.some((el) => el === 'Boolean' || el === 'Function')) {
+          return `${key}: { type: ${toRuntimeTypeString(
+            type
+          )}, ${defaultString} }`
+        } else {
+          // production: checks are useless
+          return `${key}: ${defaultString ? `{ ${defaultString} }` : 'null'}`
+        }
       })
       .join(',\n  ')}\n}`
 

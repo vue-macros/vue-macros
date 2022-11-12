@@ -49,6 +49,7 @@ export type FeatureOptions = FeatureOptionsMap[FeatureName]
 export interface OptionsCommon {
   root?: string
   version?: 2 | 3
+  isProduction?: boolean
   plugins?: {
     vue?: any
     vueJsx?: any
@@ -61,7 +62,7 @@ export type Options = OptionsCommon & {
   [K in FeatureName]?: OptionalSubOptions<FeatureOptionsMap[K]>
 }
 
-export type OptionsResolved = Required<OptionsCommon> & {
+export type OptionsResolved = Pick<Required<OptionsCommon>, 'plugins'> & {
   [K in FeatureName]: false | FeatureOptionsMap[K]
 }
 
@@ -69,6 +70,7 @@ function resolveOptions({
   root,
   version,
   plugins,
+  isProduction,
   betterDefine,
   defineModel,
   defineOptions,
@@ -93,12 +95,16 @@ function resolveOptions({
     else return { ...options, ...commonOptions }
   }
 
+  root = root || process.cwd()
+  version = version || getVueVersion()
+  isProduction = isProduction ?? process.env.NODE_ENV === 'production'
+
   return {
-    root: root || process.cwd(),
-    version: version || getVueVersion(),
     plugins: plugins || {},
 
-    betterDefine: resolveSubOptions<'betterDefine'>(betterDefine, { version }),
+    betterDefine: resolveSubOptions<'betterDefine'>(betterDefine, {
+      isProduction,
+    }),
     defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
     defineOptions: resolveSubOptions<'defineOptions'>(defineOptions),
     defineProps: resolveSubOptions<'defineProps'>(defineProps),

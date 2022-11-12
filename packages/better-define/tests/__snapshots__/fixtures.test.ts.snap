@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+exports[`fixtures > tests/fixtures/basic.vue > isProduction is false 1`] = `
 "import { defineComponent, renderSlot } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -35,7 +35,42 @@ export { basic as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/defaults-dynamic.vue 1`] = `
+exports[`fixtures > tests/fixtures/basic.vue > isProduction is true 1`] = `
+"import { defineComponent, renderSlot } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  props: {
+    base: null,
+    str: null,
+    num: null,
+    map: null,
+    arr: null,
+    union: null
+  },
+  emits: [\\"click\\", \\"change\\"],
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return renderSlot(_ctx.$slots, \\"default\\");
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction is false 1`] = `
 "import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -66,7 +101,38 @@ export { defaultsDynamic as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/defaults-static.vue 1`] = `
+exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction is true 1`] = `
+"import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"defaults-dynamic\\",
+  props: mergeDefaults({
+    foo: null
+  }, {
+    [\\"foo\\"]: \\"foo\\"
+  }),
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(\\"div\\");
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var defaultsDynamic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { defaultsDynamic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction is false 1`] = `
 "import { defineComponent, openBlock, createElementBlock } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -78,7 +144,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     } },
     baz: { type: Promise, required: false, async default() {
       return 10;
-    } }
+    } },
+    qux: { type: Function, required: false, default: () => {
+    } },
+    quux: { type: null, required: false, default: abc }
   },
   setup(__props) {
     return (_ctx, _cache) => {
@@ -101,7 +170,105 @@ export { defaultsStatic as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/intersection.vue 1`] = `
+exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction is true 1`] = `
+"import { defineComponent, openBlock, createElementBlock } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"defaults-static\\",
+  props: {
+    foo: { default: \\"foo\\" },
+    bar: { get default() {
+      return 10;
+    } },
+    baz: { async default() {
+      return 10;
+    } },
+    qux: { type: Function, default: () => {
+    } },
+    quux: { default: abc }
+  },
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(\\"div\\");
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var defaultsStatic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { defaultsStatic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/fn-default.vue > isProduction is false 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"fn-default\\",
+  props: {
+    fn: { type: Function, required: true, default: () => {
+    } }
+  },
+  setup(__props) {
+    const props = __props;
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var fnDefault = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { fnDefault as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/fn-default.vue > isProduction is true 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"fn-default\\",
+  props: {
+    fn: { type: Function, default: () => {
+    } }
+  },
+  setup(__props) {
+    const props = __props;
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var fnDefault = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { fnDefault as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/intersection.vue > isProduction is false 1`] = `
 "import { defineComponent, renderSlot } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -113,6 +280,40 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     map: { type: Map, required: true },
     arr: { type: Array, required: true },
     union: { type: [String, Number], required: true }
+  },
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return renderSlot(_ctx.$slots, \\"default\\");
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var intersection = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { intersection as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/intersection.vue > isProduction is true 1`] = `
+"import { defineComponent, renderSlot } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"intersection\\",
+  props: {
+    base: null,
+    str: null,
+    num: null,
+    map: null,
+    arr: null,
+    union: null
   },
   setup(__props) {
     return (_ctx, _cache) => {
