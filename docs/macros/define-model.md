@@ -69,7 +69,7 @@ Assignment expression is only supported in `<script setup>` block. In other word
 
 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) is not required.
 
-```vue{7-9}
+```vue {7-9}
 <script setup lang="ts">
 let { modelValue, count } = $defineModel<{
   modelValue: string
@@ -106,7 +106,7 @@ emit('update:count', count + 1)
 
 ## Volar Configuration
 
-```jsonc{6,9-12}
+```jsonc {6,9-12}
 // tsconfig.json
 {
   "vueCompilerOptions": {

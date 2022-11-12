@@ -25,7 +25,7 @@ defineSlots<{
 
 ## Volar Configuration
 
-```jsonc{6}
+```jsonc {6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
@@ -33,8 +33,7 @@ defineSlots<{
     "plugins": [
       "@vue-macros/volar/define-slots"
       // ...more feature
-    ],
-
+    ]
   }
 }
 ```

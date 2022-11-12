@@ -101,7 +101,7 @@ module.exports = {
 
 ## Basic Usage
 
-```vue{3-6}
+```vue {3-6}
 <script setup lang="ts">
 import { useSlots } from 'vue'
 defineOptions({
@@ -131,7 +131,7 @@ const slots = useSlots()
 
 ## JSX in `<script setup>`
 
-```vue{3-5}
+```vue {3-5}
 <script setup lang="tsx">
 defineOptions({
   render() {

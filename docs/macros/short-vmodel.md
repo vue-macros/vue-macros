@@ -22,7 +22,7 @@ npm i @vue-macros/short-vmodel
 
 ### Vite Integration
 
-```ts{9-17}
+```ts {9-17}
 // vite.config.ts
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
@@ -87,7 +87,7 @@ export default defineConfig({
 
 ## Volar Configuration
 
-```jsonc{5,9}
+```jsonc {5,9}
 // tsconfig.json
 {
   "vueCompilerOptions": {

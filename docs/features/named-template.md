@@ -20,7 +20,7 @@ If you support this feature, you can go to [the discussion](https://github.com/v
 
 ## Basic Usage
 
-```vue{5-7,10-12,16-18}
+```vue {5-7,10-12,16-18}
 <script setup>
 const pager = 'top'
 </script>

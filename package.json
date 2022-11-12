@@ -18,6 +18,7 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0 --cache",
+    "format": "pnpm prettier . --write --cache",
     "publish": "pnpm build && changeset publish",
     "typecheck": "run-p \"typecheck:*\"",
     "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
