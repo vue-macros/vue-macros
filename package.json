@@ -2,7 +2,7 @@
   "name": "monorepo-unplugin-vue-macros",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@7.14.2",
+  "packageManager": "pnpm@7.15.0",
   "description": "Monorepo for Vue macros.",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
@@ -27,25 +27,25 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.2",
-    "@pnpm/find-workspace-packages": "^5.0.4",
+    "@pnpm/find-workspace-packages": "^5.0.5",
     "@pnpm/logger": "^5.0.0",
     "@sxzz/eslint-config": "^2.4.4",
     "@types/node": "18.11.9",
-    "@vitest/coverage-c8": "^0.24.5",
-    "@vitest/ui": "^0.24.5",
+    "@vitest/coverage-c8": "^0.25.1",
+    "@vitest/ui": "^0.25.1",
     "@vue-macros/test-utils": "workspace:*",
     "eslint": "^8.27.0",
-    "eslint-define-config": "^1.11.0",
+    "eslint-define-config": "^1.12.0",
     "expect-type": "^0.15.0",
     "fast-glob": "^3.2.12",
     "npm-run-all": "^4.1.5",
     "tsup": "^6.4.0",
-    "tsx": "^3.11.0",
+    "tsx": "^3.12.1",
     "turbo": "^1.6.3",
     "typescript": "^4.8.4",
     "vite": "^3.2.3",
-    "vitest": "^0.24.5",
-    "vue": "^3.2.41"
+    "vitest": "^0.25.1",
+    "vue": "^3.2.45"
   },
   "engines": {
     "node": ">=14.19.0"
