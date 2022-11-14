@@ -247,10 +247,12 @@ export const transformPost = (code: string, _id: string) => {
           )
         } else if (
           node.type === 'Identifier' &&
-          parent.type === 'CallExpression' &&
-          parent.callee.type === 'Identifier' &&
-          parent.callee.name === '_export_sfc' &&
-          node.name === '_sfc_main'
+          node.name === '_sfc_main' &&
+          ((parent.type === 'CallExpression' &&
+            parent.callee.type === 'Identifier' &&
+            parent.callee.name === '_export_sfc' &&
+            node.name === '_sfc_main') ||
+            parent.type === 'ExportDefaultDeclaration')
         ) {
           s.appendLeft(node.end!, '(ctx)')
         }
