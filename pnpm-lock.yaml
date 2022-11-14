@@ -120,6 +120,7 @@ importers:
     specifiers:
       '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
+      '@vue-macros/api': workspace:^
       '@vue-macros/common': workspace:~
       ast-walker-scope: ^0.3.0
       fast-glob: ^3.2.12
@@ -130,6 +131,7 @@ importers:
       vue: ^3.2.41
     dependencies:
       '@rollup/pluginutils': 4.2.1
+      '@vue-macros/api': link:../api
       '@vue-macros/common': link:../common
       ast-walker-scope: 0.3.0
       unplugin: 0.10.2

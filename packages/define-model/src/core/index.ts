@@ -12,7 +12,17 @@ import {
   isCallOf,
   parseSFC,
 } from '@vue-macros/common'
+import {
+  DefinitionKind,
+  analyzeSFC,
+  getResolvedTypeCode,
+  isTSExports,
+  resolveTSProperties,
+  resolveTSReferencedType,
+  resolveTSScope,
+} from '@vue-macros/api'
 import { emitHelperId, useVmodelHelperId } from './helper'
+import type { TSExports, TSProperties, TSResolvedType } from '@vue-macros/api'
 import type {
   Identifier,
   LVal,
@@ -27,26 +37,18 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export const transformDefineModel = (
+export const transformDefineModel = async (
   code: string,
   id: string,
   version: 2 | 3,
   unified: boolean
 ) => {
-  let hasDefineProps = false
-  let hasDefineEmits = false
+  if (!code.includes(DEFINE_MODEL)) return
+
   let hasDefineModel = false
-
-  let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
-  let propsDestructureDecl: Node | undefined
-  let emitsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
-  let emitsIdentifier: string | undefined
-
-  let runtimeDefineFn: string | undefined
-
   let modelDecl: Node | undefined
   let modelDeclKind: string | undefined
-  let modelTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
+  let modelTypeDecl: TSResolvedType | TSExports | undefined
   let modelIdentifier: string | undefined
   let modelDestructureDecl: ObjectPattern | undefined
 
@@ -54,65 +56,114 @@ export const transformDefineModel = (
   const modelVue2: { event: string; prop: string } = { prop: '', event: '' }
   let mode: 'reactivity-transform' | 'runtime' | undefined
 
-  function processDefinePropsOrEmits(node: Node, declId?: LVal) {
-    if (isCallOf(node, WITH_DEFAULTS)) {
-      node = node.arguments[0]
-    }
+  const s = new MagicString(code)
+  const sfc = parseSFC(code, id)
+  if (sfc.script || !sfc.scriptSetup) return
+  const { scriptSetup } = sfc
 
-    let type: 'props' | 'emits'
-    if (isCallOf(node, DEFINE_PROPS)) {
-      type = 'props'
-    } else if (isCallOf(node, DEFINE_EMITS)) {
-      type = 'emits'
-    } else {
-      return false
-    }
-    const fnName = type === 'props' ? DEFINE_PROPS : DEFINE_EMITS
+  const offset = sfc.scriptSetup.loc.start.offset
+  const { props: _props, emits, ast, file } = await analyzeSFC(s, sfc)
 
-    if (node.arguments[0]) {
-      runtimeDefineFn = fnName
-      return false
-    }
+  const props =
+    _props.kind === DefinitionKind.Empty
+      ? await _props.getPlaceholder(DefinitionKind.TS)
+      : _props
 
-    if (type === 'props') hasDefineProps = true
-    else hasDefineEmits = true
+  // process <script setup>
+  for (const node of ast) {
+    if (node.type === 'ExpressionStatement') {
+      // if (version === 2) {
+      //   processDefineOptions(node.expression)
+      // }
 
-    const typeDeclRaw = node.typeParameters?.params?.[0]
-    if (!typeDeclRaw)
-      throw new SyntaxError(
-        `${fnName}() expected a type parameter when used with ${DEFINE_MODEL}.`
+      if (
+        (await processDefineModel(node.expression)) &&
+        mode === 'reactivity-transform'
       )
+        s.removeNode(node, { offset })
+    } else if (node.type === 'VariableDeclaration' && !node.declare) {
+      const total = node.declarations.length
+      let left = total
 
-    const typeDecl = resolveQualifiedType(
-      typeDeclRaw,
-      (node) => node.type === 'TSTypeLiteral'
-    ) as TSTypeLiteral | TSInterfaceBody | undefined
-
-    if (!typeDecl) {
-      throw new SyntaxError(
-        `type argument passed to ${fnName}() must be a literal type, ` +
-          `or a reference to an interface or literal type.`
-      )
-    }
-
-    if (type === 'props') propsTypeDecl = typeDecl
-    else emitsTypeDecl = typeDecl
-
-    if (declId) {
-      if (type === 'props' && declId.type === 'ObjectPattern') {
-        propsDestructureDecl = declId
-      } else if (type === 'emits' && declId.type === 'Identifier') {
-        emitsIdentifier = declId.name
+      for (let i = 0; i < total; i++) {
+        const decl = node.declarations[i]
+        if (
+          decl.init &&
+          (await processDefineModel(decl.init, decl.id, node.kind)) &&
+          mode === 'reactivity-transform'
+        ) {
+          if (left === 1) {
+            s.removeNode(node, { offset })
+          } else {
+            let start = decl.start! + offset
+            let end = decl.end! + offset
+            if (i < total - 1) {
+              // not the last one, locate the start of the next
+              end = node.declarations[i + 1].start! + offset
+            } else {
+              // last one, locate the end of the prev
+              start = node.declarations[i - 1].end! + offset
+            }
+            s.remove(start, end)
+            left--
+          }
+        }
       }
-    } else if (type === 'emits') {
-      emitsIdentifier = `_${DEFINE_MODEL}_emit`
-      s.prependRight(setupOffset + node.start!, `const ${emitsIdentifier} = `)
     }
-
-    return true
   }
 
-  function processDefineModel(
+  if (!modelTypeDecl || !hasDefineModel) return
+
+  if (props && props.kind !== DefinitionKind.TS)
+    throw new SyntaxError(
+      `${
+        props.kind !== DefinitionKind.TS ? DEFINE_PROPS : DEFINE_EMITS
+      }() cannot accept non-type arguments when used with ${DEFINE_MODEL}()`
+    )
+
+  const definitions = await extractModelDefinitions(modelTypeDecl)
+
+  const keys: string[] = []
+  for (const [key, property] of Object.entries(definitions.properties)) {
+    let resolved: TSResolvedType | undefined
+    if (property.value) {
+      const result = await resolveTSReferencedType(property.value)
+      if (!isTSExports(result)) resolved = result
+    }
+    props.addProp(getPropKey(key), resolved, property.optional)
+    emits?.addEmit(
+      key,
+      `(evt: ${JSON.stringify(getEventKey(key))}, value${
+        resolved ? `: ${getResolvedTypeCode(resolved)}` : ''
+      }): void`
+    )
+    keys.push(key)
+  }
+
+  if ('apply' in props) {
+    props.apply()
+  }
+
+  if (mode === 'runtime') {
+    rewriteRuntime()
+  } else if (mode === 'reactivity-transform') rewriteAssignment()
+
+  // for (const [key, methods] of Object.entries(definitions.methods)) {
+  // for (const method of methods) {
+  //   method.type
+  //   props.addProp(key, resolved, property.optional)
+  // }
+  // if (property) {
+  //   const value = property.value
+  //   const { file } = resolveTSScope(value.scope)
+  //   typeString = file.content.slice(value.type.start!, value.type.end!)
+  // }
+  // map[key] = type ? `${property.optional ? '?' : ''}: ${typeString}` : ''
+  // }
+
+  return getTransformResult(s, id)
+
+  async function processDefineModel(
     node: Node,
     declId?: LVal,
     kind?: VariableDeclaration['kind']
@@ -127,19 +178,17 @@ export const transformDefineModel = (
     hasDefineModel = true
     modelDecl = node
 
-    const propsTypeDeclRaw = node.typeParameters?.params[0]
-    if (!propsTypeDeclRaw) {
+    const modelTypeDeclRaw = node.typeParameters?.params[0]
+    if (!modelTypeDeclRaw) {
       throw new SyntaxError(`expected a type parameter for ${DEFINE_MODEL}.`)
     }
-    modelTypeDecl = resolveQualifiedType(
-      propsTypeDeclRaw,
-      (node) => node.type === 'TSTypeLiteral'
-    ) as TSTypeLiteral | TSInterfaceBody | undefined
-
+    modelTypeDecl = await resolveTSReferencedType({
+      scope: file,
+      type: modelTypeDeclRaw,
+    })
     if (!modelTypeDecl) {
       throw new SyntaxError(
-        `type argument passed to ${DEFINE_MODEL}() must be a literal type, ` +
-          `or a reference to an interface or literal type.`
+        `type argument passed to ${DEFINE_MODEL}() cannot be resolved.`
       )
     }
 
@@ -155,7 +204,7 @@ export const transformDefineModel = (
           }
         }
       } else {
-        modelIdentifier = scriptCompiled.loc.source.slice(
+        modelIdentifier = scriptSetup.loc.source.slice(
           declId.start!,
           declId.end!
         )
@@ -166,250 +215,52 @@ export const transformDefineModel = (
     return true
   }
 
-  function processDefineOptions(node: Node) {
-    if (!isCallOf(node, DEFINE_OPTIONS)) return false
+  function extractModelDefinitions(
+    node: TSResolvedType | TSExports
+  ): Promise<TSProperties> {
+    if (isTSExports(node))
+      throw new SyntaxError(`${DEFINE_MODEL}: cannot resolve TS definition.`)
 
-    const [arg] = node.arguments
-    if (arg) processVue2Model(arg)
-
-    return true
-  }
-
-  function processVue2Script() {
-    if (!scriptCompiled.scriptAst || scriptCompiled.scriptAst.length === 0)
-      return
-
-    // process normal <script>
-    for (const node of scriptCompiled.scriptAst as Statement[]) {
-      if (node.type === 'ExportDefaultDeclaration') {
-        const { declaration } = node
-        if (declaration.type === 'ObjectExpression') {
-          processVue2Model(declaration)
-        } else if (
-          declaration.type === 'CallExpression' &&
-          declaration.callee.type === 'Identifier' &&
-          ['defineComponent', 'DO_defineComponent'].includes(
-            declaration.callee.name
-          )
-        ) {
-          declaration.arguments.forEach((arg) => {
-            if (arg.type === 'ObjectExpression') {
-              processVue2Model(arg)
-            }
-          })
-        }
-      }
-    }
-  }
-
-  function processVue2Model(node: Node) {
-    // model: {
-    //   prop: 'checked',
-    //   event: 'change'
-    // }
-    if (node.type !== 'ObjectExpression') return false
-
-    const model = node.properties.find(
-      (prop) =>
-        prop.type === 'ObjectProperty' &&
-        prop.key.type === 'Identifier' &&
-        prop.key.name === 'model' &&
-        prop.value.type === 'ObjectExpression' &&
-        prop.value.properties.length === 2
-    ) as ObjectProperty
-
-    if (!model) return false
-    ;(model.value as ObjectExpression).properties.forEach((propertyItem) => {
-      if (
-        propertyItem.type === 'ObjectProperty' &&
-        propertyItem.key.type === 'Identifier' &&
-        propertyItem.value.type === 'StringLiteral' &&
-        ['prop', 'event'].includes(propertyItem.key.name)
-      ) {
-        const key = propertyItem.key.name as 'prop' | 'event'
-        modelVue2[key] = propertyItem.value.value
-      }
-    })
-    return true
-  }
-
-  function resolveQualifiedType(
-    node: Node,
-    qualifier: (node: Node) => boolean
-  ) {
-    if (qualifier(node)) {
-      return node
-    }
+    const { type, scope } = node
     if (
-      node.type === 'TSTypeReference' &&
-      node.typeName.type === 'Identifier'
-    ) {
-      const refName = node.typeName.name
-      const isQualifiedType = (node: Node): Node | undefined => {
-        if (
-          node.type === 'TSInterfaceDeclaration' &&
-          node.id.name === refName
-        ) {
-          return node.body
-        } else if (
-          node.type === 'TSTypeAliasDeclaration' &&
-          node.id.name === refName &&
-          qualifier(node.typeAnnotation)
-        ) {
-          return node.typeAnnotation
-        } else if (node.type === 'ExportNamedDeclaration' && node.declaration) {
-          return isQualifiedType(node.declaration)
+      type.type !== 'TSInterfaceDeclaration' &&
+      type.type !== 'TSTypeLiteral' &&
+      type.type !== 'TSIntersectionType'
+    )
+      throw new SyntaxError(`${DEFINE_MODEL}: cannot resolve TS definition.`)
+
+    return resolveTSProperties({
+      scope,
+      type,
+    })
+  }
+
+  function rewriteRuntime() {
+    s.prependLeft(offset, `\nimport _DM_useVModel from '${useVmodelHelperId}';`)
+
+    const text = `_DM_useVModel(${keys
+      .map((n) => {
+        if (n === getPropKey(n) && getEventKey(n) === `update:${n}`) {
+          return JSON.stringify(n)
         }
-      }
-      const body = sfc.scriptCompiled.scriptSetupAst!
-      for (const node of body) {
-        const qualified = isQualifiedType(node)
-        if (qualified) {
-          return qualified
-        }
-      }
-    }
+        return `[${JSON.stringify(n)}, ${
+          n !== getPropKey(n) ? JSON.stringify(getPropKey(n)) : 'null'
+        }, ${
+          getEventKey(n) !== `update:${n}`
+            ? JSON.stringify(getEventKey(n))
+            : 'null'
+        }]`
+      })
+      .join(', ')})`
+    s.overwriteNode(modelDecl!, text, { offset })
   }
 
-  function extractPropsDefinitions(
-    node: TSTypeLiteral | TSInterfaceBody
-  ): Record<string, string> {
-    const members = node.type === 'TSTypeLiteral' ? node.members : node.body
-    const map: Record<string, string> = {}
-    for (const m of members) {
-      if (
-        (m.type === 'TSPropertySignature' || m.type === 'TSMethodSignature') &&
-        m.key.type === 'Identifier'
-      ) {
-        const type = m.typeAnnotation?.typeAnnotation
-        const value = type
-          ? `${m.optional ? '?' : ''}: ${scriptCompiled.loc.source.slice(
-              type.start!,
-              type.end!
-            )}`
-          : ''
-        map[m.key.name] = value
-      }
-    }
-    return map
-  }
-
-  function getPropKey(key: string) {
-    if (unified && version === 2 && key === 'modelValue') {
-      return 'value'
-    }
-    return key
-  }
-
-  function getEventKey(key: string) {
-    if (version === 2) {
-      if (modelVue2.prop === key) {
-        return modelVue2.event
-      } else if (key === 'value' || (unified && key === 'modelValue')) {
-        return 'input'
-      }
-    }
-    return `update:${key}`
-  }
-
-  function rewriteMacros() {
-    rewriteDefines()
-    if (mode === 'runtime') {
-      rewriteRuntime()
-    }
-
-    function rewriteDefines() {
-      const propsText = Object.entries(map)
-        .map(([key, type]) => `${getPropKey(key)}${type}`)
-        .join('\n')
-
-      const emitsText = Object.entries(map)
-        .map(
-          ([key, type]) => `(evt: '${getEventKey(key)}', value${type}): void`
-        )
-        .join('\n')
-
-      if (hasDefineProps) {
-        s.appendLeft(setupOffset + propsTypeDecl!.start! + 1, `${propsText}\n`)
-        if (
-          mode === 'reactivity-transform' &&
-          propsDestructureDecl &&
-          modelDestructureDecl
-        )
-          for (const property of modelDestructureDecl.properties) {
-            const text = code.slice(
-              setupOffset + property.start!,
-              setupOffset + property.end!
-            )
-            s.appendLeft(
-              setupOffset + propsDestructureDecl.start! + 1,
-              `${text}, `
-            )
-          }
-      } else {
-        let text = ''
-        const kind = modelDeclKind || 'let'
-        if (mode === 'reactivity-transform') {
-          if (modelIdentifier) {
-            text = modelIdentifier
-          } else if (modelDestructureDecl) {
-            text = code.slice(
-              setupOffset + modelDestructureDecl.start!,
-              setupOffset + modelDestructureDecl.end!
-            )
-          }
-        }
-
-        s.appendLeft(
-          setupOffset,
-          `\n${text ? `${kind} ${text} = ` : ''}defineProps<{
-    ${propsText}
-  }>();`
-        )
-      }
-
-      if (hasDefineEmits) {
-        s.appendLeft(setupOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
-      } else {
-        emitsIdentifier = `_DM_emit`
-        s.appendLeft(
-          setupOffset,
-          `\n${
-            mode === 'reactivity-transform' ? `const ${emitsIdentifier} = ` : ''
-          }defineEmits<{
-    ${emitsText}
-  }>();`
-        )
-      }
-    }
-
-    function rewriteRuntime() {
-      s.prependLeft(
-        setupOffset,
-        `\nimport _DM_useVModel from '${useVmodelHelperId}';`
-      )
-
-      const names = Object.keys(map)
-      const text = `_DM_useVModel(${names
-        .map((n) => `['${n}', '${getPropKey(n)}', '${getEventKey(n)}']`)
-        .join(', ')})`
-      s.overwriteNode(modelDecl!, text, { offset: setupOffset })
-    }
-  }
-
-  function processAssignModelVariable() {
-    if (!emitsIdentifier)
+  function rewriteAssignment() {
+    if (!emits?.declId)
       throw new Error(
         `Identifier of returning value of ${DEFINE_EMITS} is not found, please report this issue.\n${REPO_ISSUE_URL}`
       )
 
-    const program: Program = {
-      type: 'Program',
-      body: scriptCompiled.scriptSetupAst as Statement[],
-      directives: [],
-      sourceType: 'module',
-      sourceFile: '',
-    }
     let hasTransfromed = false
 
     function overwrite(
@@ -419,21 +270,23 @@ export const transformDefineModel = (
       original = false
     ) {
       hasTransfromed = true
-      const content = `_DM_emitHelper(${emitsIdentifier}, '${getEventKey(
-        id.name
-      )}', ${value}${original ? `, ${id.name}` : ''})`
-      s.overwrite(setupOffset + node.start!, setupOffset + node.end!, content)
+      const content = `_DM_emitHelper(${
+        (s.sliceNode(emits!.declId!), { offset })
+      }, ${JSON.stringify(getEventKey(id.name))}, ${value}${
+        original ? `, ${id.name}` : ''
+      })`
+      s.overwriteNode(node, content, { offset })
     }
 
-    walkAST(program, {
+    walkAST(ast, {
       leave(node) {
         if (node.type === 'AssignmentExpression') {
           if (node.left.type !== 'Identifier') return
           const id = this.scope[node.left.name] as Identifier
           if (!modelIdentifiers.has(id)) return
 
-          const left = s.sliceNode(node.left, { offset: setupOffset })
-          let right = s.sliceNode(node.right, { offset: setupOffset })
+          const left = s.sliceNode(node.left, { offset })
+          let right = s.sliceNode(node.right, { offset })
           if (node.operator !== '=') {
             right = `${left} ${node.operator.replace(/=$/, '')} ${right}`
           }
@@ -454,92 +307,25 @@ export const transformDefineModel = (
     })
 
     if (hasTransfromed) {
-      s.prependLeft(
-        setupOffset,
-        `\nimport _DM_emitHelper from '${emitHelperId}';`
-      )
+      s.prependLeft(offset, `\nimport _DM_emitHelper from '${emitHelperId}';`)
     }
   }
 
-  if (!code.includes(DEFINE_MODEL)) return
-  const sfc = parseSFC(code, id)
-  if (!sfc.scriptSetup) return
+  function getPropKey(key: string) {
+    if (unified && version === 2 && key === 'modelValue') {
+      return 'value'
+    }
+    return key
+  }
 
-  const { scriptCompiled } = sfc
-  if (!scriptCompiled) return
-
-  const s = new MagicString(code)
-  const setupOffset = scriptCompiled.loc.start.offset
-
-  if (version === 2) processVue2Script()
-
-  // process <script setup>
-  for (const node of scriptCompiled.scriptSetupAst as Statement[]) {
-    if (node.type === 'ExpressionStatement') {
-      processDefinePropsOrEmits(node.expression)
-
-      if (version === 2) {
-        processDefineOptions(node.expression)
-      }
-
-      if (
-        processDefineModel(node.expression) &&
-        mode === 'reactivity-transform'
-      )
-        s.remove(node.start! + setupOffset, node.end! + setupOffset)
-    } else if (node.type === 'VariableDeclaration' && !node.declare) {
-      const total = node.declarations.length
-      let left = total
-
-      for (let i = 0; i < total; i++) {
-        const decl = node.declarations[i]
-        if (decl.init) {
-          processDefinePropsOrEmits(decl.init, decl.id)
-
-          if (
-            processDefineModel(decl.init, decl.id, node.kind) &&
-            mode === 'reactivity-transform'
-          ) {
-            if (left === 1) {
-              s.remove(node.start! + setupOffset, node.end! + setupOffset)
-            } else {
-              let start = decl.start! + setupOffset
-              let end = decl.end! + setupOffset
-              if (i < total - 1) {
-                // not the last one, locate the start of the next
-                end = node.declarations[i + 1].start! + setupOffset
-              } else {
-                // last one, locate the end of the prev
-                start = node.declarations[i - 1].end! + setupOffset
-              }
-              s.remove(start, end)
-              left--
-            }
-          }
-        }
+  function getEventKey(key: string) {
+    if (version === 2) {
+      if (modelVue2.prop === key) {
+        return modelVue2.event
+      } else if (key === 'value' || (unified && key === 'modelValue')) {
+        return 'input'
       }
     }
+    return `update:${key}`
   }
-
-  if (!modelTypeDecl) return
-
-  if (runtimeDefineFn)
-    throw new SyntaxError(
-      `${runtimeDefineFn}() cannot accept non-type arguments when used with ${DEFINE_MODEL}()`
-    )
-
-  if (modelTypeDecl.type !== 'TSTypeLiteral') {
-    throw new SyntaxError(
-      `type argument passed to ${DEFINE_MODEL}() must be a literal type, or a reference to an interface or literal type.`
-    )
-  }
-
-  const map = extractPropsDefinitions(modelTypeDecl)
-
-  rewriteMacros()
-
-  if (mode === 'reactivity-transform' && hasDefineModel)
-    processAssignModelVariable()
-
-  return getTransformResult(s, id)
 }

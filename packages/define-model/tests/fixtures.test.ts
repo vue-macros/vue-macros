@@ -8,13 +8,14 @@ describe('fixtures', () => {
   })
 
   for (const [id, code] of Object.entries(files)) {
-    test(id.replace(/\\/g, '/'), () => {
+    test(id.replace(/\\/g, '/'), async () => {
       const version = id.includes('vue2') ? 2 : 3
-      const exec = () => transformDefineModel(code, id, version, true)?.code
+      const exec = async () =>
+        (await transformDefineModel(code, id, version, true))?.code
       if (id.includes('error')) {
-        expect(exec).toThrowErrorMatchingSnapshot()
+        await expect(exec).rejects.toThrowErrorMatchingSnapshot()
       } else {
-        expect(exec()).toMatchSnapshot()
+        expect(await exec()).toMatchSnapshot()
       }
     })
   }

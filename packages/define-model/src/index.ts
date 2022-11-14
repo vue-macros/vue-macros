@@ -68,9 +68,14 @@ export default createUnplugin((userOptions: Options = {}) => {
       return filter(id)
     },
 
-    transform(code, id) {
+    async transform(code, id) {
       try {
-        return transformDefineModel(code, id, options.version, options.unified)
+        return await transformDefineModel(
+          code,
+          id,
+          options.version,
+          options.unified
+        )
       } catch (err: unknown) {
         this.error(`${name} ${err}`)
       }

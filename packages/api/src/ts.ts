@@ -52,7 +52,7 @@ export interface TSProperties {
   properties: Record<
     string | number,
     {
-      value: TSResolvedType<TSType> | null
+      value: { type: TSType; scope: TSScope } | null
       optional: boolean
       signature: TSResolvedType<TSPropertySignature>
     }
@@ -475,4 +475,8 @@ export function resolveTSFileIdNode(id: string, importer: string) {
 
 export function setResolveTSFileIdImpl(impl: ResolveTSFileIdImpl) {
   resolveTSFileIdImpl = impl
+}
+
+export function getResolvedTypeCode({ scope, type }: TSResolvedType<Node>) {
+  return resolveTSScope(scope).file.content.slice(type.start!, type.end!)
 }

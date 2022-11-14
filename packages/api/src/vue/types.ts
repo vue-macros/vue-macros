@@ -3,6 +3,10 @@ import type { TSFile, TSResolvedType } from '../ts'
 
 export enum DefinitionKind {
   /**
+   * Definition is not found.
+   */
+  Empty = 'Empty',
+  /**
    * Definition is a referenced variable.
    *
    * @example defineSomething(foo)

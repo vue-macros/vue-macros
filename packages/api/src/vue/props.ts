@@ -1,18 +1,20 @@
 import {
+  DEFINE_PROPS,
+  MagicString,
   babelParse,
   isStaticObjectKey,
   resolveObjectExpression,
 } from '@vue-macros/common'
 import {
+  getResolvedTypeCode,
   isTSExports,
   resolveTSProperties,
   resolveTSReferencedType,
-  resolveTSScope,
 } from '../ts'
 import { keyToString } from '../utils'
 import { DefinitionKind } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
-import type { MagicString, SFC } from '@vue-macros/common'
+import type { SFC } from '@vue-macros/common'
 import type { TSFile, TSResolvedType } from '../ts'
 import type { ASTDefinition } from './types'
 import type {
@@ -68,28 +70,27 @@ export async function handleTSPropsDefinition({
   const { defaults, defaultsAst } = resolveDefaults(defaultsDeclRaw)
 
   const addProp: TSProps['addProp'] = (name, value, optional) => {
-    const { key, signature, valueAst, signatureAst } = buildNewProp(
-      name,
-      value,
-      optional
-    )
+    const { key, signature, valueString, valueAst, signatureAst } =
+      buildNewProp(name, value, optional)
     if (definitions[key]) return false
 
     if (definitionsAst.scope === file) {
       if (definitionsAst.ast.type === 'TSIntersectionType') {
         s.appendLeft(definitionsAst.ast.end! + offset, ` & { ${signature} }`)
       } else {
-        s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
+        s.appendLeft(definitionsAst.ast.end! + offset - 1, `\n  ${signature}`)
       }
     }
 
     definitions[key] = {
       type: 'property',
-      value: {
-        code: value,
-        ast: valueAst,
-        scope: undefined,
-      },
+      value: value
+        ? {
+            code: valueString!,
+            ast: valueAst!,
+            scope: undefined,
+          }
+        : undefined,
       optional: !!optional,
       signature: {
         code: signature,
@@ -102,11 +103,8 @@ export async function handleTSPropsDefinition({
   }
 
   const setProp: TSProps['setProp'] = (name, value, optional) => {
-    const { key, signature, signatureAst, valueAst } = buildNewProp(
-      name,
-      value,
-      optional
-    )
+    const { key, signature, signatureAst, valueString, valueAst } =
+      buildNewProp(name, value, optional)
 
     const def = definitions[key]
     if (!definitions[key]) return false
@@ -137,11 +135,13 @@ export async function handleTSPropsDefinition({
 
     definitions[key] = {
       type: 'property',
-      value: {
-        code: value,
-        ast: valueAst,
-        scope: undefined as any,
-      },
+      value: value
+        ? {
+            code: valueString!,
+            ast: valueAst!,
+            scope: undefined as any,
+          }
+        : undefined,
       optional: !!optional,
       signature: {
         code: signature,
@@ -313,20 +313,39 @@ export async function handleTSPropsDefinition({
 
   function buildNewProp(
     name: string | StringLiteral,
-    value: string,
+    value: string | TSResolvedType | null | undefined,
     optional: boolean | undefined
   ) {
     const key = keyToString(name)
-    const signature = `${name}${optional ? '?' : ''}: ${value}`
 
-    const valueAst = (babelParse(`type T = (${value})`, 'ts').body[0] as any)
-      .typeAnnotation.typeAnnotation
+    let signature = JSON.stringify(typeof name === 'string' ? name : name.value)
+
+    let valueString: string | undefined
+    let valueAst: TSResolvedType['type'] | undefined
+    if (value) {
+      if (typeof value === 'string') {
+        valueString = value
+        valueAst = (babelParse(`type T = (${value})`, 'ts').body[0] as any)
+          .typeAnnotation.typeAnnotation
+      } else {
+        const def = buildDefinition(value)
+        valueString = def.code
+        valueAst = def.ast
+      }
+      signature += `${optional ? '?' : ''}: ${valueString}`
+    }
 
     const signatureAst = (
       babelParse(`interface T {${signature}}`, 'ts').body[0] as any
     ).body.body[0]
 
-    return { key, signature, signatureAst, valueAst }
+    return {
+      key,
+      signature,
+      valueString,
+      signatureAst,
+      valueAst,
+    }
   }
 
   function buildDefinition<T extends Node>({
@@ -334,14 +353,73 @@ export async function handleTSPropsDefinition({
     scope,
   }: TSResolvedType<T>): ASTDefinition<T> {
     return {
-      code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
+      code: getResolvedTypeCode({ type, scope }),
       ast: type,
       scope,
     }
   }
 }
 
-export type Props = /* ReferenceProps | ObjectProps | */ TSProps | undefined
+export function getEmptyProps({
+  s,
+  file,
+  sfc,
+  offset,
+}: {
+  s: MagicString
+  file: TSFile
+  sfc: SFC
+  offset: number
+}): EmptyProps {
+  const getPlaceholder = async () => {
+    const endOffset = sfc.scriptSetup!.loc.end.offset
+    const propsStart =
+      sfc.scriptSetup!.loc.source.length + `\n${DEFINE_PROPS}<`.length
+    const propsEnd = propsStart + 2
+    const src = s.toString()
+    const newSrc = `${src.slice(
+      0,
+      endOffset
+    )}\n${DEFINE_PROPS}<{}>()${src.slice(endOffset)}`
+
+    const newString = new MagicString(newSrc)
+    const result = await handleTSPropsDefinition({
+      s: newString,
+      file,
+      sfc,
+      offset,
+      typeDeclRaw: {
+        type: 'TSTypeLiteral',
+        members: [],
+        start: propsStart,
+        end: propsEnd,
+      },
+
+      definePropsAst: undefined as any,
+      statement: undefined as any,
+    })
+
+    return {
+      ...result,
+      apply: () => {
+        s.appendLeft(
+          offset,
+          `\n${DEFINE_PROPS}<${newString.slice(
+            propsStart + offset,
+            propsEnd + offset
+          )}>()`
+        )
+      },
+    }
+  }
+
+  return {
+    kind: DefinitionKind.Empty,
+    getPlaceholder,
+  }
+}
+
+export type Props = /* ReferenceProps | ObjectProps | */ TSProps | EmptyProps
 
 export type DefinePropsStatement = VariableDeclaration | ExpressionStatement
 export type DefaultsASTRaw = CallExpression['arguments'][number]
@@ -432,7 +510,7 @@ export interface TSProps extends PropsBase {
    */
   addProp(
     name: string | StringLiteral,
-    type: string,
+    type?: string | TSResolvedType | null,
     optional?: boolean
   ): boolean
 
@@ -447,7 +525,7 @@ export interface TSProps extends PropsBase {
    */
   setProp(
     name: string | StringLiteral,
-    type: string,
+    type?: string | TSResolvedType | null,
     optional?: boolean
   ): boolean
 
@@ -464,4 +542,13 @@ export interface TSProps extends PropsBase {
    * get runtime definitions.
    */
   getRuntimeDefinitions(): Promise<Record<string, RuntimePropDefinition>>
+}
+
+export interface EmptyProps {
+  kind: DefinitionKind.Empty
+  getPlaceholder(
+    kind: DefinitionKind.TS
+  ): Promise<
+    Omit<TSProps, 'definePropsAst' | 'statementAst'> & { apply(): void }
+  >
 }

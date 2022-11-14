@@ -5,18 +5,20 @@ import {
   babelParse,
   isCallOf,
 } from '@vue-macros/common'
-import { handleTSPropsDefinition } from './props'
+import { getEmptyProps, handleTSPropsDefinition } from './props'
 import { handleTSEmitsDefinition } from './emits'
 import type { TSFile } from '../ts'
 import type { Emits } from './emits'
 import type { DefaultsASTRaw, DefinePropsStatement, Props } from './props'
 import type { MagicString, SFC } from '@vue-macros/common'
-import type { CallExpression, LVal, Node } from '@babel/types'
+import type { CallExpression, LVal, Node, Statement } from '@babel/types'
 
 export type { SFC } from '@vue-macros/common'
 export { parseSFC } from '@vue-macros/common'
 
-export interface AnalyzeResult {
+export type AnalyzeResult = {
+  file: TSFile
+  ast: Statement[]
   props: Props
   emits: Emits
 }
@@ -42,7 +44,7 @@ export async function analyzeSFC(
     ast: body,
   }
 
-  let props: Props
+  let props: Props | undefined
   let emits: Emits
 
   for (const node of body) {
@@ -81,7 +83,18 @@ export async function analyzeSFC(
     }
   }
 
+  if (!props) {
+    props = getEmptyProps({
+      s,
+      sfc,
+      file,
+      offset,
+    })
+  }
+
   return {
+    file,
+    ast: body,
     props,
     emits,
   }

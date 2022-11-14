@@ -4,10 +4,10 @@ import {
   resolveLiteral,
 } from '@vue-macros/common'
 import {
+  getResolvedTypeCode,
   isTSExports,
   resolveTSProperties,
   resolveTSReferencedType,
-  resolveTSScope,
 } from '../ts'
 import { keyToString } from '../utils'
 import { DefinitionKind } from './types'
@@ -24,6 +24,7 @@ import type {
   TSCallSignatureDeclaration,
   TSInterfaceDeclaration,
   TSIntersectionType,
+  TSMethodSignature,
   TSType,
   TSTypeLiteral,
   UnaryExpression,
@@ -68,9 +69,23 @@ export async function handleTSEmitsDefinition({
       }
     }
     if (!definitions[key]) definitions[key] = []
-    const ast = parseSignature(signature)
+
+    let signatureString: string
+    let ast: TSCallSignatureDeclaration
+    if (typeof signature === 'string') {
+      signatureString = signature
+      ast = parseSignature(signature)
+    } else {
+      const def = buildDefinition(signature)
+      ast = {
+        ...def.ast,
+        type: 'TSCallSignatureDeclaration',
+      }
+      signatureString = def.code
+    }
+
     definitions[key].push({
-      code: signature,
+      code: signatureString,
       ast,
       scope: undefined,
     })
@@ -177,7 +192,7 @@ export async function handleTSEmitsDefinition({
     scope,
   }: TSResolvedType<T>): ASTDefinition<T> {
     return {
-      code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
+      code: getResolvedTypeCode({ type, scope }),
       ast: type,
       scope,
     }
@@ -209,7 +224,10 @@ export interface TSEmits extends EmitsBase {
    *
    * @example add('change', '(evt: "change", value: string): void')
    */
-  addEmit(name: string | StringLiteral, signature: string): void
+  addEmit(
+    name: string | StringLiteral,
+    signature: string | TSResolvedType<TSMethodSignature>
+  ): void
 
   /**
    * Modify a definition of a emit. `definitions` will updated after this call.
