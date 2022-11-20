@@ -1,5 +1,19 @@
 # @vue-macros/better-define
 
+## 0.2.0
+
+### Minor Changes
+
+- [`c7a60bf`](https://github.com/sxzz/unplugin-vue-macros/commit/c7a60bfd35f3123390c702a6ac754ebbd6750b1f) Thanks [@sxzz](https://github.com/sxzz)! - support vite hmr
+
+- [`419d2d2`](https://github.com/sxzz/unplugin-vue-macros/commit/419d2d21e0e01108abb6f628b4546c1c29077002) Thanks [@sxzz](https://github.com/sxzz)! - improve production mode
+
+### Patch Changes
+
+- Updated dependencies [[`419d2d2`](https://github.com/sxzz/unplugin-vue-macros/commit/419d2d21e0e01108abb6f628b4546c1c29077002)]:
+  - @vue-macros/api@0.2.0
+  - @vue-macros/common@0.13.4
+
 ## 0.1.0
 
 ### Minor Changes

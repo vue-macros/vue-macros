@@ -1,5 +1,14 @@
 # @vue-macros/setup-component
 
+## 0.12.8
+
+### Patch Changes
+
+- [`19d3544`](https://github.com/sxzz/unplugin-vue-macros/commit/19d35449b91c28b357bdd501cc37d657e9c23a07) Thanks [@sxzz](https://github.com/sxzz)! - cannot load component in production
+
+- Updated dependencies [[`419d2d2`](https://github.com/sxzz/unplugin-vue-macros/commit/419d2d21e0e01108abb6f628b4546c1c29077002)]:
+  - @vue-macros/common@0.13.4
+
 ## 0.12.7
 
 ### Patch Changes

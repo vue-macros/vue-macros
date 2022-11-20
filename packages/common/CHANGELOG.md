@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 0.13.4
+
+### Patch Changes
+
+- [`419d2d2`](https://github.com/sxzz/unplugin-vue-macros/commit/419d2d21e0e01108abb6f628b4546c1c29077002) Thanks [@sxzz](https://github.com/sxzz)! - improve production mode
+
 ## 0.13.3
 
 ### Patch Changes
