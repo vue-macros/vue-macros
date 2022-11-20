@@ -2,8 +2,9 @@ import { existsSync } from 'node:fs'
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { REGEX_SETUP_SFC, REGEX_VUE_SFC } from '@vue-macros/common'
-import { setResolveTSFileIdImpl } from '@vue-macros/api'
+import { setResolveTSFileIdImpl, tsFileCache } from '@vue-macros/api'
 import { transformBetterDefine } from './core'
+import type { ModuleNode } from 'vite'
 import type { ResolveTSFileIdImpl } from '@vue-macros/api'
 import type { PluginContext } from 'rollup'
 import type { FilterPattern } from '@rollup/pluginutils'
@@ -32,6 +33,20 @@ export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
   const options = resolveOptions(userOptions)
   const filter = createFilter(options.include, options.exclude)
 
+  const referencedFiles = new Map<
+    string /* file */,
+    Set<string /* importer */>
+  >()
+
+  function collectReferencedFile(importer: string, file: string) {
+    if (!importer) return
+    if (!referencedFiles.has(file)) {
+      referencedFiles.set(file, new Set([importer]))
+    } else {
+      referencedFiles.get(file)!.add(importer)
+    }
+  }
+
   return {
     name,
     enforce: 'pre',
@@ -42,10 +57,16 @@ export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
         const resolveFn: ResolveTSFileIdImpl = async (id, importer) => {
           let resolved = (await ctx.resolve(id, importer))?.id
           if (!resolved) return
-          if (existsSync(resolved)) return resolved
+          if (existsSync(resolved)) {
+            collectReferencedFile(importer, resolved)
+            return resolved
+          }
 
           resolved = (await ctx.resolve(resolved))?.id
-          if (resolved && existsSync(resolved)) return resolved
+          if (resolved && existsSync(resolved)) {
+            collectReferencedFile(importer, resolved)
+            return resolved
+          }
         }
         setResolveTSFileIdImpl(resolveFn)
       }
@@ -67,6 +88,25 @@ export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
     vite: {
       configResolved(config) {
         options.isProduction = config.isProduction
+      },
+
+      handleHotUpdate({ file, server }) {
+        function getAffectedModules(file: string): Set<ModuleNode> {
+          if (!referencedFiles.has(file)) return new Set([])
+          const modules = new Set<ModuleNode>([])
+          for (const importer of referencedFiles.get(file)!) {
+            const mods = server.moduleGraph.getModulesByFile(importer)
+            if (mods) mods.forEach((m) => modules.add(m))
+
+            getAffectedModules(importer).forEach((m) => modules.add(m))
+          }
+          return modules
+        }
+
+        if (tsFileCache[file]) delete tsFileCache[file]
+
+        const modules = getAffectedModules(file)
+        return Array.from(modules)
       },
     },
   }

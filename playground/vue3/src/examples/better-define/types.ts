@@ -1,5 +1,7 @@
+import type { AnotherType } from './another-types'
+
 export type Str = string
-export interface BaseProps {
+export interface BaseProps extends AnotherType {
   name: Str
   age: number
 }
