@@ -4,6 +4,7 @@ importers:
 
   .:
     specifiers:
+      '@babel/types': ^7.20.2
       '@changesets/changelog-github': ^0.4.7
       '@changesets/cli': ^2.25.2
       '@pnpm/find-workspace-packages': ^5.0.9
@@ -26,6 +27,7 @@ importers:
       vitest: ^0.25.2
       vue: ^3.2.45
     devDependencies:
+      '@babel/types': 7.20.2
       '@changesets/changelog-github': 0.4.7
       '@changesets/cli': 2.25.2
       '@pnpm/find-workspace-packages': 5.0.9_@pnpm+logger@5.0.0
@@ -76,28 +78,18 @@ importers:
 
   packages/better-define:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/api': workspace:~
       '@vue-macros/common': workspace:~
-      fast-glob: ^3.2.12
       rollup: ^2.79.1
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/api': link:../api
       '@vue-macros/common': link:../common
       unplugin: 1.0.0
     devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
       rollup: 2.79.1
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
 
   packages/common:
     specifiers:
@@ -106,7 +98,6 @@ importers:
       '@vue/compiler-sfc': ^3.2.45
       estree-walker: ^3.0.1
       magic-string: ^0.26.7
-      tsup: ^6.5.0
     dependencies:
       '@babel/types': 7.20.2
       '@vue/compiler-sfc': 3.2.45
@@ -114,19 +105,13 @@ importers:
     devDependencies:
       '@babel/parser': 7.20.3
       estree-walker: 3.0.1
-      tsup: 6.5.0
 
   packages/define-model:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
       ast-walker-scope: ^0.3.0
-      fast-glob: ^3.2.12
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 4.2.1
@@ -134,25 +119,15 @@ importers:
       ast-walker-scope: 0.3.0
       unplugin: 1.0.0
     devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
       vue: 3.2.45
 
   packages/define-options:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
       ast-walker-scope: ^0.3.0
-      fast-glob: ^3.2.12
       rollup: ^2.79.1
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 4.2.1
@@ -160,103 +135,57 @@ importers:
       ast-walker-scope: 0.3.0
       unplugin: 1.0.0
     devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
       rollup: 2.79.1
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
       vue: 3.2.45
 
   packages/define-props:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
-      fast-glob: ^3.2.12
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
       unplugin: 1.0.0
     devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
       vue: 3.2.45
 
   packages/define-render:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
-      fast-glob: ^3.2.12
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
       unplugin: 1.0.0
     devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
       vue: 3.2.45
 
   packages/define-slots:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
-      fast-glob: ^3.2.12
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
       unplugin: 1.0.0
     devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
       vue: 3.2.45
 
   packages/hoist-static:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
-      fast-glob: ^3.2.12
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
       unplugin: 1.0.0
-    devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
 
   packages/macros:
     specifiers:
@@ -271,10 +200,8 @@ importers:
       '@vue-macros/setup-component': workspace:*
       '@vue-macros/setup-sfc': workspace:*
       '@vue-macros/short-emits': workspace:*
-      fast-glob: ^3.2.12
+      esbuild: ^0.15.15
       local-pkg: ^0.4.2
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
       unplugin-combine: ^0.2.8
       unplugin-vue-define-options: workspace:*
@@ -292,125 +219,79 @@ importers:
       '@vue-macros/setup-sfc': link:../setup-sfc
       '@vue-macros/short-emits': link:../short-emits
       local-pkg: 0.4.2
-      unplugin-combine: 0.2.8
+      unplugin-combine: 0.2.8_esbuild@0.15.15
       unplugin-vue-define-options: link:../define-options
     devDependencies:
-      fast-glob: 3.2.12
-      tsup: 6.5.0
-      tsx: 3.12.1
+      esbuild: 0.15.15
       unplugin: 1.0.0
       vue: 3.2.45
 
   packages/named-template:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vitejs/plugin-vue': ^3.2.0
       '@vue-macros/common': workspace:~
       '@vue/compiler-dom': ^3.2.45
-      fast-glob: ^3.2.12
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
       unplugin-combine: ^0.2.8
-      vite: ^3.2.4
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 4.2.1
-      '@vitejs/plugin-vue': 3.2.0_vite@3.2.4+vue@3.2.45
+      '@vitejs/plugin-vue': 3.2.0_vue@3.2.45
       '@vue-macros/common': link:../common
       '@vue/compiler-dom': 3.2.45
       unplugin: 1.0.0
-      unplugin-combine: 0.2.8_vite@3.2.4
+      unplugin-combine: 0.2.8
     devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
       vue: 3.2.45
 
   packages/setup-component:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
-      ast-walker-scope: ^0.3.0
-      fast-glob: ^3.2.12
       rollup: ^2.79.1
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
       unplugin-combine: ^0.2.8
-      vite: ^3.2.4
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
       unplugin: 1.0.0
-      unplugin-combine: 0.2.8_rollup@2.79.1+vite@3.2.4
+      unplugin-combine: 0.2.8_rollup@2.79.1
     devDependencies:
-      '@babel/types': 7.20.2
-      ast-walker-scope: 0.3.0
-      fast-glob: 3.2.12
       rollup: 2.79.1
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
       vue: 3.2.45
 
   packages/setup-sfc:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
-      fast-glob: ^3.2.12
       rollup: ^2.79.1
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
       unplugin: 1.0.0
     devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
       rollup: 2.79.1
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
       vue: 3.2.45
 
   packages/short-emits:
     specifiers:
-      '@babel/types': ^7.20.2
       '@rollup/pluginutils': ^4.2.1
       '@vue-macros/common': workspace:~
-      fast-glob: ^3.2.12
-      tsup: ^6.5.0
-      tsx: ^3.12.1
       unplugin: ^1.0.0
-      vite: ^3.2.4
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@vue-macros/common': link:../common
       unplugin: 1.0.0
-    devDependencies:
-      '@babel/types': 7.20.2
-      fast-glob: 3.2.12
-      tsup: 6.5.0
-      tsx: 3.12.1
-      vite: 3.2.4
 
   packages/short-vmodel:
     specifiers:
       '@vue-macros/common': workspace:~
       '@vue/compiler-core': ^3.2.45
       '@vue/compiler-sfc': ^3.2.45
-      fast-glob: ^3.2.12
       tsup: ^6.5.0
       tsx: ^3.12.1
     dependencies:
@@ -418,7 +299,6 @@ importers:
       '@vue/compiler-core': 3.2.45
     devDependencies:
       '@vue/compiler-sfc': 3.2.45
-      fast-glob: 3.2.12
       tsup: 6.5.0
       tsx: 3.12.1
 
@@ -4011,6 +3891,20 @@ packages:
     dependencies:
       vite: 3.2.4
       vue: 3.2.45
+    dev: true
+
+  /@vitejs/plugin-vue/3.2.0_vue@3.2.45:
+    resolution: {integrity: sha512-E0tnaL4fr+qkdCNxJ+Xd0yM31UwMkQje76fsDVBBUCoGOUPexu2VDUYHL8P4CwV+zMvWw6nlRw19OnRKmYAJpw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^3.0.0
+      vue: ^3.2.25
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      vue: 3.2.45
+    dev: false
 
   /@vitejs/plugin-vue2-jsx/1.0.3_vite@3.2.4+vue@2.7.14:
     resolution: {integrity: sha512-JdcmeuTCRfYkQ6wPIbg0IG43l/2SuAFAK0asWOmrNQ098CfFb86gfOfHLTr5s01qduMCdfl7JOoSgxOckQxvBg==}
@@ -4789,6 +4683,7 @@ packages:
     dependencies:
       '@babel/parser': 7.20.3
       '@babel/types': 7.20.2
+    dev: false
 
   /async/3.2.4:
     resolution: {integrity: sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==}
@@ -10130,7 +10025,30 @@ packages:
       unplugin: 0.10.2
     dev: false
 
-  /unplugin-combine/0.2.8_rollup@2.79.1+vite@3.2.4:
+  /unplugin-combine/0.2.8_esbuild@0.15.15:
+    resolution: {integrity: sha512-Z38AC/TEjXbVyZ5HjVqo+lADj0/dcfwWC0Z4y0LNhybJzJQwmcMxm+ZsqHY3faauj4YigmlRMdptR5JEW9RuLg==}
+    engines: {node: '>=14.19.0'}
+    peerDependencies:
+      esbuild: '>=0.13'
+      rollup: ^2.50.0
+      vite: ^2.3.0 || ^3.0.0
+      webpack: 4 || 5
+    peerDependenciesMeta:
+      esbuild:
+        optional: true
+      rollup:
+        optional: true
+      vite:
+        optional: true
+      webpack:
+        optional: true
+    dependencies:
+      '@antfu/utils': 0.6.3
+      esbuild: 0.15.15
+      unplugin: 0.10.2
+    dev: false
+
+  /unplugin-combine/0.2.8_rollup@2.79.1:
     resolution: {integrity: sha512-Z38AC/TEjXbVyZ5HjVqo+lADj0/dcfwWC0Z4y0LNhybJzJQwmcMxm+ZsqHY3faauj4YigmlRMdptR5JEW9RuLg==}
     engines: {node: '>=14.19.0'}
     peerDependencies:
@@ -10151,30 +10069,6 @@ packages:
       '@antfu/utils': 0.6.3
       rollup: 2.79.1
       unplugin: 0.10.2
-      vite: 3.2.4
-    dev: false
-
-  /unplugin-combine/0.2.8_vite@3.2.4:
-    resolution: {integrity: sha512-Z38AC/TEjXbVyZ5HjVqo+lADj0/dcfwWC0Z4y0LNhybJzJQwmcMxm+ZsqHY3faauj4YigmlRMdptR5JEW9RuLg==}
-    engines: {node: '>=14.19.0'}
-    peerDependencies:
-      esbuild: '>=0.13'
-      rollup: ^2.50.0
-      vite: ^2.3.0 || ^3.0.0
-      webpack: 4 || 5
-    peerDependenciesMeta:
-      esbuild:
-        optional: true
-      rollup:
-        optional: true
-      vite:
-        optional: true
-      webpack:
-        optional: true
-    dependencies:
-      '@antfu/utils': 0.6.3
-      unplugin: 0.10.2
-      vite: 3.2.4
     dev: false
 
   /unplugin-vue/3.1.3_vite@3.2.4+vue@3.2.45:

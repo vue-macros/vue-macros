@@ -25,6 +25,7 @@
     "typecheck:test": "tsc --noEmit -p tsconfig.test.json"
   },
   "devDependencies": {
+    "@babel/types": "^7.20.2",
     "@changesets/changelog-github": "^0.4.7",
     "@changesets/cli": "^2.25.2",
     "@pnpm/find-workspace-packages": "^5.0.9",
