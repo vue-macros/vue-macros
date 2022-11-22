@@ -1,18 +1,16 @@
 {
-  "name": "unplugin-vue-macros",
-  "version": "0.16.4",
+  "name": "@vue-macros/setup-block",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.17.0",
-  "description": "Explore and extend more macros and syntax sugar to Vue.",
+  "description": "",
   "keywords": [
     "unplugin",
     "vue",
+    "sfc",
+    "setup",
     "macros",
     "script-setup",
-    "define-options",
-    "define-model",
-    "define-render",
-    "setup-sfc",
-    "setup-component"
+    "setup-block"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -25,8 +23,7 @@
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -52,8 +49,6 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
-    "./macros-global": "./macros-global.d.ts",
-    "./vue2-macros-global": "./vue2-macros-global.d.ts",
     "./*": "./*"
   },
   "typesVersions": {
@@ -68,30 +63,11 @@
     "build": "tsup && tsx ../../scripts/postbuild.mts",
     "dev": "DEV=1 tsup"
   },
-  "peerDependencies": {
-    "vue": "^2.7.0 || ^3.2.25"
-  },
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",
-    "@vue-macros/better-define": "workspace:*",
-    "@vue-macros/define-model": "workspace:*",
-    "@vue-macros/define-props": "workspace:*",
-    "@vue-macros/define-render": "workspace:*",
-    "@vue-macros/define-slots": "workspace:*",
-    "@vue-macros/hoist-static": "workspace:*",
-    "@vue-macros/named-template": "workspace:*",
-    "@vue-macros/setup-block": "workspace:*",
-    "@vue-macros/setup-component": "workspace:*",
-    "@vue-macros/setup-sfc": "workspace:*",
-    "@vue-macros/short-emits": "workspace:*",
-    "local-pkg": "^0.4.2",
-    "unplugin-combine": "^0.2.8",
-    "unplugin-vue-define-options": "workspace:*"
-  },
-  "devDependencies": {
-    "esbuild": "^0.15.15",
-    "unplugin": "^1.0.0",
-    "vue": "^3.2.45"
+    "@vue-macros/common": "workspace:~",
+    "@vue/compiler-dom": "^3.2.45",
+    "unplugin": "^1.0.0"
   },
   "engines": {
     "node": ">=14.19.0"

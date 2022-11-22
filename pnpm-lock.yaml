@@ -197,6 +197,7 @@ importers:
       '@vue-macros/define-slots': workspace:*
       '@vue-macros/hoist-static': workspace:*
       '@vue-macros/named-template': workspace:*
+      '@vue-macros/setup-block': workspace:*
       '@vue-macros/setup-component': workspace:*
       '@vue-macros/setup-sfc': workspace:*
       '@vue-macros/short-emits': workspace:*
@@ -215,6 +216,7 @@ importers:
       '@vue-macros/define-slots': link:../define-slots
       '@vue-macros/hoist-static': link:../hoist-static
       '@vue-macros/named-template': link:../named-template
+      '@vue-macros/setup-block': link:../setup-block
       '@vue-macros/setup-component': link:../setup-component
       '@vue-macros/setup-sfc': link:../setup-sfc
       '@vue-macros/short-emits': link:../short-emits
@@ -244,6 +246,18 @@ importers:
       unplugin-combine: 0.2.8
     devDependencies:
       vue: 3.2.45
+
+  packages/setup-block:
+    specifiers:
+      '@rollup/pluginutils': ^4.2.1
+      '@vue-macros/common': workspace:~
+      '@vue/compiler-dom': ^3.2.45
+      unplugin: ^1.0.0
+    dependencies:
+      '@rollup/pluginutils': 4.2.1
+      '@vue-macros/common': link:../common
+      '@vue/compiler-dom': 3.2.45
+      unplugin: 1.0.0
 
   packages/setup-component:
     specifiers:

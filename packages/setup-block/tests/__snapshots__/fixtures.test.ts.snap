@@ -1,0 +1,23 @@
+// Vitest Snapshot v1
+
+exports[`fixtures > ./fixtures/basic.vue 1`] = `
+"<script setup lang=\\"magic\\">
+import { ref } from 'vue'
+
+console.log('Hello World')
+
+const msg = ref('Hello World')
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/with-lang.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import { ref } from 'vue'
+
+console.log('Hello World')
+
+const msg = ref('Hello World')
+</script>
+"
+`;

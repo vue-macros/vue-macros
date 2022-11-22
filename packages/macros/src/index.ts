@@ -7,6 +7,7 @@ import VueDefineRender from '@vue-macros/define-render'
 import VueDefineSlots from '@vue-macros/define-slots'
 import VueHoistStatic from '@vue-macros/hoist-static'
 import VueNamedTemplate from '@vue-macros/named-template'
+import VueSetupBlock from '@vue-macros/setup-block'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortEmits from '@vue-macros/short-emits'
@@ -26,6 +27,7 @@ import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
 import type { Options as OptionsDefineSlots } from '@vue-macros/define-slots'
 import type { Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
 import type { Options as OptionsNamedTemplate } from '@vue-macros/named-template'
+import type { Options as OptionsSetupBlock } from '@vue-macros/setup-block'
 import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
 import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
 import type { Options as OptionsShortEmits } from '@vue-macros/short-emits'
@@ -39,6 +41,7 @@ export interface FeatureOptionsMap {
   defineSlots: OptionsDefineSlots
   hoistStatic: OptionsHoistStatic
   namedTemplate: OptionsNamedTemplate
+  setupBlock: OptionsSetupBlock
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
@@ -79,6 +82,7 @@ function resolveOptions({
   defineSlots,
   hoistStatic,
   namedTemplate,
+  setupBlock,
   setupComponent,
   setupSFC,
   shortEmits,
@@ -112,6 +116,7 @@ function resolveOptions({
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
+    setupBlock: resolveSubOptions<'setupBlock'>(setupBlock),
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
       root,
     }),
@@ -149,6 +154,7 @@ export default createCombinePlugin((userOptions: Options = {}) => {
   const plugins: OptionsPlugin[] = [
     resolvePlugin(options.setupSFC, VueSetupSFC),
     resolvePlugin(options.setupComponent, VueSetupComponent, 0),
+    resolvePlugin(options.setupBlock, VueSetupBlock),
     resolvePlugin(options.hoistStatic, VueHoistStatic),
     resolvePlugin(options.namedTemplate, VueNamedTemplate, 0),
     resolvePlugin(options.defineProps, VueDefineProps),

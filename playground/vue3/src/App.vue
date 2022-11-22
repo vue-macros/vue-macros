@@ -8,6 +8,7 @@ import DefineModelRuntimeVue from './examples/define-model/runtime/parent.vue'
 import DefineSlotsVue from './examples/define-slots/parent.vue'
 import BetterDefineVue from './examples/better-define/index.vue'
 import NamedTemplateVue from './examples/named-template/index.vue'
+import SetupBlockVue from './examples/setup-block/index.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
 
@@ -67,6 +68,11 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>setupSFC</legend>
     <SetupSFC />
+  </fieldset>
+
+  <fieldset>
+    <legend>setupBlock</legend>
+    <SetupBlockVue />
   </fieldset>
 
   <fieldset>
