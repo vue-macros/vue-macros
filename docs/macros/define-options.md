@@ -99,6 +99,18 @@ module.exports = {
 
 ::::
 
+### TypeScript Support
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    // ...
+    "types": ["unplugin-vue-define-options/macros-global" /* ... */]
+  }
+}
+```
+
 ## Basic Usage
 
 ```vue {3-6}
