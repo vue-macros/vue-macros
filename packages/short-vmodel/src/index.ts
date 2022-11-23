@@ -11,9 +11,7 @@ import type {
 export type Prefix = '::' | '$' | '*'
 export interface Options {
   /**
-   * Support :: only currently.
-   *
-   * @default '::'
+   * @default '$'
    */
   prefix?: Prefix
 }
@@ -25,7 +23,7 @@ type NodeElement =
   | TemplateNode
 
 export const transformShortVmodel = ({
-  prefix = '::',
+  prefix = '$',
 }: Options = {}): NodeTransform => {
   return (node, context) => {
     if (node.type !== 1 /* NodeTypes.ELEMENT */) return
