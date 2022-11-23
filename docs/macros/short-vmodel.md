@@ -1,5 +1,7 @@
 # shortVmodel
 
+<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+
 A shorthand for `v-model`.
 
 `v-model` -> `::` / `$` / `*`

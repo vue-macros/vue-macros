@@ -1,5 +1,7 @@
 # hoistStatic
 
+<small>Stability: <code class="!text-green-600">stable</code></small>
+
 With enabling `hoistStatic`, constants declared in macros of `<script setup>` can be referenced.
 
 If you support this feature, feel free to hit like :+1: or comment on the [Vue PR](https://github.com/vuejs/core/pull/5752). Thanks!

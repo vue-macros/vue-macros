@@ -1,5 +1,7 @@
 # betterDefine
 
+<small>Stability: <code class="!text-green-600">stable</code></small>
+
 With enabling `betterDefine`, imported types is supported in `<script setup>` type-based-macros.
 
 [Related issue](https://github.com/vuejs/core/issues/4294)

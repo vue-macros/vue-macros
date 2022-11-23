@@ -1,5 +1,7 @@
 # shortEmits
 
+<small>Stability: <code class="!text-green-600">stable</code></small>
+
 Simplify the definition of emits.
 
 |      Features      |     Supported      |

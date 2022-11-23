@@ -1,10 +1,9 @@
-# namedTemplate <WarnBadge>Experimental, use at your risk</WarnBadge>
+# namedTemplate
 
-::: warning
-
-:construction: WIP
-
-:::
+<small mr-2>
+  Stability: <code class="!text-red-600">experimental</code>
+</small>
+<WarnBadge>Experimental, use at your risk</WarnBadge>
 
 With enabling `namedTemplate`, `<template>` can be referenced like a variable.
 

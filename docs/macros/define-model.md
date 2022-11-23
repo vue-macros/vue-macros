@@ -1,5 +1,7 @@
 # defineModel
 
+<small>Stability: <code class="!text-green-600">stable</code></small>
+
 Declaring and mutate `v-model` props as the same as normal variable using the `defineModel`.
 
 |      Features      |     Supported      |

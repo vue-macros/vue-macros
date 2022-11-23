@@ -1,5 +1,7 @@
 # defineSlots
 
+<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+
 Declaring type of SFC slots in `<script setup>` using the `defineSlots`.
 
 |   Features    |              Supported              |

@@ -1,5 +1,7 @@
 # defineRender
 
+<small>Stability: <code class="!text-green-600">stable</code></small>
+
 Defining render function in `<script setup>` using the `defineRender`.
 
 |      Features      |     Supported      |
