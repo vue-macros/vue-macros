@@ -1,5 +1,15 @@
 # @vue-macros/short-vmodel
 
+## 1.0.0
+
+### Major Changes
+
+- [`15f3d42`](https://github.com/sxzz/unplugin-vue-macros/commit/15f3d42db5219c849f1248a881db8329e5b4b87c) Thanks [@sxzz](https://github.com/sxzz)! - make it stable. NOTHING changed.
+
+### Minor Changes
+
+- [`2438e48`](https://github.com/sxzz/unplugin-vue-macros/commit/2438e48d0843dcaebb19839d07b881988b1656f0) Thanks [@sxzz](https://github.com/sxzz)! - change default prefix to `# @vue-macros/short-vmodel
+
 ## 0.3.8
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @vue-macros/define-model
 
+## 1.0.0
+
+### Major Changes
+
+- [`15f3d42`](https://github.com/sxzz/unplugin-vue-macros/commit/15f3d42db5219c849f1248a881db8329e5b4b87c) Thanks [@sxzz](https://github.com/sxzz)! - make it stable. NOTHING changed.
+
 ## 0.14.1
 
 ### Patch Changes
