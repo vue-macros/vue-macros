@@ -34,3 +34,5 @@ VueMacros({
   // ... more features
 })
 ```
+
+See the features page for options for each feature.

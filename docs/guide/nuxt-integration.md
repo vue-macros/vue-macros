@@ -45,4 +45,6 @@ export default {
 }
 ```
 
-That's all. Enjoy [Vue Macros](../macros/index.md) now!
+:tada: Congratulations! That's all.
+
+To learn more about the macros, please visit [All Macros](/macros/) :laughing:.

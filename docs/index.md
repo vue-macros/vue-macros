@@ -26,5 +26,5 @@ features:
     details: Full TypeScript and Volar support.
   - icon: ⚡️
     title: Multiple bundlers are supported
-    details: Supports Vite, Webpack, Vue CLI, Rollup, esbuild and more, powered by unplugin.
+    details: Supports Vite, Nuxt, Webpack, Vue CLI, Rollup, esbuild and more, powered by unplugin.
 ---
