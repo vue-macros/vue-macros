@@ -91,9 +91,10 @@ function resolveOptions({
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
     commonOptions: Partial<
       Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
-    > = {}
+    > = {},
+    defaultEnabled = true
   ): FeatureOptionsMap[K] | false {
-    if (options === false) return false
+    if (defaultEnabled ? options === false : !options) return false
     else if (options === true || options === undefined)
       return { ...commonOptions }
     else return { ...options, ...commonOptions }
@@ -116,7 +117,7 @@ function resolveOptions({
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
-    setupBlock: resolveSubOptions<'setupBlock'>(setupBlock),
+    setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, undefined, false),
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
       root,
     }),
