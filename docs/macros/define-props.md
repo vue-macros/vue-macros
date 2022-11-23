@@ -9,6 +9,7 @@ See also [Vue issue](https://github.com/vuejs/core/issues/6876), [Reactivity Tra
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
+|       Nuxt 3       | :white_check_mark: |
 |       Vue 2        |        :x:         |
 | TypeScript / Volar | :white_check_mark: |
 

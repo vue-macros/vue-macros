@@ -9,6 +9,7 @@ If you support this feature, feel free to hit like :+1: or comment on the [Vue P
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
+|       Nuxt 3       | :white_check_mark: |
 |       Vue 2        | :white_check_mark: |
 | TypeScript / Volar | :white_check_mark: |
 

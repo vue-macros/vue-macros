@@ -14,6 +14,7 @@ If you support this feature, you can go to [the discussion](https://github.com/v
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
+|       Nuxt 3       |        :x:         |
 |       Vue 2        |        :x:         |
 | TypeScript / Volar |        :x:         |
 

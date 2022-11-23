@@ -7,6 +7,7 @@ Declaring type of SFC slots in `<script setup>` using the `defineSlots`.
 |   Features    |              Supported              |
 | :-----------: | :---------------------------------: |
 |     Vue 3     |         :white_check_mark:          |
+|    Nuxt 3     |         :white_check_mark:          |
 |     Vue 2     |         :white_check_mark:          |
 | Volar + Vue 3 |         :white_check_mark:          |
 | Volar + Vue 2 | :x: (Volar is not supported it yet) |

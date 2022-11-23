@@ -16,6 +16,7 @@ With `defineSetupComponent`, `<script setup>` code can be put in **pure JS/TS(X)
 |  Features  |     Supported      |
 | :--------: | :----------------: |
 |   Vue 3    | :white_check_mark: |
+|   Nuxt 3   |        :x:         |
 |   Vue 2    |        :x:         |
 | TypeScript |        :x:         |
 

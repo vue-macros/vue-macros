@@ -11,6 +11,7 @@ If you have any questions about this feature, you can comment on [RFC Discussion
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
+|       Nuxt 3       | :white_check_mark: |
 |       Vue 2        |        :x:         |
 | TypeScript / Volar | :white_check_mark: |
 
