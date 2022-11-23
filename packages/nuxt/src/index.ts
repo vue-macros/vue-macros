@@ -1,4 +1,5 @@
 import { defineNuxtModule } from '@nuxt/kit'
+// @ts-ignore
 import VueMacros from 'unplugin-vue-macros/vite'
 import type { Options } from 'unplugin-vue-macros'
 import type {} from '@nuxt/schema'
