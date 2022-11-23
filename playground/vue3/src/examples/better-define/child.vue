@@ -24,7 +24,5 @@ defineEmits<Emits>()
 </script>
 
 <template>
-  <div>
-    <slot />
-  </div>
+  <div>bar</div>
 </template>

@@ -90,7 +90,7 @@ export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
         options.isProduction = config.isProduction
       },
 
-      handleHotUpdate({ file, server }) {
+      handleHotUpdate({ file, server, modules }) {
         function getAffectedModules(file: string): Set<ModuleNode> {
           if (!referencedFiles.has(file)) return new Set([])
           const modules = new Set<ModuleNode>([])
@@ -105,8 +105,8 @@ export default createUnplugin<Options | undefined>((userOptions = {}, meta) => {
 
         if (tsFileCache[file]) delete tsFileCache[file]
 
-        const modules = getAffectedModules(file)
-        return Array.from(modules)
+        const affected = getAffectedModules(file)
+        return [...modules, ...affected]
       },
     },
   }
