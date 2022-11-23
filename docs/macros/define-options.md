@@ -99,7 +99,7 @@ module.exports = {
 
 ::::
 
-## TypeScript Support
+### TypeScript Support
 
 ```json
 // tsconfig.json
