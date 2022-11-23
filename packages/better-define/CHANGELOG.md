@@ -1,5 +1,11 @@
 # @vue-macros/better-define
 
+## 0.2.1
+
+### Patch Changes
+
+- [`2fa0808`](https://github.com/sxzz/unplugin-vue-macros/commit/2fa080844d4b6ecb0e3c346d6f490a7484c530cd) Thanks [@sxzz](https://github.com/sxzz)! - fix HMR
+
 ## 0.2.0
 
 ### Minor Changes
