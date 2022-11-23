@@ -1,5 +1,21 @@
 # unplugin-vue-macros
 
+## 1.0.0
+
+### Major Changes
+
+- [`15f3d42`](https://github.com/sxzz/unplugin-vue-macros/commit/15f3d42db5219c849f1248a881db8329e5b4b87c) Thanks [@sxzz](https://github.com/sxzz)! - make it stable. NOTHING changed.
+
+### Patch Changes
+
+- Updated dependencies [[`15f3d42`](https://github.com/sxzz/unplugin-vue-macros/commit/15f3d42db5219c849f1248a881db8329e5b4b87c)]:
+  - @vue-macros/better-define@1.0.0
+  - @vue-macros/define-model@1.0.0
+  - unplugin-vue-define-options@1.0.0
+  - @vue-macros/define-render@1.0.0
+  - @vue-macros/hoist-static@1.0.0
+  - @vue-macros/short-emits@1.0.0
+
 ## 0.16.5
 
 ### Patch Changes
