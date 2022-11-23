@@ -1,6 +1,6 @@
 # shortVmodel
 
-<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+<small>Stability: <code class="!text-green-600">stable</code></small>
 
 A shorthand for `v-model`.
 
