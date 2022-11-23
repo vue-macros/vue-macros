@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@vueuse/core": "^9.6.0"
+  },
+  "devDependencies": {
+    "@vue-macros/nuxt": "../../packages/nuxt",
+    "nuxt": "^3.0.0"
+  }
+}

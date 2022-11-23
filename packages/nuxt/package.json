@@ -1,0 +1,63 @@
+{
+  "name": "@vue-macros/nuxt",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.17.0",
+  "description": "",
+  "keywords": [
+    "unplugin",
+    "vue",
+    "sfc",
+    "macros",
+    "nuxt"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
+  "bugs": {
+    "url": "https://github.com/sxzz/unplugin-vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup && tsx ../../scripts/postbuild.mts",
+    "dev": "DEV=1 tsup"
+  },
+  "peerDependencies": {
+    "nuxt": "^3.0.0"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.0.0",
+    "@vue-macros/volar": "workspace:~",
+    "unplugin-vue-macros": "workspace:~"
+  },
+  "devDependencies": {
+    "@nuxt/schema": "^3.0.0",
+    "hookable": "^5.4.2"
+  },
+  "engines": {
+    "node": ">=14.19.0"
+  }
+}
