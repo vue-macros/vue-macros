@@ -14,6 +14,14 @@ export const sidebar: DefaultTheme.Sidebar = [
         text: 'Getting Started',
         link: '/guide/getting-started',
       },
+      {
+        text: 'Nuxt Integration',
+        link: '/guide/nuxt-integration',
+      },
+      {
+        text: 'Configurations',
+        link: '/guide/configurations',
+      },
     ],
   },
   {
