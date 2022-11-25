@@ -49,6 +49,12 @@ export default defineNuxtModule<Options>({
       // '@vue-macros/volar/short-vmodel',
       '@vue-macros/volar/define-slots'
     )
+
+    nuxt.options.vite.vue ||= {}
+    nuxt.options.vite.vue.include ||= [/\.vue$/]
+    if (!Array.isArray(nuxt.options.vite.vue.include))
+      nuxt.options.vite.vue.include = [nuxt.options.vite.vue.include]
+    nuxt.options.vite.vue.include.push(/setup\.[cm]?[jt]sx?$/)
   },
 })
 

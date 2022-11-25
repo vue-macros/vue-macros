@@ -8,6 +8,7 @@ import DefineModelRuntimeVue from './examples/define-model/runtime/parent.vue'
 import DefineSlotsVue from './examples/define-slots/parent.vue'
 import BetterDefineVue from './examples/better-define/index.vue'
 import ShortVmodel from './examples/short-vmodel/parent.vue'
+import SetupSFC from './examples/setup-sfc/index.setup'
 </script>
 
 <template>
@@ -51,6 +52,11 @@ import ShortVmodel from './examples/short-vmodel/parent.vue'
   <fieldset>
     <legend>Short v-model</legend>
     <short-vmodel />
+  </fieldset>
+
+  <fieldset>
+    <legend>setupSFC</legend>
+    <SetupSFC />
   </fieldset>
 </template>
 
