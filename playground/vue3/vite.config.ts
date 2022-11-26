@@ -11,7 +11,7 @@ export default defineConfig({
   },
   plugins: [
     VueMacros({
-      // setupComponent: false,
+      setupBlock: true,
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
