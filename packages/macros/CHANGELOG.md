@@ -1,5 +1,11 @@
 # unplugin-vue-macros
 
+## 1.0.3
+
+### Patch Changes
+
+- [`28644c8`](https://github.com/sxzz/unplugin-vue-macros/commit/28644c8681dbd34d0983c29186052469b999db74) Thanks [@sxzz](https://github.com/sxzz)! - fix plugin order
+
 ## 1.0.2
 
 ### Patch Changes
