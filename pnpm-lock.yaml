@@ -251,11 +251,13 @@ importers:
     specifiers:
       '@nuxt/kit': ^3.0.0
       '@nuxt/schema': ^3.0.0
+      '@vue-macros/short-vmodel': workspace:~
       '@vue-macros/volar': workspace:~
       hookable: ^5.4.2
       unplugin-vue-macros: workspace:~
     dependencies:
       '@nuxt/kit': 3.0.0
+      '@vue-macros/short-vmodel': link:../short-vmodel
       '@vue-macros/volar': link:../volar
       unplugin-vue-macros: link:../macros
     devDependencies:

@@ -772,9 +772,10 @@
     unplugin-combine "^0.2.8"
 
 "@vue-macros/nuxt@../../packages/nuxt":
-  version "0.0.2"
+  version "0.1.2"
   dependencies:
     "@nuxt/kit" "^3.0.0"
+    "@vue-macros/short-vmodel" "workspace:~"
     "@vue-macros/volar" "workspace:~"
     unplugin-vue-macros "workspace:~"
 
@@ -815,6 +816,14 @@
     "@rollup/pluginutils" "^4.2.1"
     "@vue-macros/common" "~0.13.4"
     unplugin "^1.0.0"
+
+"@vue-macros/short-vmodel@workspace:~":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@vue-macros/short-vmodel/-/short-vmodel-1.0.0.tgz#7f78521bb7c9eb3c474cc97da623736412b2404a"
+  integrity sha512-lSOHoIbEy675V7TCqKEn9lxRJBE3BVVSz+KvZpsqdicQehceQnE3AiMxZX8fcHOe7s8MFpbCZJqqzjz1zqhUzg==
+  dependencies:
+    "@vue-macros/common" "~0.13.4"
+    "@vue/compiler-core" "^3.2.45"
 
 "@vue-macros/short-vmodel@~0.3.8":
   version "0.3.8"

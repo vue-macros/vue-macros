@@ -1,11 +1,15 @@
 import { defineNuxtModule } from '@nuxt/kit'
-// @ts-ignore
 import VueMacros from 'unplugin-vue-macros/vite'
+import { transformShortVmodel } from '@vue-macros/short-vmodel'
 import type { Options } from 'unplugin-vue-macros'
-import type {} from '@nuxt/schema'
+import type { Options as OptionsShortVmodel } from '@vue-macros/short-vmodel'
 import type { Plugin } from 'vite'
 
-export default defineNuxtModule<Options>({
+export type VueMacrosOptions = Options & {
+  shortVmodel?: OptionsShortVmodel | false
+}
+
+export default defineNuxtModule<VueMacrosOptions>({
   meta: {
     name: 'unplugin-vue-macros',
     configKey: 'macros',
@@ -46,7 +50,6 @@ export default defineNuxtModule<Options>({
     nuxt.options.typescript.tsConfig.vueCompilerOptions.plugins ||= []
     nuxt.options.typescript.tsConfig.vueCompilerOptions.plugins.push(
       '@vue-macros/volar/define-model',
-      // '@vue-macros/volar/short-vmodel',
       '@vue-macros/volar/define-slots'
     )
 
@@ -55,6 +58,25 @@ export default defineNuxtModule<Options>({
     if (!Array.isArray(nuxt.options.vite.vue.include))
       nuxt.options.vite.vue.include = [nuxt.options.vite.vue.include]
     nuxt.options.vite.vue.include.push(/setup\.[cm]?[jt]sx?$/)
+
+    // configure shortVmodel
+    if (options.shortVmodel !== false) {
+      nuxt.options.typescript.tsConfig.vueCompilerOptions.plugins.push(
+        '@vue-macros/volar/short-vmodel'
+      )
+
+      if (options.shortVmodel)
+        nuxt.options.typescript.tsConfig.vueCompilerOptions.shortVmodel = {
+          prefix: options.shortVmodel.prefix,
+        }
+
+      nuxt.options.vite.vue.template ||= {}
+      nuxt.options.vite.vue.template.compilerOptions ||= {}
+      nuxt.options.vite.vue.template.compilerOptions.nodeTransforms ||= []
+      nuxt.options.vite.vue.template.compilerOptions.nodeTransforms.push(
+        transformShortVmodel(options.shortVmodel)
+      )
+    }
   },
 })
 
