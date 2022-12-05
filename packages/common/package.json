@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/common",
   "version": "0.13.4",
-  "packageManager": "pnpm@7.17.1",
+  "packageManager": "pnpm@7.18.0",
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
   "bugs": {
@@ -30,12 +30,12 @@
     "dev": "DEV=1 tsup"
   },
   "dependencies": {
-    "@babel/types": "^7.20.2",
+    "@babel/types": "^7.20.5",
     "@vue/compiler-sfc": "^3.2.45",
-    "magic-string": "^0.26.7"
+    "magic-string": "^0.27.0"
   },
   "devDependencies": {
-    "@babel/parser": "^7.20.3",
+    "@babel/parser": "^7.20.5",
     "estree-walker": "^3.0.1"
   },
   "engines": {
