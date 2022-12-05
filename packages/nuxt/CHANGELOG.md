@@ -1,5 +1,11 @@
 # @vue-macros/nuxt
 
+## 0.2.0
+
+### Minor Changes
+
+- [`2c46f98`](https://github.com/sxzz/unplugin-vue-macros/commit/2c46f983776d741fb0dcdac5aefac5eb6829def1) Thanks [@sxzz](https://github.com/sxzz)! - support shortVmodel
+
 ## 0.1.2
 
 ### Patch Changes
