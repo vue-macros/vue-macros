@@ -54,7 +54,7 @@ export default defineConfig({
 
 :::
 
-::: code-group-item Rollup (first-class support)
+::: code-group-item Rollup 3 (first-class support)
 
 ```ts
 // rollup.config.js

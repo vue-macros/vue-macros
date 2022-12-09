@@ -17,7 +17,7 @@ If you support this feature, feel free to hit like 👍 or comment on [RFC Discu
 - ✨ With this macro, you can use Options API in Vue `<script setup>`.
 - 💚 Supports both Vue 2.7 and Vue 3 out-of-the-box.
 - 🦾 Full TypeScript support.
-- ⚡️ Supports Vite, Nuxt, Webpack, Vue CLI, Rollup, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
+- ⚡️ Supports Vite, Nuxt, Webpack, Vue CLI, Rollup 3, esbuild and more, powered by <a href="https://github.com/unjs/unplugin">unplugin</a>.
 
 ### See Also
 
