@@ -1,7 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { REGEX_VUE_SFC } from '@vue-macros/common'
-import { createCombinePlugin } from 'unplugin-combine'
 import { parseVueRequest } from '@vitejs/plugin-vue'
 import { postTransform, preTransform } from './core'
 import {
@@ -9,7 +8,6 @@ import {
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE,
 } from './core/constants'
-import type { UnpluginCombineInstance } from 'unplugin-combine'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -120,15 +118,8 @@ export const PostPlugin = createUnplugin<Options | undefined>(
   }
 )
 
-const plugin: UnpluginCombineInstance<Options | undefined> =
-  createCombinePlugin((userOptions: Options = {}) => {
-    return {
-      name,
-      plugins: [
-        [PrePlugin, userOptions],
-        [PostPlugin, userOptions],
-      ],
-    }
-  })
+const plugin = createUnplugin((userOptions: Options = {}, meta) => {
+  return [PrePlugin.raw(userOptions, meta), PostPlugin.raw(userOptions, meta)]
+})
 
 export default plugin
