@@ -18,6 +18,7 @@ importers:
       eslint-define-config: ^1.12.0
       expect-type: ^0.15.0
       fast-glob: ^3.2.12
+      hookable: ^5.4.2
       npm-run-all: ^4.1.5
       tsup: ^6.5.0
       tsx: ^3.12.1
@@ -26,6 +27,7 @@ importers:
       vite: ^4.0.0
       vitest: ^0.25.6
       vue: ^3.2.45
+      webpack: ^5.75.0
     devDependencies:
       '@babel/types': 7.20.5
       '@changesets/changelog-github': 0.4.7
@@ -41,6 +43,7 @@ importers:
       eslint-define-config: 1.12.0
       expect-type: 0.15.0
       fast-glob: 3.2.12
+      hookable: 5.4.2
       npm-run-all: 4.1.5
       tsup: 6.5.0_typescript@4.9.4
       tsx: 3.12.1
@@ -49,6 +52,7 @@ importers:
       vite: 4.0.0_@types+node@18.11.12
       vitest: 0.25.6_@vitest+ui@0.25.6
       vue: 3.2.45
+      webpack: 5.75.0
 
   docs:
     specifiers:
@@ -190,7 +194,6 @@ importers:
   packages/macros:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
-      '@types/webpack': ^5.28.0
       '@vue-macros/better-define': workspace:*
       '@vue-macros/define-model': workspace:*
       '@vue-macros/define-props': workspace:*
@@ -225,7 +228,6 @@ importers:
       unplugin-combine: 0.5.1_esbuild@0.16.3
       unplugin-vue-define-options: link:../define-options
     devDependencies:
-      '@types/webpack': 5.28.0_esbuild@0.16.3
       esbuild: 0.16.3
       unplugin: 1.0.0
       vue: 3.2.45
@@ -253,7 +255,6 @@ importers:
       '@nuxt/schema': ^3.0.0
       '@vue-macros/short-vmodel': workspace:~
       '@vue-macros/volar': workspace:~
-      hookable: ^5.4.2
       unplugin-vue-macros: workspace:~
     dependencies:
       '@nuxt/kit': 3.0.0
@@ -262,7 +263,6 @@ importers:
       unplugin-vue-macros: link:../macros
     devDependencies:
       '@nuxt/schema': 3.0.0
-      hookable: 5.4.2
 
   packages/setup-block:
     specifiers:
@@ -3968,19 +3968,6 @@ packages:
 
   /@types/web-bluetooth/0.0.16:
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
-
-  /@types/webpack/5.28.0_esbuild@0.16.3:
-    resolution: {integrity: sha512-8cP0CzcxUiFuA9xGJkfeVpqmWTk9nx6CWwamRGCj95ph1SmlRRk9KlCZ6avhCbZd4L68LvYT6l1kpdEnQXrF8w==}
-    dependencies:
-      '@types/node': 18.11.12
-      tapable: 2.2.1
-      webpack: 5.75.0_esbuild@0.16.3
-    transitivePeerDependencies:
-      - '@swc/core'
-      - esbuild
-      - uglify-js
-      - webpack-cli
-    dev: true
 
   /@typescript-eslint/eslint-plugin/5.43.0_ae7js2nxcehzgwzde5imjp6fde:
     resolution: {integrity: sha512-wNPzG+eDR6+hhW4yobEmpR36jrqqQv1vxBq5LJO3fBAktjkvekfr4BRl+3Fn1CM/A+s8/EiGUbOMDoYqWdbtXA==}
@@ -10169,7 +10156,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /terser-webpack-plugin/5.3.6_qpgcxymiuvvvhancmiw32wjaau:
+  /terser-webpack-plugin/5.3.6_webpack@5.75.0:
     resolution: {integrity: sha512-kfLFk+PoLUQIbLmB1+PZDMRSZS99Mp+/MHqDNmMA6tOItzRt+Npe3E+fsMs5mfcM0wCtrrdU387UnV+vnSffXQ==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -10186,12 +10173,11 @@ packages:
         optional: true
     dependencies:
       '@jridgewell/trace-mapping': 0.3.17
-      esbuild: 0.16.3
       jest-worker: 27.5.1
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       terser: 5.15.1
-      webpack: 5.75.0_esbuild@0.16.3
+      webpack: 5.75.0
     dev: true
 
   /terser/5.15.1:
@@ -11195,7 +11181,7 @@ packages:
   /webpack-virtual-modules/0.4.6:
     resolution: {integrity: sha512-5tyDlKLqPfMqjT3Q9TAqf2YqjwmnUleZwzJi1A5qXnlBCdj2AtOJ6wAWdglTIDOPgOiOrXeBeFcsQ8+aGQ6QbA==}
 
-  /webpack/5.75.0_esbuild@0.16.3:
+  /webpack/5.75.0:
     resolution: {integrity: sha512-piaIaoVJlqMsPtX/+3KTTO6jfvrSYgauFVdt8cr9LTHKmcq/AMd4mhzsiP7ZF/PGRNPGA8336jldh9l2Kt2ogQ==}
     engines: {node: '>=10.13.0'}
     hasBin: true
@@ -11226,7 +11212,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.6_qpgcxymiuvvvhancmiw32wjaau
+      terser-webpack-plugin: 5.3.6_webpack@5.75.0
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
