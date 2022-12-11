@@ -14,11 +14,7 @@ import VueShortEmits from '@vue-macros/short-emits'
 
 import { getVueVersion } from './utils'
 import type { UnpluginInstance } from 'unplugin'
-import type {
-  OptionsPlugin,
-  Unplugin,
-  UnpluginCombineInstance,
-} from 'unplugin-combine'
+import type { OptionsPlugin, Plugin, PluginType } from 'unplugin-combine'
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
 import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
@@ -127,48 +123,60 @@ function resolveOptions({
 }
 
 function resolvePlugin(
-  options: FeatureOptions | false,
-  unplugin: UnpluginCombineInstance<any>,
-  index: number
-): Unplugin<any> | undefined
+  unplugin: UnpluginInstance<any, true>,
+  framework: PluginType,
+  options: FeatureOptions | false
+): Plugin[] | undefined
+
 function resolvePlugin(
-  options: FeatureOptions | false,
-  unplugin: UnpluginInstance<any, false>
-): Unplugin<any> | undefined
+  unplugin: UnpluginInstance<any, false>,
+  framework: PluginType,
+  options: FeatureOptions | false
+): Plugin | undefined
+
 function resolvePlugin(
-  options: FeatureOptions | false,
-  unplugin: UnpluginInstance<any, false> | UnpluginCombineInstance<any>,
-  idx?: number
-): Unplugin<any> | undefined {
+  unplugin: UnpluginInstance<any, boolean>,
+  framework: PluginType,
+  options: FeatureOptions | false
+): Plugin | Plugin[] | undefined {
   if (!options) return
-  if ('plugins' in unplugin) {
-    return ((unplugin.plugins as any)(options) as Unplugin<any>)[idx!]
-  }
-  return [unplugin, options]
+  return unplugin[framework!](options)
 }
 
 const name = 'unplugin-vue-macros'
 
-export default createCombinePlugin((userOptions: Options = {}) => {
+export default createCombinePlugin((userOptions: Options = {}, meta) => {
   const options = resolveOptions(userOptions)
 
+  const framework = meta.framework!
+  const setupComponentPlugins = resolvePlugin(
+    VueSetupComponent,
+    framework,
+    options.setupComponent
+  )
+  const namedTemplatePlugins = resolvePlugin(
+    VueNamedTemplate,
+    framework,
+    options.namedTemplate
+  )
+
   const plugins: OptionsPlugin[] = [
-    resolvePlugin(options.setupSFC, VueSetupSFC),
-    resolvePlugin(options.setupComponent, VueSetupComponent, 0),
-    resolvePlugin(options.setupBlock, VueSetupBlock),
-    resolvePlugin(options.hoistStatic, VueHoistStatic),
-    resolvePlugin(options.namedTemplate, VueNamedTemplate, 0),
-    resolvePlugin(options.defineProps, VueDefineProps),
-    resolvePlugin(options.shortEmits, VueShortEmits),
-    resolvePlugin(options.defineModel, VueDefineModel),
-    resolvePlugin(options.defineSlots, VueDefineSlots),
-    resolvePlugin(options.betterDefine, VueBetterDefine),
-    resolvePlugin(options.defineOptions, VueDefineOptions),
+    resolvePlugin(VueSetupSFC, framework, options.setupSFC),
+    setupComponentPlugins?.[0],
+    resolvePlugin(VueSetupBlock, framework, options.setupBlock),
+    resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
+    namedTemplatePlugins?.[0],
+    resolvePlugin(VueDefineProps, framework, options.defineProps),
+    resolvePlugin(VueShortEmits, framework, options.shortEmits),
+    resolvePlugin(VueDefineModel, framework, options.defineModel),
+    resolvePlugin(VueDefineSlots, framework, options.defineSlots),
+    resolvePlugin(VueBetterDefine, framework, options.betterDefine),
+    resolvePlugin(VueDefineOptions, framework, options.defineOptions),
     options.plugins.vue,
     options.plugins.vueJsx,
-    resolvePlugin(options.defineRender, VueDefineRender),
-    resolvePlugin(options.setupComponent, VueSetupComponent, 1),
-    resolvePlugin(options.namedTemplate, VueNamedTemplate, 1),
+    resolvePlugin(VueDefineRender, framework, options.defineRender),
+    setupComponentPlugins?.[1],
+    namedTemplatePlugins?.[1],
   ].filter(Boolean)
 
   return {
