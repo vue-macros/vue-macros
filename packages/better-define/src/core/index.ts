@@ -1,7 +1,6 @@
 import { MagicString, getTransformResult, parseSFC } from '@vue-macros/common'
 import { analyzeSFC } from '@vue-macros/api'
 import type { TSEmits, TSProps } from '@vue-macros/api'
-import type {} from '@babel/types'
 
 export const transformBetterDefine = async (
   code: string,
