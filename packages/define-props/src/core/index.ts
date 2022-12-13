@@ -10,8 +10,6 @@ import {
 } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
-// TODO: replace Babel with SWC
-
 export const transfromDefineProps = (code: string, id: string) => {
   if (!code.includes(DEFINE_PROPS_DOLLAR)) return
 

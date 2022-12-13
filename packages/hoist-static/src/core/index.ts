@@ -27,7 +27,6 @@ export const transformHoistStatic = (code: string, id: string) => {
   const setupOffset = scriptSetup.loc.start.offset
   const setupOffsetEnd = scriptSetup.loc.end.offset
   const s = new MagicString(code)
-  // TODO use SWC
   const program = babelParse(scriptSetup.loc.source, lang)
 
   let normalScript = addNormalScript(ctx, s)

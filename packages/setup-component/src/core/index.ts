@@ -20,8 +20,6 @@ import type { HmrContext, ModuleNode } from 'vite'
 
 export * from './constants'
 
-// TODO SWC
-
 interface FileContextComponent {
   code: string
   body: string

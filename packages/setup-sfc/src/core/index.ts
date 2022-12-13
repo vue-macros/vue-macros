@@ -6,8 +6,6 @@ import {
 } from '@vue-macros/common'
 import type { HmrContext } from 'vite'
 
-// TODO: replace Babel with SWC
-
 export const transfromSetupSFC = (code: string, id: string) => {
   const lang = getLang(id)
   const program = babelParse(code, lang)
