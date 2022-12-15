@@ -15,7 +15,8 @@ We assume you are already familiar with the basic usages of Vue before you conti
 
 - [Vite + Vue 3](https://github.com/sxzz/unplugin-vue-macros/tree/main/playground/vue3)
 - [Vite + Vue 2](https://github.com/sxzz/unplugin-vue-macros/tree/main/playground/vue2)
-- [Nuxt 3](https://github.com/sxzz/nuxt-macros)
+- [Nuxt 3 + Vue 3](https://github.com/vue-macros/nuxt)
+- [Vue CLI + Vue 2](https://github.com/vue-macros/vue2-vue-cli)
 
 🌟 More demos are welcome!
 
