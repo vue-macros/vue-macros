@@ -1,5 +1,24 @@
 # unplugin-vue-macros
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`d81825a`](https://github.com/sxzz/unplugin-vue-macros/commit/d81825a9bbe003f5af4ee3858241cc5bdb8f264f)]:
+  - @vue-macros/common@0.13.5
+  - @vue-macros/define-model@1.1.1
+  - unplugin-vue-define-options@1.1.1
+  - @vue-macros/define-props@0.1.1
+  - @vue-macros/define-slots@0.1.1
+  - @vue-macros/better-define@1.1.1
+  - @vue-macros/define-render@1.1.1
+  - @vue-macros/hoist-static@1.1.1
+  - @vue-macros/named-template@0.1.1
+  - @vue-macros/setup-block@0.0.2
+  - @vue-macros/setup-component@0.13.1
+  - @vue-macros/setup-sfc@0.13.1
+  - @vue-macros/short-emits@1.1.1
+
 ## 1.1.0
 
 ### Minor Changes
