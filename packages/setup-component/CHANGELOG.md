@@ -1,5 +1,12 @@
 # @vue-macros/setup-component
 
+## 0.13.0
+
+### Minor Changes
+
+- [#177](https://github.com/sxzz/unplugin-vue-macros/pull/177) [`934d5f8`](https://github.com/sxzz/unplugin-vue-macros/commit/934d5f8e935fc6ee0a4b3846e183b6611e10c571) Thanks [@sxzz](https://github.com/sxzz)! - Support Vite 4
+  Drop Rollup 2
+
 ## 0.12.8
 
 ### Patch Changes
