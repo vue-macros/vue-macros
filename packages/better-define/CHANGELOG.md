@@ -1,5 +1,13 @@
 # @vue-macros/better-define
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`d81825a`](https://github.com/sxzz/unplugin-vue-macros/commit/d81825a9bbe003f5af4ee3858241cc5bdb8f264f)]:
+  - @vue-macros/common@0.13.5
+  - @vue-macros/api@0.2.1
+
 ## 1.1.0
 
 ### Minor Changes
