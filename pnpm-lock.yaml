@@ -101,10 +101,12 @@ importers:
       '@babel/types': ^7.20.5
       '@vue/compiler-sfc': ^3.2.45
       estree-walker: ^3.0.1
+      local-pkg: ^0.4.2
       magic-string: ^0.27.0
     dependencies:
       '@babel/types': 7.20.5
       '@vue/compiler-sfc': 3.2.45
+      local-pkg: 0.4.2
       magic-string: 0.27.0
     devDependencies:
       '@babel/parser': 7.20.5
@@ -195,6 +197,7 @@ importers:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
       '@vue-macros/better-define': workspace:*
+      '@vue-macros/common': workspace:*
       '@vue-macros/define-model': workspace:*
       '@vue-macros/define-props': workspace:*
       '@vue-macros/define-render': workspace:*
@@ -206,7 +209,6 @@ importers:
       '@vue-macros/setup-sfc': workspace:*
       '@vue-macros/short-emits': workspace:*
       esbuild: ^0.16.7
-      local-pkg: ^0.4.2
       unplugin: ^1.0.1
       unplugin-combine: ^0.5.2
       unplugin-vue-define-options: workspace:*
@@ -214,6 +216,7 @@ importers:
     dependencies:
       '@rollup/pluginutils': 5.0.2
       '@vue-macros/better-define': link:../better-define
+      '@vue-macros/common': link:../common
       '@vue-macros/define-model': link:../define-model
       '@vue-macros/define-props': link:../define-props
       '@vue-macros/define-render': link:../define-render
@@ -224,7 +227,6 @@ importers:
       '@vue-macros/setup-component': link:../setup-component
       '@vue-macros/setup-sfc': link:../setup-sfc
       '@vue-macros/short-emits': link:../short-emits
-      local-pkg: 0.4.2
       unplugin-combine: 0.5.2_esbuild@0.16.7
       unplugin-vue-define-options: link:../define-options
     devDependencies:
@@ -10204,7 +10206,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
-      rollup: 3.7.4
+      rollup: 3.7.3
       source-map: 0.8.0-beta.0
       sucrase: 3.29.0
       tree-kill: 1.2.2

@@ -11,8 +11,8 @@ import VueSetupBlock from '@vue-macros/setup-block'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortEmits from '@vue-macros/short-emits'
+import { detectVueVersion } from '@vue-macros/common'
 
-import { getVueVersion } from './utils'
 import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Plugin, PluginType } from 'unplugin-combine'
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
@@ -97,7 +97,7 @@ function resolveOptions({
   }
 
   root = root || process.cwd()
-  version = version || getVueVersion()
+  version = version || detectVueVersion()
   isProduction = isProduction ?? process.env.NODE_ENV === 'production'
 
   return {
@@ -107,10 +107,12 @@ function resolveOptions({
       isProduction,
     }),
     defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
-    defineOptions: resolveSubOptions<'defineOptions'>(defineOptions),
-    defineProps: resolveSubOptions<'defineProps'>(defineProps),
+    defineOptions: resolveSubOptions<'defineOptions'>(defineOptions, {
+      version,
+    }),
+    defineProps: resolveSubOptions<'defineProps'>(defineProps, { version }),
     defineRender: resolveSubOptions<'defineRender'>(defineRender),
-    defineSlots: resolveSubOptions<'defineSlots'>(defineSlots),
+    defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
     setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, undefined, false),
