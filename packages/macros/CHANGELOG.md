@@ -1,5 +1,27 @@
 # unplugin-vue-macros
 
+## 1.1.0
+
+### Minor Changes
+
+- [#177](https://github.com/sxzz/unplugin-vue-macros/pull/177) [`934d5f8`](https://github.com/sxzz/unplugin-vue-macros/commit/934d5f8e935fc6ee0a4b3846e183b6611e10c571) Thanks [@sxzz](https://github.com/sxzz)! - Support Vite 4
+  Drop Rollup 2
+
+### Patch Changes
+
+- Updated dependencies [[`934d5f8`](https://github.com/sxzz/unplugin-vue-macros/commit/934d5f8e935fc6ee0a4b3846e183b6611e10c571), [`b978650`](https://github.com/sxzz/unplugin-vue-macros/commit/b978650fef0ec4d1f1c8f2bb5bf76e75b4feab26)]:
+  - @vue-macros/better-define@1.1.0
+  - @vue-macros/define-model@1.1.0
+  - unplugin-vue-define-options@1.1.0
+  - @vue-macros/define-props@0.1.0
+  - @vue-macros/define-render@1.1.0
+  - @vue-macros/define-slots@0.1.0
+  - @vue-macros/hoist-static@1.1.0
+  - @vue-macros/named-template@0.1.0
+  - @vue-macros/setup-component@0.13.0
+  - @vue-macros/setup-sfc@0.13.0
+  - @vue-macros/short-emits@1.1.0
+
 ## 1.0.3
 
 ### Patch Changes
