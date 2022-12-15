@@ -20,27 +20,29 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-export default createUnplugin((userOptions: Options = {}) => {
-  const options = resolveOption(userOptions)
-  const filter = createFilter(options.include, options.exclude)
+export default createUnplugin<Options | undefined, false>(
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
+    const filter = createFilter(options.include, options.exclude)
 
-  const name = 'unplugin-vue-define-options'
-  return {
-    name,
-    enforce: 'pre',
+    const name = 'unplugin-vue-define-options'
+    return {
+      name,
+      enforce: 'pre',
 
-    transformInclude(id) {
-      return filter(id)
-    },
+      transformInclude(id) {
+        return filter(id)
+      },
 
-    transform(code, id) {
-      try {
-        return transform(code, id)
-      } catch (err: unknown) {
-        this.error(`${name} ${err}`)
-      }
-    },
+      transform(code, id) {
+        try {
+          return transform(code, id)
+        } catch (err: unknown) {
+          this.error(`${name} ${err}`)
+        }
+      },
+    }
   }
-})
+)
 
 export { transform }

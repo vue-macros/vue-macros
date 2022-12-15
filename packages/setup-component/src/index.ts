@@ -39,7 +39,7 @@ function resolveOption(options: Options): OptionsResolved {
 }
 
 const name = 'unplugin-vue-setup-component'
-const PrePlugin = createUnplugin<Options | undefined>(
+const PrePlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}, meta) => {
     const options = resolveOption(userOptions)
     const filter = createFilter(options.include, options.exclude)
@@ -100,7 +100,7 @@ const PrePlugin = createUnplugin<Options | undefined>(
   }
 )
 
-const PostPlugin = createUnplugin(() => {
+const PostPlugin = createUnplugin<Options | undefined, false>(() => {
   return {
     name: `${name}-post`,
     enforce: 'post',
@@ -124,8 +124,10 @@ const PostPlugin = createUnplugin(() => {
   }
 })
 
-const plugin = createUnplugin<Options | undefined>((options = {}, meta) => {
-  return [PrePlugin.raw(options, meta), PostPlugin.raw(options, meta)]
-})
+const plugin = createUnplugin<Options | undefined, true>(
+  (options = {}, meta) => {
+    return [PrePlugin.raw(options, meta), PostPlugin.raw(options, meta)]
+  }
+)
 
 export default plugin

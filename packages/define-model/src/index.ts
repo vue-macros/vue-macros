@@ -42,38 +42,45 @@ function resolveOption(options: Options): OptionsResolved {
 
 const name = 'unplugin-vue-define-model'
 
-export default createUnplugin((userOptions: Options = {}) => {
-  const options = resolveOption(userOptions)
-  const filter = createFilter(options.include, options.exclude)
+export default createUnplugin<Options | undefined, false>(
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
+    const filter = createFilter(options.include, options.exclude)
 
-  return {
-    name,
-    enforce: 'pre',
+    return {
+      name,
+      enforce: 'pre',
 
-    resolveId(id) {
-      if (id.startsWith(helperPrefix)) return id
-    },
+      resolveId(id) {
+        if (id.startsWith(helperPrefix)) return id
+      },
 
-    loadInclude(id) {
-      return id.startsWith(helperPrefix)
-    },
+      loadInclude(id) {
+        return id.startsWith(helperPrefix)
+      },
 
-    load(_id) {
-      const id = normalizePath(_id)
-      if (id === emitHelperId) return emitHelperCode
-      else if (id === useVmodelHelperId) return useVmodelHelperCode
-    },
+      load(_id) {
+        const id = normalizePath(_id)
+        if (id === emitHelperId) return emitHelperCode
+        else if (id === useVmodelHelperId) return useVmodelHelperCode
+      },
 
-    transformInclude(id) {
-      return filter(id)
-    },
+      transformInclude(id) {
+        return filter(id)
+      },
 
-    transform(code, id) {
-      try {
-        return transformDefineModel(code, id, options.version, options.unified)
-      } catch (err: unknown) {
-        this.error(`${name} ${err}`)
-      }
-    },
+      transform(code, id) {
+        try {
+          return transformDefineModel(
+            code,
+            id,
+            options.version,
+            options.unified
+          )
+        } catch (err: unknown) {
+          this.error(`${name} ${err}`)
+        }
+      },
+    }
   }
-})
+)

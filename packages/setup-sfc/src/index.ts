@@ -22,41 +22,43 @@ function resolveOption(options: Options): OptionsResolved {
 
 const name = 'unplugin-vue-setup-sfc'
 
-export default createUnplugin((userOptions: Options = {}) => {
-  const options = resolveOption(userOptions)
-  const filter = createFilter(options.include, options.exclude)
+export default createUnplugin<Options | undefined, false>(
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
+    const filter = createFilter(options.include, options.exclude)
 
-  return {
-    name,
-    enforce: 'pre',
+    return {
+      name,
+      enforce: 'pre',
 
-    transformInclude(id) {
-      return filter(id)
-    },
+      transformInclude(id) {
+        return filter(id)
+      },
 
-    transform(code, id) {
-      try {
-        return transfromSetupSFC(code, id)
-      } catch (err: unknown) {
-        this.error(`${name} ${err}`)
-      }
-    },
-
-    vite: {
-      config() {
-        return {
-          esbuild: {
-            exclude: options.include as any,
-            include: options.exclude as any,
-          },
+      transform(code, id) {
+        try {
+          return transfromSetupSFC(code, id)
+        } catch (err: unknown) {
+          this.error(`${name} ${err}`)
         }
       },
 
-      handleHotUpdate: (ctx) => {
-        if (filter(ctx.file)) {
-          return hotUpdateSetupSFC(ctx, filter)
-        }
+      vite: {
+        config() {
+          return {
+            esbuild: {
+              exclude: options.include as any,
+              include: options.exclude as any,
+            },
+          }
+        },
+
+        handleHotUpdate: (ctx) => {
+          if (filter(ctx.file)) {
+            return hotUpdateSetupSFC(ctx, filter)
+          }
+        },
       },
-    },
+    }
   }
-})
+)

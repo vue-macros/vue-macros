@@ -31,7 +31,7 @@ export type TemplateContent = Record<
 >
 
 const name = 'unplugin-vue-named-template'
-export const PrePlugin = createUnplugin<Options | undefined>(
+export const PrePlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
     const options = resolveOption(userOptions)
     const filter = createFilter(options.include, options.exclude)
@@ -85,7 +85,7 @@ export default {
 )
 
 export type CustomBlocks = Record<string, Record<string, string>>
-export const PostPlugin = createUnplugin<Options | undefined>(
+export const PostPlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
     const options = resolveOption(userOptions)
     const filter = createFilter(options.include, options.exclude)
@@ -117,8 +117,10 @@ export const PostPlugin = createUnplugin<Options | undefined>(
   }
 )
 
-const plugin = createUnplugin((userOptions: Options = {}, meta) => {
-  return [PrePlugin.raw(userOptions, meta), PostPlugin.raw(userOptions, meta)]
-})
+const plugin = createUnplugin<Options | undefined, true>(
+  (userOptions = {}, meta) => {
+    return [PrePlugin.raw(userOptions, meta), PostPlugin.raw(userOptions, meta)]
+  }
+)
 
 export default plugin

@@ -26,24 +26,26 @@ function resolveOption(options: Options): OptionsResolved {
 
 const name = 'unplugin-vue-define-render'
 
-export default createUnplugin((userOptions: Options = {}) => {
-  const options = resolveOption(userOptions)
-  const filter = createFilter(options.include, options.exclude)
+export default createUnplugin<Options | undefined, false>(
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
+    const filter = createFilter(options.include, options.exclude)
 
-  return {
-    name,
-    enforce: 'post',
+    return {
+      name,
+      enforce: 'post',
 
-    transformInclude(id) {
-      return filter(id)
-    },
+      transformInclude(id) {
+        return filter(id)
+      },
 
-    transform(code, id) {
-      try {
-        return transformDefineRender(code, id)
-      } catch (err: unknown) {
-        this.error(`${name} ${err}`)
-      }
-    },
+      transform(code, id) {
+        try {
+          return transformDefineRender(code, id)
+        } catch (err: unknown) {
+          this.error(`${name} ${err}`)
+        }
+      },
+    }
   }
-})
+)

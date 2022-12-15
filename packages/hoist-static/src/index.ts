@@ -22,24 +22,26 @@ function resolveOption(options: Options): OptionsResolved {
 
 const name = 'unplugin-vue-hoist-static'
 
-export default createUnplugin((userOptions: Options = {}) => {
-  const options = resolveOption(userOptions)
-  const filter = createFilter(options.include, options.exclude)
+export default createUnplugin<Options | undefined, false>(
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
+    const filter = createFilter(options.include, options.exclude)
 
-  return {
-    name,
-    enforce: 'pre',
+    return {
+      name,
+      enforce: 'pre',
 
-    transformInclude(id) {
-      return filter(id)
-    },
+      transformInclude(id) {
+        return filter(id)
+      },
 
-    transform(code, id) {
-      try {
-        return transformHoistStatic(code, id)
-      } catch (err: unknown) {
-        this.error(`${name} ${err}`)
-      }
-    },
+      transform(code, id) {
+        try {
+          return transformHoistStatic(code, id)
+        } catch (err: unknown) {
+          this.error(`${name} ${err}`)
+        }
+      },
+    }
   }
-})
+)
