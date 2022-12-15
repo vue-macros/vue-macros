@@ -7,14 +7,13 @@ import {
   walkAST,
 } from '@vue-macros/common'
 import { createTransformContext, parse, traverseNode } from '@vue/compiler-dom'
-import { parseVueRequest } from '@vitejs/plugin-vue'
+import { getChildrenLocation, parseVueRequest } from './utils'
 import {} from '@rollup/pluginutils'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE_MAIN,
 } from './constants'
-import { getChildrenLocation } from './utils'
 import type { CallExpression, Identifier, Node, Program } from '@babel/types'
 import type { CustomBlocks, TemplateContent } from '..'
 import type {
@@ -23,6 +22,9 @@ import type {
   NodeTransform,
   RootNode,
 } from '@vue/compiler-dom'
+
+export * from './constants'
+export * from './utils'
 
 export const transformTemplateIs =
   (s: MagicString): NodeTransform =>

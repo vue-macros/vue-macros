@@ -235,14 +235,12 @@ importers:
   packages/named-template:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
-      '@vitejs/plugin-vue': ^4.0.0
       '@vue-macros/common': workspace:~
       '@vue/compiler-dom': ^3.2.45
       unplugin: ^1.0.0
       vue: ^3.2.45
     dependencies:
       '@rollup/pluginutils': 5.0.2
-      '@vitejs/plugin-vue': 4.0.0_vue@3.2.45
       '@vue-macros/common': link:../common
       '@vue/compiler-dom': 3.2.45
       unplugin: 1.0.0
@@ -4180,19 +4178,6 @@ packages:
       vue: 3.2.45
     dev: true
 
-  /@vitejs/plugin-vue/4.0.0_vue@3.2.45:
-    resolution: {integrity: sha512-e0X4jErIxAB5oLtDqbHvHpJe/uWNkdpYV83AOG2xo2tEVSzCzewgJMtREZM30wXnM5ls90hxiOtAuVU6H5JgbA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      vite: ^4.0.0
-      vue: ^3.2.25
-    peerDependenciesMeta:
-      vite:
-        optional: true
-    dependencies:
-      vue: 3.2.45
-    dev: false
-
   /@vitejs/plugin-vue2-jsx/1.1.0_id73n252gihihxnuotaxk2a2je:
     resolution: {integrity: sha512-Mxg24oJVGXlu33p4fx1nHgG7jW+beK7cK1Xb6IP6tAPXrZ9N/mldFPKKhftBsITgOIKXzHeldKY6iOGEttzjEQ==}
     engines: {node: '>=14.18.0'}
@@ -4632,7 +4617,7 @@ packages:
       '@types/semver': 7.3.13
       '@types/treeify': 1.0.0
       '@yarnpkg/fslib': 3.0.0-rc.32
-      '@yarnpkg/libzip': 3.0.0-rc.32_@yarnpkg+fslib@3.0.0-rc.32
+      '@yarnpkg/libzip': 3.0.0-rc.32
       '@yarnpkg/parsers': 3.0.0-rc.32
       '@yarnpkg/shell': 4.0.0-rc.32
       camelcase: 5.3.1
@@ -4663,7 +4648,7 @@ packages:
       '@types/semver': 7.3.13
       '@types/treeify': 1.0.0
       '@yarnpkg/fslib': 3.0.0-rc.32
-      '@yarnpkg/libzip': 3.0.0-rc.32_@yarnpkg+fslib@3.0.0-rc.32
+      '@yarnpkg/libzip': 3.0.0-rc.32
       '@yarnpkg/parsers': 3.0.0-rc.32
       '@yarnpkg/shell': 4.0.0-rc.32
       camelcase: 5.3.1
@@ -4719,11 +4704,9 @@ packages:
       tslib: 1.14.1
     dev: true
 
-  /@yarnpkg/libzip/3.0.0-rc.32_@yarnpkg+fslib@3.0.0-rc.32:
+  /@yarnpkg/libzip/3.0.0-rc.32:
     resolution: {integrity: sha512-ZGmuf05YyDXvdnkmx9tq02x8fn7E0KRccCOJ1srNuHy8FAF673AGlZOz32dr94hiJN2r0bF/NZgZsZXS58jMtg==}
     engines: {node: '>=14.15.0'}
-    peerDependencies:
-      '@yarnpkg/fslib': ^3.0.0-rc.32
     dependencies:
       '@types/emscripten': 1.39.6
       '@yarnpkg/fslib': 3.0.0-rc.32

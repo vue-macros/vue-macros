@@ -1,8 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { REGEX_VUE_SFC } from '@vue-macros/common'
-import { parseVueRequest } from '@vitejs/plugin-vue'
-import { postTransform, preTransform } from './core'
+import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
