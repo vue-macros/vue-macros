@@ -1,8 +1,11 @@
-import { EmbeddedFileKind } from '@volar/language-core'
 import { DEFINE_MODEL, DEFINE_MODEL_DOLLAR } from '@vue-macros/common'
+import { FileKind } from '@volar/language-core'
 import { getVueLibraryName } from './common'
-import type { Segment, SegmentWithData } from 'muggle-string'
-import type { PositionCapabilities } from '@volar/language-core'
+import type {
+  FileCapabilities,
+  FileRangeCapabilities,
+} from '@volar/language-core'
+import type { Segment } from 'muggle-string'
 import type {
   ResolvedVueCompilerOptions,
   Sfc,
@@ -17,14 +20,14 @@ function transformDefineModel({
   vueLibName,
   unified,
 }: {
-  codes: SegmentWithData<PositionCapabilities>[]
+  codes: Segment<FileRangeCapabilities>[]
   sfc: Sfc
   typeArg: ts.TypeNode
   vueLibName: string
   unified: boolean
 }) {
   const source = sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end)
-  const seg: Segment<PositionCapabilities> = [
+  const seg: Segment<FileRangeCapabilities> = [
     source,
     'scriptSetup',
     typeArg!.pos,
@@ -57,7 +60,7 @@ function transformDefineModel({
   function addProps() {
     const idx = codes.indexOf('setup() {\n')
     if (idx === -1) return false
-    const segs: Segment<PositionCapabilities>[] = [
+    const segs: Segment<FileRangeCapabilities>[] = [
       'props: ({} as __VLS_TypePropsToRuntimeProps<__VLS_ModelToProps<',
       seg,
       '>>),\n',
@@ -85,7 +88,7 @@ function transformDefineModel({
     const idx = codes.indexOf('setup() {\n')
     if (idx === -1) return false
 
-    const segs: Segment<PositionCapabilities>[] = [
+    const segs: Segment<FileCapabilities>[] = [
       'emits: ({} as __VLS_ModelToEmits<',
       seg,
       '>),\n',
@@ -137,7 +140,7 @@ function resolve({
   embeddedFile: VueEmbeddedFile
 }) {
   if (
-    embeddedFile.kind !== EmbeddedFileKind.TypeScriptHostFile ||
+    embeddedFile.kind !== FileKind.TypeScriptHostFile ||
     !sfc.scriptSetup ||
     !sfc.scriptSetupAst
   )

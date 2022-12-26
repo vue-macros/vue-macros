@@ -1,4 +1,4 @@
-import { EmbeddedFileKind } from '@volar/language-core'
+import { FileKind } from '@volar/language-core'
 import { DEFINE_SLOTS } from '@vue-macros/common'
 import { toString } from 'muggle-string'
 import type {
@@ -16,7 +16,7 @@ const transform = ({
   typeArg: ts.TypeNode
   sfc: Sfc
 }) => {
-  if (embeddedFile.kind !== EmbeddedFileKind.TypeScriptHostFile) return
+  if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
   if (!toString(embeddedFile.content).includes(DEFINE_SLOTS)) return
 
   const idx = embeddedFile.content.indexOf('return __VLS_slots;\n')
