@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.5.7
+
+### Patch Changes
+
+- [`14b5fbf`](https://github.com/sxzz/unplugin-vue-macros/commit/14b5fbf3895568665ef414f3c302c62738b7cac2) Thanks [@sxzz](https://github.com/sxzz)! - upgrade volar version
+
 ## 0.5.6
 
 ### Patch Changes
