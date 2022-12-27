@@ -50,11 +50,22 @@ export default defineConfig({
 
 ## Options
 
-`prefix`: `'::' | '$' | '*'`, defaults to `'::'`
+`prefix`: `'::' | '$' | '*'`, defaults to `'$'`
 
 ## Usage
 
-### `::` Double Binding (Default)
+### `$` Dollar Sign (Default)
+
+```vue
+<template>
+  <input $="msg" />
+  <!-- => <input v-model="msg" /> -->
+  <demo $msg="msg" />
+  <!-- => <input v-model:msg="msg" /> -->
+</template>
+```
+
+### `::` Double Binding
 
 ```vue
 <template>
@@ -62,17 +73,6 @@ export default defineConfig({
   <input ::="msg" />
   <!-- => <input v-model="msg" /> -->
   <demo ::msg="msg" />
-  <!-- => <input v-model:msg="msg" /> -->
-</template>
-```
-
-### `$` Dollar Sign (Recommended)
-
-```vue
-<template>
-  <input $="msg" />
-  <!-- => <input v-model="msg" /> -->
-  <demo $msg="msg" />
   <!-- => <input v-model:msg="msg" /> -->
 </template>
 ```
