@@ -5,6 +5,7 @@ import DefineSlotsVue from './examples/define-slots/parent.vue'
 import BetterDefineVue from './examples/better-define/index.vue'
 import DefineRenderVue from './examples/define-render/index.vue'
 import HoistStaticVue from './examples/hoist-static/index.vue'
+import ReactivityTransformVue from './examples/reactivity-transform/index.vue'
 
 // import { SetupComponentFoo } from './examples/setup-component'
 // import { SetupComponentType } from './examples/setup-component/types'
@@ -50,6 +51,11 @@ import SetupSFC from './examples/setup-sfc/index.setup'
     <fieldset>
       <legend>setupSFC</legend>
       <SetupSFC />
+    </fieldset>
+
+    <fieldset>
+      <legend>reactivityTransformVue2</legend>
+      <ReactivityTransformVue />
     </fieldset>
 
     <!-- <fieldset>

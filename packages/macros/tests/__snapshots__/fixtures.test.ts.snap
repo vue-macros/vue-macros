@@ -169,12 +169,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"input\\", \\"changeInput\\", \\"change\\"],
   setup(__props, { emit }) {
-    const { title } = __props;
     let { modelValue, value } = _DM_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"], [\\"value\\", \\"value\\", \\"changeInput\\"]);
     const handleClick = () => {
       emit(\\"change\\");
-      modelValue.value = \\"hello, \\" + title;
-      value.value = \\"Word,\\" + title;
+      modelValue.value = \\"hello, \\" + __props.title;
+      value.value = \\"Word,\\" + __props.title;
     };
     return () => {
     };

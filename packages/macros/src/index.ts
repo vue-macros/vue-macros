@@ -7,6 +7,7 @@ import VueDefineRender from '@vue-macros/define-render'
 import VueDefineSlots from '@vue-macros/define-slots'
 import VueHoistStatic from '@vue-macros/hoist-static'
 import VueNamedTemplate from '@vue-macros/named-template'
+import VueReactivityTransformVue2 from '@vue-macros/reactivity-transform-vue2'
 import VueSetupBlock from '@vue-macros/setup-block'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
@@ -23,6 +24,7 @@ import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
 import type { Options as OptionsDefineSlots } from '@vue-macros/define-slots'
 import type { Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
 import type { Options as OptionsNamedTemplate } from '@vue-macros/named-template'
+import type { Options as OptionsReactivityTransformVue2 } from '@vue-macros/reactivity-transform-vue2'
 import type { Options as OptionsSetupBlock } from '@vue-macros/setup-block'
 import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
 import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
@@ -37,6 +39,7 @@ export interface FeatureOptionsMap {
   defineSlots: OptionsDefineSlots
   hoistStatic: OptionsHoistStatic
   namedTemplate: OptionsNamedTemplate
+  reactivityTransformVue2: OptionsReactivityTransformVue2
   setupBlock: OptionsSetupBlock
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
@@ -78,6 +81,7 @@ function resolveOptions({
   defineSlots,
   hoistStatic,
   namedTemplate,
+  reactivityTransformVue2,
   setupBlock,
   setupComponent,
   setupSFC,
@@ -90,9 +94,9 @@ function resolveOptions({
     > = {},
     defaultEnabled = true
   ): FeatureOptionsMap[K] | false {
-    if (defaultEnabled ? options === false : !options) return false
-    else if (options === true || options === undefined)
-      return { ...commonOptions }
+    options = options ?? defaultEnabled
+    if (!options) return false
+    else if (options === true) return { ...commonOptions }
     else return { ...options, ...commonOptions }
   }
 
@@ -115,6 +119,11 @@ function resolveOptions({
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
+    reactivityTransformVue2: resolveSubOptions<'reactivityTransformVue2'>(
+      reactivityTransformVue2,
+      undefined,
+      version === 2
+    ),
     setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, undefined, false),
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
       root,
@@ -172,6 +181,11 @@ export default createCombinePlugin((userOptions: Options = {}, meta) => {
     resolvePlugin(VueShortEmits, framework, options.shortEmits),
     resolvePlugin(VueDefineModel, framework, options.defineModel),
     resolvePlugin(VueDefineSlots, framework, options.defineSlots),
+    resolvePlugin(
+      VueReactivityTransformVue2,
+      framework,
+      options.reactivityTransformVue2
+    ),
     resolvePlugin(VueBetterDefine, framework, options.betterDefine),
     resolvePlugin(VueDefineOptions, framework, options.defineOptions),
     options.plugins.vue,

@@ -58,14 +58,6 @@ const { modelValue } = defineModel({
 
 ::: warning
 
-[Reactivity Transform](https://vuejs.org/guide/extras/reactivity-transform.html) is required. You should enable it first. Otherwise, it will lose the reactivity connection.
-
-Unfortunately Reactivity Transform is not implemented in Vue 2, so this macro doesn't support Vue 2 now.
-
-:::
-
-::: warning
-
 Assignment expression is only supported in `<script setup>` block. In other words invalid in `<template>`.
 
 :::
