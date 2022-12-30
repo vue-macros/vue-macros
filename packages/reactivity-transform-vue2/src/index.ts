@@ -4,6 +4,7 @@ import {
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
   REGEX_VUE_SFC,
+  REGEX_VUE_SUB,
 } from '@vue-macros/common'
 import { shouldTransform, transform } from '@vue/reactivity-transform'
 import { helperCode, helperId, transfromVueSFC } from './core'
@@ -20,13 +21,11 @@ export type OptionsResolved = MarkRequired<Options, 'include'>
 
 function resolveOption(
   options: Options,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _framework: UnpluginContextMeta['framework']
+  framework: UnpluginContextMeta['framework']
 ): OptionsResolved {
   return {
     include: [REGEX_SRC_FILE, REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
-      // framework === 'webpack' ? REGEX_VUE_SUB :
-      []
+      framework === 'webpack' ? REGEX_VUE_SUB : []
     ),
     exclude: [/node_modules/],
     ...options,
@@ -63,7 +62,11 @@ export default createUnplugin<Options | undefined, false>(
 
       transform(code, id) {
         try {
-          if (REGEX_VUE_SFC.test(id) || REGEX_SETUP_SFC.test(id)) {
+          if (
+            REGEX_VUE_SFC.test(id) ||
+            REGEX_SETUP_SFC.test(id) ||
+            (framework === 'webpack' && REGEX_VUE_SUB.test(id))
+          ) {
             return transfromVueSFC(code, id)
           } else {
             if (!shouldTransform(code)) return
