@@ -1,5 +1,12 @@
 # @vue-macros/nuxt
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [[`f276a7d`](https://github.com/sxzz/unplugin-vue-macros/commit/f276a7d513cc1cbcb7dcce534e5287447b0676a3)]:
+  - unplugin-vue-macros@1.2.1
+
 ## 0.2.4
 
 ### Patch Changes

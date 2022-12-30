@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 1.2.1
+
+### Patch Changes
+
+- [`f276a7d`](https://github.com/sxzz/unplugin-vue-macros/commit/f276a7d513cc1cbcb7dcce534e5287447b0676a3) Thanks [@sxzz](https://github.com/sxzz)! - add Vue 2 reactivity transform dts
+
+- Updated dependencies [[`bd4171a`](https://github.com/sxzz/unplugin-vue-macros/commit/bd4171a3905badeebe1a0cf3047a13d6599eb626)]:
+  - @vue-macros/reactivity-transform-vue2@0.0.2
+
 ## 1.2.0
 
 ### Minor Changes
