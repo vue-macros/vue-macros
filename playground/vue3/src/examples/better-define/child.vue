@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { BaseEmits, BaseProps } from './types'
+import type { DtsDemo } from './test-dts'
 
 export interface Props extends BaseProps {
   msg: string
@@ -12,7 +13,7 @@ withDefaults(
     Props & {
       union?: string | number
       nonStaticValue?: string
-    }
+    } & DtsDemo
   >(),
   {
     ...{ union: 'defaultValue' },

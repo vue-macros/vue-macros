@@ -468,8 +468,10 @@ export function resolveTSFileIdNode(id: string, importer: string) {
   return (
     tryResolve(id, importer) ||
     tryResolve(`${id}.ts`, importer) ||
+    tryResolve(`${id}.d.ts`, importer) ||
     tryResolve(`${id}/index`, importer) ||
-    tryResolve(`${id}/index.ts`, importer)
+    tryResolve(`${id}/index.ts`, importer) ||
+    tryResolve(`${id}/index.d.ts`, importer)
   )
 }
 

@@ -56,14 +56,21 @@ export default createUnplugin<Options | undefined, false>(
         if (meta.framework === 'rollup' || meta.framework === 'vite') {
           const ctx = this as PluginContext
           const resolveFn: ResolveTSFileIdImpl = async (id, importer) => {
-            let resolved = (await ctx.resolve(id, importer))?.id
+            const tryResolve = async (id: string) => {
+              return (
+                (await ctx.resolve(id, importer)) ||
+                ctx.resolve(`${id}.d`, importer)
+              )
+            }
+
+            let resolved = (await tryResolve(id))?.id
             if (!resolved) return
             if (existsSync(resolved)) {
               collectReferencedFile(importer, resolved)
               return resolved
             }
 
-            resolved = (await ctx.resolve(resolved))?.id
+            resolved = (await tryResolve(resolved))?.id
             if (resolved && existsSync(resolved)) {
               collectReferencedFile(importer, resolved)
               return resolved
