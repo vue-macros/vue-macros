@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.5.8
+
+### Patch Changes
+
+- [`646f7dd`](https://github.com/sxzz/unplugin-vue-macros/commit/646f7dd5b2ba9060aebb5c8ab4b0d2e85508bd83) Thanks [@sxzz](https://github.com/sxzz)! - pin volar dep version
+
 ## 0.5.7
 
 ### Patch Changes
