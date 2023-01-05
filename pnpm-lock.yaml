@@ -371,8 +371,8 @@ importers:
 
   packages/volar:
     specifiers:
-      '@volar/language-core': ^1.0.19
-      '@volar/vue-language-core': ^1.0.19
+      '@volar/language-core': 1.0.22
+      '@volar/vue-language-core': 1.0.22
       '@vue-macros/common': workspace:~
       '@vue-macros/define-props': workspace:~
       '@vue-macros/short-vmodel': workspace:~
@@ -381,13 +381,13 @@ importers:
       typescript: ^4.9.4
       vue-tsc: ^1.0.19
     dependencies:
-      '@volar/language-core': 1.0.19
+      '@volar/language-core': 1.0.22
       '@vue-macros/common': link:../common
       '@vue-macros/define-props': link:../define-props
       '@vue-macros/short-vmodel': link:../short-vmodel
       muggle-string: 0.2.1
     devDependencies:
-      '@volar/vue-language-core': 1.0.19
+      '@volar/vue-language-core': 1.0.22
       '@vue/compiler-dom': 3.2.45
       typescript: 4.9.4
       vue-tsc: 1.0.19_typescript@4.9.4
@@ -4512,9 +4512,22 @@ packages:
     dependencies:
       '@volar/source-map': 1.0.19
       muggle-string: 0.1.0
+    dev: true
+
+  /@volar/language-core/1.0.22:
+    resolution: {integrity: sha512-hiJeCOqxNdtG/04FRGLGI9H9DVz2l6cTqPDBzwqplHXAWfMxjzUaGUrn9sfTG7YMFNZUgK4EYxJnRfhqdtbSFQ==}
+    dependencies:
+      '@volar/source-map': 1.0.22
+      muggle-string: 0.1.0
 
   /@volar/source-map/1.0.19:
     resolution: {integrity: sha512-5fYKsl1evR/QAZ9LADto3kzbYKfpjZLWS9reNpxGR3ODPFTpaJgYk4lqghFyq4yU7/e/ZPZ1zLXjEsnL526URw==}
+    dependencies:
+      muggle-string: 0.1.0
+    dev: true
+
+  /@volar/source-map/1.0.22:
+    resolution: {integrity: sha512-cv4gypHSP4MWVR82ed/+1IpI6794qAl0Q0+KJ+VGMVF8rVugsiF9QbyMCgjel9wNRsssQsazzsf6txOR9vHQiw==}
     dependencies:
       muggle-string: 0.1.0
 
@@ -4529,6 +4542,19 @@ packages:
     dependencies:
       '@volar/language-core': 1.0.19
       '@volar/source-map': 1.0.19
+      '@vue/compiler-dom': 3.2.45
+      '@vue/compiler-sfc': 3.2.45
+      '@vue/reactivity': 3.2.45
+      '@vue/shared': 3.2.45
+      minimatch: 5.1.2
+      vue-template-compiler: 2.7.14
+    dev: true
+
+  /@volar/vue-language-core/1.0.22:
+    resolution: {integrity: sha512-Ki0G/ZdBj2/GLw+/VVH3n9XR/JL6krMIth02EekFn6JV4PGN3mNxbvoh6lOPSDZLR6biOU5nJPnnjpKy8nuXhw==}
+    dependencies:
+      '@volar/language-core': 1.0.22
+      '@volar/source-map': 1.0.22
       '@vue/compiler-dom': 3.2.45
       '@vue/compiler-sfc': 3.2.45
       '@vue/reactivity': 3.2.45
