@@ -103,6 +103,25 @@ const _DM_emit = defineEmits<{
 "
 `;
 
+exports[`fixtures > ./fixtures/reactivity-transform/rename.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_emitHelper from '/plugin-define-model/emit-helper';
+let { modelValue: visible, foo } = defineProps<{
+    modelValue: boolean
+foo: string
+  }>();
+const _DM_emit = defineEmits<{
+    (evt: 'update:modelValue', value: boolean): void
+(evt: 'update:foo', value: string): void
+  }>();
+
+
+_DM_emitHelper(_DM_emit, 'update:modelValue', false)
+console.log(visible, foo)
+</script>
+"
+`;
+
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits.vue 1`] = `
 "<script setup lang=\\"ts\\">
 const { modelValue } = defineProps<{
@@ -511,6 +530,24 @@ const { foo, bar } = _DM_useVModel(\\"foo\\", [\\"bar\\", undefined, undefined, 
 }])
 
 console.log(foo.value, bar.value)
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/rename.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import _DM_useVModel from '/plugin-define-model/use-vmodel';
+defineProps<{
+    modelValue: boolean
+foo: string
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: boolean): void
+(evt: 'update:foo', value: string): void
+  }>();
+const { modelValue: visible, foo } = _DM_useVModel(\\"modelValue\\", \\"foo\\")
+
+console.log(visible, foo)
 </script>
 "
 `;

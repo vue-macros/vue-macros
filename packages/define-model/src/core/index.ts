@@ -12,6 +12,7 @@ import {
   getTransformResult,
   isCallOf,
   parseSFC,
+  resolveObjectKey,
 } from '@vue-macros/common'
 import { emitHelperId, useVmodelHelperId } from './helper'
 import type {
@@ -461,10 +462,11 @@ export const transformDefineModel = (
       original = false
     ) {
       hasTransfromed = true
+      const eventName = aliasMap[id.name]
       const content = `_DM_emitHelper(${emitsIdentifier}, '${getEventKey(
-        id.name
+        String(eventName)
       )}', ${value}${original ? `, ${id.name}` : ''})`
-      s.overwrite(setupOffset + node.start!, setupOffset + node.end!, content)
+      s.overwriteNode(node, content, { offset: setupOffset })
     }
 
     walkAST(setupAst!, {
@@ -577,6 +579,19 @@ export const transformDefineModel = (
   }
 
   const map = extractPropsDefinitions(modelTypeDecl)
+  const aliasMap: Record<string, string | number> = {}
+  if (modelDestructureDecl)
+    for (const p of modelDestructureDecl.properties) {
+      if (p.type !== 'ObjectProperty') continue
+      try {
+        const key = resolveObjectKey(p.key, p.computed, false)
+        if (p.value.type !== 'Identifier') continue
+        aliasMap[p.value.name] = key
+      } catch {}
+    }
+
+  // const defaults = resolveObjectExpression(defaultsAst)
+  // if (!defaults) return { defaultsAst }
 
   rewriteMacros()
 
