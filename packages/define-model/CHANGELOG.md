@@ -1,5 +1,11 @@
 # @vue-macros/define-model
 
+## 1.2.1
+
+### Patch Changes
+
+- [`ed21c75`](https://github.com/sxzz/unplugin-vue-macros/commit/ed21c75324012b55b1a9393d143e994e32332620) Thanks [@sxzz](https://github.com/sxzz)! - support rename in declaration
+
 ## 1.2.0
 
 ### Minor Changes
