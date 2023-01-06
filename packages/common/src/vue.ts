@@ -1,5 +1,6 @@
 import { compileScript, parse } from '@vue/compiler-sfc'
-import type { Statement } from '@babel/types'
+import { babelParse } from './ast'
+import type { Program, Statement } from '@babel/types'
 import type { MagicString } from './magic-string'
 import type {
   SFCDescriptor,
@@ -21,6 +22,8 @@ export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
     scriptSetupAst?: Statement[]
   }
   lang: string | undefined
+  scriptAst: Program | undefined
+  setupAst: Program | undefined
 } & Pick<SFCParseResult, 'errors'>
 
 export const parseSFC = (code: string, id: string): SFC => {
@@ -41,6 +44,14 @@ export const parseSFC = (code: string, id: string): SFC => {
       return (scriptCompiled = compileScript(descriptor, {
         id,
       }))
+    },
+    get setupAst() {
+      if (!descriptor.scriptSetup) return
+      return babelParse(descriptor.scriptSetup.content, lang)
+    },
+    get scriptAst() {
+      if (!descriptor.script) return
+      return babelParse(descriptor.script.content, lang)
     },
   }
 }

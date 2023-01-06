@@ -262,7 +262,7 @@ export const transformDefineModel = (
           return isQualifiedType(node.declaration)
         }
       }
-      for (const node of setupAst) {
+      for (const node of setupNodes) {
         const qualified = isQualifiedType(node)
         if (qualified) {
           return qualified
@@ -467,7 +467,7 @@ export const transformDefineModel = (
       s.overwrite(setupOffset + node.start!, setupOffset + node.end!, content)
     }
 
-    walkAST(setupProgram, {
+    walkAST(setupAst!, {
       leave(node) {
         if (node.type === 'AssignmentExpression') {
           if (node.left.type !== 'Identifier') return
@@ -504,20 +504,19 @@ export const transformDefineModel = (
   }
 
   if (!code.includes(DEFINE_MODEL)) return
-  const { script, scriptSetup, lang } = parseSFC(code, id)
+  const { script, scriptSetup, lang, setupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
   const setupOffset = scriptSetup.loc.start.offset
   const setupContent = scriptSetup.content
-  const setupProgram = babelParse(setupContent, lang)
-  const setupAst = setupProgram.body
+  const setupNodes = setupAst!.body
 
   const s = new MagicString(code)
 
   if (version === 2) processVue2Script()
 
   // process <script setup>
-  for (const node of setupAst) {
+  for (const node of setupNodes) {
     if (node.type === 'ExpressionStatement') {
       processDefinePropsOrEmits(node.expression)
 

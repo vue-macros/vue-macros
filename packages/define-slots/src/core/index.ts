@@ -9,19 +9,18 @@ import {
 export const transfromDefineSlots = (code: string, id: string) => {
   if (!code.includes(DEFINE_SLOTS)) return
 
-  const sfc = parseSFC(code, id)
-  if (!sfc.scriptSetup || !sfc.scriptCompiled.scriptSetupAst) return
+  const { scriptSetup, setupAst } = parseSFC(code, id)
+  if (!scriptSetup || !setupAst) return
 
-  const { scriptSetupAst } = sfc.scriptCompiled
   const s = new MagicString(code)
 
-  for (const stmt of scriptSetupAst) {
+  for (const stmt of setupAst.body) {
     if (
       stmt.type === 'ExpressionStatement' &&
       isCallOf(stmt.expression, DEFINE_SLOTS)
     ) {
       s.overwriteNode(stmt, '/*defineSlots*/', {
-        offset: sfc.scriptSetup.loc.start.offset,
+        offset: scriptSetup.loc.start.offset,
       })
     }
   }

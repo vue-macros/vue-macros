@@ -2,7 +2,6 @@ import {
   DEFINE_OPTIONS,
   MagicString,
   addNormalScript,
-  babelParse,
   checkInvalidScopeReference,
   getTransformResult,
   parseSFC,
@@ -15,24 +14,19 @@ export const transform = (code: string, id: string) => {
   if (!code.includes(DEFINE_OPTIONS)) return
 
   const sfc = parseSFC(code, id)
-  const { script, scriptSetup, lang } = sfc
-  if (!scriptSetup) return
-
+  if (!sfc.scriptSetup) return
+  const { scriptSetup, setupAst, scriptAst } = sfc
   const setupOffset = scriptSetup.loc.start.offset
-  const setupAst = babelParse(scriptSetup.content, lang).body
 
-  const nodes = filterMacro(setupAst)
+  const nodes = filterMacro(setupAst!.body)
   if (nodes.length === 0) {
     return
   } else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
 
-  if (script) {
-    const scriptAst = babelParse(script.content, lang).body
-    checkDefaultExport(scriptAst)
-  }
+  if (scriptAst) checkDefaultExport(scriptAst.body)
 
-  const setupBindings = setupAst ? getIdentifiers(setupAst) : []
+  const setupBindings = getIdentifiers(setupAst!.body)
 
   const s = new MagicString(code)
 
