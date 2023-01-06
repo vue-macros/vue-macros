@@ -8,6 +8,7 @@ import {
   MagicString,
   REPO_ISSUE_URL,
   WITH_DEFAULTS,
+  babelParse,
   getTransformResult,
   isCallOf,
   parseSFC,
@@ -20,7 +21,6 @@ import type {
   ObjectExpression,
   ObjectPattern,
   ObjectProperty,
-  Program,
   Statement,
   TSInterfaceBody,
   TSTypeLiteral,
@@ -155,7 +155,7 @@ export const transformDefineModel = (
           }
         }
       } else {
-        modelIdentifier = scriptCompiled.loc.source.slice(
+        modelIdentifier = scriptSetup!.loc.source.slice(
           declId.start!,
           declId.end!
         )
@@ -176,11 +176,12 @@ export const transformDefineModel = (
   }
 
   function processVue2Script() {
-    if (!scriptCompiled.scriptAst || scriptCompiled.scriptAst.length === 0)
-      return
+    if (!script) return
+    const scriptAst = babelParse(script.content, lang).body
+    if (scriptAst.length === 0) return
 
     // process normal <script>
-    for (const node of scriptCompiled.scriptAst as Statement[]) {
+    for (const node of scriptAst as Statement[]) {
       if (node.type === 'ExportDefaultDeclaration') {
         const { declaration } = node
         if (declaration.type === 'ObjectExpression') {
@@ -261,8 +262,7 @@ export const transformDefineModel = (
           return isQualifiedType(node.declaration)
         }
       }
-      const body = sfc.scriptCompiled.scriptSetupAst!
-      for (const node of body) {
+      for (const node of setupAst) {
         const qualified = isQualifiedType(node)
         if (qualified) {
           return qualified
@@ -272,8 +272,6 @@ export const transformDefineModel = (
   }
 
   function extractPropsDefinitions(node: TSTypeLiteral | TSInterfaceBody) {
-    const content = scriptCompiled.loc.source
-
     const members = node.type === 'TSTypeLiteral' ? node.members : node.body
     const map: Record<
       string,
@@ -300,7 +298,7 @@ export const transformDefineModel = (
             type.typeParameters?.type === 'TSTypeParameterInstantiation' &&
             type.typeParameters.params[0]
           ) {
-            typeAnnotation += content.slice(
+            typeAnnotation += setupContent.slice(
               type.typeParameters.params[0].start!,
               type.typeParameters.params[0].end!
             )
@@ -314,12 +312,13 @@ export const transformDefineModel = (
                 ) {
                   const type = m.typeAnnotation?.typeAnnotation
                   if (type)
-                    options[content.slice(m.key.start!, m.key.end!)] =
-                      content.slice(type.start!, type.end!)
+                    options[setupContent.slice(m.key.start!, m.key.end!)] =
+                      setupContent.slice(type.start!, type.end!)
                 }
               }
             }
-          } else typeAnnotation += `${content.slice(type.start!, type.end!)}`
+          } else
+            typeAnnotation += `${setupContent.slice(type.start!, type.end!)}`
         }
 
         map[m.key.name] = { typeAnnotation, options }
@@ -453,13 +452,6 @@ export const transformDefineModel = (
         `Identifier of returning value of ${DEFINE_EMITS} is not found, please report this issue.\n${REPO_ISSUE_URL}`
       )
 
-    const program: Program = {
-      type: 'Program',
-      body: scriptCompiled.scriptSetupAst as Statement[],
-      directives: [],
-      sourceType: 'module',
-      sourceFile: '',
-    }
     let hasTransfromed = false
 
     function overwrite(
@@ -475,7 +467,7 @@ export const transformDefineModel = (
       s.overwrite(setupOffset + node.start!, setupOffset + node.end!, content)
     }
 
-    walkAST(program, {
+    walkAST(setupProgram, {
       leave(node) {
         if (node.type === 'AssignmentExpression') {
           if (node.left.type !== 'Identifier') return
@@ -512,19 +504,20 @@ export const transformDefineModel = (
   }
 
   if (!code.includes(DEFINE_MODEL)) return
-  const sfc = parseSFC(code, id)
-  if (!sfc.scriptSetup) return
+  const { script, scriptSetup, lang } = parseSFC(code, id)
+  if (!scriptSetup) return
 
-  const { scriptCompiled } = sfc
-  if (!scriptCompiled) return
+  const setupOffset = scriptSetup.loc.start.offset
+  const setupContent = scriptSetup.content
+  const setupProgram = babelParse(setupContent, lang)
+  const setupAst = setupProgram.body
 
   const s = new MagicString(code)
-  const setupOffset = scriptCompiled.loc.start.offset
 
   if (version === 2) processVue2Script()
 
   // process <script setup>
-  for (const node of scriptCompiled.scriptSetupAst as Statement[]) {
+  for (const node of setupAst) {
     if (node.type === 'ExpressionStatement') {
       processDefinePropsOrEmits(node.expression)
 
