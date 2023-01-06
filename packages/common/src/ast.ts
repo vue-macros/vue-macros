@@ -1,6 +1,6 @@
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
 import { walk } from 'estree-walker'
-import { REGEX_JSX_FILE } from './constants'
+import { REGEX_LANG_JSX } from './constants'
 import { isTs } from './lang'
 import type {
   CallExpression,
@@ -21,10 +21,10 @@ export function babelParse(
   options: ParserOptions = {}
 ): Program {
   const plugins: ParserPlugin[] = []
-  if (lang) {
-    if (isTs(lang)) plugins.push('typescript')
-    if (REGEX_JSX_FILE.test(lang)) plugins.push('jsx')
-  }
+  if (isTs(lang)) {
+    plugins.push('typescript')
+    if (REGEX_LANG_JSX.test(lang!)) plugins.push('jsx')
+  } else plugins.push('jsx')
   const { program } = _babelParse(code, {
     sourceType: 'module',
     plugins,

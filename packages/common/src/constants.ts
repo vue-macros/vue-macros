@@ -13,8 +13,9 @@ export const REPO_ISSUE_URL =
   'https://github.com/sxzz/unplugin-vue-macros/issues'
 
 export const REGEX_SRC_FILE = /\.[cm]?[jt]sx?$/
-export const REGEX_TS_FILE = /^[cm]?tsx?$/
-export const REGEX_JSX_FILE = /^[cm]?[jt]sx$/
 export const REGEX_SETUP_SFC = /\.setup\.[cm]?[jt]sx?$/
 export const REGEX_VUE_SFC = /\.vue$/
 export const REGEX_VUE_SUB = /\.vue\?vue&/
+
+export const REGEX_LANG_TS = /^[cm]?tsx?$/
+export const REGEX_LANG_JSX = /^[cm]?[jt]sx$/

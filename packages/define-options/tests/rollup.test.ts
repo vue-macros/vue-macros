@@ -15,12 +15,13 @@ describe('Rollup', () => {
     for (const file of files) {
       it(file.replace(/\\/g, '/'), async () => {
         const filepath = resolve(root, file)
-
-        const code = await rollupBuild(filepath, [
-          VueDefineOptions({}),
-          RollupToStringPlugin(),
-        ]).catch((err) => err)
-        expect(code).toMatchSnapshot()
+        const exec = () =>
+          rollupBuild(filepath, [VueDefineOptions({}), RollupToStringPlugin()])
+        if (file.includes('error')) {
+          await expect(exec()).rejects.toThrowErrorMatchingSnapshot()
+        } else {
+          await expect(exec()).resolves.toMatchSnapshot()
+        }
       })
     }
   })
