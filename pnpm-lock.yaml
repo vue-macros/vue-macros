@@ -115,7 +115,9 @@ importers:
   packages/define-model:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
+      '@vue-macros/api': workspace:^
       '@vue-macros/common': workspace:~
+      '@vueuse/core': ^9.9.0
       ast-walker-scope: ^0.3.1
       unplugin: ^1.0.1
       vue: ^3.2.45
@@ -125,6 +127,8 @@ importers:
       ast-walker-scope: 0.3.1
       unplugin: 1.0.1
     devDependencies:
+      '@vue-macros/api': link:../api
+      '@vueuse/core': 9.9.0_vue@3.2.45
       vue: 3.2.45
 
   packages/define-options:

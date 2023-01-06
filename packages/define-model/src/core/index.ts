@@ -271,37 +271,71 @@ export const transformDefineModel = (
     }
   }
 
-  function extractPropsDefinitions(
-    node: TSTypeLiteral | TSInterfaceBody
-  ): Record<string, string> {
+  function extractPropsDefinitions(node: TSTypeLiteral | TSInterfaceBody) {
+    const content = scriptCompiled.loc.source
+
     const members = node.type === 'TSTypeLiteral' ? node.members : node.body
-    const map: Record<string, string> = {}
+    const map: Record<
+      string,
+      {
+        typeAnnotation: string
+        options?: Record<string, string>
+      }
+    > = {}
+
     for (const m of members) {
       if (
         (m.type === 'TSPropertySignature' || m.type === 'TSMethodSignature') &&
         m.key.type === 'Identifier'
       ) {
         const type = m.typeAnnotation?.typeAnnotation
-        const value = type
-          ? `${m.optional ? '?' : ''}: ${scriptCompiled.loc.source.slice(
-              type.start!,
-              type.end!
-            )}`
-          : ''
-        map[m.key.name] = value
+        let typeAnnotation = ''
+        let options: Record<string, string> | undefined
+        if (type) {
+          typeAnnotation += `${m.optional ? '?' : ''}: `
+          if (
+            type.type === 'TSTypeReference' &&
+            type.typeName.type === 'Identifier' &&
+            type.typeName.name === 'ModelOptions' &&
+            type.typeParameters?.type === 'TSTypeParameterInstantiation' &&
+            type.typeParameters.params[0]
+          ) {
+            typeAnnotation += content.slice(
+              type.typeParameters.params[0].start!,
+              type.typeParameters.params[0].end!
+            )
+            if (type.typeParameters.params[1]?.type === 'TSTypeLiteral') {
+              options = {}
+              for (const m of type.typeParameters.params[1].members) {
+                if (
+                  (m.type === 'TSPropertySignature' ||
+                    m.type === 'TSMethodSignature') &&
+                  m.key.type === 'Identifier'
+                ) {
+                  const type = m.typeAnnotation?.typeAnnotation
+                  if (type)
+                    options[content.slice(m.key.start!, m.key.end!)] =
+                      content.slice(type.start!, type.end!)
+                }
+              }
+            }
+          } else typeAnnotation += `${content.slice(type.start!, type.end!)}`
+        }
+
+        map[m.key.name] = { typeAnnotation, options }
       }
     }
     return map
   }
 
-  function getPropKey(key: string) {
+  function getPropKey(key: string, omitDefault = false) {
     if (unified && version === 2 && key === 'modelValue') {
       return 'value'
     }
-    return key
+    return !omitDefault ? key : undefined
   }
 
-  function getEventKey(key: string) {
+  function getEventKey(key: string, omitDefault = false) {
     if (version === 2) {
       if (modelVue2.prop === key) {
         return modelVue2.event
@@ -309,7 +343,7 @@ export const transformDefineModel = (
         return 'input'
       }
     }
-    return `update:${key}`
+    return !omitDefault ? `update:${key}` : undefined
   }
 
   function rewriteMacros() {
@@ -320,12 +354,15 @@ export const transformDefineModel = (
 
     function rewriteDefines() {
       const propsText = Object.entries(map)
-        .map(([key, type]) => `${getPropKey(key)}${type}`)
+        .map(
+          ([key, { typeAnnotation }]) => `${getPropKey(key)}${typeAnnotation}`
+        )
         .join('\n')
 
       const emitsText = Object.entries(map)
         .map(
-          ([key, type]) => `(evt: '${getEventKey(key)}', value${type}): void`
+          ([key, { typeAnnotation }]) =>
+            `(evt: '${getEventKey(key)}', value${typeAnnotation}): void`
         )
         .join('\n')
 
@@ -389,9 +426,22 @@ export const transformDefineModel = (
         `\nimport _DM_useVModel from '${useVmodelHelperId}';`
       )
 
-      const names = Object.keys(map)
-      const text = `_DM_useVModel(${names
-        .map((n) => `['${n}', '${getPropKey(n)}', '${getEventKey(n)}']`)
+      const text = `_DM_useVModel(${Object.entries(map)
+        .map(([name, { options }]) => {
+          const prop = getPropKey(name, true)
+          const evt = getEventKey(name, true)
+          if (!prop && !evt && !options) return stringifyValue(name)
+
+          const args = [name, prop, evt].map((arg) => stringifyValue(arg))
+          if (options) {
+            const str = Object.entries(options)
+              .map(([k, v]) => `  ${stringifyValue(k)}: ${v}`)
+              .join(',\n')
+            args.push(`{\n${str}\n}`)
+          }
+
+          return `[${args.join(', ')}]`
+        })
         .join(', ')})`
       s.overwriteNode(modelDecl!, text, { offset: setupOffset })
     }
@@ -542,4 +592,8 @@ export const transformDefineModel = (
     processAssignModelVariable()
 
   return getTransformResult(s, id)
+}
+
+function stringifyValue(value: string | undefined) {
+  return value !== undefined ? JSON.stringify(value) : 'undefined'
 }

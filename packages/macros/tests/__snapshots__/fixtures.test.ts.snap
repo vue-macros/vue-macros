@@ -7,8 +7,21 @@ import { useVModel } from '@vueuse/core';
 var _DM_useVModel = (...keys) => {
   const props = getCurrentInstance().proxy.$props;
   const ret = {};
-  for (const [key, prop, eventName] of keys)
-    ret[key] = useVModel(props, prop, undefined, { eventName });
+  for (const _k of keys) {
+    if (typeof _k === 'string') {
+      ret[_k] = useVModel(props, _k, undefined, {
+        eventName: \`update:\${_k}\`,
+        passive: true,
+      });
+    } else {
+      const [key, prop = key, eventName = \`update:\${key}\`, options = {}] = _k;
+      ret[key] = useVModel(props, prop, undefined, {
+        eventName,
+        passive: true,
+        ...options,
+      });
+    }
+  }
   return ret
 };
 
@@ -25,7 +38,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   emits: [\\"update:modelValue\\", \\"change\\"],
   setup(__props, { emit }) {
     const { title } = __props;
-    let { modelValue } = _DM_useVModel([\\"modelValue\\", \\"modelValue\\", \\"update:modelValue\\"]);
+    let { modelValue } = _DM_useVModel(\\"modelValue\\");
     const handleClick = () => {
       emit(\\"change\\");
       modelValue.value = \\"hello, \\" + title;
@@ -149,8 +162,21 @@ import { useVModel } from '@vueuse/core';
 var _DM_useVModel = (...keys) => {
   const props = getCurrentInstance().proxy.$props;
   const ret = {};
-  for (const [key, prop, eventName] of keys)
-    ret[key] = useVModel(props, prop, undefined, { eventName });
+  for (const _k of keys) {
+    if (typeof _k === 'string') {
+      ret[_k] = useVModel(props, _k, undefined, {
+        eventName: \`update:\${_k}\`,
+        passive: true,
+      });
+    } else {
+      const [key, prop = key, eventName = \`update:\${key}\`, options = {}] = _k;
+      ret[key] = useVModel(props, prop, undefined, {
+        eventName,
+        passive: true,
+        ...options,
+      });
+    }
+  }
   return ret
 };
 
@@ -169,7 +195,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"input\\", \\"changeInput\\", \\"change\\"],
   setup(__props, { emit }) {
-    let { modelValue, value } = _DM_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"], [\\"value\\", \\"value\\", \\"changeInput\\"]);
+    let { modelValue, value } = _DM_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"], [\\"value\\", void 0, \\"changeInput\\"]);
     const handleClick = () => {
       emit(\\"change\\");
       modelValue.value = \\"hello, \\" + __props.title;
