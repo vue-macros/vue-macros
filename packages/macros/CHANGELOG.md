@@ -1,5 +1,29 @@
 # unplugin-vue-macros
 
+## 1.3.0
+
+### Minor Changes
+
+- [`3691988`](https://github.com/sxzz/unplugin-vue-macros/commit/36919886766d79584afe787eb6bb83addabd8d8a) Thanks [@sxzz](https://github.com/sxzz)! - support passing model options to vueuse
+
+### Patch Changes
+
+- Updated dependencies [[`b9218d4`](https://github.com/sxzz/unplugin-vue-macros/commit/b9218d45db8845a8ea44b1e825cdd97c7adb7a7d), [`93bb81e`](https://github.com/sxzz/unplugin-vue-macros/commit/93bb81e5ef323383dd7ed302b49a8fe60be557d5), [`af9978b`](https://github.com/sxzz/unplugin-vue-macros/commit/af9978bac81a9fa8e5fb09feefea704d6cde5ecf), [`230c80e`](https://github.com/sxzz/unplugin-vue-macros/commit/230c80ea9560bfc91233ec6c288665b718cf9fba), [`fa6b968`](https://github.com/sxzz/unplugin-vue-macros/commit/fa6b9682f33812c99117515ea98471e534b28da4), [`3691988`](https://github.com/sxzz/unplugin-vue-macros/commit/36919886766d79584afe787eb6bb83addabd8d8a)]:
+  - @vue-macros/common@0.13.6
+  - @vue-macros/define-model@1.2.0
+  - unplugin-vue-define-options@1.1.2
+  - @vue-macros/reactivity-transform-vue2@0.0.3
+  - @vue-macros/define-slots@0.1.2
+  - @vue-macros/better-define@1.1.3
+  - @vue-macros/define-props@0.1.2
+  - @vue-macros/define-render@1.1.2
+  - @vue-macros/hoist-static@1.1.2
+  - @vue-macros/named-template@0.1.2
+  - @vue-macros/setup-block@0.0.3
+  - @vue-macros/setup-component@0.13.2
+  - @vue-macros/setup-sfc@0.13.2
+  - @vue-macros/short-emits@1.1.2
+
 ## 1.2.2
 
 ### Patch Changes

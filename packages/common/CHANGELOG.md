@@ -1,5 +1,15 @@
 # @vue-macros/common
 
+## 0.13.6
+
+### Patch Changes
+
+- [`b9218d4`](https://github.com/sxzz/unplugin-vue-macros/commit/b9218d45db8845a8ea44b1e825cdd97c7adb7a7d) Thanks [@sxzz](https://github.com/sxzz)! - remove compileScript
+
+- [`af9978b`](https://github.com/sxzz/unplugin-vue-macros/commit/af9978bac81a9fa8e5fb09feefea704d6cde5ecf) Thanks [@sxzz](https://github.com/sxzz)! - support jsx by default
+
+- [`fa6b968`](https://github.com/sxzz/unplugin-vue-macros/commit/fa6b9682f33812c99117515ea98471e534b28da4) Thanks [@sxzz](https://github.com/sxzz)! - extract SFC ast parse to common
+
 ## 0.13.5
 
 ### Patch Changes

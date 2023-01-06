@@ -1,5 +1,20 @@
 # @vue-macros/define-model
 
+## 1.2.0
+
+### Minor Changes
+
+- [`3691988`](https://github.com/sxzz/unplugin-vue-macros/commit/36919886766d79584afe787eb6bb83addabd8d8a) Thanks [@sxzz](https://github.com/sxzz)! - support passing model options to vueuse
+
+### Patch Changes
+
+- [`93bb81e`](https://github.com/sxzz/unplugin-vue-macros/commit/93bb81e5ef323383dd7ed302b49a8fe60be557d5) Thanks [@sxzz](https://github.com/sxzz)! - remove scriptCompiled
+
+- [`fa6b968`](https://github.com/sxzz/unplugin-vue-macros/commit/fa6b9682f33812c99117515ea98471e534b28da4) Thanks [@sxzz](https://github.com/sxzz)! - extract SFC ast parse to common
+
+- Updated dependencies [[`b9218d4`](https://github.com/sxzz/unplugin-vue-macros/commit/b9218d45db8845a8ea44b1e825cdd97c7adb7a7d), [`af9978b`](https://github.com/sxzz/unplugin-vue-macros/commit/af9978bac81a9fa8e5fb09feefea704d6cde5ecf), [`fa6b968`](https://github.com/sxzz/unplugin-vue-macros/commit/fa6b9682f33812c99117515ea98471e534b28da4)]:
+  - @vue-macros/common@0.13.6
+
 ## 1.1.1
 
 ### Patch Changes
