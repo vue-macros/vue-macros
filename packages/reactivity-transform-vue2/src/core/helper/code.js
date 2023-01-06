@@ -1,5 +1,4 @@
-export const helperId = '/vue2-reactivity-transform-helper'
-export const helperCode = `export function createPropsRestProxy(props, excludedKeys) {
+export function createPropsRestProxy(props, excludedKeys) {
   const ret = {}
   for (const key in props) {
     if (!excludedKeys.includes(key)) {
@@ -10,4 +9,4 @@ export const helperCode = `export function createPropsRestProxy(props, excludedK
     }
   }
   return ret
-}`
+}
