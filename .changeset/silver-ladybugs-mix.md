@@ -2,4 +2,4 @@
 "@vue-macros/common": patch
 ---
 
-refactor(common): use getters in SFC
+use getters in SFC
