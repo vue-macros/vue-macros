@@ -22,9 +22,9 @@ type NodeElement =
   | SlotOutletNode
   | TemplateNode
 
-export const transformShortVmodel = ({
+export function transformShortVmodel({
   prefix = '$',
-}: Options = {}): NodeTransform => {
+}: Options = {}): NodeTransform {
   return (node, context) => {
     if (node.type !== 1 /* NodeTypes.ELEMENT */) return
     if (prefix === '::') processDirective(node)
@@ -32,7 +32,7 @@ export const transformShortVmodel = ({
   }
 }
 
-const processDirective = (node: NodeElement) => {
+function processDirective(node: NodeElement) {
   for (const [i, prop] of node.props.entries()) {
     if (
       !(
@@ -55,11 +55,11 @@ const processDirective = (node: NodeElement) => {
   }
 }
 
-export const processAttribute = (
+export function processAttribute(
   prefix: string,
   node: NodeElement,
   context: TransformContext
-) => {
+) {
   for (const [i, prop] of node.props.entries()) {
     if (
       !(

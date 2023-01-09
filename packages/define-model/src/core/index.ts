@@ -28,12 +28,12 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export const transformDefineModel = (
+export function transformDefineModel(
   code: string,
   id: string,
   version: 2 | 3,
   unified: boolean
-) => {
+) {
   let hasDefineProps = false
   let hasDefineEmits = false
   let hasDefineModel = false
@@ -592,7 +592,6 @@ export const transformDefineModel = (
 
   // const defaults = resolveObjectExpression(defaultsAst)
   // if (!defaults) return { defaultsAst }
-
   rewriteMacros()
 
   if (mode === 'reactivity-transform' && hasDefineModel)

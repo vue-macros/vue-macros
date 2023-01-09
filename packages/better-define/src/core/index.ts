@@ -2,11 +2,11 @@ import { MagicString, getTransformResult, parseSFC } from '@vue-macros/common'
 import { analyzeSFC } from '@vue-macros/api'
 import type { TSEmits, TSProps } from '@vue-macros/api'
 
-export const transformBetterDefine = async (
+export async function transformBetterDefine(
   code: string,
   id: string,
   isProduction?: boolean
-) => {
+) {
   const s = new MagicString(code)
   const sfc = parseSFC(code, id)
   if (sfc.script || !sfc.scriptSetup) return

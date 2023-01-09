@@ -6,7 +6,7 @@ import {
 } from '@vue-macros/common'
 import type { HmrContext } from 'vite'
 
-export const transfromSetupSFC = (code: string, id: string) => {
+export function transfromSetupSFC(code: string, id: string) {
   const lang = getLang(id)
   const program = babelParse(code, lang)
 
@@ -24,10 +24,10 @@ export const transfromSetupSFC = (code: string, id: string) => {
   return getTransformResult(s, id)
 }
 
-export const hotUpdateSetupSFC = (
+export function hotUpdateSetupSFC(
   { modules }: HmrContext,
   filter: (id: unknown) => boolean
-) => {
+) {
   function isSubModule(id: string) {
     const [filename, query] = id.split('?')
     if (!query) return false

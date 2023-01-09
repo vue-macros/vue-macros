@@ -74,8 +74,9 @@ export async function getTSFile(filePath: string): Promise<TSFile> {
   })
 }
 
-export const isTSDeclaration = (node: any): node is TSDeclaration =>
-  isDeclaration(node) && node.type.startsWith('TS')
+export function isTSDeclaration(node: any): node is TSDeclaration {
+  return isDeclaration(node) && node.type.startsWith('TS')
+}
 
 export function mergeTSProperties(
   a: TSProperties,

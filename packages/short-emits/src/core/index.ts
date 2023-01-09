@@ -17,7 +17,7 @@ import type {
   TSTypeReference,
 } from '@babel/types'
 
-export const transformShortEmits = (code: string, id: string) => {
+export function transformShortEmits(code: string, id: string) {
   if (!code.includes('SE') && !code.includes('ShortEmits')) return
 
   const ctx = parseSFC(code, id)

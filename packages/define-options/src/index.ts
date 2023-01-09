@@ -6,7 +6,7 @@ import {
   REGEX_VUE_SUB,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transform } from './core/transform'
+import { transformDefineOptions } from './core/transform'
 import type { UnpluginContextMeta } from 'unplugin'
 import type { MarkRequired } from '@vue-macros/common'
 import type { FilterPattern } from '@rollup/pluginutils'
@@ -49,7 +49,7 @@ export default createUnplugin<Options | undefined, false>(
 
       transform(code, id) {
         try {
-          return transform(code, id)
+          return transformDefineOptions(code, id)
         } catch (err: unknown) {
           this.error(`${name} ${err}`)
         }
@@ -58,4 +58,4 @@ export default createUnplugin<Options | undefined, false>(
   }
 )
 
-export { transform }
+export { transformDefineOptions as transform }

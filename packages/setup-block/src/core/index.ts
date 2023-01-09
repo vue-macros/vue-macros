@@ -1,11 +1,7 @@
 import { MagicString, getTransformResult } from '@vue-macros/common'
 import { parse } from '@vue/compiler-dom'
 
-export const transformSetupBlock = (
-  code: string,
-  id: string,
-  lang?: string
-) => {
+export function transformSetupBlock(code: string, id: string, lang?: string) {
   const s = new MagicString(code)
 
   const node = parse(code, {

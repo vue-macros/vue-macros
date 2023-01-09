@@ -34,10 +34,10 @@ interface FileContext {
 
 export type SetupComponentContext = Record<string, FileContext>
 
-export const scanSetupComponent = (
+export function scanSetupComponent(
   code: string,
   id: string
-): FileContext | undefined => {
+): FileContext | undefined {
   let program: Program
 
   try {
@@ -125,11 +125,11 @@ export const scanSetupComponent = (
   }
 }
 
-export const transformSetupComponent = (
+export function transformSetupComponent(
   code: string,
   _id: string,
   ctx: SetupComponentContext
-) => {
+) {
   const id = normalizePath(_id)
   const s = new MagicString(code)
 
@@ -155,11 +155,11 @@ export const transformSetupComponent = (
   return getTransformResult(s, id)
 }
 
-export const loadSetupComponent = (
+export function loadSetupComponent(
   virtualId: string,
   ctx: SetupComponentContext,
   root: string
-) => {
+) {
   const index = +(SETUP_COMPONENT_ID_REGEX.exec(virtualId)?.[1] ?? -1)
   const id = virtualId.replace(SETUP_COMPONENT_ID_REGEX, '')
   const { components, imports } = ctx[id] || ctx[root + id] || {}
@@ -197,10 +197,10 @@ export const loadSetupComponent = (
   return s.toString()
 }
 
-export const hotUpdateSetupComponent = async (
+export async function hotUpdateSetupComponent(
   { file, modules, read }: HmrContext,
   ctx: SetupComponentContext
-) => {
+) {
   const getSubModule = (module: ModuleNode): ModuleNode[] => {
     const importedModules = Array.from(module.importedModules)
     if (importedModules.length === 0) return []
@@ -222,7 +222,7 @@ export const hotUpdateSetupComponent = async (
   return [...modules, ...affectedModules]
 }
 
-export const transformPost = (code: string, _id: string) => {
+export function transformPost(code: string, _id: string) {
   const s = new MagicString(code)
 
   const id = normalizePath(_id)
@@ -278,7 +278,7 @@ export const transformPost = (code: string, _id: string) => {
   }
 }
 
-export const getScopeDecls = (scope: AttachedScope | undefined) => {
+export function getScopeDecls(scope: AttachedScope | undefined) {
   const scopes = new Set<string>()
   do {
     if (!scope?.declarations) continue

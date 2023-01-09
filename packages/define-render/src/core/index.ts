@@ -10,7 +10,7 @@ import {
 } from '@vue-macros/common'
 import type { BlockStatement, ExpressionStatement, Node } from '@babel/types'
 
-export const transformDefineRender = (code: string, id: string) => {
+export function transformDefineRender(code: string, id: string) {
   if (!code.includes(DEFINE_RENDER)) return
 
   const lang = getLang(id)

@@ -10,7 +10,7 @@ import type { Node } from '@babel/types'
 
 export const MAGIC_COMMENT = 'hoist-static'
 
-export const transformHoistStatic = (code: string, id: string) => {
+export function transformHoistStatic(code: string, id: string) {
   function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
     if (scriptOffset === undefined) scriptOffset = normalScript.start()
 

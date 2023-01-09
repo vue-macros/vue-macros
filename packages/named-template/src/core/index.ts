@@ -26,9 +26,8 @@ import type {
 export * from './constants'
 export * from './utils'
 
-export const transformTemplateIs =
-  (s: MagicString): NodeTransform =>
-  (node) => {
+export function transformTemplateIs(s: MagicString): NodeTransform {
+  return (node) => {
     if (!(node.type === 1 /* NodeTypes.ELEMENT */ && node.tag === 'template'))
       return
 
@@ -45,12 +44,13 @@ export const transformTemplateIs =
       `<component is="named-template-${refName}" />`
     )
   }
+}
 
-export const preTransform = (
+export function preTransform(
   code: string,
   id: string,
   templateContent: TemplateContent
-) => {
+) {
   const root = parse(code)
 
   const templates = root.children.filter(
@@ -66,7 +66,7 @@ export const preTransform = (
         prop.type === 6 /* NodeTypes.ATTRIBUTE */ && prop.name === 'name'
     )
     if (!propName) {
-      preTransformMainTemplate(s, root, node, id, templateContent)
+      preTransformMainTemplate({ s, root, node, id, templateContent })
       continue
     } else if (!propName.value) {
       continue
@@ -90,13 +90,19 @@ export const preTransform = (
   return getTransformResult(s, id)
 }
 
-function preTransformMainTemplate(
-  s: MagicString,
-  root: RootNode,
-  node: ElementNode,
-  id: string,
+function preTransformMainTemplate({
+  s,
+  root,
+  node,
+  id,
+  templateContent,
+}: {
+  s: MagicString
+  root: RootNode
+  node: ElementNode
+  id: string
   templateContent: TemplateContent
-) {
+}) {
   const ctx = createTransformContext(root, {
     filename: id,
     nodeTransforms: [transformTemplateIs(s)],
@@ -114,11 +120,11 @@ function preTransformMainTemplate(
   s.appendLeft(offset, ` src="${`${id}?vue&${QUERY_TEMPLATE_MAIN}`}"`)
 }
 
-export const postTransform = (
+export function postTransform(
   code: string,
   id: string,
   customBlocks: CustomBlocks
-) => {
+) {
   const lang = getLang(id)
   const program = babelParse(code, lang)
   const { filename } = parseVueRequest(id)
@@ -208,11 +214,11 @@ export const postTransform = (
   return getTransformResult(s, id)
 }
 
-export const postTransformMainEntry = (
+export function postTransformMainEntry(
   program: Program,
   id: string,
   customBlocks: CustomBlocks
-) => {
+) {
   for (const node of program.body) {
     if (
       node.type === 'ImportDeclaration' &&

@@ -10,7 +10,7 @@ import { walkAST } from 'ast-walker-scope'
 import { filterMacro, hasPropsOrEmits } from './utils'
 import type { ExportDefaultDeclaration, Statement } from '@babel/types'
 
-export const transform = (code: string, id: string) => {
+export function transformDefineOptions(code: string, id: string) {
   if (!code.includes(DEFINE_OPTIONS)) return
 
   const sfc = parseSFC(code, id)
