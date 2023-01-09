@@ -22,7 +22,7 @@ export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   get setupAst(): Program | undefined
 } & Pick<SFCParseResult, 'errors'>
 
-export const parseSFC = (code: string, id: string): SFC => {
+export function parseSFC(code: string, id: string): SFC {
   const sfc = parse(code, {
     filename: id,
   })
@@ -45,7 +45,7 @@ export const parseSFC = (code: string, id: string): SFC => {
   }
 }
 
-export const addNormalScript = ({ script, lang }: SFC, s: MagicString) => {
+export function addNormalScript({ script, lang }: SFC, s: MagicString) {
   return {
     start() {
       if (script) return script.loc.end.offset
