@@ -1,6 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import {
+  REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
   REGEX_VUE_SUB,
@@ -32,7 +33,7 @@ export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
 function resolveOption(options: Options): OptionsResolved {
   return {
     include: [REGEX_SRC_FILE],
-    exclude: [REGEX_SETUP_SFC, REGEX_VUE_SUB],
+    exclude: [REGEX_SETUP_SFC, REGEX_VUE_SUB, REGEX_NODE_MODULES],
     root: process.cwd(),
     ...options,
   }

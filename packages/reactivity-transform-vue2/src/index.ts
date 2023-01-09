@@ -1,6 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter, normalizePath } from '@rollup/pluginutils'
 import {
+  REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
   REGEX_VUE_SFC,
@@ -27,7 +28,7 @@ function resolveOption(
     include: [REGEX_SRC_FILE, REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
       framework === 'webpack' ? REGEX_VUE_SUB : []
     ),
-    exclude: [/node_modules/],
+    exclude: [REGEX_NODE_MODULES],
     ...options,
   }
 }

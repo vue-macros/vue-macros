@@ -16,6 +16,7 @@ export const REGEX_SRC_FILE = /\.[cm]?[jt]sx?$/
 export const REGEX_SETUP_SFC = /\.setup\.[cm]?[jt]sx?$/
 export const REGEX_VUE_SFC = /\.vue$/
 export const REGEX_VUE_SUB = /\.vue\?vue&/
+export const REGEX_NODE_MODULES = /node_modules/
 
 export const REGEX_LANG_TS = /^[cm]?tsx?$/
 export const REGEX_LANG_JSX = /^[cm]?[jt]sx$/

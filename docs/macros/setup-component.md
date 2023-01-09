@@ -9,6 +9,8 @@
 
 If you're using `setupComponent`, then `defineRender` cannot be disabled.
 
+Files in `node_modules` will not be ignored by default.
+
 :::
 
 With `defineSetupComponent`, `<script setup>` code can be put in **pure JS/TS(X)** without [Volar](https://github.com/johnsoncodehk/volar) extension.
