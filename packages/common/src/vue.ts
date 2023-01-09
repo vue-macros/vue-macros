@@ -18,8 +18,8 @@ export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   script?: _SFCScriptBlock | null
   scriptSetup?: _SFCScriptBlock | null
   lang: string | undefined
-  scriptAst: Program | undefined
-  setupAst: Program | undefined
+  get scriptAst(): Program | undefined
+  get setupAst(): Program | undefined
 } & Pick<SFCParseResult, 'errors'>
 
 export const parseSFC = (code: string, id: string): SFC => {
