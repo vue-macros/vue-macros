@@ -44,8 +44,8 @@ export default defineConfig({
   plugins: [
     VueMacros({
       plugins: {
-        vue: Vue(),
-        // vueJsx: VueJsx(), // if needed
+        vue: Vue,
+        // vueJsx: VueJsx, // if needed
       },
     }),
   ],
@@ -65,8 +65,8 @@ export default {
   plugins: [
     VueMacros({
       plugins: {
-        vue: Vue(),
-        // vueJsx: VueJsx(), // if needed
+        vue: Vue,
+        // vueJsx: VueJsx, // if needed
       },
     }),
   ],
@@ -85,8 +85,8 @@ build({
   plugins: [
     require('unplugin-vue-macros/esbuild')({
       plugins: {
-        vue: require('unplugin-vue/esbuild')(),
-        // vueJsx: VueJsx(), // if needed
+        vue: require('unplugin-vue/esbuild'),
+        // vueJsx: VueJsx, // if needed
       },
     }),
   ],
