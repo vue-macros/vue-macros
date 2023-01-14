@@ -53,8 +53,11 @@ export function getFileCodeAndLang(
 ): { code: string; lang: string } {
   if (!REGEX_VUE_SFC.test(id)) return { code, lang: getLang(id) }
   const sfc = parseSFC(code, id)
+  const scriptCode = sfc.script?.content ?? ''
   return {
-    code: sfc.scriptSetup ? sfc.scriptSetup.content : sfc.script?.content ?? '',
+    code: sfc.scriptSetup
+      ? `${scriptCode}\n${sfc.scriptSetup.content}`
+      : scriptCode,
     lang: sfc.lang ?? 'js',
   }
 }

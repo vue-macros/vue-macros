@@ -276,11 +276,13 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     setupBase: { type: String, required: true },
     num: { type: Number, required: true },
+    bool: { type: Boolean, required: true },
     map: { type: Map, required: true },
     arr: { type: Array, required: true },
     union: { type: [String, Number], required: true },
     normalBase: { type: String, required: true },
-    str: { type: String, required: true }
+    str: { type: String, required: true },
+    setupBase_2: { type: String, required: true }
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
@@ -312,11 +314,13 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     setupBase: null,
     num: null,
+    bool: { type: Boolean },
     map: null,
     arr: null,
     union: null,
     normalBase: null,
-    str: null
+    str: null,
+    setupBase_2: null
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {

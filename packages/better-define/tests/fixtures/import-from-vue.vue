@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { SetupProps, Num } from './export-type.exclude.vue'
+import { SetupProps, Num, SetupProps_2, Bool } from './export-type.exclude.vue'
 import { NormalProps, Str } from './export-type-normal.exclude.vue'
 
 export interface Props extends SetupProps {
   num: Num
+  bool: Bool
 }
 
 export interface ExtendProps extends NormalProps {
@@ -22,7 +23,7 @@ export interface BasicEmits {
   (evt: 'change', value: string): void
 }
 
-defineProps<BasicProps & ExtendProps>()
+defineProps<BasicProps & ExtendProps & SetupProps_2>()
 defineEmits<BasicEmits>()
 </script>
 
