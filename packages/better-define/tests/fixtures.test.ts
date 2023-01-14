@@ -12,10 +12,13 @@ import VueBetterDefine from '../src/rollup'
 
 describe('fixtures', async () => {
   const root = resolve(__dirname, '..')
-  const files = await glob('tests/fixtures/*.vue', {
-    cwd: root,
-    onlyFiles: true,
-  })
+  const files = await glob(
+    ['tests/fixtures/*.vue', '!tests/fixtures/*.exclude.vue'],
+    {
+      cwd: root,
+      onlyFiles: true,
+    }
+  )
 
   for (const file of files) {
     describe(file.replace(/\\/g, '/'), () => {
