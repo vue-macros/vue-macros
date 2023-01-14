@@ -1,5 +1,12 @@
 # @vue-macros/define-render
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`a673932`](https://github.com/sxzz/unplugin-vue-macros/commit/a673932d712f235c6ba98b38222306a7695ef1d7)]:
+  - @vue-macros/common@0.13.8
+
 ## 1.1.3
 
 ### Patch Changes
