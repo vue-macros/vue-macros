@@ -67,7 +67,7 @@ export const tsFileCache: Record<string, TSFile> = {}
 export async function getTSFile(filePath: string): Promise<TSFile> {
   if (tsFileCache[filePath]) return tsFileCache[filePath]
   const content = await readFile(filePath, 'utf-8')
-  const { content: code, lang } = getFileCodeAndLang(content, filePath)
+  const { code, lang } = getFileCodeAndLang(content, filePath)
   const program = babelParse(code, lang)
   return (tsFileCache[filePath] = {
     filePath,
