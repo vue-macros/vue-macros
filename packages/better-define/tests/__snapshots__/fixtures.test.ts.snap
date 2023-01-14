@@ -268,6 +268,74 @@ export { fnDefault as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction is false 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"import-from-vue\\",
+  props: {
+    base: { type: String, required: true },
+    str: { type: String, required: true },
+    num: { type: Number, required: true },
+    map: { type: Map, required: true },
+    arr: { type: Array, required: true },
+    union: { type: [String, Number], required: true }
+  },
+  emits: [\\"click\\", \\"change\\"],
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { importFromVue as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction is true 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"import-from-vue\\",
+  props: {
+    base: null,
+    str: null,
+    num: null,
+    map: null,
+    arr: null,
+    union: null
+  },
+  emits: [\\"click\\", \\"change\\"],
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { importFromVue as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/intersection.vue > isProduction is false 1`] = `
 "import { defineComponent, renderSlot } from 'vue';
 

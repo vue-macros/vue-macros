@@ -1,5 +1,6 @@
 import { parse } from '@vue/compiler-sfc'
 import { babelParse } from './ast'
+import { getLang } from './lang'
 import type { Program } from '@babel/types'
 import type { MagicString } from './magic-string'
 import type {
@@ -42,6 +43,28 @@ export function parseSFC(code: string, id: string): SFC {
       if (!descriptor.script) return
       return babelParse(descriptor.script.content, lang)
     },
+  }
+}
+
+/**
+ * @param code origin
+ * @param id fileName
+ * @returns {{content: string, lang: string | undefined}}
+ */
+export function getSetupScriptContentAndLang(
+  code: string,
+  id: string
+): { content: string; lang?: string } {
+  if (getLang(id) !== 'vue') return { content: code, lang: getLang(id) }
+  const sfc = parseSFC(code, id)
+  if (sfc.scriptSetup)
+    return {
+      content: sfc.scriptSetup.content ?? code,
+      lang: sfc.lang,
+    }
+  return {
+    content: code,
+    lang: sfc.lang,
   }
 }
 
