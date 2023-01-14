@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs'
 import path from 'node:path'
 import {
   babelParse,
-  getSetupScriptContentAndLang,
+  getFileCodeAndLang,
   resolveObjectKey,
 } from '@vue-macros/common'
 import { isDeclaration } from '@babel/types'
@@ -67,10 +67,7 @@ export const tsFileCache: Record<string, TSFile> = {}
 export async function getTSFile(filePath: string): Promise<TSFile> {
   if (tsFileCache[filePath]) return tsFileCache[filePath]
   const content = await readFile(filePath, 'utf-8')
-  const { content: code, lang } = getSetupScriptContentAndLang(
-    content,
-    filePath
-  )
+  const { content: code, lang } = getFileCodeAndLang(content, filePath)
   const program = babelParse(code, lang)
   return (tsFileCache[filePath] = {
     filePath,

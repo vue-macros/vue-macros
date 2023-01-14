@@ -47,25 +47,20 @@ export function parseSFC(code: string, id: string): SFC {
   }
 }
 
-/**
- * @param code origin
- * @param id fileName
- * @returns {{content: string, lang: string | undefined}}
- */
-export function getSetupScriptContentAndLang(
+export function getFileCodeAndLang(
   code: string,
   id: string
-): { content: string; lang?: string } {
+): { content: string; lang: string } {
   if (!REGEX_VUE_SFC.test(id)) return { content: code, lang: getLang(id) }
   const sfc = parseSFC(code, id)
   if (sfc.scriptSetup)
     return {
       content: sfc.scriptSetup.content ?? code,
-      lang: sfc.lang,
+      lang: sfc.lang ?? 'js',
     }
   return {
     content: code,
-    lang: sfc.lang,
+    lang: sfc.lang ?? 'js',
   }
 }
 
