@@ -1,5 +1,14 @@
 # @vue-macros/api
 
+## 0.2.5
+
+### Patch Changes
+
+- [#210](https://github.com/sxzz/unplugin-vue-macros/pull/210) [`a673932`](https://github.com/sxzz/unplugin-vue-macros/commit/a673932d712f235c6ba98b38222306a7695ef1d7) Thanks [@alexzhang1030](https://github.com/alexzhang1030)! - fix cannot import type from vue file
+
+- Updated dependencies [[`a673932`](https://github.com/sxzz/unplugin-vue-macros/commit/a673932d712f235c6ba98b38222306a7695ef1d7)]:
+  - @vue-macros/common@0.13.8
+
 ## 0.2.4
 
 ### Patch Changes
