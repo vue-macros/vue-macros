@@ -269,7 +269,7 @@ export { fnDefault as default };
 `;
 
 exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction is false 1`] = `
-"import { defineComponent } from 'vue';
+"import { defineComponent, renderSlot } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"import-from-vue\\",
@@ -283,7 +283,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
-    return () => {
+    return (_ctx, _cache) => {
+      return renderSlot(_ctx.$slots, \\"default\\");
     };
   }
 });
@@ -303,7 +304,7 @@ export { importFromVue as default };
 `;
 
 exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction is true 1`] = `
-"import { defineComponent } from 'vue';
+"import { defineComponent, renderSlot } from 'vue';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"import-from-vue\\",
@@ -317,7 +318,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
-    return () => {
+    return (_ctx, _cache) => {
+      return renderSlot(_ctx.$slots, \\"default\\");
     };
   }
 });
