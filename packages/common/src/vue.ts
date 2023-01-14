@@ -56,7 +56,7 @@ export function getFileCodeAndLang(
   const scriptCode = sfc.script?.content ?? ''
   return {
     code: sfc.scriptSetup
-      ? `${scriptCode}\n${sfc.scriptSetup.content}`
+      ? `${scriptCode}\n;\n${sfc.scriptSetup.content}`
       : scriptCode,
     lang: sfc.lang ?? 'js',
   }
