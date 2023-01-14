@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { CommonProps, Num } from './export-type.exclude.vue'
+import { SetupProps, Num } from './export-type.exclude.vue'
+import { NormalProps, Str } from './export-type-normal.exclude.vue'
 
-export type Str = string
-export interface Props extends CommonProps {
-  str: Str
+export interface Props extends SetupProps {
   num: Num
 }
+
+export interface ExtendProps extends NormalProps {
+  str: Str
+}
+
 export interface BasicProps extends Props {
   map: Map<string, string>
   arr: string[]
@@ -18,7 +22,7 @@ export interface BasicEmits {
   (evt: 'change', value: string): void
 }
 
-defineProps<BasicProps>()
+defineProps<BasicProps & ExtendProps>()
 defineEmits<BasicEmits>()
 </script>
 

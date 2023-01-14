@@ -1,8 +1,8 @@
 <script setup lang="ts">
 export type Num = number
 
-export interface CommonProps {
-  base: string
+export interface SetupProps {
+  setupBase: string
 }
 
 </script>

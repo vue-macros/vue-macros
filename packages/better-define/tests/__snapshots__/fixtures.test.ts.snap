@@ -274,12 +274,13 @@ exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction is false 1
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"import-from-vue\\",
   props: {
-    base: { type: String, required: true },
-    str: { type: String, required: true },
+    setupBase: { type: String, required: true },
     num: { type: Number, required: true },
     map: { type: Map, required: true },
     arr: { type: Array, required: true },
-    union: { type: [String, Number], required: true }
+    union: { type: [String, Number], required: true },
+    normalBase: { type: String, required: true },
+    str: { type: String, required: true }
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
@@ -309,12 +310,13 @@ exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction is true 1`
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"import-from-vue\\",
   props: {
-    base: null,
-    str: null,
+    setupBase: null,
     num: null,
     map: null,
     arr: null,
-    union: null
+    union: null,
+    normalBase: null,
+    str: null
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
