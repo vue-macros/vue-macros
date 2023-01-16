@@ -1,5 +1,15 @@
 # @vue-macros/nuxt
 
+## 0.2.13
+
+### Patch Changes
+
+- [`98fc138`](https://github.com/sxzz/unplugin-vue-macros/commit/98fc138f176b3fafceabe0cc256f87d06d0f5c1e) Thanks [@sxzz](https://github.com/sxzz)! - enable volar plugin of $defineProps
+
+- Updated dependencies [[`b821618`](https://github.com/sxzz/unplugin-vue-macros/commit/b82161836e741c68287f43fc69a2709b83e85b4b), [`6d50584`](https://github.com/sxzz/unplugin-vue-macros/commit/6d50584be502e8779c626ce80fcc7305e98c4d43)]:
+  - unplugin-vue-macros@1.3.4
+  - @vue-macros/volar@0.5.13
+
 ## 0.2.12
 
 ### Patch Changes

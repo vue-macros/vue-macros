@@ -1,5 +1,11 @@
 # @vue-macros/define-props
 
+## 0.1.5
+
+### Patch Changes
+
+- [`b821618`](https://github.com/sxzz/unplugin-vue-macros/commit/b82161836e741c68287f43fc69a2709b83e85b4b) Thanks [@sxzz](https://github.com/sxzz)! - support vue 2
+
 ## 0.1.4
 
 ### Patch Changes
