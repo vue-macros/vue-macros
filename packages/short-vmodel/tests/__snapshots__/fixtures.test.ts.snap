@@ -9,16 +9,22 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     const val = ref(\\"\\");
     return (_ctx, _cache) => {
       const _component_A = resolveComponent(\\"A\\");
-      return openBlock(), createElementBlock(Fragment, null, [
-        createVNode(_component_A, {
-          modelValue: val.value,
-          \\"onUpdate:modelValue\\": _cache[0] || (_cache[0] = ($event) => val.value = $event)
-        }, null, 8, [\\"modelValue\\"]),
-        createVNode(_component_A, {
-          foo: val.value,
-          \\"onUpdate:foo\\": _cache[1] || (_cache[1] = ($event) => val.value = $event)
-        }, null, 8, [\\"foo\\"])
-      ], 64);
+      return openBlock(), createElementBlock(
+        Fragment,
+        null,
+        [
+          createVNode(_component_A, {
+            modelValue: val.value,
+            \\"onUpdate:modelValue\\": _cache[0] || (_cache[0] = ($event) => val.value = $event)
+          }, null, 8, [\\"modelValue\\"]),
+          createVNode(_component_A, {
+            foo: val.value,
+            \\"onUpdate:foo\\": _cache[1] || (_cache[1] = ($event) => val.value = $event)
+          }, null, 8, [\\"foo\\"])
+        ],
+        64
+        /* STABLE_FRAGMENT */
+      );
     };
   }
 });
