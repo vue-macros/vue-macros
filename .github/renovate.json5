@@ -15,6 +15,13 @@
       matchPackageNames: ['vue'],
       enabled: false,
     },
+
+    {
+      groupName: 'volarjs',
+      groupSlug: 'volar-related',
+      matchPackagePrefixes: ['vue-tsc', '@volar'],
+      rangeStrategy: 'replace',
+    },
   ],
   ignoreDeps: ['node'],
 }
