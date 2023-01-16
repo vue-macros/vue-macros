@@ -21,6 +21,7 @@
       groupSlug: 'volar-related',
       matchPackagePrefixes: ['vue-tsc', '@volar'],
       rangeStrategy: 'replace',
+      matchDepTypes: ['peerDependencies', 'devDependencies', 'dependencies'],
     },
   ],
   ignoreDeps: ['node'],
