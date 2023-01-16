@@ -101,7 +101,10 @@ export { hoistStatic as default };
 exports[`fixtures > tests/fixtures/hoist-static-scope.vue 1`] = `
 "import { defineComponent, openBlock, createElementBlock } from 'vue';
 
-const [name] = [\\"VarCompName\\"];
+const [name] = (
+  /* hoist-static*/
+  [\\"VarCompName\\"]
+);
 const __default__ = defineComponent({
   name
 });
