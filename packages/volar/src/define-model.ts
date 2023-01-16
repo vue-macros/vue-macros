@@ -7,8 +7,8 @@ import type {
 } from '@volar/language-core'
 import type { Segment } from 'muggle-string'
 import type {
-  ResolvedVueCompilerOptions,
   Sfc,
+  VueCompilerOptions,
   VueEmbeddedFile,
   VueLanguagePlugin,
 } from '@volar/vue-language-core'
@@ -135,7 +135,7 @@ function resolve({
   embeddedFile,
 }: {
   ts: typeof import('typescript/lib/tsserverlibrary')
-  vueCompilerOptions: ResolvedVueCompilerOptions
+  vueCompilerOptions: VueCompilerOptions
   sfc: Sfc
   embeddedFile: VueEmbeddedFile
 }) {
