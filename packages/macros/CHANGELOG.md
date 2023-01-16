@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 1.3.4
+
+### Patch Changes
+
+- [`b821618`](https://github.com/sxzz/unplugin-vue-macros/commit/b82161836e741c68287f43fc69a2709b83e85b4b) Thanks [@sxzz](https://github.com/sxzz)! - support vue 2
+
+- Updated dependencies [[`b821618`](https://github.com/sxzz/unplugin-vue-macros/commit/b82161836e741c68287f43fc69a2709b83e85b4b)]:
+  - @vue-macros/define-props@0.1.5
+
 ## 1.3.3
 
 ### Patch Changes
