@@ -448,6 +448,7 @@ importers:
       rollup: ^3.10.0
       rollup-plugin-esbuild: ^5.0.0
       tsx: ^3.12.2
+      type-fest: ^3.5.2
       typescript: ^4.9.4
       unplugin-vue-macros: workspace:*
       vite: ^4.0.4
@@ -468,6 +469,7 @@ importers:
       rollup: 3.10.0
       rollup-plugin-esbuild: 5.0.0_spdxjolkq2ojxuvyeotxhudecu
       tsx: 3.12.2
+      type-fest: 3.5.2
       typescript: 4.9.4
       unplugin-vue-macros: link:../../packages/macros
       vite: 4.0.4
@@ -10708,6 +10710,11 @@ packages:
   /type-fest/0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /type-fest/3.5.2:
+    resolution: {integrity: sha512-Ph7S4EhXzWy0sbljEuZo0tTNoLl+K2tPauGrQpcwUWrOVneLePTuhVzcuzVJJ6RU5DsNwQZka+8YtkXXU4z9cA==}
+    engines: {node: '>=14.16'}
     dev: true
 
   /typed-array-length/1.0.4:

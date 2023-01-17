@@ -57,10 +57,14 @@ export default createUnplugin<Options | undefined, false>(
           const ctx = this as PluginContext
           const resolveFn: ResolveTSFileIdImpl = async (id, importer) => {
             const tryResolve = async (id: string) => {
-              return (
-                (await ctx.resolve(id, importer)) ||
-                ctx.resolve(`${id}.d`, importer)
-              )
+              try {
+                return (
+                  (await ctx.resolve(id, importer)) ||
+                  ctx.resolve(`${id}.d`, importer)
+                )
+              } catch {
+                return
+              }
             }
 
             let resolved = (await tryResolve(id))?.id

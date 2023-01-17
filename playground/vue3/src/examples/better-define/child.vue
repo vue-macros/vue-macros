@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Warn } from './warning'
 import type { BaseEmits, BaseProps } from './types'
 import type { DtsDemo } from './test-dts'
 
@@ -13,6 +14,7 @@ withDefaults(
     Props & {
       union?: string | number
       nonStaticValue?: string
+      warn?: Warn
     } & DtsDemo
   >(),
   {
