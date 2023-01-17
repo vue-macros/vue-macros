@@ -1,5 +1,11 @@
 # @vue-macros/reactivity-transform-vue2
 
+## 0.0.6
+
+### Patch Changes
+
+- [`0a0598e`](https://github.com/sxzz/unplugin-vue-macros/commit/0a0598e17af1ea19a29cbb159db02c692d9b201a) Thanks [@sxzz](https://github.com/sxzz)! - accept vue3 for peer dep
+
 ## 0.0.5
 
 ### Patch Changes
