@@ -1,10 +1,7 @@
 import { DEFINE_MODEL, DEFINE_MODEL_DOLLAR } from '@vue-macros/common'
-import { FileKind } from '@volar/language-core'
+import { FileKind, FileRangeCapabilities } from '@volar/language-core'
 import { getVueLibraryName } from './common'
-import type {
-  FileCapabilities,
-  FileRangeCapabilities,
-} from '@volar/language-core'
+import type { FileCapabilities } from '@volar/language-core'
 import type { Segment } from 'muggle-string'
 import type {
   Sfc,
@@ -31,7 +28,7 @@ function transformDefineModel({
     source,
     'scriptSetup',
     typeArg!.pos,
-    { references: true, definition: true, rename: true },
+    FileRangeCapabilities.full,
   ]
   mergeProps() || addProps()
   mergeEmits() || addEmits()

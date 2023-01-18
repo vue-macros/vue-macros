@@ -1,6 +1,6 @@
-import { FileKind } from '@volar/language-core'
+import { FileKind, FileRangeCapabilities } from '@volar/language-core'
 import { DEFINE_SLOTS } from '@vue-macros/common'
-import { toString } from 'muggle-string'
+import { replace, toString } from 'muggle-string'
 import type {
   Sfc,
   VueEmbeddedFile,
@@ -19,24 +19,18 @@ const transform = ({
   if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
   if (!toString(embeddedFile.content).includes(DEFINE_SLOTS)) return
 
-  const idx = embeddedFile.content.indexOf('return __VLS_slots;\n')
-  if (idx === -1) return
+  if (!embeddedFile.content.includes('return __VLS_slots;\n')) return
 
-  const source = sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end)
-  embeddedFile.content.splice(
-    idx,
-    1,
+  replace(
+    embeddedFile.content,
+    'return __VLS_slots;\n',
     `return __VLS_slots as __VLS_DefineSlots<`,
-    [
-      source,
+    () => [
+      // slots type
+      sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end),
       'scriptSetup',
       typeArg!.pos,
-      {
-        hover: true,
-        diagnostic: true,
-        references: true,
-        definition: true,
-      },
+      FileRangeCapabilities.full,
     ],
     '>;\n'
   )
