@@ -1,5 +1,11 @@
 # @vue-macros/better-define
 
+## 1.1.6
+
+### Patch Changes
+
+- [`ca7e5b0`](https://github.com/sxzz/unplugin-vue-macros/commit/ca7e5b01f32b6211204c9ea72131059414172104) Thanks [@sxzz](https://github.com/sxzz)! - catch errors when resolve failed
+
 ## 1.1.5
 
 ### Patch Changes
