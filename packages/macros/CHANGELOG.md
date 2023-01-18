@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 1.4.2
+
+### Patch Changes
+
+- Updated dependencies [[`ca7e5b0`](https://github.com/sxzz/unplugin-vue-macros/commit/ca7e5b01f32b6211204c9ea72131059414172104)]:
+  - @vue-macros/better-define@1.1.6
+
 ## 1.4.1
 
 ### Patch Changes

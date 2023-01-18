@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.5.15
+
+### Patch Changes
+
+- [`ba37691`](https://github.com/sxzz/unplugin-vue-macros/commit/ba376914acb4766d64254402ed04a039c50ed9a1) Thanks [@sxzz](https://github.com/sxzz)! - simplify code
+
 ## 0.5.14
 
 ### Patch Changes
