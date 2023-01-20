@@ -1,3 +1,5 @@
+<!-- eslint-disable import/no-mutable-exports -->
+<!-- eslint-disable vue/no-export-in-script-setup -->
 <script setup lang="ts">
 export let foo: string
 export const bar = 10
