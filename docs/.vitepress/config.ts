@@ -1,14 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from './pwa'
-import {
-  markdownConfig,
-  nav,
-  pwa,
-  sidebar,
-  webDescription,
-  webLink,
-  webName,
-} from './configs'
+import { nav, pwa, sidebar, webDescription, webLink, webName } from './configs'
 
 export default withPwa(
   defineConfig({
@@ -41,7 +33,6 @@ gtag('config', 'G-29NKGSL23C');`,
     description: webDescription,
     lastUpdated: true,
     cleanUrls: 'disabled',
-    markdown: markdownConfig,
 
     vue: {
       reactivityTransform: true,

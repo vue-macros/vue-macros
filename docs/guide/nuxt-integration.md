@@ -2,33 +2,21 @@
 
 ### Installation
 
-:::: code-group
+::: code-group
 
-::: code-group-item npm
-
-```bash
+```bash [npm]
 npm i -D @vue-macros/nuxt
 ```
 
-:::
-
-::: code-group-item yarn
-
-```bash
+```bash [yarn]
 yarn add -D @vue-macros/nuxt
 ```
 
-:::
-
-::: code-group-item pnpm
-
-```bash
+```bash [pnpm]
 pnpm add -D @vue-macros/nuxt
 ```
 
 :::
-
-::::
 
 ## Configuration
 

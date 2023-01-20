@@ -2,39 +2,25 @@
 
 ### Installation
 
-:::: code-group
+::: code-group
 
-::: code-group-item npm
-
-```bash
+```bash [npm]
 npm i -D unplugin-vue-macros
 ```
 
-:::
-
-::: code-group-item yarn
-
-```bash
+```bash [yarn]
 yarn add -D unplugin-vue-macros
 ```
 
-:::
-
-::: code-group-item pnpm
-
-```bash
+```bash [pnpm]
 pnpm add -D unplugin-vue-macros
 ```
 
 :::
 
-::::
+::: code-group
 
-:::: code-group
-
-::: code-group-item Vite (first-class support)
-
-```ts
+```ts [Vite (first-class support)]
 // vite.config.ts
 import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
@@ -52,11 +38,7 @@ export default defineConfig({
 })
 ```
 
-:::
-
-::: code-group-item Rollup 3 (first-class support)
-
-```ts
+```ts [Rollup (first-class support)]
 // rollup.config.js
 import Vue from 'unplugin-vue/rollup'
 import VueMacros from 'unplugin-vue-macros/rollup'
@@ -73,11 +55,7 @@ export default {
 }
 ```
 
-:::
-
-::: code-group-item esbuild
-
-```js
+```js [esbuild]
 // esbuild.config.js
 import { build } from 'esbuild'
 
@@ -93,11 +71,7 @@ build({
 })
 ```
 
-:::
-
-::: code-group-item Webpack
-
-```js
+```js [Webpack]
 // webpack.config.js
 module.exports = {
   /* ... */
@@ -105,11 +79,7 @@ module.exports = {
 }
 ```
 
-:::
-
-::: code-group-item Vue CLI
-
-```js
+```js [Vue CLI]
 // vue.config.js
 const { defineConfig } = require('@vue/cli-service')
 const VueMacros = require('unplugin-vue-macros/webpack')
@@ -126,15 +96,11 @@ module.exports = defineConfig({
 
 :::
 
-::::
-
 ## TypeScript Support
 
-:::: code-group
+::: code-group
 
-::: code-group-item Vue 3
-
-```json
+```json {0} [Vue 3]
 // tsconfig.json
 {
   "compilerOptions": {
@@ -144,11 +110,7 @@ module.exports = defineConfig({
 }
 ```
 
-:::
-
-::: code-group-item Vue 2
-
-```json
+```json {0} [Vue 2]
 // tsconfig.json
 {
   "compilerOptions": {
@@ -159,8 +121,6 @@ module.exports = defineConfig({
 ```
 
 :::
-
-::::
 
 ## Volar Support
 
@@ -176,6 +136,7 @@ npm i -D @vue-macros/volar
   "vueCompilerOptions": {
     "plugins": [
       "@vue-macros/volar/define-model",
+      "@vue-macros/volar/define-props",
       "@vue-macros/volar/short-vmodel"
       // ...more feature
     ]

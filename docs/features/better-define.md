@@ -15,11 +15,9 @@ With enabling `betterDefine`, imported types are supported in `<script setup>` t
 
 ## Basic Usage
 
-:::: code-group
+::: code-group
 
-::: code-group-item App.vue
-
-```vue
+```vue [App.vue]
 <script setup lang="ts">
 import type { BaseProps } from './types'
 
@@ -30,19 +28,13 @@ defineProps<Props>()
 </script>
 ```
 
-:::
-
-::: code-group-item types.ts
-
-```ts
+```ts [types.ts]
 export interface BaseProps {
   title: string
 }
 ```
 
 :::
-
-::::
 
 ## ⚠️ Limitations
 

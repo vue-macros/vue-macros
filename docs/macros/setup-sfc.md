@@ -20,11 +20,9 @@ If you're using `setupSFC`, then `defineRender` cannot be disabled.
 
 ## Setup
 
-:::: code-group
+::: code-group
 
-::: code-group-item Vite
-
-```ts {7-11}
+```ts {7-11} [Vite]
 // vite.config.ts
 import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
@@ -40,11 +38,7 @@ export default defineConfig({
 })
 ```
 
-:::
-
-::: code-group-item Rollup
-
-```ts {6-13}
+```ts {6-13} [Rollup]
 import Vue from 'unplugin-vue/rollup'
 import VueMacros from 'unplugin-vue-macros/rollup'
 
@@ -62,21 +56,15 @@ export default defineConfig({
 })
 ```
 
-:::
+```[🚧 esbuild]
+🚧
+```
 
-::: code-group-item 🚧 esbuild
-
-:construction:
-
-:::
-
-::: code-group-item 🚧 Webpack
-
-:construction:
+```[🚧 Webpack]
+🚧
+```
 
 :::
-
-::::
 
 ## Basic Usage
 

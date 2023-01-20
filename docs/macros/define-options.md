@@ -19,39 +19,25 @@ if you need `defineOptions` feature only, the standalone version is more appropr
 
 ### Installation
 
-:::: code-group
+::: code-group
 
-::: code-group-item npm
-
-```bash
+```bash [npm]
 npm i -D unplugin-vue-define-options
 ```
 
-:::
-
-::: code-group-item yarn
-
-```bash
+```bash [yarn]
 yarn add -D unplugin-vue-define-options
 ```
 
-:::
-
-::: code-group-item pnpm
-
-```bash
+```bash [pnpm]
 pnpm add -D unplugin-vue-define-options
 ```
 
 :::
 
-::::
+::: code-group
 
-:::: code-group
-
-::: code-group-item Vite
-
-```ts
+```ts [Vite]
 // vite.config.ts
 import DefineOptions from 'unplugin-vue-define-options/vite'
 
@@ -60,11 +46,7 @@ export default defineConfig({
 })
 ```
 
-:::
-
-::: code-group-item Rollup
-
-```ts
+```ts [Rollup]
 // rollup.config.js
 import DefineOptions from 'unplugin-vue-define-options/rollup'
 
@@ -73,11 +55,7 @@ export default {
 }
 ```
 
-:::
-
-::: code-group-item esbuild
-
-```js
+```js [esbuild]
 // esbuild.config.js
 import { build } from 'esbuild'
 
@@ -86,11 +64,7 @@ build({
 })
 ```
 
-:::
-
-::: code-group-item Webpack
-
-```js
+```js [Webpack]
 // webpack.config.js
 module.exports = {
   /* ... */
@@ -99,8 +73,6 @@ module.exports = {
 ```
 
 :::
-
-::::
 
 ### TypeScript Support
 
@@ -169,53 +141,3 @@ export default {
 ```
 
 :::
-
-## ℹ️ Vue 2.7 + Webpack
-
-For Vue 2.7 (Vue loader 15) + Webpack, an additional option is required.
-
-:::: code-group
-
-::: code-group-item unplugin-vue-define-options
-
-```ts
-const config = {
-  plugins: [
-    defineOptions({
-      include: [/\.vue$/, /\.vue\?vue/],
-    }),
-  ],
-}
-```
-
-::: code-group-item unplugin-vue-define-options
-
-```ts
-const config = {
-  plugins: [
-    defineOptions({
-      include: [/\.vue$/, /\.vue\?vue/],
-    }),
-  ],
-}
-```
-
-:::
-
-::: code-group-item unplugin-vue-macros
-
-```ts
-const config = {
-  plugins: [
-    VueMacros({
-      defineOptions: {
-        include: [/\.vue$/, /\.vue\?vue/],
-      },
-    }),
-  ],
-}
-```
-
-:::
-
-::::
