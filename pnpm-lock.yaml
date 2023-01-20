@@ -356,22 +356,26 @@ importers:
 
   packages/test-utils:
     specifiers:
+      '@rollup/pluginutils': ^5.0.2
       '@vitejs/plugin-vue-jsx': ^3.0.0
       '@vitejs/plugin-vue2': ^2.2.0
       esbuild: ^0.17.0
+      fast-glob: ^3.2.12
       rollup: ^3.10.0
       rollup-plugin-esbuild: ^5.0.0
       unplugin-vue: ^4.0.1
       vite: ^4.0.4
       vue: ^3.2.45
     dependencies:
+      '@rollup/pluginutils': 5.0.2_rollup@3.10.0
       '@vitejs/plugin-vue-jsx': 3.0.0_vite@4.0.4+vue@3.2.45
+      '@vitejs/plugin-vue2': 2.2.0_vite@4.0.4+vue@3.2.45
       esbuild: 0.17.0
       rollup: 3.10.0
       rollup-plugin-esbuild: 5.0.0_spdxjolkq2ojxuvyeotxhudecu
       unplugin-vue: 4.0.1_vite@4.0.4+vue@3.2.45
     devDependencies:
-      '@vitejs/plugin-vue2': 2.2.0_vite@4.0.4+vue@3.2.45
+      fast-glob: 3.2.12
       vite: 4.0.4
       vue: 3.2.45
 
@@ -3973,7 +3977,7 @@ packages:
   /@types/eslint/8.4.10:
     resolution: {integrity: sha512-Sl/HOqN8NKPmhWo2VBEPm0nvHnu2LL3v9vKo8MEq0EtbJ4eVzGPl41VNPvn5E1i5poMk4/XD8UriLHpJvEP/Nw==}
     dependencies:
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
       '@types/json-schema': 7.0.11
     dev: true
 
@@ -4477,7 +4481,7 @@ packages:
     dependencies:
       vite: 4.0.4
       vue: 3.2.45
-    dev: true
+    dev: false
 
   /@vitest/coverage-c8/0.27.1_@vitest+ui@0.27.1:
     resolution: {integrity: sha512-/9VTGDIAp4hv8PBawfyijxhkiyucfOxFRRP+7kzy3Dj0wONy1Mc2MBoPmiH4aZVc0LViQqecrQLs8JVGt42keA==}

@@ -3,21 +3,21 @@ import { describe } from 'vitest'
 import {
   RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
-  RollupVue2,
+  RollupVue,
+  RollupVueJsx,
   rollupBuild,
   testFixtures,
 } from '@vue-macros/test-utils'
-import VueReactivityTransform from '../src/rollup'
+import VueSetupComponent from '../src/rollup'
 
 describe('fixtures', async () => {
   await testFixtures(
-    'tests/fixtures/*.{vue,js,ts}',
+    'tests/fixtures/*.{vue,[jt]s?(x)}',
     (args, id) =>
       rollupBuild(id, [
-        VueReactivityTransform(),
-        RollupVue2({
-          compiler: require('vue/compiler-sfc'),
-        }),
+        VueSetupComponent(),
+        RollupVue(),
+        RollupVueJsx(),
         RollupRemoveVueFilePathPlugin(),
         RollupEsbuildPlugin({
           target: 'esnext',

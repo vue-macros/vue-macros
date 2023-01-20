@@ -1,43 +1,32 @@
 import { resolve } from 'node:path'
-import { describe, expect, test } from 'vitest'
-import glob from 'fast-glob'
+import { describe } from 'vitest'
 import {
   RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
   RollupVue,
   RollupVueJsx,
   rollupBuild,
+  testFixtures,
 } from '@vue-macros/test-utils'
 import VueBetterDefine from '../src/rollup'
 
 describe('fixtures', async () => {
-  const root = resolve(__dirname, '..')
-  const files = await glob(
+  await testFixtures(
     ['tests/fixtures/*.vue', '!tests/fixtures/*.exclude.vue'],
+    (args, id) =>
+      rollupBuild(id, [
+        VueBetterDefine({ isProduction: args.isProduction }),
+        RollupVue(),
+        RollupVueJsx(),
+        RollupRemoveVueFilePathPlugin(),
+        RollupEsbuildPlugin({
+          target: 'esnext',
+        }),
+      ]),
     {
-      cwd: root,
-      onlyFiles: true,
+      cwd: resolve(__dirname, '..'),
+      promise: true,
+      params: [['isProduction', [true, false]]],
     }
   )
-
-  for (const file of files) {
-    describe(file.replace(/\\/g, '/'), () => {
-      const filepath = resolve(root, file)
-
-      for (const isProduction of [true, false]) {
-        test(`isProduction is ${isProduction}`, async () => {
-          const code = await rollupBuild(filepath, [
-            VueBetterDefine({ isProduction }),
-            RollupVue(),
-            RollupVueJsx(),
-            RollupRemoveVueFilePathPlugin(),
-            RollupEsbuildPlugin({
-              target: 'esnext',
-            }),
-          ])
-          expect(code).toMatchSnapshot()
-        })
-      }
-    })
-  }
 })

@@ -1,12 +1,12 @@
 import { resolve } from 'node:path'
 import { describe, expect, test } from 'vitest'
-import glob from 'fast-glob'
 import {
   RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
   RollupVue,
   RollupVueJsx,
   rollupBuild,
+  testFixtures,
 } from '@vue-macros/test-utils'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
 import VueSetupSFC from '../src/rollup'
@@ -24,17 +24,10 @@ describe('setup-component', () => {
   })
 
   describe('fixtures', async () => {
-    const root = resolve(__dirname, '..')
-    const files = await glob('tests/fixtures/*.{vue,[jt]s?(x)}', {
-      cwd: root,
-      onlyFiles: true,
-    })
-
-    for (const file of files) {
-      test(file.replace(/\\/g, '/'), async () => {
-        const filepath = resolve(root, file)
-
-        const code = await rollupBuild(filepath, [
+    await testFixtures(
+      'tests/fixtures/*.{vue,[jt]s?(x)}',
+      (args, id) =>
+        rollupBuild(id, [
           VueSetupSFC(),
           RollupVue({
             include: [REGEX_SETUP_SFC],
@@ -44,9 +37,11 @@ describe('setup-component', () => {
           RollupEsbuildPlugin({
             target: 'esnext',
           }),
-        ])
-        expect(code).toMatchSnapshot()
-      })
-    }
+        ]),
+      {
+        cwd: resolve(__dirname, '..'),
+        promise: true,
+      }
+    )
   })
 })

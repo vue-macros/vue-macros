@@ -1,27 +1,20 @@
 import { resolve } from 'node:path'
-import { describe, expect, it } from 'vitest'
-import glob from 'fast-glob'
+import { describe } from 'vitest'
 import {
   RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
   RollupVue,
   RollupVueJsx,
   rollupBuild,
+  testFixtures,
 } from '@vue-macros/test-utils'
 import VueDefineRender from '../src/rollup'
 
 describe('fixtures', async () => {
-  const root = resolve(__dirname, '..')
-  const files = await glob('tests/fixtures/*.{vue,js,ts}', {
-    cwd: root,
-    onlyFiles: true,
-  })
-
-  for (const file of files) {
-    it(file.replace(/\\/g, '/'), async () => {
-      const filepath = resolve(root, file)
-
-      const code = await rollupBuild(filepath, [
+  await testFixtures(
+    'tests/fixtures/*.{vue,js,ts}',
+    (args, id) =>
+      rollupBuild(id, [
         RollupVue(),
         RollupVueJsx(),
         VueDefineRender(),
@@ -29,8 +22,10 @@ describe('fixtures', async () => {
         RollupEsbuildPlugin({
           target: 'esnext',
         }),
-      ])
-      expect(code).toMatchSnapshot()
-    })
-  }
+      ]),
+    {
+      cwd: resolve(__dirname, '..'),
+      promise: true,
+    }
+  )
 })
