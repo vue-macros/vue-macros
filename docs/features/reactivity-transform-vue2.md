@@ -1,5 +1,5 @@
 # Reactivity Transform on Vue 2
 
-<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+<small>Stability: <code class="!text-green-600">stable</code></small>
 
-See also [official docs](https://vuejs.org/guide/extras/reactivity-transform.html)
+Read [official docs](https://vuejs.org/guide/extras/reactivity-transform.html) for usage.
