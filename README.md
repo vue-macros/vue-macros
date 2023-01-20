@@ -16,8 +16,6 @@
   <a href="https://vue-macros.sxzz.moe/">📜 Documentation</a>
 </p>
 
-English | [简体中文](./README-zh-CN.md)
-
 ## Features
 
 - ✨ Explore and extend more macros and syntax sugar to Vue.

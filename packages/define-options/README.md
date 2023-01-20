@@ -6,8 +6,6 @@
 
 <a href="https://vue-macros.sxzz.moe/macros/define-options">📜 Documentation</a>
 
-English | [简体中文](./README-zh-CN.md)
-
 Options API can be declared using the `defineOptions` in `<script setup>`, specifically to be able to set `name`, `props`, `emits`, and `render` inside of one function.
 
 If you support this feature, feel free to hit like 👍 or comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430). Thanks!
