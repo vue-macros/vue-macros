@@ -8,7 +8,6 @@ import {
   MagicString,
   REPO_ISSUE_URL,
   WITH_DEFAULTS,
-  babelParse,
   getTransformResult,
   isCallOf,
   parseSFC,
@@ -178,7 +177,7 @@ export function transformDefineModel(
 
   function processVue2Script() {
     if (!script) return
-    const scriptAst = babelParse(script.content, lang).body
+    const scriptAst = getScriptAst()!.body
     if (scriptAst.length === 0) return
 
     // process normal <script>
@@ -263,7 +262,7 @@ export function transformDefineModel(
           return isQualifiedType(node.declaration)
         }
       }
-      for (const node of setupNodes) {
+      for (const node of setupAst) {
         const qualified = isQualifiedType(node)
         if (qualified) {
           return qualified
@@ -506,19 +505,19 @@ export function transformDefineModel(
   }
 
   if (!code.includes(DEFINE_MODEL)) return
-  const { script, scriptSetup, lang, setupAst } = parseSFC(code, id)
+  const { script, scriptSetup, getSetupAst, getScriptAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
   const setupOffset = scriptSetup.loc.start.offset
   const setupContent = scriptSetup.content
-  const setupNodes = setupAst!.body
+  const setupAst = getSetupAst()!.body
 
   const s = new MagicString(code)
 
   if (version === 2) processVue2Script()
 
   // process <script setup>
-  for (const node of setupNodes) {
+  for (const node of setupAst) {
     if (node.type === 'ExpressionStatement') {
       processDefinePropsOrEmits(node.expression)
 

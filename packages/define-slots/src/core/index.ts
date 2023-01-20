@@ -9,12 +9,12 @@ import {
 export function transfromDefineSlots(code: string, id: string) {
   if (!code.includes(DEFINE_SLOTS)) return
 
-  const { scriptSetup, setupAst } = parseSFC(code, id)
-  if (!scriptSetup || !setupAst) return
+  const { scriptSetup, getSetupAst } = parseSFC(code, id)
+  if (!scriptSetup) return
 
   const s = new MagicString(code)
 
-  for (const stmt of setupAst.body) {
+  for (const stmt of getSetupAst()!.body) {
     if (
       stmt.type === 'ExpressionStatement' &&
       isCallOf(stmt.expression, DEFINE_SLOTS)

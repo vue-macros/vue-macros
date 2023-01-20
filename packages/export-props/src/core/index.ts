@@ -9,13 +9,11 @@ import {
 import type { VariableDeclarator } from '@babel/types'
 
 export function transfromExportProps(code: string, id: string) {
-  const sfc = parseSFC(code, id)
-  const { scriptSetup } = sfc
+  const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
   const offset = scriptSetup.loc.start.offset
   const s = new MagicString(code)
-  const program = sfc.setupAst!
 
   const props: Record<string, { type: string; defaultValue?: string }> = {}
   let hasDefineProps = false
@@ -41,7 +39,8 @@ export function transfromExportProps(code: string, id: string) {
     props[name] = { type, defaultValue }
   }
 
-  for (const stmt of program.body) {
+  const setupAst = getSetupAst()!
+  for (const stmt of setupAst.body) {
     if (
       stmt.type === 'ExportNamedDeclaration' &&
       stmt.declaration?.type === 'VariableDeclaration'

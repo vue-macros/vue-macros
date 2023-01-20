@@ -1,7 +1,6 @@
 import {
   DEFINE_PROPS,
   MagicString,
-  babelParse,
   getTransformResult,
   isCallOf,
   parseSFC,
@@ -15,23 +14,24 @@ export * from './helper'
 
 export function transfromVueSFC(code: string, id: string) {
   const s = new MagicString(code)
-  const { script, scriptSetup } = parseSFC(code, id)
+  const { script, scriptSetup, getScriptAst, getSetupAst } = parseSFC(code, id)
 
   let refBindings: string[] | undefined
   let propsDestructuredBindings: Record<string, { local: string }> | undefined
 
   if (script && shouldTransform(script.content)) {
-    const ast = babelParse(script.content, script.lang)
     const offset = script.loc.start.offset
-
-    const { importedHelpers, rootRefs } = transformAST(ast, s, offset)
+    const { importedHelpers, rootRefs } = transformAST(
+      getScriptAst()!,
+      s,
+      offset
+    )
     refBindings = rootRefs
     addHelpers(s, script.loc.start.offset, importedHelpers)
   }
 
   if (scriptSetup) {
-    const ast = babelParse(scriptSetup.content, scriptSetup.lang)
-
+    const ast = getSetupAst()!
     for (const node of ast.body) {
       processDefineProps(node)
     }

@@ -15,8 +15,9 @@ export function transformDefineOptions(code: string, id: string) {
 
   const sfc = parseSFC(code, id)
   if (!sfc.scriptSetup) return
-  const { scriptSetup, setupAst, scriptAst } = sfc
+  const { scriptSetup, getSetupAst, getScriptAst } = sfc
   const setupOffset = scriptSetup.loc.start.offset
+  const setupAst = getSetupAst()!
 
   const nodes = filterMacro(setupAst!.body)
   if (nodes.length === 0) {
@@ -24,6 +25,7 @@ export function transformDefineOptions(code: string, id: string) {
   } else if (nodes.length > 1)
     throw new SyntaxError(`duplicate ${DEFINE_OPTIONS}() call`)
 
+  const scriptAst = getScriptAst()!
   if (scriptAst) checkDefaultExport(scriptAst.body)
 
   const setupBindings = getIdentifiers(setupAst!.body)

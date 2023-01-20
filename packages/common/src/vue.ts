@@ -20,8 +20,8 @@ export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   script?: _SFCScriptBlock | null
   scriptSetup?: _SFCScriptBlock | null
   lang: string | undefined
-  get scriptAst(): Program | undefined
-  get setupAst(): Program | undefined
+  getScriptAst(): Program | undefined
+  getSetupAst(): Program | undefined
 } & Pick<SFCParseResult, 'errors'>
 
 export function parseSFC(code: string, id: string): SFC {
@@ -36,11 +36,11 @@ export function parseSFC(code: string, id: string): SFC {
     ...descriptor,
     lang,
     errors,
-    get setupAst() {
+    getSetupAst() {
       if (!descriptor.scriptSetup) return
       return babelParse(descriptor.scriptSetup.content, lang)
     },
-    get scriptAst() {
+    getScriptAst() {
       if (!descriptor.script) return
       return babelParse(descriptor.script.content, lang)
     },

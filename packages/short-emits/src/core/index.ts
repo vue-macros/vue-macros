@@ -1,6 +1,5 @@
 import {
   MagicString,
-  babelParse,
   getTransformResult,
   isTs,
   parseSFC,
@@ -20,20 +19,19 @@ import type {
 export function transformShortEmits(code: string, id: string) {
   if (!code.includes('SE') && !code.includes('ShortEmits')) return
 
-  const ctx = parseSFC(code, id)
-  const { scriptSetup, lang } = ctx
+  const sfc = parseSFC(code, id)
+  const { scriptSetup, lang, getSetupAst } = sfc
   if (!scriptSetup || !isTs(lang)) return
 
   const offset = scriptSetup.loc.start.offset
-
-  const program = babelParse(scriptSetup.loc.source, lang)
+  const ast = getSetupAst()!
 
   const nodes: {
     def: TSType
     type: TSTypeReference
   }[] = []
 
-  walkAST<Node>(program, {
+  walkAST<Node>(ast, {
     enter(node) {
       if (
         node.type === 'TSTypeReference' &&
