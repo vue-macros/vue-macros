@@ -1,36 +1,19 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from './pwa'
-import { nav, pwa, sidebar, webDescription, webLink, webName } from './configs'
+import {
+  headEn,
+  headZhCn,
+  nav,
+  pwa,
+  sidebar,
+  webDescriptionEn,
+  webDescriptionZhCn,
+  webName,
+} from './configs'
 
 export default withPwa(
   defineConfig({
-    lang: 'en-US',
-    title: 'Vue Macros',
-    head: [
-      ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
-      ['meta', { property: 'og:type', content: 'website' }],
-      ['meta', { property: 'og:title', content: webName }],
-      ['meta', { property: 'og:url', content: webLink }],
-      ['meta', { property: 'og:description', content: webDescription }],
-      ['meta', { name: 'theme-color', content: '#914796' }],
-      [
-        'script',
-        {
-          async: '',
-          src: 'https://www.googletagmanager.com/gtag/js?id=G-29NKGSL23C',
-        },
-      ],
-      [
-        'script',
-        {},
-        `window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-29NKGSL23C');`,
-      ],
-    ],
-
-    description: webDescription,
+    title: webName,
     lastUpdated: true,
     cleanUrls: 'disabled',
 
@@ -55,6 +38,20 @@ gtag('config', 'G-29NKGSL23C');`,
       },
       nav,
       sidebar,
+    },
+    locales: {
+      root: {
+        label: 'English',
+        description: webDescriptionEn,
+        head: headEn,
+        lang: 'en',
+      },
+      'zh-CN': {
+        label: 'Chinese',
+        description: webDescriptionZhCn,
+        head: headZhCn,
+        lang: 'zh-CN',
+      },
     },
     pwa,
   })
