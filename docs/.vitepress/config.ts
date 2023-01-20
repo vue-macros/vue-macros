@@ -52,7 +52,7 @@ gtag('config', 'G-29NKGSL23C');`,
       footer: {
         message: 'Made with ❤️',
         copyright:
-          'MIT License © 2022 <a href="https://github.com/sxzz">三咲智子</a>',
+          'MIT License © 2022-PRESENT <a href="https://github.com/sxzz">三咲智子</a>',
       },
       socialLinks: [
         { icon: 'github', link: 'https://github.com/sxzz/unplugin-vue-macros' },
