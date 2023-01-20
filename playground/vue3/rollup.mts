@@ -6,11 +6,13 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import VueMacros from 'unplugin-vue-macros/rollup'
 import Esbuild from 'rollup-plugin-esbuild'
 import NodeResolve from '@rollup/plugin-node-resolve'
+import CommonJS from '@rollup/plugin-commonjs'
 
 const bundle = await rollup({
   input: ['./src/main.ts'],
   plugins: [
     VueMacros({
+      setupBlock: true,
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
@@ -20,6 +22,7 @@ const bundle = await rollup({
       },
     }),
     NodeResolve(),
+    CommonJS(),
     Esbuild({
       target: 'esnext',
     }),
