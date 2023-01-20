@@ -2,7 +2,7 @@
 
 exports[`fixtures > ./fixtures/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const { foo = 'foo', bar = 10, qux = fn(), } = defineProps<{
+const { foo = 'foo', bar = 10, baz, qux = fn(), } = defineProps<{
   foo?: string,
   bar?: any,
   baz: string | undefined,
