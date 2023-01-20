@@ -189,6 +189,19 @@ importers:
     devDependencies:
       vue: 3.2.45
 
+  packages/export-props:
+    specifiers:
+      '@rollup/pluginutils': ^5.0.2
+      '@vue-macros/common': workspace:~
+      unplugin: ^1.0.1
+      vue: ^3.2.45
+    dependencies:
+      '@rollup/pluginutils': 5.0.2
+      '@vue-macros/common': link:../common
+      unplugin: 1.0.1
+    devDependencies:
+      vue: 3.2.45
+
   packages/hoist-static:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
@@ -208,6 +221,7 @@ importers:
       '@vue-macros/define-props': workspace:*
       '@vue-macros/define-render': workspace:*
       '@vue-macros/define-slots': workspace:*
+      '@vue-macros/export-props': workspace:*
       '@vue-macros/hoist-static': workspace:*
       '@vue-macros/named-template': workspace:*
       '@vue-macros/reactivity-transform-vue2': workspace:*
@@ -228,6 +242,7 @@ importers:
       '@vue-macros/define-props': link:../define-props
       '@vue-macros/define-render': link:../define-render
       '@vue-macros/define-slots': link:../define-slots
+      '@vue-macros/export-props': link:../export-props
       '@vue-macros/hoist-static': link:../hoist-static
       '@vue-macros/named-template': link:../named-template
       '@vue-macros/reactivity-transform-vue2': link:../reactivity-transform-vue2

@@ -5,6 +5,7 @@ import VueDefineOptions from 'unplugin-vue-define-options'
 import VueDefineProps from '@vue-macros/define-props'
 import VueDefineRender from '@vue-macros/define-render'
 import VueDefineSlots from '@vue-macros/define-slots'
+import VueExportProps from '@vue-macros/export-props'
 import VueHoistStatic from '@vue-macros/hoist-static'
 import VueNamedTemplate from '@vue-macros/named-template'
 import VueReactivityTransformVue2 from '@vue-macros/reactivity-transform-vue2'
@@ -22,6 +23,7 @@ import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-option
 import type { Options as OptionsDefineProps } from '@vue-macros/define-props'
 import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
 import type { Options as OptionsDefineSlots } from '@vue-macros/define-slots'
+import type { Options as OptionsExportProps } from '@vue-macros/export-props'
 import type { Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
 import type { Options as OptionsNamedTemplate } from '@vue-macros/named-template'
 import type { Options as OptionsReactivityTransformVue2 } from '@vue-macros/reactivity-transform-vue2'
@@ -37,6 +39,7 @@ export interface FeatureOptionsMap {
   defineProps: OptionsDefineProps
   defineRender: OptionsDefineRender
   defineSlots: OptionsDefineSlots
+  exportProps: OptionsExportProps
   hoistStatic: OptionsHoistStatic
   namedTemplate: OptionsNamedTemplate
   reactivityTransformVue2: OptionsReactivityTransformVue2
@@ -79,6 +82,7 @@ function resolveOptions({
   defineProps,
   defineRender,
   defineSlots,
+  exportProps,
   hoistStatic,
   namedTemplate,
   reactivityTransformVue2,
@@ -117,6 +121,7 @@ function resolveOptions({
     defineProps: resolveSubOptions<'defineProps'>(defineProps, { version }),
     defineRender: resolveSubOptions<'defineRender'>(defineRender),
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
+    exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
     reactivityTransformVue2: resolveSubOptions<'reactivityTransformVue2'>(
@@ -178,6 +183,7 @@ export default createCombinePlugin((userOptions: Options = {}, meta) => {
     resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
     namedTemplatePlugins?.[0],
     resolvePlugin(VueDefineProps, framework, options.defineProps),
+    resolvePlugin(VueExportProps, framework, options.exportProps),
     resolvePlugin(VueShortEmits, framework, options.shortEmits),
     resolvePlugin(VueDefineModel, framework, options.defineModel),
     resolvePlugin(VueDefineSlots, framework, options.defineSlots),

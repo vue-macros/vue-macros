@@ -1,18 +1,16 @@
 {
-  "name": "unplugin-vue-macros",
-  "version": "1.4.2",
+  "name": "@vue-macros/export-props",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.25.0",
-  "description": "Explore and extend more macros and syntax sugar to Vue.",
+  "description": "",
   "keywords": [
     "unplugin",
     "vue",
+    "sfc",
+    "setup",
     "macros",
     "script-setup",
-    "define-options",
-    "define-model",
-    "define-render",
-    "setup-sfc",
-    "setup-component"
+    "export-props"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -52,8 +50,8 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
+    "./macros": "./macros.d.ts",
     "./macros-global": "./macros-global.d.ts",
-    "./vue2-macros-global": "./vue2-macros-global.d.ts",
     "./*": "./*"
   },
   "typesVersions": {
@@ -73,26 +71,10 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.0.2",
-    "@vue-macros/better-define": "workspace:*",
-    "@vue-macros/common": "workspace:*",
-    "@vue-macros/define-model": "workspace:*",
-    "@vue-macros/define-props": "workspace:*",
-    "@vue-macros/define-render": "workspace:*",
-    "@vue-macros/define-slots": "workspace:*",
-    "@vue-macros/export-props": "workspace:*",
-    "@vue-macros/hoist-static": "workspace:*",
-    "@vue-macros/named-template": "workspace:*",
-    "@vue-macros/reactivity-transform-vue2": "workspace:*",
-    "@vue-macros/setup-block": "workspace:*",
-    "@vue-macros/setup-component": "workspace:*",
-    "@vue-macros/setup-sfc": "workspace:*",
-    "@vue-macros/short-emits": "workspace:*",
-    "unplugin-combine": "^0.5.3",
-    "unplugin-vue-define-options": "workspace:*"
+    "@vue-macros/common": "workspace:~",
+    "unplugin": "^1.0.1"
   },
   "devDependencies": {
-    "esbuild": "^0.17.0",
-    "unplugin": "^1.0.1",
     "vue": "^3.2.45"
   },
   "engines": {

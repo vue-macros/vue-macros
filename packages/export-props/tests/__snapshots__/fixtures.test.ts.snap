@@ -1,0 +1,21 @@
+// Vitest Snapshot v1
+
+exports[`fixtures > ./fixtures/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+const { foo = 'foo', bar = 10, qux = fn(), } = defineProps<{
+  foo?: string,
+  bar?: any,
+  baz: string | undefined,
+  qux?: any,
+}>()
+
+
+
+
+</script>
+
+<template>
+  <div></div>
+</template>
+"
+`;
