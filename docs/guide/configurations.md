@@ -2,6 +2,8 @@
 
 ## Plugin Options
 
+All features are enabled by default, you can disable them by setting the option to `false`.
+
 ```ts
 VueMacros({
   root: '/your-project-path',

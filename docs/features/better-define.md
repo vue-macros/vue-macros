@@ -2,7 +2,7 @@
 
 <small>Stability: <code class="!text-green-600">stable</code></small>
 
-With enabling `betterDefine`, imported types is supported in `<script setup>` type-based-macros.
+With enabling `betterDefine`, imported types are supported in `<script setup>` type-based-macros.
 
 [Related issue](https://github.com/vuejs/core/issues/4294)
 
@@ -43,3 +43,48 @@ export interface BaseProps {
 :::
 
 ::::
+
+## ⚠️ Limitations
+
+### Complex types
+
+Complex types are not supported in some key places. For example:
+
+#### What are Complex Types?
+
+- All utility types
+  - [Built-in types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+  - All types from `type-fest` package.
+  - ...
+- Index Signature
+  ```ts
+  interface Type {
+    [key: string]: string
+  }
+  ```
+- Generics will be ignored directly
+
+#### What are Key Places?
+
+- The names of props.
+
+```ts
+// ✅
+defineProps<{
+  foo: ComplexType
+}>()
+
+// ❌
+defineProps<{
+  [ComplexType]: string
+}>()
+```
+
+- The names of events.
+
+```ts
+interface Emits {
+  (event: 'something', value: ComplexType): void // ✅
+  (event: ComplexType): void // ❌
+}
+```
