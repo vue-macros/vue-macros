@@ -1,9 +1,11 @@
 # namedTemplate
 
-<small mr-2>
-  Stability: <code class="!text-red-600">experimental</code>
-</small>
-<WarnBadge>Experimental, use at your risk</WarnBadge>
+
+<div py2 flex>
+  <small>Stability: <code class="!text-red-600">experimental</code></small>
+  <WarnBadge>Experimental, use at your risk</WarnBadge>
+</div>
+
 
 With enabling `namedTemplate`, `<template>` can be referenced like a variable.
 

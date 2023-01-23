@@ -89,6 +89,10 @@ export const sidebar: DefaultTheme.Sidebar = [
         link: '/features/better-define',
       },
       {
+        text: 'exportProps',
+        link: '/features/export-props',
+      },
+      {
         text: 'reactivityTransformVue2',
         link: '/features/reactivity-transform-vue2',
       },
