@@ -1,5 +1,14 @@
 # @vue-macros/define-slots
 
+## 0.1.5
+
+### Patch Changes
+
+- [`af45741`](https://github.com/sxzz/unplugin-vue-macros/commit/af4574121dd43957343669fdc4051fb452a23e6b) Thanks [@sxzz](https://github.com/sxzz)! - refactor sfc ast
+
+- Updated dependencies [[`af45741`](https://github.com/sxzz/unplugin-vue-macros/commit/af4574121dd43957343669fdc4051fb452a23e6b)]:
+  - @vue-macros/common@0.14.0
+
 ## 0.1.4
 
 ### Patch Changes

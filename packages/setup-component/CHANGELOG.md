@@ -1,5 +1,12 @@
 # @vue-macros/setup-component
 
+## 0.14.2
+
+### Patch Changes
+
+- Updated dependencies [[`af45741`](https://github.com/sxzz/unplugin-vue-macros/commit/af4574121dd43957343669fdc4051fb452a23e6b)]:
+  - @vue-macros/common@0.14.0
+
 ## 0.14.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @vue-macros/volar
 
+## 0.6.0
+
+### Minor Changes
+
+- [`5e7a177`](https://github.com/sxzz/unplugin-vue-macros/commit/5e7a1778ab793b44176245ad3048b9f694bd48f0) Thanks [@sxzz](https://github.com/sxzz)! - add volar support of export props
+
+### Patch Changes
+
+- Updated dependencies [[`af45741`](https://github.com/sxzz/unplugin-vue-macros/commit/af4574121dd43957343669fdc4051fb452a23e6b)]:
+  - @vue-macros/common@0.14.0
+  - @vue-macros/define-props@0.2.1
+  - @vue-macros/short-vmodel@1.0.5
+
 ## 0.5.15
 
 ### Patch Changes

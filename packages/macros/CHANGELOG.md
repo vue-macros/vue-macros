@@ -1,5 +1,30 @@
 # unplugin-vue-macros
 
+## 1.5.0
+
+### Minor Changes
+
+- [`6c5cdbc`](https://github.com/sxzz/unplugin-vue-macros/commit/6c5cdbcf3371b06eefb465cfe810c55828ffd9c1) Thanks [@sxzz](https://github.com/sxzz)! - support export props
+
+### Patch Changes
+
+- Updated dependencies [[`6c5cdbc`](https://github.com/sxzz/unplugin-vue-macros/commit/6c5cdbcf3371b06eefb465cfe810c55828ffd9c1), [`d26c255`](https://github.com/sxzz/unplugin-vue-macros/commit/d26c2559b36b1c167fdc48be3428b9dd4fb8cdd4), [`af45741`](https://github.com/sxzz/unplugin-vue-macros/commit/af4574121dd43957343669fdc4051fb452a23e6b)]:
+  - @vue-macros/export-props@0.1.0
+  - @vue-macros/reactivity-transform-vue2@0.1.0
+  - @vue-macros/common@0.14.0
+  - unplugin-vue-define-options@1.1.5
+  - @vue-macros/define-model@1.2.4
+  - @vue-macros/define-props@0.2.1
+  - @vue-macros/define-slots@0.1.5
+  - @vue-macros/hoist-static@1.1.5
+  - @vue-macros/short-emits@1.1.5
+  - @vue-macros/better-define@1.1.7
+  - @vue-macros/define-render@1.1.5
+  - @vue-macros/named-template@0.1.5
+  - @vue-macros/setup-block@0.0.6
+  - @vue-macros/setup-component@0.14.2
+  - @vue-macros/setup-sfc@0.13.5
+
 ## 1.4.2
 
 ### Patch Changes
