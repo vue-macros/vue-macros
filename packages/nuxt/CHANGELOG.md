@@ -1,5 +1,18 @@
 # @vue-macros/nuxt
 
+## 0.3.0
+
+### Minor Changes
+
+- [`5e7a177`](https://github.com/sxzz/unplugin-vue-macros/commit/5e7a1778ab793b44176245ad3048b9f694bd48f0) Thanks [@sxzz](https://github.com/sxzz)! - add volar support of export props
+
+### Patch Changes
+
+- Updated dependencies [[`6c5cdbc`](https://github.com/sxzz/unplugin-vue-macros/commit/6c5cdbcf3371b06eefb465cfe810c55828ffd9c1), [`5e7a177`](https://github.com/sxzz/unplugin-vue-macros/commit/5e7a1778ab793b44176245ad3048b9f694bd48f0)]:
+  - unplugin-vue-macros@1.5.0
+  - @vue-macros/volar@0.6.0
+  - @vue-macros/short-vmodel@1.0.5
+
 ## 0.2.16
 
 ### Patch Changes

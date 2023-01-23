@@ -1,5 +1,18 @@
 # @vue-macros/reactivity-transform-vue2
 
+## 0.1.0
+
+### Minor Changes
+
+- [`d26c255`](https://github.com/sxzz/unplugin-vue-macros/commit/d26c2559b36b1c167fdc48be3428b9dd4fb8cdd4) Thanks [@sxzz](https://github.com/sxzz)! - stabilize
+
+### Patch Changes
+
+- [`af45741`](https://github.com/sxzz/unplugin-vue-macros/commit/af4574121dd43957343669fdc4051fb452a23e6b) Thanks [@sxzz](https://github.com/sxzz)! - refactor sfc ast
+
+- Updated dependencies [[`af45741`](https://github.com/sxzz/unplugin-vue-macros/commit/af4574121dd43957343669fdc4051fb452a23e6b)]:
+  - @vue-macros/common@0.14.0
+
 ## 0.0.6
 
 ### Patch Changes
