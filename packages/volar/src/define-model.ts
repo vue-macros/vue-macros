@@ -146,7 +146,7 @@ function resolve({
   const typeArg = getTypeArg(ts, sfc)
   if (!typeArg) return
 
-  const vueVersion = vueCompilerOptions.target ?? 3
+  const vueVersion = vueCompilerOptions.target
   const vueLibName = getVueLibraryName(vueVersion)
   const unified =
     (vueVersion < 3 && (vueCompilerOptions as any)?.defineModel?.unified) ??
