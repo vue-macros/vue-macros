@@ -193,8 +193,8 @@ const __default__ = defineComponent({
 var _sfc_main = /* @__PURE__ */ defineComponent({
   ...__default__,
   props: {
-    value: { type: String, required: true },
-    title: { type: String, required: true }
+    \\"value\\": { type: String, required: true },
+    \\"title\\": { type: String, required: true }
   },
   emits: [\\"input\\", \\"changeInput\\", \\"change\\"],
   setup(__props, { emit }) {
