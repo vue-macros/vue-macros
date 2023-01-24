@@ -27,21 +27,24 @@ export async function transformBetterDefine(
 
     const runtimeDecls = `{\n  ${Object.entries(runtimeDefs)
       .map(([key, { type, required, default: defaultDecl }]) => {
+        const escapedKey = JSON.stringify(key)
         let defaultString = ''
         if (defaultDecl) {
           defaultString = defaultDecl('default')
         }
         if (!isProduction) {
-          return `${key}: { type: ${toRuntimeTypeString(
+          return `${escapedKey}: { type: ${toRuntimeTypeString(
             type
           )}, required: ${required}, ${defaultString} }`
         } else if (type.some((el) => el === 'Boolean' || el === 'Function')) {
-          return `${key}: { type: ${toRuntimeTypeString(
+          return `${escapedKey}: { type: ${toRuntimeTypeString(
             type
           )}, ${defaultString} }`
         } else {
           // production: checks are useless
-          return `${key}: ${defaultString ? `{ ${defaultString} }` : 'null'}`
+          return `${escapedKey}: ${
+            defaultString ? `{ ${defaultString} }` : 'null'
+          }`
         }
       })
       .join(',\n  ')}\n}`

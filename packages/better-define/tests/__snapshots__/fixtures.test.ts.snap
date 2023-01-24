@@ -6,12 +6,12 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = false 1`] = `
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
   props: {
-    base: { type: String, required: true },
-    str: { type: String, required: true },
-    num: { type: Number, required: true },
-    map: { type: Map, required: true },
-    arr: { type: Array, required: true },
-    union: { type: [String, Number], required: true }
+    \\"base\\": { type: String, required: true },
+    \\"str\\": { type: String, required: true },
+    \\"num\\": { type: Number, required: true },
+    \\"map\\": { type: Map, required: true },
+    \\"arr\\": { type: Array, required: true },
+    \\"union\\": { type: [String, Number], required: true }
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
@@ -41,12 +41,12 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = true 1`] = `
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
   props: {
-    base: null,
-    str: null,
-    num: null,
-    map: null,
-    arr: null,
-    union: null
+    \\"base\\": null,
+    \\"str\\": null,
+    \\"num\\": null,
+    \\"map\\": null,
+    \\"arr\\": null,
+    \\"union\\": null
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
@@ -76,7 +76,7 @@ exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = false 1
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"defaults-dynamic\\",
   props: mergeDefaults({
-    foo: { type: String, required: false }
+    \\"foo\\": { type: String, required: false }
   }, {
     [\\"foo\\"]: \\"foo\\"
   }),
@@ -107,7 +107,7 @@ exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = true 1`
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"defaults-dynamic\\",
   props: mergeDefaults({
-    foo: null
+    \\"foo\\": null
   }, {
     [\\"foo\\"]: \\"foo\\"
   }),
@@ -138,16 +138,16 @@ exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = false 1`
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"defaults-static\\",
   props: {
-    foo: { type: String, required: false, default: \\"foo\\" },
-    bar: { type: Number, required: false, get default() {
+    \\"foo\\": { type: String, required: false, default: \\"foo\\" },
+    \\"bar\\": { type: Number, required: false, get default() {
       return 10;
     } },
-    baz: { type: Promise, required: false, async default() {
+    \\"baz\\": { type: Promise, required: false, async default() {
       return 10;
     } },
-    qux: { type: Function, required: false, default: () => {
+    \\"qux\\": { type: Function, required: false, default: () => {
     } },
-    quux: { type: null, required: false, default: abc }
+    \\"quux\\": { type: null, required: false, default: abc }
   },
   setup(__props) {
     return (_ctx, _cache) => {
@@ -176,16 +176,16 @@ exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = true 1`]
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"defaults-static\\",
   props: {
-    foo: { default: \\"foo\\" },
-    bar: { get default() {
+    \\"foo\\": { default: \\"foo\\" },
+    \\"bar\\": { get default() {
       return 10;
     } },
-    baz: { async default() {
+    \\"baz\\": { async default() {
       return 10;
     } },
-    qux: { type: Function, default: () => {
+    \\"qux\\": { type: Function, default: () => {
     } },
-    quux: { default: abc }
+    \\"quux\\": { default: abc }
   },
   setup(__props) {
     return (_ctx, _cache) => {
@@ -214,7 +214,7 @@ exports[`fixtures > tests/fixtures/fn-default.vue > isProduction = false 1`] = `
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"fn-default\\",
   props: {
-    fn: { type: Function, required: true, default: () => {
+    \\"fn\\": { type: Function, required: true, default: () => {
     } }
   },
   setup(__props) {
@@ -244,7 +244,7 @@ exports[`fixtures > tests/fixtures/fn-default.vue > isProduction = true 1`] = `
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"fn-default\\",
   props: {
-    fn: { type: Function, default: () => {
+    \\"fn\\": { type: Function, default: () => {
     } }
   },
   setup(__props) {
@@ -274,15 +274,15 @@ exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction = false 1`
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"import-from-vue\\",
   props: {
-    setupBase: { type: String, required: true },
-    num: { type: Number, required: true },
-    bool: { type: Boolean, required: true },
-    map: { type: Map, required: true },
-    arr: { type: Array, required: true },
-    union: { type: [String, Number], required: true },
-    normalBase: { type: String, required: true },
-    str: { type: String, required: true },
-    setupBase_2: { type: String, required: true }
+    \\"setupBase\\": { type: String, required: true },
+    \\"num\\": { type: Number, required: true },
+    \\"bool\\": { type: Boolean, required: true },
+    \\"map\\": { type: Map, required: true },
+    \\"arr\\": { type: Array, required: true },
+    \\"union\\": { type: [String, Number], required: true },
+    \\"normalBase\\": { type: String, required: true },
+    \\"str\\": { type: String, required: true },
+    \\"setupBase_2\\": { type: String, required: true }
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
@@ -312,15 +312,15 @@ exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction = true 1`]
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"import-from-vue\\",
   props: {
-    setupBase: null,
-    num: null,
-    bool: { type: Boolean },
-    map: null,
-    arr: null,
-    union: null,
-    normalBase: null,
-    str: null,
-    setupBase_2: null
+    \\"setupBase\\": null,
+    \\"num\\": null,
+    \\"bool\\": { type: Boolean },
+    \\"map\\": null,
+    \\"arr\\": null,
+    \\"union\\": null,
+    \\"normalBase\\": null,
+    \\"str\\": null,
+    \\"setupBase_2\\": null
   },
   emits: [\\"click\\", \\"change\\"],
   setup(__props) {
@@ -350,12 +350,12 @@ exports[`fixtures > tests/fixtures/intersection.vue > isProduction = false 1`] =
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"intersection\\",
   props: {
-    base: { type: String, required: true },
-    str: { type: String, required: true },
-    num: { type: Number, required: true },
-    map: { type: Map, required: true },
-    arr: { type: Array, required: true },
-    union: { type: [String, Number], required: true }
+    \\"base\\": { type: String, required: true },
+    \\"str\\": { type: String, required: true },
+    \\"num\\": { type: Number, required: true },
+    \\"map\\": { type: Map, required: true },
+    \\"arr\\": { type: Array, required: true },
+    \\"union\\": { type: [String, Number], required: true }
   },
   setup(__props) {
     return (_ctx, _cache) => {
@@ -384,12 +384,12 @@ exports[`fixtures > tests/fixtures/intersection.vue > isProduction = true 1`] = 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"intersection\\",
   props: {
-    base: null,
-    str: null,
-    num: null,
-    map: null,
-    arr: null,
-    union: null
+    \\"base\\": null,
+    \\"str\\": null,
+    \\"num\\": null,
+    \\"map\\": null,
+    \\"arr\\": null,
+    \\"union\\": null
   },
   setup(__props) {
     return (_ctx, _cache) => {
@@ -409,5 +409,61 @@ var _export_sfc = (sfc, props) => {
 var intersection = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { intersection as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/special-key.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"special-key\\",
+  props: {
+    \\"key-name\\": { type: String, required: false }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var specialKey = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { specialKey as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/special-key.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"special-key\\",
+  props: {
+    \\"key-name\\": null
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var specialKey = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { specialKey as default };
 "
 `;
