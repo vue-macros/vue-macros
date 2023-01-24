@@ -1,5 +1,11 @@
 # @vue-macros/better-define
 
+## 1.1.9
+
+### Patch Changes
+
+- [`0ec95df`](https://github.com/sxzz/unplugin-vue-macros/commit/0ec95df76457c21da07e38af6d2123d95cc2903b) Thanks [@sxzz](https://github.com/sxzz)! - fix cycle imports on HMR
+
 ## 1.1.8
 
 ### Patch Changes
