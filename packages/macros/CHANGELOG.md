@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 1.5.2
+
+### Patch Changes
+
+- Updated dependencies [[`0ec95df`](https://github.com/sxzz/unplugin-vue-macros/commit/0ec95df76457c21da07e38af6d2123d95cc2903b)]:
+  - @vue-macros/better-define@1.1.9
+
 ## 1.5.1
 
 ### Patch Changes
