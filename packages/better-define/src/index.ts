@@ -103,9 +103,13 @@ export default createUnplugin<Options | undefined, false>(
         },
 
         handleHotUpdate({ file, server, modules }) {
+          const cache = new Map<string, Set<ModuleNode>>()
           function getAffectedModules(file: string): Set<ModuleNode> {
+            if (cache.has(file)) return cache.get(file)!
+
             if (!referencedFiles.has(file)) return new Set([])
             const modules = new Set<ModuleNode>([])
+            cache.set(file, modules)
             for (const importer of referencedFiles.get(file)!) {
               const mods = server.moduleGraph.getModulesByFile(importer)
               if (mods) mods.forEach((m) => modules.add(m))
