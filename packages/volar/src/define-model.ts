@@ -1,6 +1,6 @@
 import { DEFINE_MODEL, DEFINE_MODEL_DOLLAR } from '@vue-macros/common'
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
-import { getVueLibraryName } from './common'
+import { addProps, getVueLibraryName } from './common'
 import type { FileCapabilities } from '@volar/language-core'
 import type { Segment } from 'muggle-string'
 import type {
@@ -30,7 +30,12 @@ function transformDefineModel({
     typeArg!.pos,
     FileRangeCapabilities.full,
   ]
-  mergeProps() || addProps()
+  mergeProps() ||
+    addProps(
+      codes,
+      ['__VLS_TypePropsToRuntimeProps<__VLS_ModelToProps<', seg, '>>'],
+      vueLibName
+    )
   mergeEmits() || addEmits()
 
   codes.push(
@@ -51,23 +56,6 @@ function transformDefineModel({
     if (idx === -1) return false
 
     codes.splice(idx + 2, 0, ' & __VLS_ModelToProps<', seg, '>')
-    return true
-  }
-
-  function addProps() {
-    const idx = codes.indexOf('setup() {\n')
-    if (idx === -1) return false
-    const segs: Segment<FileRangeCapabilities>[] = [
-      'props: ({} as __VLS_TypePropsToRuntimeProps<__VLS_ModelToProps<',
-      seg,
-      '>>),\n',
-    ]
-    codes.splice(idx, 0, ...segs)
-
-    codes.push(
-      `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
-      `type __VLS_TypePropsToRuntimeProps<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`
-    )
     return true
   }
 
