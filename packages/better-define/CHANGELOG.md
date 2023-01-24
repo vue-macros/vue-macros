@@ -1,5 +1,11 @@
 # @vue-macros/better-define
 
+## 1.1.8
+
+### Patch Changes
+
+- [`9432d0d`](https://github.com/sxzz/unplugin-vue-macros/commit/9432d0d9521278e318cff0f793c3f054d173e764) Thanks [@sxzz](https://github.com/sxzz)! - escape prop key
+
 ## 1.1.7
 
 ### Patch Changes

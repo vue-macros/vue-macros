@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.6.1
+
+### Patch Changes
+
+- [`345294f`](https://github.com/sxzz/unplugin-vue-macros/commit/345294f6c53373d3f10bbcf295fe30f994416f8e) Thanks [@sxzz](https://github.com/sxzz)! - simplify export props
+
 ## 0.6.0
 
 ### Minor Changes
