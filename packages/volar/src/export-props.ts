@@ -1,6 +1,5 @@
-import { FileKind, FileRangeCapabilities } from '@volar/language-core'
+import { FileKind } from '@volar/language-core'
 import { addProps, getVueLibraryName } from './common'
-import type { Segment } from 'muggle-string'
 import type {
   Sfc,
   VueEmbeddedFile,
@@ -21,9 +20,8 @@ function transform({
   const idx = file?.content.indexOf('const __VLS_setup = async () => {\n')
 
   const props: Record<string, boolean> = {}
-  const sources: [offset: number, content: string][] = []
   let source = file.content[idx + 1][0]
-  let cursor = 0
+  let changed = false
   for (const stmt of sfc.scriptSetupAst!.statements) {
     if (!ts.isVariableStatement(stmt)) continue
     const exportModifier = stmt.modifiers?.find(
@@ -32,12 +30,10 @@ function transform({
     if (!exportModifier) continue
 
     const start = exportModifier.getFullStart()
+    const width = exportModifier.getFullWidth()
     const end = exportModifier.getEnd()
-    if (cursor > 0) {
-      sources.push([cursor, source.slice(0, start - cursor)])
-    }
-    source = source.slice(end - cursor)
-    cursor = end
+    changed = true
+    source = `${source.slice(0, start)}${' '.repeat(width)}${source.slice(end)}`
 
     for (const decl of stmt.declarationList.declarations) {
       if (!ts.isIdentifier(decl.name)) continue
@@ -45,15 +41,8 @@ function transform({
     }
   }
 
-  if (sources.length > 0) {
-    sources.push([cursor, source])
-    file.content.splice(
-      idx + 1,
-      1,
-      ...sources.map(([offset, content]): Segment<FileRangeCapabilities> => {
-        return [content, 'scriptSetup', offset, FileRangeCapabilities.full]
-      })
-    )
+  if (changed) {
+    ;(file.content[idx + 1][0] as any) = source
   }
 
   addProps(
