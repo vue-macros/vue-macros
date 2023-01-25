@@ -6,7 +6,7 @@ import {
   REGEX_VUE_SUB,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transfromDefineSlots } from './core'
+import { transformDefineSlots } from './core'
 import type { UnpluginContextMeta } from 'unplugin'
 import type { MarkRequired } from '@vue-macros/common'
 import type { FilterPattern } from '@rollup/pluginutils'
@@ -50,7 +50,7 @@ export default createUnplugin<Options | undefined, false>(
 
       transform(code, id) {
         try {
-          return transfromDefineSlots(code, id)
+          return transformDefineSlots(code, id)
         } catch (err: unknown) {
           this.error(`${name} ${err}`)
         }

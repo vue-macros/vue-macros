@@ -6,7 +6,7 @@ import {
   parseSFC,
 } from '@vue-macros/common'
 
-export function transfromDefineSlots(code: string, id: string) {
+export function transformDefineSlots(code: string, id: string) {
   if (!code.includes(DEFINE_SLOTS)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)

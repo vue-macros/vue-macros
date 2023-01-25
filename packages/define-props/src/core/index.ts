@@ -9,7 +9,7 @@ import {
 } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
-export function transfromDefineProps(code: string, id: string) {
+export function transformDefineProps(code: string, id: string) {
   if (!code.includes(DEFINE_PROPS_DOLLAR)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)

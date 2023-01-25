@@ -452,7 +452,7 @@ export function transformDefineModel(
         `Identifier of returning value of ${DEFINE_EMITS} is not found, please report this issue.\n${REPO_ISSUE_URL}`
       )
 
-    let hasTransfromed = false
+    let hasTransformed = false
 
     function overwrite(
       node: Node,
@@ -460,7 +460,7 @@ export function transformDefineModel(
       value: string,
       original = false
     ) {
-      hasTransfromed = true
+      hasTransformed = true
       const eventName = aliasMap[id.name]
       const content = `_DM_emitHelper(${emitsIdentifier}, '${getEventKey(
         String(eventName)
@@ -496,7 +496,7 @@ export function transformDefineModel(
       },
     })
 
-    if (hasTransfromed) {
+    if (hasTransformed) {
       s.prependLeft(
         setupOffset,
         `\nimport _DM_emitHelper from '${emitHelperId}';`

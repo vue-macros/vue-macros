@@ -8,7 +8,7 @@ import {
   REGEX_VUE_SUB,
 } from '@vue-macros/common'
 import { shouldTransform, transform } from '@vue/reactivity-transform'
-import { helperCode, helperId, transfromVueSFC } from './core'
+import { helperCode, helperId, transformVueSFC } from './core'
 import type { UnpluginContextMeta } from 'unplugin'
 import type { MarkRequired } from '@vue-macros/common'
 import type { FilterPattern } from '@rollup/pluginutils'
@@ -68,7 +68,7 @@ export default createUnplugin<Options | undefined, false>(
             REGEX_SETUP_SFC.test(id) ||
             (framework === 'webpack' && REGEX_VUE_SUB.test(id))
           ) {
-            return transfromVueSFC(code, id)
+            return transformVueSFC(code, id)
           } else {
             if (!shouldTransform(code)) return
             return transform(code, {

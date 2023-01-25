@@ -1,7 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
-import { hotUpdateSetupSFC, transfromSetupSFC } from './core'
+import { hotUpdateSetupSFC, transformSetupSFC } from './core'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
@@ -37,7 +37,7 @@ export default createUnplugin<Options | undefined, false>(
 
       transform(code, id) {
         try {
-          return transfromSetupSFC(code, id)
+          return transformSetupSFC(code, id)
         } catch (err: unknown) {
           this.error(`${name} ${err}`)
         }

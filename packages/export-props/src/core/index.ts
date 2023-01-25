@@ -8,7 +8,7 @@ import {
 } from '@vue-macros/common'
 import type { VariableDeclarator } from '@babel/types'
 
-export function transfromExportProps(code: string, id: string) {
+export function transformExportProps(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
