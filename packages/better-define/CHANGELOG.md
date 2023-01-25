@@ -1,5 +1,14 @@
 # @vue-macros/better-define
 
+## 1.1.10
+
+### Patch Changes
+
+- [`a24f0d3`](https://github.com/sxzz/unplugin-vue-macros/commit/a24f0d398cf0c6dd0bd9d0706f89fae52d5bc620) Thanks [@sxzz](https://github.com/sxzz)! - optional method props
+
+- Updated dependencies [[`a24f0d3`](https://github.com/sxzz/unplugin-vue-macros/commit/a24f0d398cf0c6dd0bd9d0706f89fae52d5bc620)]:
+  - @vue-macros/api@0.2.7
+
 ## 1.1.9
 
 ### Patch Changes

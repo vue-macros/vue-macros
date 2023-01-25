@@ -1,5 +1,11 @@
 # @vue-macros/api
 
+## 0.2.7
+
+### Patch Changes
+
+- [`a24f0d3`](https://github.com/sxzz/unplugin-vue-macros/commit/a24f0d398cf0c6dd0bd9d0706f89fae52d5bc620) Thanks [@sxzz](https://github.com/sxzz)! - optional method props
+
 ## 0.2.6
 
 ### Patch Changes
