@@ -365,7 +365,7 @@ describe('analyzeSFC', () => {
     }
     expect(defaults).toEqual({
       bar: {
-        required: true,
+        required: false,
         type: ['Function'],
         default: "default(...args) { return 'bar' }",
       },
@@ -389,7 +389,7 @@ describe('analyzeSFC', () => {
       },
       fred: {
         type: ['Function'],
-        required: true,
+        required: false,
         default: "async default() { await Promise.resolve('fred') }",
       },
     })

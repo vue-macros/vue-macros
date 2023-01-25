@@ -185,7 +185,7 @@ export async function handleTSPropsDefinition({
       if (def.type === 'method') {
         prop = {
           type: ['Function'],
-          required: true,
+          required: !def.optional,
         }
       } else {
         const resolvedType = def.value
@@ -267,9 +267,11 @@ export async function handleTSPropsDefinition({
 
     const definitions: TSProps['definitions'] = {}
     for (const [key, sign] of Object.entries(properties.methods)) {
+      const methods = sign.map((sign) => buildDefinition(sign))
       definitions[key] = {
         type: 'method',
-        methods: sign.map((sign) => buildDefinition(sign)),
+        methods,
+        optional: sign.some((sign) => !!sign.type.optional),
       }
     }
 
@@ -383,6 +385,7 @@ export interface PropsBase {
 export interface TSPropsMethod {
   type: 'method'
   methods: ASTDefinition<TSMethodSignature>[]
+  optional: boolean
 }
 
 export interface TSPropsProperty {

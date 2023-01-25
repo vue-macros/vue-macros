@@ -242,6 +242,7 @@ exports[`analyzeSFC > defineProps > definitions should be correct 1`] = `
         "code": "bar(): void",
       },
     ],
+    "optional": false,
     "type": "method",
   },
   "baz": {
@@ -308,6 +309,7 @@ exports[`analyzeSFC > defineProps > getRuntimeProps 1`] = `
         "code": "baz(): string",
       },
     ],
+    "optional": false,
     "type": "method",
   },
   "foo": {
@@ -334,6 +336,7 @@ exports[`analyzeSFC > defineProps > getRuntimeProps 1`] = `
         "code": "onClick(param: string): any",
       },
     ],
+    "optional": false,
     "type": "method",
   },
   "optional": {
