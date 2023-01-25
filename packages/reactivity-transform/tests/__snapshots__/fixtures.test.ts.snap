@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`fixtures > tests/fixtures/basic.ts 1`] = `
+exports[`fixtures > tests/fixtures/vue2/basic.ts 1`] = `
 "import { ref } from 'vue';
 
 let foo = ref(\\"msg\\");
@@ -10,7 +10,7 @@ export { foo };
 "
 `;
 
-exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+exports[`fixtures > tests/fixtures/vue2/basic.vue 1`] = `
 "import { defineComponent, ref } from 'vue';
 import __normalizer from '[NULL]plugin-vue2:normalizer';
 
@@ -42,7 +42,7 @@ export { basic as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/destructure-props.vue 1`] = `
+exports[`fixtures > tests/fixtures/vue2/destructure-props.vue 1`] = `
 "import { defineComponent } from 'vue';
 import __normalizer from '[NULL]plugin-vue2:normalizer';
 
@@ -92,7 +92,7 @@ export { destructureProps as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/script-and-setup.vue 1`] = `
+exports[`fixtures > tests/fixtures/vue2/script-and-setup.vue 1`] = `
 "import { ref, defineComponent } from 'vue';
 import __normalizer from '[NULL]plugin-vue2:normalizer';
 
@@ -124,6 +124,123 @@ var __component__ = /* @__PURE__ */ __normalizer(
 );
 __FILE__;
 var scriptAndSetup = __component__.exports;
+
+export { scriptAndSetup as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vue3/basic.ts 1`] = `
+"import { ref } from 'vue';
+
+let foo = ref(\\"msg\\");
+foo.value = \\"world\\";
+
+export { foo };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vue3/basic.vue 1`] = `
+"import { defineComponent, ref } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  setup(__props) {
+    let foo = ref(\\"msg\\");
+    foo.value = \\"world\\";
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vue3/destructure-props.vue 1`] = `
+"import { defineComponent } from 'vue';
+
+function createPropsRestProxy(props, excludedKeys) {
+  const ret = {};
+  for (const key in props) {
+    if (!excludedKeys.includes(key)) {
+      Object.defineProperty(ret, key, {
+        enumerable: true,
+        get: () => props[key],
+      });
+    }
+  }
+  return ret
+}
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"destructure-props\\",
+  props: {
+    foo: { type: String, required: true, default: \\"foo\\" },
+    bar: { type: Number, required: true, default: 10 },
+    baz: { type: Boolean, required: true }
+  },
+  setup(__props) {
+    const props = createPropsRestProxy(__props, [\\"foo\\", \\"bar\\"]);
+    console.log(__props.foo, __props.bar, props);
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var destructureProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { destructureProps as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vue3/script-and-setup.vue 1`] = `
+"import { ref, defineComponent, openBlock, createElementBlock, toDisplayString, unref } from 'vue';
+
+let foo = ref(\\"msg\\");
+foo.value = \\"world\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"script-and-setup\\",
+  setup(__props) {
+    foo.value = \\"foo\\";
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(
+        \\"div\\",
+        null,
+        toDisplayString(unref(foo)),
+        1
+        /* TEXT */
+      );
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var scriptAndSetup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { scriptAndSetup as default };
 "
