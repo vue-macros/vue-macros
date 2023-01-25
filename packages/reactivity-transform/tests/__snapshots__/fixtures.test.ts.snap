@@ -1,0 +1,130 @@
+// Vitest Snapshot v1
+
+exports[`fixtures > tests/fixtures/basic.ts 1`] = `
+"import { ref } from 'vue';
+
+let foo = ref(\\"msg\\");
+foo.value = \\"world\\";
+
+export { foo };
+"
+`;
+
+exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+"import { defineComponent, ref } from 'vue';
+import __normalizer from '[NULL]plugin-vue2:normalizer';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  setup(__props) {
+    let foo = ref(\\"msg\\");
+    foo.value = \\"world\\";
+    return { __sfc: true, foo, _ref: ref };
+  }
+});
+
+const _sfc_render = null;
+const _sfc_staticRenderFns = null;
+var __component__ = /* @__PURE__ */ __normalizer(
+  _sfc_main,
+  _sfc_render,
+  _sfc_staticRenderFns,
+  false,
+  null,
+  null,
+  null,
+  null
+);
+__FILE__;
+var basic = __component__.exports;
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/destructure-props.vue 1`] = `
+"import { defineComponent } from 'vue';
+import __normalizer from '[NULL]plugin-vue2:normalizer';
+
+function createPropsRestProxy(props, excludedKeys) {
+  const ret = {};
+  for (const key in props) {
+    if (!excludedKeys.includes(key)) {
+      Object.defineProperty(ret, key, {
+        enumerable: true,
+        get: () => props[key],
+      });
+    }
+  }
+  return ret
+}
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"destructure-props\\",
+  props: {
+    foo: { type: String, required: true, default: \\"foo\\" },
+    bar: { type: Number, required: true, default: 10 },
+    baz: { type: Boolean, required: true }
+  },
+  setup(__props) {
+    const props = createPropsRestProxy(__props, [\\"foo\\", \\"bar\\"]);
+    console.log(__props.foo, __props.bar, props);
+    return { __sfc: true, props, createPropsRestProxy };
+  }
+});
+
+const _sfc_render = null;
+const _sfc_staticRenderFns = null;
+var __component__ = /* @__PURE__ */ __normalizer(
+  _sfc_main,
+  _sfc_render,
+  _sfc_staticRenderFns,
+  false,
+  null,
+  null,
+  null,
+  null
+);
+__FILE__;
+var destructureProps = __component__.exports;
+
+export { destructureProps as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/script-and-setup.vue 1`] = `
+"import { ref, defineComponent } from 'vue';
+import __normalizer from '[NULL]plugin-vue2:normalizer';
+
+let foo = ref(\\"msg\\");
+foo.value = \\"world\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"script-and-setup\\",
+  setup(__props) {
+    foo.value = \\"foo\\";
+    return { __sfc: true, foo };
+  }
+});
+
+var _sfc_render = function render() {
+  var _vm = this, _c = _vm._self._c, _setup = _vm._self._setupProxy;
+  return _c(\\"div\\", [_vm._v(\\" \\" + _vm._s(_setup.foo) + \\" \\")]);
+};
+var _sfc_staticRenderFns = [];
+_sfc_render._withStripped = true;
+var __component__ = /* @__PURE__ */ __normalizer(
+  _sfc_main,
+  _sfc_render,
+  _sfc_staticRenderFns,
+  false,
+  null,
+  null,
+  null,
+  null
+);
+__FILE__;
+var scriptAndSetup = __component__.exports;
+
+export { scriptAndSetup as default };
+"
+`;

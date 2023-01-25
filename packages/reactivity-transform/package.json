@@ -1,6 +1,6 @@
 {
-  "name": "@vue-macros/reactivity-transform-vue2",
-  "version": "0.1.1",
+  "name": "@vue-macros/reactivity-transform",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.25.1",
   "description": "",
   "keywords": [
@@ -10,7 +10,7 @@
     "setup",
     "macros",
     "script-setup",
-    "reactivity-transform-vue2"
+    "reactivity-transform"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -53,6 +53,8 @@
     },
     "./macros": "./macros.d.ts",
     "./macros-global": "./macros-global.d.ts",
+    "./vue2-macros": "./vue2-macros.d.ts",
+    "./vue2-macros-global": "./vue2-macros-global.d.ts",
     "./*": "./*"
   },
   "typesVersions": {
@@ -76,9 +78,7 @@
     "@vue/reactivity-transform": "^3.2.45",
     "unplugin": "^1.0.1"
   },
-  "devDependencies": {
-    "vue": "^2.7.14"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=14.19.0"
   }

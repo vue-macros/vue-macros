@@ -9,10 +9,5 @@
       "vue/*": ["node_modules/vue2/*"]
     }
   },
-  "exclude": [
-    "**/dist",
-    "**/tests",
-    "**/macros-global.d.ts",
-    "packages/volar/*.js"
-  ]
+  "exclude": ["**/dist", "**/tests", "packages/volar/*.js", "**/macros*.d.ts"]
 }

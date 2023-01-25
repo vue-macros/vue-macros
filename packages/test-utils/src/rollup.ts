@@ -31,6 +31,21 @@ export const RollupRemoveVueFilePathPlugin = (): Plugin => {
   }
 }
 
+export const RollupEscapeNullCharacterPlugin = (): Plugin => {
+  return {
+    name: 'escape-null-character',
+    generateBundle(options, bundle) {
+      for (const filename of Object.keys(bundle)) {
+        const b = bundle[filename]
+        if (b.type !== 'chunk') continue
+        if (b.code.includes('\0')) {
+          b.code = b.code.replace(/\0/g, '[NULL]')
+        }
+      }
+    },
+  }
+}
+
 export async function rollupBuild(file: string, plugins: InputPluginOption) {
   const bundle = await rollup({
     input: [file],
