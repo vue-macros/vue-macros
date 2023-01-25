@@ -12,7 +12,7 @@ import VueMacros from '../src/rollup'
 
 describe('fixtures', async () => {
   await testFixtures(
-    'tests/fixtures/**/*.{vue,js,jsx,ts,tsx}',
+    ['tests/fixtures/**/*.{vue,js,jsx,ts,tsx}', '!tests/fixtures/types.ts'],
     (args, id) => {
       const version = id.includes('vue2') ? 2 : 3
       return rollupBuild(id, [

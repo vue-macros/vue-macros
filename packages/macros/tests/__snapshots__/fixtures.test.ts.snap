@@ -32,8 +32,8 @@ const __default__ = defineComponent({
 var _sfc_main = /* @__PURE__ */ defineComponent({
   ...__default__,
   props: {
-    modelValue: { type: String, required: true },
-    title: { type: String, required: true }
+    \\"modelValue\\": { type: String, required: true },
+    \\"title\\": { type: String, required: true }
   },
   emits: [\\"update:modelValue\\", \\"change\\"],
   setup(__props, { emit }) {
@@ -59,6 +59,35 @@ var _export_sfc = (sfc, props) => {
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/case-233.vue 1`] = `
+"import { defineComponent } from 'vue';
+
+const msg = \\"Hello\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"case-233\\",
+  props: {
+    \\"msg\\": { type: String, required: true, default: msg }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var case233 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { case233 as default };
 "
 `;
 

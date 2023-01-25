@@ -180,7 +180,6 @@ export default createCombinePlugin((userOptions: Options = {}, meta) => {
     resolvePlugin(VueSetupSFC, framework, options.setupSFC),
     setupComponentPlugins?.[0],
     resolvePlugin(VueSetupBlock, framework, options.setupBlock),
-    resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
     namedTemplatePlugins?.[0],
     resolvePlugin(VueDefineProps, framework, options.defineProps),
     resolvePlugin(VueExportProps, framework, options.exportProps),
@@ -193,6 +192,7 @@ export default createCombinePlugin((userOptions: Options = {}, meta) => {
       options.reactivityTransformVue2
     ),
     resolvePlugin(VueBetterDefine, framework, options.betterDefine),
+    resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
     resolvePlugin(VueDefineOptions, framework, options.defineOptions),
     options.plugins.vue,
     options.plugins.vueJsx,
