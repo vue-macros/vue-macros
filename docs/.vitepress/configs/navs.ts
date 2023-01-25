@@ -93,8 +93,8 @@ export const sidebar: DefaultTheme.Sidebar = [
         link: '/features/export-props',
       },
       {
-        text: 'reactivityTransformVue2',
-        link: '/features/reactivity-transform-vue2',
+        text: 'reactivityTransform',
+        link: '/features/reactivity-transform',
       },
     ],
   },

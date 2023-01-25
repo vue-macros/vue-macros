@@ -1,4 +1,4 @@
-# @vue-macros/reactivity-transform-vue2
+# @vue-macros/reactivity-transform
 
 ## 0.1.1
 

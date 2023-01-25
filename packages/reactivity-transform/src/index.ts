@@ -33,7 +33,7 @@ function resolveOption(
   }
 }
 
-const name = 'unplugin-reactivity-transform-vue2'
+const name = 'unplugin-reactivity-transform'
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}, { framework }) => {

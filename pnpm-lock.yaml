@@ -224,7 +224,7 @@ importers:
       '@vue-macros/export-props': workspace:*
       '@vue-macros/hoist-static': workspace:*
       '@vue-macros/named-template': workspace:*
-      '@vue-macros/reactivity-transform-vue2': workspace:*
+      '@vue-macros/reactivity-transform': workspace:*
       '@vue-macros/setup-block': workspace:*
       '@vue-macros/setup-component': workspace:*
       '@vue-macros/setup-sfc': workspace:*
@@ -245,7 +245,7 @@ importers:
       '@vue-macros/export-props': link:../export-props
       '@vue-macros/hoist-static': link:../hoist-static
       '@vue-macros/named-template': link:../named-template
-      '@vue-macros/reactivity-transform-vue2': link:../reactivity-transform-vue2
+      '@vue-macros/reactivity-transform': link:../reactivity-transform
       '@vue-macros/setup-block': link:../setup-block
       '@vue-macros/setup-component': link:../setup-component
       '@vue-macros/setup-sfc': link:../setup-sfc
@@ -287,20 +287,17 @@ importers:
     devDependencies:
       '@nuxt/schema': 3.0.0
 
-  packages/reactivity-transform-vue2:
+  packages/reactivity-transform:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
       '@vue-macros/common': workspace:~
       '@vue/reactivity-transform': ^3.2.45
       unplugin: ^1.0.1
-      vue: ^2.7.14
     dependencies:
       '@rollup/pluginutils': 5.0.2
       '@vue-macros/common': link:../common
       '@vue/reactivity-transform': 3.2.45
       unplugin: 1.0.1
-    devDependencies:
-      vue: 2.7.14
 
   packages/setup-block:
     specifiers:
