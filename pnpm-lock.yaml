@@ -289,14 +289,22 @@ importers:
 
   packages/reactivity-transform:
     specifiers:
+      '@babel/parser': ^7.20.13
       '@rollup/pluginutils': ^5.0.2
       '@vue-macros/common': workspace:~
-      '@vue/reactivity-transform': ^3.2.45
+      '@vue/compiler-core': ^3.2.45
+      '@vue/shared': ^3.2.45
+      estree-walker: ^3.0.3
+      magic-string: ^0.27.0
       unplugin: ^1.0.1
     dependencies:
+      '@babel/parser': 7.20.13
       '@rollup/pluginutils': 5.0.2
       '@vue-macros/common': link:../common
-      '@vue/reactivity-transform': 3.2.45
+      '@vue/compiler-core': 3.2.45
+      '@vue/shared': 3.2.45
+      estree-walker: 3.0.3
+      magic-string: 0.27.0
       unplugin: 1.0.1
 
   packages/setup-block:

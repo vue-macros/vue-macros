@@ -6,7 +6,7 @@ import {
   parseSFC,
   resolveObjectKey,
 } from '@vue-macros/common'
-import { shouldTransform, transformAST } from '@vue/reactivity-transform'
+import { shouldTransform, transformAST } from './impl'
 import { helperId } from './helper'
 import type { Identifier, Node } from '@babel/types'
 

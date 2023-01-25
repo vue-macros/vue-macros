@@ -7,7 +7,7 @@ import {
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
 } from '@vue-macros/common'
-import { shouldTransform, transform } from '@vue/reactivity-transform'
+import { shouldTransform, transform } from './core/impl'
 import { helperCode, helperId, transformVueSFC } from './core'
 import type { UnpluginContextMeta } from 'unplugin'
 import type { MarkRequired } from '@vue-macros/common'
