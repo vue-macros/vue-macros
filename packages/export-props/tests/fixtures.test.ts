@@ -1,6 +1,6 @@
 import { testFixtures } from '@vue-macros/test-utils'
 import { describe } from 'vitest'
-import { transfromExportProps } from '../src/core'
+import { transformExportProps } from '../src/core'
 
 describe('fixtures', async () => {
   await testFixtures(
@@ -8,6 +8,6 @@ describe('fixtures', async () => {
       eager: true,
       as: 'raw',
     }),
-    (args, id, code) => transfromExportProps(code, id)?.code
+    (args, id, code) => transformExportProps(code, id)?.code
   )
 })

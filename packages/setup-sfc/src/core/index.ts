@@ -6,7 +6,7 @@ import {
 } from '@vue-macros/common'
 import type { HmrContext } from 'vite'
 
-export function transfromSetupSFC(code: string, id: string) {
+export function transformSetupSFC(code: string, id: string) {
   const lang = getLang(id)
   const program = babelParse(code, lang)
 

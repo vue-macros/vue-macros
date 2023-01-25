@@ -12,7 +12,7 @@ import type { Identifier, Node } from '@babel/types'
 
 export * from './helper'
 
-export function transfromVueSFC(code: string, id: string) {
+export function transformVueSFC(code: string, id: string) {
   const s = new MagicString(code)
   const { script, scriptSetup, getScriptAst, getSetupAst } = parseSFC(code, id)
 
