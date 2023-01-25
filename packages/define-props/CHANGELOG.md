@@ -1,5 +1,11 @@
 # @vue-macros/define-props
 
+## 0.2.2
+
+### Patch Changes
+
+- [#230](https://github.com/sxzz/unplugin-vue-macros/pull/230) [`7c19e34`](https://github.com/sxzz/unplugin-vue-macros/commit/7c19e34c487c597dcb60cad3718b23133a99daf7) Thanks [@alexzhang1030](https://github.com/alexzhang1030)! - replace transfrom to transform
+
 ## 0.2.1
 
 ### Patch Changes
