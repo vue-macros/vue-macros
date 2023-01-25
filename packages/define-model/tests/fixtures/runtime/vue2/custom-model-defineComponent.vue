@@ -20,8 +20,8 @@ const emit = defineEmits<{
 }>()
 
 {
-  value = 'hello'
-  title = 'world'
+  value.value = 'hello'
+  title.value = 'world'
   emit('change')
 
   {

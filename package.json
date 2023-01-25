@@ -22,7 +22,8 @@
     "publish": "pnpm build && changeset publish",
     "typecheck": "run-p \"typecheck:*\"",
     "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
-    "typecheck:test": "tsc --noEmit -p tsconfig.test.json"
+    "typecheck:test": "tsc --noEmit -p tsconfig.test.json",
+    "typecheck:fixture": "vue-tsc --noEmit -p tsconfig.fixture.json"
   },
   "devDependencies": {
     "@babel/types": "^7.20.7",
@@ -35,6 +36,7 @@
     "@vitest/coverage-c8": "^0.28.1",
     "@vitest/ui": "^0.28.1",
     "@vue-macros/test-utils": "workspace:*",
+    "@vue-macros/volar": "workspace:*",
     "eslint": "^8.32.0",
     "eslint-define-config": "^1.14.0",
     "expect-type": "^0.15.0",
@@ -48,6 +50,7 @@
     "vite": "^4.0.4",
     "vitest": "^0.28.1",
     "vue": "^3.2.45",
+    "vue-tsc": "^1.0.24",
     "vue2": "npm:vue@^2.7.14",
     "webpack": "^5.75.0"
   },

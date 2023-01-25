@@ -17,13 +17,16 @@ const transform = ({
   sfc: Sfc
 }) => {
   if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
-  if (!toString(embeddedFile.content).includes(DEFINE_SLOTS)) return
-
-  if (!embeddedFile.content.includes('return __VLS_slots;\n')) return
+  const textContent = toString(embeddedFile.content)
+  if (
+    !textContent.includes(DEFINE_SLOTS) ||
+    !textContent.includes('return __VLS_slots')
+  )
+    return
 
   replace(
     embeddedFile.content,
-    'return __VLS_slots;\n',
+    'return __VLS_slots',
     `return __VLS_slots as __VLS_DefineSlots<`,
     () => [
       // slots type
@@ -32,7 +35,7 @@ const transform = ({
       typeArg!.pos,
       FileRangeCapabilities.full,
     ],
-    '>;\n'
+    '>'
   )
   embeddedFile.content.push(
     `type __VLS_DefineSlots<T> = { [SlotName in keyof T]: (_: T[SlotName]) => any }`
@@ -79,4 +82,4 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
   }
 }
 
-export default plugin
+export = plugin
