@@ -1,5 +1,17 @@
 # unplugin-vue-macros
 
+## 1.6.0
+
+### Minor Changes
+
+- [`3b47d12`](https://github.com/sxzz/unplugin-vue-macros/commit/3b47d122dc5fda81f6bb4da1f5c8d92df76fc7f6) Thanks [@sxzz](https://github.com/sxzz)! - rename reactivity transform package
+
+### Patch Changes
+
+- Updated dependencies [[`b72b1f3`](https://github.com/sxzz/unplugin-vue-macros/commit/b72b1f33bdc31985d451b086e7739ea3d13a4b8f), [`3b47d12`](https://github.com/sxzz/unplugin-vue-macros/commit/3b47d122dc5fda81f6bb4da1f5c8d92df76fc7f6)]:
+  - @vue-macros/reactivity-transform@0.1.0
+  - @vue-macros/define-props@0.2.3
+
 ## 1.5.3
 
 ### Patch Changes
