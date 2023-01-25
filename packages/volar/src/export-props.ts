@@ -43,19 +43,20 @@ function transform({
 
   if (changed) {
     ;(file.content[idx + 1][0] as any) = source
+    addProps(
+      file.content,
+      [
+        `__VLS_TypePropsToRuntimeProps<{
+    ${Object.entries(props)
+      .map(
+        ([prop, optional]) => `${prop}${optional ? '?' : ''}: typeof ${prop}`
+      )
+      .join(',\n')}
+  }>`,
+      ],
+      vueLibName
+    )
   }
-
-  addProps(
-    file.content,
-    [
-      `__VLS_TypePropsToRuntimeProps<{
-  ${Object.entries(props)
-    .map(([prop, optional]) => `${prop}${optional ? '?' : ''}: typeof ${prop}`)
-    .join(',\n')}
-}>`,
-    ],
-    vueLibName
-  )
 }
 
 const plugin: VueLanguagePlugin = ({
