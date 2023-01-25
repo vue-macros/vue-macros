@@ -1,5 +1,14 @@
 # @vue-macros/volar
 
+## 0.6.2
+
+### Patch Changes
+
+- [`d3b7427`](https://github.com/sxzz/unplugin-vue-macros/commit/d3b74271673471df44559a8c1782b753e017598b) Thanks [@sxzz](https://github.com/sxzz)! - skip adding props when no export props
+
+- Updated dependencies [[`7c19e34`](https://github.com/sxzz/unplugin-vue-macros/commit/7c19e34c487c597dcb60cad3718b23133a99daf7)]:
+  - @vue-macros/define-props@0.2.2
+
 ## 0.6.1
 
 ### Patch Changes

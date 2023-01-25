@@ -1,5 +1,19 @@
 # unplugin-vue-macros
 
+## 1.5.3
+
+### Patch Changes
+
+- [`72de51f`](https://github.com/sxzz/unplugin-vue-macros/commit/72de51f0d511102a23007c511be75776551d112c) Thanks [@sxzz](https://github.com/sxzz)! - move plugin order
+
+- Updated dependencies [[`7c19e34`](https://github.com/sxzz/unplugin-vue-macros/commit/7c19e34c487c597dcb60cad3718b23133a99daf7)]:
+  - @vue-macros/reactivity-transform-vue2@0.1.1
+  - @vue-macros/define-model@1.2.5
+  - @vue-macros/define-props@0.2.2
+  - @vue-macros/define-slots@0.1.6
+  - @vue-macros/export-props@0.1.1
+  - @vue-macros/setup-sfc@0.13.6
+
 ## 1.5.2
 
 ### Patch Changes
