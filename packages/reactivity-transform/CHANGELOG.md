@@ -1,5 +1,15 @@
 # @vue-macros/reactivity-transform
 
+## 0.1.0
+
+### Minor Changes
+
+- [`3b47d12`](https://github.com/sxzz/unplugin-vue-macros/commit/3b47d122dc5fda81f6bb4da1f5c8d92df76fc7f6) Thanks [@sxzz](https://github.com/sxzz)! - rename reactivity transform package
+
+### Patch Changes
+
+- [`b72b1f3`](https://github.com/sxzz/unplugin-vue-macros/commit/b72b1f33bdc31985d451b086e7739ea3d13a4b8f) Thanks [@sxzz](https://github.com/sxzz)! - copy the original implementation
+
 ## 0.1.1
 
 ### Patch Changes
