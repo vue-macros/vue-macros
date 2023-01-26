@@ -78,11 +78,12 @@
     "@vue-macros/common": "workspace:~",
     "@vue/compiler-core": "^3.2.45",
     "@vue/shared": "^3.2.45",
-    "estree-walker": "^3.0.3",
     "magic-string": "^0.27.0",
     "unplugin": "^1.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "estree-walker": "^3.0.3"
+  },
   "engines": {
     "node": ">=14.19.0"
   }

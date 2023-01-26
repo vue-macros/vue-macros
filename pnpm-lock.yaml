@@ -303,9 +303,10 @@ importers:
       '@vue-macros/common': link:../common
       '@vue/compiler-core': 3.2.45
       '@vue/shared': 3.2.45
-      estree-walker: 3.0.3
       magic-string: 0.27.0
       unplugin: 1.0.1
+    devDependencies:
+      estree-walker: 3.0.3
 
   packages/setup-block:
     specifiers:
