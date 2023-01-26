@@ -1,5 +1,12 @@
 # @vue-macros/define-model
 
+## 1.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`75bda71`](https://github.com/sxzz/unplugin-vue-macros/commit/75bda71e3bc5b82e2f88234563cfefe535fceb88)]:
+  - @vue-macros/common@0.15.0
+
 ## 1.2.5
 
 ### Patch Changes
