@@ -6,12 +6,12 @@ With enabling `betterDefine`, imported types are supported in `<script setup>` t
 
 [Related issue](https://github.com/vuejs/core/issues/4294)
 
-|      Features      |     Supported      |
-| :----------------: | :----------------: |
-|       Vue 3        | :white_check_mark: |
-|       Nuxt 3       | :white_check_mark: |
-|       Vue 2        | :white_check_mark: |
-| TypeScript / Volar | :white_check_mark: |
+|  Features  |     Supported      |
+| :--------: | :----------------: |
+|   Vue 3    | :white_check_mark: |
+|   Nuxt 3   | :white_check_mark: |
+|   Vue 2    | :white_check_mark: |
+| TypeScript | :white_check_mark: |
 
 ## Basic Usage
 

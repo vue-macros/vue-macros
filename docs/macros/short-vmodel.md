@@ -8,12 +8,12 @@ A shorthand for `v-model`.
 
 If you have any questions about this feature, you can comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/395).
 
-|      Features      |     Supported      |
-| :----------------: | :----------------: |
-|       Vue 3        | :white_check_mark: |
-|       Nuxt 3       | :white_check_mark: |
-|       Vue 2        |        :x:         |
-| TypeScript / Volar | :white_check_mark: |
+|   Features   |     Supported      |
+| :----------: | :----------------: |
+|    Vue 3     | :white_check_mark: |
+|    Nuxt 3    | :white_check_mark: |
+|    Vue 2     |        :x:         |
+| Volar Plugin | :white_check_mark: |
 
 ## Setup
 

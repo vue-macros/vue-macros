@@ -137,8 +137,9 @@ npm i -D @vue-macros/volar
     "plugins": [
       "@vue-macros/volar/define-model",
       "@vue-macros/volar/define-props",
-      "@vue-macros/volar/short-vmodel"
-      // ...more feature
+      "@vue-macros/volar/short-vmodel",
+      "@vue-macros/volar/define-slots",
+      "@vue-macros/volar/export-props"
     ]
     // ...
   }
