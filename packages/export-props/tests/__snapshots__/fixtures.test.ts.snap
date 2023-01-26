@@ -12,10 +12,8 @@ const { foo = 'foo', bar = 10, baz, qux = fn(), } = defineProps<{
 
 
 
-</script>
 
-<template>
-  <div></div>
-</template>
+function fn() {}
+</script>
 "
 `;

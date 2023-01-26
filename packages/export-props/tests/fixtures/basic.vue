@@ -3,8 +3,6 @@ export const foo: string = 'foo'
 export const bar = 10
 export let baz: string | undefined
 export var qux = fn()
-</script>
 
-<template>
-  <div></div>
-</template>
+function fn() {}
+</script>

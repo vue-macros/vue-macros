@@ -22,10 +22,5 @@
     }
   },
   "include": ["packages", "scripts"],
-  "exclude": [
-    "**/dist",
-    "**/tests",
-    "packages/volar/*.js",
-    "**/vue2-macros*.d.ts"
-  ]
+  "exclude": ["**/dist", "**/tests", "packages/volar", "**/vue2-macros*.d.ts"]
 }

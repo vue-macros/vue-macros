@@ -286,8 +286,8 @@ const emit = defineEmits<{(evt: 'input', value: string): void
 }>()
 
 {
-  value = 'hello'
-  title = 'world'
+  value.value = 'hello'
+  title.value = 'world'
   emit('change')
 
   {
@@ -323,8 +323,8 @@ const emit = defineEmits<{(evt: 'changeInput', value: string): void
 }>()
 
 {
-  value = 'hello'
-  title = 'world'
+  value.value = 'hello'
+  title.value = 'world'
   emit('change')
 
   {
@@ -361,8 +361,8 @@ const emit = defineEmits<{(evt: 'changeInput', value: string): void
 }>()
 
 {
-  value = 'hello'
-  title = 'world'
+  value.value = 'hello'
+  title.value = 'world'
   emit('change')
 
   {

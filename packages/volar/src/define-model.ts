@@ -1,7 +1,6 @@
 import { DEFINE_MODEL, DEFINE_MODEL_DOLLAR } from '@vue-macros/common'
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
-import { addProps, getVueLibraryName } from './common'
-import type { FileCapabilities } from '@volar/language-core'
+import { addEmits, addProps, getVueLibraryName } from './common'
 import type { Segment } from 'muggle-string'
 import type {
   Sfc,
@@ -36,7 +35,7 @@ function transformDefineModel({
       ['__VLS_TypePropsToRuntimeProps<__VLS_ModelToProps<', seg, '>>'],
       vueLibName
     )
-  mergeEmits() || addEmits()
+  mergeEmits() || addEmits(codes, ['__VLS_ModelToEmits<', seg, '>'])
 
   codes.push(
     `type __VLS_GetPropKey<K> = K extends 'modelValue'${
@@ -66,19 +65,6 @@ function transformDefineModel({
     if (idx === -1) return false
 
     codes.splice(idx + 2, 1, '>> & __VLS_ModelToEmits<', seg, '>),\n')
-    return true
-  }
-
-  function addEmits() {
-    const idx = codes.indexOf('setup() {\n')
-    if (idx === -1) return false
-
-    const segs: Segment<FileCapabilities>[] = [
-      'emits: ({} as __VLS_ModelToEmits<',
-      seg,
-      '>),\n',
-    ]
-    codes.splice(idx, 0, ...segs)
     return true
   }
 }
@@ -137,8 +123,7 @@ function resolve({
   const vueVersion = vueCompilerOptions.target
   const vueLibName = getVueLibraryName(vueVersion)
   const unified =
-    (vueVersion < 3 && (vueCompilerOptions as any)?.defineModel?.unified) ??
-    true
+    (vueVersion < 3 && vueCompilerOptions?.defineModel?.unified) ?? true
 
   transformDefineModel({
     codes: embeddedFile.content,
@@ -166,4 +151,4 @@ const plugin: VueLanguagePlugin = ({
     },
   }
 }
-export default plugin
+export = plugin

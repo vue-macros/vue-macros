@@ -30,20 +30,8 @@
     "*.js"
   ],
   "exports": {
-    "./define-model": {
-      "require": "./define-model.js"
-    },
-    "./define-slots": {
-      "require": "./define-slots.js"
-    },
-    "./export-props": {
-      "require": "./export-props.js"
-    },
-    "./short-vmodel": {
-      "require": "./short-vmodel.js"
-    },
-    "./define-props": {
-      "require": "./define-props.js"
+    "./*": {
+      "require": "./dist/*.js"
     }
   },
   "scripts": {

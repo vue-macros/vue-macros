@@ -1,4 +1,5 @@
 import { FileKind } from '@volar/language-core'
+import { replaceSourceRange } from 'muggle-string'
 import { addProps, getVueLibraryName } from './common'
 import type {
   Sfc,
@@ -17,10 +18,7 @@ function transform({
   ts: typeof import('typescript/lib/tsserverlibrary')
   vueLibName: string
 }) {
-  const idx = file?.content.indexOf('const __VLS_setup = async () => {\n')
-
   const props: Record<string, boolean> = {}
-  let source = file.content[idx + 1][0]
   let changed = false
   for (const stmt of sfc.scriptSetupAst!.statements) {
     if (!ts.isVariableStatement(stmt)) continue
@@ -29,11 +27,10 @@ function transform({
     )
     if (!exportModifier) continue
 
-    const start = exportModifier.getFullStart()
-    const width = exportModifier.getFullWidth()
+    const start = exportModifier.getStart(sfc.scriptSetupAst!)
     const end = exportModifier.getEnd()
+    replaceSourceRange(file.content, 'scriptSetup', start, end)
     changed = true
-    source = `${source.slice(0, start)}${' '.repeat(width)}${source.slice(end)}`
 
     for (const decl of stmt.declarationList.declarations) {
       if (!ts.isIdentifier(decl.name)) continue
@@ -42,16 +39,13 @@ function transform({
   }
 
   if (changed) {
-    ;(file.content[idx + 1][0] as any) = source
     addProps(
       file.content,
       [
         `__VLS_TypePropsToRuntimeProps<{
-    ${Object.entries(props)
-      .map(
-        ([prop, optional]) => `${prop}${optional ? '?' : ''}: typeof ${prop}`
-      )
-      .join(',\n')}
+${Object.entries(props)
+  .map(([prop, optional]) => `  ${prop}${optional ? '?' : ''}: typeof ${prop}`)
+  .join(',\n')}
   }>`,
       ],
       vueLibName
@@ -85,4 +79,4 @@ const plugin: VueLanguagePlugin = ({
     },
   }
 }
-export default plugin
+export = plugin

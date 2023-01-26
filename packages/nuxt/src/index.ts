@@ -1,5 +1,4 @@
 import { defineNuxtModule } from '@nuxt/kit'
-// @ts-ignore error when no bundle (CI typecheck)
 import VueMacros from 'unplugin-vue-macros/vite'
 import { transformShortVmodel } from '@vue-macros/short-vmodel'
 import type { Options } from 'unplugin-vue-macros'
