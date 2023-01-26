@@ -1,5 +1,11 @@
 # unplugin-vue-macros
 
+## 1.6.4
+
+### Patch Changes
+
+- [`859b347`](https://github.com/sxzz/unplugin-vue-macros/commit/859b347e87f83dd0799630535779a48e035cec44) Thanks [@sxzz](https://github.com/sxzz)! - enable reactivity transform on vue 3 by default
+
 ## 1.6.3
 
 ### Patch Changes
