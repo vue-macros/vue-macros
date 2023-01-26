@@ -60,6 +60,13 @@ exports[`$computed declaration 1`] = `
     "
 `;
 
+exports[`$customRef declaration 1`] = `
+"import { customRef as _customRef } from 'vue'
+
+    let a = _customRef((track, trigger) => {})
+    "
+`;
+
 exports[`$ref & $shallowRef declarations 1`] = `
 "import { ref as _ref, shallowRef as _shallowRef } from 'vue'
 
@@ -71,6 +78,13 @@ exports[`$ref & $shallowRef declarations 1`] = `
     let c = () => {}
     let d
     label: var e = _ref()
+    "
+`;
+
+exports[`$toRef declaration 1`] = `
+"import { toRef as _toRef } from 'vue'
+
+    let a = _toRef(b)
     "
 `;
 

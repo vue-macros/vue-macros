@@ -37,7 +37,8 @@ const CONVERT_SYMBOL = '$'
 const ESCAPE_SYMBOL = '$$'
 const IMPORT_SOURCE = 'vue/macros'
 const shorthands = ['ref', 'computed', 'shallowRef', 'toRef', 'customRef']
-const transformCheckRE = /\W\$(?:\$|ref|computed|shallowRef)?\s*([(<])/
+const transformCheckRE =
+  /\W\$(?:\$|ref|computed|shallowRef|toRef|customRef)?\s*([(<])/
 
 export function shouldTransform(src: string): boolean {
   return transformCheckRE.test(src)
