@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.7.0
+
+### Minor Changes
+
+- [#238](https://github.com/sxzz/unplugin-vue-macros/pull/238) [`cf20f6f`](https://github.com/sxzz/unplugin-vue-macros/commit/cf20f6f309bfa1da9383f3ef13e8acdd2be3eadb) Thanks [@sxzz](https://github.com/sxzz)! - use muggle-string utils
+
 ## 0.6.3
 
 ### Patch Changes

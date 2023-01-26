@@ -1,5 +1,11 @@
 # @vue-macros/reactivity-transform
 
+## 0.1.1
+
+### Patch Changes
+
+- [`5fee1ad`](https://github.com/sxzz/unplugin-vue-macros/commit/5fee1ade3f8a5ee986681c81c1d0d55d35c30075) Thanks [@sxzz](https://github.com/sxzz)! - inline estree-walker
+
 ## 0.1.0
 
 ### Minor Changes
