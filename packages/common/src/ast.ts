@@ -276,3 +276,18 @@ export function walkAST<T = Node>(
 export function isFunctionType(node: Node): node is Function {
   return /Function(?:Expression|Declaration)$|Method$/.test(node.type)
 }
+
+export const TS_NODE_TYPES = [
+  'TSAsExpression', // foo as number
+  'TSTypeAssertion', // (<number>foo)
+  'TSNonNullExpression', // foo!
+  'TSInstantiationExpression', // foo<string>
+  'TSSatisfiesExpression', // foo satisfies T
+]
+export function unwrapTSNode(node: Node): Node {
+  if (TS_NODE_TYPES.includes(node.type)) {
+    return unwrapTSNode((node as any).expression)
+  } else {
+    return node
+  }
+}
