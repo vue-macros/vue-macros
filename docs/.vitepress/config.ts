@@ -17,10 +17,6 @@ export default withPwa(
     lastUpdated: true,
     cleanUrls: 'disabled',
 
-    vue: {
-      reactivityTransform: true,
-    },
-
     themeConfig: {
       logo: '/favicon.svg',
       footer: {

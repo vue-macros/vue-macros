@@ -37,11 +37,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"update:modelValue\\", \\"change\\"],
   setup(__props, { emit }) {
-    const { title } = __props;
     let { modelValue } = _DM_useVModel(\\"modelValue\\");
     const handleClick = () => {
       emit(\\"change\\");
-      modelValue.value = \\"hello, \\" + title;
+      modelValue.value = \\"hello, \\" + __props.title;
     };
     return () => {
     };
