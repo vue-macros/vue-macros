@@ -6,6 +6,6 @@ import {
 } from 'unocss'
 
 export default defineConfig({
-  presets: [presetAttributify(), presetUno()],
+  presets: [presetUno(), presetAttributify()],
   transformers: [transformerDirectives()],
 })
