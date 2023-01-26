@@ -1,5 +1,20 @@
 # @vue-macros/reactivity-transform
 
+## 0.1.2
+
+### Patch Changes
+
+- [`8cc7b4c`](https://github.com/sxzz/unplugin-vue-macros/commit/8cc7b4cec38034540f7fecae0626965a9b1e7171) Thanks [@sxzz](https://github.com/sxzz)! - update check to catch toRef and customRef
+
+  [Original PR](https://github.com/vuejs/core/pull/5100)
+
+- [`88aa90d`](https://github.com/sxzz/unplugin-vue-macros/commit/88aa90d768bd61c66b955338a2e672bf06d9d342) Thanks [@sxzz](https://github.com/sxzz)! - get definition from nested scope
+
+- [`75bda71`](https://github.com/sxzz/unplugin-vue-macros/commit/75bda71e3bc5b82e2f88234563cfefe535fceb88) Thanks [@sxzz](https://github.com/sxzz)! - unwrap TS node
+
+- Updated dependencies [[`75bda71`](https://github.com/sxzz/unplugin-vue-macros/commit/75bda71e3bc5b82e2f88234563cfefe535fceb88)]:
+  - @vue-macros/common@0.15.0
+
 ## 0.1.1
 
 ### Patch Changes
