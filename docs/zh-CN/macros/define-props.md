@@ -17,8 +17,6 @@ See also [Vue issue](https://github.com/vuejs/core/issues/6876), [Reactivity Tra
 
 [Reactivity Transform](https://vuejs.org/guide/extras/reactivity-transform.html) is required. You should enable it first.
 
-Unfortunately Reactivity Transform is not implemented in Vue 2, so this macro doesn't support Vue 2 now.
-
 :::
 
 ## Basic Usage
