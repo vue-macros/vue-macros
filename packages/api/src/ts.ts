@@ -331,11 +331,11 @@ export async function resolveTSReferencedType(
       if (restNames.length === 0) {
         return resolved
       } else {
-        let exports = resolved as TSExports
+        let exports: any = resolved
         for (const name of restNames) {
           exports = exports[name]
         }
-        return exports as unknown as TSResolvedType
+        return exports as TSResolvedType
       }
     }
   }
