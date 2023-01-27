@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: 开始
-      link: /guide/getting-started
+      link: /zh-CN/guide/getting-started
     - theme: alt
       text: 在 GitHub 上查看
       link: https://github.com/sxzz/unplugin-vue-macros
