@@ -4,12 +4,12 @@
 
 [Svelte-like Declaring props](https://svelte.dev/docs#component-format-script-1-export-creates-a-component-prop) for Vue.
 
-|      Features      |     Supported      |
-| :----------------: | :----------------: |
-|       Vue 3        | :white_check_mark: |
-|       Nuxt 3       |         ?          |
-|       Vue 2        |         ?          |
-| TypeScript / Volar | :white_check_mark: |
+|   Features   |     Supported      |
+| :----------: | :----------------: |
+|    Vue 3     | :white_check_mark: |
+|    Nuxt 3    |         ?          |
+|    Vue 2     |         ?          |
+| Volar Plugin | :white_check_mark: |
 
 ## Usage
 

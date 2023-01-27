@@ -4,12 +4,12 @@
 
 Defining render function in `<script setup>` using the `defineRender`.
 
-|      Features      |     Supported      |
-| :----------------: | :----------------: |
-|       Vue 3        | :white_check_mark: |
-|       Nuxt 3       | :white_check_mark: |
-|       Vue 2        | :white_check_mark: |
-| TypeScript / Volar | :white_check_mark: |
+|  Features  |     Supported      |
+| :--------: | :----------------: |
+|   Vue 3    | :white_check_mark: |
+|   Nuxt 3   | :white_check_mark: |
+|   Vue 2    | :white_check_mark: |
+| TypeScript | :white_check_mark: |
 
 ## Basic Usage
 

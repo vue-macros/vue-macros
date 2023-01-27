@@ -6,12 +6,12 @@ Options API can be declared using the `defineOptions` in `<script setup>`, speci
 
 If you support this feature, feel free to hit like :+1: or comment on the [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430). Thanks!
 
-|      Features      |     Supported      |
-| :----------------: | :----------------: |
-|       Vue 3        | :white_check_mark: |
-|       Nuxt 3       | :white_check_mark: |
-|       Vue 2        | :white_check_mark: |
-| TypeScript / Volar | :white_check_mark: |
+|  Features  |     Supported      |
+| :--------: | :----------------: |
+|   Vue 3    | :white_check_mark: |
+|   Nuxt 3   | :white_check_mark: |
+|   Vue 2    | :white_check_mark: |
+| TypeScript | :white_check_mark: |
 
 ## Installation Standalone Version
 

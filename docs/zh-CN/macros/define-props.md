@@ -6,12 +6,12 @@ Correct types of destructured props using `$defineProps`.
 
 See also [Vue issue](https://github.com/vuejs/core/issues/6876), [Reactivity Transform RFC](https://github.com/vuejs/rfcs/blob/reactivity-transform/active-rfcs/0000-reactivity-transform.md#defineprops-destructure-details).
 
-|      Features      |     Supported      |
-| :----------------: | :----------------: |
-|       Vue 3        | :white_check_mark: |
-|       Nuxt 3       | :white_check_mark: |
-|       Vue 2        | :white_check_mark: |
-| TypeScript / Volar | :white_check_mark: |
+|         Features          |     Supported      |
+| :-----------------------: | :----------------: |
+|           Vue 3           | :white_check_mark: |
+|          Nuxt 3           | :white_check_mark: |
+|           Vue 2           | :white_check_mark: |
+| TypeScript / Volar Plugin | :white_check_mark: |
 
 ::: warning
 
@@ -24,7 +24,7 @@ Unfortunately Reactivity Transform is not implemented in Vue 2, so this macro do
 ## Basic Usage
 
 ```vue
-<script setup lang="tsx">
+<script setup lang="ts">
 //       ⬇️ ReactiveVariable<string[]>
 const { foo } = $defineProps<{
   foo: string[]
