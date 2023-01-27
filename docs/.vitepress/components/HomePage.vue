@@ -1,5 +1,23 @@
+<script setup lang="ts">
+import { VPTeamMembers } from 'vitepress/theme'
+
+const members = [
+  {
+    avatar: 'https://www.github.com/sxzz.png',
+    name: '三咲智子 Kevin Deng',
+    title: 'Author',
+    links: [
+      { icon: 'github', link: 'https://github.com/sxzz' },
+      { icon: 'twitter', link: 'https://twitter.com/sanxiaozhizi' },
+    ],
+  },
+]
+</script>
+
 <template>
-  <div flex="~ col wrap" items-center>
+  <div flex="~ col wrap" items-center mt8>
+    <VPTeamMembers size="small" :members="members" />
+
     <h2 text="center gray xl" mt-11 pb-2>Sponsored by</h2>
     <img src="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg" />
 
