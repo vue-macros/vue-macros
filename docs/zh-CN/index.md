@@ -9,22 +9,22 @@ hero:
     alt: Vue Macros
   actions:
     - theme: brand
-      text: Get Started
+      text: 开始
       link: /guide/getting-started
     - theme: alt
-      text: View on GitHub
+      text: 在 GitHub 上查看
       link: https://github.com/sxzz/unplugin-vue-macros
 features:
   - icon: ✨
-    title: More syntax sugar and macros
-    details: Explore and extend more macros and syntax sugar to Vue.
+    title: 扩充更多宏和语法糖
+    details: 探索并扩充更多宏和语法糖到 Vue。
   - icon: 💚
-    title: Out-of-the-box and good compatibility
-    details: Supports both Vue 2.7 and Vue 3 out-of-the-box.
+    title: 开箱即用，强兼容性
+    details: 开箱即用支持 Vue 2.7 和 Vue 3
   - icon: 🦾
-    title: Type Safe
-    details: Full TypeScript and Volar support.
+    title: 类型安全
+    details: 完全支持 TypeScript 和 Volar；
   - icon: ⚡️
-    title: Multiple bundlers are supported
-    details: Supports Vite, Nuxt, Webpack, Vue CLI, Rollup 3, esbuild and more, powered by unplugin.
+    title: 支持多个打包器
+    details: 支持 Vite、Nuxt、Webpack、Vue CLI、Rollup 3、esbuild 等，由 unplugin 驱动。
 ---
