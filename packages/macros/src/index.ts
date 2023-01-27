@@ -3,6 +3,7 @@ import VueBetterDefine from '@vue-macros/better-define'
 import VueDefineModel from '@vue-macros/define-model'
 import VueDefineOptions from 'unplugin-vue-define-options'
 import VueDefineProps from '@vue-macros/define-props'
+import VueDefinePropsRefs from '@vue-macros/define-props-refs'
 import VueDefineRender from '@vue-macros/define-render'
 import VueDefineSlots from '@vue-macros/define-slots'
 import VueExportProps from '@vue-macros/export-props'
@@ -21,6 +22,7 @@ import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
 import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
 import type { Options as OptionsDefineProps } from '@vue-macros/define-props'
+import type { Options as OptionsDefinePropsRefs } from '@vue-macros/define-props-refs'
 import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
 import type { Options as OptionsDefineSlots } from '@vue-macros/define-slots'
 import type { Options as OptionsExportProps } from '@vue-macros/export-props'
@@ -37,6 +39,7 @@ export interface FeatureOptionsMap {
   defineModel: OptionsDefineModel
   defineOptions: OptionsDefineOptions
   defineProps: OptionsDefineProps
+  definePropsRefs: OptionsDefinePropsRefs
   defineRender: OptionsDefineRender
   defineSlots: OptionsDefineSlots
   exportProps: OptionsExportProps
@@ -80,6 +83,7 @@ function resolveOptions({
   defineModel,
   defineOptions,
   defineProps,
+  definePropsRefs,
   defineRender,
   defineSlots,
   exportProps,
@@ -119,6 +123,9 @@ function resolveOptions({
       version,
     }),
     defineProps: resolveSubOptions<'defineProps'>(defineProps, { version }),
+    definePropsRefs: resolveSubOptions<'definePropsRefs'>(definePropsRefs, {
+      version,
+    }),
     defineRender: resolveSubOptions<'defineRender'>(defineRender),
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
     exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
@@ -182,6 +189,7 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
       namedTemplatePlugins?.[0],
       resolvePlugin(VueDefineProps, framework, options.defineProps),
+      resolvePlugin(VueDefinePropsRefs, framework, options.definePropsRefs),
       resolvePlugin(VueExportProps, framework, options.exportProps),
       resolvePlugin(VueShortEmits, framework, options.shortEmits),
       resolvePlugin(VueDefineModel, framework, options.defineModel),

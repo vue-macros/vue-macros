@@ -1,6 +1,6 @@
 {
-  "name": "@vue-macros/define-props",
-  "version": "0.2.4",
+  "name": "@vue-macros/define-props-refs",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.26.0",
   "description": "",
   "keywords": [
@@ -10,7 +10,7 @@
     "setup",
     "macros",
     "script-setup",
-    "define-props"
+    "define-props-refs"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -57,8 +57,6 @@
     },
     "./macros": "./macros.d.ts",
     "./macros-global": "./macros-global.d.ts",
-    "./vue2-macros": "./vue2-macros.d.ts",
-    "./vue2-macros-global": "./vue2-macros-global.d.ts",
     "./*": "./*"
   },
   "scripts": {

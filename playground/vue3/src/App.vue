@@ -2,6 +2,7 @@
 import DefineRenderVue from './examples/define-render/index.vue'
 import DefineOptionsVue from './examples/define-options/index.vue'
 import DefinePropsVue from './examples/define-props/index.vue'
+import DefinePropsRefsVue from './examples/define-props-refs/index.vue'
 import HoistStaticVue from './examples/hoist-static/index.vue'
 import DefineModelReactivityVue from './examples/define-model/reactivity-transform/parent.vue'
 import DefineModelRuntimeVue from './examples/define-model/runtime/parent.vue'
@@ -32,6 +33,11 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>defineProps</legend>
     <DefinePropsVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>definePropsRefs</legend>
+    <DefinePropsRefsVue />
   </fieldset>
 
   <fieldset>

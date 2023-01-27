@@ -167,6 +167,19 @@ importers:
     devDependencies:
       vue: 3.2.45
 
+  packages/define-props-refs:
+    specifiers:
+      '@rollup/pluginutils': ^5.0.2
+      '@vue-macros/common': workspace:~
+      unplugin: ^1.0.1
+      vue: ^3.2.45
+    dependencies:
+      '@rollup/pluginutils': 5.0.2
+      '@vue-macros/common': link:../common
+      unplugin: 1.0.1
+    devDependencies:
+      vue: 3.2.45
+
   packages/define-render:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
@@ -223,6 +236,7 @@ importers:
       '@vue-macros/common': workspace:*
       '@vue-macros/define-model': workspace:*
       '@vue-macros/define-props': workspace:*
+      '@vue-macros/define-props-refs': workspace:*
       '@vue-macros/define-render': workspace:*
       '@vue-macros/define-slots': workspace:*
       '@vue-macros/export-props': workspace:*
@@ -244,6 +258,7 @@ importers:
       '@vue-macros/common': link:../common
       '@vue-macros/define-model': link:../define-model
       '@vue-macros/define-props': link:../define-props
+      '@vue-macros/define-props-refs': link:../define-props-refs
       '@vue-macros/define-render': link:../define-render
       '@vue-macros/define-slots': link:../define-slots
       '@vue-macros/export-props': link:../export-props

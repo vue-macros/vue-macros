@@ -90,6 +90,38 @@ export { case233 as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
+"import { defineComponent, toRefs } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"define-props-refs\\",
+  props: {
+    \\"foo\\": { type: String, required: true }
+  },
+  setup(__props) {
+    const __MACROS_props = __props;
+    const { foo } = toRefs(__MACROS_props);
+    console.log(foo.value);
+    foo.value = \\"hello\\";
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var definePropsRefs = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { definePropsRefs as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/hoist-static.vue 1`] = `
 "import { defineComponent } from 'vue';
 

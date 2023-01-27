@@ -1,5 +1,6 @@
 export const DEFINE_PROPS = 'defineProps'
 export const DEFINE_PROPS_DOLLAR = '$defineProps'
+export const DEFINE_PROPS_REFS = 'definePropsRefs'
 export const DEFINE_EMITS = 'defineEmits'
 export const WITH_DEFAULTS = 'withDefaults'
 export const DEFINE_OPTIONS = 'defineOptions'

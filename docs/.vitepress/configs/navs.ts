@@ -48,6 +48,10 @@ export const sidebar: DefaultTheme.Sidebar = [
         link: '/macros/define-props',
       },
       {
+        text: 'definePropsRefs',
+        link: '/macros/define-props-refs',
+      },
+      {
         text: 'defineSlots',
         link: '/macros/define-slots',
       },

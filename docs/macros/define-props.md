@@ -24,7 +24,7 @@ Unfortunately Reactivity Transform is not implemented in Vue 2, so this macro do
 ## Basic Usage
 
 ```vue
-<script setup lang="tsx">
+<script setup lang="ts">
 //       ⬇️ ReactiveVariable<string[]>
 const { foo } = $defineProps<{
   foo: string[]
