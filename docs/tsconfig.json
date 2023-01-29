@@ -16,7 +16,8 @@
     "types": ["vite/client", "vitepress", "unplugin-vue-macros/macros-global"],
     "paths": {
       "~/*": ["src/*"]
-    }
+    },
+    "customConditions": ["dev"]
   },
   "include": ["**/*", "./.*/**/*"],
   "exclude": ["dist", "node_modules"]

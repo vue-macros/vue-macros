@@ -13,12 +13,15 @@ export default defineConfig({
     ? false
     : {
         compilerOptions: {
-          paths: {},
           composite: false,
+          customConditions: ['dev'],
         },
       },
   tsconfig: '../../tsconfig.lib.json',
   clean: true,
+  esbuildOptions: (options) => {
+    options.conditions = ['dev']
+  },
   esbuildPlugins: [
     {
       name: 'raw-plugin',

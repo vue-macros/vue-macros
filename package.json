@@ -6,7 +6,7 @@
   "description": "Monorepo for Vue macros.",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
-    "build": "turbo run build --filter=\"./packages/*\"",
+    "build": "turbo run build --filter=\"./packages/*\" --parallel",
     "dev": "pnpm run --filter=\"./packages/*\" --parallel dev",
     "clean": "rm -fr packages/*/dist",
     "docs:dev": "pnpm run -C ./docs dev",
