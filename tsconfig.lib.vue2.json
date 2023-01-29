@@ -2,9 +2,6 @@
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
     "paths": {
-      "unplugin-vue-define-options": ["./packages/define-options/src"],
-      "unplugin-vue-macros": ["./packages/macros/src"],
-      "@vue-macros/*": ["packages/*/src"],
       "vue": ["node_modules/vue2"],
       "vue/*": ["node_modules/vue2/*"]
     }

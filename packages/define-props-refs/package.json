@@ -31,26 +31,31 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "dev": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./vite": {
+      "dev": "./src/vite.ts",
       "types": "./dist/vite.d.ts",
       "require": "./dist/vite.js",
       "import": "./dist/vite.mjs"
     },
     "./webpack": {
+      "dev": "./src/webpack.ts",
       "types": "./dist/webpack.d.ts",
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
     "./rollup": {
+      "dev": "./src/rollup.ts",
       "types": "./dist/rollup.d.ts",
       "require": "./dist/rollup.js",
       "import": "./dist/rollup.mjs"
     },
     "./esbuild": {
+      "dev": "./src/esbuild.ts",
       "types": "./dist/esbuild.d.ts",
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"

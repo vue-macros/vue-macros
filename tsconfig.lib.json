@@ -1,25 +1,9 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "allowJs": true,
-    "target": "ES2019",
-    "module": "ESNext",
-    "lib": ["ES2019"],
-    "strict": true,
-    "strictNullChecks": true,
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
     "types": ["node"],
-    "outDir": "dist",
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {
-      "unplugin-vue-define-options": ["./packages/define-options/src"],
-      "unplugin-vue-macros": ["./packages/macros/src"],
-      "@vue-macros/*": ["packages/*/src"]
-    }
+    "customConditions": ["dev"]
   },
   "include": ["packages", "scripts"],
   "exclude": ["**/dist", "**/tests", "packages/volar", "**/vue2-macros*.d.ts"]

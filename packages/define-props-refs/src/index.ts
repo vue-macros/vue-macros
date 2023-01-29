@@ -6,7 +6,7 @@ import {
   REGEX_VUE_SUB,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformDefinePropsRefs } from './core'
+import { transformDefinePropsRefs } from './core/index'
 import type { MarkRequired } from '@vue-macros/common'
 import type { UnpluginContextMeta } from 'unplugin'
 import type { FilterPattern } from '@rollup/pluginutils'
