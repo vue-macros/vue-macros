@@ -7,6 +7,7 @@ Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, 
 - [defineOptions](/macros/define-options)
 - [defineModel](/macros/define-model)
 - [defineProps](/macros/define-props)
+- [definePropsRefs](/macros/define-props-refs)<WarnBadge>unstable</WarnBadge>
 - [defineSlots](/macros/define-slots)
 - [defineRender](/macros/define-render)
 - [shortEmits](/macros/short-emits)
