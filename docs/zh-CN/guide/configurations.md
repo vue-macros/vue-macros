@@ -1,8 +1,8 @@
-# Configurations
+# 配置
 
-## Plugin Options
+## 插件选项
 
-All features are enabled by default, you can disable them by setting the option to `false`.
+所有功能将会被默认开启, 您可以将选项设置为 `false` 来禁用它们。
 
 ```ts
 VueMacros({
@@ -37,4 +37,4 @@ VueMacros({
 })
 ```
 
-See the features page for options for each feature.
+有关每个功能的选项，请参考功能页面。

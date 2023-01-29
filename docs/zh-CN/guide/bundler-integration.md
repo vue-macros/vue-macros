@@ -1,6 +1,6 @@
-# Bundler Integration
+# 打包器整合
 
-### Installation
+### 安装
 
 ::: code-group
 
@@ -96,7 +96,7 @@ module.exports = defineConfig({
 
 :::
 
-## TypeScript Support
+## TypeScript 支持
 
 ::: code-group
 
@@ -122,9 +122,9 @@ module.exports = defineConfig({
 
 :::
 
-## Volar Support
+## Volar 支持
 
-For detailed configuration, please refer to the description of the specific macro.
+详细配置请参考每个宏的具体说明。
 
 ```bash
 npm i -D @vue-macros/volar
@@ -147,6 +147,6 @@ npm i -D @vue-macros/volar
 }
 ```
 
-:tada: Congratulations! You have successfully set up `unplugin-vue-macros`.
+:tada: 祝贺你! 你已经成功设置完成 `unplugin-vue-macros`.
 
-To learn more about the macros, please visit [All Macros](/macros/) :laughing:.
+想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:.
