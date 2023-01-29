@@ -1,17 +1,17 @@
 # defineModel
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-Declaring and mutate `v-model` props as the same as normal variable using the `defineModel`.
+使用 `defineModel`声明和改变 `v-model` 的 props 和普通变量相同。
 
-|   Features   |     Supported      |
+|     特性     |        支持        |
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    | :white_check_mark: |
 |    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
-## Options
+## 选项
 
 ```ts
 VueMacros({
@@ -26,9 +26,9 @@ VueMacros({
 })
 ```
 
-## Usage
+## 用法
 
-Requires [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core), install it by yourself before using.
+需要 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core)，在使用之前请自行安装
 
 ```vue
 <script setup lang="ts">
@@ -42,7 +42,7 @@ modelValue.value = 'newValue'
 </script>
 ```
 
-::: warning ❌ Object declaring is not supported.
+::: warning ❌ 不支持对象声明
 
 ```vue
 <script setup lang="ts">
@@ -54,15 +54,15 @@ const { modelValue } = defineModel({
 
 :::
 
-## With Reactivity Transform
+## 响应性语法糖
 
 ::: warning
 
-Assignment expression is only supported in `<script setup>` block. In other words invalid in `<template>`.
+赋值表达式 仅在 `<script setup>` 块中受支持。换句话说，在 `<template>`中无效。
 
 :::
 
-[`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) is not required.
+[`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) 不是必需的。
 
 ```vue {7-9}
 <script setup lang="ts">
@@ -99,7 +99,7 @@ emit('update:count', count + 1)
 
 :::
 
-## Volar Configuration
+## Volar 配置
 
 ```jsonc {6,9-12}
 // tsconfig.json

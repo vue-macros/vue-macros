@@ -33,6 +33,6 @@ export default {
 }
 ```
 
-:tada: 祝贺你! 成功完成了 Nuxt 整合.
+:tada: 祝贺你! 成功完成了 Nuxt 整合。
 
-想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:.
+想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:。

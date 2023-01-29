@@ -147,6 +147,6 @@ npm i -D @vue-macros/volar
 }
 ```
 
-:tada: 祝贺你! 你已经成功设置完成 `unplugin-vue-macros`.
+:tada: 祝贺你! 你已经成功设置完成 `unplugin-vue-macros`。
 
-想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:.
+想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:。

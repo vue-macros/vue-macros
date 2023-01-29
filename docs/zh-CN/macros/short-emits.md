@@ -1,18 +1,18 @@
 # shortEmits
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-Simplify the definition of emits.
+简化 emits 的定义
 
-|  Features  |     Supported      |
+|    特性    |        功能        |
 | :--------: | :----------------: |
 |   Vue 3    | :white_check_mark: |
 |   Vue 2    | :white_check_mark: |
 | TypeScript | :white_check_mark: |
 
-## Basic Usage
+## 基本用法
 
-Using type `ShortEmits` or for short `SE`.
+使用类型 `ShortEmits` 或简称 `SE`.
 
 ```vue
 <script setup lang="ts">
