@@ -525,3 +525,65 @@ var specialKey = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 export { specialKey as default };
 "
 `;
+
+exports[`fixtures > tests/fixtures/union.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"union\\",
+  props: {
+    \\"type\\": { type: String, required: true },
+    \\"foo\\": { type: String, required: false },
+    \\"optional\\": { type: Boolean, required: false },
+    \\"bar\\": { type: Number, required: false }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var union = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { union as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/union.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"union\\",
+  props: {
+    \\"type\\": null,
+    \\"foo\\": null,
+    \\"optional\\": { type: Boolean },
+    \\"bar\\": null
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var union = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { union as default };
+"
+`;

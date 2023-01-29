@@ -12,7 +12,6 @@ import type {
   Identifier,
   ImportNamespaceSpecifier,
   ImportSpecifier,
-  Node,
   Statement,
   TSCallSignatureDeclaration,
   TSConstructSignatureDeclaration,
@@ -155,7 +154,8 @@ export async function resolveTSProperties({
     }
     return properties
   } else {
-    throw new Error(`unknown node: ${(type as Node)?.type}`)
+    // @ts-expect-error type is never
+    throw new Error(`unknown node: ${type?.type}`)
   }
 
   function filterValidExtends(

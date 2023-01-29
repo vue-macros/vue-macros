@@ -30,6 +30,7 @@ import type {
   TSPropertySignature,
   TSType,
   TSTypeLiteral,
+  TSUnionType,
   VariableDeclaration,
 } from '@babel/types'
 
@@ -253,6 +254,96 @@ export async function handleTSPropsDefinition({
       throw new SyntaxError(`Cannot resolve TS definition.`)
 
     const { type: definitionsAst, scope } = resolved
+    if (definitionsAst.type === 'TSUnionType') {
+      const unionDefs: TSProps['definitions'][] = []
+      const keys = new Set<string>()
+      for (const type of definitionsAst.types) {
+        const defs = await resolveDefinitions({ type, scope }).then(
+          ({ definitions }) => definitions
+        )
+        Object.keys(defs).map((key) => keys.add(key))
+        unionDefs.push(defs)
+      }
+
+      const results: TSProps['definitions'] = {}
+      for (const key of keys) {
+        let optional = false
+        let result: TSPropsMethod | TSPropsProperty | undefined
+
+        for (const defMap of unionDefs) {
+          const def = defMap[key]
+          if (!def) {
+            optional = true
+            continue
+          }
+          optional ||= def.optional
+
+          if (!result) {
+            result = def
+            continue
+          }
+
+          if (result.type === 'method' && def.type === 'method') {
+            result.methods.push(...def.methods)
+          } else if (result.type === 'property' && def.type === 'property') {
+            if (!def.value) {
+              continue
+            } else if (!result.value) {
+              result = def
+              continue
+            }
+
+            if (
+              def.value.ast.type === 'TSImportType' ||
+              def.value.ast.type === 'TSDeclareFunction' ||
+              def.value.ast.type === 'TSEnumDeclaration' ||
+              def.value.ast.type === 'TSInterfaceDeclaration' ||
+              def.value.ast.type === 'TSModuleDeclaration' ||
+              result.value.ast.type === 'TSImportType' ||
+              result.value.ast.type === 'TSDeclareFunction' ||
+              result.value.ast.type === 'TSEnumDeclaration' ||
+              result.value.ast.type === 'TSInterfaceDeclaration' ||
+              result.value.ast.type === 'TSModuleDeclaration'
+            ) {
+              // no way!
+              continue
+            }
+
+            if (result.value.ast.type === 'TSUnionType') {
+              result.value.ast.types.push(def.value.ast)
+            } else {
+              // overwrite original to union type
+              result = {
+                type: 'property',
+                value: buildDefinition({
+                  scope,
+                  type: {
+                    type: 'TSUnionType',
+                    types: [result.value.ast, def.value.ast],
+                  } satisfies TSUnionType,
+                }),
+                signature: null as any,
+                optional,
+                addByAPI: false,
+              }
+            }
+          } else {
+            throw new SyntaxError(
+              `Cannot resolve TS definition. Union type contains different types of results.`
+            )
+          }
+        }
+
+        if (result) {
+          results[key] = { ...result, optional }
+        }
+      }
+
+      return {
+        definitions: results,
+        definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      }
+    }
     if (
       definitionsAst.type !== 'TSInterfaceDeclaration' &&
       definitionsAst.type !== 'TSTypeLiteral' &&
@@ -409,7 +500,7 @@ export interface TSProps extends PropsBase {
 
   definitions: Record<string | number, TSPropsMethod | TSPropsProperty>
   definitionsAst: ASTDefinition<
-    TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType
+    TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType | TSUnionType
   >
 
   /**
