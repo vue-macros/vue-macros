@@ -1,5 +1,13 @@
 # unplugin-vue-macros
 
+## 1.7.1
+
+### Patch Changes
+
+- Updated dependencies [[`2a6e990`](https://github.com/sxzz/unplugin-vue-macros/commit/2a6e990be6fc523c4b43f21a1773250ce8c88273), [`37f4fd3`](https://github.com/sxzz/unplugin-vue-macros/commit/37f4fd3637f40d1734a49f044a06bddc52cf9a07)]:
+  - @vue-macros/better-define@1.3.0
+  - @vue-macros/define-model@1.3.0
+
 ## 1.7.0
 
 ### Minor Changes

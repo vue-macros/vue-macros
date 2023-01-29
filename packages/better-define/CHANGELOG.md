@@ -1,5 +1,18 @@
 # @vue-macros/better-define
 
+## 1.3.0
+
+### Minor Changes
+
+- [`37f4fd3`](https://github.com/sxzz/unplugin-vue-macros/commit/37f4fd3637f40d1734a49f044a06bddc52cf9a07) Thanks [@sxzz](https://github.com/sxzz)! - support union types
+
+### Patch Changes
+
+- [`2a6e990`](https://github.com/sxzz/unplugin-vue-macros/commit/2a6e990be6fc523c4b43f21a1773250ce8c88273) Thanks [@sxzz](https://github.com/sxzz)! - support union & intersection mixed types for betterDefine
+
+- Updated dependencies [[`2a6e990`](https://github.com/sxzz/unplugin-vue-macros/commit/2a6e990be6fc523c4b43f21a1773250ce8c88273), [`37f4fd3`](https://github.com/sxzz/unplugin-vue-macros/commit/37f4fd3637f40d1734a49f044a06bddc52cf9a07)]:
+  - @vue-macros/api@0.4.0
+
 ## 1.2.0
 
 ### Minor Changes
