@@ -587,3 +587,65 @@ var union = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 export { union as default };
 "
 `;
+
+exports[`fixtures > tests/fixtures/vue-core-7553.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"vue-core-7553\\",
+  props: {
+    \\"size\\": { type: String, required: false },
+    \\"color\\": { type: String, required: true },
+    \\"appearance\\": { type: String, required: true },
+    \\"note\\": { type: String, required: false }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var vueCore7553 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { vueCore7553 as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vue-core-7553.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"vue-core-7553\\",
+  props: {
+    \\"size\\": null,
+    \\"color\\": null,
+    \\"appearance\\": null,
+    \\"note\\": null
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var vueCore7553 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { vueCore7553 as default };
+"
+`;

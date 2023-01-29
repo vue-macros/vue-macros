@@ -254,7 +254,32 @@ export async function handleTSPropsDefinition({
       throw new SyntaxError(`Cannot resolve TS definition.`)
 
     const { type: definitionsAst, scope } = resolved
-    if (definitionsAst.type === 'TSUnionType') {
+    if (definitionsAst.type === 'TSIntersectionType') {
+      const results: TSProps['definitions'] = {}
+      for (const type of definitionsAst.types) {
+        const defMap = await resolveDefinitions({ type, scope }).then(
+          ({ definitions }) => definitions
+        )
+        for (const [key, def] of Object.entries(defMap)) {
+          const result = results[key]
+          if (!result) {
+            results[key] = def
+            continue
+          }
+
+          if (result.type === 'method' && def.type === 'method') {
+            result.methods.push(...def.methods)
+          } else {
+            results[key] = def
+          }
+        }
+      }
+
+      return {
+        definitions: results,
+        definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      }
+    } else if (definitionsAst.type === 'TSUnionType') {
       const unionDefs: TSProps['definitions'][] = []
       const keys = new Set<string>()
       for (const type of definitionsAst.types) {
@@ -343,11 +368,9 @@ export async function handleTSPropsDefinition({
         definitions: results,
         definitionsAst: buildDefinition({ scope, type: definitionsAst }),
       }
-    }
-    if (
+    } else if (
       definitionsAst.type !== 'TSInterfaceDeclaration' &&
-      definitionsAst.type !== 'TSTypeLiteral' &&
-      definitionsAst.type !== 'TSIntersectionType'
+      definitionsAst.type !== 'TSTypeLiteral'
     )
       throw new SyntaxError(`Cannot resolve TS definition.`)
 
