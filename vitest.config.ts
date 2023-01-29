@@ -1,6 +1,7 @@
 import path from 'node:path'
 import { defineConfig } from 'vitest/config'
 import { findWorkspacePackages } from '@pnpm/find-workspace-packages'
+import esbuild from 'rollup-plugin-esbuild'
 
 const pathPackages = path.resolve(__dirname, 'packages')
 
@@ -13,5 +14,12 @@ export default defineConfig(async () => {
     resolve: {
       alias: Object.fromEntries(pkgs),
     },
+    plugins: [
+      process.version.startsWith('v14')
+        ? esbuild({
+            target: 'node14',
+          })
+        : [],
+    ],
   }
 })
