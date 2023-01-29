@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 1.7.2
+
+### Patch Changes
+
+- Updated dependencies [[`fb5aa54`](https://github.com/sxzz/unplugin-vue-macros/commit/fb5aa54f3ba9aa8bc9feab0fbcfade5510bec58c)]:
+  - @vue-macros/reactivity-transform@0.2.1
+
 ## 1.7.1
 
 ### Patch Changes

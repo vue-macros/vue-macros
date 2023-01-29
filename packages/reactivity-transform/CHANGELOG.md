@@ -1,5 +1,11 @@
 # @vue-macros/reactivity-transform
 
+## 0.2.1
+
+### Patch Changes
+
+- [`fb5aa54`](https://github.com/sxzz/unplugin-vue-macros/commit/fb5aa54f3ba9aa8bc9feab0fbcfade5510bec58c) Thanks [@sxzz](https://github.com/sxzz)! - publish vue2 dts files
+
 ## 0.2.0
 
 ### Minor Changes
