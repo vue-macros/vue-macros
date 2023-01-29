@@ -1,5 +1,14 @@
 # @vue-macros/nuxt
 
+## 1.0.1
+
+### Patch Changes
+
+- [`fdd22b3`](https://github.com/sxzz/unplugin-vue-macros/commit/fdd22b36112b6817de219ac8d38e681f22316169) Thanks [@sxzz](https://github.com/sxzz)! - fix setup-sfc include regex
+
+- Updated dependencies []:
+  - unplugin-vue-macros@1.7.1
+
 ## 1.0.0
 
 ### Major Changes
