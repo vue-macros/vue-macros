@@ -1,8 +1,8 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { rollup } from 'rollup'
-import Vue from '@vitejs/plugin-vue'
-import VueJsx from '@vitejs/plugin-vue-jsx'
+import Vue from '@vitejs/plugin-vue2'
+import VueJsx from '@vitejs/plugin-vue2-jsx'
 import VueMacros from 'unplugin-vue-macros/rollup'
 import Esbuild from 'rollup-plugin-esbuild'
 import NodeResolve from '@rollup/plugin-node-resolve'
@@ -14,7 +14,6 @@ const bundle = await rollup({
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
-          reactivityTransform: true,
         }),
         vueJsx: VueJsx(),
       },
