@@ -1,18 +1,18 @@
 # hoistStatic
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-With enabling `hoistStatic`, constants declared in macros of `<script setup>` can be referenced.
+通过启用 `hoistStatic`, 可以引用 `<script setup>`的宏中声明的常量。
 
-If you support this feature, feel free to hit like :+1: or comment on the [Vue PR](https://github.com/vuejs/core/pull/5752). Thanks!
+如果您支持此功能，请随意点击 :+1: 或者在 [Vue PR](https://github.com/vuejs/core/pull/5752) 上发表评论. 谢谢!
 
-| Features |     Supported      |
-| :------: | :----------------: |
-|  Vue 3   | :white_check_mark: |
-|  Nuxt 3  | :white_check_mark: |
-|  Vue 2   | :white_check_mark: |
+|  特性  |        支持        |
+| :----: | :----------------: |
+| Vue 3  | :white_check_mark: |
+| Nuxt 3 | :white_check_mark: |
+| Vue 2  | :white_check_mark: |
 
-## Basic Usage
+## 基本用法
 
 ```vue
 <script setup lang="ts">
@@ -36,7 +36,7 @@ export default {
 
 :::
 
-## Magic Comments
+## 魔法注释
 
 ```vue
 <script setup lang="ts">
