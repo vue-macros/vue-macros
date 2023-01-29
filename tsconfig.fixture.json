@@ -1,11 +1,10 @@
 {
-  "extends": "./tsconfig.lib.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
     "lib": ["DOM"]
   },
   "include": ["**/fixtures/**/*", "**/macros-global.d.ts"],
-  "exclude": [],
   "vueCompilerOptions": {
     "plugins": [
       "@vue-macros/volar/define-model",
