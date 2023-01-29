@@ -14,7 +14,7 @@ export default defineConfig({
       setupBlock: true,
       plugins: {
         vue: Vue({
-          include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
+          include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
           reactivityTransform: true,
           template: {
             compilerOptions: {

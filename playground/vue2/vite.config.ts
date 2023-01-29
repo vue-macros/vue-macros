@@ -13,7 +13,7 @@ export default defineConfig({
       version: 2,
       plugins: {
         vue: Vue({
-          include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
+          include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
         }),
         vueJsx: VueJsx(),
       },

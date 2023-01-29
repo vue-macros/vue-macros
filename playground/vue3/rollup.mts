@@ -15,7 +15,7 @@ const bundle = await rollup({
       setupBlock: true,
       plugins: {
         vue: Vue({
-          include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
+          include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
           reactivityTransform: true,
         }),
         vueJsx: VueJsx(),

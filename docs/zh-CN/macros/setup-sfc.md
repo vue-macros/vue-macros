@@ -31,7 +31,7 @@ export default defineConfig({
   plugins: [
     VueMacros(),
     Vue({
-      include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
+      include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
       //                   ⬆️ setupSFC pattern need to be added
     }),
   ],
@@ -47,7 +47,7 @@ export default defineConfig({
     VueMacros({
       plugins: {
         vue: Vue({
-          include: [/\.vue$/, /setup\.[cm]?[jt]sx?$/],
+          include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
           //                   ⬆️ setupSFC pattern need to be added
         }),
       },
