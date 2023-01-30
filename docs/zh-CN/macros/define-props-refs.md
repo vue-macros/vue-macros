@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-yellow-600">不稳定</code></small>
 
-从 `defineProps` 返回的 refs 不是响应式对象，它可以在不失去响应式的情况下被解构。
+从 `defineProps` 将返回的 refs 而不是响应式对象，它可以在不失去响应式的情况下被解构。
 
 `toRefs(defineProps())` => `definePropsRefs()`
 
