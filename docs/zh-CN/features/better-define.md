@@ -44,7 +44,7 @@ export interface BaseProps {
 
 #### 什么是复杂类型？
 
-- 所有实用类型
+- 所有工具类型
   - [内置类型](https://www.typescriptlang.org/docs/handbook/utility-types.html)
   - 来自 `type-fest` 包的所有类型。
   - ...
