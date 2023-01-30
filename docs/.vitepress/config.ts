@@ -7,7 +7,6 @@ import { zhCN } from './locales/zh-cn'
 export default withPwa(
   defineConfig({
     lastUpdated: true,
-    cleanUrls: 'disabled',
     locales: {
       root: en,
       'zh-CN': zhCN,
