@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-可以使用 `defineOptions`函数在 `<script setup>`中使用选项式 API，特别是能够在一个函数内设置`name`, `props`, `emits`, `render` 。
+可以使用 `defineOptions`函数在 `<script setup>`中使用选项式 API，也就是说我们可以把 `name`, `props`, `emits`, `render` 放到一个函数里。
 
 如果您支持此功能, 请随意点击 :+1: 或在 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/430)中发表评论。谢谢！
 
