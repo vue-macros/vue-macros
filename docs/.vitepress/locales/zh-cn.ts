@@ -10,7 +10,7 @@ export const nav: DefaultTheme.NavItem[] = [
   { text: '特性', link: '/zh-CN/features/hoist-static' },
 ]
 
-export const sidebar = common.sidebar('zh-CN')
+export const sidebar = common.sidebar('zh-CN') as DefaultTheme.SidebarGroup[]
 
 const sidebarTitle: string[] = ['指南', '宏', '特性']
 const sidebarItem: string[][] = [
