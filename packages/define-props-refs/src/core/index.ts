@@ -1,4 +1,5 @@
 import {
+  DEFINE_PROPS,
   DEFINE_PROPS_REFS,
   MagicString,
   WITH_DEFAULTS,
@@ -20,6 +21,7 @@ export function transformDefinePropsRefs(code: string, id: string) {
   const setupAst = getSetupAst()!
 
   let changed = false
+  // let withDefaultsBody: { node: CallExpression; code: string } | null = null
   walkAST<Node>(setupAst, {
     enter(node) {
       if (isCallOf(node, DEFINE_PROPS_REFS)) {
@@ -29,6 +31,36 @@ export function transformDefinePropsRefs(code: string, id: string) {
         processDefinePropsRefs(node.arguments[0] as CallExpression, node)
         this.skip()
       }
+      // if (
+      //   isCallOf(node, WITH_DEFAULTS) &&
+      //   node.arguments[1] &&
+      //   node.arguments[1].type === 'ObjectExpression'
+      // ) {
+      //   const exprNode = node.arguments[1]
+      //   withDefaultsBody = {
+      //     code: code.slice(offset + exprNode.start!, offset + exprNode.end!),
+      //     node,
+      //   }
+      //   return
+      // }
+      // if (!isCallOf(node, DEFINE_PROPS_REFS)) return
+      // const definePropsBody = s.slice(
+      //   offset + node.callee.end!,
+      //   offset + node.end!
+      // )
+      // let definePropsCode = ''
+      // if (withDefaultsBody) {
+      //   definePropsCode = `${WITH_DEFAULTS}(${DEFINE_PROPS}${definePropsBody}, ${withDefaultsBody.code})`
+      // } else {
+      //   definePropsCode = `${DEFINE_PROPS}${definePropsBody}`
+      // }
+      // s.prependLeft(offset, `\nconst __MACROS_props = ${definePropsCode}`)
+      // s.overwriteNode(
+      //   withDefaultsBody ? withDefaultsBody.node : node,
+      //   '_MACROS_toRefs(__MACROS_props)',
+      //   { offset }
+      // )
+      // changed = true
     },
   })
 

@@ -21,6 +21,7 @@ expectTypeOf(bar).toEqualTypeOf<ComputedRef<number>>()
 "
 `;
 
+<<<<<<< HEAD
 exports[`fixtures > ./fixtures/with-defaults.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import { toRefs as _MACROS_toRefs } from 'vue'
@@ -39,5 +40,23 @@ const { foo, bar } = _MACROS_toRefs(__MACROS_props)
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
 expectTypeOf(bar).toEqualTypeOf<ComputedRef<readonly number[]>>()
 </script>
+=======
+exports[`fixtures > ./fixtures/withDefaults.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import { toRefs as _MACROS_toRefs } from 'vue'
+const __MACROS_props = withDefaults(defineProps<{
+  foo: string
+  bar: number
+}>(), {
+  foo: 'foo',
+  bar: 1
+})
+const { foo, bar } = _MACROS_toRefs(__MACROS_props)
+</script>
+
+<template>
+  <div></div>
+</template>
+>>>>>>> 0eea77b (feat: define-props-refs support withDefaults)
 "
 `;
