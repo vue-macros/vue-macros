@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
-import type { Ref } from 'vue'
+import type { ComputedRef } from 'vue'
 
 const { foo } = definePropsRefs<{
   foo: string[]
 }>()
-expectTypeOf(foo).toEqualTypeOf<Readonly<Ref<readonly string[]>>>()
+expectTypeOf(foo).toEqualTypeOf<ComputedRef<readonly string[]>>()
 </script>
 
 <template>
