@@ -1,4 +1,5 @@
 import {
+  DEFINE_PROPS,
   DEFINE_PROPS_REFS,
   MagicString,
   WITH_DEFAULTS,
@@ -22,12 +23,11 @@ export function transformDefinePropsRefs(code: string, id: string) {
   let changed = false
   walkAST<Node>(setupAst, {
     enter(node) {
-      if (isCallOf(node, DEFINE_PROPS_REFS)) {
-        processDefinePropsRefs(node)
-      }
-      if (isCallOf(node, WITH_DEFAULTS)) {
+      if (isCallOf(node, WITH_DEFAULTS) && node.arguments) {
         processDefinePropsRefs(node.arguments[0] as CallExpression, node)
         this.skip()
+      } else if (isCallOf(node, DEFINE_PROPS_REFS)) {
+        processDefinePropsRefs(node)
       }
     },
   })
@@ -42,14 +42,17 @@ export function transformDefinePropsRefs(code: string, id: string) {
     propsCall: CallExpression,
     defaultsCall?: CallExpression
   ) {
-    let code = `defineProps${s.slice(
+    let code = `${DEFINE_PROPS}${s.slice(
       offset + propsCall.callee.end!,
       offset + propsCall.end!
     )}`
     if (defaultsCall) {
-      code = `withDefaults(${code}, ${s.sliceNode(defaultsCall.arguments[1], {
-        offset,
-      })})`
+      code = `${WITH_DEFAULTS}(${code}, ${s.sliceNode(
+        defaultsCall.arguments[1],
+        {
+          offset,
+        }
+      )})`
     }
 
     s.prependLeft(offset, `\nconst __MACROS_props = ${code}`)
