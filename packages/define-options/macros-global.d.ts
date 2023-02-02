@@ -1,7 +1,1 @@
-import type { defineOptions as _defineOptions } from './macros'
-
-declare global {
-  const defineOptions: typeof _defineOptions
-}
-
-export {}
+declare const defineOptions: typeof import('./macros').defineOptions

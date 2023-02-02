@@ -1,7 +1,1 @@
-import type { defineRender as _defineRender } from './vue2-macros'
-
-declare global {
-  const defineRender: typeof _defineRender
-}
-
-export {}
+declare const defineRender: typeof import('./vue2-macros').defineRender

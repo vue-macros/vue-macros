@@ -1,14 +1,6 @@
-import type {
-  UseModelOptions,
-  $defineModel as _$defineModel,
-  ModelOptions as _ModelOptions,
-  defineModel as _defineModel,
-} from './macros'
-
-declare global {
-  const defineModel: typeof _defineModel
-  const $defineModel: typeof _$defineModel
-  type ModelOptions<T, O extends UseModelOptions<T> = {}> = _ModelOptions<T, O>
-}
-
-export {}
+declare const defineModel: typeof import('./macros').defineModel
+declare const $defineModel: typeof import('./macros').$defineModel
+declare type ModelOptions<
+  T,
+  O extends import('./macros').UseModelOptions<T> = {}
+> = import('./macros').ModelOptions<T, O>

@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "paths": {
+      "vue": ["node_modules/vue2"],
+      "vue/*": ["node_modules/vue2/*"]
+    },
+    "skipLibCheck": false
+  },
+  "include": ["**/vue2-macros*.d.ts"]
+}

@@ -1,7 +1,1 @@
-import type { $defineProps as _$defineProps } from './vue2-macros'
-
-declare global {
-  const $defineProps: typeof _$defineProps
-}
-
-export {}
+declare const $defineProps: typeof import('./vue2-macros').$defineProps
