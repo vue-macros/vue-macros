@@ -11,7 +11,7 @@
 
 ## 安装独立版本
 
-如果您只需要 `Reactivity Transform` 功能，独立版本更适合您。
+如果你只需要 `Reactivity Transform` 功能，独立版本更适合你。
 
 ### 安装
 

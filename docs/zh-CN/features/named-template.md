@@ -5,11 +5,11 @@
   <WarnBadge>实验性功能，风险自负</WarnBadge>
 </div>
 
-通过启用 `namedTemplate` ，`<template>` 可以像变量一样被引用。
+通过开启 `namedTemplate` ，`<template>` 可以像变量一样被引用。
 
-有时候我们需要把非常简单的组件颠倒顺序，又不想放弃 Vue 模板的特性而使用 JSX/TSX。那么这个功能就非常有用了。
+有时候我们需要把非常简单的组件颠倒顺序，但又不想放弃 Vue 模板的特性而使用 JSX/TSX。那么这个功能就非常有用了。
 
-如果你支持这个功能, 你可以去 [这个讨论](https://github.com/vuejs/core/discussions/6898) 点赞 :+1: 或评论。
+如果你支持此功能，欢迎在 [讨论](https://github.com/vuejs/core/discussions/6898) 中点赞 :+1: 或评论。
 
 |        特性        |        支持        |
 | :----------------: | :----------------: |

@@ -5,7 +5,7 @@
   <WarnBadge>实验性功能，风险自负</WarnBadge>
 </div>
 
-[Svelte-like Declaring props](https://svelte.dev/docs#component-format-script-1-export-creates-a-component-prop) for Vue.
+在 Vue 中像 Svelte 那样声明 `props`，[Svelte 对应文档](https://svelte.dev/docs#component-format-script-1-export-creates-a-component-prop)。
 
 |     特性     |        支持        |
 | :----------: | :----------------: |
@@ -16,7 +16,7 @@
 
 ## 用法
 
-使用导出的语法来声明 props。
+使用导出的语法来声明 `props`。
 
 ```vue
 <script setup lang="ts">

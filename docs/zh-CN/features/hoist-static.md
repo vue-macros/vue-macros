@@ -2,9 +2,11 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-通过启用 `hoistStatic`, 可以引用 `<script setup>`的宏中声明的常量。
+<!-- 通过开启 `hoistStatic`, 你可以引用 `<script setup>` 宏中声明的常量。 -->
 
-如果您支持此功能，请随意点击 :+1: 或者在 [Vue PR](https://github.com/vuejs/core/pull/5752) 上发表评论. 谢谢!
+通过开启 `hoistStatic`, 可以在宏内部引用 `<script setup>` 中的变量
+
+如果你支持此功能，欢迎在 [Vue PR](https://github.com/vuejs/core/pull/5752) 中点赞 :+1: 或发表评论。
 
 |  特性  |        支持        |
 | :----: | :----------------: |
@@ -23,7 +25,7 @@ defineOptions({
 </script>
 ```
 
-::: details Compiled Code
+::: details 编译后代码
 
 ```vue
 <script lang="ts">
@@ -48,7 +50,7 @@ defineOptions({
 </script>
 ```
 
-::: details Compiled Code
+::: details 编译后代码
 
 ```vue
 <script lang="ts">

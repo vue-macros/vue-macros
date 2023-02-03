@@ -2,9 +2,9 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-通过启用 `betterDefine` ，`<script setup>` type-based-macros 支持导入的类型。
+通过开启 `betterDefine` ，支持在 `<script setup>` 中导入 TS 类型来定义 `props` 和 `emits`。
 
-[相关问题](https://github.com/vuejs/core/issues/4294)
+如果你对此功能有任何疑问，欢迎在 [issues](https://github.com/vuejs/core/issues/4294) 中发表评论。
 
 |    特性    |        支持        |
 | :--------: | :----------------: |
@@ -40,7 +40,7 @@ export interface BaseProps {
 
 ### 复杂类型
 
-在一些 key 的位置不支持复杂类型。例如：
+在一些**关键的位置**不支持**复杂类型**。例如：
 
 #### 什么是复杂类型？
 
@@ -54,11 +54,11 @@ export interface BaseProps {
     [key: string]: string
   }
   ```
-- 泛型将被直接忽略
+- 泛型将会被直接忽略
 
-#### 什么是 key 的位置?
+#### 什么是**关键的位置**?
 
-- props 的名称
+- **props** 的名称
 
 ```ts
 // ✅
@@ -72,7 +72,7 @@ defineProps<{
 }>()
 ```
 
-- events 的名称
+- **events** 的名称
 
 ```ts
 interface Emits {
