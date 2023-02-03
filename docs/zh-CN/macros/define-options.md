@@ -4,7 +4,7 @@
 
 可以使用 `defineOptions`函数在 `<script setup>`中使用选项式 API，也就是说我们可以把 `name`, `props`, `emits`, `render` 放到一个函数里。
 
-如果您支持此功能, 请随意点击 :+1: 或在 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/430)中发表评论。谢谢！
+如果你支持此功能，欢迎在 [RFC](https://github.com/vuejs/rfcs/discussions/430) 中点赞 :+1: 或发表评论。
 
 |    特性    |        支持        |
 | :--------: | :----------------: |
@@ -15,7 +15,7 @@
 
 ## 安装独立版本
 
-如果您只需要 `defineOptions` 功能, 独立版本更适合您。
+如果你只需要 `defineOptions` 功能, 那么独立版本更加适合你。
 
 ### 安装
 
@@ -99,7 +99,7 @@ const slots = useSlots()
 </script>
 ```
 
-::: details Compiled Code
+::: details 编译后代码
 
 ```vue
 <script lang="ts">
@@ -128,7 +128,7 @@ defineOptions({
 </script>
 ```
 
-::: details Compiled Code
+::: details 编译后代码
 
 ```vue
 <script lang="tsx">

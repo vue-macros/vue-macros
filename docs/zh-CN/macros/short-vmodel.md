@@ -2,11 +2,11 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-`v-model`的语法糖.
+`v-model`的语法糖。
 
 `v-model` -> `::` / `$` / `*`
 
-如果您对此功能有任何疑问，可以在 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/395) 中发表评论。
+如果你对此功能有任何疑问，欢迎在 [RFC](https://github.com/vuejs/rfcs/discussions/395) 中发表评论。
 
 |     特性     |        支持        |
 | :----------: | :----------------: |
@@ -50,7 +50,7 @@ export default defineConfig({
 
 ## 选项
 
-`prefix`: `'::' | '$' | '*'`, defaults to `'$'`
+`prefix`: `'::' | '$' | '*'`，默认为 `'$'`
 
 ## 用法
 

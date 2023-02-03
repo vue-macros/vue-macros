@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-简化 emits 的定义
+简化 `emits` 的定义
 
 |    特性    |        功能        |
 | :--------: | :----------------: |
@@ -12,7 +12,7 @@
 
 ## 基本用法
 
-使用类型 `ShortEmits` 或简称 `SE`.
+使用 `ShortEmits` 或简写为 `SE`，可以使用元组或方法定义。
 
 ```vue
 <script setup lang="ts">

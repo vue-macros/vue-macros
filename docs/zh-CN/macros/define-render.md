@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-使用 `defineRender` 在 `<script setup>` 中定义渲染函数。
+使用 `defineRender` 可以直接在 `<script setup>` 中定义渲染函数。
 
 |    特性    |        支持        |
 | :--------: | :----------------: |

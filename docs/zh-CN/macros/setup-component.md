@@ -7,7 +7,7 @@
 
 ::: tip
 
-如果您使用的是 `setupComponent`，则无法禁用 `defineRender`。
+如果你使用的是 `setupComponent`，则无法禁用 `defineRender`。
 
 默认情况下不会忽略 `node_modules` 中的文件。
 
@@ -15,7 +15,7 @@
 
 <!-- defineSetupComponent，<script setup>  [Volar](https://github.com/johnsoncodehk/volar) 的纯 JS/TS(X) 中 -->
 
-使用 `defineSetupComponent`, `<script setup>` 的代码可以放在没有 [Volar](https://github.com/johnsoncodehk/volar) 扩展的 **纯 JS/TS(X)** 中。
+使用 `defineSetupComponent`, 可以将 `<script setup>` 中的代码放在没有 [Volar](https://github.com/johnsoncodehk/volar) 扩展的 **纯 JS/TS(X)** 中。
 
 |    特性    |        支持        |
 | :--------: | :----------------: |
@@ -65,4 +65,4 @@ export const App: SetupFC = () => {
 ## 已知的问题
 
 - TypeScript 支持尚未完成。
-- Source map 不能正确对应。
+- Source map 不能正确映射。

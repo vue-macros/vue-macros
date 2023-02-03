@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-yellow-600">不稳定</code></small>
 
-使用 `defineSlots` 在 `<script setup>` 中声明 SFC slots 的类型
+使用 `defineSlots` 可以在 `<script setup>` 中声明 SFC 中 slots 的类型
 
 |         特性         |         支持         |
 | :------------------: | :------------------: |

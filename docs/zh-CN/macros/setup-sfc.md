@@ -7,7 +7,7 @@
 
 ::: tip
 
-如果您使用的是 `setupSFC`，则无法禁用 `defineRender`。
+如果你使用的是 `setupSFC`，则无法禁用 `defineRender`。
 
 :::
 
@@ -87,7 +87,5 @@ export default () => (
 
 ## 已知的问题
 
-源映射在 JSX/TSX 文件中不正确对应
-
-- Source map 在 JSX/TSX 文件中不能正确的对应。
+- Source map 在 JSX/TSX 文件中不能正确的映射。
 - TypeScript 支持尚未完成。

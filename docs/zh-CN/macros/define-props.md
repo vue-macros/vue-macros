@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-使用 `$defineProps` 正确的解构 props 类型
+使用 `$defineProps` 可以正确的解构 `props` 的类型
 
 参见 [Vue issue](https://github.com/vuejs/core/issues/6876), [Reactivity Transform RFC](https://github.com/vuejs/rfcs/blob/reactivity-transform/active-rfcs/0000-reactivity-transform.md#defineprops-destructure-details).
 
@@ -15,7 +15,7 @@
 
 ::: warning
 
-[响应性语法糖](https://cn.vuejs.org/guide/extras/reactivity-transform.html) 是必须的。你必须先开启它。
+在开始之前，你必须先开启 [响应性语法糖](https://cn.vuejs.org/guide/extras/reactivity-transform.html)
 
 :::
 

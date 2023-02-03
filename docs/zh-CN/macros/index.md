@@ -1,8 +1,8 @@
 # 用法
 
-所有可用宏的列表。
+以下是所有可用宏的列表。
 
-请确保 `unplugin-vue-macros` 设置正确。如果您还没有设置, 请先阅读 [入门](/zh-CN/guide/getting-started)
+在开始之前，请确保 `unplugin-vue-macros` 设置正确。如果你还没有设置，请先阅读 [入门](/zh-CN/guide/getting-started)
 
 - [defineOptions](/zh-CN/macros/define-options)
 - [defineModel](/zh-CN/macros/define-model)

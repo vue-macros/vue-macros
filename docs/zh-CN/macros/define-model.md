@@ -2,7 +2,9 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-使用 `defineModel`声明和改变 `v-model` 的 props 和普通变量相同。
+<!-- 使用 `defineModel`声明和改变 `v-model` 的 props 和普通变量相同。 -->
+
+使用 `defineModel` 可以简化之前声明和改变 `v-model` 的步骤，让你可以像使用普通变量那样去使用。
 
 |     特性     |        支持        |
 | :----------: | :----------------: |
@@ -28,7 +30,7 @@ VueMacros({
 
 ## 用法
 
-需要 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core)，在使用之前请自行安装
+> 在开始之前，请先自行安装 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core)
 
 ```vue
 <script setup lang="ts">
@@ -62,7 +64,7 @@ const { modelValue } = defineModel({
 
 :::
 
-[`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) 不是必需的。
+> [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) 在这不是必需的。
 
 ```vue {7-9}
 <script setup lang="ts">
@@ -77,7 +79,7 @@ count++
 </script>
 ```
 
-::: details Compiled Code
+::: details 编译后代码
 
 ```vue
 <script setup lang="ts">
