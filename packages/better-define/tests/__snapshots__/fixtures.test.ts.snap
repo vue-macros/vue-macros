@@ -412,6 +412,66 @@ export { intersection as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/issue-260.vue > isProduction = false 1`] = `
+"import { defineComponent, toDisplayString } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"issue-260\\",
+  props: {
+    \\"menu\\": { type: [Object, Array], required: false, default: () => ({ txt: \\"1-1\\" }) }
+  },
+  setup(__props) {
+    const props = __props;
+    return (_ctx, _cache) => {
+      return toDisplayString(props.menu);
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var issue260 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue260 as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/issue-260.vue > isProduction = true 1`] = `
+"import { defineComponent, toDisplayString } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"issue-260\\",
+  props: {
+    \\"menu\\": { default: () => ({ txt: \\"1-1\\" }) }
+  },
+  setup(__props) {
+    const props = __props;
+    return (_ctx, _cache) => {
+      return toDisplayString(props.menu);
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var issue260 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue260 as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/optional-method.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 

@@ -100,6 +100,9 @@ export async function inferRuntimeType(
     case 'TSSymbolKeyword':
       return ['Symbol']
 
+    case 'TSInterfaceDeclaration':
+      return ['Object']
+
     default:
       return [`null`] // no runtime check
   }
