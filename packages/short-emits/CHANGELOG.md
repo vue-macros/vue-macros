@@ -1,5 +1,11 @@
 # @vue-macros/short-emits
 
+## 1.2.1
+
+### Patch Changes
+
+- [`58dc87d`](https://github.com/sxzz/unplugin-vue-macros/commit/58dc87d4c102863069119965132f4a2ccd0edeb8) Thanks [@sxzz](https://github.com/sxzz)! - simplify dts files
+
 ## 1.2.0
 
 ### Minor Changes

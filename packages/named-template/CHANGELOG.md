@@ -1,5 +1,11 @@
 # @vue-macros/named-template
 
+## 0.2.1
+
+### Patch Changes
+
+- [`d32e2c3`](https://github.com/sxzz/unplugin-vue-macros/commit/d32e2c3e3f175d4845d9038e89c5f80047747d26) Thanks [@sxzz](https://github.com/sxzz)! - escape sub template name for `namedTemplate`
+
 ## 0.2.0
 
 ### Minor Changes
