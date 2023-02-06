@@ -1,5 +1,11 @@
 # @vue-macros/api
 
+## 0.4.1
+
+### Patch Changes
+
+- [`66d7c24`](https://github.com/sxzz/unplugin-vue-macros/commit/66d7c2472aa969d80e00218ee84858c255f549f5) Thanks [@sxzz](https://github.com/sxzz)! - resolve interface declarations
+
 ## 0.4.0
 
 ### Minor Changes

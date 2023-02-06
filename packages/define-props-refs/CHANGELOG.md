@@ -1,5 +1,15 @@
 # @vue-macros/define-props-refs
 
+## 0.2.0
+
+### Minor Changes
+
+- [`0efc3f6`](https://github.com/sxzz/unplugin-vue-macros/commit/0efc3f632e368082d968c566fe726462b5ca3370) Thanks [@sxzz](https://github.com/sxzz)! - support withDefaults for definePropsRefs
+
+### Patch Changes
+
+- [`58dc87d`](https://github.com/sxzz/unplugin-vue-macros/commit/58dc87d4c102863069119965132f4a2ccd0edeb8) Thanks [@sxzz](https://github.com/sxzz)! - simplify dts files
+
 ## 0.1.0
 
 ### Minor Changes

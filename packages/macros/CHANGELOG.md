@@ -1,5 +1,24 @@
 # unplugin-vue-macros
 
+## 1.7.3
+
+### Patch Changes
+
+- [`58dc87d`](https://github.com/sxzz/unplugin-vue-macros/commit/58dc87d4c102863069119965132f4a2ccd0edeb8) Thanks [@sxzz](https://github.com/sxzz)! - simplify dts files
+
+- Updated dependencies [[`58dc87d`](https://github.com/sxzz/unplugin-vue-macros/commit/58dc87d4c102863069119965132f4a2ccd0edeb8), [`0efc3f6`](https://github.com/sxzz/unplugin-vue-macros/commit/0efc3f632e368082d968c566fe726462b5ca3370), [`d32e2c3`](https://github.com/sxzz/unplugin-vue-macros/commit/d32e2c3e3f175d4845d9038e89c5f80047747d26), [`66d7c24`](https://github.com/sxzz/unplugin-vue-macros/commit/66d7c2472aa969d80e00218ee84858c255f549f5)]:
+  - @vue-macros/reactivity-transform@0.2.2
+  - @vue-macros/define-props-refs@0.2.0
+  - @vue-macros/setup-component@0.15.1
+  - unplugin-vue-define-options@1.2.1
+  - @vue-macros/define-render@1.2.1
+  - @vue-macros/define-model@1.3.1
+  - @vue-macros/define-props@0.3.1
+  - @vue-macros/define-slots@0.2.1
+  - @vue-macros/short-emits@1.2.1
+  - @vue-macros/named-template@0.2.1
+  - @vue-macros/better-define@1.3.1
+
 ## 1.7.2
 
 ### Patch Changes
