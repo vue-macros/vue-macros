@@ -190,7 +190,7 @@ export function postTransform(
     const block = customBlocks[filename]?.[name]
     if (!block) throw new SyntaxError(`Unknown named template: ${name}`)
 
-    const render = `_NT_block_${name}.render(...args)`
+    const render = `_NT_block_${escapeTemplateName(name)}.render(...args)`
     if (fnName === '_createVNode') {
       s.overwriteNode(vnode, render)
     } else if (fnName === '_createBlock') {
@@ -203,7 +203,9 @@ export function postTransform(
 
   for (const [name, source] of Object.entries(customBlocks[filename])) {
     s.prepend(
-      `import { default as _NT_block_${name} } from ${JSON.stringify(source)}\n`
+      `import { default as _NT_block_${escapeTemplateName(
+        name
+      )} } from ${JSON.stringify(source)}\n`
     )
   }
 
@@ -229,4 +231,8 @@ export function postTransformMainEntry(
       customBlocks[id][name] = node.source.value
     }
   }
+}
+
+function escapeTemplateName(name: string) {
+  return name.replace(/-/g, '$DASH')
 }
