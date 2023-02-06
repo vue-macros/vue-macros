@@ -1,7 +1,7 @@
 import Inspect from 'vite-plugin-inspect'
 
 export default defineNuxtConfig({
-  modules: ['@vue-macros/nuxt'],
+  modules: ['../packages/nuxt'],
   macros: {},
   experimental: {
     reactivityTransform: true,
