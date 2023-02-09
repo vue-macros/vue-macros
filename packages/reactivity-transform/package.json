@@ -76,6 +76,13 @@
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
   },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
+  },
   "dependencies": {
     "@babel/parser": "^7.20.15",
     "@rollup/pluginutils": "^5.0.2",
