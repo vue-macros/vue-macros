@@ -9,6 +9,8 @@ interface Options {
   promise?: boolean
 }
 
+const SKIP_VUE2 = !!process.env.SKIP_VUE2
+
 export async function testFixtures(
   globs: string | string[],
   exec: (args: Record<string, any>, id: string) => any,
@@ -55,29 +57,30 @@ export async function testFixtures(
     } else {
       return () => {
         for (const value of values) {
-          test(
-            value !== undefined ? `${name} = ${String(value)}` : name,
-            async () => {
-              const currArgs = { ...args, [name]: value }
-              const execute = () =>
-                cb(
-                  currArgs,
-                  path.resolve(globOptions.cwd || '/', id),
-                  code as any
-                )
-              if (id.includes('error')) {
-                if (promise) {
-                  await expect(execute()).rejects.toThrowErrorMatchingSnapshot()
-                } else {
-                  expect(execute).toThrowErrorMatchingSnapshot()
-                }
-              } else if (promise) {
-                await expect(execute()).resolves.toMatchSnapshot()
+          const testName =
+            value !== undefined ? `${name} = ${String(value)}` : name
+          const isSkip = testName.includes('vue2') && SKIP_VUE2
+
+          test.skipIf(isSkip)(testName, async () => {
+            const currArgs = { ...args, [name]: value }
+            const execute = () =>
+              cb(
+                currArgs,
+                path.resolve(globOptions.cwd || '/', id),
+                code as any
+              )
+            if (id.includes('error')) {
+              if (promise) {
+                await expect(execute()).rejects.toThrowErrorMatchingSnapshot()
               } else {
-                expect(execute()).toMatchSnapshot()
+                expect(execute).toThrowErrorMatchingSnapshot()
               }
+            } else if (promise) {
+              await expect(execute()).resolves.toMatchSnapshot()
+            } else {
+              expect(execute()).toMatchSnapshot()
             }
-          )
+          })
         }
       }
     }
