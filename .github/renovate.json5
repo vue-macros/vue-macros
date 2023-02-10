@@ -11,8 +11,13 @@
     },
 
     {
-      matchUpdateTypes: ['major'],
       matchPackageNames: ['vue', 'vue2'],
+      matchUpdateTypes: ['major'],
+      enabled: false,
+    },
+
+    {
+      matchPackageNames: ['typescript'],
       enabled: false,
     },
 
