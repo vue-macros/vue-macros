@@ -25,8 +25,7 @@ export async function analyzeSFC(
   s: MagicString,
   sfc: SFC
 ): Promise<AnalyzeResult> {
-  if (sfc.script || !sfc.scriptSetup)
-    throw new Error('Only <script setup> is supported')
+  if (!sfc.scriptSetup) throw new Error('Only <script setup> is supported')
 
   const { scriptSetup } = sfc
 

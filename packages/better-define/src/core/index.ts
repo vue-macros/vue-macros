@@ -9,7 +9,7 @@ export async function transformBetterDefine(
 ) {
   const s = new MagicString(code)
   const sfc = parseSFC(code, id)
-  if (sfc.script || !sfc.scriptSetup) return
+  if (!sfc.scriptSetup) return
 
   const offset = sfc.scriptSetup.loc.start.offset
   const result = await analyzeSFC(s, sfc)
