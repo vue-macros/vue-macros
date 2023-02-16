@@ -42,6 +42,11 @@
   "peerDependencies": {
     "vite": "^4.0.0"
   },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "sirv": "^2.0.2",
     "vue": "^3.2.47"
