@@ -63,6 +63,10 @@ export interface OptionsCommon {
     vue?: any
     vueJsx?: any
   }
+  /** @internal */
+  nuxtContext?: {
+    isClient?: boolean
+  }
 }
 
 type OptionalSubOptions<T> = boolean | Omit<T, keyof OptionsCommon> | undefined
@@ -71,7 +75,7 @@ export type Options = OptionsCommon & {
   [K in FeatureName]?: OptionalSubOptions<FeatureOptionsMap[K]>
 }
 
-export type OptionsResolved = Pick<Required<OptionsCommon>, 'plugins'> & {
+export type OptionsResolved = Required<OptionsCommon> & {
   [K in FeatureName]: false | FeatureOptionsMap[K]
 }
 
@@ -80,6 +84,8 @@ function resolveOptions({
   version,
   plugins,
   isProduction,
+  nuxtContext,
+
   betterDefine,
   defineModel,
   defineOptions,
@@ -115,6 +121,10 @@ function resolveOptions({
 
   return {
     plugins: plugins || {},
+    root,
+    version,
+    isProduction,
+    nuxtContext: nuxtContext || {},
 
     betterDefine: resolveSubOptions<'betterDefine'>(betterDefine, {
       isProduction,
@@ -208,7 +218,9 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(VueDefineRender, framework, options.defineRender),
       setupComponentPlugins?.[1],
       namedTemplatePlugins?.[1],
-      framework === 'vite' ? Devtools() : undefined,
+      framework === 'vite'
+        ? Devtools({ nuxtContext: options.nuxtContext })
+        : undefined,
     ].filter(Boolean)
 
     return {

@@ -1,4 +1,4 @@
-import { defineNuxtModule } from '@nuxt/kit'
+import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { transformShortVmodel } from '@vue-macros/short-vmodel'
 import type { Options } from 'unplugin-vue-macros'
@@ -16,8 +16,9 @@ export default defineNuxtModule<VueMacrosOptions>({
     configKey: 'macros',
   },
   defaults: {},
-  setup(options, nuxt) {
-    nuxt.hook('vite:extendConfig', (config) => {
+  setup(options) {
+    const nuxt = useNuxt()
+    nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       function findPluginAndRemove(name: string): Plugin | undefined {
         const idx = config.plugins!.findIndex(
           (plugin) => plugin && 'name' in plugin && plugin.name === name
@@ -37,6 +38,9 @@ export default defineNuxtModule<VueMacrosOptions>({
           plugins: {
             vue,
             vueJsx,
+          },
+          nuxtContext: {
+            isClient,
           },
         })
       )
