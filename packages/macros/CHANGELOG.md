@@ -1,5 +1,18 @@
 # unplugin-vue-macros
 
+## 1.8.0
+
+### Minor Changes
+
+- [`c7d6576`](https://github.com/sxzz/unplugin-vue-macros/commit/c7d657604a7ebd238e1cccac1b8b6183a8038895) Thanks [@sxzz](https://github.com/sxzz)! - add devtools page
+
+### Patch Changes
+
+- Updated dependencies [[`c7d6576`](https://github.com/sxzz/unplugin-vue-macros/commit/c7d657604a7ebd238e1cccac1b8b6183a8038895), [`4844ebd`](https://github.com/sxzz/unplugin-vue-macros/commit/4844ebd8a8846682ee7c3717426fdeaae85fd39f)]:
+  - @vue-macros/devtools@0.1.0
+  - @vue-macros/better-define@1.3.2
+  - @vue-macros/define-model@1.3.1
+
 ## 1.7.3
 
 ### Patch Changes

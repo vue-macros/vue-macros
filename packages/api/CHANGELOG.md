@@ -1,5 +1,11 @@
 # @vue-macros/api
 
+## 0.4.2
+
+### Patch Changes
+
+- [`4844ebd`](https://github.com/sxzz/unplugin-vue-macros/commit/4844ebd8a8846682ee7c3717426fdeaae85fd39f) Thanks [@sxzz](https://github.com/sxzz)! - support mixed setup blocks for `better-define`
+
 ## 0.4.1
 
 ### Patch Changes
