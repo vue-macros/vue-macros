@@ -2,17 +2,14 @@
 
 <template>
   <div w-screen h-screen flex="~ col gap2" justify-center items-center>
+    <img src="https://vue-macros.sxzz.moe/logo.svg" alt="Vue Macros" h-40 />
     <h1 text-2xl font-mono>Vue Macros is working!</h1>
-    <div>
-      <a
-        text-blue
-        text-underline
-        href="https://vue-macros.sxzz.moe/"
-        target="_blank"
-      >
-        Documentation
-      </a>
-    </div>
+    <a href="https://vue-macros.sxzz.moe/" target="_blank">
+      📜
+      <span text-blue underline underline-offset-3>Documentation</span>
+    </a>
+
+    <span opacity-50 text-sm>More features are coming soon!</span>
   </div>
 </template>
 
