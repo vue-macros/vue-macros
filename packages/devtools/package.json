@@ -1,14 +1,16 @@
 {
-  "name": "@vue-macros/nuxt",
-  "version": "1.0.3",
+  "name": "@vue-macros/devtools",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.27.0",
   "description": "",
   "keywords": [
     "unplugin",
     "vue",
     "sfc",
+    "setup",
     "macros",
-    "nuxt"
+    "script-setup",
+    "devtools"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -27,29 +29,28 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
-    },
-    "./*": "./*"
+    "dev": "./src/index.ts",
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
   },
   "scripts": {
-    "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "build": "tsup && tsx ../../scripts/postbuild.mts && vite build ./src/client",
+    "dev": "DEV=1 tsup",
+    "client:dev": "vite ./src/client"
   },
   "peerDependencies": {
-    "nuxt": "^3.0.0"
+    "vite": "^4.0.0"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.2.0",
-    "@vue-macros/short-vmodel": "workspace:~",
-    "@vue-macros/volar": "workspace:~",
-    "unplugin-vue-macros": "workspace:~"
+    "sirv": "^2.0.2",
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.1.3",
-    "@nuxt/schema": "^3.2.0"
+    "@unocss/reset": "^0.49.5",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "unocss": "^0.49.4",
+    "vite": "^4.1.1"
   },
   "engines": {
     "node": ">=14.19.0"

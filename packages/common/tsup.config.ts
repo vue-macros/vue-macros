@@ -19,6 +19,9 @@ export default defineConfig({
       },
   tsconfig: '../../tsconfig.lib.json',
   clean: true,
+  define: {
+    'import.meta.DEV': JSON.stringify(!!process.env.DEV),
+  },
   esbuildOptions: (options) => {
     options.conditions = ['dev']
   },

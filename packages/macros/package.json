@@ -82,6 +82,7 @@
     "@vue-macros/define-props-refs": "workspace:*",
     "@vue-macros/define-render": "workspace:*",
     "@vue-macros/define-slots": "workspace:*",
+    "@vue-macros/devtools": "workspace:^",
     "@vue-macros/export-props": "workspace:*",
     "@vue-macros/hoist-static": "workspace:*",
     "@vue-macros/named-template": "workspace:*",
@@ -90,12 +91,12 @@
     "@vue-macros/setup-component": "workspace:*",
     "@vue-macros/setup-sfc": "workspace:*",
     "@vue-macros/short-emits": "workspace:*",
+    "unplugin": "^1.0.1",
     "unplugin-combine": "^0.6.0",
     "unplugin-vue-define-options": "workspace:*"
   },
   "devDependencies": {
     "esbuild": "^0.17.7",
-    "unplugin": "^1.0.1",
     "vue": "^3.2.47"
   },
   "engines": {

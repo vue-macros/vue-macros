@@ -4,6 +4,7 @@ import { transformShortVmodel } from '@vue-macros/short-vmodel'
 import type { Options } from 'unplugin-vue-macros'
 import type { Options as OptionsShortVmodel } from '@vue-macros/short-vmodel'
 import type { Plugin } from 'vite'
+import type {} from '@nuxt/devtools'
 
 export type VueMacrosOptions = Options & {
   shortVmodel?: OptionsShortVmodel | false
@@ -43,6 +44,18 @@ export default defineNuxtModule<VueMacrosOptions>({
 
     nuxt.hook('prepare:types', (opts) => {
       opts.references.push({ types: 'unplugin-vue-macros/macros-global' })
+    })
+
+    nuxt.hook('devtools:customTabs', (tabs) => {
+      tabs.push({
+        name: 'vue-macros',
+        title: 'Vue Macros',
+        icon: 'https://raw.githubusercontent.com/sxzz/unplugin-vue-macros/main/docs/public/favicon.svg',
+        view: {
+          type: 'iframe',
+          src: '/__vue-macros',
+        },
+      })
     })
 
     nuxt.options.typescript.tsConfig ||= {}

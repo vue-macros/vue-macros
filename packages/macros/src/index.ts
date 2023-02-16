@@ -15,6 +15,7 @@ import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortEmits from '@vue-macros/short-emits'
 import { detectVueVersion } from '@vue-macros/common'
+import { Devtools } from '@vue-macros/devtools'
 
 import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Plugin, PluginType } from 'unplugin-combine'
@@ -207,6 +208,7 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(VueDefineRender, framework, options.defineRender),
       setupComponentPlugins?.[1],
       namedTemplatePlugins?.[1],
+      framework === 'vite' ? Devtools() : undefined,
     ].filter(Boolean)
 
     return {
