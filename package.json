@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@7.27.0",
-  "description": "Monorepo for Vue macros.",
+  "description": "Monorepo for Vue Macros.",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
     "build": "turbo run build --filter=\"./packages/*\" --parallel",
@@ -22,10 +22,10 @@
     "format": "prettier . \"!**/fixtures\" --write --cache",
     "publish": "pnpm build && changeset publish",
     "typecheck": "run-p \"typecheck:*\"",
-    "typecheck:lib": "tsc --noEmit -p tsconfig.lib.json",
+    "typecheck:lib": "vue-tsc --noEmit -p tsconfig.lib.json",
     "typecheck:dts:vue2": "tsc --noEmit -p tsconfig.dts.vue2.json",
     "typecheck:dts:vue3": "tsc --noEmit -p tsconfig.dts.vue3.json",
-    "typecheck:test": "tsc --noEmit -p tsconfig.test.json",
+    "typecheck:test": "vue-tsc --noEmit -p tsconfig.test.json",
     "typecheck:docs": "vue-tsc --noEmit -p ./docs/tsconfig.json",
     "typecheck:fixture": "vue-tsc --noEmit -p tsconfig.fixture.json"
   },
