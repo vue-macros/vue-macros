@@ -30,7 +30,7 @@ gtag('config', 'G-29NKGSL23C');`,
   ],
 ]
 
-export const sidebar = (lang: string): DefaultTheme.Sidebar => {
+export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
   const urlPrefix = lang ? `/${lang}` : ''
   return [
     {

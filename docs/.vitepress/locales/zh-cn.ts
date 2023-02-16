@@ -10,7 +10,7 @@ export const nav: DefaultTheme.NavItem[] = [
   { text: '特性', link: '/zh-CN/features/hoist-static' },
 ]
 
-export const sidebar = common.sidebar('zh-CN') as DefaultTheme.SidebarGroup[]
+export const sidebar = common.sidebar('zh-CN')
 
 const sidebarTitle: string[] = ['指南', '宏', '特性']
 const sidebarItem: string[][] = [
@@ -20,7 +20,7 @@ const sidebarItem: string[][] = [
 ]
 sidebar.forEach((bar, i) => {
   bar.text = sidebarTitle[i]
-  bar.items.forEach((item, j) => {
+  bar.items!.forEach((item, j) => {
     if (sidebarItem[i][j]) item.text = sidebarItem[i][j]
   })
 })
