@@ -5,6 +5,6 @@
     "lib": ["DOM"],
     "types": ["node", "vite/client"]
   },
-  "include": ["packages/*/tests", "packages/*/src"],
+  "include": ["packages/*/tests", "packages/*/src", "packages/shim.d.ts"],
   "exclude": ["**/dist", "**/tests/fixtures", "packages/volar"]
 }
