@@ -1,5 +1,14 @@
 # @vue-macros/nuxt
 
+## 1.1.1
+
+### Patch Changes
+
+- [`688e652`](https://github.com/sxzz/unplugin-vue-macros/commit/688e652219d8a2c8f0dedac6c4087c7ed22ef48f) Thanks [@sxzz](https://github.com/sxzz)! - add middleware when client side only (devtools)
+
+- Updated dependencies [[`688e652`](https://github.com/sxzz/unplugin-vue-macros/commit/688e652219d8a2c8f0dedac6c4087c7ed22ef48f)]:
+  - unplugin-vue-macros@1.8.1
+
 ## 1.1.0
 
 ### Minor Changes
