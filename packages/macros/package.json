@@ -4,15 +4,14 @@
   "packageManager": "pnpm@7.27.0",
   "description": "Explore and extend more macros and syntax sugar to Vue.",
   "keywords": [
-    "unplugin",
-    "vue",
+    "vue-macros",
     "macros",
+    "vue",
+    "sfc",
+    "setup",
     "script-setup",
-    "define-options",
-    "define-model",
-    "define-render",
-    "setup-sfc",
-    "setup-component"
+    "macros",
+    "unplugin"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -21,7 +20,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/macros"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -62,13 +62,22 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
-    "./macros-global": "./macros-global.d.ts",
-    "./vue2-macros-global": "./vue2-macros-global.d.ts",
-    "./*": "./*"
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "<=4.9": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"

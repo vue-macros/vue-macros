@@ -2,12 +2,14 @@
   "name": "@vue-macros/nuxt",
   "version": "1.1.1",
   "packageManager": "pnpm@7.27.0",
-  "description": "",
+  "description": "nuxt feature from Vue Macros.",
   "keywords": [
-    "unplugin",
+    "vue-macros",
+    "macros",
     "vue",
     "sfc",
-    "macros",
+    "setup",
+    "script-setup",
     "nuxt"
   ],
   "license": "MIT",
@@ -17,7 +19,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/nuxt"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -36,7 +39,7 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "nuxt": "^3.0.0"

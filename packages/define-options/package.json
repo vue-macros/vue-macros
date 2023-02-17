@@ -2,13 +2,16 @@
   "name": "unplugin-vue-define-options",
   "version": "1.2.1",
   "packageManager": "pnpm@7.27.0",
-  "description": "Add defineOptions support for Vue <script setup>.",
+  "description": "Add defineOptions macro for Vue <script setup>.",
   "keywords": [
-    "unplugin",
-    "vue",
+    "vue-macros",
     "macros",
+    "vue",
+    "sfc",
+    "setup",
     "script-setup",
-    "defineOptions"
+    "define-options",
+    "unplugin"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options#readme",
@@ -60,13 +63,22 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
-    "./macros": "./macros.d.ts",
-    "./macros-global": "./macros-global.d.ts",
-    "./*": "./*"
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "<=4.9": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.0.2",

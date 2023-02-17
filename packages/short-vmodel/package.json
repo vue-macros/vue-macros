@@ -2,13 +2,13 @@
   "name": "@vue-macros/short-vmodel",
   "version": "1.1.0",
   "packageManager": "pnpm@7.27.0",
-  "description": "",
+  "description": "short-vmodel feature from Vue Macros.",
   "keywords": [
-    "unplugin",
+    "vue-macros",
+    "macros",
     "vue",
     "sfc",
     "setup",
-    "macros",
     "script-setup",
     "short-vmodel"
   ],
@@ -19,7 +19,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/short-vmodel"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -63,7 +64,7 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "dependencies": {
     "@vue-macros/common": "workspace:~",

@@ -2,13 +2,13 @@
   "name": "@vue-macros/devtools",
   "version": "0.1.1",
   "packageManager": "pnpm@7.27.0",
-  "description": "",
+  "description": "Devtools plugin for Vue Macros.",
   "keywords": [
-    "unplugin",
+    "vue-macros",
+    "macros",
     "vue",
     "sfc",
     "setup",
-    "macros",
     "script-setup",
     "devtools"
   ],
@@ -19,7 +19,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/devtools"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -36,7 +37,7 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts && vite build ./src/client",
-    "dev": "DEV=1 tsup",
+    "dev": "DEV=true tsup",
     "client:dev": "vite ./src/client"
   },
   "peerDependencies": {

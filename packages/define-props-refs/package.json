@@ -2,15 +2,16 @@
   "name": "@vue-macros/define-props-refs",
   "version": "0.2.0",
   "packageManager": "pnpm@7.27.0",
-  "description": "",
+  "description": "define-props-refs feature from Vue Macros.",
   "keywords": [
-    "unplugin",
+    "vue-macros",
+    "macros",
     "vue",
     "sfc",
     "setup",
-    "macros",
     "script-setup",
-    "define-props-refs"
+    "define-props-refs",
+    "unplugin"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -19,7 +20,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/define-props-refs"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -60,15 +62,22 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
-    "./macros": "./macros.d.ts",
-    "./macros-global": "./macros-global.d.ts",
-    "./vue2-macros": "./vue2-macros.d.ts",
-    "./vue2-macros-global": "./vue2-macros-global.d.ts",
-    "./*": "./*"
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "<=4.9": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
