@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.0.1
+
+### Patch Changes
+
+- [`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242) Thanks [@sxzz](https://github.com/sxzz)! - tidy package manifests
+
 ## 1.0.0
 
 ### Major Changes
