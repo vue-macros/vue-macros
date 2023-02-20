@@ -447,7 +447,7 @@ importers:
   packages/volar:
     specifiers:
       '@volar/language-core': 1.0.24
-      '@volar/vue-language-core': 1.0.24
+      '@volar/vue-language-core': 1.1.4
       '@vue-macros/common': workspace:~
       '@vue-macros/define-props': workspace:~
       '@vue-macros/short-vmodel': workspace:~
@@ -462,7 +462,7 @@ importers:
       '@vue-macros/short-vmodel': link:../short-vmodel
       muggle-string: 0.2.2
     devDependencies:
-      '@volar/vue-language-core': 1.0.24
+      '@volar/vue-language-core': 1.1.4
       '@vue/compiler-dom': 3.2.47
       typescript: 5.0.0-dev.20230205
       vue-tsc: 1.0.24_p2tbag6i72ze5nnqxvpz7tj3zi
@@ -3628,10 +3628,22 @@ packages:
       '@volar/source-map': 1.0.24
       muggle-string: 0.1.0
 
+  /@volar/language-core/1.2.0-alpha.16:
+    resolution: {integrity: sha512-aIktWe9Zg0M+u/RIXHCuL+IoLRHTrpsbTib8olrg4etlurHDXahoVhoEnH9wmlliray0iigIo2z5vwueYInp3g==}
+    dependencies:
+      '@volar/source-map': 1.2.0-alpha.16
+    dev: true
+
   /@volar/source-map/1.0.24:
     resolution: {integrity: sha512-Qsv/tkplx18pgBr8lKAbM1vcDqgkGKQzbChg6NW+v0CZc3G7FLmK+WrqEPzKlN7Cwdc6XVL559Nod8WKAfKr4A==}
     dependencies:
       muggle-string: 0.1.0
+
+  /@volar/source-map/1.2.0-alpha.16:
+    resolution: {integrity: sha512-/AK3VqnFqONd221COI2ZnEvfgBulfoQkjA/ZjPOXpsOkWri99TLcfZY/NTQRytp7Hx6EP/1p1DDeyGuMCUYjgA==}
+    dependencies:
+      muggle-string: 0.2.2
+    dev: true
 
   /@volar/typescript/1.0.24:
     resolution: {integrity: sha512-f8hCSk+PfKR1/RQHxZ79V1NpDImHoivqoizK+mstphm25tn/YJ/JnKNjZHB+o21fuW0yKlI26NV3jkVb2Cc/7A==}
@@ -3649,6 +3661,20 @@ packages:
       '@vue/reactivity': 3.2.47
       '@vue/shared': 3.2.47
       minimatch: 5.1.6
+      vue-template-compiler: 2.7.14
+    dev: true
+
+  /@volar/vue-language-core/1.1.4:
+    resolution: {integrity: sha512-2C2CwHvaT5AzNzDbYZQ85lNr4jACZARoZMZBLuU5+JyIwhWeAfxvyAeoE3VbgfgycN5t6X4uBqx/Wzh1QLgD8Q==}
+    dependencies:
+      '@volar/language-core': 1.2.0-alpha.16
+      '@volar/source-map': 1.2.0-alpha.16
+      '@vue/compiler-dom': 3.2.47
+      '@vue/compiler-sfc': 3.2.47
+      '@vue/reactivity': 3.2.47
+      '@vue/shared': 3.2.47
+      minimatch: 6.2.0
+      muggle-string: 0.2.2
       vue-template-compiler: 2.7.14
     dev: true
 
@@ -7258,7 +7284,6 @@ packages:
 
   /muggle-string/0.2.2:
     resolution: {integrity: sha512-YVE1mIJ4VpUMqZObFndk9CJu6DBJR/GB13p3tXuNbwD4XExaI5EOuRl6BHeIDxIqXZVxSfAC+y6U1Z/IxCfKUg==}
-    dev: false
 
   /mz/2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
