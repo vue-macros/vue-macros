@@ -24,7 +24,8 @@
     {
       groupName: 'volarjs',
       groupSlug: 'volar-related',
-      matchPackagePrefixes: ['vue-tsc', '@volar'],
+      matchPackagePrefixes: ['@volar'],
+      matchPackageNames: ['vue-tsc'],
       rangeStrategy: 'replace',
       matchDepTypes: ['peerDependencies', 'devDependencies', 'dependencies'],
     },
