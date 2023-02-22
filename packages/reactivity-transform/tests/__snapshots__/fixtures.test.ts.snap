@@ -175,10 +175,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     fn: { type: Function, required: true, default: () => {
       console.log(\\"hello\\");
     } },
-    obj: { type: Object, required: true, default: () => ({ foo: \\"bar\\" }) }
+    obj: { type: Object, required: true, default: () => ({ foo: \\"bar\\" }) },
+    arr: { type: Array, required: true, default: () => [\\"foo\\", \\"bar\\"] }
   },
   setup(__props) {
-    console.log(__props.fn, __props.obj);
+    console.log(__props.fn, __props.obj, __props.arr);
     return () => {
     };
   }
