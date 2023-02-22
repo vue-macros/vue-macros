@@ -18,7 +18,7 @@ function transformDefineModel({
 }: {
   codes: Segment<FileRangeCapabilities>[]
   sfc: Sfc
-  typeArg: ts.TypeNode
+  typeArg: import('typescript/lib/tsserverlibrary').TypeNode
   vueLibName: string
   unified: boolean
 }) {
@@ -73,7 +73,7 @@ function getTypeArg(
   ts: typeof import('typescript/lib/tsserverlibrary'),
   sfc: Sfc
 ) {
-  function getCallArg(node: ts.Node) {
+  function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
     if (
       !(
         ts.isCallExpression(node) &&

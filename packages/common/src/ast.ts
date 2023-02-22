@@ -1,4 +1,5 @@
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
+// @ts-ignore error in node CJS (volar tsconfig)
 import { walk } from 'estree-walker'
 import { REGEX_LANG_JSX } from './constants'
 import { isTs } from './lang'
