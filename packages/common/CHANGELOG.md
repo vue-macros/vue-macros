@@ -1,5 +1,12 @@
 # @vue-macros/common
 
+## 1.1.0
+
+### Minor Changes
+
+- [`f40d270`](https://github.com/sxzz/unplugin-vue-macros/commit/f40d2701239967cfc288def57bc8b32ef57fad7e) Thanks [@sxzz](https://github.com/sxzz)! - resolve pkg typing entry
+  support dts file parsing
+
 ## 1.0.1
 
 ### Patch Changes

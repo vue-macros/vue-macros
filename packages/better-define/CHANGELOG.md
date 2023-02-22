@@ -1,5 +1,15 @@
 # @vue-macros/better-define
 
+## 1.3.4
+
+### Patch Changes
+
+- [`f40d270`](https://github.com/sxzz/unplugin-vue-macros/commit/f40d2701239967cfc288def57bc8b32ef57fad7e) Thanks [@sxzz](https://github.com/sxzz)! - resolve pkg typing entry
+  support dts file parsing
+- Updated dependencies [[`f40d270`](https://github.com/sxzz/unplugin-vue-macros/commit/f40d2701239967cfc288def57bc8b32ef57fad7e)]:
+  - @vue-macros/common@1.1.0
+  - @vue-macros/api@0.4.4
+
 ## 1.3.3
 
 ### Patch Changes
