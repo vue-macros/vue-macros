@@ -1,5 +1,12 @@
 # @vue-macros/volar
 
+## 0.8.4
+
+### Patch Changes
+
+- Updated dependencies [[`38a31ea`](https://github.com/sxzz/unplugin-vue-macros/commit/38a31eada9d195afa514bc44e05ea508d4f064ad)]:
+  - @vue-macros/define-props@0.4.0
+
 ## 0.8.3
 
 ### Patch Changes

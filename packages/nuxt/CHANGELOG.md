@@ -1,5 +1,19 @@
 # @vue-macros/nuxt
 
+## 1.2.0
+
+### Minor Changes
+
+- [`38a31ea`](https://github.com/sxzz/unplugin-vue-macros/commit/38a31eada9d195afa514bc44e05ea508d4f064ad) Thanks [@sxzz](https://github.com/sxzz)! - Change Reactivity Transform for `$defineProps`
+  The types source of Reactivity Transform has changed to `@vue-macros/reactivity-transform` instead of `vue/macros`.
+  Because it has been deprecated and will be removed in the Vue 3.4.
+
+### Patch Changes
+
+- Updated dependencies [[`38a31ea`](https://github.com/sxzz/unplugin-vue-macros/commit/38a31eada9d195afa514bc44e05ea508d4f064ad)]:
+  - unplugin-vue-macros@1.9.0
+  - @vue-macros/volar@0.8.4
+
 ## 1.1.3
 
 ### Patch Changes
