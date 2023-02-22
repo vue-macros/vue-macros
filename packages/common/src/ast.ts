@@ -22,7 +22,7 @@ export function babelParse(
 ): Program {
   const plugins: ParserPlugin[] = []
   if (isTs(lang)) {
-    plugins.push('typescript')
+    plugins.push(['typescript', { dts: lang === 'dts' }])
     if (REGEX_LANG_JSX.test(lang!)) plugins.push('jsx')
   } else plugins.push('jsx')
   const { program } = _babelParse(code, {

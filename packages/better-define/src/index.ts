@@ -1,4 +1,6 @@
 import { existsSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
 import { REGEX_SETUP_SFC, REGEX_VUE_SFC } from '@vue-macros/common'
@@ -48,39 +50,60 @@ export default createUnplugin<Options | undefined, false>(
       }
     }
 
+    const ViteResolve =
+      (ctx: PluginContext): ResolveTSFileIdImpl =>
+      async (id, importer) => {
+        async function tryPkgEntry() {
+          try {
+            const pkgPath = (await ctx.resolve(`${id}/package.json`))?.id
+            if (!pkgPath) return
+
+            const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
+            const types = pkg.types || pkg.typings
+            if (!types) return
+
+            const entry = path.resolve(pkgPath, '..', types)
+            return existsSync(entry) ? entry : undefined
+          } catch {}
+        }
+
+        const tryResolve = async (id: string) => {
+          try {
+            return (
+              (await ctx.resolve(id, importer))?.id ||
+              (await ctx.resolve(`${id}.d`, importer))?.id
+            )
+          } catch {}
+
+          return
+        }
+
+        if (!id.startsWith('.')) {
+          const entry = await tryPkgEntry()
+          if (entry) return entry
+        }
+
+        let resolved = await tryResolve(id)
+        if (!resolved) return
+        if (existsSync(resolved)) {
+          collectReferencedFile(importer, resolved)
+          return resolved
+        }
+
+        resolved = await tryResolve(resolved)
+        if (resolved && existsSync(resolved)) {
+          collectReferencedFile(importer, resolved)
+          return resolved
+        }
+      }
+
     return {
       name,
       enforce: 'pre',
 
       buildStart() {
         if (meta.framework === 'rollup' || meta.framework === 'vite') {
-          const ctx = this as PluginContext
-          const resolveFn: ResolveTSFileIdImpl = async (id, importer) => {
-            const tryResolve = async (id: string) => {
-              try {
-                return (
-                  (await ctx.resolve(id, importer)) ||
-                  ctx.resolve(`${id}.d`, importer)
-                )
-              } catch {
-                return
-              }
-            }
-
-            let resolved = (await tryResolve(id))?.id
-            if (!resolved) return
-            if (existsSync(resolved)) {
-              collectReferencedFile(importer, resolved)
-              return resolved
-            }
-
-            resolved = (await tryResolve(resolved))?.id
-            if (resolved && existsSync(resolved)) {
-              collectReferencedFile(importer, resolved)
-              return resolved
-            }
-          }
-          setResolveTSFileIdImpl(resolveFn)
+          setResolveTSFileIdImpl(ViteResolve(this as PluginContext))
         }
       },
 

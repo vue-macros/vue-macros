@@ -515,6 +515,7 @@ importers:
       '@vueuse/core': ^9.13.0
       esbuild: ^0.17.9
       npm-run-all: ^4.1.5
+      quasar: ^2.11.6
       rollup: ^3.17.1
       rollup-plugin-esbuild: ^5.0.0
       tsx: ^3.12.3
@@ -527,6 +528,7 @@ importers:
       vue-tsc: ^1.1.4
     dependencies:
       '@vueuse/core': 9.13.0_vue@3.2.47
+      quasar: 2.11.6
       vue: 3.2.47
     devDependencies:
       '@rollup/plugin-commonjs': 24.0.1_rollup@3.17.1
@@ -7700,6 +7702,11 @@ packages:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
     dev: true
+
+  /quasar/2.11.6:
+    resolution: {integrity: sha512-jJniWqTtfLHDuAT1YNx6ZZdZU7nM8vwscyM7IxmijaHq+fDpgjaujDQUlJWgn5ZMkqe3Yvg93MgSxjcL71oJIw==}
+    engines: {node: '>= 10.18.1', npm: '>= 6.13.4', yarn: '>= 1.21.1'}
+    dev: false
 
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
