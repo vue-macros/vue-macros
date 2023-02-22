@@ -80,6 +80,7 @@
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
+    "@vue-macros/reactivity-transform": "^0.2.4",
     "vue": "^2.7.0 || ^3.2.25"
   },
   "dependencies": {
@@ -88,6 +89,7 @@
     "unplugin": "^1.1.0"
   },
   "devDependencies": {
+    "@vue-macros/reactivity-transform": "workspace:*",
     "vue": "^3.2.47"
   },
   "engines": {

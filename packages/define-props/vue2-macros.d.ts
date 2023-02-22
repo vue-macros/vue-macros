@@ -2,8 +2,7 @@ import type {
   ComponentObjectPropsOptions,
   ExtractPropTypes,
 } from 'vue/types/v3-component-props'
-// @ts-ignore
-import type { RefValue } from '@vue-macros/reactivity-transform-vue2/vue2-macros'
+import type { RefValue } from '@vue-macros/reactivity-transform/vue2-macros'
 
 export type RefValueObject<T> = {
   [K in keyof T]: RefValue<T[K]>
