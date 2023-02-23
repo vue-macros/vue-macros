@@ -586,6 +586,64 @@ export { specialKey as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/ts-utility-types.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"ts-utility-types\\",
+  props: {
+    \\"foo\\": { type: String, required: true },
+    \\"bar\\": { type: String, required: true }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var tsUtilityTypes = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { tsUtilityTypes as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/ts-utility-types.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"ts-utility-types\\",
+  props: {
+    \\"foo\\": null,
+    \\"bar\\": null
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var tsUtilityTypes = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { tsUtilityTypes as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/union.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 

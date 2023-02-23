@@ -67,11 +67,36 @@ export async function inferRuntimeType(
           case 'Readonly':
           case 'Pick':
           case 'Omit':
-          case 'Exclude':
-          case 'Extract':
           case 'Required':
           case 'InstanceType':
             return ['Object']
+
+          case 'Extract':
+            if (
+              node.type.typeParameters &&
+              node.type.typeParameters.params[1]
+            ) {
+              const t = await resolveTSReferencedType({
+                scope: node.scope,
+                type: node.type.typeParameters.params[1],
+              })
+              if (isTSExports(t)) return ['Object']
+              else if (t) return inferRuntimeType(t)
+            }
+            return ['null']
+          case 'Exclude':
+            if (
+              node.type.typeParameters &&
+              node.type.typeParameters.params[0]
+            ) {
+              const t = await resolveTSReferencedType({
+                scope: node.scope,
+                type: node.type.typeParameters.params[0],
+              })
+              if (isTSExports(t)) return ['Object']
+              else if (t) return inferRuntimeType(t)
+            }
+            return ['null']
         }
       }
       return [`null`]
