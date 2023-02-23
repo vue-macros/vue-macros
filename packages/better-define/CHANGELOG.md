@@ -1,5 +1,14 @@
 # @vue-macros/better-define
 
+## 1.3.5
+
+### Patch Changes
+
+- [`8d919f8`](https://github.com/sxzz/unplugin-vue-macros/commit/8d919f81f99b7f4855b52f1a5edd7f3cee117d77) Thanks [@sxzz](https://github.com/sxzz)! - infer TS `Extract` and `Exclude` runtime type
+
+- Updated dependencies [[`8d919f8`](https://github.com/sxzz/unplugin-vue-macros/commit/8d919f81f99b7f4855b52f1a5edd7f3cee117d77)]:
+  - @vue-macros/api@0.4.5
+
 ## 1.3.4
 
 ### Patch Changes
