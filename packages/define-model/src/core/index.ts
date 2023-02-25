@@ -5,6 +5,7 @@ import {
   DEFINE_MODEL_DOLLAR,
   DEFINE_OPTIONS,
   DEFINE_PROPS,
+  HELPER_PREFIX,
   MagicString,
   REPO_ISSUE_URL,
   WITH_DEFAULTS,
@@ -407,7 +408,7 @@ export function transformDefineModel(
       if (hasDefineEmits) {
         s.appendLeft(setupOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
       } else {
-        emitsIdentifier = `_DM_emit`
+        emitsIdentifier = `${HELPER_PREFIX}emit`
         s.appendLeft(
           setupOffset,
           `\n${
@@ -422,10 +423,10 @@ export function transformDefineModel(
     function rewriteRuntime() {
       s.prependLeft(
         setupOffset,
-        `\nimport _DM_useVModel from '${useVmodelHelperId}';`
+        `\nimport ${HELPER_PREFIX}useVModel from '${useVmodelHelperId}';`
       )
 
-      const text = `_DM_useVModel(${Object.entries(map)
+      const text = `${HELPER_PREFIX}useVModel(${Object.entries(map)
         .map(([name, { options }]) => {
           const prop = getPropKey(name, true)
           const evt = getEventKey(name, true)
@@ -462,7 +463,7 @@ export function transformDefineModel(
     ) {
       hasTransformed = true
       const eventName = aliasMap[id.name]
-      const content = `_DM_emitHelper(${emitsIdentifier}, '${getEventKey(
+      const content = `${HELPER_PREFIX}emitHelper(${emitsIdentifier}, '${getEventKey(
         String(eventName)
       )}', ${value}${original ? `, ${id.name}` : ''})`
       s.overwriteNode(node, content, { offset: setupOffset })
@@ -499,7 +500,7 @@ export function transformDefineModel(
     if (hasTransformed) {
       s.prependLeft(
         setupOffset,
-        `\nimport _DM_emitHelper from '${emitHelperId}';`
+        `\nimport ${HELPER_PREFIX}emitHelper from '${emitHelperId}';`
       )
     }
   }

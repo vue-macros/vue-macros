@@ -2,67 +2,67 @@
 
 exports[`fixtures > ./fixtures/reactivity-transform/assignment.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emitHelper from '/plugin-define-model/emit-helper';
+import __MACROS_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue, title } = defineProps<{
     modelValue: string
 title: string
   }>();
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:title', value: string): void
   }>();
 
 
-_DM_emitHelper(_DM_emit, 'update:modelValue', _DM_emitHelper(_DM_emit, 'update:title', '123'))
+__MACROS_emitHelper(__MACROS_emit, 'update:modelValue', __MACROS_emitHelper(__MACROS_emit, 'update:title', '123'))
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/reactivity-transform/assignment-update.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emitHelper from '/plugin-define-model/emit-helper';
+import __MACROS_emitHelper from '/plugin-define-model/emit-helper';
 let { count } = defineProps<{
     count: number
   }>();
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:count', value: number): void
   }>();
 
 
-_DM_emitHelper(_DM_emit, 'update:count', count + 1, count)
-_DM_emitHelper(_DM_emit, 'update:count', count - 1, count)
-_DM_emitHelper(_DM_emit, 'update:count', count + 1)
-_DM_emitHelper(_DM_emit, 'update:count', count - 1)
-_DM_emitHelper(_DM_emit, 'update:count', 1)
-_DM_emitHelper(_DM_emit, 'update:count', count + 1)
-_DM_emitHelper(_DM_emit, 'update:count', count - 1)
-_DM_emitHelper(_DM_emit, 'update:count', count * 1)
-_DM_emitHelper(_DM_emit, 'update:count', count / 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1, count)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count - 1, count)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count - 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count - 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count * 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count / 1)
 
-_DM_emitHelper(_DM_emit, 'update:count', count + 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1)
 
-const additionAssignment = () => (_DM_emitHelper(_DM_emit, 'update:count', count + 1))
-const increment = () => _DM_emitHelper(_DM_emit, 'update:count', count + 1, count)
-const add = () => (_DM_emitHelper(_DM_emit, 'update:count', count + 1))
+const additionAssignment = () => (__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1))
+const increment = () => __MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1, count)
+const add = () => (__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1))
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/reactivity-transform/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emitHelper from '/plugin-define-model/emit-helper';
+import __MACROS_emitHelper from '/plugin-define-model/emit-helper';
 var { modelValue } = defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
 
 
 console.log(modelValue)
-_DM_emitHelper(_DM_emit, 'update:modelValue', 'newValue')
+__MACROS_emitHelper(__MACROS_emit, 'update:modelValue', 'newValue')
 </script>
 
 <template>
@@ -79,7 +79,7 @@ let { modelValue } = defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -94,7 +94,7 @@ defineProps<{
     modelValue: string
 visible: boolean
   }>();
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -105,18 +105,18 @@ const _DM_emit = defineEmits<{
 
 exports[`fixtures > ./fixtures/reactivity-transform/rename.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emitHelper from '/plugin-define-model/emit-helper';
+import __MACROS_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue: visible, foo } = defineProps<{
     modelValue: boolean
 foo: string
   }>();
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: boolean): void
 (evt: 'update:foo', value: string): void
   }>();
 
 
-_DM_emitHelper(_DM_emit, 'update:modelValue', false)
+__MACROS_emitHelper(__MACROS_emit, 'update:modelValue', false)
 console.log(visible, foo)
 </script>
 "
@@ -141,7 +141,7 @@ emit('change')
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emitHelper from '/plugin-define-model/emit-helper';
+import __MACROS_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue } = defineProps<{
     modelValue: string
   }>();
@@ -153,7 +153,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 }>()
 
 {
-  _DM_emitHelper(emit, 'update:modelValue', 'hello')
+  __MACROS_emitHelper(emit, 'update:modelValue', 'hello')
   emit('change')
 
   {
@@ -167,7 +167,7 @@ const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits-no-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_emitHelper from '/plugin-define-model/emit-helper';
+import __MACROS_emitHelper from '/plugin-define-model/emit-helper';
 let { modelValue } = defineProps<{
     modelValue: string
   }>();
@@ -178,14 +178,14 @@ const _defineModel_emit = defineEmits<{(evt: 'update:modelValue', value: string)
   (evt: 'change'): void
 }>()
 
-_DM_emitHelper(_defineModel_emit, 'update:modelValue', '1')
+__MACROS_emitHelper(_defineModel_emit, 'update:modelValue', '1')
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -202,7 +202,7 @@ visible: boolean
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -219,7 +219,7 @@ visible: boolean
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-empty.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -234,7 +234,7 @@ visible: boolean
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-ref.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -253,7 +253,7 @@ defineProps<Props>()
 
 exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-rest.vue 1`] = `
 "<script setup lang=\\"ts\\">
-const _DM_emit = defineEmits<{
+const __MACROS_emit = defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
@@ -272,8 +272,8 @@ console.log(props)
 
 exports[`fixtures > ./fixtures/runtime/vue2/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
-let { value, title } = _DM_useVModel([\\"value\\", undefined, \\"input\\"], \\"title\\")
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
+let { value, title } = __MACROS_useVModel([\\"value\\", undefined, \\"input\\"], \\"title\\")
 
 const { id } = defineProps<{value: string
 title: string
@@ -309,8 +309,8 @@ export default {
 }
 </script>
 <script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
-let { value, title } = _DM_useVModel([\\"value\\", undefined, \\"changeInput\\"], \\"title\\")
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
+let { value, title } = __MACROS_useVModel([\\"value\\", undefined, \\"changeInput\\"], \\"title\\")
 
 const { id } = defineProps<{value: string
 title: string
@@ -347,8 +347,8 @@ export default defineComponent({
 })
 </script>
 <script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
-let { value, title } = _DM_useVModel([\\"value\\", undefined, \\"changeInput\\"], \\"title\\")
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
+let { value, title } = __MACROS_useVModel([\\"value\\", undefined, \\"changeInput\\"], \\"title\\")
 
 const { id } = defineProps<{value: string
 title: string
@@ -376,14 +376,14 @@ const emit = defineEmits<{(evt: 'changeInput', value: string): void
 
 exports[`fixtures > ./fixtures/runtime/vue2/v-model.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     value: string
   }>();
 defineEmits<{
     (evt: 'input', value: string): void
   }>();
-const { modelValue } = _DM_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"])
+const { modelValue } = __MACROS_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"])
 
 modelValue.value = 'hello'
 </script>
@@ -392,7 +392,7 @@ modelValue.value = 'hello'
 
 exports[`fixtures > ./fixtures/runtime/vue3/assignment.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     modelValue: string
 title: string
@@ -401,7 +401,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:title', value: string): void
   }>();
-const { modelValue, title } = _DM_useVModel(\\"modelValue\\", \\"title\\")
+const { modelValue, title } = __MACROS_useVModel(\\"modelValue\\", \\"title\\")
 
 modelValue.value = title.value = '123'
 </script>
@@ -410,7 +410,7 @@ modelValue.value = title.value = '123'
 
 exports[`fixtures > ./fixtures/runtime/vue3/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     modelValue: string
 visible: boolean
@@ -419,7 +419,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-const { modelValue } = _DM_useVModel(\\"modelValue\\", \\"visible\\")
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
 
 console.log(modelValue.value)
 modelValue.value = 'newValue'
@@ -435,14 +435,14 @@ exports[`fixtures > ./fixtures/runtime/vue3/define-props-runtime.vue 1`] = `unde
 
 exports[`fixtures > ./fixtures/runtime/vue3/empty.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     
   }>();
 defineEmits<{
     
   }>();
-_DM_useVModel()
+__MACROS_useVModel()
 </script>
 "
 `;
@@ -453,7 +453,7 @@ exports[`fixtures > ./fixtures/runtime/vue3/error-runtime.vue 1`] = `"defineProp
 
 exports[`fixtures > ./fixtures/runtime/vue3/multi-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     modelValue: string
 visible: boolean
@@ -463,14 +463,14 @@ defineEmits<{
 (evt: 'update:visible', value: boolean): void
   }>();
 const a = 'b',
-  { modelValue } = _DM_useVModel(\\"modelValue\\", \\"visible\\")
+  { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/runtime/vue3/no-decl.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     modelValue: string
 visible: boolean
@@ -479,14 +479,14 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-_DM_useVModel(\\"modelValue\\", \\"visible\\")
+__MACROS_useVModel(\\"modelValue\\", \\"visible\\")
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/runtime/vue3/no-type.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     foo
 bar
@@ -495,28 +495,28 @@ defineEmits<{
     (evt: 'update:foo', value): void
 (evt: 'update:bar', value): void
   }>();
-_DM_useVModel(\\"foo\\", \\"bar\\")
+__MACROS_useVModel(\\"foo\\", \\"bar\\")
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/runtime/vue3/optional.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     foo?: string
   }>();
 defineEmits<{
     (evt: 'update:foo', value?: string): void
   }>();
-_DM_useVModel(\\"foo\\")
+__MACROS_useVModel(\\"foo\\")
 </script>
 "
 `;
 
 exports[`fixtures > ./fixtures/runtime/vue3/options.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     foo?: string
 bar?: boolean
@@ -525,7 +525,7 @@ defineEmits<{
     (evt: 'update:foo', value?: string): void
 (evt: 'update:bar', value?: boolean): void
   }>();
-const { foo, bar } = _DM_useVModel(\\"foo\\", [\\"bar\\", undefined, undefined, {
+const { foo, bar } = __MACROS_useVModel(\\"foo\\", [\\"bar\\", undefined, undefined, {
   \\"defaultValue\\": true
 }])
 
@@ -536,7 +536,7 @@ console.log(foo.value, bar.value)
 
 exports[`fixtures > ./fixtures/runtime/vue3/rename.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     modelValue: boolean
 foo: string
@@ -545,7 +545,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: boolean): void
 (evt: 'update:foo', value: string): void
   }>();
-const { modelValue: visible, foo } = _DM_useVModel(\\"modelValue\\", \\"foo\\")
+const { modelValue: visible, foo } = __MACROS_useVModel(\\"modelValue\\", \\"foo\\")
 
 console.log(visible, foo)
 </script>
@@ -554,7 +554,7 @@ console.log(visible, foo)
 
 exports[`fixtures > ./fixtures/runtime/vue3/rest.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     modelValue: string
 visible: boolean
@@ -563,7 +563,7 @@ defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-const { ...rest } = _DM_useVModel(\\"modelValue\\", \\"visible\\")
+const { ...rest } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
 
 rest.modelValue.value = 'foo'
 </script>
@@ -572,7 +572,7 @@ rest.modelValue.value = 'foo'
 
 exports[`fixtures > ./fixtures/runtime/vue3/with-defaults.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineEmits<{
     (evt: 'update:foo', value: string): void
   }>();
@@ -581,7 +581,7 @@ export interface Props {foo: string
   color: string
 }
 
-const { foo } = _DM_useVModel(\\"foo\\")
+const { foo } = __MACROS_useVModel(\\"foo\\")
 
 withDefaults(defineProps<Props>(), {
   color: 'blue'
@@ -594,11 +594,11 @@ console.log(foo)
 
 exports[`fixtures > ./fixtures/runtime/vue3/with-define-emits.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineProps<{
     modelValue: string
   }>();
-const { modelValue } = _DM_useVModel(\\"modelValue\\")
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\")
 
 const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
 
@@ -613,12 +613,12 @@ modelValue.value = 'hello'
 
 exports[`fixtures > ./fixtures/runtime/vue3/with-define-props.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-const { modelValue } = _DM_useVModel(\\"modelValue\\", \\"visible\\")
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
 
 defineProps<{modelValue: string
 visible: boolean
@@ -631,12 +631,12 @@ visible: boolean
 
 exports[`fixtures > ./fixtures/runtime/vue3/with-define-props-empty.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
   }>();
-const { modelValue } = _DM_useVModel(\\"modelValue\\", \\"visible\\")
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
 
 defineProps< {modelValue: string
 visible: boolean
@@ -647,7 +647,7 @@ visible: boolean
 
 exports[`fixtures > ./fixtures/runtime/vue3/with-define-props-ref.vue 1`] = `
 "<script setup lang=\\"ts\\">
-import _DM_useVModel from '/plugin-define-model/use-vmodel';
+import __MACROS_useVModel from '/plugin-define-model/use-vmodel';
 defineEmits<{
     (evt: 'update:modelValue', value: string): void
 (evt: 'update:visible', value: boolean): void
@@ -660,7 +660,7 @@ visible: boolean
 
 defineProps<Props>()
 
-const { modelValue } = _DM_useVModel(\\"modelValue\\", \\"visible\\")
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
 </script>
 "
 `;

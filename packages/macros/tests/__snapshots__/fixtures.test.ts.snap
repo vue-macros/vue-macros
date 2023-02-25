@@ -4,7 +4,7 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { getCurrentInstance, defineComponent } from 'vue';
 import { useVModel } from '@vueuse/core';
 
-var _DM_useVModel = (...keys) => {
+var __MACROS_useVModel = (...keys) => {
   const props = getCurrentInstance().proxy.$props;
   const ret = {};
   for (const _k of keys) {
@@ -37,7 +37,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"update:modelValue\\", \\"change\\"],
   setup(__props, { emit }) {
-    let { modelValue } = _DM_useVModel(\\"modelValue\\");
+    let { modelValue } = __MACROS_useVModel(\\"modelValue\\");
     const handleClick = () => {
       emit(\\"change\\");
       modelValue.value = \\"hello, \\" + __props.title;
@@ -222,7 +222,7 @@ exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
 "import { getCurrentInstance, defineComponent } from 'vue';
 import { useVModel } from '@vueuse/core';
 
-var _DM_useVModel = (...keys) => {
+var __MACROS_useVModel = (...keys) => {
   const props = getCurrentInstance().proxy.$props;
   const ret = {};
   for (const _k of keys) {
@@ -258,7 +258,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   emits: [\\"input\\", \\"changeInput\\", \\"change\\"],
   setup(__props, { emit }) {
-    let { modelValue, value } = _DM_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"], [\\"value\\", void 0, \\"changeInput\\"]);
+    let { modelValue, value } = __MACROS_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"], [\\"value\\", void 0, \\"changeInput\\"]);
     const handleClick = () => {
       emit(\\"change\\");
       modelValue.value = \\"hello, \\" + __props.title;

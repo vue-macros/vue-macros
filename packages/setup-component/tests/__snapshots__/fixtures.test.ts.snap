@@ -3,12 +3,12 @@
 exports[`fixtures > tests/fixtures/SetupFC.tsx 1`] = `
 "import { defineComponent, ref, createVNode, createTextVNode } from 'vue';
 
-var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"SetupFC.tsx-setup-component-0\\",
   setup(__props) {
     const {
       App
-    } = _SC_ctx();
+    } = __MACROS_ctx();
     const count = ref(0);
     defineRender(() => createVNode(\\"div\\", null, [createVNode(\\"p\\", null, [createTextVNode(\\"hi, this is \\"), props.name]), createVNode(\\"p\\", null, [count.value]), createVNode(\\"button\\", {
       \\"onClick\\": () => count.value++
@@ -26,9 +26,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
+var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
-const App = setupComponent_0(() => ({
+const App = __MACROS_setupComponent_0(() => ({
   App
 }));
 
@@ -39,7 +39,7 @@ export { App };
 exports[`fixtures > tests/fixtures/async.tsx 1`] = `
 "import { defineComponent, withAsyncContext } from 'vue';
 
-var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"async.tsx-setup-component-0\\",
   props: {
     foo: {
@@ -51,7 +51,7 @@ var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
     let __temp, __restore;
     const {
       App
-    } = _SC_ctx();
+    } = __MACROS_ctx();
     ;
     [__temp, __restore] = withAsyncContext(() => globalThis.foo()), await __temp, __restore();
     return () => {
@@ -67,9 +67,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
+var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
-const App = setupComponent_0(() => ({
+const App = __MACROS_setupComponent_0(() => ({
   App
 }));
 
@@ -80,14 +80,14 @@ export { App };
 exports[`fixtures > tests/fixtures/basic.ts 1`] = `
 "import { defineComponent, h } from 'vue';
 
-var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"basic.ts-setup-component-0\\",
   props: {
     foo: { type: String, required: true }
   },
   emits: [\\"change\\"],
   setup(__props) {
-    const { App } = _SC_ctx();
+    const { App } = __MACROS_ctx();
     defineOptions({
       name: \\"App\\"
     });
@@ -104,9 +104,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
+var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
-const App = setupComponent_0(() => ({ App }));
+const App = __MACROS_setupComponent_0(() => ({ App }));
 h(App);
 
 export { App };
@@ -116,7 +116,7 @@ export { App };
 exports[`fixtures > tests/fixtures/context.tsx 1`] = `
 "import { defineComponent } from 'vue';
 
-var _sfc_main$1 = (_SC_ctx) => /* @__PURE__ */ defineComponent({
+var _sfc_main$1 = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"context.tsx-setup-component-1\\",
   setup(__props) {
     const {
@@ -126,7 +126,7 @@ var _sfc_main$1 = (_SC_ctx) => /* @__PURE__ */ defineComponent({
       bar,
       App,
       baz
-    } = _SC_ctx();
+    } = __MACROS_ctx();
     console.log(foo, bar, baz, qux, quux);
     return () => {
     };
@@ -141,16 +141,16 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_1 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main$1(ctx), [__FILE__]);
+var __MACROS_setupComponent_1 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main$1(ctx), [__FILE__]);
 
-var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"context.tsx-setup-component-0\\",
   setup(__props) {
     const {
       foo,
       App,
       baz
-    } = _SC_ctx();
+    } = __MACROS_ctx();
     const bar = \\"BAR\\";
     console.log(foo, bar, baz, App);
     return () => {
@@ -158,12 +158,12 @@ var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
   }
 });
 
-var setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
+var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
 const foo = \\"foo\\";
 function bar() {
 }
-const App = setupComponent_0(() => ({
+const App = __MACROS_setupComponent_0(() => ({
   foo,
   bar,
   App,
@@ -171,7 +171,7 @@ const App = setupComponent_0(() => ({
 }));
 {
   const qux = \\"qux\\";
-  setupComponent_1(() => ({
+  __MACROS_setupComponent_1(() => ({
     qux,
     quux,
     foo,
@@ -190,7 +190,7 @@ export { App };
 exports[`fixtures > tests/fixtures/render.tsx 1`] = `
 "import { defineComponent, createVNode } from 'vue';
 
-var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"render.tsx-setup-component-0\\",
   props: {
     foo: {
@@ -201,7 +201,7 @@ var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
   setup(__props) {
     const {
       App
-    } = _SC_ctx();
+    } = __MACROS_ctx();
     defineRender(() => createVNode(\\"div\\", null, null));
     return () => {
     };
@@ -216,9 +216,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
+var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
-const App = setupComponent_0(() => ({
+const App = __MACROS_setupComponent_0(() => ({
   App
 }));
 
@@ -229,7 +229,7 @@ export { App };
 exports[`fixtures > tests/fixtures/return-render.tsx 1`] = `
 "import { defineComponent, computed, createVNode } from 'vue';
 
-var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"return-render.tsx-setup-component-0\\",
   props: {
     foo: {
@@ -240,7 +240,7 @@ var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
   setup(__props) {
     const {
       App
-    } = _SC_ctx();
+    } = __MACROS_ctx();
     const sum = computed(() => 1 + 2);
     defineRender(() => createVNode(\\"div\\", null, [sum.value]));
     return () => {
@@ -256,9 +256,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
+var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
-const App = setupComponent_0(() => ({
+const App = __MACROS_setupComponent_0(() => ({
   App
 }));
 
@@ -269,14 +269,14 @@ export { App };
 exports[`fixtures > tests/fixtures/type-annotation.ts 1`] = `
 "import { defineComponent, h } from 'vue';
 
-var _sfc_main = (_SC_ctx) => /* @__PURE__ */ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"type-annotation.ts-setup-component-0\\",
   props: {
     foo: { type: String, required: true }
   },
   emits: [\\"change\\"],
   setup(__props) {
-    const { App } = _SC_ctx();
+    const { App } = __MACROS_ctx();
     defineOptions({
       name: \\"App\\"
     });
@@ -293,9 +293,9 @@ var _export_sfc = (sfc, props) => {
   return target;
 };
 
-var setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
+var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
-const App = setupComponent_0(() => ({ App }));
+const App = __MACROS_setupComponent_0(() => ({ App }));
 h(App);
 
 export { App };

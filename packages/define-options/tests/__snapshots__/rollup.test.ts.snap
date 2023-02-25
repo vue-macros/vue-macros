@@ -2,8 +2,8 @@
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "var basic = \`<script>
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent({
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
 });
 </script>
@@ -24,8 +24,8 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/el-button.vue 1`] = `
 "var elButton = \`<script>
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent({
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'ElButton',
 });
 </script>
@@ -194,8 +194,8 @@ exports[`fixtures > tests/fixtures/error6.vue 1`] = `"unplugin-vue-define-option
 
 exports[`fixtures > tests/fixtures/function.vue 1`] = `
 "var _function = \`<script lang=\\"ts\\">
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent({
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent({
   foo() {
     console.log('hello')
   },
@@ -224,8 +224,8 @@ export { _function as default };
 
 exports[`fixtures > tests/fixtures/imports.vue 1`] = `
 "var imports = \`<script lang=\\"ts\\">
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent({
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent({
   components: {
     Basic,
   },
@@ -244,8 +244,8 @@ export { imports as default };
 
 exports[`fixtures > tests/fixtures/js.vue 1`] = `
 "var js = \`<script>
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent({
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
 });
 </script>
@@ -268,8 +268,8 @@ export { js as default };
 
 exports[`fixtures > tests/fixtures/jsx.vue 1`] = `
 "var jsx = \`<script>
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent({
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Jsx',
 });
 </script>
@@ -323,8 +323,8 @@ export { noTransform2 as default };
 
 exports[`fixtures > tests/fixtures/reference-var.vue 1`] = `
 "var referenceVar = \`<script>
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent(options);
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent(options);
 </script>
 <script setup>
 import options from './options'
@@ -338,8 +338,8 @@ export { referenceVar as default };
 
 exports[`fixtures > tests/fixtures/typescript.vue 1`] = `
 "var typescript = \`<script lang=\\"ts\\">
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent({
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
 });
 </script>
@@ -364,8 +364,8 @@ exports[`fixtures > tests/fixtures/with-script.vue 1`] = `
 "var withScript = \`<script>
 const name = '123'
 
-import { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent({
+import { defineComponent as __MACROS_defineComponent } from 'vue';
+export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
 });</script>
 

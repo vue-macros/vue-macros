@@ -1,9 +1,11 @@
 import {
   DEFINE_OPTIONS,
+  HELPER_PREFIX,
   MagicString,
   addNormalScript,
   checkInvalidScopeReference,
   getTransformResult,
+  importHelperFn,
   parseSFC,
 } from '@vue-macros/common'
 import { walkAST } from 'ast-walker-scope'
@@ -39,10 +41,10 @@ export function transformDefineOptions(code: string, id: string) {
 
     const scriptOffset = normalScript.start()
 
+    importHelperFn(s, scriptOffset, 'defineComponent', 'vue')
     s.appendLeft(
       scriptOffset,
-      `\nimport { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent(`
+      `\nexport default /*#__PURE__*/ ${HELPER_PREFIX}defineComponent(`
     )
 
     if (arg.type === 'ObjectExpression' && hasPropsOrEmits(arg))

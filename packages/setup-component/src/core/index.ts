@@ -1,5 +1,6 @@
 import {
   DEFINE_SETUP_COMPONENT,
+  HELPER_PREFIX,
   MagicString,
   babelParse,
   getLang,
@@ -139,7 +140,7 @@ export function transformSetupComponent(
   ctx[id] = fileContext
 
   for (const [i, { node, scopes }] of components.entries()) {
-    const importName = `setupComponent_${i}`
+    const importName = `${HELPER_PREFIX}setupComponent_${i}`
 
     s.overwrite(
       node.start!,
@@ -186,7 +187,7 @@ export function loadSetupComponent(
   s.prepend(
     `const { ${scopes
       .filter((name) => !rootVars.includes(name))
-      .join(', ')} } = _SC_ctx();\n`
+      .join(', ')} } = ${HELPER_PREFIX}ctx();\n`
   )
 
   for (const i of imports) s.prepend(`${i}\n`)
@@ -268,7 +269,7 @@ export function transformPost(code: string, _id: string) {
           const exportDefault = node.declaration
           s.prependLeft(
             exportDefault.leadingComments?.[0].start ?? exportDefault.start!,
-            '(_SC_ctx) => '
+            `(${HELPER_PREFIX}ctx) => `
           )
         }
       },
