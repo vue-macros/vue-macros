@@ -13,5 +13,8 @@ export default defineConfig(() => {
           })
         : [],
     ],
+    test: {
+      singleThread: true,
+    },
   }
 })
