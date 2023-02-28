@@ -2,7 +2,7 @@
   "name": "monorepo-unplugin-vue-macros",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@7.27.1",
+  "packageManager": "pnpm@7.28.0",
   "description": "Monorepo for Vue Macros.",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
@@ -31,17 +31,17 @@
     "typecheck:fixture": "vue-tsc --noEmit -p tsconfig.fixture.json"
   },
   "devDependencies": {
-    "@babel/types": "^7.21.0",
+    "@babel/types": "^7.21.2",
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.0",
     "@sxzz/eslint-config": "^2.4.5",
-    "@types/node": "18.14.0",
+    "@types/node": "18.14.2",
     "@vitest/coverage-c8": "^0.29.1",
     "@vitest/ui": "^0.29.1",
     "@vue-macros/test-utils": "workspace:*",
     "@vue-macros/volar": "workspace:*",
     "esbuild": "^0.17.10",
-    "eslint": "^8.34.0",
+    "eslint": "^8.35.0",
     "eslint-define-config": "^1.15.0",
     "expect-type": "^0.15.0",
     "fast-glob": "^3.2.12",
@@ -50,7 +50,7 @@
     "rollup-plugin-esbuild": "^5.0.0",
     "tsup": "^6.6.3",
     "tsx": "^3.12.3",
-    "turbo": "^1.8.2",
+    "turbo": "^1.8.3",
     "typescript": "^5.0.0-beta",
     "vite": "^4.1.4",
     "vitest": "^0.29.1",
@@ -69,6 +69,9 @@
         "@algolia/client-search",
         "@yarnpkg/core"
       ]
+    },
+    "patchedDependencies": {
+      "@nuxt/devtools@0.2.3": "patches/@nuxt__devtools@0.2.3.patch"
     }
   }
 }
