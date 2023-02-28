@@ -55,7 +55,7 @@
     "vite": "^4.1.4",
     "vitest": "^0.29.1",
     "vue": "^3.2.47",
-    "vue-tsc": "^1.1.7",
+    "vue-tsc": "^1.2.0",
     "vue2": "npm:vue@^2.7.14",
     "webpack": "^5.75.0"
   },
@@ -69,9 +69,6 @@
         "@algolia/client-search",
         "@yarnpkg/core"
       ]
-    },
-    "patchedDependencies": {
-      "@nuxt/devtools@0.2.3": "patches/@nuxt__devtools@0.2.3.patch"
     }
   }
 }
