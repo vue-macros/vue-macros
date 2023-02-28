@@ -69,6 +69,9 @@
         "@algolia/client-search",
         "@yarnpkg/core"
       ]
+    },
+    "patchedDependencies": {
+      "@nuxt/devtools@0.2.3": "patches/@nuxt__devtools@0.2.3.patch"
     }
   }
 }

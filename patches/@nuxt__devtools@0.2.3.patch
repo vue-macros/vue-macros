@@ -1,0 +1,13 @@
+diff --git a/dist/module.d.ts b/dist/module.d.ts
+index 9f478dec1452c14498b6b646089b5328bbe39cb3..3f19c5fa411003f6318dd2cc1d8036f2cac3f30f 100644
+--- a/dist/module.d.ts
++++ b/dist/module.d.ts
+@@ -9,7 +9,7 @@ import 'hookable';
+ import 'birpc';
+ import 'vue';
+ 
+-declare module 'nuxt/schema' {
++declare module '@nuxt/schema' {
+     interface NuxtHooks {
+         /**
+          * Called before devtools starts. Useful to detect if devtools is enabled.
