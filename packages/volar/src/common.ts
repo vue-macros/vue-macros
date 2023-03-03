@@ -14,10 +14,10 @@ export function addProps(
   replace(
     content,
     /setup\(\) {/,
-    'setup() {\n',
     'props: ({} as ',
     ...decl,
-    '),'
+    '),\n',
+    'setup() {'
   )
   content.push(
     `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
@@ -36,10 +36,10 @@ export function addEmits(
   replace(
     content,
     /setup\(\) {/,
-    'setup() {\n',
     'emits: ({} as ',
     ...decl,
-    '),'
+    '),\n',
+    'setup() {'
   )
   return true
 }
