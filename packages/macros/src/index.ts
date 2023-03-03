@@ -17,6 +17,8 @@ import VueShortEmits from '@vue-macros/short-emits'
 import { detectVueVersion } from '@vue-macros/common'
 import { Devtools } from '@vue-macros/devtools'
 
+import VueDefineProp from '@vue-macros/define-prop'
+
 import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Plugin, PluginType } from 'unplugin-combine'
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
@@ -221,6 +223,7 @@ export default createCombinePlugin<Options | undefined>(
       framework === 'vite'
         ? Devtools({ nuxtContext: options.nuxtContext })
         : undefined,
+        resolvePlugin(VueDefineProp, framework, {}),
     ].filter(Boolean)
 
     return {

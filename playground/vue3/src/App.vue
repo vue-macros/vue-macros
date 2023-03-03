@@ -11,6 +11,7 @@ import ExportPropsVue from './examples/export-props/index.vue'
 import BetterDefineVue from './examples/better-define/index.vue'
 import NamedTemplateVue from './examples/named-template/index.vue'
 import SetupBlockVue from './examples/setup-block/index.vue'
+import DefinePropVue from './examples/define-prop/index.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
 
@@ -20,22 +21,22 @@ import Full from './examples/full.setup'
 </script>
 
 <template>
-  <fieldset>
+  <!-- <fieldset>
     <legend>defineOptions</legend>
     <DefineOptionsVue />
-  </fieldset>
+  </fieldset> -->
 
-  <fieldset>
+  <!-- <fieldset>
     <legend>defineRender</legend>
     <DefineRenderVue />
-  </fieldset>
+  </fieldset> -->
 
   <fieldset>
     <legend>defineProps</legend>
     <DefinePropsVue />
   </fieldset>
 
-  <fieldset>
+  <!-- <fieldset>
     <legend>definePropsRefs</legend>
     <DefinePropsRefsVue />
   </fieldset>
@@ -95,6 +96,11 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>Full example</legend>
     <Full model-value="123" />
+  </fieldset> -->
+
+  <fieldset>
+    <legend>defineProp</legend>
+    <DefinePropVue />
   </fieldset>
 </template>
 
