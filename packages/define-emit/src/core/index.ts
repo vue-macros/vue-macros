@@ -1,25 +1,22 @@
 import {
-  HELPER_PREFIX,
   DEFINE_EMIT,
-  DEFINE_EMITS,
+  HELPER_PREFIX,
   MagicString,
   getTransformResult,
   isCallOf,
   parseSFC,
   walkAST,
-  importHelperFn,
 } from '@vue-macros/common'
 
 import type { Node } from '@babel/types'
 
 export const emitVariableName = `${HELPER_PREFIX}_root_emit`
 
-
 function mountEmits(emits: string[][]) {
   const isAllWithoutOptions = emits.every(([, options]) => !options)
 
   if (isAllWithoutOptions) {
-    return `[${emits.map(([name]) => `'${name}'`).join(',')}]` 
+    return `[${emits.map(([name]) => `'${name}'`).join(',')}]`
   }
 
   return `{
@@ -40,36 +37,35 @@ export function transformDefineEmit(code: string, id: string) {
 
   const emits: string[][] = []
 
-  
-
-  
   walkAST<Node>(setupAst, {
-    enter(node) {
+    enter(node: Node) {
       if (isCallOf(node, DEFINE_EMIT)) {
-
         let options = undefined
 
-        if (node.arguments[1]) {
-          options = code.slice(node.arguments[1].start! + offset, node.arguments[1].end! + offset)
+        const [name, validataion] = node.arguments as any[]
+
+        if (validataion) {
+          options = code.slice(validataion.start! + offset, validataion.end! + offset)
         }
 
-        emits.push([node.arguments[0].value, options])
-        
+        emits.push([name.value, options])
+
         s.overwriteNode(
           node,
           // add space for fixing mapping
-          `(payload) => ${emitVariableName}('${node.arguments[0].value}', payload)`,
+          `(payload) => ${emitVariableName}('${name.value}', payload)`,
           { offset }
         )
       }
     },
   })
 
-  if (emits.length) {
-    s.prependLeft(offset!, `\n const ${emitVariableName} = defineEmits(${mountEmits(emits)})\n`)
+  if (emits.length > 0) {
+    s.prependLeft(
+      offset!,
+      `\n const ${emitVariableName} = defineEmits(${mountEmits(emits)})\n`
+    )
   }
-
-
 
   return getTransformResult(s, id)
 }
