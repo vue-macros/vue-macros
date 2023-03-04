@@ -1,5 +1,25 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`fixtures > ./fixtures/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+ const __MACROS__root_props = defineProps(['foo'])
+
+import { computed as __MACROS_computed } from 'vue';
+import { expectTypeOf } from 'expect-type'
+import type { ComputedRef } from 'vue'
+
+const foo = __MACROS_computed(() => __MACROS__root_props.foo)
+
+expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
+
+</script>
+
+<template>
+  <div></div>
+</template>
+"
+`;
+
 exports[`fixtures > ./fixtures/detalhed.vue 1`] = `
 "<script setup lang=\\"ts\\">
  const __MACROS__root_props = defineProps({
