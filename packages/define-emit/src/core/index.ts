@@ -16,7 +16,7 @@ function mountEmits(emits: string[][]) {
   const isAllWithoutOptions = emits.every(([, options]) => !options)
 
   if (isAllWithoutOptions) {
-    return `[${emits.map(([name]) => `'${name}'`).join(',')}]`
+    return `[${emits.map(([name]) => `'${name}'`).join(', ')}]`
   }
 
   return `{
