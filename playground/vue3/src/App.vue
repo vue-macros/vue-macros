@@ -21,22 +21,22 @@ import Full from './examples/full.setup'
 </script>
 
 <template>
-  <!-- <fieldset>
+  <fieldset>
     <legend>defineOptions</legend>
     <DefineOptionsVue />
-  </fieldset> -->
+  </fieldset>
 
-  <!-- <fieldset>
+  <fieldset>
     <legend>defineRender</legend>
     <DefineRenderVue />
-  </fieldset> -->
+  </fieldset>
 
   <fieldset>
     <legend>defineProps</legend>
     <DefinePropsVue />
   </fieldset>
 
-  <!-- <fieldset>
+  <fieldset>
     <legend>definePropsRefs</legend>
     <DefinePropsRefsVue />
   </fieldset>
@@ -96,7 +96,7 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>Full example</legend>
     <Full model-value="123" />
-  </fieldset> -->
+  </fieldset>
 
   <fieldset>
     <legend>defineProp</legend>

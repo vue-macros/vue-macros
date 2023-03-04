@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > ./fixtures/detalhed.vue 1`] = `
+"<script setup lang=\\"ts\\">
+ const props = defineProps({
+    foo: {
+    type: String,
+    required: true,
+    default: 'foo'
+}, bar: {
+    type: [Number, Array],
+    required: true,
+    default: () => [1, 2, 3]
+}
+  })
+
+import { computed as __MACROS_computed } from 'vue';
+import { expectTypeOf } from 'expect-type'
+import type { ComputedRef } from 'vue'
+
+const foo = __MACROS_computed(() => props.foo)
+
+const bar = __MACROS_computed(() => props.bar)
+
+expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
+expectTypeOf(bar).toEqualTypeOf<ComputedRef<number[]>>()
+
+</script>
+
+<template>
+  <div></div>
+</template>
+"
+`;

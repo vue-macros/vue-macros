@@ -1,6 +1,7 @@
 import {
   HELPER_PREFIX,
   DEFINE_PROP,
+  DEFINE_PROPS,
   MagicString,
   getTransformResult,
   isCallOf,
@@ -10,12 +11,25 @@ import {
 } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
-function formatProp(prop: string) {
-  return `'${prop}'`
+
+function mountProps(props: string[][]) {
+  const isAllWithoutOptions = props.every(([, options]) => !options)
+
+  if (isAllWithoutOptions) {
+    return `[${props.map(([name]) => `'${name}'`).join(',')}]` 
+  }
+
+  return `{
+    ${props.map(([name, options]) => `${name}: ${options || `{}`}`).join(', ')}
+  }`
 }
 
-export function transformDefineProps(code: string, id: string) {
+export function transformDefineProp(code: string, id: string) {
   if (!code.includes(DEFINE_PROP)) return
+
+  if (code.includes(DEFINE_PROPS)) {
+    throw new Error(`[${DEFINE_PROP}] ${DEFINE_PROPS} can not be used with ${DEFINE_PROP}.`)
+  }
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
@@ -24,21 +38,21 @@ export function transformDefineProps(code: string, id: string) {
   const s = new MagicString(code)
   const setupAst = getSetupAst()!
 
-  const props: string[] = []
-
-  let fistNodeProp: any
+  const props: string[][] = []
 
   
   walkAST<Node>(setupAst, {
     enter(node) {
       if (isCallOf(node, DEFINE_PROP)) {
-        // s.overwriteNode(node.callee, '//test')
 
-        if (!fistNodeProp) {
-          fistNodeProp = node
+        let options = undefined
+
+        if (node.arguments[1]) {
+          options = code.slice(node.arguments[1].start! + offset, node.arguments[1].end! + offset)
         }
 
-        props.push(node.arguments[0].value)
+
+        props.push([node.arguments[0].value, options])
 
         
         s.overwriteNode(
@@ -54,12 +68,8 @@ export function transformDefineProps(code: string, id: string) {
   if (props.length) {
     importHelperFn(s, offset, 'computed', 'vue')
 
-    s.prependLeft(offset!, `\n const props = defineProps([${props.map(formatProp).join(',')}])\n`)
+    s.prependLeft(offset!, `\n const props = defineProps(${mountProps(props)})\n`)
   }
-
-
-
-  console.log(s, getTransformResult(s, id))
 
   return getTransformResult(s, id)
 }

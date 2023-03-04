@@ -6,12 +6,12 @@ import {
   REGEX_VUE_SUB,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformDefineProps } from './core'
+import { transformDefineProp } from './core'
 import type { MarkRequired } from '@vue-macros/common'
 import type { UnpluginContextMeta } from 'unplugin'
 import type { FilterPattern } from '@rollup/pluginutils'
 
-export { transformDefineProps } from './core'
+export { transformDefineProp } from './core'
 
 export interface Options {
   include?: FilterPattern
@@ -52,7 +52,7 @@ export default createUnplugin<Options | undefined, false>(
 
       transform(code, id) {
         try {
-          return transformDefineProps(code, id)
+          return transformDefineProp(code, id)
         } catch (err: unknown) {
           this.error(`${name} ${err}`)
         }

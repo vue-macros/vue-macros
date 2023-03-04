@@ -1,5 +1,13 @@
-import type { ComponentObjectPropsOptions, ExtractPropTypes, Ref } from 'vue'
+import type { ComponentObjectPropsOptions, ExtractPropTypes, ComputedRef, PropType } from 'vue'
 
-export declare function defineProp<T>(propName: string): Readonly<Ref<T>>
+type DefaultFactory<T> = (props: Data) => T | null | undefined;
+interface PropOptions<T = any> {
+    type?: PropType<T> | true | null;
+    required?: boolean;
+    default?: T | DefaultFactory<T> | null | undefined | object;
+    validator?(value: unknown): boolean;
+}
+
+export declare function defineProp<T>(propName: string, options?: PropOptions<T>): ComputedRef<T>
 
 
