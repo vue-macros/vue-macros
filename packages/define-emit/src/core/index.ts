@@ -12,6 +12,8 @@ import {
 
 import type { Node } from '@babel/types'
 
+export const emitVariableName = `${HELPER_PREFIX}_root_emit`
+
 
 function mountEmits(emits: string[][]) {
   const isAllWithoutOptions = emits.every(([, options]) => !options)
@@ -28,10 +30,6 @@ function mountEmits(emits: string[][]) {
 export function transformDefineEmit(code: string, id: string) {
   if (!code.includes(DEFINE_EMIT)) return
 
-  if (code.includes(DEFINE_EMITS)) {
-    throw new Error(`[${DEFINE_EMIT}] ${DEFINE_EMITS} can not be used with ${DEFINE_EMIT}.`)
-  }
-
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
 
   if (!scriptSetup) return
@@ -41,6 +39,8 @@ export function transformDefineEmit(code: string, id: string) {
   const setupAst = getSetupAst()!
 
   const emits: string[][] = []
+
+  
 
   
   walkAST<Node>(setupAst, {
@@ -58,15 +58,18 @@ export function transformDefineEmit(code: string, id: string) {
         s.overwriteNode(
           node,
           // add space for fixing mapping
-          `${HELPER_PREFIX}emit('${node.arguments[0].value}')`,
+          `(payload) => ${emitVariableName}('${node.arguments[0].value}', payload)`,
           { offset }
         )
       }
     },
   })
 
+  if (emits.length) {
+    s.prependLeft(offset!, `\n const ${emitVariableName} = defineEmits(${mountEmits(emits)})\n`)
+  }
 
-  s.prependLeft(offset!, `\n const ${HELPER_PREFIX}emit = defineEmits(${mountEmits(emits)})\n`)  
+
 
   return getTransformResult(s, id)
 }

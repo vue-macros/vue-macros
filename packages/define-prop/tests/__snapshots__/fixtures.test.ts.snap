@@ -2,7 +2,7 @@
 
 exports[`fixtures > ./fixtures/detalhed.vue 1`] = `
 "<script setup lang=\\"ts\\">
- const props = defineProps({
+ const __MACROS__root_props = defineProps({
     foo: {
     type: String,
     required: true,
@@ -18,9 +18,9 @@ import { computed as __MACROS_computed } from 'vue';
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
 
-const foo = __MACROS_computed(() => props.foo)
+const foo = __MACROS_computed(() => __MACROS__root_props.foo)
 
-const bar = __MACROS_computed(() => props.bar)
+const bar = __MACROS_computed(() => __MACROS__root_props.bar)
 
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
 expectTypeOf(bar).toEqualTypeOf<ComputedRef<number[]>>()

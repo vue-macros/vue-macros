@@ -24,12 +24,10 @@ function mountProps(props: string[][]) {
   }`
 }
 
+export const propsVariableName = `${HELPER_PREFIX}_root_props`
+
 export function transformDefineProp(code: string, id: string) {
   if (!code.includes(DEFINE_PROP)) return
-
-  if (code.includes(DEFINE_PROPS)) {
-    throw new Error(`[${DEFINE_PROP}] ${DEFINE_PROPS} can not be used with ${DEFINE_PROP}.`)
-  }
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
@@ -40,6 +38,7 @@ export function transformDefineProp(code: string, id: string) {
 
   const props: string[][] = []
 
+  
   
   walkAST<Node>(setupAst, {
     enter(node) {
@@ -58,7 +57,7 @@ export function transformDefineProp(code: string, id: string) {
         s.overwriteNode(
           node,
           // add space for fixing mapping
-          `${HELPER_PREFIX}computed(() => props.${node.arguments[0].value})`,
+          `${HELPER_PREFIX}computed(() => ${propsVariableName}.${node.arguments[0].value})`,
           { offset }
         )
       }
@@ -68,7 +67,7 @@ export function transformDefineProp(code: string, id: string) {
   if (props.length) {
     importHelperFn(s, offset, 'computed', 'vue')
 
-    s.prependLeft(offset!, `\n const props = defineProps(${mountProps(props)})\n`)
+    s.prependLeft(offset!, `\n const ${propsVariableName} = defineProps(${mountProps(props)})\n`)
   }
 
   return getTransformResult(s, id)

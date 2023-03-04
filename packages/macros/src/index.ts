@@ -18,6 +18,7 @@ import { detectVueVersion } from '@vue-macros/common'
 import { Devtools } from '@vue-macros/devtools'
 
 import VueDefineProp from '@vue-macros/define-prop'
+import VueDefineEmit from '@vue-macros/define-emit'
 
 import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Plugin, PluginType } from 'unplugin-combine'
@@ -224,6 +225,7 @@ export default createCombinePlugin<Options | undefined>(
         ? Devtools({ nuxtContext: options.nuxtContext })
         : undefined,
         resolvePlugin(VueDefineProp, framework, {}),
+        resolvePlugin(VueDefineEmit, framework, {}),
     ].filter(Boolean)
 
     return {

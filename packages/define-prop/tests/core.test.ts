@@ -1,27 +1,27 @@
 import {
     DEFINE_PROP,
     DEFINE_PROPS,
+    HELPER_PREFIX
   } from '@vue-macros/common'
 
 import { describe, it, expect } from 'vitest'
-import { transformDefineProp } from '../src/core'
+import { transformDefineProp, propsVariableName } from '../src/core'
 
 describe('defineProp',  () => {
 
-    it('should throw an error when using defineProp & defineProps together', () => {
-    
+    it('should transform simple prop', () => {
         const setupScript = `
-            <script setup>
+            <script setup lang="ts" >
                 const foo = defineProp('foo')
-    
-                const props = defineProps(['foo'])
-            </script>    
+            </script>
         `
 
+        const result = transformDefineProp(setupScript, 'test.vue')
 
-        expect(() => transformDefineProp(setupScript, 2))
-            .toThrow(`[${DEFINE_PROP}] ${DEFINE_PROPS} can not be used with ${DEFINE_PROP}.`)
-    
+        const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
+
+        expect(code).includes(`const foo = ${HELPER_PREFIX}computed(() => ${propsVariableName}.foo)`)
+        expect(code).includes(`const ${propsVariableName} = defineProps(['foo'])`)
     })
 })    
 
