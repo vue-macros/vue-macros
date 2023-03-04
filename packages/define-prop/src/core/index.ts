@@ -14,7 +14,7 @@ function mountProps(props: string[][]) {
   const isAllWithoutOptions = props.every(([, options]) => !options)
 
   if (isAllWithoutOptions) {
-    return `[${props.map(([name]) => `'${name}'`).join(',')}]`
+    return `[${props.map(([name]) => `'${name}'`).join(', ')}]`
   }
 
   return `{

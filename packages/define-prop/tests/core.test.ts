@@ -46,4 +46,25 @@ describe('defineProp', () => {
     
     expect(code).includes(`const ${propsVariableName} = defineProps({ foo: ${propOptions.trim().replace(/\s+/g, ' ')} })`)
   })
+
+  it('shoud be able to use defineProp multiple times', () => {
+    const setupScript = `
+      <script setup lang="ts" >
+          const foo = defineProp('foo')
+          const bar = defineProp('bar')
+      </script>
+    `
+
+    const result = transformDefineProp(setupScript, 'test.vue')
+
+    const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
+
+    expect(code).includes(
+      `const foo = ${HELPER_PREFIX}computed(() => ${propsVariableName}.foo)`
+    )
+    expect(code).includes(
+      `const bar = ${HELPER_PREFIX}computed(() => ${propsVariableName}.bar)`
+    )
+    expect(code).includes(`const ${propsVariableName} = defineProps(['foo', 'bar'])`)
+  })
 })
