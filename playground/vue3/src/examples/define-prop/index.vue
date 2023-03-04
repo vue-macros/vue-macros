@@ -4,13 +4,12 @@ import { ref } from 'vue'
 import Child from './child.vue'
 
 const foo = ref('parent-prop')
-
 </script>
 
 <template>
   <div>defineProp</div>
 
-  <input v-model="foo"   type="text">
+  <input v-model="foo" type="text" />
 
   <Child :foo="foo" />
 </template>

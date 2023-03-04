@@ -104,7 +104,7 @@ import Full from './examples/full.setup'
     <legend>defineProp</legend>
     <DefinePropVue />
   </fieldset>
-  
+
   <fieldset>
     <legend>defineEmit</legend>
     <DefineEmitVue />

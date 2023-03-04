@@ -224,8 +224,8 @@ export default createCombinePlugin<Options | undefined>(
       framework === 'vite'
         ? Devtools({ nuxtContext: options.nuxtContext })
         : undefined,
-        resolvePlugin(VueDefineProp, framework, {}),
-        resolvePlugin(VueDefineEmit, framework, {}),
+      resolvePlugin(VueDefineProp, framework, {}),
+      resolvePlugin(VueDefineEmit, framework, {}),
     ].filter(Boolean)
 
     return {

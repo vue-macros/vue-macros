@@ -1,22 +1,20 @@
 import {
-  HELPER_PREFIX,
   DEFINE_PROP,
-  DEFINE_PROPS,
+  HELPER_PREFIX,
   MagicString,
   getTransformResult,
+  importHelperFn,
   isCallOf,
   parseSFC,
   walkAST,
-  importHelperFn,
 } from '@vue-macros/common'
 import type { Node } from '@babel/types'
-
 
 function mountProps(props: string[][]) {
   const isAllWithoutOptions = props.every(([, options]) => !options)
 
   if (isAllWithoutOptions) {
-    return `[${props.map(([name]) => `'${name}'`).join(',')}]` 
+    return `[${props.map(([name]) => `'${name}'`).join(',')}]`
   }
 
   return `{
@@ -38,36 +36,36 @@ export function transformDefineProp(code: string, id: string) {
 
   const props: string[][] = []
 
-  
-  
   walkAST<Node>(setupAst, {
-    enter(node) {
+    enter(node: Node) {
       if (isCallOf(node, DEFINE_PROP)) {
-
         let options = undefined
 
-        if (node.arguments[1]) {
-          options = code.slice(node.arguments[1].start! + offset, node.arguments[1].end! + offset)
+        const [name, definition] = node.arguments as any[]
+
+        if (definition) {
+          options = code.slice(definition.start! + offset, definition.end! + offset)
         }
 
+        props.push([name.value, options])
 
-        props.push([node.arguments[0].value, options])
-
-        
         s.overwriteNode(
           node,
           // add space for fixing mapping
-          `${HELPER_PREFIX}computed(() => ${propsVariableName}.${node.arguments[0].value})`,
+          `${HELPER_PREFIX}computed(() => ${propsVariableName}.${name.value})`,
           { offset }
         )
       }
     },
   })
 
-  if (props.length) {
+  if (props.length > 0) {
     importHelperFn(s, offset, 'computed', 'vue')
 
-    s.prependLeft(offset!, `\n const ${propsVariableName} = defineProps(${mountProps(props)})\n`)
+    s.prependLeft(
+      offset!,
+      `\n const ${propsVariableName} = defineProps(${mountProps(props)})\n`
+    )
   }
 
   return getTransformResult(s, id)
