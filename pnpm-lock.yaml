@@ -118,6 +118,21 @@ importers:
       '@babel/parser': 7.21.2
       estree-walker: 3.0.3
 
+  packages/define-emit:
+    specifiers:
+      '@rollup/pluginutils': ^5.0.2
+      '@vue-macros/common': workspace:~
+      '@vue-macros/reactivity-transform': workspace:*
+      unplugin: ^1.1.0
+      vue: ^3.2.47
+    dependencies:
+      '@rollup/pluginutils': 5.0.2
+      '@vue-macros/common': link:../common
+      unplugin: 1.1.0
+    devDependencies:
+      '@vue-macros/reactivity-transform': link:../reactivity-transform
+      vue: 3.2.47
+
   packages/define-model:
     specifiers:
       '@rollup/pluginutils': ^5.0.2

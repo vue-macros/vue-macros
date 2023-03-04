@@ -1,6 +1,7 @@
 import type { ComponentObjectPropsOptions, ExtractPropTypes, ComputedRef, PropType } from 'vue'
 
 type DefaultFactory<T> = (props: Data) => T | null | undefined;
+
 interface PropOptions<T = any> {
     type?: PropType<T> | true | null;
     required?: boolean;
