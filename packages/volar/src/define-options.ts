@@ -22,10 +22,7 @@ function transformDefineOptions({
   replace(codes, /setup\(\) {/, '...', seg, ',\nsetup() {')
 }
 
-function getTypeArg(
-  ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc
-) {
+function getArg(ts: typeof import('typescript/lib/tsserverlibrary'), sfc: Sfc) {
   function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
     if (
       !(
@@ -63,7 +60,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       )
         return
 
-      const arg = getTypeArg(ts, sfc)
+      const arg = getArg(ts, sfc)
       if (!arg) return
 
       transformDefineOptions({
