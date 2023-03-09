@@ -1,5 +1,20 @@
 # @vue-macros/volar
 
+## 0.9.0
+
+### Minor Changes
+
+- [`acf6439`](https://github.com/sxzz/unplugin-vue-macros/commit/acf6439867a6c84bc9dda0b83821bc3388f7ebd9) Thanks [@sxzz](https://github.com/sxzz)! - add define-options plugin
+
+### Patch Changes
+
+- [`9166354`](https://github.com/sxzz/unplugin-vue-macros/commit/9166354b1d835d56f2f69d33caa5d7bfe9bfd1c2) Thanks [@sxzz](https://github.com/sxzz)! - fix adding props
+
+- Updated dependencies [[`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480)]:
+  - @vue-macros/common@1.1.1
+  - @vue-macros/define-props@0.4.1
+  - @vue-macros/short-vmodel@1.1.3
+
 ## 0.8.4
 
 ### Patch Changes
