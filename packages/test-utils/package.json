@@ -1,8 +1,8 @@
 {
   "name": "@vue-macros/test-utils",
   "version": "0.12.0",
-  "private": true,
   "packageManager": "pnpm@7.29.0",
+  "type": "module",
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
   "bugs": {
@@ -15,21 +15,40 @@
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
-    "src"
+    "dist"
   ],
-  "main": "./src/index.ts",
-  "scripts": {},
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "peerDependencies": {
+    "vitest": "^0.29.0"
+  },
+  "peerDependenciesMeta": {
+    "vitest": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@rollup/pluginutils": "^5.0.2",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vitejs/plugin-vue2": "^2.2.0",
     "esbuild": "^0.17.11",
+    "fast-glob": "^3.2.12",
     "rollup": "^3.18.0",
     "rollup-plugin-esbuild": "^5.0.0",
     "unplugin-vue": "4.0.2"
   },
   "devDependencies": {
-    "fast-glob": "^3.2.12",
     "vite": "^4.1.4",
     "vue": "^3.2.47"
   },
