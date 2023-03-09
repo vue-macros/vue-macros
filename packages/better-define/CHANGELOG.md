@@ -1,5 +1,15 @@
 # @vue-macros/better-define
 
+## 1.3.6
+
+### Patch Changes
+
+- [`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480) Thanks [@sxzz](https://github.com/sxzz)! - rename helper name
+
+- Updated dependencies [[`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480)]:
+  - @vue-macros/common@1.1.1
+  - @vue-macros/api@0.4.6
+
 ## 1.3.5
 
 ### Patch Changes

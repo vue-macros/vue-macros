@@ -1,5 +1,33 @@
 # unplugin-vue-macros
 
+## 1.10.0
+
+### Minor Changes
+
+- [`168266d`](https://github.com/sxzz/unplugin-vue-macros/commit/168266d8b9b5428ecec0bbbe25753db67bb02247) Thanks [@sxzz](https://github.com/sxzz)! - export all macros in main package
+
+### Patch Changes
+
+- [`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480) Thanks [@sxzz](https://github.com/sxzz)! - rename helper name
+
+- Updated dependencies [[`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480)]:
+  - @vue-macros/reactivity-transform@0.2.5
+  - @vue-macros/define-props-refs@0.2.3
+  - @vue-macros/setup-component@0.15.4
+  - unplugin-vue-define-options@1.2.4
+  - @vue-macros/named-template@0.2.4
+  - @vue-macros/better-define@1.3.6
+  - @vue-macros/define-model@1.3.4
+  - @vue-macros/common@1.1.1
+  - @vue-macros/define-props@0.4.1
+  - @vue-macros/define-render@1.2.4
+  - @vue-macros/define-slots@0.2.4
+  - @vue-macros/export-props@0.2.3
+  - @vue-macros/hoist-static@1.2.3
+  - @vue-macros/setup-block@0.1.3
+  - @vue-macros/setup-sfc@0.14.3
+  - @vue-macros/short-emits@1.2.4
+
 ## 1.9.1
 
 ### Patch Changes

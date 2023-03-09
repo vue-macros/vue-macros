@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.1.1
+
+### Patch Changes
+
+- [`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480) Thanks [@sxzz](https://github.com/sxzz)! - rename helper name
+
 ## 1.1.0
 
 ### Minor Changes
