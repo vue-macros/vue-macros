@@ -118,21 +118,6 @@ importers:
       '@babel/parser': 7.21.2
       estree-walker: 3.0.3
 
-  packages/define-emit:
-    specifiers:
-      '@rollup/pluginutils': ^5.0.2
-      '@vue-macros/common': workspace:~
-      '@vue-macros/reactivity-transform': workspace:*
-      unplugin: ^1.1.0
-      vue: ^3.2.47
-    dependencies:
-      '@rollup/pluginutils': 5.0.2
-      '@vue-macros/common': link:../common
-      unplugin: 1.1.0
-    devDependencies:
-      '@vue-macros/reactivity-transform': link:../reactivity-transform
-      vue: 3.2.47
-
   packages/define-model:
     specifiers:
       '@rollup/pluginutils': ^5.0.2
@@ -167,21 +152,6 @@ importers:
       unplugin: 1.1.0
     devDependencies:
       rollup: 3.18.0
-      vue: 3.2.47
-
-  packages/define-prop:
-    specifiers:
-      '@rollup/pluginutils': ^5.0.2
-      '@vue-macros/common': workspace:~
-      '@vue-macros/reactivity-transform': workspace:*
-      unplugin: ^1.1.0
-      vue: ^3.2.47
-    dependencies:
-      '@rollup/pluginutils': 5.0.2
-      '@vue-macros/common': link:../common
-      unplugin: 1.1.0
-    devDependencies:
-      '@vue-macros/reactivity-transform': link:../reactivity-transform
       vue: 3.2.47
 
   packages/define-props:
@@ -300,7 +270,7 @@ importers:
       '@vue-macros/setup-sfc': workspace:*
       '@vue-macros/short-emits': workspace:*
       '@vue-macros/single-define': workspace:^
-      esbuild: ^0.17.10
+      esbuild: ^0.17.11
       unplugin: ^1.1.0
       unplugin-combine: ^0.6.0
       unplugin-vue-define-options: workspace:*
@@ -450,6 +420,21 @@ importers:
       '@vue/compiler-sfc': 3.2.47
       tsup: 6.6.3
       tsx: 3.12.3
+
+  packages/single-define:
+    specifiers:
+      '@rollup/pluginutils': ^5.0.2
+      '@vue-macros/common': workspace:~
+      '@vue-macros/reactivity-transform': workspace:*
+      unplugin: ^1.1.0
+      vue: ^3.2.47
+    dependencies:
+      '@rollup/pluginutils': 5.0.2
+      '@vue-macros/common': link:../common
+      unplugin: 1.1.0
+    devDependencies:
+      '@vue-macros/reactivity-transform': link:../reactivity-transform
+      vue: 3.2.47
 
   packages/test-utils:
     specifiers:
