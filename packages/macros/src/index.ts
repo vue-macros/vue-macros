@@ -14,11 +14,9 @@ import VueSetupBlock from '@vue-macros/setup-block'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortEmits from '@vue-macros/short-emits'
+import VueSingleDefine from '@vue-macros/single-define'
 import { detectVueVersion } from '@vue-macros/common'
 import { Devtools } from '@vue-macros/devtools'
-
-import VueDefineProp from '@vue-macros/define-prop'
-import VueDefineEmit from '@vue-macros/define-emit'
 
 import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Plugin, PluginType } from 'unplugin-combine'
@@ -198,6 +196,7 @@ export default createCombinePlugin<Options | undefined>(
     )
 
     const plugins: OptionsPlugin[] = [
+      resolvePlugin(VueSingleDefine, framework, {}),
       resolvePlugin(VueSetupSFC, framework, options.setupSFC),
       setupComponentPlugins?.[0],
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
@@ -224,8 +223,6 @@ export default createCombinePlugin<Options | undefined>(
       framework === 'vite'
         ? Devtools({ nuxtContext: options.nuxtContext })
         : undefined,
-      resolvePlugin(VueDefineProp, framework, {}),
-      resolvePlugin(VueDefineEmit, framework, {}),
     ].filter(Boolean)
 
     return {

@@ -1,7 +1,8 @@
 import { HELPER_PREFIX } from '@vue-macros/common'
 
 import { describe, expect, it } from 'vitest'
-import { propsVariableName, transformDefineProp } from '../src/core'
+import { transformDefineSingle } from '../src/core'
+import { PROPS_VARIABLE_NAME } from '../src/core/constants'
 
 describe('defineProp', () => {
   it('should transform simple prop', () => {
@@ -11,18 +12,17 @@ describe('defineProp', () => {
             </script>
         `
 
-    const result = transformDefineProp(setupScript, 'test.vue')
+    const result = transformDefineSingle(setupScript, 'test.vue')
 
     const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
 
     expect(code).includes(
-      `const foo = ${HELPER_PREFIX}computed(() => ${propsVariableName}.foo)`
+      `const foo = ${HELPER_PREFIX}computed(() => ${PROPS_VARIABLE_NAME}.foo)`
     )
-    expect(code).includes(`const ${propsVariableName} = defineProps(['foo'])`)
+    expect(code).includes(`const ${PROPS_VARIABLE_NAME} = defineProps(['foo'])`)
   })
 
   it('should transform prop with options', () => {
-
     const propOptions = `{
         type: [String, Number],
         required: true,
@@ -36,15 +36,19 @@ describe('defineProp', () => {
       </script>
     `
 
-    const result = transformDefineProp(setupScript, 'test.vue')
+    const result = transformDefineSingle(setupScript, 'test.vue')
 
     const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
 
     expect(code).includes(
-      `const foo = ${HELPER_PREFIX}computed(() => ${propsVariableName}.foo)`
+      `const foo = ${HELPER_PREFIX}computed(() => ${PROPS_VARIABLE_NAME}.foo)`
     )
-    
-    expect(code).includes(`const ${propsVariableName} = defineProps({ foo: ${propOptions.trim().replace(/\s+/g, ' ')} })`)
+
+    expect(code).includes(
+      `const ${PROPS_VARIABLE_NAME} = defineProps({ foo: ${propOptions
+        .trim()
+        .replace(/\s+/g, ' ')} })`
+    )
   })
 
   it('shoud be able to use defineProp multiple times', () => {
@@ -55,16 +59,18 @@ describe('defineProp', () => {
       </script>
     `
 
-    const result = transformDefineProp(setupScript, 'test.vue')
+    const result = transformDefineSingle(setupScript, 'test.vue')
 
     const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
 
     expect(code).includes(
-      `const foo = ${HELPER_PREFIX}computed(() => ${propsVariableName}.foo)`
+      `const foo = ${HELPER_PREFIX}computed(() => ${PROPS_VARIABLE_NAME}.foo)`
     )
     expect(code).includes(
-      `const bar = ${HELPER_PREFIX}computed(() => ${propsVariableName}.bar)`
+      `const bar = ${HELPER_PREFIX}computed(() => ${PROPS_VARIABLE_NAME}.bar)`
     )
-    expect(code).includes(`const ${propsVariableName} = defineProps(['foo', 'bar'])`)
+    expect(code).includes(
+      `const ${PROPS_VARIABLE_NAME} = defineProps(['foo', 'bar'])`
+    )
   })
 })

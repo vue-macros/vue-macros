@@ -1,8 +1,8 @@
 {
-  "name": "@vue-macros/define-prop",
+  "name": "@vue-macros/single-define",
   "version": "0.0.1",
   "packageManager": "pnpm@7.28.0",
-  "description": "define-prop feature from Vue Macros.",
+  "description": "define-emit feature from Vue Macros.",
   "keywords": [
     "vue-macros",
     "macros",
@@ -10,6 +10,8 @@
     "sfc",
     "setup",
     "script-setup",
+    "single-define",
+    "define-emit",
     "define-prop",
     "unplugin"
   ],
@@ -21,7 +23,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
-    "directory": "packages/define-prop"
+    "directory": "packages/single-define"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [

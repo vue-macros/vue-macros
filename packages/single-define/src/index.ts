@@ -6,12 +6,11 @@ import {
   REGEX_VUE_SUB,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformDefineEmit } from './core'
+
+import { transformDefineSingle } from './core'
 import type { MarkRequired } from '@vue-macros/common'
 import type { UnpluginContextMeta } from 'unplugin'
 import type { FilterPattern } from '@rollup/pluginutils'
-
-export { transformDefineEmit } from './core'
 
 export interface Options {
   include?: FilterPattern
@@ -35,7 +34,7 @@ function resolveOption(
   }
 }
 
-const name = 'unplugin-vue-define-emit'
+const name = 'unplugin-vue-single-define'
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}, { framework }) => {
@@ -52,7 +51,7 @@ export default createUnplugin<Options | undefined, false>(
 
       transform(code, id) {
         try {
-          return transformDefineEmit(code, id)
+          return transformDefineSingle(code, id)
         } catch (err: unknown) {
           this.error(`${name} ${err}`)
         }

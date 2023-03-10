@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { emitVariableName, transformDefineEmit } from '../src/core'
+import { transformDefineSingle } from '../src/core'
+import { EMIT_VARIABLE_NAME } from '../src/core/constants'
 
 describe('defineEmit', () => {
   it('should transform simple emit', () => {
@@ -13,13 +14,13 @@ describe('defineEmit', () => {
             </template>
         `
 
-    const result = transformDefineEmit(setupScript, 'test.vue')
+    const result = transformDefineSingle(setupScript, 'test.vue')
 
     const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
 
-    expect(code).includes(`const ${emitVariableName} = defineEmits(['foo'])`)
+    expect(code).includes(`const ${EMIT_VARIABLE_NAME} = defineEmits(['foo'])`)
     expect(code).includes(
-      `const foo = (payload) => ${emitVariableName}('foo', payload)`
+      `const foo = (payload) => ${EMIT_VARIABLE_NAME}('foo', payload)`
     )
   })
 
@@ -34,15 +35,17 @@ describe('defineEmit', () => {
             </template>
         `
 
-    const result = transformDefineEmit(setupScript, 'test.vue')
+    const result = transformDefineSingle(setupScript, 'test.vue')
 
     const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
 
     expect(code).includes(
-      `const foo = (payload) => ${emitVariableName}('foo', payload)`
+      `const foo = (payload) => ${EMIT_VARIABLE_NAME}('foo', payload)`
     )
 
-    expect(code).includes(`const ${emitVariableName} = defineEmits({ foo: (payload) => payload.length > 0 })`)
+    expect(code).includes(
+      `const ${EMIT_VARIABLE_NAME} = defineEmits({ foo: (payload) => payload.length > 0 })`
+    )
   })
 
   it('it should be able to use defineEmit multiple times', () => {
@@ -53,16 +56,18 @@ describe('defineEmit', () => {
             </script>
         `
 
-    const result = transformDefineEmit(setupScript, 'test.vue')
+    const result = transformDefineSingle(setupScript, 'test.vue')
 
     const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
 
-    expect(code).includes(`const ${emitVariableName} = defineEmits(['foo', 'bar'])`)
     expect(code).includes(
-      `const foo = (payload) => ${emitVariableName}('foo', payload)`
+      `const ${EMIT_VARIABLE_NAME} = defineEmits(['foo', 'bar'])`
     )
     expect(code).includes(
-      `const bar = (payload) => ${emitVariableName}('bar', payload)`
+      `const foo = (payload) => ${EMIT_VARIABLE_NAME}('foo', payload)`
+    )
+    expect(code).includes(
+      `const bar = (payload) => ${EMIT_VARIABLE_NAME}('bar', payload)`
     )
   })
 })
