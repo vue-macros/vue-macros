@@ -5,10 +5,13 @@ import {
   isCallOf,
   walkAST,
 } from '@vue-macros/common'
-import { type TransformOptions } from './options'
+import { PROPS_VARIABLE_NAME } from './constants'
+import type { TransformOptions } from './options'
 import type { Node } from '@babel/types'
 
-function mountProps(props: string[][]) {
+type Props = [name: string, definition?: string][]
+
+function mountProps(props: Props) {
   const isAllWithoutOptions = props.every(([, options]) => !options)
 
   if (isAllWithoutOptions) {
@@ -16,40 +19,36 @@ function mountProps(props: string[][]) {
   }
 
   return `{
-    ${props.map(([name, options]) => `${name}: ${options || `{}`}`).join(', ')}
+    ${props
+      .map(([name, options]) => `${name}: ${options || '{}'}`)
+      .join(',\n  ')}
   }`
 }
 
-export const propsVariableName = `${HELPER_PREFIX}_root_props`
-
-export function transformDefineProp({
-  setupAst,
-  code,
-  offset,
-  magicString,
-}: TransformOptions) {
-  const props: string[][] = []
+export function transformDefineProp({ setupAst, offset, s }: TransformOptions) {
+  const props: Props = []
 
   walkAST<Node>(setupAst, {
     enter(node: Node) {
       if (isCallOf(node, DEFINE_PROP)) {
-        let options = undefined
+        const [name, definition] = node.arguments
 
-        const [name, definition] = node.arguments as any[]
-
-        if (definition) {
-          options = code.slice(
-            definition.start! + offset,
-            definition.end! + offset
+        if (name.type !== 'StringLiteral') {
+          throw new Error(
+            `The first argument of ${DEFINE_PROP} must be a string literal.`
           )
         }
 
-        props.push([name.value, options])
+        props.push([
+          name.value,
+          definition ? s.sliceNode(definition, { offset }) : undefined,
+        ])
 
-        magicString.overwriteNode(
+        s.overwriteNode(
           node,
-          // add space for fixing mapping
-          `${HELPER_PREFIX}computed(() => ${propsVariableName}.${name.value})`,
+          `${HELPER_PREFIX}computed(() => ${PROPS_VARIABLE_NAME}[${JSON.stringify(
+            name.value
+          )}])`,
           { offset }
         )
       }
@@ -57,11 +56,11 @@ export function transformDefineProp({
   })
 
   if (props.length > 0) {
-    importHelperFn(magicString, offset, 'computed', 'vue')
+    importHelperFn(s, offset, 'computed', 'vue')
 
-    magicString.prependLeft(
+    s.prependLeft(
       offset!,
-      `\n const ${propsVariableName} = defineProps(${mountProps(props)})\n`
+      `\nconst ${PROPS_VARIABLE_NAME} = defineProps(${mountProps(props)})\n`
     )
   }
 }

@@ -5,10 +5,9 @@ import {
   getTransformResult,
   parseSFC,
 } from '@vue-macros/common'
-
 import { transformDefineEmit } from './define-emit'
 import { transformDefineProp } from './define-prop'
-import { type TransformOptions } from './options'
+import type { TransformOptions } from './options'
 
 export function transformDefineSingle(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
@@ -16,13 +15,12 @@ export function transformDefineSingle(code: string, id: string) {
   if (!scriptSetup) return
 
   const offset = scriptSetup.loc.start.offset
-  const magicString = new MagicString(code)
+  const s = new MagicString(code)
   const setupAst = getSetupAst()!
 
   const options: TransformOptions = {
-    code,
     id,
-    magicString,
+    s,
     offset,
     setupAst,
   }
@@ -35,5 +33,5 @@ export function transformDefineSingle(code: string, id: string) {
     transformDefineProp(options)
   }
 
-  return getTransformResult(magicString, id)
+  return getTransformResult(s, id)
 }

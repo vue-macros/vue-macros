@@ -1,8 +1,8 @@
 {
   "name": "@vue-macros/single-define",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "packageManager": "pnpm@7.28.0",
-  "description": "define-emit feature from Vue Macros.",
+  "description": "single-define feature from Vue Macros.",
   "keywords": [
     "vue-macros",
     "macros",
@@ -11,8 +11,6 @@
     "setup",
     "script-setup",
     "single-define",
-    "define-emit",
-    "define-prop",
     "unplugin"
   ],
   "license": "MIT",
@@ -82,7 +80,6 @@
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
-    "@vue-macros/reactivity-transform": "^0.2.4",
     "vue": "^2.7.0 || ^3.2.25"
   },
   "dependencies": {
@@ -91,7 +88,6 @@
     "unplugin": "^1.1.0"
   },
   "devDependencies": {
-    "@vue-macros/reactivity-transform": "workspace:*",
     "vue": "^3.2.47"
   },
   "engines": {

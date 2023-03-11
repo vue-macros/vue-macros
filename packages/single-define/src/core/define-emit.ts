@@ -1,11 +1,11 @@
 import { DEFINE_EMIT, isCallOf, walkAST } from '@vue-macros/common'
-
-import { type TransformOptions } from './options'
-
 import { EMIT_VARIABLE_NAME } from './constants'
+import type { TransformOptions } from './options'
 import type { Node } from '@babel/types'
 
-function mountEmits(emits: string[][]) {
+type Emits = [name: string, validator?: string][]
+
+function mountEmits(emits: Emits) {
   const isAllWithoutOptions = emits.every(([, options]) => !options)
 
   if (isAllWithoutOptions) {
@@ -19,34 +19,30 @@ function mountEmits(emits: string[][]) {
     }`
 }
 
-export function transformDefineEmit({
-  setupAst,
-  code,
-  offset,
-  magicString,
-}: TransformOptions) {
-  const emits: string[][] = []
+export function transformDefineEmit({ setupAst, offset, s }: TransformOptions) {
+  const emits: Emits = []
 
   walkAST<Node>(setupAst, {
     enter(node: Node) {
       if (isCallOf(node, DEFINE_EMIT)) {
-        let options = undefined
+        const [name, validator] = node.arguments
 
-        const [name, validataion] = node.arguments as any[]
-
-        if (validataion) {
-          options = code.slice(
-            validataion.start! + offset,
-            validataion.end! + offset
+        if (name.type !== 'StringLiteral') {
+          throw new Error(
+            `The first argument of ${DEFINE_EMIT} must be a string literal.`
           )
         }
 
-        emits.push([name.value, options])
+        emits.push([
+          name.value,
+          validator ? s.sliceNode(validator, { offset }) : undefined,
+        ])
 
-        magicString.overwriteNode(
+        s.overwriteNode(
           node,
-          // add space for fixing mapping
-          `(payload) => ${EMIT_VARIABLE_NAME}('${name.value}', payload)`,
+          `(...args) => ${EMIT_VARIABLE_NAME}(${JSON.stringify(
+            name.value
+          )}, ...args)`,
           { offset }
         )
       }
@@ -54,7 +50,7 @@ export function transformDefineEmit({
   })
 
   if (emits.length > 0) {
-    magicString.prependLeft(
+    s.prependLeft(
       offset!,
       `\n const ${EMIT_VARIABLE_NAME} = defineEmits(${mountEmits(emits)})\n`
     )

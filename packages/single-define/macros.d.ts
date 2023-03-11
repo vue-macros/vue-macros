@@ -1,5 +1,6 @@
 import type { ComputedRef, PropType } from 'vue'
 
+// copy form vue core
 type DefaultFactory<T> = (props: Data) => T | null | undefined
 interface PropOptions<T = any> {
   type?: PropType<T> | true | null
@@ -8,12 +9,12 @@ interface PropOptions<T = any> {
   validator?(value: unknown): boolean
 }
 
-export declare function defineEmit<T>(
-  emitName: string,
-  validataion?: (payload: T) => Boolean
-): (payload?: T) => void
-
 export declare function defineProp<T>(
   propName: string,
-  options?: PropOptions<T>
+  options?: PropOptions<O>
 ): ComputedRef<T>
+
+export declare function defineEmit<T extends (...args: any) => any>(
+  emitName: string,
+  validator?: T | ((...args: Parameters<T>) => boolean)
+): (...args: Parameters<T>) => void

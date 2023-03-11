@@ -1,74 +1,38 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`fixtures > ./fixtures/define-emit.basic.vue 1`] = `
+exports[`fixtures > ./fixtures/define-emit.vue 1`] = `
 "<script setup lang=\\"ts\\">
- const __MACROS__root_emit = defineEmits(['foo'])
-
-import { expectTypeOf } from 'expect-type'
-
-const foo = (payload) => __MACROS__root_emit('foo', payload)
-
-expectTypeOf(foo).toEqualTypeOf<() => void>()
-
-</script>
-
-<template>
-  <div></div>
-</template>
-"
-`;
-
-exports[`fixtures > ./fixtures/define-emit.detalhed.vue 1`] = `
-"<script setup lang=\\"ts\\">
- const __MACROS__root_emit = defineEmits({
-      foo: (payload) => typeof payload === 'string'
+ const __MACROS_emit = defineEmits({
+      foo: {}, bar: (value: string) => typeof value === 'string', baz: (value) => typeof value === 'number'
     })
 
 import { expectTypeOf } from 'expect-type'
 
-const foo = (payload) => __MACROS__root_emit('foo', payload)
+const foo = (...args) => __MACROS_emit(\\"foo\\", ...args)
+expectTypeOf(foo).toEqualTypeOf<(...args: any) => void>()
 
-expectTypeOf(foo).toEqualTypeOf<(payload: string) => void>()
+const bar = (...args) => __MACROS_emit(\\"bar\\", ...args)
+expectTypeOf(bar).toEqualTypeOf<(value: string) => void>()
 
+const baz = (...args) => __MACROS_emit(\\"baz\\", ...args)
+expectTypeOf(baz).toEqualTypeOf<(value: number) => void>()
 </script>
-
-<template>
-  <div></div>
-</template>
 "
 `;
 
-exports[`fixtures > ./fixtures/define-prop.basic.vue 1`] = `
+exports[`fixtures > ./fixtures/define-prop.vue 1`] = `
 "<script setup lang=\\"ts\\">
- const __MACROS__root_props = defineProps(['foo'])
-
-import { computed as __MACROS_computed } from 'vue';
-import { expectTypeOf } from 'expect-type'
-import type { ComputedRef } from 'vue'
-
-const foo = __MACROS_computed(() => __MACROS__root_props.foo)
-
-expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
-
-</script>
-
-<template>
-  <div></div>
-</template>
-"
-`;
-
-exports[`fixtures > ./fixtures/define-prop.detalhed.vue 1`] = `
-"<script setup lang=\\"ts\\">
- const __MACROS__root_props = defineProps({
-    foo: {
-    type: String,
-    required: true,
-    default: 'foo'
-}, bar: {
-    type: [Number, Array],
-    required: true,
-    default: () => [1, 2, 3]
+const __MACROS_props = defineProps({
+    foo: {},
+  bar: {
+  type: String,
+  required: true,
+  default: 'bar',
+},
+  baz: {
+  type: [Number, String],
+  required: true,
+  default: () => [1, 2, 3],
 }
   })
 
@@ -76,17 +40,14 @@ import { computed as __MACROS_computed } from 'vue';
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
 
-const foo = __MACROS_computed(() => __MACROS__root_props.foo)
-
-const bar = __MACROS_computed(() => __MACROS__root_props.bar)
-
+const foo = __MACROS_computed(() => __MACROS_props[\\"foo\\"])
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
-expectTypeOf(bar).toEqualTypeOf<ComputedRef<number[]>>()
 
+const bar = __MACROS_computed(() => __MACROS_props[\\"bar\\"])
+expectTypeOf(bar).toEqualTypeOf<ComputedRef<string>>()
+
+const baz = __MACROS_computed(() => __MACROS_props[\\"baz\\"])
+expectTypeOf(baz).toEqualTypeOf<ComputedRef<string | number>>()
 </script>
-
-<template>
-  <div></div>
-</template>
 "
 `;

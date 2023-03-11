@@ -3,8 +3,7 @@ import type { Node } from '@babel/types'
 
 export interface TransformOptions {
   id: string
-  code: string
-  magicString: MagicString
+  s: MagicString
   offset: number
   setupAst: Node
 }
