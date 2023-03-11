@@ -35,6 +35,7 @@ import type { Options as OptionsSetupBlock } from '@vue-macros/setup-block'
 import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
 import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
 import type { Options as OptionsShortEmits } from '@vue-macros/short-emits'
+import type { Options as OptionsSingleDefine } from '@vue-macros/single-define'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
@@ -52,6 +53,7 @@ export interface FeatureOptionsMap {
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
+  singleDefine: OptionsSingleDefine
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -102,6 +104,7 @@ function resolveOptions({
   setupComponent,
   setupSFC,
   shortEmits,
+  singleDefine,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
@@ -153,6 +156,7 @@ function resolveOptions({
     }),
     setupSFC: resolveSubOptions<'setupSFC'>(setupSFC),
     shortEmits: resolveSubOptions<'shortEmits'>(shortEmits),
+    singleDefine: resolveSubOptions<'singleDefine'>(singleDefine),
   }
 }
 
@@ -196,11 +200,11 @@ export default createCombinePlugin<Options | undefined>(
     )
 
     const plugins: OptionsPlugin[] = [
-      resolvePlugin(VueSingleDefine, framework, {}),
       resolvePlugin(VueSetupSFC, framework, options.setupSFC),
       setupComponentPlugins?.[0],
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
       namedTemplatePlugins?.[0],
+      resolvePlugin(VueSingleDefine, framework, options.singleDefine),
       resolvePlugin(VueDefineProps, framework, options.defineProps),
       resolvePlugin(VueDefinePropsRefs, framework, options.definePropsRefs),
       resolvePlugin(VueExportProps, framework, options.exportProps),
