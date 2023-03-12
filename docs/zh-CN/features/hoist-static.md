@@ -60,3 +60,29 @@ export default {
 ```
 
 :::
+
+### Magic Comments For Template
+
+```vue
+<script setup lang="ts">
+// Function from another module
+import { /* hoist-static */ add } from 'anotherModule'
+</script>
+<template>
+  <!-- You can use something from another module in the template by hoist static -->
+ <h1>add(1, 2) </h1>
+</template>
+```
+
+::: details Compiled Code
+
+```vue
+<script lang="ts">
+import { add } from 'anotherModule'
+export default {
+  add,
+}
+</script>
+```
+
+:::
