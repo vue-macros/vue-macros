@@ -2,7 +2,7 @@
 
 ## Introduction
 
-First,Thank you for contributing to unplugin-vue-macro!
+First,Thank you for contributing to unplugin-vue-macros!
 
 we welcome any type of contribution,not only code! you can help with:
 - **QA**:  You can use [open issues](https://github.com/sxzz/unplugin-vue-macros/issues) file bug reports, the more details you can give the better -links or repos that demonstrate the specific issue.Even if you can't write code, commenting on them, showing that you care about a given issue matters. It helps us triage them.
