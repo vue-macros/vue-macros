@@ -50,9 +50,26 @@ export default createUnplugin<Options | undefined, false>(
       }
     }
 
+    const resolveCache = new Map<
+      string /* importer */,
+      Map<string /* id */, string /* result */>
+    >()
+
+    function withResolveCache(id: string, importer: string, result: string) {
+      if (!resolveCache.has(importer)) {
+        resolveCache.set(importer, new Map([[id, result]]))
+        return result
+      }
+      resolveCache.get(importer)!.set(id, result)
+      return result
+    }
+
     const RollupResolve =
       (ctx: PluginContext): ResolveTSFileIdImpl =>
       async (id, importer) => {
+        const cached = resolveCache.get(importer)?.get(id)
+        if (cached) return cached
+
         async function tryPkgEntry() {
           try {
             const pkgPath = (await ctx.resolve(`${id}/package.json`, importer))
@@ -81,20 +98,20 @@ export default createUnplugin<Options | undefined, false>(
 
         if (!id.startsWith('.')) {
           const entry = await tryPkgEntry()
-          if (entry) return entry
+          if (entry) return withResolveCache(id, importer, entry)
         }
 
         let resolved = await tryResolve(id)
         if (!resolved) return
         if (existsSync(resolved)) {
           collectReferencedFile(importer, resolved)
-          return resolved
+          return withResolveCache(id, importer, resolved)
         }
 
         resolved = await tryResolve(resolved)
         if (resolved && existsSync(resolved)) {
           collectReferencedFile(importer, resolved)
-          return resolved
+          return withResolveCache(id, importer, resolved)
         }
       }
 
