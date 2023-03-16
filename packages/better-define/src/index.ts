@@ -50,12 +50,13 @@ export default createUnplugin<Options | undefined, false>(
       }
     }
 
-    const ViteResolve =
+    const RollupResolve =
       (ctx: PluginContext): ResolveTSFileIdImpl =>
       async (id, importer) => {
         async function tryPkgEntry() {
           try {
-            const pkgPath = (await ctx.resolve(`${id}/package.json`))?.id
+            const pkgPath = (await ctx.resolve(`${id}/package.json`, importer))
+              ?.id
             if (!pkgPath) return
 
             const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
@@ -103,7 +104,7 @@ export default createUnplugin<Options | undefined, false>(
 
       buildStart() {
         if (meta.framework === 'rollup' || meta.framework === 'vite') {
-          setResolveTSFileIdImpl(ViteResolve(this as PluginContext))
+          setResolveTSFileIdImpl(RollupResolve(this as PluginContext))
         }
       },
 
