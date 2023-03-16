@@ -114,9 +114,7 @@ export async function inferRuntimeType(
               : undefined
           })
         )
-      )
-        .filter((t): t is string[] => !!t)
-        .flat(1)
+      ).flatMap((t) => (t ? t : ['null']))
       return [...new Set(types)]
     }
     case 'TSIntersectionType':
