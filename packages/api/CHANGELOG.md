@@ -1,5 +1,13 @@
 # @vue-macros/api
 
+## 0.4.7
+
+### Patch Changes
+
+- [`2dff8b2`](https://github.com/sxzz/unplugin-vue-macros/commit/2dff8b27b3ab05a73a28c247bd339f3f9fef3104) Thanks [@sxzz](https://github.com/sxzz)! - fix rollup resolve
+
+- [`82494e5`](https://github.com/sxzz/unplugin-vue-macros/commit/82494e58b6eb972257913d3cb8cebe2eb2881736) Thanks [@sxzz](https://github.com/sxzz)! - fallback to null when cannot resolve
+
 ## 0.4.6
 
 ### Patch Changes
