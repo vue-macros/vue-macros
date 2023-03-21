@@ -72,7 +72,7 @@ defineProps<{
 }>()
 ```
 
-- **events** 的名称
+- **emits** 的名称
 
 ```ts
 interface Emits {

@@ -72,7 +72,7 @@ defineProps<{
 }>()
 ```
 
-- The names of events.
+- The names of emits.
 
 ```ts
 interface Emits {
