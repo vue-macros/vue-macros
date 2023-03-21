@@ -8,7 +8,7 @@
   "scripts": {
     "build": "turbo run build --filter=\"./packages/*\"",
     "dev": "pnpm run --filter=\"./packages/*\" --parallel dev",
-    "clean": "rimraf packages/*/dist",
+    "clean": "rimraf packages/*/dist **/.turbo",
     "docs:dev": "pnpm run -C ./docs dev",
     "docs:serve": "pnpm run -C ./docs serve",
     "docs:build": "turbo run build --filter docs",

@@ -52,7 +52,6 @@ export default defineConfig([
       data.engines = { node: '>=14.19.0' }
 
       if (Object.keys(data.dependencies).includes('unplugin')) {
-        const frameworks = ['vite', 'webpack', 'rollup', 'esbuild']
         data.keywords.push('unplugin')
         data.exports = {
           '.': {
@@ -61,18 +60,16 @@ export default defineConfig([
             require: './dist/index.js',
             import: './dist/index.mjs',
           },
-          ...Object.fromEntries(
-            frameworks.map((framework) => [
-              `./${framework}`,
-              {
-                dev: `./src/${framework}.ts`,
-                types: `./dist/${framework}.d.ts`,
-                require: `./dist/${framework}.js`,
-                import: `./dist/${framework}.mjs`,
-              },
-            ])
-          ),
-          './*': ['./*', './*.d.ts'],
+          './*': [
+            './*',
+            {
+              dev: `./src/*.ts`,
+              types: `./dist/*.d.ts`,
+              require: `./dist/*.js`,
+              import: `./dist/*.mjs`,
+            },
+            './*.d.ts',
+          ],
         }
         data.typesVersions = {
           '<=4.9': {
