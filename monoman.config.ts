@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { readdir } from 'node:fs/promises'
 import { defineConfig } from 'monoman'
 
 function getPkgName(filepath: string) {
@@ -11,7 +12,7 @@ export default defineConfig([
   {
     include: ['packages/*/package.json'],
     type: 'json',
-    write(data: Record<string, any>, { filepath }) {
+    async write(data: Record<string, any>, { filepath }) {
       const pkgName = getPkgName(filepath)
 
       const descriptions: Record<string, string> = {
@@ -52,6 +53,21 @@ export default defineConfig([
       data.engines = { node: '>=14.19.0' }
 
       if (Object.keys(data.dependencies).includes('unplugin')) {
+        const files = (
+          await readdir(path.resolve(filepath, '../src'), {
+            withFileTypes: true,
+          })
+        )
+          // .filter((f) => f.isFile() || f.name === 'index.ts')
+          .map((file) => {
+            if (!file.isFile()) return undefined
+            const name = path.basename(file.name, '.ts')
+            if (name === 'index') return undefined
+            return name
+          })
+          .filter((n): n is string => !!n)
+          .sort()
+
         data.keywords.push('unplugin')
         data.exports = {
           '.': {
@@ -60,16 +76,18 @@ export default defineConfig([
             require: './dist/index.js',
             import: './dist/index.mjs',
           },
-          './*': [
-            './*',
-            {
-              dev: `./src/*.ts`,
-              types: `./dist/*.d.ts`,
-              require: `./dist/*.js`,
-              import: `./dist/*.mjs`,
-            },
-            './*.d.ts',
-          ],
+          ...Object.fromEntries(
+            files.map((file) => [
+              `./${file}`,
+              {
+                dev: `./src/${file}.ts`,
+                types: `./dist/${file}.d.ts`,
+                require: `./dist/${file}.js`,
+                import: `./dist/${file}.mjs`,
+              },
+            ])
+          ),
+          './*': ['./*', './*.d.ts'],
         }
         data.typesVersions = {
           '<=4.9': {
