@@ -14,16 +14,13 @@ export default defineConfig({
     : {
         compilerOptions: {
           composite: false,
-          customConditions: ['dev'],
+          customConditions: [],
         },
       },
   tsconfig: '../../tsconfig.lib.json',
   clean: true,
   define: {
     'import.meta.DEV': JSON.stringify(!!process.env.DEV),
-  },
-  esbuildOptions: (options) => {
-    options.conditions = ['dev']
   },
   esbuildPlugins: [
     {
