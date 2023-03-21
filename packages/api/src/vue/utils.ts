@@ -1,10 +1,12 @@
 import { isTSExports, resolveTSReferencedType } from '../ts'
+import type { TSExports, TSResolvedType } from '../ts'
 import type { Node } from '@babel/types'
-import type { TSResolvedType } from '../ts'
 
 export async function inferRuntimeType(
-  node: TSResolvedType
+  node: TSResolvedType | TSExports
 ): Promise<string[]> {
+  if (isTSExports(node)) return ['Object']
+
   switch (node.type.type) {
     case 'TSStringKeyword':
       return ['String']
@@ -80,8 +82,7 @@ export async function inferRuntimeType(
                 scope: node.scope,
                 type: node.type.typeParameters.params[1],
               })
-              if (isTSExports(t)) return ['Object']
-              else if (t) return inferRuntimeType(t)
+              if (t) return inferRuntimeType(t)
             }
             return ['null']
           case 'Exclude':
@@ -93,8 +94,7 @@ export async function inferRuntimeType(
                 scope: node.scope,
                 type: node.type.typeParameters.params[0],
               })
-              if (isTSExports(t)) return ['Object']
-              else if (t) return inferRuntimeType(t)
+              if (t) return inferRuntimeType(t)
             }
             return ['null']
         }
@@ -134,4 +134,8 @@ export async function inferRuntimeType(
 export function attachNodeLoc(node: Node, newNode: Node) {
   newNode.start = node.start
   newNode.end = node.end
+}
+
+export function toRuntimeTypeString(types: string[]) {
+  return types.length > 1 ? `[${types.join(', ')}]` : types[0]
 }

@@ -12,6 +12,9 @@ import BetterDefineVue from './examples/better-define/index.vue'
 import NamedTemplateVue from './examples/named-template/index.vue'
 import SetupBlockVue from './examples/setup-block/index.vue'
 
+import DefinePropVue from './examples/define-prop/index.vue'
+import DefineEmitVue from './examples/define-emit/index.vue'
+
 import { SetupComponentFoo } from './examples/setup-component'
 
 import SetupSFC from './examples/setup-sfc/index.setup'
@@ -95,6 +98,16 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>Full example</legend>
     <Full model-value="123" />
+  </fieldset>
+
+  <fieldset>
+    <legend>defineProp</legend>
+    <DefinePropVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>defineEmit</legend>
+    <DefineEmitVue />
   </fieldset>
 </template>
 

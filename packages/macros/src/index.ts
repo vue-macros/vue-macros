@@ -14,6 +14,7 @@ import VueSetupBlock from '@vue-macros/setup-block'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortEmits from '@vue-macros/short-emits'
+import VueSingleDefine from '@vue-macros/single-define'
 import { detectVueVersion } from '@vue-macros/common'
 import { Devtools } from '@vue-macros/devtools'
 
@@ -34,6 +35,7 @@ import type { Options as OptionsSetupBlock } from '@vue-macros/setup-block'
 import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
 import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
 import type { Options as OptionsShortEmits } from '@vue-macros/short-emits'
+import type { Options as OptionsSingleDefine } from '@vue-macros/single-define'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
@@ -51,6 +53,7 @@ export interface FeatureOptionsMap {
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
+  singleDefine: OptionsSingleDefine
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -101,18 +104,22 @@ function resolveOptions({
   setupComponent,
   setupSFC,
   shortEmits,
+  singleDefine,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
-    commonOptions: Partial<
-      Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
-    > = {},
+    commonOptions: [keyof OptionsCommon & keyof FeatureOptionsMap[K]] extends [
+      never
+    ]
+      ? undefined
+      : Required<
+          Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
+        >,
     defaultEnabled = true
   ): FeatureOptionsMap[K] | false {
     options = options ?? defaultEnabled
     if (!options) return false
-    else if (options === true) return { ...commonOptions }
-    else return { ...options, ...commonOptions }
+    return { ...(options === true ? {} : options), ...commonOptions }
   }
 
   root = root || process.cwd()
@@ -137,11 +144,11 @@ function resolveOptions({
     definePropsRefs: resolveSubOptions<'definePropsRefs'>(definePropsRefs, {
       version,
     }),
-    defineRender: resolveSubOptions<'defineRender'>(defineRender),
+    defineRender: resolveSubOptions<'defineRender'>(defineRender, undefined),
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
     exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
-    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
-    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
+    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, undefined),
+    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, undefined),
     reactivityTransform: resolveSubOptions<'reactivityTransform'>(
       reactivityTransform,
       undefined
@@ -150,8 +157,12 @@ function resolveOptions({
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
       root,
     }),
-    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC),
-    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits),
+    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, undefined),
+    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits, undefined),
+    singleDefine: resolveSubOptions<'singleDefine'>(singleDefine, {
+      isProduction,
+      version,
+    }),
   }
 }
 
@@ -199,6 +210,7 @@ export default createCombinePlugin<Options | undefined>(
       setupComponentPlugins?.[0],
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
       namedTemplatePlugins?.[0],
+      resolvePlugin(VueSingleDefine, framework, options.singleDefine),
       resolvePlugin(VueDefineProps, framework, options.defineProps),
       resolvePlugin(VueDefinePropsRefs, framework, options.definePropsRefs),
       resolvePlugin(VueExportProps, framework, options.exportProps),

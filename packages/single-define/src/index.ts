@@ -1,36 +1,52 @@
 import { createUnplugin } from 'unplugin'
 import { createFilter } from '@rollup/pluginutils'
-import { REGEX_SETUP_SFC, REGEX_VUE_SFC } from '@vue-macros/common'
+import {
+  REGEX_SETUP_SFC,
+  REGEX_VUE_SFC,
+  REGEX_VUE_SUB,
+  detectVueVersion,
+} from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
-import { transformBetterDefine } from './core'
+import { transformDefineSingle } from './core'
+
 import type { PluginContext } from 'rollup'
+import type { MarkRequired } from '@vue-macros/common'
+import type { UnpluginContextMeta } from 'unplugin'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 export interface Options {
   include?: FilterPattern
   exclude?: FilterPattern
+  version?: 2 | 3
   isProduction?: boolean
 }
 
-export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
-  exclude?: FilterPattern
-}
+export type OptionsResolved = MarkRequired<
+  Options,
+  'include' | 'version' | 'isProduction'
+>
 
-function resolveOptions(options: Options): OptionsResolved {
+function resolveOption(
+  options: Options,
+  framework: UnpluginContextMeta['framework']
+): OptionsResolved {
+  const version = options.version || detectVueVersion()
   return {
-    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC],
+    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
+      version === 2 && framework === 'webpack' ? REGEX_VUE_SUB : []
+    ),
     isProduction: process.env.NODE_ENV === 'production',
     ...options,
+    version,
   }
 }
 
-const name = 'unplugin-vue-better-define'
+const name = 'unplugin-vue-single-define'
 
 export default createUnplugin<Options | undefined, false>(
-  (userOptions = {}, meta) => {
-    const options = resolveOptions(userOptions)
+  (userOptions = {}, { framework }) => {
+    const options = resolveOption(userOptions, framework)
     const filter = createFilter(options.include, options.exclude)
-
     const { resolve, handleHotUpdate } = RollupResolve()
 
     return {
@@ -38,7 +54,7 @@ export default createUnplugin<Options | undefined, false>(
       enforce: 'pre',
 
       buildStart() {
-        if (meta.framework === 'rollup' || meta.framework === 'vite') {
+        if (framework === 'rollup' || framework === 'vite') {
           setResolveTSFileIdImpl(resolve(this as PluginContext))
         }
       },
@@ -47,12 +63,11 @@ export default createUnplugin<Options | undefined, false>(
         return filter(id)
       },
 
-      async transform(code, id) {
+      transform(code, id) {
         try {
-          return await transformBetterDefine(code, id, options.isProduction)
+          return transformDefineSingle(code, id, options.isProduction)
         } catch (err: unknown) {
-          this.warn(`${name} ${err}`)
-          console.warn(err)
+          this.error(`${name} ${err}`)
         }
       },
 
