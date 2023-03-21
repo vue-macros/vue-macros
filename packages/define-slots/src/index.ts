@@ -1,7 +1,5 @@
 import { createUnplugin } from 'unplugin'
 import {
-  BaseOptions,
-  MarkRequired,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
@@ -9,6 +7,7 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { transformDefineSlots } from './core'
+import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 import type { UnpluginContextMeta } from 'unplugin'
 
 export type Options = BaseOptions

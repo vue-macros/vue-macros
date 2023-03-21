@@ -21,6 +21,7 @@ import type { Function, Node, Program } from '@babel/types'
 import type { HmrContext, ModuleNode } from 'vite'
 
 export * from './constants'
+export * from './sub-module'
 
 interface FileContextComponent {
   code: string

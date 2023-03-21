@@ -16,7 +16,7 @@ export interface Options {
   prefix?: Prefix
 }
 
-type NodeElement =
+export type NodeElement =
   | PlainElementNode
   | ComponentNode
   | SlotOutletNode
@@ -32,7 +32,7 @@ export function transformShortVmodel({
   }
 }
 
-function processDirective(node: NodeElement) {
+export function processDirective(node: NodeElement) {
   for (const [i, prop] of node.props.entries()) {
     if (
       !(

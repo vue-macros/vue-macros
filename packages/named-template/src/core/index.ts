@@ -91,7 +91,7 @@ export function preTransform(
   return getTransformResult(s, id)
 }
 
-function preTransformMainTemplate({
+export function preTransformMainTemplate({
   s,
   root,
   node,

@@ -1,7 +1,5 @@
 import { createUnplugin } from 'unplugin'
 import {
-  BaseOptions,
-  MarkRequired,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
@@ -17,6 +15,7 @@ import {
   useVmodelHelperCode,
   useVmodelHelperId,
 } from './core/helper'
+import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 import type { UnpluginContextMeta } from 'unplugin'
 
 export interface Options extends BaseOptions {

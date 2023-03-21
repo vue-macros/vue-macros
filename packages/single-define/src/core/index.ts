@@ -9,6 +9,11 @@ import { transformDefineEmit } from './define-emit'
 import { transformDefineProp } from './define-prop'
 import type { TransformOptions } from './options'
 
+export * from './constants'
+export * from './define-prop'
+export * from './define-emit'
+export * from './options'
+
 export async function transformDefineSingle(
   code: string,
   id: string,
