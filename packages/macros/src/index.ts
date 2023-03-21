@@ -108,15 +108,18 @@ function resolveOptions({
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
-    commonOptions: Partial<
-      Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
-    > = {},
+    commonOptions: [keyof OptionsCommon & keyof FeatureOptionsMap[K]] extends [
+      never
+    ]
+      ? undefined
+      : Required<
+          Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
+        >,
     defaultEnabled = true
   ): FeatureOptionsMap[K] | false {
     options = options ?? defaultEnabled
     if (!options) return false
-    else if (options === true) return { ...commonOptions }
-    else return { ...options, ...commonOptions }
+    return { ...(options === true ? {} : options), ...commonOptions }
   }
 
   root = root || process.cwd()
@@ -141,11 +144,11 @@ function resolveOptions({
     definePropsRefs: resolveSubOptions<'definePropsRefs'>(definePropsRefs, {
       version,
     }),
-    defineRender: resolveSubOptions<'defineRender'>(defineRender),
+    defineRender: resolveSubOptions<'defineRender'>(defineRender, undefined),
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
     exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
-    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
-    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
+    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, undefined),
+    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, undefined),
     reactivityTransform: resolveSubOptions<'reactivityTransform'>(
       reactivityTransform,
       undefined
@@ -154,9 +157,12 @@ function resolveOptions({
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
       root,
     }),
-    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC),
-    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits),
-    singleDefine: resolveSubOptions<'singleDefine'>(singleDefine),
+    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, undefined),
+    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits, undefined),
+    singleDefine: resolveSubOptions<'singleDefine'>(singleDefine, {
+      isProduction,
+      version,
+    }),
   }
 }
 
