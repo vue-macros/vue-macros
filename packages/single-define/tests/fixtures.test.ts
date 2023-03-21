@@ -1,13 +1,24 @@
-import { testFixtures } from '@vue-macros/test-utils'
+import { resolve } from 'node:path'
 import { describe } from 'vitest'
-import { transformDefineSingle } from '../src/core'
+import {
+  RollupEsbuildPlugin,
+  RollupToStringPlugin,
+  rollupBuild,
+  testFixtures,
+} from '@vue-macros/test-utils'
+import VueSingleDefine from '../src/rollup'
 
 describe('fixtures', async () => {
   await testFixtures(
-    import.meta.glob('./fixtures/*.{vue,js,ts}', {
-      eager: true,
-      as: 'raw',
-    }),
-    (args, id, code) => transformDefineSingle(code, id)?.code
+    'tests/fixtures/*.vue',
+    (args, id) =>
+      rollupBuild(id, [
+        VueSingleDefine({ isProduction: false }),
+        RollupToStringPlugin(),
+        RollupEsbuildPlugin({
+          target: 'esnext',
+        }),
+      ]),
+    { cwd: resolve(__dirname, '..'), promise: true }
   )
 })

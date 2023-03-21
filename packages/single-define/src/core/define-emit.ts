@@ -3,24 +3,30 @@ import { EMIT_VARIABLE_NAME } from './constants'
 import type { TransformOptions } from './options'
 import type { Node } from '@babel/types'
 
-type Emits = [name: string, validator?: string][]
+interface Emit {
+  name: string
+  validator?: string
+}
 
-function mountEmits(emits: Emits) {
-  const isAllWithoutOptions = emits.every(([, options]) => !options)
+function mountEmits(emits: Emit[]) {
+  const isAllWithoutOptions = emits.every(({ validator }) => !validator)
 
   if (isAllWithoutOptions) {
-    return `[${emits.map(([name]) => `'${name}'`).join(', ')}]`
+    return `[${emits.map(({ name }) => JSON.stringify(name)).join(', ')}]`
   }
 
   return `{
       ${emits
-        .map(([name, options]) => `${name}: ${options || `{}`}`)
+        .map(
+          ({ name, validator }) =>
+            `${JSON.stringify(name)}: ${validator || `null`}`
+        )
         .join(', ')}
     }`
 }
 
 export function transformDefineEmit({ setupAst, offset, s }: TransformOptions) {
-  const emits: Emits = []
+  const emits: Emit[] = []
 
   walkAST<Node>(setupAst, {
     enter(node: Node) {
@@ -33,10 +39,10 @@ export function transformDefineEmit({ setupAst, offset, s }: TransformOptions) {
           )
         }
 
-        emits.push([
-          name.value,
-          validator ? s.sliceNode(validator, { offset }) : undefined,
-        ])
+        emits.push({
+          name: name.value,
+          validator: validator ? s.sliceNode(validator, { offset }) : undefined,
+        })
 
         s.overwriteNode(
           node,
@@ -52,7 +58,7 @@ export function transformDefineEmit({ setupAst, offset, s }: TransformOptions) {
   if (emits.length > 0) {
     s.prependLeft(
       offset!,
-      `\n const ${EMIT_VARIABLE_NAME} = defineEmits(${mountEmits(emits)})\n`
+      `\nconst ${EMIT_VARIABLE_NAME} = defineEmits(${mountEmits(emits)})\n`
     )
   }
 }

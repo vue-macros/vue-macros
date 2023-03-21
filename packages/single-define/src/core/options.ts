@@ -1,9 +1,11 @@
-import { type MagicString } from '@vue-macros/common'
-import type { Node } from '@babel/types'
+import type { MagicString, SFCScriptBlock } from '@vue-macros/common'
+import type { Program } from '@babel/types'
 
 export interface TransformOptions {
   id: string
   s: MagicString
   offset: number
-  setupAst: Node
+  scriptSetup: SFCScriptBlock
+  setupAst: Program
+  isProduction: boolean
 }

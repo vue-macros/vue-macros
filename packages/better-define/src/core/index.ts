@@ -5,7 +5,7 @@ import {
   importHelperFn,
   parseSFC,
 } from '@vue-macros/common'
-import { analyzeSFC } from '@vue-macros/api'
+import { analyzeSFC, toRuntimeTypeString } from '@vue-macros/api'
 import type { TSEmits, TSProps } from '@vue-macros/api'
 
 export async function transformBetterDefine(
@@ -80,8 +80,4 @@ export async function transformBetterDefine(
       offset,
     })
   }
-}
-
-function toRuntimeTypeString(types: string[]) {
-  return types.length > 1 ? `[${types.join(', ')}]` : types[0]
 }

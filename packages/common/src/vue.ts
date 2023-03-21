@@ -7,18 +7,18 @@ import type { MagicString } from './magic-string'
 import type {
   SFCDescriptor,
   SFCParseResult,
-  SFCScriptBlock,
+  SFCScriptBlock as SFCScriptBlockMixed,
 } from '@vue/compiler-sfc'
 
-export type _SFCScriptBlock = Omit<
-  SFCScriptBlock,
+export type SFCScriptBlock = Omit<
+  SFCScriptBlockMixed,
   'scriptAst' | 'scriptSetupAst'
 >
 
 export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   sfc: SFCParseResult
-  script?: _SFCScriptBlock | null
-  scriptSetup?: _SFCScriptBlock | null
+  script?: SFCScriptBlock | null
+  scriptSetup?: SFCScriptBlock | null
   lang: string | undefined
   getScriptAst(): Program | undefined
   getSetupAst(): Program | undefined

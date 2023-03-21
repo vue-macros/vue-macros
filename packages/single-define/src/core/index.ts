@@ -9,7 +9,11 @@ import { transformDefineEmit } from './define-emit'
 import { transformDefineProp } from './define-prop'
 import type { TransformOptions } from './options'
 
-export function transformDefineSingle(code: string, id: string) {
+export async function transformDefineSingle(
+  code: string,
+  id: string,
+  isProduction: boolean
+) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
 
   if (!scriptSetup) return
@@ -22,15 +26,17 @@ export function transformDefineSingle(code: string, id: string) {
     id,
     s,
     offset,
+    scriptSetup,
     setupAst,
-  }
-
-  if (code.includes(DEFINE_EMIT)) {
-    transformDefineEmit(options)
+    isProduction,
   }
 
   if (code.includes(DEFINE_PROP)) {
-    transformDefineProp(options)
+    await transformDefineProp(options)
+  }
+
+  if (code.includes(DEFINE_EMIT)) {
+    await transformDefineEmit(options)
   }
 
   return getTransformResult(s, id)

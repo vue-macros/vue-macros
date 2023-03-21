@@ -5,28 +5,65 @@ import {
   isCallOf,
   walkAST,
 } from '@vue-macros/common'
+import {
+  inferRuntimeType,
+  resolveTSReferencedType,
+  toRuntimeTypeString,
+} from '@vue-macros/api'
 import { PROPS_VARIABLE_NAME } from './constants'
 import type { TransformOptions } from './options'
-import type { Node } from '@babel/types'
+import type { Node, TSType } from '@babel/types'
 
-type Props = [name: string, definition?: string][]
-
-function mountProps(props: Props) {
-  const isAllWithoutOptions = props.every(([, options]) => !options)
-
-  if (isAllWithoutOptions) {
-    return `[${props.map(([name]) => `'${name}'`).join(', ')}]`
-  }
-
-  return `{
-    ${props
-      .map(([name, options]) => `${name}: ${options || '{}'}`)
-      .join(',\n  ')}
-  }`
+export interface Prop {
+  name: string
+  definition?: string
+  typeParameter?: TSType
 }
 
-export function transformDefineProp({ setupAst, offset, s }: TransformOptions) {
-  const props: Props = []
+async function mountProps(
+  { id, scriptSetup, setupAst, isProduction }: TransformOptions,
+  props: Prop[]
+) {
+  const isAllWithoutOptions = props.every(
+    ({ definition, typeParameter }) => !definition && !typeParameter
+  )
+
+  if (isAllWithoutOptions) {
+    return `[${props.map(({ name }) => JSON.stringify(name)).join(', ')}]`
+  }
+
+  let propsString = '{\n'
+
+  for (const { name, definition, typeParameter } of props) {
+    propsString += `  ${JSON.stringify(name)}: `
+    if (definition) {
+      propsString += definition
+    } else if (typeParameter && !isProduction) {
+      const resolved = await resolveTSReferencedType({
+        scope: {
+          filePath: id,
+          content: scriptSetup.content,
+          ast: setupAst.body,
+        },
+        type: typeParameter,
+      })
+
+      propsString += resolved
+        ? `{ type: ${toRuntimeTypeString(await inferRuntimeType(resolved))} }`
+        : 'null'
+    } else {
+      propsString += 'null'
+    }
+    propsString += ',\n'
+  }
+  propsString += '}'
+
+  return propsString
+}
+
+export async function transformDefineProp(options: TransformOptions) {
+  const { setupAst, offset, s } = options
+  const props: Prop[] = []
 
   walkAST<Node>(setupAst, {
     enter(node: Node) {
@@ -39,10 +76,13 @@ export function transformDefineProp({ setupAst, offset, s }: TransformOptions) {
           )
         }
 
-        props.push([
-          name.value,
-          definition ? s.sliceNode(definition, { offset }) : undefined,
-        ])
+        props.push({
+          name: name.value,
+          definition: definition
+            ? s.sliceNode(definition, { offset })
+            : undefined,
+          typeParameter: node.typeParameters?.params[0],
+        })
 
         s.overwriteNode(
           node,
@@ -60,7 +100,10 @@ export function transformDefineProp({ setupAst, offset, s }: TransformOptions) {
 
     s.prependLeft(
       offset!,
-      `\nconst ${PROPS_VARIABLE_NAME} = defineProps(${mountProps(props)})\n`
+      `\nconst ${PROPS_VARIABLE_NAME} = defineProps(${await mountProps(
+        options,
+        props
+      )})\n`
     )
   }
 }
