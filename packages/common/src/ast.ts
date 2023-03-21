@@ -21,11 +21,14 @@ export function babelParse(
   lang?: string,
   options: ParserOptions = {}
 ): Program {
-  const plugins: ParserPlugin[] = []
+  const plugins: ParserPlugin[] = [...(options.plugins || [])]
   if (isTs(lang)) {
     plugins.push(['typescript', { dts: lang === 'dts' }])
     if (REGEX_LANG_JSX.test(lang!)) plugins.push('jsx')
-  } else plugins.push('jsx')
+    if (!plugins.includes('decorators')) plugins.push('decorators-legacy')
+  } else {
+    plugins.push('jsx')
+  }
   const { program } = _babelParse(code, {
     sourceType: 'module',
     plugins,
