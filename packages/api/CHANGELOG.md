@@ -1,5 +1,12 @@
 # @vue-macros/api
 
+## 0.4.8
+
+### Patch Changes
+
+- Updated dependencies [[`40ecab4`](https://github.com/sxzz/unplugin-vue-macros/commit/40ecab454b6db796e316e3c591b3c21777ea56d3), [`0b235bf`](https://github.com/sxzz/unplugin-vue-macros/commit/0b235bf8d2c5754898a178a99e99c1272156e425)]:
+  - @vue-macros/common@1.1.2
+
 ## 0.4.7
 
 ### Patch Changes

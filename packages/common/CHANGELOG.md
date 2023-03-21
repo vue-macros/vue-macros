@@ -1,5 +1,13 @@
 # @vue-macros/common
 
+## 1.1.2
+
+### Patch Changes
+
+- [`40ecab4`](https://github.com/sxzz/unplugin-vue-macros/commit/40ecab454b6db796e316e3c591b3c21777ea56d3) Thanks [@sxzz](https://github.com/sxzz)! - parse decorators-legacy by default
+
+- [`0b235bf`](https://github.com/sxzz/unplugin-vue-macros/commit/0b235bf8d2c5754898a178a99e99c1272156e425) Thanks [@sxzz](https://github.com/sxzz)! - simplify plugin options
+
 ## 1.1.1
 
 ### Patch Changes
