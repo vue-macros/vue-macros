@@ -10,7 +10,6 @@ import { shouldTransform, transformAST } from './impl'
 import { helperId } from './helper'
 import type { Identifier, Node } from '@babel/types'
 
-export * from './helper'
 export * from './impl'
 
 export function transformVueSFC(code: string, id: string) {

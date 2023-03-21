@@ -28,8 +28,6 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export * from './helper'
-
 export function transformDefineModel(
   code: string,
   id: string,

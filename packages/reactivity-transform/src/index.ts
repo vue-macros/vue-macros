@@ -10,7 +10,8 @@ import {
   normalizePath,
 } from '@vue-macros/common'
 import { shouldTransform, transform } from './core/impl'
-import { helperCode, helperId, transformVueSFC } from './core'
+import { transformVueSFC } from './core'
+import { helperCode, helperId } from './core/helper'
 import type { UnpluginContextMeta } from 'unplugin'
 import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 
