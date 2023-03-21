@@ -1,19 +1,19 @@
 # definePropsRefs
 
-<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+<small>稳定性: <code class="!text-yellow-600">不稳定</code></small>
 
-Returns refs from `defineProps` instead of a reactive object. It can be destructured without losing reactivity.
+从 `defineProps` 中将返回 refs 而不是响应式对象，但 `definePropsRefs` 可以在不失去响应式的情况下被解构。
 
 `toRefs(defineProps())` => `definePropsRefs()`
 
-|         Features          |     Supported      |
+|           特性            |        支持        |
 | :-----------------------: | :----------------: |
 |           Vue 3           | :white_check_mark: |
 |          Nuxt 3           | :white_check_mark: |
 |           Vue 2           | :white_check_mark: |
 | TypeScript / Volar Plugin | :white_check_mark: |
 
-## Basic Usage
+## 基本用法
 
 ```vue {2-3,8}
 <script setup lang="ts">
@@ -27,7 +27,7 @@ console.log(foo.value, bar.value)
 </script>
 ```
 
-## Volar Configuration
+## Volar 配置
 
 ```jsonc {6}
 // tsconfig.json

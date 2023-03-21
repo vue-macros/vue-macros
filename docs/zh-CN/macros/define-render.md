@@ -1,17 +1,17 @@
 # defineRender
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-Defining render function in `<script setup>` using the `defineRender`.
+使用 `defineRender` 可以直接在 `<script setup>` 中定义渲染函数。
 
-|  Features  |     Supported      |
+|    特性    |        支持        |
 | :--------: | :----------------: |
 |   Vue 3    | :white_check_mark: |
 |   Nuxt 3   | :white_check_mark: |
 |   Vue 2    | :white_check_mark: |
 | TypeScript | :white_check_mark: |
 
-## Basic Usage
+## 基本用法
 
 ```vue
 <script setup lang="tsx">

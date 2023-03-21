@@ -1,28 +1,30 @@
 # setupComponent
 
 <small mr-2>
-  Stability: <code class="!text-red-600">experimental</code>
+  稳定性: <code class="!text-red-600">实验性</code>
 </small>
-<WarnBadge>Experimental, use at your risk</WarnBadge>
+<WarnBadge>实验性功能，风险自负</WarnBadge>
 
 ::: tip
 
-If you're using `setupComponent`, then `defineRender` cannot be disabled.
+如果你使用的是 `setupComponent`，则无法禁用 `defineRender`。
 
-Files in `node_modules` will not be ignored by default.
+默认情况下不会忽略 `node_modules` 中的文件。
 
 :::
 
-With `defineSetupComponent`, `<script setup>` code can be put in **pure JS/TS(X)** without [Volar](https://github.com/johnsoncodehk/volar) extension.
+<!-- defineSetupComponent，<script setup>  [Volar](https://github.com/johnsoncodehk/volar) 的纯 JS/TS(X) 中 -->
 
-|  Features  |     Supported      |
+使用 `defineSetupComponent`, 可以将 `<script setup>` 中的代码放在没有 [Volar](https://github.com/johnsoncodehk/volar) 扩展的 **纯 JS/TS(X)** 中。
+
+|    特性    |        支持        |
 | :--------: | :----------------: |
 |   Vue 3    | :white_check_mark: |
 |   Nuxt 3   |        :x:         |
 |   Vue 2    |        :x:         |
 | TypeScript |        :x:         |
 
-## Basic Usage
+## 基本用法
 
 ```ts
 export const App = defineSetupComponent(() => {
@@ -42,7 +44,7 @@ export const App = defineSetupComponent(() => {
 })
 ```
 
-## Type Annotation
+## 类型注解
 
 ```ts
 export const App: SetupFC = () => {
@@ -60,7 +62,7 @@ export const App: SetupFC = () => {
 }
 ```
 
-## Known Issues
+## 已知的问题
 
-- TypeScript support is not yet completed.
-- The source map does not correspond properly.
+- TypeScript 支持尚未完成。
+- Source map 不能正确映射。

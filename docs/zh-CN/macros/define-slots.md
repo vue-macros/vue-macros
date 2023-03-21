@@ -1,18 +1,18 @@
 # defineSlots
 
-<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+<small>稳定性: <code class="!text-yellow-600">不稳定</code></small>
 
-Declaring type of SFC slots in `<script setup>` using the `defineSlots`.
+使用 `defineSlots` 可以在 `<script setup>` 中声明 SFC 中 slots 的类型
 
-|       Features       |              Supported              |
-| :------------------: | :---------------------------------: |
-|        Vue 3         |         :white_check_mark:          |
-|        Nuxt 3        |         :white_check_mark:          |
-|        Vue 2         |         :white_check_mark:          |
-| Volar Plugin + Vue 3 |         :white_check_mark:          |
-| Volar Plugin + Vue 2 | :x: (Volar does not support it yet) |
+|         特性         |         支持         |
+| :------------------: | :------------------: |
+|        Vue 3         |  :white_check_mark:  |
+|        Nuxt 3        |  :white_check_mark:  |
+|        Vue 2         |  :white_check_mark:  |
+| Volar Plugin + Vue 3 |  :white_check_mark:  |
+| Volar Plugin + Vue 2 | :x: (Volar 还不支持) |
 
-## Basic Usage
+## 基本用法
 
 ```vue
 <script setup lang="ts">
@@ -26,7 +26,7 @@ defineSlots<{
 </script>
 ```
 
-## Volar Configuration
+## Volar 配置
 
 ```jsonc {6}
 // tsconfig.json

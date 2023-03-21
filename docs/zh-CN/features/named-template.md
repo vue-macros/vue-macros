@@ -1,26 +1,24 @@
 # namedTemplate
 
-
 <div py2 flex>
-  <small>Stability: <code class="!text-red-600">experimental</code></small>
-  <WarnBadge>Experimental, use at your risk</WarnBadge>
+  <small>稳定性: <code class="!text-red-600">实验性</code></small>
+  <WarnBadge>实验性功能，风险自负</WarnBadge>
 </div>
 
+通过开启 `namedTemplate` ，`<template>` 可以像变量一样被引用。
 
-With enabling `namedTemplate`, `<template>` can be referenced like a variable.
+有时候我们需要把非常简单的组件颠倒顺序，但又不想放弃 Vue 模板的特性而使用 JSX/TSX。那么这个功能就非常有用了。
 
-Sometimes we need to reverse the order of the very simple components, and don't want to give the features of Vue template up and use JSX/TSX. Then this feature is much helpful.
+如果你支持此功能，欢迎在 [讨论](https://github.com/vuejs/core/discussions/6898) 中点赞 :+1: 或评论。
 
-If you support this feature, you can go to [the discussion](https://github.com/vuejs/core/discussions/6898) and hit like :+1: or comment.
-
-|      Features      |     Supported      |
+|        特性        |        支持        |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
 |       Nuxt 3       |        :x:         |
 |       Vue 2        |        :x:         |
 | TypeScript / Volar |        :x:         |
 
-## Basic Usage
+## 基本用法
 
 ```vue {5-7,10-12,16-18}
 <script setup>
@@ -44,6 +42,6 @@ const pager = 'top'
 </template>
 ```
 
-## Known Usage
+## 已知的问题
 
-- TypeScript / Volar support is not yet completed.
+- TypeScript / Volar 支持尚未完成。

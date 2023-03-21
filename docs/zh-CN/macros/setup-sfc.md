@@ -1,24 +1,24 @@
 # setupSFC
 
 <small mr-2>
-  Stability: <code class="!text-red-600">experimental</code>
+  稳定性: <code class="!text-red-600">实验性</code>
 </small>
-<WarnBadge>Experimental, use at your risk</WarnBadge>
+<WarnBadge>实验性功能，风险自负</WarnBadge>
 
 ::: tip
 
-If you're using `setupSFC`, then `defineRender` cannot be disabled.
+如果你使用的是 `setupSFC`，则无法禁用 `defineRender`。
 
 :::
 
-|      Features      |     Supported      |
+|        特性        |        支持        |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
 |       Nuxt 3       |        :x:         |
 |       Vue 2        | :white_check_mark: |
 | TypeScript / Volar |        :x:         |
 
-## Setup
+## 安装
 
 ::: code-group
 
@@ -66,7 +66,7 @@ export default defineConfig({
 
 :::
 
-## Basic Usage
+## 基本用法
 
 ```tsx
 // Foo.setup.tsx
@@ -85,7 +85,7 @@ export default () => (
 )
 ```
 
-## Known Issues
+## 已知的问题
 
-- The source map does not correspond properly in JSX/TSX files.
-- TypeScript support is not yet completed.
+- Source map 在 JSX/TSX 文件中不能正确的映射。
+- TypeScript 支持尚未完成。

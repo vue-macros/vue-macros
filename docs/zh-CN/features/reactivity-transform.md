@@ -1,19 +1,19 @@
 # Reactivity Transform
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-|      Features      |     Supported      |
+|        特性        |        支持        |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
 |       Nuxt 3       | :white_check_mark: |
 |       Vue 2        | :white_check_mark: |
 | TypeScript / Volar | :white_check_mark: |
 
-## Installation Standalone Version
+## 安装独立版本
 
-if you need Reactivity Transform feature only, the standalone version is more appropriate for you.
+如果你只需要 `Reactivity Transform` 功能，独立版本更适合你。
 
-### Installation
+### 安装
 
 ::: code-group
 
@@ -70,7 +70,7 @@ module.exports = {
 
 :::
 
-### TypeScript Support
+### TypeScript 支持
 
 ```json
 // tsconfig.json
@@ -82,6 +82,6 @@ module.exports = {
 }
 ```
 
-## Usage
+## 用法
 
-Refer to [official docs](https://vuejs.org/guide/extras/reactivity-transform.html).
+参见 [官方文档](https://cn.vuejs.org/guide/extras/reactivity-transform.html).

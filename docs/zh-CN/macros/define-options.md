@@ -1,23 +1,23 @@
 # defineOptions
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-Options API can be declared using the `defineOptions` in `<script setup>`, specifically to be able to set `name`, `props`, `emits`, and `render` inside of one function.
+可以使用 `defineOptions`函数在 `<script setup>`中使用选项式 API，也就是说我们可以把 `name`, `props`, `emits`, `render` 放到一个函数里。
 
-If you support this feature, feel free to hit like :+1: or comment on the [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430). Thanks!
+如果你支持此功能，欢迎在 [RFC](https://github.com/vuejs/rfcs/discussions/430) 中点赞 :+1: 或发表评论。
 
-|  Features  |     Supported      |
+|    特性    |        支持        |
 | :--------: | :----------------: |
 |   Vue 3    | :white_check_mark: |
 |   Nuxt 3   | :white_check_mark: |
 |   Vue 2    | :white_check_mark: |
 | TypeScript | :white_check_mark: |
 
-## Installation Standalone Version
+## 安装独立版本
 
-if you need `defineOptions` feature only, the standalone version is more appropriate for you.
+如果你只需要 `defineOptions` 功能, 那么独立版本更加适合你。
 
-### Installation
+### 安装
 
 ::: code-group
 
@@ -74,7 +74,7 @@ module.exports = {
 
 :::
 
-### TypeScript Support
+### TypeScript 支持
 
 ```json
 // tsconfig.json
@@ -86,7 +86,7 @@ module.exports = {
 }
 ```
 
-## Basic Usage
+## 基本用法
 
 ```vue {3-6}
 <script setup lang="ts">
@@ -99,7 +99,7 @@ const slots = useSlots()
 </script>
 ```
 
-::: details Compiled Code
+::: details 编译后代码
 
 ```vue
 <script lang="ts">
@@ -128,7 +128,7 @@ defineOptions({
 </script>
 ```
 
-::: details Compiled Code
+::: details 编译后代码
 
 ```vue
 <script lang="tsx">

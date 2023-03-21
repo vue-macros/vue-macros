@@ -1,6 +1,6 @@
-# Nuxt Integration
+# Nuxt 整合
 
-### Installation
+### 安装
 
 ::: code-group
 
@@ -18,7 +18,7 @@ pnpm add -D @vue-macros/nuxt
 
 :::
 
-## Configuration
+## 配置
 
 ```ts
 // nuxt.config.ts
@@ -33,6 +33,6 @@ export default {
 }
 ```
 
-:tada: Congratulations! That's all.
+:tada: 恭喜你! 现在已经成功完成了对 Nuxt 的整合过程。
 
-To learn more about the macros, please visit [All Macros](/macros/) :laughing:.
+如果你还想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:。

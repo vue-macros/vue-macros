@@ -1,19 +1,19 @@
 # betterDefine
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-With enabling `betterDefine`, imported types are supported in `<script setup>` type-based-macros.
+通过开启 `betterDefine` ，支持在 `<script setup>` 中导入 TS 类型来定义 `props` 和 `emits`。
 
-[Related issue](https://github.com/vuejs/core/issues/4294)
+如果你对此功能有任何疑问，欢迎在 [issues](https://github.com/vuejs/core/issues/4294) 中发表评论。
 
-|  Features  |     Supported      |
+|    特性    |        支持        |
 | :--------: | :----------------: |
 |   Vue 3    | :white_check_mark: |
 |   Nuxt 3   | :white_check_mark: |
 |   Vue 2    | :white_check_mark: |
 | TypeScript | :white_check_mark: |
 
-## Basic Usage
+## 基本用法
 
 ::: code-group
 
@@ -36,29 +36,29 @@ export interface BaseProps {
 
 :::
 
-## ⚠️ Limitations
+## ⚠️ 限制
 
-### Complex types
+### 复杂类型
 
-Complex types are not supported in some key places. For example:
+在一些**关键的位置**不支持**复杂类型**。例如：
 
-#### What are Complex Types?
+#### 什么是复杂类型？
 
-- All utility types
-  - [Built-in types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
-  - All types from `type-fest` package.
+- 所有工具类型
+  - [内置类型](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+  - 来自 `type-fest` 包的所有类型。
   - ...
-- Index Signature
+- 索引签名
   ```ts
   interface Type {
     [key: string]: string
   }
   ```
-- Generics will be ignored directly
+- 泛型将会被直接忽略
 
-#### What are Key Places?
+#### 什么是**关键的位置**?
 
-- The names of props.
+- **props** 的名称
 
 ```ts
 // ✅
@@ -72,7 +72,7 @@ defineProps<{
 }>()
 ```
 
-- The names of events.
+- **events** 的名称
 
 ```ts
 interface Emits {

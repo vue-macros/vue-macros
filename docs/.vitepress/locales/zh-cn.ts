@@ -12,6 +12,19 @@ export const nav: DefaultTheme.NavItem[] = [
 
 export const sidebar = common.sidebar('zh-CN')
 
+const sidebarTitle: string[] = ['指南', '宏', '特性']
+const sidebarItem: string[][] = [
+  ['入门', '打包器整合', 'Nuxt 整合', '配置'],
+  ['全部宏'],
+  [''],
+]
+sidebar.forEach((bar, i) => {
+  bar.text = sidebarTitle[i]
+  bar.items!.forEach((item, j) => {
+    if (sidebarItem[i][j]) item.text = sidebarItem[i][j]
+  })
+})
+
 export const themeConfig: DefaultTheme.Config = {
   ...common.themeConfig,
 
