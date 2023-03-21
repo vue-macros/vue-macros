@@ -108,13 +108,9 @@ function resolveOptions({
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
-    commonOptions: [keyof OptionsCommon & keyof FeatureOptionsMap[K]] extends [
-      never
-    ]
-      ? undefined
-      : Required<
-          Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
-        >,
+    commonOptions: Required<
+      Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
+    >,
     defaultEnabled = true
   ): FeatureOptionsMap[K] | false {
     options = options ?? defaultEnabled
@@ -134,6 +130,7 @@ function resolveOptions({
     nuxtContext: nuxtContext || {},
 
     betterDefine: resolveSubOptions<'betterDefine'>(betterDefine, {
+      version,
       isProduction,
     }),
     defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
@@ -144,21 +141,24 @@ function resolveOptions({
     definePropsRefs: resolveSubOptions<'definePropsRefs'>(definePropsRefs, {
       version,
     }),
-    defineRender: resolveSubOptions<'defineRender'>(defineRender, undefined),
+    defineRender: resolveSubOptions<'defineRender'>(defineRender, { version }),
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
     exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
-    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, undefined),
-    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, undefined),
+    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, { version }),
+    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, {
+      version,
+    }),
     reactivityTransform: resolveSubOptions<'reactivityTransform'>(
       reactivityTransform,
-      undefined
+      { version }
     ),
-    setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, undefined, false),
+    setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, { version }, false),
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
+      version,
       root,
     }),
-    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, undefined),
-    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits, undefined),
+    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, { version }),
+    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits, { version }),
     singleDefine: resolveSubOptions<'singleDefine'>(singleDefine, {
       isProduction,
       version,

@@ -1,10 +1,13 @@
 import { createUnplugin } from 'unplugin'
-import { createFilter, normalizePath } from '@rollup/pluginutils'
 import {
+  BaseOptions,
+  MarkRequired,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
+  createFilter,
   detectVueVersion,
+  normalizePath,
 } from '@vue-macros/common'
 import { transformDefineModel } from './core'
 import {
@@ -15,17 +18,8 @@ import {
   useVmodelHelperId,
 } from './core/helper'
 import type { UnpluginContextMeta } from 'unplugin'
-import type { MarkRequired } from '@vue-macros/common'
-import type { FilterPattern } from '@rollup/pluginutils'
 
-export interface Options {
-  include?: FilterPattern
-  exclude?: FilterPattern
-  /**
-   * Vue version
-   * @default 3
-   */
-  version?: 2 | 3
+export interface Options extends BaseOptions {
   /**
    * Unified mode, only works for Vue 2
    *
@@ -48,9 +42,9 @@ function resolveOption(
     include: [REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
       version === 2 && framework === 'webpack' ? REGEX_VUE_SUB : []
     ),
-    version: 3,
     unified: true,
     ...options,
+    version,
   }
 }
 
@@ -59,7 +53,7 @@ const name = 'unplugin-vue-define-model'
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}, { framework }) => {
     const options = resolveOption(userOptions, framework)
-    const filter = createFilter(options.include, options.exclude)
+    const filter = createFilter(options)
 
     return {
       name,

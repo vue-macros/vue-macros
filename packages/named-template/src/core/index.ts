@@ -10,7 +10,6 @@ import {
 } from '@vue-macros/common'
 import { createTransformContext, parse, traverseNode } from '@vue/compiler-dom'
 import { getChildrenLocation, parseVueRequest } from './utils'
-import {} from '@rollup/pluginutils'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,

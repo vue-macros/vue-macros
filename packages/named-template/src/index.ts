@@ -1,27 +1,27 @@
 import { createUnplugin } from 'unplugin'
-import { createFilter } from '@rollup/pluginutils'
-import { REGEX_VUE_SFC } from '@vue-macros/common'
+import {
+  REGEX_VUE_SFC,
+  createFilter,
+  detectVueVersion,
+} from '@vue-macros/common'
 import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE,
 } from './core/constants'
-import type { FilterPattern } from '@rollup/pluginutils'
+import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 
-export interface Options {
-  include?: FilterPattern
-  exclude?: FilterPattern
-}
+export type Options = BaseOptions
 
-export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
-  exclude?: FilterPattern
-}
+export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 
 function resolveOption(options: Options): OptionsResolved {
+  const version = options.version || detectVueVersion()
   return {
     include: [REGEX_VUE_SFC],
     ...options,
+    version,
   }
 }
 
@@ -34,7 +34,7 @@ const name = 'unplugin-vue-named-template'
 export const PrePlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
     const options = resolveOption(userOptions)
-    const filter = createFilter(options.include, options.exclude)
+    const filter = createFilter(options)
 
     const templateContent: TemplateContent = {}
 
@@ -88,7 +88,7 @@ export type CustomBlocks = Record<string, Record<string, string>>
 export const PostPlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
     const options = resolveOption(userOptions)
-    const filter = createFilter(options.include, options.exclude)
+    const filter = createFilter(options)
     const customBlocks: CustomBlocks = {}
 
     function transformInclude(id: string) {

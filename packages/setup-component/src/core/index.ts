@@ -2,20 +2,21 @@ import {
   DEFINE_SETUP_COMPONENT,
   HELPER_PREFIX,
   MagicString,
+  attachScopes,
   babelParse,
   getLang,
   getTransformResult,
   isCallOf,
+  normalizePath,
   walkAST,
 } from '@vue-macros/common'
-import { attachScopes, normalizePath } from '@rollup/pluginutils'
 import {
   SETUP_COMPONENT_ID_REGEX,
   SETUP_COMPONENT_ID_SUFFIX,
   SETUP_COMPONENT_TYPE,
 } from './constants'
 import { isSubModule } from './sub-module'
-import type { AttachedScope } from '@rollup/pluginutils'
+import type { AttachedScope } from '@vue-macros/common'
 import type { Function, Node, Program } from '@babel/types'
 import type { HmrContext, ModuleNode } from 'vite'
 
