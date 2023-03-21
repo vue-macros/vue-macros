@@ -1,10 +1,11 @@
 import { createUnplugin } from 'unplugin'
-import { createFilter } from '@rollup/pluginutils'
 import {
   REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
   REGEX_VUE_SUB,
+  createFilter,
+  detectVueVersion,
 } from '@vue-macros/common'
 import {
   SETUP_COMPONENT_ID_REGEX,
@@ -14,28 +15,28 @@ import {
   transformSetupComponent,
 } from './core'
 import { getMainModule, isSubModule } from './core/sub-module'
+import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 import type { PluginContext } from 'rollup'
-import type { FilterPattern } from '@rollup/pluginutils'
 import type { SetupComponentContext } from './core'
 
 export type { SetupComponentContext } from './core'
 
-export interface Options {
-  include?: FilterPattern
-  exclude?: FilterPattern
+export interface Options extends BaseOptions {
   root?: string
 }
-
-export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
-  exclude?: FilterPattern
-}
+export type OptionsResolved = MarkRequired<
+  Options,
+  'include' | 'version' | 'root'
+>
 
 function resolveOption(options: Options): OptionsResolved {
+  const version = options.version || detectVueVersion()
   return {
     include: [REGEX_SRC_FILE],
     exclude: [REGEX_SETUP_SFC, REGEX_VUE_SUB, REGEX_NODE_MODULES],
     root: process.cwd(),
     ...options,
+    version,
   }
 }
 
@@ -43,7 +44,7 @@ const name = 'unplugin-vue-setup-component'
 const PrePlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}, meta) => {
     const options = resolveOption(userOptions)
-    const filter = createFilter(options.include, options.exclude)
+    const filter = createFilter(options)
 
     const setupComponentContext: SetupComponentContext = {}
 

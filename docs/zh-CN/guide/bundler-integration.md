@@ -135,6 +135,7 @@ npm i -D @vue-macros/volar
 {
   "vueCompilerOptions": {
     "plugins": [
+      "@vue-macros/volar/define-options",
       "@vue-macros/volar/define-model",
       "@vue-macros/volar/define-props",
       "@vue-macros/volar/define-props-refs",

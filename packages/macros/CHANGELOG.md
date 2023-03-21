@@ -1,5 +1,118 @@
 # unplugin-vue-macros
 
+## 1.10.1
+
+### Patch Changes
+
+- Updated dependencies [[`2dff8b2`](https://github.com/sxzz/unplugin-vue-macros/commit/2dff8b27b3ab05a73a28c247bd339f3f9fef3104), [`82494e5`](https://github.com/sxzz/unplugin-vue-macros/commit/82494e58b6eb972257913d3cb8cebe2eb2881736)]:
+  - @vue-macros/better-define@1.3.7
+  - @vue-macros/define-model@1.3.4
+
+## 1.10.0
+
+### Minor Changes
+
+- [`168266d`](https://github.com/sxzz/unplugin-vue-macros/commit/168266d8b9b5428ecec0bbbe25753db67bb02247) Thanks [@sxzz](https://github.com/sxzz)! - export all macros in main package
+
+### Patch Changes
+
+- [`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480) Thanks [@sxzz](https://github.com/sxzz)! - rename helper name
+
+- Updated dependencies [[`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480)]:
+  - @vue-macros/reactivity-transform@0.2.5
+  - @vue-macros/define-props-refs@0.2.3
+  - @vue-macros/setup-component@0.15.4
+  - unplugin-vue-define-options@1.2.4
+  - @vue-macros/named-template@0.2.4
+  - @vue-macros/better-define@1.3.6
+  - @vue-macros/define-model@1.3.4
+  - @vue-macros/common@1.1.1
+  - @vue-macros/define-props@0.4.1
+  - @vue-macros/define-render@1.2.4
+  - @vue-macros/define-slots@0.2.4
+  - @vue-macros/export-props@0.2.3
+  - @vue-macros/hoist-static@1.2.3
+  - @vue-macros/setup-block@0.1.3
+  - @vue-macros/setup-sfc@0.14.3
+  - @vue-macros/short-emits@1.2.4
+
+## 1.9.1
+
+### Patch Changes
+
+- Updated dependencies [[`8d919f8`](https://github.com/sxzz/unplugin-vue-macros/commit/8d919f81f99b7f4855b52f1a5edd7f3cee117d77)]:
+  - @vue-macros/better-define@1.3.5
+  - @vue-macros/define-model@1.3.3
+
+## 1.9.0
+
+### Minor Changes
+
+- [`38a31ea`](https://github.com/sxzz/unplugin-vue-macros/commit/38a31eada9d195afa514bc44e05ea508d4f064ad) Thanks [@sxzz](https://github.com/sxzz)! - Change Reactivity Transform for `$defineProps`
+  The types source of Reactivity Transform has changed to `@vue-macros/reactivity-transform` instead of `vue/macros`.
+  Because it has been deprecated and will be removed in the Vue 3.4.
+
+### Patch Changes
+
+- Updated dependencies [[`38a31ea`](https://github.com/sxzz/unplugin-vue-macros/commit/38a31eada9d195afa514bc44e05ea508d4f064ad)]:
+  - @vue-macros/define-props@0.4.0
+
+## 1.8.3
+
+### Patch Changes
+
+- Updated dependencies [[`f40d270`](https://github.com/sxzz/unplugin-vue-macros/commit/f40d2701239967cfc288def57bc8b32ef57fad7e)]:
+  - @vue-macros/common@1.1.0
+  - @vue-macros/better-define@1.3.4
+  - @vue-macros/define-model@1.3.3
+  - unplugin-vue-define-options@1.2.3
+  - @vue-macros/define-props@0.3.3
+  - @vue-macros/define-props-refs@0.2.2
+  - @vue-macros/define-render@1.2.3
+  - @vue-macros/define-slots@0.2.3
+  - @vue-macros/export-props@0.2.2
+  - @vue-macros/hoist-static@1.2.2
+  - @vue-macros/named-template@0.2.3
+  - @vue-macros/reactivity-transform@0.2.4
+  - @vue-macros/setup-block@0.1.2
+  - @vue-macros/setup-component@0.15.3
+  - @vue-macros/setup-sfc@0.14.2
+  - @vue-macros/short-emits@1.2.3
+
+## 1.8.2
+
+### Patch Changes
+
+- [`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242) Thanks [@sxzz](https://github.com/sxzz)! - tidy package manifests
+
+- Updated dependencies [[`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242)]:
+  - @vue-macros/reactivity-transform@0.2.3
+  - @vue-macros/define-props-refs@0.2.1
+  - @vue-macros/setup-component@0.15.2
+  - unplugin-vue-define-options@1.2.2
+  - @vue-macros/named-template@0.2.2
+  - @vue-macros/better-define@1.3.3
+  - @vue-macros/define-render@1.2.2
+  - @vue-macros/define-model@1.3.2
+  - @vue-macros/define-props@0.3.2
+  - @vue-macros/define-slots@0.2.2
+  - @vue-macros/export-props@0.2.1
+  - @vue-macros/hoist-static@1.2.1
+  - @vue-macros/setup-block@0.1.1
+  - @vue-macros/short-emits@1.2.2
+  - @vue-macros/setup-sfc@0.14.1
+  - @vue-macros/devtools@0.1.2
+  - @vue-macros/common@1.0.1
+
+## 1.8.1
+
+### Patch Changes
+
+- [`688e652`](https://github.com/sxzz/unplugin-vue-macros/commit/688e652219d8a2c8f0dedac6c4087c7ed22ef48f) Thanks [@sxzz](https://github.com/sxzz)! - add middleware when client side only (devtools)
+
+- Updated dependencies [[`0303b62`](https://github.com/sxzz/unplugin-vue-macros/commit/0303b628d45cfc072693d924cad584ffb01bc5e5), [`d90948e`](https://github.com/sxzz/unplugin-vue-macros/commit/d90948e5148591d05cc6d185fd2a74b017133cd3), [`688e652`](https://github.com/sxzz/unplugin-vue-macros/commit/688e652219d8a2c8f0dedac6c4087c7ed22ef48f), [`26b5d79`](https://github.com/sxzz/unplugin-vue-macros/commit/26b5d79245a991920a4fd96bae514ddbcff3bae4)]:
+  - @vue-macros/devtools@0.1.1
+
 ## 1.8.0
 
 ### Minor Changes

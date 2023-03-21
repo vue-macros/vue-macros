@@ -1,7 +1,17 @@
 {
   "name": "@vue-macros/api",
-  "version": "0.4.2",
-  "packageManager": "pnpm@7.27.0",
+  "version": "0.4.7",
+  "packageManager": "pnpm@7.30.0",
+  "description": "General API for Vue Macros.",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "api"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
   "bugs": {
@@ -9,7 +19,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/api"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -29,11 +40,14 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "dependencies": {
-    "@babel/types": "^7.20.7",
+    "@babel/types": "^7.21.3",
     "@vue-macros/common": "workspace:~"
+  },
+  "devDependencies": {
+    "rollup": "^3.20.0"
   },
   "engines": {
     "node": ">=14.19.0"

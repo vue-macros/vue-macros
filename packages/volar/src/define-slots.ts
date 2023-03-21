@@ -13,7 +13,7 @@ const transform = ({
   sfc,
 }: {
   embeddedFile: VueEmbeddedFile
-  typeArg: ts.TypeNode
+  typeArg: import('typescript/lib/tsserverlibrary').TypeNode
   sfc: Sfc
 }) => {
   if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
@@ -46,7 +46,7 @@ function getTypeArg(
   ts: typeof import('typescript/lib/tsserverlibrary'),
   sfc: Sfc
 ) {
-  function getCallArg(node: ts.Node) {
+  function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
     if (
       !(
         ts.isCallExpression(node) &&

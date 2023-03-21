@@ -1,4 +1,5 @@
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
+// @ts-ignore error in node CJS (volar tsconfig)
 import { walk } from 'estree-walker'
 import { REGEX_LANG_JSX } from './constants'
 import { isTs } from './lang'
@@ -22,7 +23,7 @@ export function babelParse(
 ): Program {
   const plugins: ParserPlugin[] = []
   if (isTs(lang)) {
-    plugins.push('typescript')
+    plugins.push(['typescript', { dts: lang === 'dts' }])
     if (REGEX_LANG_JSX.test(lang!)) plugins.push('jsx')
   } else plugins.push('jsx')
   const { program } = _babelParse(code, {

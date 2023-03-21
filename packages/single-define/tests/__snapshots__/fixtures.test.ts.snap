@@ -1,0 +1,63 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > tests/fixtures/define-emit.vue 1`] = `
+"var defineEmit = \`<script setup lang=\\"ts\\">
+const __MACROS_emit = defineEmits({
+      \\"foo\\": null, \\"bar\\": (value: string) => typeof value === 'string', \\"baz\\": (value) => typeof value === 'number'
+    })
+
+import { expectTypeOf } from 'expect-type'
+
+const foo = (...args) => __MACROS_emit(\\"foo\\", ...args)
+expectTypeOf(foo).toEqualTypeOf<(...args: any) => void>()
+
+const bar = (...args) => __MACROS_emit(\\"bar\\", ...args)
+expectTypeOf(bar).toEqualTypeOf<(value: string) => void>()
+
+const baz = (...args) => __MACROS_emit(\\"baz\\", ...args)
+expectTypeOf(baz).toEqualTypeOf<(value: number) => void>()
+</script>
+\`;
+
+export { defineEmit as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/define-prop.vue 1`] = `
+"var defineProp = \`<script setup lang=\\"ts\\">
+const __MACROS_props = defineProps({
+  \\"foo\\": { type: String },
+  \\"bar\\": {
+  type: String,
+  required: true,
+  default: 'bar',
+},
+  \\"baz\\": {
+  type: [Number, String],
+  required: true,
+  default: () => [1, 2, 3],
+},
+  \\"qux\\": { type: [String, Number] },
+})
+
+import { computed as __MACROS_computed } from 'vue';
+import { expectTypeOf } from 'expect-type'
+import type { ComputedRef } from 'vue'
+import type { Qux } from './types'
+
+const foo = __MACROS_computed(() => __MACROS_props[\\"foo\\"])
+expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
+
+const bar = __MACROS_computed(() => __MACROS_props[\\"bar\\"])
+expectTypeOf(bar).toEqualTypeOf<ComputedRef<string>>()
+
+const baz = __MACROS_computed(() => __MACROS_props[\\"baz\\"])
+expectTypeOf(baz).toEqualTypeOf<ComputedRef<string | number>>()
+
+__MACROS_computed(() => __MACROS_props[\\"qux\\"])
+</script>
+\`;
+
+export { defineProp as default };
+"
+`;

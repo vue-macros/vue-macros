@@ -2,12 +2,7 @@ import { DEFINE_MODEL, DEFINE_MODEL_DOLLAR } from '@vue-macros/common'
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
 import { addEmits, addProps, getVueLibraryName } from './common'
 import type { Segment } from 'muggle-string'
-import type {
-  Sfc,
-  VueCompilerOptions,
-  VueEmbeddedFile,
-  VueLanguagePlugin,
-} from '@volar/vue-language-core'
+import type { Sfc, VueLanguagePlugin } from '@volar/vue-language-core'
 
 function transformDefineModel({
   codes,
@@ -18,7 +13,7 @@ function transformDefineModel({
 }: {
   codes: Segment<FileRangeCapabilities>[]
   sfc: Sfc
-  typeArg: ts.TypeNode
+  typeArg: import('typescript/lib/tsserverlibrary').TypeNode
   vueLibName: string
   unified: boolean
 }) {
@@ -73,7 +68,7 @@ function getTypeArg(
   ts: typeof import('typescript/lib/tsserverlibrary'),
   sfc: Sfc
 ) {
-  function getCallArg(node: ts.Node) {
+  function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
     if (
       !(
         ts.isCallExpression(node) &&
@@ -99,41 +94,6 @@ function getTypeArg(
   })
 }
 
-function resolve({
-  ts,
-  vueCompilerOptions,
-  sfc,
-  embeddedFile,
-}: {
-  ts: typeof import('typescript/lib/tsserverlibrary')
-  vueCompilerOptions: VueCompilerOptions
-  sfc: Sfc
-  embeddedFile: VueEmbeddedFile
-}) {
-  if (
-    embeddedFile.kind !== FileKind.TypeScriptHostFile ||
-    !sfc.scriptSetup ||
-    !sfc.scriptSetupAst
-  )
-    return
-
-  const typeArg = getTypeArg(ts, sfc)
-  if (!typeArg) return
-
-  const vueVersion = vueCompilerOptions.target
-  const vueLibName = getVueLibraryName(vueVersion)
-  const unified =
-    (vueVersion < 3 && vueCompilerOptions?.defineModel?.unified) ?? true
-
-  transformDefineModel({
-    codes: embeddedFile.content,
-    sfc,
-    typeArg,
-    vueLibName,
-    unified,
-  })
-}
-
 const plugin: VueLanguagePlugin = ({
   modules: { typescript: ts },
   vueCompilerOptions,
@@ -142,11 +102,27 @@ const plugin: VueLanguagePlugin = ({
     name: 'vue-macros-define-model',
     version: 1,
     resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      resolve({
-        ts,
+      if (
+        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
+        !sfc.scriptSetup ||
+        !sfc.scriptSetupAst
+      )
+        return
+
+      const typeArg = getTypeArg(ts, sfc)
+      if (!typeArg) return
+
+      const vueVersion = vueCompilerOptions.target
+      const vueLibName = getVueLibraryName(vueVersion)
+      const unified =
+        (vueVersion < 3 && vueCompilerOptions?.defineModel?.unified) ?? true
+
+      transformDefineModel({
+        codes: embeddedFile.content,
         sfc,
-        vueCompilerOptions,
-        embeddedFile,
+        typeArg,
+        vueLibName,
+        unified,
       })
     },
   }

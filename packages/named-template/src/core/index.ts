@@ -1,14 +1,15 @@
 import {
+  HELPER_PREFIX,
   MagicString,
   babelParse,
   getLang,
   getTransformResult,
+  importHelperFn,
   isCallOf,
   walkAST,
 } from '@vue-macros/common'
 import { createTransformContext, parse, traverseNode } from '@vue/compiler-dom'
 import { getChildrenLocation, parseVueRequest } from './utils'
-import {} from '@rollup/pluginutils'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
@@ -90,7 +91,7 @@ export function preTransform(
   return getTransformResult(s, id)
 }
 
-function preTransformMainTemplate({
+export function preTransformMainTemplate({
   s,
   root,
   node,
@@ -185,32 +186,29 @@ export function postTransform(
 
   if (subTemplates.length === 0) return
 
-  let importFragment = false
   for (const { vnode, component, name, fnName } of subTemplates) {
     const block = customBlocks[filename]?.[name]
     if (!block) throw new SyntaxError(`Unknown named template: ${name}`)
 
-    const render = `_NT_block_${escapeTemplateName(name)}.render(...args)`
+    const render = `${HELPER_PREFIX}block_${escapeTemplateName(
+      name
+    )}.render(...args)`
     if (fnName === '_createVNode') {
       s.overwriteNode(vnode, render)
     } else if (fnName === '_createBlock') {
-      s.overwriteNode(component, '_NT_Fragment')
+      importHelperFn(s, 0, 'Fragment', 'vue')
+      s.overwriteNode(component, `${HELPER_PREFIX}Fragment`)
       const text = `${vnode.arguments[1] ? '' : ', null'}, [${render}]`
       s.appendLeft((vnode.arguments[1] || vnode.arguments[0]).end!, text)
-      importFragment = true
     }
   }
 
   for (const [name, source] of Object.entries(customBlocks[filename])) {
     s.prepend(
-      `import { default as _NT_block_${escapeTemplateName(
+      `import { default as ${HELPER_PREFIX}block_${escapeTemplateName(
         name
       )} } from ${JSON.stringify(source)}\n`
     )
-  }
-
-  if (importFragment) {
-    s.prepend(`import { Fragment as _NT_Fragment } from 'vue'\n`)
   }
 
   return getTransformResult(s, id)

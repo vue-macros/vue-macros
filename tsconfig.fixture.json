@@ -7,6 +7,7 @@
   "include": ["**/fixtures/**/*", "**/macros-global.d.ts"],
   "vueCompilerOptions": {
     "plugins": [
+      "@vue-macros/volar/define-options",
       "@vue-macros/volar/define-model",
       "@vue-macros/volar/define-props",
       "@vue-macros/volar/short-vmodel",

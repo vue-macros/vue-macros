@@ -1,5 +1,11 @@
-import { MagicString, getTransformResult, parseSFC } from '@vue-macros/common'
-import { analyzeSFC } from '@vue-macros/api'
+import {
+  HELPER_PREFIX,
+  MagicString,
+  getTransformResult,
+  importHelperFn,
+  parseSFC,
+} from '@vue-macros/common'
+import { analyzeSFC, toRuntimeTypeString } from '@vue-macros/api'
 import type { TSEmits, TSProps } from '@vue-macros/api'
 
 export async function transformBetterDefine(
@@ -52,15 +58,12 @@ export async function transformBetterDefine(
     let decl = runtimeDecls
     if (props.withDefaultsAst && !props.defaults) {
       // dynamic defaults
-      decl = `_BD_mergeDefaults(${decl}, ${s.sliceNode(
+      decl = `${HELPER_PREFIX}mergeDefaults(${decl}, ${s.sliceNode(
         props.withDefaultsAst.arguments[1],
         { offset }
       )})`
       // add helper
-      s.prependLeft(
-        offset,
-        `import { mergeDefaults as _BD_mergeDefaults } from 'vue'`
-      )
+      importHelperFn(s, offset, 'mergeDefaults', 'vue')
     }
     decl = `defineProps(${decl})`
 
@@ -77,8 +80,4 @@ export async function transformBetterDefine(
       offset,
     })
   }
-}
-
-function toRuntimeTypeString(types: string[]) {
-  return types.length > 1 ? `[${types.join(', ')}]` : types[0]
 }

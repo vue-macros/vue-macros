@@ -1,9 +1,11 @@
 import {
   DEFINE_PROPS,
   DEFINE_PROPS_REFS,
+  HELPER_PREFIX,
   MagicString,
   WITH_DEFAULTS,
   getTransformResult,
+  importHelperFn,
   isCallOf,
   parseSFC,
   walkAST,
@@ -33,7 +35,7 @@ export function transformDefinePropsRefs(code: string, id: string) {
   })
 
   if (changed) {
-    s.prependLeft(offset, `\nimport { toRefs as _MACROS_toRefs } from 'vue'`)
+    importHelperFn(s, offset, 'toRefs', 'vue')
   }
 
   return getTransformResult(s, id)
@@ -55,11 +57,13 @@ export function transformDefinePropsRefs(code: string, id: string) {
       )})`
     }
 
-    s.prependLeft(offset, `\nconst __MACROS_props = ${code}`)
+    s.prependLeft(offset, `\nconst ${HELPER_PREFIX}props = ${code}`)
     s.overwriteNode(
       defaultsCall || propsCall,
-      '_MACROS_toRefs(__MACROS_props)',
-      { offset }
+      `${HELPER_PREFIX}toRefs(${HELPER_PREFIX}props)`,
+      {
+        offset,
+      }
     )
     changed = true
   }

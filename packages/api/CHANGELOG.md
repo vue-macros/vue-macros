@@ -1,5 +1,42 @@
 # @vue-macros/api
 
+## 0.4.7
+
+### Patch Changes
+
+- [`2dff8b2`](https://github.com/sxzz/unplugin-vue-macros/commit/2dff8b27b3ab05a73a28c247bd339f3f9fef3104) Thanks [@sxzz](https://github.com/sxzz)! - fix rollup resolve
+
+- [`82494e5`](https://github.com/sxzz/unplugin-vue-macros/commit/82494e58b6eb972257913d3cb8cebe2eb2881736) Thanks [@sxzz](https://github.com/sxzz)! - fallback to null when cannot resolve
+
+## 0.4.6
+
+### Patch Changes
+
+- Updated dependencies [[`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480)]:
+  - @vue-macros/common@1.1.1
+
+## 0.4.5
+
+### Patch Changes
+
+- [`8d919f8`](https://github.com/sxzz/unplugin-vue-macros/commit/8d919f81f99b7f4855b52f1a5edd7f3cee117d77) Thanks [@sxzz](https://github.com/sxzz)! - infer TS `Extract` and `Exclude` runtime type
+
+## 0.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`f40d270`](https://github.com/sxzz/unplugin-vue-macros/commit/f40d2701239967cfc288def57bc8b32ef57fad7e)]:
+  - @vue-macros/common@1.1.0
+
+## 0.4.3
+
+### Patch Changes
+
+- [`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242) Thanks [@sxzz](https://github.com/sxzz)! - tidy package manifests
+
+- Updated dependencies [[`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242)]:
+  - @vue-macros/common@1.0.1
+
 ## 0.4.2
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { $$, ReactiveVariable } from 'vue/macros'
+import { $$, ReactiveVariable } from '@vue-macros/reactivity-transform/macros'
 import { expectTypeOf } from 'expect-type'
 import type { Ref } from 'vue'
 

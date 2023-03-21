@@ -7,18 +7,18 @@ import type { MagicString } from './magic-string'
 import type {
   SFCDescriptor,
   SFCParseResult,
-  SFCScriptBlock,
+  SFCScriptBlock as SFCScriptBlockMixed,
 } from '@vue/compiler-sfc'
 
-export type _SFCScriptBlock = Omit<
-  SFCScriptBlock,
+export type SFCScriptBlock = Omit<
+  SFCScriptBlockMixed,
   'scriptAst' | 'scriptSetupAst'
 >
 
 export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   sfc: SFCParseResult
-  script?: _SFCScriptBlock | null
-  scriptSetup?: _SFCScriptBlock | null
+  script?: SFCScriptBlock | null
+  scriptSetup?: SFCScriptBlock | null
   lang: string | undefined
   getScriptAst(): Program | undefined
   getSetupAst(): Program | undefined
@@ -75,5 +75,27 @@ export function addNormalScript({ script, lang }: SFC, s: MagicString) {
     end() {
       if (!script) s.appendRight(0, `\n</script>\n`)
     },
+  }
+}
+
+const imported = new WeakMap<MagicString, Set<string>>()
+export const HELPER_PREFIX = '__MACROS_'
+export function importHelperFn(
+  s: MagicString,
+  offset: number,
+  name: string,
+  from: string
+) {
+  const cacheKey = `${from}@${name}`
+  if (!imported.get(s)?.has(cacheKey)) {
+    s.appendLeft(
+      offset,
+      `\nimport { ${name} as ${HELPER_PREFIX}${name} } from '${from}';`
+    )
+    if (!imported.has(s)) {
+      imported.set(s, new Set([cacheKey]))
+    } else {
+      imported.get(s)!.add(cacheKey)
+    }
   }
 }

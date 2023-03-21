@@ -1,8 +1,10 @@
 {
   "extends": "./tsconfig.base.json",
+  "include": ["packages/volar"],
   "exclude": ["**/dist", "**/tests", "**/*macros*.d.ts"],
   "compilerOptions": {
     "module": "CommonJS",
-    "moduleResolution": "node"
+    "moduleResolution": "nodenext",
+    "customConditions": ["dev"]
   }
 }

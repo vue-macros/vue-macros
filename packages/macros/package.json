@@ -1,18 +1,17 @@
 {
   "name": "unplugin-vue-macros",
-  "version": "1.8.0",
-  "packageManager": "pnpm@7.27.0",
+  "version": "1.10.1",
+  "packageManager": "pnpm@7.30.0",
   "description": "Explore and extend more macros and syntax sugar to Vue.",
   "keywords": [
-    "unplugin",
-    "vue",
+    "vue-macros",
     "macros",
+    "vue",
+    "sfc",
+    "setup",
     "script-setup",
-    "define-options",
-    "define-model",
-    "define-render",
-    "setup-sfc",
-    "setup-component"
+    "macros",
+    "unplugin"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -21,7 +20,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/macros"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -38,6 +38,18 @@
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
+    "./esbuild": {
+      "dev": "./src/esbuild.ts",
+      "types": "./dist/esbuild.d.ts",
+      "require": "./dist/esbuild.js",
+      "import": "./dist/esbuild.mjs"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "types": "./dist/rollup.d.ts",
+      "require": "./dist/rollup.js",
+      "import": "./dist/rollup.mjs"
+    },
     "./vite": {
       "dev": "./src/vite.ts",
       "types": "./dist/vite.d.ts",
@@ -50,31 +62,27 @@
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
-    "./rollup": {
-      "dev": "./src/rollup.ts",
-      "types": "./dist/rollup.d.ts",
-      "require": "./dist/rollup.js",
-      "import": "./dist/rollup.mjs"
-    },
-    "./esbuild": {
-      "dev": "./src/esbuild.ts",
-      "types": "./dist/esbuild.d.ts",
-      "require": "./dist/esbuild.js",
-      "import": "./dist/esbuild.mjs"
-    },
-    "./macros-global": "./macros-global.d.ts",
-    "./vue2-macros-global": "./vue2-macros-global.d.ts",
-    "./*": "./*"
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "<=4.9": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.0.2",
     "@vue-macros/better-define": "workspace:*",
     "@vue-macros/common": "workspace:*",
     "@vue-macros/define-model": "workspace:*",
@@ -91,12 +99,13 @@
     "@vue-macros/setup-component": "workspace:*",
     "@vue-macros/setup-sfc": "workspace:*",
     "@vue-macros/short-emits": "workspace:*",
-    "unplugin": "^1.0.1",
+    "@vue-macros/single-define": "workspace:^",
+    "unplugin": "^1.3.1",
     "unplugin-combine": "^0.6.0",
     "unplugin-vue-define-options": "workspace:*"
   },
   "devDependencies": {
-    "esbuild": "^0.17.7",
+    "esbuild": "^0.17.12",
     "vue": "^3.2.47"
   },
   "engines": {

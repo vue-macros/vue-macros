@@ -1,5 +1,37 @@
 # @vue-macros/define-props
 
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480)]:
+  - @vue-macros/reactivity-transform@0.2.5
+  - @vue-macros/common@1.1.1
+
+## 0.4.0
+
+### Minor Changes
+
+- [`38a31ea`](https://github.com/sxzz/unplugin-vue-macros/commit/38a31eada9d195afa514bc44e05ea508d4f064ad) Thanks [@sxzz](https://github.com/sxzz)! - Change Reactivity Transform for `$defineProps`
+  The types source of Reactivity Transform has changed to `@vue-macros/reactivity-transform` instead of `vue/macros`.
+  Because it has been deprecated and will be removed in the Vue 3.4.
+
+## 0.3.3
+
+### Patch Changes
+
+- Updated dependencies [[`f40d270`](https://github.com/sxzz/unplugin-vue-macros/commit/f40d2701239967cfc288def57bc8b32ef57fad7e)]:
+  - @vue-macros/common@1.1.0
+
+## 0.3.2
+
+### Patch Changes
+
+- [`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242) Thanks [@sxzz](https://github.com/sxzz)! - tidy package manifests
+
+- Updated dependencies [[`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242)]:
+  - @vue-macros/common@1.0.1
+
 ## 0.3.1
 
 ### Patch Changes

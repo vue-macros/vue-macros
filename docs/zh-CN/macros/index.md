@@ -7,7 +7,8 @@
 - [defineOptions](/zh-CN/macros/define-options)
 - [defineModel](/zh-CN/macros/define-model)
 - [defineProps](/zh-CN/macros/define-props)
-- [defineSlots](/zh-CN/macros/define-slots)
+- [definePropsRefs](/macros/define-props-refs) <WarnBadge>尚未稳定</WarnBadge>
+- [defineSlots](/zh-CN/macros/define-slots) <WarnBadge>尚未稳定</WarnBadge>
 - [defineRender](/zh-CN/macros/define-render)
 - [shortEmits](/zh-CN/macros/short-emits)
 - [shortVmodel](/zh-CN/macros/short-vmodel)

@@ -1,14 +1,14 @@
 {
   "name": "@vue-macros/devtools",
-  "version": "0.1.0",
-  "packageManager": "pnpm@7.27.0",
-  "description": "",
+  "version": "0.1.2",
+  "packageManager": "pnpm@7.30.0",
+  "description": "Devtools plugin for Vue Macros.",
   "keywords": [
-    "unplugin",
+    "vue-macros",
+    "macros",
     "vue",
     "sfc",
     "setup",
-    "macros",
     "script-setup",
     "devtools"
   ],
@@ -19,7 +19,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/devtools"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -36,7 +37,7 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts && vite build ./src/client",
-    "dev": "DEV=1 tsup",
+    "dev": "DEV=true tsup",
     "client:dev": "vite ./src/client"
   },
   "peerDependencies": {
@@ -52,11 +53,11 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@unocss/reset": "^0.49.5",
-    "@vitejs/plugin-vue": "^4.0.0",
+    "@unocss/reset": "^0.50.6",
+    "@vitejs/plugin-vue": "^4.1.0",
     "get-port": "^6.1.2",
-    "unocss": "^0.49.4",
-    "vite": "^4.1.1"
+    "unocss": "^0.50.6",
+    "vite": "^4.2.1"
   },
   "engines": {
     "node": ">=14.19.0"

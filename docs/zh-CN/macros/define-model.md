@@ -56,6 +56,19 @@ const { modelValue } = defineModel({
 
 :::
 
+## With Model Options
+
+```vue 3-6
+<script setup lang="ts">
+const { modelValue } = defineModel<{
+  modelValue: ModelOptions<
+    string,
+    { defaultValue: 'something'; deep: true; passive: true }
+  >
+}>()
+</script>
+```
+
 ## 响应性语法糖
 
 ::: warning

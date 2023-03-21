@@ -1,10 +1,12 @@
 import { isTSExports, resolveTSReferencedType } from '../ts'
+import type { TSExports, TSResolvedType } from '../ts'
 import type { Node } from '@babel/types'
-import type { TSResolvedType } from '../ts'
 
 export async function inferRuntimeType(
-  node: TSResolvedType
+  node: TSResolvedType | TSExports
 ): Promise<string[]> {
+  if (isTSExports(node)) return ['Object']
+
   switch (node.type.type) {
     case 'TSStringKeyword':
       return ['String']
@@ -67,11 +69,34 @@ export async function inferRuntimeType(
           case 'Readonly':
           case 'Pick':
           case 'Omit':
-          case 'Exclude':
-          case 'Extract':
           case 'Required':
           case 'InstanceType':
             return ['Object']
+
+          case 'Extract':
+            if (
+              node.type.typeParameters &&
+              node.type.typeParameters.params[1]
+            ) {
+              const t = await resolveTSReferencedType({
+                scope: node.scope,
+                type: node.type.typeParameters.params[1],
+              })
+              if (t) return inferRuntimeType(t)
+            }
+            return ['null']
+          case 'Exclude':
+            if (
+              node.type.typeParameters &&
+              node.type.typeParameters.params[0]
+            ) {
+              const t = await resolveTSReferencedType({
+                scope: node.scope,
+                type: node.type.typeParameters.params[0],
+              })
+              if (t) return inferRuntimeType(t)
+            }
+            return ['null']
         }
       }
       return [`null`]
@@ -89,9 +114,7 @@ export async function inferRuntimeType(
               : undefined
           })
         )
-      )
-        .filter((t): t is string[] => !!t)
-        .flat(1)
+      ).flatMap((t) => (t ? t : ['null']))
       return [...new Set(types)]
     }
     case 'TSIntersectionType':
@@ -111,4 +134,8 @@ export async function inferRuntimeType(
 export function attachNodeLoc(node: Node, newNode: Node) {
   newNode.start = node.start
   newNode.end = node.end
+}
+
+export function toRuntimeTypeString(types: string[]) {
+  return types.length > 1 ? `[${types.join(', ')}]` : types[0]
 }

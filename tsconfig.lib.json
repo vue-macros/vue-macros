@@ -5,7 +5,7 @@
     "types": ["node"],
     "customConditions": ["dev"]
   },
-  "include": ["packages", "scripts"],
+  "include": ["packages", "scripts", "tsup.config.ts"],
   "exclude": [
     "**/dist",
     "**/tests",

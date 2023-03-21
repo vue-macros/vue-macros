@@ -1,7 +1,17 @@
 {
   "name": "@vue-macros/common",
-  "version": "1.0.0",
-  "packageManager": "pnpm@7.27.0",
+  "version": "1.1.1",
+  "packageManager": "pnpm@7.30.0",
+  "description": "common feature from Vue Macros.",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "common"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
   "bugs": {
@@ -9,7 +19,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/common"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -29,7 +40,7 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
@@ -40,13 +51,14 @@
     }
   },
   "dependencies": {
-    "@babel/types": "^7.20.7",
+    "@babel/types": "^7.21.3",
+    "@rollup/pluginutils": "^5.0.2",
     "@vue/compiler-sfc": "^3.2.47",
     "local-pkg": "^0.4.3",
-    "magic-string": "^0.27.0"
+    "magic-string": "^0.30.0"
   },
   "devDependencies": {
-    "@babel/parser": "^7.20.15",
+    "@babel/parser": "^7.21.3",
     "estree-walker": "^3.0.3"
   },
   "engines": {

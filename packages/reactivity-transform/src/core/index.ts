@@ -10,7 +10,7 @@ import { shouldTransform, transformAST } from './impl'
 import { helperId } from './helper'
 import type { Identifier, Node } from '@babel/types'
 
-export * from './helper'
+export * from './impl'
 
 export function transformVueSFC(code: string, id: string) {
   const s = new MagicString(code)
@@ -27,7 +27,7 @@ export function transformVueSFC(code: string, id: string) {
       offset
     )
     refBindings = rootRefs
-    addHelpers(s, script.loc.start.offset, importedHelpers)
+    importHelpers(s, script.loc.start.offset, importedHelpers)
   }
 
   if (scriptSetup) {
@@ -48,7 +48,7 @@ export function transformVueSFC(code: string, id: string) {
         refBindings,
         propsDestructuredBindings
       )
-      addHelpers(s, scriptSetup.loc.start.offset, importedHelpers)
+      importHelpers(s, scriptSetup.loc.start.offset, importedHelpers)
     }
   }
 
@@ -124,7 +124,7 @@ const ${
   }
 }
 
-function addHelpers(s: MagicString, offset: number, helpers: string[]) {
+function importHelpers(s: MagicString, offset: number, helpers: string[]) {
   if (helpers.length === 0) return
   s.prependLeft(
     offset,

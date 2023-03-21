@@ -1,5 +1,5 @@
 import { defineConfig } from 'tsup'
-import cfg from '../common/tsup.config.js'
+import cfg from '../../tsup.config.js'
 
 export default defineConfig({
   ...cfg,

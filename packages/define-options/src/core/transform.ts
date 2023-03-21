@@ -1,14 +1,16 @@
 import {
   DEFINE_OPTIONS,
+  HELPER_PREFIX,
   MagicString,
   addNormalScript,
   checkInvalidScopeReference,
   getTransformResult,
+  importHelperFn,
   parseSFC,
 } from '@vue-macros/common'
 import { walkAST } from 'ast-walker-scope'
 import { filterMacro, hasPropsOrEmits } from './utils'
-import type { ExportDefaultDeclaration, Statement } from '@babel/types'
+import type { ExportDefaultDeclaration, Program, Statement } from '@babel/types'
 
 export function transformDefineOptions(code: string, id: string) {
   if (!code.includes(DEFINE_OPTIONS)) return
@@ -39,10 +41,10 @@ export function transformDefineOptions(code: string, id: string) {
 
     const scriptOffset = normalScript.start()
 
+    importHelperFn(s, scriptOffset, 'defineComponent', 'vue')
     s.appendLeft(
       scriptOffset,
-      `\nimport { defineComponent as DO_defineComponent } from 'vue';
-export default /*#__PURE__*/ DO_defineComponent(`
+      `\nexport default /*#__PURE__*/ ${HELPER_PREFIX}defineComponent(`
     )
 
     if (arg.type === 'ObjectExpression' && hasPropsOrEmits(arg))
@@ -68,7 +70,7 @@ export default /*#__PURE__*/ DO_defineComponent(`
   return getTransformResult(s, id)
 }
 
-const checkDefaultExport = (stmts: Statement[]) => {
+export const checkDefaultExport = (stmts: Statement[]) => {
   const hasDefaultExport = stmts.some(
     (node): node is ExportDefaultDeclaration =>
       node.type === 'ExportDefaultDeclaration'
@@ -79,28 +81,26 @@ const checkDefaultExport = (stmts: Statement[]) => {
     )
 }
 
-const getIdentifiers = (stmts: Statement[]) => {
+export const getIdentifiers = (stmts: Statement[]) => {
   let ids: string[] = []
-  walkAST(
-    {
-      type: 'Program',
-      body: stmts,
-      directives: [],
-      sourceType: 'module',
-      sourceFile: '',
+  const program: Program = {
+    type: 'Program',
+    body: stmts,
+    directives: [],
+    sourceType: 'module',
+    sourceFile: '',
+  }
+  walkAST(program, {
+    enter(node) {
+      if (node.type === 'BlockStatement') {
+        this.skip()
+      }
     },
-    {
-      enter(node) {
-        if (node.type === 'BlockStatement') {
-          this.skip()
-        }
-      },
-      leave(node) {
-        if (node.type !== 'Program') return
-        ids = Object.keys(this.scope)
-      },
-    }
-  )
+    leave(node) {
+      if (node.type !== 'Program') return
+      ids = Object.keys(this.scope)
+    },
+  })
 
   return ids
 }

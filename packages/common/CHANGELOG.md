@@ -1,5 +1,24 @@
 # @vue-macros/common
 
+## 1.1.1
+
+### Patch Changes
+
+- [`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480) Thanks [@sxzz](https://github.com/sxzz)! - rename helper name
+
+## 1.1.0
+
+### Minor Changes
+
+- [`f40d270`](https://github.com/sxzz/unplugin-vue-macros/commit/f40d2701239967cfc288def57bc8b32ef57fad7e) Thanks [@sxzz](https://github.com/sxzz)! - resolve pkg typing entry
+  support dts file parsing
+
+## 1.0.1
+
+### Patch Changes
+
+- [`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242) Thanks [@sxzz](https://github.com/sxzz)! - tidy package manifests
+
 ## 1.0.0
 
 ### Major Changes

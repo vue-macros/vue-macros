@@ -294,8 +294,6 @@ export async function resolveTSReferencedType(
   const { body, file } = resolveTSScope(scope)
   for (let node of body) {
     if (node.type === 'ImportDeclaration') {
-      const resolved = await resolveTSFileId(node.source.value, file.filePath)
-      if (!resolved) continue
       const specifier = node.specifiers.find(
         (specifier): specifier is ImportSpecifier | ImportNamespaceSpecifier =>
           (specifier.type === 'ImportSpecifier' &&
@@ -305,6 +303,9 @@ export async function resolveTSReferencedType(
             specifier.local.name === refName)
       )
       if (!specifier) continue
+
+      const resolved = await resolveTSFileId(node.source.value, file.filePath)
+      if (!resolved) continue
       const exports = await resolveTSExports(await getTSFile(resolved))
 
       let type: any = exports

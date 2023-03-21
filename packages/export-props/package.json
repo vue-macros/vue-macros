@@ -1,16 +1,17 @@
 {
   "name": "@vue-macros/export-props",
-  "version": "0.2.0",
-  "packageManager": "pnpm@7.27.0",
-  "description": "",
+  "version": "0.2.3",
+  "packageManager": "pnpm@7.30.0",
+  "description": "export-props feature from Vue Macros.",
   "keywords": [
-    "unplugin",
+    "vue-macros",
+    "macros",
     "vue",
     "sfc",
     "setup",
-    "macros",
     "script-setup",
-    "export-props"
+    "export-props",
+    "unplugin"
   ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
@@ -19,7 +20,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/export-props"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -36,6 +38,24 @@
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
+    "./api": {
+      "dev": "./src/api.ts",
+      "types": "./dist/api.d.ts",
+      "require": "./dist/api.js",
+      "import": "./dist/api.mjs"
+    },
+    "./esbuild": {
+      "dev": "./src/esbuild.ts",
+      "types": "./dist/esbuild.d.ts",
+      "require": "./dist/esbuild.js",
+      "import": "./dist/esbuild.mjs"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "types": "./dist/rollup.d.ts",
+      "require": "./dist/rollup.js",
+      "import": "./dist/rollup.mjs"
+    },
     "./vite": {
       "dev": "./src/vite.ts",
       "types": "./dist/vite.d.ts",
@@ -48,33 +68,29 @@
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
-    "./rollup": {
-      "dev": "./src/rollup.ts",
-      "types": "./dist/rollup.d.ts",
-      "require": "./dist/rollup.js",
-      "import": "./dist/rollup.mjs"
-    },
-    "./esbuild": {
-      "dev": "./src/esbuild.ts",
-      "types": "./dist/esbuild.d.ts",
-      "require": "./dist/esbuild.js",
-      "import": "./dist/esbuild.mjs"
-    },
-    "./macros": "./macros.d.ts",
-    "./macros-global": "./macros-global.d.ts",
-    "./*": "./*"
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "<=4.9": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.mts",
-    "dev": "DEV=1 tsup"
+    "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.0.2",
     "@vue-macros/common": "workspace:~",
-    "unplugin": "^1.0.1"
+    "unplugin": "^1.3.1"
   },
   "devDependencies": {
     "vue": "^3.2.47"

@@ -1,5 +1,47 @@
 # @vue-macros/volar
 
+## 0.9.0
+
+### Minor Changes
+
+- [`acf6439`](https://github.com/sxzz/unplugin-vue-macros/commit/acf6439867a6c84bc9dda0b83821bc3388f7ebd9) Thanks [@sxzz](https://github.com/sxzz)! - add define-options plugin
+
+### Patch Changes
+
+- [`9166354`](https://github.com/sxzz/unplugin-vue-macros/commit/9166354b1d835d56f2f69d33caa5d7bfe9bfd1c2) Thanks [@sxzz](https://github.com/sxzz)! - fix adding props
+
+- Updated dependencies [[`9fe6426`](https://github.com/sxzz/unplugin-vue-macros/commit/9fe6426464d1aa6567e7df2f0108a51e46c06480)]:
+  - @vue-macros/common@1.1.1
+  - @vue-macros/define-props@0.4.1
+  - @vue-macros/short-vmodel@1.1.3
+
+## 0.8.4
+
+### Patch Changes
+
+- Updated dependencies [[`38a31ea`](https://github.com/sxzz/unplugin-vue-macros/commit/38a31eada9d195afa514bc44e05ea508d4f064ad)]:
+  - @vue-macros/define-props@0.4.0
+
+## 0.8.3
+
+### Patch Changes
+
+- Updated dependencies [[`f40d270`](https://github.com/sxzz/unplugin-vue-macros/commit/f40d2701239967cfc288def57bc8b32ef57fad7e)]:
+  - @vue-macros/common@1.1.0
+  - @vue-macros/define-props@0.3.3
+  - @vue-macros/short-vmodel@1.1.2
+
+## 0.8.2
+
+### Patch Changes
+
+- [`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242) Thanks [@sxzz](https://github.com/sxzz)! - tidy package manifests
+
+- Updated dependencies [[`e339535`](https://github.com/sxzz/unplugin-vue-macros/commit/e33953564dbbce28d4b61f61b27d7cdfcdf5c242)]:
+  - @vue-macros/define-props@0.3.2
+  - @vue-macros/short-vmodel@1.1.1
+  - @vue-macros/common@1.0.1
+
 ## 0.8.1
 
 ### Patch Changes

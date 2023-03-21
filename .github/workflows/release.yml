@@ -23,13 +23,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: pnpm
 
-      - run: pnpm install
-
       - name: Install Dependencies
-        run: pnpm i
+        run: pnpm i --frozen-lockfile
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets

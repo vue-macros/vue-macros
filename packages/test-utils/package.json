@@ -1,8 +1,18 @@
 {
   "name": "@vue-macros/test-utils",
-  "version": "0.12.0",
-  "private": true,
-  "packageManager": "pnpm@7.27.0",
+  "version": "1.0.0",
+  "packageManager": "pnpm@7.30.0",
+  "description": "test-utils feature from Vue Macros.",
+  "type": "module",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "test-utils"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
   "bugs": {
@@ -10,26 +20,46 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git"
+    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "directory": "packages/test-utils"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
-    "src"
+    "dist"
   ],
-  "main": "./src/index.ts",
-  "scripts": {},
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "peerDependencies": {
+    "vitest": "^0.29.0"
+  },
+  "peerDependenciesMeta": {
+    "vitest": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@rollup/pluginutils": "^5.0.2",
-    "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vitejs/plugin-vue2": "^2.2.0",
-    "esbuild": "^0.17.7",
-    "rollup": "^3.15.0",
+    "esbuild": "^0.17.12",
+    "fast-glob": "^3.2.12",
+    "rollup": "^3.20.0",
     "rollup-plugin-esbuild": "^5.0.0",
-    "unplugin-vue": "4.0.2-beta.1"
+    "unplugin-vue": "4.0.3"
   },
   "devDependencies": {
-    "fast-glob": "^3.2.12",
-    "vite": "^4.1.1",
+    "vite": "^4.2.1",
     "vue": "^3.2.47"
   },
   "engines": {
