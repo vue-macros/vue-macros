@@ -10,6 +10,8 @@ Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, 
 - [definePropsRefs](/macros/define-props-refs)<WarnBadge>unstable</WarnBadge>
 - [defineSlots](/macros/define-slots)<WarnBadge>unstable</WarnBadge>
 - [defineRender](/macros/define-render)
+- [defineProp](/macros/define-prop)<WarnBadge>unstable</WarnBadge>
+- [defineEmit](/macros/define-emit)<WarnBadge>unstable</WarnBadge>
 - [shortEmits](/macros/short-emits)
 - [shortVmodel](/macros/short-vmodel)
 - [setupComponent](/macros/setup-component) <WarnBadge>Experimental</WarnBadge>
