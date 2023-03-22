@@ -706,6 +706,62 @@ export { union as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/unresolved.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"unresolved\\",
+  props: {
+    \\"foo\\": { type: null, required: true }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var unresolved = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { unresolved as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/unresolved.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"unresolved\\",
+  props: {
+    \\"foo\\": null
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var unresolved = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { unresolved as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/vue-core-7553.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 
