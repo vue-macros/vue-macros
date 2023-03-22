@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-使用 `$defineProps` 可以正确的解构 `props` 的类型
+使用 `$defineProps` 可以正确地解构 `props` 的类型
 
 参见 [Vue issue](https://github.com/vuejs/core/issues/6876), [Reactivity Transform RFC](https://github.com/vuejs/rfcs/blob/reactivity-transform/active-rfcs/0000-reactivity-transform.md#defineprops-destructure-details).
 
@@ -42,7 +42,7 @@ const fooRef = $$(foo)
     "target": 3,
     "plugins": [
       "@vue-macros/volar/define-props"
-      // ...more feature
+      // ...更多功能
     ]
   }
 }

@@ -9,9 +9,9 @@ VueMacros({
   root: '/your-project-path',
 
   /**
-   * Vue version, 2 or 3.
+   * Vue 版本，2 或 3 
    *
-   * optional, detecting automatically.
+   * 可选，自动检测版本 
    */
   version: 3,
 
@@ -20,20 +20,20 @@ VueMacros({
     vueJsx: VueJsx(),
   },
 
-  /** Defaults to true  */
+  /** 默认是 true  */
   defineModel: {
     /**
-     * Unified mode, only works for Vue 2
+     * unified 模式，仅在 Vue 2 有效 
      *
-     * Converts `modelValue` to `value`
+     * 将 `modelValue` 转换为 `value` 
      */
     unified: true,
   },
 
-  // Disable features
+  // 禁用特性 
   hoistStatic: false,
 
-  // ... more features
+  // ...更多 
 })
 ```
 

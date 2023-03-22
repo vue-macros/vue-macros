@@ -15,14 +15,14 @@
 
 ```vue
 <script setup lang="tsx">
-// JSX passed directly
+// 可以直接传递 JSX 
 defineRender(
   <div>
     <span>Hello</span>
   </div>
 )
 
-// Or using render function
+// 或使用渲染函数 
 defineRender(() => {
   return (
     <div>

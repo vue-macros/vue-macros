@@ -5,7 +5,7 @@
   <WarnBadge>实验性功能，风险自负</WarnBadge>
 </div>
 
-在 Vue 中像 Svelte 那样声明 `props`，[Svelte 对应文档](https://svelte.dev/docs#component-format-script-1-export-creates-a-component-prop)。
+在 Vue 中使用 [Svelte 风格声明 `props`](https://svelte.dev/docs#component-format-script-1-export-creates-a-component-prop)。
 
 |     特性     |        支持        |
 | :----------: | :----------------: |
@@ -16,11 +16,11 @@
 
 ## 用法
 
-使用导出的语法来声明 `props`。
+使用导出语法来声明 `props`。
 
 ```vue
 <script setup lang="ts">
 export let foo: string
-export const bar: number = 1 // with default value
+export const bar: number = 1 // 带有默认值 
 </script>
 ```

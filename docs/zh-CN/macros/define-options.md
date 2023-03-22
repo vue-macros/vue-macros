@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-可以使用 `defineOptions`函数在 `<script setup>`中使用选项式 API，也就是说我们可以把 `name`, `props`, `emits`, `render` 放到一个函数里。
+可以通过 `defineOptions` 宏在 `<script setup>` 中使用选项式 API，也就是说可以在一个宏函数中设置 `name`, `props`, `emits`, `render`。
 
 如果你支持此功能，欢迎在 [RFC](https://github.com/vuejs/rfcs/discussions/430) 中点赞 :+1: 或发表评论。
 
@@ -15,7 +15,7 @@
 
 ## 安装独立版本
 
-如果你只需要 `defineOptions` 功能, 那么独立版本更加适合你。
+如果你只需要 `defineOptions` 功能, 那么独立版本更适合你。
 
 ### 安装
 
@@ -99,7 +99,7 @@ const slots = useSlots()
 </script>
 ```
 
-::: details 编译后代码
+::: details 编译后的代码
 
 ```vue
 <script lang="ts">
@@ -116,7 +116,7 @@ const slots = useSlots()
 
 :::
 
-## JSX in `<script setup>`
+## `<script setup>` 中使用 JSX
 
 ```vue {3-5}
 <script setup lang="tsx">
@@ -128,7 +128,7 @@ defineOptions({
 </script>
 ```
 
-::: details 编译后代码
+::: details 编译后的代码
 
 ```vue
 <script lang="tsx">
@@ -142,16 +142,16 @@ export default {
 
 :::
 
-## Volar Configuration
+## Volar 配置
 
 ```jsonc {6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3, // or 2.7 for Vue 2
+    "target": 3, // 或 2.7 用于 Vue 2 
     "plugins": [
       "@vue-macros/volar/define-options"
-      // ...more feature
+      // ...更多功能
     ]
   }
 }
