@@ -86,14 +86,6 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
           link: `${urlPrefix}/macros/define-render`,
         },
         {
-          text: 'defineProp',
-          link: `${urlPrefix}/macros/define-prop`,
-        },
-        {
-          text: 'defineEmit',
-          link: `${urlPrefix}/macros/define-emit`,
-        },
-        {
           text: 'shortEmits',
           link: `${urlPrefix}/macros/short-emits`,
         },
@@ -108,6 +100,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
         {
           text: 'setupSFC',
           link: `${urlPrefix}/macros/setup-sfc`,
+        },
+        {
+          text: 'singleDefine',
+          link: `${urlPrefix}/macros/single-define`,
         },
       ],
     },
