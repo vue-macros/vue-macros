@@ -17,7 +17,7 @@
 
 ```vue {2-3,8}
 <script setup lang="ts">
-// ✅ 解构不丢失响应式 
+// ✅ 解构不丢失响应式
 const { foo, bar } = definePropsRefs<{
   foo: string
   bar: number

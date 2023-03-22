@@ -32,7 +32,7 @@ export default defineConfig({
     VueMacros(),
     Vue({
       include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
-      //                   ⬆️ 需要添加 setup 模式 
+      //                   ⬆️ 需要添加 setup 模式
     }),
   ],
 })

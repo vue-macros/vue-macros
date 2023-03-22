@@ -21,6 +21,6 @@
 ```vue
 <script setup lang="ts">
 export let foo: string
-export const bar: number = 1 // 带有默认值 
+export const bar: number = 1 // 带有默认值
 </script>
 ```

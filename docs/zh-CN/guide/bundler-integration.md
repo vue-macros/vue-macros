@@ -86,7 +86,7 @@ const VueMacros = require('unplugin-vue-macros/webpack')
 
 module.exports = defineConfig({
   // ...
-  // ⚠️ 重要 
+  // ⚠️ 重要
   parallel: false,
   configureWebpack: {
     plugins: [VueMacros({})],

@@ -148,7 +148,7 @@ export default {
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3, // 或 2.7 用于 Vue 2 
+    "target": 3, // 或 2.7 用于 Vue 2
     "plugins": [
       "@vue-macros/volar/define-options"
       // ...更多功能

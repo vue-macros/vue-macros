@@ -21,7 +21,7 @@ VueMacros({
     /**
      * Unified 模式，仅在 Vue 2 下有效
      *
-     * 将 `modelValue` 转换为 `value` 
+     * 将 `modelValue` 转换为 `value`
      */
     unified: false,
   },
@@ -126,7 +126,7 @@ emit('update:count', count + 1)
       // ...更多功能
     ],
     "defineModel": {
-      // 仅在 target 是 2.7 时有效 
+      // 仅在 target 是 2.7 时有效
       "unified": true
     }
   }

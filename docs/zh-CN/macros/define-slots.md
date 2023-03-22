@@ -17,9 +17,9 @@
 ```vue
 <script setup lang="ts">
 defineSlots<{
-  // 插槽名称 
+  // 插槽名称
   title: {
-    // 作用域插槽 
+    // 作用域插槽
     foo: 'bar' | boolean
   }
 }>()

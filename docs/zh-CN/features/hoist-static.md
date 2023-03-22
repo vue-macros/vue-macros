@@ -42,7 +42,7 @@ export default {
 
 ```vue
 <script setup lang="ts">
-// 一个甚至不是常量的值 
+// 一个甚至不是常量的值
 const name = /* hoist-static */ fn()
 defineOptions({
   name,
