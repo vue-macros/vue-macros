@@ -1,5 +1,15 @@
 # @vue-macros/define-props
 
+## 1.0.1
+
+### Patch Changes
+
+- [`f94feb1`](https://github.com/sxzz/unplugin-vue-macros/commit/f94feb18dad273658fd7f02b0b34e3f28e614f5b) Thanks [@sxzz](https://github.com/sxzz)! - remove catching errors
+
+- Updated dependencies [[`f94feb1`](https://github.com/sxzz/unplugin-vue-macros/commit/f94feb18dad273658fd7f02b0b34e3f28e614f5b), [`ceb4fba`](https://github.com/sxzz/unplugin-vue-macros/commit/ceb4fbae7e2a90d3421b1357159d3d6f632947f1)]:
+  - @vue-macros/reactivity-transform@0.3.1
+  - @vue-macros/common@1.1.3
+
 ## 1.0.0
 
 ### Minor Changes

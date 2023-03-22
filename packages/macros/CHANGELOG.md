@@ -1,5 +1,34 @@
 # unplugin-vue-macros
 
+## 1.11.0
+
+### Minor Changes
+
+- [#318](https://github.com/sxzz/unplugin-vue-macros/pull/318) [`53203a2`](https://github.com/sxzz/unplugin-vue-macros/commit/53203a2f7097c893b7cac04c0740b692b14946aa) Thanks [@zzhenryquezz](https://github.com/zzhenryquezz)! - introduce `singleDefine`
+
+### Patch Changes
+
+- [`ceb4fba`](https://github.com/sxzz/unplugin-vue-macros/commit/ceb4fbae7e2a90d3421b1357159d3d6f632947f1) Thanks [@sxzz](https://github.com/sxzz)! - correct path for detecting vue version
+
+- Updated dependencies [[`f94feb1`](https://github.com/sxzz/unplugin-vue-macros/commit/f94feb18dad273658fd7f02b0b34e3f28e614f5b), [`ceb4fba`](https://github.com/sxzz/unplugin-vue-macros/commit/ceb4fbae7e2a90d3421b1357159d3d6f632947f1)]:
+  - @vue-macros/reactivity-transform@0.3.1
+  - @vue-macros/define-props-refs@0.3.1
+  - @vue-macros/setup-component@0.16.1
+  - unplugin-vue-define-options@1.3.1
+  - @vue-macros/named-template@0.3.1
+  - @vue-macros/define-render@1.3.1
+  - @vue-macros/single-define@0.1.1
+  - @vue-macros/define-model@1.4.1
+  - @vue-macros/define-props@1.0.1
+  - @vue-macros/define-slots@0.3.1
+  - @vue-macros/export-props@0.3.1
+  - @vue-macros/hoist-static@1.3.1
+  - @vue-macros/setup-block@0.2.1
+  - @vue-macros/short-emits@1.3.1
+  - @vue-macros/setup-sfc@0.15.1
+  - @vue-macros/common@1.1.3
+  - @vue-macros/better-define@1.4.1
+
 ## 1.10.2
 
 ### Patch Changes

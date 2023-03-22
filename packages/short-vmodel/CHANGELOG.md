@@ -1,5 +1,12 @@
 # @vue-macros/short-vmodel
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`ceb4fba`](https://github.com/sxzz/unplugin-vue-macros/commit/ceb4fbae7e2a90d3421b1357159d3d6f632947f1)]:
+  - @vue-macros/common@1.1.3
+
 ## 1.2.0
 
 ### Minor Changes
