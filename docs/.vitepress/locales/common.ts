@@ -101,6 +101,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
           text: 'setupSFC',
           link: `${urlPrefix}/macros/setup-sfc`,
         },
+        {
+          text: 'singleDefine',
+          link: `${urlPrefix}/macros/single-define`,
+        },
       ],
     },
     {

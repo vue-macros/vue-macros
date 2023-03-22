@@ -14,3 +14,4 @@ Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, 
 - [shortVmodel](/macros/short-vmodel)
 - [setupComponent](/macros/setup-component) <WarnBadge>Experimental</WarnBadge>
 - [setupSFC](/macros/setup-sfc) <WarnBadge>Experimental</WarnBadge>
+- [singleDefine](/macros/single-define)<WarnBadge>unstable</WarnBadge>
