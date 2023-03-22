@@ -62,22 +62,18 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        try {
-          if (
-            REGEX_VUE_SFC.test(id) ||
-            REGEX_SETUP_SFC.test(id) ||
-            (framework === 'webpack' && REGEX_VUE_SUB.test(id))
-          ) {
-            return transformVueSFC(code, id)
-          } else {
-            if (!shouldTransform(code)) return
-            return transform(code, {
-              filename: id,
-              sourceMap: true,
-            })
-          }
-        } catch (err: unknown) {
-          this.error(`${name} ${err}`)
+        if (
+          REGEX_VUE_SFC.test(id) ||
+          REGEX_SETUP_SFC.test(id) ||
+          (framework === 'webpack' && REGEX_VUE_SUB.test(id))
+        ) {
+          return transformVueSFC(code, id)
+        } else {
+          if (!shouldTransform(code)) return
+          return transform(code, {
+            filename: id,
+            sourceMap: true,
+          })
         }
       },
     }

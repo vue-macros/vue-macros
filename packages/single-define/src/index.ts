@@ -59,11 +59,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        try {
-          return transformDefineSingle(code, id, options.isProduction)
-        } catch (err: unknown) {
-          this.error(`${name} ${err}`)
-        }
+        return transformDefineSingle(code, id, options.isProduction)
       },
 
       vite: {

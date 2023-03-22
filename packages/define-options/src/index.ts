@@ -43,11 +43,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        try {
-          return transformDefineOptions(code, id)
-        } catch (err: unknown) {
-          this.error(`${name} ${err}`)
-        }
+        return transformDefineOptions(code, id)
       },
     }
   }

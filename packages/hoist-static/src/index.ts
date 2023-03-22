@@ -43,11 +43,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        try {
-          return transformHoistStatic(code, id)
-        } catch (err: unknown) {
-          this.error(`${name} ${err}`)
-        }
+        return transformHoistStatic(code, id)
       },
     }
   }

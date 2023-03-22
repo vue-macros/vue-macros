@@ -77,16 +77,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        try {
-          return transformDefineModel(
-            code,
-            id,
-            options.version,
-            options.unified
-          )
-        } catch (err: unknown) {
-          this.error(`${name} ${err}`)
-        }
+        return transformDefineModel(code, id, options.version, options.unified)
       },
     }
   }

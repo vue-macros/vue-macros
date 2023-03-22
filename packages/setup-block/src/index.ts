@@ -40,11 +40,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        try {
-          return transformSetupBlock(code, id, options.defaultLang)
-        } catch (err: unknown) {
-          this.error(`${name} ${err}`)
-        }
+        return transformSetupBlock(code, id, options.defaultLang)
       },
     }
   }

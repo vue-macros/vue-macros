@@ -81,11 +81,7 @@ const PrePlugin = createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        try {
-          return transformSetupComponent(code, id, setupComponentContext)
-        } catch (err: unknown) {
-          this.error(`${name} ${err}`)
-        }
+        return transformSetupComponent(code, id, setupComponentContext)
       },
 
       vite: {
