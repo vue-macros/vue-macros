@@ -25,7 +25,7 @@ defineOptions({
 </script>
 ```
 
-::: details 编译后代码
+::: details 编译后的代码
 
 ```vue
 <script lang="ts">
@@ -42,7 +42,7 @@ export default {
 
 ```vue
 <script setup lang="ts">
-// A value that's even not a constant
+// 一个甚至不是常量的值 
 const name = /* hoist-static */ fn()
 defineOptions({
   name,
@@ -50,7 +50,7 @@ defineOptions({
 </script>
 ```
 
-::: details 编译后代码
+::: details 编译后的代码
 
 ```vue
 <script lang="ts">

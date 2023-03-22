@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-yellow-600">不稳定</code></small>
 
-使用 `defineSlots` 可以在 `<script setup>` 中声明 SFC 中 slots 的类型
+使用 `defineSlots` 可以在 `<script setup>` 中声明 SFC 中插槽的类型
 
 |         特性         |         支持         |
 | :------------------: | :------------------: |
@@ -17,9 +17,9 @@
 ```vue
 <script setup lang="ts">
 defineSlots<{
-  // slot name
+  // 插槽名称 
   title: {
-    // scoped slot
+    // 作用域插槽 
     foo: 'bar' | boolean
   }
 }>()
@@ -32,10 +32,10 @@ defineSlots<{
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3, // or 2.7 is not supported by Volar.
+    "target": 3, // Volar 暂不支持 2.7 版本
     "plugins": [
       "@vue-macros/volar/define-slots"
-      // ...more feature
+      // ...更多功能
     ]
   }
 }

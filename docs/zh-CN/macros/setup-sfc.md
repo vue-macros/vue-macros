@@ -7,7 +7,7 @@
 
 ::: tip
 
-如果你使用的是 `setupSFC`，则无法禁用 `defineRender`。
+如果你使用的是 `setupSFC`，则不能禁用 `defineRender`。
 
 :::
 
@@ -32,7 +32,7 @@ export default defineConfig({
     VueMacros(),
     Vue({
       include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
-      //                   ⬆️ setupSFC pattern need to be added
+      //                   ⬆️ 需要添加 setup 模式 
     }),
   ],
 })
@@ -48,7 +48,7 @@ export default defineConfig({
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
-          //                   ⬆️ setupSFC pattern need to be added
+          //                   ⬆️ 需要添加 setup 模式
         }),
       },
     }),

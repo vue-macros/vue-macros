@@ -1,4 +1,4 @@
-# 打包器整合
+# 打包器集成
 
 ### 安装
 
@@ -31,7 +31,7 @@ export default defineConfig({
     VueMacros({
       plugins: {
         vue: Vue(),
-        // vueJsx: VueJsx(), // if needed
+        // vueJsx: VueJsx(), // 如果需要
       },
     }),
   ],
@@ -48,7 +48,7 @@ export default {
     VueMacros({
       plugins: {
         vue: Vue(),
-        // vueJsx: VueJsx(), // if needed
+        // vueJsx: VueJsx(), // 如果需要
       },
     }),
   ],
@@ -64,7 +64,7 @@ build({
     require('unplugin-vue-macros/esbuild')({
       plugins: {
         vue: require('unplugin-vue/esbuild')(),
-        // vueJsx: VueJsx(), // if needed
+        // vueJsx: VueJsx(), // 如果需要
       },
     }),
   ],
@@ -86,7 +86,7 @@ const VueMacros = require('unplugin-vue-macros/webpack')
 
 module.exports = defineConfig({
   // ...
-  // ⚠️ IMPORTANT
+  // ⚠️ 重要 
   parallel: false,
   configureWebpack: {
     plugins: [VueMacros({})],

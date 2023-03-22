@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-green-600">稳定</code></small>
 
-`v-model`的语法糖。
+`v-model` 的语法糖。
 
 `v-model` -> `::` / `$` / `*`
 
@@ -23,7 +23,7 @@
 npm i @vue-macros/short-vmodel
 ```
 
-### Vite 整合
+### Vite 集成
 
 ```ts {9-17}
 // vite.config.ts

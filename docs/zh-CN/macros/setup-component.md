@@ -7,7 +7,7 @@
 
 ::: tip
 
-如果你使用的是 `setupComponent`，则无法禁用 `defineRender`。
+如果你使用的是 `setupComponent`，则不能禁用 `defineRender`。
 
 默认情况下不会忽略 `node_modules` 中的文件。
 

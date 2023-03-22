@@ -2,7 +2,7 @@ import * as common from './common'
 import type { DefaultTheme, HeadConfig, LocaleConfig } from 'vitepress'
 
 export const title = 'Vue Macros'
-export const description = '探索并扩充更多宏和语法糖到 Vue。'
+export const description = '探索并扩展更多宏和语法糖到 Vue 中。'
 
 export const nav: DefaultTheme.NavItem[] = [
   { text: '指南', link: '/zh-CN/guide/getting-started' },
@@ -14,7 +14,7 @@ export const sidebar = common.sidebar('zh-CN')
 
 const sidebarTitle: string[] = ['指南', '宏', '特性']
 const sidebarItem: string[][] = [
-  ['入门', '打包器整合', 'Nuxt 整合', '配置'],
+  ['入门', '打包器集成', 'Nuxt 集成', '配置'],
   ['全部宏'],
   [''],
 ]

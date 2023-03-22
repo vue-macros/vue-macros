@@ -17,11 +17,11 @@
 ```vue
 <script setup lang="ts">
 const emits = defineEmits<
-  // `ShortEmits` or for short `SE`
+  // `ShortEmits` 或简写为 `SE`
   SE<{
-    // tuple
+    // 元组
     'update:modelValue': [val: string]
-    // function
+    // 方法
     update(val: string): void
   }>
 >()

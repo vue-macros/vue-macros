@@ -84,4 +84,4 @@ module.exports = {
 
 ## 用法
 
-参见 [官方文档](https://cn.vuejs.org/guide/extras/reactivity-transform.html).
+参见 [官方文档](https://cn.vuejs.org/guide/extras/reactivity-transform.html)。

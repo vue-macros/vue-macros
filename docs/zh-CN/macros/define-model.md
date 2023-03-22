@@ -4,7 +4,7 @@
 
 <!-- 使用 `defineModel`声明和改变 `v-model` 的 props 和普通变量相同。 -->
 
-使用 `defineModel` 可以简化之前声明和改变 `v-model` 的步骤，让你可以像使用普通变量那样去使用。
+使用 `defineModel` 可以简化声明和修改 `v-model` 值的步骤，就像是在使用一个普通变量一样。
 
 |     特性     |        支持        |
 | :----------: | :----------------: |
@@ -19,18 +19,18 @@
 VueMacros({
   defineModel: {
     /**
-     * Unified mode, only works for Vue 2
+     * Unified 模式，仅在 Vue 2 下有效
      *
-     * Converts `modelValue` to `value`
+     * 将 `modelValue` 转换为 `value` 
      */
     unified: false,
   },
 })
 ```
 
-## 用法
+## 基本用法
 
-> 在开始之前，请先自行安装 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core)
+在开始之前，请先自行安装 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core)
 
 ```vue
 <script setup lang="ts">
@@ -56,7 +56,7 @@ const { modelValue } = defineModel({
 
 :::
 
-## With Model Options
+## model 选项
 
 ```vue 3-6
 <script setup lang="ts">
@@ -77,7 +77,7 @@ const { modelValue } = defineModel<{
 
 :::
 
-> [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) 在这不是必需的。
+[`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) 在这不是必需的。
 
 ```vue {7-9}
 <script setup lang="ts">
@@ -92,7 +92,7 @@ count++
 </script>
 ```
 
-::: details 编译后代码
+::: details 编译后的代码
 
 ```vue
 <script setup lang="ts">
@@ -120,13 +120,13 @@ emit('update:count', count + 1)
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3, // or 2.7 for Vue 2
+    "target": 3, // 或 2.7 用于 Vue 2
     "plugins": [
       "@vue-macros/volar/define-model"
-      // ...more feature
+      // ...更多功能
     ],
     "defineModel": {
-      // Only works when target is 2.7.
+      // 仅在 target 是 2.7 时有效 
       "unified": true
     }
   }

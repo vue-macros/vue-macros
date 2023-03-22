@@ -2,7 +2,7 @@
 
 <small>稳定性: <code class="!text-yellow-600">不稳定</code></small>
 
-从 `defineProps` 中将返回 refs 而不是响应式对象，但 `definePropsRefs` 可以在不失去响应式的情况下被解构。
+从 `defineProps` 中将返回 refs 而不是 reactive 对象，可以在不丢失响应式的情况下解构 props。
 
 `toRefs(defineProps())` => `definePropsRefs()`
 
@@ -17,7 +17,7 @@
 
 ```vue {2-3,8}
 <script setup lang="ts">
-// ✅ won't lose reactivity with destructuring
+// ✅ 解构不丢失响应式 
 const { foo, bar } = definePropsRefs<{
   foo: string
   bar: number
@@ -36,7 +36,7 @@ console.log(foo.value, bar.value)
     "target": 3,
     "plugins": [
       "@vue-macros/volar/define-props-refs"
-      // ...more feature
+      // ...更多功能
     ]
   }
 }
