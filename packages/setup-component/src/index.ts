@@ -30,12 +30,13 @@ export type OptionsResolved = MarkRequired<
 >
 
 function resolveOption(options: Options): OptionsResolved {
-  const version = options.version || detectVueVersion()
+  const root = options.root || process.cwd()
+  const version = options.version || detectVueVersion(root)
   return {
     include: [REGEX_SRC_FILE],
     exclude: [REGEX_SETUP_SFC, REGEX_VUE_SUB, REGEX_NODE_MODULES],
-    root: process.cwd(),
     ...options,
+    root,
     version,
   }
 }

@@ -10,7 +10,7 @@ export default defineConfig({
   },
   plugins: [
     VueMacros({
-      version: 2,
+      // version: 2,
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
@@ -19,6 +19,8 @@ export default defineConfig({
       },
     }),
 
-    Inspect(),
+    Inspect({
+      build: true,
+    }),
   ],
 })

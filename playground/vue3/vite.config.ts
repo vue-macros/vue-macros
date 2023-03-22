@@ -30,6 +30,8 @@ export default defineConfig({
       },
     }),
 
-    Inspect(),
+    Inspect({
+      build: true,
+    }),
   ],
 })

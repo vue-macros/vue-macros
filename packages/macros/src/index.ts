@@ -119,7 +119,7 @@ function resolveOptions({
   }
 
   root = root || process.cwd()
-  version = version || detectVueVersion()
+  version = version || detectVueVersion(root)
   isProduction = isProduction ?? process.env.NODE_ENV === 'production'
 
   return {
