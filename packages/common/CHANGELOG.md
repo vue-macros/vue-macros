@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.1.3
+
+### Patch Changes
+
+- [`ceb4fba`](https://github.com/sxzz/unplugin-vue-macros/commit/ceb4fbae7e2a90d3421b1357159d3d6f632947f1) Thanks [@sxzz](https://github.com/sxzz)! - correct path for detecting vue version
+
 ## 1.1.2
 
 ### Patch Changes
