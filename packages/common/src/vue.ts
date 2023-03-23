@@ -3,7 +3,7 @@ import { babelParse } from './ast'
 import { getLang } from './lang'
 import { REGEX_VUE_SFC } from './constants'
 import type { Program } from '@babel/types'
-import type { MagicString } from './magic-string'
+import type { MagicStringBase } from 'magic-string-ast'
 import type {
   SFCDescriptor,
   SFCParseResult,
@@ -62,7 +62,7 @@ export function getFileCodeAndLang(
   }
 }
 
-export function addNormalScript({ script, lang }: SFC, s: MagicString) {
+export function addNormalScript({ script, lang }: SFC, s: MagicStringBase) {
   return {
     start() {
       if (script) return script.loc.end.offset
@@ -78,10 +78,10 @@ export function addNormalScript({ script, lang }: SFC, s: MagicString) {
   }
 }
 
-const imported = new WeakMap<MagicString, Set<string>>()
+const imported = new WeakMap<MagicStringBase, Set<string>>()
 export const HELPER_PREFIX = '__MACROS_'
 export function importHelperFn(
-  s: MagicString,
+  s: MagicStringBase,
   offset: number,
   name: string,
   from: string

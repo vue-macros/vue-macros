@@ -50,7 +50,7 @@ export function transformShortEmits(code: string, id: string) {
   const s = new MagicString(code)
 
   function stringifyParams(params: Array<Identifier | RestElement>) {
-    return params.length > 0 ? s.sliceNodes(params, { offset }) : ''
+    return params.length > 0 ? s.sliceNode(params, { offset }) : ''
   }
 
   for (const { def, type } of nodes) {

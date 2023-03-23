@@ -209,11 +209,9 @@ export async function handleTSPropsDefinition({
             case 'ObjectMethod':
               return `${
                 defaultValue.kind !== 'method' ? `${defaultValue.kind} ` : ''
-              }${defaultValue.async ? `async ` : ''}${key}(${s.sliceNodes(
+              }${defaultValue.async ? `async ` : ''}${key}(${s.sliceNode(
                 defaultValue.params,
-                {
-                  offset,
-                }
+                { offset }
               )}) ${s.sliceNode(defaultValue.body, { offset })}`
             case 'ObjectProperty':
               return `${key}: ${s.sliceNode(defaultValue.value, { offset })}`

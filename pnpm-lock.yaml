@@ -118,13 +118,13 @@ importers:
       '@vue/compiler-sfc': ^3.2.47
       estree-walker: ^3.0.3
       local-pkg: ^0.4.3
-      magic-string: ^0.30.0
+      magic-string-ast: ^0.1.2
     dependencies:
       '@babel/types': 7.21.3
       '@rollup/pluginutils': 5.0.2
       '@vue/compiler-sfc': 3.2.47
       local-pkg: 0.4.3
-      magic-string: 0.30.0
+      magic-string-ast: 0.1.2
     devDependencies:
       '@babel/parser': 7.21.3
       estree-walker: 3.0.3
@@ -134,12 +134,12 @@ importers:
       '@vue-macros/api': workspace:^
       '@vue-macros/common': workspace:~
       '@vueuse/core': ^9.13.0
-      ast-walker-scope: ^0.4.0
+      ast-walker-scope: ^0.4.1
       unplugin: ^1.3.1
       vue: ^3.2.47
     dependencies:
       '@vue-macros/common': link:../common
-      ast-walker-scope: 0.4.0
+      ast-walker-scope: 0.4.1
       unplugin: 1.3.1
     devDependencies:
       '@vue-macros/api': link:../api
@@ -149,13 +149,13 @@ importers:
   packages/define-options:
     specifiers:
       '@vue-macros/common': workspace:~
-      ast-walker-scope: ^0.4.0
+      ast-walker-scope: ^0.4.1
       rollup: ^3.20.0
       unplugin: ^1.3.1
       vue: ^3.2.47
     dependencies:
       '@vue-macros/common': link:../common
-      ast-walker-scope: 0.4.0
+      ast-walker-scope: 0.4.1
       unplugin: 1.3.1
     devDependencies:
       rollup: 3.20.0
@@ -4073,8 +4073,8 @@ packages:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
     dev: true
 
-  /ast-walker-scope/0.4.0:
-    resolution: {integrity: sha512-THVisYmmqkcopZXJDniGgVW6BRKtjutRLytqAgw0XDabYZmxC0GfFggTFZouMhvNT7jPBkx0vOy/2Y+udCDwgg==}
+  /ast-walker-scope/0.4.1:
+    resolution: {integrity: sha512-Ro3nmapMxi/remlJdzFH0tiA7A59KDbxVoLlKWaLDrPELiftb9b8w+CCyWRM+sXZH5KHRAgv8feedW6mihvCHA==}
     engines: {node: '>=14.19.0'}
     dependencies:
       '@babel/parser': 7.21.3
@@ -6523,6 +6523,13 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
     dev: true
+
+  /magic-string-ast/0.1.2:
+    resolution: {integrity: sha512-P53AZrzq7hclCU6HWj88xNZHmP15DKjMmK/vBytO1qnpYP3ul4IEZlyCE0aU3JRnmgWmZPmoTKj4Bls7v0pMyA==}
+    engines: {node: '>=14.19.0'}
+    dependencies:
+      magic-string: 0.30.0
+    dev: false
 
   /magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
