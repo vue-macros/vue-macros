@@ -154,16 +154,24 @@ export async function handleTSEmitsDefinition({
         type: evtArg.typeAnnotation.typeAnnotation,
         scope: signature.scope,
       })
-      if (isTSExports(evtType) || evtType?.type.type !== 'TSLiteralType')
-        continue
 
-      const literal = evtType.type.literal
-      if (!isStaticExpression(literal)) continue
-      const evt = String(
-        resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>)
-      )
-      if (!definitions[evt]) definitions[evt] = []
-      definitions[evt].push(buildDefinition(signature))
+      if (isTSExports(evtType) || !evtType?.type) continue
+
+      const types =
+        evtType.type.type === 'TSUnionType'
+          ? evtType.type.types
+          : [evtType.type]
+
+      for (const type of types) {
+        if (type.type !== 'TSLiteralType') continue
+        const literal = type.literal
+        if (!isStaticExpression(literal)) continue
+        const evt = String(
+          resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>)
+        )
+        if (!definitions[evt]) definitions[evt] = []
+        definitions[evt].push(buildDefinition(signature))
+      }
     }
 
     return {

@@ -706,6 +706,58 @@ export { union as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/union-emits.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"union-emits\\",
+  emits: [\\"some\\", \\"emit\\", \\"another\\"],
+  setup(__props, { emit }) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var unionEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { unionEmits as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/union-emits.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"union-emits\\",
+  emits: [\\"some\\", \\"emit\\", \\"another\\"],
+  setup(__props, { emit }) {
+    return () => {
+    };
+  }
+});
+
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+
+var unionEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { unionEmits as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/unresolved.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 
