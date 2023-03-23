@@ -1,5 +1,14 @@
 # @vue-macros/volar
 
+## 0.9.3
+
+### Patch Changes
+
+- Updated dependencies [[`e06c3d1`](https://github.com/sxzz/unplugin-vue-macros/commit/e06c3d18062c6052cff97b59a6e98215581d5808)]:
+  - @vue-macros/common@1.1.4
+  - @vue-macros/define-props@1.0.2
+  - @vue-macros/short-vmodel@1.2.2
+
 ## 0.9.2
 
 ### Patch Changes

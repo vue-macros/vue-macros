@@ -1,5 +1,14 @@
 # unplugin-vue-define-options
 
+## 1.3.2
+
+### Patch Changes
+
+- [`e06c3d1`](https://github.com/sxzz/unplugin-vue-macros/commit/e06c3d18062c6052cff97b59a6e98215581d5808) Thanks [@sxzz](https://github.com/sxzz)! - switch to magic-string-ast, ec64836e08b2927d1a63d22f7492ab2dd1e83172
+
+- Updated dependencies [[`e06c3d1`](https://github.com/sxzz/unplugin-vue-macros/commit/e06c3d18062c6052cff97b59a6e98215581d5808)]:
+  - @vue-macros/common@1.1.4
+
 ## 1.3.1
 
 ### Patch Changes
