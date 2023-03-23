@@ -4,12 +4,13 @@
 
 Declare single props and events with `defineProp` & `defineEmit`.
 
-|  Features  |     Supported      |
-| :--------: | :----------------: |
-|   Vue 3    | :white_check_mark: |
-|   Nuxt 3   | :white_check_mark: |
-|   Vue 2    | :white_check_mark: |
-| TypeScript | :white_check_mark: |
+|   Features   |     Supported      |
+| :----------: | :----------------: |
+|    Vue 3     | :white_check_mark: |
+|    Nuxt 3    | :white_check_mark: |
+|    Vue 2     | :white_check_mark: |
+|  TypeScript  | :white_check_mark: |
+| Volar Plugin |        :x:         |
 
 ::: warning
 
