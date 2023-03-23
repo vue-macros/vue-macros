@@ -1,5 +1,15 @@
 # @vue-macros/better-define
 
+## 1.4.2
+
+### Patch Changes
+
+- [`f2df923`](https://github.com/sxzz/unplugin-vue-macros/commit/f2df923d4c10a70d38c54fef8fd27964eff2a6f4) Thanks [@sxzz](https://github.com/sxzz)! - resolve union event name for `api` and `betterDefine`, fix https://github.com/vuejs/core/issues/7943
+
+- Updated dependencies [[`f2df923`](https://github.com/sxzz/unplugin-vue-macros/commit/f2df923d4c10a70d38c54fef8fd27964eff2a6f4), [`e06c3d1`](https://github.com/sxzz/unplugin-vue-macros/commit/e06c3d18062c6052cff97b59a6e98215581d5808)]:
+  - @vue-macros/api@0.4.10
+  - @vue-macros/common@1.1.4
+
 ## 1.4.1
 
 ### Patch Changes
