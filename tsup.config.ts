@@ -8,11 +8,19 @@ const EsbuildRawPlugin: Plugin = {
   setup(build) {
     build.onLoad({ filter: /.*/ }, async ({ path, suffix }) => {
       if (!rawRE.test(suffix)) return
-      // raw query, read file and return as string
+
+      let contents = await readFile(path, 'utf-8')
+      const isTS = path.endsWith('.ts')
+      if (isTS)
+        contents = (
+          await build.esbuild.transform(contents, {
+            loader: isTS ? 'ts' : 'js',
+            minifyWhitespace: true,
+          })
+        ).code
+
       return {
-        contents: `export default ${JSON.stringify(
-          await readFile(path, 'utf-8')
-        )}`,
+        contents: `export default ${JSON.stringify(contents)}`,
       }
     })
   },

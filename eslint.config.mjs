@@ -2,7 +2,7 @@ import { sxzz } from '@sxzz/eslint-config'
 
 export default sxzz([
   {
-    ignores: ['playground/vue2', 'playground/nuxt', '**/helper/*.js'],
+    ignores: ['playground/vue2', 'playground/nuxt'],
   },
   {
     files: ['**/*.vue'],

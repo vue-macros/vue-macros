@@ -1,5 +1,9 @@
-export function createPropsRestProxy(props, excludedKeys) {
-  const ret = {}
+export function createPropsRestProxy(
+  props: any,
+  excludedKeys: string[]
+): Record<string, any> {
+  const ret: Record<string, any> = {}
+  // eslint-disable-next-line no-restricted-syntax
   for (const key in props) {
     if (!excludedKeys.includes(key)) {
       Object.defineProperty(ret, key, {
