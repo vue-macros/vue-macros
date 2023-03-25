@@ -1,5 +1,22 @@
 # unplugin-vue-macros
 
+## 1.11.2
+
+### Patch Changes
+
+- [`d944bb0`](https://github.com/sxzz/unplugin-vue-macros/commit/d944bb0e57bbf3a742f72a4776d582f52410a71f) Thanks [@sxzz](https://github.com/sxzz)! - tidy virtual module id
+
+- Updated dependencies [[`4b9e6de`](https://github.com/sxzz/unplugin-vue-macros/commit/4b9e6deed3ba2ba82d8f7cbdf56530dbb98af604), [`9335bfd`](https://github.com/sxzz/unplugin-vue-macros/commit/9335bfdec453b27f16558b3fd277633b3f8e2ef4), [`d944bb0`](https://github.com/sxzz/unplugin-vue-macros/commit/d944bb0e57bbf3a742f72a4776d582f52410a71f)]:
+  - @vue-macros/reactivity-transform@0.3.3
+  - @vue-macros/define-model@1.4.3
+  - @vue-macros/better-define@1.5.0
+  - @vue-macros/setup-component@0.16.3
+  - @vue-macros/named-template@0.3.3
+  - @vue-macros/define-render@1.3.3
+  - @vue-macros/setup-sfc@0.15.3
+  - @vue-macros/define-props@1.0.2
+  - @vue-macros/single-define@0.1.3
+
 ## 1.11.1
 
 ### Patch Changes

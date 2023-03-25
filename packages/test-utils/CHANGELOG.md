@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.0.1
+
+### Patch Changes
+
+- [`d944bb0`](https://github.com/sxzz/unplugin-vue-macros/commit/d944bb0e57bbf3a742f72a4776d582f52410a71f) Thanks [@sxzz](https://github.com/sxzz)! - tidy virtual module id
+
 ## 1.0.0
 
 ### Major Changes
