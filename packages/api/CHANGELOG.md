@@ -1,5 +1,11 @@
 # @vue-macros/api
 
+## 0.5.0
+
+### Minor Changes
+
+- [`9335bfd`](https://github.com/sxzz/unplugin-vue-macros/commit/9335bfdec453b27f16558b3fd277633b3f8e2ef4) Thanks [@sxzz](https://github.com/sxzz)! - support union key (TSMappedType)
+
 ## 0.4.10
 
 ### Patch Changes

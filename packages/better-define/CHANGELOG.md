@@ -1,5 +1,18 @@
 # @vue-macros/better-define
 
+## 1.5.0
+
+### Minor Changes
+
+- [`9335bfd`](https://github.com/sxzz/unplugin-vue-macros/commit/9335bfdec453b27f16558b3fd277633b3f8e2ef4) Thanks [@sxzz](https://github.com/sxzz)! - support union key (TSMappedType)
+
+### Patch Changes
+
+- [`d944bb0`](https://github.com/sxzz/unplugin-vue-macros/commit/d944bb0e57bbf3a742f72a4776d582f52410a71f) Thanks [@sxzz](https://github.com/sxzz)! - tidy virtual module id
+
+- Updated dependencies [[`9335bfd`](https://github.com/sxzz/unplugin-vue-macros/commit/9335bfdec453b27f16558b3fd277633b3f8e2ef4)]:
+  - @vue-macros/api@0.5.0
+
 ## 1.4.2
 
 ### Patch Changes

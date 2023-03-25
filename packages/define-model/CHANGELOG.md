@@ -1,5 +1,13 @@
 # @vue-macros/define-model
 
+## 1.4.3
+
+### Patch Changes
+
+- [`4b9e6de`](https://github.com/sxzz/unplugin-vue-macros/commit/4b9e6deed3ba2ba82d8f7cbdf56530dbb98af604) Thanks [@sxzz](https://github.com/sxzz)! - use TS for helper code
+
+- [`d944bb0`](https://github.com/sxzz/unplugin-vue-macros/commit/d944bb0e57bbf3a742f72a4776d582f52410a71f) Thanks [@sxzz](https://github.com/sxzz)! - tidy virtual module id
+
 ## 1.4.2
 
 ### Patch Changes

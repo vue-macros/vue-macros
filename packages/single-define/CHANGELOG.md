@@ -1,5 +1,12 @@
 # @vue-macros/single-define
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`9335bfd`](https://github.com/sxzz/unplugin-vue-macros/commit/9335bfdec453b27f16558b3fd277633b3f8e2ef4)]:
+  - @vue-macros/api@0.5.0
+
 ## 0.1.2
 
 ### Patch Changes

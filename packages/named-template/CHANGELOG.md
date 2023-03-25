@@ -1,5 +1,11 @@
 # @vue-macros/named-template
 
+## 0.3.3
+
+### Patch Changes
+
+- [`d944bb0`](https://github.com/sxzz/unplugin-vue-macros/commit/d944bb0e57bbf3a742f72a4776d582f52410a71f) Thanks [@sxzz](https://github.com/sxzz)! - tidy virtual module id
+
 ## 0.3.2
 
 ### Patch Changes
