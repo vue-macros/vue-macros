@@ -26,6 +26,7 @@ import type {
   StringLiteral,
   TSInterfaceDeclaration,
   TSIntersectionType,
+  TSMappedType,
   TSMethodSignature,
   TSPropertySignature,
   TSType,
@@ -368,9 +369,12 @@ export async function handleTSPropsDefinition({
       }
     } else if (
       definitionsAst.type !== 'TSInterfaceDeclaration' &&
-      definitionsAst.type !== 'TSTypeLiteral'
+      definitionsAst.type !== 'TSTypeLiteral' &&
+      definitionsAst.type !== 'TSMappedType'
     )
-      throw new SyntaxError(`Cannot resolve TS definition.`)
+      throw new SyntaxError(
+        `Cannot resolve TS definition: ${definitionsAst.type}.`
+      )
 
     const properties = await resolveTSProperties({
       scope,
@@ -504,7 +508,7 @@ export interface TSPropsProperty {
   type: 'property'
   value: ASTDefinition<TSResolvedType['type']> | undefined
   optional: boolean
-  signature: ASTDefinition<TSPropertySignature>
+  signature: ASTDefinition<TSPropertySignature | TSMappedType>
 
   /** Whether added by `addProp` API */
   addByAPI: boolean
@@ -521,7 +525,11 @@ export interface TSProps extends PropsBase {
 
   definitions: Record<string | number, TSPropsMethod | TSPropsProperty>
   definitionsAst: ASTDefinition<
-    TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType | TSUnionType
+    | TSInterfaceDeclaration
+    | TSTypeLiteral
+    | TSIntersectionType
+    | TSUnionType
+    | TSMappedType
   >
 
   /**

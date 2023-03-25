@@ -590,6 +590,52 @@ export { unionEmits as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/union-props.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"union-props\\",
+  props: {
+    \\"foo\\": { type: [String, Number], required: true },
+    \\"bar\\": { type: [String, Number], required: true },
+    \\"optional\\": { type: Boolean, required: false }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var unionProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { unionProps as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/union-props.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"union-props\\",
+  props: {
+    \\"foo\\": null,
+    \\"bar\\": null,
+    \\"optional\\": { type: Boolean }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var unionProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { unionProps as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/unresolved.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';
