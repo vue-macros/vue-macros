@@ -2,6 +2,7 @@
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { defineComponent, ref, resolveComponent, openBlock, createElementBlock, Fragment, createVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
@@ -28,14 +29,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 

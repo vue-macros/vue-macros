@@ -1,29 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
-"import { getCurrentInstance, defineComponent } from 'vue';
-import { useVModel } from '@vueuse/core';
-
-var __MACROS_useVModel = (...keys) => {
-  const props = getCurrentInstance().proxy.$props;
-  const ret = {};
-  for (const _k of keys) {
-    if (typeof _k === 'string') {
-      ret[_k] = useVModel(props, _k, undefined, {
-        eventName: \`update:\${_k}\`,
-        passive: true,
-      });
-    } else {
-      const [key, prop = key, eventName = \`update:\${key}\`, options = {}] = _k;
-      ret[key] = useVModel(props, prop, undefined, {
-        eventName,
-        passive: true,
-        ...options,
-      });
-    }
-  }
-  return ret
-};
+"import { defineComponent } from 'vue';
+import __MACROS_useVModel from '/vue-macros/define-model/use-vmodel';
+import _export_sfc from '/plugin-vue/export-helper';
 
 const name = \\"Foo\\";
 const __default__ = defineComponent({
@@ -47,14 +27,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { basic as default };
@@ -63,6 +35,7 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/case-233.vue 1`] = `
 "import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 const msg = \\"Hello\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -76,14 +49,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var case233 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { case233 as default };
@@ -92,6 +57,7 @@ export { case233 as default };
 
 exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
 "import { defineComponent, toRefs } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"define-props-refs\\",
@@ -108,14 +74,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var definePropsRefs = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { definePropsRefs as default };
@@ -124,14 +82,7 @@ export { definePropsRefs as default };
 
 exports[`fixtures > tests/fixtures/hoist-static.vue 1`] = `
 "import { defineComponent } from 'vue';
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
+import _export_sfc from '/plugin-vue/export-helper';
 
 const name = 'App';
 const propName = 'title';
@@ -160,6 +111,7 @@ export { hoistStatic as default };
 
 exports[`fixtures > tests/fixtures/hoist-static-scope.vue 1`] = `
 "import { defineComponent, openBlock, createElementBlock } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 const [name] = (
   /* hoist-static*/
@@ -178,14 +130,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var hoistStaticScope = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { hoistStaticScope as default };
@@ -194,6 +138,7 @@ export { hoistStaticScope as default };
 
 exports[`fixtures > tests/fixtures/short-emits.setup.tsx 1`] = `
 "import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"short-emits.setup\\",
@@ -204,14 +149,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var shortEmits_setup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { shortEmits_setup as default };
@@ -219,29 +156,9 @@ export { shortEmits_setup as default };
 `;
 
 exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
-"import { getCurrentInstance, defineComponent } from 'vue';
-import { useVModel } from '@vueuse/core';
-
-var __MACROS_useVModel = (...keys) => {
-  const props = getCurrentInstance().proxy.$props;
-  const ret = {};
-  for (const _k of keys) {
-    if (typeof _k === 'string') {
-      ret[_k] = useVModel(props, _k, undefined, {
-        eventName: \`update:\${_k}\`,
-        passive: true,
-      });
-    } else {
-      const [key, prop = key, eventName = \`update:\${key}\`, options = {}] = _k;
-      ret[key] = useVModel(props, prop, undefined, {
-        eventName,
-        passive: true,
-        ...options,
-      });
-    }
-  }
-  return ret
-};
+"import { defineComponent } from 'vue';
+import __MACROS_useVModel from '/vue-macros/define-model/use-vmodel';
+import _export_sfc from '/plugin-vue/export-helper';
 
 const __default__ = defineComponent({
   name: \\"Foo\\",
@@ -268,14 +185,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 var vue2Model = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 

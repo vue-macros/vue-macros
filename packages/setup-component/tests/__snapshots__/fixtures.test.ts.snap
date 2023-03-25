@@ -2,6 +2,7 @@
 
 exports[`fixtures > tests/fixtures/SetupFC.tsx 1`] = `
 "import { defineComponent, ref, createVNode, createTextVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"SetupFC.tsx-setup-component-0\\",
@@ -18,14 +19,6 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
 const App = __MACROS_setupComponent_0(() => ({
@@ -38,6 +31,7 @@ export { App };
 
 exports[`fixtures > tests/fixtures/async.tsx 1`] = `
 "import { defineComponent, withAsyncContext } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"async.tsx-setup-component-0\\",
@@ -59,14 +53,6 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
 const App = __MACROS_setupComponent_0(() => ({
@@ -79,6 +65,7 @@ export { App };
 
 exports[`fixtures > tests/fixtures/basic.ts 1`] = `
 "import { defineComponent, h } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"basic.ts-setup-component-0\\",
@@ -96,14 +83,6 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
 const App = __MACROS_setupComponent_0(() => ({ App }));
@@ -115,6 +94,7 @@ export { App };
 
 exports[`fixtures > tests/fixtures/context.tsx 1`] = `
 "import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main$1 = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"context.tsx-setup-component-1\\",
@@ -132,14 +112,6 @@ var _sfc_main$1 = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
     };
   }
 });
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 var __MACROS_setupComponent_1 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main$1(ctx), [__FILE__]);
 
@@ -189,6 +161,7 @@ export { App };
 
 exports[`fixtures > tests/fixtures/render.tsx 1`] = `
 "import { defineComponent, createVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"render.tsx-setup-component-0\\",
@@ -208,14 +181,6 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
 const App = __MACROS_setupComponent_0(() => ({
@@ -228,6 +193,7 @@ export { App };
 
 exports[`fixtures > tests/fixtures/return-render.tsx 1`] = `
 "import { defineComponent, computed, createVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"return-render.tsx-setup-component-0\\",
@@ -248,14 +214,6 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 
 const App = __MACROS_setupComponent_0(() => ({
@@ -268,6 +226,7 @@ export { App };
 
 exports[`fixtures > tests/fixtures/type-annotation.ts 1`] = `
 "import { defineComponent, h } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"type-annotation.ts-setup-component-0\\",
@@ -284,14 +243,6 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
     };
   }
 });
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 var __MACROS_setupComponent_0 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main(ctx), [__FILE__]);
 

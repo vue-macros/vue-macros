@@ -1,4 +1,4 @@
-export const helperPrefix = '/plugin-define-model'
+export const helperPrefix = '/vue-macros/define-model'
 
 export const emitHelperId = `${helperPrefix}/emit-helper`
 export { default as emitHelperCode } from './emit-helper?raw'

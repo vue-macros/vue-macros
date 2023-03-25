@@ -2,6 +2,7 @@
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { defineComponent, createElementVNode, openBlock, createElementBlock, Fragment, toDisplayString, createTextVNode, createBlock } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
@@ -51,14 +52,6 @@ function render(...args) {
   );
 }
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 if (typeof block0 === \\"function\\")
   block0(_sfc_main);
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", render], __FILE__]);
@@ -69,6 +62,7 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/dash-name.vue 1`] = `
 "import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode, createBlock, Fragment } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"dash-name\\",
@@ -103,14 +97,6 @@ function render(...args) {
   ]);
 }
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 if (typeof block0 === \\"function\\")
   block0(_sfc_main);
 var dashName = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", render], __FILE__]);
@@ -121,6 +107,7 @@ export { dashName as default };
 
 exports[`fixtures > tests/fixtures/multi.vue 1`] = `
 "import { defineComponent, openBlock, createElementBlock, createTextVNode, createElementVNode, Fragment, createBlock, createCommentVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"multi\\",
@@ -165,14 +152,6 @@ function render(...args) {
     /* STABLE_FRAGMENT */
   );
 }
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 if (typeof block0 === \\"function\\")
   block0(_sfc_main);

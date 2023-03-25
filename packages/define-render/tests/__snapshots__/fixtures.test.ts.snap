@@ -2,6 +2,7 @@
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { defineComponent, h } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
@@ -9,14 +10,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     return () => h(\\"div\\");
   }
 });
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
@@ -26,6 +19,7 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/id.vue 1`] = `
 "import { defineComponent, createVNode, createTextVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"id\\",
@@ -35,14 +29,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var id = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { id as default };
@@ -51,6 +37,7 @@ export { id as default };
 
 exports[`fixtures > tests/fixtures/tsx.vue 1`] = `
 "import { defineComponent, createVNode, createTextVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"tsx\\",
@@ -58,14 +45,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     return () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
   }
 });
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 var tsx = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
@@ -75,6 +54,7 @@ export { tsx as default };
 
 exports[`fixtures > tests/fixtures/without-fn.vue 1`] = `
 "import { defineComponent, createVNode, createTextVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"without-fn\\",
@@ -82,14 +62,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     return () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
   }
 });
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 var withoutFn = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 

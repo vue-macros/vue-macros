@@ -1,2 +1,2 @@
-export const helperId = '/vue2-reactivity-transform-helper'
+export const helperId = '/vue-macros/reactivity-transform/helper'
 export { default as helperCode } from './code?raw'

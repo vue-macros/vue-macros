@@ -44,20 +44,8 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/vue2/destructure-props.vue 1`] = `
 "import { defineComponent } from 'vue';
+import { createPropsRestProxy } from '/vue-macros/reactivity-transform/helper';
 import __normalizer from '[NULL]plugin-vue2:normalizer';
-
-function createPropsRestProxy(props, excludedKeys) {
-  const ret = {};
-  for (const key in props) {
-    if (!excludedKeys.includes(key)) {
-      Object.defineProperty(ret, key, {
-        enumerable: true,
-        get: () => props[key],
-      });
-    }
-  }
-  return ret
-}
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"destructure-props\\",
@@ -141,6 +129,7 @@ export { foo };
 
 exports[`fixtures > tests/fixtures/vue3/basic.vue 1`] = `
 "import { defineComponent, ref } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
@@ -152,14 +141,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { basic as default };
@@ -168,6 +149,7 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/vue3/default-value.vue 1`] = `
 "import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"default-value\\",
@@ -185,14 +167,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var defaultValue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { defaultValue as default };
@@ -201,19 +175,8 @@ export { defaultValue as default };
 
 exports[`fixtures > tests/fixtures/vue3/destructure-props.vue 1`] = `
 "import { defineComponent } from 'vue';
-
-function createPropsRestProxy(props, excludedKeys) {
-  const ret = {};
-  for (const key in props) {
-    if (!excludedKeys.includes(key)) {
-      Object.defineProperty(ret, key, {
-        enumerable: true,
-        get: () => props[key],
-      });
-    }
-  }
-  return ret
-}
+import { createPropsRestProxy } from '/vue-macros/reactivity-transform/helper';
+import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"destructure-props\\",
@@ -230,14 +193,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-
 var destructureProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { destructureProps as default };
@@ -246,6 +201,7 @@ export { destructureProps as default };
 
 exports[`fixtures > tests/fixtures/vue3/script-and-setup.vue 1`] = `
 "import { ref, defineComponent, openBlock, createElementBlock, toDisplayString, unref } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
 
 let foo = ref(\\"msg\\");
 foo.value = \\"world\\";
@@ -264,14 +220,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 
 var scriptAndSetup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
