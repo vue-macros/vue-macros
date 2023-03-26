@@ -15,6 +15,7 @@ import type {
   TemplateLiteral,
 } from '@babel/types'
 import type { ParserOptions, ParserPlugin } from '@babel/parser'
+import type { MagicStringBase } from 'magic-string-ast'
 
 export function babelParse(
   code: string,
@@ -293,5 +294,33 @@ export function unwrapTSNode(node: Node): Node {
     return unwrapTSNode((node as any).expression)
   } else {
     return node
+  }
+}
+
+const importedMap = new WeakMap<MagicStringBase, Set<string>>()
+export const HELPER_PREFIX = '__MACROS_'
+export function importHelperFn(
+  s: MagicStringBase,
+  offset: number,
+  local: string,
+  from: string,
+  isDefault = false
+) {
+  const imported = isDefault ? 'default' : local
+  const cacheKey = `${from}@${imported}`
+  if (!importedMap.get(s)?.has(cacheKey)) {
+    s.appendLeft(
+      offset,
+      `\nimport ${
+        isDefault
+          ? HELPER_PREFIX + local
+          : `{ ${imported} as ${HELPER_PREFIX + local} }`
+      } from ${JSON.stringify(from)};`
+    )
+    if (!importedMap.has(s)) {
+      importedMap.set(s, new Set([cacheKey]))
+    } else {
+      importedMap.get(s)!.add(cacheKey)
+    }
   }
 }

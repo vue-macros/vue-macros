@@ -10,6 +10,7 @@ import {
   REPO_ISSUE_URL,
   WITH_DEFAULTS,
   getTransformResult,
+  importHelperFn,
   isCallOf,
   parseSFC,
   resolveObjectKey,
@@ -397,7 +398,7 @@ export function transformDefineModel(
           }
         }
 
-        s.appendLeft(
+        s.appendRight(
           setupOffset,
           `\n${text ? `${kind} ${text} = ` : ''}defineProps<{
     ${propsText}
@@ -406,10 +407,10 @@ export function transformDefineModel(
       }
 
       if (hasDefineEmits) {
-        s.appendLeft(setupOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
+        s.appendRight(setupOffset + emitsTypeDecl!.start! + 1, `${emitsText}\n`)
       } else {
         emitsIdentifier = `${HELPER_PREFIX}emit`
-        s.appendLeft(
+        s.appendRight(
           setupOffset,
           `\n${
             mode === 'reactivity-transform' ? `const ${emitsIdentifier} = ` : ''
@@ -421,10 +422,7 @@ export function transformDefineModel(
     }
 
     function rewriteRuntime() {
-      s.prependLeft(
-        setupOffset,
-        `\nimport ${HELPER_PREFIX}useVModel from '${useVmodelHelperId}';`
-      )
+      importHelperFn(s, setupOffset, 'useVModel', useVmodelHelperId, true)
 
       const text = `${HELPER_PREFIX}useVModel(${Object.entries(map)
         .map(([name, { options }]) => {
@@ -453,15 +451,13 @@ export function transformDefineModel(
         `Identifier of returning value of ${DEFINE_EMITS} is not found, please report this issue.\n${REPO_ISSUE_URL}`
       )
 
-    let hasTransformed = false
-
     function overwrite(
       node: Node,
       id: Identifier,
       value: string,
       original = false
     ) {
-      hasTransformed = true
+      importHelperFn(s, setupOffset, 'emitHelper', emitHelperId, true)
       const eventName = aliasMap[id.name]
       const content = `${HELPER_PREFIX}emitHelper(${emitsIdentifier}, '${getEventKey(
         String(eventName)
@@ -496,13 +492,6 @@ export function transformDefineModel(
         }
       },
     })
-
-    if (hasTransformed) {
-      s.prependLeft(
-        setupOffset,
-        `\nimport ${HELPER_PREFIX}emitHelper from '${emitHelperId}';`
-      )
-    }
   }
 
   if (!code.includes(DEFINE_MODEL)) return

@@ -205,9 +205,9 @@ export function postTransform(
 
   for (const [name, source] of Object.entries(customBlocks[filename])) {
     s.prepend(
-      `import { default as ${HELPER_PREFIX}block_${escapeTemplateName(
+      `import ${HELPER_PREFIX}block_${escapeTemplateName(
         name
-      )} } from ${JSON.stringify(source)}\n`
+      )} from ${JSON.stringify(source)};\n`
     )
   }
 

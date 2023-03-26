@@ -77,25 +77,3 @@ export function addNormalScript({ script, lang }: SFC, s: MagicStringBase) {
     },
   }
 }
-
-const imported = new WeakMap<MagicStringBase, Set<string>>()
-export const HELPER_PREFIX = '__MACROS_'
-export function importHelperFn(
-  s: MagicStringBase,
-  offset: number,
-  name: string,
-  from: string
-) {
-  const cacheKey = `${from}@${name}`
-  if (!imported.get(s)?.has(cacheKey)) {
-    s.appendLeft(
-      offset,
-      `\nimport { ${name} as ${HELPER_PREFIX}${name} } from '${from}';`
-    )
-    if (!imported.has(s)) {
-      imported.set(s, new Set([cacheKey]))
-    } else {
-      imported.get(s)!.add(cacheKey)
-    }
-  }
-}
