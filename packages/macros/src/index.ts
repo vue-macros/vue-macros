@@ -60,7 +60,7 @@ export type FeatureOptions = FeatureOptionsMap[FeatureName]
 
 export interface OptionsCommon {
   root?: string
-  version?: 2 | 3
+  version?: number
   isProduction?: boolean
   plugins?: {
     vue?: any
@@ -134,9 +134,11 @@ function resolveOptions({
       isProduction,
     }),
     defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
-    defineOptions: resolveSubOptions<'defineOptions'>(defineOptions, {
-      version,
-    }),
+    defineOptions: resolveSubOptions<'defineOptions'>(
+      defineOptions,
+      { version },
+      version < 3.3
+    ),
     defineProps: resolveSubOptions<'defineProps'>(defineProps, { version }),
     definePropsRefs: resolveSubOptions<'definePropsRefs'>(definePropsRefs, {
       version,

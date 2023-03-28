@@ -4,7 +4,7 @@
 
 Options API can be declared using the `defineOptions` in `<script setup>`, specifically to be able to set `name`, `props`, `emits`, and `render` inside of one function.
 
-If you support this feature, feel free to hit like :+1: or comment on the [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430). Thanks!
+For Vue >= 3.3, this feature will be turned off by default.
 
 |  Features  |     Supported      |
 | :--------: | :----------------: |

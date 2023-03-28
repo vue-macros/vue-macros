@@ -32,7 +32,7 @@ import type {
 export function transformDefineModel(
   code: string,
   id: string,
-  version: 2 | 3,
+  version: number,
   unified: boolean
 ) {
   let hasDefineProps = false

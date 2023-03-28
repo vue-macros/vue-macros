@@ -23,7 +23,7 @@ export function getTransformResult(
 export interface BaseOptions {
   include?: FilterPattern
   exclude?: FilterPattern
-  version?: 2 | 3
+  version?: number
 }
 
 export function createFilter(options: BaseOptions) {
