@@ -6,7 +6,7 @@
 
 通过开启 `hoistStatic`, 可以在宏内部引用 `<script setup>` 中的变量
 
-如果你支持此功能，欢迎在 [Vue PR](https://github.com/vuejs/core/pull/5752) 中点赞 :+1: 或发表评论。
+在 Vue >= 3.3 中，此功能将默认关闭。
 
 |  特性  |        支持        |
 | :----: | :----------------: |
