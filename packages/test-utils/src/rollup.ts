@@ -54,7 +54,7 @@ export async function rollupBuild(file: string, plugins: InputPluginOption) {
       '@vueuse/core',
       '/plugin-vue/export-helper',
       '\0plugin-vue2:normalizer',
-      /\/vue-macros\/.*/,
+      /^\/vue-macros\/.*/,
     ],
     plugins,
     treeshake: false,
