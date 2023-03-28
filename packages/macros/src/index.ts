@@ -146,7 +146,11 @@ function resolveOptions({
     defineRender: resolveSubOptions<'defineRender'>(defineRender, { version }),
     defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
     exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
-    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, { version }),
+    hoistStatic: resolveSubOptions<'hoistStatic'>(
+      hoistStatic,
+      { version },
+      version < 3.3
+    ),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, {
       version,
     }),
