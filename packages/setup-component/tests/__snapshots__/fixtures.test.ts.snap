@@ -68,6 +68,9 @@ exports[`fixtures > tests/fixtures/basic.ts 1`] = `
 import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
+  ...{
+    name: \\"App\\"
+  },
   __name: \\"basic.ts-setup-component-0\\",
   props: {
     foo: { type: String, required: true }
@@ -75,9 +78,6 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   emits: [\\"change\\"],
   setup(__props) {
     const { App } = __MACROS_ctx();
-    defineOptions({
-      name: \\"App\\"
-    });
     return () => {
     };
   }
@@ -115,6 +115,7 @@ var _sfc_main$1 = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 
 var __MACROS_setupComponent_1 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main$1(ctx), [__FILE__]);
 
+const bar$1 = \\"BAR\\";
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: \\"context.tsx-setup-component-0\\",
   setup(__props) {
@@ -123,8 +124,7 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
       App,
       baz
     } = __MACROS_ctx();
-    const bar = \\"BAR\\";
-    console.log(foo, bar, baz, App);
+    console.log(foo, bar$1, baz, App);
     return () => {
     };
   }
@@ -229,6 +229,9 @@ exports[`fixtures > tests/fixtures/type-annotation.ts 1`] = `
 import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
+  ...{
+    name: \\"App\\"
+  },
   __name: \\"type-annotation.ts-setup-component-0\\",
   props: {
     foo: { type: String, required: true }
@@ -236,9 +239,6 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   emits: [\\"change\\"],
   setup(__props) {
     const { App } = __MACROS_ctx();
-    defineOptions({
-      name: \\"App\\"
-    });
     return () => {
     };
   }

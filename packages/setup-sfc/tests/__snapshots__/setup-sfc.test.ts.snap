@@ -32,11 +32,11 @@ exports[`setup-component > fixtures > tests/fixtures/with-define-options.setup.t
 import _export_sfc from '/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
+  ...{
+    name: \\"App\\"
+  },
   __name: \\"with-define-options.setup\\",
   setup(__props) {
-    defineOptions({
-      name: \\"App\\"
-    });
     defineRender(() => {
       return createVNode(\\"div\\", null, null);
     });
