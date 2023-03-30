@@ -4,7 +4,7 @@
 
 可以通过 `defineOptions` 宏在 `<script setup>` 中使用选项式 API，也就是说可以在一个宏函数中设置 `name`, `props`, `emits`, `render`。
 
-如果你支持此功能，欢迎在 [RFC](https://github.com/vuejs/rfcs/discussions/430) 中点赞 :+1: 或发表评论。
+在 Vue >= 3.3 中，此功能将默认关闭。
 
 |    特性    |        支持        |
 | :--------: | :----------------: |
