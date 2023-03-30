@@ -164,7 +164,11 @@ function resolveOptions({
       root,
     }),
     setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, { version }),
-    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits, { version }),
+    shortEmits: resolveSubOptions<'shortEmits'>(
+      shortEmits,
+      { version },
+      version < 3.3
+    ),
     singleDefine: resolveSubOptions<'singleDefine'>(singleDefine, {
       isProduction,
       version,

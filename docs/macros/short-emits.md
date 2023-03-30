@@ -4,6 +4,8 @@
 
 Simplify the definition of emits.
 
+For Vue >= 3.3, this feature will be turned off by default.
+
 |  Features  |     Supported      |
 | :--------: | :----------------: |
 |   Vue 3    | :white_check_mark: |
