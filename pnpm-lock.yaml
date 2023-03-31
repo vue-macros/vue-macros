@@ -320,11 +320,13 @@ importers:
       '@nuxt/devtools': ^0.3.1
       '@nuxt/kit': ^3.3.2
       '@nuxt/schema': ^3.3.2
+      '@vue-macros/common': workspace:~
       '@vue-macros/short-vmodel': workspace:~
       '@vue-macros/volar': workspace:~
       unplugin-vue-macros: workspace:~
     dependencies:
       '@nuxt/kit': 3.3.2
+      '@vue-macros/common': link:../common
       '@vue-macros/short-vmodel': link:../short-vmodel
       '@vue-macros/volar': link:../volar
       unplugin-vue-macros: link:../macros

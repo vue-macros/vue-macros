@@ -1,6 +1,7 @@
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { transformShortVmodel } from '@vue-macros/short-vmodel'
+import { detectVueVersion } from '@vue-macros/common'
 import type { Options } from 'unplugin-vue-macros'
 import type { Options as OptionsShortVmodel } from '@vue-macros/short-vmodel'
 import type { Plugin } from 'vite'
@@ -18,6 +19,8 @@ export default defineNuxtModule<VueMacrosOptions>({
   defaults: {},
   setup(options) {
     const nuxt = useNuxt()
+    const vueVersion = detectVueVersion()
+
     nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       function findPluginAndRemove(name: string): Plugin | undefined {
         const idx = config.plugins!.findIndex(
@@ -65,12 +68,16 @@ export default defineNuxtModule<VueMacrosOptions>({
     nuxt.options.typescript.tsConfig ||= {}
     nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {}
     nuxt.options.typescript.tsConfig.vueCompilerOptions.plugins ||= []
+    if (vueVersion < 3.3) {
+      nuxt.options.typescript.tsConfig.vueCompilerOptions.plugins.push(
+        '@vue-macros/volar/define-options',
+        '@vue-macros/volar/define-model',
+        '@vue-macros/volar/define-slots'
+      )
+    }
     nuxt.options.typescript.tsConfig.vueCompilerOptions.plugins.push(
-      '@vue-macros/volar/define-options',
-      '@vue-macros/volar/define-model',
       '@vue-macros/volar/define-props',
       '@vue-macros/volar/define-props-refs',
-      '@vue-macros/volar/define-slots',
       '@vue-macros/volar/export-props'
     )
 
