@@ -1,8 +1,10 @@
 # defineSlots
 
-<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+<StabilityLevel level="stable" />
 
 Declaring type of SFC slots in `<script setup>` using the `defineSlots`.
+
+For Vue >= 3.3, this feature will be turned off by default.
 
 |       Features       |              Supported              |
 | :------------------: | :---------------------------------: |

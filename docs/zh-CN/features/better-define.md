@@ -1,6 +1,6 @@
 # betterDefine
 
-<small>稳定性: <code class="!text-green-600">稳定</code></small>
+<StabilityLevel level="stable" />
 
 通过开启 `betterDefine` ，支持在 `<script setup>` 中导入 TS 类型来定义 `props` 和 `emits`。
 

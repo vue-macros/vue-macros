@@ -1,6 +1,6 @@
 # defineOptions
 
-<small>稳定性: <code class="!text-green-600">稳定</code></small>
+<StabilityLevel level="stable" />
 
 可以通过 `defineOptions` 宏在 `<script setup>` 中使用选项式 API，也就是说可以在一个宏函数中设置 `name`, `props`, `emits`, `render`。
 

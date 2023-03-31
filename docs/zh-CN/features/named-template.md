@@ -1,9 +1,6 @@
 # namedTemplate
 
-<div py2 flex>
-  <small>稳定性: <code class="!text-red-600">实验性</code></small>
-  <WarnBadge>实验性功能，风险自负</WarnBadge>
-</div>
+<StabilityLevel level="experimental" />
 
 通过开启 `namedTemplate` ，`<template>` 可以像变量一样被引用。
 

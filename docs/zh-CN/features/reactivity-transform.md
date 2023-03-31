@@ -1,6 +1,6 @@
 # Reactivity Transform
 
-<small>稳定性: <code class="!text-green-600">稳定</code></small>
+<StabilityLevel level="stable" />
 
 |        特性        |        支持        |
 | :----------------: | :----------------: |

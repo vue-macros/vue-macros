@@ -1,9 +1,6 @@
 # exportProps
 
-<div py2 flex>
-  <small>稳定性: <code class="!text-red-600">实验性</code></small>
-  <WarnBadge>实验性功能，风险自负</WarnBadge>
-</div>
+<StabilityLevel level="experimental" />
 
 在 Vue 中使用 [Svelte 风格声明 `props`](https://svelte.dev/docs#component-format-script-1-export-creates-a-component-prop)。
 

@@ -1,6 +1,6 @@
 # definePropsRefs
 
-<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+<StabilityLevel level="stable" />
 
 Returns refs from `defineProps` instead of a reactive object. It can be destructured without losing reactivity.
 

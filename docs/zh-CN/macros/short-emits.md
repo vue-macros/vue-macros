@@ -1,6 +1,6 @@
 # shortEmits
 
-<small>稳定性: <code class="!text-green-600">稳定</code></small>
+<StabilityLevel level="stable" />
 
 简化 `emits` 的定义。
 
@@ -29,3 +29,10 @@ const emits = defineEmits<
 >()
 </script>
 ```
+
+## Difference with Official Version
+
+<!-- TODO: same behavior -->
+
+- `ShortEmits` or `SE` is no longer needed in official version. Use it directly.
+- function style of declaration is not supported by official version.

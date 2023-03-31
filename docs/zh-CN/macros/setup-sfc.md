@@ -1,9 +1,6 @@
 # setupSFC
 
-<small mr-2>
-  稳定性: <code class="!text-red-600">实验性</code>
-</small>
-<WarnBadge>实验性功能，风险自负</WarnBadge>
+<StabilityLevel level="experimental" />
 
 ::: tip
 

@@ -4,14 +4,24 @@ List of all available macros.
 
 Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, read [Getting Started](/guide/getting-started) first.
 
+## Implemented by Vue 3.3
+
 - [defineOptions](/macros/define-options)
-- [defineModel](/macros/define-model)
-- [defineProps](/macros/define-props)
-- [definePropsRefs](/macros/define-props-refs)<WarnBadge>unstable</WarnBadge>
-- [defineSlots](/macros/define-slots)<WarnBadge>unstable</WarnBadge>
-- [defineRender](/macros/define-render)
+- [defineSlots](/macros/define-slots)
+  - [WIP](https://github.com/vuejs/core/pull/7982)
+- [defineModel](/macros/define-model) (:warning: inconsistent with official version)
+  - WIP
 - [shortEmits](/macros/short-emits)
+
+## Stable Features
+
+- [defineProps](/macros/define-props)
+- [definePropsRefs](/macros/define-props-refs)
+- [defineRender](/macros/define-render)
 - [shortVmodel](/macros/short-vmodel)
-- [setupComponent](/macros/setup-component) <WarnBadge>Experimental</WarnBadge>
-- [setupSFC](/macros/setup-sfc) <WarnBadge>Experimental</WarnBadge>
-- [singleDefine](/macros/single-define)<WarnBadge>unstable</WarnBadge>
+
+## Experimental Features
+
+- [singleDefine](/macros/single-define)
+- [setupComponent](/macros/setup-component)
+- [setupSFC](/macros/setup-sfc)

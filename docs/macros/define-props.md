@@ -1,6 +1,6 @@
 # defineProps
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<StabilityLevel level="stable" />
 
 Correct types of destructured props using `$defineProps`.
 

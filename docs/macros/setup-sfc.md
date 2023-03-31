@@ -1,9 +1,6 @@
 # setupSFC
 
-<small mr-2>
-  Stability: <code class="!text-red-600">experimental</code>
-</small>
-<WarnBadge>Experimental, use at your risk</WarnBadge>
+<StabilityLevel level="experimental" />
 
 ::: tip
 

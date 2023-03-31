@@ -61,49 +61,67 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
           text: 'All Macros',
           link: `${urlPrefix}/macros/`,
         },
+
         {
-          text: 'defineOptions',
-          link: `${urlPrefix}/macros/define-options`,
+          text: 'Official',
+          items: [
+            {
+              text: 'defineOptions',
+              link: `${urlPrefix}/macros/define-options`,
+            },
+            {
+              text: 'defineSlots',
+              link: `${urlPrefix}/macros/define-slots`,
+            },
+            {
+              text: 'defineModel',
+              link: `${urlPrefix}/macros/define-model`,
+            },
+            {
+              text: 'shortEmits',
+              link: `${urlPrefix}/macros/short-emits`,
+            },
+          ],
         },
+
         {
-          text: 'defineModel',
-          link: `${urlPrefix}/macros/define-model`,
+          text: 'Stable',
+          items: [
+            {
+              text: 'defineProps',
+              link: `${urlPrefix}/macros/define-props`,
+            },
+            {
+              text: 'definePropsRefs',
+              link: `${urlPrefix}/macros/define-props-refs`,
+            },
+            {
+              text: 'defineRender',
+              link: `${urlPrefix}/macros/define-render`,
+            },
+            {
+              text: 'shortVmodel',
+              link: `${urlPrefix}/macros/short-vmodel`,
+            },
+          ],
         },
+
         {
-          text: 'defineProps',
-          link: `${urlPrefix}/macros/define-props`,
-        },
-        {
-          text: 'definePropsRefs',
-          link: `${urlPrefix}/macros/define-props-refs`,
-        },
-        {
-          text: 'defineSlots',
-          link: `${urlPrefix}/macros/define-slots`,
-        },
-        {
-          text: 'defineRender',
-          link: `${urlPrefix}/macros/define-render`,
-        },
-        {
-          text: 'shortEmits',
-          link: `${urlPrefix}/macros/short-emits`,
-        },
-        {
-          text: 'shortVmodel',
-          link: `${urlPrefix}/macros/short-vmodel`,
-        },
-        {
-          text: 'setupComponent',
-          link: `${urlPrefix}/macros/setup-component`,
-        },
-        {
-          text: 'setupSFC',
-          link: `${urlPrefix}/macros/setup-sfc`,
-        },
-        {
-          text: 'singleDefine',
-          link: `${urlPrefix}/macros/single-define`,
+          text: 'Experimental',
+          items: [
+            {
+              text: 'singleDefine',
+              link: `${urlPrefix}/macros/single-define`,
+            },
+            {
+              text: 'setupComponent',
+              link: `${urlPrefix}/macros/setup-component`,
+            },
+            {
+              text: 'setupSFC',
+              link: `${urlPrefix}/macros/setup-sfc`,
+            },
+          ],
         },
       ],
     },
@@ -111,24 +129,41 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
       text: 'Features',
       items: [
         {
-          text: 'hoistStatic',
-          link: `${urlPrefix}/features/hoist-static`,
+          text: 'Official',
+          items: [
+            {
+              text: 'hoistStatic',
+              link: `${urlPrefix}/features/hoist-static`,
+            },
+          ],
         },
+
         {
-          text: 'namedTemplate',
-          link: `${urlPrefix}/features/named-template`,
+          text: 'Stable',
+          items: [
+            {
+              text: 'betterDefine',
+              link: `${urlPrefix}/features/better-define`,
+            },
+            {
+              text: 'reactivityTransform',
+              link: `${urlPrefix}/features/reactivity-transform`,
+            },
+          ],
         },
+
         {
-          text: 'betterDefine',
-          link: `${urlPrefix}/features/better-define`,
-        },
-        {
-          text: 'exportProps',
-          link: `${urlPrefix}/features/export-props`,
-        },
-        {
-          text: 'reactivityTransform',
-          link: `${urlPrefix}/features/reactivity-transform`,
+          text: 'Experimental',
+          items: [
+            {
+              text: 'namedTemplate',
+              link: `${urlPrefix}/features/named-template`,
+            },
+            {
+              text: 'exportProps',
+              link: `${urlPrefix}/features/export-props`,
+            },
+          ],
         },
       ],
     },

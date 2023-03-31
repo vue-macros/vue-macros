@@ -1,10 +1,10 @@
 # defineModel
 
-<small>稳定性: <code class="!text-green-600">稳定</code></small>
-
-<!-- 使用 `defineModel`声明和改变 `v-model` 的 props 和普通变量相同。 -->
+<StabilityLevel level="stable" />
 
 使用 `defineModel` 可以简化声明和修改 `v-model` 值的步骤，就像是在使用一个普通变量一样。
+
+在 Vue >= 3.3 中，此功能将默认关闭。
 
 |     特性     |        支持        |
 | :----------: | :----------------: |

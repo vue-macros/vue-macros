@@ -1,6 +1,6 @@
 # singleDefine
 
-<small>Stability: <code class="!text-yellow-600">unstable</code></small>
+<StabilityLevel level="experimental" />
 
 Declare single props and events with `defineProp` & `defineEmit`.
 

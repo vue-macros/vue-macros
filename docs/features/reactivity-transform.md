@@ -1,6 +1,6 @@
 # Reactivity Transform
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<StabilityLevel level="stable" />
 
 |      Features      |     Supported      |
 | :----------------: | :----------------: |

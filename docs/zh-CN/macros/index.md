@@ -4,13 +4,24 @@
 
 在开始之前，请确保 `unplugin-vue-macros` 设置正确。如果你还没有设置，请先阅读 [入门](/zh-CN/guide/getting-started)
 
+## 被 Vue 3.3 官方支持
+
 - [defineOptions](/zh-CN/macros/define-options)
-- [defineModel](/zh-CN/macros/define-model)
-- [defineProps](/zh-CN/macros/define-props)
-- [definePropsRefs](/zh-CN/macros/define-props-refs) <WarnBadge>尚未稳定</WarnBadge>
-- [defineSlots](/zh-CN/macros/define-slots) <WarnBadge>尚未稳定</WarnBadge>
-- [defineRender](/zh-CN/macros/define-render)
+- [defineSlots](/zh-CN/macros/define-slots)
+  - [WIP](https://github.com/vuejs/core/pull/7982)
+- [defineModel](/zh-CN/macros/define-model) (:warning: 与官方版本不一致)
+  - WIP
 - [shortEmits](/zh-CN/macros/short-emits)
+
+## 稳定功能
+
+- [defineProps](/zh-CN/macros/define-props)
+- [definePropsRefs](/zh-CN/macros/define-props-refs)
+- [defineRender](/zh-CN/macros/define-render)
 - [shortVmodel](/zh-CN/macros/short-vmodel)
-- [setupComponent](/zh-CN/macros/setup-component) <WarnBadge>实验性</WarnBadge>
-- [setupSFC](/zh-CN/macros/setup-sfc) <WarnBadge>实验性</WarnBadge>
+
+## 实验性功能
+
+- [singleDefine](/zh-CN/macros/single-define)
+- [setupComponent](/zh-CN/macros/setup-component)
+- [setupSFC](/zh-CN/macros/setup-sfc)

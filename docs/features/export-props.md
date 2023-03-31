@@ -1,6 +1,6 @@
 # exportProps
 
-<small py2>Stability: <code class="!text-red-600">experimental</code></small>
+<StabilityLevel level="experimental" />
 
 [Svelte-like Declaring props](https://svelte.dev/docs#component-format-script-1-export-creates-a-component-prop) for Vue.
 

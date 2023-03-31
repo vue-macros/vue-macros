@@ -1,8 +1,10 @@
 # defineModel
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<StabilityLevel level="stable" />
 
 Declaring and mutate `v-model` props as the same as normal variable using the `defineModel`.
+
+For Vue >= 3.3, this feature will be turned off by default.
 
 |   Features   |     Supported      |
 | :----------: | :----------------: |

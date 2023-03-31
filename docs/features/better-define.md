@@ -1,6 +1,6 @@
 # betterDefine
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<StabilityLevel level="stable" />
 
 With enabling `betterDefine`, imported types are supported in `<script setup>` type-based-macros.
 

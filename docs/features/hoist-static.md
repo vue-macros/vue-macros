@@ -1,6 +1,6 @@
 # hoistStatic
 
-<small>Stability: <code class="!text-green-600">stable</code></small>
+<StabilityLevel level="stable" />
 
 With enabling `hoistStatic`, constants declared in macros of `<script setup>` can be referenced.
 

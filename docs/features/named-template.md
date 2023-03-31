@@ -1,9 +1,6 @@
 # namedTemplate
 
-<div py2 flex>
-  <small>Stability: <code class="!text-red-600">experimental</code></small>
-  <WarnBadge>Experimental, use at your risk</WarnBadge>
-</div>
+<StabilityLevel level="experimental" />
 
 With enabling `namedTemplate`, `<template>` can be referenced like a variable.
 

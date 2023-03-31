@@ -1,8 +1,10 @@
 # defineSlots
 
-<small>稳定性: <code class="!text-yellow-600">不稳定</code></small>
+<StabilityLevel level="stable" />
 
 使用 `defineSlots` 可以在 `<script setup>` 中声明 SFC 中插槽的类型
+
+在 Vue >= 3.3 中，此功能将默认关闭。
 
 |         特性         |         支持         |
 | :------------------: | :------------------: |
