@@ -117,6 +117,17 @@ export { scriptAndSetup as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/vue3/as.ts 1`] = `
+"import { ref } from 'vue';
+
+let foo = ref(\\"msg\\");
+foo.value = \\"world\\";
+console.log(foo);
+
+export { foo };
+"
+`;
+
 exports[`fixtures > tests/fixtures/vue3/basic.ts 1`] = `
 "import { ref } from 'vue';
 

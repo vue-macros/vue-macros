@@ -43,7 +43,7 @@ const IMPORT_SOURCES = [
 ]
 const shorthands = ['ref', 'computed', 'shallowRef', 'toRef', 'customRef']
 const transformCheckRE =
-  /\W\$(?:\$|ref|computed|shallowRef|toRef|customRef)?\s*([(<])/
+  /\W\$(?:\$|ref|computed|shallowRef|toRef|customRef)?\s*([(<]|as)/
 
 export function shouldTransform(src: string): boolean {
   return transformCheckRE.test(src)
@@ -202,6 +202,7 @@ export function transformAST(
 
   function walkImportDeclaration(node: ImportDeclaration) {
     const source = node.source.value
+
     if (IMPORT_SOURCES.includes(source)) {
       s.remove(node.start! + offset, node.end! + offset)
     }

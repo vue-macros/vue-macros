@@ -68,8 +68,7 @@ export default createUnplugin<Options | undefined, false>(
           (framework === 'webpack' && REGEX_VUE_SUB.test(id))
         ) {
           return transformVueSFC(code, id)
-        } else {
-          if (!shouldTransform(code)) return
+        } else if (shouldTransform(code)) {
           return transform(code, {
             filename: id,
             sourceMap: true,
