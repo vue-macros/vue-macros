@@ -26,8 +26,13 @@ Declare single props and events with `defineProp` & `defineEmit`.
 <script setup>
 // Declare prop
 const count = defineProp('count')
+// Infer prop name from variable name
+const value = defineProp()
+
 // Declare event
 const increment = defineEmit('increment')
+// Infer emit name from variable name
+const change = defineEmit()
 
 // access prop value
 console.log(count.value)
@@ -57,10 +62,10 @@ const increment = defineEmit('increment', (value) => value < 20)
 
 ```vue
 <script setup>
-const count = defineProp('count')
-const maxCount = defineProp('maxCount')
-const increment = defineEmit('increment')
-const decrement = defineEmit('decrement')
+const count = defineProp()
+const maxCount = defineProp()
+const increment = defineEmit()
+const decrement = defineEmit()
 </script>
 ```
 
@@ -68,11 +73,13 @@ const decrement = defineEmit('decrement')
 
 ```vue
 <script setup lang="ts">
-// Declare prop of type number
-const count = defineProp<number>('count')
-
+// Declare prop of type number and infer prop name from variable name
+const count = defineProp<number>()
 count.value
-//    ^ type number
+//    ^? type number
+
+// Declare prop of TS type boolean with default value
+const disabled = defineProp<boolean>('disabled', { default: true })
 
 const increment = defineEmit('bar', (value: number) => value < 20)
 
