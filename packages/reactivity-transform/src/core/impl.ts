@@ -36,7 +36,11 @@ import type {
 
 const CONVERT_SYMBOL = '$'
 const ESCAPE_SYMBOL = '$$'
-const IMPORT_SOURCE = 'vue/macros'
+const IMPORT_SOURCES = [
+  'vue/macros',
+  '@vue-macros/reactivity-transform/macros',
+  'unplugin-vue-macros/macros',
+]
 const shorthands = ['ref', 'computed', 'shallowRef', 'toRef', 'customRef']
 const transformCheckRE =
   /\W\$(?:\$|ref|computed|shallowRef|toRef|customRef)?\s*([(<])/
@@ -149,7 +153,7 @@ export function transformAST(
   for (const { local, imported, source, specifier } of Object.values(
     userImports
   )) {
-    if (source === IMPORT_SOURCE) {
+    if (IMPORT_SOURCES.includes(source)) {
       if (imported === ESCAPE_SYMBOL) {
         escapeSymbol = local
       } else if (imported === CONVERT_SYMBOL) {
@@ -198,7 +202,7 @@ export function transformAST(
 
   function walkImportDeclaration(node: ImportDeclaration) {
     const source = node.source.value
-    if (source === IMPORT_SOURCE) {
+    if (IMPORT_SOURCES.includes(source)) {
       s.remove(node.start! + offset, node.end! + offset)
     }
 
