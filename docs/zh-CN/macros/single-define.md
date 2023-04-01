@@ -81,7 +81,8 @@ count.value
 // Declare prop of TS type boolean with default value
 const disabled = defineProp<boolean>('disabled', { default: true })
 
-const increment = defineEmit('bar', (value: number) => value < 20)
+const increment = defineEmit('increment', (value: number) => value < 20)
+const decrement = defineEmit<[value: number]>()
 
 increment(2) // pass
 increment('2') // TS type error

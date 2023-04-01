@@ -21,6 +21,4 @@ expectTypeOf(qux).toEqualTypeOf<(value: string) => void>()
 
 const change = defineEmit<[]>()
 expectTypeOf(change).toEqualTypeOf<() => void>()
-
-const increment = defineEmit('bar', (value: number) => value < 20)
 </script>
