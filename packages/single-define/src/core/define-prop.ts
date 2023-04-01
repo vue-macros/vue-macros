@@ -73,18 +73,31 @@ export async function transformDefineProp(options: TransformOptions) {
   const props: Prop[] = []
 
   walkAST<Node>(setupAst, {
-    enter(node: Node) {
+    enter(node: Node, parent: Node) {
       if (isCallOf(node, DEFINE_PROP)) {
         const [name, definition] = node.arguments
 
-        if (name.type !== 'StringLiteral') {
+        let propName: string
+        if (!name) {
+          if (
+            parent.type !== 'VariableDeclarator' ||
+            parent.id.type !== 'Identifier'
+          ) {
+            throw new Error(
+              `A variable must be used to receive the return value of ${DEFINE_PROP}.`
+            )
+          }
+          propName = parent.id.name
+        } else if (name.type !== 'StringLiteral') {
           throw new Error(
             `The first argument of ${DEFINE_PROP} must be a string literal.`
           )
+        } else {
+          propName = name.value
         }
 
         props.push({
-          name: name.value,
+          name: propName,
           definition: definition
             ? s.sliceNode(definition, { offset })
             : undefined,
@@ -94,7 +107,7 @@ export async function transformDefineProp(options: TransformOptions) {
         s.overwriteNode(
           node,
           `${HELPER_PREFIX}computed(() => ${PROPS_VARIABLE_NAME}[${JSON.stringify(
-            name.value
+            propName
           )}])`,
           { offset }
         )

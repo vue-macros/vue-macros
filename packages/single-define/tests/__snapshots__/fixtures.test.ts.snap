@@ -5,19 +5,27 @@ exports[`fixtures > tests/fixtures/define-emit.vue 1`] = `
 const __MACROS_emit = defineEmits({
       \\"foo\\": null,
   \\"bar\\": (value: string) => typeof value === 'string',
-  \\"baz\\": (value) => typeof value === 'number'
+  \\"baz\\": (value) => typeof value === 'number',
+  \\"baz\\": (value) => typeof value === 'string',
+  \\"change\\": null
     })
 
 import { expectTypeOf } from 'expect-type'
 
 const foo = (...args) => __MACROS_emit(\\"foo\\", ...args)
-expectTypeOf(foo).toEqualTypeOf<(...args: any) => void>()
+expectTypeOf(foo).toEqualTypeOf<(...args: any[]) => void>()
 
 const bar = (...args) => __MACROS_emit(\\"bar\\", ...args)
 expectTypeOf(bar).toEqualTypeOf<(value: string) => void>()
 
 const baz = (...args) => __MACROS_emit(\\"baz\\", ...args)
 expectTypeOf(baz).toEqualTypeOf<(value: number) => void>()
+
+const qux = (...args) => __MACROS_emit(\\"baz\\", ...args)
+expectTypeOf(qux).toEqualTypeOf<(value: string) => void>()
+
+const change = (...args) => __MACROS_emit(\\"change\\", ...args)
+expectTypeOf(change).toEqualTypeOf<() => void>()
 </script>
 \`;
 
@@ -35,12 +43,12 @@ const __MACROS_props = defineProps({
   default: 'bar',
 } },
   \\"baz\\": { ...{ type: [String, Number] }, ...{
-  type: [Number, String],
   required: true,
   default: () => [1, 2, 3],
 } },
   \\"qux\\": { type: [String, Number] },
   \\"quux\\": { ...{ type: Boolean }, ...{ default: true } },
+  \\"quuz\\": null,
 })
 
 import { computed as __MACROS_computed } from \\"vue\\";
@@ -60,6 +68,10 @@ expectTypeOf(baz).toEqualTypeOf<ComputedRef<string | number>>()
 __MACROS_computed(() => __MACROS_props[\\"qux\\"])
 
 __MACROS_computed(() => __MACROS_props[\\"quux\\"])
+
+// infer prop name from variable name
+const quuz = __MACROS_computed(() => __MACROS_props[\\"quuz\\"])
+console.log(quuz)
 </script>
 \`;
 

@@ -22,4 +22,8 @@ expectTypeOf(baz).toEqualTypeOf<ComputedRef<string | number>>()
 defineProp<Qux>('qux')
 
 defineProp<boolean>('quux', { default: true })
+
+// infer prop name from variable name
+const quuz = defineProp()
+console.log(quuz)
 </script>

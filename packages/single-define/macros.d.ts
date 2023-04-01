@@ -12,11 +12,19 @@ interface PropOptions<T = any> {
 }
 
 export declare function defineProp<T>(
-  propName: string,
+  propName?: string,
   options?: PropOptions
 ): ComputedRef<T>
 
-export declare function defineEmit<T extends (...args: any) => any>(
-  emitName: string,
-  validator?: T | ((...args: Parameters<T>) => boolean)
-): (...args: Parameters<T>) => void
+type MaybeTupleFunction<T, R> = T extends any[]
+  ? (...args: T) => R
+  : T extends (...args: any) => any
+  ? (...args: Parameters<T>) => R
+  : T
+
+export declare function defineEmit<
+  T extends ((...args: any) => any) | any[] = any[]
+>(
+  emitName?: string,
+  validator?: MaybeTupleFunction<T, any>
+): MaybeTupleFunction<T, void>

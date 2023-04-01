@@ -29,25 +29,38 @@ export function transformDefineEmit({ setupAst, offset, s }: TransformOptions) {
   const emits: Emit[] = []
 
   walkAST<Node>(setupAst, {
-    enter(node: Node) {
+    enter(node: Node, parent: Node) {
       if (isCallOf(node, DEFINE_EMIT)) {
         const [name, validator] = node.arguments
 
-        if (name.type !== 'StringLiteral') {
+        let emitName: string
+        if (!name) {
+          if (
+            parent.type !== 'VariableDeclarator' ||
+            parent.id.type !== 'Identifier'
+          ) {
+            throw new Error(
+              `A variable must be used to receive the return value of ${DEFINE_EMIT}.`
+            )
+          }
+          emitName = parent.id.name
+        } else if (name.type !== 'StringLiteral') {
           throw new Error(
             `The first argument of ${DEFINE_EMIT} must be a string literal.`
           )
+        } else {
+          emitName = name.value
         }
 
         emits.push({
-          name: name.value,
+          name: emitName,
           validator: validator ? s.sliceNode(validator, { offset }) : undefined,
         })
 
         s.overwriteNode(
           node,
           `(...args) => ${EMIT_VARIABLE_NAME}(${JSON.stringify(
-            name.value
+            emitName
           )}, ...args)`,
           { offset }
         )
