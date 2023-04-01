@@ -14,11 +14,12 @@ const bar = defineProp<string>('bar', {
 expectTypeOf(bar).toEqualTypeOf<ComputedRef<string>>()
 
 const baz = defineProp<string | number>('baz', {
-  type: [Number, String],
   required: true,
   default: () => [1, 2, 3],
 })
 expectTypeOf(baz).toEqualTypeOf<ComputedRef<string | number>>()
 
 defineProp<Qux>('qux')
+
+defineProp<boolean>('quux', { default: true })
 </script>

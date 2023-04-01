@@ -21,7 +21,7 @@ function mountEmits(emits: Emit[]) {
           ({ name, validator }) =>
             `${JSON.stringify(name)}: ${validator || `null`}`
         )
-        .join(', ')}
+        .join(',\n  ')}
     }`
 }
 

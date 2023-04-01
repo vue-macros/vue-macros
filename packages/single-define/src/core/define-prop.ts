@@ -36,9 +36,10 @@ async function mountProps(
 
   for (const { name, definition, typeParameter } of props) {
     propsString += `  ${JSON.stringify(name)}: `
-    if (definition) {
-      propsString += definition
-    } else if (typeParameter && !isProduction) {
+
+    let propDef: string | undefined
+
+    if (typeParameter && !isProduction) {
       const resolved = await resolveTSReferencedType({
         scope: {
           filePath: id,
@@ -47,14 +48,20 @@ async function mountProps(
         },
         type: typeParameter,
       })
-
-      propsString += resolved
-        ? `{ type: ${toRuntimeTypeString(await inferRuntimeType(resolved))} }`
-        : 'null'
-    } else {
-      propsString += 'null'
+      if (resolved)
+        propDef = `{ type: ${toRuntimeTypeString(
+          await inferRuntimeType(resolved)
+        )} }`
     }
-    propsString += ',\n'
+    if (definition) {
+      if (propDef) {
+        propDef = `{ ...${propDef}, ...${definition} }`
+      } else {
+        propDef = definition
+      }
+    }
+
+    propsString += `${propDef || 'null'},\n`
   }
   propsString += '}'
 
