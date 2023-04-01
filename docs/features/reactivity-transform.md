@@ -128,10 +128,12 @@ Every reactivity API that returns refs will have a `$`-prefixed macro equivalent
 - [`customRef`](https://vuejs.org/api/reactivity-advanced#customref) -> `$customRef`
 - [`toRef`](https://vuejs.org/api/reactivity-utilities#toref) -> `$toRef`
 
-These macros are globally available and do not need to be imported when Reactivity Transform is enabled, but you can optionally import them from `vue/macros` if you want to be more explicit:
+These macros are globally available and do not need to be imported when Reactivity Transform is enabled, but you can optionally import them from `unplugin-vue-macros/macros` or `@vue-macros/reactivity-transform/macros-global` if you want to be more explicit:
 
 ```js
-import { $ref } from 'vue/macros'
+import { $ref } from 'unplugin-vue-macros/macros'
+// for standalone version:
+// import { $ref } from '@vue-macros/reactivity-transform/macros-global'
 
 const count = $ref(0)
 ```
@@ -356,4 +358,4 @@ Since the macros are available globally, their types need to be explicitly refer
 /// <reference types="@vue-macros/reactivity-transform/macros-global" />
 ```
 
-When explicitly importing the macros from `vue/macros`, the type will work without declaring the globals.
+When explicitly importing the macros from `unplugin-vue-macros/macros` or `@vue-macros/reactivity-transform/macros-global`, the type will work without declaring the globals.

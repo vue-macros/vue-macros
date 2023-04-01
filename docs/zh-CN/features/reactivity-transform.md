@@ -128,10 +128,12 @@ function increment() {
 - [`customRef`](https://vuejs.org/api/reactivity-advanced#customref) -> `$customRef`
 - [`toRef`](https://vuejs.org/api/reactivity-utilities#toref) -> `$toRef`
 
-当启用响应性语法糖时，这些宏函数都是全局可用的、无需手动导入。但如果你想让它更明显，你也可以选择从 `vue/macros` 中引入它们：
+当启用响应性语法糖时，这些宏函数都是全局可用的、无需手动导入。但如果你想让它更明显，你也可以选择从 `unplugin-vue-macros/macros` 或 `@vue-macros/reactivity-transform/macros-global` 中引入它们：
 
 ```js
-import { $ref } from 'vue/macros'
+import { $ref } from 'unplugin-vue-macros/macros'
+// 适用于独立版本：
+// import { $ref } from '@vue-macros/reactivity-transform/macros-global'
 
 const count = $ref(0)
 ```
@@ -356,4 +358,4 @@ Vue 为这些宏函数都提供了类型声明 (全局可用)，因此类型推�
 /// <reference types="@vue-macros/reactivity-transform/macros-global" />
 ```
 
-若你是从 `vue/macros` 中显式引入宏函数时，则不需要像这样全局声明。
+若你是从 `unplugin-vue-macros/macros` 或 `@vue-macros/reactivity-transform/macros-global` 中显式引入宏函数时，则不需要像这样全局声明。
