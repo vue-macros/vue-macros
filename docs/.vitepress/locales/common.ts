@@ -74,10 +74,6 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
               link: `${urlPrefix}/macros/define-slots`,
             },
             {
-              text: 'defineModels',
-              link: `${urlPrefix}/macros/define-models`,
-            },
-            {
               text: 'shortEmits',
               link: `${urlPrefix}/macros/short-emits`,
             },
@@ -87,6 +83,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
         {
           text: 'Stable',
           items: [
+            {
+              text: 'defineModels',
+              link: `${urlPrefix}/macros/define-models`,
+            },
             {
               text: 'defineProps',
               link: `${urlPrefix}/macros/define-props`,
