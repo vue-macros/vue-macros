@@ -4,7 +4,7 @@
 'unplugin-vue-define-options': patch
 '@vue-macros/named-template': patch
 '@vue-macros/single-define': patch
-'@vue-macros/define-model': patch
+'@vue-macros/define-models': patch
 ---
 
 simplify import helper function

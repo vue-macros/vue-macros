@@ -9,7 +9,7 @@ Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, 
 - [defineOptions](/macros/define-options)
 - [defineSlots](/macros/define-slots)
   - [WIP](https://github.com/vuejs/core/pull/7982)
-- [defineModel](/macros/define-model) (:warning: inconsistent with official version)
+- [defineModels](/macros/define-models) (:warning: inconsistent with official version)
   - WIP
 - [shortEmits](/macros/short-emits)
 

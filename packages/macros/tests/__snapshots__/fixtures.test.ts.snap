@@ -2,7 +2,7 @@
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { defineComponent } from 'vue';
-import __MACROS_useVModel from '/vue-macros/define-model/use-vmodel';
+import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '/plugin-vue/export-helper';
 
 const name = \\"Foo\\";
@@ -157,7 +157,7 @@ export { shortEmits_setup as default };
 
 exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
 "import { defineComponent } from 'vue';
-import __MACROS_useVModel from '/vue-macros/define-model/use-vmodel';
+import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '/plugin-vue/export-helper';
 
 const __default__ = defineComponent({

@@ -4,8 +4,8 @@ import DefineOptionsVue from './examples/define-options/index.vue'
 import DefinePropsVue from './examples/define-props/index.vue'
 import DefinePropsRefsVue from './examples/define-props-refs/index.vue'
 import HoistStaticVue from './examples/hoist-static/index.vue'
-import DefineModelReactivityVue from './examples/define-model/reactivity-transform/parent.vue'
-import DefineModelRuntimeVue from './examples/define-model/runtime/parent.vue'
+import DefineModelReactivityVue from './examples/define-models/reactivity-transform/parent.vue'
+import DefineModelRuntimeVue from './examples/define-models/runtime/parent.vue'
 import DefineSlotsVue from './examples/define-slots/parent.vue'
 import ExportPropsVue from './examples/export-props/index.vue'
 import BetterDefineVue from './examples/better-define/index.vue'
@@ -59,7 +59,7 @@ import Full from './examples/full.setup'
   </fieldset>
 
   <fieldset>
-    <legend>defineModel</legend>
+    <legend>defineModels</legend>
     <DefineModelReactivityVue />
     <hr />
     <DefineModelRuntimeVue />

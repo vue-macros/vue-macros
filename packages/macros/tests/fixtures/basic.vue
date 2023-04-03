@@ -9,7 +9,7 @@ const { title } = defineProps<{
 const emit = defineEmits<{
   (evt: 'change'): void
 }>()
-let { modelValue } = defineModel<{
+let { modelValue } = defineModels<{
   modelValue: string
 }>()
 

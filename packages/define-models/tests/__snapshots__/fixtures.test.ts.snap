@@ -1,0 +1,666 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > ./fixtures/reactivity-transform/assignment.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_emitHelper from \\"/vue-macros/define-models/emit-helper\\";
+let { modelValue, title } = defineProps<{
+    modelValue: string
+title: string
+  }>();
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:title', value: string): void
+  }>();
+
+
+__MACROS_emitHelper(__MACROS_emit, 'update:modelValue', __MACROS_emitHelper(__MACROS_emit, 'update:title', '123'))
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/assignment-update.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_emitHelper from \\"/vue-macros/define-models/emit-helper\\";
+let { count } = defineProps<{
+    count: number
+  }>();
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:count', value: number): void
+  }>();
+
+
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1, count)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count - 1, count)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count - 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count - 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count * 1)
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count / 1)
+
+__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1)
+
+const additionAssignment = () => (__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1))
+const increment = () => __MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1, count)
+const add = () => (__MACROS_emitHelper(__MACROS_emit, 'update:count', count + 1))
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_emitHelper from \\"/vue-macros/define-models/emit-helper\\";
+var { modelValue } = defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+
+
+console.log(modelValue)
+__MACROS_emitHelper(__MACROS_emit, 'update:modelValue', 'newValue')
+</script>
+
+<template>
+  <h1>123</h1>
+</template>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/error-rest.vue 1`] = `"rest element is not supported"`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/multi-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+let { modelValue } = defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+let a = 'b'
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/no-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/rename.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_emitHelper from \\"/vue-macros/define-models/emit-helper\\";
+let { modelValue: visible, foo } = defineProps<{
+    modelValue: boolean
+foo: string
+  }>();
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: boolean): void
+(evt: 'update:foo', value: string): void
+  }>();
+
+
+__MACROS_emitHelper(__MACROS_emit, 'update:modelValue', false)
+console.log(visible, foo)
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits.vue 1`] = `
+"<script setup lang=\\"ts\\">
+const { modelValue } = defineProps<{
+    modelValue: string
+  }>();
+
+
+const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+emit('change')
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_emitHelper from \\"/vue-macros/define-models/emit-helper\\";
+let { modelValue } = defineProps<{
+    modelValue: string
+  }>();
+
+
+const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  __MACROS_emitHelper(emit, 'update:modelValue', 'hello')
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-emits-no-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_emitHelper from \\"/vue-macros/define-models/emit-helper\\";
+let { modelValue } = defineProps<{
+    modelValue: string
+  }>();
+
+
+const _defineModel_emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+__MACROS_emitHelper(_defineModel_emit, 'update:modelValue', '1')
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props.vue 1`] = `
+"<script setup lang=\\"ts\\">
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+
+
+defineProps<{modelValue: string
+visible: boolean
+
+  title?: string
+}>()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+
+
+const {modelValue,  title } = defineProps<{modelValue: string
+visible: boolean
+
+  title?: string
+}>()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-empty.vue 1`] = `
+"<script setup lang=\\"ts\\">
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+
+
+defineProps< {modelValue: string
+visible: boolean
+  } > ()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-ref.vue 1`] = `
+"<script setup lang=\\"ts\\">
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+interface Props {modelValue: string
+visible: boolean
+
+  title?: string
+}
+
+defineProps<Props>()
+
+
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/reactivity-transform/with-define-props-rest.vue 1`] = `
+"<script setup lang=\\"ts\\">
+const __MACROS_emit = defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+
+
+const {modelValue,  title, ...props } = defineProps<{modelValue: string
+visible: boolean
+
+  title?: string
+}>()
+
+console.log(props)
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue2/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+let { value, title } = __MACROS_useVModel([\\"value\\", undefined, \\"input\\"], \\"title\\")
+
+const { id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'input', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  value.value = 'hello'
+  title.value = 'world'
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue2/custom-model.vue 1`] = `
+"<script lang=\\"ts\\">
+export default {
+  model: {
+    prop: 'value',
+    event: 'changeInput',
+  },
+}
+</script>
+<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+let { value, title } = __MACROS_useVModel([\\"value\\", undefined, \\"changeInput\\"], \\"title\\")
+
+const { id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'changeInput', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  value.value = 'hello'
+  title.value = 'world'
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue2/custom-model-defineComponent.vue 1`] = `
+"<script lang=\\"ts\\">
+import { defineComponent } from 'vue'
+export default defineComponent({
+  model: {
+    prop: 'value',
+    event: 'changeInput'
+  },
+})
+</script>
+<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+let { value, title } = __MACROS_useVModel([\\"value\\", undefined, \\"changeInput\\"], \\"title\\")
+
+const { id } = defineProps<{value: string
+title: string
+ id: string }>()
+
+const emit = defineEmits<{(evt: 'changeInput', value: string): void
+(evt: 'update:title', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+{
+  value.value = 'hello'
+  title.value = 'world'
+  emit('change')
+
+  {
+    let modelValue = 'world'
+    modelValue = 'foo'
+  }
+}
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue2/v-model.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    value: string
+  }>();
+defineEmits<{
+    (evt: 'input', value: string): void
+  }>();
+const { modelValue } = __MACROS_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"])
+
+modelValue.value = 'hello'
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/assignment.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    modelValue: string
+title: string
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:title', value: string): void
+  }>();
+const { modelValue, title } = __MACROS_useVModel(\\"modelValue\\", \\"title\\")
+
+modelValue.value = title.value = '123'
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
+
+console.log(modelValue.value)
+modelValue.value = 'newValue'
+</script>
+
+<template>
+  <h1>123</h1>
+</template>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/define-props-runtime.vue 1`] = `undefined`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/empty.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    
+  }>();
+defineEmits<{
+    
+  }>();
+__MACROS_useVModel()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/error-empty-define-props.vue 1`] = `"defineProps() expected a type parameter when used with defineModels."`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/error-runtime.vue 1`] = `"defineProps() cannot accept non-type arguments when used with defineModels()"`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/multi-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const a = 'b',
+  { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/no-decl.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+__MACROS_useVModel(\\"modelValue\\", \\"visible\\")
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/no-type.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    foo
+bar
+  }>();
+defineEmits<{
+    (evt: 'update:foo', value): void
+(evt: 'update:bar', value): void
+  }>();
+__MACROS_useVModel(\\"foo\\", \\"bar\\")
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/optional.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    foo?: string
+  }>();
+defineEmits<{
+    (evt: 'update:foo', value?: string): void
+  }>();
+__MACROS_useVModel(\\"foo\\")
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/options.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    foo?: string
+bar?: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:foo', value?: string): void
+(evt: 'update:bar', value?: boolean): void
+  }>();
+const { foo, bar } = __MACROS_useVModel(\\"foo\\", [\\"bar\\", undefined, undefined, {
+  \\"defaultValue\\": true
+}])
+
+console.log(foo.value, bar.value)
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/rename.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    modelValue: boolean
+foo: string
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: boolean): void
+(evt: 'update:foo', value: string): void
+  }>();
+const { modelValue: visible, foo } = __MACROS_useVModel(\\"modelValue\\", \\"foo\\")
+
+console.log(visible, foo)
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/rest.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    modelValue: string
+visible: boolean
+  }>();
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const { ...rest } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
+
+rest.modelValue.value = 'foo'
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-defaults.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineEmits<{
+    (evt: 'update:foo', value: string): void
+  }>();
+export interface Props {foo: string
+
+  color: string
+}
+
+const { foo } = __MACROS_useVModel(\\"foo\\")
+
+withDefaults(defineProps<Props>(), {
+  color: 'blue'
+})
+
+console.log(foo)
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-define-emits.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineProps<{
+    modelValue: string
+  }>();
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\")
+
+const emit = defineEmits<{(evt: 'update:modelValue', value: string): void
+
+  (evt: 'change'): void
+}>()
+
+emit('change')
+modelValue.value = 'hello'
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-define-props.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
+
+defineProps<{modelValue: string
+visible: boolean
+
+  title?: string
+}>()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-define-props-empty.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
+
+defineProps< {modelValue: string
+visible: boolean
+  } > ()
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/runtime/vue3/with-define-props-ref.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import __MACROS_useVModel from \\"/vue-macros/define-models/use-vmodel\\";
+defineEmits<{
+    (evt: 'update:modelValue', value: string): void
+(evt: 'update:visible', value: boolean): void
+  }>();
+interface Props {modelValue: string
+visible: boolean
+
+  title?: string
+}
+
+defineProps<Props>()
+
+const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
+</script>
+"
+`;

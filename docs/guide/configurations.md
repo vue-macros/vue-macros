@@ -21,7 +21,7 @@ VueMacros({
   },
 
   /** Defaults to true  */
-  defineModel: {
+  defineModels: {
     /**
      * Unified mode, only works for Vue 2
      *

@@ -1,6 +1,6 @@
 import { createCombinePlugin } from 'unplugin-combine'
 import VueBetterDefine from '@vue-macros/better-define'
-import VueDefineModel from '@vue-macros/define-model'
+import VueDefineModel from '@vue-macros/define-models'
 import VueDefineOptions from 'unplugin-vue-define-options'
 import VueDefineProps from '@vue-macros/define-props'
 import VueDefinePropsRefs from '@vue-macros/define-props-refs'
@@ -21,7 +21,7 @@ import { Devtools } from '@vue-macros/devtools'
 import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Plugin, PluginType } from 'unplugin-combine'
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
-import type { Options as OptionsDefineModel } from '@vue-macros/define-model'
+import type { Options as OptionsDefineModel } from '@vue-macros/define-models'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
 import type { Options as OptionsDefineProps } from '@vue-macros/define-props'
 import type { Options as OptionsDefinePropsRefs } from '@vue-macros/define-props-refs'
@@ -39,7 +39,7 @@ import type { Options as OptionsSingleDefine } from '@vue-macros/single-define'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
-  defineModel: OptionsDefineModel
+  defineModels: OptionsDefineModel
   defineOptions: OptionsDefineOptions
   defineProps: OptionsDefineProps
   definePropsRefs: OptionsDefinePropsRefs
@@ -90,7 +90,7 @@ function resolveOptions({
   nuxtContext,
 
   betterDefine,
-  defineModel,
+  defineModels,
   defineOptions,
   defineProps,
   definePropsRefs,
@@ -133,7 +133,7 @@ function resolveOptions({
       version,
       isProduction,
     }),
-    defineModel: resolveSubOptions<'defineModel'>(defineModel, { version }),
+    defineModels: resolveSubOptions<'defineModels'>(defineModels, { version }),
     defineOptions: resolveSubOptions<'defineOptions'>(
       defineOptions,
       { version },
@@ -225,7 +225,7 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(VueDefinePropsRefs, framework, options.definePropsRefs),
       resolvePlugin(VueExportProps, framework, options.exportProps),
       resolvePlugin(VueShortEmits, framework, options.shortEmits),
-      resolvePlugin(VueDefineModel, framework, options.defineModel),
+      resolvePlugin(VueDefineModel, framework, options.defineModels),
       resolvePlugin(VueDefineSlots, framework, options.defineSlots),
       resolvePlugin(
         VueReactivityTransform,

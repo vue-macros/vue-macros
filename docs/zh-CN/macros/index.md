@@ -9,7 +9,7 @@
 - [defineOptions](/zh-CN/macros/define-options)
 - [defineSlots](/zh-CN/macros/define-slots)
   - [WIP](https://github.com/vuejs/core/pull/7982)
-- [defineModel](/zh-CN/macros/define-model) (:warning: 与官方版本不一致)
+- [defineModels](/zh-CN/macros/define-models) (:warning: 与官方版本不一致)
   - WIP
 - [shortEmits](/zh-CN/macros/short-emits)
 

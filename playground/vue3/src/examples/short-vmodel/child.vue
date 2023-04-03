@@ -1,5 +1,5 @@
 <script setup lang="ts">
-$defineModel<{
+$defineModels<{
   foo: string
 }>()
 </script>

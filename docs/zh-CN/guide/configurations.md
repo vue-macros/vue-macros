@@ -21,7 +21,7 @@ VueMacros({
   },
 
   /** 默认是 true  */
-  defineModel: {
+  defineModels: {
     /**
      * unified 模式，仅在 Vue 2 有效
      *

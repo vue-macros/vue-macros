@@ -137,7 +137,7 @@ importers:
       '@babel/parser': 7.21.3
       estree-walker: 3.0.3
 
-  packages/define-model:
+  packages/define-models:
     specifiers:
       '@vue-macros/api': workspace:^
       '@vue-macros/common': workspace:~
@@ -257,7 +257,7 @@ importers:
     specifiers:
       '@vue-macros/better-define': workspace:*
       '@vue-macros/common': workspace:*
-      '@vue-macros/define-model': workspace:*
+      '@vue-macros/define-models': workspace:*
       '@vue-macros/define-props': workspace:*
       '@vue-macros/define-props-refs': workspace:*
       '@vue-macros/define-render': workspace:*
@@ -280,7 +280,7 @@ importers:
     dependencies:
       '@vue-macros/better-define': link:../better-define
       '@vue-macros/common': link:../common
-      '@vue-macros/define-model': link:../define-model
+      '@vue-macros/define-models': link:../define-models
       '@vue-macros/define-props': link:../define-props
       '@vue-macros/define-props-refs': link:../define-props-refs
       '@vue-macros/define-render': link:../define-render

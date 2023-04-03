@@ -1,4 +1,4 @@
-export * from '@vue-macros/define-model/macros'
+export * from '@vue-macros/define-models/macros'
 export * from 'unplugin-vue-define-options/macros'
 export * from '@vue-macros/define-props/macros'
 export * from '@vue-macros/define-props-refs/macros'

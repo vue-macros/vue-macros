@@ -19,7 +19,7 @@ defineEmits<
   }>
 >()
 
-defineModel<{
+defineModels<{
   modelValue: string
 }>()
 
