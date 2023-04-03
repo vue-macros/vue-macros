@@ -1,5 +1,15 @@
 # @vue-macros/common
 
+## 1.2.0
+
+### Minor Changes
+
+- [`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c) Thanks [@sxzz](https://github.com/sxzz)! - simplify import helper function
+
+### Patch Changes
+
+- [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986) Thanks [@sxzz](https://github.com/sxzz)! - rename defineModel to defineModels
+
 ## 1.1.4
 
 ### Patch Changes
