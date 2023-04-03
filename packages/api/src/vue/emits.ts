@@ -22,6 +22,7 @@ import type {
   Node,
   StringLiteral,
   TSCallSignatureDeclaration,
+  TSFunctionType,
   TSInterfaceDeclaration,
   TSIntersectionType,
   TSType,
@@ -131,9 +132,12 @@ export async function handleTSEmitsDefinition({
     if (
       definitionsAst.type !== 'TSInterfaceDeclaration' &&
       definitionsAst.type !== 'TSTypeLiteral' &&
-      definitionsAst.type !== 'TSIntersectionType'
+      definitionsAst.type !== 'TSIntersectionType' &&
+      definitionsAst.type !== 'TSFunctionType'
     )
-      throw new SyntaxError(`Cannot resolve TS definition.`)
+      throw new SyntaxError(
+        `Cannot resolve TS definition: ${definitionsAst.type}`
+      )
 
     const properties = await resolveTSProperties({
       scope,
@@ -205,9 +209,12 @@ export interface EmitsBase {
 export interface TSEmits extends EmitsBase {
   kind: DefinitionKind.TS
 
-  definitions: Record<string, ASTDefinition<TSCallSignatureDeclaration>[]>
+  definitions: Record<
+    string,
+    ASTDefinition<TSCallSignatureDeclaration | TSFunctionType>[]
+  >
   definitionsAst: ASTDefinition<
-    TSTypeLiteral | TSIntersectionType | TSInterfaceDeclaration
+    TSTypeLiteral | TSIntersectionType | TSInterfaceDeclaration | TSFunctionType
   >
 
   /**

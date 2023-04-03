@@ -56,21 +56,28 @@ import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
 import type { Qux } from './types'
 
+// defineProp(prop_name)
 const foo = __MACROS_computed(() => __MACROS_props[\\"foo\\"])
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
 
+// defineProp(prop_name, options)
 const bar = __MACROS_computed(() => __MACROS_props[\\"bar\\"])
 expectTypeOf(bar).toEqualTypeOf<ComputedRef<string>>()
 
+// defineProp(prop_name, options)
 const baz = __MACROS_computed(() => __MACROS_props[\\"baz\\"])
 expectTypeOf(baz).toEqualTypeOf<ComputedRef<string | number>>()
 
+// defineProp(prop_name)
 __MACROS_computed(() => __MACROS_props[\\"qux\\"])
 
+// defineProp(prop_name, options)
 __MACROS_computed(() => __MACROS_props[\\"quux\\"])
 
 // infer prop name from variable name
+// const prop_name = defineProp()
 const quuz = __MACROS_computed(() => __MACROS_props[\\"quuz\\"])
+expectTypeOf(quuz).toEqualTypeOf<ComputedRef<any>>()
 console.log(quuz)
 </script>
 \`;

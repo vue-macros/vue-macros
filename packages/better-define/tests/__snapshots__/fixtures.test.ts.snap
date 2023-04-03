@@ -374,6 +374,44 @@ export { issue260 as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/issue-328.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"issue-328\\",
+  emits: [\\"foo\\"],
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var issue328 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue328 as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/issue-328.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"issue-328\\",
+  emits: [\\"foo\\"],
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var issue328 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue328 as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/optional-method.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';

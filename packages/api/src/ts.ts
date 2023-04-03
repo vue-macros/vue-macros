@@ -20,6 +20,7 @@ import type {
   TSDeclareFunction,
   TSEntityName,
   TSEnumDeclaration,
+  TSFunctionType,
   TSInterfaceBody,
   TSInterfaceDeclaration,
   TSIntersectionType,
@@ -53,7 +54,9 @@ export interface TSFile {
 export type TSScope = TSFile | TSResolvedType<TSModuleBlock>
 
 export interface TSProperties {
-  callSignatures: Array<TSResolvedType<TSCallSignatureDeclaration>>
+  callSignatures: Array<
+    TSResolvedType<TSCallSignatureDeclaration | TSFunctionType>
+  >
   constructSignatures: Array<TSResolvedType<TSConstructSignatureDeclaration>>
   methods: Record<string | number, Array<TSResolvedType<TSMethodSignature>>>
   properties: Record<
@@ -109,6 +112,7 @@ export async function resolveTSProperties({
   | TSTypeLiteral
   | TSIntersectionType
   | TSMappedType
+  | TSFunctionType
 >): Promise<TSProperties> {
   switch (type.type) {
     case 'TSInterfaceBody':
@@ -201,6 +205,15 @@ export async function resolveTSProperties({
         }
       }
 
+      return properties
+    }
+    case 'TSFunctionType': {
+      const properties: TSProperties = {
+        callSignatures: [{ type, scope }],
+        constructSignatures: [],
+        methods: {},
+        properties: {},
+      }
       return properties
     }
     default:
