@@ -29,7 +29,7 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export function transformDefineModel(
+export function transformDefineModels(
   code: string,
   id: string,
   version: number,
@@ -37,7 +37,7 @@ export function transformDefineModel(
 ) {
   let hasDefineProps = false
   let hasDefineEmits = false
-  let hasDefineModel = false
+  let hasDefineModels = false
 
   let propsTypeDecl: TSInterfaceBody | TSTypeLiteral | undefined
   let propsDestructureDecl: Node | undefined
@@ -114,7 +114,7 @@ export function transformDefineModel(
     return true
   }
 
-  function processDefineModel(
+  function processDefineModels(
     node: Node,
     declId?: LVal,
     kind?: VariableDeclaration['kind']
@@ -123,10 +123,10 @@ export function transformDefineModel(
     else if (isCallOf(node, DEFINE_MODELS_DOLLAR)) mode = 'reactivity-transform'
     else return false
 
-    if (hasDefineModel) {
+    if (hasDefineModels) {
       throw new SyntaxError(`duplicate ${DEFINE_MODELS}() call`)
     }
-    hasDefineModel = true
+    hasDefineModels = true
     modelDecl = node
 
     const propsTypeDeclRaw = node.typeParameters?.params[0]
@@ -516,7 +516,7 @@ export function transformDefineModel(
       }
 
       if (
-        processDefineModel(node.expression) &&
+        processDefineModels(node.expression) &&
         mode === 'reactivity-transform'
       )
         s.remove(node.start! + setupOffset, node.end! + setupOffset)
@@ -530,7 +530,7 @@ export function transformDefineModel(
           processDefinePropsOrEmits(decl.init, decl.id)
 
           if (
-            processDefineModel(decl.init, decl.id, node.kind) &&
+            processDefineModels(decl.init, decl.id, node.kind) &&
             mode === 'reactivity-transform'
           ) {
             if (left === 1) {
@@ -583,7 +583,7 @@ export function transformDefineModel(
   // if (!defaults) return { defaultsAst }
   rewriteMacros()
 
-  if (mode === 'reactivity-transform' && hasDefineModel)
+  if (mode === 'reactivity-transform' && hasDefineModels)
     processAssignModelVariable()
 
   return getTransformResult(s, id)

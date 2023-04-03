@@ -1,6 +1,6 @@
 import { testFixtures } from '@vue-macros/test-utils'
 import { describe } from 'vitest'
-import { transformDefineModel } from '../src/core'
+import { transformDefineModels } from '../src/core'
 
 describe('fixtures', async () => {
   await testFixtures(
@@ -10,7 +10,7 @@ describe('fixtures', async () => {
     }),
     (args, id, code) => {
       const version = id.includes('vue2') ? 2 : 3
-      return transformDefineModel(code, id, version, true)?.code
+      return transformDefineModels(code, id, version, true)?.code
     }
   )
 })

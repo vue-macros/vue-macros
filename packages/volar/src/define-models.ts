@@ -4,7 +4,7 @@ import { addEmits, addProps, getVueLibraryName } from './common'
 import type { Segment } from 'muggle-string'
 import type { Sfc, VueLanguagePlugin } from '@volar/vue-language-core'
 
-function transformDefineModel({
+function transformDefineModels({
   codes,
   sfc,
   typeArg,
@@ -117,7 +117,7 @@ const plugin: VueLanguagePlugin = ({
       const unified =
         (vueVersion < 3 && vueCompilerOptions?.defineModels?.unified) ?? true
 
-      transformDefineModel({
+      transformDefineModels({
         codes: embeddedFile.content,
         sfc,
         typeArg,

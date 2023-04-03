@@ -7,7 +7,7 @@ import {
   detectVueVersion,
   normalizePath,
 } from '@vue-macros/common'
-import { transformDefineModel } from './core'
+import { transformDefineModels } from './core'
 import {
   emitHelperCode,
   emitHelperId,
@@ -77,7 +77,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        return transformDefineModel(code, id, options.version, options.unified)
+        return transformDefineModels(code, id, options.version, options.unified)
       },
     }
   }
