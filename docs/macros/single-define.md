@@ -20,7 +20,20 @@ Declare single props and events with `defineProp` & `defineEmit`.
 
 :::
 
-## Basic Usage
+## Proposal A
+
+### API Reference
+
+```ts
+defineProp<T>(propName)
+defineProp<T>(propName, options)
+
+// propName parameter can be optional,
+// and will be inferred from variable name
+const propName = defineProp<T>()
+```
+
+### Basic Usage
 
 ```vue
 <script setup>
@@ -41,7 +54,7 @@ increment()
 </script>
 ```
 
-## With Options & Validation
+### With Options & Validation
 
 ```vue
 <script setup>
@@ -58,7 +71,7 @@ const increment = defineEmit('increment', (value) => value < 20)
 </script>
 ```
 
-## Using Multiple Times
+### Using Multiple Times
 
 ```vue
 <script setup>
@@ -69,7 +82,7 @@ const decrement = defineEmit()
 </script>
 ```
 
-## TypeScript
+### TypeScript
 
 ```vue
 <script setup lang="ts">
