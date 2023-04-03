@@ -1,5 +1,18 @@
 # @vue-macros/define-props-refs
 
+## 1.0.0
+
+### Major Changes
+
+- [`040d5b9`](https://github.com/sxzz/unplugin-vue-macros/commit/040d5b994a75a4c6d8472b5fb68521e97de442a9) Thanks [@sxzz](https://github.com/sxzz)! - stable version
+
+### Patch Changes
+
+- [`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c) Thanks [@sxzz](https://github.com/sxzz)! - simplify import helper function
+
+- Updated dependencies [[`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c), [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986)]:
+  - @vue-macros/common@1.2.0
+
 ## 0.3.2
 
 ### Patch Changes

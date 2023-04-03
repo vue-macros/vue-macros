@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.0.2
+
+### Patch Changes
+
+- [`78d57f4`](https://github.com/sxzz/unplugin-vue-macros/commit/78d57f46348a43cc747b6aa17d8a4344455e8a1f) Thanks [@sxzz](https://github.com/sxzz)! - external vue macros helpers
+
 ## 1.0.1
 
 ### Patch Changes

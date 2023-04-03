@@ -1,5 +1,14 @@
 # @vue-macros/named-template
 
+## 0.3.4
+
+### Patch Changes
+
+- [`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c) Thanks [@sxzz](https://github.com/sxzz)! - simplify import helper function
+
+- Updated dependencies [[`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c), [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986)]:
+  - @vue-macros/common@1.2.0
+
 ## 0.3.3
 
 ### Patch Changes

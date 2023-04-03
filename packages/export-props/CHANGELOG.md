@@ -1,5 +1,12 @@
 # @vue-macros/export-props
 
+## 0.3.3
+
+### Patch Changes
+
+- Updated dependencies [[`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c), [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986)]:
+  - @vue-macros/common@1.2.0
+
 ## 0.3.2
 
 ### Patch Changes

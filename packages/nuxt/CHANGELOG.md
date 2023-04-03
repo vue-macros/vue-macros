@@ -1,5 +1,17 @@
 # @vue-macros/nuxt
 
+## 1.2.8
+
+### Patch Changes
+
+- [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986) Thanks [@sxzz](https://github.com/sxzz)! - rename defineModel to defineModels
+
+- Updated dependencies [[`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c), [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986)]:
+  - @vue-macros/common@1.2.0
+  - unplugin-vue-macros@2.0.0
+  - @vue-macros/volar@0.9.5
+  - @vue-macros/short-vmodel@1.2.4
+
 ## 1.2.7
 
 ### Patch Changes

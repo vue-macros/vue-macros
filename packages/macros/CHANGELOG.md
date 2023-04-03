@@ -1,5 +1,32 @@
 # unplugin-vue-macros
 
+## 2.0.0
+
+### Major Changes
+
+- [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986) Thanks [@sxzz](https://github.com/sxzz)! - rename defineModel to defineModels
+
+### Patch Changes
+
+- Updated dependencies [[`0c8ce9c`](https://github.com/sxzz/unplugin-vue-macros/commit/0c8ce9c1b6f878f82b4fcfaa2ddceca262ae42e4), [`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c), [`040d5b9`](https://github.com/sxzz/unplugin-vue-macros/commit/040d5b994a75a4c6d8472b5fb68521e97de442a9), [`d93e1ce`](https://github.com/sxzz/unplugin-vue-macros/commit/d93e1ce5d1222e76157230d7e4997ea989ffa76e), [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986), [`14d7886`](https://github.com/sxzz/unplugin-vue-macros/commit/14d7886dc7db11eddad4b47b3f50a11fb6eff5fe), [`a59c81a`](https://github.com/sxzz/unplugin-vue-macros/commit/a59c81acf3b8f802aa8b5114b466fdc773448532), [`8e337d9`](https://github.com/sxzz/unplugin-vue-macros/commit/8e337d99885eb6f70b01820f3011cd0da6d4c489)]:
+  - @vue-macros/single-define@0.1.4
+  - @vue-macros/common@1.2.0
+  - @vue-macros/define-props-refs@1.0.0
+  - unplugin-vue-define-options@1.3.3
+  - @vue-macros/named-template@0.3.4
+  - @vue-macros/define-models@1.0.1
+  - @vue-macros/define-slots@1.0.0
+  - @vue-macros/reactivity-transform@0.3.4
+  - @vue-macros/better-define@1.5.1
+  - @vue-macros/define-props@1.0.3
+  - @vue-macros/define-render@1.3.4
+  - @vue-macros/export-props@0.3.3
+  - @vue-macros/hoist-static@1.3.3
+  - @vue-macros/setup-block@0.2.3
+  - @vue-macros/setup-component@0.16.4
+  - @vue-macros/setup-sfc@0.15.4
+  - @vue-macros/short-emits@1.3.3
+
 ## 1.11.2
 
 ### Patch Changes

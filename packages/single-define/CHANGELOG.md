@@ -1,5 +1,23 @@
 # @vue-macros/single-define
 
+## 0.1.4
+
+### Patch Changes
+
+- [`0c8ce9c`](https://github.com/sxzz/unplugin-vue-macros/commit/0c8ce9c1b6f878f82b4fcfaa2ddceca262ae42e4) Thanks [@sxzz](https://github.com/sxzz)! - enhance dts
+
+- [`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c) Thanks [@sxzz](https://github.com/sxzz)! - simplify import helper function
+
+- [`14d7886`](https://github.com/sxzz/unplugin-vue-macros/commit/14d7886dc7db11eddad4b47b3f50a11fb6eff5fe) Thanks [@sxzz](https://github.com/sxzz)! - resolve TS function type
+
+- [`a59c81a`](https://github.com/sxzz/unplugin-vue-macros/commit/a59c81acf3b8f802aa8b5114b466fdc773448532) Thanks [@sxzz](https://github.com/sxzz)! - merge inferred type and options
+
+- [`8e337d9`](https://github.com/sxzz/unplugin-vue-macros/commit/8e337d99885eb6f70b01820f3011cd0da6d4c489) Thanks [@sxzz](https://github.com/sxzz)! - infer name from variable name
+
+- Updated dependencies [[`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c), [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986), [`14d7886`](https://github.com/sxzz/unplugin-vue-macros/commit/14d7886dc7db11eddad4b47b3f50a11fb6eff5fe)]:
+  - @vue-macros/common@1.2.0
+  - @vue-macros/api@0.5.1
+
 ## 0.1.3
 
 ### Patch Changes

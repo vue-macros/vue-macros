@@ -1,5 +1,14 @@
 # @vue-macros/api
 
+## 0.5.1
+
+### Patch Changes
+
+- [`14d7886`](https://github.com/sxzz/unplugin-vue-macros/commit/14d7886dc7db11eddad4b47b3f50a11fb6eff5fe) Thanks [@sxzz](https://github.com/sxzz)! - resolve TS function type
+
+- Updated dependencies [[`2cd0c5b`](https://github.com/sxzz/unplugin-vue-macros/commit/2cd0c5b332ee2040250dea832d9883f0b598df8c), [`5d65f5b`](https://github.com/sxzz/unplugin-vue-macros/commit/5d65f5b5a4d774c02346965ed8020425fa3a0986)]:
+  - @vue-macros/common@1.2.0
+
 ## 0.5.0
 
 ### Minor Changes
