@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > tests/fixtures/define-emit.vue 1`] = `
+"var defineEmit = \`<script setup lang=\\"ts\\">
+const __MACROS_emit = defineEmits({
+      \\"foo\\": null,
+  \\"bar\\": (value: string) => typeof value === 'string',
+  \\"baz\\": (value) => typeof value === 'number',
+  \\"baz\\": (value) => typeof value === 'string',
+  \\"change\\": null
+    })
+
+import { expectTypeOf } from 'expect-type'
+
+const foo = (...args) => __MACROS_emit(\\"foo\\", ...args)
+expectTypeOf(foo).toEqualTypeOf<(...args: any[]) => void>()
+
+const bar = (...args) => __MACROS_emit(\\"bar\\", ...args)
+expectTypeOf(bar).toEqualTypeOf<(value: string) => void>()
+
+const baz = (...args) => __MACROS_emit(\\"baz\\", ...args)
+expectTypeOf(baz).toEqualTypeOf<(value: number) => void>()
+
+const qux = (...args) => __MACROS_emit(\\"baz\\", ...args)
+expectTypeOf(qux).toEqualTypeOf<(value: string) => void>()
+
+const change = (...args) => __MACROS_emit(\\"change\\", ...args)
+expectTypeOf(change).toEqualTypeOf<() => void>()
+</script>
+\`;
+
+export { defineEmit as default };
+"
+`;

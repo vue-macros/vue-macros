@@ -33,25 +33,21 @@ export async function transformBetterDefine(
 
     const runtimeDecls = `{\n  ${Object.entries(runtimeDefs)
       .map(([key, { type, required, default: defaultDecl }]) => {
-        const escapedKey = JSON.stringify(key)
         let defaultString = ''
-        if (defaultDecl) {
-          defaultString = defaultDecl('default')
-        }
+        if (defaultDecl) defaultString = defaultDecl('default')
+
+        const typeString = toRuntimeTypeString(type, isProduction)
+        let def: string
         if (!isProduction) {
-          return `${escapedKey}: { type: ${toRuntimeTypeString(
-            type
-          )}, required: ${required}, ${defaultString} }`
-        } else if (type.some((el) => el === 'Boolean' || el === 'Function')) {
-          return `${escapedKey}: { type: ${toRuntimeTypeString(
-            type
-          )}, ${defaultString} }`
+          def = `{ type: ${typeString}, required: ${required}, ${defaultString} }`
+        } else if (typeString) {
+          def = `{ type: ${typeString}, ${defaultString} }`
         } else {
           // production: checks are useless
-          return `${escapedKey}: ${
-            defaultString ? `{ ${defaultString} }` : 'null'
-          }`
+          def = `${defaultString ? `{ ${defaultString} }` : 'null'}`
         }
+
+        return `${JSON.stringify(key)}: ${def}`
       })
       .join(',\n  ')}\n}`
 

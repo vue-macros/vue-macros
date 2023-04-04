@@ -136,6 +136,10 @@ export function attachNodeLoc(node: Node, newNode: Node) {
   newNode.end = node.end
 }
 
-export function toRuntimeTypeString(types: string[]) {
+export function toRuntimeTypeString(types: string[], isProduction?: boolean) {
+  if (isProduction) {
+    types = types.filter((t) => t === 'Boolean' || t === 'Function')
+  }
+  if (types.length === 0) return undefined
   return types.length > 1 ? `[${types.join(', ')}]` : types[0]
 }

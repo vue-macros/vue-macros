@@ -12,6 +12,13 @@ export default defineConfig({
   plugins: [
     VueMacros({
       setupBlock: true,
+      defineOptions: true,
+      shortEmits: true,
+      hoistStatic: true,
+      defineSlots: true,
+      defineModels: true,
+      namedTemplate: false,
+
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],

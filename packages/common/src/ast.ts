@@ -323,4 +323,6 @@ export function importHelperFn(
       importedMap.get(s)!.add(cacheKey)
     }
   }
+
+  return `${HELPER_PREFIX}${local}`
 }

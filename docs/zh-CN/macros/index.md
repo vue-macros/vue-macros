@@ -22,6 +22,7 @@
 
 ## 实验性功能
 
-- [singleDefine](/zh-CN/macros/single-define)
+- [defineProp](/zh-CN/macros/define-prop)
+- [defineEmit](/zh-CN/macros/define-emit)
 - [setupComponent](/zh-CN/macros/setup-component)
 - [setupSFC](/zh-CN/macros/setup-sfc)

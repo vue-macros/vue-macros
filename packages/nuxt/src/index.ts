@@ -71,11 +71,11 @@ export default defineNuxtModule<VueMacrosOptions>({
     if (vueVersion < 3.3) {
       nuxt.options.typescript.tsConfig.vueCompilerOptions.plugins.push(
         '@vue-macros/volar/define-options',
-        '@vue-macros/volar/define-models',
         '@vue-macros/volar/define-slots'
       )
     }
     nuxt.options.typescript.tsConfig.vueCompilerOptions.plugins.push(
+      '@vue-macros/volar/define-models',
       '@vue-macros/volar/define-props',
       '@vue-macros/volar/define-props-refs',
       '@vue-macros/volar/export-props'

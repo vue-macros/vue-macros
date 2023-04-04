@@ -13,7 +13,7 @@
   "unocss.root": ["./docs", "./packages/devtools/src/client"],
   "explorer.fileNesting.patterns": {
     "index.ts": "rollup.ts, vite.ts, webpack.ts, esbuild.ts",
-    "macros.d.ts": "macros-global.d.ts, vue2-macros.d.ts, vue2-macros-global.d.ts"
+    "macros.d.ts": "macros*.d.ts, vue2-macros*.d.ts"
   },
   "files.exclude": {
     "**/.turbo": true

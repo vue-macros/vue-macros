@@ -9,7 +9,7 @@ import DefineModelRuntimeVue from './examples/define-models/runtime/parent.vue'
 import DefineSlotsVue from './examples/define-slots/parent.vue'
 import ExportPropsVue from './examples/export-props/index.vue'
 import BetterDefineVue from './examples/better-define/index.vue'
-import NamedTemplateVue from './examples/named-template/index.vue'
+// import NamedTemplateVue from './examples/named-template/index.vue'
 import SetupBlockVue from './examples/setup-block/index.vue'
 
 import DefinePropVue from './examples/define-prop/index.vue'
@@ -55,7 +55,8 @@ import Full from './examples/full.setup'
 
   <fieldset>
     <legend>namedTemplate</legend>
-    <NamedTemplateVue />
+    <!-- <NamedTemplateVue /> -->
+    TODO
   </fieldset>
 
   <fieldset>

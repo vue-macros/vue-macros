@@ -137,6 +137,21 @@ importers:
       '@babel/parser': 7.21.3
       estree-walker: 3.0.3
 
+  packages/define-emit:
+    specifiers:
+      '@vue-macros/api': workspace:~
+      '@vue-macros/common': workspace:~
+      rollup: ^3.20.2
+      unplugin: ^1.3.1
+      vue: ^3.3.0-alpha.6
+    dependencies:
+      '@vue-macros/api': link:../api
+      '@vue-macros/common': link:../common
+      rollup: 3.20.2
+      unplugin: 1.3.1
+    devDependencies:
+      vue: 3.3.0-alpha.6
+
   packages/define-models:
     specifiers:
       '@vue-macros/api': workspace:^
@@ -167,6 +182,21 @@ importers:
       unplugin: 1.3.1
     devDependencies:
       rollup: 3.20.2
+      vue: 3.3.0-alpha.6
+
+  packages/define-prop:
+    specifiers:
+      '@vue-macros/api': workspace:~
+      '@vue-macros/common': workspace:~
+      rollup: ^3.20.2
+      unplugin: ^1.3.1
+      vue: ^3.3.0-alpha.6
+    dependencies:
+      '@vue-macros/api': link:../api
+      '@vue-macros/common': link:../common
+      rollup: 3.20.2
+      unplugin: 1.3.1
+    devDependencies:
       vue: 3.3.0-alpha.6
 
   packages/define-props:
@@ -257,7 +287,9 @@ importers:
     specifiers:
       '@vue-macros/better-define': workspace:*
       '@vue-macros/common': workspace:*
+      '@vue-macros/define-emit': workspace:^
       '@vue-macros/define-models': workspace:*
+      '@vue-macros/define-prop': workspace:^
       '@vue-macros/define-props': workspace:*
       '@vue-macros/define-props-refs': workspace:*
       '@vue-macros/define-render': workspace:*
@@ -271,7 +303,6 @@ importers:
       '@vue-macros/setup-component': workspace:*
       '@vue-macros/setup-sfc': workspace:*
       '@vue-macros/short-emits': workspace:*
-      '@vue-macros/single-define': workspace:^
       esbuild: ^0.17.14
       unplugin: ^1.3.1
       unplugin-combine: ^0.6.0
@@ -280,7 +311,9 @@ importers:
     dependencies:
       '@vue-macros/better-define': link:../better-define
       '@vue-macros/common': link:../common
+      '@vue-macros/define-emit': link:../define-emit
       '@vue-macros/define-models': link:../define-models
+      '@vue-macros/define-prop': link:../define-prop
       '@vue-macros/define-props': link:../define-props
       '@vue-macros/define-props-refs': link:../define-props-refs
       '@vue-macros/define-render': link:../define-render
@@ -294,7 +327,6 @@ importers:
       '@vue-macros/setup-component': link:../setup-component
       '@vue-macros/setup-sfc': link:../setup-sfc
       '@vue-macros/short-emits': link:../short-emits
-      '@vue-macros/single-define': link:../single-define
       unplugin: 1.3.1
       unplugin-combine: 0.6.0_esbuild@0.17.14
       unplugin-vue-define-options: link:../define-options
@@ -411,21 +443,6 @@ importers:
       '@vue/compiler-sfc': 3.3.0-alpha.6
       tsup: 6.7.0
       tsx: 3.12.6
-
-  packages/single-define:
-    specifiers:
-      '@vue-macros/api': workspace:~
-      '@vue-macros/common': workspace:~
-      rollup: ^3.20.2
-      unplugin: ^1.3.1
-      vue: ^3.3.0-alpha.6
-    dependencies:
-      '@vue-macros/api': link:../api
-      '@vue-macros/common': link:../common
-      rollup: 3.20.2
-      unplugin: 1.3.1
-    devDependencies:
-      vue: 3.3.0-alpha.6
 
   packages/test-utils:
     specifiers:

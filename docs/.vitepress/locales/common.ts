@@ -110,8 +110,12 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
           text: 'Experimental',
           items: [
             {
-              text: 'singleDefine',
-              link: `${urlPrefix}/macros/single-define`,
+              text: 'defineProp',
+              link: `${urlPrefix}/macros/define-prop`,
+            },
+            {
+              text: 'defineEmit',
+              link: `${urlPrefix}/macros/define-emit`,
             },
             {
               text: 'setupComponent',

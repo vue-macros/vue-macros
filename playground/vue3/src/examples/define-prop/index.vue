@@ -7,9 +7,8 @@ const foo = ref('parent-prop')
 </script>
 
 <template>
-  <div>defineProp</div>
+  <div>defineProp demo</div>
 
   <input v-model="foo" type="text" />
-
   <Child :foo="foo" />
 </template>

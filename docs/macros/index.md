@@ -20,6 +20,7 @@ Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, 
 
 ## Experimental Features
 
-- [singleDefine](/macros/single-define)
+- [defineProp](/macros/define-prop)
+- [defineEmit](/macros/define-emit)
 - [setupComponent](/macros/setup-component)
 - [setupSFC](/macros/setup-sfc)

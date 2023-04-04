@@ -4,7 +4,7 @@
     "composite": true,
     "lib": ["DOM"]
   },
-  "include": ["**/fixtures/**/*", "**/macros-global.d.ts"],
+  "include": ["**/fixtures/**/*", "packages/macros/macros-global.d.ts"],
   "vueCompilerOptions": {
     "plugins": [
       "@vue-macros/volar/define-options",

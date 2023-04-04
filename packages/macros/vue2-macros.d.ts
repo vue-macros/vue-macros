@@ -1,5 +1,7 @@
+export * from '@vue-macros/define-emit/macros'
 export * from '@vue-macros/define-models/macros'
 export * from 'unplugin-vue-define-options/macros'
+export * from '@vue-macros/define-prop/macros'
 export * from '@vue-macros/define-props/vue2-macros'
 export * from '@vue-macros/define-props-refs/vue2-macros'
 export * from '@vue-macros/define-render/vue2-macros'

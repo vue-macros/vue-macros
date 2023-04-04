@@ -1,7 +1,9 @@
 import { createCombinePlugin } from 'unplugin-combine'
 import VueBetterDefine from '@vue-macros/better-define'
+import VueDefineEmit from '@vue-macros/define-emit'
 import VueDefineModels from '@vue-macros/define-models'
 import VueDefineOptions from 'unplugin-vue-define-options'
+import VueDefineProp from '@vue-macros/define-prop'
 import VueDefineProps from '@vue-macros/define-props'
 import VueDefinePropsRefs from '@vue-macros/define-props-refs'
 import VueDefineRender from '@vue-macros/define-render'
@@ -14,15 +16,16 @@ import VueSetupBlock from '@vue-macros/setup-block'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortEmits from '@vue-macros/short-emits'
-import VueSingleDefine from '@vue-macros/single-define'
 import { detectVueVersion } from '@vue-macros/common'
 import { Devtools } from '@vue-macros/devtools'
 
 import type { UnpluginInstance } from 'unplugin'
 import type { OptionsPlugin, Plugin, PluginType } from 'unplugin-combine'
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
+import type { Options as OptionsDefineEmit } from '@vue-macros/define-emit'
 import type { Options as OptionsDefineModels } from '@vue-macros/define-models'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
+import type { Options as OptionsDefineProp } from '@vue-macros/define-prop'
 import type { Options as OptionsDefineProps } from '@vue-macros/define-props'
 import type { Options as OptionsDefinePropsRefs } from '@vue-macros/define-props-refs'
 import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
@@ -35,12 +38,13 @@ import type { Options as OptionsSetupBlock } from '@vue-macros/setup-block'
 import type { Options as OptionsSetupComponent } from '@vue-macros/setup-component'
 import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
 import type { Options as OptionsShortEmits } from '@vue-macros/short-emits'
-import type { Options as OptionsSingleDefine } from '@vue-macros/single-define'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
+  defineEmit: OptionsDefineEmit
   defineModels: OptionsDefineModels
   defineOptions: OptionsDefineOptions
+  defineProp: OptionsDefineProp
   defineProps: OptionsDefineProps
   definePropsRefs: OptionsDefinePropsRefs
   defineRender: OptionsDefineRender
@@ -53,7 +57,6 @@ export interface FeatureOptionsMap {
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
-  singleDefine: OptionsSingleDefine
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -90,8 +93,10 @@ function resolveOptions({
   nuxtContext,
 
   betterDefine,
+  defineEmit,
   defineModels,
   defineOptions,
+  defineProp,
   defineProps,
   definePropsRefs,
   defineRender,
@@ -104,7 +109,6 @@ function resolveOptions({
   setupComponent,
   setupSFC,
   shortEmits,
-  singleDefine,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
@@ -133,24 +137,32 @@ function resolveOptions({
       version,
       isProduction,
     }),
+    defineEmit: resolveSubOptions<'defineEmit'>(defineEmit, {
+      isProduction,
+      version,
+    }),
     defineModels: resolveSubOptions<'defineModels'>(defineModels, { version }),
     defineOptions: resolveSubOptions<'defineOptions'>(
       defineOptions,
       { version },
       version < 3.3
     ),
+    defineProp: resolveSubOptions<'defineProp'>(defineProp, {
+      isProduction,
+      version,
+    }),
     defineProps: resolveSubOptions<'defineProps'>(defineProps, { version }),
     definePropsRefs: resolveSubOptions<'definePropsRefs'>(definePropsRefs, {
       version,
     }),
     defineRender: resolveSubOptions<'defineRender'>(defineRender, { version }),
-    defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, { version }),
-    exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
-    hoistStatic: resolveSubOptions<'hoistStatic'>(
-      hoistStatic,
+    defineSlots: resolveSubOptions<'defineSlots'>(
+      defineSlots,
       { version },
       version < 3.3
     ),
+    exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
+    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, { version }),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, {
       version,
     }),
@@ -169,10 +181,6 @@ function resolveOptions({
       { version },
       version < 3.3
     ),
-    singleDefine: resolveSubOptions<'singleDefine'>(singleDefine, {
-      isProduction,
-      version,
-    }),
   }
 }
 
@@ -220,7 +228,8 @@ export default createCombinePlugin<Options | undefined>(
       setupComponentPlugins?.[0],
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
       namedTemplatePlugins?.[0],
-      resolvePlugin(VueSingleDefine, framework, options.singleDefine),
+      resolvePlugin(VueDefineProp, framework, options.defineProp),
+      resolvePlugin(VueDefineEmit, framework, options.defineEmit),
       resolvePlugin(VueDefineProps, framework, options.defineProps),
       resolvePlugin(VueDefinePropsRefs, framework, options.definePropsRefs),
       resolvePlugin(VueExportProps, framework, options.exportProps),
