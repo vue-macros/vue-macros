@@ -23,7 +23,10 @@ const bundle = await rollup({
       target: 'esnext',
     }),
   ],
-  external: ['vue'],
+  external: (id) => {
+    if (id === 'vue') return true
+    return id.endsWith('.css')
+  },
 })
 
 await bundle.write({

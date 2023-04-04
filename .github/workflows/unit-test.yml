@@ -79,4 +79,4 @@ jobs:
         run: nr test
 
       - name: Build Playground
-        run: cd playground && pnpm build
+        run: pnpm run --filter "./playground/*" --parallel build
