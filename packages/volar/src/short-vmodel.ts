@@ -1,5 +1,5 @@
 import { transformShortVmodel } from '@vue-macros/short-vmodel'
-import type { VueLanguagePlugin } from '@volar/vue-language-core'
+import { type VueLanguagePlugin } from '@volar/vue-language-core'
 
 const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
   return {

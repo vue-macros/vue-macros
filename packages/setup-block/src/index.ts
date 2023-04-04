@@ -5,8 +5,8 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
+import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { transformSetupBlock } from './core'
-import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 
 export interface Options extends BaseOptions {
   defaultLang?: string

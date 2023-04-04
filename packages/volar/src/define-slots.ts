@@ -1,10 +1,10 @@
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
 import { DEFINE_SLOTS } from '@vue-macros/common'
 import { replace, toString } from 'muggle-string'
-import type {
-  Sfc,
-  VueEmbeddedFile,
-  VueLanguagePlugin,
+import {
+  type Sfc,
+  type VueEmbeddedFile,
+  type VueLanguagePlugin,
 } from '@volar/vue-language-core'
 
 const transform = ({

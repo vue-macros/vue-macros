@@ -15,23 +15,23 @@ import {
 import { parse } from '@babel/parser'
 import { genPropsAccessExp, hasOwn, isArray, isString } from '@vue/shared'
 import { TS_NODE_TYPES, unwrapTSNode } from '@vue-macros/common'
-import type { ParserPlugin } from '@babel/parser'
-import type { SourceMap } from 'magic-string'
-import type {
-  ArrayPattern,
-  BlockStatement,
-  CallExpression,
-  Expression,
-  Identifier,
-  ImportDeclaration,
-  ImportDefaultSpecifier,
-  ImportNamespaceSpecifier,
-  ImportSpecifier,
-  Node,
-  ObjectPattern,
-  Program,
-  VariableDeclaration,
-  VariableDeclarator,
+import { type ParserPlugin } from '@babel/parser'
+import { type SourceMap } from 'magic-string'
+import {
+  type ArrayPattern,
+  type BlockStatement,
+  type CallExpression,
+  type Expression,
+  type Identifier,
+  type ImportDeclaration,
+  type ImportDefaultSpecifier,
+  type ImportNamespaceSpecifier,
+  type ImportSpecifier,
+  type Node,
+  type ObjectPattern,
+  type Program,
+  type VariableDeclaration,
+  type VariableDeclarator,
 } from '@babel/types'
 
 const CONVERT_SYMBOL = '$'

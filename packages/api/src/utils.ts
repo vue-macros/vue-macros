@@ -1,4 +1,4 @@
-import type { StringLiteral } from '@babel/types'
+import { type StringLiteral } from '@babel/types'
 
 export function keyToString(key: string | StringLiteral) {
   if (typeof key === 'string') return key

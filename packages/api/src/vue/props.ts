@@ -3,6 +3,26 @@ import {
   isStaticObjectKey,
   resolveObjectExpression,
 } from '@vue-macros/common'
+import { type MagicString, type SFC } from '@vue-macros/common'
+import {
+  type CallExpression,
+  type Expression,
+  type ExpressionStatement,
+  type LVal,
+  type Node,
+  type ObjectMethod,
+  type ObjectProperty,
+  type StringLiteral,
+  type TSInterfaceDeclaration,
+  type TSIntersectionType,
+  type TSMappedType,
+  type TSMethodSignature,
+  type TSPropertySignature,
+  type TSType,
+  type TSTypeLiteral,
+  type TSUnionType,
+  type VariableDeclaration,
+} from '@babel/types'
 import {
   isTSExports,
   resolveTSProperties,
@@ -10,30 +30,10 @@ import {
   resolveTSScope,
 } from '../ts'
 import { keyToString } from '../utils'
+import { type TSFile, type TSResolvedType } from '../ts'
 import { DefinitionKind } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
-import type { MagicString, SFC } from '@vue-macros/common'
-import type { TSFile, TSResolvedType } from '../ts'
-import type { ASTDefinition } from './types'
-import type {
-  CallExpression,
-  Expression,
-  ExpressionStatement,
-  LVal,
-  Node,
-  ObjectMethod,
-  ObjectProperty,
-  StringLiteral,
-  TSInterfaceDeclaration,
-  TSIntersectionType,
-  TSMappedType,
-  TSMethodSignature,
-  TSPropertySignature,
-  TSType,
-  TSTypeLiteral,
-  TSUnionType,
-  VariableDeclaration,
-} from '@babel/types'
+import { type ASTDefinition } from './types'
 
 export async function handleTSPropsDefinition({
   s,

@@ -1,21 +1,21 @@
 import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
 // @ts-ignore error in node CJS (volar tsconfig)
 import { walk } from 'estree-walker'
-import { REGEX_LANG_JSX } from './constants'
-import { isTs } from './lang'
-import type {
-  CallExpression,
-  Function,
-  Literal,
-  Node,
-  ObjectExpression,
-  ObjectMethod,
-  ObjectProperty,
-  Program,
-  TemplateLiteral,
+import {
+  type CallExpression,
+  type Function,
+  type Literal,
+  type Node,
+  type ObjectExpression,
+  type ObjectMethod,
+  type ObjectProperty,
+  type Program,
+  type TemplateLiteral,
 } from '@babel/types'
-import type { ParserOptions, ParserPlugin } from '@babel/parser'
-import type { MagicStringBase } from 'magic-string-ast'
+import { type ParserOptions, type ParserPlugin } from '@babel/parser'
+import { type MagicStringBase } from 'magic-string-ast'
+import { isTs } from './lang'
+import { REGEX_LANG_JSX } from './constants'
 
 export function babelParse(
   code: string,

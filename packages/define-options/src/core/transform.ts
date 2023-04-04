@@ -9,8 +9,12 @@ import {
   parseSFC,
 } from '@vue-macros/common'
 import { walkAST } from 'ast-walker-scope'
+import {
+  type ExportDefaultDeclaration,
+  type Program,
+  type Statement,
+} from '@babel/types'
 import { filterMacro, hasPropsOrEmits } from './utils'
-import type { ExportDefaultDeclaration, Program, Statement } from '@babel/types'
 
 export function transformDefineOptions(code: string, id: string) {
   if (!code.includes(DEFINE_OPTIONS)) return

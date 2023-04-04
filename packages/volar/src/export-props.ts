@@ -1,11 +1,11 @@
 import { FileKind } from '@volar/language-core'
 import { replaceSourceRange } from 'muggle-string'
-import { addProps, getVueLibraryName } from './common'
-import type {
-  Sfc,
-  VueEmbeddedFile,
-  VueLanguagePlugin,
+import {
+  type Sfc,
+  type VueEmbeddedFile,
+  type VueLanguagePlugin,
 } from '@volar/vue-language-core'
+import { addProps, getVueLibraryName } from './common'
 
 function transform({
   file,

@@ -1,5 +1,10 @@
-import type { ComponentObjectPropsOptions } from 'vue/types/v3-component-props'
-import type { ComputedRef, DeepReadonly, ExtractPropTypes, Ref } from 'vue'
+import { type ComponentObjectPropsOptions } from 'vue/types/v3-component-props'
+import {
+  type ComputedRef,
+  type DeepReadonly,
+  type ExtractPropTypes,
+  type Ref,
+} from 'vue'
 
 import {} from 'vue/types/v3-setup-context'
 

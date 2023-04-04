@@ -7,7 +7,7 @@ import {
   parseSFC,
   walkAST,
 } from '@vue-macros/common'
-import type { Node } from '@babel/types'
+import { type Node } from '@babel/types'
 
 export const EMIT_VARIABLE_NAME = `${HELPER_PREFIX}emit`
 

@@ -1,11 +1,11 @@
-import type {
-  ComputedRef,
-  CustomRefFactory,
-  DebuggerOptions,
-  Ref,
-  UnwrapRef,
-  WritableComputedOptions,
-  WritableComputedRef,
+import {
+  type ComputedRef,
+  type CustomRefFactory,
+  type DebuggerOptions,
+  type Ref,
+  type UnwrapRef,
+  type WritableComputedOptions,
+  type WritableComputedRef,
 } from 'vue'
 
 export declare const RefType: unique symbol

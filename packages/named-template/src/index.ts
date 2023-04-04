@@ -4,13 +4,13 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
+import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE,
 } from './core/constants'
-import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 
 export type Options = BaseOptions
 

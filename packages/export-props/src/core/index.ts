@@ -6,7 +6,7 @@ import {
   isCallOf,
   parseSFC,
 } from '@vue-macros/common'
-import type { VariableDeclarator } from '@babel/types'
+import { type VariableDeclarator } from '@babel/types'
 
 export function transformExportProps(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)

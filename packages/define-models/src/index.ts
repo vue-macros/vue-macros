@@ -7,6 +7,8 @@ import {
   detectVueVersion,
   normalizePath,
 } from '@vue-macros/common'
+import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
+import { type UnpluginContextMeta } from 'unplugin'
 import { transformDefineModels } from './core'
 import {
   emitHelperCode,
@@ -15,8 +17,6 @@ import {
   useVmodelHelperCode,
   useVmodelHelperId,
 } from './core/helper'
-import type { BaseOptions, MarkRequired } from '@vue-macros/common'
-import type { UnpluginContextMeta } from 'unplugin'
 
 export interface Options extends BaseOptions {
   /**

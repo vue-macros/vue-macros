@@ -1,5 +1,5 @@
+import { type PwaOptions } from '../pwa'
 import { icons } from './icons'
-import type { PwaOptions } from '../pwa'
 
 export const pwa: PwaOptions = {
   outDir: '.vitepress/dist',

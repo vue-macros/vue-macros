@@ -1,6 +1,6 @@
 // From https://github.com/vite-pwa/vitepress/blob/main/src/config.ts
 
-import type { VitePWAOptions } from 'vite-plugin-pwa'
+import { type VitePWAOptions } from 'vite-plugin-pwa'
 
 export function configurePWAOptions(options: Partial<VitePWAOptions>) {
   if (!options.outDir) options.outDir = '.vitepress/dist'

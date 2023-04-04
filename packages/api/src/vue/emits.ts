@@ -3,6 +3,22 @@ import {
   isStaticExpression,
   resolveLiteral,
 } from '@vue-macros/common'
+import { type MagicString, type SFC } from '@vue-macros/common'
+import {
+  type CallExpression,
+  type ExpressionStatement,
+  type LVal,
+  type Node,
+  type StringLiteral,
+  type TSCallSignatureDeclaration,
+  type TSFunctionType,
+  type TSInterfaceDeclaration,
+  type TSIntersectionType,
+  type TSType,
+  type TSTypeLiteral,
+  type UnaryExpression,
+  type VariableDeclaration,
+} from '@babel/types'
 import {
   isTSExports,
   resolveTSProperties,
@@ -10,26 +26,10 @@ import {
   resolveTSScope,
 } from '../ts'
 import { keyToString } from '../utils'
+import { type TSFile, type TSResolvedType } from '../ts'
 import { DefinitionKind } from './types'
 import { attachNodeLoc } from './utils'
-import type { TSFile, TSResolvedType } from '../ts'
-import type { MagicString, SFC } from '@vue-macros/common'
-import type { ASTDefinition } from './types'
-import type {
-  CallExpression,
-  ExpressionStatement,
-  LVal,
-  Node,
-  StringLiteral,
-  TSCallSignatureDeclaration,
-  TSFunctionType,
-  TSInterfaceDeclaration,
-  TSIntersectionType,
-  TSType,
-  TSTypeLiteral,
-  UnaryExpression,
-  VariableDeclaration,
-} from '@babel/types'
+import { type ASTDefinition } from './types'
 
 export async function handleTSEmitsDefinition({
   s,

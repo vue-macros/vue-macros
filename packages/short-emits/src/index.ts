@@ -5,8 +5,8 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
+import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { transformShortEmits } from './core'
-import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>

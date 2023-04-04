@@ -6,14 +6,14 @@ import {
   resolveObjectKey,
   walkAST,
 } from '@vue-macros/common'
-import type {
-  Identifier,
-  Node,
-  RestElement,
-  TSMethodSignature,
-  TSPropertySignature,
-  TSType,
-  TSTypeReference,
+import {
+  type Identifier,
+  type Node,
+  type RestElement,
+  type TSMethodSignature,
+  type TSPropertySignature,
+  type TSType,
+  type TSTypeReference,
 } from '@babel/types'
 
 export function transformShortEmits(code: string, id: string) {

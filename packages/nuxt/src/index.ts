@@ -2,10 +2,10 @@ import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { transformShortVmodel } from '@vue-macros/short-vmodel'
 import { detectVueVersion } from '@vue-macros/common'
-import type { Options } from 'unplugin-vue-macros'
-import type { Options as OptionsShortVmodel } from '@vue-macros/short-vmodel'
-import type { Plugin } from 'vite'
-import type {} from '@nuxt/devtools'
+import { type Options } from 'unplugin-vue-macros'
+import { type Options as OptionsShortVmodel } from '@vue-macros/short-vmodel'
+import { type Plugin } from 'vite'
+import {} from '@nuxt/devtools'
 
 export type VueMacrosOptions = Options & {
   shortVmodel?: OptionsShortVmodel | false

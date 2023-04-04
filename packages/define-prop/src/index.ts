@@ -7,11 +7,11 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
+import { type PluginContext } from 'rollup'
+import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
+import { type UnpluginContextMeta } from 'unplugin'
+import { type Edition } from './core'
 import { transformDefineProp } from './core'
-import type { Edition } from './core'
-import type { PluginContext } from 'rollup'
-import type { BaseOptions, MarkRequired } from '@vue-macros/common'
-import type { UnpluginContextMeta } from 'unplugin'
 
 export interface Options extends BaseOptions {
   isProduction?: boolean

@@ -1,4 +1,4 @@
-import type { DefaultTheme, HeadConfig } from 'vitepress'
+import { type DefaultTheme, type HeadConfig } from 'vitepress'
 import { webLink } from '.vitepress/configs/meta'
 
 export const themeConfig = {

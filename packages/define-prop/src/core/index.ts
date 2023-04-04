@@ -14,7 +14,7 @@ import {
   resolveTSReferencedType,
   toRuntimeTypeString,
 } from '@vue-macros/api'
-import type { CallExpression, Node, TSType } from '@babel/types'
+import { type CallExpression, type Node, type TSType } from '@babel/types'
 
 export const PROPS_VARIABLE_NAME = `${HELPER_PREFIX}props`
 

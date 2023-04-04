@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import { defineConfig } from 'tsup'
-import type { Plugin } from 'esbuild'
+import { type Plugin } from 'esbuild'
 
 const rawRE = /[&?]raw(?:&|$)/
 const EsbuildRawPlugin: Plugin = {

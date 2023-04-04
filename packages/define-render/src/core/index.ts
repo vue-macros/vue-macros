@@ -8,7 +8,11 @@ import {
   isFunctionType,
   walkAST,
 } from '@vue-macros/common'
-import type { BlockStatement, ExpressionStatement, Node } from '@babel/types'
+import {
+  type BlockStatement,
+  type ExpressionStatement,
+  type Node,
+} from '@babel/types'
 
 export function transformDefineRender(code: string, id: string) {
   if (!code.includes(DEFINE_RENDER)) return

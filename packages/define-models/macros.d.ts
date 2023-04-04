@@ -1,5 +1,5 @@
-import type { WritableComputedRef } from 'vue'
-import type { UseVModelOptions } from '@vueuse/core'
+import { type WritableComputedRef } from 'vue'
+import { type UseVModelOptions } from '@vueuse/core'
 
 export type UseModelOptions<T> = Omit<UseVModelOptions<T>, 'passive'> & {
   /**

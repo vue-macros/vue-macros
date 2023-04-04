@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import sirv from 'sirv'
 import getPort from 'get-port'
-import type { Plugin } from 'vite'
+import { type Plugin } from 'vite'
 
 const DEV_SERVER_PATH = '/__vue-macros'
 

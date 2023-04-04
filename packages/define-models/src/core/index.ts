@@ -15,19 +15,19 @@ import {
   parseSFC,
   resolveObjectKey,
 } from '@vue-macros/common'
-import { emitHelperId, useVmodelHelperId } from './helper'
-import type {
-  Identifier,
-  LVal,
-  Node,
-  ObjectExpression,
-  ObjectPattern,
-  ObjectProperty,
-  Statement,
-  TSInterfaceBody,
-  TSTypeLiteral,
-  VariableDeclaration,
+import {
+  type Identifier,
+  type LVal,
+  type Node,
+  type ObjectExpression,
+  type ObjectPattern,
+  type ObjectProperty,
+  type Statement,
+  type TSInterfaceBody,
+  type TSTypeLiteral,
+  type VariableDeclaration,
 } from '@babel/types'
+import { emitHelperId, useVmodelHelperId } from './helper'
 
 export function transformDefineModels(
   code: string,

@@ -1,7 +1,7 @@
 import { rollup } from 'rollup'
 import { default as ViteVueJsx } from '@vitejs/plugin-vue-jsx'
-import type { Options as VueJsxOptions } from '@vitejs/plugin-vue-jsx'
-import type { InputPluginOption, Plugin } from 'rollup'
+import { type Options as VueJsxOptions } from '@vitejs/plugin-vue-jsx'
+import { type InputPluginOption, type Plugin } from 'rollup'
 
 export { default as RollupEsbuildPlugin } from 'rollup-plugin-esbuild'
 export { default as RollupVue } from 'unplugin-vue/rollup'

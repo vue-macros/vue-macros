@@ -7,6 +7,8 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
+import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
+import { type PluginContext } from 'rollup'
 import {
   SETUP_COMPONENT_ID_REGEX,
   hotUpdateSetupComponent,
@@ -15,9 +17,7 @@ import {
   transformSetupComponent,
 } from './core'
 import { getMainModule, isSubModule } from './core/sub-module'
-import type { BaseOptions, MarkRequired } from '@vue-macros/common'
-import type { PluginContext } from 'rollup'
-import type { SetupComponentContext } from './core'
+import { type SetupComponentContext } from './core'
 
 export type { SetupComponentContext } from './core'
 

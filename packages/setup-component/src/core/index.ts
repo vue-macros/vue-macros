@@ -10,15 +10,15 @@ import {
   normalizePath,
   walkAST,
 } from '@vue-macros/common'
+import { type AttachedScope } from '@vue-macros/common'
+import { type Function, type Node, type Program } from '@babel/types'
+import { type HmrContext, type ModuleNode } from 'vite'
+import { isSubModule } from './sub-module'
 import {
   SETUP_COMPONENT_ID_REGEX,
   SETUP_COMPONENT_ID_SUFFIX,
   SETUP_COMPONENT_TYPE,
 } from './constants'
-import { isSubModule } from './sub-module'
-import type { AttachedScope } from '@vue-macros/common'
-import type { Function, Node, Program } from '@babel/types'
-import type { HmrContext, ModuleNode } from 'vite'
 
 export * from './constants'
 export * from './sub-module'

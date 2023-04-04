@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
-import type { ComputedRef } from 'vue'
+import { type ComputedRef } from 'vue'
 
 const { foo } = definePropsRefs<{
   foo: string[]

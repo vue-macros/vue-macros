@@ -6,9 +6,9 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
+import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
+import { type UnpluginContextMeta } from 'unplugin'
 import { transformDefinePropsRefs } from './core/index'
-import type { BaseOptions, MarkRequired } from '@vue-macros/common'
-import type { UnpluginContextMeta } from 'unplugin'
 
 export { transformDefinePropsRefs } from './core'
 

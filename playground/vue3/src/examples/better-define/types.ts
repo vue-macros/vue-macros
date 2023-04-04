@@ -1,4 +1,4 @@
-import type { AnotherType } from './another-types'
+import { type AnotherType } from './another-types'
 
 export type Str = string
 export interface BaseProps extends AnotherType {

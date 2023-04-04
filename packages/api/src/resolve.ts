@@ -1,9 +1,9 @@
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { type PluginContext } from 'rollup'
+import { type ModuleNode, type Plugin } from 'vite'
 import { type ResolveTSFileIdImpl, tsFileCache } from './ts'
-import type { PluginContext } from 'rollup'
-import type { ModuleNode, Plugin } from 'vite'
 
 export const RollupResolve = () => {
   const referencedFiles = new Map<

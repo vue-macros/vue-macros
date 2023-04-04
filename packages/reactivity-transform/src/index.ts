@@ -9,11 +9,11 @@ import {
   detectVueVersion,
   normalizePath,
 } from '@vue-macros/common'
+import { type UnpluginContextMeta } from 'unplugin'
+import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { shouldTransform, transform } from './core/impl'
 import { transformVueSFC } from './core'
 import { helperCode, helperId } from './core/helper'
-import type { UnpluginContextMeta } from 'unplugin'
-import type { BaseOptions, MarkRequired } from '@vue-macros/common'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
