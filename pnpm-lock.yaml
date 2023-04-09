@@ -471,8 +471,8 @@ importers:
 
   packages/volar:
     specifiers:
-      '@volar/language-core': 1.4.0-alpha.5
-      '@volar/vue-language-core': 1.3.8
+      '@volar/language-core': 1.4.0-alpha.7
+      '@volar/vue-language-core': 1.3.14
       '@vue-macros/common': workspace:~
       '@vue-macros/define-props': workspace:~
       '@vue-macros/short-vmodel': workspace:~
@@ -481,13 +481,13 @@ importers:
       typescript: ^5.0.3
       vue-tsc: ^1.3.8
     dependencies:
-      '@volar/language-core': 1.4.0-alpha.5
+      '@volar/language-core': 1.4.0-alpha.7
       '@vue-macros/common': link:../common
       '@vue-macros/define-props': link:../define-props
       '@vue-macros/short-vmodel': link:../short-vmodel
       muggle-string: 0.2.2
     devDependencies:
-      '@volar/vue-language-core': 1.3.8
+      '@volar/vue-language-core': 1.3.14
       '@vue/compiler-dom': 3.3.0-alpha.8
       typescript: 5.0.3
       vue-tsc: 1.3.8_typescript@5.0.3
@@ -3709,9 +3709,21 @@ packages:
     resolution: {integrity: sha512-tYOztUpB7Sv6gf+0EBLW4bLWaj51XDlOisdVAOtv+z9kNdoZjQ2XWjNtzm0DSJ3ECFwB9iHlXGfmxqaV15k8/Q==}
     dependencies:
       '@volar/source-map': 1.4.0-alpha.5
+    dev: true
+
+  /@volar/language-core/1.4.0-alpha.7:
+    resolution: {integrity: sha512-kn/xA+RANXogFHv8Md7lmM4BsVcV51EmgROPiiE1km0PtZ7Po8VFj0Y5B5MNd3RZO/DLWiNfUtXC8MKmHGeDgA==}
+    dependencies:
+      '@volar/source-map': 1.4.0-alpha.7
 
   /@volar/source-map/1.4.0-alpha.5:
     resolution: {integrity: sha512-YO46N/hh/hOEpUJ0UXbJVnvUUY6wCvHdoLXnkMrlJx0tzRLylWvrHXz9neGov324JwnuQzbPHa4AehvP9WhWvQ==}
+    dependencies:
+      muggle-string: 0.2.2
+    dev: true
+
+  /@volar/source-map/1.4.0-alpha.7:
+    resolution: {integrity: sha512-JV5LAe7kgjM8l9yvnve15M2rAJnJ+1hi4G7AbkfMvfn9IkH/BFeSwJo/aIFSRMH0m67BMbP30Ao03NQvCgqOcQ==}
     dependencies:
       muggle-string: 0.2.2
 
@@ -3719,6 +3731,20 @@ packages:
     resolution: {integrity: sha512-AEm68uua8mYEpI27ApCWCVmtCMYBBj0Z8Lbp7uBRf0Tpprbr/xs/xGhq1TqcuSqxpAnEARt4Y25yZBPfPTy2lg==}
     dependencies:
       '@volar/language-core': 1.4.0-alpha.5
+    dev: true
+
+  /@volar/vue-language-core/1.3.14:
+    resolution: {integrity: sha512-qXRoOe/B3lWYrbKHw5YInGxoIbBoFSKxVJjLML3RGE/nL1+b0CtqGD+TO9pfwMnjuhHAqzvTm7Hw2l5sLxjbYA==}
+    dependencies:
+      '@volar/language-core': 1.4.0-alpha.7
+      '@volar/source-map': 1.4.0-alpha.7
+      '@vue/compiler-dom': 3.3.0-alpha.8
+      '@vue/compiler-sfc': 3.3.0-alpha.8
+      '@vue/reactivity': 3.3.0-alpha.8
+      '@vue/shared': 3.3.0-alpha.8
+      minimatch: 6.2.0
+      muggle-string: 0.2.2
+      vue-template-compiler: 2.7.14
     dev: true
 
   /@volar/vue-language-core/1.3.8:
