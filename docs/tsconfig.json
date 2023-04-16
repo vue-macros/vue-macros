@@ -24,6 +24,9 @@
     },
     "customConditions": ["dev"]
   },
+  "vueCompilerOptions": {
+    "jsxTemplates": true
+  },
   "include": ["**/*", "./.*/**/*", "../packages/shim.d.ts"],
   "exclude": ["dist", "node_modules"]
 }
