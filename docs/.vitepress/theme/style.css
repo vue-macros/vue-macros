@@ -10,6 +10,9 @@
   --vp-c-brand-dark: #84208a;
   --vp-c-brand-darker: #7b0080;
   --vp-c-brand-dimm: rgba(145, 71, 150, 0.08);
+
+  --vp-c-highlight-bg: var(--vp-c-brand-light);
+  --vp-c-highlight-text: var(--vp-c-bg);
 }
 
 /**
@@ -94,4 +97,32 @@
 /* Transition by color instead of opacity */
 .dark .vp-doc .custom-block a {
   transition: color 0.25s;
+}
+
+.VPLocalSearchBox .result {
+  --vp-c-bg-search-result: var(--vp-c-bg);
+  background: var(--vp-c-bg-search-result) !important;
+  padding: 4px !important;
+  border: 1px solid var(--vp-c-divider) !important;
+}
+.VPLocalSearchBox .result.selected {
+  --vp-c-bg-search-result: var(--vp-c-bg-soft) !important;
+}
+.VPLocalSearchBox .result .excerpt-gradient-top {
+  background: linear-gradient(
+    var(--vp-c-bg-search-result),
+    transparent
+  ) !important;
+}
+.VPLocalSearchBox .result .excerpt-gradient-bottom {
+  background: linear-gradient(
+    transparent,
+    var(--vp-c-bg-search-result)
+  ) !important;
+}
+.VPLocalSearchBox .title-icon {
+  display: none;
+}
+.VPLocalSearchBox .excerpt-wrapper {
+  margin-top: 4px;
 }
