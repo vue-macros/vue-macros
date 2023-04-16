@@ -10,9 +10,9 @@ export const description =
   'Explore and extend more macros and syntax sugar to Vue.'
 
 export const nav: DefaultTheme.NavItem[] = [
-  { text: 'Guide', link: '/guide/getting-started' },
-  { text: 'Macros', link: '/macros/' },
-  { text: 'Features', link: '/features/hoist-static' },
+  { text: 'Guide', link: '/guide/getting-started', activeMatch: 'guide' },
+  { text: 'Macros', link: '/macros/', activeMatch: 'macros' },
+  { text: 'Features', link: '/features/hoist-static', activeMatch: 'features' },
 ]
 
 export const sidebar = common.sidebar('')

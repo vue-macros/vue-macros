@@ -9,9 +9,13 @@ export const title = 'Vue Macros'
 export const description = '探索并扩展更多宏和语法糖到 Vue 中。'
 
 export const nav: DefaultTheme.NavItem[] = [
-  { text: '指南', link: '/zh-CN/guide/getting-started' },
-  { text: '宏', link: '/zh-CN/macros/' },
-  { text: '特性', link: '/zh-CN/features/hoist-static' },
+  { text: '指南', link: '/zh-CN/guide/getting-started', activeMatch: 'guide' },
+  { text: '宏', link: '/zh-CN/macros/', activeMatch: 'macros' },
+  {
+    text: '特性',
+    link: '/zh-CN/features/hoist-static',
+    activeMatch: 'features',
+  },
 ]
 
 export const sidebar = common.sidebar('zh-CN')
