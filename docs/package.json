@@ -5,18 +5,16 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "serve": "vitepress serve"
+    "preview": "vitepress serve"
   },
   "devDependencies": {
     "@vitejs/plugin-vue-jsx": "^3.0.1",
-    "flexsearch": "^0.7.31",
     "markdown-it": "^13.0.1",
     "markdown-it-container": "^3.0.0",
     "unocss": "^0.51.4",
     "unplugin-vue-macros": "workspace:*",
     "vite-plugin-pwa": "^0.14.7",
-    "vitepress": "^1.0.0-alpha.65",
-    "vitepress-plugin-search": "^1.0.4-alpha.20",
+    "vitepress": "1.0.0-alpha.69",
     "vue": "^3.3.0-alpha.9"
   }
 }
