@@ -303,7 +303,7 @@ export function importHelperFn(
   s: MagicStringBase,
   offset: number,
   local: string,
-  from: string,
+  from = 'vue',
   isDefault = false
 ) {
   const imported = isDefault ? 'default' : local

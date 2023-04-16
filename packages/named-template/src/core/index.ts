@@ -201,8 +201,7 @@ export function postTransform(
     if (fnName === '_createVNode') {
       s.overwriteNode(vnode, render)
     } else if (fnName === '_createBlock') {
-      importHelperFn(s, 0, 'Fragment', 'vue')
-      s.overwriteNode(component, `${HELPER_PREFIX}Fragment`)
+      s.overwriteNode(component, importHelperFn(s, 0, 'Fragment'))
       const text = `${vnode.arguments[1] ? '' : ', null'}, [${render}]`
       s.appendLeft((vnode.arguments[1] || vnode.arguments[0]).end!, text)
     }

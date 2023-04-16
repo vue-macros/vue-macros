@@ -22,7 +22,6 @@ export function transformDefinePropsRefs(code: string, id: string) {
   const s = new MagicString(code)
   const setupAst = getSetupAst()!
 
-  let changed = false
   walkAST<Node>(setupAst, {
     enter(node) {
       if (isCallOf(node, WITH_DEFAULTS) && node.arguments) {
@@ -33,10 +32,6 @@ export function transformDefinePropsRefs(code: string, id: string) {
       }
     },
   })
-
-  if (changed) {
-    importHelperFn(s, offset, 'toRefs', 'vue')
-  }
 
   return getTransformResult(s, id)
 
@@ -60,11 +55,10 @@ export function transformDefinePropsRefs(code: string, id: string) {
     s.prependLeft(offset, `\nconst ${HELPER_PREFIX}props = ${code}`)
     s.overwriteNode(
       defaultsCall || propsCall,
-      `${HELPER_PREFIX}toRefs(${HELPER_PREFIX}props)`,
+      `${importHelperFn(s, offset, 'toRefs')}(${HELPER_PREFIX}props)`,
       {
         offset,
       }
     )
-    changed = true
   }
 }

@@ -422,9 +422,13 @@ export function transformDefineModels(
     }
 
     function rewriteRuntime() {
-      importHelperFn(s, setupOffset, 'useVModel', useVmodelHelperId, true)
-
-      const text = `${HELPER_PREFIX}useVModel(${Object.entries(map)
+      const text = `${importHelperFn(
+        s,
+        setupOffset,
+        'useVModel',
+        useVmodelHelperId,
+        true
+      )}(${Object.entries(map)
         .map(([name, { options }]) => {
           const prop = getPropKey(name, true)
           const evt = getEventKey(name, true)
@@ -457,11 +461,16 @@ export function transformDefineModels(
       value: string,
       original = false
     ) {
-      importHelperFn(s, setupOffset, 'emitHelper', emitHelperId, true)
       const eventName = aliasMap[id.name]
-      const content = `${HELPER_PREFIX}emitHelper(${emitsIdentifier}, '${getEventKey(
-        String(eventName)
-      )}', ${value}${original ? `, ${id.name}` : ''})`
+      const content = `${importHelperFn(
+        s,
+        setupOffset,
+        'emitHelper',
+        emitHelperId,
+        true
+      )}(${emitsIdentifier}, '${getEventKey(String(eventName))}', ${value}${
+        original ? `, ${id.name}` : ''
+      })`
       s.overwriteNode(node, content, { offset: setupOffset })
     }
 

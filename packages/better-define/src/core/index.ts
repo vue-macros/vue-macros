@@ -1,5 +1,4 @@
 import {
-  HELPER_PREFIX,
   MagicString,
   getTransformResult,
   importHelperFn,
@@ -54,12 +53,14 @@ export async function transformBetterDefine(
     let decl = runtimeDecls
     if (props.withDefaultsAst && !props.defaults) {
       // dynamic defaults
-      decl = `${HELPER_PREFIX}mergeDefaults(${decl}, ${s.sliceNode(
-        props.withDefaultsAst.arguments[1],
-        { offset }
-      )})`
+      decl = `${importHelperFn(
+        s,
+        offset,
+        'mergeDefaults'
+      )}(${decl}, ${s.sliceNode(props.withDefaultsAst.arguments[1], {
+        offset,
+      })})`
       // add helper
-      importHelperFn(s, offset, 'mergeDefaults', 'vue')
     }
     decl = `defineProps(${decl})`
 

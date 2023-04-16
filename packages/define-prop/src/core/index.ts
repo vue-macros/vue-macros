@@ -56,10 +56,13 @@ export async function transformDefineProp(
       if (isCallOf(node, DEFINE_PROP)) {
         hasDefineProp = true
         const propName = walkCall(node, parent)
-        const toRef = importHelperFn(s, offset, 'toRef', 'vue')
         s.overwriteNode(
           node,
-          `${toRef}(${PROPS_VARIABLE_NAME}, ${JSON.stringify(propName)})`,
+          `${importHelperFn(
+            s,
+            offset,
+            'toRef'
+          )}(${PROPS_VARIABLE_NAME}, ${JSON.stringify(propName)})`,
           { offset }
         )
       } else if (isCallOf(node, DEFINE_PROPS)) {

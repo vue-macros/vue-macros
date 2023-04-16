@@ -1,6 +1,5 @@
 import {
   DEFINE_OPTIONS,
-  HELPER_PREFIX,
   MagicString,
   addNormalScript,
   checkInvalidScopeReference,
@@ -45,10 +44,13 @@ export function transformDefineOptions(code: string, id: string) {
 
     const scriptOffset = normalScript.start()
 
-    importHelperFn(s, scriptOffset, 'defineComponent', 'vue')
     s.appendLeft(
       scriptOffset,
-      `\nexport default /*#__PURE__*/ ${HELPER_PREFIX}defineComponent(`
+      `\nexport default /*#__PURE__*/ ${importHelperFn(
+        s,
+        scriptOffset,
+        'defineComponent'
+      )}(`
     )
 
     if (arg.type === 'ObjectExpression' && hasPropsOrEmits(arg))
