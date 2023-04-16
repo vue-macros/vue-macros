@@ -8,6 +8,7 @@
     "preview": "vitepress serve"
   },
   "devDependencies": {
+    "@vite-pwa/vitepress": "^0.0.5",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "markdown-it": "^13.0.1",
     "markdown-it-container": "^3.0.0",
@@ -15,6 +16,7 @@
     "unplugin-vue-macros": "workspace:*",
     "vite-plugin-pwa": "^0.14.7",
     "vitepress": "1.0.0-alpha.69",
-    "vue": "^3.3.0-alpha.9"
+    "vue": "^3.3.0-alpha.9",
+    "workbox-window": "^6.5.4"
   }
 }

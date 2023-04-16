@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { withPwa } from './pwa'
+import { withPwa } from '@vite-pwa/vitepress'
 import { pwa } from './configs'
 import { en } from './locales/en'
 import { zhCN } from './locales/zh-cn'
