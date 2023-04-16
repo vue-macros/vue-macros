@@ -32,8 +32,8 @@ npm i unplugin-vue-macros -D
 ## Sponsors
 
 <p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg'/>
+  <a href="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.wide.svg">
+    <img src='https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.wide.svg'/>
   </a>
 </p>
 

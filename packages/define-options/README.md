@@ -25,8 +25,8 @@ If you support this feature, feel free to hit like 👍 or comment on [RFC Discu
 ## Sponsors
 
 <p align="center">
-  <a href="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg">
-    <img src='https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.svg'/>
+  <a href="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.wide.svg">
+    <img src='https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.wide.svg'/>
   </a>
 </p>
 
