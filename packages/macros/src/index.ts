@@ -71,6 +71,7 @@ import VueShortEmits, {
 } from '@vue-macros/short-emits'
 import { excludeDepOptimize } from './core'
 
+import VScope, { type Options as OptionsVScope } from '@vue-macros/v-scope'
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
   chainCall: OptionsChainCall
@@ -92,6 +93,7 @@ export interface FeatureOptionsMap {
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
+  vScope: OptionsVScope
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -147,6 +149,7 @@ export function resolveOptions({
   setupComponent,
   setupSFC,
   shortEmits,
+  vScope,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
@@ -232,6 +235,7 @@ export function resolveOptions({
       { version },
       version < 3.3
     ),
+    vScope: resolveSubOptions<'vScope'>(vScope, { version }),
   }
 }
 
@@ -312,6 +316,7 @@ export default createCombinePlugin<Options | undefined>(
       options.plugins.vue,
       options.plugins.vueJsx,
       resolvePlugin(VueDefineRender, framework, options.defineRender),
+      resolvePlugin(VScope, framework, options.vScope),
       setupComponentPlugins?.[1],
       namedTemplatePlugins?.[1],
       framework === 'vite'

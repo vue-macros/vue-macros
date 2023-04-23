@@ -36,6 +36,8 @@ export default sxzz([
     files: ['**/helper/*', 'playground/vue3/**'],
     rules: {
       'import/no-default-export': 'off',
+      'vue/prefer-template': 'off',
+      'vue/no-deprecated-scope-attribute': 'off',
     },
   },
   {

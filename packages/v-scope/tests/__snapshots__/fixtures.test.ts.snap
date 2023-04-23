@@ -1,0 +1,305 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+"import { ref, createElementVNode, createTextVNode, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _sfc_main = {
+  __name: 'basic',
+  setup(__props) {
+
+const msg = ref('Hello');
+
+return (_ctx, _cache) => {
+  
+
+  return ((a= msg.value + \` Vue\`)=> createElementVNode(\\"h1\\", null, [
+    createTextVNode(toDisplayString(a), 1 /* TEXT */)
+  ]))()
+}
+}
+
+};
+var basic = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/error.vue 1`] = `
+"Error parsing JavaScript expression: Unexpected token (1:5)
+
+E:\\\\unplugin-vue-macros\\\\packages\\\\v-scope\\\\tests\\\\fixtures\\\\error.vue
+6  |  
+7  |  <template>
+8  |    <div v-scope=\\"{ a:, b:1 }\\">{{ a }}</div>
+   |                  ^^^^^^^^^^^
+9  |  </template>
+"
+`;
+
+exports[`fixtures > tests/fixtures/multi-vscope.vue 1`] = `
+"import { ref, openBlock, createElementBlock, Fragment, createElementVNode, createTextVNode, toDisplayString, renderList } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _sfc_main = {
+  __name: 'multi-vscope',
+  setup(__props) {
+
+const msg = ref('Hello');
+
+
+return (_ctx, _cache) => {
+  
+
+  return (openBlock(), createElementBlock(Fragment, null, [
+    ((a= msg.value + \` Vue\`)=> createElementVNode(\\"h1\\", null, [
+      createTextVNode(toDisplayString(a), 1 /* TEXT */)
+    ]))(),
+    (openBlock(), createElementBlock(Fragment, null, renderList([1,2,3], (i) => {
+      return ((x= i+1)=> createElementVNode(\\"div\\", null, [
+        createTextVNode(toDisplayString(x), 1 /* TEXT */)
+      ]))()
+    }), 64 /* STABLE_FRAGMENT */))
+  ], 64 /* STABLE_FRAGMENT */))
+}
+}
+
+};
+var multiVscope = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { multiVscope as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/nested.vue 1`] = `
+"import { ref, createElementVNode, createTextVNode, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _sfc_main = {
+  __name: 'nested',
+  setup(__props) {
+
+const msg = ref('Hello');
+
+return (_ctx, _cache) => {
+  
+
+  return (( a=1 )=> createElementVNode(\\"div\\", null, [
+    (( b=1 )=> createElementVNode(\\"span\\", null, [
+      createTextVNode(toDisplayString(a) + toDisplayString(b), 1 /* TEXT */)
+    ]))()
+  ]))()
+}
+}
+
+};
+var nested = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { nested as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/template-vScope.vue 1`] = `
+"import { createElementVNode, createTextVNode, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _sfc_main = {};
+
+function _sfc_render(_ctx, _cache) {
+  
+
+  return (( a=1 )=> createElementVNode(\\"div\\", null, [
+    createTextVNode(toDisplayString(a), 1 /* TEXT */)
+  ]))()
+}
+var templateVScope = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
+
+export { templateVScope as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vScopeAndFor.vue 1`] = `
+"import { openBlock, createElementBlock, Fragment, renderList, createElementVNode, createTextVNode, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _sfc_main = {
+  __name: 'vScopeAndFor',
+  setup(__props) {
+
+
+return (_ctx, _cache) => {
+  
+
+  return (openBlock(), createElementBlock(Fragment, null, renderList([1,2,3], (i) => {
+    return ((x= i+1)=> createElementVNode(\\"div\\", null, [
+      createTextVNode(toDisplayString(x), 1 /* TEXT */)
+    ]))()
+  }), 64 /* STABLE_FRAGMENT */))
+}
+}
+
+};
+var vScopeAndFor = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { vScopeAndFor as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vScopeAndVif.vue 1`] = `
+"import { ref, createElementVNode, createTextVNode, toDisplayString, createCommentVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _hoisted_1 = { key: 0 };
+
+
+
+const _sfc_main = {
+  __name: 'vScopeAndVif',
+  setup(__props) {
+
+const ok = ref(true);
+
+return (_ctx, _cache) => {
+  
+
+  return (ok.value)
+    ? ((a=1)=> createElementVNode(\\"div\\", _hoisted_1, [
+        createTextVNode(toDisplayString(a), 1 /* TEXT */)
+      ]))()
+    : createCommentVNode(\\"v-if\\", true)
+}
+}
+
+};
+var vScopeAndVif = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { vScopeAndVif as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vscopeAndVelse.vue 1`] = `
+"import { ref, createElementVNode, createTextVNode, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _hoisted_1 = { key: 0 };
+const _hoisted_2 = { key: 1 };
+const _hoisted_3 = { key: 2 };
+
+
+
+const _sfc_main = {
+  __name: 'vscopeAndVelse',
+  setup(__props) {
+
+const ok = ref(1);
+
+return (_ctx, _cache) => {
+  
+
+  return (ok.value==1)
+    ? ((a=1)=> createElementVNode(\\"div\\", _hoisted_1, [
+        createTextVNode(toDisplayString(a), 1 /* TEXT */)
+      ]))()
+    : (ok.value==2)
+      ? ((b=2)=> createElementVNode(\\"div\\", _hoisted_2, [
+          createTextVNode(toDisplayString(b), 1 /* TEXT */)
+        ]))()
+      : ((c=3)=> createElementVNode(\\"div\\", _hoisted_3, [
+          createTextVNode(toDisplayString(c), 1 /* TEXT */)
+        ]))()
+}
+}
+
+};
+var vscopeAndVelse = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { vscopeAndVelse as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vscopeAndVelseif.vue 1`] = `
+"import { ref, createElementVNode, createTextVNode, toDisplayString, createCommentVNode } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _hoisted_1 = { key: 0 };
+const _hoisted_2 = { key: 1 };
+
+
+
+const _sfc_main = {
+  __name: 'vscopeAndVelseif',
+  setup(__props) {
+
+const ok = ref(1);
+
+return (_ctx, _cache) => {
+  
+
+  return (ok.value==1)
+    ? ((a=1)=> createElementVNode(\\"div\\", _hoisted_1, [
+        createTextVNode(toDisplayString(a), 1 /* TEXT */)
+      ]))()
+    : (ok.value==2)
+      ? ((b=2)=> createElementVNode(\\"div\\", _hoisted_2, [
+          createTextVNode(toDisplayString(b), 1 /* TEXT */)
+        ]))()
+      : createCommentVNode(\\"v-if\\", true)
+}
+}
+
+};
+var vscopeAndVelseif = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { vscopeAndVelseif as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/vscopeWithts.vue 1`] = `
+"import { defineComponent, ref, createElementVNode, createTextVNode, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"vscopeWithts\\",
+  setup(__props) {
+    const msg = ref(\\"Hello\\");
+    return (_ctx, _cache) => {
+      
+      return (( a= msg.value + \` Vue\` )=> createElementVNode(\\"h1\\", null, [
+        createTextVNode(
+          toDisplayString(a),
+          1
+          /* TEXT */
+        )
+      ]))();
+    };
+  }
+});
+
+var vscopeWithts = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { vscopeWithts as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/withoutVscope.vue 1`] = `
+"import { ref, openBlock, createElementBlock, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+const _sfc_main = {
+  __name: 'withoutVscope',
+  setup(__props) {
+
+const msg = ref('Hello World!');
+
+return (_ctx, _cache) => {
+  return (openBlock(), createElementBlock(\\"h1\\", null, toDisplayString(msg.value), 1 /* TEXT */))
+}
+}
+
+};
+var withoutVscope = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { withoutVscope as default };
+"
+`;
