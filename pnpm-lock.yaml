@@ -22,8 +22,8 @@ importers:
         specifier: ^2.26.1
         version: 2.26.1
       '@sxzz/eslint-config':
-        specifier: ^3.0.0-beta.4
-        version: 3.0.0-beta.4(eslint@8.38.0)(typescript@5.0.4)
+        specifier: ^3.0.0-beta.9
+        version: 3.0.0-beta.9(eslint@8.38.0)(typescript@5.0.4)
       '@types/node':
         specifier: ^18.15.11
         version: 18.15.11
@@ -3210,8 +3210,8 @@ packages:
       string.prototype.matchall: 4.0.8
     dev: true
 
-  /@sxzz/eslint-config@3.0.0-beta.4(eslint@8.38.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-8q29wtU3wrKe/JID5S0oM5Uge1Aeet8LfhVT0UQ45f3HnmxcvLo0GzakbF6BNeoB1xPj5YcB89YMPo8HwO5h8g==}
+  /@sxzz/eslint-config@3.0.0-beta.9(eslint@8.38.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-dEX5f3WexVt1fTpbzkZ0yAnWPCJdniRFn9UnDM+K3Fs5BHFZ2pyQQu3oUYGLqIi7soUsiI4jsZhvnCPo33fHXg==}
     engines: {node: '>=14.19.0'}
     peerDependencies:
       eslint: ^8.0.0
@@ -3221,6 +3221,7 @@ packages:
       '@typescript-eslint/parser': 5.58.0(eslint@8.38.0)(typescript@5.0.4)
       eslint: 8.38.0
       eslint-config-prettier: 8.8.0(eslint@8.38.0)
+      eslint-define-config: 1.18.0
       eslint-plugin-antfu: 0.38.4(eslint@8.38.0)(typescript@5.0.4)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.38.0)
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.58.0)(eslint@8.38.0)

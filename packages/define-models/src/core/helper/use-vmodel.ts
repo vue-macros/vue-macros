@@ -3,6 +3,7 @@ import { useVModel } from '@vueuse/core'
 import { type UseVModelOptions } from '@vueuse/core'
 import { type Ref } from 'vue'
 
+// eslint-disable-next-line import/no-default-export
 export default (
   ...keys: (
     | string

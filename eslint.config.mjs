@@ -26,6 +26,7 @@ export default sxzz([
       'vue/require-prop-types': 'off',
       'vue/valid-define-props': 'off',
       'vue/valid-attribute-name': 'off',
+      'import/no-default-export': 'off',
     },
   },
 ])
