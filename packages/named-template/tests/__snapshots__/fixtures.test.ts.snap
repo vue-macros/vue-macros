@@ -4,12 +4,12 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { defineComponent, createElementVNode, openBlock, createElementBlock, Fragment, toDisplayString, createTextVNode, createBlock } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';
 
-const foo$1 = \\"foo\\";
+const foo = \\"foo\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
   setup(__props, { expose: __expose }) {
     __expose();
-    const __returned__ = { foo: foo$1 };
+    const __returned__ = { foo };
     Object.defineProperty(__returned__, \\"__isScriptSetup\\", { enumerable: false, value: true });
     return __returned__;
   }
@@ -20,7 +20,7 @@ const _hoisted_1$1 = /*#__PURE__*/createElementVNode(\\"div\\", null, \\"Test\\"
 function render$1(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createElementBlock(Fragment, null, [
     _hoisted_1$1,
-    createElementVNode(\\"span\\", null, toDisplayString(foo))
+    createElementVNode(\\"span\\", null, toDisplayString($setup.foo))
   ], 64 /* STABLE_FRAGMENT */))
 }
 
@@ -109,12 +109,12 @@ exports[`fixtures > tests/fixtures/multi.vue 1`] = `
 "import { defineComponent, openBlock, createElementBlock, createTextVNode, createElementVNode, Fragment, createBlock, createCommentVNode } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';
 
-const pager$1 = \\"top\\";
+const pager = \\"top\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"multi\\",
   setup(__props, { expose: __expose }) {
     __expose();
-    const __returned__ = { pager: pager$1 };
+    const __returned__ = { pager };
     Object.defineProperty(__returned__, \\"__isScriptSetup\\", { enumerable: false, value: true });
     return __returned__;
   }
@@ -144,9 +144,9 @@ function render(...args) {
     Fragment,
     null,
     [
-      pager === \\"top\\" ? (openBlock(), createBlock(Fragment, { key: 0 }, [block0.render(...args)])) : createCommentVNode(\\"v-if\\", true),
+      $setup.pager === \\"top\\" ? (openBlock(), createBlock(Fragment, { key: 0 }, [block0.render(...args)])) : createCommentVNode(\\"v-if\\", true),
       _hoisted_1,
-      pager === \\"bottom\\" ? (openBlock(), createBlock(Fragment, { key: 1 }, [block0.render(...args)])) : createCommentVNode(\\"v-if\\", true)
+      $setup.pager === \\"bottom\\" ? (openBlock(), createBlock(Fragment, { key: 1 }, [block0.render(...args)])) : createCommentVNode(\\"v-if\\", true)
     ],
     64
     /* STABLE_FRAGMENT */
