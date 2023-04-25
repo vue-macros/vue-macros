@@ -65,13 +65,15 @@
   "pnpm": {
     "peerDependencyRules": {
       "ignoreMissing": [
-        "vite",
-        "@algolia/client-search",
-        "@yarnpkg/core"
+        "nuxt",
+        "@algolia/client-search"
+      ],
+      "allowAny": [
+        "vue"
       ]
     },
     "overrides": {
-      "vue@^3.2.0": "^3.3.0-alpha.6",
+      "vue@^3.2.0": "^3.3.0-beta.1",
       "@vue/compiler-sfc@^3.2.0": "^3.3.0-beta.1",
       "@vue/compiler-dom@^3.2.0": "^3.3.0-beta.1",
       "@vue/runtime-dom@^3.2.0": "^3.3.0-beta.1",
