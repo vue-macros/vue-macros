@@ -20,7 +20,7 @@ function resolveOption(
   const version = options.version || detectVueVersion()
   return {
     include: [REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
-      version === 2 && framework === 'webpack' ? REGEX_VUE_SUB : []
+      framework === 'webpack' ? REGEX_VUE_SUB : []
     ),
     ...options,
     version,
