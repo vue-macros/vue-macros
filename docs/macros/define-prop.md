@@ -17,7 +17,36 @@ Declare single prop one by one using `defineProp`.
 
 :::
 
-## Kevin's Edition
+## Configuration
+
+```ts
+VueMacros({
+  defineProp: {
+    /**
+     * 'kevinEdition' | 'johnsonEdition'
+     * @default 'kevinEdition'
+     */
+    edition: 'kevinEdition',
+  },
+})
+```
+
+### Volar
+
+**Require Volar >= `1.3.12`**
+
+```jsonc
+// tsconfig.json
+{
+  // ...
+  "vueCompilerOptions": {
+    // "kevinEdition" | "johnsonEdition" | false
+    "experimentalDefinePropProposal": "kevinEdition"
+  }
+}
+```
+
+## Kevin's Edition (Default)
 
 ### API Reference
 
@@ -123,19 +152,4 @@ count.value
 const disabled = defineProp<boolean>(true)
 //    ^? type: boolean
 </script>
-```
-
-## Volar Configuration
-
-**Require Volar >= `1.3.12`**
-
-```jsonc
-// tsconfig.json
-{
-  // ...
-  "vueCompilerOptions": {
-    // "kevinEdition" | "johnsonEdition" | false
-    "experimentalDefinePropProposal": "kevinEdition"
-  }
-}
 ```
