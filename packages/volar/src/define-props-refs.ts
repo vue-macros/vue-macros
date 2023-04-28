@@ -26,12 +26,12 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
 
 export = plugin
 
+const REGEX = /(const\s*{.*?)((,\s*)?withDefaults)(.*?})/
 function rewriteImports(file: VueEmbeddedFile) {
-  const idx = file.content.indexOf(
-    `const { defineProps, defineEmits, defineSlots, defineModel, defineOptions, withDefaults } = await import('vue');\n`
+  const idx = file.content.findIndex(
+    (s) => typeof s === 'string' && REGEX.test(s)
   )
   if (idx === -1) return
-  file.content[
-    idx
-  ] = `const { defineProps, defineEmits, defineSlots, defineModel, defineOptions } = await import('vue');\n`
+
+  file.content[idx] = (file.content[idx] as string).replace(REGEX, '$1$4')
 }
