@@ -6,6 +6,7 @@ import BetterDefineVue from './examples/better-define/index.vue'
 import DefineRenderVue from './examples/define-render/index.vue'
 import HoistStaticVue from './examples/hoist-static/index.vue'
 import ReactivityTransformVue from './examples/reactivity-transform/index.vue'
+import DefinePropVue from './examples/define-prop/parent.vue'
 
 // import { SetupComponentFoo } from './examples/setup-component'
 // import { SetupComponentType } from './examples/setup-component/types'
@@ -54,8 +55,13 @@ import SetupSFC from './examples/setup-sfc/index.setup'
     </fieldset>
 
     <fieldset>
-      <legend>reactivityTransformVue2</legend>
+      <legend>reactivityTransform</legend>
       <ReactivityTransformVue />
+    </fieldset>
+
+    <fieldset>
+      <legend>defineProp</legend>
+      <DefinePropVue />
     </fieldset>
 
     <!-- <fieldset>

@@ -10,7 +10,9 @@ export default defineConfig({
   },
   plugins: [
     VueMacros({
-      // version: 2,
+      defineProp: {
+        edition: 'johnsonEdition',
+      },
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
