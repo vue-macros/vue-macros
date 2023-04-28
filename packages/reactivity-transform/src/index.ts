@@ -9,7 +9,6 @@ import {
   detectVueVersion,
   normalizePath,
 } from '@vue-macros/common'
-import { type UnpluginContextMeta } from 'unplugin'
 import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { shouldTransform, transform } from './core/impl'
 import { transformVueSFC } from './core'
@@ -18,15 +17,10 @@ import { helperCode, helperId } from './core/helper'
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 
-function resolveOption(
-  options: Options,
-  framework: UnpluginContextMeta['framework']
-): OptionsResolved {
+function resolveOption(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
   return {
-    include: [REGEX_SRC_FILE, REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
-      version === 2 && framework === 'webpack' ? REGEX_VUE_SUB : []
-    ),
+    include: [REGEX_SRC_FILE, REGEX_VUE_SFC, REGEX_SETUP_SFC, REGEX_VUE_SUB],
     exclude: [REGEX_NODE_MODULES],
     ...options,
     version,
@@ -36,8 +30,8 @@ function resolveOption(
 const name = 'unplugin-reactivity-transform'
 
 export default createUnplugin<Options | undefined, false>(
-  (userOptions = {}, { framework }) => {
-    const options = resolveOption(userOptions, framework)
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
     const filter = createFilter(options)
 
     return {
@@ -65,7 +59,7 @@ export default createUnplugin<Options | undefined, false>(
         if (
           REGEX_VUE_SFC.test(id) ||
           REGEX_SETUP_SFC.test(id) ||
-          (framework === 'webpack' && REGEX_VUE_SUB.test(id))
+          REGEX_VUE_SUB.test(id)
         ) {
           return transformVueSFC(code, id)
         } else if (shouldTransform(code)) {

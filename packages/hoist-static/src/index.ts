@@ -1,4 +1,4 @@
-import { type UnpluginContextMeta, createUnplugin } from 'unplugin'
+import { createUnplugin } from 'unplugin'
 import {
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
@@ -12,16 +12,11 @@ import { transformHoistStatic } from './core'
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 
-function resolveOption(
-  options: Options,
-  framework: UnpluginContextMeta['framework']
-): OptionsResolved {
+function resolveOption(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
 
   return {
-    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
-      version === 2 && framework === 'webpack' ? REGEX_VUE_SUB : []
-    ),
+    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC, REGEX_VUE_SUB],
     ...options,
     version,
   }
@@ -30,8 +25,8 @@ function resolveOption(
 const name = 'unplugin-vue-hoist-static'
 
 export default createUnplugin<Options | undefined, false>(
-  (userOptions = {}, { framework }) => {
-    const options = resolveOption(userOptions, framework)
+  (userOptions = {}) => {
+    const options = resolveOption(userOptions)
     const filter = createFilter(options)
 
     return {
