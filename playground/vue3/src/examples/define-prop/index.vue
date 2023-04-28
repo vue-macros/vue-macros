@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
 import Child from './child.vue'
 
 const foo = ref('parent-prop')
@@ -10,5 +9,5 @@ const foo = ref('parent-prop')
   <div>defineProp demo</div>
 
   <input v-model="foo" type="text" />
-  <Child :foo="foo" />
+  <Child :foo="foo" bar="bar" />
 </template>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const foo = defineProp<string>('foo')
+const bar = defineProp<string>()
 </script>
 
 <template>
-  {{ foo }}
+  <p>foo: {{ foo }}</p>
+  <p>bar: {{ bar }}</p>
 </template>
