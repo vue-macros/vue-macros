@@ -13,6 +13,9 @@ export default defineConfig({
   input: ['./src/main.ts'],
   plugins: [
     VueMacros({
+      defineProp: {
+        edition: 'johnsonEdition',
+      },
       plugins: {
         vue: Vue({
           include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
