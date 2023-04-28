@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.0.3
+
+### Patch Changes
+
+- [`deb98b7`](https://github.com/sxzz/unplugin-vue-macros/commit/deb98b727cb4e25292dc4bf38d6fd68e1a48e54f) Thanks [@sxzz](https://github.com/sxzz)! - separate `defineProp` and `defineEmit`
+
 ## 1.0.2
 
 ### Patch Changes
