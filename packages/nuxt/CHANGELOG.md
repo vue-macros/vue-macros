@@ -1,5 +1,19 @@
 # @vue-macros/nuxt
 
+## 1.3.0
+
+### Minor Changes
+
+- [`deb98b7`](https://github.com/sxzz/unplugin-vue-macros/commit/deb98b727cb4e25292dc4bf38d6fd68e1a48e54f) Thanks [@sxzz](https://github.com/sxzz)! - separate `defineProp` and `defineEmit`
+
+### Patch Changes
+
+- Updated dependencies [[`deb98b7`](https://github.com/sxzz/unplugin-vue-macros/commit/deb98b727cb4e25292dc4bf38d6fd68e1a48e54f), [`3dabd96`](https://github.com/sxzz/unplugin-vue-macros/commit/3dabd962e7a2596423052293195b97962eab08a1), [`49ce826`](https://github.com/sxzz/unplugin-vue-macros/commit/49ce8265265e84bdd00a20b0a13d02d64c82392d), [`f3d6361`](https://github.com/sxzz/unplugin-vue-macros/commit/f3d63614f7c7b99d32372ab9f1f38fe3a1140725)]:
+  - unplugin-vue-macros@2.1.0
+  - @vue-macros/common@1.3.0
+  - @vue-macros/volar@0.9.6
+  - @vue-macros/short-vmodel@1.2.5
+
 ## 1.2.8
 
 ### Patch Changes
