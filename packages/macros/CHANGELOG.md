@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`50f8fe5`](https://github.com/sxzz/unplugin-vue-macros/commit/50f8fe5ab5af21ac7d1df6ede8dfc9975c23b860)]:
+  - @vue-macros/define-props-refs@1.0.2
+
 ## 2.1.0
 
 ### Minor Changes

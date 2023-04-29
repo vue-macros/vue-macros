@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.9.7
+
+### Patch Changes
+
+- [`3bf2d6a`](https://github.com/sxzz/unplugin-vue-macros/commit/3bf2d6ad4c2ef8602dbf4db23c9619df1dc170ea) Thanks [@sxzz](https://github.com/sxzz)! - improve import regex
+
 ## 0.9.6
 
 ### Patch Changes
