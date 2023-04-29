@@ -35,6 +35,11 @@ export declare type PropsWithDefaults<Base, Defaults> = Base & {
 }
 
 export declare function withDefaults<
+  Props,
+  Defaults extends InferDefaults<Props>
+>(props: Props, defaults: Defaults): PropsWithDefaults<Props, Defaults>
+
+export declare function withDefaults<
   PropsWithRefs extends PropRefs<Record<string, any>>,
   Defaults extends InferDefaults<Props>,
   Props = {
@@ -45,10 +50,6 @@ export declare function withDefaults<
       : PropsWithRefs[K]
   }
 >(props: PropsWithRefs, defaults: Defaults): PropRefs<Props>
-export declare function withDefaults<
-  Props,
-  Defaults extends InferDefaults<Props>
->(props: Props, defaults: Defaults): PropsWithDefaults<Props, Defaults>
 
 export declare function definePropsRefs<PropNames extends string = string>(
   props: PropNames[]
