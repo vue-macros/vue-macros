@@ -1,5 +1,11 @@
 # @vue-macros/define-props-refs
 
+## 1.0.2
+
+### Patch Changes
+
+- [`50f8fe5`](https://github.com/sxzz/unplugin-vue-macros/commit/50f8fe5ab5af21ac7d1df6ede8dfc9975c23b860) Thanks [@sxzz](https://github.com/sxzz)! - fix nested props w/ withDefaults in definePropsRefs
+
 ## 1.0.1
 
 ### Patch Changes
