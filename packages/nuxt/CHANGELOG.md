@@ -1,5 +1,14 @@
 # @vue-macros/nuxt
 
+## 1.3.2
+
+### Patch Changes
+
+- [`d260c7d`](https://github.com/sxzz/unplugin-vue-macros/commit/d260c7dbf28aba10ef60b8ad3cd74a5f282c4acf) Thanks [@sxzz](https://github.com/sxzz)! - add volar plugins on demand
+
+- Updated dependencies [[`d260c7d`](https://github.com/sxzz/unplugin-vue-macros/commit/d260c7dbf28aba10ef60b8ad3cd74a5f282c4acf)]:
+  - unplugin-vue-macros@2.1.2
+
 ## 1.3.1
 
 ### Patch Changes
