@@ -1,5 +1,14 @@
 # @vue-macros/better-define
 
+## 1.5.3
+
+### Patch Changes
+
+- [`791b2f3`](https://github.com/sxzz/unplugin-vue-macros/commit/791b2f31684c4156c4d3f26a4b22e06ab2c678f7) Thanks [@sxzz](https://github.com/sxzz)! - keep string type when boolean exist
+
+- Updated dependencies [[`791b2f3`](https://github.com/sxzz/unplugin-vue-macros/commit/791b2f31684c4156c4d3f26a4b22e06ab2c678f7)]:
+  - @vue-macros/api@0.6.1
+
 ## 1.5.2
 
 ### Patch Changes
