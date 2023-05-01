@@ -87,7 +87,8 @@ export default defineNuxtModule<VueMacrosOptions>({
       volarPlugins.push('@vue-macros/volar/export-props')
 
     if (resolvedOptions.defineProp)
-      vueCompilerOptions.experimentalDefinePropProposal = true
+      vueCompilerOptions.experimentalDefinePropProposal =
+        resolvedOptions.defineProp.edition || 'kevinEdition'
 
     nuxt.options.vite.vue ||= {}
     nuxt.options.vite.vue.include ||= [/\.vue$/]
