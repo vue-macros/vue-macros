@@ -89,7 +89,7 @@ export type OptionsResolved = Required<OptionsCommon> & {
   [K in FeatureName]: false | FeatureOptionsMap[K]
 }
 
-function resolveOptions({
+export function resolveOptions({
   root,
   version,
   plugins,
