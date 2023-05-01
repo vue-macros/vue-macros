@@ -1,5 +1,11 @@
 # @vue-macros/nuxt
 
+## 1.3.3
+
+### Patch Changes
+
+- [`7bc9a5e`](https://github.com/sxzz/unplugin-vue-macros/commit/7bc9a5ed7faa8b0f0ca3463d76d07791d95fd043) Thanks [@sxzz](https://github.com/sxzz)! - correct `experimentalDefinePropProposal` value
+
 ## 1.3.2
 
 ### Patch Changes
