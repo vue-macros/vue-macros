@@ -1,5 +1,11 @@
 # @vue-macros/api
 
+## 0.6.1
+
+### Patch Changes
+
+- [`791b2f3`](https://github.com/sxzz/unplugin-vue-macros/commit/791b2f31684c4156c4d3f26a4b22e06ab2c678f7) Thanks [@sxzz](https://github.com/sxzz)! - keep string type when boolean exist
+
 ## 0.6.0
 
 ### Minor Changes
