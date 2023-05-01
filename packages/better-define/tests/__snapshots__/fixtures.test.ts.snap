@@ -412,6 +412,48 @@ export { issue328 as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/issue-351.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"issue-351\\",
+  props: {
+    \\"modelValue\\": { type: [String, Boolean], required: true }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var issue351 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue351 as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/issue-351.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"issue-351\\",
+  props: {
+    \\"modelValue\\": { type: [String, Boolean] }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var issue351 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue351 as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/optional-method.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';
