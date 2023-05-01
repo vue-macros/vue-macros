@@ -101,7 +101,7 @@ const disabled = defineProp<boolean>('disabled', { default: true })
 </script>
 ```
 
-## Johnson's Proposal
+## Johnson's Edition
 
 ### API Reference
 
