@@ -29,7 +29,21 @@ export function parseSFC(code: string, id: string): SFC {
     filename: id,
   })
   const { descriptor, errors } = sfc
-  const lang = (descriptor.script || descriptor.scriptSetup)?.lang
+
+  const scriptLang = sfc.descriptor.script?.lang
+  const scriptSetupLang = sfc.descriptor.scriptSetup?.lang
+
+  if (
+    sfc.descriptor.script &&
+    sfc.descriptor.scriptSetup &&
+    (scriptLang || 'js') !== (scriptSetupLang || 'js')
+  ) {
+    throw new Error(
+      `[unplugin-vue-macros] <script> and <script setup> must have the same language type.`
+    )
+  }
+
+  const lang = scriptLang || scriptSetupLang
 
   return {
     sfc,
