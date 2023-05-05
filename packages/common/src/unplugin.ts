@@ -1,6 +1,8 @@
-import { createFilter as createRollupFilter } from '@rollup/pluginutils'
+import {
+  type FilterPattern,
+  createFilter as createRollupFilter,
+} from '@rollup/pluginutils'
 import { type MagicStringBase } from 'magic-string-ast'
-import { type FilterPattern } from '@rollup/pluginutils'
 
 export function getTransformResult(
   s: MagicStringBase | undefined,

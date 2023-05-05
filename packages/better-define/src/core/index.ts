@@ -4,8 +4,12 @@ import {
   importHelperFn,
   parseSFC,
 } from '@vue-macros/common'
-import { analyzeSFC, toRuntimeTypeString } from '@vue-macros/api'
-import { type TSEmits, type TSProps } from '@vue-macros/api'
+import {
+  type TSEmits,
+  type TSProps,
+  analyzeSFC,
+  toRuntimeTypeString,
+} from '@vue-macros/api'
 
 export async function transformBetterDefine(
   code: string,

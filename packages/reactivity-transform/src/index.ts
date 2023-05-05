@@ -1,5 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
@@ -9,7 +11,6 @@ import {
   detectVueVersion,
   normalizePath,
 } from '@vue-macros/common'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { shouldTransform, transform } from './core/impl'
 import { transformVueSFC } from './core'
 import { helperCode, helperId } from './core/helper'

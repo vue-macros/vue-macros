@@ -1,6 +1,10 @@
 import { type Node } from '@babel/types'
-import { isTSExports, resolveTSReferencedType } from '../ts'
-import { type TSExports, type TSResolvedType } from '../ts'
+import {
+  type TSExports,
+  type TSResolvedType,
+  isTSExports,
+  resolveTSReferencedType,
+} from '../ts'
 
 export async function inferRuntimeType(
   node: TSResolvedType | TSExports

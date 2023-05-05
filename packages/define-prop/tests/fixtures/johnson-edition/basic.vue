@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
-import type { Qux } from '../types'
 import { defineProp } from '../../../macros-johnson'
 
 // defineProp()

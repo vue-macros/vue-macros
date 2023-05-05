@@ -1,8 +1,7 @@
 import path from 'node:path'
-import glob from 'fast-glob'
+import glob, { type Options as GlobOptions } from 'fast-glob'
 import { describe, expect, test } from 'vitest'
 import { normalizePath } from '@rollup/pluginutils'
-import { type Options as GlobOptions } from 'fast-glob'
 
 interface Options {
   params?: [name: string, values?: any[]][]

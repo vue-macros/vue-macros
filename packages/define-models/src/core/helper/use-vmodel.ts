@@ -1,7 +1,5 @@
-import { getCurrentInstance } from 'vue'
-import { useVModel } from '@vueuse/core'
-import { type UseVModelOptions } from '@vueuse/core'
-import { type Ref } from 'vue'
+import { type Ref, getCurrentInstance } from 'vue'
+import { type UseVModelOptions, useVModel } from '@vueuse/core'
 
 // eslint-disable-next-line import/no-default-export
 export default (

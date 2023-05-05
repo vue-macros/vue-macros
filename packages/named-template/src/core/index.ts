@@ -8,19 +8,21 @@ import {
   isCallOf,
   walkAST,
 } from '@vue-macros/common'
-import { createTransformContext, parse, traverseNode } from '@vue/compiler-dom'
+import {
+  type AttributeNode,
+  type ElementNode,
+  type NodeTransform,
+  type RootNode,
+  createTransformContext,
+  parse,
+  traverseNode,
+} from '@vue/compiler-dom'
 import {
   type CallExpression,
   type Identifier,
   type Node,
   type Program,
 } from '@babel/types'
-import {
-  type AttributeNode,
-  type ElementNode,
-  type NodeTransform,
-  type RootNode,
-} from '@vue/compiler-dom'
 import { type CustomBlocks, type TemplateContent } from '..'
 import { getChildrenLocation, parseVueRequest } from './utils'
 import {

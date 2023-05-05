@@ -1,10 +1,11 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_SETUP_SFC,
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { hotUpdateSetupSFC, transformSetupSFC } from './core'
 
 export type Options = BaseOptions

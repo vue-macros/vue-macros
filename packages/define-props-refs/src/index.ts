@@ -1,12 +1,13 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { transformDefinePropsRefs } from './core/index'
 
 export { transformDefinePropsRefs } from './core'

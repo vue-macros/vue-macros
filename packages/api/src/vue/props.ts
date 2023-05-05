@@ -1,9 +1,10 @@
 import {
+  type MagicString,
+  type SFC,
   babelParse,
   isStaticObjectKey,
   resolveObjectExpression,
 } from '@vue-macros/common'
-import { type MagicString, type SFC } from '@vue-macros/common'
 import {
   type CallExpression,
   type Expression,
@@ -24,16 +25,16 @@ import {
   type VariableDeclaration,
 } from '@babel/types'
 import {
+  type TSFile,
+  type TSResolvedType,
   isTSExports,
   resolveTSProperties,
   resolveTSReferencedType,
   resolveTSScope,
 } from '../ts'
 import { keyToString } from '../utils'
-import { type TSFile, type TSResolvedType } from '../ts'
-import { DefinitionKind } from './types'
+import { type ASTDefinition, DefinitionKind } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
-import { type ASTDefinition } from './types'
 
 export async function handleTSPropsDefinition({
   s,

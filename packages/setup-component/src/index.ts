@@ -1,5 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
@@ -7,17 +9,16 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { type PluginContext } from 'rollup'
 import {
   SETUP_COMPONENT_ID_REGEX,
+  type SetupComponentContext,
   hotUpdateSetupComponent,
   loadSetupComponent,
   transformPost,
   transformSetupComponent,
 } from './core'
 import { getMainModule, isSubModule } from './core/sub-module'
-import { type SetupComponentContext } from './core'
 
 export type { SetupComponentContext } from './core'
 

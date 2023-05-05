@@ -1,4 +1,5 @@
 import {
+  type AttachedScope,
   DEFINE_SETUP_COMPONENT,
   HELPER_PREFIX,
   MagicString,
@@ -10,7 +11,6 @@ import {
   normalizePath,
   walkAST,
 } from '@vue-macros/common'
-import { type AttachedScope } from '@vue-macros/common'
 import { type Function, type Node, type Program } from '@babel/types'
 import { type HmrContext, type ModuleNode } from 'vite'
 import { isSubModule } from './sub-module'

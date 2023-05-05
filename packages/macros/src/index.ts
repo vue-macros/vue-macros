@@ -1,47 +1,65 @@
-import { createCombinePlugin } from 'unplugin-combine'
-import VueBetterDefine from '@vue-macros/better-define'
-import VueDefineEmit from '@vue-macros/define-emit'
-import VueDefineModels from '@vue-macros/define-models'
-import VueDefineOptions from 'unplugin-vue-define-options'
-import VueDefineProp from '@vue-macros/define-prop'
-import VueDefineProps from '@vue-macros/define-props'
-import VueDefinePropsRefs from '@vue-macros/define-props-refs'
-import VueDefineRender from '@vue-macros/define-render'
-import VueDefineSlots from '@vue-macros/define-slots'
-import VueExportProps from '@vue-macros/export-props'
-import VueHoistStatic from '@vue-macros/hoist-static'
-import VueNamedTemplate from '@vue-macros/named-template'
-import VueReactivityTransform from '@vue-macros/reactivity-transform'
-import VueSetupBlock from '@vue-macros/setup-block'
-import VueSetupComponent from '@vue-macros/setup-component'
-import VueSetupSFC from '@vue-macros/setup-sfc'
-import VueShortEmits from '@vue-macros/short-emits'
-import { detectVueVersion } from '@vue-macros/common'
-import { Devtools } from '@vue-macros/devtools'
-
 import { type UnpluginInstance } from 'unplugin'
 import {
   type OptionsPlugin,
   type Plugin,
   type PluginType,
+  createCombinePlugin,
 } from 'unplugin-combine'
-import { type Options as OptionsBetterDefine } from '@vue-macros/better-define'
-import { type Options as OptionsDefineEmit } from '@vue-macros/define-emit'
-import { type Options as OptionsDefineModels } from '@vue-macros/define-models'
-import { type Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
-import { type Options as OptionsDefineProp } from '@vue-macros/define-prop'
-import { type Options as OptionsDefineProps } from '@vue-macros/define-props'
-import { type Options as OptionsDefinePropsRefs } from '@vue-macros/define-props-refs'
-import { type Options as OptionsDefineRender } from '@vue-macros/define-render'
-import { type Options as OptionsDefineSlots } from '@vue-macros/define-slots'
-import { type Options as OptionsExportProps } from '@vue-macros/export-props'
-import { type Options as OptionsHoistStatic } from '@vue-macros/hoist-static'
-import { type Options as OptionsNamedTemplate } from '@vue-macros/named-template'
-import { type Options as OptionsReactivityTransform } from '@vue-macros/reactivity-transform'
-import { type Options as OptionsSetupBlock } from '@vue-macros/setup-block'
-import { type Options as OptionsSetupComponent } from '@vue-macros/setup-component'
-import { type Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
-import { type Options as OptionsShortEmits } from '@vue-macros/short-emits'
+
+import { detectVueVersion } from '@vue-macros/common'
+import { Devtools } from '@vue-macros/devtools'
+
+import VueBetterDefine, {
+  type Options as OptionsBetterDefine,
+} from '@vue-macros/better-define'
+import VueDefineEmit, {
+  type Options as OptionsDefineEmit,
+} from '@vue-macros/define-emit'
+import VueDefineModels, {
+  type Options as OptionsDefineModels,
+} from '@vue-macros/define-models'
+import VueDefineOptions, {
+  type Options as OptionsDefineOptions,
+} from 'unplugin-vue-define-options'
+import VueDefineProp, {
+  type Options as OptionsDefineProp,
+} from '@vue-macros/define-prop'
+import VueDefineProps, {
+  type Options as OptionsDefineProps,
+} from '@vue-macros/define-props'
+import VueDefinePropsRefs, {
+  type Options as OptionsDefinePropsRefs,
+} from '@vue-macros/define-props-refs'
+import VueDefineRender, {
+  type Options as OptionsDefineRender,
+} from '@vue-macros/define-render'
+import VueDefineSlots, {
+  type Options as OptionsDefineSlots,
+} from '@vue-macros/define-slots'
+import VueExportProps, {
+  type Options as OptionsExportProps,
+} from '@vue-macros/export-props'
+import VueHoistStatic, {
+  type Options as OptionsHoistStatic,
+} from '@vue-macros/hoist-static'
+import VueNamedTemplate, {
+  type Options as OptionsNamedTemplate,
+} from '@vue-macros/named-template'
+import VueReactivityTransform, {
+  type Options as OptionsReactivityTransform,
+} from '@vue-macros/reactivity-transform'
+import VueSetupBlock, {
+  type Options as OptionsSetupBlock,
+} from '@vue-macros/setup-block'
+import VueSetupComponent, {
+  type Options as OptionsSetupComponent,
+} from '@vue-macros/setup-component'
+import VueSetupSFC, {
+  type Options as OptionsSetupSFC,
+} from '@vue-macros/setup-sfc'
+import VueShortEmits, {
+  type Options as OptionsShortEmits,
+} from '@vue-macros/short-emits'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine

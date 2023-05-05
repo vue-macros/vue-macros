@@ -7,12 +7,12 @@ import {
   type TSTypeAliasDeclaration,
 } from '@babel/types'
 import {
+  type TSFile,
   getTSFile,
   resolveTSExports,
   resolveTSProperties,
   resolveTSReferencedType,
 } from '../src'
-import { type TSFile } from '../src'
 import { hideAstLocation } from './_util'
 
 const fixtures = path.resolve(__dirname, 'fixtures')

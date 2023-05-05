@@ -1,5 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
@@ -7,7 +9,6 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { type PluginContext } from 'rollup'
 import { transformBetterDefine } from './core'
 

@@ -1,10 +1,11 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_VUE_SFC,
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,

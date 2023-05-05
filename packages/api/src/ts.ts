@@ -8,8 +8,6 @@ import {
   resolveLiteral,
   resolveObjectKey,
 } from '@vue-macros/common'
-import { isDeclaration } from '@babel/types'
-
 import {
   type Identifier,
   type ImportNamespaceSpecifier,
@@ -35,6 +33,7 @@ import {
   type TSTypeElement,
   type TSTypeLiteral,
   type UnaryExpression,
+  isDeclaration,
 } from '@babel/types'
 
 export type TSDeclaration =

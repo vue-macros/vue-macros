@@ -1,11 +1,11 @@
-import { parse } from '@vue/compiler-sfc'
-import { type Program } from '@babel/types'
-import { type MagicStringBase } from 'magic-string-ast'
 import {
   type SFCDescriptor,
   type SFCParseResult,
   type SFCScriptBlock as SFCScriptBlockMixed,
+  parse,
 } from '@vue/compiler-sfc'
+import { type Program } from '@babel/types'
+import { type MagicStringBase } from 'magic-string-ast'
 import { babelParse } from './ast'
 import { getLang } from './lang'
 import { REGEX_VUE_SFC } from './constants'

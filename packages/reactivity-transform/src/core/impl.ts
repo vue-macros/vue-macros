@@ -2,7 +2,7 @@
 /* eslint-disable vue/prefer-import-from-vue */
 /* eslint-disable no-restricted-syntax */
 
-import MagicString from 'magic-string'
+import MagicString, { type SourceMap } from 'magic-string'
 import { walk } from 'estree-walker'
 import {
   extractIdentifiers,
@@ -12,11 +12,9 @@ import {
   isStaticProperty,
   walkFunctionParams,
 } from '@vue/compiler-core'
-import { parse } from '@babel/parser'
+import { type ParserPlugin, parse } from '@babel/parser'
 import { genPropsAccessExp, hasOwn, isArray, isString } from '@vue/shared'
 import { TS_NODE_TYPES, unwrapTSNode } from '@vue-macros/common'
-import { type ParserPlugin } from '@babel/parser'
-import { type SourceMap } from 'magic-string'
 import {
   type ArrayPattern,
   type BlockStatement,

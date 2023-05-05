@@ -1,21 +1,21 @@
 import {
   DEFINE_EMITS,
   DEFINE_PROPS,
+  type MagicString,
+  type SFC,
   WITH_DEFAULTS,
   babelParse,
   isCallOf,
 } from '@vue-macros/common'
-import { type MagicString, type SFC } from '@vue-macros/common'
 import { type CallExpression, type LVal, type Node } from '@babel/types'
 import { type TSFile } from '../ts'
-import { handleTSPropsDefinition } from './props'
-import { handleTSEmitsDefinition } from './emits'
-import { type Emits } from './emits'
 import {
   type DefaultsASTRaw,
   type DefinePropsStatement,
   type Props,
+  handleTSPropsDefinition,
 } from './props'
+import { type Emits, handleTSEmitsDefinition } from './emits'
 
 export type { SFC } from '@vue-macros/common'
 export { parseSFC } from '@vue-macros/common'
