@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.3.1
+
+### Patch Changes
+
+- [`ed7ca8c`](https://github.com/sxzz/unplugin-vue-macros/commit/ed7ca8cd1fc334fb3cf5b96ee6b64e55c7390d61) Thanks [@sxzz](https://github.com/sxzz)! - throw error when sfc lang is different
+
 ## 1.3.0
 
 ### Minor Changes

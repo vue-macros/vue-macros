@@ -1,5 +1,31 @@
 # unplugin-vue-macros
 
+## 2.1.4
+
+### Patch Changes
+
+- [`ed7ca8c`](https://github.com/sxzz/unplugin-vue-macros/commit/ed7ca8cd1fc334fb3cf5b96ee6b64e55c7390d61) Thanks [@sxzz](https://github.com/sxzz)! - throw error when sfc lang is different
+
+- Updated dependencies [[`ed7ca8c`](https://github.com/sxzz/unplugin-vue-macros/commit/ed7ca8cd1fc334fb3cf5b96ee6b64e55c7390d61), [`96c0721`](https://github.com/sxzz/unplugin-vue-macros/commit/96c07214801f9d76b683d4a826686997bd598f5d)]:
+  - @vue-macros/common@1.3.1
+  - @vue-macros/define-models@1.0.3
+  - @vue-macros/better-define@1.5.4
+  - @vue-macros/define-emit@0.1.2
+  - unplugin-vue-define-options@1.3.5
+  - @vue-macros/define-prop@0.1.2
+  - @vue-macros/define-props@1.0.5
+  - @vue-macros/define-props-refs@1.0.3
+  - @vue-macros/define-render@1.3.6
+  - @vue-macros/define-slots@1.0.2
+  - @vue-macros/export-props@0.3.5
+  - @vue-macros/hoist-static@1.3.5
+  - @vue-macros/named-template@0.3.6
+  - @vue-macros/reactivity-transform@0.3.6
+  - @vue-macros/setup-block@0.2.5
+  - @vue-macros/setup-component@0.16.6
+  - @vue-macros/setup-sfc@0.15.6
+  - @vue-macros/short-emits@1.3.5
+
 ## 2.1.3
 
 ### Patch Changes
