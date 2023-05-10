@@ -9,7 +9,7 @@ type ConditionalProps =
       appearance: 'normal' | 'outline' | 'text'
     }
   | {
-      color: 'white'
+      color: number
       appearance: 'outline'
       note: string
     }
