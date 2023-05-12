@@ -1,5 +1,11 @@
 # @vue-macros/define-prop
 
+## 0.1.4
+
+### Patch Changes
+
+- [`96da1b9`](https://github.com/sxzz/unplugin-vue-macros/commit/96da1b90e5c583da95d2ab83671e900eee4c190b) Thanks [@sxzz](https://github.com/sxzz)! - fix TS error
+
 ## 0.1.3
 
 ### Patch Changes
