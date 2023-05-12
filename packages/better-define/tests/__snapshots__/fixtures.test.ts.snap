@@ -120,7 +120,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     } },
     \\"qux\\": { type: Function, required: false, default: () => {
     } },
-    \\"quux\\": { type: null, required: false, default: abc }
+    \\"quux\\": { required: false, default: abc }
   },
   setup(__props) {
     return (_ctx, _cache) => {
@@ -454,6 +454,74 @@ export { issue351 as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = false 1`] = `
+"import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"issue-362\\",
+  props: {
+    \\"trigger\\": { required: true }
+  },
+  setup(__props) {
+    const props = __props;
+    const Trigger = {
+      click: \\"click\\",
+      focus: \\"focus\\",
+      hover: \\"hover\\"
+    };
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(
+        \\"button\\",
+        null,
+        toDisplayString(__props.trigger),
+        1
+        /* TEXT */
+      );
+    };
+  }
+});
+
+var issue362 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue362 as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = true 1`] = `
+"import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"issue-362\\",
+  props: {
+    \\"trigger\\": null
+  },
+  setup(__props) {
+    const props = __props;
+    const Trigger = {
+      click: \\"click\\",
+      focus: \\"focus\\",
+      hover: \\"hover\\"
+    };
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(
+        \\"button\\",
+        null,
+        toDisplayString(__props.trigger),
+        1
+        /* TEXT */
+      );
+    };
+  }
+});
+
+var issue362 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue362 as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/optional-method.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';
@@ -495,6 +563,56 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 var optionalMethod = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { optionalMethod as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/resolve-failed.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"resolve-failed\\",
+  props: {
+    \\"foo\\": { required: true },
+    \\"bar\\": { type: Object, required: true },
+    \\"bool\\": { type: Boolean, skipCheck: true, required: true },
+    \\"fun\\": { type: Function, skipCheck: true, required: true },
+    \\"boolAndFun\\": { type: [Boolean, Function], skipCheck: true, required: true }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var resolveFailed = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { resolveFailed as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/resolve-failed.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"resolve-failed\\",
+  props: {
+    \\"foo\\": null,
+    \\"bar\\": null,
+    \\"bool\\": { type: Boolean },
+    \\"fun\\": { type: Function },
+    \\"boolAndFun\\": { type: [Boolean, Function] }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var resolveFailed = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { resolveFailed as default };
 "
 `;
 
@@ -723,7 +841,7 @@ import _export_sfc from '/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"unresolved\\",
   props: {
-    \\"foo\\": { type: null, required: true }
+    \\"foo\\": { required: true }
   },
   setup(__props) {
     return () => {

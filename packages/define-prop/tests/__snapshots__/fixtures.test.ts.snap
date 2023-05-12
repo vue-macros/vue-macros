@@ -7,6 +7,7 @@ const __MACROS_props = defineProps({
   \\"foo\\": { type: String, default: 'foo' },
   \\"bar\\": { default: 'bar', required: false },
   \\"baz\\": { type: String, default: 'bar', required: false, ...{ validator: () => true } },
+  \\"unknownType\\": { type: Boolean, skipCheck: true },
 });
 
 import { toRef as __MACROS_toRef } from \\"vue\\";
@@ -29,6 +30,9 @@ expectTypeOf(bar).toEqualTypeOf<ComputedRef<string>>()
 // defineProp(value, required, rest)
 const baz = __MACROS_toRef(__MACROS_props, \\"baz\\")
 expectTypeOf(baz).toEqualTypeOf<ComputedRef<string>>()
+
+// unknown type
+const unknownType = __MACROS_toRef(__MACROS_props, \\"unknownType\\")
 </script>
 \`;
 
@@ -51,7 +55,8 @@ const __MACROS_props = defineProps({
 } },
   \\"qux\\": { type: [String, Number] },
   \\"quux\\": { type: Boolean, ...{ default: true } },
-  \\"quuz\\": {  },
+  \\"quuz\\": null,
+  \\"unknownType\\": { type: Boolean, skipCheck: true },
 });
 
 import { toRef as __MACROS_toRef } from \\"vue\\";
@@ -83,6 +88,8 @@ __MACROS_toRef(__MACROS_props, \\"quux\\")
 const quuz = __MACROS_toRef(__MACROS_props, \\"quuz\\")
 expectTypeOf(quuz).toEqualTypeOf<ComputedRef<unknown>>()
 console.log(quuz)
+
+const unknownType = __MACROS_toRef(__MACROS_props, \\"unknownType\\")
 </script>
 \`;
 

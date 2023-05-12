@@ -34,4 +34,6 @@ defineProp<boolean>('quux', { default: true })
 const quuz = defineProp()
 expectTypeOf(quuz).toEqualTypeOf<ComputedRef<unknown>>()
 console.log(quuz)
+
+const unknownType = defineProp<unknown | boolean>()
 </script>

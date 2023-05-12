@@ -1,5 +1,6 @@
 import { DEFINE_PROP } from '@vue-macros/common'
 import { type TSType } from '@babel/types'
+import { genRuntimePropDefinition } from 'packages/api/src'
 import { type Impl, stringifyArray } from './utils'
 
 export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
@@ -44,7 +45,7 @@ export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
       return propName
     },
 
-    async genRuntimeProps() {
+    async genRuntimeProps(isProduction) {
       if (props.length === 0) return
 
       const isAllWithoutOptions = props.every(
@@ -60,14 +61,14 @@ export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
       for (const { name, definition, typeParameter } of props) {
         let def: string
 
-        const type = typeParameter && (await resolveTSType(typeParameter))
-        if (definition && !type) {
+        const types = typeParameter && (await resolveTSType(typeParameter))
+
+        if (definition && !types) {
           def = definition
         } else {
-          const pairs: string[] = []
-          if (type) pairs.push(`type: ${type}`)
-          if (definition) pairs.push(`...${definition}`)
-          def = `{ ${pairs.join(', ')} }`
+          const properties: string[] = []
+          if (definition) properties.push(`...${definition}`)
+          def = genRuntimePropDefinition(types, isProduction, properties)
         }
 
         propsString += `  ${JSON.stringify(name)}: ${def},\n`

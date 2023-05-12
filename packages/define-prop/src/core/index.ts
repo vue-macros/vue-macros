@@ -9,11 +9,7 @@ import {
   parseSFC,
   walkAST,
 } from '@vue-macros/common'
-import {
-  inferRuntimeType,
-  resolveTSReferencedType,
-  toRuntimeTypeString,
-} from '@vue-macros/api'
+import { inferRuntimeType, resolveTSReferencedType } from '@vue-macros/api'
 import { type Node, type TSType } from '@babel/types'
 import { kevinEdition } from './kevin-edition'
 import { johnsonEdition } from './johnson-edition'
@@ -72,7 +68,7 @@ export async function transformDefineProp(
       `${DEFINE_PROP} can not be used in the same file as ${DEFINE_PROPS}.`
     )
 
-  const runtimeProps = await genRuntimeProps()
+  const runtimeProps = await genRuntimeProps(isProduction)
   if (runtimeProps)
     s.prependLeft(
       offset!,
@@ -90,9 +86,6 @@ export async function transformDefineProp(
       },
       type,
     })
-    return (
-      resolved &&
-      toRuntimeTypeString(await inferRuntimeType(resolved), isProduction)
-    )
+    return resolved && inferRuntimeType(resolved)
   }
 }

@@ -1,5 +1,6 @@
 import { DEFINE_PROP } from '@vue-macros/common'
 import { type TSType } from '@babel/types'
+import { genRuntimePropDefinition } from 'packages/api/src'
 import { type Impl, stringifyArray } from './utils'
 
 export const johnsonEdition: Impl = ({ s, offset, resolveTSType }) => {
@@ -38,7 +39,7 @@ export const johnsonEdition: Impl = ({ s, offset, resolveTSType }) => {
       return propName
     },
 
-    async genRuntimeProps() {
+    async genRuntimeProps(isProduction) {
       if (props.length === 0) return
 
       const isAllWithoutOptions = props.every(
@@ -55,16 +56,16 @@ export const johnsonEdition: Impl = ({ s, offset, resolveTSType }) => {
       for (const { name, value, required, rest, typeParameter } of props) {
         let def: string
 
-        const type = typeParameter && (await resolveTSType(typeParameter))
-        if (rest && !value && !required && !type) {
+        const types = typeParameter && (await resolveTSType(typeParameter))
+        if (rest && !value && !required && !types) {
           def = rest
         } else {
-          const pairs: string[] = []
-          if (type) pairs.push(`type: ${type}`)
-          if (value) pairs.push(`default: ${value}`)
-          if (required) pairs.push(`required: ${required}`)
-          if (rest) pairs.push(`...${rest}`)
-          def = `{ ${pairs.join(', ')} }`
+          const properties: string[] = []
+          if (value) properties.push(`default: ${value}`)
+          if (required) properties.push(`required: ${required}`)
+          if (rest) properties.push(`...${rest}`)
+
+          def = genRuntimePropDefinition(types, isProduction, properties)
         }
         propsString += `  ${JSON.stringify(name)}: ${def},\n`
       }
