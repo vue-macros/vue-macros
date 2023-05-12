@@ -1,5 +1,14 @@
 # @vue-macros/better-define
 
+## 1.5.5
+
+### Patch Changes
+
+- [`90a1862`](https://github.com/sxzz/unplugin-vue-macros/commit/90a186263021114924c35bae537bb463fb3a4c32) Thanks [@sxzz](https://github.com/sxzz)! - add `skipCheck` for prop
+
+- Updated dependencies [[`90a1862`](https://github.com/sxzz/unplugin-vue-macros/commit/90a186263021114924c35bae537bb463fb3a4c32)]:
+  - @vue-macros/api@0.6.3
+
 ## 1.5.4
 
 ### Patch Changes
