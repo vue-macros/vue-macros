@@ -1,5 +1,11 @@
 # @vue-macros/api
 
+## 0.6.3
+
+### Patch Changes
+
+- [`90a1862`](https://github.com/sxzz/unplugin-vue-macros/commit/90a186263021114924c35bae537bb463fb3a4c32) Thanks [@sxzz](https://github.com/sxzz)! - add `skipCheck` for prop
+
 ## 0.6.2
 
 ### Patch Changes
