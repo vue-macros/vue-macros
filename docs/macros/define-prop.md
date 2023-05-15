@@ -97,7 +97,8 @@ count.value
 
 // Declare prop of TS type boolean with default value
 const disabled = defineProp<boolean>('disabled', { default: true })
-//    ^? type: boolean
+disabled.value
+//        ^? type: boolean
 </script>
 ```
 
@@ -150,6 +151,7 @@ count.value
 
 // Declare prop of TS type boolean with default value
 const disabled = defineProp<boolean>(true)
-//    ^? type: boolean
+disabled.value
+//        ^? type: boolean
 </script>
 ```
