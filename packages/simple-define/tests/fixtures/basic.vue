@@ -6,4 +6,7 @@ const props = simpleProps<{
 
 <template>
   {{ msg }}
+  <!-- boolean cast -->
+  <Foo checked />
+  <input type="checkbox" checked />
 </template>

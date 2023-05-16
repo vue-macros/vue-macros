@@ -1,15 +1,42 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
-"import { defineComponent, toDisplayString } from 'vue';
+"import { createElementVNode, defineComponent, resolveComponent, openBlock, createElementBlock, Fragment, createTextVNode, toDisplayString, createCommentVNode, createVNode } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';
 
+const _hoisted_1 = /* @__PURE__ */ createElementVNode(
+  \\"input\\",
+  {
+    type: \\"checkbox\\",
+    checked: true
+  },
+  null,
+  -1
+  /* HOISTED */
+);
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
+  props: [\\"msg\\"],
   setup(__props) {
-    const props = simpleProps([\\"msg\\"]);
+    const props = __props;
     return (_ctx, _cache) => {
-      return toDisplayString(_ctx.msg);
+      const _component_Foo = resolveComponent(\\"Foo\\");
+      return openBlock(), createElementBlock(
+        Fragment,
+        null,
+        [
+          createTextVNode(
+            toDisplayString(__props.msg) + \\" \\",
+            1
+            /* TEXT */
+          ),
+          createCommentVNode(\\" boolean cast \\"),
+          createVNode(_component_Foo, { checked: true }),
+          _hoisted_1
+        ],
+        64
+        /* STABLE_FRAGMENT */
+      );
     };
   }
 });
