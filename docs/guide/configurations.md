@@ -2,7 +2,14 @@
 
 ## Plugin Options
 
-All features are enabled by default, you can disable them by setting the option to `false`.
+All features are enabled by default except the following.
+
+- `defineOptions` (Vue >= 3.3)
+- `defineSlots` (Vue >= 3.3)
+- `hoistStatic` (Vue >= 3.3)
+- `shortEmits` (Vue >= 3.3)
+
+You can disable them by setting the option to `false`.
 
 ```ts
 VueMacros({

@@ -2,7 +2,14 @@
 
 ## 插件选项
 
-在 Vue Macros 中所有功能都将会被默认开启，你可以将选项设置为 `false` 来禁用它们。
+默认情况下启用所有功能，但以下功能除外。
+
+- `defineOptions` (Vue >= 3.3)
+- `defineSlots` (Vue >= 3.3)
+- `hoistStatic` (Vue >= 3.3)
+- `shortEmits` (Vue >= 3.3)
+
+您可以通过将选项设置为 `false` 来禁用它们。
 
 ```ts
 VueMacros({
