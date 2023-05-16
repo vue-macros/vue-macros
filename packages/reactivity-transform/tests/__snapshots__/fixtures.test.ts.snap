@@ -210,6 +210,26 @@ export { destructureProps as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/vue3/runtime-default.vue 1`] = `
+"import { defineComponent, mergeDefaults } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"runtime-default\\",
+  props: mergeDefaults([\\"foo\\"], { foo: \\"str\\" }),
+  setup(__props) {
+    console.log(__props.foo);
+    return () => {
+    };
+  }
+});
+
+var runtimeDefault = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { runtimeDefault as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/vue3/script-and-setup.vue 1`] = `
 "import { ref, defineComponent, openBlock, createElementBlock, toDisplayString, unref } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';

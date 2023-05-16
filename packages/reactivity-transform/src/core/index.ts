@@ -2,11 +2,12 @@ import {
   DEFINE_PROPS,
   MagicString,
   getTransformResult,
+  importHelperFn,
   isCallOf,
   parseSFC,
   resolveObjectKey,
 } from '@vue-macros/common'
-import { type Identifier, type Node } from '@babel/types'
+import { type CallExpression, type Identifier, type Node } from '@babel/types'
 import { shouldTransform, transformAST } from './impl'
 import { helperId } from './helper'
 
@@ -117,10 +118,28 @@ const ${
       }
     }
 
-    const declStr = `withDefaults(${s.sliceNode(decl.init!, {
-      offset,
-    })}, { ${defaultStr} })`
-    s.overwriteNode(node, declStr, { offset })
+    const defineDecl = decl.init as CallExpression
+    if (defineDecl.typeParameters) {
+      s.overwriteNode(
+        node,
+        `withDefaults(${s.sliceNode(defineDecl, {
+          offset,
+        })}, { ${defaultStr} })`,
+        { offset }
+      )
+    } else if (defineDecl.arguments[0]) {
+      s.overwriteNode(
+        defineDecl.arguments[0],
+        `${importHelperFn(s, offset, 'mergeDefaults')}(${s.sliceNode(
+          defineDecl.arguments[0],
+          { offset }
+        )}, { ${defaultStr} })`,
+        { offset }
+      )
+    } else
+      throw new SyntaxError(
+        `${DEFINE_PROPS}() must have at least one argument or type argument.`
+      )
   }
 }
 
