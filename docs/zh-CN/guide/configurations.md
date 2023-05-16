@@ -12,6 +12,7 @@
 - `setupSFC`
 - `booleanProp`
 - `shortBind`
+- `simpleProps`
 
 #### Vue >= 3.3 默认关闭
 
