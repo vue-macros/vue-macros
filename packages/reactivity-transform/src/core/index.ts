@@ -129,11 +129,14 @@ const ${
       )
     } else if (defineDecl.arguments[0]) {
       s.overwriteNode(
-        defineDecl.arguments[0],
-        `${importHelperFn(s, offset, 'mergeDefaults')}(${s.sliceNode(
-          defineDecl.arguments[0],
-          { offset }
-        )}, { ${defaultStr} })`,
+        node,
+        `defineProps(${importHelperFn(
+          s,
+          offset,
+          'mergeDefaults'
+        )}(${s.sliceNode(defineDecl.arguments[0], {
+          offset,
+        })}, { ${defaultStr} }))`,
         { offset }
       )
     } else
