@@ -38,15 +38,15 @@ export default defineConfig([
       data.license = 'MIT'
       if (pkgName === 'define-options') {
         data.homepage =
-          'https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options#readme'
+          'https://github.com/sxzz/vue-macros/tree/main/packages/define-options#readme'
       } else {
-        data.homepage = 'https://github.com/sxzz/unplugin-vue-macros#readme'
+        data.homepage = 'https://github.com/sxzz/vue-macros#readme'
       }
 
-      data.bugs = { url: 'https://github.com/sxzz/unplugin-vue-macros/issues' }
+      data.bugs = { url: 'https://github.com/sxzz/vue-macros/issues' }
       data.repository = {
         type: 'git',
-        url: 'git+https://github.com/sxzz/unplugin-vue-macros.git',
+        url: 'git+https://github.com/sxzz/vue-macros.git',
         directory: `packages/${pkgName}`,
       }
       data.author = '三咲智子 <sxzz@sxzz.moe>'

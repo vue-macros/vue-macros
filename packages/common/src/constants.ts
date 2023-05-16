@@ -12,8 +12,7 @@ export const DEFINE_SLOTS = 'defineSlots'
 export const DEFINE_PROP = 'defineProp'
 export const DEFINE_EMIT = 'defineEmit'
 
-export const REPO_ISSUE_URL =
-  'https://github.com/sxzz/unplugin-vue-macros/issues'
+export const REPO_ISSUE_URL = 'https://github.com/sxzz/vue-macros/issues'
 
 export const REGEX_SRC_FILE = /\.[cm]?[jt]sx?$/
 export const REGEX_SETUP_SFC = /\.setup\.[cm]?[jt]sx?$/

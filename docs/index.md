@@ -13,7 +13,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/sxzz/unplugin-vue-macros
+      link: https://github.com/sxzz/vue-macros
 features:
   - icon: ✨
     title: More syntax sugar and macros

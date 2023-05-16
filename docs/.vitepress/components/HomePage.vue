@@ -23,8 +23,8 @@ const members = [
 
     <h2 text="center lg" font-bold my-5>💕 Thanks to all the contributors!</h2>
 
-    <a href="https://github.com/sxzz/unplugin-vue-macros/graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=sxzz/unplugin-vue-macros" />
+    <a href="https://github.com/sxzz/vue-macros/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=sxzz/vue-macros" />
     </a>
   </div>
 </template>

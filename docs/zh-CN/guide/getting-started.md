@@ -13,8 +13,8 @@ Vue Macros 是一个库，用于实现尚未被 Vue 正式实现的提案或想�
 
 ## 示例
 
-- [Vite + Vue 3](https://github.com/sxzz/unplugin-vue-macros/tree/main/playground/vue3)
-- [Vite + Vue 2](https://github.com/sxzz/unplugin-vue-macros/tree/main/playground/vue2)
+- [Vite + Vue 3](https://github.com/sxzz/vue-macros/tree/main/playground/vue3)
+- [Vite + Vue 2](https://github.com/sxzz/vue-macros/tree/main/playground/vue2)
 - [Nuxt 3 + Vue 3](https://github.com/vue-macros/nuxt)
 - [Vue CLI + Vue 2](https://github.com/vue-macros/vue2-vue-cli)
 

@@ -42,8 +42,8 @@ npm i unplugin-vue-macros -D
 💕 Thank you to all the contributors!
 
 <p align="center">
-  <a href="https://github.com/sxzz/unplugin-vue-macros/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=sxzz/unplugin-vue-macros" />
+  <a href="https://github.com/sxzz/vue-macros/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=sxzz/vue-macros" />
   </a>
 </p>
 
