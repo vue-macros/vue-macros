@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+"import { defineComponent, toDisplayString } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  setup(__props) {
+    const props = simpleProps([\\"msg\\"]);
+    return (_ctx, _cache) => {
+      return toDisplayString(_ctx.msg);
+    };
+  }
+});
+
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
