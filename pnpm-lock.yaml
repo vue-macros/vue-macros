@@ -14,8 +14,8 @@ importers:
         specifier: ^2.26.1
         version: 2.26.1
       '@sxzz/eslint-config':
-        specifier: ^3.0.0-beta.10
-        version: 3.0.0-beta.10(eslint@8.40.0)(typescript@5.0.4)
+        specifier: ^3.0.0-beta.11
+        version: 3.0.0-beta.11(eslint@8.40.0)(typescript@5.0.4)
       '@types/node':
         specifier: ^20.1.5
         version: 20.1.5
@@ -3016,9 +3016,9 @@ packages:
       string.prototype.matchall: 4.0.8
     dev: true
 
-  /@sxzz/eslint-config@3.0.0-beta.10(eslint@8.40.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-3NAy4gadT+N39eajT00YDjfUjSbbMQ9mkxubxGBG2/TmjvKnB0slNp1d2WruIRFXnrND3JfBPjV77SJzIRmDbA==}
-    engines: {node: '>=14.19.0'}
+  /@sxzz/eslint-config@3.0.0-beta.11(eslint@8.40.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-aVDqei+brTZudvdTNTanhmA7CPafhUNaio0PJYigF8ysGcTf0yxN+/LG6lvIZtxW6xA8QiF453O+HfRPdHFHfw==}
+    engines: {node: '>=16.14.0'}
     peerDependencies:
       eslint: ^8.0.0
     dependencies:
@@ -3034,7 +3034,7 @@ packages:
       eslint-plugin-jsonc: 2.8.0(eslint@8.40.0)
       eslint-plugin-markdown: 3.0.0(eslint@8.40.0)
       eslint-plugin-prettier: 4.2.1(eslint-config-prettier@8.8.0)(eslint@8.40.0)(prettier@2.8.8)
-      eslint-plugin-unicorn: 46.0.1(eslint@8.40.0)
+      eslint-plugin-unicorn: 47.0.0(eslint@8.40.0)
       eslint-plugin-vue: 9.13.0(eslint@8.40.0)
       eslint-plugin-yml: 1.7.0(eslint@8.40.0)
       globals: 13.20.0
@@ -5313,11 +5313,11 @@ packages:
       prettier-linter-helpers: 1.0.0
     dev: true
 
-  /eslint-plugin-unicorn@46.0.1(eslint@8.40.0):
-    resolution: {integrity: sha512-setGhMTiLAddg1asdwjZ3hekIN5zLznNa5zll7pBPwFOka6greCKDQydfqy4fqyUhndi74wpDzClSQMEcmOaew==}
-    engines: {node: '>=14.18'}
+  /eslint-plugin-unicorn@47.0.0(eslint@8.40.0):
+    resolution: {integrity: sha512-ivB3bKk7fDIeWOUmmMm9o3Ax9zbMz1Bsza/R2qm46ufw4T6VBFBaJIR1uN3pCKSmSXm8/9Nri8V+iUut1NhQGA==}
+    engines: {node: '>=16'}
     peerDependencies:
-      eslint: '>=8.28.0'
+      eslint: '>=8.38.0'
     dependencies:
       '@babel/helper-validator-identifier': 7.19.1
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.40.0)
@@ -5332,7 +5332,7 @@ packages:
       pluralize: 8.0.0
       read-pkg-up: 7.0.1
       regexp-tree: 0.1.27
-      regjsparser: 0.9.1
+      regjsparser: 0.10.0
       safe-regex: 2.1.1
       semver: 7.5.1
       strip-indent: 3.0.0
@@ -8070,6 +8070,13 @@ packages:
       regjsparser: 0.9.1
       unicode-match-property-ecmascript: 2.0.0
       unicode-match-property-value-ecmascript: 2.1.0
+    dev: true
+
+  /regjsparser@0.10.0:
+    resolution: {integrity: sha512-qx+xQGZVsy55CH0a1hiVwHmqjLryfh7wQyF5HO07XJ9f7dQMY/gPQHhlyDkIzJKC+x2fUCpCcUODUUUFrm7SHA==}
+    hasBin: true
+    dependencies:
+      jsesc: 0.5.0
     dev: true
 
   /regjsparser@0.9.1:
