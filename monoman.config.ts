@@ -50,7 +50,7 @@ export default defineConfig([
         directory: `packages/${pkgName}`,
       }
       data.author = '三咲智子 <sxzz@sxzz.moe>'
-      data.engines = { node: '>=14.19.0' }
+      data.engines = { node: '>=16.14.0' }
 
       if (Object.keys(data.dependencies).includes('unplugin')) {
         const files = (
