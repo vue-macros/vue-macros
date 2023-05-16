@@ -1,5 +1,13 @@
 # unplugin-vue-macros
 
+## 2.1.7
+
+### Patch Changes
+
+- Updated dependencies [[`7b6d0b9`](https://github.com/sxzz/vue-macros/commit/7b6d0b92d6f84e7e702e318f9e8107b63049fae5)]:
+  - @vue-macros/reactivity-transform@0.3.7
+  - @vue-macros/define-props@1.0.5
+
 ## 2.1.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @vue-macros/reactivity-transform
 
+## 0.3.7
+
+### Patch Changes
+
+- [`7b6d0b9`](https://github.com/sxzz/vue-macros/commit/7b6d0b92d6f84e7e702e318f9e8107b63049fae5) Thanks [@sxzz](https://github.com/sxzz)! - support runtime-based defineProps for reactivity transform
+
 ## 0.3.6
 
 ### Patch Changes
