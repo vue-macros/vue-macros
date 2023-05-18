@@ -1,11 +1,11 @@
 import { readFile } from 'node:fs/promises'
 import { type Statement, type TSModuleBlock } from '@babel/types'
 import { babelParse, getFileCodeAndLang } from '@vue-macros/common'
-import { type TSExports } from './exports'
+import { type TSNamespace } from './namespace'
 
 export interface TSScopeBase {
-  exports?: TSExports
-  declarations?: TSExports
+  exports?: TSNamespace
+  declarations?: TSNamespace
 }
 
 export interface TSFile extends TSScopeBase {
@@ -41,8 +41,8 @@ interface ResolvedTSScope {
   isFile: boolean
   file: TSFile
   body: Statement[]
-  exports?: TSExports
-  declarations?: TSExports
+  exports?: TSNamespace
+  declarations?: TSNamespace
 }
 export function resolveTSScope(scope: TSScope): ResolvedTSScope {
   const isFile = scope.kind === 'file'
@@ -53,7 +53,7 @@ export function resolveTSScope(scope: TSScope): ResolvedTSScope {
   const file = isFile ? scope : parentScope!.file
   const body = isFile ? scope.ast : scope.ast.body
   const exports = scope.exports
-  const declarations: TSExports | undefined = isFile
+  const declarations: TSNamespace | undefined = isFile
     ? scope.declarations
     : { ...resolveTSScope(scope.scope).declarations!, ...scope.declarations }
 

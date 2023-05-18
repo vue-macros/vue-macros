@@ -17,7 +17,7 @@ import {
   type TSResolvedType,
   resolveTSReferencedType,
 } from './resolve-reference'
-import { type TSExports, isTSExports } from './exports'
+import { type TSNamespace, isTSNamespace } from './namespace'
 import {
   resolveMaybeTSUnion,
   resolveTSLiteralType,
@@ -157,7 +157,7 @@ export async function resolveTSProperties({
         type: type.typeParameter.constraint,
         scope,
       })
-      if (!constraint || isTSExports(constraint)) return properties
+      if (!constraint || isTSNamespace(constraint)) return properties
 
       const types = resolveMaybeTSUnion(constraint.type)
       for (const subType of types) {
@@ -200,11 +200,11 @@ export async function resolveTSProperties({
   }
 
   function filterValidExtends(
-    node: TSResolvedType | TSExports | undefined
+    node: TSResolvedType | TSNamespace | undefined
   ): node is TSResolvedType<
     TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType
   > {
-    return !isTSExports(node) && checkForTSProperties(node?.type)
+    return !isTSNamespace(node) && checkForTSProperties(node?.type)
   }
 }
 

@@ -21,7 +21,7 @@ import {
   type TemplateLiteral,
 } from '@babel/types'
 import { createStringLiteral, createUnionType } from './create'
-import { isTSExports } from './exports'
+import { isTSNamespace } from './namespace'
 import {
   type TSProperties,
   checkForTSProperties,
@@ -76,7 +76,7 @@ export async function resolveTSTemplateLiteral({
         type,
         scope,
       })
-      if (!resolved || isTSExports(resolved)) continue
+      if (!resolved || isTSNamespace(resolved)) continue
 
       const types = resolveMaybeTSUnion(resolved.type)
       for (const type of types) {
@@ -190,7 +190,7 @@ export async function resolveTSIndexedAccessType(
     { type: type.objectType, scope },
     stacks
   )
-  if (!object || isTSExports(object)) return undefined
+  if (!object || isTSNamespace(object)) return undefined
 
   const objectType = object.type
   if (type.indexType.type === 'TSNumberKeyword') {
@@ -297,7 +297,7 @@ export async function resolveTSTypeOperator(
     },
     stacks
   )
-  if (!resolved || isTSExports(resolved)) return undefined
+  if (!resolved || isTSNamespace(resolved)) return undefined
   const { type: resolvedType, scope: resolvedScope } = resolved
   if (!checkForTSProperties(resolvedType)) return undefined
 

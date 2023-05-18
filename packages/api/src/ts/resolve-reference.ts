@@ -6,7 +6,11 @@ import {
   type TSTypeAliasDeclaration,
   isTSType,
 } from '@babel/types'
-import { type TSExports, isTSExports, resolveTSExports } from './exports'
+import {
+  type TSNamespace,
+  isTSNamespace,
+  resolveTSNamespace,
+} from './namespace'
 import { resolveReferenceName, resolveTSIndexedAccessType } from './resolve'
 import { type TSScope, resolveTSScope } from './scope'
 import { type TSDeclaration, isTSDeclaration } from './is'
@@ -38,7 +42,7 @@ export function isSupportedForTSReferencedType(
 export async function resolveTSReferencedType(
   ref: TSResolvedType<TSReferencedType>,
   stacks: TSResolvedType<any>[] = []
-): Promise<TSResolvedType | TSExports | undefined> {
+): Promise<TSResolvedType | TSNamespace | undefined> {
   const { scope, type } = ref
   if (stacks.some((stack) => stack.scope === scope && stack.type === type)) {
     return ref as any
@@ -62,7 +66,7 @@ export async function resolveTSReferencedType(
           ast: type.body,
           scope,
         }
-        await resolveTSExports(newScope)
+        await resolveTSNamespace(newScope)
         return newScope.exports
       }
       return undefined
@@ -72,14 +76,14 @@ export async function resolveTSReferencedType(
   if (type.type !== 'Identifier' && type.type !== 'TSTypeReference')
     return { scope, type }
 
-  await resolveTSExports(scope)
+  await resolveTSNamespace(scope)
   const refNames = resolveReferenceName(type).map((id) => id.name)
 
-  let resolved: TSResolvedType | TSExports | undefined =
+  let resolved: TSResolvedType | TSNamespace | undefined =
     resolveTSScope(scope).declarations!
 
   for (const name of refNames) {
-    if (isTSExports(resolved)) resolved = resolved[name]
+    if (isTSNamespace(resolved)) resolved = resolved[name]
     else return
   }
 

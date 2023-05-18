@@ -6,32 +6,30 @@ import { type TSScope, getTSFile, resolveTSScope } from './scope'
 import { isTSDeclaration } from './is'
 import { resolveTSFileId } from './impl'
 
-export const exportsSymbol = Symbol('exports')
-export type TSExports = {
-  [K in string]: TSResolvedType | TSExports | undefined
-} & { [exportsSymbol]: true }
+export const namespaceSymbol = Symbol('namespace')
+export type TSNamespace = {
+  [K in string]: TSResolvedType | TSNamespace | undefined
+} & { [namespaceSymbol]: true }
 
-export function isTSExports(val: unknown): val is TSExports {
-  return !!val && typeof val === 'object' && exportsSymbol in val
+export function isTSNamespace(val: unknown): val is TSNamespace {
+  return !!val && typeof val === 'object' && namespaceSymbol in val
 }
 
 /**
  * Get exports of the TS file.
  *
  * @limitation don't support non-TS declaration (e.g. class, function...)
- * @limitation don't support `export default`, since TS don't support it currently.
- * @limitation don't support `export * as xxx from '...'` (aka namespace).
  */
-export async function resolveTSExports(scope: TSScope): Promise<void> {
+export async function resolveTSNamespace(scope: TSScope): Promise<void> {
   if (scope.exports) return
 
-  const exports: TSExports = {
-    [exportsSymbol]: true,
+  const exports: TSNamespace = {
+    [namespaceSymbol]: true,
   }
   scope.exports = exports
 
-  const declarations: TSExports = {
-    [exportsSymbol]: true,
+  const declarations: TSNamespace = {
+    [namespaceSymbol]: true,
     ...scope.declarations,
   }
   scope.declarations = declarations
@@ -51,25 +49,25 @@ export async function resolveTSExports(scope: TSScope): Promise<void> {
       if (!resolved) continue
 
       const sourceScope = await getTSFile(resolved)
-      await resolveTSExports(sourceScope)
+      await resolveTSNamespace(sourceScope)
 
       Object.assign(exports, sourceScope.exports!)
     } else if (stmt.type === 'ExportNamedDeclaration') {
-      let sourceExports: TSExports
+      let sourceExports: TSNamespace
 
       if (stmt.source) {
         const resolved = await resolveTSFileId(stmt.source.value, file.filePath)
         if (!resolved) continue
 
         const scope = await getTSFile(resolved)
-        await resolveTSExports(scope)
+        await resolveTSNamespace(scope)
         sourceExports = scope.exports!
       } else {
         sourceExports = declarations
       }
 
       for (const specifier of stmt.specifiers) {
-        let exported: TSExports[string]
+        let exported: TSNamespace[string]
         if (specifier.type === 'ExportDefaultSpecifier') {
           // export x from 'xxx'
           exported = sourceExports['default']
@@ -118,13 +116,13 @@ export async function resolveTSExports(scope: TSScope): Promise<void> {
       if (!resolved) continue
 
       const importScope = await getTSFile(resolved)
-      await resolveTSExports(importScope)
+      await resolveTSNamespace(importScope)
       const exports = importScope.exports!
 
       for (const specifier of stmt.specifiers) {
         const local = specifier.local.name
 
-        let imported: TSExports[string]
+        let imported: TSNamespace[string]
         if (specifier.type === 'ImportDefaultSpecifier') {
           imported = exports['default']
         } else if (specifier.type === 'ImportNamespaceSpecifier') {

@@ -30,8 +30,7 @@ import {
   type TSProperties,
   type TSResolvedType,
   type TSScope,
-  isTSExports,
-  resolveMaybeTSUnion,
+  isTSNamespace,
   resolveTSProperties,
   resolveTSReferencedType,
   resolveTSScope,
@@ -427,7 +426,7 @@ export async function handleTSPropsDefinition({
         type: 'property',
         addByAPI: false,
         value:
-          referenced && !isTSExports(referenced)
+          referenced && !isTSNamespace(referenced)
             ? buildDefinition(referenced)
             : undefined,
         optional: value.optional,
@@ -450,7 +449,7 @@ export async function handleTSPropsDefinition({
 
     if (
       resolved &&
-      !isTSExports(resolved) &&
+      !isTSNamespace(resolved) &&
       resolved.type.type === 'TSTypeReference' &&
       resolved.type.typeName.type === 'Identifier'
     ) {
@@ -469,7 +468,7 @@ export async function handleTSPropsDefinition({
         })
     }
 
-    if (!resolved || isTSExports(resolved)) {
+    if (!resolved || isTSNamespace(resolved)) {
       throw new SyntaxError(`Cannot resolve TS definition.`)
     }
 

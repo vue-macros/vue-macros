@@ -23,7 +23,7 @@ import {
 import {
   type TSFile,
   type TSResolvedType,
-  isTSExports,
+  isTSNamespace,
   resolveTSProperties,
   resolveTSReferencedType,
   resolveTSScope,
@@ -126,7 +126,7 @@ export async function handleTSEmitsDefinition({
 
   async function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
     const resolved = await resolveTSReferencedType(typeDeclRaw)
-    if (!resolved || isTSExports(resolved))
+    if (!resolved || isTSNamespace(resolved))
       throw new SyntaxError(`Cannot resolve TS definition.`)
 
     const { type: definitionsAst, scope } = resolved
@@ -160,7 +160,7 @@ export async function handleTSEmitsDefinition({
         scope: signature.scope,
       })
 
-      if (isTSExports(evtType) || !evtType?.type) continue
+      if (isTSNamespace(evtType) || !evtType?.type) continue
 
       const types =
         evtType.type.type === 'TSUnionType'
