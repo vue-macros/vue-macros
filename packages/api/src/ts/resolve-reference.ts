@@ -83,8 +83,11 @@ export async function resolveTSReferencedType(
     resolveTSScope(scope).declarations!
 
   for (const name of refNames) {
-    if (isTSNamespace(resolved)) resolved = resolved[name]
-    else return
+    if (isTSNamespace(resolved) && resolved[name]) {
+      resolved = resolved[name]
+    } else if (type.type === 'TSTypeReference') {
+      return { type, scope }
+    }
   }
 
   return resolved

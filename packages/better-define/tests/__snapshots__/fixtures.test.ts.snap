@@ -10,7 +10,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     \\"base\\": { type: String, required: true },
     \\"str\\": { type: String, required: true },
     \\"num\\": { type: Number, required: true },
-    \\"map\\": { type: null, required: false },
+    \\"map\\": { type: Map, required: true },
     \\"arr\\": { type: Array, required: true },
     \\"union\\": { type: [String, Number], required: true }
   },
@@ -161,7 +161,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     \\"bar\\": { type: Number, required: false, get default() {
       return 10;
     } },
-    \\"baz\\": { type: null, required: false, async default() {
+    \\"baz\\": { type: Promise, required: false, async default() {
       return 10;
     } },
     \\"qux\\": { type: Function, required: false, default: () => {
@@ -268,7 +268,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     \\"setupBase\\": { type: String, required: true },
     \\"num\\": { type: Number, required: true },
     \\"bool\\": { type: Boolean, required: true },
-    \\"map\\": { type: null, required: false },
+    \\"map\\": { type: Map, required: true },
     \\"arr\\": { type: Array, required: true },
     \\"union\\": { type: [String, Number], required: true },
     \\"normalBase\\": { type: String, required: true },
@@ -330,7 +330,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     \\"base\\": { type: String, required: true },
     \\"str\\": { type: String, required: true },
     \\"num\\": { type: Number, required: true },
-    \\"map\\": { type: null, required: false },
+    \\"map\\": { type: Map, required: true },
     \\"arr\\": { type: Array, required: true },
     \\"union\\": { type: [String, Number], required: true }
   },
@@ -707,11 +707,11 @@ import _export_sfc from '/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"resolve-failed\\",
   props: {
-    \\"foo\\": { type: null, required: false },
-    \\"bar\\": { type: null, required: false },
+    \\"foo\\": { required: true },
+    \\"bar\\": { type: Object, required: true },
     \\"bool\\": { type: Boolean, skipCheck: true, required: true },
-    \\"fun\\": { required: true },
-    \\"boolAndFun\\": { type: Boolean, skipCheck: true, required: true }
+    \\"fun\\": { type: Function, skipCheck: true, required: true },
+    \\"boolAndFun\\": { type: [Boolean, Function], skipCheck: true, required: true }
   },
   setup(__props) {
     return () => {
@@ -735,8 +735,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     \\"foo\\": null,
     \\"bar\\": null,
     \\"bool\\": { type: Boolean },
-    \\"fun\\": null,
-    \\"boolAndFun\\": { type: Boolean }
+    \\"fun\\": { type: Function },
+    \\"boolAndFun\\": { type: [Boolean, Function] }
   },
   setup(__props) {
     return () => {
@@ -863,7 +863,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     \\"qux\\": { required: true },
     \\"all\\": { required: true },
     \\"arr\\": { type: [String, Number], required: true },
-    \\"arr2\\": { type: null, required: false },
+    \\"arr2\\": { type: [String, Number], required: true },
     \\"tuple\\": { type: [String, Boolean], required: true },
     \\"methodFoo\\": { type: Function, required: true },
     \\"methodBar\\": { type: Function, required: true },
@@ -919,8 +919,8 @@ import _export_sfc from '/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"ts-utility-types\\",
   props: {
-    \\"foo\\": { type: null, required: false },
-    \\"bar\\": { type: null, required: false }
+    \\"foo\\": { type: String, required: true },
+    \\"bar\\": { type: String, required: true }
   },
   setup(__props) {
     return () => {
@@ -1137,7 +1137,7 @@ import _export_sfc from '/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"unresolved\\",
   props: {
-    \\"foo\\": { type: null, required: false }
+    \\"foo\\": { required: true }
   },
   setup(__props) {
     return () => {
