@@ -9,7 +9,7 @@ import {
 import {
   type TSFile,
   getTSFile,
-  resolveTSExports,
+  resolveTSNamespace,
   resolveTSProperties,
   resolveTSReferencedType,
 } from '../src'
@@ -19,6 +19,7 @@ const fixtures = path.resolve(__dirname, 'fixtures')
 
 function mockTSFile(content: string): TSFile {
   return {
+    kind: 'file',
     filePath: '/foo.ts',
     content,
     ast: babelParse(content, 'ts').body,
@@ -73,9 +74,6 @@ type Base2 = {
     expect(hideAstLocation(interfaceProperties)).toMatchInlineSnapshot(`
       {
         "callSignatures": [
-          {
-            "type": "TSCallSignatureDeclaration...",
-          },
           {
             "type": "TSCallSignatureDeclaration...",
           },
@@ -214,7 +212,8 @@ type Foo = AliasString`
   describe('resolveTSFileExports', () => {
     test('basic', async () => {
       const file = await getTSFile(path.resolve(fixtures, 'basic/index.ts'))
-      const exports = await resolveTSExports(file)
+      await resolveTSNamespace(file)
+      const exports = file.exports!
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
           "ExportAll": {
@@ -296,14 +295,15 @@ type Foo = AliasString`
       const file = await getTSFile(
         path.resolve(fixtures, 'circular-referencing/foo.ts')
       )
-      const exports = await resolveTSExports(file)
+      await resolveTSNamespace(file)
+      const exports = file.exports!
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
           "A": {
-            "type": "TSTypeAliasDeclaration...",
+            "type": "TSTypeReference...",
           },
           "B": {
-            "type": "TSTypeAliasDeclaration...",
+            "type": "TSTypeReference...",
           },
           "Bar": {
             "type": "TSLiteralType...",
@@ -317,7 +317,8 @@ type Foo = AliasString`
 
     test('namespace', async () => {
       const file = await getTSFile(path.resolve(fixtures, 'namespace/index.ts'))
-      const exports = await resolveTSExports(file)
+      await resolveTSNamespace(file)
+      const exports = file.exports!
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
           "BarStr": {

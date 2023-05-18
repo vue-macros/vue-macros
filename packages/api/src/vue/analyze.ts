@@ -40,6 +40,7 @@ export async function analyzeSFC(
 
   const offset = scriptSetup.loc.start.offset
   const file: TSFile = {
+    kind: 'file',
     filePath: sfc.filename,
     content: scriptSetup.content,
     ast: body,

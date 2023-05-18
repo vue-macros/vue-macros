@@ -80,6 +80,7 @@ export async function transformDefineProp(
   async function resolveTSType(type: TSType) {
     const resolved = await resolveTSReferencedType({
       scope: {
+        kind: 'file',
         filePath: id,
         content: scriptSetup!.content,
         ast: setupAst.body,

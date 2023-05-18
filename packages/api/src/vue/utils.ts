@@ -1,17 +1,17 @@
 import { type Node } from '@babel/types'
 import {
-  type TSExports,
+  type TSNamespace,
   type TSResolvedType,
-  isTSExports,
+  isTSNamespace,
   resolveTSReferencedType,
 } from '../ts'
 
 export const UNKNOWN_TYPE = 'Unknown'
 
 export async function inferRuntimeType(
-  node: TSResolvedType | TSExports
+  node: TSResolvedType | TSNamespace
 ): Promise<string[]> {
-  if (isTSExports(node)) return ['Object']
+  if (isTSNamespace(node)) return ['Object']
 
   switch (node.type.type) {
     case 'TSStringKeyword':
@@ -114,7 +114,7 @@ export async function inferRuntimeType(
               scope: node.scope,
               type: subType,
             })
-            return resolved && !isTSExports(resolved)
+            return resolved && !isTSNamespace(resolved)
               ? inferRuntimeType(resolved)
               : undefined
           })
