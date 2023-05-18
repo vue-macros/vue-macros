@@ -414,6 +414,9 @@ importers:
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
+      '@vue-macros/simple-define':
+        specifier: workspace:*
+        version: link:../simple-define
       unplugin-vue-define-options:
         specifier: workspace:*
         version: link:../define-options
@@ -915,7 +918,10 @@ importers:
     devDependencies:
       '@vue/compiler-core':
         specifier: ^3.3.2
-        version: 3.3.2
+        version: 3.5.12
+      '@vueuse/core':
+        specifier: ^10.1.2
+        version: 10.11.1(vue@3.5.12(typescript@5.6.3))
       rollup:
         specifier: ^3.21.8
         version: 3.29.5

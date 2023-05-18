@@ -1,7 +1,16 @@
 <script setup lang="ts">
-const props = simpleProps<{
-  msg: string
-}>(['msg'])
+const props = withDefaults(
+  simpleProps<{
+    msg?: string
+  }>(['msg']),
+  { msg: 'foo' }
+)
+
+const emit = simpleEmits<{
+  update: [msg: string]
+}>(['update'])
+
+emit('update', 'hello world')
 </script>
 
 <template>

@@ -9,6 +9,7 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { transformSimpleDefine } from './core'
+import { useDefaultsCode, useDefaultsId } from './core/helper'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
@@ -34,17 +35,20 @@ export default createUnplugin<Options | undefined, false>(
       name,
       enforce: 'pre',
 
+      resolveId(id) {
+        if (id === useDefaultsId) return id
+      },
+
+      load(id) {
+        if (id === useDefaultsId) return useDefaultsCode
+      },
+
       transformInclude(id) {
         return filter(id)
       },
 
-      async transform(code, id) {
-        try {
-          return await transformSimpleDefine(code, id)
-        } catch (err: unknown) {
-          this.warn(`${name} ${err}`)
-          console.warn(err)
-        }
+      transform(code, id) {
+        return transformSimpleDefine(code, id)
       },
     }
   }

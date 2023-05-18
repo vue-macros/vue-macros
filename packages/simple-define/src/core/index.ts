@@ -1,15 +1,21 @@
 import {
+  DEFINE_EMITS,
   DEFINE_PROPS,
+  HELPER_PREFIX,
   MagicString,
+  WITH_DEFAULTS,
   getTransformResult,
+  importHelperFn,
   isCallOf,
   parseSFC,
   walkAST,
 } from '@vue-macros/common'
 import { type NodeTransform } from '@vue/compiler-core'
 import { type CallExpression, type Node } from '@babel/types'
+import { useDefaultsId } from './helper'
 
 const SIMPLE_PROPS = 'simpleProps'
+const SIMPLE_EMITS = 'simpleEmits'
 
 export function transformSimpleDefine(code: string, id: string) {
   if (!code.includes(SIMPLE_PROPS)) return
@@ -22,9 +28,13 @@ export function transformSimpleDefine(code: string, id: string) {
   const setupAst = getSetupAst()!
 
   walkAST<Node>(setupAst, {
-    enter(node) {
+    enter(node, parent) {
       if (isCallOf(node, SIMPLE_PROPS)) {
         processSimpleProps(node)
+      } else if (isCallOf(node, WITH_DEFAULTS)) {
+        processWithDefaults(node, parent)
+      } else if (isCallOf(node, SIMPLE_EMITS)) {
+        processSimpleEmits(node)
       }
     },
   })
@@ -37,6 +47,45 @@ export function transformSimpleDefine(code: string, id: string) {
 
     s.removeNode(node.typeParameters, { offset })
     s.overwriteNode(node.callee, DEFINE_PROPS, { offset })
+  }
+
+  function processWithDefaults(node: CallExpression, parent: Node) {
+    if (!isCallOf(node.arguments[0], SIMPLE_PROPS))
+      throw new SyntaxError(
+        `${WITH_DEFAULTS} must have a ${SIMPLE_PROPS} call as its first argument.`
+      )
+
+    const defaults = s.sliceNode(node.arguments[1], { offset })
+    s.remove(offset + node.start!, offset + node.arguments[0].start!)
+    s.remove(offset + node.arguments[0].end!, offset + node.end!)
+
+    // rename props
+    if (
+      parent.type === 'VariableDeclarator' &&
+      parent.id.type === 'Identifier'
+    ) {
+      s.overwriteNode(parent.id, `${HELPER_PREFIX}props`, { offset })
+      s.prependLeft(
+        offset,
+        `const ${parent.id.name} = ${importHelperFn(
+          s,
+          offset,
+          'useDefaults',
+          useDefaultsId,
+          true
+        )}(${HELPER_PREFIX}props, ${defaults})`
+      )
+    }
+
+    processSimpleProps(node.arguments[0])
+  }
+
+  function processSimpleEmits(node: CallExpression) {
+    if (!node.typeParameters)
+      throw new SyntaxError(`${SIMPLE_EMITS} must have a type parameter.`)
+
+    s.removeNode(node.typeParameters, { offset })
+    s.overwriteNode(node.callee, DEFINE_EMITS, { offset })
   }
 }
 

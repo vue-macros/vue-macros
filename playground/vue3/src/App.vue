@@ -23,6 +23,7 @@ import ReactivityTransform from './examples/reactivity-transform/index.vue'
 
 import ScriptLang from './examples/script-lang/index.vue'
 
+import SimpleDefineVue from './examples/simple-define/index.vue'
 // import NamedTemplate from './examples/named-template/index.vue'
 import SetupBlock from './examples/setup-block/index.vue'
 import { SetupComponentFoo } from './examples/setup-component'
@@ -163,6 +164,11 @@ import ShortVmodel from './examples/short-vmodel/parent.vue'
     <fieldset>
       <legend>scriptLang</legend>
       <ScriptLang />
+    </fieldset>
+
+    <fieldset>
+      <legend>simpleDefine</legend>
+      <SimpleDefineVue />
     </fieldset>
   </div>
 </template>

@@ -44,6 +44,7 @@ import type { Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
 import type { Options as OptionsShortBind } from '@vue-macros/short-bind'
 import type { Options as OptionsShortEmits } from '@vue-macros/short-emits'
 import type { Options as OptionsShortVmodel } from '@vue-macros/short-vmodel'
+import type { Options as OptionsSimpleDefine } from '@vue-macros/simple-define'
 import type { Options as OptionsDefineOptions } from 'unplugin-vue-define-options'
 
 export interface OptionsCommon extends Omit<BaseOptions, keyof FilterOptions> {
@@ -211,6 +212,7 @@ export interface FeatureOptionsMap {
    * @default true
    */
   shortVmodel: OptionsShortVmodel
+  simpleDefine: OptionsSimpleDefine
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -277,6 +279,7 @@ export function resolveOptions(
     shortBind: resolveSubOptions('shortBind', 3.4),
     shortEmits: resolveSubOptions('shortEmits', 3.3),
     shortVmodel: resolveSubOptions('shortVmodel'),
+    simpleDefine: resolveSubOptions('simpleDefine', false),
   }
 
   function resolveSubOptions<K extends FeatureName>(
