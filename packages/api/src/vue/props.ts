@@ -27,6 +27,7 @@ import {
 } from '@babel/types'
 import {
   type TSFile,
+  type TSNamespace,
   type TSProperties,
   type TSResolvedType,
   type TSScope,
@@ -443,7 +444,11 @@ export async function handleTSPropsDefinition({
     definitions: TSProps['definitions']
     definitionsAst: TSProps['definitionsAst']
   }> {
-    let resolved = await resolveTSReferencedType(typeDeclRaw)
+    let resolved:
+      | TSResolvedType
+      | TSResolvedType<TSType>
+      | TSNamespace
+      | undefined = (await resolveTSReferencedType(typeDeclRaw)) || typeDeclRaw
 
     let builtInTypesHandler: BuiltInTypesHandler[string] | undefined
 

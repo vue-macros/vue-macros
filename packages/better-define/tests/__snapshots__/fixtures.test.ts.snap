@@ -63,9 +63,9 @@ import _export_sfc from '/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"built-in\\",
   props: {
-    optional: { type: Number, required: false },
-    required: { type: Boolean, required: true },
-    readonly: { type: String, required: true }
+    \\"optional\\": { type: Number, required: false },
+    \\"required\\": { type: Boolean, required: true },
+    \\"readonly\\": { type: String, required: true }
   },
   setup(__props) {
     return () => {
@@ -86,9 +86,9 @@ import _export_sfc from '/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"built-in\\",
   props: {
-    optional: { type: Number, required: false },
-    required: { type: Boolean, required: true },
-    readonly: { type: String, required: true }
+    \\"optional\\": null,
+    \\"required\\": { type: Boolean },
+    \\"readonly\\": null
   },
   setup(__props) {
     return () => {
