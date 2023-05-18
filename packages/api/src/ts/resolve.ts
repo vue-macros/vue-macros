@@ -17,6 +17,7 @@ import {
   type TSTypeElement,
   type TSTypeOperator,
   type TSTypeReference,
+  type TSUnionType,
   type TemplateElement,
   type TemplateLiteral,
 } from '@babel/types'
@@ -185,7 +186,7 @@ export function resolveTypeElements(
 export async function resolveTSIndexedAccessType(
   { scope, type }: TSResolvedType<TSIndexedAccessType>,
   stacks: TSResolvedType<any>[] = []
-) {
+): Promise<{ type: TSUnionType; scope: TSScope } | undefined> {
   const object = await resolveTSReferencedType(
     { type: type.objectType, scope },
     stacks
