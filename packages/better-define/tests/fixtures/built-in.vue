@@ -7,6 +7,8 @@ defineProps<
     Required<{
       required?: boolean
     }> &
-    Readonly<{ readonly: string }>
+    Readonly<{
+      readonly: string
+    }>
 >()
 </script>

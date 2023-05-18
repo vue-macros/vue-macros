@@ -1,15 +1,27 @@
 import { readFile } from 'node:fs/promises'
 import { type Statement, type TSModuleBlock } from '@babel/types'
 import { babelParse, getFileCodeAndLang } from '@vue-macros/common'
-import { type TSResolvedType } from './resolve-reference'
+import { type TSExports } from './exports'
 
-export interface TSFile {
+export interface TSScopeBase {
+  exports?: TSExports
+  declarations?: TSExports
+}
+
+export interface TSFile extends TSScopeBase {
+  kind: 'file'
   filePath: string
   content: string
   ast: Statement[]
 }
 
-export type TSScope = TSFile | TSResolvedType<TSModuleBlock>
+export interface TSModule extends TSScopeBase {
+  kind: 'module'
+  ast: TSModuleBlock
+  scope: TSScope
+}
+
+export type TSScope = TSFile | TSModule
 
 export const tsFileCache: Record<string, TSFile> = {}
 export async function getTSFile(filePath: string): Promise<TSFile> {
@@ -18,24 +30,38 @@ export async function getTSFile(filePath: string): Promise<TSFile> {
   const { code, lang } = getFileCodeAndLang(content, filePath)
   const program = babelParse(code, lang)
   return (tsFileCache[filePath] = {
+    kind: 'file',
     filePath,
     content,
     ast: program.body,
   })
 }
 
-export function resolveTSScope(scope: TSScope): {
+interface ResolvedTSScope {
   isFile: boolean
   file: TSFile
   body: Statement[]
-} {
-  const isFile = 'ast' in scope
-  const file = isFile ? scope : resolveTSScope(scope.scope).file
-  const body = isFile ? scope.ast : scope.type.body
+  exports?: TSExports
+  declarations?: TSExports
+}
+export function resolveTSScope(scope: TSScope): ResolvedTSScope {
+  const isFile = scope.kind === 'file'
+
+  let parentScope: ResolvedTSScope | undefined
+  if (!isFile) parentScope = resolveTSScope(scope.scope)
+
+  const file = isFile ? scope : parentScope!.file
+  const body = isFile ? scope.ast : scope.ast.body
+  const exports = scope.exports
+  const declarations: TSExports | undefined = isFile
+    ? scope.declarations
+    : { ...resolveTSScope(scope.scope).declarations!, ...scope.declarations }
 
   return {
     isFile,
     file,
     body,
+    declarations,
+    exports,
   }
 }

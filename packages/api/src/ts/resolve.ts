@@ -16,6 +16,7 @@ import {
   type TSType,
   type TSTypeElement,
   type TSTypeOperator,
+  type TSTypeReference,
   type TemplateElement,
   type TemplateLiteral,
 } from '@babel/types'
@@ -34,10 +35,14 @@ import {
 } from './resolve-reference'
 import { type TSScope } from './scope'
 
-export function parseTSEntityName(node: TSEntityName): Identifier[] {
-  if (node.type === 'Identifier') return [node]
+export function resolveReferenceName(
+  node: TSTypeReference | Identifier | TSEntityName
+): Identifier[] {
+  if (node.type === 'TSTypeReference') {
+    return resolveReferenceName(node.typeName)
+  } else if (node.type === 'Identifier') return [node]
   else {
-    return [...parseTSEntityName(node.left), node.right]
+    return [...resolveReferenceName(node.left), node.right]
   }
 }
 

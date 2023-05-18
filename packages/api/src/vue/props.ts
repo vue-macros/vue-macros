@@ -235,11 +235,7 @@ export async function handleTSPropsDefinition({
       } else {
         const resolvedType = def.value
         if (resolvedType) {
-          const optional =
-            def.optional ||
-            resolveMaybeTSUnion(resolvedType.ast).some(
-              (t) => t.type === 'TSUndefinedKeyword'
-            )
+          const optional = def.optional
 
           prop = {
             type: await inferRuntimeType({

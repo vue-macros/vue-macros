@@ -1,17 +1,14 @@
 import {
   type Identifier,
-  type ImportNamespaceSpecifier,
-  type ImportSpecifier,
   type Node,
   type TSParenthesizedType,
   type TSType,
   type TSTypeAliasDeclaration,
   isTSType,
 } from '@babel/types'
-import { type TSExports, resolveTSExports } from './exports'
-import { resolveTSFileId } from './impl'
-import { parseTSEntityName, resolveTSIndexedAccessType } from './resolve'
-import { type TSScope, getTSFile, resolveTSScope } from './scope'
+import { type TSExports, isTSExports, resolveTSExports } from './exports'
+import { resolveReferenceName, resolveTSIndexedAccessType } from './resolve'
+import { type TSScope, resolveTSScope } from './scope'
 import { type TSDeclaration, isTSDeclaration } from './is'
 
 export interface TSResolvedType<
@@ -60,76 +57,31 @@ export async function resolveTSReferencedType(
 
     case 'TSModuleDeclaration': {
       if (type.body.type === 'TSModuleBlock') {
-        return resolveTSExports({ type: type.body, scope })
+        const newScope: TSScope = {
+          kind: 'module',
+          ast: type.body,
+          scope,
+        }
+        await resolveTSExports(newScope)
+        return newScope.exports
       }
       return undefined
     }
   }
 
-  let refNames: string[]
-  if (type.type === 'Identifier') {
-    refNames = [type.name]
-  } else if (type.type === 'TSTypeReference') {
-    if (type.typeName.type === 'Identifier') {
-      refNames = [type.typeName.name]
-    } else {
-      refNames = parseTSEntityName(type.typeName).map((id) => id.name)
-    }
-  } else {
+  if (type.type !== 'Identifier' && type.type !== 'TSTypeReference')
     return { scope, type }
+
+  await resolveTSExports(scope)
+  const refNames = resolveReferenceName(type).map((id) => id.name)
+
+  let resolved: TSResolvedType | TSExports | undefined =
+    resolveTSScope(scope).declarations!
+
+  for (const name of refNames) {
+    if (isTSExports(resolved)) resolved = resolved[name]
+    else return
   }
 
-  const [refName, ...restNames] = refNames
-
-  const { body, file } = resolveTSScope(scope)
-  for (let node of body) {
-    if (node.type === 'ImportDeclaration') {
-      const specifier = node.specifiers.find(
-        (specifier): specifier is ImportSpecifier | ImportNamespaceSpecifier =>
-          (specifier.type === 'ImportSpecifier' &&
-            specifier.imported.type === 'Identifier' &&
-            specifier.imported.name === refName) ||
-          (specifier.type === 'ImportNamespaceSpecifier' &&
-            specifier.local.name === refName)
-      )
-      if (!specifier) continue
-
-      const resolved = await resolveTSFileId(node.source.value, file.filePath)
-      if (!resolved) continue
-      const exports = await resolveTSExports(await getTSFile(resolved))
-
-      let type: any = exports
-      for (const name of specifier.type === 'ImportSpecifier'
-        ? refNames
-        : restNames) {
-        type = type?.[name]
-      }
-      return type
-    }
-
-    if (node.type === 'ExportNamedDeclaration' && node.declaration)
-      node = node.declaration
-
-    if (isTSDeclaration(node)) {
-      if (node.id?.type !== 'Identifier') continue
-      if (node.id.name !== refName) continue
-      const resolved = await resolveTSReferencedType(
-        { scope, type: node },
-        stacks
-      )
-      if (!resolved) return
-
-      if (restNames.length === 0) {
-        return resolved
-      } else {
-        let exports: any = resolved
-        for (const name of restNames) {
-          exports = exports[name]
-        }
-        return exports
-      }
-    }
-  }
-
-  if (type.type === 'TSTypeReference') return { scope, type }
+  return resolved
 }
