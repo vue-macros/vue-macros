@@ -43,7 +43,7 @@ export function transformVScope(code: string, id: string) {
   const { importStatement, scopeDefineStmt, directiveReturn } =
     getRenderFunction(program, isTs)
 
-  //fix ImportDeclartion
+  // fix ImportDeclartion
   fixImportSpecifiers(importStatement!, s)
 
   // overwrite render function
@@ -78,7 +78,7 @@ function parseReturn(
 }
 
 function parseSeqReturn(argStmt: SequenceExpression, s: MagicString) {
-  const [isVFor, isArray, targetRetExp] = detecteVFor(argStmt)
+  const [isVFor, isArray, targetRetExp] = detectVFor(argStmt)
 
   //v-for with v-scope
   if (isVFor) {
@@ -131,14 +131,14 @@ function parseConditionReturn(argStmt: ConditionalExpression, s: MagicString) {
     parseReturn(consequent, s)
   }
   const isParseAlternate =
-    (alternate.type === 'CallExpression' && !detecteVIf(alternate)) ||
+    (alternate.type === 'CallExpression' && !detectVIf(alternate)) ||
     alternate.type === 'ConditionalExpression'
   if (isParseAlternate) {
     parseReturn(alternate, s)
   }
 }
 
-function detecteVIf(dirExp: CallExpression) {
+function detectVIf(dirExp: CallExpression) {
   return (
     dirExp.callee.type === 'Identifier' &&
     dirExp.callee.name === '_createCommentVNode' &&
@@ -147,7 +147,7 @@ function detecteVIf(dirExp: CallExpression) {
   )
 }
 
-function detecteVFor(
+function detectVFor(
   stmt: SequenceExpression
 ): [boolean, boolean, Expression | null | undefined] {
   const targetCallExp = stmt.expressions[1] as CallExpression
@@ -165,7 +165,7 @@ function detecteVFor(
     const vForBodyBlock = vForCallExp.body as BlockStatement
     const vForBodyRet = vForBodyBlock.body[0] as ReturnStatement
     const vForBodyRetCall = vForBodyRet.argument
-    const islocalVFor =
+    const isLocalVFor =
       targetCallExp.type === 'CallExpression' &&
       targetCallExpArg.type === 'CallExpression' &&
       targetCallExpArg.callee.type === 'Identifier' &&
@@ -174,7 +174,7 @@ function detecteVFor(
     const isVForWithScope =
       vForBodyRetCall?.type === 'CallExpression' &&
       detectReturnWithDirective(vForBodyRetCall)
-    isVFor = islocalVFor && isVForWithScope
+    isVFor = isLocalVFor && isVForWithScope
     resultExp = vForBodyRetCall
   }
   return [isVFor, isArray, resultExp]
@@ -184,7 +184,7 @@ function detectReturnWithDirective(exp: CallExpression) {
   const isDir =
     exp.callee.type === 'Identifier' && exp.callee.name === '_withDirectives'
   const scopeArg = exp.arguments[1] as ArrayExpression
-  return isDir && iscorrectScopeArg(scopeArg)
+  return isDir && isCorrectScopeArg(scopeArg)
 }
 
 function getReturnExp(argStmt: CallExpression): {
@@ -295,7 +295,7 @@ function nestedScope(exp: ArrayExpression) {
   return ele && ele.type === 'CallExpression' && detectReturnWithDirective(ele)
 }
 
-function iscorrectScopeArg(arg: ArrayExpression) {
+function isCorrectScopeArg(arg: ArrayExpression) {
   const argElements = arg.elements
   const innerArgElements = (argElements[0] as ArrayExpression).elements
   const isscopeId =
