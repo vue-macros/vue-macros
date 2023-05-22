@@ -18,6 +18,12 @@ export default defineConfig({
       defineSlots: true,
       defineModels: true,
       namedTemplate: false,
+      exportProps: {
+        include: [/export-props.*\.vue$/],
+      },
+      exportExpose: {
+        include: [/export-expose.*\.vue$/],
+      },
 
       plugins: {
         vue: Vue({
