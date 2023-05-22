@@ -1,5 +1,12 @@
-import { MagicString, getTransformResult, parseSFC } from '@vue-macros/common'
+import {
+  HELPER_PREFIX,
+  MagicString,
+  getTransformResult,
+  parseSFC,
+} from '@vue-macros/common'
 import { extractIdentifiers } from '@vue/compiler-sfc'
+
+const MACROS_VAR_PREFIX = `${HELPER_PREFIX}expose_`
 
 export function transformExportExpose(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
@@ -11,13 +18,12 @@ export function transformExportExpose(code: string, id: string) {
 
   const exposed: Record<string, string> = {}
 
+  let i = 0
   for (const stmt of nodes) {
-    if (stmt.type === 'ExportNamedDeclaration' && stmt.exportKind === 'value') {
-      if (stmt.source)
-        throw new Error(
-          'export from another module is not supported. Please import and export separately.'
-        )
+    const start = offset + stmt.start!
+    const end = start + 6 /* 'export'.length */
 
+    if (stmt.type === 'ExportNamedDeclaration' && stmt.exportKind === 'value') {
       if (stmt.declaration) {
         if (stmt.declaration.type === 'VariableDeclaration') {
           for (const decl of stmt.declaration.declarations) {
@@ -35,30 +41,53 @@ export function transformExportExpose(code: string, id: string) {
         }
 
         const start = offset + stmt.start!
-        s.remove(start, start + 6 /* 'export'.length */)
+        s.remove(start, end)
       } else {
         for (const specifier of stmt.specifiers) {
-          if (specifier.type === 'ExportDefaultSpecifier')
-            throw new Error(
-              'export from another module is not supported. Please import and export separately.'
-            )
-          else if (specifier.type === 'ExportNamespaceSpecifier') {
-            throw new Error(
-              'export from another module is not supported. Please import and export separately.'
-            )
-          }
+          let exported: string, local: string
+          if (specifier.type === 'ExportSpecifier') {
+            if (specifier.exportKind === 'type') continue
 
-          const exported =
-            specifier.exported.type === 'Identifier'
-              ? specifier.exported.name
-              : specifier.exported.value
-          const local = specifier.local.name
+            exported =
+              specifier.exported.type === 'Identifier'
+                ? specifier.exported.name
+                : specifier.exported.value
+
+            if (stmt.source) {
+              // rename variable
+              local = MACROS_VAR_PREFIX + String(i++)
+              if (specifier.local.name === exported) {
+                s.overwriteNode(
+                  specifier.local,
+                  `${specifier.local.name} as ${local}`,
+                  { offset }
+                )
+              } else {
+                s.overwriteNode(specifier.exported, local, { offset })
+              }
+            } else {
+              local = specifier.local.name
+            }
+          } else if (specifier.type === 'ExportNamespaceSpecifier') {
+            local = MACROS_VAR_PREFIX + String(i++)
+            exported = specifier.exported.name
+
+            s.overwriteNode(specifier.exported, local, { offset })
+          } else continue
+
           exposed[exported] = local
         }
 
-        s.removeNode(stmt, { offset })
+        if (stmt.source) {
+          s.overwrite(start, end, 'import')
+        } else {
+          s.removeNode(stmt, { offset })
+        }
       }
-    } else if (stmt.type === 'ExportAllDeclaration') {
+    } else if (
+      stmt.type === 'ExportAllDeclaration' &&
+      stmt.exportKind === 'value'
+    ) {
       throw new Error(
         'export from another module is not supported. Please import and export separately.'
       )

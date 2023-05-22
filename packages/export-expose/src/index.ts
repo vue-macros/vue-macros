@@ -24,7 +24,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-vue-export-props'
+const name = 'unplugin-vue-export-expose'
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {

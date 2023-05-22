@@ -4,7 +4,7 @@ import { transformExportExpose } from '../src/core'
 
 describe('fixtures', async () => {
   await testFixtures(
-    import.meta.glob('./fixtures/*.vue', {
+    import.meta.glob('./fixtures/**/*.vue', {
       eager: true,
       as: 'raw',
     }),
