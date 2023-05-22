@@ -25,7 +25,10 @@ export function transformExportExpose(code: string, id: string) {
 
     if (stmt.type === 'ExportNamedDeclaration' && stmt.exportKind === 'value') {
       if (stmt.declaration) {
-        if (stmt.declaration.type === 'VariableDeclaration') {
+        if (
+          stmt.declaration.type === 'VariableDeclaration' &&
+          !stmt.declaration.declare
+        ) {
           for (const decl of stmt.declaration.declarations) {
             for (const id of extractIdentifiers(decl.id)) {
               exposed[id.name] = id.name
@@ -40,7 +43,6 @@ export function transformExportExpose(code: string, id: string) {
           exposed[stmt.declaration.id!.name] = stmt.declaration.id!.name
         }
 
-        const start = offset + stmt.start!
         s.remove(start, end)
       } else {
         for (const specifier of stmt.specifiers) {
