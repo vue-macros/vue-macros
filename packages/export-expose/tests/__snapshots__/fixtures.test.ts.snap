@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > ./fixtures/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+ const foo: string = 'foo',
+  bar = 10
+ let baz: string | undefined
+ var qux = fn()
+ const { a, b, c } = { a: 1, b: 2, c: 3 }
+
+ function fn() {}
+ class A {}
+
+
+defineExpose({
+  foo,
+  bar,
+  baz,
+  qux,
+  a,
+  b,
+  c,
+  fn,
+  A,
+  foo1: foo,
+})
+</script>
+"
+`;
+
+exports[`fixtures > ./fixtures/error-default-export.vue 1`] = `"export from another module is not supported. Please import and export separately."`;
