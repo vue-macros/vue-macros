@@ -188,8 +188,16 @@ export function resolveOptions({
       { version },
       version < 3.3
     ),
-    exportExpose: resolveSubOptions<'exportExpose'>(exportExpose, { version }),
-    exportProps: resolveSubOptions<'exportProps'>(exportProps, { version }),
+    exportExpose: resolveSubOptions<'exportExpose'>(
+      exportExpose,
+      { version },
+      false
+    ),
+    exportProps: resolveSubOptions<'exportProps'>(
+      exportProps,
+      { version },
+      false
+    ),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, { version }),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, {
       version,
