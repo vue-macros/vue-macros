@@ -8,6 +8,8 @@ All features are enabled by default except the following.
 - `defineSlots` (Vue >= 3.3)
 - `hoistStatic` (Vue >= 3.3)
 - `shortEmits` (Vue >= 3.3)
+- `exportExpose`
+- `exportProps`
 
 You can disable them by setting the option to `false`.
 
