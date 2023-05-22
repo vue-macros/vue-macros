@@ -1,10 +1,12 @@
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
 import { DEFINE_SLOTS } from '@vue-macros/common'
-import { replace, toString } from 'muggle-string'
 import {
+  type Segment,
   type Sfc,
   type VueEmbeddedFile,
   type VueLanguagePlugin,
+  replace,
+  toString,
 } from '@volar/vue-language-core'
 
 const transform = ({
@@ -28,7 +30,7 @@ const transform = ({
     embeddedFile.content,
     'return __VLS_slots',
     `return __VLS_slots as __VLS_DefineSlots<`,
-    () => [
+    (): Segment<FileRangeCapabilities> => [
       // slots type
       sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end),
       'scriptSetup',

@@ -1,7 +1,10 @@
 import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
-import { type Segment } from 'muggle-string'
-import { type Sfc, type VueLanguagePlugin } from '@volar/vue-language-core'
+import {
+  type Segment,
+  type Sfc,
+  type VueLanguagePlugin,
+} from '@volar/vue-language-core'
 import { addEmits, addProps, getVueLibraryName } from './common'
 
 function transformDefineModels({

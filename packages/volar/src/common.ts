@@ -1,4 +1,4 @@
-import { type Segment, replace } from 'muggle-string'
+import { type Segment, replace } from '@volar/vue-language-core'
 import { type FileRangeCapabilities } from '@volar/language-core'
 
 export function getVueLibraryName(vueVersion: number) {
