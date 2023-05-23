@@ -16,6 +16,8 @@ export default sxzz([
     rules: {
       'import/no-mutable-exports': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
+      'no-var': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
     },
   },
   {
