@@ -73,12 +73,16 @@ export function checkInvalidScopeReference(
 export function isStaticExpression(
   node: Node,
   options: Partial<
-    Record<'object' | 'fn' | 'objectMethod' | 'array' | 'unary', boolean> & {
+    Record<
+      'object' | 'fn' | 'objectMethod' | 'array' | 'unary' | 'regex',
+      boolean
+    > & {
       magicComment?: string
     }
   > = {}
 ): boolean {
-  const { magicComment, fn, object, objectMethod, array, unary } = options
+  const { magicComment, fn, object, objectMethod, array, unary, regex } =
+    options
 
   // magic comment
   if (
@@ -148,7 +152,11 @@ export function isStaticExpression(
     case 'TSNonNullExpression': // 1!
     case 'TSAsExpression': // 1 as number
     case 'TSTypeAssertion': // (<number>2)
+    case 'TSSatisfiesExpression': // 1 satisfies number
       return isStaticExpression(node.expression, options)
+
+    case 'RegExpLiteral':
+      return !!regex
   }
 
   if (isLiteralType(node)) return true
