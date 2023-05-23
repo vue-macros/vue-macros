@@ -165,6 +165,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
               text: 'exportProps',
               link: `${urlPrefix}/features/export-props`,
             },
+            {
+              text: 'exportExpose',
+              link: `${urlPrefix}/features/export-expose`,
+            },
           ],
         },
       ],
