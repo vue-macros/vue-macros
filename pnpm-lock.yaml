@@ -329,6 +329,22 @@ importers:
         specifier: ^4.3.8
         version: 4.3.8(@types/node@20.2.3)
 
+  packages/export-expose:
+    dependencies:
+      '@vue-macros/common':
+        specifier: workspace:~
+        version: link:../common
+      '@vue/compiler-sfc':
+        specifier: ^3.3.4
+        version: 3.3.4
+      unplugin:
+        specifier: ^1.3.1
+        version: 1.3.1
+    devDependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/export-props:
     dependencies:
       '@vue-macros/common':
@@ -383,6 +399,9 @@ importers:
       '@vue-macros/devtools':
         specifier: workspace:^
         version: link:../devtools
+      '@vue-macros/export-expose':
+        specifier: workspace:*
+        version: link:../export-expose
       '@vue-macros/export-props':
         specifier: workspace:*
         version: link:../export-props
@@ -589,6 +608,9 @@ importers:
 
   packages/volar:
     dependencies:
+      '@rollup/pluginutils':
+        specifier: ^5.0.2
+        version: 5.0.2(rollup@3.23.0)
       '@volar/language-core':
         specifier: 1.6.9
         version: 1.6.9
