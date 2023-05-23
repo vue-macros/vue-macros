@@ -608,6 +608,9 @@ importers:
 
   packages/volar:
     dependencies:
+      '@rollup/pluginutils':
+        specifier: ^5.0.2
+        version: 5.0.2(rollup@3.23.0)
       '@volar/language-core':
         specifier: 1.6.9
         version: 1.6.9

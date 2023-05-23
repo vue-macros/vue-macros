@@ -1,28 +1,29 @@
 import { FileKind } from '@volar/language-core'
 import {
+  FileRangeCapabilities,
+  type Segment,
   type Sfc,
   type VueEmbeddedFile,
   type VueLanguagePlugin,
+  replace,
   replaceSourceRange,
 } from '@volar/vue-language-core'
 import { createFilter } from '@rollup/pluginutils'
 import { type VolarOptions } from '..'
-import { addProps, getVolarOptions, getVueLibraryName } from './common'
+import { getVolarOptions } from './common'
 
 function transform({
+  fileName,
   file,
   sfc,
   ts,
-  vueLibName,
   volarOptions,
-  fileName,
 }: {
   fileName: string
   file: VueEmbeddedFile
   sfc: Sfc
   ts: typeof import('typescript/lib/tsserverlibrary')
-  vueLibName: string
-  volarOptions: NonNullable<VolarOptions['exportProps']>
+  volarOptions: NonNullable<VolarOptions['exportExpose']>
 }) {
   const filter = createFilter(
     volarOptions.include || /.*/,
@@ -30,8 +31,7 @@ function transform({
   )
   if (!filter(fileName)) return
 
-  const props: Record<string, boolean> = {}
-  let changed = false
+  const exposed: Record<string, Segment<FileRangeCapabilities>> = {}
   for (const stmt of sfc.scriptSetupAst!.statements) {
     if (!ts.isVariableStatement(stmt)) continue
     const exportModifier = stmt.modifiers?.find(
@@ -42,35 +42,39 @@ function transform({
     const start = exportModifier.getStart(sfc.scriptSetupAst!)
     const end = exportModifier.getEnd()
     replaceSourceRange(file.content, 'scriptSetup', start, end)
-    changed = true
 
     for (const decl of stmt.declarationList.declarations) {
       if (!ts.isIdentifier(decl.name)) continue
-      props[decl.name.text] = !!decl.initializer
+      const name = decl.name.text
+      const start = decl.name.getStart(sfc.scriptSetupAst!)
+
+      exposed[name] = [name, 'scriptSetup', start, FileRangeCapabilities.full]
     }
   }
 
-  if (changed) {
-    addProps(
-      file.content,
-      [
-        `__VLS_TypePropsToRuntimeProps<{
-${Object.entries(props)
-  .map(([prop, optional]) => `  ${prop}${optional ? '?' : ''}: typeof ${prop}`)
-  .join(',\n')}
-  }>`,
-      ],
-      vueLibName
-    )
-  }
+  if (Object.keys(exposed).length === 0) return
+
+  const exposedStrings = Object.entries(exposed).flatMap(([key, value]) => [
+    `${key}: `,
+    value,
+    ',\n',
+  ])
+
+  replace(
+    file.content,
+    'return {\n',
+    'return {\n...{ ',
+    ...exposedStrings,
+    ' },\n'
+  )
 }
 
 const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
   vueCompilerOptions,
+  modules: { typescript: ts },
 }) => {
   return {
-    name: 'vue-macros-export-props',
+    name: 'vue-macros-export-expose',
     version: 1,
     resolveEmbeddedFile(fileName, sfc, embeddedFile) {
       if (
@@ -80,15 +84,12 @@ const plugin: VueLanguagePlugin = ({
       )
         return
 
-      const vueLibName = getVueLibraryName(vueCompilerOptions.target)
-
       transform({
+        fileName,
         file: embeddedFile,
         sfc,
-        vueLibName,
         ts,
-        fileName,
-        volarOptions: getVolarOptions(vueCompilerOptions)?.exportProps || {},
+        volarOptions: getVolarOptions(vueCompilerOptions)?.exportExpose || {},
       })
     },
   }
