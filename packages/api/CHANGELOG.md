@@ -1,5 +1,16 @@
 # @vue-macros/api
 
+## 0.7.0
+
+### Minor Changes
+
+- [#372](https://github.com/sxzz/vue-macros/pull/372) [`65a04b2`](https://github.com/sxzz/vue-macros/commit/65a04b2c7d0c71fd696cf80370fc78405c621a42) Thanks [@sxzz](https://github.com/sxzz)! - rewrite TypeScript resolver
+
+### Patch Changes
+
+- Updated dependencies [[`39c72ff`](https://github.com/sxzz/vue-macros/commit/39c72ff0f351b9b2d7eb5ad22e2a8b98f7a263a0)]:
+  - @vue-macros/common@1.3.2
+
 ## 0.6.3
 
 ### Patch Changes

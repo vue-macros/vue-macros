@@ -1,5 +1,14 @@
 # unplugin-vue-define-options
 
+## 1.3.6
+
+### Patch Changes
+
+- [`5806748`](https://github.com/sxzz/vue-macros/commit/5806748a10132ac97b1c5389a72933441d2b952a) Thanks [@sxzz](https://github.com/sxzz)! - disallow more keys for `defineOptions`
+
+- Updated dependencies [[`39c72ff`](https://github.com/sxzz/vue-macros/commit/39c72ff0f351b9b2d7eb5ad22e2a8b98f7a263a0)]:
+  - @vue-macros/common@1.3.2
+
 ## 1.3.5
 
 ### Patch Changes

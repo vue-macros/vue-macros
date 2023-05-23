@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.3.2
+
+### Patch Changes
+
+- [`39c72ff`](https://github.com/sxzz/vue-macros/commit/39c72ff0f351b9b2d7eb5ad22e2a8b98f7a263a0) Thanks [@sxzz](https://github.com/sxzz)! - don't hoist regexp
+
 ## 1.3.1
 
 ### Patch Changes

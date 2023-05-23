@@ -1,5 +1,14 @@
 # @vue-macros/reactivity-transform
 
+## 0.3.8
+
+### Patch Changes
+
+- [`cd1455e`](https://github.com/sxzz/vue-macros/commit/cd1455e5a75c43fd7ac370d015a2063ae5232a68) Thanks [@sxzz](https://github.com/sxzz)! - remove return value of defineProps for Reactivity Transform
+
+- Updated dependencies [[`39c72ff`](https://github.com/sxzz/vue-macros/commit/39c72ff0f351b9b2d7eb5ad22e2a8b98f7a263a0)]:
+  - @vue-macros/common@1.3.2
+
 ## 0.3.7
 
 ### Patch Changes
