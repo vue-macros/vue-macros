@@ -10,7 +10,7 @@ export default function VueMacrosAstroIntegration(
   return {
     name,
     hooks: {
-      'astro:config:setup': ({ config, updateConfig }) => {
+      'astro:config:setup': ({ updateConfig }) => {
         updateConfig({
           vitePlugin: [VitePlugin(userOptions)],
         })
