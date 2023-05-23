@@ -1,5 +1,16 @@
 # @vue-macros/hoist-static
 
+## 1.4.0
+
+### Minor Changes
+
+- [`39c72ff`](https://github.com/sxzz/vue-macros/commit/39c72ff0f351b9b2d7eb5ad22e2a8b98f7a263a0) Thanks [@sxzz](https://github.com/sxzz)! - don't hoist regexp
+
+### Patch Changes
+
+- Updated dependencies [[`39c72ff`](https://github.com/sxzz/vue-macros/commit/39c72ff0f351b9b2d7eb5ad22e2a8b98f7a263a0)]:
+  - @vue-macros/common@1.3.2
+
 ## 1.3.5
 
 ### Patch Changes

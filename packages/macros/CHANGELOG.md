@@ -1,5 +1,36 @@
 # unplugin-vue-macros
 
+## 2.2.0
+
+### Minor Changes
+
+- [#376](https://github.com/sxzz/vue-macros/pull/376) [`1e4a1f4`](https://github.com/sxzz/vue-macros/commit/1e4a1f4a8e0f8a788f5ae8e7043308a348cca6c4) Thanks [@sxzz](https://github.com/sxzz)! - - Disable `exportExpose` and `exportProps` by default.
+  - Introduce `exportExpose`.
+  - Add `include` option for Volar plugins (`exportExpose` and `exportProps`).
+
+### Patch Changes
+
+- Updated dependencies [[`1e4a1f4`](https://github.com/sxzz/vue-macros/commit/1e4a1f4a8e0f8a788f5ae8e7043308a348cca6c4), [`cd1455e`](https://github.com/sxzz/vue-macros/commit/cd1455e5a75c43fd7ac370d015a2063ae5232a68), [`65a04b2`](https://github.com/sxzz/vue-macros/commit/65a04b2c7d0c71fd696cf80370fc78405c621a42), [`5806748`](https://github.com/sxzz/vue-macros/commit/5806748a10132ac97b1c5389a72933441d2b952a), [`39c72ff`](https://github.com/sxzz/vue-macros/commit/39c72ff0f351b9b2d7eb5ad22e2a8b98f7a263a0)]:
+  - @vue-macros/export-expose@0.0.1
+  - @vue-macros/reactivity-transform@0.3.8
+  - @vue-macros/better-define@1.6.0
+  - @vue-macros/define-prop@0.1.5
+  - unplugin-vue-define-options@1.3.6
+  - @vue-macros/hoist-static@1.4.0
+  - @vue-macros/common@1.3.2
+  - @vue-macros/define-props@1.0.6
+  - @vue-macros/define-emit@0.1.4
+  - @vue-macros/define-models@1.0.4
+  - @vue-macros/define-props-refs@1.0.4
+  - @vue-macros/define-render@1.3.7
+  - @vue-macros/define-slots@1.0.3
+  - @vue-macros/export-props@0.3.6
+  - @vue-macros/named-template@0.3.7
+  - @vue-macros/setup-block@0.2.6
+  - @vue-macros/setup-component@0.16.7
+  - @vue-macros/setup-sfc@0.15.7
+  - @vue-macros/short-emits@1.3.6
+
 ## 2.1.7
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @vue-macros/volar
 
+## 0.10.0
+
+### Minor Changes
+
+- [#376](https://github.com/sxzz/vue-macros/pull/376) [`1e4a1f4`](https://github.com/sxzz/vue-macros/commit/1e4a1f4a8e0f8a788f5ae8e7043308a348cca6c4) Thanks [@sxzz](https://github.com/sxzz)! - - Disable `exportExpose` and `exportProps` by default.
+
+  - Introduce `exportExpose`.
+  - Add `include` option for Volar plugins (`exportExpose` and `exportProps`).
+
+- [`66f18d7`](https://github.com/sxzz/vue-macros/commit/66f18d76875f9a276850ab37e10d2a19ba187884) Thanks [@sxzz](https://github.com/sxzz)! - move volar options to vueMacros option
+
+### Patch Changes
+
+- Updated dependencies [[`39c72ff`](https://github.com/sxzz/vue-macros/commit/39c72ff0f351b9b2d7eb5ad22e2a8b98f7a263a0)]:
+  - @vue-macros/common@1.3.2
+  - @vue-macros/define-props@1.0.6
+  - @vue-macros/short-vmodel@1.2.7
+
 ## 0.9.8
 
 ### Patch Changes

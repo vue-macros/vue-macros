@@ -1,5 +1,16 @@
 # @vue-macros/nuxt
 
+## 1.3.9
+
+### Patch Changes
+
+- [`66f18d7`](https://github.com/sxzz/vue-macros/commit/66f18d76875f9a276850ab37e10d2a19ba187884) Thanks [@sxzz](https://github.com/sxzz)! - move volar options to vueMacros option
+
+- Updated dependencies [[`1e4a1f4`](https://github.com/sxzz/vue-macros/commit/1e4a1f4a8e0f8a788f5ae8e7043308a348cca6c4), [`66f18d7`](https://github.com/sxzz/vue-macros/commit/66f18d76875f9a276850ab37e10d2a19ba187884)]:
+  - unplugin-vue-macros@2.2.0
+  - @vue-macros/volar@0.10.0
+  - @vue-macros/short-vmodel@1.2.7
+
 ## 1.3.8
 
 ### Patch Changes
