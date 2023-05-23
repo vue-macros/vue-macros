@@ -25,10 +25,12 @@
       "@vue-macros/volar/define-slots",
       "@vue-macros/volar/export-props"
     ],
-    "shortVmodel": {
-      "prefix": "$"
-    },
-    "experimentalDefinePropProposal": "kevinEdition"
+    "experimentalDefinePropProposal": "kevinEdition",
+    "vueMacros": {
+      "shortVmodel": {
+        "prefix": "$"
+      }
+    }
   },
   "include": ["src", "*", "../../packages/shim.d.ts"]
 }

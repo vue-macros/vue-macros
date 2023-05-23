@@ -123,9 +123,11 @@ emit('update:count', count + 1)
       "@vue-macros/volar/define-models"
       // ...more feature
     ],
-    "defineModels": {
-      // Only works when target is 2.7.
-      "unified": true
+    "vueMacros": {
+      "defineModels": {
+        // Only works when target is 2.7.
+        "unified": true
+      }
     }
   }
 }
