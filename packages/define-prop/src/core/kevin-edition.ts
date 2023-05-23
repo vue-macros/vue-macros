@@ -1,6 +1,6 @@
 import { DEFINE_PROP } from '@vue-macros/common'
 import { type TSType } from '@babel/types'
-import { genRuntimePropDefinition } from 'packages/api/src'
+import { genRuntimePropDefinition } from '@vue-macros/api'
 import { type Impl, stringifyArray } from './utils'
 
 export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
