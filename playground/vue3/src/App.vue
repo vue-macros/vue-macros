@@ -8,6 +8,7 @@ import DefineModelReactivityVue from './examples/define-models/reactivity-transf
 import DefineModelRuntimeVue from './examples/define-models/runtime/parent.vue'
 import DefineSlotsVue from './examples/define-slots/parent.vue'
 import ExportPropsVue from './examples/export-props/index.vue'
+import ExportExposeVue from './examples/export-expose/index.vue'
 import BetterDefineVue from './examples/better-define/index.vue'
 // import NamedTemplateVue from './examples/named-template/index.vue'
 import SetupBlockVue from './examples/setup-block/index.vue'
@@ -46,6 +47,11 @@ import Full from './examples/full.setup'
   <fieldset>
     <legend>exportProps</legend>
     <ExportPropsVue />
+  </fieldset>
+
+  <fieldset>
+    <legend>exportExpose</legend>
+    <ExportExposeVue />
   </fieldset>
 
   <fieldset>

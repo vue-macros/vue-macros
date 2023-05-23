@@ -4,6 +4,7 @@ import {
   replace,
 } from '@volar/vue-language-core'
 import { type FileRangeCapabilities } from '@volar/language-core'
+import { type VolarOptions } from '..'
 
 export function getVueLibraryName(vueVersion: number) {
   return vueVersion < 2.7 ? '@vue/runtime-dom' : 'vue'
@@ -47,6 +48,8 @@ export function addEmits(
   return true
 }
 
-export function getVolarOptions(vueCompilerOptions: VueCompilerOptions) {
+export function getVolarOptions(
+  vueCompilerOptions: VueCompilerOptions
+): VolarOptions | undefined {
   return vueCompilerOptions.vueMacros
 }
