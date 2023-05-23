@@ -5,7 +5,12 @@ import {
   type Sfc,
   type VueLanguagePlugin,
 } from '@volar/vue-language-core'
-import { addEmits, addProps, getVueLibraryName } from './common'
+import {
+  addEmits,
+  addProps,
+  getVolarOptions,
+  getVueLibraryName,
+} from './common'
 
 function transformDefineModels({
   codes,
@@ -117,8 +122,9 @@ const plugin: VueLanguagePlugin = ({
 
       const vueVersion = vueCompilerOptions.target
       const vueLibName = getVueLibraryName(vueVersion)
+      const volarOptions = getVolarOptions(vueCompilerOptions)
       const unified =
-        (vueVersion < 3 && vueCompilerOptions?.defineModels?.unified) ?? true
+        vueVersion < 3 && (volarOptions?.defineModels?.unified ?? true)
 
       transformDefineModels({
         codes: embeddedFile.content,

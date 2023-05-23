@@ -123,9 +123,11 @@ emit('update:count', count + 1)
       "@vue-macros/volar/define-models"
       // ...更多功能
     ],
-    "defineModels": {
-      // 仅在 target 是 2.7 时有效
-      "unified": true
+    "vueMacros": {
+      "defineModels": {
+        // 仅在 target 是 2.7 时有效
+        "unified": true
+      }
     }
   }
 }

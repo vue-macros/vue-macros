@@ -6,7 +6,9 @@ import {
 } from '@vue-macros/short-vmodel'
 import { type Options, resolveOptions } from 'unplugin-vue-macros'
 import { type Plugin } from 'vite'
-import {} from '@nuxt/devtools'
+// eslint-disable-next-line antfu/prefer-inline-type-import
+import type {} from '@nuxt/devtools'
+import { type VolarOptions } from '@vue-macros/volar'
 
 export type VueMacrosOptions = Options & {
   shortVmodel?: OptionsShortVmodel | false
@@ -67,6 +69,9 @@ export default defineNuxtModule<VueMacrosOptions>({
     const vueCompilerOptions =
       nuxt.options.typescript.tsConfig.vueCompilerOptions
 
+    vueCompilerOptions.vueMacros ||= {}
+    const volarOptions = vueCompilerOptions.vueMacros as VolarOptions
+
     vueCompilerOptions.plugins ||= []
     const volarPlugins = vueCompilerOptions.plugins
 
@@ -102,7 +107,7 @@ export default defineNuxtModule<VueMacrosOptions>({
       volarPlugins.push('@vue-macros/volar/short-vmodel')
 
       if (options.shortVmodel)
-        vueCompilerOptions.shortVmodel = {
+        volarOptions.shortVmodel = {
           prefix: options.shortVmodel.prefix,
         }
 

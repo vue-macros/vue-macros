@@ -1,4 +1,8 @@
-import { type Segment, replace } from '@volar/vue-language-core'
+import {
+  type Segment,
+  type VueCompilerOptions,
+  replace,
+} from '@volar/vue-language-core'
 import { type FileRangeCapabilities } from '@volar/language-core'
 
 export function getVueLibraryName(vueVersion: number) {
@@ -41,4 +45,8 @@ export function addEmits(
     'setup() {'
   )
   return true
+}
+
+export function getVolarOptions(vueCompilerOptions: VueCompilerOptions) {
+  return vueCompilerOptions.vueMacros
 }

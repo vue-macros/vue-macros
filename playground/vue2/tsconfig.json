@@ -22,10 +22,12 @@
       "@vue-macros/volar/define-models",
       "@vue-macros/volar/define-slots"
     ],
-    "defineModels": {
-      "unified": true
-    },
-    "experimentalDefinePropProposal": "johnsonEdition"
+    "experimentalDefinePropProposal": "johnsonEdition",
+    "vueMacros": {
+      "defineModels": {
+        "unified": true
+      }
+    }
   },
   "include": ["src", "*"]
 }
