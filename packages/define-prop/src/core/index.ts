@@ -44,7 +44,7 @@ export async function transformDefineProp(
   let hasDefineProps = false
   let hasDefineProp = false
   walkAST<Node>(setupAst, {
-    enter(node: Node, parent: Node) {
+    enter(node, parent) {
       if (isCallOf(node, DEFINE_PROP)) {
         hasDefineProp = true
         const propName = walkCall(node, parent)

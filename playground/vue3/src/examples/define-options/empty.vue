@@ -3,7 +3,6 @@ const check = () => {
   debugger
 }
 
-// @ts-expect-error
 defineOptions()
 </script>
 

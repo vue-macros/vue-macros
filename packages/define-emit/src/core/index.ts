@@ -17,9 +17,7 @@ export interface Emit {
 }
 
 export function transformDefineEmit(code: string, id: string) {
-  if (!code.includes(DEFINE_EMIT)) {
-    return
-  }
+  if (!code.includes(DEFINE_EMIT)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
@@ -30,7 +28,7 @@ export function transformDefineEmit(code: string, id: string) {
   const emits: Emit[] = []
 
   walkAST<Node>(setupAst, {
-    enter(node: Node, parent: Node) {
+    enter(node, parent) {
       if (isCallOf(node, DEFINE_EMIT)) {
         const [name, validator] = node.arguments
 
