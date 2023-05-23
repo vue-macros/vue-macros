@@ -46,9 +46,7 @@ export function transformDefinePropsRefs(code: string, id: string) {
     if (defaultsCall) {
       code = `${WITH_DEFAULTS}(${code}, ${s.sliceNode(
         defaultsCall.arguments[1],
-        {
-          offset,
-        }
+        { offset }
       )})`
     }
 
