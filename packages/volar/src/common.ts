@@ -50,6 +50,6 @@ export function addEmits(
 
 export function getVolarOptions(
   vueCompilerOptions: VueCompilerOptions
-): VolarOptions {
+): VolarOptions | undefined {
   return vueCompilerOptions.vueMacros
 }
