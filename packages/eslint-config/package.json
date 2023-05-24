@@ -1,0 +1,41 @@
+{
+  "name": "@vue-macros/eslint-config",
+  "version": "0.0.0",
+  "description": "eslint-config feature from Vue Macros.",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "eslint-config"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sxzz/vue-macros#readme",
+  "bugs": {
+    "url": "https://github.com/sxzz/vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/vue-macros.git",
+    "directory": "packages/eslint-config"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.36.0"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}

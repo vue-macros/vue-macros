@@ -329,6 +329,12 @@ importers:
         specifier: ^4.3.8
         version: 4.3.8(@types/node@20.2.3)
 
+  packages/eslint-config:
+    devDependencies:
+      eslint:
+        specifier: ^8.36.0
+        version: 8.41.0
+
   packages/export-expose:
     dependencies:
       '@vue-macros/common':

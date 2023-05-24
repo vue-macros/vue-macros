@@ -52,7 +52,7 @@ export default defineConfig([
       data.author = '三咲智子 <sxzz@sxzz.moe>'
       data.engines = { node: '>=16.14.0' }
 
-      if (Object.keys(data.dependencies).includes('unplugin')) {
+      if (Object.keys(data.dependencies || {}).includes('unplugin')) {
         const files = (
           await readdir(path.resolve(filepath, '../src'), {
             withFileTypes: true,
