@@ -8,6 +8,8 @@
 - `defineSlots` (Vue >= 3.3)
 - `hoistStatic` (Vue >= 3.3)
 - `shortEmits` (Vue >= 3.3)
+- `exportExpose`
+- `exportProps`
 
 您可以通过将选项设置为 `false` 来禁用它们。
 
