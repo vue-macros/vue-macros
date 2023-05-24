@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.10.1
+
+### Patch Changes
+
+- [`dd3ea8d`](https://github.com/sxzz/vue-macros/commit/dd3ea8dfb39fcbcbece91ed25e35fbbca23f857d) Thanks [@sxzz](https://github.com/sxzz)! - support `defineSlots` for the latest Volar
+
 ## 0.10.0
 
 ### Minor Changes
