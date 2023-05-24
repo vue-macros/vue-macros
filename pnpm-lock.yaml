@@ -102,7 +102,7 @@ importers:
         version: 3.0.0
       unocss:
         specifier: ^0.52.3
-        version: 0.52.3(vite@4.3.8)
+        version: 0.52.3(rollup@3.23.0)(vite@4.3.8)
       vite-plugin-pwa:
         specifier: ^0.15.0
         version: 0.15.0(vite@4.3.8)(workbox-window@6.5.4)
@@ -324,7 +324,7 @@ importers:
         version: 6.1.2
       unocss:
         specifier: ^0.52.3
-        version: 0.52.3(vite@4.3.8)
+        version: 0.52.3(rollup@3.23.0)(vite@4.3.8)
       vite:
         specifier: ^4.3.8
         version: 4.3.8(@types/node@20.2.3)
@@ -740,6 +740,9 @@ importers:
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
+      unocss:
+        specifier: ^0.52.3
+        version: 0.52.3(rollup@3.23.0)(vite@4.3.8)
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../../packages/macros
@@ -3297,18 +3300,18 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: true
 
-  /@unocss/astro@0.52.3(vite@4.3.8):
+  /@unocss/astro@0.52.3(rollup@3.23.0)(vite@4.3.8):
     resolution: {integrity: sha512-S9Rb1TROB0Q1c4qgLBwLWqccaYq+Q+ZJaUvpgNjvDeKdam1pcGCELJos0HIK5oxOXpALSVmlMkGEh7OOZzDhCQ==}
     dependencies:
       '@unocss/core': 0.52.3
       '@unocss/reset': 0.52.3
-      '@unocss/vite': 0.52.3(vite@4.3.8)
+      '@unocss/vite': 0.52.3(rollup@3.23.0)(vite@4.3.8)
     transitivePeerDependencies:
       - rollup
       - vite
     dev: true
 
-  /@unocss/cli@0.52.3:
+  /@unocss/cli@0.52.3(rollup@3.23.0):
     resolution: {integrity: sha512-bVR9cwltNvYi35gWR7XYdtrgwU+saYxeBRWt7vlargaIPmQ0s9EgfcHYC7mlD82SZPnRj1KQhyFVTFtyrQCiVg==}
     engines: {node: '>=14'}
     hasBin: true
@@ -3464,7 +3467,7 @@ packages:
       '@unocss/core': 0.52.3
     dev: true
 
-  /@unocss/vite@0.52.3(vite@4.3.8):
+  /@unocss/vite@0.52.3(rollup@3.23.0)(vite@4.3.8):
     resolution: {integrity: sha512-N/e2zbRGrn8mmllVAiCeCoB3AQ96+l1XTTTN5mvOTj2VMzfsaYE4z28X4jUQ35JppfppfDKwESaDD+b/DZyJqA==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0
@@ -9391,7 +9394,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unocss@0.52.3(vite@4.3.8):
+  /unocss@0.52.3(rollup@3.23.0)(vite@4.3.8):
     resolution: {integrity: sha512-BgL3kbxwt839t0ojo/j+i8xU4qu+fyV34SJOMQuFhLu6xkPNepvr6uPeipzNDajR7EZP3Q+jXJT9AWLKLLg1jw==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -9400,8 +9403,8 @@ packages:
       '@unocss/webpack':
         optional: true
     dependencies:
-      '@unocss/astro': 0.52.3(vite@4.3.8)
-      '@unocss/cli': 0.52.3
+      '@unocss/astro': 0.52.3(rollup@3.23.0)(vite@4.3.8)
+      '@unocss/cli': 0.52.3(rollup@3.23.0)
       '@unocss/core': 0.52.3
       '@unocss/extractor-arbitrary-variants': 0.52.3
       '@unocss/postcss': 0.52.3
@@ -9419,7 +9422,7 @@ packages:
       '@unocss/transformer-compile-class': 0.52.3
       '@unocss/transformer-directives': 0.52.3
       '@unocss/transformer-variant-group': 0.52.3
-      '@unocss/vite': 0.52.3(vite@4.3.8)
+      '@unocss/vite': 0.52.3(rollup@3.23.0)(vite@4.3.8)
     transitivePeerDependencies:
       - rollup
       - supports-color

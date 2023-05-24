@@ -7,5 +7,5 @@ const child = ref<InstanceType<typeof Child>>()
 
 <template>
   <Child ref="child" />
-  {{ child?.bar }}
+  <pre>{{ child?.bar }} === bar</pre>
 </template>

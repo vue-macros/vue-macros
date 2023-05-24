@@ -10,6 +10,5 @@ expectTypeOf(fooRef).toEqualTypeOf<Ref<string[]>>()
 </script>
 
 <template>
-  <div>defineProps</div>
-  {{ foo }}
+  <pre>{{ foo }}</pre>
 </template>

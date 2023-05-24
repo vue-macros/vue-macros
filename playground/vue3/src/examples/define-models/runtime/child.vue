@@ -16,7 +16,7 @@ const check = () => {
 </script>
 
 <template>
-  <div>defineModels runtime demo.</div>
+  <div>defineModels demo.</div>
   <div>current value: {{ title }}</div>
   <div>none: {{ none }}</div>
   <button @click="update">Update</button>

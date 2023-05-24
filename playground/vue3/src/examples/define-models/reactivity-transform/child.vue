@@ -14,7 +14,7 @@ const check = () => {
 </script>
 
 <template>
-  <div>defineModels reactivity transform demo.</div>
+  <div>$defineModels demo.</div>
   <div>current value: {{ title }}</div>
   <button @click="update">Update</button>
   <button @click="check">Check source map</button>

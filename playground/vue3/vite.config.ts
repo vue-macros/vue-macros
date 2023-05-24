@@ -4,6 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { transformShortVmodel } from '@vue-macros/short-vmodel'
+import UnoCSS from 'unocss/vite'
 
 export default defineConfig({
   build: {
@@ -42,6 +43,8 @@ export default defineConfig({
         vueJsx: VueJsx(),
       },
     }),
+
+    UnoCSS(),
 
     Inspect({
       build: true,

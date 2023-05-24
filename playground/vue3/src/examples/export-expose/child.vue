@@ -3,4 +3,4 @@ export const foo = 'foo'
 export const bar = 'bar'
 </script>
 
-<template>exportExpose child.</template>
+<template>child component</template>

@@ -24,98 +24,100 @@ import Full from './examples/full.setup'
 </script>
 
 <template>
-  <fieldset>
-    <legend>defineOptions</legend>
-    <DefineOptionsVue />
-  </fieldset>
+  <div grid="~ cols-3 gap2">
+    <fieldset>
+      <legend>defineOptions</legend>
+      <DefineOptionsVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>defineRender</legend>
-    <DefineRenderVue />
-  </fieldset>
+    <fieldset>
+      <legend>defineRender</legend>
+      <DefineRenderVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>defineProps</legend>
-    <DefinePropsVue />
-  </fieldset>
+    <fieldset>
+      <legend>defineProps</legend>
+      <DefinePropsVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>definePropsRefs</legend>
-    <DefinePropsRefsVue />
-  </fieldset>
+    <fieldset>
+      <legend>definePropsRefs</legend>
+      <DefinePropsRefsVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>exportProps</legend>
-    <ExportPropsVue />
-  </fieldset>
+    <fieldset>
+      <legend>exportProps</legend>
+      <ExportPropsVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>exportExpose</legend>
-    <ExportExposeVue />
-  </fieldset>
+    <fieldset>
+      <legend>exportExpose</legend>
+      <ExportExposeVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>hostStatic</legend>
-    <HoistStaticVue />
-  </fieldset>
+    <fieldset>
+      <legend>hostStatic</legend>
+      <HoistStaticVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>namedTemplate</legend>
-    <!-- <NamedTemplateVue /> -->
-    TODO
-  </fieldset>
+    <fieldset>
+      <legend>namedTemplate</legend>
+      <!-- <NamedTemplateVue /> -->
+      TODO
+    </fieldset>
 
-  <fieldset>
-    <legend>defineModels</legend>
-    <DefineModelReactivityVue />
-    <hr />
-    <DefineModelRuntimeVue />
-  </fieldset>
+    <fieldset>
+      <legend>defineModels</legend>
+      <DefineModelReactivityVue />
+      <hr />
+      <DefineModelRuntimeVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>defineSlots</legend>
-    <DefineSlotsVue />
-  </fieldset>
+    <fieldset>
+      <legend>defineSlots</legend>
+      <DefineSlotsVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>betterDefine</legend>
-    <BetterDefineVue />
-  </fieldset>
+    <fieldset>
+      <legend>betterDefine</legend>
+      <BetterDefineVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>setupComponent</legend>
-    <SetupComponentFoo />
-  </fieldset>
+    <fieldset>
+      <legend>setupComponent</legend>
+      <SetupComponentFoo />
+    </fieldset>
 
-  <fieldset>
-    <legend>setupSFC</legend>
-    <SetupSFC />
-  </fieldset>
+    <fieldset>
+      <legend>setupSFC</legend>
+      <SetupSFC />
+    </fieldset>
 
-  <fieldset>
-    <legend>setupBlock</legend>
-    <SetupBlockVue />
-  </fieldset>
+    <fieldset>
+      <legend>setupBlock</legend>
+      <SetupBlockVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>Short v-model</legend>
-    <short-vmodel />
-  </fieldset>
+    <fieldset>
+      <legend>Short v-model</legend>
+      <short-vmodel />
+    </fieldset>
 
-  <fieldset>
-    <legend>Full example</legend>
-    <Full model-value="123" />
-  </fieldset>
+    <fieldset>
+      <legend>Full example</legend>
+      <Full model-value="123" />
+    </fieldset>
 
-  <fieldset>
-    <legend>defineProp</legend>
-    <DefinePropVue />
-  </fieldset>
+    <fieldset>
+      <legend>defineProp</legend>
+      <DefinePropVue />
+    </fieldset>
 
-  <fieldset>
-    <legend>defineEmit</legend>
-    <DefineEmitVue />
-  </fieldset>
+    <fieldset>
+      <legend>defineEmit</legend>
+      <DefineEmitVue />
+    </fieldset>
+  </div>
 </template>
 
 <style>

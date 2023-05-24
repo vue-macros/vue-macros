@@ -9,6 +9,5 @@ expectTypeOf(foo).toEqualTypeOf<ComputedRef<readonly string[]>>()
 </script>
 
 <template>
-  <div>definePropsRefs</div>
   {{ foo }}
 </template>

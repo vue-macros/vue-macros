@@ -1,5 +1,4 @@
 <!-- eslint-disable import/no-mutable-exports -->
-<!-- eslint-disable vue/no-export-in-script-setup -->
 <!-- eslint-disable @typescript-eslint/no-inferrable-types -->
 <script setup lang="ts">
 export let foo: string
