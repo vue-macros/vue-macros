@@ -9,14 +9,15 @@ export default sxzz([
     rules: {
       'vue/valid-attribute-name': 'off',
       'vue/no-export-in-script-setup': 'off',
+      'vue/no-dupe-keys': 'off',
     },
   },
   {
     files: ['**/*.md/*.{js,ts,vue}'],
     rules: {
+      'no-var': 'off',
       'import/no-mutable-exports': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
-      'no-var': 'off',
       '@typescript-eslint/no-empty-function': 'off',
     },
   },
