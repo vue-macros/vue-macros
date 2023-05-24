@@ -28,8 +28,8 @@ const transform = ({
 
   replace(
     embeddedFile.content,
-    'return __VLS_slots',
-    `return __VLS_slots as __VLS_DefineSlots<`,
+    /var __VLS_slots!: .*/,
+    'var __VLS_slots!: __VLS_DefineSlots<',
     (): Segment<FileRangeCapabilities> => [
       // slots type
       sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end),
@@ -40,7 +40,7 @@ const transform = ({
     '>'
   )
   embeddedFile.content.push(
-    `type __VLS_DefineSlots<T> = { [SlotName in keyof T]: (_: T[SlotName]) => any }`
+    `type __VLS_DefineSlots<T> = { [SlotName in keyof T]: T[SlotName] extends Function ? T[SlotName] : (_: T[SlotName]) => any }`
   )
 }
 
