@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { readdir } from 'node:fs/promises'
+import { readFile, readdir } from 'node:fs/promises'
 import { defineConfig } from 'monoman'
 
 function getPkgName(filepath: string) {
@@ -58,7 +58,6 @@ export default defineConfig([
             withFileTypes: true,
           })
         )
-          // .filter((f) => f.isFile() || f.name === 'index.ts')
           .map((file) => {
             if (!file.isFile()) return undefined
             const name = path.basename(file.name, '.ts')
@@ -97,6 +96,19 @@ export default defineConfig([
       }
 
       return data
+    },
+  },
+  {
+    include: ['packages/*/README.md'],
+    exclude: ['packages/define-options/README.md'],
+    type: 'text',
+    async write(_, ctx) {
+      const pkgPath = path.resolve(path.dirname(ctx.filepath), 'package.json')
+      const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
+      const pkgName = pkg.name
+
+      return `# ${pkgName} [![npm](https://img.shields.io/npm/v/${pkgName}.svg)](https://npmjs.com/package/${pkgName})\n
+Please refer to [README.md](https://github.com/sxzz/vue-macros#readme)\n`
     },
   },
 ])
