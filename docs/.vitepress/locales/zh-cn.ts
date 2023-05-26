@@ -51,6 +51,13 @@ export const themeConfig: DefaultTheme.Config = {
   },
   nav,
   sidebar,
+  darkModeSwitchLabel: '外观',
+  sidebarMenuLabel: '目录',
+  returnToTopLabel: '返回顶部',
+  docFooter: {
+    prev: '上一页',
+    next: '下一页',
+  },
 }
 
 export const head: HeadConfig[] = [
