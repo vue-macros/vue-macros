@@ -1,5 +1,14 @@
 # @vue-macros/nuxt
 
+## 1.3.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.2.1
+  - @vue-macros/short-vmodel@1.2.8
+  - @vue-macros/volar@0.10.2
+
 ## 1.3.10
 
 ### Patch Changes

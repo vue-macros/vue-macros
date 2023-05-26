@@ -1,5 +1,15 @@
 # @vue-macros/better-define
 
+## 1.6.1
+
+### Patch Changes
+
+- [`34be70e`](https://github.com/sxzz/vue-macros/commit/34be70e5b3e37615b563da02bff5ae89de63b713) Thanks [@sxzz](https://github.com/sxzz)! - resolve json file
+
+- Updated dependencies [[`34be70e`](https://github.com/sxzz/vue-macros/commit/34be70e5b3e37615b563da02bff5ae89de63b713)]:
+  - @vue-macros/common@1.3.3
+  - @vue-macros/api@0.7.1
+
 ## 1.6.0
 
 ### Minor Changes

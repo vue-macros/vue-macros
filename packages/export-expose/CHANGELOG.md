@@ -1,5 +1,12 @@
 # @vue-macros/export-expose
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`34be70e`](https://github.com/sxzz/vue-macros/commit/34be70e5b3e37615b563da02bff5ae89de63b713)]:
+  - @vue-macros/common@1.3.3
+
 ## 0.0.1
 
 ### Patch Changes
