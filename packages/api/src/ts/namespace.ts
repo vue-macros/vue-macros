@@ -35,7 +35,7 @@ export async function resolveTSNamespace(scope: TSScope): Promise<void> {
   scope.declarations = declarations
 
   const { body, file } = resolveTSScope(scope)
-  for (const stmt of body) {
+  for (const stmt of body || []) {
     if (
       stmt.type === 'ExportDefaultDeclaration' &&
       isTSDeclaration(stmt.declaration)

@@ -68,7 +68,7 @@ type Base2 = {
     )
     const interfaceProperties = await resolveTSProperties({
       scope: file,
-      type: file.ast[0] as TSInterfaceDeclaration,
+      type: file.ast![0] as TSInterfaceDeclaration,
     })
 
     expect(hideAstLocation(interfaceProperties)).toMatchInlineSnapshot(`
@@ -156,7 +156,7 @@ type Base2 = {
 
     const intersectionProperties = await resolveTSProperties({
       scope: file,
-      type: (file.ast[1] as TSTypeAliasDeclaration)
+      type: (file.ast![1] as TSTypeAliasDeclaration)
         .typeAnnotation as TSIntersectionType,
     })
     expect(hideAstLocation(intersectionProperties)).toMatchInlineSnapshot(`
@@ -201,7 +201,7 @@ type Base2 = {
 type AliasString2 = AliasString1
 type Foo = AliasString`
     )
-    const node = file.ast[1] as TSTypeAliasDeclaration
+    const node = file.ast![1] as TSTypeAliasDeclaration
     const result = (await resolveTSReferencedType({
       scope: file,
       type: node.typeAnnotation,

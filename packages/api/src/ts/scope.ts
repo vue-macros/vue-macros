@@ -1,6 +1,10 @@
 import { readFile } from 'node:fs/promises'
 import { type Statement, type TSModuleBlock } from '@babel/types'
-import { babelParse, getFileCodeAndLang } from '@vue-macros/common'
+import {
+  REGEX_SUPPORTED_EXT,
+  babelParse,
+  getFileCodeAndLang,
+} from '@vue-macros/common'
 import { type TSNamespace } from './namespace'
 
 export interface TSScopeBase {
@@ -12,7 +16,8 @@ export interface TSFile extends TSScopeBase {
   kind: 'file'
   filePath: string
   content: string
-  ast: Statement[]
+  /** could be undefined if it's a JSON file */
+  ast: Statement[] | undefined
 }
 
 export interface TSModule extends TSScopeBase {
@@ -28,19 +33,21 @@ export async function getTSFile(filePath: string): Promise<TSFile> {
   if (tsFileCache[filePath]) return tsFileCache[filePath]
   const content = await readFile(filePath, 'utf-8')
   const { code, lang } = getFileCodeAndLang(content, filePath)
-  const program = babelParse(code, lang)
+
   return (tsFileCache[filePath] = {
     kind: 'file',
     filePath,
     content,
-    ast: program.body,
+    ast: REGEX_SUPPORTED_EXT.test(filePath)
+      ? babelParse(code, lang).body
+      : undefined,
   })
 }
 
 interface ResolvedTSScope {
   isFile: boolean
   file: TSFile
-  body: Statement[]
+  body: Statement[] | undefined
   exports?: TSNamespace
   declarations?: TSNamespace
 }

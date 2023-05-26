@@ -65,7 +65,13 @@ export function getFileCodeAndLang(
   code: string,
   id: string
 ): { code: string; lang: string } {
-  if (!REGEX_VUE_SFC.test(id)) return { code, lang: getLang(id) }
+  if (!REGEX_VUE_SFC.test(id)) {
+    return {
+      code,
+      lang: getLang(id),
+    }
+  }
+
   const sfc = parseSFC(code, id)
   const scriptCode = sfc.script?.content ?? ''
   return {

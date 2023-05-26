@@ -568,6 +568,52 @@ export { issue362 as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/json-resolve.vue > isProduction = false 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"json-resolve\\",
+  props: {
+    \\"foo\\": { type: String, required: true },
+    \\"bar\\": { type: Object, required: false }
+  },
+  setup(__props) {
+    const props = __props;
+    return () => {
+    };
+  }
+});
+
+var jsonResolve = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { jsonResolve as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/json-resolve.vue > isProduction = true 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"json-resolve\\",
+  props: {
+    \\"foo\\": null,
+    \\"bar\\": null
+  },
+  setup(__props) {
+    const props = __props;
+    return () => {
+    };
+  }
+});
+
+var jsonResolve = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { jsonResolve as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/namespace.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '/plugin-vue/export-helper';

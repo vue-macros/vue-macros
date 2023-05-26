@@ -9,6 +9,8 @@ export { default as RollupVue } from 'unplugin-vue/rollup'
 export { default as RollupVue2 } from '@vitejs/plugin-vue2'
 export const RollupVueJsx = ViteVueJsx as (options?: VueJsxOptions) => Plugin
 
+export { default as RollupJson } from '@rollup/plugin-json'
+
 export const RollupToStringPlugin = (): Plugin => {
   return {
     name: 'to-string',

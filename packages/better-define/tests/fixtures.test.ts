@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 import { describe } from 'vitest'
 import {
   RollupEsbuildPlugin,
+  RollupJson,
   RollupRemoveVueFilePathPlugin,
   RollupVue,
   RollupVueJsx,
@@ -19,6 +20,7 @@ describe('fixtures', async () => {
         RollupVue(),
         RollupVueJsx(),
         RollupRemoveVueFilePathPlugin(),
+        RollupJson(),
         RollupEsbuildPlugin({
           target: 'esnext',
         }),

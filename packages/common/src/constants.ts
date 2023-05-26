@@ -20,6 +20,7 @@ export const REGEX_VUE_SFC = /\.vue$/
 export const REGEX_VUE_SUB = /\.vue\?vue&type=script/
 export const REGEX_DTS = /\.d\.[cm]?ts$/
 export const REGEX_NODE_MODULES = /node_modules/
+export const REGEX_SUPPORTED_EXT = /\.([cm]?[jt]sx?|vue)$/
 
 export const REGEX_LANG_TS = /^[cm]?tsx?$/
 export const REGEX_LANG_JSX = /^[cm]?[jt]sx$/
