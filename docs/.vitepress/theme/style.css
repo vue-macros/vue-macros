@@ -3,12 +3,12 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --vp-c-brand: #914796;
-  --vp-c-brand-light: #b475ba;
-  --vp-c-brand-lighter: #d6abdb;
-  --vp-c-brand-lightest: #fdf0ff;
-  --vp-c-brand-dark: #84208a;
-  --vp-c-brand-darker: #7b0080;
+  --vp-c-brand: #ae3ec9;
+  --vp-c-brand-light: #da77f2;
+  --vp-c-brand-lighter: #e599f7;
+  --vp-c-brand-lightest: ##f3d9fa;
+  --vp-c-brand-dark: #9c36b5;
+  --vp-c-brand-darker: #862e9c;
   --vp-c-brand-dimm: rgba(145, 71, 150, 0.08);
 
   --vp-local-search-highlight-bg: var(--vp-c-brand-light);
@@ -39,9 +39,28 @@
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: linear-gradient(
     30deg,
-    #1d2d69 0%,
-    #924797 40%
+    #be4bdb 0%,
+    #7950f2 80%
   );
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #cc5de845 50%,
+    #845ef745 50%
+  );
+  --vp-home-hero-image-filter: blur(40px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(72px);
+  }
 }
 
 /**
