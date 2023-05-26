@@ -3,7 +3,8 @@ layout: home
 
 hero:
   name: Vue Macros
-  tagline: Explore and extend more macros and syntax sugar to Vue.
+  text: Another Way to Writing Vue App
+  tagline: Explore more macros and syntax sugar to Vue.
   image:
     src: /logo.svg
     alt: Vue Macros
