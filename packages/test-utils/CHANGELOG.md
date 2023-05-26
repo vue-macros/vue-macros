@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.0.4
+
+### Patch Changes
+
+- [`34be70e`](https://github.com/sxzz/vue-macros/commit/34be70e5b3e37615b563da02bff5ae89de63b713) Thanks [@sxzz](https://github.com/sxzz)! - resolve json file
+
 ## 1.0.3
 
 ### Patch Changes
