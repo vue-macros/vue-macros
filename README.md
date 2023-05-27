@@ -26,7 +26,7 @@
 ## Installation
 
 ```bash
-npm i unplugin-vue-macros -D
+npm i -D unplugin-vue-macros
 ```
 
 ## Sponsors
