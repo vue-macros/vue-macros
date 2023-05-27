@@ -6,7 +6,7 @@ import {
 import * as common from './common'
 
 export const title = 'Vue Macros'
-export const description = '探索并扩展更多宏和语法糖到 Vue 中。'
+export const description = '探索更多宏和语法糖到 Vue 中。'
 
 export const nav: DefaultTheme.NavItem[] = [
   { text: '指南', link: '/zh-CN/guide/getting-started', activeMatch: 'guide' },

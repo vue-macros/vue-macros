@@ -4,7 +4,7 @@
 
 <h1 align="center">Vue Macros</h1>
 
-<p align="center">Explore and extend more macros and syntax sugar to Vue.</p>
+<p align="center">Explore more macros and syntax sugar to Vue.</p>
 
 <p align="center">
   <a href="https://npmjs.com/package/unplugin-vue-macros">
@@ -18,7 +18,7 @@
 
 ## Features
 
-- ✨ Explore and extend more macros and syntax sugar to Vue.
+- ✨ Explore more macros and syntax sugar to Vue.
 - 💚 Supports both Vue 2.7 and Vue 3 out-of-the-box.
 - 🦾 Full TypeScript / Volar support.
 - ⚡️ Supports Vite, Nuxt, Webpack, Vue CLI, Rollup 3, esbuild and more, powered by [unplugin](https://github.com/unjs/unplugin).

@@ -6,7 +6,7 @@ export const pwa: PwaOptions = {
   manifest: {
     name: 'Vue Macros',
     short_name: 'Vue Macros',
-    description: 'Explore and extend more macros and syntax sugar to Vue.',
+    description: 'Explore more macros and syntax sugar to Vue.',
     theme_color: '#914796',
     id: '/',
     icons,

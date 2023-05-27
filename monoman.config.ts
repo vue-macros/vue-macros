@@ -17,7 +17,7 @@ export default defineConfig([
 
       const descriptions: Record<string, string> = {
         'define-options': 'Add defineOptions macro for Vue <script setup>.',
-        macros: 'Explore and extend more macros and syntax sugar to Vue.',
+        macros: 'Explore more macros and syntax sugar to Vue.',
         volar: 'Volar plugin for Vue Macros.',
         devtools: 'Devtools plugin for Vue Macros.',
         api: 'General API for Vue Macros.',

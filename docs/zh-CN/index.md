@@ -3,7 +3,8 @@ layout: home
 
 hero:
   name: Vue Macros
-  tagline: 探索并扩展更多的宏和语法糖到 Vue 中。
+  text: 体验超现代 Vue
+  tagline: 探索更多的宏和语法糖到 Vue 中。
   image:
     src: /logo.svg
     alt: Vue Macros
@@ -17,7 +18,7 @@ hero:
 features:
   - icon: ✨
     title: 扩展更多的宏和语法糖
-    details: 探索并扩展更多的宏和语法糖到 Vue 中。
+    details: 探索更多的宏和语法糖到 Vue 中。
   - icon: 💚
     title: 开箱即用，强兼容性
     details: 开箱即用地支持 Vue 2.7 和 Vue 3。

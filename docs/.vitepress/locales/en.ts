@@ -6,8 +6,7 @@ import {
 import * as common from './common'
 
 export const title = 'Vue Macros'
-export const description =
-  'Explore and extend more macros and syntax sugar to Vue.'
+export const description = 'Explore more macros and syntax sugar to Vue.'
 
 export const nav: DefaultTheme.NavItem[] = [
   { text: 'Guide', link: '/guide/getting-started', activeMatch: 'guide' },
