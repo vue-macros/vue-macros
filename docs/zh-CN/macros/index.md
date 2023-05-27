@@ -8,13 +8,11 @@
 
 - [defineOptions](/zh-CN/macros/define-options)
 - [defineSlots](/zh-CN/macros/define-slots)
-  - [WIP](https://github.com/vuejs/core/pull/7982)
-- [defineModels](/zh-CN/macros/define-models) (:warning: 与官方版本不一致)
-  - WIP
 - [shortEmits](/zh-CN/macros/short-emits)
 
 ## 稳定功能
 
+- [defineModels](/zh-CN/macros/define-models)
 - [defineProps](/zh-CN/macros/define-props)
 - [definePropsRefs](/zh-CN/macros/define-props-refs)
 - [defineRender](/zh-CN/macros/define-render)
