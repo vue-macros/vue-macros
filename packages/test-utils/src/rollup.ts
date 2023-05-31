@@ -52,13 +52,7 @@ export const RollupEscapeNullCharacterPlugin = (): Plugin => {
 export async function rollupBuild(file: string, plugins: InputPluginOption) {
   const bundle = await rollup({
     input: [file],
-    external: [
-      'vue',
-      '@vueuse/core',
-      '/plugin-vue/export-helper',
-      '\0plugin-vue2:normalizer',
-      /^\/vue-macros\/.*/,
-    ],
+    external: ['vue', '@vueuse/core', /^\0.*/, /^\/vue-macros\/.*/],
     plugins,
     treeshake: false,
     onwarn(warning, defaultHandler) {
