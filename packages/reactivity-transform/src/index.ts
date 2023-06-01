@@ -40,16 +40,15 @@ export default createUnplugin<Options | undefined, false>(
       enforce: 'pre',
 
       resolveId(id) {
-        if (id === helperId) return id
+        if (id === normalizePath(helperId)) return id
       },
 
       loadInclude(id) {
-        return id === helperId
+        return normalizePath(id) === helperId
       },
 
-      load(_id) {
-        const id = normalizePath(_id)
-        if (id === helperId) return helperCode
+      load(id) {
+        if (normalizePath(id) === helperId) return helperCode
       },
 
       transformInclude(id) {

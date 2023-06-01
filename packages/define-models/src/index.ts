@@ -54,11 +54,11 @@ export default createUnplugin<Options | undefined, false>(
       enforce: 'pre',
 
       resolveId(id) {
-        if (id.startsWith(helperPrefix)) return id
+        if (normalizePath(id).startsWith(helperPrefix)) return id
       },
 
       loadInclude(id) {
-        return id.startsWith(helperPrefix)
+        return normalizePath(id).startsWith(helperPrefix)
       },
 
       load(_id) {
