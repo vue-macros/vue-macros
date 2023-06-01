@@ -24,3 +24,5 @@ export const REGEX_SUPPORTED_EXT = /\.([cm]?[jt]sx?|vue)$/
 
 export const REGEX_LANG_TS = /^[cm]?tsx?$/
 export const REGEX_LANG_JSX = /^[cm]?[jt]sx$/
+
+export const VIRTUAL_ID_PREFIX = '/vue-macros'
