@@ -1,6 +1,6 @@
 export function removeSpaces(s: string) {
   return s
     .trim()
-    .replace(/[\n\r]/g, '')
-    .replace(/\s+/g, ' ')
+    .replaceAll(/[\n\r]/g, '')
+    .replaceAll(/\s+/g, ' ')
 }

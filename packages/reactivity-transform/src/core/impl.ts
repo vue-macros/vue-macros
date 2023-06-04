@@ -752,7 +752,7 @@ export function transformAST(
         isFunctionType(node)
       ) {
         scopeStack.pop()
-        currentScope = scopeStack[scopeStack.length - 1] || null
+        currentScope = scopeStack.at(-1) || null
       }
       if (node === escapeScope) {
         escapeScope = undefined

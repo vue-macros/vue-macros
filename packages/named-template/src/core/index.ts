@@ -238,5 +238,5 @@ export function postTransformMainEntry(
 }
 
 function escapeTemplateName(name: string) {
-  return name.replace(/-/g, '$DASH')
+  return name.replaceAll('-', '$DASH')
 }

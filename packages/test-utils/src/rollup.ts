@@ -14,7 +14,7 @@ export { default as RollupJson } from '@rollup/plugin-json'
 export const RollupToStringPlugin = (): Plugin => {
   return {
     name: 'to-string',
-    transform: (code) => `export default \`${code.replace(/`/g, '\\`')}\``,
+    transform: (code) => `export default \`${code.replaceAll('`', '\\`')}\``,
   }
 }
 
@@ -27,7 +27,7 @@ export const RollupRemoveVueFilePathPlugin = (): Plugin => {
     name: 'remove-vue-filepath',
     transform(code: string) {
       const transformed = code
-        .replace(REGEX[0], '__FILE__')
+        .replaceAll(REGEX[0], '__FILE__')
         .replace(REGEX[1], '__FILE__')
       if (code !== transformed) return transformed
     },
@@ -42,7 +42,7 @@ export const RollupEscapeNullCharacterPlugin = (): Plugin => {
         const b = bundle[filename]
         if (b.type !== 'chunk') continue
         if (b.code.includes('\0')) {
-          b.code = b.code.replace(/\0/g, '[NULL]')
+          b.code = b.code.replaceAll('\0', '[NULL]')
         }
       }
     },
