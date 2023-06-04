@@ -30,7 +30,7 @@ export function transformDefineRender(code: string, id: string) {
       if (
         node.type !== 'ExpressionStatement' ||
         !isCallOf(node.expression, DEFINE_RENDER) ||
-        parent.type !== 'BlockStatement'
+        parent?.type !== 'BlockStatement'
       )
         return
 

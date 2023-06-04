@@ -3,11 +3,11 @@
 exports[`fixtures > tests/fixtures/define-emit.vue 1`] = `
 "var defineEmit = \`<script setup lang=\\"ts\\">
 const __MACROS_emit = defineEmits({
-      \\"foo\\": null,
-  \\"bar\\": (value: string) => typeof value === 'string',
-  \\"baz\\": (value) => typeof value === 'number',
-  \\"baz\\": (value) => typeof value === 'string',
-  \\"change\\": null
+      foo: null,
+  bar: (value: string) => typeof value === 'string',
+  baz: (value) => typeof value === 'number',
+  baz: (value) => typeof value === 'string',
+  change: null
     })
 
 import { expectTypeOf } from 'expect-type'

@@ -31,8 +31,5 @@ export interface BaseOptions {
 export function createFilter(options: BaseOptions) {
   return createRollupFilter(options.include, options.exclude)
 }
-export {
-  normalizePath,
-  attachScopes,
-  type AttachedScope,
-} from '@rollup/pluginutils'
+
+export { normalizePath } from '@rollup/pluginutils'

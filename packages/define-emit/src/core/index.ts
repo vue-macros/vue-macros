@@ -2,6 +2,7 @@ import {
   DEFINE_EMIT,
   HELPER_PREFIX,
   MagicString,
+  escapeKey,
   getTransformResult,
   isCallOf,
   parseSFC,
@@ -35,7 +36,7 @@ export function transformDefineEmit(code: string, id: string) {
         let emitName: string
         if (!name) {
           if (
-            parent.type !== 'VariableDeclarator' ||
+            parent?.type !== 'VariableDeclarator' ||
             parent.id.type !== 'Identifier'
           ) {
             throw new Error(
@@ -86,8 +87,7 @@ export function transformDefineEmit(code: string, id: string) {
     return `{
       ${emits
         .map(
-          ({ name, validator }) =>
-            `${JSON.stringify(name)}: ${validator || `null`}`
+          ({ name, validator }) => `${escapeKey(name)}: ${validator || `null`}`
         )
         .join(',\n  ')}
     }`

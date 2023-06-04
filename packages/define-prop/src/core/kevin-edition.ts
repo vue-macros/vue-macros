@@ -1,4 +1,4 @@
-import { DEFINE_PROP } from '@vue-macros/common'
+import { DEFINE_PROP, escapeKey } from '@vue-macros/common'
 import { type TSType } from '@babel/types'
 import { genRuntimePropDefinition } from '@vue-macros/api'
 import { type Impl, stringifyArray } from './utils'
@@ -19,7 +19,7 @@ export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
       let propName: string
       if (!name) {
         if (
-          parent.type !== 'VariableDeclarator' ||
+          parent?.type !== 'VariableDeclarator' ||
           parent.id.type !== 'Identifier'
         )
           throw new Error(
@@ -71,7 +71,7 @@ export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
           def = genRuntimePropDefinition(types, isProduction, properties)
         }
 
-        propsString += `  ${JSON.stringify(name)}: ${def},\n`
+        propsString += `  ${escapeKey(name)}: ${def},\n`
       }
       propsString += '}'
 

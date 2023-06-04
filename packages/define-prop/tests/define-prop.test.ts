@@ -36,7 +36,7 @@ describe("defineProp (Kevin's proposal)", () => {
     expect(code).includes(`const foo = __MACROS_toRef(__MACROS_props, "foo")`)
 
     expect(code).includes(
-      `const ${PROPS_VARIABLE_NAME} = defineProps({ "foo": ${removeSpaces(
+      `const ${PROPS_VARIABLE_NAME} = defineProps({ foo: ${removeSpaces(
         propOptions
       )},})`
     )

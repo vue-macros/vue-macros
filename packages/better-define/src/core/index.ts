@@ -1,5 +1,6 @@
 import {
   MagicString,
+  escapeKey,
   getTransformResult,
   importHelperFn,
   parseSFC,
@@ -43,7 +44,7 @@ export async function transformBetterDefine(
         if (!isProduction) properties.push(`required: ${required}`)
         if (defaultString) properties.push(defaultString)
 
-        return `${JSON.stringify(key)}: ${genRuntimePropDefinition(
+        return `${escapeKey(key)}: ${genRuntimePropDefinition(
           type,
           isProduction,
           properties

@@ -3,11 +3,11 @@
 exports[`fixtures > tests/fixtures/johnson-edition/basic.vue 1`] = `
 "var basic = \`<script setup lang=\\"ts\\">
 const __MACROS_props = defineProps({
-  \\"qux\\": { type: String },
-  \\"foo\\": { type: String, default: 'foo' },
-  \\"bar\\": { default: 'bar', required: false },
-  \\"baz\\": { type: String, default: 'bar', required: false, ...{ validator: () => true } },
-  \\"unknownType\\": { type: Boolean, skipCheck: true },
+  qux: { type: String },
+  foo: { type: String, default: 'foo' },
+  bar: { default: 'bar', required: false },
+  baz: { type: String, default: 'bar', required: false, ...{ validator: () => true } },
+  unknownType: { type: Boolean, skipCheck: true },
 });
 
 import { toRef as __MACROS_toRef } from \\"vue\\";
@@ -43,20 +43,20 @@ export { basic as default };
 exports[`fixtures > tests/fixtures/kevin-edition/basic.vue 1`] = `
 "var basic = \`<script setup lang=\\"ts\\">
 const __MACROS_props = defineProps({
-  \\"foo\\": { type: String },
-  \\"bar\\": { type: String, ...{
+  foo: { type: String },
+  bar: { type: String, ...{
   type: String,
   required: true,
   default: 'bar',
 } },
-  \\"baz\\": { type: [String, Number], ...{
+  baz: { type: [String, Number], ...{
   required: true,
   default: () => [1, 2, 3],
 } },
-  \\"qux\\": { type: [String, Number] },
-  \\"quux\\": { type: Boolean, ...{ default: true } },
-  \\"quuz\\": null,
-  \\"unknownType\\": { type: Boolean, skipCheck: true },
+  qux: { type: [String, Number] },
+  quux: { type: Boolean, ...{ default: true } },
+  quuz: null,
+  unknownType: { type: Boolean, skipCheck: true },
 });
 
 import { toRef as __MACROS_toRef } from \\"vue\\";

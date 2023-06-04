@@ -6,8 +6,7 @@ import {
 } from '@vue/compiler-sfc'
 import { type Program } from '@babel/types'
 import { type MagicStringBase } from 'magic-string-ast'
-import { babelParse } from './ast'
-import { getLang } from './lang'
+import { babelParse, getLang } from 'ast-kit'
 import { REGEX_VUE_SFC } from './constants'
 
 export type SFCScriptBlock = Omit<

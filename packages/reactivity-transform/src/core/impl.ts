@@ -277,7 +277,7 @@ export function transformAST(
     return parentStack
       .slice()
       .reverse()
-      .find(({ type }) => !TS_NODE_TYPES.includes(type))
+      .find(({ type }) => !TS_NODE_TYPES.includes(type as any))
   }
 
   function walkScope(node: Program | BlockStatement, isRoot = false) {
@@ -678,7 +678,7 @@ export function transformAST(
       if (
         parent &&
         parent.type.startsWith('TS') &&
-        !TS_NODE_TYPES.includes(parent.type)
+        !TS_NODE_TYPES.includes(parent.type as any)
       ) {
         return this.skip()
       }

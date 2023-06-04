@@ -160,6 +160,9 @@ importers:
       '@vue/compiler-sfc':
         specifier: ^3.3.4
         version: 3.3.4
+      ast-kit:
+        specifier: ^0.5.0
+        version: 0.5.0
       local-pkg:
         specifier: ^0.4.3
         version: 0.4.3
@@ -170,9 +173,6 @@ importers:
       '@babel/parser':
         specifier: ^7.22.4
         version: 7.22.4
-      estree-walker:
-        specifier: ^3.0.3
-        version: 3.0.3
 
   packages/define-emit:
     dependencies:
@@ -4391,6 +4391,17 @@ packages:
   /assertion-error@1.1.0:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
     dev: true
+
+  /ast-kit@0.5.0:
+    resolution: {integrity: sha512-fXK0cTT4WA5mFlLQjTJyMjCEPqycwyy++q8bUkqDCsm/BseHo0/Gh+bjpLB08nanKNX5WdFm14v/+MCbkfsGXw==}
+    engines: {node: '>=16.14.0'}
+    dependencies:
+      '@babel/parser': 7.22.4
+      '@rollup/pluginutils': 5.0.2(rollup@3.23.0)
+      pathe: 1.1.0
+    transitivePeerDependencies:
+      - rollup
+    dev: false
 
   /ast-types@0.16.1:
     resolution: {integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==}

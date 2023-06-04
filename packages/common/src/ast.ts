@@ -1,58 +1,12 @@
-import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
-// @ts-ignore error in node CJS (volar tsconfig)
-import { walk } from 'estree-walker'
+import { walkIdentifiers } from '@vue/compiler-sfc'
 import {
-  type CallExpression,
-  type Function,
-  type Literal,
   type Node,
   type ObjectExpression,
   type ObjectMethod,
   type ObjectProperty,
-  type Program,
-  type TemplateLiteral,
 } from '@babel/types'
-import { type ParserOptions, type ParserPlugin } from '@babel/parser'
 import { type MagicStringBase } from 'magic-string-ast'
-import { isTs } from './lang'
-import { REGEX_LANG_JSX } from './constants'
-
-export function babelParse(
-  code: string,
-  lang?: string,
-  options: ParserOptions = {}
-): Program {
-  const plugins: ParserPlugin[] = [...(options.plugins || [])]
-  if (isTs(lang)) {
-    plugins.push(['typescript', { dts: lang === 'dts' }])
-    if (REGEX_LANG_JSX.test(lang!)) plugins.push('jsx')
-    if (!plugins.includes('decorators')) plugins.push('decorators-legacy')
-  } else {
-    plugins.push('jsx')
-  }
-  const { program } = _babelParse(code, {
-    sourceType: 'module',
-    plugins,
-    ...options,
-  })
-  return program
-}
-
-export function isCallOf(
-  node: Node | null | undefined,
-  test: string | string[] | ((id: string) => boolean)
-): node is CallExpression {
-  return !!(
-    node &&
-    node.type === 'CallExpression' &&
-    node.callee.type === 'Identifier' &&
-    (typeof test === 'string'
-      ? node.callee.name === test
-      : Array.isArray(test)
-      ? test.includes(node.callee.name)
-      : test(node.callee.name))
-  )
-}
+import { isFunctionType, isLiteralType } from 'ast-kit'
 
 export function checkInvalidScopeReference(
   node: Node | undefined,
@@ -163,44 +117,6 @@ export function isStaticExpression(
   return false
 }
 
-export function isLiteralType(node: Node): node is Literal {
-  return node.type.endsWith('Literal')
-}
-
-export function resolveTemplateLiteral(node: TemplateLiteral) {
-  return node.quasis.reduce((prev, curr, idx) => {
-    if (node.expressions[idx]) {
-      return (
-        prev +
-        curr.value.cooked +
-        resolveLiteral(node.expressions[idx] as Literal)
-      )
-    }
-    return prev + curr.value.cooked
-  }, '')
-}
-
-export function resolveLiteral(
-  node: Literal
-): string | number | boolean | null | RegExp | bigint {
-  switch (node.type) {
-    case 'TemplateLiteral':
-      return resolveTemplateLiteral(node)
-    case 'NullLiteral':
-      return null
-    case 'BigIntLiteral':
-      return BigInt(node.value)
-    case 'RegExpLiteral':
-      return new RegExp(node.pattern, node.flags)
-
-    case 'BooleanLiteral':
-    case 'NumericLiteral':
-    case 'StringLiteral':
-      return node.value
-  }
-  return undefined as never
-}
-
 export function isStaticObjectKey(node: ObjectExpression): boolean {
   return node.properties.every((prop) => {
     if (prop.type === 'SpreadElement') {
@@ -253,55 +169,6 @@ export function resolveObjectKey(node: Node, computed = false, raw = true) {
     // break omitted intentionally
     default:
       throw new SyntaxError(`Unexpected node type: ${node.type}`)
-  }
-}
-
-export function walkAST<T = Node>(
-  node: T,
-  options: {
-    enter?: (
-      this: {
-        skip: () => void
-        remove: () => void
-        replace: (node: T) => void
-      },
-      node: T,
-      parent: T,
-      key: string,
-      index: number
-    ) => void
-    leave?: (
-      this: {
-        skip: () => void
-        remove: () => void
-        replace: (node: T) => void
-      },
-      node: T,
-      parent: T,
-      key: string,
-      index: number
-    ) => void
-  }
-): T {
-  return walk(node as any, options as any) as any
-}
-
-export function isFunctionType(node: Node): node is Function {
-  return /Function(?:Expression|Declaration)$|Method$/.test(node.type)
-}
-
-export const TS_NODE_TYPES = [
-  'TSAsExpression', // foo as number
-  'TSTypeAssertion', // (<number>foo)
-  'TSNonNullExpression', // foo!
-  'TSInstantiationExpression', // foo<string>
-  'TSSatisfiesExpression', // foo satisfies T
-]
-export function unwrapTSNode(node: Node): Node {
-  if (TS_NODE_TYPES.includes(node.type)) {
-    return unwrapTSNode((node as any).expression)
-  } else {
-    return node
   }
 }
 
