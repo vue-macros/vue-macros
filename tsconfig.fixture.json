@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["DOM"]
+    "lib": ["ES2022", "DOM"]
   },
   "include": ["**/fixtures/**/*", "packages/macros/macros-global.d.ts"],
   "vueCompilerOptions": {

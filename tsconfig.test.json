@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
-    "lib": ["DOM"],
+    "lib": ["ES2022", "DOM"],
     "types": ["node", "vite/client"]
   },
   "include": ["packages/*/tests", "packages/*/src", "packages/shim.d.ts"],
