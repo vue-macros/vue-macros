@@ -285,8 +285,8 @@ importers:
   packages/define-render:
     dependencies:
       '@ast-grep/napi':
-        specifier: ^0.1.5
-        version: 0.1.5
+        specifier: ^0.5.7
+        version: 0.5.7
       '@vue-macros/common':
         specifier: workspace:~
         version: link:../common
@@ -910,8 +910,8 @@ packages:
       leven: 3.1.0
     dev: true
 
-  /@ast-grep/napi-darwin-arm64@0.1.5:
-    resolution: {integrity: sha512-OYXE6G/eHMowLWsOIPFqIX4jzBxNvGdv0HfI2F7d8DpIc43HBmWehjG3dZzzwWSJLZ1YRS2tQW4eaR+myi9Org==}
+  /@ast-grep/napi-darwin-arm64@0.5.7:
+    resolution: {integrity: sha512-f9oQBA527T6Wx7P/apACsbDym9rZyy0zMCzrYgyxGEw9owoDL6Z+nWc5JDd7kM98zhaUBzoBHrls8xtv/xT49Q==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -919,8 +919,8 @@ packages:
     dev: false
     optional: true
 
-  /@ast-grep/napi-darwin-x64@0.1.5:
-    resolution: {integrity: sha512-nkvXMjKHhMWTiMbJ4aeMcXqCX9EW9pvVmdTDO6+Ares059xQVqoUL82QgXTxiO1riIYt6/z0U4++lfSqgokyPw==}
+  /@ast-grep/napi-darwin-x64@0.5.7:
+    resolution: {integrity: sha512-bphqeNXpxDB1CWpBEjmvFYLMRmmipmCBuQ76TjOglCdT+Pah/kJ76mCyRaYHLhW104M/9XtBi82OefS1U8OrkA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -928,8 +928,8 @@ packages:
     dev: false
     optional: true
 
-  /@ast-grep/napi-linux-x64-gnu@0.1.5:
-    resolution: {integrity: sha512-yvrtPZbCJjXUxJ9Yn9aV0BnhNlilPzz96UWYcPGUVNQc0l68++61s0zZeOB8Z1Wid1Lq72IL9mNmkRJqoBTzVw==}
+  /@ast-grep/napi-linux-x64-gnu@0.5.7:
+    resolution: {integrity: sha512-vpvVQ3F+2OZH3J5Au1yIijFmFVmRrYRrW2F0BW2VaBoHc+5xyCmCeEZVfitn4tZcN2WBTLaFeh2IAFDOWp1XjA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -937,8 +937,26 @@ packages:
     dev: false
     optional: true
 
-  /@ast-grep/napi-win32-x64-msvc@0.1.5:
-    resolution: {integrity: sha512-3tFkI/DUeMg+fhlRx5Tunpu0aqqVQU+5ag5eicRx3X0ckSd/sOaZVVU/BV1eEw+AOpYeYJ/oPmUm/IXf4PIu7Q==}
+  /@ast-grep/napi-win32-arm64-msvc@0.5.7:
+    resolution: {integrity: sha512-2e8QkdMISdC/JQJ/Hm1KjWPls4saiiMF4mfpK6gUNAe/Kqy9yBAwv8YdCzz6ucO0JHR2056zAGaJvG8YgcHDtg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@ast-grep/napi-win32-ia32-msvc@0.5.7:
+    resolution: {integrity: sha512-7wOd7O3ozWkXhUVlOvxM13IPl98TefhacH9ZbriPtOFbuO+2dP+xIqh5F1CAcFfltN8r/3pZecp33hvSPccDlQ==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@ast-grep/napi-win32-x64-msvc@0.5.7:
+    resolution: {integrity: sha512-u17aQUI5TtU8xCWC23ikTSQKDPfjJyXOHNIxZ1pT0v2LCfqV0hl/iwe3LKXXGPPs2+tEZVPNawV8R1l+KLSRAg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -946,14 +964,16 @@ packages:
     dev: false
     optional: true
 
-  /@ast-grep/napi@0.1.5:
-    resolution: {integrity: sha512-pGz5LxMXw4DPQ/fvDYAvHLd+2hJqXKcWbYP51tZu9ueKvrOKG6ueNpKi8TjbHnq8bgfydwYP/a1uDC+1051WTA==}
+  /@ast-grep/napi@0.5.7:
+    resolution: {integrity: sha512-t4XEGqQDeVIJAap6+O1SykddFtruTB79++lR2oRF83f5KesE6tcQaxeJb/jkdy5atmlUx4lOjUbtNFY489oKsQ==}
     engines: {node: '>= 10'}
     optionalDependencies:
-      '@ast-grep/napi-darwin-arm64': 0.1.5
-      '@ast-grep/napi-darwin-x64': 0.1.5
-      '@ast-grep/napi-linux-x64-gnu': 0.1.5
-      '@ast-grep/napi-win32-x64-msvc': 0.1.5
+      '@ast-grep/napi-darwin-arm64': 0.5.7
+      '@ast-grep/napi-darwin-x64': 0.5.7
+      '@ast-grep/napi-linux-x64-gnu': 0.5.7
+      '@ast-grep/napi-win32-arm64-msvc': 0.5.7
+      '@ast-grep/napi-win32-ia32-msvc': 0.5.7
+      '@ast-grep/napi-win32-x64-msvc': 0.5.7
     dev: false
 
   /@babel/code-frame@7.21.4:

@@ -3,9 +3,9 @@
 exports[`fixtures > tests/fixtures/basic.jsx 1`] = `
 "import { defineComponent, createVNode } from 'vue';
 
-defineComponent({
+/* @__PURE__ */ defineComponent({
   setup() {
-    return () => createVNode(\\"div\\", null, null);
+    defineRender(createVNode(\\"div\\", null, null));
   }
 });
 "
@@ -28,7 +28,7 @@ export { basic as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/error1.vue 1`] = `"unplugin-vue-define-render SyntaxError: bad arguments: defineRender()"`;
+exports[`fixtures > tests/fixtures/error1.vue 1`] = `"bad arguments: defineRender()"`;
 
 exports[`fixtures > tests/fixtures/id.vue 1`] = `
 "import { defineComponent, createVNode, createTextVNode } from 'vue';
@@ -69,8 +69,10 @@ exports[`fixtures > tests/fixtures/with-return.js 1`] = `
 ";
 () => {
   return () => {
-    console.log(\\"hello world\\");
   };
+  defineRender(() => {
+    console.log(\\"hello world\\");
+  });
 };
 "
 `;
