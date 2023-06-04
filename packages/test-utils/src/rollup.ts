@@ -53,7 +53,11 @@ export async function rollupBuild(file: string, plugins: InputPluginOption) {
   const bundle = await rollup({
     input: [file],
     external: ['vue', '@vueuse/core', /^\0.*/, /^\/vue-macros\/.*/],
-    plugins,
+    plugins: [
+      plugins,
+      RollupEscapeNullCharacterPlugin(),
+      RollupRemoveVueFilePathPlugin(),
+    ],
     treeshake: false,
     onwarn(warning, defaultHandler) {
       if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return

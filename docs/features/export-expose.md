@@ -41,14 +41,13 @@ export class A {}
 ```vue
 <script lang="ts">
 const foo: string = 'foo',
-bar = 10
+  bar = 10
 let baz: string | undefined
 const qux = fn()
 const { a, b, c } = { a: 1, b: 2, c: 3 }
 
 function fn() {}
 class A {}
-
 
 defineExpose({
   foo,
@@ -98,7 +97,11 @@ export { foo, type Foo, foo as bar } from './types'
 
 ```vue
 <script setup lang="ts">
-import { type Foo, foo as __MACROS_expose_0, foo as __MACROS_expose_1 } from './types'
+import {
+  type Foo,
+  foo as __MACROS_expose_0,
+  foo as __MACROS_expose_1,
+} from './types'
 defineExpose({
   foo: __MACROS_expose_0,
   bar: __MACROS_expose_1,
@@ -158,7 +161,6 @@ defineExpose({
 ```
 
 :::
-
 
 ## Limitations
 

@@ -16,12 +16,12 @@
 支持以下语法：
 
 - 局部变量/函数/类
-- 别名导出 
+- 别名导出
 - 从其他文件导出
 - 命名空间导出
 - 重命名导出
 
-### 1. 局部变量/函数/类 
+### 1. 局部变量/函数/类
 
 ```vue
 <script setup lang="ts">
@@ -36,19 +36,18 @@ export class A {}
 </script>
 ```
 
-::: details 编译后代码 
+::: details 编译后代码
 
 ```vue
 <script lang="ts">
 const foo: string = 'foo',
-bar = 10
+  bar = 10
 let baz: string | undefined
 const qux = fn()
 const { a, b, c } = { a: 1, b: 2, c: 3 }
 
 function fn() {}
 class A {}
-
 
 defineExpose({
   foo,
@@ -66,7 +65,7 @@ defineExpose({
 
 :::
 
-### 2. 别名导出 
+### 2. 别名导出
 
 ```vue
 <script setup lang="ts">
@@ -74,7 +73,7 @@ export { foo as foo1 }
 </script>
 ```
 
-::: details 编译后代码 
+::: details 编译后代码
 
 ```vue
 <script setup lang="ts">
@@ -86,7 +85,7 @@ defineExpose({
 
 :::
 
-### 3. 从其他文件导出 
+### 3. 从其他文件导出
 
 ```vue
 <script setup lang="ts">
@@ -94,11 +93,15 @@ export { foo, type Foo, foo as bar } from './types'
 </script>
 ```
 
-::: details 编译后代码 
+::: details 编译后代码
 
 ```vue
 <script setup lang="ts">
-import { type Foo, foo as __MACROS_expose_0, foo as __MACROS_expose_1 } from './types'
+import {
+  type Foo,
+  foo as __MACROS_expose_0,
+  foo as __MACROS_expose_1,
+} from './types'
 defineExpose({
   foo: __MACROS_expose_0,
   bar: __MACROS_expose_1,
@@ -108,7 +111,7 @@ defineExpose({
 
 :::
 
-### 4. 命名空间导出 
+### 4. 命名空间导出
 
 ```vue
 <script setup lang="ts">
@@ -116,7 +119,7 @@ export * as foo from './types'
 </script>
 ```
 
-::: details 编译后代码 
+::: details 编译后代码
 
 ```vue
 <script setup lang="ts">
@@ -129,7 +132,7 @@ defineExpose({
 
 :::
 
-### 5. 重命名导出 
+### 5. 重命名导出
 
 ```vue
 <script setup lang="ts">
@@ -141,7 +144,7 @@ export * as bar from './types'
 </script>
 ```
 
-::: details 编译后代码 
+::: details 编译后代码
 
 ```vue
 <script setup lang="ts">
@@ -159,8 +162,7 @@ defineExpose({
 
 :::
 
-
-## 限制 
+## 限制
 
 当前不支持以下语法：
 
