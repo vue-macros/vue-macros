@@ -6,6 +6,7 @@ Vue Macros 是一个库，用于实现尚未被 Vue 正式实现的提案或想�
 
 ## 要求
 
+- Node.js 16.14.0 或更高
 - Vue >= 2.7 或 Vue >= 3.0
   - 某些功能需要 Vue >= 3.2.25
 - VSCode 安装了 [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 扩展
