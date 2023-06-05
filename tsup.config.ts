@@ -29,7 +29,7 @@ const EsbuildRawPlugin: Plugin = {
 export default defineConfig({
   entry: ['./src/*.ts'],
   format: ['cjs', 'esm'],
-  target: 'node14',
+  target: 'node16.14',
   splitting: true,
   watch: !!process.env.DEV,
   dts: process.env.DEV
