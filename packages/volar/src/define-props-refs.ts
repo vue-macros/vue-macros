@@ -24,7 +24,7 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
   }
 }
 
-export = plugin
+export default plugin
 
 const REGEX = /(const\s*{.*?)((,\s*)?withDefaults)(.*?})/
 function rewriteImports(file: VueEmbeddedFile) {

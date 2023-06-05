@@ -26,7 +26,6 @@
     "typecheck:lib": "vue-tsc --noEmit -p tsconfig.lib.json",
     "typecheck:dts:vue2": "tsc --noEmit -p tsconfig.dts.vue2.json",
     "typecheck:dts:vue3": "tsc --noEmit -p tsconfig.dts.vue3.json",
-    "typecheck:volar": "vue-tsc --noEmit -p tsconfig.volar.json",
     "typecheck:test": "vue-tsc --noEmit -p tsconfig.test.json",
     "typecheck:docs": "vue-tsc --noEmit -p ./docs/tsconfig.json",
     "typecheck:fixture": "vue-tsc --noEmit -p tsconfig.fixture.json"

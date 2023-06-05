@@ -136,4 +136,4 @@ const plugin: VueLanguagePlugin = ({
     },
   }
 }
-export = plugin
+export default plugin

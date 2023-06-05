@@ -75,4 +75,4 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
     },
   }
 }
-export = plugin
+export default plugin

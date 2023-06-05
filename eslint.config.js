@@ -32,4 +32,10 @@ export default sxzz([
       'import/no-default-export': 'off',
     },
   },
+  {
+    files: ['packages/volar/**'],
+    rules: {
+      'import/no-default-export': 'off',
+    },
+  },
 ])

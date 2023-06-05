@@ -9,4 +9,4 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
   }
 }
 
-export = plugin
+export default plugin
