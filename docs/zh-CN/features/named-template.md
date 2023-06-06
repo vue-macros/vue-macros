@@ -2,6 +2,12 @@
 
 <StabilityLevel level="experimental" />
 
+::: warning
+
+目前没有积极维护。请试试 [createReusableTemplate](https://vueuse.org/core/createReusableTemplate/)。
+
+:::
+
 通过开启 `namedTemplate` ，`<template>` 可以像变量一样被引用。
 
 有时候我们需要把非常简单的组件颠倒顺序，但又不想放弃 Vue 模板的特性而使用 JSX/TSX。那么这个功能就非常有用了。
@@ -11,6 +17,7 @@
 |        特性        |        支持        |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
+|      Vue 3.3       |        :x:         |
 |       Nuxt 3       |        :x:         |
 |       Vue 2        |        :x:         |
 | TypeScript / Volar |        :x:         |
