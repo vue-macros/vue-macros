@@ -5,5 +5,5 @@ defineRender(() => h('div'))
 </script>
 
 <template>
-  <div></div>
+  <div>basic</div>
 </template>

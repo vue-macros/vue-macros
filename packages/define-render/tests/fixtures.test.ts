@@ -14,7 +14,10 @@ describe('fixtures', async () => {
     'tests/fixtures/*.{vue,js,ts}',
     (args, id) =>
       rollupBuild(id, [
-        RollupVue(),
+        RollupVue({
+          isProduction: args.isProduction,
+          inlineTemplate: args.isProduction,
+        }),
         RollupVueJsx(),
         VueDefineRender(),
         RollupEsbuildPlugin({
@@ -24,6 +27,7 @@ describe('fixtures', async () => {
     {
       cwd: resolve(__dirname, '..'),
       promise: true,
+      params: [['isProduction', [true, false]]],
     }
   )
 })
