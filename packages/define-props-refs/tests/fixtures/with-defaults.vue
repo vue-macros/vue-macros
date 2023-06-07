@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
 import { ComputedRef } from 'vue'
+import { withDefaults } from '../../macros' assert { type: 'macro' }
 
 const { foo, bar } = withDefaults(
   definePropsRefs<{
-    foo: string
-    bar: number[]
+    foo?: string
+    bar?: number[]
   }>(),
   {
     foo: 'foo',
-    bar: () => [1, 2, 3],
   }
 )
 
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
-expectTypeOf(bar).toEqualTypeOf<ComputedRef<readonly number[]>>()
+expectTypeOf(bar).toEqualTypeOf<ComputedRef<readonly number[] | undefined>>()
 </script>

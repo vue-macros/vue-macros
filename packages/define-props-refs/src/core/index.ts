@@ -8,6 +8,7 @@ import {
   importHelperFn,
   isCallOf,
   parseSFC,
+  removeMacroImport,
   walkAST,
 } from '@vue-macros/common'
 import { type CallExpression, type Node } from '@babel/types'
@@ -24,6 +25,8 @@ export function transformDefinePropsRefs(code: string, id: string) {
 
   walkAST<Node>(setupAst, {
     enter(node) {
+      removeMacroImport(node, s, offset)
+
       if (isCallOf(node, WITH_DEFAULTS) && node.arguments) {
         processDefinePropsRefs(node.arguments[0] as CallExpression, node)
         this.skip()

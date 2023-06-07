@@ -4,9 +4,9 @@ import {
   type SFCScriptBlock as SFCScriptBlockMixed,
   parse,
 } from '@vue/compiler-sfc'
-import { type Program } from '@babel/types'
-import { type MagicStringBase } from 'magic-string-ast'
-import { babelParse, getLang } from 'ast-kit'
+import { type Node, type Program } from '@babel/types'
+import { type MagicString, type MagicStringBase } from 'magic-string-ast'
+import { babelParse, getLang, resolveString } from 'ast-kit'
 import { REGEX_VUE_SFC } from './constants'
 
 export type SFCScriptBlock = Omit<
@@ -51,11 +51,15 @@ export function parseSFC(code: string, id: string): SFC {
     errors,
     getSetupAst() {
       if (!descriptor.scriptSetup) return
-      return babelParse(descriptor.scriptSetup.content, lang)
+      return babelParse(descriptor.scriptSetup.content, lang, {
+        plugins: [['importAttributes', { deprecatedAssertSyntax: true }]],
+      })
     },
     getScriptAst() {
       if (!descriptor.script) return
-      return babelParse(descriptor.script.content, lang)
+      return babelParse(descriptor.script.content, lang, {
+        plugins: [['importAttributes', { deprecatedAssertSyntax: true }]],
+      })
     },
   }
 }
@@ -95,4 +99,15 @@ export function addNormalScript({ script, lang }: SFC, s: MagicStringBase) {
       if (!script) s.appendRight(0, `\n</script>\n`)
     },
   }
+}
+
+export function removeMacroImport(node: Node, s: MagicString, offset: number) {
+  if (
+    node.type === 'ImportDeclaration' &&
+    node.attributes?.some(
+      (attr) =>
+        resolveString(attr.key) === 'type' && attr.value.value === 'macro'
+    )
+  )
+    s.removeNode(node, { offset })
 }

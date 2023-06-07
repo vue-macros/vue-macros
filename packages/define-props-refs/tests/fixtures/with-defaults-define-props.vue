@@ -7,8 +7,6 @@ interface Props {
   }
 }
 
-// definePropsRefs
-
 const props = withDefaults(defineProps<Props>(), {
   modelValue: () => ({
     signatureAppearance: 'none',

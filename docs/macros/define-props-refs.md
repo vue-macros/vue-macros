@@ -27,6 +27,23 @@ console.log(foo.value, bar.value)
 </script>
 ```
 
+## With Default Value
+
+```vue {2-3,8}
+<script setup lang="ts">
+import { withDefaults } from 'unplugin-vue-macros/macros' assert { type: 'macro' }
+
+const { foo } = withDefaults(
+  definePropsRefs<{
+    foo?: string
+  }>(),
+  { foo: 'test' }
+)
+//          ⬇️ Ref<string>
+console.log(foo.value)
+</script>
+```
+
 ## Volar Configuration
 
 ```jsonc {6}
