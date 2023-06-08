@@ -38,12 +38,13 @@ type BooleanKey<T, K extends keyof T = keyof T> = K extends any
 // end
 
 export type AttachWithDefaults<Props> = Props & {
-  withDefaults: <
+  withDefaults(): Props
+  withDefaults<
     BKeys extends BooleanKey<Props>,
     Defaults extends InferDefaults<Props>
   >(
-    defaults: Defaults
-  ) => Prettify<PropsWithDefaults<Props, Defaults, BKeys>>
+    defaults?: Defaults
+  ): Prettify<PropsWithDefaults<Props, Defaults, BKeys>>
 }
 
 export declare function defineProps<PropNames extends string = string>(

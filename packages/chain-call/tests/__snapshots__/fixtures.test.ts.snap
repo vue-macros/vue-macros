@@ -76,12 +76,14 @@ export { destruct as default };
 
 exports[`fixtures > tests/fixtures/empty.vue 1`] = `
 "import { defineComponent } from 'vue';
+import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"empty\\",
   setup(__props) {
     const props = __props;
+    expectTypeOf().toEqualTypeOf();
     return () => {
     };
   }
@@ -90,6 +92,30 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 var empty = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { empty as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/empty-defaults.vue 1`] = `
+"import { defineComponent } from 'vue';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"empty-defaults\\",
+  props: {
+    foo: { type: String, required: false }
+  },
+  setup(__props) {
+    const props = __props;
+    expectTypeOf().toEqualTypeOf();
+    return () => {
+    };
+  }
+});
+
+var emptyDefaults = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { emptyDefaults as default };
 "
 `;
 
