@@ -1,18 +1,18 @@
-# v-scope
+# vScope
 
-with`v-scope` directive in template,variables can be stored in the template.
-[Related-issue](https://github.com/vuejs/rfcs/issues/73)
+<StabilityLevel level="experimental" />
 
-|  Features  |     Supported      |
-| :--------: | :----------------: |
-|   Vue 3    | :white_check_mark: |
-| TypeScript | :white_check_mark: |
+With `v-scope` directive in template, variables can be stored in the template.
+
+- [Related issue](https://github.com/vuejs/rfcs/discussions/505)
+- [Related PR](https://github.com/vuejs/core/pull/7218)
+
+|      Features      |     Supported      |
+| :----------------: | :----------------: |
+|       Vue 3        | :white_check_mark: |
+| Volar / TypeScript |        :x:         |
 
 ## Basic Usage
-
-::: code-group
-
-
 
 ```vue
 <script setup>
@@ -22,6 +22,6 @@ const msg = ref('Hello')
 </script>
 
 <template>
-  <h1 v-scope="{a: msg + ` Vue`}">{{ a }}</h1>
+  <h1 v-scope="{ foo: `${msg} Vue` }">{{ foo }}</h1>
 </template>
 ```

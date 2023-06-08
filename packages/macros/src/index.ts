@@ -69,9 +69,9 @@ import VueSetupSFC, {
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
+import VScope, { type Options as OptionsVScope } from '@vue-macros/v-scope'
 import { excludeDepOptimize } from './core'
 
-import VScope, { type Options as OptionsVScope } from '@vue-macros/v-scope'
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
   chainCall: OptionsChainCall
