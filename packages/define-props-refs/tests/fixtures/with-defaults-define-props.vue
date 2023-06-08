@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
 
+// definePropsRefs
+
 interface Props {
   modelValue?: {
     signatureAppearance: 'none'

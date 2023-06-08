@@ -27,7 +27,10 @@ export function transformDefinePropsRefs(code: string, id: string) {
     enter(node) {
       removeMacroImport(node, s, offset)
 
-      if (isCallOf(node, WITH_DEFAULTS) && node.arguments) {
+      if (
+        isCallOf(node, WITH_DEFAULTS) &&
+        isCallOf(node.arguments[0], DEFINE_PROPS_REFS)
+      ) {
         processDefinePropsRefs(node.arguments[0] as CallExpression, node)
         this.skip()
       } else if (isCallOf(node, DEFINE_PROPS_REFS)) {

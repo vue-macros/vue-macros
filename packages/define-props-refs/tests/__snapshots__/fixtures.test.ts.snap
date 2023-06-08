@@ -42,29 +42,4 @@ expectTypeOf(bar).toEqualTypeOf<ComputedRef<readonly number[] | undefined>>()
 "
 `;
 
-exports[`fixtures > ./fixtures/with-defaults-define-props.vue 1`] = `
-"<script setup lang=\\"ts\\">
-const __MACROS_props = withDefaults(defineProps<Props>(), {
-  modelValue: () => ({
-    signatureAppearance: 'none',
-  }),
-})
-import { toRefs as __MACROS_toRefs } from \\"vue\\";
-import { expectTypeOf } from 'expect-type'
-
-interface Props {
-  modelValue?: {
-    signatureAppearance: 'none'
-  }
-}
-
-// definePropsRefs
-
-const props = __MACROS_toRefs(__MACROS_props)
-
-expectTypeOf(props.modelValue).toEqualTypeOf<{
-  signatureAppearance: 'none'
-}>()
-</script>
-"
-`;
+exports[`fixtures > ./fixtures/with-defaults-define-props.vue 1`] = `undefined`;
