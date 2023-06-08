@@ -12,6 +12,9 @@ import { Devtools } from '@vue-macros/devtools'
 import VueBetterDefine, {
   type Options as OptionsBetterDefine,
 } from '@vue-macros/better-define'
+import VueChainCall, {
+  type Options as OptionsChainCall,
+} from '@vue-macros/chain-call'
 import VueDefineEmit, {
   type Options as OptionsDefineEmit,
 } from '@vue-macros/define-emit'
@@ -66,6 +69,7 @@ import VueShortEmits, {
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
+  chainCall: OptionsChainCall
   defineEmit: OptionsDefineEmit
   defineModels: OptionsDefineModels
   defineOptions: OptionsDefineOptions
@@ -119,6 +123,7 @@ export function resolveOptions({
   nuxtContext,
 
   betterDefine,
+  chainCall,
   defineEmit,
   defineModels,
   defineOptions,
@@ -164,6 +169,7 @@ export function resolveOptions({
       version,
       isProduction,
     }),
+    chainCall: resolveSubOptions<'chainCall'>(chainCall, { version }),
     defineEmit: resolveSubOptions<'defineEmit'>(defineEmit, {
       isProduction,
       version,
@@ -268,6 +274,7 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(VueDefineEmit, framework, options.defineEmit),
       resolvePlugin(VueDefineProps, framework, options.defineProps),
       resolvePlugin(VueDefinePropsRefs, framework, options.definePropsRefs),
+      resolvePlugin(VueChainCall, framework, options.chainCall),
       resolvePlugin(VueExportProps, framework, options.exportProps),
       resolvePlugin(VueShortEmits, framework, options.shortEmits),
       resolvePlugin(VueDefineModels, framework, options.defineModels),
