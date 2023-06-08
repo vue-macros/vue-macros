@@ -1,8 +1,8 @@
 {
-  "name": "unplugin-vue-macros",
-  "version": "2.2.1",
+  "name": "@vue-macros/chain-call",
+  "version": "0.0.0",
   "packageManager": "pnpm@8.6.0",
-  "description": "Explore more macros and syntax sugar to Vue.",
+  "description": "chain-call feature from Vue Macros.",
   "keywords": [
     "vue-macros",
     "macros",
@@ -10,7 +10,7 @@
     "sfc",
     "setup",
     "script-setup",
-    "macros",
+    "chain-call",
     "unplugin"
   ],
   "license": "MIT",
@@ -21,22 +21,27 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sxzz/vue-macros.git",
-    "directory": "packages/macros"
+    "directory": "packages/chain-call"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
+    },
+    "./api": {
+      "dev": "./src/api.ts",
+      "types": "./dist/api.d.ts",
+      "require": "./dist/api.js",
+      "import": "./dist/api.mjs"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
@@ -77,39 +82,14 @@
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.ts",
-    "dev": "DEV=true tsup"
-  },
-  "peerDependencies": {
-    "vue": "^2.7.0 || ^3.2.25"
+    "dev": "DEV=1 tsup"
   },
   "dependencies": {
-    "@vue-macros/better-define": "workspace:*",
-    "@vue-macros/chain-call": "workspace:^",
-    "@vue-macros/common": "workspace:*",
-    "@vue-macros/define-emit": "workspace:^",
-    "@vue-macros/define-models": "workspace:*",
-    "@vue-macros/define-prop": "workspace:^",
-    "@vue-macros/define-props": "workspace:*",
-    "@vue-macros/define-props-refs": "workspace:*",
-    "@vue-macros/define-render": "workspace:*",
-    "@vue-macros/define-slots": "workspace:*",
-    "@vue-macros/devtools": "workspace:^",
-    "@vue-macros/export-expose": "workspace:*",
-    "@vue-macros/export-props": "workspace:*",
-    "@vue-macros/hoist-static": "workspace:*",
-    "@vue-macros/named-template": "workspace:*",
-    "@vue-macros/reactivity-transform": "workspace:*",
-    "@vue-macros/setup-block": "workspace:*",
-    "@vue-macros/setup-component": "workspace:*",
-    "@vue-macros/setup-sfc": "workspace:*",
-    "@vue-macros/short-emits": "workspace:*",
-    "unplugin": "^1.3.1",
-    "unplugin-combine": "^0.6.0",
-    "unplugin-vue-define-options": "workspace:*"
+    "@vue-macros/common": "workspace:~",
+    "unplugin": "^1.0.1"
   },
   "devDependencies": {
-    "esbuild": "^0.17.19",
-    "vue": "^3.3.4"
+    "rollup": "^3.10.1"
   },
   "engines": {
     "node": ">=16.14.0"

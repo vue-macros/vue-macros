@@ -1,0 +1,141 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+"import { defineComponent } from 'vue';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  props: {
+    foo: { type: String, required: false, default: \\"111\\" },
+    bar: { type: Number, required: false, default: 111 },
+    baz: { type: Boolean, required: false, default: false }
+  },
+  setup(__props) {
+    const props = __props;
+    expectTypeOf(props).toEqualTypeOf();
+    return () => {
+    };
+  }
+});
+
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/declare.vue 1`] = `
+"import { defineComponent, toDisplayString } from 'vue';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"declare\\",
+  props: {
+    bar: { type: Boolean, required: false, default: true }
+  },
+  setup(__props) {
+    const props = __props;
+    expectTypeOf(props).toEqualTypeOf();
+    return (_ctx, _cache) => {
+      return toDisplayString(props);
+    };
+  }
+});
+
+var declare = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { declare as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/destruct.vue 1`] = `
+"import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"destruct\\",
+  props: {
+    foo: { type: String, required: false, default: \\"111\\" }
+  },
+  setup(__props) {
+    const { foo } = __props;
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(\\"div\\", null, toDisplayString(foo));
+    };
+  }
+});
+
+var destruct = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { destruct as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/empty.vue 1`] = `
+"import { defineComponent } from 'vue';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"empty\\",
+  setup(__props) {
+    const props = __props;
+    expectTypeOf().toEqualTypeOf();
+    return () => {
+    };
+  }
+});
+
+var empty = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { empty as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/empty-defaults.vue 1`] = `
+"import { defineComponent } from 'vue';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"empty-defaults\\",
+  props: {
+    foo: { type: String, required: false }
+  },
+  setup(__props) {
+    const props = __props;
+    expectTypeOf().toEqualTypeOf();
+    return () => {
+    };
+  }
+});
+
+var emptyDefaults = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { emptyDefaults as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/tsx.vue 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"tsx\\",
+  props: {
+    foo: { type: String, required: false, default: \\"111\\" }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var tsx = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { tsx as default };
+"
+`;
