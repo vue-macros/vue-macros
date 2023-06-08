@@ -21,6 +21,7 @@ export default defineConfig({
       defineSlots: true,
       defineModels: true,
       namedTemplate: false,
+      setupSFC: true,
       exportProps: {
         include: [/export-props.*\.vue$/],
       },

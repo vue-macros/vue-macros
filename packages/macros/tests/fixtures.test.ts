@@ -16,6 +16,7 @@ describe('fixtures', async () => {
       const version = id.includes('vue2') ? 2 : 3
       return rollupBuild(id, [
         VueMacros({
+          setupSFC: true,
           version,
           plugins: {
             vue: RollupVue({

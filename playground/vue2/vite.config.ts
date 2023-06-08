@@ -10,6 +10,7 @@ export default defineConfig({
   },
   plugins: [
     VueMacros({
+      setupSFC: true,
       defineProp: {
         edition: 'johnsonEdition',
       },

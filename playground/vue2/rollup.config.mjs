@@ -13,6 +13,7 @@ export default defineConfig({
   input: ['./src/main.ts'],
   plugins: [
     VueMacros({
+      setupSFC: true,
       defineProp: {
         edition: 'johnsonEdition',
       },

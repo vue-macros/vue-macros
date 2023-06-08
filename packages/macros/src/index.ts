@@ -211,7 +211,7 @@ export function resolveOptions({
       version,
       root,
     }),
-    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, { version }),
+    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, { version }, false),
     shortEmits: resolveSubOptions<'shortEmits'>(
       shortEmits,
       { version },
