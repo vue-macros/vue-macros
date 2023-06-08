@@ -21,6 +21,7 @@ export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   lang: string | undefined
   getScriptAst(): Program | undefined
   getSetupAst(): Program | undefined
+  offset: number
 } & Pick<SFCParseResult, 'errors'>
 
 export function parseSFC(code: string, id: string): SFC {
@@ -49,6 +50,7 @@ export function parseSFC(code: string, id: string): SFC {
     ...descriptor,
     lang,
     errors,
+    offset: descriptor.scriptSetup?.loc.start.offset ?? 0,
     getSetupAst() {
       if (!descriptor.scriptSetup) return
       return babelParse(descriptor.scriptSetup.content, lang, {
@@ -108,6 +110,8 @@ export function removeMacroImport(node: Node, s: MagicString, offset: number) {
       (attr) =>
         resolveString(attr.key) === 'type' && attr.value.value === 'macro'
     )
-  )
+  ) {
     s.removeNode(node, { offset })
+    return true
+  }
 }

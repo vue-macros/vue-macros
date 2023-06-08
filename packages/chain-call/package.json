@@ -1,0 +1,97 @@
+{
+  "name": "@vue-macros/chain-call",
+  "version": "0.0.0",
+  "packageManager": "pnpm@8.6.0",
+  "description": "chain-call feature from Vue Macros.",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "chain-call",
+    "unplugin"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sxzz/vue-macros#readme",
+  "bugs": {
+    "url": "https://github.com/sxzz/vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/vue-macros.git",
+    "directory": "packages/chain-call"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./api": {
+      "dev": "./src/api.ts",
+      "types": "./dist/api.d.ts",
+      "require": "./dist/api.js",
+      "import": "./dist/api.mjs"
+    },
+    "./esbuild": {
+      "dev": "./src/esbuild.ts",
+      "types": "./dist/esbuild.d.ts",
+      "require": "./dist/esbuild.js",
+      "import": "./dist/esbuild.mjs"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "types": "./dist/rollup.d.ts",
+      "require": "./dist/rollup.js",
+      "import": "./dist/rollup.mjs"
+    },
+    "./vite": {
+      "dev": "./src/vite.ts",
+      "types": "./dist/vite.d.ts",
+      "require": "./dist/vite.js",
+      "import": "./dist/vite.mjs"
+    },
+    "./webpack": {
+      "dev": "./src/webpack.ts",
+      "types": "./dist/webpack.d.ts",
+      "require": "./dist/webpack.js",
+      "import": "./dist/webpack.mjs"
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "<=4.9": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup && tsx ../../scripts/postbuild.mts",
+    "dev": "DEV=1 tsup"
+  },
+  "dependencies": {
+    "@vue-macros/common": "workspace:~",
+    "unplugin": "^1.0.1"
+  },
+  "devDependencies": {
+    "rollup": "^3.10.1"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}
