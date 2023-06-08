@@ -1,6 +1,6 @@
 ---
-'@vue-macros/chain-call': major
-'@vue-macros/common': minor
+'@vue-macros/chain-call': patch
+'@vue-macros/common': patch
 ---
 
-add package `@vue-macros/chain-call`, add `isVariableNamedOf` in `@vue-macros/common`
+new feature `chainCall`
