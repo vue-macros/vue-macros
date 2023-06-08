@@ -1,3 +1,4 @@
+import { type defineProps as definePropsChainCall } from '@vue-macros/chain-call/macros'
 import {
   definePropsRefs,
   type withDefaults as withDefaultsDefinePropsRefs,
@@ -22,6 +23,11 @@ export { definePropsRefs }
 interface WithDefaultsMap {
   definePropsRefs: typeof withDefaultsDefinePropsRefs
 }
-
 type WithDefaults = UnionToIntersection<RecordToUnion<WithDefaultsMap>>
 export declare const withDefaults: WithDefaults
+
+interface DefinePropsMap {
+  chainCall: typeof definePropsChainCall
+}
+type DefineProps = UnionToIntersection<RecordToUnion<DefinePropsMap>>
+export declare const defineProps: DefineProps

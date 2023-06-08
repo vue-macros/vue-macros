@@ -6,8 +6,6 @@ import {
   type Ref,
 } from 'vue'
 
-import {} from 'vue/types/v3-setup-context'
-
 export declare type PropRefs<T> = {
   [K in keyof T]-?: ComputedRef<DeepReadonly<T[K]>>
 }
