@@ -223,7 +223,7 @@ function getRenderFunction(program: Program, isTS: boolean): ScopeNeededASType {
       (item) => item.type === 'ExportDefaultDeclaration'
     )
   }
-  const main = targetList[targetList.length - 1]
+  const main = targetList.at(-1)!
   if (main.type === 'FunctionDeclaration') {
     importStatement = program.body[1] as ImportDeclaration
     scopeDefineStmt = (main.body as BlockStatement)
@@ -235,9 +235,7 @@ function getRenderFunction(program: Program, isTS: boolean): ScopeNeededASType {
 
     const setupStmt = valueStmt.properties[1]
     const setupBlock = (setupStmt as ObjectMethod).body as BlockStatement
-    const retStmt = setupBlock.body[
-      setupBlock.body.length - 1
-    ] as ReturnStatement
+    const retStmt = setupBlock.body.at(-1) as ReturnStatement
 
     const arguStmt = retStmt.argument as ArrowFunctionExpression
 
@@ -323,7 +321,7 @@ function fixImportSpecifiers(
     .map((item) => s.slice(item.start!, item.end!))
     .join(',')
   const importStart = origSpecifiers[0].start!
-  const importEnd = origSpecifiers[origSpecifiers.length - 1].end!
+  const importEnd = origSpecifiers.at(-1)!.end!
 
   s.remove(importStart, importEnd)
 
