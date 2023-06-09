@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import DefineRenderVue from './examples/define-render/index.vue'
-import DefineOptionsVue from './examples/define-options/index.vue'
-import DefinePropsVue from './examples/define-props/index.vue'
-import DefinePropsRefsVue from './examples/define-props-refs/index.vue'
-import HoistStaticVue from './examples/hoist-static/index.vue'
-import DefineModelReactivityVue from './examples/define-models/reactivity-transform/parent.vue'
-import DefineModelRuntimeVue from './examples/define-models/runtime/parent.vue'
-import DefineSlotsVue from './examples/define-slots/parent.vue'
-import ExportPropsVue from './examples/export-props/index.vue'
-import ExportExposeVue from './examples/export-expose/index.vue'
-import BetterDefineVue from './examples/better-define/index.vue'
-// import NamedTemplateVue from './examples/named-template/index.vue'
-import SetupBlockVue from './examples/setup-block/index.vue'
+import DefineRender from './examples/define-render/index.vue'
+import DefineOptions from './examples/define-options/index.vue'
+import DefineProps from './examples/define-props/index.vue'
+import DefinePropsRefs from './examples/define-props-refs/index.vue'
+import HoistStatic from './examples/hoist-static/index.vue'
+import DefineModelReactivity from './examples/define-models/reactivity-transform/parent.vue'
+import DefineModelRuntime from './examples/define-models/runtime/parent.vue'
+import DefineSlots from './examples/define-slots/parent.vue'
+import ExportProps from './examples/export-props/index.vue'
+import ExportExpose from './examples/export-expose/index.vue'
+import BetterDefine from './examples/better-define/index.vue'
+// import NamedTemplate from './examples/named-template/index.vue'
+import SetupBlock from './examples/setup-block/index.vue'
+import ChainCall from './examples/chain-call/index.vue'
 
-import DefinePropVue from './examples/define-prop/index.vue'
-import DefineEmitVue from './examples/define-emit/index.vue'
+import DefineProp from './examples/define-prop/index.vue'
+import DefineEmit from './examples/define-emit/index.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
 
@@ -27,60 +28,60 @@ import Full from './examples/full.setup'
   <div grid="~ cols-3 gap2">
     <fieldset>
       <legend>defineOptions</legend>
-      <DefineOptionsVue />
+      <DefineOptions />
     </fieldset>
 
     <fieldset>
       <legend>defineRender</legend>
-      <DefineRenderVue />
+      <DefineRender />
     </fieldset>
 
     <fieldset>
       <legend>defineProps</legend>
-      <DefinePropsVue />
+      <DefineProps />
     </fieldset>
 
     <fieldset>
       <legend>definePropsRefs</legend>
-      <DefinePropsRefsVue />
+      <DefinePropsRefs />
     </fieldset>
 
     <fieldset>
       <legend>exportProps</legend>
-      <ExportPropsVue />
+      <ExportProps />
     </fieldset>
 
     <fieldset>
       <legend>exportExpose</legend>
-      <ExportExposeVue />
+      <ExportExpose />
     </fieldset>
 
     <fieldset>
       <legend>hostStatic</legend>
-      <HoistStaticVue />
+      <HoistStatic />
     </fieldset>
 
     <fieldset>
       <legend>namedTemplate</legend>
-      <!-- <NamedTemplateVue /> -->
+      <!-- <NamedTemplate /> -->
       TODO
     </fieldset>
 
     <fieldset>
       <legend>defineModels</legend>
-      <DefineModelReactivityVue />
+      <DefineModelReactivity />
       <hr />
-      <DefineModelRuntimeVue />
+      <DefineModelRuntime />
     </fieldset>
 
     <fieldset>
       <legend>defineSlots</legend>
-      <DefineSlotsVue />
+      <DefineSlots />
     </fieldset>
 
     <fieldset>
       <legend>betterDefine</legend>
-      <BetterDefineVue />
+      <BetterDefine />
     </fieldset>
 
     <fieldset>
@@ -95,7 +96,7 @@ import Full from './examples/full.setup'
 
     <fieldset>
       <legend>setupBlock</legend>
-      <SetupBlockVue />
+      <SetupBlock />
     </fieldset>
 
     <fieldset>
@@ -110,12 +111,17 @@ import Full from './examples/full.setup'
 
     <fieldset>
       <legend>defineProp</legend>
-      <DefinePropVue />
+      <DefineProp />
     </fieldset>
 
     <fieldset>
       <legend>defineEmit</legend>
-      <DefineEmitVue />
+      <DefineEmit />
+    </fieldset>
+
+    <fieldset>
+      <legend>chainCall</legend>
+      <ChainCall />
     </fieldset>
   </div>
 </template>
