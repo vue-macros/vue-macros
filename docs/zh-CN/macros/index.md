@@ -24,3 +24,4 @@
 - [defineEmit](/zh-CN/macros/define-emit)
 - [setupComponent](/zh-CN/macros/setup-component)
 - [setupSFC](/zh-CN/macros/setup-sfc)
+- [chainCall](/macros/chain-call)

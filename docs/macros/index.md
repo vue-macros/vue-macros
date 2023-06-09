@@ -24,3 +24,4 @@ Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, 
 - [defineEmit](/macros/define-emit)
 - [setupComponent](/macros/setup-component)
 - [setupSFC](/macros/setup-sfc)
+- [chainCall](/macros/chain-call)
