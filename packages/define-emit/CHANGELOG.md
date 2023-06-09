@@ -1,5 +1,19 @@
 # @vue-macros/define-emit
 
+## 0.1.6
+
+### Patch Changes
+
+- [`8521a80`](https://github.com/sxzz/vue-macros/commit/8521a80e6221633f7baf0b9a6f78caf415613219) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ast-kit
+
+- [`e877a5d`](https://github.com/sxzz/vue-macros/commit/e877a5da35fdf0bb0f302877597b33512e963f11) Thanks [@sxzz](https://github.com/sxzz)! - upgrade eslint-config
+
+- [`edee536`](https://github.com/sxzz/vue-macros/commit/edee5363cdb5aa939d79a0b55adf8571580562a4) Thanks [@sxzz](https://github.com/sxzz)! - add build config
+
+- Updated dependencies [[`8521a80`](https://github.com/sxzz/vue-macros/commit/8521a80e6221633f7baf0b9a6f78caf415613219), [`23b789f`](https://github.com/sxzz/vue-macros/commit/23b789fa46abcb0d29f7d4f0b60c5ec271d66d88), [`ee4e093`](https://github.com/sxzz/vue-macros/commit/ee4e093ec07931da9d24ded155a153e3496b4c7b)]:
+  - @vue-macros/common@1.4.0
+  - @vue-macros/api@0.7.2
+
 ## 0.1.5
 
 ### Patch Changes
