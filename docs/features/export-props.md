@@ -7,8 +7,8 @@
 |   Features   |     Supported      |
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
-|    Nuxt 3    |         ?          |
-|    Vue 2     |         ?          |
+|    Nuxt 3    |     :question:     |
+|    Vue 2     |     :question:     |
 | Volar Plugin | :white_check_mark: |
 
 ## Usage

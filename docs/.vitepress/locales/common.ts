@@ -123,6 +123,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
               text: 'setupSFC',
               link: `${urlPrefix}/macros/setup-sfc`,
             },
+            {
+              text: 'chainCall',
+              link: `${urlPrefix}/macros/chain-call`,
+            },
           ],
         },
       ],
