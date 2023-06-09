@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.0.5
+
+### Patch Changes
+
+- [`e877a5d`](https://github.com/sxzz/vue-macros/commit/e877a5da35fdf0bb0f302877597b33512e963f11) Thanks [@sxzz](https://github.com/sxzz)! - upgrade eslint-config
+
 ## 1.0.4
 
 ### Patch Changes

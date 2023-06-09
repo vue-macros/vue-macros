@@ -1,5 +1,39 @@
 # unplugin-vue-macros
 
+## 2.3.0
+
+### Minor Changes
+
+- [`ee4e093`](https://github.com/sxzz/vue-macros/commit/ee4e093ec07931da9d24ded155a153e3496b4c7b) Thanks [@sxzz](https://github.com/sxzz)! - should import withDefault manually when using `definePropsRefs`
+
+### Patch Changes
+
+- [`8521a80`](https://github.com/sxzz/vue-macros/commit/8521a80e6221633f7baf0b9a6f78caf415613219) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ast-kit
+
+- [`153fed3`](https://github.com/sxzz/vue-macros/commit/153fed332fcc1b4a90a0d3ea9c5aa15aa110c81e) Thanks [@sxzz](https://github.com/sxzz)! - Disable `setupSFC` by default
+
+- Updated dependencies [[`8521a80`](https://github.com/sxzz/vue-macros/commit/8521a80e6221633f7baf0b9a6f78caf415613219), [`e877a5d`](https://github.com/sxzz/vue-macros/commit/e877a5da35fdf0bb0f302877597b33512e963f11), [`23b789f`](https://github.com/sxzz/vue-macros/commit/23b789fa46abcb0d29f7d4f0b60c5ec271d66d88), [`91f76e9`](https://github.com/sxzz/vue-macros/commit/91f76e9d2b96b31d8b9e3640067831bdcdf67375), [`abd3f06`](https://github.com/sxzz/vue-macros/commit/abd3f069893c5a3e428a3bcaa97b1f2ceedbd342), [`ee4e093`](https://github.com/sxzz/vue-macros/commit/ee4e093ec07931da9d24ded155a153e3496b4c7b), [`edee536`](https://github.com/sxzz/vue-macros/commit/edee5363cdb5aa939d79a0b55adf8571580562a4)]:
+  - @vue-macros/reactivity-transform@0.3.10
+  - @vue-macros/setup-component@0.16.9
+  - @vue-macros/better-define@1.6.2
+  - @vue-macros/define-render@1.3.9
+  - @vue-macros/define-emit@0.1.6
+  - @vue-macros/define-prop@0.1.7
+  - @vue-macros/common@1.4.0
+  - @vue-macros/named-template@0.3.9
+  - @vue-macros/chain-call@0.0.1
+  - @vue-macros/short-emits@1.4.0
+  - @vue-macros/define-models@1.0.6
+  - @vue-macros/define-props-refs@1.1.0
+  - @vue-macros/define-props@1.0.8
+  - unplugin-vue-define-options@1.3.8
+  - @vue-macros/define-slots@1.0.5
+  - @vue-macros/export-expose@0.0.3
+  - @vue-macros/export-props@0.3.8
+  - @vue-macros/hoist-static@1.4.2
+  - @vue-macros/setup-block@0.2.8
+  - @vue-macros/setup-sfc@0.15.9
+
 ## 2.2.1
 
 ### Patch Changes
