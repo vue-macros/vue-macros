@@ -12,10 +12,10 @@ Extends `defineProps`, support call `withDefaults` as a chain.
 |  TypeScript  | :white_check_mark: |
 | Volar Plugin |        :x:         |
 
-::: warning
+::: tip
 
 - `chainCall` does not support `definePropsRefs`
-- To fully support TypeScript, you need to import this macro from `vue-macros`.
+- To fully support TypeScript, you need to import this macro from `unplugin-vue-macros/macros`.
 
 :::
 
@@ -25,34 +25,36 @@ Extends `defineProps`, support call `withDefaults` as a chain.
 <script setup lang="ts">
 const props = defineProps<{
   foo?: string
-  bar?: number[] 
+  bar?: number[]
   baz?: boolean
 }>().withDefaults({
   foo: '111',
-  bar: () => [1, 2, 3]
+  bar: () => [1, 2, 3],
 })
 </script>
 ```
-
 
 ::: details Compiled Code
 
 ```vue
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
-  foo?: string
-  bar?: number[] 
-  baz?: boolean
-}>(), {
-  foo: '111',
-  bar: () => [1, 2, 3]
-})
+const props = withDefaults(
+  defineProps<{
+    foo?: string
+    bar?: number[]
+    baz?: boolean
+  }>(),
+  {
+    foo: '111',
+    bar: () => [1, 2, 3],
+  }
+)
 </script>
 ```
 
 :::
 
-Also support destructuring and JSX:
+Also support [props destructuring](/features/reactivity-transform.html) and JSX:
 
 ```vue
 <script setup lang="tsx">
@@ -64,13 +66,17 @@ const { foo } = defineProps<{ foo: string }>().withDefaults({
 
 ## TypeScript
 
-To fully support TypeScript, you need to import this macro from `vue-macros` with specific syntax.
+To fully support TypeScript, you need to import this macro from `unplugin-vue-macros/macros` with specific syntax.
 
 ```vue
 <script setup lang="ts">
 import { defineProps } from 'unplugin-vue-macros/macros' assert { type: 'macro' }
 
-defineProps<{ /* ... */ }>().withDefaults({ /* ... */ })
+defineProps<{
+  /* ... */
+}>().withDefaults({
+  /* ... */
+})
 // ✅ type safe
 </script>
 ```
@@ -78,6 +84,10 @@ defineProps<{ /* ... */ }>().withDefaults({ /* ... */ })
 Works without import assertion, but tsc will report an error:
 
 ```ts
-defineProps<{ /* ... */ }>().withDefaults({ /* ... */ })
+defineProps<{
+  /* ... */
+}>().withDefaults({
+  /* ... */
+})
 // ❌ Property 'withDefaults' does not exist on type 'DefineProps<{ /* ... */ }>'.
 ```
