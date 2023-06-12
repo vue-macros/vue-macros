@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/common",
   "version": "1.4.0",
-  "packageManager": "pnpm@8.6.0",
+  "packageManager": "pnpm@8.6.2",
   "description": "common feature from Vue Macros.",
   "keywords": [
     "vue-macros",
@@ -51,15 +51,15 @@
     }
   },
   "dependencies": {
-    "@babel/types": "^7.22.4",
+    "@babel/types": "^7.22.5",
     "@rollup/pluginutils": "^5.0.2",
     "@vue/compiler-sfc": "^3.3.4",
-    "ast-kit": "^0.6.2",
+    "ast-kit": "^0.6.5",
     "local-pkg": "^0.4.3",
     "magic-string-ast": "^0.1.2"
   },
   "devDependencies": {
-    "@babel/parser": "^7.22.4"
+    "@babel/parser": "^7.22.5"
   },
   "engines": {
     "node": ">=16.14.0"
