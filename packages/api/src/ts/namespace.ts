@@ -4,7 +4,7 @@ import {
 } from './resolve-reference'
 import { type TSScope, getTSFile, resolveTSScope } from './scope'
 import { isTSDeclaration } from './is'
-import { resolveTSFileId } from './impl'
+import { resolveTSFileId } from './resolve-file'
 
 export const namespaceSymbol = Symbol('namespace')
 export type TSNamespace = {
