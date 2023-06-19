@@ -7,7 +7,8 @@
     "build": "run-p \"build:*\"",
     "build:vite": "vite build",
     "build:rollup": "rollup -c rollup.config.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@vueuse/core": "^10.1.2",
