@@ -21,7 +21,7 @@ export default (
       ret[key] = useVModel(props, prop, undefined, {
         eventName,
         passive: true,
-        ...options,
+        ...(options as any),
       })
     }
   }
