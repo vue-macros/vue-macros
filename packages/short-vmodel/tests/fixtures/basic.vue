@@ -5,6 +5,7 @@ const val = ref('')
 </script>
 
 <template>
+  <!-- prettier-ignore -->
   <A ::="val" />
   <A ::foo="val" />
 </template>

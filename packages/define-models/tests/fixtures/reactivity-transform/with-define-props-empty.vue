@@ -4,5 +4,6 @@ const { modelValue } = $defineModels<{
   visible: boolean
 }>()
 
+// prettier-ignore
 defineProps< {  } > ()
 </script>

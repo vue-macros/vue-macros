@@ -7,7 +7,5 @@ export const App = defineSetupComponent(() => {
 
   const sum = computed(() => 1 + 2)
 
-  return () => (
-    <div>{sum.value}</div>
-  )
+  return () => <div>{sum.value}</div>
 })
