@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const pager = 'top'
+const pager: string = 'top'
 </script>
 
 <template name="pager">
