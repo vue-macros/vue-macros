@@ -1,5 +1,32 @@
 # unplugin-vue-macros
 
+## 2.3.1
+
+### Patch Changes
+
+- [`14bda40b`](https://github.com/sxzz/vue-macros/commit/14bda40b21bf41ecedb7dd674f3e0c5828ae0414) Thanks [@sxzz](https://github.com/sxzz)! - add type fallback for all TS versions
+
+- Updated dependencies [[`14bda40b`](https://github.com/sxzz/vue-macros/commit/14bda40b21bf41ecedb7dd674f3e0c5828ae0414)]:
+  - @vue-macros/reactivity-transform@0.3.11
+  - @vue-macros/define-props-refs@1.1.1
+  - @vue-macros/setup-component@0.16.10
+  - unplugin-vue-define-options@1.3.9
+  - @vue-macros/named-template@0.3.10
+  - @vue-macros/better-define@1.6.3
+  - @vue-macros/define-models@1.0.7
+  - @vue-macros/define-render@1.3.10
+  - @vue-macros/export-expose@0.0.4
+  - @vue-macros/define-props@1.0.9
+  - @vue-macros/define-slots@1.0.6
+  - @vue-macros/export-props@0.3.9
+  - @vue-macros/hoist-static@1.4.3
+  - @vue-macros/define-emit@0.1.7
+  - @vue-macros/define-prop@0.1.8
+  - @vue-macros/setup-block@0.2.9
+  - @vue-macros/short-emits@1.4.1
+  - @vue-macros/chain-call@0.0.2
+  - @vue-macros/setup-sfc@0.15.10
+
 ## 2.3.0
 
 ### Minor Changes
