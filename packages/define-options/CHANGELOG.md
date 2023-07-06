@@ -1,5 +1,11 @@
 # unplugin-vue-define-options
 
+## 1.3.9
+
+### Patch Changes
+
+- [`14bda40b`](https://github.com/sxzz/vue-macros/commit/14bda40b21bf41ecedb7dd674f3e0c5828ae0414) Thanks [@sxzz](https://github.com/sxzz)! - add type fallback for all TS versions
+
 ## 1.3.8
 
 ### Patch Changes
