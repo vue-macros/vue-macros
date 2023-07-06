@@ -89,7 +89,7 @@ export default defineConfig([
           './*': ['./*', './*.d.ts'],
         }
         data.typesVersions = {
-          '<=4.9': {
+          '*': {
             '*': ['./dist/*', './*'],
           },
         }
