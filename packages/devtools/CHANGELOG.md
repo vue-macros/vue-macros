@@ -1,5 +1,11 @@
 # @vue-macros/devtools
 
+## 0.1.3
+
+### Patch Changes
+
+- [`1bfca25c`](https://github.com/sxzz/vue-macros/commit/1bfca25c132f4fd2d3aca723e00ffc8312de19a4) Thanks [@sxzz](https://github.com/sxzz)! - add types for both esm and cjs
+
 ## 0.1.2
 
 ### Patch Changes
