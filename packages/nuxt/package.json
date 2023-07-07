@@ -31,11 +31,18 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "dev": "./src/index.ts",
+      "types": {
+        "require": "./dist/index.d.ts",
+        "import": "./dist/index.d.mts"
+      },
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
-    "./*": "./*"
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
   },
   "scripts": {
     "build": "tsup && tsx ../../scripts/postbuild.ts",

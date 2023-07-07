@@ -1,6 +1,9 @@
 import path from 'node:path'
-import { readFile, readdir } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import { defineConfig } from 'monoman'
+import { type Options } from 'tsup'
+import fg from 'fast-glob'
 
 function getPkgName(filepath: string) {
   const relative = path.relative(process.cwd(), filepath)
@@ -13,6 +16,8 @@ export default defineConfig([
     include: ['packages/*/package.json'],
     type: 'json',
     async write(data: Record<string, any>, { filepath }) {
+      const pkgRoot = path.resolve(filepath, '..')
+      const pkgSrc = path.resolve(pkgRoot, 'src')
       const pkgName = getPkgName(filepath)
 
       const descriptions: Record<string, string> = {
@@ -52,47 +57,55 @@ export default defineConfig([
       data.author = '三咲智子 <sxzz@sxzz.moe>'
       data.engines = { node: '>=16.14.0' }
 
-      if (Object.keys(data.dependencies || {}).includes('unplugin')) {
-        const files = (
-          await readdir(path.resolve(filepath, '../src'), {
-            withFileTypes: true,
+      const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
+      if (!data.meta?.skipExports && existsSync(tsupFile)) {
+        const tsupConfig: Options = await import(tsupFile)
+        const entries = (
+          await fg(tsupConfig.entry as string[], {
+            cwd: pkgRoot,
+            absolute: true,
           })
-        )
-          .map((file) => {
-            if (!file.isFile()) return undefined
-            const name = path.basename(file.name, '.ts')
-            if (name === 'index') return undefined
-            return name
-          })
-          .filter((n): n is string => !!n)
-          .sort()
+        ).map((file) => path.basename(path.relative(pkgSrc, file), '.ts'))
 
-        data.keywords.push('unplugin')
         data.exports = {
-          '.': {
-            dev: './src/index.ts',
-            types: './dist/index.d.ts',
-            require: './dist/index.js',
-            import: './dist/index.mjs',
-          },
           ...Object.fromEntries(
-            files.map((file) => [
-              `./${file}`,
-              {
-                dev: `./src/${file}.ts`,
-                types: `./dist/${file}.d.ts`,
-                require: `./dist/${file}.js`,
-                import: `./dist/${file}.mjs`,
-              },
-            ])
+            entries
+              .map((entry) => {
+                const key = entry === 'index' ? '.' : `./${entry}`
+                return [
+                  key,
+                  {
+                    dev: `./src/${entry}.ts`,
+                    types: {
+                      require: `./dist/${entry}.d.ts`,
+                      import: `./dist/${entry}.d.mts`,
+                    },
+                    require: `./dist/${entry}.js`,
+                    import: `./dist/${entry}.mjs`,
+                  },
+                ] as const
+              })
+              .sort(([a], [b]) => a.localeCompare(b))
           ),
           './*': ['./*', './*.d.ts'],
         }
-        data.typesVersions = {
-          '*': {
-            '*': ['./dist/*', './*'],
-          },
-        }
+
+        const onlyIndex = entries.length === 1 && entries[0] === 'index'
+
+        if (onlyIndex) delete data.typesVersions
+        else
+          data.typesVersions = {
+            '*': {
+              '*': ['./dist/*', './*'],
+            },
+          }
+      }
+
+      if (
+        Object.keys(data.dependencies || {}).includes('unplugin') ||
+        data?.meta?.plugin
+      ) {
+        data.keywords.push('unplugin')
       }
 
       return data

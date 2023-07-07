@@ -32,9 +32,17 @@
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
+      "types": {
+        "require": "./dist/index.d.ts",
+        "import": "./dist/index.d.mts"
+      },
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
   },
   "scripts": {
     "build": "tsup",
