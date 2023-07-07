@@ -19,6 +19,9 @@ export default defineConfig([
       const pkgRoot = path.resolve(filepath, '..')
       const pkgSrc = path.resolve(pkgRoot, 'src')
       const pkgName = getPkgName(filepath)
+      const isESM = data.type === 'module'
+      const cjsPrefix = isESM ? 'c' : ''
+      const esmPrefix = isESM ? '' : 'm'
 
       const descriptions: Record<string, string> = {
         'define-options': 'Add defineOptions macro for Vue <script setup>.',
@@ -60,6 +63,10 @@ export default defineConfig([
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && existsSync(tsupFile)) {
         const tsupConfig: Options = await import(tsupFile)
+        const format = tsupConfig.format || []
+        const hasCJS = format.includes('cjs')
+        const hasESM = format.includes('esm')
+
         const entries = (
           await fg(tsupConfig.entry as string[], {
             cwd: pkgRoot,
@@ -72,18 +79,20 @@ export default defineConfig([
             entries
               .map((entry) => {
                 const key = entry === 'index' ? '.' : `./${entry}`
-                return [
-                  key,
-                  {
-                    dev: `./src/${entry}.ts`,
-                    types: {
-                      require: `./dist/${entry}.d.ts`,
-                      import: `./dist/${entry}.d.mts`,
-                    },
-                    require: `./dist/${entry}.js`,
-                    import: `./dist/${entry}.mjs`,
-                  },
-                ] as const
+                const exports: Record<string, any> = {
+                  dev: `./src/${entry}.ts`,
+                  types: {},
+                }
+                if (hasCJS) {
+                  exports.types.require = `./dist/${entry}.d.${cjsPrefix}ts`
+                  exports.require = `./dist/${entry}.${cjsPrefix}js`
+                }
+                if (hasESM) {
+                  exports.types.import = `./dist/${entry}.d.${esmPrefix}ts`
+                  exports.import = `./dist/${entry}.${esmPrefix}js`
+                }
+
+                return [key, exports] as const
               })
               .sort(([a], [b]) => a.localeCompare(b))
           ),
