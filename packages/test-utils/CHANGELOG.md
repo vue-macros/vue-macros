@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.0.7
+
+### Patch Changes
+
+- [`f1a06746`](https://github.com/sxzz/vue-macros/commit/f1a067466addce6b404674a9a9a37572ee5c22ca) Thanks [@sxzz](https://github.com/sxzz)! - add cjs format
+
 ## 1.0.6
 
 ### Patch Changes
