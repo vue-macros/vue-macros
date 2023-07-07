@@ -18,7 +18,7 @@ import { type TSDeclaration, isTSDeclaration } from './is'
 export interface TSResolvedType<
   T =
     | Exclude<TSType, TSParenthesizedType>
-    | Exclude<TSDeclaration, TSTypeAliasDeclaration>
+    | Exclude<TSDeclaration, TSTypeAliasDeclaration>,
 > {
   scope: TSScope
   type: T

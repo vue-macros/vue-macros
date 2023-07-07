@@ -11,6 +11,6 @@ export declare function $defineProps<PropNames extends string = string>(
   [key in PropNames]?: any
 }>
 export declare function $defineProps<
-  PP extends ComponentObjectPropsOptions = ComponentObjectPropsOptions
+  PP extends ComponentObjectPropsOptions = ComponentObjectPropsOptions,
 >(props: PP): RefValueObject<ExtractPropTypes<PP>>
 export declare function $defineProps<TypeProps>(): RefValueObject<TypeProps>

@@ -5,7 +5,7 @@ type MaybeTupleFunction<T, R> = T extends any[]
   : T
 
 export declare function defineEmit<
-  T extends ((...args: any) => any) | any[] = any[]
+  T extends ((...args: any) => any) | any[] = any[],
 >(
   emitName?: string,
   validator?: MaybeTupleFunction<T, any>

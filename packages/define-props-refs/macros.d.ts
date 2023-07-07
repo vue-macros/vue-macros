@@ -37,7 +37,7 @@ export declare function withDefaults<
         ? NotUndefined<T>
         : T
       : PropsWithRefs[K]
-  }
+  },
 >(props: PropsWithRefs, defaults: Defaults): PropRefs<Props>
 
 export declare function definePropsRefs<PropNames extends string = string>(
@@ -46,7 +46,7 @@ export declare function definePropsRefs<PropNames extends string = string>(
   [key in PropNames]: Ref<any>
 }>
 export declare function definePropsRefs<
-  PP extends ComponentObjectPropsOptions = ComponentObjectPropsOptions
+  PP extends ComponentObjectPropsOptions = ComponentObjectPropsOptions,
 >(props: PP): PropRefs<ExtractPropTypes<PP>>
 
 export declare function definePropsRefs<TypeProps>(): PropRefs<TypeProps>

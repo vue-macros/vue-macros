@@ -16,7 +16,7 @@ type InferDefault<P, T> =
 type PropsWithDefaults<
   T,
   Defaults extends InferDefaults<T>,
-  BKeys extends keyof T
+  BKeys extends keyof T,
 > = Omit<T, keyof Defaults> & {
   [K in keyof Defaults]-?: K extends keyof T
     ? Defaults[K] extends undefined
@@ -41,7 +41,7 @@ export type AttachWithDefaults<Props> = Props & {
   withDefaults(): Props
   withDefaults<
     BKeys extends BooleanKey<Props>,
-    Defaults extends InferDefaults<Props>
+    Defaults extends InferDefaults<Props>,
   >(
     defaults?: Defaults
   ): Prettify<PropsWithDefaults<Props, Defaults, BKeys>>
@@ -57,7 +57,7 @@ export declare function defineProps<PropNames extends string = string>(
   >
 >
 export declare function defineProps<
-  PP extends ComponentObjectPropsOptions = ComponentObjectPropsOptions
+  PP extends ComponentObjectPropsOptions = ComponentObjectPropsOptions,
 >(props: PP): Prettify<AttachWithDefaults<Readonly<ExtractPropTypes<PP>>>>
 
 export declare function defineProps<TypeProps>(): AttachWithDefaults<

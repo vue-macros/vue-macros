@@ -14,5 +14,5 @@ export type ShortEmits<T extends Record<string, any>> = UnionToIntersection<
 >
 
 export function defineEmits<
-  T extends ((...args: any[]) => any) | Record<string, any>
+  T extends ((...args: any[]) => any) | Record<string, any>,
 >(): T extends (...args: any[]) => any ? T : ShortEmits<T>
