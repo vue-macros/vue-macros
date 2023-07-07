@@ -1,5 +1,14 @@
 # @vue-macros/export-props
 
+## 0.3.10
+
+### Patch Changes
+
+- [`1bfca25c`](https://github.com/sxzz/vue-macros/commit/1bfca25c132f4fd2d3aca723e00ffc8312de19a4) Thanks [@sxzz](https://github.com/sxzz)! - add types for both esm and cjs
+
+- Updated dependencies [[`1bfca25c`](https://github.com/sxzz/vue-macros/commit/1bfca25c132f4fd2d3aca723e00ffc8312de19a4)]:
+  - @vue-macros/common@1.4.1
+
 ## 0.3.9
 
 ### Patch Changes

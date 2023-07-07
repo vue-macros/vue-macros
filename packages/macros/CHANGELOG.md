@@ -1,5 +1,34 @@
 # unplugin-vue-macros
 
+## 2.3.2
+
+### Patch Changes
+
+- [`1bfca25c`](https://github.com/sxzz/vue-macros/commit/1bfca25c132f4fd2d3aca723e00ffc8312de19a4) Thanks [@sxzz](https://github.com/sxzz)! - add types for both esm and cjs
+
+- Updated dependencies [[`1bfca25c`](https://github.com/sxzz/vue-macros/commit/1bfca25c132f4fd2d3aca723e00ffc8312de19a4)]:
+  - @vue-macros/reactivity-transform@0.3.12
+  - @vue-macros/define-props-refs@1.1.2
+  - @vue-macros/setup-component@0.16.11
+  - unplugin-vue-define-options@1.3.10
+  - @vue-macros/named-template@0.3.11
+  - @vue-macros/better-define@1.6.4
+  - @vue-macros/define-models@1.0.8
+  - @vue-macros/define-render@1.3.11
+  - @vue-macros/export-expose@0.0.5
+  - @vue-macros/define-props@1.0.10
+  - @vue-macros/define-slots@1.0.7
+  - @vue-macros/export-props@0.3.10
+  - @vue-macros/hoist-static@1.4.4
+  - @vue-macros/define-emit@0.1.8
+  - @vue-macros/setup-block@0.2.10
+  - @vue-macros/short-emits@1.4.2
+  - @vue-macros/chain-call@0.0.3
+  - @vue-macros/setup-sfc@0.15.11
+  - @vue-macros/devtools@0.1.3
+  - @vue-macros/common@1.4.1
+  - @vue-macros/define-prop@0.1.9
+
 ## 2.3.1
 
 ### Patch Changes
