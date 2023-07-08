@@ -1,5 +1,11 @@
 # @vue-macros/define-prop
 
+## 0.1.10
+
+### Patch Changes
+
+- [`803eead8`](https://github.com/sxzz/vue-macros/commit/803eead82fbe5affe1672039751f9d4049b456c5) Thanks [@sxzz](https://github.com/sxzz)! - fix dts for esm
+
 ## 0.1.9
 
 ### Patch Changes
