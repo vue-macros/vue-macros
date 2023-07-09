@@ -1,5 +1,13 @@
 # @vue-macros/test-utils
 
+## 1.0.8
+
+### Patch Changes
+
+- [`c107e446`](https://github.com/sxzz/vue-macros/commit/c107e44618dd4ed59b5f2145c54d88f8e6ca7779) Thanks [@sxzz](https://github.com/sxzz)! - refactor: reuse resolveObjectKey from ast-kit
+
+- [`2d1a0c4d`](https://github.com/sxzz/vue-macros/commit/2d1a0c4db7d725697dc4204fb51effe387670c59) Thanks [@sxzz](https://github.com/sxzz)! - ignore unresolved import
+
 ## 1.0.7
 
 ### Patch Changes

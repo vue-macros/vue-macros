@@ -1,5 +1,13 @@
 # @vue-macros/define-prop
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [[`c107e446`](https://github.com/sxzz/vue-macros/commit/c107e44618dd4ed59b5f2145c54d88f8e6ca7779)]:
+  - @vue-macros/common@1.5.0
+  - @vue-macros/api@0.7.4
+
 ## 0.1.10
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @vue-macros/setup-component
 
+## 0.16.12
+
+### Patch Changes
+
+- Updated dependencies [[`c107e446`](https://github.com/sxzz/vue-macros/commit/c107e44618dd4ed59b5f2145c54d88f8e6ca7779)]:
+  - @vue-macros/common@1.5.0
+
 ## 0.16.11
 
 ### Patch Changes

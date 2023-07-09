@@ -1,5 +1,18 @@
 # @vue-macros/volar
 
+## 0.12.0
+
+### Minor Changes
+
+- [`4cd6d3a5`](https://github.com/sxzz/vue-macros/commit/4cd6d3a5b46750c25cbcaa4aeab7eb03a1f723f5) Thanks [@sxzz](https://github.com/sxzz)! - replace `@volar/vue-language-core` with `@vue/language-core`
+
+### Patch Changes
+
+- Updated dependencies [[`c107e446`](https://github.com/sxzz/vue-macros/commit/c107e44618dd4ed59b5f2145c54d88f8e6ca7779)]:
+  - @vue-macros/common@1.5.0
+  - @vue-macros/define-props@1.0.11
+  - @vue-macros/short-vmodel@1.2.11
+
 ## 0.11.2
 
 ### Patch Changes
