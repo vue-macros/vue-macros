@@ -1,5 +1,12 @@
 # @vue-macros/volar
 
+## 0.12.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vue-macros/define-props@1.0.12
+
 ## 0.12.0
 
 ### Minor Changes
