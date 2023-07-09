@@ -60,7 +60,10 @@ export async function rollupBuild(file: string, plugins: InputPluginOption) {
     ],
     treeshake: false,
     onwarn(warning, defaultHandler) {
-      if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return
+      if (
+        ['UNUSED_EXTERNAL_IMPORT', 'UNRESOLVED_IMPORT'].includes(warning.code!)
+      )
+        return
       defaultHandler(warning)
     },
   })
