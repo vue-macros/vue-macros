@@ -59,7 +59,7 @@ export function transformShortEmits(code: string, id: string) {
       if (!isTypeOf(member, ['TSPropertySignature', 'TSMethodSignature']))
         continue
 
-      const key = resolveObjectKey(member.key, member.computed)
+      const key = resolveObjectKey(member, true)
       let params = ''
 
       switch (member.type) {

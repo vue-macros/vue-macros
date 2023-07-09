@@ -582,7 +582,7 @@ export function transformDefineModels(
     for (const p of modelDestructureDecl.properties) {
       if (p.type !== 'ObjectProperty') continue
       try {
-        const key = resolveObjectKey(p.key, p.computed, false)
+        const key = resolveObjectKey(p)
         if (p.value.type !== 'Identifier') continue
         aliasMap[p.value.name] = key
       } catch {}

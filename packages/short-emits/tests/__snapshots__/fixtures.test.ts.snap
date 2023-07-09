@@ -5,13 +5,13 @@ exports[`fixtures > ./fixtures/basic.vue 1`] = `
 const emit = defineEmits<
   {
     // TSPropertySignature
-    (evt: 'input', ...args: []): void
+    (evt: \\"input\\", ...args: []): void
     (evt: 'update:modelValue', ...args: [val: string]): void
     (evt: 'update:color', ...args: [val: number]): void
-    (evt: 'change', value: boolean): void
+    (evt: \\"change\\", value: boolean): void
 
     // TSMethodSignature
-    (evt: 'update'): void
+    (evt: \\"update\\"): void
 
     (evt: 'foo\\"\\\\'', value: boolean): void
 
@@ -35,13 +35,13 @@ import { defineEmits } from '../../macros' assert { type: 'macro' }
 
 const emit = defineEmits<{
   // TSPropertySignature
-  (evt: 'input', ...args: []): void
+  (evt: \\"input\\", ...args: []): void
   (evt: 'update:modelValue', ...args: [val: string]): void
   (evt: 'update:color', ...args: [val: number]): void
-  (evt: 'change', value: boolean): void
+  (evt: \\"change\\", value: boolean): void
 
   // TSMethodSignature
-  (evt: 'update'): void
+  (evt: \\"update\\"): void
 
   (evt: 'foo\\"\\\\'', value: boolean): void
 

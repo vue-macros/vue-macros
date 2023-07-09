@@ -1,15 +1,10 @@
 import { walkIdentifiers } from '@vue/compiler-sfc'
-import {
-  type Node,
-  type ObjectExpression,
-  type ObjectMethod,
-  type ObjectProperty,
-} from '@babel/types'
 import { type MagicStringBase } from 'magic-string-ast'
-import { isFunctionType, isLiteralType } from 'ast-kit'
+import { isFunctionType, isLiteralType, resolveObjectKey } from 'ast-kit'
+import type * as t from '@babel/types'
 
 export function checkInvalidScopeReference(
-  node: Node | undefined,
+  node: t.Node | undefined,
   method: string,
   setupBindings: string[]
 ) {
@@ -25,7 +20,7 @@ export function checkInvalidScopeReference(
 }
 
 export function isStaticExpression(
-  node: Node,
+  node: t.Node,
   options: Partial<
     Record<
       'object' | 'fn' | 'objectMethod' | 'array' | 'unary' | 'regex',
@@ -117,7 +112,7 @@ export function isStaticExpression(
   return false
 }
 
-export function isStaticObjectKey(node: ObjectExpression): boolean {
+export function isStaticObjectKey(node: t.ObjectExpression): boolean {
   return node.properties.every((prop) => {
     if (prop.type === 'SpreadElement') {
       return (
@@ -132,8 +127,8 @@ export function isStaticObjectKey(node: ObjectExpression): boolean {
 /**
  * @param node must be a static expression, SpreadElement is not supported
  */
-export function resolveObjectExpression(node: ObjectExpression) {
-  const maps: Record<string | number, ObjectMethod | ObjectProperty> = {}
+export function resolveObjectExpression(node: t.ObjectExpression) {
+  const maps: Record<string | number, t.ObjectMethod | t.ObjectProperty> = {}
   for (const property of node.properties) {
     if (property.type === 'SpreadElement') {
       if (property.argument.type !== 'ObjectExpression')
@@ -141,35 +136,12 @@ export function resolveObjectExpression(node: ObjectExpression) {
         return undefined
       Object.assign(maps, resolveObjectExpression(property.argument)!)
     } else {
-      const key = resolveObjectKey(property.key, property.computed, false)
+      const key = resolveObjectKey(property)
       maps[key] = property
     }
   }
 
   return maps
-}
-
-export function resolveObjectKey(
-  node: Node,
-  computed?: boolean,
-  raw?: true
-): string
-export function resolveObjectKey(
-  node: Node,
-  computed: boolean | undefined,
-  raw: false
-): string | number
-export function resolveObjectKey(node: Node, computed = false, raw = true) {
-  switch (node.type) {
-    case 'StringLiteral':
-    case 'NumericLiteral':
-      return raw ? node.extra!.raw : node.value
-    case 'Identifier':
-      if (!computed) return raw ? `'${node.name}'` : node.name
-    // break omitted intentionally
-    default:
-      throw new SyntaxError(`Unexpected node type: ${node.type}`)
-  }
 }
 
 const importedMap = new WeakMap<MagicStringBase, Set<string>>()

@@ -134,7 +134,7 @@ export function resolveTypeElements(
 
   const tryGetKey = (element: TSMethodSignature | TSPropertySignature) => {
     try {
-      return resolveObjectKey(element.key, element.computed, false)
+      return resolveObjectKey(element)
     } catch {}
   }
 

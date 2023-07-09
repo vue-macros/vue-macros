@@ -74,7 +74,7 @@ export function transformVueSFC(code: string, id: string) {
     propsDestructuredBindings = {}
     for (const prop of decl.id.properties) {
       if (prop.type === 'ObjectProperty') {
-        const propKey = resolveObjectKey(prop.key, prop.computed, false)
+        const propKey = resolveObjectKey(prop)
 
         if (!propKey) {
           throw new SyntaxError(
