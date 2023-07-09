@@ -1,5 +1,14 @@
 # @vue-macros/short-emits
 
+## 1.4.3
+
+### Patch Changes
+
+- [`c107e446`](https://github.com/sxzz/vue-macros/commit/c107e44618dd4ed59b5f2145c54d88f8e6ca7779) Thanks [@sxzz](https://github.com/sxzz)! - refactor: reuse resolveObjectKey from ast-kit
+
+- Updated dependencies [[`c107e446`](https://github.com/sxzz/vue-macros/commit/c107e44618dd4ed59b5f2145c54d88f8e6ca7779)]:
+  - @vue-macros/common@1.5.0
+
 ## 1.4.2
 
 ### Patch Changes
