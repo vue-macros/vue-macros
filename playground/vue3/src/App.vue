@@ -13,6 +13,7 @@ import BetterDefine from './examples/better-define/index.vue'
 // import NamedTemplate from './examples/named-template/index.vue'
 import SetupBlock from './examples/setup-block/index.vue'
 import ChainCall from './examples/chain-call/index.vue'
+import ReactivityTransform from './examples/reactivity-transform/index.vue'
 
 import DefineProp from './examples/define-prop/index.vue'
 import DefineEmit from './examples/define-emit/index.vue'
@@ -122,6 +123,11 @@ import Full from './examples/full.setup'
     <fieldset>
       <legend>chainCall</legend>
       <ChainCall />
+    </fieldset>
+
+    <fieldset>
+      <legend>reactivityTransform</legend>
+      <ReactivityTransform />
     </fieldset>
   </div>
 </template>

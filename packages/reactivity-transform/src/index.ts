@@ -11,8 +11,7 @@ import {
   detectVueVersion,
   normalizePath,
 } from '@vue-macros/common'
-import { shouldTransform, transform } from './core/impl'
-import { transformVueSFC } from './core'
+import { shouldTransform, transform, transformVueSFC } from './core'
 import { helperCode, helperId } from './core/helper'
 
 export type Options = BaseOptions
