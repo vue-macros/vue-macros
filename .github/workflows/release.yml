@@ -13,8 +13,15 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     permissions:
-      contents: write
       id-token: write
+      actions: write
+      pull-requests: write
+      statuses: write
+      contents: write
+      issues: write
+      security-events: write
+      pages: read
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
