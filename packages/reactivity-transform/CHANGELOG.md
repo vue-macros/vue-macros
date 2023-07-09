@@ -1,5 +1,11 @@
 # @vue-macros/reactivity-transform
 
+## 0.3.14
+
+### Patch Changes
+
+- [`46010bbf`](https://github.com/sxzz/vue-macros/commit/46010bbf8bc62e2ed6d702f9d4dcd40f6d7e9bae) Thanks [@sxzz](https://github.com/sxzz)! - support prop alias for reactivity transform
+
 ## 0.3.13
 
 ### Patch Changes
