@@ -1,5 +1,5 @@
 import { FileKind } from '@volar/language-core'
-import { type VueLanguagePlugin } from '@volar/vue-language-core'
+import { type VueLanguagePlugin } from '@vue/language-core'
 import { getImportNames, rewriteImports } from './common'
 
 const plugin: VueLanguagePlugin = ({

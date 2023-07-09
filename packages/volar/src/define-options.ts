@@ -5,7 +5,7 @@ import {
   type Sfc,
   type VueLanguagePlugin,
   replace,
-} from '@volar/vue-language-core'
+} from '@vue/language-core'
 
 function transformDefineOptions({
   codes,

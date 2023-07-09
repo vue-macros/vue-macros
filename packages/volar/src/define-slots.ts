@@ -7,7 +7,7 @@ import {
   type VueLanguagePlugin,
   replace,
   toString,
-} from '@volar/vue-language-core'
+} from '@vue/language-core'
 
 const transform = ({
   embeddedFile,

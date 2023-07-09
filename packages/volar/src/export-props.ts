@@ -4,7 +4,7 @@ import {
   type VueEmbeddedFile,
   type VueLanguagePlugin,
   replaceSourceRange,
-} from '@volar/vue-language-core'
+} from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
 import { type VolarOptions } from '..'
 import { addProps, getVolarOptions, getVueLibraryName } from './common'

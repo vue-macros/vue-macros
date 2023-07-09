@@ -7,7 +7,7 @@ import {
   type VueLanguagePlugin,
   replace,
   replaceSourceRange,
-} from '@volar/vue-language-core'
+} from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
 import { type VolarOptions } from '..'
 import { getVolarOptions } from './common'

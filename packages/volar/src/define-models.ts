@@ -4,7 +4,7 @@ import {
   type Segment,
   type Sfc,
   type VueLanguagePlugin,
-} from '@volar/vue-language-core'
+} from '@vue/language-core'
 import {
   addEmits,
   addProps,

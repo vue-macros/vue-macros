@@ -4,7 +4,7 @@ import {
   type VueCompilerOptions,
   type VueEmbeddedFile,
   replace,
-} from '@volar/vue-language-core'
+} from '@vue/language-core'
 import { type FileRangeCapabilities } from '@volar/language-core'
 import { type VolarOptions } from '..'
 
