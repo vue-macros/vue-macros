@@ -1,23 +1,15 @@
 {
-  extends: ['config:base', 'schedule:weekly', 'group:allNonMajor'],
-  labels: ['dependencies'],
-  pin: false,
-  rangeStrategy: 'bump',
-  node: false,
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['github>sxzz/renovate-config'],
   packageRules: [
-    {
-      depTypeList: ['peerDependencies'],
-      enabled: false,
-    },
-
     {
       groupName: 'volarjs',
       groupSlug: 'volar-related',
       matchPackagePrefixes: ['@volar'],
-      matchPackageNames: ['vue-tsc'],
+      matchPackageNames: ['vue-tsc', '@vue/language-core'],
       rangeStrategy: 'replace',
       matchDepTypes: ['peerDependencies', 'devDependencies', 'dependencies'],
     },
   ],
-  ignoreDeps: ['node', 'vue', 'vue2', 'typescript'],
+  ignoreDeps: ['vue', 'vue2', 'typescript'],
 }
