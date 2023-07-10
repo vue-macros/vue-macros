@@ -1,5 +1,13 @@
 # @vue-macros/define-prop
 
+## 0.2.0
+
+### Minor Changes
+
+- [`1b944065`](https://github.com/sxzz/vue-macros/commit/1b944065f840d684dfedd3158a786ea2684d73ed) Thanks [@sxzz](https://github.com/sxzz)! - allow for `defineProps` and `defineProp` to coexist
+
+  closes #404
+
 ## 0.1.11
 
 ### Patch Changes
