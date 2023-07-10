@@ -1,12 +1,13 @@
 {
   "name": "playground-vue2",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "run-p \"build:*\"",
     "build:vite": "vite build",
-    "build:rollup": "rollup -c rollup.config.mjs",
+    "build:rollup": "rollup -c rollup.config.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "vue": "^2.7.14"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.2",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@vitejs/plugin-vue2": "^2.2.0",
     "@vitejs/plugin-vue2-jsx": "^1.1.0",
@@ -22,7 +24,9 @@
     "npm-run-all": "^4.1.5",
     "rollup": "^3.26.2",
     "rollup-plugin-esbuild": "^5.0.0",
+    "type-fest": "^3.13.0",
     "typescript": "~5.1.6",
+    "unocss": "^0.53.5",
     "unplugin-vue-macros": "workspace:*",
     "vite": "^4.4.2",
     "vite-plugin-inspect": "^0.7.32",

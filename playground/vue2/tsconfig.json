@@ -20,14 +20,26 @@
     "plugins": [
       "@vue-macros/volar/define-options",
       "@vue-macros/volar/define-models",
-      "@vue-macros/volar/define-slots"
+      "@vue-macros/volar/define-props",
+      "@vue-macros/volar/define-props-refs",
+      "@vue-macros/volar/short-vmodel",
+      "@vue-macros/volar/define-slots",
+      "@vue-macros/volar/export-expose",
+      "@vue-macros/volar/export-props"
     ],
-    "experimentalDefinePropProposal": "johnsonEdition",
+    "experimentalDefinePropProposal": "kevinEdition",
+
     "vueMacros": {
-      "defineModels": {
-        "unified": true
+      "shortVmodel": {
+        "prefix": "$"
+      },
+      "exportExpose": {
+        "include": ["**/export-expose/**"]
+      },
+      "exportProps": {
+        "include": ["**/export-props/**"]
       }
     }
   },
-  "include": ["src", "*"]
+  "include": ["src", "*", "../../packages/shim.d.ts"]
 }

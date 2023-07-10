@@ -1,7 +1,5 @@
+import { type DefineComponent } from 'vue'
 import { foo } from './setup-component/foo'
-import type { DefineComponent } from 'vue'
-
-console.log(foo)
 
 const name = 'Greet'
 defineOptions({
@@ -19,13 +17,16 @@ defineEmits<
   }>
 >()
 
-defineModels<{
-  modelValue: string
+$defineModels<{
+  value: string
 }>()
 
 export default (
   <div>
-    <h1>{name}</h1>
     Magic Vue!
+    <pre>
+      {name}
+      {foo}
+    </pre>
   </div>
 ) as any as DefineComponent

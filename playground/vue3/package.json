@@ -2,11 +2,12 @@
   "name": "playground-vue3",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "run-p \"build:*\"",
     "build:vite": "vite build",
-    "build:rollup": "rollup -c rollup.config.mjs",
+    "build:rollup": "rollup -c rollup.config.js",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit"
   },

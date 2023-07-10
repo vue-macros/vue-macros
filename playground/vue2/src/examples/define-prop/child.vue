@@ -1,13 +1,17 @@
 <script setup lang="ts">
-const foo = defineProp(0)
-const bar = defineProp('default', false)
-const baz = defineProp<boolean>()
+import { Assert } from '../../assert'
+const foo = defineProp<string>('foo')
+const bar = defineProp<string>()
+
+definePropsRefs(['msg'])
 </script>
 
 <template>
   <div>
-    <p>foo: {{ foo }}</p>
-    <p>bar: {{ bar }}</p>
-    <p>baz: {{ baz }}</p>
+    <div>foo: {{ foo }}</div>
+    <div>
+      <Assert :l="bar" r="bar" />
+      <Assert :l="'msg' in $props" :r="true" />
+    </div>
   </div>
 </template>

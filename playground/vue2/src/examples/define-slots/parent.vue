@@ -1,17 +1,18 @@
 <script setup lang="ts">
+import { Assert } from '../../assert'
 import Child from './child.vue'
 </script>
 
 <template>
-  <div>
-    <child>
-      <template #title />
+  <child>
+    <template #title />
 
-      <template #foo="{ foo }">
-        {{ foo }}
-      </template>
+    <template #default="{ bar }">
+      <Assert :l="bar" r="bar" />
+    </template>
 
-      <template #default="{ bar }">{{ bar }}</template>
-    </child>
-  </div>
+    <template #any="{ any }">
+      {{ any }}
+    </template>
+  </child>
 </template>

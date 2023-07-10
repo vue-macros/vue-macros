@@ -3,7 +3,6 @@ import { getCurrentInstance } from 'vue'
 import { Assert } from '../../assert'
 import Empty from './empty.vue'
 import Tsx from './tsx.vue'
-import { Assert } from '../../assert'
 
 defineOptions({
   name: 'ExampleDefineOptions',

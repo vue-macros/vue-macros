@@ -3,7 +3,6 @@ import { Assert } from '../../assert'
 import { type Warn } from './warning'
 import { type BaseEmits, type BaseProps } from './types'
 import { type DtsDemo } from './test-dts'
-import { Assert } from '../../assert'
 
 export interface Props extends BaseProps {
   msg: string
