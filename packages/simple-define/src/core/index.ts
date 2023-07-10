@@ -49,7 +49,10 @@ export function transformSimpleDefine(code: string, id: string) {
     s.overwriteNode(node.callee, DEFINE_PROPS, { offset })
   }
 
-  function processWithDefaults(node: CallExpression, parent: Node) {
+  function processWithDefaults(
+    node: CallExpression,
+    parent: Node | null | undefined
+  ) {
     if (!isCallOf(node.arguments[0], SIMPLE_PROPS))
       throw new SyntaxError(
         `${WITH_DEFAULTS} must have a ${SIMPLE_PROPS} call as its first argument.`
@@ -61,7 +64,7 @@ export function transformSimpleDefine(code: string, id: string) {
 
     // rename props
     if (
-      parent.type === 'VariableDeclarator' &&
+      parent?.type === 'VariableDeclarator' &&
       parent.id.type === 'Identifier'
     ) {
       s.overwriteNode(parent.id, `${HELPER_PREFIX}props`, { offset })
