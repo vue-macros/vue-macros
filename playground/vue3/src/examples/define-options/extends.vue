@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Sub from './sub.vue'
+import Root from './root.vue'
 
 defineOptions({
-  extends: Sub,
+  extends: Root,
 })
 </script>
 

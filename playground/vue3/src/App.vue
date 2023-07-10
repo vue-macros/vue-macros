@@ -58,7 +58,7 @@ import Full from './examples/full.setup'
     </fieldset>
 
     <fieldset>
-      <legend>hostStatic</legend>
+      <legend>hoistStatic</legend>
       <HoistStatic />
     </fieldset>
 
@@ -70,9 +70,8 @@ import Full from './examples/full.setup'
 
     <fieldset>
       <legend>defineModels</legend>
-      <DefineModelReactivity />
-      <hr />
       <DefineModelRuntime />
+      <DefineModelReactivity />
     </fieldset>
 
     <fieldset>
@@ -137,5 +136,19 @@ legend {
   font-family: monospace;
   font-size: 16px;
   font-weight: bold;
+}
+
+.ok {
+  color: green;
+}
+
+.fail {
+  font-weight: bold;
+  color: red;
+}
+
+.ok,
+.fail {
+  padding: 10px;
 }
 </style>

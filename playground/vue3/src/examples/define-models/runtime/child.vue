@@ -1,24 +1,23 @@
 <script setup lang="ts">
+import { Ok } from '../../../assert'
+
 const { title, none } = defineModels<{
   title: string
   none?: ModelOptions<string, { defaultValue: 'initial value' }>
 }>()
 
 const update = () => {
-  title.value += ' Updated!'
-  none.value += ' Updated!'
-  debugger
-}
-
-const check = () => {
-  debugger
+  title.value += '!'
+  none.value += '!'
 }
 </script>
 
 <template>
-  <div>defineModels demo.</div>
-  <div>current value: {{ title }}</div>
-  <div>none: {{ none }}</div>
-  <button @click="update">Update</button>
-  <button @click="check">Check source map</button>
+  <fieldset>
+    <legend>defineModels</legend>
+    <button @click="update">Update</button>
+    <Ok />
+    <div>current value: {{ title }}</div>
+    <div>none: {{ none }}</div>
+  </fieldset>
 </template>

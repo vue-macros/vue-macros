@@ -1,6 +1,14 @@
 <script setup lang="ts">
-export const foo = 'foo'
+import { ref } from 'vue'
+import { Ok } from '../../assert'
+export const foo = ref('foo')
 export const bar = 'bar'
+
+setTimeout(() => {
+  foo.value = 'new'
+}, 5)
 </script>
 
-<template>child component</template>
+<template>
+  <Ok />
+</template>

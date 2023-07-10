@@ -3,28 +3,23 @@ import { getCurrentInstance } from 'vue'
 import { Assert } from '../../assert'
 import Empty from './empty.vue'
 import Tsx from './tsx.vue'
+import { Assert } from '../../assert'
 
 defineOptions({
   name: 'ExampleDefineOptions',
   inheritAttrs: false,
-  custom() {
-    debugger
-  },
 })
 
 const vm = getCurrentInstance()!
-const check = () => {
-  debugger
-  ;(vm.type as any).custom()
-}
 </script>
 
 <template>
-  <p>
-    defineOptions demo.
-    <button @click="check">Check source map</button>
+  <div>
+    basic
+    <Assert :l="vm.type.name" r="ExampleDefineOptions" />
+    <Assert :l="vm.type.inheritAttrs" :r="false" />
+  </div>
 
-    <empty />
-    <tsx />
-  </p>
+  <empty />
+  <tsx />
 </template>

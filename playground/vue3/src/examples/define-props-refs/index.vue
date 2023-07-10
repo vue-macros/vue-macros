@@ -3,5 +3,5 @@ import Child from './child.vue'
 </script>
 
 <template>
-  <Child :foo="['foo']" />
+  <Child />
 </template>

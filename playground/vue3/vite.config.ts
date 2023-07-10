@@ -31,6 +31,9 @@ export default defineConfig({
         vue: Vue({
           include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
           reactivityTransform: true,
+          script: {
+            hoistStatic: false,
+          } as any,
           template: {
             compilerOptions: {
               nodeTransforms: [

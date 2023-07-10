@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps } from 'unplugin-vue-macros/macros' assert { type: 'macro' }
+import { Assert } from '../../assert'
 
 defineProps<{
   foo?: string
@@ -10,6 +11,6 @@ defineProps<{
 </script>
 
 <template>
-  {{ foo }}
-  {{ bar }}
+  <Assert :l="foo" r="foo" />
+  <Assert :l="bar" :r="false" />
 </template>

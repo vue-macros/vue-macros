@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Assert } from '../../assert'
 import Child from './child.vue'
 
 const child = ref<InstanceType<typeof Child>>()
@@ -7,5 +8,6 @@ const child = ref<InstanceType<typeof Child>>()
 
 <template>
   <Child ref="child" />
-  <pre>{{ child?.bar }} === bar</pre>
+  <Assert :l="child?.foo" r="new" />
+  <Assert :l="child?.bar" r="bar" />
 </template>

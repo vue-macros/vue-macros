@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const increment = defineEmit('increment')
+const inc = defineEmit('increment')
 </script>
 
 <template>
-  <button @click="increment">increment</button>
+  <button @click="inc">inc</button>
 </template>
