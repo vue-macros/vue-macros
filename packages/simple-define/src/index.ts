@@ -24,7 +24,7 @@ function resolveOptions(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-vue-better-define'
+const name = 'unplugin-vue-simple-define'
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
