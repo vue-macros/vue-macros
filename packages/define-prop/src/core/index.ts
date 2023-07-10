@@ -10,9 +10,10 @@ import {
   walkAST,
 } from '@vue-macros/common'
 import { inferRuntimeType, resolveTSReferencedType } from '@vue-macros/api'
-import { type Node, type TSType } from '@babel/types'
+import { type CallExpression, type Node, type TSType } from '@babel/types'
 import { kevinEdition } from './kevin-edition'
 import { johnsonEdition } from './johnson-edition'
+import { helperId } from './helper'
 
 export * from './utils'
 export * from './kevin-edition'
@@ -29,51 +30,68 @@ export async function transformDefineProp(
 ) {
   if (!code.includes(DEFINE_PROP)) return
 
-  const { scriptSetup, getSetupAst } = parseSFC(code, id)
-  if (!scriptSetup) return
+  const sfc = parseSFC(code, id)
+  if (!sfc.scriptSetup) return
 
-  const setupAst = getSetupAst()!
+  const setupAst = sfc.getSetupAst()!
 
-  const offset = scriptSetup.loc.start.offset
+  const offset = sfc.scriptSetup.loc.start.offset
   const s = new MagicString(code)
 
   const { walkCall, genRuntimeProps } = (
     edition === 'kevinEdition' ? kevinEdition : johnsonEdition
   )({ s, offset, resolveTSType })
 
-  let hasDefineProps = false
-  let hasDefineProp = false
+  let definePropsCall: CallExpression | undefined
   walkAST<Node>(setupAst, {
     enter(node, parent) {
       if (isCallOf(node, DEFINE_PROP)) {
-        hasDefineProp = true
         const propName = walkCall(node, parent)
         s.overwriteNode(
           node,
-          `${importHelperFn(
-            s,
-            offset,
-            'toRef'
-          )}(${PROPS_VARIABLE_NAME}, ${JSON.stringify(propName)})`,
+          `${importHelperFn(s, offset, 'toRef')}(__props, ${JSON.stringify(
+            propName
+          )})`,
           { offset }
         )
-      } else if (isCallOf(node, DEFINE_PROPS)) {
-        hasDefineProps = true
+      }
+      if (isCallOf(node, DEFINE_PROPS)) {
+        definePropsCall = node
       }
     },
   })
 
-  if (hasDefineProps && hasDefineProp)
-    throw new Error(
-      `${DEFINE_PROP} can not be used in the same file as ${DEFINE_PROPS}.`
-    )
-
   const runtimeProps = await genRuntimeProps(isProduction)
-  if (runtimeProps)
+  if (!runtimeProps) return
+
+  if (definePropsCall?.typeParameters) {
+    throw new SyntaxError(
+      `defineProp cannot be used with defineProps<T>() in the same component.`
+    )
+  }
+
+  if (definePropsCall && definePropsCall.arguments.length > 0) {
+    const originalProps = s.sliceNode(definePropsCall.arguments[0], { offset })
+    const normalizePropsOrEmits = importHelperFn(
+      s,
+      offset,
+      'normalizePropsOrEmits',
+      helperId,
+      true
+    )
+    s.overwriteNode(
+      definePropsCall.arguments[0],
+      `{ ...${normalizePropsOrEmits}(${originalProps}), ...${normalizePropsOrEmits}(${runtimeProps}) }`,
+      {
+        offset,
+      }
+    )
+  } else {
     s.prependLeft(
-      offset!,
+      offset,
       `\nconst ${PROPS_VARIABLE_NAME} = defineProps(${runtimeProps});\n`
     )
+  }
 
   return getTransformResult(s, id)
 
@@ -82,7 +100,7 @@ export async function transformDefineProp(
       scope: {
         kind: 'file',
         filePath: id,
-        content: scriptSetup!.content,
+        content: sfc.scriptSetup!.content,
         ast: setupAst.body,
       },
       type,

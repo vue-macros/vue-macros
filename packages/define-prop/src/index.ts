@@ -7,10 +7,12 @@ import {
   REGEX_VUE_SUB,
   createFilter,
   detectVueVersion,
+  normalizePath,
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
 import { type PluginContext } from 'rollup'
 import { type Edition, transformDefineProp } from './core'
+import { helperCode, helperId } from './core/helper'
 
 export interface Options extends BaseOptions {
   isProduction?: boolean
@@ -49,6 +51,18 @@ export default createUnplugin<Options | undefined, false>(
         if (framework === 'rollup' || framework === 'vite') {
           setResolveTSFileIdImpl(resolve(this as PluginContext))
         }
+      },
+
+      resolveId(id) {
+        if (id === normalizePath(helperId)) return id
+      },
+
+      loadInclude(id) {
+        return normalizePath(id) === helperId
+      },
+
+      load(id) {
+        if (normalizePath(id) === helperId) return helperCode
       },
 
       transformInclude(id) {

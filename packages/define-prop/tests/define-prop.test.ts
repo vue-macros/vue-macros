@@ -14,7 +14,7 @@ describe("defineProp (Kevin's proposal)", () => {
     const code = removeSpaces(result!.code)
 
     expect(code).includes(`const ${PROPS_VARIABLE_NAME} = defineProps(["foo"])`)
-    expect(code).includes(`const foo = __MACROS_toRef(__MACROS_props, "foo")`)
+    expect(code).includes(`const foo = __MACROS_toRef(__props, "foo")`)
   })
 
   it('should transform prop with options', async () => {
@@ -33,7 +33,7 @@ describe("defineProp (Kevin's proposal)", () => {
 
     const code = removeSpaces(result!.code)
 
-    expect(code).includes(`const foo = __MACROS_toRef(__MACROS_props, "foo")`)
+    expect(code).includes(`const foo = __MACROS_toRef(__props, "foo")`)
 
     expect(code).includes(
       `const ${PROPS_VARIABLE_NAME} = defineProps({ foo: ${removeSpaces(
@@ -53,25 +53,25 @@ describe("defineProp (Kevin's proposal)", () => {
     )
     const code = removeSpaces(result!.code)
 
-    expect(code).includes(`const foo = __MACROS_toRef(__MACROS_props, "foo")`)
-    expect(code).includes(`const bar = __MACROS_toRef(__MACROS_props, "bar")`)
+    expect(code).includes(`const foo = __MACROS_toRef(__props, "foo")`)
+    expect(code).includes(`const bar = __MACROS_toRef(__props, "bar")`)
     expect(code).includes(
       `const ${PROPS_VARIABLE_NAME} = defineProps(["foo", "bar"])`
     )
   })
 
-  it('should emit an error when defineProps', async () => {
+  it('should throw an error when defineProps', async () => {
     await expect(
       transformDefineProp(
         `
       <script setup lang="ts">
-        defineProps({})
-        const foo = defineProp('foo')
+      defineProps<T>()
+      const foo = defineProp('foo')
       </script>`,
         'test.vue'
       )
     ).rejects.toThrowError(
-      'defineProp can not be used in the same file as defineProps.'
+      'defineProp cannot be used with defineProps<T>() in the same component.'
     )
   })
 })

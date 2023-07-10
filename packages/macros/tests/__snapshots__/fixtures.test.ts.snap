@@ -55,6 +55,29 @@ export { case233 as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/define-prop-props-refs.vue 1`] = `
+"import { defineComponent, toRefs, toRef } from 'vue';
+import __MACROS_normalizePropsOrEmits from '/vue-macros/define-prop/helper';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"define-prop-props-refs\\",
+  props: { ...__MACROS_normalizePropsOrEmits([\\"foo\\"]), ...__MACROS_normalizePropsOrEmits([\\"bar\\"]) },
+  setup(__props) {
+    const __MACROS_props = __props;
+    const { foo } = toRefs(__MACROS_props);
+    const bar = toRef(__props, \\"bar\\");
+    return () => {
+    };
+  }
+});
+
+var definePropPropsRefs = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { definePropPropsRefs as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
 "import { defineComponent, toRefs } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
