@@ -270,14 +270,26 @@ export default createCombinePlugin<Options | undefined>(
       setupComponentPlugins?.[0],
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
       namedTemplatePlugins?.[0],
-      resolvePlugin(VueDefineEmit, framework, options.defineEmit),
+
+      // props
+      resolvePlugin(VueChainCall, framework, options.chainCall),
       resolvePlugin(VueDefineProps, framework, options.defineProps),
       resolvePlugin(VueDefinePropsRefs, framework, options.definePropsRefs),
-      resolvePlugin(VueDefineProp, framework, options.defineProp),
-      resolvePlugin(VueChainCall, framework, options.chainCall),
       resolvePlugin(VueExportProps, framework, options.exportProps),
+
+      // emits
+      resolvePlugin(VueDefineEmit, framework, options.defineEmit),
       resolvePlugin(VueShortEmits, framework, options.shortEmits),
+
+      // both props & emits
       resolvePlugin(VueDefineModels, framework, options.defineModels),
+
+      // convert to runtime props & emits
+      resolvePlugin(VueBetterDefine, framework, options.betterDefine),
+
+      // runtime props
+      resolvePlugin(VueDefineProp, framework, options.defineProp),
+
       resolvePlugin(VueDefineSlots, framework, options.defineSlots),
       resolvePlugin(VueExportExpose, framework, options.exportExpose),
       resolvePlugin(
@@ -285,7 +297,6 @@ export default createCombinePlugin<Options | undefined>(
         framework,
         options.reactivityTransform
       ),
-      resolvePlugin(VueBetterDefine, framework, options.betterDefine),
       resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
       resolvePlugin(VueDefineOptions, framework, options.defineOptions),
       options.plugins.vue,

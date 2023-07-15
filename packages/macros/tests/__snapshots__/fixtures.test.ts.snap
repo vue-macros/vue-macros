@@ -55,29 +55,6 @@ export { case233 as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/define-prop-props-refs.vue 1`] = `
-"import { defineComponent, toRefs, toRef } from 'vue';
-import __MACROS_normalizePropsOrEmits from '/vue-macros/define-prop/helper';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
-
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"define-prop-props-refs\\",
-  props: { ...__MACROS_normalizePropsOrEmits([\\"foo\\"]), ...__MACROS_normalizePropsOrEmits([\\"bar\\"]) },
-  setup(__props) {
-    const __MACROS_props = __props;
-    const { foo } = toRefs(__MACROS_props);
-    const bar = toRef(__props, \\"bar\\");
-    return () => {
-    };
-  }
-});
-
-var definePropPropsRefs = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
-
-export { definePropPropsRefs as default };
-"
-`;
-
 exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
 "import { defineComponent, toRefs } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
@@ -158,6 +135,35 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 var hoistStaticScope = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { hoistStaticScope as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/mixed-define-props.vue 1`] = `
+"import { defineComponent, toRefs, toRef } from 'vue';
+import __MACROS_normalizePropsOrEmits from '/vue-macros/define-prop/helper';
+import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"mixed-define-props\\",
+  props: { ...__MACROS_normalizePropsOrEmits({
+    baz: { type: String, required: true },
+    foo: { type: String, required: false }
+  }), ...__MACROS_normalizePropsOrEmits([\\"bar\\"]) },
+  emits: [\\"update:baz\\"],
+  setup(__props) {
+    const __MACROS_props = __props;
+    const { foo } = toRefs(__MACROS_props);
+    const bar = toRef(__props, \\"bar\\");
+    const { baz } = __MACROS_useVModel(\\"baz\\");
+    return () => {
+    };
+  }
+});
+
+var mixedDefineProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { mixedDefineProps as default };
 "
 `;
 
