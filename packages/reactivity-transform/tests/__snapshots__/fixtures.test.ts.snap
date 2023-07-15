@@ -118,15 +118,15 @@ export { scriptAndSetup as default };
 `;
 
 exports[`fixtures > tests/fixtures/vue3/alias.vue 1`] = `
-"import { mergeDefaults, toRef, toDisplayString } from 'vue';
+"import { toRef, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const _sfc_main = {
   __name: 'alias',
-  props: mergeDefaults({
+  props: {
   foo: String,
   baz: Number,
-}, {  }),
+},
   setup(__props) {
 const propAlias2 = toRef(__props, \\"baz\\");
 const propAlias = toRef(__props, \\"foo\\");

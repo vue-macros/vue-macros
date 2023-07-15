@@ -143,17 +143,21 @@ const ${
         { offset }
       )
     } else if (defineDecl.arguments[0]) {
-      s.overwriteNode(
-        node,
-        `defineProps(${importHelperFn(
-          s,
-          offset,
-          'mergeDefaults'
-        )}(${s.sliceNode(defineDecl.arguments[0], {
-          offset,
-        })}, { ${defaultStr} }))`,
-        { offset }
-      )
+      if (defaultStr) {
+        s.overwriteNode(
+          node,
+          `defineProps(${importHelperFn(
+            s,
+            offset,
+            'mergeDefaults'
+          )}(${s.sliceNode(defineDecl.arguments[0], {
+            offset,
+          })}, { ${defaultStr} }))`,
+          { offset }
+        )
+      } else {
+        s.overwriteNode(node, s.sliceNode(defineDecl, { offset }), { offset })
+      }
     } else
       throw new SyntaxError(
         `${DEFINE_PROPS}() must have at least one argument or type argument.`
