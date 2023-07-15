@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.0.9
+
+### Patch Changes
+
+- [`71660f07`](https://github.com/sxzz/vue-macros/commit/71660f07a5130898a9f381a911463b08d578a892) Thanks [@sxzz](https://github.com/sxzz)! - warn when tests failed
+
 ## 1.0.8
 
 ### Patch Changes

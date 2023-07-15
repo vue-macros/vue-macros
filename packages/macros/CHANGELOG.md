@@ -1,5 +1,17 @@
 # unplugin-vue-macros
 
+## 2.3.7
+
+### Patch Changes
+
+- [`8ab4e934`](https://github.com/sxzz/vue-macros/commit/8ab4e93402db7f3d7779ce21faa1a061d4eb7db7) Thanks [@sxzz](https://github.com/sxzz)! - support defineModels with defineProp
+
+  closes #423
+
+- Updated dependencies [[`4df51dac`](https://github.com/sxzz/vue-macros/commit/4df51dac9db7b115f9b29d7a8e71b221857e5358)]:
+  - @vue-macros/reactivity-transform@0.3.15
+  - @vue-macros/define-props@1.0.13
+
 ## 2.3.6
 
 ### Patch Changes
