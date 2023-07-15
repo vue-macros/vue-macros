@@ -1,5 +1,11 @@
 # @vue-macros/reactivity-transform
 
+## 0.3.15
+
+### Patch Changes
+
+- [`4df51dac`](https://github.com/sxzz/vue-macros/commit/4df51dac9db7b115f9b29d7a8e71b221857e5358) Thanks [@sxzz](https://github.com/sxzz)! - don't wrap empty defaults
+
 ## 0.3.14
 
 ### Patch Changes
