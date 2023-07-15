@@ -79,7 +79,12 @@ export async function testFixtures(
                 expect(execute).toThrowErrorMatchingSnapshot()
               }
             } else if (promise) {
-              await expect(execute()).resolves.toMatchSnapshot()
+              await expect(
+                (execute() as Promise<any>).catch((err) => {
+                  console.warn(err)
+                  return Promise.reject(err)
+                })
+              ).resolves.toMatchSnapshot()
             } else {
               expect(execute()).toMatchSnapshot()
             }
