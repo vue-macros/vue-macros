@@ -10,6 +10,7 @@ export { default as RollupVue2 } from '@vitejs/plugin-vue2'
 export const RollupVueJsx = ViteVueJsx as (options?: VueJsxOptions) => Plugin
 
 export { default as RollupJson } from '@rollup/plugin-json'
+export { nodeResolve as RollupNodeResolve } from '@rollup/plugin-node-resolve'
 
 export const RollupToStringPlugin = (): Plugin => {
   return {
