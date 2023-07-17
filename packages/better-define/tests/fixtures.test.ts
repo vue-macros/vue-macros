@@ -3,6 +3,7 @@ import { describe } from 'vitest'
 import {
   RollupEsbuildPlugin,
   RollupJson,
+  RollupNodeResolve,
   RollupVue,
   RollupVueJsx,
   rollupBuild,
@@ -19,6 +20,7 @@ describe('fixtures', async () => {
         RollupVue(),
         RollupVueJsx(),
         RollupJson(),
+        RollupNodeResolve(),
         RollupEsbuildPlugin({
           target: 'esnext',
         }),

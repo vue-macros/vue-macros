@@ -1,4 +1,5 @@
 import {
+  DEFINE_EMITS,
   MagicString,
   escapeKey,
   getTransformResult,
@@ -75,7 +76,7 @@ export async function transformBetterDefine(
     const runtimeDecls = `[${Object.keys(emits.definitions)
       .map((name) => JSON.stringify(name))
       .join(', ')}]`
-    s.overwriteNode(emits.defineEmitsAst, `defineEmits(${runtimeDecls})`, {
+    s.overwriteNode(emits.defineEmitsAst, `${DEFINE_EMITS}(${runtimeDecls})`, {
       offset,
     })
   }

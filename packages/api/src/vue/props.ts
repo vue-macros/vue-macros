@@ -3,6 +3,7 @@ import {
   type SFC,
   babelParse,
   isStaticObjectKey,
+  resolveIdentifier,
   resolveObjectExpression,
 } from '@vue-macros/common'
 import {
@@ -486,10 +487,19 @@ export async function handleTSPropsDefinition({
       definitionsAst.type !== 'TSInterfaceDeclaration' &&
       definitionsAst.type !== 'TSTypeLiteral' &&
       definitionsAst.type !== 'TSMappedType'
-    )
-      throw new SyntaxError(
-        `Cannot resolve TS definition: ${definitionsAst.type}.`
-      )
+    ) {
+      if (definitionsAst.type === 'TSTypeReference') {
+        throw new SyntaxError(
+          `Cannot resolve TS type: ${resolveIdentifier(
+            definitionsAst.typeName
+          ).join('.')}`
+        )
+      } else {
+        throw new SyntaxError(
+          `Cannot resolve TS definition: ${definitionsAst.type}`
+        )
+      }
+    }
 
     let properties = await resolveTSProperties({
       scope,

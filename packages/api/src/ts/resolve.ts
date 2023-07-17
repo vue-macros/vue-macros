@@ -3,11 +3,9 @@ import {
   type BigIntLiteral,
   type BooleanLiteral,
   type Expression,
-  type Identifier,
   type Node,
   type NumericLiteral,
   type StringLiteral,
-  type TSEntityName,
   type TSFunctionType,
   type TSIndexedAccessType,
   type TSLiteralType,
@@ -16,7 +14,6 @@ import {
   type TSType,
   type TSTypeElement,
   type TSTypeOperator,
-  type TSTypeReference,
   type TSUnionType,
   type TemplateElement,
   type TemplateLiteral,
@@ -35,17 +32,6 @@ import {
   resolveTSReferencedType,
 } from './resolve-reference'
 import { type TSScope } from './scope'
-
-export function resolveReferenceName(
-  node: TSTypeReference | Identifier | TSEntityName
-): Identifier[] {
-  if (node.type === 'TSTypeReference') {
-    return resolveReferenceName(node.typeName)
-  } else if (node.type === 'Identifier') return [node]
-  else {
-    return [...resolveReferenceName(node.left), node.right]
-  }
-}
 
 export async function resolveTSTemplateLiteral({
   type,

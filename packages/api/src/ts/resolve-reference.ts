@@ -1,3 +1,4 @@
+import { resolveIdentifier } from '@vue-macros/common'
 import {
   type Identifier,
   type Node,
@@ -11,7 +12,7 @@ import {
   isTSNamespace,
   resolveTSNamespace,
 } from './namespace'
-import { resolveReferenceName, resolveTSIndexedAccessType } from './resolve'
+import { resolveTSIndexedAccessType } from './resolve'
 import { type TSScope, resolveTSScope } from './scope'
 import { type TSDeclaration, isTSDeclaration } from './is'
 
@@ -77,7 +78,9 @@ export async function resolveTSReferencedType(
     return { scope, type }
 
   await resolveTSNamespace(scope)
-  const refNames = resolveReferenceName(type).map((id) => id.name)
+  const refNames = resolveIdentifier(
+    type.type === 'TSTypeReference' ? type.typeName : type
+  )
 
   let resolved: TSResolvedType | TSNamespace | undefined =
     resolveTSScope(scope).declarations!
