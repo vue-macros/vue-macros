@@ -40,7 +40,7 @@ export async function resolveTSNamespace(scope: TSScope): Promise<void> {
       stmt.type === 'ExportDefaultDeclaration' &&
       isTSDeclaration(stmt.declaration)
     ) {
-      exports['default'] = await resolveTSReferencedType({
+      exports.default = await resolveTSReferencedType({
         scope,
         type: stmt.declaration,
       })
@@ -70,7 +70,7 @@ export async function resolveTSNamespace(scope: TSScope): Promise<void> {
         let exported: TSNamespace[string]
         if (specifier.type === 'ExportDefaultSpecifier') {
           // export x from 'xxx'
-          exported = sourceExports['default']
+          exported = sourceExports.default
         } else if (specifier.type === 'ExportNamespaceSpecifier') {
           // export * as x from 'xxx'
           exported = sourceExports
@@ -124,7 +124,7 @@ export async function resolveTSNamespace(scope: TSScope): Promise<void> {
 
         let imported: TSNamespace[string]
         if (specifier.type === 'ImportDefaultSpecifier') {
-          imported = exports['default']
+          imported = exports.default
         } else if (specifier.type === 'ImportNamespaceSpecifier') {
           imported = exports
         } else if (specifier.type === 'ImportSpecifier') {
