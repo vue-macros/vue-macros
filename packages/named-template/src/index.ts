@@ -37,7 +37,7 @@ export const PrePlugin = createUnplugin<Options | undefined, false>(
     const options = resolveOption(userOptions)
     const filter = createFilter(options)
 
-    const templateContent: TemplateContent = {}
+    const templateContent: TemplateContent = Object.create(null)
 
     return {
       name: `${name}-pre`,
@@ -86,7 +86,7 @@ export const PostPlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
     const options = resolveOption(userOptions)
     const filter = createFilter(options)
-    const customBlocks: CustomBlocks = {}
+    const customBlocks: CustomBlocks = Object.create(null)
 
     function transformInclude(id: string) {
       return filter(id) || id.includes(QUERY_TEMPLATE)

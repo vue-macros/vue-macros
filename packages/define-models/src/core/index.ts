@@ -281,7 +281,7 @@ export function transformDefineModels(
         typeAnnotation: string
         options?: Record<string, string>
       }
-    > = {}
+    > = Object.create(null)
 
     for (const m of members) {
       if (
@@ -305,7 +305,7 @@ export function transformDefineModels(
               type.typeParameters.params[0].end!
             )
             if (type.typeParameters.params[1]?.type === 'TSTypeLiteral') {
-              options = {}
+              options = Object.create(null)
               for (const m of type.typeParameters.params[1].members) {
                 if (
                   (m.type === 'TSPropertySignature' ||
@@ -314,7 +314,7 @@ export function transformDefineModels(
                 ) {
                   const type = m.typeAnnotation?.typeAnnotation
                   if (type)
-                    options[setupContent.slice(m.key.start!, m.key.end!)] =
+                    options![setupContent.slice(m.key.start!, m.key.end!)] =
                       setupContent.slice(type.start!, type.end!)
                 }
               }
@@ -577,7 +577,7 @@ export function transformDefineModels(
   }
 
   const map = extractPropsDefinitions(modelTypeDecl)
-  const aliasMap: Record<string, string | number> = {}
+  const aliasMap: Record<string, string | number> = Object.create(null)
   if (modelDestructureDecl)
     for (const p of modelDestructureDecl.properties) {
       if (p.type !== 'ObjectProperty') continue

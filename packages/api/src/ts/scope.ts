@@ -28,7 +28,7 @@ export interface TSModule extends TSScopeBase {
 
 export type TSScope = TSFile | TSModule
 
-export const tsFileCache: Record<string, TSFile> = {}
+export const tsFileCache: Record<string, TSFile> = Object.create(null)
 export async function getTSFile(filePath: string): Promise<TSFile> {
   if (tsFileCache[filePath]) return tsFileCache[filePath]
   const content = await readFile(filePath, 'utf-8')

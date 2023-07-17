@@ -30,7 +30,7 @@ function transform({
   )
   if (!filter(fileName)) return
 
-  const props: Record<string, boolean> = {}
+  const props: Record<string, boolean> = Object.create(null)
   let changed = false
   for (const stmt of sfc.scriptSetupAst!.statements) {
     if (!ts.isVariableStatement(stmt)) continue

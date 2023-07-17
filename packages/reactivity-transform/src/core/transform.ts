@@ -174,7 +174,7 @@ export function transformAST(
   }
 
   const importedHelpers = new Set<string>()
-  const rootScope: Scope = {}
+  const rootScope: Scope = Object.create(null)
   const scopeStack: Scope[] = [rootScope]
   let currentScope: Scope = rootScope
   let escapeScope: CallExpression | undefined // inside $$()
@@ -184,7 +184,7 @@ export function transformAST(
 
   if (knownRefs) {
     for (const key of knownRefs) {
-      rootScope[key] = {}
+      rootScope[key] = Object.create(null)
     }
   }
   if (knownProps) {
@@ -649,7 +649,7 @@ export function transformAST(
 
       // function scopes
       if (isFunctionType(node)) {
-        scopeStack.push((currentScope = {}))
+        scopeStack.push((currentScope = Object.create(null)))
         walkFunctionParams(node, registerBinding)
         if (node.body.type === 'BlockStatement') {
           walkScope(node.body)
@@ -659,7 +659,7 @@ export function transformAST(
 
       // catch param
       if (node.type === 'CatchClause') {
-        scopeStack.push((currentScope = {}))
+        scopeStack.push((currentScope = Object.create(null)))
         if (node.param && node.param.type === 'Identifier') {
           registerBinding(node.param)
         }
@@ -669,7 +669,7 @@ export function transformAST(
 
       // non-function block scopes
       if (node.type === 'BlockStatement' && !isFunctionType(parent!)) {
-        scopeStack.push((currentScope = {}))
+        scopeStack.push((currentScope = Object.create(null)))
         walkScope(node)
         return
       }

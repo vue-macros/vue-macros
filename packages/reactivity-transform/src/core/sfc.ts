@@ -69,7 +69,7 @@ export function transformVueSFC(code: string, id: string) {
     const offset = scriptSetup!.loc.start.offset
     let defaultStr = ''
 
-    propsDestructuredBindings = {}
+    propsDestructuredBindings = Object.create(null)
     for (const prop of decl.id.properties) {
       if (prop.type === 'ObjectProperty') {
         let propKey: string | number
@@ -93,14 +93,14 @@ export function transformVueSFC(code: string, id: string) {
           }
           local = left.name
           // store default value
-          propsDestructuredBindings[propKey] = {
+          propsDestructuredBindings![propKey] = {
             local,
           }
           defaultStr += `${propKey}: ${s.sliceNode(right, { offset })},`
         } else if (prop.value.type === 'Identifier') {
           // simple destructure
           local = prop.value.name
-          propsDestructuredBindings[propKey] = {
+          propsDestructuredBindings![propKey] = {
             local,
           }
         } else {
@@ -127,7 +127,7 @@ export function transformVueSFC(code: string, id: string) {
 const ${
             (prop.argument as Identifier).name
           } = createPropsRestProxy(__props, ${JSON.stringify(
-            Object.keys(propsDestructuredBindings)
+            Object.keys(propsDestructuredBindings!)
           )});\n`
         )
       }

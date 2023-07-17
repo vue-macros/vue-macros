@@ -9,7 +9,7 @@ export default (
   )[]
 ) => {
   const props = getCurrentInstance()!.proxy!.$props as Record<string, any>
-  const ret: Record<string, Ref<any>> = {}
+  const ret: Record<string, Ref<any>> = Object.create(null)
   for (const _k of keys) {
     if (typeof _k === 'string') {
       ret[_k] = useVModel(props, _k, undefined, {

@@ -31,7 +31,9 @@ function transform({
   )
   if (!filter(fileName)) return
 
-  const exposed: Record<string, Segment<FileRangeCapabilities>> = {}
+  const exposed: Record<string, Segment<FileRangeCapabilities>> = Object.create(
+    null
+  )
   for (const stmt of sfc.scriptSetupAst!.statements) {
     if (!ts.isVariableStatement(stmt)) continue
     const exportModifier = stmt.modifiers?.find(

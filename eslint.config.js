@@ -4,6 +4,7 @@ export default sxzz([
   {
     ignores: ['playground/vue2', 'playground/nuxt'],
   },
+
   {
     files: ['**/*.vue'],
     rules: {
@@ -36,6 +37,11 @@ export default sxzz([
     files: ['packages/volar/**'],
     rules: {
       'import/no-default-export': 'off',
+    },
+  },
+  {
+    rules: {
+      '@typescript-eslint/no-dynamic-delete': 'off',
     },
   },
 ])

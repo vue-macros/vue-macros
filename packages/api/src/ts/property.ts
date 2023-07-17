@@ -128,8 +128,8 @@ export async function resolveTSProperties({
       let properties: TSProperties = {
         callSignatures: [],
         constructSignatures: [],
-        methods: {},
-        properties: {},
+        methods: Object.create(null),
+        properties: Object.create(null),
       }
       for (const subType of type.types) {
         const resolved = await resolveTSReferencedType({
@@ -148,8 +148,8 @@ export async function resolveTSProperties({
       const properties: TSProperties = {
         callSignatures: [],
         constructSignatures: [],
-        methods: {},
-        properties: {},
+        methods: Object.create(null),
+        properties: Object.create(null),
       }
       if (!type.typeParameter.constraint) return properties
 
@@ -189,8 +189,8 @@ export async function resolveTSProperties({
       const properties: TSProperties = {
         callSignatures: [{ type, scope }],
         constructSignatures: [],
-        methods: {},
-        properties: {},
+        methods: Object.create(null),
+        properties: Object.create(null),
       }
       return properties
     }

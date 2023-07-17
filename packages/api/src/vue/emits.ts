@@ -102,7 +102,7 @@ export async function handleTSEmitsDefinition({
     if (!def) return false
 
     if (def.scope === file) s.removeNode(def.ast, { offset })
-    delete definitions[key][idx]
+    definitions[key].splice(idx, 1)
     return true
   }
 
@@ -145,7 +145,7 @@ export async function handleTSEmitsDefinition({
       type: definitionsAst,
     })
 
-    const definitions: TSEmits['definitions'] = {}
+    const definitions: TSEmits['definitions'] = Object.create(null)
     for (const signature of properties.callSignatures) {
       const evtArg = signature.type.parameters[0]
       if (

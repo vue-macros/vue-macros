@@ -88,7 +88,7 @@ export function preTransform(
       template = s.slice(...templateLoc)
     }
 
-    if (!templateContent[id]) templateContent[id] = {}
+    if (!templateContent[id]) templateContent[id] = Object.create(null)
     templateContent[id][name] = template
 
     s.appendLeft(node.loc.start.offset, `<named-template name="${name}">`)
@@ -120,7 +120,7 @@ export function preTransformMainTemplate({
   const loc = getChildrenLocation(node)
   if (!loc) return
 
-  if (!templateContent[id]) templateContent[id] = {}
+  if (!templateContent[id]) templateContent[id] = Object.create(null)
   templateContent[id][MAIN_TEMPLATE] = s.slice(...loc)
 
   s.remove(...loc)
@@ -231,7 +231,7 @@ export function postTransformMainEntry(
       node.source.value.includes(QUERY_NAMED_TEMPLATE)
     ) {
       const { name } = parseVueRequest(node.source.value).query as any
-      if (!customBlocks[id]) customBlocks[id] = {}
+      if (!customBlocks[id]) customBlocks[id] = Object.create(null)
       customBlocks[id][name] = node.source.value
     }
   }

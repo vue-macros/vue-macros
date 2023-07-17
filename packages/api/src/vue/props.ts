@@ -223,7 +223,7 @@ export async function handleTSPropsDefinition({
   }
 
   const getRuntimeDefinitions: TSProps['getRuntimeDefinitions'] = async () => {
-    const props: Record<string, RuntimePropDefinition> = {}
+    const props: Record<string, RuntimePropDefinition> = Object.create(null)
 
     for (const [propName, def] of Object.entries(definitions)) {
       let prop: RuntimePropDefinition
@@ -298,7 +298,7 @@ export async function handleTSPropsDefinition({
       unionDefs.push(defs)
     }
 
-    const results: TSProps['definitions'] = {}
+    const results: TSProps['definitions'] = Object.create(null)
     for (const key of keys) {
       let optional = false
       let result: TSPropsMethod | TSPropsProperty | undefined
@@ -382,7 +382,7 @@ export async function handleTSPropsDefinition({
     definitionsAst: TSIntersectionType,
     scope: TSScope
   ) {
-    const results: TSProps['definitions'] = {}
+    const results: TSProps['definitions'] = Object.create(null)
     for (const type of definitionsAst.types) {
       const defMap = await resolveDefinitions({ type, scope }).then(
         ({ definitions }) => definitions
@@ -409,7 +409,7 @@ export async function handleTSPropsDefinition({
   }
 
   async function resolveNormal(properties: TSProperties) {
-    const definitions: TSProps['definitions'] = {}
+    const definitions: TSProps['definitions'] = Object.create(null)
     for (const [key, sign] of Object.entries(properties.methods)) {
       const methods = sign.map((sign) => buildDefinition(sign))
       definitions[key] = {

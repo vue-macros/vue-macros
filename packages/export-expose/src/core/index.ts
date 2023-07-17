@@ -16,7 +16,7 @@ export function transformExportExpose(code: string, id: string) {
   const nodes = getSetupAst()!.body
   const offset = scriptSetup.loc.start.offset
 
-  const exposed: Record<string, string> = {}
+  const exposed: Record<string, string> = Object.create(null)
 
   let i = 0
   for (const stmt of nodes) {

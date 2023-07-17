@@ -128,7 +128,8 @@ export function isStaticObjectKey(node: t.ObjectExpression): boolean {
  * @param node must be a static expression, SpreadElement is not supported
  */
 export function resolveObjectExpression(node: t.ObjectExpression) {
-  const maps: Record<string | number, t.ObjectMethod | t.ObjectProperty> = {}
+  const maps: Record<string | number, t.ObjectMethod | t.ObjectProperty> =
+    Object.create(null)
   for (const property of node.properties) {
     if (property.type === 'SpreadElement') {
       if (property.argument.type !== 'ObjectExpression')

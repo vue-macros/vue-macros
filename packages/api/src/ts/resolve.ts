@@ -128,8 +128,8 @@ export function resolveTypeElements(
   const properties: TSProperties = {
     callSignatures: [],
     constructSignatures: [],
-    methods: {},
-    properties: {},
+    methods: Object.create(null),
+    properties: Object.create(null),
   }
 
   const tryGetKey = (element: TSMethodSignature | TSPropertySignature) => {
