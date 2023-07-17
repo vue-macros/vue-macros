@@ -65,8 +65,10 @@ export default defineNuxtModule<VueMacrosOptions>({
 
     nuxt.options.typescript.tsConfig ||= {}
 
+    // @ts-expect-error https://github.com/unjs/pkg-types/pull/130
     nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {}
     const vueCompilerOptions =
+      // @ts-expect-error
       nuxt.options.typescript.tsConfig.vueCompilerOptions
 
     vueCompilerOptions.vueMacros ||= {}
