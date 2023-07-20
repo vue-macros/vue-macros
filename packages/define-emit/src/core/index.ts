@@ -6,9 +6,9 @@ import {
   getTransformResult,
   isCallOf,
   parseSFC,
-  walkAST,
+  walkASTSetup,
 } from '@vue-macros/common'
-import { type Node } from '@babel/types'
+import type * as t from '@babel/types'
 
 export const EMIT_VARIABLE_NAME = `${HELPER_PREFIX}emit`
 
@@ -17,7 +17,7 @@ export interface Emit {
   validator?: string
 }
 
-export function transformDefineEmit(code: string, id: string) {
+export async function transformDefineEmit(code: string, id: string) {
   if (!code.includes(DEFINE_EMIT)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
@@ -28,11 +28,11 @@ export function transformDefineEmit(code: string, id: string) {
   const setupAst = getSetupAst()!
   const emits: Emit[] = []
 
-  walkAST<Node>(setupAst, {
-    enter(node, parent) {
-      if (isCallOf(node, DEFINE_EMIT)) {
+  await walkASTSetup(setupAst, (setup) => {
+    setup.onEnter(
+      (node): node is t.CallExpression => isCallOf(node, DEFINE_EMIT),
+      (node, parent) => {
         const [name, validator] = node.arguments
-
         let emitName: string
         if (!name) {
           if (
@@ -65,7 +65,7 @@ export function transformDefineEmit(code: string, id: string) {
           { offset }
         )
       }
-    },
+    )
   })
 
   if (emits.length > 0) {

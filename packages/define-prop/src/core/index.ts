@@ -7,13 +7,13 @@ import {
   importHelperFn,
   isCallOf,
   parseSFC,
-  walkAST,
+  walkASTSetup,
 } from '@vue-macros/common'
 import { inferRuntimeType, resolveTSReferencedType } from '@vue-macros/api'
-import { type CallExpression, type Node, type TSType } from '@babel/types'
 import { kevinEdition } from './kevin-edition'
 import { johnsonEdition } from './johnson-edition'
 import { helperId } from './helper'
+import type * as t from '@babel/types'
 
 export * from './utils'
 export * from './kevin-edition'
@@ -42,10 +42,11 @@ export async function transformDefineProp(
     edition === 'kevinEdition' ? kevinEdition : johnsonEdition
   )({ s, offset, resolveTSType })
 
-  let definePropsCall: CallExpression | undefined
-  walkAST<Node>(setupAst, {
-    enter(node, parent) {
-      if (isCallOf(node, DEFINE_PROP)) {
+  let definePropsCall: t.CallExpression | undefined
+  await walkASTSetup(setupAst, (setup) => {
+    setup.onEnter(
+      (node): node is t.CallExpression => isCallOf(node, DEFINE_PROP),
+      (node, parent) => {
         const propName = walkCall(node, parent)
         s.overwriteNode(
           node,
@@ -55,10 +56,13 @@ export async function transformDefineProp(
           { offset }
         )
       }
-      if (isCallOf(node, DEFINE_PROPS)) {
+    )
+    setup.onEnter(
+      (node): node is t.CallExpression => isCallOf(node, DEFINE_PROPS),
+      (node) => {
         definePropsCall = node
       }
-    },
+    )
   })
 
   const runtimeProps = await genRuntimeProps(isProduction)
@@ -95,7 +99,7 @@ export async function transformDefineProp(
 
   return getTransformResult(s, id)
 
-  async function resolveTSType(type: TSType) {
+  async function resolveTSType(type: t.TSType) {
     const resolved = await resolveTSReferencedType({
       scope: {
         kind: 'file',

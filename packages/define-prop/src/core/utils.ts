@@ -1,12 +1,15 @@
 import { type MagicString } from '@vue-macros/common'
-import { type CallExpression, type Node, type TSType } from '@babel/types'
+import type * as t from '@babel/types'
 
 export type Impl = (ctx: {
   s: MagicString
   offset: number
-  resolveTSType(type: TSType): Promise<string[] | undefined>
+  resolveTSType(type: t.TSType): Promise<string[] | undefined>
 }) => {
-  walkCall(node: CallExpression, parent: Node | undefined | null): string
+  walkCall(
+    node: t.CallExpression,
+    parent: t.ParentMaps['CallExpression']
+  ): string
   genRuntimeProps(isProduction: boolean): Promise<string | undefined>
 }
 
