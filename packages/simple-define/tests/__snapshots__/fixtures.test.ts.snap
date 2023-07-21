@@ -3,7 +3,8 @@
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { createElementVNode, defineComponent, resolveComponent, openBlock, createElementBlock, Fragment, createTextVNode, toDisplayString, createCommentVNode, createVNode } from 'vue';
 import __MACROS_useDefaults from '/vue-macros/simple-define/use-defaults';
-import _export_sfc from '/plugin-vue/export-helper';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const _hoisted_1 = /* @__PURE__ */ createElementVNode(
   \\"input\\",
@@ -17,11 +18,15 @@ const _hoisted_1 = /* @__PURE__ */ createElementVNode(
 );
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
-  props: [\\"msg\\"],
+  props: [\\"msg\\", \\"foo\\"],
   emits: [\\"update\\"],
   setup(__props, { emit }) {
     const __MACROS_props = __props;
-    const props = __MACROS_useDefaults(__MACROS_props, { msg: \\"foo\\" });
+    const props = __MACROS_useDefaults(__MACROS_props, {
+      msg: \\"foo\\",
+      foo: void 0
+    });
+    expectTypeOf(props);
     emit(\\"update\\", \\"hello world\\");
     return (_ctx, _cache) => {
       const _component_Foo = resolveComponent(\\"Foo\\");

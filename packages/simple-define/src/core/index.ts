@@ -8,17 +8,18 @@ import {
   importHelperFn,
   isCallOf,
   parseSFC,
-  walkAST,
+  removeMacroImport,
+  walkASTSetup,
 } from '@vue-macros/common'
 import { type NodeTransform } from '@vue/compiler-core'
-import { type CallExpression, type Node } from '@babel/types'
 import { useDefaultsId } from './helper'
+import type * as t from '@babel/types'
 
 const SIMPLE_PROPS = 'simpleProps'
 const SIMPLE_EMITS = 'simpleEmits'
 
-export function transformSimpleDefine(code: string, id: string) {
-  if (!code.includes(SIMPLE_PROPS)) return
+export async function transformSimpleDefine(code: string, id: string) {
+  if (!code.includes(SIMPLE_PROPS) && !code.includes(SIMPLE_EMITS)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
@@ -27,21 +28,31 @@ export function transformSimpleDefine(code: string, id: string) {
   const offset = scriptSetup.loc.start.offset
   const setupAst = getSetupAst()!
 
-  walkAST<Node>(setupAst, {
-    enter(node, parent) {
-      if (isCallOf(node, SIMPLE_PROPS)) {
-        processSimpleProps(node)
-      } else if (isCallOf(node, WITH_DEFAULTS)) {
-        processWithDefaults(node, parent)
-      } else if (isCallOf(node, SIMPLE_EMITS)) {
-        processSimpleEmits(node)
-      }
-    },
+  await walkASTSetup(setupAst, (setup) => {
+    setup.onEnter((node) => {
+      removeMacroImport(node, s, offset)
+    })
+
+    setup.onEnter(
+      (node): node is t.CallExpression => isCallOf(node, WITH_DEFAULTS),
+      (node, parent) => processWithDefaults(node, parent)
+    )
+
+    setup.onEnter(
+      (node, parent): node is t.CallExpression =>
+        isCallOf(node, SIMPLE_PROPS) && !isCallOf(parent, WITH_DEFAULTS),
+      (node) => processSimpleProps(node)
+    )
+
+    setup.onEnter(
+      (node): node is t.CallExpression => isCallOf(node, SIMPLE_EMITS),
+      (node) => processSimpleEmits(node)
+    )
   })
 
   return getTransformResult(s, id)
 
-  function processSimpleProps(node: CallExpression) {
+  function processSimpleProps(node: t.CallExpression) {
     if (!node.typeParameters)
       throw new SyntaxError(`${SIMPLE_PROPS} must have a type parameter.`)
 
@@ -50,8 +61,8 @@ export function transformSimpleDefine(code: string, id: string) {
   }
 
   function processWithDefaults(
-    node: CallExpression,
-    parent: Node | null | undefined
+    node: t.CallExpression,
+    parent: t.ParentMaps['CallExpression']
   ) {
     if (!isCallOf(node.arguments[0], SIMPLE_PROPS))
       throw new SyntaxError(
@@ -83,7 +94,7 @@ export function transformSimpleDefine(code: string, id: string) {
     processSimpleProps(node.arguments[0])
   }
 
-  function processSimpleEmits(node: CallExpression) {
+  function processSimpleEmits(node: t.CallExpression) {
     if (!node.typeParameters)
       throw new SyntaxError(`${SIMPLE_EMITS} must have a type parameter.`)
 
