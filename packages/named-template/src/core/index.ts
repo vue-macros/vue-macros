@@ -12,6 +12,7 @@ import {
   type AttributeNode,
   type ElementNode,
   type NodeTransform,
+  type NodeTypes,
   type RootNode,
   createTransformContext,
   parse,
@@ -36,12 +37,16 @@ export * from './utils'
 
 export function transformTemplateIs(s: MagicString): NodeTransform {
   return (node) => {
-    if (!(node.type === 1 /* NodeTypes.ELEMENT */ && node.tag === 'template'))
+    if (
+      !(
+        node.type === (1 satisfies NodeTypes.ELEMENT) && node.tag === 'template'
+      )
+    )
       return
 
     const propIs = node.props.find(
       (prop): prop is AttributeNode =>
-        prop.type === 6 /* NodeTypes.ATTRIBUTE */ && prop.name === 'is'
+        prop.type === (6 satisfies NodeTypes.ATTRIBUTE) && prop.name === 'is'
     )
     if (!propIs?.value) return
 
@@ -63,7 +68,7 @@ export function preTransform(
 
   const templates = root.children.filter(
     (node): node is ElementNode =>
-      node.type === 1 /* NodeTypes.ELEMENT */ && node.tag === 'template'
+      node.type === (1 satisfies NodeTypes.ELEMENT) && node.tag === 'template'
   )
   if (templates.length <= 1) return
 
@@ -71,7 +76,7 @@ export function preTransform(
   for (const node of templates) {
     const propName = node.props.find(
       (prop): prop is AttributeNode =>
-        prop.type === 6 /* NodeTypes.ATTRIBUTE */ && prop.name === 'name'
+        prop.type === (6 satisfies NodeTypes.ATTRIBUTE) && prop.name === 'name'
     )
     if (!propName) {
       preTransformMainTemplate({ s, root, node, id, templateContent })

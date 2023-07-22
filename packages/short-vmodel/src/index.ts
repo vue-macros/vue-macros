@@ -1,6 +1,8 @@
 import {
   type ComponentNode,
+  type ConstantTypes,
   type NodeTransform,
+  type NodeTypes,
   type PlainElementNode,
   type SlotOutletNode,
   type TemplateNode,
@@ -27,7 +29,7 @@ export function transformShortVmodel({
   prefix = '$',
 }: Options = {}): NodeTransform {
   return (node, context) => {
-    if (node.type !== 1 /* NodeTypes.ELEMENT */) return
+    if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
     if (prefix === '::') processDirective(node)
     else processAttribute(prefix, node, context)
   }
@@ -37,8 +39,8 @@ export function processDirective(node: NodeElement) {
   for (const [i, prop] of node.props.entries()) {
     if (
       !(
-        prop.type === 7 /* NodeTypes.DIRECTIVE */ &&
-        prop.arg?.type === 4 /* NodeTypes.SIMPLE_EXPRESSION */ &&
+        prop.type === (7 satisfies NodeTypes.DIRECTIVE) &&
+        prop.arg?.type === (4 satisfies NodeTypes.SIMPLE_EXPRESSION) &&
         prop.arg.content.startsWith(':')
       )
     )
@@ -64,7 +66,7 @@ export function processAttribute(
   for (const [i, prop] of node.props.entries()) {
     if (
       !(
-        prop.type === 6 /* NodeTypes.ATTRIBUTE */ &&
+        prop.type === (6 satisfies NodeTypes.ATTRIBUTE) &&
         prop.name.startsWith(prefix) &&
         prop.value
       )
@@ -84,7 +86,7 @@ export function processAttribute(
       prop.value.content,
       false,
       expLoc,
-      0 /* ConstantTypes.NOT_CONSTANT */
+      0 satisfies ConstantTypes.NOT_CONSTANT
     )
     const exp = processExpression(simpleExpression, context)
 
@@ -92,9 +94,9 @@ export function processAttribute(
     const arg =
       argName.length > 0
         ? {
-            type: 4 /* NodeTypes.SIMPLE_EXPRESSION */,
+            type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
             content: argName,
-            constType: 3 /* ConstantTypes.CAN_STRINGIFY */,
+            constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
             isStatic: true,
             loc: {
               source: argName,
@@ -113,7 +115,7 @@ export function processAttribute(
         : undefined
 
     node.props[i] = {
-      type: 7 /* NodeTypes.DIRECTIVE */,
+      type: 7 satisfies NodeTypes.DIRECTIVE,
       name: 'model',
       arg,
       exp,

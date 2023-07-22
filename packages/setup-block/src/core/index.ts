@@ -1,5 +1,5 @@
 import { MagicString, getTransformResult } from '@vue-macros/common'
-import { parse } from '@vue/compiler-dom'
+import { type NodeTypes, type TextModes, parse } from '@vue/compiler-dom'
 
 export function transformSetupBlock(code: string, id: string, lang?: string) {
   const s = new MagicString(code)
@@ -18,16 +18,16 @@ export function transformSetupBlock(code: string, id: string, lang?: string) {
         (tag === 'template' &&
           props.some(
             (p) =>
-              p.type === 6 /* NodeTypes.ATTRIBUTE */ &&
+              p.type === (6 satisfies NodeTypes.ATTRIBUTE) &&
               p.name === 'lang' &&
               p.value &&
               p.value.content &&
               p.value.content !== 'html'
           ))
       ) {
-        return 2 /* TextModes.RAWTEXT */
+        return 2 satisfies TextModes.RAWTEXT
       } else {
-        return 0 /* TextModes.DATA */
+        return 0 satisfies TextModes.DATA
       }
     },
   })
