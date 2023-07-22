@@ -11,7 +11,11 @@ import {
   removeMacroImport,
   walkASTSetup,
 } from '@vue-macros/common'
-import { type NodeTransform } from '@vue/compiler-core'
+import {
+  type ConstantTypes,
+  type NodeTransform,
+  type NodeTypes,
+} from '@vue/compiler-core'
 import { useDefaultsId } from './helper'
 import type * as t from '@babel/types'
 
@@ -109,18 +113,18 @@ export function transformSimpleDefineTemplate(): NodeTransform {
     for (const [i, prop] of node.props.entries()) {
       if (prop.type !== 6 || prop.value !== undefined) continue
       node.props[i] = {
-        type: 7 /* NodeTypes.DIRECTIVE */,
+        type: 7 satisfies NodeTypes.DIRECTIVE,
         name: 'bind',
         arg: {
-          type: 4 /* NodeTypes.SIMPLE_EXPRESSION */,
-          constType: 3 /* ConstantTypes.CAN_STRINGIFY */,
+          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
+          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
           content: 'checked',
           isStatic: true,
           loc: prop.loc,
         },
         exp: {
-          type: 4 /* NodeTypes.SIMPLE_EXPRESSION */,
-          constType: 3 /* ConstantTypes.CAN_STRINGIFY */,
+          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
+          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
           content: 'true',
           isStatic: false,
           loc: prop.loc,
