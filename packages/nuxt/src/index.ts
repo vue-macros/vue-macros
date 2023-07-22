@@ -6,7 +6,6 @@ import {
 } from '@vue-macros/short-vmodel'
 import { type Options, resolveOptions } from 'unplugin-vue-macros'
 import { type Plugin } from 'vite'
-// eslint-disable-next-line antfu/prefer-inline-type-import
 import type {} from '@nuxt/devtools'
 import { type VolarOptions } from '@vue-macros/volar'
 
