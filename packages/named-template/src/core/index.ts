@@ -8,19 +8,21 @@ import {
   isCallOf,
   walkAST,
 } from '@vue-macros/common'
-import { createTransformContext, parse, traverseNode } from '@vue/compiler-dom'
+import {
+  type AttributeNode,
+  type ElementNode,
+  type NodeTransform,
+  type RootNode,
+  createTransformContext,
+  parse,
+  traverseNode,
+} from '@vue/compiler-dom'
 import {
   type CallExpression,
   type Identifier,
   type Node,
   type Program,
 } from '@babel/types'
-import {
-  type AttributeNode,
-  type ElementNode,
-  type NodeTransform,
-  type RootNode,
-} from '@vue/compiler-dom'
 import { type CustomBlocks, type TemplateContent } from '..'
 import { getChildrenLocation, parseVueRequest } from './utils'
 import {
@@ -86,7 +88,7 @@ export function preTransform(
       template = s.slice(...templateLoc)
     }
 
-    if (!templateContent[id]) templateContent[id] = {}
+    if (!templateContent[id]) templateContent[id] = Object.create(null)
     templateContent[id][name] = template
 
     s.appendLeft(node.loc.start.offset, `<named-template name="${name}">`)
@@ -118,7 +120,7 @@ export function preTransformMainTemplate({
   const loc = getChildrenLocation(node)
   if (!loc) return
 
-  if (!templateContent[id]) templateContent[id] = {}
+  if (!templateContent[id]) templateContent[id] = Object.create(null)
   templateContent[id][MAIN_TEMPLATE] = s.slice(...loc)
 
   s.remove(...loc)
@@ -229,12 +231,12 @@ export function postTransformMainEntry(
       node.source.value.includes(QUERY_NAMED_TEMPLATE)
     ) {
       const { name } = parseVueRequest(node.source.value).query as any
-      if (!customBlocks[id]) customBlocks[id] = {}
+      if (!customBlocks[id]) customBlocks[id] = Object.create(null)
       customBlocks[id][name] = node.source.value
     }
   }
 }
 
 function escapeTemplateName(name: string) {
-  return name.replace(/-/g, '$DASH')
+  return name.replaceAll('-', '$DASH')
 }

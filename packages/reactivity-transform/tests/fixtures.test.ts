@@ -2,8 +2,6 @@ import { resolve } from 'node:path'
 import { describe } from 'vitest'
 import {
   RollupEsbuildPlugin,
-  RollupEscapeNullCharacterPlugin,
-  RollupRemoveVueFilePathPlugin,
   RollupVue,
   RollupVue2,
   rollupBuild,
@@ -21,8 +19,6 @@ describe('fixtures', async () => {
           RollupVue2({
             compiler: require('vue2/compiler-sfc'),
           }),
-          RollupRemoveVueFilePathPlugin(),
-          RollupEscapeNullCharacterPlugin(),
           RollupEsbuildPlugin({
             target: 'esnext',
           }),
@@ -33,7 +29,6 @@ describe('fixtures', async () => {
           RollupVue({
             compiler: require('vue/compiler-sfc'),
           }),
-          RollupRemoveVueFilePathPlugin(),
           RollupEsbuildPlugin({
             target: 'esnext',
           }),

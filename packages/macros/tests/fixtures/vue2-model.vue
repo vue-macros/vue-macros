@@ -3,7 +3,7 @@ defineOptions({
   name: 'Foo',
   model: {
     prop: 'value',
-    event: 'changeInput'
+    event: 'changeInput',
   },
 })
 const { title } = defineProps<{

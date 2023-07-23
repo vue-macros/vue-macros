@@ -1,3 +1,4 @@
+import { Assert } from '../../assert'
 import { exported } from './foo'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -10,9 +11,14 @@ export default () => {
     const foo = 'FOO'
 
     return (
-      <div>
-        {foo},{bar},{baz},{qux},{exported}
-      </div>
+      <fieldset>
+        <legend>Context</legend>
+        <Assert l={foo} r="FOO" />
+        <Assert l={bar} r="bar" />
+        <Assert l={baz} r="baz" />
+        <Assert l={qux} r="qux" />
+        <Assert l={exported} r={2} />
+      </fieldset>
     )
   })
 }

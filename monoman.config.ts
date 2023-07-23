@@ -1,6 +1,9 @@
 import path from 'node:path'
-import { readdir } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import { defineConfig } from 'monoman'
+import { type Options } from 'tsup'
+import fg from 'fast-glob'
 
 function getPkgName(filepath: string) {
   const relative = path.relative(process.cwd(), filepath)
@@ -13,11 +16,16 @@ export default defineConfig([
     include: ['packages/*/package.json'],
     type: 'json',
     async write(data: Record<string, any>, { filepath }) {
+      const pkgRoot = path.resolve(filepath, '..')
+      const pkgSrc = path.resolve(pkgRoot, 'src')
       const pkgName = getPkgName(filepath)
+      const isESM = data.type === 'module'
+      const cjsPrefix = isESM ? 'c' : ''
+      const esmPrefix = isESM ? '' : 'm'
 
       const descriptions: Record<string, string> = {
         'define-options': 'Add defineOptions macro for Vue <script setup>.',
-        macros: 'Explore and extend more macros and syntax sugar to Vue.',
+        macros: 'Explore more macros and syntax sugar to Vue.',
         volar: 'Volar plugin for Vue Macros.',
         devtools: 'Devtools plugin for Vue Macros.',
         api: 'General API for Vue Macros.',
@@ -38,65 +46,91 @@ export default defineConfig([
       data.license = 'MIT'
       if (pkgName === 'define-options') {
         data.homepage =
-          'https://github.com/sxzz/unplugin-vue-macros/tree/main/packages/define-options#readme'
+          'https://github.com/sxzz/vue-macros/tree/main/packages/define-options#readme'
       } else {
-        data.homepage = 'https://github.com/sxzz/unplugin-vue-macros#readme'
+        data.homepage = 'https://github.com/sxzz/vue-macros#readme'
       }
 
-      data.bugs = { url: 'https://github.com/sxzz/unplugin-vue-macros/issues' }
+      data.bugs = { url: 'https://github.com/sxzz/vue-macros/issues' }
       data.repository = {
         type: 'git',
-        url: 'git+https://github.com/sxzz/unplugin-vue-macros.git',
+        url: 'git+https://github.com/sxzz/vue-macros.git',
         directory: `packages/${pkgName}`,
       }
       data.author = '三咲智子 <sxzz@sxzz.moe>'
-      data.engines = { node: '>=14.19.0' }
+      data.engines = { node: '>=16.14.0' }
 
-      if (Object.keys(data.dependencies).includes('unplugin')) {
-        const files = (
-          await readdir(path.resolve(filepath, '../src'), {
-            withFileTypes: true,
-          })
-        )
-          // .filter((f) => f.isFile() || f.name === 'index.ts')
-          .map((file) => {
-            if (!file.isFile()) return undefined
-            const name = path.basename(file.name, '.ts')
-            if (name === 'index') return undefined
-            return name
-          })
-          .filter((n): n is string => !!n)
-          .sort()
+      const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
+      if (!data.meta?.skipExports && existsSync(tsupFile)) {
+        const tsupConfig: Options = await import(tsupFile)
+        const format = tsupConfig.format || []
+        const hasCJS = format.includes('cjs')
+        const hasESM = format.includes('esm')
 
-        data.keywords.push('unplugin')
+        const entries = (
+          await fg(tsupConfig.entry as string[], {
+            cwd: pkgRoot,
+            absolute: true,
+          })
+        ).map((file) => path.basename(path.relative(pkgSrc, file), '.ts'))
+
         data.exports = {
-          '.': {
-            dev: './src/index.ts',
-            types: './dist/index.d.ts',
-            require: './dist/index.js',
-            import: './dist/index.mjs',
-          },
           ...Object.fromEntries(
-            files.map((file) => [
-              `./${file}`,
-              {
-                dev: `./src/${file}.ts`,
-                types: `./dist/${file}.d.ts`,
-                require: `./dist/${file}.js`,
-                import: `./dist/${file}.mjs`,
-              },
-            ])
+            entries
+              .map((entry) => {
+                const key = entry === 'index' ? '.' : `./${entry}`
+                const exports: Record<string, any> = {
+                  dev: `./src/${entry}.ts`,
+                  types: {},
+                }
+                if (hasCJS) {
+                  exports.types.require = `./dist/${entry}.d.${cjsPrefix}ts`
+                  exports.require = `./dist/${entry}.${cjsPrefix}js`
+                }
+                if (hasESM) {
+                  exports.types.import = `./dist/${entry}.d.${esmPrefix}ts`
+                  exports.import = `./dist/${entry}.${esmPrefix}js`
+                }
+
+                return [key, exports] as const
+              })
+              .sort(([a], [b]) => a.localeCompare(b))
           ),
           './*': ['./*', './*.d.ts'],
         }
-        data.typesVersions = {
-          '<=4.9': {
-            '*': ['./dist/*', './*'],
-          },
-        }
+
+        const onlyIndex = entries.length === 1 && entries[0] === 'index'
+
+        if (onlyIndex) delete data.typesVersions
+        else
+          data.typesVersions = {
+            '*': {
+              '*': ['./dist/*', './*'],
+            },
+          }
+      }
+
+      if (
+        Object.keys(data.dependencies || {}).includes('unplugin') ||
+        data?.meta?.plugin
+      ) {
+        data.keywords.push('unplugin')
       }
 
       return data
+    },
+  },
+  {
+    include: ['packages/*/README.md'],
+    exclude: ['packages/define-options/README.md'],
+    type: 'text',
+    async write(_, ctx) {
+      const pkgPath = path.resolve(path.dirname(ctx.filepath), 'package.json')
+      const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
+      const pkgName = pkg.name
+
+      return `# ${pkgName} [![npm](https://img.shields.io/npm/v/${pkgName}.svg)](https://npmjs.com/package/${pkgName})\n
+Please refer to [README.md](https://github.com/sxzz/vue-macros#readme)\n`
     },
   },
 ])

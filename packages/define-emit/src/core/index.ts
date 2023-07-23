@@ -2,12 +2,13 @@ import {
   DEFINE_EMIT,
   HELPER_PREFIX,
   MagicString,
+  escapeKey,
   getTransformResult,
   isCallOf,
   parseSFC,
-  walkAST,
+  walkASTSetup,
 } from '@vue-macros/common'
-import { type Node } from '@babel/types'
+import type * as t from '@babel/types'
 
 export const EMIT_VARIABLE_NAME = `${HELPER_PREFIX}emit`
 
@@ -16,10 +17,8 @@ export interface Emit {
   validator?: string
 }
 
-export function transformDefineEmit(code: string, id: string) {
-  if (!code.includes(DEFINE_EMIT)) {
-    return
-  }
+export async function transformDefineEmit(code: string, id: string) {
+  if (!code.includes(DEFINE_EMIT)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
@@ -29,15 +28,15 @@ export function transformDefineEmit(code: string, id: string) {
   const setupAst = getSetupAst()!
   const emits: Emit[] = []
 
-  walkAST<Node>(setupAst, {
-    enter(node: Node, parent: Node) {
-      if (isCallOf(node, DEFINE_EMIT)) {
+  await walkASTSetup(setupAst, (setup) => {
+    setup.onEnter(
+      (node): node is t.CallExpression => isCallOf(node, DEFINE_EMIT),
+      (node, parent) => {
         const [name, validator] = node.arguments
-
         let emitName: string
         if (!name) {
           if (
-            parent.type !== 'VariableDeclarator' ||
+            parent?.type !== 'VariableDeclarator' ||
             parent.id.type !== 'Identifier'
           ) {
             throw new Error(
@@ -66,7 +65,7 @@ export function transformDefineEmit(code: string, id: string) {
           { offset }
         )
       }
-    },
+    )
   })
 
   if (emits.length > 0) {
@@ -88,8 +87,7 @@ export function transformDefineEmit(code: string, id: string) {
     return `{
       ${emits
         .map(
-          ({ name, validator }) =>
-            `${JSON.stringify(name)}: ${validator || `null`}`
+          ({ name, validator }) => `${escapeKey(name)}: ${validator || `null`}`
         )
         .join(',\n  ')}
     }`

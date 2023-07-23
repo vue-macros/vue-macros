@@ -225,6 +225,7 @@ const __MACROS_emit = defineEmits<{
   }>();
 
 
+// prettier-ignore
 defineProps< {modelValue: string
 visible: boolean
   } > ()
@@ -342,7 +343,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   model: {
     prop: 'value',
-    event: 'changeInput'
+    event: 'changeInput',
   },
 })
 </script>
@@ -509,6 +510,7 @@ defineProps<{
 defineEmits<{
     (evt: 'update:foo', value?: string): void
   }>();
+// prettier-ignore
 __MACROS_useVModel(\\"foo\\")
 </script>
 "
@@ -584,7 +586,7 @@ export interface Props {foo: string
 const { foo } = __MACROS_useVModel(\\"foo\\")
 
 withDefaults(defineProps<Props>(), {
-  color: 'blue'
+  color: 'blue',
 })
 
 console.log(foo)
@@ -638,6 +640,7 @@ defineEmits<{
   }>();
 const { modelValue } = __MACROS_useVModel(\\"modelValue\\", \\"visible\\")
 
+// prettier-ignore
 defineProps< {modelValue: string
 visible: boolean
   } > ()

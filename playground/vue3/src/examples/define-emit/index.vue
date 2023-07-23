@@ -7,7 +7,6 @@ const count = ref(0)
 </script>
 
 <template>
-  <div>Count {{ count }}</div>
-
+  <div>Count: {{ count }}</div>
   <Child @increment="count++" />
 </template>

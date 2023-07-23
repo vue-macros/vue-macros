@@ -1,8 +1,16 @@
 import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
-import { type Segment } from 'muggle-string'
-import { type Sfc, type VueLanguagePlugin } from '@volar/vue-language-core'
-import { addEmits, addProps, getVueLibraryName } from './common'
+import {
+  type Segment,
+  type Sfc,
+  type VueLanguagePlugin,
+} from '@vue/language-core'
+import {
+  addEmits,
+  addProps,
+  getVolarOptions,
+  getVueLibraryName,
+} from './common'
 
 function transformDefineModels({
   codes,
@@ -114,8 +122,9 @@ const plugin: VueLanguagePlugin = ({
 
       const vueVersion = vueCompilerOptions.target
       const vueLibName = getVueLibraryName(vueVersion)
+      const volarOptions = getVolarOptions(vueCompilerOptions)
       const unified =
-        (vueVersion < 3 && vueCompilerOptions?.defineModels?.unified) ?? true
+        vueVersion < 3 && (volarOptions?.defineModels?.unified ?? true)
 
       transformDefineModels({
         codes: embeddedFile.content,
@@ -127,4 +136,4 @@ const plugin: VueLanguagePlugin = ({
     },
   }
 }
-export = plugin
+export default plugin

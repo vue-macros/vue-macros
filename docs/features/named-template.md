@@ -2,6 +2,12 @@
 
 <StabilityLevel level="experimental" />
 
+::: warning
+
+Not actively maintained now. Try [createReusableTemplate](https://vueuse.org/core/createReusableTemplate/) instead.
+
+:::
+
 With enabling `namedTemplate`, `<template>` can be referenced like a variable.
 
 Sometimes we need to reverse the order of the very simple components, and don't want to give the features of Vue template up and use JSX/TSX. Then this feature is much helpful.
@@ -11,6 +17,7 @@ If you support this feature, you can go to [the discussion](https://github.com/v
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
+|      Vue 3.3       |        :x:         |
 |       Nuxt 3       |        :x:         |
 |       Vue 2        |        :x:         |
 | TypeScript / Volar |        :x:         |

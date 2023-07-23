@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { parse } from '@babel/parser'
-import { transform } from '../src/core/impl'
+import { transform } from '../src/core/transform'
 
 function assertCode(code: string) {
   // parse the generated code to make sure it is valid

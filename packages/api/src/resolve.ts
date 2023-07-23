@@ -1,9 +1,16 @@
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { exports } from 'resolve.exports'
 import { type PluginContext } from 'rollup'
 import { type ModuleNode, type Plugin } from 'vite'
 import { type ResolveTSFileIdImpl, tsFileCache } from './ts'
+
+export const deepImportRE = /^([^@][^/]*)\/|^(@[^/]+\/[^/]+)\//
+
+function isDts(id: string) {
+  return /\.d\.[cm]?ts$/.test(id)
+}
 
 export const RollupResolve = () => {
   const referencedFiles = new Map<
@@ -38,17 +45,48 @@ export const RollupResolve = () => {
     (ctx: PluginContext): ResolveTSFileIdImpl =>
     async (id, importer) => {
       async function tryPkgEntry() {
+        const deepMatch = id.match(deepImportRE)
+        const pkgId = deepMatch ? deepMatch[1] || deepMatch[2] : id
+
         try {
-          const pkgPath = (await ctx.resolve(`${id}/package.json`, importer))
+          const pkgPath = (await ctx.resolve(`${pkgId}/package.json`, importer))
             ?.id
           if (!pkgPath) return
-
           const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
-          const types = pkg.types || pkg.typings
-          if (!types) return
+          const pkgRoot = path.resolve(pkgPath, '..')
 
-          const entry = path.resolve(pkgPath, '..', types)
-          return existsSync(entry) ? entry : undefined
+          if (deepMatch) {
+            if (pkg.typesVersions) {
+              const pkgPath = id.replace(`${pkgId}/`, '')
+              for (const version of Object.values(pkg.typesVersions)) {
+                for (const [entry, subpaths] of Object.entries(
+                  version as Record<string, string[]>
+                )) {
+                  if (pkgPath !== entry.replace('*', pkgPath)) continue
+                  for (const subpath of subpaths) {
+                    const resolved = path.resolve(
+                      pkgRoot,
+                      subpath.replace('*', pkgPath)
+                    )
+                    if (isDts(resolved) && existsSync(resolved)) return resolved
+                  }
+                }
+              }
+            }
+
+            const resolvedIds = exports(pkg, id, { conditions: ['types'] })
+            if (!resolvedIds) return
+            const resolved = resolvedIds.find(
+              (id) => isDts(id) && existsSync(id)
+            )
+            if (resolved) return resolved
+          } else {
+            const types = pkg.types || pkg.typings
+            if (!types) return
+
+            const entry = path.resolve(pkgRoot, types)
+            if (existsSync(entry)) return entry
+          }
         } catch {}
       }
 
@@ -66,7 +104,7 @@ export const RollupResolve = () => {
       const cached = resolveCache.get(importer)?.get(id)
       if (cached) return cached
 
-      if (!id.startsWith('.')) {
+      if (id[0] !== '.') {
         const entry = await tryPkgEntry()
         if (entry) return withResolveCache(id, importer, entry)
       }

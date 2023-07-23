@@ -3,6 +3,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
+      "inputs": ["src/**", "tsup.config.ts", "../../tsup.config.ts"],
       "outputs": ["dist/**", ".vitepress/dist/**"]
     },
     "dev": {

@@ -47,6 +47,7 @@ Complex types are not supported in some key places. For example:
 - All utility types
   - [Built-in types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
   - All types from `type-fest` package.
+  - `typeof` keyword.
   - ...
 - Index Signature
   ```ts

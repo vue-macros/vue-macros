@@ -1,16 +1,22 @@
 import {
+  DEFINE_EMITS,
   MagicString,
+  escapeKey,
   getTransformResult,
   importHelperFn,
   parseSFC,
 } from '@vue-macros/common'
-import { analyzeSFC, toRuntimeTypeString } from '@vue-macros/api'
-import { type TSEmits, type TSProps } from '@vue-macros/api'
+import {
+  type TSEmits,
+  type TSProps,
+  analyzeSFC,
+  genRuntimePropDefinition,
+} from '@vue-macros/api'
 
 export async function transformBetterDefine(
   code: string,
   id: string,
-  isProduction?: boolean
+  isProduction = false
 ) {
   const s = new MagicString(code)
   const sfc = parseSFC(code, id)
@@ -35,18 +41,15 @@ export async function transformBetterDefine(
         let defaultString = ''
         if (defaultDecl) defaultString = defaultDecl('default')
 
-        const typeString = toRuntimeTypeString(type, isProduction)
-        let def: string
-        if (!isProduction) {
-          def = `{ type: ${typeString}, required: ${required}, ${defaultString} }`
-        } else if (typeString) {
-          def = `{ type: ${typeString}, ${defaultString} }`
-        } else {
-          // production: checks are useless
-          def = `${defaultString ? `{ ${defaultString} }` : 'null'}`
-        }
+        const properties: string[] = []
+        if (!isProduction) properties.push(`required: ${required}`)
+        if (defaultString) properties.push(defaultString)
 
-        return `${JSON.stringify(key)}: ${def}`
+        return `${escapeKey(key)}: ${genRuntimePropDefinition(
+          type,
+          isProduction,
+          properties
+        )}`
       })
       .join(',\n  ')}\n}`
 
@@ -73,7 +76,7 @@ export async function transformBetterDefine(
     const runtimeDecls = `[${Object.keys(emits.definitions)
       .map((name) => JSON.stringify(name))
       .join(', ')}]`
-    s.overwriteNode(emits.defineEmitsAst, `defineEmits(${runtimeDecls})`, {
+    s.overwriteNode(emits.defineEmitsAst, `${DEFINE_EMITS}(${runtimeDecls})`, {
       offset,
     })
   }

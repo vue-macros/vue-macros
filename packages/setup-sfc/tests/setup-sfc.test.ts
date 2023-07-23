@@ -2,7 +2,6 @@ import { resolve } from 'node:path'
 import { describe, expect, test } from 'vitest'
 import {
   RollupEsbuildPlugin,
-  RollupRemoveVueFilePathPlugin,
   RollupVue,
   RollupVueJsx,
   rollupBuild,
@@ -33,7 +32,6 @@ describe('setup-component', () => {
             include: [REGEX_SETUP_SFC],
           }),
           RollupVueJsx(),
-          RollupRemoveVueFilePathPlugin(),
           RollupEsbuildPlugin({
             target: 'esnext',
           }),

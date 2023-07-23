@@ -1,11 +1,12 @@
 # 入门
 
-Vue Macros 是一个库，用于实现尚未被 Vue 正式实现的提案或想法。这意味着它将探索并扩展更多宏和语法糖到 Vue 中。
+Vue Macros 是一个库，用于实现尚未被 Vue 正式实现的提案或想法。这意味着它将探索更多宏和语法糖到 Vue 中。
 
 在继续之前，我们假设你已经熟悉 Vue 的基本用法。
 
 ## 要求
 
+- Node.js 16.14.0 或更高
 - Vue >= 2.7 或 Vue >= 3.0
   - 某些功能需要 Vue >= 3.2.25
 - VSCode 安装了 [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 扩展
@@ -13,8 +14,8 @@ Vue Macros 是一个库，用于实现尚未被 Vue 正式实现的提案或想�
 
 ## 示例
 
-- [Vite + Vue 3](https://github.com/sxzz/unplugin-vue-macros/tree/main/playground/vue3)
-- [Vite + Vue 2](https://github.com/sxzz/unplugin-vue-macros/tree/main/playground/vue2)
+- [Vite + Vue 3](https://github.com/sxzz/vue-macros/tree/main/playground/vue3)
+- [Vite + Vue 2](https://github.com/sxzz/vue-macros/tree/main/playground/vue2)
 - [Nuxt 3 + Vue 3](https://github.com/vue-macros/nuxt)
 - [Vue CLI + Vue 2](https://github.com/vue-macros/vue2-vue-cli)
 

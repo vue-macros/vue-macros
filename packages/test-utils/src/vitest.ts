@@ -1,8 +1,7 @@
 import path from 'node:path'
-import glob from 'fast-glob'
+import glob, { type Options as GlobOptions } from 'fast-glob'
 import { describe, expect, test } from 'vitest'
 import { normalizePath } from '@rollup/pluginutils'
-import { type Options as GlobOptions } from 'fast-glob'
 
 interface Options {
   params?: [name: string, values?: any[]][]
@@ -36,6 +35,14 @@ export async function testFixtures(
     files = globsOrFiles
   }
 
+  for (const [id, code] of Object.entries(files)) {
+    makeTests(id, code, [[normalizePath(id)], ...(params || [])])()
+  }
+
+  function getName(name: string, value: any) {
+    return value !== undefined ? `${name} = ${String(value)}` : name
+  }
+
   function makeTests(
     id: string,
     code: string | undefined,
@@ -48,8 +55,9 @@ export async function testFixtures(
       return () => {
         for (const value of values) {
           const currArgs = { ...args, [name]: value }
+
           describe(
-            value !== undefined ? `${name} = ${String(value)}` : name,
+            getName(name, value),
             makeTests(id, code, restParams, currArgs)
           )
         }
@@ -57,18 +65,13 @@ export async function testFixtures(
     } else {
       return () => {
         for (const value of values) {
-          const testName =
-            value !== undefined ? `${name} = ${String(value)}` : name
+          const testName = getName(name, value)
           const isSkip = testName.includes('vue2') && SKIP_VUE2
 
           test.skipIf(isSkip)(testName, async () => {
             const currArgs = { ...args, [name]: value }
             const execute = () =>
-              cb(
-                currArgs,
-                path.resolve(globOptions.cwd || '/', id),
-                code as any
-              )
+              cb(currArgs, path.resolve(globOptions.cwd || '/', id), code!)
             if (id.includes('error')) {
               if (promise) {
                 await expect(execute()).rejects.toThrowErrorMatchingSnapshot()
@@ -76,7 +79,12 @@ export async function testFixtures(
                 expect(execute).toThrowErrorMatchingSnapshot()
               }
             } else if (promise) {
-              await expect(execute()).resolves.toMatchSnapshot()
+              await expect(
+                (execute() as Promise<any>).catch((err) => {
+                  console.warn(err)
+                  return Promise.reject(err)
+                })
+              ).resolves.toMatchSnapshot()
             } else {
               expect(execute()).toMatchSnapshot()
             }
@@ -84,9 +92,5 @@ export async function testFixtures(
         }
       }
     }
-  }
-
-  for (const [id, code] of Object.entries(files)) {
-    makeTests(id, code, [[normalizePath(id)], ...(params || [])])()
   }
 }

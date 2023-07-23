@@ -1,61 +1,10 @@
-import { babelParse as _babelParse, walkIdentifiers } from '@vue/compiler-sfc'
-// @ts-ignore error in node CJS (volar tsconfig)
-import { walk } from 'estree-walker'
-import {
-  type CallExpression,
-  type Function,
-  type Literal,
-  type Node,
-  type ObjectExpression,
-  type ObjectMethod,
-  type ObjectProperty,
-  type Program,
-  type TemplateLiteral,
-} from '@babel/types'
-import { type ParserOptions, type ParserPlugin } from '@babel/parser'
+import { walkIdentifiers } from '@vue/compiler-sfc'
 import { type MagicStringBase } from 'magic-string-ast'
-import { isTs } from './lang'
-import { REGEX_LANG_JSX } from './constants'
-
-export function babelParse(
-  code: string,
-  lang?: string,
-  options: ParserOptions = {}
-): Program {
-  const plugins: ParserPlugin[] = [...(options.plugins || [])]
-  if (isTs(lang)) {
-    plugins.push(['typescript', { dts: lang === 'dts' }])
-    if (REGEX_LANG_JSX.test(lang!)) plugins.push('jsx')
-    if (!plugins.includes('decorators')) plugins.push('decorators-legacy')
-  } else {
-    plugins.push('jsx')
-  }
-  const { program } = _babelParse(code, {
-    sourceType: 'module',
-    plugins,
-    ...options,
-  })
-  return program
-}
-
-export function isCallOf(
-  node: Node | null | undefined,
-  test: string | string[] | ((id: string) => boolean)
-): node is CallExpression {
-  return !!(
-    node &&
-    node.type === 'CallExpression' &&
-    node.callee.type === 'Identifier' &&
-    (typeof test === 'string'
-      ? node.callee.name === test
-      : Array.isArray(test)
-      ? test.includes(node.callee.name)
-      : test(node.callee.name))
-  )
-}
+import { isFunctionType, isLiteralType, resolveObjectKey } from 'ast-kit'
+import type * as t from '@babel/types'
 
 export function checkInvalidScopeReference(
-  node: Node | undefined,
+  node: t.Node | undefined,
   method: string,
   setupBindings: string[]
 ) {
@@ -71,14 +20,18 @@ export function checkInvalidScopeReference(
 }
 
 export function isStaticExpression(
-  node: Node,
+  node: t.Node,
   options: Partial<
-    Record<'object' | 'fn' | 'objectMethod' | 'array' | 'unary', boolean> & {
+    Record<
+      'object' | 'fn' | 'objectMethod' | 'array' | 'unary' | 'regex',
+      boolean
+    > & {
       magicComment?: string
     }
   > = {}
 ): boolean {
-  const { magicComment, fn, object, objectMethod, array, unary } = options
+  const { magicComment, fn, object, objectMethod, array, unary, regex } =
+    options
 
   // magic comment
   if (
@@ -148,52 +101,18 @@ export function isStaticExpression(
     case 'TSNonNullExpression': // 1!
     case 'TSAsExpression': // 1 as number
     case 'TSTypeAssertion': // (<number>2)
+    case 'TSSatisfiesExpression': // 1 satisfies number
       return isStaticExpression(node.expression, options)
+
+    case 'RegExpLiteral':
+      return !!regex
   }
 
   if (isLiteralType(node)) return true
   return false
 }
 
-export function isLiteralType(node: Node): node is Literal {
-  return node.type.endsWith('Literal')
-}
-
-export function resolveTemplateLiteral(node: TemplateLiteral) {
-  return node.quasis.reduce((prev, curr, idx) => {
-    if (node.expressions[idx]) {
-      return (
-        prev +
-        curr.value.cooked +
-        resolveLiteral(node.expressions[idx] as Literal)
-      )
-    }
-    return prev + curr.value.cooked
-  }, '')
-}
-
-export function resolveLiteral(
-  node: Literal
-): string | number | boolean | null | RegExp | bigint {
-  switch (node.type) {
-    case 'TemplateLiteral':
-      return resolveTemplateLiteral(node)
-    case 'NullLiteral':
-      return null
-    case 'BigIntLiteral':
-      return BigInt(node.value)
-    case 'RegExpLiteral':
-      return new RegExp(node.pattern, node.flags)
-
-    case 'BooleanLiteral':
-    case 'NumericLiteral':
-    case 'StringLiteral':
-      return node.value
-  }
-  return undefined as never
-}
-
-export function isStaticObjectKey(node: ObjectExpression): boolean {
+export function isStaticObjectKey(node: t.ObjectExpression): boolean {
   return node.properties.every((prop) => {
     if (prop.type === 'SpreadElement') {
       return (
@@ -208,8 +127,9 @@ export function isStaticObjectKey(node: ObjectExpression): boolean {
 /**
  * @param node must be a static expression, SpreadElement is not supported
  */
-export function resolveObjectExpression(node: ObjectExpression) {
-  const maps: Record<string | number, ObjectMethod | ObjectProperty> = {}
+export function resolveObjectExpression(node: t.ObjectExpression) {
+  const maps: Record<string | number, t.ObjectMethod | t.ObjectProperty> =
+    Object.create(null)
   for (const property of node.properties) {
     if (property.type === 'SpreadElement') {
       if (property.argument.type !== 'ObjectExpression')
@@ -217,84 +137,12 @@ export function resolveObjectExpression(node: ObjectExpression) {
         return undefined
       Object.assign(maps, resolveObjectExpression(property.argument)!)
     } else {
-      const key = resolveObjectKey(property.key, property.computed, false)
+      const key = resolveObjectKey(property)
       maps[key] = property
     }
   }
 
   return maps
-}
-
-export function resolveObjectKey(
-  node: Node,
-  computed?: boolean,
-  raw?: true
-): string
-export function resolveObjectKey(
-  node: Node,
-  computed: boolean | undefined,
-  raw: false
-): string | number
-export function resolveObjectKey(node: Node, computed = false, raw = true) {
-  switch (node.type) {
-    case 'StringLiteral':
-    case 'NumericLiteral':
-      return raw ? node.extra!.raw : node.value
-    case 'Identifier':
-      if (!computed) return raw ? `'${node.name}'` : node.name
-    // break omitted intentionally
-    default:
-      throw new SyntaxError(`Unexpected node type: ${node.type}`)
-  }
-}
-
-export function walkAST<T = Node>(
-  node: T,
-  options: {
-    enter?: (
-      this: {
-        skip: () => void
-        remove: () => void
-        replace: (node: T) => void
-      },
-      node: T,
-      parent: T,
-      key: string,
-      index: number
-    ) => void
-    leave?: (
-      this: {
-        skip: () => void
-        remove: () => void
-        replace: (node: T) => void
-      },
-      node: T,
-      parent: T,
-      key: string,
-      index: number
-    ) => void
-  }
-): T {
-  return walk(node as any, options as any) as any
-}
-
-export function isFunctionType(node: Node): node is Function {
-  return /Function(?:Expression|Declaration)$|Method$/.test(node.type)
-}
-
-export const TS_NODE_TYPES = [
-  'TSAsExpression', // foo as number
-  'TSTypeAssertion', // (<number>foo)
-  'TSNonNullExpression', // foo!
-  'TSInstantiationExpression', // foo<string>
-  'TSSatisfiesExpression', // foo satisfies T
-]
-export function unwrapTSNode(node: Node): Node {
-  if (TS_NODE_TYPES.includes(node.type)) {
-    return unwrapTSNode((node as any).expression)
-  } else {
-    return node
-  }
 }
 
 const importedMap = new WeakMap<MagicStringBase, Set<string>>()

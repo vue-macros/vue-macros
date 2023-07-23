@@ -1,14 +1,15 @@
 <script setup lang="ts">
-const { foo = 'foo', ...props } = defineProps<{
-  foo?: string
-}>()
+import { Assert } from '../../assert'
 
-console.log(foo, props)
+const { foo: fooAlias = 'fooAlias', bar: barAlias } = defineProps<{
+  foo?: string
+  bar?: number
+}>()
 </script>
 
 <template>
   <div>
-    Reactivity Transform on Vue 2 Demo.
-    {{ foo }}
+    <Assert :l="fooAlias" r="fooAlias" />
+    <Assert :l="barAlias" :r="undefined" />
   </div>
 </template>

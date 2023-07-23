@@ -98,9 +98,10 @@ export default defineConfig({
       "@vue-macros/volar/short-vmodel"
       // ...
     ],
-    // prefix
-    "shortVmodel": {
-      "prefix": "$"
+    "vueMacros": {
+      "shortVmodel": {
+        "prefix": "$"
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ If you're using `setupSFC`, then `defineRender` cannot be disabled.
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
-|       Nuxt 3       |        :x:         |
+|       Nuxt 3       | :white_check_mark: |
 |       Vue 2        | :white_check_mark: |
 | TypeScript / Volar |        :x:         |
 

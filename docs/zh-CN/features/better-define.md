@@ -47,6 +47,7 @@ export interface BaseProps {
 - 所有工具类型
   - [内置类型](https://www.typescriptlang.org/docs/handbook/utility-types.html)
   - 来自 `type-fest` 包的所有类型。
+  - `typeof` 关键字.
   - ...
 - 索引签名
   ```ts

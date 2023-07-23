@@ -1,17 +1,18 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
   createFilter,
   detectVueVersion,
+  normalizePath,
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
 import { type PluginContext } from 'rollup'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
-import { type UnpluginContextMeta } from 'unplugin'
-import { type Edition } from './core'
-import { transformDefineProp } from './core'
+import { type Edition, transformDefineProp } from './core'
+import { helperCode, helperId } from './core/helper'
 
 export interface Options extends BaseOptions {
   isProduction?: boolean
@@ -23,15 +24,10 @@ export type OptionsResolved = MarkRequired<
   'include' | 'version' | 'isProduction' | 'edition'
 >
 
-function resolveOption(
-  options: Options,
-  framework: UnpluginContextMeta['framework']
-): OptionsResolved {
+function resolveOption(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
   return {
-    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
-      version === 2 && framework === 'webpack' ? REGEX_VUE_SUB : []
-    ),
+    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC, REGEX_VUE_SUB],
     isProduction: process.env.NODE_ENV === 'production',
     edition: 'kevinEdition',
     ...options,
@@ -43,7 +39,7 @@ const name = 'unplugin-vue-define-prop'
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}, { framework }) => {
-    const options = resolveOption(userOptions, framework)
+    const options = resolveOption(userOptions)
     const filter = createFilter(options)
     const { resolve, handleHotUpdate } = RollupResolve()
 
@@ -55,6 +51,18 @@ export default createUnplugin<Options | undefined, false>(
         if (framework === 'rollup' || framework === 'vite') {
           setResolveTSFileIdImpl(resolve(this as PluginContext))
         }
+      },
+
+      resolveId(id) {
+        if (id === normalizePath(helperId)) return id
+      },
+
+      loadInclude(id) {
+        return normalizePath(id) === helperId
+      },
+
+      load(id) {
+        if (normalizePath(id) === helperId) return helperCode
       },
 
       transformInclude(id) {

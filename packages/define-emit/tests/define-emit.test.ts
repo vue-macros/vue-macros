@@ -42,7 +42,7 @@ describe('defineEmit', () => {
       `const foo = (...args) => ${EMIT_VARIABLE_NAME}("foo", ...args)`
     )
     expect(code).includes(
-      `const ${EMIT_VARIABLE_NAME} = defineEmits({ "foo": (payload) => payload.length > 0 })`
+      `const ${EMIT_VARIABLE_NAME} = defineEmits({ foo: (payload) => payload.length > 0 })`
     )
   })
 
@@ -56,7 +56,7 @@ describe('defineEmit', () => {
       'test.vue'
     )
 
-    const code = result?.code ? result.code.trim().replace(/\s+/g, ' ') : ''
+    const code = result?.code ? result.code.trim().replaceAll(/\s+/g, ' ') : ''
 
     expect(code).includes(
       `const ${EMIT_VARIABLE_NAME} = defineEmits(["foo", "bar"])`

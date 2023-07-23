@@ -6,15 +6,16 @@ We assume you are already familiar with the basic usages of Vue before you conti
 
 ## Requirements
 
+- Node.js 16.14.0 or higher.
 - Vue >= 2.7 or Vue >= 3.0.
   - Some features need Vue >= 3.2.25.
-- VSCode with [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension.
+- VSCode with the **latest** [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension.
   - ❌ WebStorm is not supported.
 
 ## Demos
 
-- [Vite + Vue 3](https://github.com/sxzz/unplugin-vue-macros/tree/main/playground/vue3)
-- [Vite + Vue 2](https://github.com/sxzz/unplugin-vue-macros/tree/main/playground/vue2)
+- [Vite + Vue 3](https://github.com/vue-macros/vite)
+- [Vite + Vue 2](https://github.com/sxzz/vue-macros/tree/main/playground/vue2)
 - [Nuxt 3 + Vue 3](https://github.com/vue-macros/nuxt)
 - [Vue CLI + Vue 2](https://github.com/vue-macros/vue2-vue-cli)
 

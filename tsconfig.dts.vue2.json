@@ -5,7 +5,8 @@
       "vue": ["node_modules/vue2"],
       "vue/*": ["node_modules/vue2/*"]
     },
-    "skipLibCheck": false
+    "skipLibCheck": false,
+    "customConditions": ["dev"]
   },
   "include": ["**/vue2-macros*.d.ts"]
 }

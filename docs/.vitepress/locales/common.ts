@@ -3,9 +3,7 @@ import { webLink } from '.vitepress/configs/meta'
 
 export const themeConfig = {
   logo: '/favicon.svg',
-  socialLinks: [
-    { icon: 'github', link: 'https://github.com/sxzz/unplugin-vue-macros' },
-  ],
+  socialLinks: [{ icon: 'github', link: 'https://github.com/sxzz/vue-macros' }],
 } satisfies DefaultTheme.Config
 
 export const head: HeadConfig[] = [
@@ -125,6 +123,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
               text: 'setupSFC',
               link: `${urlPrefix}/macros/setup-sfc`,
             },
+            {
+              text: 'chainCall',
+              link: `${urlPrefix}/macros/chain-call`,
+            },
           ],
         },
       ],
@@ -166,6 +168,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
             {
               text: 'exportProps',
               link: `${urlPrefix}/features/export-props`,
+            },
+            {
+              text: 'exportExpose',
+              link: `${urlPrefix}/features/export-expose`,
             },
           ],
         },

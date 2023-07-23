@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/sxzz/unplugin-vue-macros/raw/main/docs/public/logo.svg" width="200px" />
+  <img src="https://github.com/sxzz/vue-macros/raw/main/docs/public/logo.svg" width="200px" />
 </p>
 
 # unplugin-vue-define-options [![npm](https://img.shields.io/npm/v/unplugin-vue-define-options.svg)](https://npmjs.com/package/unplugin-vue-define-options)

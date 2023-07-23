@@ -1,8 +1,7 @@
-import { getCurrentInstance } from 'vue'
-import { useVModel } from '@vueuse/core'
-import { type UseVModelOptions } from '@vueuse/core'
-import { type Ref } from 'vue'
+import { type Ref, getCurrentInstance } from 'vue'
+import { type UseVModelOptions, useVModel } from '@vueuse/core'
 
+// eslint-disable-next-line import/no-default-export
 export default (
   ...keys: (
     | string
@@ -10,7 +9,7 @@ export default (
   )[]
 ) => {
   const props = getCurrentInstance()!.proxy!.$props as Record<string, any>
-  const ret: Record<string, Ref<any>> = {}
+  const ret: Record<string, Ref<any>> = Object.create(null)
   for (const _k of keys) {
     if (typeof _k === 'string') {
       ret[_k] = useVModel(props, _k, undefined, {
@@ -22,7 +21,7 @@ export default (
       ret[key] = useVModel(props, prop, undefined, {
         eventName,
         passive: true,
-        ...options,
+        ...(options as any),
       })
     }
   }

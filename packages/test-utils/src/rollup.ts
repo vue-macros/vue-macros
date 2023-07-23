@@ -1,17 +1,21 @@
-import { rollup } from 'rollup'
-import { default as ViteVueJsx } from '@vitejs/plugin-vue-jsx'
-import { type Options as VueJsxOptions } from '@vitejs/plugin-vue-jsx'
-import { type InputPluginOption, type Plugin } from 'rollup'
+import { type InputPluginOption, type Plugin, rollup } from 'rollup'
+import {
+  default as ViteVueJsx,
+  type Options as VueJsxOptions,
+} from '@vitejs/plugin-vue-jsx'
 
 export { default as RollupEsbuildPlugin } from 'rollup-plugin-esbuild'
 export { default as RollupVue } from 'unplugin-vue/rollup'
 export { default as RollupVue2 } from '@vitejs/plugin-vue2'
 export const RollupVueJsx = ViteVueJsx as (options?: VueJsxOptions) => Plugin
 
+export { default as RollupJson } from '@rollup/plugin-json'
+export { nodeResolve as RollupNodeResolve } from '@rollup/plugin-node-resolve'
+
 export const RollupToStringPlugin = (): Plugin => {
   return {
     name: 'to-string',
-    transform: (code) => `export default \`${code.replace(/`/g, '\\`')}\``,
+    transform: (code) => `export default \`${code.replaceAll('`', '\\`')}\``,
   }
 }
 
@@ -24,7 +28,7 @@ export const RollupRemoveVueFilePathPlugin = (): Plugin => {
     name: 'remove-vue-filepath',
     transform(code: string) {
       const transformed = code
-        .replace(REGEX[0], '__FILE__')
+        .replaceAll(REGEX[0], '__FILE__')
         .replace(REGEX[1], '__FILE__')
       if (code !== transformed) return transformed
     },
@@ -39,7 +43,7 @@ export const RollupEscapeNullCharacterPlugin = (): Plugin => {
         const b = bundle[filename]
         if (b.type !== 'chunk') continue
         if (b.code.includes('\0')) {
-          b.code = b.code.replace(/\0/g, '[NULL]')
+          b.code = b.code.replaceAll('\0', '[NULL]')
         }
       }
     },
@@ -49,17 +53,18 @@ export const RollupEscapeNullCharacterPlugin = (): Plugin => {
 export async function rollupBuild(file: string, plugins: InputPluginOption) {
   const bundle = await rollup({
     input: [file],
-    external: [
-      'vue',
-      '@vueuse/core',
-      '/plugin-vue/export-helper',
-      '\0plugin-vue2:normalizer',
-      /^\/vue-macros\/.*/,
+    external: ['vue', '@vueuse/core', /^\0.*/, /^\/vue-macros\/.*/],
+    plugins: [
+      plugins,
+      RollupEscapeNullCharacterPlugin(),
+      RollupRemoveVueFilePathPlugin(),
     ],
-    plugins,
     treeshake: false,
     onwarn(warning, defaultHandler) {
-      if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return
+      if (
+        ['UNUSED_EXTERNAL_IMPORT', 'UNRESOLVED_IMPORT'].includes(warning.code!)
+      )
+        return
       defaultHandler(warning)
     },
   })

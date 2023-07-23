@@ -1,16 +1,10 @@
 import { ref } from 'vue'
 
-const msg = ref('Hello')
+const msg = ref('Hello World')
 
 export default () => (
   <div>
-    setupSFC demo. {msg.value}{' '}
-    <button
-      onClick={() => {
-        debugger
-      }}
-    >
-      Check sourcemap
-    </button>
+    <input type="text" v-model={msg.value} />
+    <div>{msg.value}</div>
   </div>
 )

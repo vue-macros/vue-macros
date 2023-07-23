@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
-import type { Qux } from '../types'
 import { defineProp } from '../../../macros-johnson'
 
 // defineProp()
@@ -19,4 +18,7 @@ expectTypeOf(bar).toEqualTypeOf<ComputedRef<string>>()
 // defineProp(value, required, rest)
 const baz = defineProp<string>('bar', false, { validator: () => true })
 expectTypeOf(baz).toEqualTypeOf<ComputedRef<string>>()
+
+// unknown type
+const unknownType = defineProp<unknown | boolean>()
 </script>

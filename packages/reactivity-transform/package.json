@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/reactivity-transform",
-  "version": "0.3.4",
-  "packageManager": "pnpm@8.2.0",
+  "version": "0.3.15",
+  "packageManager": "pnpm@8.6.7",
   "description": "reactivity-transform feature from Vue Macros.",
   "keywords": [
     "vue-macros",
@@ -14,13 +14,13 @@
     "unplugin"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/sxzz/unplugin-vue-macros#readme",
+  "homepage": "https://github.com/sxzz/vue-macros#readme",
   "bugs": {
-    "url": "https://github.com/sxzz/unplugin-vue-macros/issues"
+    "url": "https://github.com/sxzz/vue-macros/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sxzz/unplugin-vue-macros.git",
+    "url": "git+https://github.com/sxzz/vue-macros.git",
     "directory": "packages/reactivity-transform"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
@@ -37,37 +37,55 @@
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "types": "./dist/index.d.ts",
+      "types": {
+        "require": "./dist/index.d.ts",
+        "import": "./dist/index.d.mts"
+      },
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./api": {
       "dev": "./src/api.ts",
-      "types": "./dist/api.d.ts",
+      "types": {
+        "require": "./dist/api.d.ts",
+        "import": "./dist/api.d.mts"
+      },
       "require": "./dist/api.js",
       "import": "./dist/api.mjs"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
-      "types": "./dist/esbuild.d.ts",
+      "types": {
+        "require": "./dist/esbuild.d.ts",
+        "import": "./dist/esbuild.d.mts"
+      },
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
     "./rollup": {
       "dev": "./src/rollup.ts",
-      "types": "./dist/rollup.d.ts",
+      "types": {
+        "require": "./dist/rollup.d.ts",
+        "import": "./dist/rollup.d.mts"
+      },
       "require": "./dist/rollup.js",
       "import": "./dist/rollup.mjs"
     },
     "./vite": {
       "dev": "./src/vite.ts",
-      "types": "./dist/vite.d.ts",
+      "types": {
+        "require": "./dist/vite.d.ts",
+        "import": "./dist/vite.d.mts"
+      },
       "require": "./dist/vite.js",
       "import": "./dist/vite.mjs"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
-      "types": "./dist/webpack.d.ts",
+      "types": {
+        "require": "./dist/webpack.d.ts",
+        "import": "./dist/webpack.d.mts"
+      },
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
@@ -77,7 +95,7 @@
     ]
   },
   "typesVersions": {
-    "<=4.9": {
+    "*": {
       "*": [
         "./dist/*",
         "./*"
@@ -85,24 +103,24 @@
     }
   },
   "scripts": {
-    "build": "tsup && tsx ../../scripts/postbuild.mts",
+    "build": "tsup && tsx ../../scripts/postbuild.ts",
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
   },
   "dependencies": {
-    "@babel/parser": "^7.21.4",
-    "@vue-macros/common": "workspace:~",
-    "@vue/compiler-core": "^3.3.0-alpha.9",
-    "@vue/shared": "^3.3.0-alpha.9",
-    "magic-string": "^0.30.0",
-    "unplugin": "^1.3.1"
+    "@babel/parser": "^7.22.7",
+    "@vue-macros/common": "workspace:*",
+    "@vue/compiler-core": "^3.3.4",
+    "@vue/shared": "^3.3.4",
+    "magic-string": "^0.30.1",
+    "unplugin": "^1.4.0"
   },
   "devDependencies": {
     "estree-walker": "^3.0.3"
   },
   "engines": {
-    "node": ">=14.19.0"
+    "node": ">=16.14.0"
   }
 }

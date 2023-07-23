@@ -1,37 +1,23 @@
 import { FileKind } from '@volar/language-core'
-import {
-  type VueEmbeddedFile,
-  type VueLanguagePlugin,
-} from '@volar/vue-language-core'
+import { type VueLanguagePlugin } from '@vue/language-core'
+import { getImportNames, rewriteImports } from './common'
 
-const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
+const plugin: VueLanguagePlugin = ({
+  modules: { typescript: ts },
+  vueCompilerOptions,
+}) => {
   vueCompilerOptions.macros.defineProps.push('definePropsRefs')
 
   return {
     name: 'vue-macros-define-props-refs',
     version: 1,
     resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
-        !sfc.scriptSetup?.content.includes('definePropsRefs')
-      )
-        return
+      if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
+      if (!sfc.scriptSetupAst) return
 
-      try {
-        rewriteImports(embeddedFile)
-      } catch {}
+      rewriteImports(embeddedFile, getImportNames(ts, sfc))
     },
   }
 }
 
-export = plugin
-
-function rewriteImports(file: VueEmbeddedFile) {
-  const idx = file.content.indexOf(
-    `const { defineProps, defineEmits, defineSlots, defineModel, defineOptions, withDefaults } = await import('vue');\n`
-  )
-  if (idx === -1) return
-  file.content[
-    idx
-  ] = `const { defineProps, defineEmits, defineSlots, defineModel, defineOptions } = await import('vue');\n`
-}
+export default plugin

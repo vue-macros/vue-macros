@@ -8,6 +8,7 @@ import {
   importHelperFn,
   isCallOf,
   parseSFC,
+  removeMacroImport,
   walkAST,
 } from '@vue-macros/common'
 import { type CallExpression, type Node } from '@babel/types'
@@ -24,7 +25,12 @@ export function transformDefinePropsRefs(code: string, id: string) {
 
   walkAST<Node>(setupAst, {
     enter(node) {
-      if (isCallOf(node, WITH_DEFAULTS) && node.arguments) {
+      removeMacroImport(node, s, offset)
+
+      if (
+        isCallOf(node, WITH_DEFAULTS) &&
+        isCallOf(node.arguments[0], DEFINE_PROPS_REFS)
+      ) {
         processDefinePropsRefs(node.arguments[0] as CallExpression, node)
         this.skip()
       } else if (isCallOf(node, DEFINE_PROPS_REFS)) {
@@ -46,9 +52,7 @@ export function transformDefinePropsRefs(code: string, id: string) {
     if (defaultsCall) {
       code = `${WITH_DEFAULTS}(${code}, ${s.sliceNode(
         defaultsCall.arguments[1],
-        {
-          offset,
-        }
+        { offset }
       )})`
     }
 

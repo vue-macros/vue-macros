@@ -1,5 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
@@ -7,8 +9,6 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
-import { type UnpluginContextMeta } from 'unplugin'
 import { type PluginContext } from 'rollup'
 import { transformBetterDefine } from './core'
 
@@ -21,16 +21,11 @@ export type OptionsResolved = MarkRequired<
   'include' | 'version' | 'isProduction'
 >
 
-function resolveOptions(
-  options: Options,
-  framework: UnpluginContextMeta['framework']
-): OptionsResolved {
+function resolveOptions(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
 
   return {
-    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC].concat(
-      version === 2 && framework === 'webpack' ? REGEX_VUE_SUB : []
-    ),
+    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC, REGEX_VUE_SUB],
     isProduction: process.env.NODE_ENV === 'production',
     ...options,
     version,
@@ -41,7 +36,7 @@ const name = 'unplugin-vue-better-define'
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}, { framework }) => {
-    const options = resolveOptions(userOptions, framework)
+    const options = resolveOptions(userOptions)
     const filter = createFilter(options)
 
     const { resolve, handleHotUpdate } = RollupResolve()

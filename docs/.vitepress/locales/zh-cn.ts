@@ -6,7 +6,7 @@ import {
 import * as common from './common'
 
 export const title = 'Vue Macros'
-export const description = '探索并扩展更多宏和语法糖到 Vue 中。'
+export const description = '探索更多宏和语法糖到 Vue 中。'
 
 export const nav: DefaultTheme.NavItem[] = [
   { text: '指南', link: '/zh-CN/guide/getting-started', activeMatch: 'guide' },
@@ -46,11 +46,18 @@ export const themeConfig: DefaultTheme.Config = {
       'MIT License © 2022-PRESENT <a href="https://github.com/sxzz">三咲智子</a>',
   },
   editLink: {
-    pattern: 'https://github.com/sxzz/unplugin-vue-macros/edit/main/docs/:path',
+    pattern: 'https://github.com/sxzz/vue-macros/edit/main/docs/:path',
     text: '在 GitHub 上编辑此页面',
   },
   nav,
   sidebar,
+  darkModeSwitchLabel: '外观',
+  sidebarMenuLabel: '目录',
+  returnToTopLabel: '返回顶部',
+  docFooter: {
+    prev: '上一页',
+    next: '下一页',
+  },
 }
 
 export const head: HeadConfig[] = [

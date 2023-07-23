@@ -15,7 +15,8 @@ export function transformExportProps(code: string, id: string) {
   const offset = scriptSetup.loc.start.offset
   const s = new MagicString(code)
 
-  const props: Record<string, { type: string; defaultValue?: string }> = {}
+  const props: Record<string, { type: string; defaultValue?: string }> =
+    Object.create(null)
   let hasDefineProps = false
 
   function walkVariableDeclarator(decl: VariableDeclarator) {

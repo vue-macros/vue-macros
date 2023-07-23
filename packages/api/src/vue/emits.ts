@@ -1,9 +1,10 @@
 import {
+  type MagicString,
+  type SFC,
   babelParse,
   isStaticExpression,
   resolveLiteral,
 } from '@vue-macros/common'
-import { type MagicString, type SFC } from '@vue-macros/common'
 import {
   type CallExpression,
   type ExpressionStatement,
@@ -20,16 +21,16 @@ import {
   type VariableDeclaration,
 } from '@babel/types'
 import {
-  isTSExports,
+  type TSFile,
+  type TSResolvedType,
+  isTSNamespace,
   resolveTSProperties,
   resolveTSReferencedType,
   resolveTSScope,
 } from '../ts'
 import { keyToString } from '../utils'
-import { type TSFile, type TSResolvedType } from '../ts'
-import { DefinitionKind } from './types'
+import { type ASTDefinition, DefinitionKind } from './types'
 import { attachNodeLoc } from './utils'
-import { type ASTDefinition } from './types'
 
 export async function handleTSEmitsDefinition({
   s,
@@ -101,7 +102,7 @@ export async function handleTSEmitsDefinition({
     if (!def) return false
 
     if (def.scope === file) s.removeNode(def.ast, { offset })
-    delete definitions[key][idx]
+    definitions[key].splice(idx, 1)
     return true
   }
 
@@ -125,7 +126,7 @@ export async function handleTSEmitsDefinition({
 
   async function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
     const resolved = await resolveTSReferencedType(typeDeclRaw)
-    if (!resolved || isTSExports(resolved))
+    if (!resolved || isTSNamespace(resolved))
       throw new SyntaxError(`Cannot resolve TS definition.`)
 
     const { type: definitionsAst, scope } = resolved
@@ -144,7 +145,7 @@ export async function handleTSEmitsDefinition({
       type: definitionsAst,
     })
 
-    const definitions: TSEmits['definitions'] = {}
+    const definitions: TSEmits['definitions'] = Object.create(null)
     for (const signature of properties.callSignatures) {
       const evtArg = signature.type.parameters[0]
       if (
@@ -159,7 +160,7 @@ export async function handleTSEmitsDefinition({
         scope: signature.scope,
       })
 
-      if (isTSExports(evtType) || !evtType?.type) continue
+      if (isTSNamespace(evtType) || !evtType?.type) continue
 
       const types =
         evtType.type.type === 'TSUnionType'

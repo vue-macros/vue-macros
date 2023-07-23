@@ -3,7 +3,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   model: {
     prop: 'value',
-    event: 'changeInput'
+    event: 'changeInput',
   },
 })
 </script>

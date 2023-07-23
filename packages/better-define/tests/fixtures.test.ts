@@ -2,7 +2,8 @@ import { resolve } from 'node:path'
 import { describe } from 'vitest'
 import {
   RollupEsbuildPlugin,
-  RollupRemoveVueFilePathPlugin,
+  RollupJson,
+  RollupNodeResolve,
   RollupVue,
   RollupVueJsx,
   rollupBuild,
@@ -18,7 +19,8 @@ describe('fixtures', async () => {
         VueBetterDefine({ isProduction: args.isProduction }),
         RollupVue(),
         RollupVueJsx(),
-        RollupRemoveVueFilePathPlugin(),
+        RollupJson(),
+        RollupNodeResolve(),
         RollupEsbuildPlugin({
           target: 'esnext',
         }),

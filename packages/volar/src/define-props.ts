@@ -1,4 +1,4 @@
-import { type VueLanguagePlugin } from '@volar/vue-language-core'
+import { type VueLanguagePlugin } from '@vue/language-core'
 
 const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
   vueCompilerOptions.macros.defineProps.push('$defineProps')
@@ -9,4 +9,4 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
   }
 }
 
-export = plugin
+export default plugin

@@ -1,7 +1,11 @@
 import { DEFINE_OPTIONS } from '@vue-macros/common'
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
-import { type Segment, replace } from 'muggle-string'
-import { type Sfc, type VueLanguagePlugin } from '@volar/vue-language-core'
+import {
+  type Segment,
+  type Sfc,
+  type VueLanguagePlugin,
+  replace,
+} from '@vue/language-core'
 
 function transformDefineOptions({
   codes,
@@ -71,4 +75,4 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
     },
   }
 }
-export = plugin
+export default plugin

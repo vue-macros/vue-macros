@@ -18,21 +18,15 @@
 
 ```vue
 <script setup lang="ts">
-const emits = defineEmits<
-  // `ShortEmits` 或简写为 `SE`
-  SE<{
-    // 元组
-    'update:modelValue': [val: string]
-    // 方法
-    update(val: string): void
-  }>
->()
+const emits = defineEmits<{
+  // 元组
+  'update:modelValue': [val: string]
+  // 方法
+  update(val: string): void
+}>()
 </script>
 ```
 
 ## Difference with Official Version
 
-<!-- TODO: same behavior -->
-
-- `ShortEmits` or `SE` is no longer needed in official version. Use it directly.
 - function style of declaration is not supported by official version.

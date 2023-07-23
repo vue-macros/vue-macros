@@ -5,5 +5,5 @@ $defineModels<{
 </script>
 
 <template>
-  <div />
+  {{ foo }}
 </template>

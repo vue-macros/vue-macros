@@ -1,0 +1,120 @@
+{
+  "name": "@vue-macros/export-expose",
+  "version": "0.0.6",
+  "packageManager": "pnpm@8.6.7",
+  "description": "export-expose feature from Vue Macros.",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "export-expose",
+    "unplugin"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sxzz/vue-macros#readme",
+  "bugs": {
+    "url": "https://github.com/sxzz/vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxzz/vue-macros.git",
+    "directory": "packages/export-expose"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "types": {
+        "require": "./dist/index.d.ts",
+        "import": "./dist/index.d.mts"
+      },
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./api": {
+      "dev": "./src/api.ts",
+      "types": {
+        "require": "./dist/api.d.ts",
+        "import": "./dist/api.d.mts"
+      },
+      "require": "./dist/api.js",
+      "import": "./dist/api.mjs"
+    },
+    "./esbuild": {
+      "dev": "./src/esbuild.ts",
+      "types": {
+        "require": "./dist/esbuild.d.ts",
+        "import": "./dist/esbuild.d.mts"
+      },
+      "require": "./dist/esbuild.js",
+      "import": "./dist/esbuild.mjs"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "types": {
+        "require": "./dist/rollup.d.ts",
+        "import": "./dist/rollup.d.mts"
+      },
+      "require": "./dist/rollup.js",
+      "import": "./dist/rollup.mjs"
+    },
+    "./vite": {
+      "dev": "./src/vite.ts",
+      "types": {
+        "require": "./dist/vite.d.ts",
+        "import": "./dist/vite.d.mts"
+      },
+      "require": "./dist/vite.js",
+      "import": "./dist/vite.mjs"
+    },
+    "./webpack": {
+      "dev": "./src/webpack.ts",
+      "types": {
+        "require": "./dist/webpack.d.ts",
+        "import": "./dist/webpack.d.mts"
+      },
+      "require": "./dist/webpack.js",
+      "import": "./dist/webpack.mjs"
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup && tsx ../../scripts/postbuild.ts",
+    "dev": "DEV=true tsup"
+  },
+  "peerDependencies": {
+    "vue": "^2.7.0 || ^3.2.25"
+  },
+  "dependencies": {
+    "@vue-macros/common": "workspace:*",
+    "@vue/compiler-sfc": "^3.3.4",
+    "unplugin": "^1.4.0"
+  },
+  "devDependencies": {
+    "vue": "^3.3.4"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}

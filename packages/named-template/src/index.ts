@@ -1,10 +1,11 @@
 import { createUnplugin } from 'unplugin'
 import {
+  type BaseOptions,
+  type MarkRequired,
   REGEX_VUE_SFC,
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { type BaseOptions, type MarkRequired } from '@vue-macros/common'
 import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,
@@ -36,7 +37,7 @@ export const PrePlugin = createUnplugin<Options | undefined, false>(
     const options = resolveOption(userOptions)
     const filter = createFilter(options)
 
-    const templateContent: TemplateContent = {}
+    const templateContent: TemplateContent = Object.create(null)
 
     return {
       name: `${name}-pre`,
@@ -85,7 +86,7 @@ export const PostPlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
     const options = resolveOption(userOptions)
     const filter = createFilter(options)
-    const customBlocks: CustomBlocks = {}
+    const customBlocks: CustomBlocks = Object.create(null)
 
     function transformInclude(id: string) {
       return filter(id) || id.includes(QUERY_TEMPLATE)

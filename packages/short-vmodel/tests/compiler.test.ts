@@ -1,7 +1,6 @@
 import { compileTemplate } from '@vue/compiler-sfc'
 import { describe, expect, test } from 'vitest'
-import { transformShortVmodel } from '../src'
-import { type Prefix } from '../src'
+import { type Prefix, transformShortVmodel } from '../src'
 
 function compile(code: string, prefix?: Prefix) {
   return compileTemplate({

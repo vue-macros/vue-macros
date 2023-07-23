@@ -3,7 +3,7 @@
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { defineComponent } from 'vue';
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
-import _export_sfc from '/plugin-vue/export-helper';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const name = \\"Foo\\";
 const __default__ = defineComponent({
@@ -12,8 +12,8 @@ const __default__ = defineComponent({
 var _sfc_main = /* @__PURE__ */ defineComponent({
   ...__default__,
   props: {
-    \\"modelValue\\": { type: String, required: true },
-    \\"title\\": { type: String, required: true }
+    modelValue: { type: String, required: true },
+    title: { type: String, required: true }
   },
   emits: [\\"update:modelValue\\", \\"change\\"],
   setup(__props, { emit }) {
@@ -35,13 +35,13 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/case-233.vue 1`] = `
 "import { defineComponent } from 'vue';
-import _export_sfc from '/plugin-vue/export-helper';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const msg = \\"Hello\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"case-233\\",
   props: {
-    \\"msg\\": { type: String, required: true, default: msg }
+    msg: { type: String, required: true, default: msg }
   },
   setup(__props) {
     return () => {
@@ -57,12 +57,12 @@ export { case233 as default };
 
 exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
 "import { defineComponent, toRefs } from 'vue';
-import _export_sfc from '/plugin-vue/export-helper';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"define-props-refs\\",
   props: {
-    \\"foo\\": { type: String, required: true }
+    foo: { type: String, required: true }
   },
   setup(__props) {
     const __MACROS_props = __props;
@@ -80,16 +80,18 @@ export { definePropsRefs as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/error-diff-lang.vue 1`] = `"[unplugin-vue-macros] <script> and <script setup> must have the same language type."`;
+
 exports[`fixtures > tests/fixtures/hoist-static.vue 1`] = `
 "import { defineComponent } from 'vue';
-import _export_sfc from '/plugin-vue/export-helper';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const name = 'App';
 const propName = 'title';
 const __default__ = defineComponent({
   name,
 });
-const _sfc_main = Object.assign(__default__, {
+const _sfc_main = /*#__PURE__*/Object.assign(__default__, {
   props: [propName],
   setup(__props) {
 
@@ -111,7 +113,7 @@ export { hoistStatic as default };
 
 exports[`fixtures > tests/fixtures/hoist-static-scope.vue 1`] = `
 "import { defineComponent, openBlock, createElementBlock } from 'vue';
-import _export_sfc from '/plugin-vue/export-helper';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const [name] = (
   /* hoist-static*/
@@ -136,9 +138,38 @@ export { hoistStaticScope as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/mixed-define-props.vue 1`] = `
+"import { defineComponent, toRefs, toRef } from 'vue';
+import __MACROS_normalizePropsOrEmits from '/vue-macros/define-prop/helper';
+import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"mixed-define-props\\",
+  props: { ...__MACROS_normalizePropsOrEmits({
+    baz: { type: String, required: true },
+    foo: { type: String, required: false }
+  }), ...__MACROS_normalizePropsOrEmits([\\"bar\\"]) },
+  emits: [\\"update:baz\\"],
+  setup(__props) {
+    const __MACROS_props = __props;
+    const { foo } = toRefs(__MACROS_props);
+    const bar = toRef(__props, \\"bar\\");
+    const { baz } = __MACROS_useVModel(\\"baz\\");
+    return () => {
+    };
+  }
+});
+
+var mixedDefineProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { mixedDefineProps as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/short-emits.setup.tsx 1`] = `
 "import { defineComponent } from 'vue';
-import _export_sfc from '/plugin-vue/export-helper';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"short-emits.setup\\",
@@ -158,7 +189,7 @@ export { shortEmits_setup as default };
 exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
 "import { defineComponent } from 'vue';
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
-import _export_sfc from '/plugin-vue/export-helper';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const __default__ = defineComponent({
   name: \\"Foo\\",
@@ -170,8 +201,8 @@ const __default__ = defineComponent({
 var _sfc_main = /* @__PURE__ */ defineComponent({
   ...__default__,
   props: {
-    \\"value\\": { type: String, required: true },
-    \\"title\\": { type: String, required: true }
+    value: { type: String, required: true },
+    title: { type: String, required: true }
   },
   emits: [\\"input\\", \\"changeInput\\", \\"change\\"],
   setup(__props, { emit }) {

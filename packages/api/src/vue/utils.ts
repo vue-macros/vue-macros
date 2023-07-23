@@ -1,11 +1,17 @@
 import { type Node } from '@babel/types'
-import { isTSExports, resolveTSReferencedType } from '../ts'
-import { type TSExports, type TSResolvedType } from '../ts'
+import {
+  type TSNamespace,
+  type TSResolvedType,
+  isTSNamespace,
+  resolveTSReferencedType,
+} from '../ts'
+
+export const UNKNOWN_TYPE = 'Unknown'
 
 export async function inferRuntimeType(
-  node: TSResolvedType | TSExports
+  node: TSResolvedType | TSNamespace
 ): Promise<string[]> {
-  if (isTSExports(node)) return ['Object']
+  if (isTSNamespace(node)) return ['Object']
 
   switch (node.type.type) {
     case 'TSStringKeyword':
@@ -47,9 +53,8 @@ export async function inferRuntimeType(
         case 'NumericLiteral':
         case 'BigIntLiteral':
           return ['Number']
-        default:
-          return [`null`]
       }
+      break
 
     case 'TSTypeReference':
       if (node.type.typeName.type === 'Identifier') {
@@ -84,7 +89,7 @@ export async function inferRuntimeType(
               })
               if (t) return inferRuntimeType(t)
             }
-            return ['null']
+            break
           case 'Exclude':
             if (
               node.type.typeParameters &&
@@ -96,10 +101,10 @@ export async function inferRuntimeType(
               })
               if (t) return inferRuntimeType(t)
             }
-            return ['null']
+            break
         }
       }
-      return [`null`]
+      break
 
     case 'TSUnionType': {
       const types = (
@@ -109,7 +114,7 @@ export async function inferRuntimeType(
               scope: node.scope,
               type: subType,
             })
-            return resolved && !isTSExports(resolved)
+            return resolved && !isTSNamespace(resolved)
               ? inferRuntimeType(resolved)
               : undefined
           })
@@ -125,10 +130,10 @@ export async function inferRuntimeType(
 
     case 'TSInterfaceDeclaration':
       return ['Object']
-
-    default:
-      return [`null`] // no runtime check
   }
+
+  // no runtime check
+  return [UNKNOWN_TYPE]
 }
 
 export function attachNodeLoc(node: Node, newNode: Node) {
@@ -136,10 +141,39 @@ export function attachNodeLoc(node: Node, newNode: Node) {
   newNode.end = node.end
 }
 
-export function toRuntimeTypeString(types: string[], isProduction?: boolean) {
-  if (isProduction) {
-    types = types.filter((t) => t === 'Boolean' || t === 'Function')
+export function genRuntimePropDefinition(
+  types: string[] | undefined,
+  isProduction: boolean,
+  properties: string[]
+) {
+  let type: string | undefined
+  let skipCheck = false
+
+  if (types) {
+    const hasBoolean = types.includes('Boolean')
+    const hasUnknown = types.includes(UNKNOWN_TYPE)
+
+    if (hasUnknown) types = types.filter((t) => t !== UNKNOWN_TYPE)
+
+    if (isProduction) {
+      types = types.filter(
+        (t) =>
+          t === 'Boolean' || (hasBoolean && t === 'String') || t === 'Function'
+      )
+    } else if (hasUnknown) {
+      types = types.filter((t) => t === 'Boolean' || t === 'Function')
+      skipCheck = types.length > 0
+    }
+
+    if (types.length > 0) {
+      type = types.length > 1 ? `[${types.join(', ')}]` : types[0]
+    }
   }
-  if (types.length === 0) return undefined
-  return types.length > 1 ? `[${types.join(', ')}]` : types[0]
+
+  const pairs: string[] = []
+  if (type) pairs.push(`type: ${type}`)
+  if (skipCheck) pairs.push(`skipCheck: true`)
+  pairs.push(...properties)
+
+  return pairs.length > 0 ? `{ ${pairs.join(', ')} }` : 'null'
 }

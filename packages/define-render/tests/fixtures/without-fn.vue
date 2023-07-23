@@ -1,4 +1,4 @@
 <script setup lang="tsx">
-// @ts-nocheck
+// @ts-expect-error
 defineRender(<div>Hello</div>)
 </script>

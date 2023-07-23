@@ -8,7 +8,7 @@ const { foo } = defineModels<{
 }>()
 
 withDefaults(defineProps<Props>(), {
-  color: 'blue'
+  color: 'blue',
 })
 
 console.log(foo)
