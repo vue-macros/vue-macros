@@ -16,6 +16,7 @@ import VueSetupBlock from '@vue-macros/setup-block'
 import VueSetupComponent from '@vue-macros/setup-component'
 import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortEmits from '@vue-macros/short-emits'
+import JsxVueDirective from '@vue-macros/jsx-vue-directive'
 import { detectVueVersion } from '@vue-macros/common'
 import { Devtools } from '@vue-macros/devtools'
 
@@ -42,6 +43,7 @@ import { type Options as OptionsSetupBlock } from '@vue-macros/setup-block'
 import { type Options as OptionsSetupComponent } from '@vue-macros/setup-component'
 import { type Options as OptionsSetupSFC } from '@vue-macros/setup-sfc'
 import { type Options as OptionsShortEmits } from '@vue-macros/short-emits'
+import { type Options as OptionsJsxVueDirective } from '@vue-macros/jsx-vue-directive'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
@@ -61,6 +63,7 @@ export interface FeatureOptionsMap {
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
+  jsxVueDirective: OptionsJsxVueDirective
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -113,6 +116,7 @@ function resolveOptions({
   setupComponent,
   setupSFC,
   shortEmits,
+  jsxVueDirective,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
@@ -185,6 +189,9 @@ function resolveOptions({
       { version },
       version < 3.3
     ),
+    jsxVueDirective: resolveSubOptions<'jsxVueDirective'>(jsxVueDirective, {
+      version,
+    }),
   }
 }
 
@@ -256,6 +263,7 @@ export default createCombinePlugin<Options | undefined>(
       framework === 'vite'
         ? Devtools({ nuxtContext: options.nuxtContext })
         : undefined,
+      resolvePlugin(JsxVueDirective, framework, options.jsxVueDirective),
     ].filter(Boolean)
 
     return {
