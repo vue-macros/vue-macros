@@ -60,8 +60,13 @@ export async function transformSimpleDefine(code: string, id: string) {
     if (!node.typeParameters)
       throw new SyntaxError(`${SIMPLE_PROPS} must have a type parameter.`)
 
-    s.removeNode(node.typeParameters, { offset })
-    s.overwriteNode(node.callee, DEFINE_PROPS, { offset })
+    if (node.arguments.length === 0) {
+      const useAttrs = importHelperFn(s, offset, 'useAttrs')
+      s.overwriteNode(node, `${useAttrs}()`, { offset })
+    } else {
+      s.removeNode(node.typeParameters, { offset })
+      s.overwriteNode(node.callee, DEFINE_PROPS, { offset })
+    }
   }
 
   function processWithDefaults(

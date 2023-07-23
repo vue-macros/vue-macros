@@ -1,11 +1,9 @@
-// copy from vue-core
-type Prettify<T> = {
-  [K in keyof T]: T[K]
-} & {}
-
-export declare const simpleProps: <T extends Record<string, any>>(
+export declare function simpleProps<T extends Record<string, any>>(): {
+  [key: string]: any
+} & T
+export declare function simpleProps<T extends Record<string, any>>(
   names: (keyof T)[],
-) => T
+): T
 
 type RecordToUnion<T extends Record<string, any>> = T[keyof T]
 type UnionToIntersection<U> = (
@@ -53,4 +51,4 @@ type PropsWithDefaults<T, Defaults extends InferDefaults<T>> = Readonly<
 export declare function withDefaults<T, Defaults extends InferDefaults<T>>(
   props: T,
   defaults: Defaults,
-): Prettify<PropsWithDefaults<T, Defaults>>
+): PropsWithDefaults<T, Defaults>

@@ -55,3 +55,24 @@ var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 export { basic as default };
 "
 `;
+
+exports[`fixtures > tests/fixtures/no-key.vue 1`] = `
+"import { defineComponent, useAttrs } from 'vue';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"no-key\\",
+  setup(__props) {
+    const props = useAttrs();
+    expectTypeOf(props);
+    return () => {
+    };
+  }
+});
+
+var noKey = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { noKey as default };
+"
+`;
