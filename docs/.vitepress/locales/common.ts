@@ -173,6 +173,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
               text: 'exportExpose',
               link: `${urlPrefix}/features/export-expose`,
             },
+            {
+              text: 'jsxDirective',
+              link: `${urlPrefix}/features/jsx-directive`,
+            },
           ],
         },
       ],
