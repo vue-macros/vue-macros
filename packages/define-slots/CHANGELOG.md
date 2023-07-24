@@ -1,5 +1,12 @@
 # @vue-macros/define-slots
 
+## 1.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741), [`5932a0c9`](https://github.com/vue-macros/vue-macros/commit/5932a0c9cfb6759a2fc4517e7115852cfe147ebb)]:
+  - @vue-macros/common@1.6.0
+
 ## 1.0.8
 
 ### Patch Changes

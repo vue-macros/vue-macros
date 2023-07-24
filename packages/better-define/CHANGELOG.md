@@ -1,5 +1,15 @@
 # @vue-macros/better-define
 
+## 1.6.6
+
+### Patch Changes
+
+- [`5932a0c9`](https://github.com/vue-macros/vue-macros/commit/5932a0c9cfb6759a2fc4517e7115852cfe147ebb) Thanks [@sxzz](https://github.com/sxzz)! - simplify resolve identifiers
+
+- Updated dependencies [[`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741), [`20367274`](https://github.com/vue-macros/vue-macros/commit/2036727443c659eb84037eae85c5ac565521dd3e), [`5932a0c9`](https://github.com/vue-macros/vue-macros/commit/5932a0c9cfb6759a2fc4517e7115852cfe147ebb)]:
+  - @vue-macros/common@1.6.0
+  - @vue-macros/api@0.8.0
+
 ## 1.6.5
 
 ### Patch Changes

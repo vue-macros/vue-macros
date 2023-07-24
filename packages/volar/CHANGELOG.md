@@ -1,5 +1,16 @@
 # @vue-macros/volar
 
+## 0.12.3
+
+### Patch Changes
+
+- [`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741) Thanks [@sxzz](https://github.com/sxzz)! - refactor: replace `{}` with `Object.create(null)`
+
+- Updated dependencies [[`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741), [`5932a0c9`](https://github.com/vue-macros/vue-macros/commit/5932a0c9cfb6759a2fc4517e7115852cfe147ebb)]:
+  - @vue-macros/common@1.6.0
+  - @vue-macros/define-props@1.0.14
+  - @vue-macros/short-vmodel@1.2.12
+
 ## 0.12.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.1.0
+
+### Minor Changes
+
+- [`93c2606f`](https://github.com/vue-macros/vue-macros/commit/93c2606fa6cfef0ae8d05251ce0536085064ad67) Thanks [@sxzz](https://github.com/sxzz)! - add rollup node resolve
+
 ## 1.0.9
 
 ### Patch Changes
