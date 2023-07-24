@@ -1,4 +1,5 @@
 <script setup lang="tsx">
+// @ts-nocheck
 const list = [1, 2, 3]
 
 defineRender(() => (
