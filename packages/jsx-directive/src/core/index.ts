@@ -11,7 +11,10 @@ import { vForTransform } from './v-for'
 
 export function transformJsxVueDirective(code: string, id: string) {
   const lang = getLang(id)
-  let asts: { ast: Program; offset: number }[] = []
+  let asts: {
+    ast: Program
+    offset: number
+  }[] = []
   if (lang === 'vue') {
     const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
       code,
@@ -26,7 +29,7 @@ export function transformJsxVueDirective(code: string, id: string) {
   } else if (['jsx', 'tsx'].includes(lang)) {
     asts = [{ ast: babelParse(code, lang), offset: 0 }]
   } else {
-    return null
+    return
   }
 
   const s = new MagicString(code)

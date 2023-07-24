@@ -3,8 +3,10 @@ const { foo } = defineProps<{
 }>()
 
 export default () => {
-  return <>
-    <div v-if={foo===0}>0</div>
-    <div v-if={foo===1}>1</div>
-  </>
+  return (
+    <>
+      <div v-if={foo === 0}>0</div>
+      <div v-if={foo === 1}>1</div>
+    </>
+  )
 }

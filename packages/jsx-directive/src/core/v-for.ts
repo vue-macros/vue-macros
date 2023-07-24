@@ -7,7 +7,7 @@ import {
 import { type MagicString, walkAST } from '@vue-macros/common'
 
 export function vForTransform(ast: Program, s: MagicString, offset = 0) {
-  if (!s.slice(ast.start! + offset, ast.end! + offset).includes('v-for')) return
+  if (!s.sliceNode(ast, { offset }).includes('v-for')) return
 
   const nodes: {
     node: JSXElement
@@ -19,8 +19,9 @@ export function vForTransform(ast: Program, s: MagicString, offset = 0) {
       if (node.type !== 'JSXElement') return
 
       const attribute = node.openingElement.attributes.find(
-        (i) => i.type === 'JSXAttribute' && ['v-for'].includes(`${i.name.name}`)
-      ) as JSXAttribute
+        (i): i is JSXAttribute =>
+          i.type === 'JSXAttribute' && ['v-for'].includes(`${i.name.name}`)
+      )
       if (attribute) {
         nodes.push({
           node,
@@ -46,6 +47,4 @@ export function vForTransform(ast: Program, s: MagicString, offset = 0) {
       s.remove(attribute.start! + offset - 1, attribute.end! + offset)
     }
   })
-
-  return s
 }

@@ -3,23 +3,27 @@
 exports[`jsx-vue-directive > v-for > ./fixtures/v-for/v-for.setup.tsx 1`] = `
 "const list = [1, 2, 3]
 
-export default () => <>
-   { list.map((i, index)=> <div key={index}>
-    <div>{i}</div>
-  </div>) }  
-</>"
+export default () => (
+  <>
+     { list.map((i, index)=> <div key={index}>
+      <div>{i}</div>
+    </div>) }
+  </>
+)
+"
 `;
 
 exports[`jsx-vue-directive > v-for > ./fixtures/v-for/v-for.vue 1`] = `
 "<script setup lang=\\"tsx\\">
 const list = [1, 2, 3]
 
-defineRender(() => 
+defineRender(() => (
   <>
      { list.map(i=> <div key={i}>
       <div>{i}</div>
     </div>) }
   </>
-)
-</script>"
+))
+</script>
+"
 `;

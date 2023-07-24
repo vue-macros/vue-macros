@@ -7,10 +7,10 @@ import {
 import { type MagicString, walkAST } from '@vue-macros/common'
 
 export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
-  if (!s.slice(ast.start! + offset, ast.end! + offset).includes('v-if')) return
+  if (!s.sliceNode(ast, { offset }).includes('v-if')) return
 
   const nodeMap = new Map<
-    any,
+    Node,
     {
       node: JSXElement
       attribute: JSXAttribute
@@ -27,9 +27,9 @@ export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
           ['v-if', 'v-else-if', 'v-else'].includes(`${i.name.name}`)
       ) as JSXAttribute
       if (attribute) {
-        if (!nodeMap.has(parent)) nodeMap.set(parent, [])
+        if (!nodeMap.has(parent!)) nodeMap.set(parent!, [])
 
-        nodeMap.get(parent)?.push({
+        nodeMap.get(parent!)?.push({
           node,
           attribute,
         })
@@ -60,6 +60,4 @@ export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
       s.appendRight(node.end! + offset, ' }')
     }
   })
-
-  return s
 }

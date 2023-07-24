@@ -2,6 +2,8 @@ import { createUnplugin } from 'unplugin'
 import {
   type BaseOptions,
   type MarkRequired,
+  REGEX_LANG_JSX,
+  REGEX_NODE_MODULES,
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
@@ -13,6 +15,8 @@ export type OptionsResolved = MarkRequired<Options, 'version'>
 function resolveOption(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
   return {
+    include: [REGEX_LANG_JSX],
+    exclude: [REGEX_NODE_MODULES],
     ...options,
     version,
   }
