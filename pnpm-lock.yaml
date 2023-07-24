@@ -399,7 +399,7 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
 
-  packages/jsx-vue-directive:
+  packages/jsx-directive:
     dependencies:
       '@vue-macros/common':
         specifier: workspace:~
@@ -408,11 +408,8 @@ importers:
         specifier: ^1.3.1
         version: 1.4.0
     devDependencies:
-      rollup:
-        specifier: ^3.20.3
-        version: 3.26.2
       vue:
-        specifier: ^3.3.0-alpha.9
+        specifier: ^3.3.4
         version: 3.3.4
 
   packages/macros:
@@ -459,9 +456,9 @@ importers:
       '@vue-macros/hoist-static':
         specifier: workspace:*
         version: link:../hoist-static
-      '@vue-macros/jsx-vue-directive':
+      '@vue-macros/jsx-directive':
         specifier: workspace:*
-        version: link:../jsx-vue-directive
+        version: link:../jsx-directive
       '@vue-macros/named-template':
         specifier: workspace:*
         version: link:../named-template
