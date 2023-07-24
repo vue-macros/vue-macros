@@ -60,7 +60,7 @@ export const pwa: PwaOptions = {
         },
       },
       {
-        // For `https://contrib.rocks/image?repo=sxzz/vue-macros`
+        // For `https://contrib.rocks/image?repo=vue-macros/vue-macros`
         urlPattern: /^https:\/\/contrib.rocks\/.*/i,
         handler: 'NetworkFirst',
         options: {

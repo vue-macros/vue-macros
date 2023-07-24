@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-// https://github.com/sxzz/vue-macros/issues/37#issuecomment-1231677842
+// https://github.com/vue-macros/vue-macros/issues/37#issuecomment-1231677842
 const [name] = /* hoist-static*/ ['VarCompName']
 
 defineOptions({

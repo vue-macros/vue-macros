@@ -46,18 +46,18 @@ export default defineConfig([
       data.license = 'MIT'
       if (pkgName === 'define-options') {
         data.homepage =
-          'https://github.com/sxzz/vue-macros/tree/main/packages/define-options#readme'
+          'https://github.com/vue-macros/vue-macros/tree/main/packages/define-options#readme'
       } else {
-        data.homepage = 'https://github.com/sxzz/vue-macros#readme'
+        data.homepage = 'https://github.com/vue-macros/vue-macros#readme'
       }
 
-      data.bugs = { url: 'https://github.com/sxzz/vue-macros/issues' }
+      data.bugs = { url: 'https://github.com/vue-macros/vue-macros/issues' }
       data.repository = {
         type: 'git',
-        url: 'git+https://github.com/sxzz/vue-macros.git',
+        url: 'git+https://github.com/vue-macros/vue-macros.git',
         directory: `packages/${pkgName}`,
       }
-      data.author = '三咲智子 <sxzz@sxzz.moe>'
+      // data.author = '三咲智子 <sxzz@sxzz.moe>'
       data.engines = { node: '>=16.14.0' }
 
       if (!existsSync(path.resolve(pkgRoot, 'index.js'))) {
@@ -141,7 +141,7 @@ export default defineConfig([
       const pkgName = pkg.name
 
       return `# ${pkgName} [![npm](https://img.shields.io/npm/v/${pkgName}.svg)](https://npmjs.com/package/${pkgName})\n
-Please refer to [README.md](https://github.com/sxzz/vue-macros#readme)\n`
+Please refer to [README.md](https://github.com/vue-macros/vue-macros#readme)\n`
     },
   },
 ])

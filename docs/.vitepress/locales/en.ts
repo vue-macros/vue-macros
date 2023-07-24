@@ -25,7 +25,7 @@ export const themeConfig: DefaultTheme.Config = {
       'MIT License © 2022-PRESENT <a href="https://github.com/sxzz">三咲智子 Kevin Deng</a>',
   },
   editLink: {
-    pattern: 'https://github.com/sxzz/vue-macros/edit/main/docs/:path',
+    pattern: 'https://github.com/vue-macros/vue-macros/edit/main/docs/:path',
     text: 'Edit this page on GitHub',
   },
   nav,

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-// https://github.com/sxzz/vue-macros/issues/261
+// https://github.com/vue-macros/vue-macros/issues/261
 </script>
 
 <template name="btn-content">

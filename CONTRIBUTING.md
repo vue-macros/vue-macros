@@ -8,7 +8,7 @@ First, thank you for contributing to Vue Macros!
 
 We welcome any type of contribution, not only code. You can help with:
 
-- **QA**: You can [open an issue](https://github.com/sxzz/vue-macros/issues) for bug reports, the more details you can give the better - links or repos that demonstrate the specific issue. Even if you can't write code, commenting on them, and showing that you care about a given issue matters. It helps us triage them.
+- **QA**: You can [open an issue](https://github.com/vue-macros/vue-macros/issues) for bug reports, the more details you can give the better - links or repos that demonstrate the specific issue. Even if you can't write code, commenting on them, and showing that you care about a given issue matters. It helps us triage them.
 - **Sponsors**: We welcome financial contributions.
 
 ## Your First Contribution

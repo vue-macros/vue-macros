@@ -14,7 +14,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/sxzz/vue-macros
+      link: https://github.com/vue-macros/vue-macros
 features:
   - icon: ✨
     title: More syntax sugar and macros

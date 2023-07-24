@@ -54,7 +54,7 @@ export default defineNuxtModule<VueMacrosOptions>({
       tabs.push({
         name: 'vue-macros',
         title: 'Vue Macros',
-        icon: 'https://raw.githubusercontent.com/sxzz/vue-macros/main/docs/public/favicon.svg',
+        icon: 'https://raw.githubusercontent.com/vue-macros/vue-macros/main/docs/public/favicon.svg',
         view: {
           type: 'iframe',
           src: '/__vue-macros',

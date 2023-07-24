@@ -3,7 +3,7 @@ import { webLink } from '.vitepress/configs/meta'
 
 export const themeConfig = {
   logo: '/favicon.svg',
-  socialLinks: [{ icon: 'github', link: 'https://github.com/sxzz/vue-macros' }],
+  socialLinks: [{ icon: 'github', link: 'https://github.com/vue-macros/vue-macros' }],
 } satisfies DefaultTheme.Config
 
 export const head: HeadConfig[] = [
