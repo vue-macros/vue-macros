@@ -48,6 +48,9 @@ import VueExportProps, {
 import VueHoistStatic, {
   type Options as OptionsHoistStatic,
 } from '@vue-macros/hoist-static'
+import VueJsxDirective, {
+  type Options as OptionsJsxDirective,
+} from '@vue-macros/jsx-directive'
 import VueNamedTemplate, {
   type Options as OptionsNamedTemplate,
 } from '@vue-macros/named-template'
@@ -66,9 +69,6 @@ import VueSetupSFC, {
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
-import JsxVueDirective, { 
-  type Options as OptionsJsxVueDirective 
-} from '@vue-macros/jsx-vue-directive'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
@@ -84,13 +84,13 @@ export interface FeatureOptionsMap {
   exportExpose: OptionsExportExpose
   exportProps: OptionsExportProps
   hoistStatic: OptionsHoistStatic
+  jsxDirective: OptionsJsxDirective
   namedTemplate: OptionsNamedTemplate
   reactivityTransform: OptionsReactivityTransform
   setupBlock: OptionsSetupBlock
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
-  jsxVueDirective: OptionsJsxVueDirective
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -139,13 +139,13 @@ export function resolveOptions({
   exportExpose,
   exportProps,
   hoistStatic,
+  jsxDirective,
   namedTemplate,
   reactivityTransform,
   setupBlock,
   setupComponent,
   setupSFC,
   shortEmits,
-  jsxVueDirective,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
@@ -209,6 +209,9 @@ export function resolveOptions({
       { version },
       false
     ),
+    jsxDirective: resolveSubOptions<'jsxDirective'>(jsxDirective, {
+      version,
+    }),
     hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, { version }),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, {
       version,
@@ -228,9 +231,6 @@ export function resolveOptions({
       { version },
       version < 3.3
     ),
-    jsxVueDirective: resolveSubOptions<'jsxVueDirective'>(jsxVueDirective, {
-      version,
-    }),
   }
 }
 
@@ -307,6 +307,7 @@ export default createCombinePlugin<Options | undefined>(
       ),
       resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
       resolvePlugin(VueDefineOptions, framework, options.defineOptions),
+      resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
       options.plugins.vue,
       options.plugins.vueJsx,
       resolvePlugin(VueDefineRender, framework, options.defineRender),
@@ -315,7 +316,6 @@ export default createCombinePlugin<Options | undefined>(
       framework === 'vite'
         ? Devtools({ nuxtContext: options.nuxtContext })
         : undefined,
-      resolvePlugin(JsxVueDirective, framework, options.jsxVueDirective),
     ].filter(Boolean)
 
     return {
