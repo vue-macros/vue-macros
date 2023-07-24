@@ -60,6 +60,17 @@ export default defineConfig([
       data.author = '三咲智子 <sxzz@sxzz.moe>'
       data.engines = { node: '>=16.14.0' }
 
+      if (!existsSync(path.resolve(pkgRoot, 'index.js'))) {
+        data.files = ['dist']
+        if ((await fg('*.d.ts', { cwd: pkgRoot })).length > 0) {
+          data.files.push('*.d.ts')
+        }
+      } else {
+        data.files = ['index.js']
+      }
+
+      data.files.sort()
+
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && existsSync(tsupFile)) {
         const tsupConfig: Options = await import(tsupFile)
