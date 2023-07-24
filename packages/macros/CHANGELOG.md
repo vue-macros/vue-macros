@@ -1,5 +1,36 @@
 # unplugin-vue-macros
 
+## 2.4.0
+
+### Minor Changes
+
+- [#430](https://github.com/vue-macros/vue-macros/pull/430) [`d0d31ec5`](https://github.com/vue-macros/vue-macros/commit/d0d31ec57014abd21183fd388e053c581dceaa90) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add jsx-directive plugin
+
+### Patch Changes
+
+- Updated dependencies [[`d0d31ec5`](https://github.com/vue-macros/vue-macros/commit/d0d31ec57014abd21183fd388e053c581dceaa90), [`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741), [`d1c2f527`](https://github.com/vue-macros/vue-macros/commit/d1c2f527f18c7e90cc96677f667a148ac0213fc9), [`5932a0c9`](https://github.com/vue-macros/vue-macros/commit/5932a0c9cfb6759a2fc4517e7115852cfe147ebb)]:
+  - @vue-macros/jsx-directive@0.1.0
+  - @vue-macros/reactivity-transform@0.3.16
+  - @vue-macros/named-template@0.3.13
+  - @vue-macros/define-models@1.0.10
+  - @vue-macros/export-expose@0.0.7
+  - @vue-macros/export-props@0.3.12
+  - @vue-macros/common@1.6.0
+  - @vue-macros/chain-call@0.1.0
+  - @vue-macros/better-define@1.6.6
+  - @vue-macros/define-props@1.0.14
+  - @vue-macros/define-emit@0.1.10
+  - unplugin-vue-define-options@1.3.12
+  - @vue-macros/define-prop@0.2.1
+  - @vue-macros/define-props-refs@1.1.4
+  - @vue-macros/define-render@1.3.13
+  - @vue-macros/define-slots@1.0.9
+  - @vue-macros/hoist-static@1.4.6
+  - @vue-macros/setup-block@0.2.12
+  - @vue-macros/setup-component@0.16.13
+  - @vue-macros/setup-sfc@0.15.13
+  - @vue-macros/short-emits@1.4.4
+
 ## 2.3.7
 
 ### Patch Changes

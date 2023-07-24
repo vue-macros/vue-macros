@@ -1,5 +1,15 @@
 # @vue-macros/common
 
+## 1.6.0
+
+### Minor Changes
+
+- [`5932a0c9`](https://github.com/vue-macros/vue-macros/commit/5932a0c9cfb6759a2fc4517e7115852cfe147ebb) Thanks [@sxzz](https://github.com/sxzz)! - simplify resolve identifiers
+
+### Patch Changes
+
+- [`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741) Thanks [@sxzz](https://github.com/sxzz)! - refactor: replace `{}` with `Object.create(null)`
+
 ## 1.5.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @vue-macros/api
 
+## 0.8.0
+
+### Minor Changes
+
+- [`20367274`](https://github.com/vue-macros/vue-macros/commit/2036727443c659eb84037eae85c5ac565521dd3e) Thanks [@sxzz](https://github.com/sxzz)! - enhance resolve dts files
+
+### Patch Changes
+
+- [`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741) Thanks [@sxzz](https://github.com/sxzz)! - refactor: replace `{}` with `Object.create(null)`
+
+- [`5932a0c9`](https://github.com/vue-macros/vue-macros/commit/5932a0c9cfb6759a2fc4517e7115852cfe147ebb) Thanks [@sxzz](https://github.com/sxzz)! - simplify resolve identifiers
+
+- Updated dependencies [[`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741), [`5932a0c9`](https://github.com/vue-macros/vue-macros/commit/5932a0c9cfb6759a2fc4517e7115852cfe147ebb)]:
+  - @vue-macros/common@1.6.0
+
 ## 0.7.4
 
 ### Patch Changes

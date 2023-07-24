@@ -1,5 +1,14 @@
 # @vue-macros/nuxt
 
+## 1.3.20
+
+### Patch Changes
+
+- Updated dependencies [[`d0d31ec5`](https://github.com/vue-macros/vue-macros/commit/d0d31ec57014abd21183fd388e053c581dceaa90), [`f862ed6a`](https://github.com/vue-macros/vue-macros/commit/f862ed6a1a291cb51be98e8bcd541850d6f19741)]:
+  - unplugin-vue-macros@2.4.0
+  - @vue-macros/volar@0.12.3
+  - @vue-macros/short-vmodel@1.2.12
+
 ## 1.3.19
 
 ### Patch Changes

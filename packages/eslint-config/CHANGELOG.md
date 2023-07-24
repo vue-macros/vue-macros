@@ -1,5 +1,11 @@
 # @vue-macros/eslint-config
 
+## 0.1.1
+
+### Patch Changes
+
+- [`ff90655e`](https://github.com/vue-macros/vue-macros/commit/ff90655e2e061d2b82f2e91b10d88e781bb0c22f) Thanks [@sxzz](https://github.com/sxzz)! - add more macros
+
 ## 0.1.0
 
 ### Minor Changes
