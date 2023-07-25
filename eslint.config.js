@@ -30,6 +30,11 @@ export default sxzz([
       'vue/require-prop-types': 'off',
       'vue/valid-define-props': 'off',
       'vue/valid-attribute-name': 'off',
+    },
+  },
+  {
+    files: ['**/helper/*', 'playground/vue3/**'],
+    rules: {
       'import/no-default-export': 'off',
     },
   },

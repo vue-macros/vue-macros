@@ -1,6 +1,5 @@
 import { type SetupContext } from 'vue'
 
-// eslint-disable-next-line import/no-default-export
 export default (
   emitFn: SetupContext['emit'],
   key: string,

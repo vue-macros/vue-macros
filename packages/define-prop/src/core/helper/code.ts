@@ -5,7 +5,6 @@ import {
   type ObjectEmitsOptions,
 } from 'vue'
 
-// eslint-disable-next-line import/no-default-export
 export default (props: ComponentPropsOptions | EmitsOptions) => {
   return Array.isArray(props)
     ? props.reduce(
