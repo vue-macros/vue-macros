@@ -9,10 +9,10 @@ function assertCode(code: string) {
       sourceType: 'module',
       plugins: ['typescript'],
     })
-  } catch (e: any) {
+  } catch (error: any) {
     // eslint-disable-next-line no-console
     console.log(code)
-    throw e
+    throw error
   }
   expect(code).toMatchSnapshot()
 }

@@ -58,9 +58,9 @@ export default createUnplugin<Options | undefined, false>(
       async transform(code, id) {
         try {
           return await transformBetterDefine(code, id, options.isProduction)
-        } catch (err: unknown) {
-          this.warn(`${name} ${err}`)
-          console.warn(err)
+        } catch (error: unknown) {
+          this.warn(`${name} ${error}`)
+          console.warn(error)
         }
       },
 

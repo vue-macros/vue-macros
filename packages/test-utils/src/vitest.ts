@@ -80,9 +80,9 @@ export async function testFixtures(
               }
             } else if (promise) {
               await expect(
-                (execute() as Promise<any>).catch((err) => {
-                  console.warn(err)
-                  return Promise.reject(err)
+                (execute() as Promise<any>).catch((error) => {
+                  console.warn(error)
+                  return Promise.reject(error)
                 })
               ).resolves.toMatchSnapshot()
             } else {
