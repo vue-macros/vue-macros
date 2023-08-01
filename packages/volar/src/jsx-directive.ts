@@ -6,7 +6,7 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 
-function transformDefineOptions({
+function transformJsxVueDirective({
   codes,
   sfc,
   ts,
