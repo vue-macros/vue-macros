@@ -107,7 +107,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
 
       for (const source of ['script', 'scriptSetup'] as const) {
         if (sfc[source]?.content.includes('v-for'))
-          transformDefineOptions({
+          transformJsxVueDirective({
             codes: embeddedFile.content,
             sfc,
             ts,
