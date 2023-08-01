@@ -16,10 +16,7 @@ export function transformJsxVueDirective(code: string, id: string) {
     ast: Program
     offset: number
   }[] = []
-  if (
-    lang === 'vue' ||
-    (REGEX_SETUP_SFC.test(id) && code.startsWith('<script '))
-  ) {
+  if (lang === 'vue' || REGEX_SETUP_SFC.test(id)) {
     const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
       code,
       id

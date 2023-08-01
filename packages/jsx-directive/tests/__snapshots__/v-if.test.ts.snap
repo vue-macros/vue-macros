@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else.setup.tsx 1`] = `
+exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else.tsx 1`] = `
 "const { foo = 2 } = defineProps<{
   foo: number
 }>()
@@ -32,7 +32,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else-if.setup.tsx 1`] = `
+exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else-if.tsx 1`] = `
 "const { foo = 0 } = defineProps<{
   foo: number
 }>()
@@ -63,7 +63,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if.setup.tsx 1`] = `
+exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if.tsx 1`] = `
 "const { foo } = defineProps<{
   foo: number
 }>()
@@ -95,7 +95,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if-nested.setup.tsx 1`] = `
+exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if-nested.tsx 1`] = `
 "const { foo = 0 } = defineProps<{
   foo: number
 }>()
