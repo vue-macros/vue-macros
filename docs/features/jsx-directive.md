@@ -9,7 +9,7 @@
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    | :white_check_mark: |
 |    Vue 2     | :white_check_mark: |
-| Volar(v-for) |        :x:         |
+|    Volar     | :white_check_mark: |
 
 ## Usage
 

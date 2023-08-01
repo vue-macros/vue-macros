@@ -1,6 +1,7 @@
 import { type Program } from '@babel/types'
 import {
   MagicString,
+  REGEX_SETUP_SFC,
   babelParse,
   getLang,
   getTransformResult,
@@ -15,7 +16,10 @@ export function transformJsxVueDirective(code: string, id: string) {
     ast: Program
     offset: number
   }[] = []
-  if (lang === 'vue') {
+  if (
+    lang === 'vue' ||
+    (REGEX_SETUP_SFC.test(id) && code.startsWith('<script '))
+  ) {
     const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
       code,
       id
