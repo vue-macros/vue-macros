@@ -106,7 +106,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
     version: 1,
     resolveEmbeddedFile(fileName, sfc, embeddedFile) {
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
-      if (!fileName.endsWith('v-for.vue')) return
+
       for (const source of ['script', 'scriptSetup'] as const) {
         if (sfc[source])
           transformDefineOptions({
