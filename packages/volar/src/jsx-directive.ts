@@ -81,9 +81,7 @@ function transformDefineOptions({
     })
   }
 
-  const sourceFile = sfc[`${source}Ast`]!
-  if (!sourceFile.getFullText().includes(' v-for=')) return
-  sourceFile.forEachChild((node) => {
+  sfc[`${source}Ast`]!.forEachChild((node) => {
     if (ts.isExpressionStatement(node)) {
       transformVFor(node.expression)
     } else if (ts.isVariableStatement(node)) {
@@ -108,7 +106,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (sfc[source])
+        if (sfc[source]?.content.includes('v-for'))
           transformDefineOptions({
             codes: embeddedFile.content,
             sfc,
