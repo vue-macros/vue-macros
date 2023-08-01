@@ -13,7 +13,7 @@ All features are enabled by default except the following.
 - `booleanProp`
 - `shortBind`
 - `defineStyleX`
-- `simpleProps`
+- `simpleDefine`
 
 #### Disabled by Default when Vue >= 3.3
 

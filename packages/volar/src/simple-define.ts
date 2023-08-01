@@ -6,6 +6,7 @@ const plugin: VueLanguagePlugin = ({
   vueCompilerOptions,
 }) => {
   vueCompilerOptions.macros.defineProps.push('simpleProps')
+  vueCompilerOptions.macros.defineEmits.push('simpleEmits')
 
   return {
     name: 'vue-macros-simple-define',
