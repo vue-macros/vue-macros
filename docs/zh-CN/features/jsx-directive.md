@@ -2,14 +2,14 @@
 
 <StabilityLevel level="experimental" />
 
-在`jsx`中使用 `v-if` 和 `v-for` 指令.
+在 `jsx` 中使用 `v-if` 和 `v-for` 指令.
 
-|   Features   |     Supported      |
-| :----------: | :----------------: |
-|    Vue 3     | :white_check_mark: |
-|    Nuxt 3    | :white_check_mark: |
-|    Vue 2     | :white_check_mark: |
-|    Volar     | :white_check_mark: |
+| Features |     Supported      |
+| :------: | :----------------: |
+|  Vue 3   | :white_check_mark: |
+|  Nuxt 3  | :white_check_mark: |
+|  Vue 2   | :white_check_mark: |
+|  Volar   | :white_check_mark: |
 
 ## Usage
 
