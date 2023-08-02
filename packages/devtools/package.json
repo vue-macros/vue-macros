@@ -45,7 +45,7 @@
     ]
   },
   "scripts": {
-    "build": "tsup && tsx ../../scripts/postbuild.ts && vite build ./src/client",
+    "build": "tsup && vite build ./src/client",
     "dev": "DEV=true tsup",
     "client:dev": "vite ./src/client"
   },

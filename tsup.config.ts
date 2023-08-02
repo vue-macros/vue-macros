@@ -31,6 +31,7 @@ export default defineConfig({
   format: ['cjs', 'esm'],
   target: 'node16.14',
   splitting: true,
+  cjsInterop: true,
   watch: !!process.env.DEV,
   dts: process.env.DEV
     ? false
