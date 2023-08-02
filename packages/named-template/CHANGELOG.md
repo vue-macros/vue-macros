@@ -1,5 +1,12 @@
 # @vue-macros/named-template
 
+## 0.3.15
+
+### Patch Changes
+
+- Updated dependencies [[`0a1cbf79`](https://github.com/vue-macros/vue-macros/commit/0a1cbf796f00e774ba48ff019fec0e008e311faa)]:
+  - @vue-macros/common@1.6.2
+
 ## 0.3.14
 
 ### Patch Changes
