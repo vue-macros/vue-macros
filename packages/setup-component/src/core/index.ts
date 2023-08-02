@@ -5,8 +5,8 @@ import {
   MagicString,
   attachScopes,
   babelParse,
+  generateTransform,
   getLang,
-  getTransformResult,
   isCallOf,
   normalizePath,
   walkAST,
@@ -155,7 +155,7 @@ export function transformSetupComponent(
     )
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
 
 export function loadSetupComponent(
@@ -260,7 +260,7 @@ export function transformPost(code: string, _id: string) {
       },
     })
 
-    return getTransformResult(s, id)
+    return generateTransform(s, id)
   }
 
   function transformScript() {
@@ -277,7 +277,7 @@ export function transformPost(code: string, _id: string) {
       },
     })
 
-    return getTransformResult(s, id)
+    return generateTransform(s, id)
   }
 }
 

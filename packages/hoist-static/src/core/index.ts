@@ -1,7 +1,7 @@
 import {
   MagicString,
   addNormalScript,
-  getTransformResult,
+  generateTransform,
   isStaticExpression,
   parseSFC,
 } from '@vue-macros/common'
@@ -80,5 +80,5 @@ export function transformHoistStatic(code: string, id: string) {
 
   if (scriptOffset !== undefined) normalScript.end()
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }

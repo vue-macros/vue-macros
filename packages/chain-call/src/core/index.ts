@@ -2,7 +2,7 @@ import {
   DEFINE_PROPS,
   MagicString,
   WITH_DEFAULTS,
-  getTransformResult,
+  generateTransform,
   isCallOf,
   isIdentifierOf,
   parseSFC,
@@ -48,7 +48,7 @@ export function transformChainCall(code: string, id: string) {
     )
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
 
 function isChainCall(node: Node): node is CallExpression {

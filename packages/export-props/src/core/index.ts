@@ -2,7 +2,7 @@ import {
   DEFINE_PROPS,
   MagicString,
   WITH_DEFAULTS,
-  getTransformResult,
+  generateTransform,
   isCallOf,
   parseSFC,
 } from '@vue-macros/common'
@@ -69,5 +69,5 @@ export function transformExportProps(code: string, id: string) {
 
   s.prependLeft(offset, `\n${codegen}`)
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }

@@ -1,4 +1,4 @@
-import { MagicString, getTransformResult } from '@vue-macros/common'
+import { MagicString, generateTransform } from '@vue-macros/common'
 import { type NodeTypes, type TextModes, parse } from '@vue/compiler-dom'
 
 export function transformSetupBlock(code: string, id: string, lang?: string) {
@@ -51,5 +51,5 @@ export function transformSetupBlock(code: string, id: string, lang?: string) {
     }
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }

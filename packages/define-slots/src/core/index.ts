@@ -1,7 +1,7 @@
 import {
   DEFINE_SLOTS,
   MagicString,
-  getTransformResult,
+  generateTransform,
   isCallOf,
   parseSFC,
 } from '@vue-macros/common'
@@ -25,5 +25,5 @@ export function transformDefineSlots(code: string, id: string) {
     }
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }

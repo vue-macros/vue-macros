@@ -9,7 +9,7 @@ import {
   MagicString,
   REPO_ISSUE_URL,
   WITH_DEFAULTS,
-  getTransformResult,
+  generateTransform,
   importHelperFn,
   isCallOf,
   parseSFC,
@@ -595,7 +595,7 @@ export function transformDefineModels(
   if (mode === 'reactivity-transform' && hasDefineModels)
     processAssignModelVariable()
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
 
 function stringifyValue(value: string | undefined) {

@@ -1,8 +1,8 @@
 import {
   MagicString,
   babelParse,
+  generateTransform,
   getLang,
-  getTransformResult,
 } from '@vue-macros/common'
 import { type HmrContext } from 'vite'
 
@@ -21,7 +21,7 @@ export function transformSetupSFC(code: string, id: string) {
   s.prepend(`<script setup${attrs}>`)
   s.append(`</script>`)
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
 
 export function hotUpdateSetupSFC(

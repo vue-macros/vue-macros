@@ -3,7 +3,7 @@ import {
   DEFINE_PROPS,
   HELPER_PREFIX,
   MagicString,
-  getTransformResult,
+  generateTransform,
   importHelperFn,
   isCallOf,
   parseSFC,
@@ -97,7 +97,7 @@ export async function transformDefineProp(
     )
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 
   async function resolveTSType(type: t.TSType) {
     const resolved = await resolveTSReferencedType({

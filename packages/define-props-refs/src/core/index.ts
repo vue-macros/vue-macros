@@ -4,7 +4,7 @@ import {
   HELPER_PREFIX,
   MagicString,
   WITH_DEFAULTS,
-  getTransformResult,
+  generateTransform,
   importHelperFn,
   isCallOf,
   parseSFC,
@@ -39,7 +39,7 @@ export function transformDefinePropsRefs(code: string, id: string) {
     },
   })
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 
   function processDefinePropsRefs(
     propsCall: CallExpression,

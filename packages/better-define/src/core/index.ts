@@ -2,7 +2,7 @@ import {
   DEFINE_EMITS,
   MagicString,
   escapeKey,
-  getTransformResult,
+  generateTransform,
   importHelperFn,
   parseSFC,
 } from '@vue-macros/common'
@@ -31,7 +31,7 @@ export async function transformBetterDefine(
     processEmits(result.emits)
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 
   async function processProps(props: TSProps) {
     const runtimeDefs = await props.getRuntimeDefinitions()

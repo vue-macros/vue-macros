@@ -2,7 +2,7 @@ import {
   DEFINE_PROPS,
   DEFINE_PROPS_DOLLAR,
   MagicString,
-  getTransformResult,
+  generateTransform,
   isCallOf,
   parseSFC,
   walkAST,
@@ -32,5 +32,5 @@ export function transformDefineProps(code: string, id: string) {
     },
   })
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }

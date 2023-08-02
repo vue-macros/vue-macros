@@ -1,7 +1,7 @@
 import {
   HELPER_PREFIX,
   MagicString,
-  getTransformResult,
+  generateTransform,
   parseSFC,
 } from '@vue-macros/common'
 import { extractIdentifiers } from '@vue/compiler-sfc'
@@ -115,5 +115,5 @@ export function transformExportExpose(code: string, id: string) {
 
   s.prependLeft(scriptSetup.loc.end.offset, `${codegen}\n`)
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }

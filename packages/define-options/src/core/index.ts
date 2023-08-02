@@ -3,7 +3,7 @@ import {
   MagicString,
   addNormalScript,
   checkInvalidScopeReference,
-  getTransformResult,
+  generateTransform,
   importHelperFn,
   parseSFC,
 } from '@vue-macros/common'
@@ -75,7 +75,7 @@ export function transformDefineOptions(code: string, id: string) {
     s.removeNode(node, { offset: setupOffset })
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
 
 function checkDefaultExport(stmts: Statement[]) {

@@ -2,8 +2,8 @@ import {
   DEFINE_RENDER,
   MagicString,
   babelParse,
+  generateTransform,
   getLang,
-  getTransformResult,
   isCallOf,
   isFunctionType,
   walkAST,
@@ -60,5 +60,5 @@ export function transformDefineRender(code: string, id: string) {
     s.remove(arg.end!, node.end!)
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }

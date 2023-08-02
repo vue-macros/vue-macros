@@ -2,8 +2,8 @@ import {
   HELPER_PREFIX,
   MagicString,
   babelParse,
+  generateTransform,
   getLang,
-  getTransformResult,
   importHelperFn,
   isCallOf,
   walkAST,
@@ -100,7 +100,7 @@ export function preTransform(
     s.appendLeft(node.loc.end.offset, '</named-template>')
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
 
 export function preTransformMainTemplate({
@@ -222,7 +222,7 @@ export function postTransform(
     )
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
 
 export function postTransformMainEntry(

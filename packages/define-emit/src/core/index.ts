@@ -3,7 +3,7 @@ import {
   HELPER_PREFIX,
   MagicString,
   escapeKey,
-  getTransformResult,
+  generateTransform,
   isCallOf,
   parseSFC,
   walkASTSetup,
@@ -75,7 +75,7 @@ export async function transformDefineEmit(code: string, id: string) {
     )
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 
   function mountEmits() {
     const isAllWithoutOptions = emits.every(({ validator }) => !validator)

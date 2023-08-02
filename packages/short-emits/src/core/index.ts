@@ -1,7 +1,7 @@
 import {
   DEFINE_EMITS,
   MagicString,
-  getTransformResult,
+  generateTransform,
   isCallOf,
   isTs,
   isTypeOf,
@@ -103,7 +103,7 @@ export function transformShortEmits(code: string, id: string) {
     }
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 
   function stringifyParams(params: Array<Identifier | RestElement>) {
     return params.length > 0 ? s.sliceNode(params, { offset }) : ''

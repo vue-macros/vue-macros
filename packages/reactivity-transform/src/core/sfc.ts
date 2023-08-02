@@ -1,7 +1,7 @@
 import {
   DEFINE_PROPS,
   MagicString,
-  getTransformResult,
+  generateTransform,
   importHelperFn,
   isCallOf,
   parseSFC,
@@ -51,7 +51,7 @@ export function transformVueSFC(code: string, id: string) {
     }
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 
   function processDefineProps(node: Node) {
     if (node.type !== 'VariableDeclaration') return

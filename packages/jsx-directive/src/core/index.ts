@@ -2,8 +2,8 @@ import { type Program } from '@babel/types'
 import {
   MagicString,
   babelParse,
+  generateTransform,
   getLang,
-  getTransformResult,
   parseSFC,
 } from '@vue-macros/common'
 import { vIfTransform } from './v-if'
@@ -38,5 +38,5 @@ export function transformJsxVueDirective(code: string, id: string) {
     vForTransform(ast, s, offset)
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
