@@ -94,6 +94,9 @@ export default defineNuxtModule<VueMacrosOptions>({
     if (resolvedOptions.exportProps)
       volarPlugins.push('@vue-macros/volar/export-props')
 
+    if (resolvedOptions.jsxDirective)
+      volarPlugins.push('@vue-macros/volar/jsx-directive')
+
     if (resolvedOptions.defineProp)
       vueCompilerOptions.experimentalDefinePropProposal =
         resolvedOptions.defineProp.edition || 'kevinEdition'
