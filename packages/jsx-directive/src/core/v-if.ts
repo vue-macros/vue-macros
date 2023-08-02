@@ -14,6 +14,7 @@ export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
     {
       node: JSXElement
       attribute: JSXAttribute
+      parent?: Node | null
     }[]
   >()
 
@@ -32,18 +33,21 @@ export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
         nodeMap.get(parent!)?.push({
           node,
           attribute,
+          parent,
         })
       }
     },
   })
 
   const nodes = [...nodeMap.values()].flat()
-  nodes.forEach(({ node, attribute }, index) => {
+  nodes.forEach(({ node, attribute, parent }, index) => {
+    const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
+
     if (['v-if', 'v-else-if'].includes(`${attribute.name.name}`)) {
       if (attribute.value)
         s.appendLeft(
           node.start! + offset,
-          `${attribute.name.name === 'v-if' ? '{ ' : ''}${s.slice(
+          `${attribute.name.name === 'v-if' && hasScope ? '{ ' : ''}${s.slice(
             attribute.value.start! + offset + 1,
             attribute.value.end! + offset - 1
           )} ? `
@@ -53,11 +57,11 @@ export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
         node.end! + offset,
         `${nodes[index + 1]?.attribute.name.name}`.startsWith('v-else')
           ? ' :'
-          : " : '' }"
+          : ` : ''${hasScope ? ' }' : ''}`
       )
       s.remove(attribute.start! + offset - 1, attribute.end! + offset)
-    } else {
-      s.appendRight(node.end! + offset, ' }')
+    } else if (attribute.name.name === 'v-else') {
+      s.appendRight(node.end! + offset, hasScope ? ' }' : '')
     }
   })
 }

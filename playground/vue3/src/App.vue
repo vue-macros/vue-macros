@@ -23,6 +23,8 @@ import { SetupComponentFoo } from './examples/setup-component'
 import SetupSFC from './examples/setup-sfc/index.setup'
 import ShortVmodel from './examples/short-vmodel/parent.vue'
 import Full from './examples/full.setup'
+import JsxDirectiveVIf from './examples/jsx-directive/v-if.vue'
+import JsxDirectiveVFor from './examples/jsx-directive/v-for.vue'
 </script>
 
 <template>
@@ -127,6 +129,12 @@ import Full from './examples/full.setup'
     <fieldset>
       <legend>reactivityTransform</legend>
       <ReactivityTransform />
+    </fieldset>
+
+    <fieldset>
+      <legend>jsxDirective</legend>
+      <JsxDirectiveVIf />
+      <JsxDirectiveVFor />
     </fieldset>
   </div>
 </template>

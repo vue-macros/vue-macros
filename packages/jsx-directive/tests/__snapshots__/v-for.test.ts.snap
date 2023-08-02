@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > v-for > ./fixtures/v-for/v-for.setup.tsx 1`] = `
+exports[`jsx-vue-directive > v-for > ./fixtures/v-for/v-for.tsx 1`] = `
 "// @ts-nocheck
 const list = [1, 2, 3]
 
@@ -16,7 +16,6 @@ export default () => (
 
 exports[`jsx-vue-directive > v-for > ./fixtures/v-for/v-for.vue 1`] = `
 "<script setup lang=\\"tsx\\">
-// @ts-nocheck
 const list = [1, 2, 3]
 
 defineRender(() => (

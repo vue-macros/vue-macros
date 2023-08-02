@@ -2,12 +2,13 @@ import { createUnplugin } from 'unplugin'
 import {
   type BaseOptions,
   type MarkRequired,
-  REGEX_LANG_JSX,
   REGEX_NODE_MODULES,
+  REGEX_SETUP_SFC,
+  REGEX_VUE_SFC,
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformJsxVueDirective } from './core'
+import { transformJsxDirective } from './core'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'version'>
@@ -15,7 +16,7 @@ export type OptionsResolved = MarkRequired<Options, 'version'>
 function resolveOption(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
   return {
-    include: [REGEX_LANG_JSX],
+    include: [REGEX_VUE_SFC, REGEX_SETUP_SFC],
     exclude: [REGEX_NODE_MODULES],
     ...options,
     version,
@@ -38,7 +39,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        return transformJsxVueDirective(code, id)
+        return transformJsxDirective(code, id)
       },
     }
   }

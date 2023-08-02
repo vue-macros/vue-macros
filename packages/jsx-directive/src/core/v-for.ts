@@ -12,10 +12,11 @@ export function vForTransform(ast: Program, s: MagicString, offset = 0) {
   const nodes: {
     node: JSXElement
     attribute: JSXAttribute
+    parent?: Node | null
   }[] = []
 
   walkAST<Node>(ast, {
-    enter(node) {
+    enter(node, parent) {
       if (node.type !== 'JSXElement') return
 
       const attribute = node.openingElement.attributes.find(
@@ -26,14 +27,14 @@ export function vForTransform(ast: Program, s: MagicString, offset = 0) {
         nodes.push({
           node,
           attribute,
+          parent,
         })
       }
     },
   })
 
-  nodes.forEach(({ node, attribute }) => {
-    if (`${attribute.name.name}` === 'v-for') {
-      if (!attribute.value) return
+  nodes.forEach(({ node, attribute, parent }) => {
+    if (`${attribute.name.name}` === 'v-for' && attribute.value) {
       const [i, list] = s
         .slice(
           attribute.value.start! + offset + 1,
@@ -41,9 +42,13 @@ export function vForTransform(ast: Program, s: MagicString, offset = 0) {
         )
         .split(/\s+in\s+/)
 
-      s.appendLeft(node.start! + offset, ` { ${list}.map(${i}=> `)
+      const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
+      s.appendLeft(
+        node.start! + offset,
+        `${hasScope ? ' { ' : ''}${list}.map(${i}=> `
+      )
 
-      s.appendRight(node.end! + offset, ') }')
+      s.appendRight(node.end! + offset, `)${hasScope ? ' }' : ''}`)
       s.remove(attribute.start! + offset - 1, attribute.end! + offset)
     }
   })
