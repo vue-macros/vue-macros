@@ -1,5 +1,18 @@
 # @vue-macros/jsx-directive
 
+## 0.2.0
+
+### Minor Changes
+
+- [#436](https://github.com/vue-macros/vue-macros/pull/436) [`623045a4`](https://github.com/vue-macros/vue-macros/commit/623045a4c977273939f3109844112f4d95e4e835) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add volar plugin for jsxDirective
+
+### Patch Changes
+
+- [`07a311c7`](https://github.com/vue-macros/vue-macros/commit/07a311c7c21894cea6c7cfdff703cd044a4445a2) Thanks [@sxzz](https://github.com/sxzz)! - improve sourcemap hires
+
+- Updated dependencies [[`07a311c7`](https://github.com/vue-macros/vue-macros/commit/07a311c7c21894cea6c7cfdff703cd044a4445a2)]:
+  - @vue-macros/common@1.6.1
+
 ## 0.1.0
 
 ### Minor Changes

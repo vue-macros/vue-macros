@@ -1,5 +1,15 @@
 # @vue-macros/define-props
 
+## 1.0.15
+
+### Patch Changes
+
+- [`07a311c7`](https://github.com/vue-macros/vue-macros/commit/07a311c7c21894cea6c7cfdff703cd044a4445a2) Thanks [@sxzz](https://github.com/sxzz)! - improve sourcemap hires
+
+- Updated dependencies [[`07a311c7`](https://github.com/vue-macros/vue-macros/commit/07a311c7c21894cea6c7cfdff703cd044a4445a2)]:
+  - @vue-macros/reactivity-transform@0.3.17
+  - @vue-macros/common@1.6.1
+
 ## 1.0.14
 
 ### Patch Changes
