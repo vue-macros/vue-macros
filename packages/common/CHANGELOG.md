@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.6.2
+
+### Patch Changes
+
+- [`0a1cbf79`](https://github.com/vue-macros/vue-macros/commit/0a1cbf796f00e774ba48ff019fec0e008e311faa) Thanks [@sxzz](https://github.com/sxzz)! - add getTransformResult back
+
 ## 1.6.1
 
 ### Patch Changes
