@@ -1,5 +1,14 @@
 # unplugin-vue-define-options
 
+## 1.3.13
+
+### Patch Changes
+
+- [`07a311c7`](https://github.com/vue-macros/vue-macros/commit/07a311c7c21894cea6c7cfdff703cd044a4445a2) Thanks [@sxzz](https://github.com/sxzz)! - improve sourcemap hires
+
+- Updated dependencies [[`07a311c7`](https://github.com/vue-macros/vue-macros/commit/07a311c7c21894cea6c7cfdff703cd044a4445a2)]:
+  - @vue-macros/common@1.6.1
+
 ## 1.3.12
 
 ### Patch Changes

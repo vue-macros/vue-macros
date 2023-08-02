@@ -1,5 +1,12 @@
 # @vue-macros/short-vmodel
 
+## 1.2.13
+
+### Patch Changes
+
+- Updated dependencies [[`07a311c7`](https://github.com/vue-macros/vue-macros/commit/07a311c7c21894cea6c7cfdff703cd044a4445a2)]:
+  - @vue-macros/common@1.6.1
+
 ## 1.2.12
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @vue-macros/volar
 
+## 0.13.0
+
+### Minor Changes
+
+- [#436](https://github.com/vue-macros/vue-macros/pull/436) [`623045a4`](https://github.com/vue-macros/vue-macros/commit/623045a4c977273939f3109844112f4d95e4e835) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add volar plugin for jsxDirective
+
+### Patch Changes
+
+- Updated dependencies [[`07a311c7`](https://github.com/vue-macros/vue-macros/commit/07a311c7c21894cea6c7cfdff703cd044a4445a2)]:
+  - @vue-macros/define-props@1.0.15
+  - @vue-macros/common@1.6.1
+  - @vue-macros/short-vmodel@1.2.13
+
 ## 0.12.3
 
 ### Patch Changes
