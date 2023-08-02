@@ -6,7 +6,7 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 
-function transformJsxVueDirective({
+function transformJsxDirective({
   codes,
   sfc,
   ts,
@@ -17,8 +17,9 @@ function transformJsxVueDirective({
   ts: typeof import('typescript/lib/tsserverlibrary')
   source: 'script' | 'scriptSetup'
 }) {
-  function transformVFor(
+  function transform(
     node: import('typescript/lib/tsserverlibrary').Node,
+    nodes: import('typescript/lib/tsserverlibrary').Node[] = [],
     parent?: import('typescript/lib/tsserverlibrary').Node
   ) {
     const properties = ts.isJsxElement(node)
@@ -27,73 +28,161 @@ function transformJsxVueDirective({
       ? node.attributes.properties
       : []
     for (const attribute of properties) {
-      if (
-        ts.isJsxAttribute(attribute) &&
+      if (!ts.isJsxAttribute(attribute)) return
+
+      transformVIf(attribute, node, nodes, parent)
+      transformVFor(attribute, node, parent)
+    }
+
+    const children: (typeof node)[] = []
+    node.forEachChild((child) => {
+      children.push(child)
+    })
+    children.forEach((child) => {
+      transform(
+        child,
+        children,
+        ts.isJsxElement(node) || ts.isJsxFragment(node) ? node : undefined
+      )
+    })
+  }
+
+  function transformVFor(
+    attribute: import('typescript/lib/tsserverlibrary').JsxAttribute,
+    node: import('typescript/lib/tsserverlibrary').Node,
+    parent?: import('typescript/lib/tsserverlibrary').Node
+  ) {
+    if (
+      !(
         ts.isIdentifier(attribute.name) &&
         attribute.name.escapedText === 'v-for' &&
         attribute.initializer &&
         ts.isJsxExpression(attribute.initializer) &&
         attribute.initializer.expression &&
         ts.isBinaryExpression(attribute.initializer.expression)
-      ) {
-        replaceSourceRange(codes, source, attribute.pos, attribute.end)
+      )
+    )
+      return
 
-        const listText = sfc[source]!.content.slice(
-          attribute.initializer.expression.right.pos + 1,
-          attribute.initializer.expression.right.end
-        )
-        const itemText = sfc[source]!.content.slice(
-          attribute.initializer.expression.left.pos,
-          attribute.initializer.expression.left.end
-        )
-        const hasScope = !parent
-          ? false
-          : ts.isJsxElement(parent) || ts.isJsxFragment(parent)
-        replaceSourceRange(
-          codes,
+    const listText = sfc[source]!.content.slice(
+      attribute.initializer.expression.right.pos + 1,
+      attribute.initializer.expression.right.end
+    )
+    const itemText = sfc[source]!.content.slice(
+      attribute.initializer.expression.left.pos,
+      attribute.initializer.expression.left.end
+    )
+    replaceSourceRange(
+      codes,
+      source,
+      node.pos,
+      node.pos,
+      `${parent ? '{' : ' '}`,
+      [
+        listText,
+        source,
+        attribute.end - listText.length - 1,
+        FileRangeCapabilities.full,
+      ],
+      '.map(',
+      [itemText, source, attribute.pos + 8, FileRangeCapabilities.full],
+      '=>'
+    )
+
+    replaceSourceRange(
+      codes,
+      source,
+      node.end,
+      node.end,
+      `)${parent ? '}' : ''}`
+    )
+    replaceSourceRange(codes, source, attribute.pos, attribute.end)
+  }
+
+  function transformVIf(
+    attribute: import('typescript/lib/tsserverlibrary').JsxAttribute,
+    node: import('typescript/lib/tsserverlibrary').Node,
+    nodes: import('typescript/lib/tsserverlibrary').Node[],
+    parent?: import('typescript/lib/tsserverlibrary').Node
+  ) {
+    if (!attribute.name || !ts.isIdentifier(attribute.name)) return
+
+    if (
+      ['v-if', 'v-else-if'].includes(`${attribute.name.escapedText}`) &&
+      attribute.initializer &&
+      ts.isJsxExpression(attribute.initializer) &&
+      attribute.initializer.expression
+    ) {
+      const hasScope = parent && attribute.name.escapedText === 'v-if'
+      const expressionText = sfc[source]!.content.slice(
+        attribute.initializer.expression.pos,
+        attribute.initializer.expression.end
+      )
+      replaceSourceRange(
+        codes,
+        source,
+        node.pos,
+        node.pos,
+        `${hasScope ? `{` : ' '}`,
+        [
+          expressionText,
           source,
-          node.pos,
-          node.pos,
-          `${hasScope ? '{' : ''}`,
-          [
-            listText,
-            source,
-            attribute.end - listText.length - 1,
-            FileRangeCapabilities.full,
-          ],
-          '.map(',
-          [itemText, source, attribute.pos + 8, FileRangeCapabilities.full],
-          '=>'
+          attribute.end - expressionText.length - 1,
+          FileRangeCapabilities.full,
+        ],
+        '?'
+      )
+
+      const nextNode = nodes
+        .slice(nodes?.indexOf(node) + 1)
+        .find((i) => ts.isJsxElement(i) || ts.isJsxSelfClosingElement(i))
+      const nextNodeHasElse =
+        nextNode &&
+        (ts.isJsxElement(nextNode)
+          ? nextNode.openingElement.attributes.properties
+          : ts.isJsxSelfClosingElement(nextNode)
+          ? nextNode.attributes.properties
+          : []
+        ).some(
+          (i) =>
+            ts.isJsxAttribute(i) &&
+            ts.isIdentifier(i.name) &&
+            `${i.name.escapedText}`.startsWith('v-else')
         )
 
-        replaceSourceRange(
-          codes,
-          source,
-          node.end,
-          node.end,
-          `)${hasScope ? '}' : ''}`
-        )
-      }
+      replaceSourceRange(
+        codes,
+        source,
+        node.end,
+        node.end,
+        `${nextNodeHasElse ? ':' : `:''${parent ? '}' : ''}`}`
+      )
+      replaceSourceRange(codes, source, attribute.pos, attribute.end)
+    } else if (attribute.name.escapedText === 'v-else') {
+      replaceSourceRange(
+        codes,
+        source,
+        node.end,
+        node.end,
+        `${parent ? `}` : ''}`
+      )
+      replaceSourceRange(codes, source, attribute.pos, attribute.end)
     }
-
-    node.forEachChild((child) => {
-      transformVFor(child, node)
-    })
   }
 
   sfc[`${source}Ast`]!.forEachChild((node) => {
     if (ts.isExpressionStatement(node)) {
-      transformVFor(node.expression)
+      transform(node.expression)
     } else if (ts.isVariableStatement(node)) {
       node.declarationList.forEachChild((decl) => {
         if (!ts.isVariableDeclaration(decl) || !decl.initializer) return
         if (ts.isArrowFunction(decl.initializer)) {
-          return transformVFor(decl.initializer.body)
+          return transform(decl.initializer.body)
         }
-        transformVFor(decl.initializer)
+        transform(decl.initializer)
       })
     } else if (ts.isFunctionDeclaration(node)) {
-      node.body?.statements.forEach((statement) => transformVFor(statement))
+      node.body?.statements.forEach((statement) => transform(statement))
     }
   })
 }
@@ -106,8 +195,8 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (sfc[source]?.content.includes('v-for'))
-          transformJsxVueDirective({
+        if (/\s(v-for|v-if)=/.test(`${sfc[source]?.content}`))
+          transformJsxDirective({
             codes: embeddedFile.content,
             sfc,
             ts,

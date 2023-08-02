@@ -8,7 +8,7 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformJsxVueDirective } from './core'
+import { transformJsxDirective } from './core'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'version'>
@@ -39,7 +39,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        return transformJsxVueDirective(code, id)
+        return transformJsxDirective(code, id)
       },
     }
   }

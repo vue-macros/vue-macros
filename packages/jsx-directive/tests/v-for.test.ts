@@ -1,6 +1,6 @@
 import { describe } from 'vitest'
 import { testFixtures } from 'packages/test-utils/src'
-import { transformJsxVueDirective } from '../src/api'
+import { transformJsxDirective } from '../src/api'
 
 describe('jsx-vue-directive', () => {
   describe('v-for', async () => {
@@ -10,7 +10,7 @@ describe('jsx-vue-directive', () => {
         as: 'raw',
       }),
       (args, id, code) => {
-        return transformJsxVueDirective(code, id)?.code
+        return transformJsxDirective(code, id)?.code
       }
     )
   })

@@ -10,7 +10,7 @@ import {
 import { vIfTransform } from './v-if'
 import { vForTransform } from './v-for'
 
-export function transformJsxVueDirective(code: string, id: string) {
+export function transformJsxDirective(code: string, id: string) {
   const lang = getLang(id)
   let asts: {
     ast: Program
