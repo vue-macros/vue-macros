@@ -2,6 +2,10 @@ import {
   type FilterPattern,
   createFilter as createRollupFilter,
 } from '@rollup/pluginutils'
+import { generateTransform } from 'magic-string-ast'
+
+/** @deprecated use `generateTransform` instead */
+export const getTransformResult = generateTransform
 
 export interface BaseOptions {
   include?: FilterPattern
