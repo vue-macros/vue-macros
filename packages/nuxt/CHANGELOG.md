@@ -1,5 +1,18 @@
 # @vue-macros/nuxt
 
+## 1.5.0
+
+### Minor Changes
+
+- [`4710c811`](https://github.com/vue-macros/vue-macros/commit/4710c8116c50cebf6f99dae9ec4a8c9cecda8348) Thanks [@sxzz](https://github.com/sxzz)! - add booleanProp feature
+
+### Patch Changes
+
+- Updated dependencies [[`4710c811`](https://github.com/vue-macros/vue-macros/commit/4710c8116c50cebf6f99dae9ec4a8c9cecda8348), [`98671731`](https://github.com/vue-macros/vue-macros/commit/98671731a422750ba874c9bdf19317ca0aff8b95), [`93d2aa12`](https://github.com/vue-macros/vue-macros/commit/93d2aa124c41d238e44432155aabd8c4eedb9190)]:
+  - @vue-macros/boolean-prop@0.1.0
+  - @vue-macros/volar@0.13.2
+  - unplugin-vue-macros@2.4.3
+
 ## 1.4.1
 
 ### Patch Changes
