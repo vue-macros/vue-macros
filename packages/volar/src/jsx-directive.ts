@@ -86,7 +86,7 @@ function transformJsxDirective({
       ],
       '.map(',
       [itemText, source, attribute.pos + 8, FileRangeCapabilities.full],
-      '=>'
+      ' => '
     )
 
     replaceSourceRange(
@@ -130,7 +130,7 @@ function transformJsxDirective({
           attribute.end - expressionText.length - 1,
           FileRangeCapabilities.full,
         ],
-        '?'
+        ' ? '
       )
 
       const nextNode = nodes
@@ -155,17 +155,11 @@ function transformJsxDirective({
         source,
         node.end,
         node.end,
-        `${nextNodeHasElse ? ':' : `:''${parent ? '}' : ''}`}`
+        nextNodeHasElse ? ' : ' : ` : null${parent ? '}' : ''}`
       )
       replaceSourceRange(codes, source, attribute.pos, attribute.end)
     } else if (attribute.name.escapedText === 'v-else') {
-      replaceSourceRange(
-        codes,
-        source,
-        node.end,
-        node.end,
-        `${parent ? `}` : ''}`
-      )
+      replaceSourceRange(codes, source, node.end, node.end, parent ? '}' : '')
       replaceSourceRange(codes, source, attribute.pos, attribute.end)
     }
   }

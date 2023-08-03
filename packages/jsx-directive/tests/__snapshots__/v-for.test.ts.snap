@@ -6,9 +6,9 @@ const list = [1, 2, 3]
 
 export default () => (
   <>
-     { list.map((i, index)=> <div key={index}>
+    {list.map((i, index) => <div key={index}>
       <div>{i}</div>
-    </div>) }
+    </div>)}
   </>
 )
 "
@@ -20,9 +20,9 @@ const list = [1, 2, 3]
 
 defineRender(() => (
   <>
-     { list.map(i=> <div key={i}>
+    {list.map(i => <div key={i}>
       <div>{i}</div>
-    </div>) }
+    </div>)}
   </>
 ))
 </script>
