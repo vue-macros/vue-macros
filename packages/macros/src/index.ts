@@ -69,6 +69,7 @@ import VueSetupSFC, {
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
+import { excludeDepOptimize } from './plugin'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
@@ -316,6 +317,7 @@ export default createCombinePlugin<Options | undefined>(
       framework === 'vite'
         ? Devtools({ nuxtContext: options.nuxtContext })
         : undefined,
+      framework === 'vite' ? excludeDepOptimize() : undefined,
     ].filter(Boolean)
 
     return {
