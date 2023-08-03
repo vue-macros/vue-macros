@@ -23,8 +23,7 @@ import { SetupComponentFoo } from './examples/setup-component'
 import SetupSFC from './examples/setup-sfc/index.setup'
 import ShortVmodel from './examples/short-vmodel/parent.vue'
 import Full from './examples/full.setup'
-import JsxDirectiveVIf from './examples/jsx-directive/v-if.vue'
-import JsxDirectiveVFor from './examples/jsx-directive/v-for.vue'
+import JsxDirective from './examples/jsx-directive/index.vue'
 </script>
 
 <template>
@@ -133,8 +132,7 @@ import JsxDirectiveVFor from './examples/jsx-directive/v-for.vue'
 
     <fieldset>
       <legend>jsxDirective</legend>
-      <JsxDirectiveVIf />
-      <JsxDirectiveVFor />
+      <JsxDirective />
     </fieldset>
   </div>
 </template>
