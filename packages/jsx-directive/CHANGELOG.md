@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.2.2
+
+### Patch Changes
+
+- [#441](https://github.com/vue-macros/vue-macros/pull/441) [`98671731`](https://github.com/vue-macros/vue-macros/commit/98671731a422750ba874c9bdf19317ca0aff8b95) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - refactor(jsx-directive): use null instead of empty string.
+
 ## 0.2.1
 
 ### Patch Changes

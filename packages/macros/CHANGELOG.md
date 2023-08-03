@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 2.4.3
+
+### Patch Changes
+
+- [`93d2aa12`](https://github.com/vue-macros/vue-macros/commit/93d2aa124c41d238e44432155aabd8c4eedb9190) Thanks [@sxzz](https://github.com/sxzz)! - ignore macros imports
+
+- Updated dependencies [[`98671731`](https://github.com/vue-macros/vue-macros/commit/98671731a422750ba874c9bdf19317ca0aff8b95)]:
+  - @vue-macros/jsx-directive@0.2.2
+
 ## 2.4.2
 
 ### Patch Changes
