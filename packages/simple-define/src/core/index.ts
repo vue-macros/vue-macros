@@ -4,18 +4,13 @@ import {
   HELPER_PREFIX,
   MagicString,
   WITH_DEFAULTS,
-  getTransformResult,
+  generateTransform,
   importHelperFn,
   isCallOf,
   parseSFC,
   removeMacroImport,
   walkASTSetup,
 } from '@vue-macros/common'
-import {
-  type ConstantTypes,
-  type NodeTransform,
-  type NodeTypes,
-} from '@vue/compiler-core'
 import { useDefaultsId } from './helper'
 import type * as t from '@babel/types'
 
@@ -54,7 +49,7 @@ export async function transformSimpleDefine(code: string, id: string) {
     )
   })
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 
   function processSimpleProps(node: t.CallExpression) {
     if (!node.typeParameters)
@@ -109,34 +104,5 @@ export async function transformSimpleDefine(code: string, id: string) {
 
     s.removeNode(node.typeParameters, { offset })
     s.overwriteNode(node.callee, DEFINE_EMITS, { offset })
-  }
-}
-
-export function transformSimpleDefineTemplate(): NodeTransform {
-  return (node) => {
-    if (node.type !== 1) return
-    for (const [i, prop] of node.props.entries()) {
-      if (prop.type !== 6 || prop.value !== undefined) continue
-      node.props[i] = {
-        type: 7 satisfies NodeTypes.DIRECTIVE,
-        name: 'bind',
-        arg: {
-          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-          content: 'checked',
-          isStatic: true,
-          loc: prop.loc,
-        },
-        exp: {
-          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-          content: 'true',
-          isStatic: false,
-          loc: prop.loc,
-        },
-        loc: prop.loc,
-        modifiers: [],
-      }
-    }
   }
 }

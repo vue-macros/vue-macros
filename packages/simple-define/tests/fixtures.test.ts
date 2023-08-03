@@ -9,21 +9,14 @@ import {
   testFixtures,
 } from '@vue-macros/test-utils'
 import VueSimpleDefine from '../src/rollup'
-import { transformSimpleDefineTemplate } from '../src/api'
 
 describe('fixtures', async () => {
   await testFixtures(
-    ['tests/fixtures/*.vue', '!tests/fixtures/*.exclude.vue'],
+    ['tests/fixtures/*.vue'],
     (args, id) =>
       rollupBuild(id, [
         VueSimpleDefine(),
-        RollupVue({
-          template: {
-            compilerOptions: {
-              nodeTransforms: [transformSimpleDefineTemplate()],
-            },
-          },
-        }),
+        RollupVue(),
         RollupVueJsx(),
         RollupRemoveVueFilePathPlugin(),
         RollupEsbuildPlugin({

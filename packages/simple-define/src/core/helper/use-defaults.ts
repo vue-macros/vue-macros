@@ -1,6 +1,5 @@
 import { reactiveComputed } from '@vueuse/core'
 
-// eslint-disable-next-line import/no-default-export
 export default (props: Record<string, any>, defaults: Record<string, any>) => {
   return reactiveComputed(() => {
     const result: Record<string, any> = {}
