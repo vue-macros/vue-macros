@@ -12,7 +12,7 @@
     "clean": "rimraf packages/*/dist **/.turbo",
     "docs:dev": "pnpm run -C ./docs dev",
     "docs:serve": "pnpm run -C ./docs serve",
-    "docs:build": "turbo run build --filter docs",
+    "docs:build": "pnpm run -C ./docs build",
     "play": "pnpm run play:vue3",
     "play:vue2": "pnpm run -C ./playground/vue2 dev",
     "play:vue3": "pnpm run -C ./playground/vue3 dev",
