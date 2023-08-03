@@ -179,6 +179,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
               text: 'jsxDirective',
               link: `${urlPrefix}/features/jsx-directive`,
             },
+            {
+              text: 'booleanProp',
+              link: `${urlPrefix}/features/boolean-prop`,
+            },
           ],
         },
       ],

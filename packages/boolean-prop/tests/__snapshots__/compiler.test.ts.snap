@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`compiler > basic 1`] = `
+{
+  "arg": {
+    "constType": 3,
+    "content": "checked",
+    "isStatic": true,
+    "loc": {
+      "end": {
+        "column": 13,
+        "line": 1,
+        "offset": 12,
+      },
+      "source": "check",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "exp": {
+    "constType": 3,
+    "content": "true",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 13,
+        "line": 1,
+        "offset": 12,
+      },
+      "source": "check",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 13,
+      "line": 1,
+      "offset": 12,
+    },
+    "source": "check",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "bind",
+  "type": 7,
+}
+`;

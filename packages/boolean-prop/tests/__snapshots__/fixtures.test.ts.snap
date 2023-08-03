@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+"import { openBlock, createElementBlock } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+const _sfc_main = {};
+
+const _hoisted_1 = { checked: true };
+
+function _sfc_render(_ctx, _cache) {
+  return (openBlock(), createElementBlock(\\"input\\", _hoisted_1))
+}
+var basic = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
+
+export { basic as default };
+"
+`;

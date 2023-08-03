@@ -14,6 +14,8 @@ import BetterDefine from './examples/better-define/index.vue'
 import SetupBlock from './examples/setup-block/index.vue'
 import ChainCall from './examples/chain-call/index.vue'
 import ReactivityTransform from './examples/reactivity-transform/index.vue'
+import JsxDirective from './examples/jsx-directive/index.vue'
+import BooleanProp from './examples/boolean-prop/index.vue'
 
 import DefineProp from './examples/define-prop/index.vue'
 import DefineEmit from './examples/define-emit/index.vue'
@@ -23,7 +25,6 @@ import { SetupComponentFoo } from './examples/setup-component'
 import SetupSFC from './examples/setup-sfc/index.setup'
 import ShortVmodel from './examples/short-vmodel/parent.vue'
 import Full from './examples/full.setup'
-import JsxDirective from './examples/jsx-directive/index.vue'
 </script>
 
 <template>
@@ -133,6 +134,11 @@ import JsxDirective from './examples/jsx-directive/index.vue'
     <fieldset>
       <legend>jsxDirective</legend>
       <JsxDirective />
+    </fieldset>
+
+    <fieldset>
+      <legend>booleanProp</legend>
+      <BooleanProp />
     </fieldset>
   </div>
 </template>

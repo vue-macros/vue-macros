@@ -1,8 +1,8 @@
 {
-  "name": "@vue-macros/nuxt",
-  "version": "1.4.1",
+  "name": "@vue-macros/boolean-prop",
+  "version": "0.0.0",
   "packageManager": "pnpm@8.6.11",
-  "description": "nuxt feature from Vue Macros.",
+  "description": "boolean-prop feature from Vue Macros.",
   "keywords": [
     "vue-macros",
     "macros",
@@ -10,7 +10,7 @@
     "sfc",
     "setup",
     "script-setup",
-    "nuxt"
+    "boolean-prop"
   ],
   "license": "MIT",
   "homepage": "https://github.com/vue-macros/vue-macros#readme",
@@ -20,7 +20,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vue-macros/vue-macros.git",
-    "directory": "packages/nuxt"
+    "directory": "packages/boolean-prop"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
@@ -48,19 +48,12 @@
     "build": "tsup",
     "dev": "DEV=true tsup"
   },
-  "peerDependencies": {
-    "nuxt": "^3.0.0"
-  },
   "dependencies": {
-    "@nuxt/kit": "^3.6.5",
-    "@vue-macros/boolean-prop": "workspace:*",
-    "@vue-macros/short-vmodel": "workspace:*",
-    "@vue-macros/volar": "workspace:*",
-    "unplugin-vue-macros": "workspace:*"
+    "@vue-macros/common": "workspace:*",
+    "@vue/compiler-core": "^3.3.4"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.7.2",
-    "@nuxt/schema": "^3.6.5"
+    "@vue/compiler-sfc": "^3.3.4"
   },
   "engines": {
     "node": ">=16.14.0"

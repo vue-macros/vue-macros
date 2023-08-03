@@ -158,6 +158,19 @@ importers:
         specifier: ^3.27.0
         version: 3.27.0
 
+  packages/boolean-prop:
+    dependencies:
+      '@vue-macros/common':
+        specifier: workspace:*
+        version: link:../common
+      '@vue/compiler-core':
+        specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      '@vue/compiler-sfc':
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/chain-call:
     dependencies:
       '@vue-macros/common':
@@ -515,6 +528,9 @@ importers:
       '@nuxt/kit':
         specifier: ^3.6.5
         version: 3.6.5
+      '@vue-macros/boolean-prop':
+        specifier: workspace:*
+        version: link:../boolean-prop
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
@@ -776,6 +792,9 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^3.0.1
         version: 3.0.1(vite@4.4.7)(vue@3.3.4)
+      '@vue-macros/boolean-prop':
+        specifier: workspace:*
+        version: link:../../packages/boolean-prop
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../../packages/short-vmodel
