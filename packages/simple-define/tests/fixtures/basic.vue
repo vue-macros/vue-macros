@@ -27,7 +27,5 @@ emit('update', 'hello world')
 
 <template>
   {{ msg }}
-  <!-- boolean cast -->
-  <Foo checked />
-  <input type="checkbox" checked />
+  {{ foo }}
 </template>
