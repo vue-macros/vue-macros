@@ -45,10 +45,10 @@ export function vForTransform(ast: Program, s: MagicString, offset = 0) {
       const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
       s.appendLeft(
         node.start! + offset,
-        `${hasScope ? ' { ' : ''}${list}.map(${i}=> `
+        `${hasScope ? '{' : ''}${list}.map(${i} => `
       )
 
-      s.appendRight(node.end! + offset, `)${hasScope ? ' }' : ''}`)
+      s.appendRight(node.end! + offset, `)${hasScope ? '}' : ''}`)
       s.remove(attribute.start! + offset - 1, attribute.end! + offset)
     }
   })
