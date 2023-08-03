@@ -33,9 +33,6 @@ jobs:
 
       - name: Build
         run: nr build
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: sxzz
 
       - name: Lint
         run: nr lint
@@ -71,9 +68,6 @@ jobs:
 
       - name: Build
         run: nr build
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: sxzz
 
       - name: Unit Test
         run: nr test
