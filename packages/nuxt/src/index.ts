@@ -109,7 +109,7 @@ export default defineNuxtModule<VueMacrosOptions>({
       nuxt.options.vite.vue.include = [nuxt.options.vite.vue.include]
     nuxt.options.vite.vue.include.push(/\.setup\.[cm]?[jt]sx?$/)
 
-    if (options.shortVmodel !== false || options.booleanProp !== false) {
+    if (options.shortVmodel !== false || options.booleanProp) {
       nuxt.options.vite.vue.template ||= {}
       nuxt.options.vite.vue.template.compilerOptions ||= {}
       nuxt.options.vite.vue.template.compilerOptions.nodeTransforms ||= []
@@ -125,8 +125,7 @@ export default defineNuxtModule<VueMacrosOptions>({
         }
       }
 
-      if (options.booleanProp !== false)
-        nodeTransforms.push(transformBooleanProp())
+      if (options.booleanProp) nodeTransforms.push(transformBooleanProp())
     }
   },
 })
