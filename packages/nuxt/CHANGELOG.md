@@ -1,5 +1,11 @@
 # @vue-macros/nuxt
 
+## 1.5.1
+
+### Patch Changes
+
+- [`189f3690`](https://github.com/vue-macros/vue-macros/commit/189f36905c326d67e382c595f76e798051962ace) Thanks [@sxzz](https://github.com/sxzz)! - disable booleanProp by default
+
 ## 1.5.0
 
 ### Minor Changes
