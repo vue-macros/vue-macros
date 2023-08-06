@@ -7,7 +7,6 @@ import {
 import {
   MagicString,
   REGEX_SETUP_SFC,
-  REGEX_VUE_DIRECTIVE,
   babelParse,
   generateTransform,
   getLang,
@@ -48,7 +47,7 @@ export function transformJsxDirective(code: string, id: string) {
 
   const s = new MagicString(code)
   for (const { ast, offset } of asts) {
-    if (!REGEX_VUE_DIRECTIVE.test(s.sliceNode(ast, { offset }))) return
+    if (!/\s(v-if|v-for)=/.test(s.sliceNode(ast, { offset }))) return
 
     const vForNodes: JsxDirectiveNode[] = []
     const vIfMap = new Map<Node, JsxDirectiveNode[]>()
@@ -85,7 +84,7 @@ export function transformJsxDirective(code: string, id: string) {
       },
     })
 
-    transformVIf([...vIfMap.values()].flat(), s, offset)
+    transformVIf(Array.from(vIfMap.values()).flat(), s, offset)
     transformVFor(vForNodes, s, offset)
   }
 

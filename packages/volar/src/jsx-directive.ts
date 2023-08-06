@@ -5,7 +5,6 @@ import {
   type VueLanguagePlugin,
   replaceSourceRange,
 } from '@vue/language-core'
-import { REGEX_VUE_DIRECTIVE } from '@vue-macros/common'
 
 function transformJsxDirective({
   codes,
@@ -176,9 +175,10 @@ function transformJsxDirective({
       node.declarationList.forEachChild((decl) => {
         if (!ts.isVariableDeclaration(decl) || !decl.initializer) return
         if (ts.isArrowFunction(decl.initializer)) {
-          return transform(decl.initializer.body)
+          transform(decl.initializer.body)
+        } else {
+          transform(decl.initializer)
         }
-        transform(decl.initializer)
       })
     } else if (ts.isFunctionDeclaration(node)) {
       node.body?.statements.forEach((statement) => transform(statement))
@@ -194,7 +194,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (REGEX_VUE_DIRECTIVE.test(`${sfc[source]?.content}`))
+        if (/\s(v-if|v-for)=/.test(`${sfc[source]?.content}`))
           transformJsxDirective({
             codes: embeddedFile.content,
             sfc,
