@@ -84,7 +84,7 @@ export function transformJsxDirective(code: string, id: string) {
       },
     })
 
-    transformVIf(Array.from(vIfMap.values()).flat(), s, offset)
+    vIfMap.forEach((nodes) => transformVIf(nodes, s, offset))
     transformVFor(vForNodes, s, offset)
   }
 
