@@ -5,6 +5,7 @@ import {
   type VueLanguagePlugin,
   replaceSourceRange,
 } from '@vue/language-core'
+import { REGEX_VUE_DIRECTIVE } from 'packages/common/src'
 
 function transformJsxDirective({
   codes,
@@ -193,7 +194,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (/\s(v-if|v-for)=/.test(`${sfc[source]?.content}`))
+        if (REGEX_VUE_DIRECTIVE.test(`${sfc[source]?.content}`))
           transformJsxDirective({
             codes: embeddedFile.content,
             sfc,

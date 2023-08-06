@@ -1,12 +1,8 @@
-import { type JSXAttribute, type JSXElement, type Node } from '@babel/types'
 import { type MagicString } from '@vue-macros/common'
+import { type JsxDirectiveNode } from '.'
 
 export function transformVIf(
-  nodes: {
-    node: JSXElement
-    attribute: JSXAttribute
-    parent?: Node | null
-  }[],
+  nodes: JsxDirectiveNode[],
   s: MagicString,
   offset = 0
 ) {

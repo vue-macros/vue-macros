@@ -7,6 +7,7 @@ import {
 import {
   MagicString,
   REGEX_SETUP_SFC,
+  REGEX_VUE_DIRECTIVE,
   babelParse,
   generateTransform,
   getLang,
@@ -15,6 +16,12 @@ import {
 } from '@vue-macros/common'
 import { transformVIf } from './v-if'
 import { transformVFor } from './v-for'
+
+export type JsxDirectiveNode = {
+  node: JSXElement
+  attribute: JSXAttribute
+  parent?: Node | null
+}
 
 export function transformJsxDirective(code: string, id: string) {
   const lang = getLang(id)
@@ -41,22 +48,10 @@ export function transformJsxDirective(code: string, id: string) {
 
   const s = new MagicString(code)
   for (const { ast, offset } of asts) {
-    if (!/\s(v-for|v-if)=/.test(s.sliceNode(ast, { offset }))) return
+    if (!REGEX_VUE_DIRECTIVE.test(s.sliceNode(ast, { offset }))) return
 
-    const vIfMap = new Map<
-      Node,
-      {
-        node: JSXElement
-        attribute: JSXAttribute
-        parent?: Node | null
-      }[]
-    >()
-    const vForNodes: {
-      node: JSXElement
-      attribute: JSXAttribute
-      parent?: Node | null
-    }[] = []
-
+    const vForNodes: JsxDirectiveNode[] = []
+    const vIfMap = new Map<Node, JsxDirectiveNode[]>()
     walkAST<Node>(ast, {
       enter(node, parent) {
         if (node.type !== 'JSXElement') return
