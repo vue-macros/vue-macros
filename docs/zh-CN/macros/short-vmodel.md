@@ -20,7 +20,7 @@
 ### 安装
 
 ```bash
-npm i @vue-macros/short-vmodel
+npm i -D @vue-macros/short-vmodel
 ```
 
 ### Vite 集成

@@ -16,7 +16,7 @@ Convert `<Comp checked />` to `<Comp :checked="true" />`.
 ### Installation
 
 ```bash
-npm i @vue-macros/boolean-prop
+npm i -D @vue-macros/boolean-prop
 ```
 
 ### Vite Integration

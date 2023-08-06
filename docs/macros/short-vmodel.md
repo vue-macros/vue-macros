@@ -20,7 +20,7 @@ If you have any questions about this feature, you can comment on [RFC Discussion
 ### Installation
 
 ```bash
-npm i @vue-macros/short-vmodel
+npm i -D @vue-macros/short-vmodel
 ```
 
 ### Vite Integration
