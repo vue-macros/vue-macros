@@ -5,7 +5,7 @@ import {
   type VueLanguagePlugin,
   replaceSourceRange,
 } from '@vue/language-core'
-import { REGEX_VUE_DIRECTIVE } from 'packages/common/src'
+import { REGEX_VUE_DIRECTIVE } from '@vue-macros/common'
 
 function transformJsxDirective({
   codes,
