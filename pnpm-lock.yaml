@@ -113,6 +113,9 @@ importers:
       vite-plugin-pwa:
         specifier: ^0.16.4
         version: 0.16.4(vite@4.4.7)(workbox-window@7.0.0)
+      vite-plugin-vue-devtools:
+        specifier: 1.0.0-beta.6
+        version: 1.0.0-beta.6(@types/node@20.4.5)(vite@4.4.7)
       vitepress:
         specifier: 1.0.0-beta.7
         version: 1.0.0-beta.7(@types/node@20.4.5)
@@ -3819,6 +3822,19 @@ packages:
       - rollup
     dev: true
 
+  /@vite-plugin-vue-devtools/core@1.0.0-beta.6(vite@4.4.7):
+    resolution: {integrity: sha512-Xw61TD85hMbtlz0Ag5ME2yZYZVakThdGNjQXS78CxyebjOYrSdb+juJ8LZxYylzmVypzWKwli+hrQFd/d4cc7g==}
+    peerDependencies:
+      vite: ^3.1.0 || ^4.0.0-0
+    dependencies:
+      '@babel/parser': 7.22.7
+      birpc: 0.2.12
+      estree-walker: 2.0.2
+      magic-string: 0.30.2
+      vite: 4.4.7(@types/node@20.4.5)
+      vite-hot-client: 0.2.1(vite@4.4.7)
+    dev: true
+
   /@vite-pwa/vitepress@0.2.0(vite-plugin-pwa@0.16.4):
     resolution: {integrity: sha512-dVQVaP6NB9woCFe4UASUqRp7uwBQJOVXlJlqK4krqXcbb3NuXIXIWOnU7HLpJnHqZj5U/81gKtLN6gs5gJBwiQ==}
     peerDependencies:
@@ -4399,6 +4415,22 @@ packages:
     dependencies:
       '@webassemblyjs/ast': 1.11.6
       '@xtuc/long': 4.2.2
+
+  /@webfansplz/vuedoc-parser@0.0.3(@types/node@20.4.5):
+    resolution: {integrity: sha512-7Ocz5C7GBwc33yrp8US4WZHG7U+kpBex7jtOEsm3f1414A/r5D4O3/cPsb6dEV6aO/4Sx6YWRcubcAuKL79+ig==}
+    engines: {node: '>=16.6'}
+    peerDependencies:
+      '@types/node': ^18.6.3
+      pug: ^3.0.2
+    dependencies:
+      '@babel/parser': 7.22.7
+      '@babel/traverse': 7.22.8
+      '@types/node': 20.4.5
+      resolve: 1.22.3
+      vue-template-compiler: 2.7.14
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /@xtuc/ieee754@1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -10014,6 +10046,14 @@ packages:
       builtins: 5.0.1
     dev: true
 
+  /vite-hot-client@0.2.1(vite@4.4.7):
+    resolution: {integrity: sha512-UqsQdw5PODnSrTDT85nr09RlhV0gkm2Xat74U2l8JZ5R8M/wTCggWSyPjxbLk5fbbVnWfr0JwW+vVoosjQnYrA==}
+    peerDependencies:
+      vite: ^2.6.0 || ^3.0.0 || ^4.0.0
+    dependencies:
+      vite: 4.4.7(@types/node@20.4.5)
+    dev: true
+
   /vite-node@0.33.0(@types/node@20.4.5):
     resolution: {integrity: sha512-19FpHYbwWWxDr73ruNahC+vtEdza52kA90Qb3La98yZ0xULqV8A5JLNPUff0f5zID4984tW7l3DH2przTJUZSw==}
     engines: {node: '>=v14.18.0'}
@@ -10070,6 +10110,27 @@ packages:
       workbox-window: 7.0.0
     transitivePeerDependencies:
       - '@types/babel__core'
+      - supports-color
+    dev: true
+
+  /vite-plugin-vue-devtools@1.0.0-beta.6(@types/node@20.4.5)(vite@4.4.7):
+    resolution: {integrity: sha512-VzS5RUYrFAhi3NqgD+s8vu0JDye71o9s4EJqGtkwjIQgnPnOW2BsCKPuzlXqbMSzIhAJkBoOFJ5pwHRUuuCW9A==}
+    engines: {node: '>=v14.21.3'}
+    peerDependencies:
+      vite: ^3.1.0 || ^4.0.0-0
+    dependencies:
+      '@vite-plugin-vue-devtools/core': 1.0.0-beta.6(vite@4.4.7)
+      '@webfansplz/vuedoc-parser': 0.0.3(@types/node@20.4.5)
+      birpc: 0.2.12
+      execa: 7.2.0
+      sirv: 2.0.3
+      vite: 4.4.7(@types/node@20.4.5)
+      vite-plugin-inspect: 0.7.33(rollup@3.27.0)(vite@4.4.7)
+      vite-plugin-vue-inspector: 3.5.0(vite@4.4.7)
+    transitivePeerDependencies:
+      - '@types/node'
+      - pug
+      - rollup
       - supports-color
     dev: true
 
