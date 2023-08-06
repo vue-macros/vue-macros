@@ -1,40 +1,17 @@
-import {
-  type JSXAttribute,
-  type JSXElement,
-  type Node,
-  type Program,
-} from '@babel/types'
-import { type MagicString, walkAST } from '@vue-macros/common'
+import { type JSXAttribute, type JSXElement, type Node } from '@babel/types'
+import { type MagicString } from '@vue-macros/common'
 
-export function vForTransform(ast: Program, s: MagicString, offset = 0) {
-  if (!s.sliceNode(ast, { offset }).includes('v-for')) return
-
-  const nodes: {
+export function transformVFor(
+  nodes: {
     node: JSXElement
     attribute: JSXAttribute
     parent?: Node | null
-  }[] = []
-
-  walkAST<Node>(ast, {
-    enter(node, parent) {
-      if (node.type !== 'JSXElement') return
-
-      const attribute = node.openingElement.attributes.find(
-        (i): i is JSXAttribute =>
-          i.type === 'JSXAttribute' && ['v-for'].includes(`${i.name.name}`)
-      )
-      if (attribute) {
-        nodes.push({
-          node,
-          attribute,
-          parent,
-        })
-      }
-    },
-  })
-
+  }[],
+  s: MagicString,
+  offset = 0
+) {
   nodes.forEach(({ node, attribute, parent }) => {
-    if (`${attribute.name.name}` === 'v-for' && attribute.value) {
+    if (attribute.value) {
       const [i, list] = s
         .slice(
           attribute.value.start! + offset + 1,
@@ -48,7 +25,11 @@ export function vForTransform(ast: Program, s: MagicString, offset = 0) {
         `${hasScope ? '{' : ''}${list}.map(${i} => `
       )
 
-      s.appendRight(node.end! + offset, `)${hasScope ? '}' : ''}`)
+      s.overwrite(
+        node.end! + offset - 1,
+        node.end! + offset,
+        `>)${hasScope ? '}' : ''}`
+      )
       s.remove(attribute.start! + offset - 1, attribute.end! + offset)
     }
   })

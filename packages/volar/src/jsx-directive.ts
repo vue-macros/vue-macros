@@ -27,12 +27,18 @@ function transformJsxDirective({
       : ts.isJsxSelfClosingElement(node)
       ? node.attributes.properties
       : []
+    let vIfAttribute
+    let vForAttribute
     for (const attribute of properties) {
-      if (!ts.isJsxAttribute(attribute)) return
-
-      transformVIf(attribute, node, nodes, parent)
-      transformVFor(attribute, node, parent)
+      if (!ts.isJsxAttribute(attribute) || !ts.isIdentifier(attribute.name))
+        continue
+      if (['v-if', 'v-else-if', 'v-else'].includes(attribute.name.escapedText!))
+        vIfAttribute = attribute
+      if (attribute.name.escapedText === 'v-for') vForAttribute = attribute
     }
+    vForAttribute &&
+      transformVFor(vForAttribute, node, vIfAttribute ? undefined : parent)
+    vIfAttribute && transformVIf(vIfAttribute, node, nodes, parent)
 
     const children: (typeof node)[] = []
     node.forEachChild((child) => {
@@ -54,8 +60,6 @@ function transformJsxDirective({
   ) {
     if (
       !(
-        ts.isIdentifier(attribute.name) &&
-        attribute.name.escapedText === 'v-for' &&
         attribute.initializer &&
         ts.isJsxExpression(attribute.initializer) &&
         attribute.initializer.expression &&
@@ -105,10 +109,10 @@ function transformJsxDirective({
     nodes: import('typescript/lib/tsserverlibrary').Node[],
     parent?: import('typescript/lib/tsserverlibrary').Node
   ) {
-    if (!attribute.name || !ts.isIdentifier(attribute.name)) return
+    if (!ts.isIdentifier(attribute.name)) return
 
     if (
-      ['v-if', 'v-else-if'].includes(`${attribute.name.escapedText}`) &&
+      ['v-if', 'v-else-if'].includes(attribute.name.escapedText!) &&
       attribute.initializer &&
       ts.isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression
@@ -189,7 +193,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (/\s(v-for|v-if)=/.test(`${sfc[source]?.content}`))
+        if (/\s(v-if|v-for)=/.test(`${sfc[source]?.content}`))
           transformJsxDirective({
             codes: embeddedFile.content,
             sfc,
