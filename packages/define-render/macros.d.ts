@@ -1,3 +1,3 @@
-import { type RenderFunction } from 'vue'
-
-export declare const defineRender: (render: RenderFunction) => void
+export declare const defineRender: (
+  render: JSX.Element | (() => JSX.Element)
+) => void
