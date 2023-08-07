@@ -9,6 +9,7 @@ import { type Options, resolveOptions } from 'unplugin-vue-macros'
 import { type Plugin } from 'vite'
 import type {} from '@nuxt/devtools'
 import { type VolarOptions } from '@vue-macros/volar'
+import { REGEX_SETUP_SFC } from '@vue-macros/common'
 
 export type VueMacrosOptions = Options & {
   booleanProp?: {} | false
@@ -103,17 +104,38 @@ export default defineNuxtModule<VueMacrosOptions>({
       vueCompilerOptions.experimentalDefinePropProposal =
         resolvedOptions.defineProp.edition || 'kevinEdition'
 
-    nuxt.options.vite.vue ||= {}
-    nuxt.options.vite.vue.include ||= [/\.vue$/]
-    if (!Array.isArray(nuxt.options.vite.vue.include))
-      nuxt.options.vite.vue.include = [nuxt.options.vite.vue.include]
-    nuxt.options.vite.vue.include.push(/\.setup\.[cm]?[jt]sx?$/)
+    const viteVue = (nuxt.options.vite.vue ||= {})
+
+    if (resolvedOptions.setupSFC) {
+      viteVue.include ||= [/\.vue$/]
+      if (!Array.isArray(viteVue.include)) viteVue.include = [viteVue.include]
+      viteVue.include.push(REGEX_SETUP_SFC)
+
+      nuxt.hook('components:extend', (components) => {
+        for (const component of components) {
+          component.pascalName = component.pascalName.replace(/Setup$/, '')
+          component.kebabName = component.kebabName.replace(/-setup$/, '')
+        }
+      })
+
+      nuxt.hook('pages:extend', (pages) => {
+        for (const page of pages) {
+          if (!page.file || !REGEX_SETUP_SFC.test(page.file)) continue
+
+          if (page.name) page.name = page.name.replace(/\.setup$/, '')
+          if (page.path)
+            page.path = page.path
+              .replace(/\/index\.setup$/, '/')
+              .replace(/\.setup$/, '')
+        }
+      })
+    }
 
     if (options.shortVmodel !== false || options.booleanProp) {
-      nuxt.options.vite.vue.template ||= {}
-      nuxt.options.vite.vue.template.compilerOptions ||= {}
-      nuxt.options.vite.vue.template.compilerOptions.nodeTransforms ||= []
-      const { nodeTransforms } = nuxt.options.vite.vue.template.compilerOptions
+      viteVue.template ||= {}
+      viteVue.template.compilerOptions ||= {}
+      viteVue.template.compilerOptions.nodeTransforms ||= []
+      const { nodeTransforms } = viteVue.template.compilerOptions
 
       if (options.shortVmodel !== false) {
         volarPlugins.push('@vue-macros/volar/short-vmodel')

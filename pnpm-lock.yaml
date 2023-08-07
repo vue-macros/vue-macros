@@ -196,8 +196,8 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
       ast-kit:
-        specifier: ^0.9.4
-        version: 0.9.4(rollup@3.27.2)
+        specifier: ^0.9.5
+        version: 0.9.5
       local-pkg:
         specifier: ^0.4.3
         version: 0.4.3
@@ -531,6 +531,9 @@ importers:
       '@vue-macros/boolean-prop':
         specifier: workspace:*
         version: link:../boolean-prop
+      '@vue-macros/common':
+        specifier: workspace:~
+        version: link:../common
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
@@ -4724,6 +4727,17 @@ packages:
 
   /ast-kit@0.9.4(rollup@3.27.2):
     resolution: {integrity: sha512-UrZHsdj87OS6NM+IXRii+asdAUA/P0SMa4r1NrZvsUy72hDvCYwk8c9PsbKf1MvJ0BvP+rF1B8tFP54eT370Tg==}
+    engines: {node: '>=16.14.0'}
+    dependencies:
+      '@babel/parser': 7.22.7
+      '@rollup/pluginutils': 5.0.2(rollup@3.27.2)
+      pathe: 1.1.1
+    transitivePeerDependencies:
+      - rollup
+    dev: false
+
+  /ast-kit@0.9.5:
+    resolution: {integrity: sha512-kbL7ERlqjXubdDd+szuwdlQ1xUxEz9mCz1+m07ftNVStgwRb2RWw+U6oKo08PAvOishMxiqz1mlJyLl8yQx2Qg==}
     engines: {node: '>=16.14.0'}
     dependencies:
       '@babel/parser': 7.22.7

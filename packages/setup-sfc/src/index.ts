@@ -2,7 +2,7 @@ import { createUnplugin } from 'unplugin'
 import {
   type BaseOptions,
   type MarkRequired,
-  REGEX_SETUP_SFC,
+  REGEX_SETUP_SFC_SUB,
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
@@ -14,7 +14,7 @@ export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 function resolveOption(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
   return {
-    include: [REGEX_SETUP_SFC],
+    include: [REGEX_SETUP_SFC_SUB],
     ...options,
     version,
   }

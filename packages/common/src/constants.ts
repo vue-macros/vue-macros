@@ -15,7 +15,10 @@ export const DEFINE_EMIT = 'defineEmit'
 export const REPO_ISSUE_URL = 'https://github.com/vue-macros/vue-macros/issues'
 
 export const REGEX_SRC_FILE = /\.[cm]?[jt]sx?$/
+
 export const REGEX_SETUP_SFC = /\.setup\.[cm]?[jt]sx?$/
+export const REGEX_SETUP_SFC_SUB = /\.setup\.[cm]?[jt]sx?((?!vue&).)*$/
+
 export const REGEX_VUE_SFC = /\.vue$/
 export const REGEX_VUE_SUB = /\.vue\?vue&type=script/
 export const REGEX_NODE_MODULES = /node_modules/
