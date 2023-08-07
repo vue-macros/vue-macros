@@ -1,45 +1,11 @@
-import {
-  type JSXAttribute,
-  type JSXElement,
-  type Node,
-  type Program,
-} from '@babel/types'
-import { type MagicString, walkAST } from '@vue-macros/common'
+import { type MagicString } from '@vue-macros/common'
+import { type JsxDirectiveNode } from '.'
 
-export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
-  if (!s.sliceNode(ast, { offset }).includes('v-if')) return
-
-  const nodeMap = new Map<
-    Node,
-    {
-      node: JSXElement
-      attribute: JSXAttribute
-      parent?: Node | null
-    }[]
-  >()
-
-  walkAST<Node>(ast, {
-    enter(node, parent) {
-      if (node.type !== 'JSXElement') return
-
-      const attribute = node.openingElement.attributes.find(
-        (i) =>
-          i.type === 'JSXAttribute' &&
-          ['v-if', 'v-else-if', 'v-else'].includes(`${i.name.name}`)
-      ) as JSXAttribute
-      if (attribute) {
-        if (!nodeMap.has(parent!)) nodeMap.set(parent!, [])
-
-        nodeMap.get(parent!)?.push({
-          node,
-          attribute,
-          parent,
-        })
-      }
-    },
-  })
-
-  const nodes = [...nodeMap.values()].flat()
+export function transformVIf(
+  nodes: JsxDirectiveNode[],
+  s: MagicString,
+  offset = 0
+) {
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
 
@@ -59,9 +25,10 @@ export function vIfTransform(ast: Program, s: MagicString, offset = 0) {
           ? ' :'
           : ` : null${hasScope ? '}' : ''}`
       )
-      s.remove(attribute.start! + offset - 1, attribute.end! + offset)
     } else if (attribute.name.name === 'v-else') {
-      s.appendRight(node.end! + offset, hasScope ? ' }' : '')
+      s.appendRight(node.end! + offset, hasScope ? '}' : '')
     }
+
+    s.remove(attribute.start! + offset - 1, attribute.end! + offset)
   })
 }

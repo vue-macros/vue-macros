@@ -9,7 +9,7 @@ export default () => (
   <>
     {foo === 0 ? <div>0</div> :
     foo === 1 ? <div>1</div> :
-    <div v-else={foo === 2}>2</div> }
+    <div>2</div>}
   </>
 )
 "
@@ -25,7 +25,7 @@ defineRender(() => (
   <>
     {foo === 0 ? <div>0</div> :
     foo === 1 ? <div>1</div> :
-    <div v-else={foo === 2}>2</div> }
+    <div>2</div>}
   </>
 ))
 </script>
@@ -105,7 +105,7 @@ export default () => (
     {foo === 0 ? <div>
       {foo === 0 ? <div>0-0</div> :
       foo === 1 ? <div>0-1</div> :
-      <div v-else>0-2</div> }
+      <div>0-2</div>}
     </div> : null}
   </>
 )
@@ -123,7 +123,7 @@ defineRender(() => (
     {foo === 0 ? <div>
       {foo === 0 ? <div>0-0</div> :
       foo === 1 ? <div>0-1</div> :
-      <div v-else>0-2</div> }
+      <div>0-2</div>}
     </div> : null}
   </>
 ))
