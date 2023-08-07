@@ -47,7 +47,7 @@ export function transformJsxDirective(code: string, id: string) {
 
   const s = new MagicString(code)
   for (const { ast, offset } of asts) {
-    if (!/\s(v-if|v-for)=/.test(s.sliceNode(ast, { offset }))) return
+    if (!/\s(v-if|v-for)=/.test(s.sliceNode(ast, { offset }))) continue
 
     const vForNodes: JsxDirectiveNode[] = []
     const vIfMap = new Map<Node, JsxDirectiveNode[]>()
