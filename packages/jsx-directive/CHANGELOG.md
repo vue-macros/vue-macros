@@ -1,5 +1,18 @@
 # @vue-macros/jsx-directive
 
+## 0.3.0
+
+### Minor Changes
+
+- [#445](https://github.com/vue-macros/vue-macros/pull/445) [`b8b314e6`](https://github.com/vue-macros/vue-macros/commit/b8b314e6303a0c3d17ede82bf545bc2725a90588) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - fix(jsx-directive): v-if and v-for co-usage
+
+### Patch Changes
+
+- [#448](https://github.com/vue-macros/vue-macros/pull/448) [`1b29d807`](https://github.com/vue-macros/vue-macros/commit/1b29d807c2f1c39d2804e9145464e7bdbc555db7) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - fix(jsx-directive): use continue
+
+- Updated dependencies [[`4ee6b51a`](https://github.com/vue-macros/vue-macros/commit/4ee6b51aeeeb5087683b704d0cc19c7c8014d27c)]:
+  - @vue-macros/common@1.7.0
+
 ## 0.2.2
 
 ### Patch Changes

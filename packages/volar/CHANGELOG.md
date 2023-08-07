@@ -1,5 +1,16 @@
 # @vue-macros/volar
 
+## 0.13.3
+
+### Patch Changes
+
+- [#445](https://github.com/vue-macros/vue-macros/pull/445) [`b8b314e6`](https://github.com/vue-macros/vue-macros/commit/b8b314e6303a0c3d17ede82bf545bc2725a90588) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - fix(jsx-directive): v-if and v-for co-usage
+
+- Updated dependencies [[`4ee6b51a`](https://github.com/vue-macros/vue-macros/commit/4ee6b51aeeeb5087683b704d0cc19c7c8014d27c)]:
+  - @vue-macros/common@1.7.0
+  - @vue-macros/define-props@1.0.17
+  - @vue-macros/short-vmodel@1.2.15
+
 ## 0.13.2
 
 ### Patch Changes

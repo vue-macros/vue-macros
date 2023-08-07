@@ -1,5 +1,16 @@
 # @vue-macros/setup-sfc
 
+## 0.16.0
+
+### Minor Changes
+
+- [`4ee6b51a`](https://github.com/vue-macros/vue-macros/commit/4ee6b51aeeeb5087683b704d0cc19c7c8014d27c) Thanks [@sxzz](https://github.com/sxzz)! - improve nuxt support of setupSFC
+
+### Patch Changes
+
+- Updated dependencies [[`4ee6b51a`](https://github.com/vue-macros/vue-macros/commit/4ee6b51aeeeb5087683b704d0cc19c7c8014d27c)]:
+  - @vue-macros/common@1.7.0
+
 ## 0.15.15
 
 ### Patch Changes
