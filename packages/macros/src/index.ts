@@ -69,7 +69,7 @@ import VueSetupSFC, {
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
-import { excludeDepOptimize } from './plugin'
+import { excludeDepOptimize } from './core'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
