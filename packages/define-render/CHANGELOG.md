@@ -1,5 +1,16 @@
 # @vue-macros/define-render
 
+## 1.4.0
+
+### Minor Changes
+
+- [`e74058c1`](https://github.com/vue-macros/vue-macros/commit/e74058c1a5dd126854481d5046d7461587f2dbff) Thanks [@sxzz](https://github.com/sxzz)! - add JSX element to dts
+
+### Patch Changes
+
+- Updated dependencies [[`4ee6b51a`](https://github.com/vue-macros/vue-macros/commit/4ee6b51aeeeb5087683b704d0cc19c7c8014d27c)]:
+  - @vue-macros/common@1.7.0
+
 ## 1.3.15
 
 ### Patch Changes

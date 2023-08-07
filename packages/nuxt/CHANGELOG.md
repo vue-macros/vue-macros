@@ -1,5 +1,20 @@
 # @vue-macros/nuxt
 
+## 1.6.0
+
+### Minor Changes
+
+- [`4ee6b51a`](https://github.com/vue-macros/vue-macros/commit/4ee6b51aeeeb5087683b704d0cc19c7c8014d27c) Thanks [@sxzz](https://github.com/sxzz)! - improve nuxt support of setupSFC
+
+### Patch Changes
+
+- Updated dependencies [[`e74058c1`](https://github.com/vue-macros/vue-macros/commit/e74058c1a5dd126854481d5046d7461587f2dbff), [`e08ebeff`](https://github.com/vue-macros/vue-macros/commit/e08ebeffb4ca01134070164721c8fd304852c156), [`b8b314e6`](https://github.com/vue-macros/vue-macros/commit/b8b314e6303a0c3d17ede82bf545bc2725a90588), [`4ee6b51a`](https://github.com/vue-macros/vue-macros/commit/4ee6b51aeeeb5087683b704d0cc19c7c8014d27c)]:
+  - unplugin-vue-macros@2.4.4
+  - @vue-macros/volar@0.13.3
+  - @vue-macros/common@1.7.0
+  - @vue-macros/boolean-prop@0.1.1
+  - @vue-macros/short-vmodel@1.2.15
+
 ## 1.5.1
 
 ### Patch Changes
