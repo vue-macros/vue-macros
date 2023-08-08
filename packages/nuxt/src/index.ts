@@ -131,6 +131,18 @@ export default defineNuxtModule<VueMacrosOptions>({
       })
     }
 
+    nuxt.hook('app:resolve', (app) => {
+      app.layouts = Object.fromEntries(
+        Object.entries(app.layouts).map(([key, value]) => {
+          if (key.endsWith('-setup')) {
+            key = key.replace(/-setup$/, '')
+            value.name = value.name.replace(/-setup$/, '')
+          }
+          return [key, value]
+        })
+      )
+    })
+
     if (options.shortVmodel !== false || options.booleanProp) {
       viteVue.template ||= {}
       viteVue.template.compilerOptions ||= {}
