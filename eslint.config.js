@@ -2,7 +2,7 @@ import { sxzz } from '@sxzz/eslint-config'
 
 export default sxzz([
   {
-    ignores: ['playground/vue2', 'playground/nuxt'],
+    ignores: ['playground/vue2', 'playground/nuxt', 'playground/astro'],
   },
 
   {
