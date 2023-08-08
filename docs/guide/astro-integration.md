@@ -1,0 +1,73 @@
+# Astro Integration
+
+### Installation
+
+::: code-group
+
+```bash [npm]
+npm i -D @vue-macros/astro
+```
+
+```bash [yarn]
+yarn add -D @vue-macros/astro
+```
+
+```bash [pnpm]
+pnpm add -D @vue-macros/astro
+```
+
+:::
+
+## Configuration
+
+```ts
+// astro.config.mjs
+import { defineConfig } from 'astro/config'
+import Vue from '@astrojs/vue'
+import Macros from '@vue-macros/astro'
+
+export default defineConfig({
+  integrations: [
+    Vue(),
+    Macros({
+      // ... configs
+    }),
+  ],
+})
+```
+
+## TypeScript Support & Volar Support
+
+Same with [Bundler Integration](./bundler-integration.md#typescript-support)
+
+## Limitations
+
+Currently if you want to use `shortVModel` you need to explicitly config the `vue.template.compilerOptions.nodeTransforms`:
+
+Don't know why yet, but we will figure it out soon.
+
+```ts
+import { defineConfig } from 'astro/config'
+import Vue from '@astrojs/vue'
+import Macros from '@vue-macros/astro'
+import { transformShortVmodel } from '@vue-macros/short-vmodel'
+
+export default defineConfig({
+  integrations: [
+    Vue({
+      jsx: true,
+      template: {
+        compilerOptions: {
+          // explicit add transformShortVModel to node transforms 
+          nodeTransforms: [transformShortVmodel()]
+        },
+      },
+    }),
+    Macros(),
+  ],
+})
+```
+
+:tada: Congratulations! That's all.
+
+To learn more about the macros, please visit [All Macros](/macros/) :laughing:.
