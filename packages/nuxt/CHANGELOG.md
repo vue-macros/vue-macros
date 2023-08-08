@@ -1,5 +1,15 @@
 # @vue-macros/nuxt
 
+## 1.7.0
+
+### Minor Changes
+
+- [`c094afb8`](https://github.com/vue-macros/vue-macros/commit/c094afb81c3255fe6fcad8d9ea39bad037ff235f) Thanks [@sxzz](https://github.com/sxzz)! - support setupSFC in layouts
+
+### Patch Changes
+
+- [`322321bf`](https://github.com/vue-macros/vue-macros/commit/322321bf76f0d1b38f8fb2c19b6308eb0a3091d4) Thanks [@sxzz](https://github.com/sxzz)! - fix(nuxt): add `shortVmodel` into options
+
 ## 1.6.0
 
 ### Minor Changes
