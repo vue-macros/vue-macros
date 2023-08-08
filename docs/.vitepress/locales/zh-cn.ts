@@ -54,6 +54,7 @@ export const themeConfig: DefaultTheme.Config = {
   darkModeSwitchLabel: '外观',
   sidebarMenuLabel: '目录',
   returnToTopLabel: '返回顶部',
+  langMenuLabel: '选择语言',
   docFooter: {
     prev: '上一页',
     next: '下一页',
