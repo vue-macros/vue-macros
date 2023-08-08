@@ -154,9 +154,9 @@ export default defineNuxtModule<VueMacrosOptions>({
 
 declare module '@nuxt/schema' {
   interface NuxtConfig {
-    macros?: Options
+    macros?: VueMacrosOptions
   }
   interface NuxtOptions {
-    macros?: Options
+    macros?: VueMacrosOptions
   }
 }
