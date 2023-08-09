@@ -7,7 +7,7 @@ import {
   type Options as OptionsShortVmodel,
   transformShortVmodel,
 } from '@vue-macros/short-vmodel'
-import { transformBooleanProp } from 'packages/boolean-prop/src'
+import { transformBooleanProp } from '@vue-macros/boolean-prop'
 
 export type VueMacrosOptions = Options & {
   booleanProp?: {} | false
@@ -29,7 +29,7 @@ function findPluginAndRemove(
 
 export default function (options?: VueMacrosOptions): AstroIntegration {
   return {
-    name: '@vuemacros/astro',
+    name: '@vue-macros/astro',
     hooks: {
       'astro:config:setup': ({ config }) => {
         const resolvedOptions = resolveOptions(options ?? {})
