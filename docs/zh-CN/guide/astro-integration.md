@@ -42,10 +42,11 @@ export default defineConfig({
 
 ## 缺陷
 
-目前如果你想使用 `shortVModel`，你需要显式地配置 `vue.template.compilerOptions.nodeTransforms`:
+[`shortVmodel`](../macros/short-vmodel.md) 和 [`booleanProp`](../features/boolean-prop.md) 需要被显式添加到   `template.compilerOptions.nodeTransforms` 中，没有办法通过集成自动注入。
 
-目前还不清楚为什么会这样，但我们很快解决这个问题。
+与 Vue 3 的使用方式一致。
 
+如下所示：
 
 ```ts
 import { defineConfig } from 'astro/config'
@@ -69,6 +70,6 @@ export default defineConfig({
 })
 ```
 
-:tada: 恭喜你! 现在已经成功完成了对 Nuxt 的集成过程。
+:tada: 恭喜你! 现在已经成功完成了对 Astro 的集成过程。
 
 如果你还想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:。

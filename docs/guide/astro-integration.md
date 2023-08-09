@@ -42,9 +42,12 @@ Same with [Bundler Integration](./bundler-integration.md#typescript-support)
 
 ## Limitations
 
-Currently if you want to use `shortVModel` you need to explicitly config the `vue.template.compilerOptions.nodeTransforms`:
+[`shortVmodel`](../macros/short-vmodel.md) and [`booleanProp`](../features/boolean-prop.md) need to be explicitly added to the `template.compilerOptions.nodeTransforms`, cannot be auto injected.
 
-Don't know why yet, but we will figure it out soon.
+
+Same with Vue 3 usage.
+
+For example:
 
 ```ts
 import { defineConfig } from 'astro/config'

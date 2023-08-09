@@ -144,15 +144,9 @@ importers:
 
   packages/astro:
     dependencies:
-      '@vue-macros/boolean-prop':
-        specifier: workspace:*
-        version: link:../boolean-prop
       '@vue-macros/common':
         specifier: workspace:~
         version: link:../common
-      '@vue-macros/short-vmodel':
-        specifier: workspace:*
-        version: link:../short-vmodel
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../macros
