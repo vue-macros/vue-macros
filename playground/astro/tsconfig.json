@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "preserve"
   },
   "vueCompilerOptions": {
     "plugins": [
@@ -21,15 +21,11 @@
         "prefix": "$"
       },
       "exportExpose": {
-        "include": [
-          "**/export-expose/**"
-        ]
+        "include": ["**/export-expose/**"]
       },
       "exportProps": {
-        "include": [
-          "**/export-props/**"
-        ]
+        "include": ["**/export-props/**"]
       }
     }
-  },
+  }
 }

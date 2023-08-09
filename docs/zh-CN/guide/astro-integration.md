@@ -1,6 +1,6 @@
-# Astro 集成 
+# Astro 集成
 
-### 安装 
+### 安装
 
 ::: code-group
 
@@ -18,7 +18,7 @@ pnpm add -D @vue-macros/astro
 
 :::
 
-## 配置 
+## 配置
 
 ```ts
 // astro.config.mjs
@@ -42,7 +42,7 @@ export default defineConfig({
 
 ## 缺陷
 
-[`shortVmodel`](../macros/short-vmodel.md) 和 [`booleanProp`](../features/boolean-prop.md) 需要被显式添加到   `template.compilerOptions.nodeTransforms` 中，没有办法通过集成自动注入。
+[`shortVmodel`](../macros/short-vmodel.md) 和 [`booleanProp`](../features/boolean-prop.md) 需要被显式添加到 `template.compilerOptions.nodeTransforms` 中，没有办法通过集成自动注入。
 
 与 Vue 3 的使用方式一致。
 
@@ -60,8 +60,8 @@ export default defineConfig({
       jsx: true,
       template: {
         compilerOptions: {
-          // 显式地配置 nodeTransforms 
-          nodeTransforms: [transformShortVmodel()]
+          // 显式地配置 nodeTransforms
+          nodeTransforms: [transformShortVmodel()],
         },
       },
     }),

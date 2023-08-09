@@ -44,7 +44,6 @@ Same with [Bundler Integration](./bundler-integration.md#typescript-support)
 
 [`shortVmodel`](../macros/short-vmodel.md) and [`booleanProp`](../features/boolean-prop.md) need to be explicitly added to the `template.compilerOptions.nodeTransforms`, cannot be auto injected.
 
-
 Same with Vue 3 usage.
 
 For example:
@@ -61,8 +60,8 @@ export default defineConfig({
       jsx: true,
       template: {
         compilerOptions: {
-          // explicit add transformShortVModel to node transforms 
-          nodeTransforms: [transformShortVmodel()]
+          // explicit add transformShortVModel to node transforms
+          nodeTransforms: [transformShortVmodel()],
         },
       },
     }),
