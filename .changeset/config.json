@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "vue-macros/vue-macros" }],
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "vue-macros/vue-macros" }
+  ],
   "commit": false,
   "fixed": [],
   "linked": [],

@@ -31,20 +31,17 @@ jobs:
       - name: Install
         run: nci
 
-      - name: Build
-        run: nr build
-
       - name: Lint
         run: nr lint
 
-      - name: Type Check
-        run: nr typecheck
+      - name: Format Check
+        run: nr format:check
 
   test:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node-version: [16, 18]
+        node-version: [16, 18, 20]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -68,6 +65,9 @@ jobs:
 
       - name: Build
         run: nr build
+
+      - name: Type Check
+        run: nr typecheck
 
       - name: Unit Test
         run: nr test
