@@ -8,8 +8,10 @@ let selected = $ref(0)
 
 export default () => (
   <>
-    {list.map((i, index) => __MACROS_withMemo([selected===i], () => <div key={index}>
-      <div>{i}: {selected}</div>
+    {list.map((i, index) => __MACROS_withMemo([selected === i], () => <div key={index}>
+      <div>
+        {i}: {selected}
+      </div>
     </div>, __MACROS_cache[0], 0 + index + 1))}
   </>
 )
@@ -24,8 +26,10 @@ let selected = $ref(0)
 
 defineRender(() => (
   <>
-    {list.map((i, __MACROS_index) => __MACROS_withMemo([selected===i], () => <div key={i}>
-      <div>{i}: {selected}</div>
+    {list.map((i, __MACROS_index) => __MACROS_withMemo([selected === i], () => <div key={i}>
+      <div>
+        {i}: {selected}
+      </div>
     </div>, __MACROS_cache[0], 0 + __MACROS_index + 1))}
   </>
 ))
@@ -38,7 +42,9 @@ exports[`jsx-vue-directive > v-memo > ./fixtures/v-memo/v-once.tsx 1`] = `
 import { withMemo as __MACROS_withMemo } from \\"vue\\";const __MACROS_cache = [];let selected = $ref(0)
 
 export default () => (
-  __MACROS_withMemo([], () => <div onClick={() => selected++}>{selected}</div>, __MACROS_cache, 0)
+  __MACROS_withMemo([], () => <div onClick={() => selected++}>
+    {selected}
+  </div>, __MACROS_cache, 0)
 )
 "
 `;
@@ -49,7 +55,9 @@ import { withMemo as __MACROS_withMemo } from \\"vue\\";const __MACROS_cache = [
 let selected = $ref(0)
 
 defineRender(() => (
-  __MACROS_withMemo([], () => <div onClick={() => selected++}>{selected}</div>, __MACROS_cache, 0)
+  __MACROS_withMemo([], () => <div onClick={() => selected++}>
+    {selected}
+  </div>, __MACROS_cache, 0)
 ))
 </script>
 "
