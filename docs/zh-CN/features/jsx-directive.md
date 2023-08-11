@@ -4,23 +4,14 @@
 
 在 `jsx` 中使用 Vue 指令.
 
-|  特性  |        支持        |
-| :----: | :----------------: |
-| Vue 3  | :white_check_mark: |
-| Nuxt 3 | :white_check_mark: |
-| Vue 2  | :white_check_mark: |
-| Volar  | :white_check_mark: |
-
-## Vue 指令
-
-|   指令    |       Vue 3        |       Vue 2        |
-| :-------: | :----------------: | :----------------: |
-|   v-if    | :white_check_mark: | :white_check_mark: |
-| v-else-if | :white_check_mark: | :white_check_mark: |
-|  v-else   | :white_check_mark: | :white_check_mark: |
-|   v-for   | :white_check_mark: | :white_check_mark: |
-|  v-once   | :white_check_mark: |        :x:         |
-|  v-memo   | :white_check_mark: |        :x:         |
+|   指令    |       Vue 3        |       Vue 2        |       Volar        |
+| :-------: | :----------------: | :----------------: | :----------------: |
+|   v-if    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| v-else-if | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|  v-else   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|   v-for   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|  v-once   | :white_check_mark: |        :x:         |                    |
+|  v-memo   | :white_check_mark: |        :x:         |                    |
 
 ## Usage
 
@@ -39,7 +30,7 @@ defineRender(() => (
       <div v-else>0-2</div>
     </div>
 
-    <div v-for={(i, index) in list} key={index}>
+    <div v-for={(i, index) in list} v-memo={[foo === i]} key={index}>
       {i}
     </div>
   </>
