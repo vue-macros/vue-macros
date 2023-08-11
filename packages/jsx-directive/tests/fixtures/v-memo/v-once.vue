@@ -2,6 +2,8 @@
 let selected = $ref(0)
 
 defineRender(() => (
-  <div v-once onClick={() => selected++}>{selected}</div>
+  <div v-once onClick={() => selected++}>
+    {selected}
+  </div>
 ))
 </script>

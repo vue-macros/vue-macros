@@ -4,8 +4,10 @@ let selected = $ref(0)
 
 defineRender(() => (
   <>
-    <div v-for={i in list} v-memo={[selected===i]} key={i}>
-      <div>{i}: {selected}</div>
+    <div v-for={i in list} v-memo={[selected === i]} key={i}>
+      <div>
+        {i}: {selected}
+      </div>
     </div>
   </>
 ))
