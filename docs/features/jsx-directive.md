@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-`v-if` and `v-for` directive for jsx.
+Vue Directive for jsx.
 
 | Features |     Supported      |
 | :------: | :----------------: |
@@ -10,6 +10,17 @@
 |  Nuxt 3  | :white_check_mark: |
 |  Vue 2   | :white_check_mark: |
 |  Volar   | :white_check_mark: |
+
+## Vue Directive
+
+|  Directive  |     Supported      |
+| :---------: | :----------------: |
+|  v-if       | :white_check_mark: |
+|  v-else-if  | :white_check_mark: |
+|  v-else     | :white_check_mark: |
+|  v-for      | :white_check_mark: |
+|  v-once     | :white_check_mark: |
+|  v-memo     | :white_check_mark: |
 
 ## Usage
 
@@ -34,4 +45,19 @@ defineRender(() => (
   </>
 ))
 </script>
+```
+
+## Volar Configuration
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/jsx-directive"
+      // ...more feature
+    ]
+  }
+}
 ```

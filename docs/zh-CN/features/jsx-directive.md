@@ -2,14 +2,25 @@
 
 <StabilityLevel level="experimental" />
 
-在 `jsx` 中使用 `v-if` 和 `v-for` 指令.
+在 `jsx` 中使用 Vue 指令.
 
-| Features |     Supported      |
+|   特性    |       支持         |
 | :------: | :----------------: |
 |  Vue 3   | :white_check_mark: |
 |  Nuxt 3  | :white_check_mark: |
 |  Vue 2   | :white_check_mark: |
 |  Volar   | :white_check_mark: |
+
+## Vue 指令
+
+|    指令     |       支持         |
+| :---------: | :----------------: |
+|  v-if       | :white_check_mark: |
+|  v-else-if  | :white_check_mark: |
+|  v-else     | :white_check_mark: |
+|  v-for      | :white_check_mark: |
+|  v-once     | :white_check_mark: |
+|  v-memo     | :white_check_mark: |
 
 ## Usage
 
@@ -34,4 +45,19 @@ defineRender(() => (
   </>
 ))
 </script>
+```
+
+## Volar Configuration
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/jsx-directive"
+      // ...更多功能
+    ]
+  }
+}
 ```

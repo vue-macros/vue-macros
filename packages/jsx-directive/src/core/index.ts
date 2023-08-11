@@ -15,10 +15,11 @@ import {
 } from '@vue-macros/common'
 import { transformVIf } from './v-if'
 import { transformVFor } from './v-for'
+import { transformVMemo } from './v-memo'
 
 export type JsxDirectiveNode = {
   node: JSXElement
-  attribute: JSXAttribute
+  attribute: JSXAttribute & { matched?: RegExpMatchArray | null }
   parent?: Node | null
 }
 
@@ -47,16 +48,20 @@ export function transformJsxDirective(code: string, id: string) {
 
   const s = new MagicString(code)
   for (const { ast, offset } of asts) {
-    if (!/\s(v-if|v-for)=/.test(s.sliceNode(ast, { offset }))) continue
+    if (!/\sv-(if|for|memo|once)/.test(s.sliceNode(ast, { offset }))) continue
 
-    const vForNodes: JsxDirectiveNode[] = []
     const vIfMap = new Map<Node, JsxDirectiveNode[]>()
+    const vForNodes: JsxDirectiveNode[] = []
+    const vMemoNodes: (JsxDirectiveNode & {
+      vForAttribute?: JSXAttribute
+    })[] = []
     walkAST<Node>(ast, {
       enter(node, parent) {
         if (node.type !== 'JSXElement') return
 
         let vIfAttribute
         let vForAttribute
+        let vMemoAttribute
         for (const attribute of node.openingElement.attributes) {
           if (attribute.type !== 'JSXAttribute') continue
           if (
@@ -64,6 +69,8 @@ export function transformJsxDirective(code: string, id: string) {
           )
             vIfAttribute = attribute
           if (attribute.name.name === 'v-for') vForAttribute = attribute
+          if (['v-memo', 'v-once'].includes(`${attribute.name.name}`))
+            vMemoAttribute = attribute
         }
 
         if (vIfAttribute) {
@@ -81,11 +88,20 @@ export function transformJsxDirective(code: string, id: string) {
             parent: vIfAttribute ? undefined : parent,
           })
         }
+        if (vMemoAttribute) {
+          vMemoNodes.push({
+            node,
+            attribute: vMemoAttribute,
+            parent: vForAttribute || vIfAttribute ? undefined : parent,
+            vForAttribute,
+          })
+        }
       },
     })
 
     vIfMap.forEach((nodes) => transformVIf(nodes, s, offset))
     transformVFor(vForNodes, s, offset)
+    transformVMemo(vMemoNodes, s, offset)
   }
 
   return generateTransform(s, id)
