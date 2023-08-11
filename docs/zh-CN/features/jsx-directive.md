@@ -13,14 +13,14 @@
 
 ## Vue 指令
 
-|    指令     |       支持         |
-| :---------: | :----------------: |
-|  v-if       | :white_check_mark: |
-|  v-else-if  | :white_check_mark: |
-|  v-else     | :white_check_mark: |
-|  v-for      | :white_check_mark: |
-|  v-once     | :white_check_mark: |
-|  v-memo     | :white_check_mark: |
+|    指令     |       Vue 3        |     Vue 2          |
+| :---------: | :----------------: | :----------------: |
+|  v-if       | :white_check_mark: | :white_check_mark: |
+|  v-else-if  | :white_check_mark: | :white_check_mark: |
+|  v-else     | :white_check_mark: | :white_check_mark: |
+|  v-for      | :white_check_mark: | :white_check_mark: |
+|  v-once     | :white_check_mark: |        :x:         |
+|  v-memo     | :white_check_mark: |        :x:         |
 
 ## Usage
 

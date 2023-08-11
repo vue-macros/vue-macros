@@ -12,8 +12,10 @@ export function transformVMemo(
   s: MagicString,
   offset = 0
 ) {
-  importHelperFn(s, offset, 'withMemo', 'vue')
-  s.prependRight(offset, `const ${HELPER_PREFIX}cache = [];`)
+  if (nodes.length > 0) {
+    importHelperFn(s, offset, 'withMemo', 'vue')
+    s.prependRight(offset, `const ${HELPER_PREFIX}cache = [];`)
+  }
 
   nodes.forEach(({ node, attribute, parent, vForAttribute }, _index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
