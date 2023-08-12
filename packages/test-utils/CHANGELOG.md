@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.1.1
+
+### Patch Changes
+
+- [`53cba0ed`](https://github.com/vue-macros/vue-macros/commit/53cba0ed582c260a6a7927953158e8ac0f1f3515) Thanks [@sxzz](https://github.com/sxzz)! - output asset source
+
 ## 1.1.0
 
 ### Minor Changes
