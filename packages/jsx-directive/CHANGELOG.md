@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.4.0
+
+### Minor Changes
+
+- [#456](https://github.com/vue-macros/vue-macros/pull/456) [`0f98d373`](https://github.com/vue-macros/vue-macros/commit/0f98d373baa4ee53018d283620c28ca9f3940f4a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - feat(jsx-directive): add v-memo & v-once directive
+
 ## 0.3.0
 
 ### Minor Changes
