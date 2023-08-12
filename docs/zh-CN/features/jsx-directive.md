@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-在 `jsx` 中使用 Vue 指令.
+在 JSX 中使用 Vue 内置指令。
 
 |   指令    |       Vue 3        |       Vue 2        |       Volar        |
 | :-------: | :----------------: | :----------------: | :----------------: |

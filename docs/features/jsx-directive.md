@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-Vue Directive for jsx.
+Vue built-in directives for JSX.
 
 | Directive |       Vue 3        |       Vue 2        |       Volar        |
 | :-------: | :----------------: | :----------------: | :----------------: |
