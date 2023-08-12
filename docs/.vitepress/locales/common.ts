@@ -49,6 +49,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
           link: `${urlPrefix}/guide/nuxt-integration`,
         },
         {
+          text: 'Astro Integration',
+          link: `${urlPrefix}/guide/astro-integration`,
+        },
+        {
           text: 'Configurations',
           link: `${urlPrefix}/guide/configurations`,
         },
