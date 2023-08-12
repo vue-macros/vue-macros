@@ -20,7 +20,7 @@ const list = [1, 2, 3]
 
 defineRender(() => (
   <>
-    {list.map(i => <div key={i}>
+    {list.map((i, __MACROS_index) => <div key={i}>
       <div>{i}</div>
     </div>)}
   </>
