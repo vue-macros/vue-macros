@@ -39,7 +39,7 @@ export default createUnplugin<Options | undefined, false>(
       },
 
       transform(code, id) {
-        return transformJsxDirective(code, id)
+        return transformJsxDirective(code, id, options.version)
       },
     }
   }

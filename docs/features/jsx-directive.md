@@ -12,6 +12,7 @@ Vue built-in directives for JSX.
 |   v-for   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 |  v-once   | :white_check_mark: |        :x:         |                    |
 |  v-memo   | :white_check_mark: |        :x:         |                    |
+|  v-html   | :white_check_mark: | :white_check_mark: |                    |
 
 ## Usage
 
