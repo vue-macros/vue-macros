@@ -16,6 +16,7 @@ import {
 import { transformVIf } from './v-if'
 import { transformVFor } from './v-for'
 import { transformVMemo } from './v-memo'
+import { transformVHtml } from './v-html'
 
 export type JsxDirectiveNode = {
   node: JSXElement
@@ -23,7 +24,11 @@ export type JsxDirectiveNode = {
   parent?: Node | null
 }
 
-export function transformJsxDirective(code: string, id: string) {
+export function transformJsxDirective(
+  code: string,
+  id: string,
+  version: number
+) {
   const lang = getLang(id)
   let asts: {
     ast: Program
@@ -48,13 +53,15 @@ export function transformJsxDirective(code: string, id: string) {
 
   const s = new MagicString(code)
   for (const { ast, offset } of asts) {
-    if (!/\sv-(if|for|memo|once)/.test(s.sliceNode(ast, { offset }))) continue
+    if (!/\sv-(if|for|memo|once|html)/.test(s.sliceNode(ast, { offset })))
+      continue
 
     const vIfMap = new Map<Node, JsxDirectiveNode[]>()
     const vForNodes: JsxDirectiveNode[] = []
     const vMemoNodes: (JsxDirectiveNode & {
       vForAttribute?: JSXAttribute
     })[] = []
+    const vHtmlNodes: JsxDirectiveNode[] = []
     walkAST<Node>(ast, {
       enter(node, parent) {
         if (node.type !== 'JSXElement') return
@@ -62,6 +69,7 @@ export function transformJsxDirective(code: string, id: string) {
         let vIfAttribute
         let vForAttribute
         let vMemoAttribute
+        let vHtmlAttribute
         for (const attribute of node.openingElement.attributes) {
           if (attribute.type !== 'JSXAttribute') continue
           if (
@@ -71,6 +79,7 @@ export function transformJsxDirective(code: string, id: string) {
           if (attribute.name.name === 'v-for') vForAttribute = attribute
           if (['v-memo', 'v-once'].includes(`${attribute.name.name}`))
             vMemoAttribute = attribute
+          if (attribute.name.name === 'v-html') vHtmlAttribute = attribute
         }
 
         if (vIfAttribute) {
@@ -96,12 +105,19 @@ export function transformJsxDirective(code: string, id: string) {
             vForAttribute,
           })
         }
+        if (vHtmlAttribute) {
+          vHtmlNodes.push({
+            node,
+            attribute: vHtmlAttribute,
+          })
+        }
       },
     })
 
     vIfMap.forEach((nodes) => transformVIf(nodes, s, offset))
     transformVFor(vForNodes, s, offset)
-    transformVMemo(vMemoNodes, s, offset)
+    version >= 3.2 && transformVMemo(vMemoNodes, s, offset)
+    transformVHtml(vHtmlNodes, s, offset, version)
   }
 
   return generateTransform(s, id)
