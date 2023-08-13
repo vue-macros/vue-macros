@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.5.0
+
+### Minor Changes
+
+- [#459](https://github.com/vue-macros/vue-macros/pull/459) [`13125bf5`](https://github.com/vue-macros/vue-macros/commit/13125bf5c53407a7dd03e136882f65a582d5bbe3) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - feat(jsx-directive): add v-html directive
+
 ## 0.4.0
 
 ### Minor Changes
