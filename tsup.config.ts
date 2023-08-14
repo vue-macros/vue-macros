@@ -46,5 +46,6 @@ export default defineConfig({
   define: {
     'import.meta.DEV': JSON.stringify(!!process.env.DEV),
   },
+  // @ts-expect-error esbuild version of tsup is outdated
   esbuildPlugins: [EsbuildRawPlugin],
 })
