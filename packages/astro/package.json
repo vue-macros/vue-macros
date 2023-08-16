@@ -10,8 +10,7 @@
     "sfc",
     "setup",
     "script-setup",
-    "astro",
-    "astro-integration"
+    "astro"
   ],
   "license": "MIT",
   "homepage": "https://github.com/vue-macros/vue-macros#readme",
@@ -36,10 +35,6 @@
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "types": {
-        "require": "./dist/index.d.ts",
-        "import": "./dist/index.d.mts"
-      },
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },

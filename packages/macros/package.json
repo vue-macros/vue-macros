@@ -34,46 +34,26 @@
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "types": {
-        "require": "./dist/index.d.ts",
-        "import": "./dist/index.d.mts"
-      },
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
-      "types": {
-        "require": "./dist/esbuild.d.ts",
-        "import": "./dist/esbuild.d.mts"
-      },
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
     "./rollup": {
       "dev": "./src/rollup.ts",
-      "types": {
-        "require": "./dist/rollup.d.ts",
-        "import": "./dist/rollup.d.mts"
-      },
       "require": "./dist/rollup.js",
       "import": "./dist/rollup.mjs"
     },
     "./vite": {
       "dev": "./src/vite.ts",
-      "types": {
-        "require": "./dist/vite.d.ts",
-        "import": "./dist/vite.d.mts"
-      },
       "require": "./dist/vite.js",
       "import": "./dist/vite.mjs"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
-      "types": {
-        "require": "./dist/webpack.d.ts",
-        "import": "./dist/webpack.d.mts"
-      },
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },

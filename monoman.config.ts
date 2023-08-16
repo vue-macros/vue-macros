@@ -29,6 +29,7 @@ export default defineConfig([
         volar: 'Volar plugin for Vue Macros.',
         devtools: 'Devtools plugin for Vue Macros.',
         api: 'General API for Vue Macros.',
+        astro: 'Astro integration of Vue Macros.',
       }
       if (!data.private) {
         data.description =
@@ -92,16 +93,9 @@ export default defineConfig([
                 const key = entry === 'index' ? '.' : `./${entry}`
                 const exports: Record<string, any> = {
                   dev: `./src/${entry}.ts`,
-                  types: {},
                 }
-                if (hasCJS) {
-                  exports.types.require = `./dist/${entry}.d.${cjsPrefix}ts`
-                  exports.require = `./dist/${entry}.${cjsPrefix}js`
-                }
-                if (hasESM) {
-                  exports.types.import = `./dist/${entry}.d.${esmPrefix}ts`
-                  exports.import = `./dist/${entry}.${esmPrefix}js`
-                }
+                if (hasCJS) exports.require = `./dist/${entry}.${cjsPrefix}js`
+                if (hasESM) exports.import = `./dist/${entry}.${esmPrefix}js`
 
                 return [key, exports] as const
               })
