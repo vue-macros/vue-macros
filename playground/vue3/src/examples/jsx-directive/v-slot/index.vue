@@ -6,14 +6,16 @@ defineRender(() => (
     <legend>v-slot</legend>
 
     <Child>
-      default: begin
-      <template v-slot:bottom={props}>
-        <div>{props.foo}</div>
+      <div>default: begin</div>
+
+      <template v-slot:bottom={{ foo }}>
+        bottom:{' '}
+        <Child v-if={foo} v-slot:bottom={props}>
+          {props.foo + foo}
+        </Child>
       </template>
-      <Child class="ml-3" v-slot={{ foo }}>
-        {foo}
-      </Child>
-      default: end
+
+      <div>default: end</div>
     </Child>
   </fieldset>
 ))

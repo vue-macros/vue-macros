@@ -7,14 +7,13 @@ export function transformVSlot(
   offset = 0
 ) {
   nodes.reverse().forEach((node) => {
-    if (node.children.length === 0) return
-
     const attribute = node.openingElement.attributes.find(
       (attribute) =>
         attribute.type === 'JSXAttribute' &&
         (attribute.name.type === 'JSXNamespacedName'
-          ? attribute.name.namespace.name
-          : attribute.name.name) === 'v-slot'
+          ? attribute.name.namespace
+          : attribute.name
+        ).name === 'v-slot'
     )
 
     const slots =
@@ -25,6 +24,7 @@ export function transformVSlot(
                 ? attribute.name.name.name
                 : 'default'
             }`]: {
+              isTemplateTag: false,
               expressionContainer: attribute.value,
               children: node.children,
             },
@@ -34,50 +34,70 @@ export function transformVSlot(
       for (const child of node.children) {
         let name = 'default'
         let expressionContainer
+        const isTemplateTag =
+          child.type === 'JSXElement' &&
+          child.openingElement.name.type === 'JSXIdentifier' &&
+          child.openingElement.name.name === 'template'
+
         if (child.type === 'JSXElement') {
           for (const attr of child.openingElement.attributes) {
             if (attr.type !== 'JSXAttribute') continue
-            if (
-              child.openingElement.name.type === 'JSXIdentifier' &&
-              child.openingElement.name.name === 'template' &&
-              attr.name.type === 'JSXNamespacedName'
-            ) {
-              name = attr.name.name.name
+            if (isTemplateTag) {
+              name =
+                attr.name.type === 'JSXNamespacedName'
+                  ? attr.name.name.name
+                  : 'default'
             }
 
-            if (attr.value?.type === 'JSXExpressionContainer') {
+            if (
+              (attr.name.type === 'JSXNamespacedName'
+                ? attr.name.namespace
+                : attr.name
+              ).name === 'v-slot'
+            )
               expressionContainer = attr.value
-            }
           }
         }
 
-        ;(slots[name] ??= {
+        slots[name] ??= {
+          isTemplateTag,
           expressionContainer,
-          children: [],
-        }).children.push(child)
+          children: [child],
+        }
+        if (!slots[name].isTemplateTag) {
+          slots[name].expressionContainer = expressionContainer
+          slots[name].isTemplateTag = isTemplateTag
+          if (isTemplateTag) {
+            slots[name].children = [child]
+          } else {
+            slots[name].children.push(child)
+          }
+        }
       }
     }
 
     const result = `v-slots={{${Object.entries(slots)
-      .map(([name, { expressionContainer, children }]) => {
-        return `
-        '${name}': (${
-          expressionContainer?.type === 'JSXExpressionContainer'
-            ? s.sliceNode(expressionContainer.expression, { offset })
-            : ''
-        }) => <>${children
-          .map((child: any) => {
-            const result = s.sliceNode(
-              name !== 'default' && child.type === 'JSXElement'
-                ? child.children
-                : child,
-              { offset }
-            )
-            s.removeNode(child, { offset })
-            return result
-          })
-          .join('')}</>`
-      })
+      .map(
+        ([name, { expressionContainer, children }]) =>
+          `'${name}': (${
+            expressionContainer?.type === 'JSXExpressionContainer'
+              ? s.sliceNode(expressionContainer.expression, { offset })
+              : ''
+          }) => <>${children
+            .map((child) => {
+              const result = s.sliceNode(
+                child.type === 'JSXElement' &&
+                  child.openingElement.name.type === 'JSXIdentifier' &&
+                  child.openingElement.name.name === 'template'
+                  ? child.children
+                  : child,
+                { offset }
+              )
+              s.removeNode(child, { offset })
+              return result
+            })
+            .join('')}</>`
+      )
       .join(',')}}}`
 
     if (attribute) {

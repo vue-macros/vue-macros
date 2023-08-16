@@ -88,8 +88,9 @@ export function transformJsxDirective(
           }
           if (
             (attribute.name.type === 'JSXNamespacedName'
-              ? attribute.name.namespace.name
-              : attribute.name.name) === 'v-slot'
+              ? attribute.name.namespace
+              : attribute.name
+            ).name === 'v-slot'
           ) {
             vSlotSet.add(
               node.openingElement.name.type === 'JSXIdentifier' &&

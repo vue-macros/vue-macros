@@ -1,15 +1,13 @@
 <script setup lang="tsx">
 defineSlots<{
-  default: (props: { foo: string }) => any
-  bottom: (props: { foo: string }) => any
+  default: () => any
+  bottom: (props: { foo: 1 }) => any
 }>()
 </script>
 
 <template>
-  <div>
-    <slot v-bind="{ foo: 'default' }" />
-    <div>
-      <slot name="bottom" v-bind="{ foo: 'bottom' }" />
-    </div>
-  </div>
+  <span>
+    <slot />
+    <slot name="bottom" v-bind="{ foo: 1 }" />
+  </span>
 </template>
