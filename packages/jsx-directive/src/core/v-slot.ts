@@ -4,7 +4,8 @@ import { type JSXElement } from '@babel/types'
 export function transformVSlot(
   nodes: JSXElement[],
   s: MagicString,
-  offset = 0
+  offset = 0,
+  version: number
 ) {
   nodes.reverse().forEach((node) => {
     const attribute = node.openingElement.attributes.find(
@@ -76,14 +77,16 @@ export function transformVSlot(
       }
     }
 
-    const result = `v-slots={{${Object.entries(slots)
+    const result = `${
+      version < 3 ? 'scopedSlots' : 'v-slots'
+    }={{${Object.entries(slots)
       .map(
         ([name, { expressionContainer, children }]) =>
           `'${name}': (${
             expressionContainer?.type === 'JSXExpressionContainer'
               ? s.sliceNode(expressionContainer.expression, { offset })
               : ''
-          }) => <>${children
+          }) => ${version < 3 ? '<span>' : '<>'}${children
             .map((child) => {
               const result = s.sliceNode(
                 child.type === 'JSXElement' &&
@@ -96,7 +99,7 @@ export function transformVSlot(
               s.removeNode(child, { offset })
               return result
             })
-            .join('')}</>`
+            .join('')}${version < 3 ? '</span>' : '</>'}`
       )
       .join(',')}}}`
 
