@@ -20,8 +20,10 @@ import { transformVHtml } from './v-html'
 
 export type JsxDirectiveNode = {
   node: JSXElement
-  attribute: JSXAttribute & { matched?: RegExpMatchArray | null }
+  attribute: JSXAttribute
   parent?: Node | null
+  vForAttribute?: JSXAttribute
+  vMemoAttribute?: JSXAttribute
 }
 
 export function transformJsxDirective(
@@ -95,6 +97,7 @@ export function transformJsxDirective(
             node,
             attribute: vForAttribute,
             parent: vIfAttribute ? undefined : parent,
+            vMemoAttribute,
           })
         }
         if (vMemoAttribute) {

@@ -6,18 +6,15 @@ import {
 import { type JsxDirectiveNode } from '.'
 
 export function transformVMemo(
-  nodes: (JsxDirectiveNode & {
-    vForAttribute?: JsxDirectiveNode['attribute']
-  })[],
+  nodes: JsxDirectiveNode[],
   s: MagicString,
   offset = 0
 ) {
-  if (nodes.length > 0) {
-    importHelperFn(s, offset, 'withMemo', 'vue')
-    s.prependRight(offset, `const ${HELPER_PREFIX}cache = [];`)
-  }
+  if (nodes.length === 0) return
+  importHelperFn(s, offset, 'withMemo', 'vue')
+  s.prependRight(offset, `const ${HELPER_PREFIX}cache = [];`)
 
-  nodes.forEach(({ node, attribute, parent, vForAttribute }, _index) => {
+  nodes.forEach(({ node, attribute, parent, vForAttribute }, nodeIndex) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
 
     s.appendLeft(
@@ -32,13 +29,22 @@ export function transformVMemo(
       }, () => `
     )
 
-    let index = `${_index}`
+    let index = `${nodeIndex}`
     let cache = `${HELPER_PREFIX}cache`
-    if (vForAttribute?.matched) {
+    let vForIndex = `${HELPER_PREFIX}index`
+    if (vForAttribute?.value?.type === 'JSXExpressionContainer') {
+      if (
+        vForAttribute.value.expression.type === 'BinaryExpression' &&
+        vForAttribute.value.expression.left.type === 'SequenceExpression' &&
+        vForAttribute.value.expression.left.expressions[1].type === 'Identifier'
+      )
+        vForIndex = vForAttribute.value.expression.left.expressions[1].name
+
       cache += `[${index}]`
       s.appendRight(offset, `${cache} = [];`)
-      index += ` + ${vForAttribute.matched[2]} + 1`
+      index += ` + ${vForIndex} + 1`
     }
+
     s.prependRight(
       node.end! + offset,
       `, ${cache}, ${index})${hasScope ? '}' : ''}`
