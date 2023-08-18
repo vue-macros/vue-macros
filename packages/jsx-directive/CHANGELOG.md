@@ -1,5 +1,15 @@
 # @vue-macros/jsx-directive
 
+## 0.6.0
+
+### Minor Changes
+
+- [#463](https://github.com/vue-macros/vue-macros/pull/463) [`8ad8454e`](https://github.com/vue-macros/vue-macros/commit/8ad8454e89cb7e7b66fa0e2660d62cd3fac147bb) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Add v-slot directive.
+
+### Patch Changes
+
+- [#464](https://github.com/vue-macros/vue-macros/pull/464) [`e79e3e4b`](https://github.com/vue-macros/vue-macros/commit/e79e3e4b1cf5ab21128dd1478419bc001ca27d41) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-for directive supports Map and Set.
+
 ## 0.5.0
 
 ### Minor Changes
