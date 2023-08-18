@@ -1,13 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`jsx-vue-directive > v-for > ./fixtures/v-for/v-for.tsx 1`] = `
-"
-import { renderList as __MACROS_renderList } from \\"vue\\";// @ts-nocheck
+"// @ts-nocheck
 const list = [1, 2, 3]
 
 export default () => (
   <>
-    {__MACROS_renderList(list, (i, index) => <div key={index}>
+    {Array.from(list, (i, index) => <div key={index}>
       <div>{i}</div>
     </div>)}
   </>
@@ -17,7 +16,6 @@ export default () => (
 
 exports[`jsx-vue-directive > v-for > ./fixtures/v-for/v-for.vue 1`] = `
 "<script setup lang=\\"tsx\\">
-import { renderList as __MACROS_renderList } from \\"vue\\";
 const map = new Map([
   [1, '2'],
   [3, '4'],
@@ -27,27 +25,27 @@ const object = { id: 1, name: 'admin' }
 
 defineRender(() => (
   <>
-    {__MACROS_renderList(4, (i) => <div key={i}>
+    {Array.from(4, (i) => <div key={i}>
       <div>{i}</div>
     </div>)}
 
-    {__MACROS_renderList(object, (value, key, index) => <div key={index}>
+    {Array.from(object, (value, key, index) => <div key={index}>
       {key}: {value}
     </div>)}
 
-    {__MACROS_renderList([1, 2, 3][Symbol.iterator](), (i, index) => <div key={index}>
+    {Array.from([1, 2, 3][Symbol.iterator](), (i, index) => <div key={index}>
       <div>{i}</div>
     </div>)}
 
-    {__MACROS_renderList([1, 2, 3], (i) => <div key={i}>
+    {Array.from([1, 2, 3], (i) => <div key={i}>
       <div>{i}</div>
     </div>)}
 
-    {__MACROS_renderList(set, (i) => <div key={i}>
+    {Array.from(set, (i) => <div key={i}>
       <div>{i}</div>
     </div>)}
 
-    {__MACROS_renderList(map, ([key, value], index) => <div key={index}>
+    {Array.from(map, ([key, value], index) => <div key={index}>
       <div>
         {key}: {value}
       </div>

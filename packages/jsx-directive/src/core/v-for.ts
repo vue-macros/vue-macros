@@ -8,10 +8,12 @@ import { type JsxDirectiveNode } from '.'
 export function transformVFor(
   nodes: JsxDirectiveNode[],
   s: MagicString,
-  offset = 0
+  offset = 0,
+  version: number
 ) {
   if (nodes.length === 0) return
-  const renderList = importHelperFn(s, offset, 'renderList', 'vue')
+  const renderList =
+    version < 3 ? 'Array.from' : importHelperFn(s, offset, 'renderList', 'vue')
 
   nodes.forEach(({ node, attribute, parent, vMemoAttribute }) => {
     if (!attribute.value) return
