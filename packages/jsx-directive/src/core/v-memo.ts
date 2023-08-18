@@ -11,7 +11,7 @@ export function transformVMemo(
   offset = 0
 ) {
   if (nodes.length === 0) return
-  importHelperFn(s, offset, 'withMemo', 'vue')
+  const withMemo = importHelperFn(s, offset, 'withMemo', 'vue')
   s.prependRight(offset, `const ${HELPER_PREFIX}cache = [];`)
 
   nodes.forEach(({ node, attribute, parent, vForAttribute }, nodeIndex) => {
@@ -19,7 +19,7 @@ export function transformVMemo(
 
     s.appendLeft(
       node.start! + offset,
-      `${hasScope ? '{' : ''}${HELPER_PREFIX}withMemo(${
+      `${hasScope ? '{' : ''}${withMemo}(${
         attribute.value
           ? s.slice(
               attribute.value.start! + offset + 1,
