@@ -106,13 +106,14 @@ function transformVFor({
       node.pos,
       node.pos,
       `${parent ? '{' : ' '}`,
+      'Array.from(',
       [
         listText,
         source,
         attribute.end - listText.length - 1,
         FileRangeCapabilities.full,
       ],
-      '.map(',
+      ').map(',
       [itemText, source, attribute.pos + 8, FileRangeCapabilities.full],
       ' => '
     )

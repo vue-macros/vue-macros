@@ -6,7 +6,7 @@ const list = [1, 2, 3]
 
 export default () => (
   <>
-    {list.map((i, index) => <div key={index}>
+    {Array.from(list).map((i, index) => <div key={index}>
       <div>{i}</div>
     </div>)}
   </>
@@ -16,13 +16,27 @@ export default () => (
 
 exports[`jsx-vue-directive > v-for > ./fixtures/v-for/v-for.vue 1`] = `
 "<script setup lang=\\"tsx\\">
-const list = [1, 2, 3]
+const map = new Map([
+  [1, '2'],
+  [3, '4'],
+])
+const set = new Set(['1', '2', '3'])
 
 defineRender(() => (
   <>
-    {list.map((i, __MACROS_index) => <div key={i}>
+    {Array.from([1, 2, 3]).map((i) => <div key={i}>
       <div>{i}</div>
     </div>)}
+
+    {Array.from(set).map((i) => <div key={i}>
+      <div>{i}</div>
+    </div>)}
+
+    <div v-for={([key, value], index) in map} key={index}>
+      <div>
+        {key}: {value}
+      </div>
+    </div>
   </>
 ))
 </script>

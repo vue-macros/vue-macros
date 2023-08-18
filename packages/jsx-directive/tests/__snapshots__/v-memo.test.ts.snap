@@ -8,7 +8,7 @@ let selected = $ref(0)
 
 export default () => (
   <>
-    {list.map((i, index) => __MACROS_withMemo([selected === i], () => <div key={index}>
+    {Array.from(list).map((i, index) => __MACROS_withMemo([selected === i], () => <div key={index}>
       <div>
         {i}: {selected}
       </div>
@@ -26,7 +26,7 @@ let selected = $ref(0)
 
 defineRender(() => (
   <>
-    {list.map((i, __MACROS_index) => __MACROS_withMemo([selected === i], () => <div key={i}>
+    {Array.from(list).map((i, __MACROS_index) => __MACROS_withMemo([selected === i], () => <div key={i}>
       <div>
         {i}: {selected}
       </div>
