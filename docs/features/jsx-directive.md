@@ -13,11 +13,14 @@ Vue built-in directives for JSX.
 |  v-once   | :white_check_mark: |        :x:         |                    |
 |  v-memo   | :white_check_mark: |        :x:         |                    |
 |  v-html   | :white_check_mark: | :white_check_mark: |                    |
+|  v-slot   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ## Usage
 
 ```vue
 <script setup lang="tsx">
+import Child from './Child.vue'
+
 const { foo, list } = defineProps<{
   foo: number
   list: number[]
@@ -34,6 +37,8 @@ defineRender(() => (
     <div v-for={(i, index) in list} v-memo={[foo === i]} key={index}>
       {i}
     </div>
+
+    <Child v-slot={props}>{props}</Child>
   </>
 ))
 </script>

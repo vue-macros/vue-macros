@@ -128,9 +128,142 @@ function transformVFor({
   })
 }
 
+function transformVSlot({
+  nodes,
+  codes,
+  ts,
+  sfc,
+  source,
+}: TransformOptions & {
+  nodes: import('typescript/lib/tsserverlibrary').JsxElement[]
+}) {
+  nodes.forEach((node) => {
+    if (!ts.isIdentifier(node.openingElement.tagName)) return
+
+    const attribute = node.openingElement.attributes.properties.find(
+      (attribute) =>
+        ts.isJsxAttribute(attribute) &&
+        (ts.isJsxNamespacedName(attribute.name)
+          ? attribute.name.namespace
+          : attribute.name
+        ).escapedText === 'v-slot'
+    )
+
+    const slots =
+      attribute && ts.isJsxAttribute(attribute)
+        ? {
+            [`${
+              ts.isJsxNamespacedName(attribute.name)
+                ? attribute.name.name.escapedText
+                : 'default'
+            }`]: {
+              isTemplateTag: false,
+              initializer: attribute.initializer,
+              children: [...node.children],
+            },
+          }
+        : {}
+    if (!attribute) {
+      for (const child of node.children) {
+        let name = 'default'
+        let initializer
+        const isTemplateTag =
+          ts.isJsxElement(child) &&
+          ts.isIdentifier(child.openingElement.tagName) &&
+          child.openingElement.tagName.escapedText === 'template'
+
+        if (ts.isJsxElement(child)) {
+          for (const attr of child.openingElement.attributes.properties) {
+            if (!ts.isJsxAttribute(attr)) continue
+            if (isTemplateTag) {
+              name = ts.isJsxNamespacedName(attr.name)
+                ? `${attr.name.name.escapedText}`
+                : 'default'
+            }
+
+            if (
+              (ts.isJsxNamespacedName(attr.name)
+                ? attr.name.namespace
+                : attr.name
+              ).escapedText === 'v-slot'
+            )
+              initializer = attr.initializer
+          }
+        }
+
+        slots[name] ??= {
+          isTemplateTag,
+          initializer,
+          children: [child],
+        }
+        if (!slots[name].isTemplateTag) {
+          slots[name].initializer = initializer
+          slots[name].isTemplateTag = isTemplateTag
+          if (isTemplateTag) {
+            slots[name].children = [child]
+          } else {
+            slots[name].children.push(child)
+          }
+        }
+      }
+    }
+
+    const result = [
+      ' v-slots={{',
+      ...Object.entries(slots).flatMap(([name, { initializer, children }]) => [
+        `'${name}': (`,
+        initializer && ts.isJsxExpression(initializer) && initializer.expression
+          ? [
+              `${sfc[source]!.content.slice(
+                initializer.expression.pos,
+                initializer.expression.end
+              )}`,
+              source,
+              initializer.expression.pos,
+              FileRangeCapabilities.full,
+            ]
+          : '',
+        ') => <>',
+        ...children.map((child) => {
+          const node =
+            ts.isJsxElement(child) &&
+            ts.isIdentifier(child.openingElement.tagName) &&
+            child.openingElement.tagName.escapedText === 'template'
+              ? child.children
+              : child
+          replaceSourceRange(codes, source, child.pos, child.end)
+          return [
+            sfc[source]!.content.slice(node.pos, node.end),
+            source,
+            node.pos,
+            FileRangeCapabilities.full,
+          ]
+        }),
+        '</>,',
+      ]),
+      `} as InstanceType<typeof ${node.openingElement.tagName.escapedText}>['$slots'] }`,
+    ] as Segment<FileRangeCapabilities>[]
+
+    if (attribute) {
+      replaceSourceRange(codes, source, attribute.pos, attribute.end, ...result)
+    } else {
+      replaceSourceRange(
+        codes,
+        source,
+        node.openingElement.end - 1,
+        node.openingElement.end - 1,
+        ...result
+      )
+    }
+  })
+}
+
 function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
-  const vIfMap = new Map<any, JsxAttributeNode[]>()
-  const vForNodes: JsxAttributeNode[] = []
+  const vIfAttributeMap = new Map<any, JsxAttributeNode[]>()
+  const vForAttributes: JsxAttributeNode[] = []
+  const vSlotNodeSet = new Set<
+    import('typescript/lib/tsserverlibrary').JsxElement
+  >()
   function walkJsxDirective(
     node: import('typescript/lib/tsserverlibrary').Node,
     parent?: import('typescript/lib/tsserverlibrary').Node
@@ -143,22 +276,41 @@ function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
     let vIfAttribute
     let vForAttribute
     for (const attribute of properties) {
-      if (!ts.isJsxAttribute(attribute) || !ts.isIdentifier(attribute.name))
-        continue
-      if (['v-if', 'v-else-if', 'v-else'].includes(attribute.name.escapedText!))
-        vIfAttribute = attribute
-      else if (attribute.name.escapedText === 'v-for') vForAttribute = attribute
+      if (!ts.isJsxAttribute(attribute)) continue
+      if (ts.isIdentifier(attribute.name)) {
+        if (
+          ['v-if', 'v-else-if', 'v-else'].includes(attribute.name.escapedText!)
+        )
+          vIfAttribute = attribute
+        if (attribute.name.escapedText === 'v-for') vForAttribute = attribute
+      }
+      if (
+        (ts.isJsxNamespacedName(attribute.name)
+          ? attribute.name.namespace
+          : attribute.name
+        ).escapedText === 'v-slot' &&
+        ts.isJsxElement(node)
+      ) {
+        vSlotNodeSet.add(
+          ts.isIdentifier(node.openingElement.tagName) &&
+            node.openingElement.tagName.escapedText === 'template' &&
+            parent &&
+            ts.isJsxElement(parent)
+            ? parent
+            : node
+        )
+      }
     }
     if (vIfAttribute) {
-      if (!vIfMap.has(parent!)) vIfMap.set(parent!, [])
-      vIfMap.get(parent!)?.push({
+      if (!vIfAttributeMap.has(parent!)) vIfAttributeMap.set(parent!, [])
+      vIfAttributeMap.get(parent!)?.push({
         node,
         attribute: vIfAttribute,
         parent,
       })
     }
     if (vForAttribute) {
-      vForNodes.push({
+      vForAttributes.push({
         node,
         attribute: vForAttribute,
         parent: vIfAttribute ? undefined : parent,
@@ -174,8 +326,11 @@ function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
   }
   sfc[`${source}Ast`]!.forEachChild(walkJsxDirective)
 
-  transformVFor({ nodes: vForNodes, codes, sfc, ts, source })
-  vIfMap.forEach((nodes) => transformVIf({ nodes, codes, sfc, ts, source }))
+  transformVSlot({ nodes: Array.from(vSlotNodeSet), codes, sfc, ts, source })
+  transformVFor({ nodes: vForAttributes, codes, sfc, ts, source })
+  vIfAttributeMap.forEach((nodes) =>
+    transformVIf({ nodes, codes, sfc, ts, source })
+  )
 }
 
 const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
@@ -186,7 +341,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (!/\s(v-if|v-for)=/.test(`${sfc[source]?.content}`)) continue
+        if (!/\sv-(if|for|slot)/.test(`${sfc[source]?.content}`)) continue
 
         transformJsxDirective({
           codes: embeddedFile.content,

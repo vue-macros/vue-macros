@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/index.vue 1`] = `
+"<script setup lang=\\"tsx\\">
+import Child from './child.vue'
+
+defineRender(() => (
+  <div>
+    <Child scopedSlots={{'bottom': ({ foo }) => <span>
+      {foo}
+      <Child scopedSlots={{'default': () => <span>default</span>}}></Child>
+    </span>}}></Child>
+  </div>
+))
+</script>
+"
+`;
+
+exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/index.vue 1`] = `
+"<script setup lang=\\"tsx\\">
+import Child from './child.vue'
+
+defineRender(() => (
+  <div>
+    <Child v-slots={{'bottom': ({ foo }) => <>
+      {foo}
+      <Child v-slots={{'default': () => <>default</>}}></Child>
+    </>}}></Child>
+  </div>
+))
+</script>
+"
+`;

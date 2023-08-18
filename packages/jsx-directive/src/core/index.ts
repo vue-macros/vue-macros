@@ -17,6 +17,7 @@ import { transformVIf } from './v-if'
 import { transformVFor } from './v-for'
 import { transformVMemo } from './v-memo'
 import { transformVHtml } from './v-html'
+import { transformVSlot } from './v-slot'
 
 export type JsxDirectiveNode = {
   node: JSXElement
@@ -53,7 +54,7 @@ export function transformJsxDirective(
 
   const s = new MagicString(code)
   for (const { ast, offset } of asts) {
-    if (!/\sv-(if|for|memo|once|html)/.test(s.sliceNode(ast, { offset })))
+    if (!/\sv-(if|for|memo|once|html|slot)/.test(s.sliceNode(ast, { offset })))
       continue
 
     const vIfMap = new Map<Node, JsxDirectiveNode[]>()
@@ -62,6 +63,7 @@ export function transformJsxDirective(
       vForAttribute?: JSXAttribute
     })[] = []
     const vHtmlNodes: JsxDirectiveNode[] = []
+    const vSlotSet = new Set<JSXElement>()
     walkAST<Node>(ast, {
       enter(node, parent) {
         if (node.type !== 'JSXElement') return
@@ -69,7 +71,6 @@ export function transformJsxDirective(
         let vIfAttribute
         let vForAttribute
         let vMemoAttribute
-        let vHtmlAttribute
         for (const attribute of node.openingElement.attributes) {
           if (attribute.type !== 'JSXAttribute') continue
           if (
@@ -79,7 +80,26 @@ export function transformJsxDirective(
           if (attribute.name.name === 'v-for') vForAttribute = attribute
           if (['v-memo', 'v-once'].includes(`${attribute.name.name}`))
             vMemoAttribute = attribute
-          if (attribute.name.name === 'v-html') vHtmlAttribute = attribute
+          if (attribute.name.name === 'v-html') {
+            vHtmlNodes.push({
+              node,
+              attribute,
+            })
+          }
+          if (
+            (attribute.name.type === 'JSXNamespacedName'
+              ? attribute.name.namespace
+              : attribute.name
+            ).name === 'v-slot'
+          ) {
+            vSlotSet.add(
+              node.openingElement.name.type === 'JSXIdentifier' &&
+                node.openingElement.name.name === 'template' &&
+                parent?.type === 'JSXElement'
+                ? parent
+                : node
+            )
+          }
         }
 
         if (vIfAttribute) {
@@ -105,12 +125,6 @@ export function transformJsxDirective(
             vForAttribute,
           })
         }
-        if (vHtmlAttribute) {
-          vHtmlNodes.push({
-            node,
-            attribute: vHtmlAttribute,
-          })
-        }
       },
     })
 
@@ -118,6 +132,7 @@ export function transformJsxDirective(
     transformVFor(vForNodes, s, offset)
     version >= 3.2 && transformVMemo(vMemoNodes, s, offset)
     transformVHtml(vHtmlNodes, s, offset, version)
+    transformVSlot(Array.from(vSlotSet), s, offset, version)
   }
 
   return generateTransform(s, id)
