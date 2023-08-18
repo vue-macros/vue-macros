@@ -132,7 +132,7 @@ export function transformJsxDirective(
     })
 
     vIfMap.forEach((nodes) => transformVIf(nodes, s, offset))
-    transformVFor(vForNodes, s, offset)
+    transformVFor(vForNodes, s, offset, version)
     version >= 3.2 && transformVMemo(vMemoNodes, s, offset)
     transformVHtml(vHtmlNodes, s, offset, version)
     transformVSlot(Array.from(vSlotSet), s, offset, version)
