@@ -187,23 +187,25 @@ function transformVSlot({
         ).escapedText === 'v-slot'
     )
 
-    const slots =
+    const slotMap = new Map(
       attribute && ts.isJsxAttribute(attribute)
-        ? {
-            [`${
+        ? [
+            [
               ts.isJsxNamespacedName(attribute.name)
-                ? attribute.name.name.escapedText
-                : 'default'
-            }`]: {
-              isTemplateTag: false,
-              initializer: attribute.initializer,
-              children: [...node.children],
-            },
-          }
-        : {}
+                ? attribute.name.name
+                : undefined,
+              {
+                isTemplateTag: false,
+                initializer: attribute.initializer,
+                children: [...node.children],
+              },
+            ],
+          ]
+        : []
+    )
     if (!attribute) {
       for (const child of node.children) {
-        let name = 'default'
+        let name
         let initializer
         const isTemplateTag =
           ts.isJsxElement(child) &&
@@ -215,8 +217,8 @@ function transformVSlot({
             if (!ts.isJsxAttribute(attr)) continue
             if (isTemplateTag) {
               name = ts.isJsxNamespacedName(attr.name)
-                ? `${attr.name.name.escapedText}`
-                : 'default'
+                ? attr.name.name
+                : undefined
             }
 
             if (
@@ -229,18 +231,21 @@ function transformVSlot({
           }
         }
 
-        slots[name] ??= {
-          isTemplateTag,
-          initializer,
-          children: [child],
+        if (!slotMap.get(name)) {
+          slotMap.set(name, {
+            isTemplateTag,
+            initializer,
+            children: [child],
+          })
         }
-        if (!slots[name].isTemplateTag) {
-          slots[name].initializer = initializer
-          slots[name].isTemplateTag = isTemplateTag
+        const slot = slotMap.get(name)!
+        if (slot && !slot?.isTemplateTag) {
+          slot.initializer = initializer
+          slot.isTemplateTag = isTemplateTag
           if (isTemplateTag) {
-            slots[name].children = [child]
+            slot.children = [child]
           } else {
-            slots[name].children.push(child)
+            slot.children.push(child)
           }
         }
       }
@@ -248,37 +253,49 @@ function transformVSlot({
 
     const result = [
       ' v-slots={{',
-      ...Object.entries(slots).flatMap(([name, { initializer, children }]) => [
-        `'${name}': (`,
-        initializer && ts.isJsxExpression(initializer) && initializer.expression
-          ? [
-              `${sfc[source]!.content.slice(
+      ...Array.from(slotMap.entries()).flatMap(
+        ([name, { initializer, children }]) => [
+          name
+            ? [
+                `'${name.escapedText}'`,
+                source,
+                name.pos - 1,
+                FileRangeCapabilities.full,
+              ]
+            : 'default',
+          `: (`,
+          initializer &&
+          ts.isJsxExpression(initializer) &&
+          initializer.expression
+            ? [
+                `${sfc[source]!.content.slice(
+                  initializer.expression.pos,
+                  initializer.expression.end
+                )}`,
+                source,
                 initializer.expression.pos,
-                initializer.expression.end
-              )}`,
+                FileRangeCapabilities.full,
+              ]
+            : '',
+          ') => <>',
+          ...children.map((child) => {
+            const node =
+              ts.isJsxElement(child) &&
+              ts.isIdentifier(child.openingElement.tagName) &&
+              child.openingElement.tagName.escapedText === 'template'
+                ? child.children
+                : child
+            replaceSourceRange(codes, source, child.pos, child.end)
+            return [
+              sfc[source]!.content.slice(node.pos, node.end),
               source,
-              initializer.expression.pos,
+              node.pos,
               FileRangeCapabilities.full,
             ]
-          : '',
-        ') => <>',
-        ...children.map((child) => {
-          const node =
-            ts.isJsxElement(child) &&
-            ts.isIdentifier(child.openingElement.tagName) &&
-            child.openingElement.tagName.escapedText === 'template'
-              ? child.children
-              : child
-          replaceSourceRange(codes, source, child.pos, child.end)
-          return [
-            sfc[source]!.content.slice(node.pos, node.end),
-            source,
-            node.pos,
-            FileRangeCapabilities.full,
-          ]
-        }),
-        '</>,',
-      ]),
+          }),
+          '</>,',
+        ]
+      ),
       `} as InstanceType<typeof ${node.openingElement.tagName.escapedText}>['$slots'] }`,
     ] as Segment<FileRangeCapabilities>[]
 
