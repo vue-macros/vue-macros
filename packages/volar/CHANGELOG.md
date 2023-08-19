@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.13.6
+
+### Patch Changes
+
+- [#468](https://github.com/vue-macros/vue-macros/pull/468) [`01132e00`](https://github.com/vue-macros/vue-macros/commit/01132e005aea6732b32036dbbd1c06bbb08af0e7) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - jsx-directive supports typescript for slotName
+
 ## 0.13.5
 
 ### Patch Changes
