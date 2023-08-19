@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.6.1
+
+### Patch Changes
+
+- [#466](https://github.com/vue-macros/vue-macros/pull/466) [`52b317b4`](https://github.com/vue-macros/vue-macros/commit/52b317b42816b01f4b55e568ce9acdd77b8e096f) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-for directive supports Integer, Object and Iterable Object.
+
 ## 0.6.0
 
 ### Minor Changes
