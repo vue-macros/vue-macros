@@ -4,16 +4,16 @@
 
 在 JSX 中使用 Vue 内置指令。
 
-|   指令    |       Vue 3        |       Vue 2        |       Volar        |
-| :-------: | :----------------: | :----------------: | :----------------: |
-|   v-if    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| v-else-if | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-|  v-else   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-|   v-for   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-|  v-once   | :white_check_mark: |        :x:         |                    |
-|  v-memo   | :white_check_mark: |        :x:         |                    |
-|  v-html   | :white_check_mark: | :white_check_mark: |                    |
-|  v-slot   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|    指令     |       Vue 3        |       Vue 2        |       Volar        |
+| :---------: | :----------------: | :----------------: | :----------------: |
+|   `v-if`    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| `v-else-if` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|  `v-else`   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|   `v-for`   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|  `v-slot`   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|  `v-html`   | :white_check_mark: | :white_check_mark: |         /          |
+|  `v-once`   | :white_check_mark: |        :x:         |         /          |
+|  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
 ## Usage
 
