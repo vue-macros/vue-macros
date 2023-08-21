@@ -21,5 +21,10 @@
   },
   "eslint.experimental.useFlatConfig": true,
 
-  "vue.server.reverseConfigFilePriority": true
+  "vue.server.reverseConfigFilePriority": true,
+  "exportall.config.semis": false,
+  "exportall.config.folderListener": [
+    "/packages/api/src/vue",
+    "/packages/api/src/ts"
+  ]
 }

@@ -4,6 +4,7 @@ import {
   babelParse,
   isStaticExpression,
   resolveLiteral,
+  resolveString,
 } from '@vue-macros/common'
 import {
   type CallExpression,
@@ -28,7 +29,6 @@ import {
   resolveTSReferencedType,
   resolveTSScope,
 } from '../ts'
-import { keyToString } from '../utils'
 import { type ASTDefinition, DefinitionKind } from './types'
 import { attachNodeLoc } from './utils'
 
@@ -60,7 +60,7 @@ export async function handleTSEmitsDefinition({
   })
 
   const addEmit: TSEmits['addEmit'] = (name, signature) => {
-    const key = keyToString(name)
+    const key = resolveString(name)
 
     if (definitionsAst.scope === file) {
       if (definitionsAst.ast.type === 'TSIntersectionType') {
@@ -78,7 +78,7 @@ export async function handleTSEmitsDefinition({
     })
   }
   const setEmit: TSEmits['setEmit'] = (name, idx, signature) => {
-    const key = keyToString(name)
+    const key = resolveString(name)
 
     const def = definitions[key][idx]
     if (!def) return false
@@ -96,7 +96,7 @@ export async function handleTSEmitsDefinition({
     return true
   }
   const removeEmit: TSEmits['removeEmit'] = (name, idx) => {
-    const key = keyToString(name)
+    const key = resolveString(name)
 
     const def = definitions[key][idx]
     if (!def) return false

@@ -5,6 +5,7 @@ import {
   isStaticObjectKey,
   resolveIdentifier,
   resolveObjectExpression,
+  resolveString,
 } from '@vue-macros/common'
 import {
   type CallExpression,
@@ -37,7 +38,6 @@ import {
   resolveTSReferencedType,
   resolveTSScope,
 } from '../ts'
-import { keyToString } from '../utils'
 import { type ASTDefinition, DefinitionKind } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
 
@@ -200,7 +200,7 @@ export async function handleTSPropsDefinition({
   }
 
   const removeProp: TSProps['removeProp'] = (name) => {
-    const key = keyToString(name)
+    const key = resolveString(name)
     if (!definitions[key]) return false
 
     const def = definitions[key]
@@ -536,7 +536,7 @@ export async function handleTSPropsDefinition({
     value: string,
     optional: boolean | undefined
   ) {
-    const key = keyToString(name)
+    const key = resolveString(name)
     const signature = `${name}${optional ? '?' : ''}: ${value}`
 
     const valueAst = (babelParse(`type T = (${value})`, 'ts').body[0] as any)
