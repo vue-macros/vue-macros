@@ -1,3 +1,5 @@
+// @ts-check
+
 /** @type import('eslint-define-config').ESLintConfig */
 const config = {
   globals: {
