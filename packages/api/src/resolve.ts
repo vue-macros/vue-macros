@@ -41,87 +41,85 @@ export const RollupResolve = () => {
     return result
   }
 
-  const resolve =
-    (ctx: PluginContext): ResolveTSFileIdImpl =>
-    async (id, importer) => {
-      async function tryPkgEntry() {
-        const deepMatch = id.match(deepImportRE)
-        const pkgId = deepMatch ? deepMatch[1] || deepMatch[2] : id
+  const resolve = (ctx: PluginContext): ResolveTSFileIdImpl => {
+    async function tryPkgEntry(id: string, importer: string) {
+      const deepMatch = id.match(deepImportRE)
+      const pkgId = deepMatch ? deepMatch[1] || deepMatch[2] : id
 
-        try {
-          const pkgPath = (await ctx.resolve(`${pkgId}/package.json`, importer))
-            ?.id
-          if (!pkgPath) return
-          const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
-          const pkgRoot = path.resolve(pkgPath, '..')
+      try {
+        const pkgPath = (await ctx.resolve(`${pkgId}/package.json`, importer))
+          ?.id
+        if (!pkgPath) return
+        const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
+        const pkgRoot = path.resolve(pkgPath, '..')
 
-          if (deepMatch) {
-            if (pkg.typesVersions) {
-              const pkgPath = id.replace(`${pkgId}/`, '')
-              for (const version of Object.values(pkg.typesVersions)) {
-                for (const [entry, subpaths] of Object.entries(
-                  version as Record<string, string[]>
-                )) {
-                  if (pkgPath !== entry.replace('*', pkgPath)) continue
-                  for (const subpath of subpaths) {
-                    const resolved = path.resolve(
-                      pkgRoot,
-                      subpath.replace('*', pkgPath)
-                    )
-                    if (isDts(resolved) && existsSync(resolved)) return resolved
-                  }
+        if (deepMatch) {
+          if (pkg.typesVersions) {
+            const pkgPath = id.replace(`${pkgId}/`, '')
+            for (const version of Object.values(pkg.typesVersions)) {
+              for (const [entry, subpaths] of Object.entries(
+                version as Record<string, string[]>
+              )) {
+                if (pkgPath !== entry.replace('*', pkgPath)) continue
+                for (const subpath of subpaths) {
+                  const resolved = path.resolve(
+                    pkgRoot,
+                    subpath.replace('*', pkgPath)
+                  )
+                  if (isDts(resolved) && existsSync(resolved)) return resolved
                 }
               }
             }
-
-            const resolvedIds = exports(pkg, id, { conditions: ['types'] })
-            if (!resolvedIds) return
-            const resolved = resolvedIds.find(
-              (id) => isDts(id) && existsSync(id)
-            )
-            if (resolved) return resolved
-          } else {
-            const types = pkg.types || pkg.typings
-            if (!types) return
-
-            const entry = path.resolve(pkgRoot, types)
-            if (existsSync(entry)) return entry
           }
-        } catch {}
-      }
 
-      const tryResolve = async (id: string) => {
-        try {
-          return (
-            (await ctx.resolve(id, importer))?.id ||
-            (await ctx.resolve(`${id}.d`, importer))?.id
-          )
-        } catch {}
+          const resolvedIds = exports(pkg, id, { conditions: ['types'] })
+          if (!resolvedIds) return
+          const resolved = resolvedIds.find((id) => isDts(id) && existsSync(id))
+          if (resolved) return resolved
+        } else {
+          const types = pkg.types || pkg.typings
+          if (!types) return
 
-        return
-      }
+          const entry = path.resolve(pkgRoot, types)
+          if (existsSync(entry)) return entry
+        }
+      } catch {}
+    }
 
+    async function tryResolve(id: string, importer: string) {
+      try {
+        return (
+          (await ctx.resolve(id, importer))?.id ||
+          (await ctx.resolve(`${id}.d`, importer))?.id
+        )
+      } catch {}
+
+      return
+    }
+
+    return async (id, importer) => {
       const cached = resolveCache.get(importer)?.get(id)
       if (cached) return cached
 
-      if (id[0] !== '.') {
-        const entry = await tryPkgEntry()
+      if (id[0] !== '.' && id[0] !== '/') {
+        const entry = await tryPkgEntry(id, importer)
         if (entry) return withResolveCache(id, importer, entry)
       }
 
-      let resolved = await tryResolve(id)
+      let resolved = await tryResolve(id, importer)
       if (!resolved) return
       if (existsSync(resolved)) {
         collectReferencedFile(importer, resolved)
         return withResolveCache(id, importer, resolved)
       }
 
-      resolved = await tryResolve(resolved)
+      resolved = await tryResolve(resolved, importer)
       if (resolved && existsSync(resolved)) {
         collectReferencedFile(importer, resolved)
         return withResolveCache(id, importer, resolved)
       }
     }
+  }
 
   const handleHotUpdate: NonNullable<Plugin['handleHotUpdate']> = ({
     file,
