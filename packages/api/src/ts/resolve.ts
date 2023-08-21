@@ -1,4 +1,9 @@
-import { resolveLiteral, resolveObjectKey } from '@vue-macros/common'
+import {
+  createStringLiteral,
+  createTSUnionType,
+  resolveLiteral,
+  resolveObjectKey,
+} from '@vue-macros/common'
 import {
   type BigIntLiteral,
   type BooleanLiteral,
@@ -18,7 +23,6 @@ import {
   type TemplateElement,
   type TemplateLiteral,
 } from '@babel/types'
-import { createStringLiteral, createUnionType } from './create'
 import { isTSNamespace } from './namespace'
 import {
   type TSProperties,
@@ -200,7 +204,7 @@ export async function resolveTSIndexedAccessType(
       return undefined
     }
 
-    return { type: createUnionType(types), scope }
+    return { type: createTSUnionType(types), scope }
   } else if (
     objectType.type !== 'TSInterfaceDeclaration' &&
     objectType.type !== 'TSTypeLiteral' &&
@@ -268,7 +272,7 @@ export async function resolveTSIndexedAccessType(
   if (indexes.length === 0) return undefined
   if (optional) indexes.push({ type: 'TSUndefinedKeyword' })
 
-  return { type: createUnionType(indexes), scope }
+  return { type: createTSUnionType(indexes), scope }
 }
 
 export async function resolveTSTypeOperator(
