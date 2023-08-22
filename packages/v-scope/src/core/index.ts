@@ -1,36 +1,18 @@
 import {
   MagicString,
   babelParse,
+  generateTransform,
   getLang,
-  getTransformResult,
 } from '@vue-macros/common'
-import {
-  type ArrayExpression,
-  type ArrowFunctionExpression,
-  type BlockStatement,
-  type CallExpression,
-  type ConditionalExpression,
-  type Expression,
-  type Identifier,
-  type ImportDeclaration,
-  type ImportSpecifier,
-  type ObjectExpression,
-  type ObjectMethod,
-  type ObjectProperty,
-  type Program,
-  type ReturnStatement,
-  type SequenceExpression,
-  type Statement,
-  type VariableDeclaration,
-} from '@babel/types'
 import { SCOPE_DIRECTIVE, TS_LANG } from './constant'
+import type * as t from '@babel/types'
 
 export * from './constant'
 
 interface ScopeNeededASType {
-  importStatement?: ImportDeclaration
-  scopeDefineStmt?: VariableDeclaration
-  directiveReturn?: ReturnStatement
+  importStatement?: t.ImportDeclaration
+  scopeDefineStmt?: t.VariableDeclaration
+  directiveReturn?: t.ReturnStatement
 }
 
 export function transformVScope(code: string, id: string) {
@@ -56,11 +38,11 @@ export function transformVScope(code: string, id: string) {
     parseReturn(directiveReturn!.argument, s)
   }
 
-  return getTransformResult(s, id)
+  return generateTransform(s, id)
 }
 
 function parseReturn(
-  argStmt: CallExpression | SequenceExpression | ConditionalExpression,
+  argStmt: t.CallExpression | t.SequenceExpression | t.ConditionalExpression,
   s: MagicString
 ) {
   //for CallExpression
@@ -77,16 +59,16 @@ function parseReturn(
   }
 }
 
-function parseSeqReturn(argStmt: SequenceExpression, s: MagicString) {
+function parseSeqReturn(argStmt: t.SequenceExpression, s: MagicString) {
   const [isVFor, isArray, targetRetExp] = detectVFor(argStmt)
 
   //v-for with v-scope
   if (isVFor) {
     const { targetSeqCall, objExp } = getReturnExp(
-      targetRetExp as CallExpression
+      targetRetExp as t.CallExpression
     )
 
-    const key = (objExp.properties[0] as ObjectProperty).key as Identifier
+    const key = (objExp.properties[0] as t.ObjectProperty).key as t.Identifier
     const changedAllStr = changedScopeStr(targetSeqCall!, objExp, key, s)
 
     s.remove(targetRetExp!.start!, targetRetExp!.end!)
@@ -95,7 +77,8 @@ function parseSeqReturn(argStmt: SequenceExpression, s: MagicString) {
 
   //mutli-element
   if (isArray) {
-    const targetArr = (targetRetExp as ArrayExpression).elements as Expression[]
+    const targetArr = (targetRetExp as t.ArrayExpression)
+      .elements as t.Expression[]
 
     targetArr.forEach((item) => {
       if (
@@ -108,14 +91,14 @@ function parseSeqReturn(argStmt: SequenceExpression, s: MagicString) {
   }
 }
 
-function parseCallExpReturn(argStmt: CallExpression, s: MagicString) {
+function parseCallExpReturn(argStmt: t.CallExpression, s: MagicString) {
   if (detectReturnWithDirective(argStmt)) {
     const { targetSeqCall, objExp } = getReturnExp(argStmt)
-    const key = (objExp.properties[0] as ObjectProperty).key as Identifier
+    const key = (objExp.properties[0] as t.ObjectProperty).key as t.Identifier
 
     const nestedExp = targetSeqCall!.arguments[2]
     if (nestedExp.type === 'ArrayExpression' && nestedScope(nestedExp)) {
-      parseReturn(nestedExp.elements[0] as CallExpression, s)
+      parseReturn(nestedExp.elements[0] as t.CallExpression, s)
     }
 
     const changedAllStr = changedScopeStr(targetSeqCall!, objExp, key, s)
@@ -124,7 +107,10 @@ function parseCallExpReturn(argStmt: CallExpression, s: MagicString) {
   }
 }
 
-function parseConditionReturn(argStmt: ConditionalExpression, s: MagicString) {
+function parseConditionReturn(
+  argStmt: t.ConditionalExpression,
+  s: MagicString
+) {
   const consequent = argStmt.consequent
   const alternate = argStmt.alternate
   if (consequent.type === 'CallExpression') {
@@ -138,7 +124,7 @@ function parseConditionReturn(argStmt: ConditionalExpression, s: MagicString) {
   }
 }
 
-function detectVIf(dirExp: CallExpression) {
+function detectVIf(dirExp: t.CallExpression) {
   return (
     dirExp.callee.type === 'Identifier' &&
     dirExp.callee.name === '_createCommentVNode' &&
@@ -148,22 +134,23 @@ function detectVIf(dirExp: CallExpression) {
 }
 
 function detectVFor(
-  stmt: SequenceExpression
-): [boolean, boolean, Expression | null | undefined] {
-  const targetCallExp = stmt.expressions[1] as CallExpression
+  stmt: t.SequenceExpression
+): [boolean, boolean, t.Expression | null | undefined] {
+  const targetCallExp = stmt.expressions[1] as t.CallExpression
   let isVFor = false,
     isArray = false,
-    resultExp: Expression | null | undefined
+    resultExp: t.Expression | null | undefined
 
   const targetCallExpArg = targetCallExp.arguments[2]
   if (targetCallExpArg.type === 'ArrayExpression') {
     isArray = true
     resultExp = targetCallExpArg
   } else if (targetCallExpArg.type === 'CallExpression') {
-    const vForCallExp = targetCallExpArg.arguments[1] as ArrowFunctionExpression
+    const vForCallExp = targetCallExpArg
+      .arguments[1] as t.ArrowFunctionExpression
 
-    const vForBodyBlock = vForCallExp.body as BlockStatement
-    const vForBodyRet = vForBodyBlock.body[0] as ReturnStatement
+    const vForBodyBlock = vForCallExp.body as t.BlockStatement
+    const vForBodyRet = vForBodyBlock.body[0] as t.ReturnStatement
     const vForBodyRetCall = vForBodyRet.argument
     const isLocalVFor =
       targetCallExp.type === 'CallExpression' &&
@@ -180,25 +167,25 @@ function detectVFor(
   return [isVFor, isArray, resultExp]
 }
 
-function detectReturnWithDirective(exp: CallExpression) {
+function detectReturnWithDirective(exp: t.CallExpression) {
   const isDir =
     exp.callee.type === 'Identifier' && exp.callee.name === '_withDirectives'
-  const scopeArg = exp.arguments[1] as ArrayExpression
+  const scopeArg = exp.arguments[1] as t.ArrayExpression
   return isDir && isCorrectScopeArg(scopeArg)
 }
 
-function getReturnExp(argStmt: CallExpression): {
-  targetSeqCall?: CallExpression
-  objExp: ObjectExpression
+function getReturnExp(argStmt: t.CallExpression): {
+  targetSeqCall?: t.CallExpression
+  objExp: t.ObjectExpression
 } {
-  let targetSeqCall: CallExpression | undefined
+  let targetSeqCall: t.CallExpression | undefined
   const sequence = argStmt.arguments[0]
-  const arrayExp = argStmt.arguments[1] as ArrayExpression
-  const objExp = (arrayExp.elements[0] as ArrayExpression)
-    .elements[1] as ObjectExpression
+  const arrayExp = argStmt.arguments[1] as t.ArrayExpression
+  const objExp = (arrayExp.elements[0] as t.ArrayExpression)
+    .elements[1] as t.ObjectExpression
 
   if (sequence.type === 'SequenceExpression') {
-    targetSeqCall = sequence.expressions[1] as CallExpression
+    targetSeqCall = sequence.expressions[1] as t.CallExpression
   } else if (sequence.type === 'CallExpression') {
     targetSeqCall = sequence
   }
@@ -206,11 +193,14 @@ function getReturnExp(argStmt: CallExpression): {
   return { targetSeqCall, objExp }
 }
 
-function getRenderFunction(program: Program, isTS: boolean): ScopeNeededASType {
-  let importStatement: ImportDeclaration | undefined,
-    scopeDefineStmt: VariableDeclaration | undefined,
-    directiveReturn: ReturnStatement | undefined,
-    targetList: Statement[]
+function getRenderFunction(
+  program: t.Program,
+  isTS: boolean
+): ScopeNeededASType {
+  let importStatement: t.ImportDeclaration | undefined,
+    scopeDefineStmt: t.VariableDeclaration | undefined,
+    directiveReturn: t.ReturnStatement | undefined,
+    targetList: t.Statement[]
 
   if (!isTS) {
     targetList = program.body.filter(
@@ -225,43 +215,44 @@ function getRenderFunction(program: Program, isTS: boolean): ScopeNeededASType {
   }
   const main = targetList.at(-1)!
   if (main.type === 'FunctionDeclaration') {
-    importStatement = program.body[1] as ImportDeclaration
-    scopeDefineStmt = (main.body as BlockStatement)
-      .body[0] as VariableDeclaration
-    directiveReturn = (main.body as BlockStatement).body[1] as ReturnStatement
+    importStatement = program.body[1] as t.ImportDeclaration
+    scopeDefineStmt = (main.body as t.BlockStatement)
+      .body[0] as t.VariableDeclaration
+    directiveReturn = (main.body as t.BlockStatement)
+      .body[1] as t.ReturnStatement
   } else if (main.type === 'VariableDeclaration') {
-    importStatement = program.body[0] as ImportDeclaration
-    const valueStmt = main.declarations[0].init as ObjectExpression
+    importStatement = program.body[0] as t.ImportDeclaration
+    const valueStmt = main.declarations[0].init as t.ObjectExpression
 
     const setupStmt = valueStmt.properties[1]
-    const setupBlock = (setupStmt as ObjectMethod).body as BlockStatement
-    const retStmt = setupBlock.body.at(-1) as ReturnStatement
+    const setupBlock = (setupStmt as t.ObjectMethod).body as t.BlockStatement
+    const retStmt = setupBlock.body.at(-1) as t.ReturnStatement
 
-    const arguStmt = retStmt.argument as ArrowFunctionExpression
+    const arguStmt = retStmt.argument as t.ArrowFunctionExpression
 
-    scopeDefineStmt = (arguStmt.body as BlockStatement)
-      .body[0] as VariableDeclaration
-    directiveReturn = (arguStmt.body as BlockStatement)
-      .body[1] as ReturnStatement
+    scopeDefineStmt = (arguStmt.body as t.BlockStatement)
+      .body[0] as t.VariableDeclaration
+    directiveReturn = (arguStmt.body as t.BlockStatement)
+      .body[1] as t.ReturnStatement
   } else if (main.type === 'ExportDefaultDeclaration') {
-    importStatement = program.body[1] as ImportDeclaration
-    const argStmt = (main.declaration as CallExpression).arguments[0]
-    const objMethodStmt = (argStmt as ObjectExpression)
-      .properties[1] as ObjectMethod
-    const retStmt = (objMethodStmt.body as BlockStatement)
-      .body[1] as ReturnStatement
-    const blockStmt = (retStmt.argument as ArrowFunctionExpression)
-      .body as BlockStatement
-    scopeDefineStmt = blockStmt.body[0] as VariableDeclaration
-    directiveReturn = blockStmt.body[1] as ReturnStatement
+    importStatement = program.body[1] as t.ImportDeclaration
+    const argStmt = (main.declaration as t.CallExpression).arguments[0]
+    const objMethodStmt = (argStmt as t.ObjectExpression)
+      .properties[1] as t.ObjectMethod
+    const retStmt = (objMethodStmt.body as t.BlockStatement)
+      .body[1] as t.ReturnStatement
+    const blockStmt = (retStmt.argument as t.ArrowFunctionExpression)
+      .body as t.BlockStatement
+    scopeDefineStmt = blockStmt.body[0] as t.VariableDeclaration
+    directiveReturn = blockStmt.body[1] as t.ReturnStatement
   }
 
   return { importStatement, scopeDefineStmt, directiveReturn }
 }
 function changedScopeStr(
-  targetSeq: CallExpression,
-  arrStr: ObjectExpression,
-  key: Identifier,
+  targetSeq: t.CallExpression,
+  arrStr: t.ObjectExpression,
+  key: t.Identifier,
   s: MagicString
 ): string {
   const targetSeqStart = targetSeq.start
@@ -288,14 +279,14 @@ function changedScopeStr(
   return changedAllStr
 }
 
-function nestedScope(exp: ArrayExpression) {
+function nestedScope(exp: t.ArrayExpression) {
   const ele = exp.elements[0]
   return ele && ele.type === 'CallExpression' && detectReturnWithDirective(ele)
 }
 
-function isCorrectScopeArg(arg: ArrayExpression) {
+function isCorrectScopeArg(arg: t.ArrayExpression) {
   const argElements = arg.elements
-  const innerArgElements = (argElements[0] as ArrayExpression).elements
+  const innerArgElements = (argElements[0] as t.ArrayExpression).elements
   const isscopeId =
     innerArgElements[0]!.type === 'Identifier' &&
     innerArgElements[0]!.name === '_directive_scope'
@@ -305,7 +296,7 @@ function isCorrectScopeArg(arg: ArrayExpression) {
 }
 
 function fixImportSpecifiers(
-  importStatement: ImportDeclaration,
+  importStatement: t.ImportDeclaration,
   s: MagicString
 ) {
   const notNeedSpecifier = ['withDirectives', 'resolveDirective']
@@ -316,7 +307,7 @@ function fixImportSpecifiers(
       item.imported.type === 'Identifier' &&
       !notNeedSpecifier.includes(item.imported.name)
     )
-  }) as ImportSpecifier[]
+  }) as t.ImportSpecifier[]
   let specifiersFilter2Str = specifiersFilter
     .map((item) => s.slice(item.start!, item.end!))
     .join(',')
