@@ -7,16 +7,8 @@ import {
 import { SCOPE_DIRECTIVE, TS_LANG } from './constant'
 import type * as t from '@babel/types'
 
-export * from './constant'
-
-interface ScopeNeededASType {
-  importStatement?: t.ImportDeclaration
-  scopeDefineStmt?: t.VariableDeclaration
-  directiveReturn?: t.ReturnStatement
-}
-
 export function transformVScope(code: string, id: string) {
-  if (!code.includes(SCOPE_DIRECTIVE)) return
+  if (!SCOPE_DIRECTIVE.test(code)) return
 
   const lang = getLang(id)
   const program = babelParse(code, lang)
@@ -193,24 +185,21 @@ function getReturnExp(argStmt: t.CallExpression): {
   return { targetSeqCall, objExp }
 }
 
-function getRenderFunction(
-  program: t.Program,
-  isTS: boolean
-): ScopeNeededASType {
+function getRenderFunction(program: t.Program, isTS: boolean) {
   let importStatement: t.ImportDeclaration | undefined,
     scopeDefineStmt: t.VariableDeclaration | undefined,
     directiveReturn: t.ReturnStatement | undefined,
     targetList: t.Statement[]
 
-  if (!isTS) {
+  if (isTS) {
+    targetList = program.body.filter(
+      (item) => item.type === 'ExportDefaultDeclaration'
+    )
+  } else {
     targetList = program.body.filter(
       (item) =>
         item.type === 'FunctionDeclaration' ||
         item.type === 'VariableDeclaration'
-    )
-  } else {
-    targetList = program.body.filter(
-      (item) => item.type === 'ExportDefaultDeclaration'
     )
   }
   const main = targetList.at(-1)!
@@ -224,8 +213,8 @@ function getRenderFunction(
     importStatement = program.body[0] as t.ImportDeclaration
     const valueStmt = main.declarations[0].init as t.ObjectExpression
 
-    const setupStmt = valueStmt.properties[1]
-    const setupBlock = (setupStmt as t.ObjectMethod).body as t.BlockStatement
+    const setupStmt = valueStmt.properties[1] as t.ObjectMethod
+    const setupBlock = setupStmt.body as t.BlockStatement
     const retStmt = setupBlock.body.at(-1) as t.ReturnStatement
 
     const arguStmt = retStmt.argument as t.ArrowFunctionExpression
@@ -249,6 +238,7 @@ function getRenderFunction(
 
   return { importStatement, scopeDefineStmt, directiveReturn }
 }
+
 function changedScopeStr(
   targetSeq: t.CallExpression,
   arrStr: t.ObjectExpression,
