@@ -1,5 +1,13 @@
 # @vue-macros/astro
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`8041edd6`](https://github.com/vue-macros/vue-macros/commit/8041edd67e4deb8291e4e915d984b98a4a459fae), [`7128dd50`](https://github.com/vue-macros/vue-macros/commit/7128dd50e301fa371a2ee7ff6fde31544fd0cca5)]:
+  - unplugin-vue-macros@2.4.9
+  - @vue-macros/common@1.7.1
+
 ## 0.1.3
 
 ### Patch Changes

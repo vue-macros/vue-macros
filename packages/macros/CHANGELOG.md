@@ -1,5 +1,34 @@
 # unplugin-vue-macros
 
+## 2.4.9
+
+### Patch Changes
+
+- [`8041edd6`](https://github.com/vue-macros/vue-macros/commit/8041edd67e4deb8291e4e915d984b98a4a459fae) Thanks [@sxzz](https://github.com/sxzz)! - improve defineRender function declaration & update references
+
+- Updated dependencies [[`8041edd6`](https://github.com/vue-macros/vue-macros/commit/8041edd67e4deb8291e4e915d984b98a4a459fae), [`7128dd50`](https://github.com/vue-macros/vue-macros/commit/7128dd50e301fa371a2ee7ff6fde31544fd0cca5)]:
+  - @vue-macros/define-render@1.4.1
+  - @vue-macros/common@1.7.1
+  - @vue-macros/better-define@1.6.10
+  - @vue-macros/define-emit@0.1.14
+  - @vue-macros/define-models@1.0.14
+  - @vue-macros/define-prop@0.2.5
+  - @vue-macros/chain-call@0.1.4
+  - unplugin-vue-define-options@1.3.16
+  - @vue-macros/define-props@1.0.18
+  - @vue-macros/define-props-refs@1.1.8
+  - @vue-macros/define-slots@1.0.13
+  - @vue-macros/export-expose@0.0.11
+  - @vue-macros/export-props@0.3.16
+  - @vue-macros/hoist-static@1.4.10
+  - @vue-macros/jsx-directive@0.6.2
+  - @vue-macros/named-template@0.3.17
+  - @vue-macros/reactivity-transform@0.3.20
+  - @vue-macros/setup-block@0.2.16
+  - @vue-macros/setup-component@0.16.17
+  - @vue-macros/setup-sfc@0.16.1
+  - @vue-macros/short-emits@1.4.8
+
 ## 2.4.8
 
 ### Patch Changes

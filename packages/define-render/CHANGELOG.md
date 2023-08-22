@@ -1,5 +1,14 @@
 # @vue-macros/define-render
 
+## 1.4.1
+
+### Patch Changes
+
+- [`8041edd6`](https://github.com/vue-macros/vue-macros/commit/8041edd67e4deb8291e4e915d984b98a4a459fae) Thanks [@sxzz](https://github.com/sxzz)! - improve defineRender function declaration & update references
+
+- Updated dependencies [[`7128dd50`](https://github.com/vue-macros/vue-macros/commit/7128dd50e301fa371a2ee7ff6fde31544fd0cca5)]:
+  - @vue-macros/common@1.7.1
+
 ## 1.4.0
 
 ### Minor Changes

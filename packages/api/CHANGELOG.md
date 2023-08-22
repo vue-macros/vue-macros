@@ -1,5 +1,18 @@
 # @vue-macros/api
 
+## 0.8.4
+
+### Patch Changes
+
+- [`bac5adb3`](https://github.com/vue-macros/vue-macros/commit/bac5adb3096631fffffd64d62c77845fb16e1e6f) Thanks [@sxzz](https://github.com/sxzz)! - refactor rollup resolve
+
+- [`cdedf624`](https://github.com/vue-macros/vue-macros/commit/cdedf6248c4c54098444c47de73fe4ae5c13a4ad) Thanks [@sxzz](https://github.com/sxzz)! - simplify utils
+
+- [`7128dd50`](https://github.com/vue-macros/vue-macros/commit/7128dd50e301fa371a2ee7ff6fde31544fd0cca5) Thanks [@sxzz](https://github.com/sxzz)! - export all from common
+
+- Updated dependencies [[`7128dd50`](https://github.com/vue-macros/vue-macros/commit/7128dd50e301fa371a2ee7ff6fde31544fd0cca5)]:
+  - @vue-macros/common@1.7.1
+
 ## 0.8.3
 
 ### Patch Changes
