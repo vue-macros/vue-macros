@@ -1,5 +1,12 @@
 # @vue-macros/jsx-directive
 
+## 0.6.2
+
+### Patch Changes
+
+- Updated dependencies [[`7128dd50`](https://github.com/vue-macros/vue-macros/commit/7128dd50e301fa371a2ee7ff6fde31544fd0cca5)]:
+  - @vue-macros/common@1.7.1
+
 ## 0.6.1
 
 ### Patch Changes
