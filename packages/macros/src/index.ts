@@ -235,7 +235,7 @@ export function resolveOptions({
       { version },
       version < 3.3
     ),
-    vScope: resolveSubOptions<'vScope'>(vScope, { version }),
+    vScope: resolveSubOptions<'vScope'>(vScope, { version }, false),
   }
 }
 
