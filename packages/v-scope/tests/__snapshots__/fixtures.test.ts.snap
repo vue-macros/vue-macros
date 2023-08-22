@@ -87,78 +87,29 @@ export { nested as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/template-vScope.vue 1`] = `
-"import { createElementVNode, createTextVNode, toDisplayString } from 'vue';
+exports[`fixtures > tests/fixtures/no-scope.vue 1`] = `
+"import { ref, openBlock, createElementBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
-
-const _sfc_main = {};
-
-function _sfc_render(_ctx, _cache) {
-  
-
-  return (( a= 1 )=> createElementVNode(\\"div\\", null, [
-    createTextVNode(toDisplayString(a), 1 /* TEXT */)
-  ]))()
-}
-var templateVScope = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
-
-export { templateVScope as default };
-"
-`;
-
-exports[`fixtures > tests/fixtures/vScopeAndFor.vue 1`] = `
-"import { openBlock, createElementBlock, Fragment, renderList, createElementVNode, createTextVNode, toDisplayString } from 'vue';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
-
-const _sfc_main = {};
-
-function _sfc_render(_ctx, _cache) {
-  
-
-  return (openBlock(), createElementBlock(Fragment, null, renderList([1, 2, 3], (i) => {
-    return (( x= i + 1 )=> createElementVNode(\\"div\\", null, [
-      createTextVNode(toDisplayString(x), 1 /* TEXT */)
-    ]))()
-  }), 64 /* STABLE_FRAGMENT */))
-}
-var vScopeAndFor = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
-
-export { vScopeAndFor as default };
-"
-`;
-
-exports[`fixtures > tests/fixtures/vScopeAndVif.vue 1`] = `
-"import { ref, createElementVNode, createTextVNode, toDisplayString, createCommentVNode } from 'vue';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
-
-const _hoisted_1 = { key: 0 };
-
 
 const _sfc_main = {
-  __name: 'vScopeAndVif',
+  __name: 'no-scope',
   setup(__props) {
 
-const ok = ref(true);
+const msg = ref('Hello World!');
 
 return (_ctx, _cache) => {
-  
-
-  return (ok.value)
-    ? (( a= 1 )=> createElementVNode(\\"div\\", _hoisted_1, [
-        createTextVNode(toDisplayString(a), 1 /* TEXT */)
-      ]))()
-    : createCommentVNode(\\"v-if\\", true)
+  return (openBlock(), createElementBlock(\\"h1\\", null, toDisplayString(msg.value), 1 /* TEXT */))
 }
 }
 
 };
-var vScopeAndVif = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+var noScope = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
 
-export { vScopeAndVif as default };
+export { noScope as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/vscopeAndVelse.vue 1`] = `
+exports[`fixtures > tests/fixtures/scope-and-else.vue 1`] = `
 "import { ref, createElementVNode, createTextVNode, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -168,7 +119,7 @@ const _hoisted_3 = { key: 2 };
 
 
 const _sfc_main = {
-  __name: 'vscopeAndVelse',
+  __name: 'scope-and-else',
   setup(__props) {
 
 const ok = ref(1);
@@ -191,13 +142,13 @@ return (_ctx, _cache) => {
 }
 
 };
-var vscopeAndVelse = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+var scopeAndElse = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
 
-export { vscopeAndVelse as default };
+export { scopeAndElse as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/vscopeAndVelseif.vue 1`] = `
+exports[`fixtures > tests/fixtures/scope-and-elseif.vue 1`] = `
 "import { ref, createElementVNode, createTextVNode, toDisplayString, createCommentVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -206,7 +157,7 @@ const _hoisted_2 = { key: 1 };
 
 
 const _sfc_main = {
-  __name: 'vscopeAndVelseif',
+  __name: 'scope-and-elseif',
   setup(__props) {
 
 const ok = ref(1);
@@ -227,18 +178,49 @@ return (_ctx, _cache) => {
 }
 
 };
-var vscopeAndVelseif = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+var scopeAndElseif = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
 
-export { vscopeAndVelseif as default };
+export { scopeAndElseif as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/vscopeWithts.vue 1`] = `
+exports[`fixtures > tests/fixtures/scope-and-if.vue 1`] = `
+"import { ref, createElementVNode, createTextVNode, toDisplayString, createCommentVNode } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+const _hoisted_1 = { key: 0 };
+
+
+const _sfc_main = {
+  __name: 'scope-and-if',
+  setup(__props) {
+
+const ok = ref(true);
+
+return (_ctx, _cache) => {
+  
+
+  return (ok.value)
+    ? (( a= 1 )=> createElementVNode(\\"div\\", _hoisted_1, [
+        createTextVNode(toDisplayString(a), 1 /* TEXT */)
+      ]))()
+    : createCommentVNode(\\"v-if\\", true)
+}
+}
+
+};
+var scopeAndIf = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+export { scopeAndIf as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/ts.vue 1`] = `
 "import { defineComponent, ref, createElementVNode, createTextVNode, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"vscopeWithts\\",
+  __name: \\"ts\\",
   setup(__props) {
     const msg = ref(\\"Hello\\");
     return (_ctx, _cache) => {
@@ -254,30 +236,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }
 });
 
-var vscopeWithts = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+var ts = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
-export { vscopeWithts as default };
-"
-`;
-
-exports[`fixtures > tests/fixtures/withoutVscope.vue 1`] = `
-"import { ref, openBlock, createElementBlock, toDisplayString } from 'vue';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
-
-const _sfc_main = {
-  __name: 'withoutVscope',
-  setup(__props) {
-
-const msg = ref('Hello World!');
-
-return (_ctx, _cache) => {
-  return (openBlock(), createElementBlock(\\"h1\\", null, toDisplayString(msg.value), 1 /* TEXT */))
-}
-}
-
-};
-var withoutVscope = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
-
-export { withoutVscope as default };
+export { ts as default };
 "
 `;

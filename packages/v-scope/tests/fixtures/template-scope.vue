@@ -1,3 +1,7 @@
+<script setup lang="ts">
+// @ts-nocheck
+</script>
+
 <template>
   <div v-scope="{ a: 1 }">
     {{ a }}
