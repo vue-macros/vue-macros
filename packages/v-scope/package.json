@@ -75,7 +75,7 @@
     }
   },
   "scripts": {
-    "build": "tsup && tsx ../../scripts/postbuild.mts",
+    "build": "tsup",
     "dev": "DEV=true tsup"
   },
   "dependencies": {
