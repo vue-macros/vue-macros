@@ -45,9 +45,15 @@ export async function transformDefineProp(
   let definePropsCall: t.CallExpression | undefined
   await walkASTSetup(setupAst, (setup) => {
     setup.onEnter(
-      (node): node is t.CallExpression => isCallOf(node, DEFINE_PROP),
+      (node, parent): node is t.CallExpression =>
+        !isCallOf(parent, '$') && isCallOf(node, ['$', DEFINE_PROP]),
       (node, parent) => {
-        const propName = walkCall(node, parent)
+        const propName = walkCall(
+          isCallOf(node, '$') && isCallOf(node.arguments[0], DEFINE_PROP)
+            ? node.arguments[0]
+            : node,
+          parent
+        )
         s.overwriteNode(
           node,
           `${importHelperFn(s, offset, 'toRef')}(__props, ${JSON.stringify(
