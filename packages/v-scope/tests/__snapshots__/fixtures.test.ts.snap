@@ -184,6 +184,30 @@ export { scopeAndElseif as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/scope-and-for.vue 1`] = `
+"import { openBlock, createElementBlock, Fragment, createCommentVNode, renderList, createElementVNode, createTextVNode, toDisplayString } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+const _sfc_main = {};
+
+function _sfc_render(_ctx, _cache) {
+  
+
+  return (openBlock(), createElementBlock(Fragment, null, [
+    createCommentVNode(\\" @vue-skip \\"),
+    (openBlock(), createElementBlock(Fragment, null, renderList([1, 2, 3], (i) => {
+      return (( x= i + 1 )=> createElementVNode(\\"div\\", null, [
+        createTextVNode(toDisplayString(x), 1 /* TEXT */)
+      ]))()
+    }), 64 /* STABLE_FRAGMENT */))
+  ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
+}
+var scopeAndFor = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
+
+export { scopeAndFor as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/scope-and-if.vue 1`] = `
 "import { ref, createElementVNode, createTextVNode, toDisplayString, createCommentVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
@@ -215,8 +239,28 @@ export { scopeAndIf as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/template-scope.vue 1`] = `
+"import { createElementVNode, createCommentVNode, createTextVNode, toDisplayString } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+const _sfc_main = {};
+
+function _sfc_render(_ctx, _cache) {
+  
+
+  return (( a= 1 )=> createElementVNode(\\"div\\", null, [
+    createCommentVNode(\\" @vue-skip \\"),
+    createTextVNode(\\" \\" + toDisplayString(a), 1 /* TEXT */)
+  ]))()
+}
+var templateScope = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
+
+export { templateScope as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/ts.vue 1`] = `
-"import { defineComponent, ref, createElementVNode, createTextVNode, toDisplayString } from 'vue';
+"import { defineComponent, ref, openBlock, createElementBlock, Fragment, createCommentVNode, createElementVNode, createTextVNode, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -225,13 +269,22 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     const msg = ref(\\"Hello\\");
     return (_ctx, _cache) => {
       
-      return (( a= msg.value + \` Vue\` )=> createElementVNode(\\"h1\\", null, [
-        createTextVNode(
-          toDisplayString(a),
-          1
-          /* TEXT */
-        )
-      ]))();
+      return openBlock(), createElementBlock(
+        Fragment,
+        null,
+        [
+          createCommentVNode(\\" @vue-skip \\"),
+          (( a= msg.value + \` Vue\` )=> createElementVNode(\\"h1\\", null, [
+            createTextVNode(
+              toDisplayString(a),
+              1
+              /* TEXT */
+            )
+          ]))()
+        ],
+        2112
+        /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+      );
     };
   }
 });
