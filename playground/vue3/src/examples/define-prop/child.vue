@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Assert } from '../../assert'
 const foo = defineProp<string>('foo')
-const bar = defineProp<string>()
+const bar = $(defineProp<string>())
 
 definePropsRefs(['msg'])
 </script>
