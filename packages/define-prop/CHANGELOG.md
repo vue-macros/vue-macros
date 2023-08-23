@@ -1,5 +1,15 @@
 # @vue-macros/define-prop
 
+## 0.2.6
+
+### Patch Changes
+
+- [#476](https://github.com/vue-macros/vue-macros/pull/476) [`0be2cbf8`](https://github.com/vue-macros/vue-macros/commit/0be2cbf87c779d081369df3cc09ff7faf6ea512f) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - feat(define-prop): used with reactivity transform
+
+- Updated dependencies [[`d80c48a6`](https://github.com/vue-macros/vue-macros/commit/d80c48a6305efcc68860183acda259ba653a7e84)]:
+  - @vue-macros/common@1.7.2
+  - @vue-macros/api@0.8.5
+
 ## 0.2.5
 
 ### Patch Changes
