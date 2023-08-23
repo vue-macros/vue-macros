@@ -3,13 +3,13 @@ import { Assert } from '../../assert'
 const foo = defineProp<string>('foo')
 const bar = $(defineProp<string>())
 
-definePropsRefs(['msg'])
+const props = $(definePropsRefs(['msg']))
 </script>
 
 <template>
   <div>foo: {{ foo }}</div>
   <div>
     <Assert :l="bar" r="bar" />
-    <Assert :l="'msg' in $props" :r="true" />
+    <Assert :l="'msg' in props" :r="true" />
   </div>
 </template>
