@@ -1,5 +1,32 @@
 # unplugin-vue-macros
 
+## 2.4.10
+
+### Patch Changes
+
+- Updated dependencies [[`0be2cbf8`](https://github.com/vue-macros/vue-macros/commit/0be2cbf87c779d081369df3cc09ff7faf6ea512f), [`d80c48a6`](https://github.com/vue-macros/vue-macros/commit/d80c48a6305efcc68860183acda259ba653a7e84)]:
+  - @vue-macros/define-prop@0.2.6
+  - @vue-macros/common@1.7.2
+  - @vue-macros/better-define@1.6.11
+  - @vue-macros/chain-call@0.1.5
+  - @vue-macros/define-emit@0.1.15
+  - @vue-macros/define-models@1.0.15
+  - unplugin-vue-define-options@1.3.17
+  - @vue-macros/define-props@1.0.19
+  - @vue-macros/define-props-refs@1.1.9
+  - @vue-macros/define-render@1.4.2
+  - @vue-macros/define-slots@1.0.14
+  - @vue-macros/export-expose@0.0.12
+  - @vue-macros/export-props@0.3.17
+  - @vue-macros/hoist-static@1.4.11
+  - @vue-macros/jsx-directive@0.6.3
+  - @vue-macros/named-template@0.3.18
+  - @vue-macros/reactivity-transform@0.3.21
+  - @vue-macros/setup-block@0.2.17
+  - @vue-macros/setup-component@0.16.18
+  - @vue-macros/setup-sfc@0.16.2
+  - @vue-macros/short-emits@1.4.9
+
 ## 2.4.9
 
 ### Patch Changes

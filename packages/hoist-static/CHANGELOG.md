@@ -1,5 +1,12 @@
 # @vue-macros/hoist-static
 
+## 1.4.11
+
+### Patch Changes
+
+- Updated dependencies [[`d80c48a6`](https://github.com/vue-macros/vue-macros/commit/d80c48a6305efcc68860183acda259ba653a7e84)]:
+  - @vue-macros/common@1.7.2
+
 ## 1.4.10
 
 ### Patch Changes
