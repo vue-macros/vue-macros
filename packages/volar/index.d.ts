@@ -15,4 +15,8 @@ export interface VolarOptions {
     include?: FilterPattern
     exclude?: FilterPattern
   }
+  exportRender?: {
+    include?: FilterPattern
+    exclude?: FilterPattern
+  }
 }
