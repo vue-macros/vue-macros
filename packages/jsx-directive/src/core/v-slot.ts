@@ -4,7 +4,7 @@ import { type JSXElement } from '@babel/types'
 export function transformVSlot(
   nodes: JSXElement[],
   s: MagicString,
-  offset = 0,
+  offset: number,
   version: number
 ) {
   nodes.reverse().forEach((node) => {

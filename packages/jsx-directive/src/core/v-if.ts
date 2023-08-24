@@ -4,7 +4,8 @@ import { type JsxDirectiveNode } from '.'
 export function transformVIf(
   nodes: JsxDirectiveNode[],
   s: MagicString,
-  offset = 0
+  offset: number,
+  version: number
 ) {
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
@@ -27,6 +28,16 @@ export function transformVIf(
       )
     } else if (attribute.name.name === 'v-else') {
       s.appendRight(node.end! + offset, hasScope ? '}' : '')
+    }
+
+    const isTemplate =
+      node.type === 'JSXElement' &&
+      node.openingElement.name.type === 'JSXIdentifier' &&
+      node.openingElement.name.name === 'template'
+    if (isTemplate && node.closingElement) {
+      const content = version < 3 ? 'span' : ''
+      s.overwriteNode(node.openingElement.name, content, { offset })
+      s.overwriteNode(node.closingElement.name, content, { offset })
     }
 
     s.remove(attribute.start! + offset - 1, attribute.end! + offset)

@@ -8,7 +8,7 @@ import { type JsxDirectiveNode } from '.'
 export function transformVFor(
   nodes: JsxDirectiveNode[],
   s: MagicString,
-  offset = 0,
+  offset: number,
   version: number
 ) {
   if (nodes.length === 0) return
@@ -47,6 +47,16 @@ export function transformVFor(
         index ? `, ${index}` : ''
       }${objectIndex ? `, ${objectIndex}` : ''}) => `
     )
+
+    const isTemplate =
+      node.type === 'JSXElement' &&
+      node.openingElement.name.type === 'JSXIdentifier' &&
+      node.openingElement.name.name === 'template'
+    if (isTemplate && node.closingElement) {
+      const content = version < 3 ? 'span' : ''
+      s.overwriteNode(node.openingElement.name, content, { offset })
+      s.overwriteNode(node.closingElement.name, content, { offset })
+    }
 
     s.prependRight(node.end! + offset, `)${hasScope ? '}' : ''}`)
     s.remove(attribute.start! + offset - 1, attribute.end! + offset)

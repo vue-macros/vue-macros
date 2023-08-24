@@ -4,7 +4,7 @@ import { type JsxDirectiveNode } from '.'
 export function transformVHtml(
   nodes: JsxDirectiveNode[],
   s: MagicString,
-  offset = 0,
+  offset: number,
   version: number
 ) {
   nodes.forEach(({ attribute }) => {
