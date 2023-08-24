@@ -9,6 +9,7 @@ import DefineModelRuntime from './examples/define-models/runtime/parent.vue'
 import DefineSlots from './examples/define-slots/parent.vue'
 import ExportProps from './examples/export-props/index.vue'
 import ExportExpose from './examples/export-expose/index.vue'
+import ExportRender from './examples/export-render/index.vue'
 import BetterDefine from './examples/better-define/index.vue'
 // import NamedTemplate from './examples/named-template/index.vue'
 import SetupBlock from './examples/setup-block/index.vue'
@@ -139,6 +140,11 @@ import Full from './examples/full.setup'
     <fieldset>
       <legend>booleanProp</legend>
       <BooleanProp />
+    </fieldset>
+
+    <fieldset>
+      <legend>exportRender</legend>
+      <ExportRender />
     </fieldset>
   </div>
 </template>

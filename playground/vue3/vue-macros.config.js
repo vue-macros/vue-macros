@@ -22,6 +22,9 @@ export default {
   exportExpose: {
     include: [/export-expose.*\.vue$/],
   },
+  exportRender: {
+    include: [/export-render.*\.vue$/],
+  },
 
   plugins: {
     vue: Vue({
