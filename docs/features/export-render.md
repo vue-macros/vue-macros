@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-Transform default export statement as `defineRender` params in Vue SFC `script-setup`.
+Transform the default export statement, in `<script setup>` of Vue SFC, as a component render function.
 
 |   Features   |     Supported      |
 | :----------: | :----------------: |
@@ -10,6 +10,12 @@ Transform default export statement as `defineRender` params in Vue SFC `script-s
 |    Nuxt 3    |     :question:     |
 |    Vue 2     |     :question:     |
 | Volar Plugin | :white_check_mark: |
+
+::: tip
+
+This feature depends on `defineRender`, and make sure `defineRender` is not disabled.
+
+:::
 
 ## Usage
 
