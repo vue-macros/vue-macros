@@ -10,6 +10,7 @@ All features are enabled by default except the following.
 - `shortEmits` (Vue >= 3.3)
 - `exportExpose`
 - `exportProps`
+- `exportRender`
 - `setupSFC`
 
 You can disable them by setting the option to `false`.
