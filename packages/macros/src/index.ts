@@ -69,6 +69,9 @@ import VueSetupSFC, {
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
+import VueSimpleDefine, {
+  type Options as OptionsSimpleDefine,
+} from '@vue-macros/simple-define'
 import { excludeDepOptimize } from './core'
 
 export interface FeatureOptionsMap {
@@ -92,6 +95,7 @@ export interface FeatureOptionsMap {
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
+  simpleDefine: OptionsSimpleDefine
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -147,6 +151,7 @@ export function resolveOptions({
   setupComponent,
   setupSFC,
   shortEmits,
+  simpleDefine,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
@@ -232,6 +237,11 @@ export function resolveOptions({
       { version },
       version < 3.3
     ),
+    simpleDefine: resolveSubOptions<'simpleDefine'>(
+      simpleDefine,
+      { version },
+      false
+    ),
   }
 }
 
@@ -295,6 +305,7 @@ export default createCombinePlugin<Options | undefined>(
 
       // convert to runtime props & emits
       resolvePlugin(VueBetterDefine, framework, options.betterDefine),
+      resolvePlugin(VueSimpleDefine, framework, options.simpleDefine),
 
       // runtime props
       resolvePlugin(VueDefineProp, framework, options.defineProp),

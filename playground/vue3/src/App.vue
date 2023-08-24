@@ -10,6 +10,7 @@ import DefineSlots from './examples/define-slots/parent.vue'
 import ExportProps from './examples/export-props/index.vue'
 import ExportExpose from './examples/export-expose/index.vue'
 import BetterDefine from './examples/better-define/index.vue'
+import SimpleDefineVue from './examples/simple-define/index.vue'
 // import NamedTemplate from './examples/named-template/index.vue'
 import SetupBlock from './examples/setup-block/index.vue'
 import ChainCall from './examples/chain-call/index.vue'
@@ -139,6 +140,11 @@ import Full from './examples/full.setup'
     <fieldset>
       <legend>booleanProp</legend>
       <BooleanProp />
+    </fieldset>
+
+    <fieldset>
+      <legend>simpleDefine</legend>
+      <SimpleDefineVue />
     </fieldset>
   </div>
 </template>

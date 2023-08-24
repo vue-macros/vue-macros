@@ -506,6 +506,9 @@ importers:
       '@vue-macros/short-emits':
         specifier: workspace:*
         version: link:../short-emits
+      '@vue-macros/simple-define':
+        specifier: workspace:*
+        version: link:../simple-define
       unplugin:
         specifier: ^1.4.0
         version: 1.4.0
@@ -657,6 +660,22 @@ importers:
       '@vue/compiler-sfc':
         specifier: ^3.3.4
         version: 3.3.4
+
+  packages/simple-define:
+    dependencies:
+      '@vue-macros/common':
+        specifier: workspace:~
+        version: link:../common
+      unplugin:
+        specifier: ^1.4.0
+        version: 1.4.0
+    devDependencies:
+      '@vueuse/core':
+        specifier: ^10.3.0
+        version: 10.3.0(vue@3.3.4)
+      rollup:
+        specifier: ^3.27.2
+        version: 3.27.2
 
   packages/test-utils:
     dependencies:
