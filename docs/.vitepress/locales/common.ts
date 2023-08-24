@@ -180,6 +180,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
               link: `${urlPrefix}/features/export-expose`,
             },
             {
+              text: 'exportRender',
+              link: `${urlPrefix}/features/export-render`,
+            },
+            {
               text: 'jsxDirective',
               link: `${urlPrefix}/features/jsx-directive`,
             },
