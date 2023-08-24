@@ -1,5 +1,11 @@
 # @vue-macros/define-prop
 
+## 0.2.7
+
+### Patch Changes
+
+- [#478](https://github.com/vue-macros/vue-macros/pull/478) [`83f9abfb`](https://github.com/vue-macros/vue-macros/commit/83f9abfb0d7b9cea2cb0751f1c7a65a97a26a7d2) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - fix(define-prop): transform correct call expression
+
 ## 0.2.6
 
 ### Patch Changes
