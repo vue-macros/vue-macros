@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-const html = '<div>123</div>'
+const html = '<span class="ok">ok</span>'
 
 defineRender(() => (
   <fieldset>

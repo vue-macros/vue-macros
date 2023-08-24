@@ -8,7 +8,7 @@ import { type JsxDirectiveNode } from '.'
 export function transformVMemo(
   nodes: JsxDirectiveNode[],
   s: MagicString,
-  offset = 0
+  offset: number
 ) {
   if (nodes.length === 0) return
   const withMemo = importHelperFn(s, offset, 'withMemo', 'vue')
