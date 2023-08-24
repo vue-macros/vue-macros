@@ -2,7 +2,7 @@
 
 ## 插件选项
 
-默认情况下启用所有功能，但以下功能除外。
+以下功能除外，默认情况下将启用所有功能。
 
 - `defineOptions` (Vue >= 3.3)
 - `defineSlots` (Vue >= 3.3)
@@ -10,6 +10,7 @@
 - `shortEmits` (Vue >= 3.3)
 - `exportExpose`
 - `exportProps`
+- `exportRender`
 - `setupSFC`
 
 您可以通过将选项设置为 `false` 来禁用它们。

@@ -419,6 +419,22 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/export-render:
+    dependencies:
+      '@vue-macros/common':
+        specifier: workspace:*
+        version: link:../common
+      '@vue/compiler-sfc':
+        specifier: ^3.3.4
+        version: 3.3.4
+      unplugin:
+        specifier: ^1.4.0
+        version: 1.4.0
+    devDependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/hoist-static:
     dependencies:
       '@vue-macros/common':
@@ -482,6 +498,9 @@ importers:
       '@vue-macros/export-props':
         specifier: workspace:*
         version: link:../export-props
+      '@vue-macros/export-render':
+        specifier: workspace:*
+        version: link:../export-render
       '@vue-macros/hoist-static':
         specifier: workspace:*
         version: link:../hoist-static

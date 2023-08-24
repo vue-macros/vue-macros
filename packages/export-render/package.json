@@ -1,8 +1,8 @@
 {
-  "name": "unplugin-vue-macros",
-  "version": "2.4.12",
+  "name": "@vue-macros/export-render",
+  "version": "0.0.0",
   "packageManager": "pnpm@8.6.12",
-  "description": "Explore more macros and syntax sugar to Vue.",
+  "description": "export-render feature from Vue Macros.",
   "keywords": [
     "vue-macros",
     "macros",
@@ -10,7 +10,7 @@
     "sfc",
     "setup",
     "script-setup",
-    "macros",
+    "export-render",
     "unplugin"
   ],
   "license": "MIT",
@@ -21,11 +21,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vue-macros/vue-macros.git",
-    "directory": "packages/macros"
+    "directory": "packages/export-render"
   },
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "files": [
-    "*.d.ts",
     "dist"
   ],
   "main": "dist/index.js",
@@ -36,6 +35,11 @@
       "dev": "./src/index.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
+    },
+    "./api": {
+      "dev": "./src/api.ts",
+      "require": "./dist/api.js",
+      "import": "./dist/api.mjs"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
@@ -78,34 +82,11 @@
     "vue": "^2.7.0 || ^3.2.25"
   },
   "dependencies": {
-    "@vue-macros/better-define": "workspace:*",
-    "@vue-macros/chain-call": "workspace:^",
     "@vue-macros/common": "workspace:*",
-    "@vue-macros/define-emit": "workspace:^",
-    "@vue-macros/define-models": "workspace:*",
-    "@vue-macros/define-prop": "workspace:^",
-    "@vue-macros/define-props": "workspace:*",
-    "@vue-macros/define-props-refs": "workspace:*",
-    "@vue-macros/define-render": "workspace:*",
-    "@vue-macros/define-slots": "workspace:*",
-    "@vue-macros/devtools": "workspace:^",
-    "@vue-macros/export-expose": "workspace:*",
-    "@vue-macros/export-props": "workspace:*",
-    "@vue-macros/export-render": "workspace:*",
-    "@vue-macros/hoist-static": "workspace:*",
-    "@vue-macros/jsx-directive": "workspace:*",
-    "@vue-macros/named-template": "workspace:*",
-    "@vue-macros/reactivity-transform": "workspace:*",
-    "@vue-macros/setup-block": "workspace:*",
-    "@vue-macros/setup-component": "workspace:*",
-    "@vue-macros/setup-sfc": "workspace:*",
-    "@vue-macros/short-emits": "workspace:*",
-    "unplugin": "^1.4.0",
-    "unplugin-combine": "^0.7.0",
-    "unplugin-vue-define-options": "workspace:*"
+    "@vue/compiler-sfc": "^3.3.4",
+    "unplugin": "^1.4.0"
   },
   "devDependencies": {
-    "esbuild": "^0.19.2",
     "vue": "^3.3.4"
   },
   "engines": {
