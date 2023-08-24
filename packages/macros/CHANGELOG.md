@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 2.4.12
+
+### Patch Changes
+
+- Updated dependencies [[`83f9abfb`](https://github.com/vue-macros/vue-macros/commit/83f9abfb0d7b9cea2cb0751f1c7a65a97a26a7d2)]:
+  - @vue-macros/define-prop@0.2.7
+
 ## 2.4.11
 
 ### Patch Changes
