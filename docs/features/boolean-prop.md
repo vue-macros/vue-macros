@@ -1,6 +1,6 @@
 # booleanProp
 
-<StabilityLevel level="stable" />
+<StabilityLevel level="experimental" />
 
 Convert `<Comp checked />` to `<Comp :checked="true" />`.
 
@@ -9,7 +9,7 @@ Convert `<Comp checked />` to `<Comp :checked="true" />`.
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    | :white_check_mark: |
 |    Vue 2     |        :x:         |
-| Volar Plugin | :white_check_mark: |
+| Volar Plugin |        :x:         |
 
 ## Setup
 

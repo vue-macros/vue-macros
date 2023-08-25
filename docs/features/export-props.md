@@ -21,3 +21,18 @@ export let foo: string
 export const bar: number = 1 // with default value
 </script>
 ```
+
+## Volar Configuration
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/export-props"
+      // ...more feature
+    ]
+  }
+}
+```

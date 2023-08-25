@@ -28,3 +28,18 @@ export default <div>ok</div>
 export default () => <div>ok</div>
 </script>
 ```
+
+## Volar Configuration
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/export-render"
+      // ...more feature
+    ]
+  }
+}
+```
