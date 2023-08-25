@@ -28,7 +28,7 @@ const transform = ({
 
   replace(
     embeddedFile.content,
-    /var __VLS_slots!: .*/,
+    /var __VLS_slots!: [\S\s]*?;/,
     'var __VLS_slots!: __VLS_DefineSlots<',
     (): Segment<FileRangeCapabilities> => [
       // slots type
@@ -37,7 +37,7 @@ const transform = ({
       typeArg!.pos,
       FileRangeCapabilities.full,
     ],
-    '>'
+    '>;'
   )
   embeddedFile.content.push(
     `type __VLS_DefineSlots<T> = { [SlotName in keyof T]: T[SlotName] extends Function ? T[SlotName] : (_: T[SlotName]) => any }`
