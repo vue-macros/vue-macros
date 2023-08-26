@@ -10,8 +10,6 @@ import {
 } from '@vue-macros/common'
 import { transformExportProps } from './core'
 
-export { transformExportProps } from './core'
-
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 
