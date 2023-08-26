@@ -22,7 +22,7 @@ export const sidebar = common.sidebar('zh-CN')
 
 const sidebarTitle: string[] = ['指南', '宏', '特性']
 const sidebarItem: string[][] = [
-  ['入门', '打包器集成', 'Nuxt 集成', '配置'],
+  ['入门', '打包器集成', 'Nuxt 集成', 'Astro 集成', '配置'],
   ['全部宏'],
   [''],
 ]

@@ -27,6 +27,6 @@ const emits = defineEmits<{
 </script>
 ```
 
-## Difference with Official Version
+## 和官方版本不同的是
 
-- function style of declaration is not supported by official version.
+- 官方版本不支持函数式的声明风格。

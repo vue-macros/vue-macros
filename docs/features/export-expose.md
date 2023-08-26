@@ -8,8 +8,8 @@ Transform export statement as `defineExpose` params in Vue SFC `script-setup`.
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    |         ?          |
-|    Vue 2     |         ?          |
-| Volar Plugin |        :x:         |
+|    Vue 2     | :white_check_mark: |
+| Volar Plugin | :white_check_mark: |
 
 ## Usage
 
@@ -173,4 +173,19 @@ export * from '../types'
 // 2. export default ❌
 const a = 'a'
 export default a
+```
+
+## Volar Configuration
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/export-expose"
+      // ...more feature
+    ]
+  }
+}
 ```

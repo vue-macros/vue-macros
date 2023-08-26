@@ -1,6 +1,6 @@
 # booleanProp
 
-<StabilityLevel level="stable" />
+<StabilityLevel level="experimental" />
 
 Convert `<Comp checked />` to `<Comp :checked="true" />`.
 

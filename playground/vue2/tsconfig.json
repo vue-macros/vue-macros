@@ -26,6 +26,7 @@
       "@vue-macros/volar/define-slots",
       "@vue-macros/volar/export-expose",
       "@vue-macros/volar/export-props",
+      "@vue-macros/volar/export-render",
       "@vue-macros/volar/jsx-directive"
     ],
     "experimentalDefinePropProposal": "kevinEdition",
@@ -39,6 +40,9 @@
       },
       "exportProps": {
         "include": ["**/export-props/**"]
+      },
+      "exportRender": {
+        "include": ["**/export-render/**"]
       }
     }
   },

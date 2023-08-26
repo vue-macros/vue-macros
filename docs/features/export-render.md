@@ -8,7 +8,7 @@ Transform the default export statement, in `<script setup>` of Vue SFC, as a com
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    |     :question:     |
-|    Vue 2     |     :question:     |
+|    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
 ::: tip
@@ -27,4 +27,19 @@ export default <div>ok</div>
 // Or using render function
 export default () => <div>ok</div>
 </script>
+```
+
+## Volar Configuration
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/export-render"
+      // ...more feature
+    ]
+  }
+}
 ```

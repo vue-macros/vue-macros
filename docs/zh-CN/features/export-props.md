@@ -8,7 +8,7 @@
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    |         ?          |
-|    Vue 2     |         ?          |
+|    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
 ## 用法
@@ -20,4 +20,19 @@
 export let foo: string
 export const bar: number = 1 // 带有默认值
 </script>
+```
+
+## Volar 配置
+
+```jsonc {6}
+// tsconfig.json
+{
+  "target": 3,
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/export-props"
+      // ...更多功能
+    ]
+  }
+}
 ```

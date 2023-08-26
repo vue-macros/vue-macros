@@ -8,7 +8,7 @@
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    |     :question:     |
-|    Vue 2     |     :question:     |
+|    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
 ::: tip
@@ -27,4 +27,19 @@ export default <div>ok</div>
 // 或使用渲染函数
 export default () => <div>ok</div>
 </script>
+```
+
+## Volar 配置
+
+```jsonc {6}
+// tsconfig.json
+{
+  "target": 3,
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/export-render"
+      // ...更多功能
+    ]
+  }
+}
 ```

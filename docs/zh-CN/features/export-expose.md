@@ -8,8 +8,8 @@
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    |         ?          |
-|    Vue 2     |         ?          |
-| Volar Plugin |        :x:         |
+|    Vue 2     | :white_check_mark: |
+| Volar Plugin | :white_check_mark: |
 
 ## 用法
 
@@ -173,4 +173,19 @@ export * from '../types'
 // 2. 默认导出 ❌
 const a = 'a'
 export default a
+```
+
+## Volar 配置
+
+```jsonc {6}
+// tsconfig.json
+{
+  "target": 3,
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/export-expose"
+      // ...更多功能
+    ]
+  }
+}
 ```

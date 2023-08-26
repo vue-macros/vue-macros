@@ -130,7 +130,7 @@ For detailed configuration, please refer to the description of the specific macr
 npm i -D @vue-macros/volar
 ```
 
-```json
+```jsonc
 // tsconfig.json
 {
   "vueCompilerOptions": {
@@ -141,14 +141,46 @@ npm i -D @vue-macros/volar
       "@vue-macros/volar/define-props-refs",
       "@vue-macros/volar/short-vmodel",
       "@vue-macros/volar/define-slots",
-      "@vue-macros/volar/export-props",
       "@vue-macros/volar/jsx-directive"
+
+      // Choose only one of the following
+      // "@vue-macros/volar/export-expose",
+      // "@vue-macros/volar/export-props",
+      // "@vue-macros/volar/export-render",
     ]
     // ...
   }
 }
 ```
 
-:tada: Congratulations! You have successfully set up `unplugin-vue-macros`.
+### Scoped Plugins
+
+`export-expose`, `export-props`, and `export-render` plugins cannot be used at the same time unless providing a scope.
+
+```jsonc
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/export-render",
+      "@vue-macros/volar/export-expose",
+      "@vue-macros/volar/export-props"
+    ],
+    "vueMacros": {
+      "exportExpose": {
+        "include": ["**/export-expose/**"]
+      },
+      "exportProps": {
+        "include": ["**/export-props/**"]
+      },
+      "exportRender": {
+        "include": ["**/export-render/**"]
+      }
+    }
+  }
+}
+```
+
+:tada: Congratulations! You have successfully set up Vue Macros.
 
 To learn more about the macros, please visit [All Macros](/macros/) :laughing:.

@@ -70,7 +70,7 @@ function getTypeArg(
 
 const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
   return {
-    name: 'vue-macros-short-vmodel',
+    name: 'vue-macros-define-slots',
     version: 1,
     resolveEmbeddedFile(fileName, sfc, embeddedFile) {
       const typeArg = getTypeArg(ts, sfc)

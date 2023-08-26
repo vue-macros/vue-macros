@@ -130,7 +130,7 @@ module.exports = defineConfig({
 npm i -D @vue-macros/volar
 ```
 
-```json
+```jsonc
 // tsconfig.json
 {
   "vueCompilerOptions": {
@@ -141,14 +141,46 @@ npm i -D @vue-macros/volar
       "@vue-macros/volar/define-props-refs",
       "@vue-macros/volar/short-vmodel",
       "@vue-macros/volar/define-slots",
-      "@vue-macros/volar/export-props",
       "@vue-macros/volar/jsx-directive"
+
+      // 选择以下其中一个
+      // "@vue-macros/volar/export-expose",
+      // "@vue-macros/volar/export-props",
+      // "@vue-macros/volar/export-render",
     ]
     // ...
   }
 }
 ```
 
-:tada: 恭喜你! 目前你已经成功将 `unplugin-vue-macros` 设置完成。
+### Scoped Plugins
+
+除非提供范围，否则不能同时使用 `export-expose`、`export-props` 和 `export-render` 插件。
+
+```jsonc
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/export-render",
+      "@vue-macros/volar/export-expose",
+      "@vue-macros/volar/export-props"
+    ],
+    "vueMacros": {
+      "exportExpose": {
+        "include": ["**/export-expose/**"]
+      },
+      "exportProps": {
+        "include": ["**/export-props/**"]
+      },
+      "exportRender": {
+        "include": ["**/export-render/**"]
+      }
+    }
+  }
+}
+```
+
+:tada: 恭喜你! 目前你已经成功将 Vue Macros 设置完成。
 
 如果你还想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:。
