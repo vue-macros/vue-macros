@@ -8,7 +8,7 @@
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    |         ?          |
-|    Vue 2     |         ?          |
+|    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
 ## 用法

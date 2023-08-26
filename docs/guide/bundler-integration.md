@@ -150,6 +150,12 @@ npm i -D @vue-macros/volar
 }
 ```
 
+::: tip
+
+Please note, don't use the `export-expose` and `export-props` plugins simultaneously.
+
+:::
+
 :tada: Congratulations! You have successfully set up `unplugin-vue-macros`.
 
 To learn more about the macros, please visit [All Macros](/macros/) :laughing:.

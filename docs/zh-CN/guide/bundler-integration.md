@@ -150,6 +150,12 @@ npm i -D @vue-macros/volar
 }
 ```
 
+::: tip
+
+请注意，不要同时使用 `export-expose` 和 `export-props` 插件。
+
+:::
+
 :tada: 恭喜你! 目前你已经成功将 `unplugin-vue-macros` 设置完成。
 
 如果你还想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:。

@@ -8,7 +8,7 @@ Transform the default export statement, in `<script setup>` of Vue SFC, as a com
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    |     :question:     |
-|    Vue 2     |     :question:     |
+|    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
 ::: tip
