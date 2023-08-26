@@ -37,6 +37,9 @@ jobs:
       - name: Format Check
         run: nr format:check
 
+      - name: Monorepo Check
+        run: nr mono:check
+
   test:
     strategy:
       matrix:

@@ -1,12 +1,16 @@
 import path from 'node:path'
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
-import { defineConfig } from 'monoman'
+import { fileURLToPath } from 'node:url'
+import { dedupeDeps, defineConfig } from 'monoman'
 import { type Options } from 'tsup'
 import fg from 'fast-glob'
 
-function getPkgName(filepath: string) {
-  const relative = path.relative(process.cwd(), filepath)
+// @ts-expect-error
+const dirname = path.dirname(fileURLToPath(new URL(import.meta.url)))
+
+function getPkgName(filePath: string) {
+  const relative = path.relative(dirname, filePath)
   const [, pkgName] = relative.split(path.sep)
   return pkgName
 }
@@ -15,10 +19,10 @@ export default defineConfig([
   {
     include: ['packages/*/package.json'],
     type: 'json',
-    async write(data: Record<string, any>, { filepath }) {
-      const pkgRoot = path.resolve(filepath, '..')
+    async contents(data: Record<string, any>, { filePath }) {
+      const pkgRoot = path.resolve(filePath, '..')
       const pkgSrc = path.resolve(pkgRoot, 'src')
-      const pkgName = getPkgName(filepath)
+      const pkgName = getPkgName(filePath)
       const isESM = data.type === 'module'
       const cjsPrefix = isESM ? 'c' : ''
       const esmPrefix = isESM ? '' : 'm'
@@ -129,8 +133,8 @@ export default defineConfig([
     include: ['packages/*/README.md'],
     exclude: ['packages/define-options/README.md'],
     type: 'text',
-    async write(_, ctx) {
-      const pkgPath = path.resolve(path.dirname(ctx.filepath), 'package.json')
+    async contents(_, ctx) {
+      const pkgPath = path.resolve(path.dirname(ctx.filePath), 'package.json')
       const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
       const pkgName = pkg.name
 
@@ -138,4 +142,5 @@ export default defineConfig([
 Please refer to [README.md](https://github.com/vue-macros/vue-macros#readme)\n`
     },
   },
+  ...dedupeDeps(),
 ])
