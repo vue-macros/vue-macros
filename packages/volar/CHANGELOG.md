@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.14.1
+
+### Patch Changes
+
+- [#485](https://github.com/vue-macros/vue-macros/pull/485) [`721d5e2c`](https://github.com/vue-macros/vue-macros/commit/721d5e2c0131a6194f1e5450edb80d66652f390b) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - fix(volar/define-slots): regular expression error
+
 ## 0.14.0
 
 ### Minor Changes
