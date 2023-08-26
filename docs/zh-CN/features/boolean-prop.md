@@ -9,7 +9,7 @@
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    | :white_check_mark: |
 |    Vue 2     |        :x:         |
-| Volar Plugin |        :x:         |
+| Volar Plugin | :white_check_mark: |
 
 ## 设置
 
