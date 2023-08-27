@@ -1,6 +1,4 @@
-/* eslint-disable no-prototype-builtins */
 /* eslint-disable vue/prefer-import-from-vue */
-/* eslint-disable no-restricted-syntax */
 
 import MagicString, { type SourceMap } from 'magic-string'
 import { walk } from 'estree-walker'
@@ -188,7 +186,7 @@ export function transformAST(
     }
   }
   if (knownProps) {
-    for (const key in knownProps) {
+    for (const key of Object.keys(knownProps)) {
       const { local, isConst } = knownProps[key]
       rootScope[local] = {
         isProp: true,
@@ -629,7 +627,7 @@ export function transformAST(
 
   const propBindingRefs: Record<string, true> = {}
   function registerEscapedPropBinding(id: Identifier) {
-    if (!propBindingRefs.hasOwnProperty(id.name)) {
+    if (!Object.prototype.hasOwnProperty.call(propBindingRefs, id.name)) {
       propBindingRefs[id.name] = true
       const publicKey = propsLocalToPublicMap[id.name]
       s.prependRight(
