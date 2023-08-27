@@ -363,6 +363,8 @@ export function transformAST(
       } else if (id.type === 'ArrayPattern') {
         processRefArrayPattern(id, init, isConst)
       }
+
+      removeTrailingComma(s, call, offset)
     } else if (id.type === 'Identifier') {
       // shorthands
       registerRefBinding(id, isConst)
@@ -719,6 +721,7 @@ export function transformAST(
         ) {
           escapeScope = node
           s.remove(node.callee.start! + offset, node.callee.end! + offset)
+          removeTrailingComma(s, node, offset)
 
           if (parent?.type === 'ExpressionStatement') {
             // edge case where the call expression is an expression statement
@@ -731,7 +734,7 @@ export function transformAST(
             while (i--) {
               const char = s.original.charAt(i)
               if (char === '\n') {
-                // only insert semi if it's actually the fisrt thign after
+                // only insert semi if it's actually the first thing after
                 // newline
                 s.prependRight(node.start! + offset, ';')
                 break
@@ -764,5 +767,18 @@ export function transformAST(
       return binding && !binding.isProp
     }),
     importedHelpers: [...importedHelpers],
+  }
+}
+
+function removeTrailingComma(
+  s: MagicString,
+  node: CallExpression,
+  offset: number
+) {
+  if (typeof node.extra?.trailingComma === 'number') {
+    s.remove(
+      node.extra?.trailingComma + offset,
+      node.extra?.trailingComma + offset + 1
+    )
   }
 }

@@ -285,3 +285,24 @@ var scriptAndSetup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 export { scriptAndSetup as default };
 "
 `;
+
+exports[`fixtures > tests/fixtures/vue3/trailing-comma.vue 1`] = `
+"import { defineComponent, ref } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"trailing-comma\\",
+  setup(__props) {
+    const foo = ref(\\"msg\\");
+    const bar = foo.value;
+    const baz = bar;
+    return () => {
+    };
+  }
+});
+
+var trailingComma = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { trailingComma as default };
+"
+`;
