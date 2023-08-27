@@ -1,5 +1,13 @@
 # @vue-macros/reactivity-transform
 
+## 0.3.22
+
+### Patch Changes
+
+- [`1e7fedd1`](https://github.com/vue-macros/vue-macros/commit/1e7fedd1230f08f755a5154c2293f173dda39311) Thanks [@sxzz](https://github.com/sxzz)! - fix(reactivity-transform): remove trailing comma
+
+- [`e65f38c9`](https://github.com/vue-macros/vue-macros/commit/e65f38c92476a67ac6097a7242503164d1ace5cd) Thanks [@sxzz](https://github.com/sxzz)! - move eslint disable
+
 ## 0.3.21
 
 ### Patch Changes
