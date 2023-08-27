@@ -1,7 +1,7 @@
 import { Assert } from '../../assert'
 import { exported } from './foo'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line unused-imports/no-unused-vars
 const foo = 'foo'
 const bar = 'bar'
 

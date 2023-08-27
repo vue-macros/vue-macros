@@ -1,6 +1,7 @@
 // @ts-check
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
+import { transformShortBind } from '@vue-macros/short-bind'
 
 /** @type {import('unplugin-vue-macros').Options} */
 export default {
@@ -10,6 +11,7 @@ export default {
   defineSlots: true,
   hoistStatic: true,
   shortEmits: true,
+  shortBind: true,
 
   namedTemplate: false,
   setupSFC: true,

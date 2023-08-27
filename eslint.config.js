@@ -17,6 +17,7 @@ export default sxzz([
     files: ['**/*.md/*.{js,ts,vue}'],
     rules: {
       'no-var': 'off',
+      'vue/valid-v-bind': 'off',
       'import/no-mutable-exports': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/no-empty-function': 'off',
@@ -27,6 +28,7 @@ export default sxzz([
     rules: {
       'no-debugger': 'off',
       'no-console': 'off',
+      'vue/valid-v-bind': 'off',
       'vue/require-prop-types': 'off',
       'vue/valid-define-props': 'off',
       'vue/valid-attribute-name': 'off',
