@@ -15,6 +15,7 @@ function resolveOption(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
   return {
     include: [REGEX_SETUP_SFC_SUB],
+    exclude: [/vitest\.setup\.\w*$/],
     ...options,
     version,
   }
