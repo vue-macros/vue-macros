@@ -35,10 +35,33 @@
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
+    "./api": {
+      "dev": "./src/api.ts",
+      "require": "./dist/api.js",
+      "import": "./dist/api.mjs"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "require": "./dist/rollup.js",
+      "import": "./dist/rollup.mjs"
+    },
+    "./vite": {
+      "dev": "./src/vite.ts",
+      "require": "./dist/vite.js",
+      "import": "./dist/vite.mjs"
+    },
     "./*": [
       "./*",
       "./*.d.ts"
     ]
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
   },
   "scripts": {
     "build": "tsup",
