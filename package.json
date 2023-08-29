@@ -11,7 +11,7 @@
     "dev": "pnpm run --filter=\"./packages/*\" --parallel dev",
     "clean": "rimraf packages/*/dist",
     "docs:dev": "pnpm run -C ./docs dev",
-    "docs:serve": "pnpm run -C ./docs serve",
+    "docs:preview": "pnpm run -C ./docs preview",
     "docs:build": "pnpm run -C ./docs build",
     "play": "pnpm run play:vue3",
     "play:vue2": "pnpm run -C ./playground/vue2 dev",
