@@ -15,6 +15,8 @@ function getPkgName(filePath: string) {
   return pkgName
 }
 
+let packageManager: string | undefined
+
 export default defineConfig([
   {
     include: ['packages/*/package.json'],
@@ -158,4 +160,17 @@ Please refer to [README.md](https://github.com/vue-macros/vue-macros#readme)\n`
     ],
     ignores: ['vue'],
   }),
+  {
+    include: ['package.json', 'packages/*/package.json'],
+    type: 'json',
+    contents(data: Record<string, any>) {
+      if (!packageManager) {
+        packageManager = data.packageManager
+      } else {
+        data.packageManager = packageManager
+      }
+
+      return data
+    },
+  },
 ])
