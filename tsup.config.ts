@@ -52,9 +52,7 @@ export default defineConfig({
     'import.meta.DEV': JSON.stringify(!!process.env.DEV),
   },
   esbuildPlugins: [
-    // @ts-expect-error esbuild version of tsup is outdated
     EsbuildRawPlugin,
-    // @ts-expect-error esbuild version of tsup is outdated
     Macros({
       viteConfig: {
         resolve: {

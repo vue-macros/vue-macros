@@ -142,5 +142,20 @@ export default defineConfig([
 Please refer to [README.md](https://github.com/vue-macros/vue-macros#readme)\n`
     },
   },
-  ...dedupeDeps(),
+  ...dedupeDeps({
+    include: [
+      'package.json',
+      'packages/*/package.json',
+      'playground/*/package.json',
+    ],
+    exclude: ['playground/vue2/package.json'],
+  }),
+  ...dedupeDeps({
+    include: [
+      'package.json',
+      'packages/*/package.json',
+      'playground/*/package.json',
+    ],
+    ignores: ['vue'],
+  }),
 ])
