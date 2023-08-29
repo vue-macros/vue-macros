@@ -9,12 +9,7 @@ import {
   resolveObjectKey,
   walkAST,
 } from '@vue-macros/common'
-import {
-  type Identifier,
-  type Node,
-  type RestElement,
-  type TSType,
-} from '@babel/types'
+import { type Node, type TSType } from '@babel/types'
 
 export function transformShortEmits(code: string, id: string) {
   const sfc = parseSFC(code, id)
@@ -105,7 +100,7 @@ export function transformShortEmits(code: string, id: string) {
 
   return generateTransform(s, id)
 
-  function stringifyParams(params: Array<Identifier | RestElement>) {
+  function stringifyParams(params: Node[]) {
     return params.length > 0 ? s.sliceNode(params, { offset }) : ''
   }
 }
