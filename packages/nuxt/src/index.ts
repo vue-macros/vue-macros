@@ -1,20 +1,12 @@
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import VueMacros from 'unplugin-vue-macros/vite'
-import {
-  type Options as OptionsShortVmodel,
-  transformShortVmodel,
-} from '@vue-macros/short-vmodel'
-import { transformBooleanProp } from '@vue-macros/boolean-prop'
 import { type Options, resolveOptions } from 'unplugin-vue-macros'
 import { type Plugin } from 'vite'
 import type {} from '@nuxt/devtools'
 import { type VolarOptions } from '@vue-macros/volar'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
 
-export type VueMacrosOptions = Options & {
-  booleanProp?: {} | false
-  shortVmodel?: OptionsShortVmodel | false
-}
+export type VueMacrosOptions = Options
 
 export default defineNuxtModule<VueMacrosOptions>({
   meta: {
@@ -104,6 +96,13 @@ export default defineNuxtModule<VueMacrosOptions>({
       vueCompilerOptions.experimentalDefinePropProposal =
         resolvedOptions.defineProp.edition || 'kevinEdition'
 
+    if (resolvedOptions.shortVmodel) {
+      volarPlugins.push('@vue-macros/volar/short-vmodel')
+      volarOptions.shortVmodel = {
+        prefix: resolvedOptions.shortVmodel.prefix,
+      }
+    }
+
     const viteVue = (nuxt.options.vite.vue ||= {})
 
     if (resolvedOptions.setupSFC) {
@@ -142,25 +141,6 @@ export default defineNuxtModule<VueMacrosOptions>({
         })
       )
     })
-
-    if (options.shortVmodel !== false || options.booleanProp) {
-      viteVue.template ||= {}
-      viteVue.template.compilerOptions ||= {}
-      viteVue.template.compilerOptions.nodeTransforms ||= []
-      const { nodeTransforms } = viteVue.template.compilerOptions
-
-      if (options.shortVmodel !== false) {
-        volarPlugins.push('@vue-macros/volar/short-vmodel')
-        nodeTransforms.push(transformShortVmodel(options.shortVmodel))
-        if (options.shortVmodel) {
-          volarOptions.shortVmodel = {
-            prefix: options.shortVmodel.prefix,
-          }
-        }
-      }
-
-      if (options.booleanProp) nodeTransforms.push(transformBooleanProp())
-    }
   },
 })
 

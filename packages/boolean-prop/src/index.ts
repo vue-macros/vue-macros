@@ -1,5 +1,4 @@
-import { type Plugin } from 'rollup'
-import { type Plugin as VitePlugin } from 'vite'
+import { type Plugin } from 'vite'
 import { type VuePluginApi, getVuePluginApi } from '@vue-macros/common'
 import { type Options, transformBooleanProp } from './core/index'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
@@ -10,17 +9,23 @@ export * from './api'
 const name = generatePluginName()
 
 function rollup(options: Options = {}): Plugin {
+  let api: VuePluginApi
+
   return {
     name,
-    buildStart(rollupOpts) {
-      let api: VuePluginApi
-
+    configResolved(config) {
       try {
-        api = getVuePluginApi(rollupOpts)
-      } catch (error: any) {
-        this.warn(error)
-        return
-      }
+        api = getVuePluginApi(config.plugins)
+      } catch {}
+    },
+    buildStart(rollupOpts) {
+      if (!api)
+        try {
+          api = getVuePluginApi(rollupOpts.plugins)
+        } catch (error: any) {
+          this.warn(error)
+          return
+        }
 
       api.options.template ||= {}
       api.options.template.compilerOptions ||= {}
@@ -35,5 +40,5 @@ function rollup(options: Options = {}): Plugin {
 
 export default {
   rollup,
-  vite: rollup as (options?: Options) => VitePlugin,
+  vite: rollup,
 }

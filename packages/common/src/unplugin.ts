@@ -4,7 +4,8 @@ import {
 } from '@rollup/pluginutils'
 import { generateTransform } from 'magic-string-ast'
 import { type ResolvedOptions } from '@vitejs/plugin-vue'
-import { type NormalizedInputOptions } from 'rollup'
+import { type Plugin } from 'rollup'
+import { type Plugin as VitePlugin } from 'vite'
 
 /** @deprecated use `generateTransform` instead */
 export const getTransformResult = generateTransform
@@ -27,14 +28,14 @@ export interface VuePluginApi {
 }
 
 export function getVuePluginApi(
-  rollupOpts: NormalizedInputOptions
+  plugins: Readonly<(Plugin | VitePlugin)[]> | undefined
 ): VuePluginApi {
-  const vuePlugin = rollupOpts.plugins.find(
+  const vuePlugin = (plugins || []).find(
     (p) => p.name === 'vite:vue' || p.name === 'unplugin-vue'
   )
   if (!vuePlugin) {
     throw new Error(
-      'Cannot find Vue plugin (@vitejs/plugin-vue or unplugin-vue).\nPlease make sure to add it before using shortVmodel.'
+      'Cannot find Vue plugin (@vitejs/plugin-vue or unplugin-vue). Please make sure to add it before using Vue Macros.'
     )
   }
 
