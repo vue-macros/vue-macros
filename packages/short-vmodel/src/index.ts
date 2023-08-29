@@ -9,7 +9,7 @@ export * from './api'
 const name = generatePluginName()
 
 function rollup(options: Options = {}): Plugin {
-  let api: VuePluginApi
+  let api: VuePluginApi | null | undefined
 
   return {
     name,
@@ -19,13 +19,15 @@ function rollup(options: Options = {}): Plugin {
       } catch {}
     },
     buildStart(rollupOpts) {
-      if (!api)
+      if (api === undefined)
         try {
           api = getVuePluginApi(rollupOpts.plugins)
         } catch (error: any) {
           this.warn(error)
           return
         }
+
+      if (!api) return
 
       api.options.template ||= {}
       api.options.template.compilerOptions ||= {}

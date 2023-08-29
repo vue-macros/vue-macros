@@ -1,8 +1,6 @@
 // @ts-check
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import { transformShortVmodel } from '@vue-macros/short-vmodel'
-import { transformBooleanProp } from '@vue-macros/boolean-prop'
 
 /** @type {import('unplugin-vue-macros').Options} */
 export default {
@@ -31,18 +29,7 @@ export default {
       include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
       reactivityTransform: true,
       script: {
-        // @ts-ignore
         hoistStatic: false,
-      },
-      template: {
-        compilerOptions: {
-          nodeTransforms: [
-            transformShortVmodel({
-              prefix: '$',
-            }),
-            transformBooleanProp(),
-          ],
-        },
       },
     }),
     vueJsx: VueJsx(),

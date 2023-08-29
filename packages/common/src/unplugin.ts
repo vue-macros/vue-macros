@@ -27,16 +27,22 @@ export interface VuePluginApi {
   version: string
 }
 
+const VUE3_PLUGINS = ['vite:vue', 'unplugin-vue']
+const VUE2_PLUGINS = ['vite:vue2', 'unplugin-vue2']
+
 export function getVuePluginApi(
   plugins: Readonly<(Plugin | VitePlugin)[]> | undefined
-): VuePluginApi {
-  const vuePlugin = (plugins || []).find(
-    (p) => p.name === 'vite:vue' || p.name === 'unplugin-vue'
+): VuePluginApi | null {
+  const vuePlugin = (plugins || []).find((p) =>
+    [...VUE3_PLUGINS, ...VUE2_PLUGINS].includes(p.name)
   )
-  if (!vuePlugin) {
+  if (!vuePlugin)
     throw new Error(
       'Cannot find Vue plugin (@vitejs/plugin-vue or unplugin-vue). Please make sure to add it before using Vue Macros.'
     )
+
+  if (VUE2_PLUGINS.includes(vuePlugin.name)) {
+    return null
   }
 
   const api = vuePlugin.api as VuePluginApi
