@@ -8,6 +8,7 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { transformSetupBlock } from './core'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export interface Options extends BaseOptions {
   defaultLang?: string
@@ -25,7 +26,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-vue-setup-block'
+const name = generatePluginName()
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {

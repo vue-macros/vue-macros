@@ -12,9 +12,9 @@ import {
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE,
 } from './core/constants'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export type Options = BaseOptions
-
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 
 function resolveOption(options: Options): OptionsResolved {
@@ -31,7 +31,8 @@ export type TemplateContent = Record<
   Record<string, string> & { [MAIN_TEMPLATE]?: string }
 >
 
-const name = 'unplugin-vue-named-template'
+const name = generatePluginName()
+
 export const PrePlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
     const options = resolveOption(userOptions)

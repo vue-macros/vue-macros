@@ -7,6 +7,7 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { hotUpdateSetupSFC, transformSetupSFC } from './core'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
@@ -21,7 +22,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-vue-setup-sfc'
+const name = generatePluginName()
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {

@@ -9,6 +9,7 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { transformJsxDirective } from './core'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'version'>
@@ -23,7 +24,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-jsx-vue-directive'
+const name = generatePluginName()
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {

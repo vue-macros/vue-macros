@@ -17,6 +17,7 @@ import {
   useVmodelHelperCode,
   useVmodelHelperId,
 } from './core/helper'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export interface Options extends BaseOptions {
   /**
@@ -42,7 +43,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-vue-define-models'
+const name = generatePluginName()
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {

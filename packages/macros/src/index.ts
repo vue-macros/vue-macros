@@ -72,7 +72,9 @@ import VueSetupSFC, {
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
+
 import { excludeDepOptimize } from './core'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
@@ -266,8 +268,7 @@ function resolvePlugin(
   return unplugin[framework!](options)
 }
 
-const name = 'unplugin-vue-macros'
-
+const name = generatePluginName()
 export default createCombinePlugin<Options | undefined>(
   (userOptions = {}, meta) => {
     const options = resolveOptions(userOptions)

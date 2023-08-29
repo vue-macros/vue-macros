@@ -9,6 +9,7 @@ import {
   detectVueVersion,
 } from '@vue-macros/common'
 import { transformDefinePropsRefs } from './core/index'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export { transformDefinePropsRefs } from './core'
 
@@ -24,7 +25,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-vue-define-props-refs'
+const name = generatePluginName()
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {

@@ -11,6 +11,7 @@ import {
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
 import { type PluginContext } from 'rollup'
 import { transformBetterDefine } from './core'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export interface Options extends BaseOptions {
   isProduction?: boolean
@@ -32,7 +33,7 @@ function resolveOptions(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-vue-better-define'
+const name = generatePluginName()
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}, { framework }) => {

@@ -19,6 +19,7 @@ import {
   transformSetupComponent,
 } from './core'
 import { getMainModule, isSubModule } from './core/sub-module'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export type { SetupComponentContext } from './core'
 
@@ -42,7 +43,8 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-vue-setup-component'
+const name = generatePluginName()
+
 const PrePlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}, meta) => {
     const options = resolveOption(userOptions)

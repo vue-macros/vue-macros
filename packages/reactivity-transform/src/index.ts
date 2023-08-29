@@ -13,6 +13,7 @@ import {
 } from '@vue-macros/common'
 import { shouldTransform, transform, transformVueSFC } from './core'
 import { helperCode, helperId } from './core/helper'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
@@ -27,7 +28,7 @@ function resolveOption(options: Options): OptionsResolved {
   }
 }
 
-const name = 'unplugin-reactivity-transform'
+const name = generatePluginName()
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {

@@ -74,6 +74,9 @@ importers:
       typescript:
         specifier: ~5.2.2
         version: 5.2.2
+      unplugin-macros:
+        specifier: ^0.8.3
+        version: 0.8.3(@types/node@20.5.7)
       vite:
         specifier: ^4.4.9
         version: 4.4.9(@types/node@20.5.7)
@@ -213,7 +216,7 @@ importers:
         version: 3.3.4
       ast-kit:
         specifier: ^0.11.0
-        version: 0.11.0
+        version: 0.11.1
       local-pkg:
         specifier: ^0.4.3
         version: 0.4.3
@@ -5161,8 +5164,8 @@ packages:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
     dev: true
 
-  /ast-kit@0.11.0:
-    resolution: {integrity: sha512-EKvEIC9Emq/AtZExJS3WG2B1s+4AqoRIHxrHKLGbEbchGDm98iT5/n3fr7jAhnmUdJQNbzkzfsH90GSzBY1oKg==}
+  /ast-kit@0.11.1:
+    resolution: {integrity: sha512-pbriAgko/hGuAFu+Elxpt1ptAZIf0jk7vENkSvhSEClv1vQnc/k1oPzuEiYZx5NonE7VPr5wsv+R7PNjAFkisg==}
     engines: {node: '>=16.14.0'}
     dependencies:
       '@babel/parser': 7.22.13
@@ -5170,7 +5173,6 @@ packages:
       pathe: 1.1.1
     transitivePeerDependencies:
       - rollup
-    dev: false
 
   /ast-kit@0.9.5(rollup@3.28.1):
     resolution: {integrity: sha512-kbL7ERlqjXubdDd+szuwdlQ1xUxEz9mCz1+m07ftNVStgwRb2RWw+U6oKo08PAvOishMxiqz1mlJyLl8yQx2Qg==}
@@ -8329,7 +8331,6 @@ packages:
     engines: {node: '>=16.14.0'}
     dependencies:
       magic-string: 0.30.3
-    dev: false
 
   /magic-string@0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
@@ -11376,6 +11377,29 @@ packages:
       vite: 4.4.9(@types/node@20.5.7)
       webpack: 5.88.2(esbuild@0.19.2)
     dev: false
+
+  /unplugin-macros@0.8.3(@types/node@20.5.7):
+    resolution: {integrity: sha512-Da67Z7wD4sCRK+TGa76uykyAq320jZ9EbLkmIaRu/VAWKYdzbWPV/J7HBAjxv0xL0E7716iMth9ljpYpigSmXg==}
+    engines: {node: '>=16.14.0'}
+    dependencies:
+      '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
+      ast-kit: 0.11.1
+      magic-string: 0.30.3
+      magic-string-ast: 0.3.0
+      unplugin: 1.4.0
+      vite: 4.4.9(@types/node@20.5.7)
+      vite-node: 0.34.3(@types/node@20.5.7)
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - rollup
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+    dev: true
 
   /unplugin-vue@4.3.3(vite@4.4.9)(vue@3.3.4):
     resolution: {integrity: sha512-P6KRqXBlvJeN89qsvuFR948Y+E84vBsY8Ib11zn+Af+jwWQxx2u4TqLT5l1Cv+OX5pNQoAGbOibgTYYJTYW34A==}

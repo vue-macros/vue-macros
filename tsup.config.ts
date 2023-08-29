@@ -1,6 +1,11 @@
 import { readFile } from 'node:fs/promises'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'tsup'
 import { type Plugin } from 'esbuild'
+import Macros from 'unplugin-macros/esbuild'
+
+const dirname = path.resolve(fileURLToPath(import.meta.url), '..')
 
 const rawRE = /[&?]raw(?:&|$)/
 const EsbuildRawPlugin: Plugin = {
@@ -46,6 +51,18 @@ export default defineConfig({
   define: {
     'import.meta.DEV': JSON.stringify(!!process.env.DEV),
   },
-  // @ts-expect-error esbuild version of tsup is outdated
-  esbuildPlugins: [EsbuildRawPlugin],
+  esbuildPlugins: [
+    // @ts-expect-error esbuild version of tsup is outdated
+    EsbuildRawPlugin,
+    // @ts-expect-error esbuild version of tsup is outdated
+    Macros({
+      viteConfig: {
+        resolve: {
+          alias: {
+            '#macros': path.resolve(dirname, 'macros/index.ts'),
+          },
+        },
+      },
+    }),
+  ],
 })
