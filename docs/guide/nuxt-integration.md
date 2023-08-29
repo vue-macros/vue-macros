@@ -33,6 +33,8 @@ export default {
 }
 ```
 
+---
+
 :tada: Congratulations! That's all.
 
 To learn more about the macros, please visit [All Macros](/macros/) :laughing:.

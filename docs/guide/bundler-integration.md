@@ -181,6 +181,8 @@ npm i -D @vue-macros/volar
 }
 ```
 
+---
+
 :tada: Congratulations! You have successfully set up Vue Macros.
 
 To learn more about the macros, please visit [All Macros](/macros/) :laughing:.

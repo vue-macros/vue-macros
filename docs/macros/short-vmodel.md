@@ -15,42 +15,16 @@ If you have any questions about this feature, you can comment on [RFC Discussion
 |    Vue 2     |        :x:         |
 | Volar Plugin | :white_check_mark: |
 
-## Setup
-
-### Installation
-
-```bash
-npm i -D @vue-macros/short-vmodel
-```
-
-### Vite Integration
-
-```ts {9-17}
-// vite.config.ts
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
-import { transformShortVmodel } from '@vue-macros/short-vmodel'
-
-export default defineConfig({
-  plugins: [
-    Vue({
-      template: {
-        compilerOptions: {
-          nodeTransforms: [
-            transformShortVmodel({
-              prefix: '$',
-            }),
-          ],
-        },
-      },
-    }),
-  ],
-})
-```
-
 ## Options
 
-`prefix`: `'::' | '$' | '*'`, defaults to `'$'`
+```ts
+interface Options {
+  /**
+   * @default '$'
+   */
+  prefix?: '::' | '$' | '*'
+}
+```
 
 ## Usage
 
@@ -109,4 +83,4 @@ export default defineConfig({
 
 ## Known Issues
 
-- Prettier will format `::=` to `:=`, prettier-ignore is required if prefix is `::`.
+- Prettier will format `::=` to `:=` (e.g. `<div ::="msg" />` -> `<div :="msg" />`). The comment `<!-- prettier-ignore -->` is required if prefix is `::`.

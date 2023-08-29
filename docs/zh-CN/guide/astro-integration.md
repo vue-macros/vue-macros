@@ -38,37 +38,9 @@ export default defineConfig({
 
 ## TypeScript 支持 和 Volar 支持
 
-与 [Bundler Integration](./bundler-integration.md#typescript-support) 一致。
+参见 [打包器集成](./bundler-integration.md#typescript-support) 的对应章节。
 
-## 缺陷
-
-[`shortVmodel`](../macros/short-vmodel.md) 和 [`booleanProp`](../features/boolean-prop.md) 需要被显式添加到 `template.compilerOptions.nodeTransforms` 中，没有办法通过集成自动注入。
-
-与 Vue 3 的使用方式一致。
-
-如下所示：
-
-```ts
-import { defineConfig } from 'astro/config'
-import Vue from '@astrojs/vue'
-import Macros from '@vue-macros/astro'
-import { transformShortVmodel } from '@vue-macros/short-vmodel'
-
-export default defineConfig({
-  integrations: [
-    Vue({
-      jsx: true,
-      template: {
-        compilerOptions: {
-          // 显式地配置 nodeTransforms
-          nodeTransforms: [transformShortVmodel()],
-        },
-      },
-    }),
-    Macros(),
-  ],
-})
-```
+---
 
 :tada: 恭喜你! 现在已经成功完成了对 Astro 的集成过程。
 

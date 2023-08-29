@@ -15,42 +15,16 @@
 |    Vue 2     |        :x:         |
 | Volar Plugin | :white_check_mark: |
 
-## 设置
-
-### 安装
-
-```bash
-npm i -D @vue-macros/short-vmodel
-```
-
-### Vite 集成
-
-```ts {9-17}
-// vite.config.ts
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
-import { transformShortVmodel } from '@vue-macros/short-vmodel'
-
-export default defineConfig({
-  plugins: [
-    Vue({
-      template: {
-        compilerOptions: {
-          nodeTransforms: [
-            transformShortVmodel({
-              prefix: '$',
-            }),
-          ],
-        },
-      },
-    }),
-  ],
-})
-```
-
 ## 选项
 
-`prefix`: `'::' | '$' | '*'`，默认为 `'$'`
+```ts
+interface Options {
+  /**
+   * @default '$'
+   */
+  prefix?: '::' | '$' | '*'
+}
+```
 
 ## 用法
 
@@ -107,6 +81,6 @@ export default defineConfig({
 }
 ```
 
-## 已知的问题
+## 已知问题
 
-- Prettier 会将 `::=` 格式化为 `:=`，如果 prefix 为 `::`，则需要 prettier-ignore
+- Prettier 会将 `::=` 格式化为 `:=`（例如 `<div ::="msg" />` -> `<div :="msg" />`）。如果 prefix 为 `::`，则需要添加注释 `<!-- prettier-ignore -->`

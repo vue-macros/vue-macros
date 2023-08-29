@@ -96,7 +96,7 @@ module.exports = defineConfig({
 
 :::
 
-## TypeScript 支持
+## TypeScript 支持 {#typescript-support}
 
 ::: code-group
 

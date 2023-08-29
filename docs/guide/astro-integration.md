@@ -38,37 +38,9 @@ export default defineConfig({
 
 ## TypeScript Support & Volar Support
 
-Same with [Bundler Integration](./bundler-integration.md#typescript-support)
+See the corresponding chapter on [Bundler Integration](./bundler-integration.md#typescript-support)
 
-## Limitations
-
-[`shortVmodel`](../macros/short-vmodel.md) and [`booleanProp`](../features/boolean-prop.md) need to be explicitly added to the `template.compilerOptions.nodeTransforms`, cannot be auto injected.
-
-Same with Vue 3 usage.
-
-For example:
-
-```ts
-import { defineConfig } from 'astro/config'
-import Vue from '@astrojs/vue'
-import Macros from '@vue-macros/astro'
-import { transformShortVmodel } from '@vue-macros/short-vmodel'
-
-export default defineConfig({
-  integrations: [
-    Vue({
-      jsx: true,
-      template: {
-        compilerOptions: {
-          // explicit add transformShortVModel to node transforms
-          nodeTransforms: [transformShortVmodel()],
-        },
-      },
-    }),
-    Macros(),
-  ],
-})
-```
+---
 
 :tada: Congratulations! That's all.
 

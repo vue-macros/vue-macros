@@ -11,35 +11,6 @@ Convert `<Comp checked />` to `<Comp :checked="true" />`.
 |    Vue 2     |        :x:         |
 | Volar Plugin | :white_check_mark: |
 
-## Setup
-
-### Installation
-
-```bash
-npm i -D @vue-macros/boolean-prop
-```
-
-### Vite Integration
-
-```ts {9-13}
-// vite.config.ts
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
-import { transformBooleanProp } from '@vue-macros/boolean-prop'
-
-export default defineConfig({
-  plugins: [
-    Vue({
-      template: {
-        compilerOptions: {
-          nodeTransforms: [transformBooleanProp()],
-        },
-      },
-    }),
-  ],
-})
-```
-
 ## Usage
 
 ```vue
