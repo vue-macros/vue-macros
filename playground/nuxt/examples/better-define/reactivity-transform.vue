@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { Assert } from '../../assert'
+
 const { foo = 'foo' } = defineProps<{
   foo?: string
 }>()
-
-console.log(foo)
 </script>
 
 <template>
-  {{ foo }}
+  <Assert :l="foo" r="foo" />
 </template>

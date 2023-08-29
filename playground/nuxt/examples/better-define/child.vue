@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import type { BaseEmits, BaseProps } from './types'
+import { Assert } from '../../assert'
+import { type Warn } from './warning'
+import { type BaseEmits, type BaseProps } from './types'
+import { type DtsDemo } from './test-dts'
 
 export interface Props extends BaseProps {
   msg: string
@@ -7,12 +10,14 @@ export interface Props extends BaseProps {
 export interface Emits extends BaseEmits {
   (evt: 'click'): void
 }
+
 withDefaults(
   defineProps<
     Props & {
       union?: string | number
       nonStaticValue?: string
-    }
+      warn?: Warn
+    } & DtsDemo
   >(),
   {
     ...{ union: 'defaultValue' },
@@ -24,5 +29,17 @@ defineEmits<Emits>()
 </script>
 
 <template>
-  <div>bar</div>
+  <Assert
+    :l="Object.keys($props)"
+    :r="[
+      'name',
+      'msg',
+      'age',
+      'union',
+      'nonStaticValue',
+      'baz',
+      'warn',
+      'dtsDemo',
+    ]"
+  />
 </template>

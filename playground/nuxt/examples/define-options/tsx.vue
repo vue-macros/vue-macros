@@ -1,25 +1,19 @@
 <script setup lang="tsx">
 import { getCurrentInstance } from 'vue'
+import { Assert } from '../../assert'
 
 defineOptions({
   name: 'DemoDefineOptions',
   inheritAttrs: false,
-  custom() {
-    // Vue bug: sourcemap when JSX/TSX
-    debugger
-  },
 })
 
 const vm = getCurrentInstance()!
-const check = () => {
-  debugger
-  ;(vm.type as any).custom()
-}
 </script>
 
 <template>
-  <p>
-    defineOptions TSX demo.
-    <button @click="check">Check source map</button>
-  </p>
+  <div>
+    <span>TSX</span>
+    <Assert :l="vm.type.name" r="DemoDefineOptions" />
+    <Assert :l="vm.type.inheritAttrs" :r="false" />
+  </div>
 </template>

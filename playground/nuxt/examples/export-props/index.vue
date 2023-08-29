@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const name = 'Kevin'
+import Child from './child.vue'
 </script>
 
 <template>
-  {{ name }}
+  <Child foo="foo" />
 </template>

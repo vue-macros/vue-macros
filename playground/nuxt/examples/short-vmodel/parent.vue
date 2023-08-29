@@ -6,11 +6,13 @@ const val = ref('')
 </script>
 
 <template>
-  <p>{{ val }}</p>
+  <div>
+    <input v-model="val" />
+    <child v-model:foo="val" />
+  </div>
 
-  <input v-model="val" />
-  <child v-model:foo="val" />
-
-  <input $="val" />
-  <child $foo="val" />
+  <div>
+    <input $="val" />
+    <child $foo="val" />
+  </div>
 </template>
