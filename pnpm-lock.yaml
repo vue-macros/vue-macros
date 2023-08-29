@@ -60,8 +60,8 @@ importers:
         specifier: ^4.1.5
         version: 4.1.5
       prettier:
-        specifier: ^3.0.2
-        version: 3.0.2
+        specifier: ^3.0.3
+        version: 3.0.3
       rimraf:
         specifier: ^5.0.1
         version: 5.0.1
@@ -158,8 +158,8 @@ importers:
         specifier: ^4.3.4
         version: 4.3.4(vite@4.4.9)(vue@3.3.4)
       astro:
-        specifier: ^2.10.14
-        version: 2.10.14(@types/node@20.5.7)
+        specifier: ^2.10.15
+        version: 2.10.15(@types/node@20.5.7)
 
   packages/better-define:
     dependencies:
@@ -216,7 +216,7 @@ importers:
         version: 3.3.4
       ast-kit:
         specifier: ^0.11.0
-        version: 0.11.1
+        version: 0.11.1(rollup@3.28.1)
       local-pkg:
         specifier: ^0.4.3
         version: 0.4.3
@@ -227,6 +227,12 @@ importers:
       '@babel/parser':
         specifier: ^7.22.13
         version: 7.22.13
+      '@vitejs/plugin-vue':
+        specifier: ^4.3.4
+        version: 4.3.4(vite@4.4.9)(vue@3.3.4)
+      rollup:
+        specifier: ^3.28.1
+        version: 3.28.1
 
   packages/define-emit:
     dependencies:
@@ -528,6 +534,9 @@ importers:
       '@vue-macros/short-emits':
         specifier: workspace:*
         version: link:../short-emits
+      '@vue-macros/short-vmodel':
+        specifier: workspace:*
+        version: link:../short-vmodel
       unplugin:
         specifier: ^1.4.0
         version: 1.4.0
@@ -679,6 +688,9 @@ importers:
       '@vue/compiler-sfc':
         specifier: ^3.3.4
         version: 3.3.4
+      rollup:
+        specifier: ^3.28.1
+        version: 3.28.1
 
   packages/test-utils:
     dependencies:
@@ -707,8 +719,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0(esbuild@0.18.20)(rollup@3.28.1)
       unplugin-vue:
-        specifier: ^4.3.3
-        version: 4.3.3(vite@4.4.9)(vue@3.3.4)
+        specifier: ^4.3.5
+        version: 4.3.5(vite@4.4.9)(vue@3.3.4)
     devDependencies:
       '@rollup/plugin-json':
         specifier: ^6.0.0
@@ -755,7 +767,7 @@ importers:
     dependencies:
       '@astrojs/vue':
         specifier: ^2.2.1
-        version: 2.2.1(astro@2.10.14)(vite@4.4.9)(vue@3.3.4)
+        version: 2.2.1(astro@2.10.15)(vite@4.4.9)(vue@3.3.4)
       '@vue-macros/astro':
         specifier: workspace:*
         version: link:../../packages/astro
@@ -769,8 +781,8 @@ importers:
         specifier: ^10.4.1
         version: 10.4.1(vue@3.3.4)
       astro:
-        specifier: ^2.10.14
-        version: 2.10.14(@types/node@20.5.7)
+        specifier: ^2.10.15
+        version: 2.10.15(@types/node@20.5.7)
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -1097,13 +1109,13 @@ packages:
       vscode-languageserver-types: 3.17.3
       vscode-uri: 3.0.7
 
-  /@astrojs/markdown-remark@2.2.1(astro@2.10.14):
+  /@astrojs/markdown-remark@2.2.1(astro@2.10.15):
     resolution: {integrity: sha512-VF0HRv4GpC1XEMLnsKf6jth7JSmlt9qpqP0josQgA2eSpCIAC/Et+y94mgdBIZVBYH/yFnMoIxgKVe93xfO2GA==}
     peerDependencies:
       astro: ^2.5.0
     dependencies:
       '@astrojs/prism': 2.1.2
-      astro: 2.10.14(@types/node@20.5.7)
+      astro: 2.10.15(@types/node@20.5.7)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -1140,7 +1152,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@astrojs/vue@2.2.1(astro@2.10.14)(vite@4.4.9)(vue@3.3.4):
+  /@astrojs/vue@2.2.1(astro@2.10.15)(vite@4.4.9)(vue@3.3.4):
     resolution: {integrity: sha512-fq+RKFAKpIRcobF/803kMJWv/lobf9IIk6K5As5fWE/eYTpykkgHtxd+zDnf7d4I2V7K9XLKV06Oi6Q+oTJmDw==}
     engines: {node: '>=16.12.0'}
     peerDependencies:
@@ -1151,7 +1163,7 @@ packages:
       '@vitejs/plugin-vue-jsx': 3.0.2(vite@4.4.9)(vue@3.3.4)
       '@vue/babel-plugin-jsx': 1.1.5(@babel/core@7.22.11)
       '@vue/compiler-sfc': 3.3.4
-      astro: 2.10.14(@types/node@20.5.7)
+      astro: 2.10.15(@types/node@20.5.7)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -3577,14 +3589,14 @@ packages:
       eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.5.0)(eslint@8.48.0)
       eslint-plugin-jsonc: 2.9.0(eslint@8.48.0)
       eslint-plugin-markdown: 3.0.1(eslint@8.48.0)
-      eslint-plugin-prettier: 5.0.0(eslint-config-prettier@9.0.0)(eslint@8.48.0)(prettier@3.0.2)
+      eslint-plugin-prettier: 5.0.0(eslint-config-prettier@9.0.0)(eslint@8.48.0)(prettier@3.0.3)
       eslint-plugin-unicorn: 48.0.1(eslint@8.48.0)
       eslint-plugin-vue: 9.17.0(eslint@8.48.0)
       eslint-plugin-yml: 1.8.0(eslint@8.48.0)
       globals: 13.21.0
       jsonc-eslint-parser: 2.3.0
       local-pkg: 0.4.3
-      prettier: 3.0.2
+      prettier: 3.0.3
       vue-eslint-parser: 9.3.1(eslint@8.48.0)
       yaml-eslint-parser: 1.2.2
     transitivePeerDependencies:
@@ -4988,7 +5000,7 @@ packages:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
     dev: true
 
-  /ast-kit@0.11.1:
+  /ast-kit@0.11.1(rollup@3.28.1):
     resolution: {integrity: sha512-pbriAgko/hGuAFu+Elxpt1ptAZIf0jk7vENkSvhSEClv1vQnc/k1oPzuEiYZx5NonE7VPr5wsv+R7PNjAFkisg==}
     engines: {node: '>=16.14.0'}
     dependencies:
@@ -5026,8 +5038,8 @@ packages:
       - rollup
     dev: false
 
-  /astro@2.10.14(@types/node@20.5.7):
-    resolution: {integrity: sha512-02k2DjnI8yGtLCvdCSggvfCTkTWPm9UDgc/XHKdd1K34TSTl3X0A8TTYbASEXvgynk1zInCyOEe3IUDt3Lke+A==}
+  /astro@2.10.15(@types/node@20.5.7):
+    resolution: {integrity: sha512-7jgkCZexxOX541g2kKHGOcDDUVKYc+sGi87GtLOkbWwTsKqEIp9GU0o7DpKe1rhItm9VVEiHz4uxvMh3wGmJdA==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
     peerDependencies:
@@ -5039,7 +5051,7 @@ packages:
       '@astrojs/compiler': 1.8.2
       '@astrojs/internal-helpers': 0.1.2
       '@astrojs/language-server': 1.0.8
-      '@astrojs/markdown-remark': 2.2.1(astro@2.10.14)
+      '@astrojs/markdown-remark': 2.2.1(astro@2.10.15)
       '@astrojs/telemetry': 2.1.1
       '@astrojs/webapi': 2.2.0
       '@babel/core': 7.22.11
@@ -6345,7 +6357,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-prettier@5.0.0(eslint-config-prettier@9.0.0)(eslint@8.48.0)(prettier@3.0.2):
+  /eslint-plugin-prettier@5.0.0(eslint-config-prettier@9.0.0)(eslint@8.48.0)(prettier@3.0.3):
     resolution: {integrity: sha512-AgaZCVuYDXHUGxj/ZGu1u8H8CYgDY3iG6w5kUFw4AzMVXzB7VvbKgYR4nATIN+OvUrghMbiDLeimVjVY5ilq3w==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -6361,7 +6373,7 @@ packages:
     dependencies:
       eslint: 8.48.0
       eslint-config-prettier: 9.0.0(eslint@8.48.0)
-      prettier: 3.0.2
+      prettier: 3.0.3
       prettier-linter-helpers: 1.0.0
       synckit: 0.8.5
     dev: true
@@ -9512,8 +9524,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  /prettier@3.0.2:
-    resolution: {integrity: sha512-o2YR9qtniXvwEZlOKbveKfDQVyqxbEIWn48Z8m3ZJjBjcCmUy3xZGIv+7AkaeuaTr6yPXJjwv07ZWlsWbEy1rQ==}
+  /prettier@3.0.3:
+    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -11178,7 +11190,7 @@ packages:
     engines: {node: '>=16.14.0'}
     dependencies:
       '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
-      ast-kit: 0.11.1
+      ast-kit: 0.11.1(rollup@3.28.1)
       magic-string: 0.30.3
       magic-string-ast: 0.3.0
       unplugin: 1.4.0
@@ -11196,8 +11208,8 @@ packages:
       - terser
     dev: true
 
-  /unplugin-vue@4.3.3(vite@4.4.9)(vue@3.3.4):
-    resolution: {integrity: sha512-P6KRqXBlvJeN89qsvuFR948Y+E84vBsY8Ib11zn+Af+jwWQxx2u4TqLT5l1Cv+OX5pNQoAGbOibgTYYJTYW34A==}
+  /unplugin-vue@4.3.5(vite@4.4.9)(vue@3.3.4):
+    resolution: {integrity: sha512-WUL/w35zHc28WMF6rKBWYrym1e6V42Z8ODCnSc9jJ/5k8WOcE3Za0xRdWmp+bSs+JKh/tIJCqVJuK77FpXRywA==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
       vite: ^4.0.0

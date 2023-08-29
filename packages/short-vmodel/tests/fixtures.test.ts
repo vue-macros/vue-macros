@@ -6,20 +6,15 @@ import {
   rollupBuild,
   testFixtures,
 } from '@vue-macros/test-utils'
-import { transformShortVmodel } from '../src/index'
+import ShortVmodel from '../src/rollup'
 
 describe('fixtures', async () => {
   await testFixtures(
     'tests/fixtures/*.{vue,[jt]s?(x)}',
     (args, id) =>
       rollupBuild(id, [
-        RollupVue({
-          template: {
-            compilerOptions: {
-              nodeTransforms: [transformShortVmodel({ prefix: '::' })],
-            },
-          },
-        }),
+        ShortVmodel({ prefix: '::' }),
+        RollupVue(),
         RollupEsbuildPlugin({
           target: 'esnext',
         }),

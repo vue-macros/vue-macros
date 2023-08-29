@@ -72,6 +72,9 @@ import VueSetupSFC, {
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
+import VueShortVmodel, {
+  type Options as OptionsShortVmodel,
+} from '@vue-macros/short-vmodel'
 
 import { excludeDepOptimize } from './core'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
@@ -98,6 +101,7 @@ export interface FeatureOptionsMap {
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
   shortEmits: OptionsShortEmits
+  shortVmodel: OptionsShortVmodel
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -154,6 +158,7 @@ export function resolveOptions({
   setupComponent,
   setupSFC,
   shortEmits,
+  shortVmodel,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
     options: OptionalSubOptions<FeatureOptionsMap[K]>,
@@ -244,6 +249,7 @@ export function resolveOptions({
       { version },
       version < 3.3
     ),
+    shortVmodel: resolveSubOptions<'shortVmodel'>(shortVmodel, { version }),
   }
 }
 
@@ -321,6 +327,9 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
       resolvePlugin(VueDefineOptions, framework, options.defineOptions),
       resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
+      (framework === 'vite' || framework === 'webpack') &&
+        // VueShortVmodel is not an unplugin, by now
+        resolvePlugin(VueShortVmodel as any, framework, options.shortVmodel),
       options.plugins.vue,
       options.plugins.vueJsx,
       resolvePlugin(VueDefineRender, framework, options.defineRender),
