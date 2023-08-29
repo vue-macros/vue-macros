@@ -1,38 +1,39 @@
-import {
-  type ConstantTypes,
-  type NodeTransform,
-  type NodeTypes,
-} from '@vue/compiler-core'
+import { type Plugin } from 'rollup'
+import { type Plugin as VitePlugin } from 'vite'
+import { type VuePluginApi, getVuePluginApi } from '@vue-macros/common'
+import { type Options, transformBooleanProp } from './core/index'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 
-export function transformBooleanProp(): NodeTransform {
-  return (node) => {
-    if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
-    for (const [i, prop] of node.props.entries()) {
-      if (
-        prop.type !== (6 satisfies NodeTypes.ATTRIBUTE) ||
-        prop.value !== undefined
-      )
-        continue
-      node.props[i] = {
-        type: 7 satisfies NodeTypes.DIRECTIVE,
-        name: 'bind',
-        arg: {
-          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-          content: 'checked',
-          isStatic: true,
-          loc: prop.loc,
-        },
-        exp: {
-          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-          content: 'true',
-          isStatic: false,
-          loc: prop.loc,
-        },
-        loc: prop.loc,
-        modifiers: [],
+// legacy export
+export * from './api'
+
+const name = generatePluginName()
+
+function rollup(options: Options = {}): Plugin {
+  return {
+    name,
+    buildStart(rollupOpts) {
+      let api: VuePluginApi
+
+      try {
+        api = getVuePluginApi(rollupOpts)
+      } catch (error: any) {
+        this.warn(error)
+        return
       }
-    }
+
+      api.options.template ||= {}
+      api.options.template.compilerOptions ||= {}
+      api.options.template.compilerOptions.nodeTransforms ||= []
+
+      api.options.template.compilerOptions.nodeTransforms.push(
+        transformBooleanProp(options)
+      )
+    },
   }
+}
+
+export default {
+  rollup,
+  vite: rollup as (options?: Options) => VitePlugin,
 }

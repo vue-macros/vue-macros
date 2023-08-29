@@ -12,6 +12,7 @@ All features are enabled by default except the following.
 - `exportProps`
 - `exportRender`
 - `setupSFC`
+- `booleanProp`
 
 You can disable them by setting the option to `false`.
 

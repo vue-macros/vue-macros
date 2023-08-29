@@ -6,20 +6,15 @@ import {
   rollupBuild,
   testFixtures,
 } from '@vue-macros/test-utils'
-import { transformBooleanProp } from '../src/index'
+import BooleanProp from '../src/vite'
 
 describe('fixtures', async () => {
   await testFixtures(
     'tests/fixtures/*.{vue,[jt]s?(x)}',
     (args, id) =>
       rollupBuild(id, [
-        RollupVue({
-          template: {
-            compilerOptions: {
-              nodeTransforms: [transformBooleanProp()],
-            },
-          },
-        }),
+        BooleanProp(),
+        RollupVue(),
         RollupEsbuildPlugin({
           target: 'esnext',
         }),

@@ -12,6 +12,9 @@ import { Devtools } from '@vue-macros/devtools'
 import VueBetterDefine, {
   type Options as OptionsBetterDefine,
 } from '@vue-macros/better-define'
+import VueBooleanProp, {
+  type Options as OptionsBooleanProp,
+} from '@vue-macros/boolean-prop'
 import VueChainCall, {
   type Options as OptionsChainCall,
 } from '@vue-macros/chain-call'
@@ -81,6 +84,7 @@ import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
+  booleanProp: OptionsBooleanProp
   chainCall: OptionsChainCall
   defineEmit: OptionsDefineEmit
   defineModels: OptionsDefineModels
@@ -187,6 +191,11 @@ export function resolveOptions({
       version,
       isProduction,
     }),
+    booleanProp: resolveSubOptions<'booleanProp'>(
+      VueBooleanProp,
+      { version },
+      false
+    ),
     chainCall: resolveSubOptions<'chainCall'>(chainCall, { version }),
     defineEmit: resolveSubOptions<'defineEmit'>(defineEmit, {
       isProduction,
@@ -327,9 +336,26 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
       resolvePlugin(VueDefineOptions, framework, options.defineOptions),
       resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
-      (framework === 'vite' || framework === 'webpack') &&
-        // VueShortVmodel is not an unplugin, by now
-        resolvePlugin(VueShortVmodel as any, framework, options.shortVmodel),
+
+      ...[
+        framework === 'vite' || framework === 'rollup'
+          ? [
+              resolvePlugin(
+                // VueBooleanProp is not an unplugin, by now
+                VueBooleanProp as any,
+                framework,
+                options.booleanProp
+              ),
+              resolvePlugin(
+                // VueShortVmodel is not an unplugin, by now
+                VueShortVmodel as any,
+                framework,
+                options.shortVmodel
+              ),
+            ]
+          : [],
+      ],
+
       options.plugins.vue,
       options.plugins.vueJsx,
       resolvePlugin(VueDefineRender, framework, options.defineRender),
