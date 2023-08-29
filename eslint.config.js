@@ -11,6 +11,7 @@ export default sxzz([
       'vue/valid-attribute-name': 'off',
       'vue/no-export-in-script-setup': 'off',
       'vue/no-dupe-keys': 'off',
+      'vue/no-deprecated-scope-attribute': 'off',
     },
   },
   {

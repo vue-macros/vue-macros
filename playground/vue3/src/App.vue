@@ -22,7 +22,7 @@ import DefineProp from './examples/define-prop/index.vue'
 import DefineEmit from './examples/define-emit/index.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
-
+import Vscope from './examples/v-scope/index.vue'
 import SetupSFC from './examples/setup-sfc/index.setup'
 import ShortVmodel from './examples/short-vmodel/parent.vue'
 import Full from './examples/full.setup'
@@ -105,6 +105,11 @@ import Full from './examples/full.setup'
     <fieldset>
       <legend>Short v-model</legend>
       <short-vmodel />
+    </fieldset>
+
+    <fieldset>
+      <legend>vScope</legend>
+      <Vscope />
     </fieldset>
 
     <fieldset>

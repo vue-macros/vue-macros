@@ -12,6 +12,7 @@ export default {
   defineSlots: true,
   hoistStatic: true,
   shortEmits: true,
+  vScope: true,
 
   namedTemplate: false,
   setupSFC: true,
