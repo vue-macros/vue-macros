@@ -313,12 +313,35 @@ function transformVSlot({
   })
 }
 
+function transformVModel({
+  nodes,
+  codes,
+  ts,
+  sfc,
+  source,
+}: TransformOptions & { nodes: JsxAttributeNode[] }) {
+  nodes.forEach(({ attribute }) => {
+    const start = attribute.getStart(sfc[`${source}Ast`])
+    let end = start + 7
+    let name = 'modelValue'
+
+    if (ts.isJsxNamespacedName(attribute.name)) {
+      name = attribute.name.name.getText(sfc[`${source}Ast`])
+      end += 1 + name.length
+    }
+
+    replaceSourceRange(codes, source, start, end, `onUpdate:${name} `, name)
+  })
+}
+
 function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
   const vIfAttributeMap = new Map<any, JsxAttributeNode[]>()
   const vForAttributes: JsxAttributeNode[] = []
   const vSlotNodeSet = new Set<
     import('typescript/lib/tsserverlibrary').JsxElement
   >()
+  const vModelAttributes: JsxAttributeNode[] = []
+
   function walkJsxDirective(
     node: import('typescript/lib/tsserverlibrary').Node,
     parent?: import('typescript/lib/tsserverlibrary').Node
@@ -330,6 +353,8 @@ function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
       : []
     let vIfAttribute
     let vForAttribute
+    let vModelAttribute
+
     for (const attribute of properties) {
       if (!ts.isJsxAttribute(attribute)) continue
       if (ts.isIdentifier(attribute.name)) {
@@ -355,6 +380,16 @@ function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
             : node
         )
       }
+      if (
+        /^v-model(_.*)?$/.test(
+          (ts.isJsxNamespacedName(attribute.name)
+            ? attribute.name.namespace
+            : attribute.name
+          ).getText(sfc[`${source}Ast`])
+        )
+      ) {
+        vModelAttribute = attribute
+      }
     }
     if (vIfAttribute) {
       if (!vIfAttributeMap.has(parent!)) vIfAttributeMap.set(parent!, [])
@@ -369,6 +404,12 @@ function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
         node,
         attribute: vForAttribute,
         parent: vIfAttribute ? undefined : parent,
+      })
+    }
+    if (vModelAttribute) {
+      vModelAttributes.push({
+        node,
+        attribute: vModelAttribute,
       })
     }
 
@@ -386,6 +427,7 @@ function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
   vIfAttributeMap.forEach((nodes) =>
     transformVIf({ nodes, codes, sfc, ts, source })
   )
+  transformVModel({ nodes: vModelAttributes, codes, sfc, ts, source })
 }
 
 const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
@@ -396,7 +438,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (!/\sv-(if|for|slot)/.test(`${sfc[source]?.content}`)) continue
+        if (!/\sv-(if|for|slot|model)/.test(`${sfc[source]?.content}`)) continue
 
         transformJsxDirective({
           codes: embeddedFile.content,
