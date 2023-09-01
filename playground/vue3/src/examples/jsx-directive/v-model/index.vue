@@ -8,7 +8,6 @@ defineRender(() => (
         value={value}
         onInput={(e: any) => emits['onUpdate:value'](e.target.value)}
       />
-      {{ emits }}
     </template>
 
     <template v-slot={{ value }}>{value}</template>
