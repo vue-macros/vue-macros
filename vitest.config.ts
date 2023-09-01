@@ -11,7 +11,7 @@ export default defineConfig(() => {
       conditions: ['dev'],
     },
     test: {
-      singleThread: true,
+      experimentalVmThreads: true,
     },
     plugins: [Macros()],
   }
