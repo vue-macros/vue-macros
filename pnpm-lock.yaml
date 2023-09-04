@@ -766,8 +766,8 @@ importers:
   playground/astro:
     dependencies:
       '@astrojs/vue':
-        specifier: ^2.2.1
-        version: 2.2.1(astro@2.10.15)(vite@4.4.9)(vue@3.3.4)
+        specifier: ^3.0.0
+        version: 3.0.0(astro@2.10.15)(vite@4.4.9)(vue@3.3.4)
       '@vue-macros/astro':
         specifier: workspace:*
         version: link:../../packages/astro
@@ -1140,11 +1140,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@astrojs/vue@2.2.1(astro@2.10.15)(vite@4.4.9)(vue@3.3.4):
-    resolution: {integrity: sha512-fq+RKFAKpIRcobF/803kMJWv/lobf9IIk6K5As5fWE/eYTpykkgHtxd+zDnf7d4I2V7K9XLKV06Oi6Q+oTJmDw==}
-    engines: {node: '>=16.12.0'}
+  /@astrojs/vue@3.0.0(astro@2.10.15)(vite@4.4.9)(vue@3.3.4):
+    resolution: {integrity: sha512-C3PSSznvgs9lZLz3e4VZOV3rRV+OekSELkA5wcrh2zgQiemYs8fnLo7S25ZMhM/xrqMbNxUKGjYZngH7NdIvsg==}
+    engines: {node: '>=18.14.1'}
     peerDependencies:
-      astro: ^2.5.6
+      astro: ^3.0.0
       vue: '*'
     dependencies:
       '@vitejs/plugin-vue': 4.3.4(vite@4.4.9)(vue@3.3.4)
