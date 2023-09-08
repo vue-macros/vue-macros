@@ -296,7 +296,7 @@ function transformVSlot({
           '</>,',
         ]
       ),
-      `} as InstanceType<typeof ${node.openingElement.tagName.escapedText}>['$slots'] }`,
+      `} as ReturnType<typeof __VLS_pickFunctionalComponentCtx<typeof ${node.openingElement.tagName.escapedText}, ReturnType<ReturnType<typeof __VLS_asFunctionalComponent<typeof ${node.openingElement.tagName.escapedText}>>>>>['slots'] }`,
     ] as Segment<FileRangeCapabilities>[]
 
     if (attribute) {
