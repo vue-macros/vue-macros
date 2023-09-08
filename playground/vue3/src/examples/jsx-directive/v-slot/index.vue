@@ -33,7 +33,3 @@ defineRender(() => (
   </fieldset>
 ))
 </script>
-
-<template>
-  <Comp v-slot="{ foo }" foo="1" />
-</template>
