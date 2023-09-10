@@ -175,6 +175,13 @@ function transformVSlot({
 }: TransformOptions & {
   nodes: import('typescript/lib/tsserverlibrary').JsxElement[]
 }) {
+  if (nodes.length === 0) return
+  codes.push(`type __VLS_getSlots<T> = T extends new (...args: any) => any
+  ? InstanceType<T>['$slots']
+  : T extends (props: any, ctx: infer Ctx) => any
+  ? Ctx['slots']
+  : any`)
+
   nodes.forEach((node) => {
     if (!ts.isIdentifier(node.openingElement.tagName)) return
 
@@ -296,7 +303,7 @@ function transformVSlot({
           '</>,',
         ]
       ),
-      `} as InstanceType<typeof ${node.openingElement.tagName.escapedText}>['$slots'] }`,
+      `} as __VLS_getSlots<typeof ${node.openingElement.tagName.escapedText}> }`,
     ] as Segment<FileRangeCapabilities>[]
 
     if (attribute) {
