@@ -44,7 +44,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node-version: [16, 18, 20]
+        node-version: [18, 20]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -77,4 +77,4 @@ jobs:
 
       - name: Build Playground
         run: pnpm run --filter "./playground/*" --parallel build
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.node-version != 16 }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
