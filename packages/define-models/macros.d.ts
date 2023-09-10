@@ -11,7 +11,7 @@ export type UseModelOptions<T> = Omit<UseVModelOptions<T>, 'passive'> & {
   passive?: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line unused-imports/no-unused-vars
 export type ModelOptions<T, O extends UseModelOptions<T> = {}> = T
 
 export const defineModels: <T>() => {

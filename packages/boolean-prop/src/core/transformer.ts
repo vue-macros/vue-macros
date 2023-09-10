@@ -8,7 +8,7 @@ export interface Options {
   // empty
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- not be used by now
+// eslint-disable-next-line unused-imports/no-unused-vars -- not be used by now
 export function transformBooleanProp(_options: Options = {}): NodeTransform {
   return (node) => {
     if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
