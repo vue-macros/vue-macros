@@ -1,5 +1,18 @@
 # @vue-macros/volar
 
+## 0.14.3
+
+### Patch Changes
+
+- [#494](https://github.com/vue-macros/vue-macros/pull/494) [`c1b4e2f2`](https://github.com/vue-macros/vue-macros/commit/c1b4e2f285a8317e6ca795a044a7a29af8e172d5) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add v-model plugin
+
+- [#499](https://github.com/vue-macros/vue-macros/pull/499) [`0afa9723`](https://github.com/vue-macros/vue-macros/commit/0afa9723c2bd569bd0c245bc12ce66a514791a71) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support function component in v-slot
+
+- Updated dependencies [[`c848deb9`](https://github.com/vue-macros/vue-macros/commit/c848deb9b4d4e5c015562c34813ac7aa181fee00), [`0463655b`](https://github.com/vue-macros/vue-macros/commit/0463655bd1a8dddaf128b60ea592130cb16d6da7)]:
+  - @vue-macros/short-vmodel@1.3.0
+  - @vue-macros/common@1.8.0
+  - @vue-macros/define-props@1.0.21
+
 ## 0.14.2
 
 ### Patch Changes

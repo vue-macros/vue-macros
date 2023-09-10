@@ -1,5 +1,18 @@
 # @vue-macros/boolean-prop
 
+## 0.2.0
+
+### Minor Changes
+
+- [`98263c69`](https://github.com/vue-macros/vue-macros/commit/98263c69fa562f048fc425d187b3bbee94d9a3b4) Thanks [@sxzz](https://github.com/sxzz)! - feat: add booleanProp into macros plugin
+
+### Patch Changes
+
+- [`c848deb9`](https://github.com/vue-macros/vue-macros/commit/c848deb9b4d4e5c015562c34813ac7aa181fee00) Thanks [@sxzz](https://github.com/sxzz)! - use Vite plugin for booleanProp and shortVmodel in Nuxt
+
+- Updated dependencies [[`c848deb9`](https://github.com/vue-macros/vue-macros/commit/c848deb9b4d4e5c015562c34813ac7aa181fee00), [`0463655b`](https://github.com/vue-macros/vue-macros/commit/0463655bd1a8dddaf128b60ea592130cb16d6da7)]:
+  - @vue-macros/common@1.8.0
+
 ## 0.1.3
 
 ### Patch Changes

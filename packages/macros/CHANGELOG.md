@@ -1,5 +1,41 @@
 # unplugin-vue-macros
 
+## 2.5.0
+
+### Minor Changes
+
+- [`0463655b`](https://github.com/vue-macros/vue-macros/commit/0463655bd1a8dddaf128b60ea592130cb16d6da7) Thanks [@sxzz](https://github.com/sxzz)! - feat: add shortVmodel into macros plugin
+
+- [`98263c69`](https://github.com/vue-macros/vue-macros/commit/98263c69fa562f048fc425d187b3bbee94d9a3b4) Thanks [@sxzz](https://github.com/sxzz)! - feat: add booleanProp into macros plugin
+
+### Patch Changes
+
+- Updated dependencies [[`c848deb9`](https://github.com/vue-macros/vue-macros/commit/c848deb9b4d4e5c015562c34813ac7aa181fee00), [`0463655b`](https://github.com/vue-macros/vue-macros/commit/0463655bd1a8dddaf128b60ea592130cb16d6da7), [`c62b7401`](https://github.com/vue-macros/vue-macros/commit/c62b74018f5da0cdfc02437e14d727303887c88e), [`98263c69`](https://github.com/vue-macros/vue-macros/commit/98263c69fa562f048fc425d187b3bbee94d9a3b4)]:
+  - @vue-macros/boolean-prop@0.2.0
+  - @vue-macros/short-vmodel@1.3.0
+  - @vue-macros/common@1.8.0
+  - @vue-macros/setup-sfc@0.16.3
+  - @vue-macros/better-define@1.6.12
+  - @vue-macros/chain-call@0.1.6
+  - @vue-macros/define-emit@0.1.16
+  - @vue-macros/define-models@1.0.16
+  - unplugin-vue-define-options@1.3.18
+  - @vue-macros/define-prop@0.2.8
+  - @vue-macros/define-props@1.0.21
+  - @vue-macros/define-props-refs@1.1.10
+  - @vue-macros/define-render@1.4.3
+  - @vue-macros/define-slots@1.0.15
+  - @vue-macros/export-expose@0.0.13
+  - @vue-macros/export-props@0.3.18
+  - @vue-macros/export-render@0.1.1
+  - @vue-macros/hoist-static@1.4.12
+  - @vue-macros/jsx-directive@0.6.5
+  - @vue-macros/named-template@0.3.19
+  - @vue-macros/reactivity-transform@0.3.23
+  - @vue-macros/setup-block@0.2.18
+  - @vue-macros/setup-component@0.16.19
+  - @vue-macros/short-emits@1.4.10
+
 ## 2.4.14
 
 ### Patch Changes
