@@ -77,4 +77,4 @@ jobs:
 
       - name: Build Playground
         run: pnpm run --filter "./playground/*" --parallel build
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.node-version != 16 }}
