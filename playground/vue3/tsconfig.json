@@ -13,7 +13,8 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "customConditions": ["dev"],
-    "allowJs": true
+    "allowJs": true,
+    "noEmit": true
   },
   "vueCompilerOptions": {
     "plugins": [
