@@ -1,5 +1,18 @@
 # @vue-macros/short-vmodel
 
+## 1.3.0
+
+### Minor Changes
+
+- [`0463655b`](https://github.com/vue-macros/vue-macros/commit/0463655bd1a8dddaf128b60ea592130cb16d6da7) Thanks [@sxzz](https://github.com/sxzz)! - feat: add shortVmodel into macros plugin
+
+### Patch Changes
+
+- [`c848deb9`](https://github.com/vue-macros/vue-macros/commit/c848deb9b4d4e5c015562c34813ac7aa181fee00) Thanks [@sxzz](https://github.com/sxzz)! - use Vite plugin for booleanProp and shortVmodel in Nuxt
+
+- Updated dependencies [[`c848deb9`](https://github.com/vue-macros/vue-macros/commit/c848deb9b4d4e5c015562c34813ac7aa181fee00), [`0463655b`](https://github.com/vue-macros/vue-macros/commit/0463655bd1a8dddaf128b60ea592130cb16d6da7)]:
+  - @vue-macros/common@1.8.0
+
 ## 1.2.17
 
 ### Patch Changes

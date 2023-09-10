@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.1.3
+
+### Patch Changes
+
+- [`0463655b`](https://github.com/vue-macros/vue-macros/commit/0463655bd1a8dddaf128b60ea592130cb16d6da7) Thanks [@sxzz](https://github.com/sxzz)! - feat: add shortVmodel into macros plugin
+
 ## 1.1.2
 
 ### Patch Changes
