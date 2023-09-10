@@ -16,7 +16,7 @@ defineRender(() => (
   <fieldset>
     <legend>v-slot</legend>
 
-    <Comp v-slot={{ foo }}></Comp>
+    <Comp v-slot={{ foo }}>{''}</Comp>
 
     <Child>
       <div>default: begin</div>
