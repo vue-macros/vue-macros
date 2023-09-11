@@ -142,6 +142,7 @@ export function resolveOptions({
   nuxtContext,
 
   betterDefine,
+  booleanProp,
   chainCall,
   defineEmit,
   defineModels,
@@ -192,7 +193,7 @@ export function resolveOptions({
       isProduction,
     }),
     booleanProp: resolveSubOptions<'booleanProp'>(
-      VueBooleanProp,
+      booleanProp,
       { version },
       false
     ),
@@ -337,24 +338,22 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(VueDefineOptions, framework, options.defineOptions),
       resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
 
-      ...[
-        framework === 'vite' || framework === 'rollup'
-          ? [
-              resolvePlugin(
-                // VueBooleanProp is not an unplugin, by now
-                VueBooleanProp as any,
-                framework,
-                options.booleanProp
-              ),
-              resolvePlugin(
-                // VueShortVmodel is not an unplugin, by now
-                VueShortVmodel as any,
-                framework,
-                options.shortVmodel
-              ),
-            ]
-          : [],
-      ],
+      ...(framework === 'vite' || framework === 'rollup'
+        ? [
+            resolvePlugin(
+              // VueBooleanProp is not an unplugin, by now
+              VueBooleanProp as any,
+              framework,
+              options.booleanProp
+            ),
+            resolvePlugin(
+              // VueShortVmodel is not an unplugin, by now
+              VueShortVmodel as any,
+              framework,
+              options.shortVmodel
+            ),
+          ]
+        : []),
 
       options.plugins.vue,
       options.plugins.vueJsx,

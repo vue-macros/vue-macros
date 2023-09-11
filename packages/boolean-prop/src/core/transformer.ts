@@ -24,7 +24,7 @@ export function transformBooleanProp(_options: Options = {}): NodeTransform {
         arg: {
           type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
           constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-          content: 'checked',
+          content: prop.name,
           isStatic: true,
           loc: prop.loc,
         },

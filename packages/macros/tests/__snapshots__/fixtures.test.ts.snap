@@ -33,6 +33,26 @@ export { basic as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/boolean-prop.vue 1`] = `
+"import { resolveComponent, openBlock, createElementBlock, Fragment, createCommentVNode, createVNode } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+const _sfc_main = {};
+
+function _sfc_render(_ctx, _cache) {
+  const _component_el_form = resolveComponent(\\"el-form\\");
+
+  return (openBlock(), createElementBlock(Fragment, null, [
+    createCommentVNode(\\" disabled \\"),
+    createVNode(_component_el_form, { inline: \\"\\" })
+  ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
+}
+var booleanProp = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
+
+export { booleanProp as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/case-233.vue 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';

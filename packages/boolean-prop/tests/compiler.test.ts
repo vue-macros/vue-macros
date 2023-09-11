@@ -16,7 +16,7 @@ function compile(code: string) {
 describe('compiler', () => {
   test('basic', () => {
     const original = compile(`<input :checked="true" />`)
-    const sugar = compile(`<input check />`)
+    const sugar = compile(`<input checked />`)
     expect(sugar.code).toBe(original.code)
     expect((sugar.ast as any).children[0].props[0]).matchSnapshot()
   })
