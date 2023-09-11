@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 2.5.1
+
+### Patch Changes
+
+- [`b80efe5a`](https://github.com/vue-macros/vue-macros/commit/b80efe5a37554315fb76bbc264aebfef36785007) Thanks [@sxzz](https://github.com/sxzz)! - fix resolve boolean props options, boolean prop name
+  closes #502
+- Updated dependencies [[`b80efe5a`](https://github.com/vue-macros/vue-macros/commit/b80efe5a37554315fb76bbc264aebfef36785007)]:
+  - @vue-macros/boolean-prop@0.2.1
+
 ## 2.5.0
 
 ### Minor Changes
