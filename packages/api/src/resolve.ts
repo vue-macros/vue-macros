@@ -4,13 +4,10 @@ import path from 'node:path'
 import { exports } from 'resolve.exports'
 import { type PluginContext } from 'rollup'
 import { type ModuleNode, type Plugin } from 'vite'
+import { isDts } from '@vue-macros/common'
 import { type ResolveTSFileIdImpl, tsFileCache } from './ts'
 
 export const deepImportRE = /^([^@][^/]*)\/|^(@[^/]+\/[^/]+)\//
-
-function isDts(id: string) {
-  return /\.d\.[cm]?ts$/.test(id)
-}
 
 export const RollupResolve = () => {
   const referencedFiles = new Map<
