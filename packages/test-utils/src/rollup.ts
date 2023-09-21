@@ -1,6 +1,5 @@
 import { type InputPluginOption, type Plugin, rollup } from 'rollup'
-import {
-  default as ViteVueJsx,
+import ViteVueJsx, {
   type Options as VueJsxOptions,
 } from '@vitejs/plugin-vue-jsx'
 

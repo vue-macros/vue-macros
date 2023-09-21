@@ -9,6 +9,7 @@ import {
   detectVueVersion,
   normalizePath,
 } from '@vue-macros/common'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 import { transformDefineModels } from './core'
 import {
   emitHelperCode,
@@ -17,7 +18,6 @@ import {
   useVmodelHelperCode,
   useVmodelHelperId,
 } from './core/helper'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export interface Options extends BaseOptions {
   /**

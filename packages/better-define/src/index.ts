@@ -10,8 +10,8 @@ import {
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
 import { type PluginContext } from 'rollup'
-import { transformBetterDefine } from './core'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { transformBetterDefine } from './core'
 
 export interface Options extends BaseOptions {
   isProduction?: boolean

@@ -1,23 +1,23 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "module": "esnext",
     "target": "esnext",
     "lib": ["DOM", "ESNext"],
-    "strict": true,
     "jsx": "preserve",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+    "module": "esnext",
     "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["vite/client", "vitepress", "vite-plugin-pwa/client"],
+    "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"]
     },
-    "customConditions": ["dev"]
+    "types": ["vite/client", "vitepress", "vite-plugin-pwa/client"],
+    "customConditions": ["dev"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true
   },
   "vueCompilerOptions": {},
   "include": ["**/*", "./.*/**/*", "../packages/shim.d.ts"],

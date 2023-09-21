@@ -11,9 +11,9 @@ import {
   detectVueVersion,
   normalizePath,
 } from '@vue-macros/common'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 import { shouldTransform, transform, transformVueSFC } from './core'
 import { helperCode, helperId } from './core/helper'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>

@@ -8,8 +8,8 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformDefinePropsRefs } from './core/index'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { transformDefinePropsRefs } from './core/index'
 
 export { transformDefinePropsRefs } from './core'
 

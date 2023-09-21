@@ -6,13 +6,13 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE,
 } from './core/constants'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>

@@ -79,8 +79,8 @@ import VueShortVmodel, {
   type Options as OptionsShortVmodel,
 } from '@vue-macros/short-vmodel'
 
-import { excludeDepOptimize } from './core'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { excludeDepOptimize } from './core'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine

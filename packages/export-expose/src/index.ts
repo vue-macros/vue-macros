@@ -8,8 +8,8 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformExportExpose } from './core'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { transformExportExpose } from './core'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>

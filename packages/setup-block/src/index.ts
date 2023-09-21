@@ -7,8 +7,8 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformSetupBlock } from './core'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { transformSetupBlock } from './core'
 
 export interface Options extends BaseOptions {
   defaultLang?: string

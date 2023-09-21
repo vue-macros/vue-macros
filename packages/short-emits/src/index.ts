@@ -7,8 +7,8 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { transformShortEmits } from './core'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { transformShortEmits } from './core'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>

@@ -11,9 +11,9 @@ import {
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
 import { type PluginContext } from 'rollup'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 import { type Edition, transformDefineProp } from './core'
 import { helperCode, helperId } from './core/helper'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export interface Options extends BaseOptions {
   isProduction?: boolean
