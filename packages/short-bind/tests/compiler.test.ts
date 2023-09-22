@@ -1,6 +1,6 @@
 import { compileTemplate } from '@vue/compiler-sfc'
 import { describe, expect, test } from 'vitest'
-import { transformShortBind } from '../src'
+import { transformShortBind } from '../src/core'
 
 function compile(code: string) {
   return compileTemplate({
