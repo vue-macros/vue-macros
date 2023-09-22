@@ -35,11 +35,15 @@ VueMacros({
 
 **Require Volar >= `1.3.12`**
 
-```jsonc
+```jsonc {6,10}
 // tsconfig.json
 {
   // ...
   "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/define-prop"
+      // ...more feature
+    ],
     // "kevinEdition" | "johnsonEdition" | false
     "experimentalDefinePropProposal": "kevinEdition"
   }
@@ -153,5 +157,21 @@ count.value
 const disabled = defineProp<boolean>(true)
 disabled.value
 //        ^? type: boolean
+</script>
+```
+
+### With Reactivity Transform
+
+```vue
+<script setup lang="ts">
+// Kevin's Edition
+const foo = $defineProp('foo', { default: 'foo' })
+const bar = $(defineProp('bar', { default: 'bar', required: true }))
+console.log(foo, bar)
+
+// Johnson's Edition
+const foo = $defineProp('foo')
+const bar = $(defineProp('bar', true))
+console.log(foo, bar)
 </script>
 ```
