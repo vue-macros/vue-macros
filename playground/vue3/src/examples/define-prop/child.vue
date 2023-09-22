@@ -11,7 +11,7 @@ const baz = $(defineProp('baz', { default: 'baz' }))
 // const bar = $defineProp(() => 'bar', true)
 // const baz = $(defineProp('baz'))
 
-const props = definePropsRefs(['msg'])
+const props = definePropsRefs<{ msg?: string }>()
 
 defineRender(() => (
   <>
