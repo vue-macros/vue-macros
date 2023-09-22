@@ -35,16 +35,8 @@ export function transformShortBind(_options: Options = {}): NodeTransform {
             type: 2 satisfies NodeTypes.TEXT,
             content: valueName,
             loc: {
-              start: {
-                offset: prop.loc.start.offset,
-                column: prop.loc.start.column,
-                line: prop.loc.start.line,
-              },
-              end: {
-                offset: prop.loc.end.offset,
-                column: prop.loc.end.column,
-                line: prop.loc.end.line,
-              },
+              start: { ...prop.loc.start },
+              end: prop.loc.end,
               source: `"${valueName}"`,
             },
           }
