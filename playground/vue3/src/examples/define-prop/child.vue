@@ -8,7 +8,7 @@ const baz = $(defineProp('baz', { default: 'baz' }))
 
 // Johnson's Edition
 // const foo = defineProp<string>()
-// const bar = $defineProp(() => 'bar', true)
+// const bar = $defineProp('bar', true)
 // const baz = $(defineProp('baz'))
 
 const props = definePropsRefs<{ msg?: string }>()

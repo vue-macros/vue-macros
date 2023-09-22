@@ -80,34 +80,48 @@ function transform({
 
   if (vueCompilerOptions.experimentalDefinePropProposal === 'kevinEdition') {
     codes.push(`
+type __VLS_PropOptions<T> = Exclude<
+  import('${vueLibName}').Prop<T>,
+  import('${vueLibName}').PropType<T>
+>
 declare function $defineProp<T>(
   name: string,
   options: 
-    | ({ default: T } & Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>)
-    | ({ required: true } & Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>)
+    | ({ default: T } & __VLS_PropOptions<T>)
+    | ({ required: true } & __VLS_PropOptions<T>)
 ): import('unplugin-vue-macros/macros').ComputedRefValue<T>
 declare function $defineProp<T>(
   name?: string,
-  options?: Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>
+  options?: __VLS_PropOptions<T>
 ): import('unplugin-vue-macros/macros').ComputedRefValue<T | undefined>`)
   }
   if (vueCompilerOptions.experimentalDefinePropProposal === 'johnsonEdition') {
     codes.push(`
+type __VLS_Widen<T> = T extends number | string | boolean | symbol
+  ? ReturnType<T['valueOf']>
+  : T
+type __VLS_PropOptions<T> = Exclude<
+  import('${vueLibName}').Prop<__VLS_Widen<T>>,
+  import('${vueLibName}').PropType<__VLS_Widen<T>>
+>
 declare function $defineProp<T>(
   value: T | (() => T) | undefined,
   required: true,
-  options?: Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>
-): import('unplugin-vue-macros/macros').ComputedRefValue<T>
+  options?: __VLS_PropOptions<T>
+): import('unplugin-vue-macros/macros').ComputedRefValue<__VLS_Widen<T>>
 declare function $defineProp<T>(
   value: T | (() => T),
   required?: boolean,
-  options?: Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>
-): import('unplugin-vue-macros/macros').ComputedRefValue<T>
+  options?: __VLS_PropOptions<T>
+): import('unplugin-vue-macros/macros').ComputedRefValue<__VLS_Widen<T>>
 declare function $defineProp<T>(
   value?: T | (() => T),
   required?: boolean,
-  options?: Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>
-): import('unplugin-vue-macros/macros').ComputedRefValue<T | undefined>`)
+  options?: __VLS_PropOptions<T>
+): import('unplugin-vue-macros/macros').ComputedRefValue<
+  | __VLS_Widen<T>
+  | undefined
+>`)
   }
 }
 
