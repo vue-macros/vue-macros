@@ -1,10 +1,9 @@
 import { type Plugin } from 'vite'
 import { type VuePluginApi, getVuePluginApi } from '@vue-macros/common'
-import { type Options, transformShortBind } from './core/index'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { type Options, transformShortBind } from './core/index'
 
-// legacy export
-export * from './api'
+export type { Options } from './core'
 
 const name = generatePluginName()
 

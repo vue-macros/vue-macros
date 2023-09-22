@@ -1,4 +1,4 @@
-import { transformShortBind } from '@vue-macros/short-bind'
+import { transformShortBind } from '@vue-macros/short-bind/api'
 import { type VueLanguagePlugin } from '@vue/language-core'
 
 const plugin: VueLanguagePlugin = () => {
