@@ -1,12 +1,12 @@
 <script setup lang="tsx">
 import { Assert } from '../../assert'
 
-// KevinEdition
+// Kevin's Edition
 const foo = defineProp<string>()
 const bar = $defineProp('bar', { default: 'bar', required: true })
 const baz = $(defineProp('baz', { default: 'baz' }))
 
-// johnsonEdition
+// Johnson's Edition
 // const foo = defineProp<string>()
 // const bar = $defineProp(() => 'bar', true)
 // const baz = $(defineProp('baz'))
