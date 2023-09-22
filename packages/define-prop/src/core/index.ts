@@ -1,6 +1,7 @@
 import {
   DEFINE_PROP,
   DEFINE_PROPS,
+  DEFINE_PROP_DOLLAR,
   HELPER_PREFIX,
   MagicString,
   generateTransform,
@@ -47,8 +48,12 @@ export async function transformDefineProp(
     setup.onEnter(
       (node, parent): node is t.CallExpression =>
         (isCallOf(node, '$') && isCallOf(node.arguments[0], DEFINE_PROP)) ||
-        (!isCallOf(parent, '$') && isCallOf(node, DEFINE_PROP)),
+        (!isCallOf(parent, '$') &&
+          isCallOf(node, [DEFINE_PROP, DEFINE_PROP_DOLLAR])),
       (node, parent) => {
+        const isReactiveTransform =
+          (isCallOf(node, '$') && isCallOf(node.arguments[0], DEFINE_PROP)) ||
+          isCallOf(node, DEFINE_PROP_DOLLAR)
         const propName = walkCall(
           isCallOf(node, '$') && isCallOf(node.arguments[0], DEFINE_PROP)
             ? node.arguments[0]
@@ -57,9 +62,13 @@ export async function transformDefineProp(
         )
         s.overwriteNode(
           node,
-          `${importHelperFn(s, offset, 'toRef')}(__props, ${JSON.stringify(
-            propName
-          )})`,
+          `${isReactiveTransform ? '$(' : ''}${importHelperFn(
+            s,
+            offset,
+            'toRef'
+          )}(__props, ${JSON.stringify(propName)})${
+            isReactiveTransform ? ')' : ''
+          }`,
           { offset }
         )
       }
