@@ -222,13 +222,13 @@ export function resolveOptions({
       { version },
       version < 3.3
     ),
-    exportRender: resolveSubOptions<'exportRender'>(
-      exportRender,
+    exportExpose: resolveSubOptions<'exportExpose'>(
+      exportExpose,
       { version },
       false
     ),
-    exportExpose: resolveSubOptions<'exportExpose'>(
-      exportExpose,
+    exportRender: resolveSubOptions<'exportRender'>(
+      exportRender,
       { version },
       false
     ),
