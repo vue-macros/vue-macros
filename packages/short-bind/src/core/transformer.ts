@@ -26,10 +26,9 @@ export function transformShortBind(_options: Options = {}): NodeTransform {
           ? !prop.exp
           : false)
       ) {
-        const str = `${prop.loc.source.replace(reg, '')}`
-        let [str1, str2] = str.split('-')
-        str2 = str2 ? str2.charAt(0).toUpperCase() + str2.slice(1) : ''
-        const valueName = str1 + str2
+        const valueName = prop.loc.source
+          .replace(reg, '')
+          .replaceAll(/-([A-Za-z])/g, (_, name) => name.toUpperCase())
 
         if (prop.type === (6 satisfies NodeTypes.ATTRIBUTE)) {
           prop.value = {
