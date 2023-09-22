@@ -72,12 +72,12 @@ import VueSetupComponent, {
 import VueSetupSFC, {
   type Options as OptionsSetupSFC,
 } from '@vue-macros/setup-sfc'
-import VueShortEmits, {
-  type Options as OptionsShortEmits,
-} from '@vue-macros/short-emits'
 import VueShortBind, {
   type Options as OptionsShortBind,
 } from '@vue-macros/short-bind'
+import VueShortEmits, {
+  type Options as OptionsShortEmits,
+} from '@vue-macros/short-emits'
 import VueShortVmodel, {
   type Options as OptionsShortVmodel,
 } from '@vue-macros/short-vmodel'
@@ -107,8 +107,8 @@ export interface FeatureOptionsMap {
   setupBlock: OptionsSetupBlock
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
-  shortEmits: OptionsShortEmits
   shortBind: OptionsShortBind
+  shortEmits: OptionsShortEmits
   shortVmodel: OptionsShortVmodel
 }
 export type FeatureName = keyof FeatureOptionsMap
@@ -166,8 +166,8 @@ export function resolveOptions({
   setupBlock,
   setupComponent,
   setupSFC,
-  shortEmits,
   shortBind,
+  shortEmits,
   shortVmodel,
 }: Options): OptionsResolved {
   function resolveSubOptions<K extends FeatureName>(
@@ -259,12 +259,12 @@ export function resolveOptions({
       root,
     }),
     setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, { version }, false),
+    shortBind: resolveSubOptions<'shortBind'>(shortBind, { version }, false),
     shortEmits: resolveSubOptions<'shortEmits'>(
       shortEmits,
       { version },
       version < 3.3
     ),
-    shortBind: resolveSubOptions<'shortBind'>(shortBind, { version }, false),
     shortVmodel: resolveSubOptions<'shortVmodel'>(shortVmodel, { version }),
   }
 }
