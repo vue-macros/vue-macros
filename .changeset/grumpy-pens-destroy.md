@@ -4,4 +4,4 @@
 '@vue-macros/common': patch
 ---
 
-add $defineProp
+add reactivity-transform support to defineProp
