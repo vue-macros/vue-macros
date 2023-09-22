@@ -64,7 +64,7 @@ interface Options {
 
 ## Volar 配置
 
-```jsonc {5,9}
+```jsonc {5,9-11}
 // tsconfig.json
 {
   "vueCompilerOptions": {
