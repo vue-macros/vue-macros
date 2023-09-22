@@ -8,7 +8,7 @@ const __MACROS_props = defineProps({
   bar: { default: 'bar', required: false },
   baz: { type: String, default: 'bar', required: false, ...{ validator: () => true } },
   unknownType: { type: Boolean, skipCheck: true },
-  $bar: { default: () => 'bar', required: true },
+  $bar: { default: 'bar', required: true },
   $baz: { default: 'baz' },
 });
 
