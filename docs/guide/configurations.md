@@ -13,6 +13,7 @@ All features are enabled by default except the following.
 - `exportRender`
 - `setupSFC`
 - `booleanProp`
+- `shortBind`
 
 You can disable them by setting the option to `false`.
 
