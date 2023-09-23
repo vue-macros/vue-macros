@@ -537,6 +537,9 @@ importers:
       '@vue-macros/setup-sfc':
         specifier: workspace:*
         version: link:../setup-sfc
+      '@vue-macros/short-bind':
+        specifier: workspace:*
+        version: link:../short-bind
       '@vue-macros/short-emits':
         specifier: workspace:*
         version: link:../short-emits
@@ -667,6 +670,22 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/short-bind:
+    dependencies:
+      '@vue-macros/common':
+        specifier: workspace:*
+        version: link:../common
+      '@vue/compiler-core':
+        specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      '@vue/compiler-sfc':
+        specifier: ^3.3.4
+        version: 3.3.4
+      rollup:
+        specifier: ^3.29.2
+        version: 3.29.2
+
   packages/short-emits:
     dependencies:
       '@vue-macros/common':
@@ -746,6 +765,9 @@ importers:
       '@vue-macros/define-props':
         specifier: workspace:*
         version: link:../define-props
+      '@vue-macros/short-bind':
+        specifier: workspace:*
+        version: link:../short-bind
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel

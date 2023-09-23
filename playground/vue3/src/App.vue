@@ -25,6 +25,7 @@ import { SetupComponentFoo } from './examples/setup-component'
 
 import SetupSFC from './examples/setup-sfc/index.setup'
 import ShortVmodel from './examples/short-vmodel/parent.vue'
+import ShortBind from './examples/short-bind/index.vue'
 import Full from './examples/full.setup'
 </script>
 
@@ -145,6 +146,11 @@ import Full from './examples/full.setup'
     <fieldset>
       <legend>exportRender</legend>
       <ExportRender />
+    </fieldset>
+
+    <fieldset>
+      <legend>shortBind</legend>
+      <ShortBind />
     </fieldset>
   </div>
 </template>

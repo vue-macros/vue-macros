@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     defineSlots: true,
     hoistStatic: true,
     shortEmits: true,
+    shortBind: true,
 
     namedTemplate: false,
     setupSFC: true,

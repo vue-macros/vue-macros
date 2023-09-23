@@ -24,6 +24,7 @@ const config = {
   },
   rules: {
     'vue/no-setup-props-destructure': 'off',
+    'vue/valid-v-bind': 'off',
   },
 }
 

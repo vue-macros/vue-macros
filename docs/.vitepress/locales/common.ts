@@ -133,6 +133,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
               text: 'chainCall',
               link: `${urlPrefix}/macros/chain-call`,
             },
+            {
+              text: 'shortBind',
+              link: `${urlPrefix}/macros/short-bind`,
+            },
           ],
         },
       ],

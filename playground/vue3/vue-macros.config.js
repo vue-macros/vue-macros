@@ -10,6 +10,7 @@ export default {
   defineSlots: true,
   hoistStatic: true,
   shortEmits: true,
+  shortBind: true,
 
   namedTemplate: false,
   setupSFC: true,

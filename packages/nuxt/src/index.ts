@@ -96,6 +96,9 @@ export default defineNuxtModule<VueMacrosOptions>({
       vueCompilerOptions.experimentalDefinePropProposal =
         resolvedOptions.defineProp.edition || 'kevinEdition'
 
+    if (resolvedOptions.shortBind)
+      volarPlugins.push('@vue-macros/volar/short-bind')
+
     if (resolvedOptions.shortVmodel) {
       volarPlugins.push('@vue-macros/volar/short-vmodel')
       volarOptions.shortVmodel = {

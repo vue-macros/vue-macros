@@ -1,0 +1,81 @@
+{
+  "name": "@vue-macros/short-bind",
+  "version": "0.0.0",
+  "packageManager": "pnpm@8.7.6",
+  "description": "short-bind feature from Vue Macros.",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "short-bind"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/vue-macros/vue-macros#readme",
+  "bugs": {
+    "url": "https://github.com/vue-macros/vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vue-macros/vue-macros.git",
+    "directory": "packages/short-bind"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./api": {
+      "dev": "./src/api.ts",
+      "require": "./dist/api.js",
+      "import": "./dist/api.mjs"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "require": "./dist/rollup.js",
+      "import": "./dist/rollup.mjs"
+    },
+    "./vite": {
+      "dev": "./src/vite.ts",
+      "require": "./dist/vite.js",
+      "import": "./dist/vite.mjs"
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "DEV=true tsup"
+  },
+  "dependencies": {
+    "@vue-macros/common": "workspace:*",
+    "@vue/compiler-core": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.3.4",
+    "rollup": "^3.29.2"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}

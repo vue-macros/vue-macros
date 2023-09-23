@@ -72,6 +72,9 @@ import VueSetupComponent, {
 import VueSetupSFC, {
   type Options as OptionsSetupSFC,
 } from '@vue-macros/setup-sfc'
+import VueShortBind, {
+  type Options as OptionsShortBind,
+} from '@vue-macros/short-bind'
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
@@ -104,6 +107,7 @@ export interface FeatureOptionsMap {
   setupBlock: OptionsSetupBlock
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
+  shortBind: OptionsShortBind
   shortEmits: OptionsShortEmits
   shortVmodel: OptionsShortVmodel
 }
@@ -162,6 +166,7 @@ export function resolveOptions({
   setupBlock,
   setupComponent,
   setupSFC,
+  shortBind,
   shortEmits,
   shortVmodel,
 }: Options): OptionsResolved {
@@ -254,6 +259,7 @@ export function resolveOptions({
       root,
     }),
     setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, { version }, false),
+    shortBind: resolveSubOptions<'shortBind'>(shortBind, { version }, false),
     shortEmits: resolveSubOptions<'shortEmits'>(
       shortEmits,
       { version },
@@ -345,6 +351,12 @@ export default createCombinePlugin<Options | undefined>(
               VueBooleanProp as any,
               framework,
               options.booleanProp
+            ),
+            resolvePlugin(
+              // VueShortBind is not an unplugin, by now
+              VueShortBind as any,
+              framework,
+              options.shortBind
             ),
             resolvePlugin(
               // VueShortVmodel is not an unplugin, by now
