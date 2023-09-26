@@ -2,7 +2,6 @@ import {
   type Segment,
   type Sfc,
   type VueCompilerOptions,
-  type VueEmbeddedFile,
   replace,
 } from '@vue/language-core'
 import { type FileRangeCapabilities } from '@volar/language-core'
@@ -87,18 +86,4 @@ export function getImportNames(
   })
 
   return names
-}
-
-const REGEX_IMPORT_MACROS = /const\s+{\s*(.+?)\s*}\s*=.*?\(["']vue["']\)/
-export function rewriteImports(file: VueEmbeddedFile, names: string[]) {
-  const idx = file.content.findIndex(
-    (s) => typeof s === 'string' && REGEX_IMPORT_MACROS.test(s)
-  )
-  if (idx === -1) return
-
-  let text = file.content[idx] as string
-  for (const name of names) {
-    text = text.replace(`${name},`, '').replace(name, '')
-  }
-  file.content[idx] = text
 }
