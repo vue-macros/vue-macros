@@ -14,6 +14,7 @@ export default {
 
   namedTemplate: false,
   setupSFC: true,
+  booleanProp: true,
 
   exportProps: {
     include: [/export-props.*\.vue$/],

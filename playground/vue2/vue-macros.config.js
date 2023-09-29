@@ -8,6 +8,8 @@ export default {
 
   namedTemplate: false,
   setupSFC: true,
+  booleanProp: true,
+
   defineProp: {
     edition: 'johnsonEdition',
   },

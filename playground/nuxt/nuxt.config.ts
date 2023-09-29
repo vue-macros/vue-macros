@@ -15,6 +15,7 @@ export default defineNuxtConfig({
 
     namedTemplate: false,
     setupSFC: true,
+    booleanProp: true,
 
     exportProps: {
       include: [/export-props.*\.vue$/],
