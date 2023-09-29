@@ -1,5 +1,13 @@
 # @vue-macros/volar
 
+## 0.16.0
+
+### Minor Changes
+
+- [`87f36760`](https://github.com/vue-macros/vue-macros/commit/87f36760231d10b7096a71f3746ca726f80ec961) Thanks [@sxzz](https://github.com/sxzz)! - remove hack macro imports
+
+  BREAKING CHANGE: Require `vue-tsc` or Volar >= `1.8.14`
+
 ## 0.15.0
 
 ### Minor Changes

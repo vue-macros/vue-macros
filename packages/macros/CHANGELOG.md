@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 2.6.1
+
+### Patch Changes
+
+- [`df1980ac`](https://github.com/vue-macros/vue-macros/commit/df1980acf0b507b5c0a9a6ebdcd82d93d86d1d20) Thanks [@sxzz](https://github.com/sxzz)! - don't resolve types from defineProps and defineEmits on defineModels
+
+- Updated dependencies [[`df1980ac`](https://github.com/vue-macros/vue-macros/commit/df1980acf0b507b5c0a9a6ebdcd82d93d86d1d20)]:
+  - @vue-macros/define-models@1.1.0
+
 ## 2.6.0
 
 ### Minor Changes

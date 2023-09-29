@@ -1,5 +1,11 @@
 # @vue-macros/define-model
 
+## 1.1.0
+
+### Minor Changes
+
+- [`df1980ac`](https://github.com/vue-macros/vue-macros/commit/df1980acf0b507b5c0a9a6ebdcd82d93d86d1d20) Thanks [@sxzz](https://github.com/sxzz)! - don't resolve types from defineProps and defineEmits on defineModels
+
 ## 1.0.16
 
 ### Patch Changes
