@@ -12,10 +12,10 @@ const __default__ = defineComponent({
 var _sfc_main = /* @__PURE__ */ defineComponent({
   ...__default__,
   props: {
-    modelValue: { type: String, required: true },
-    title: { type: String, required: true }
+    title: { type: String, required: true },
+    modelValue: { type: String, required: true }
   },
-  emits: [\\"update:modelValue\\", \\"change\\"],
+  emits: [\\"change\\", \\"update:modelValue\\"],
   setup(__props, { emit }) {
     let { modelValue } = __MACROS_useVModel(\\"modelValue\\");
     const handleClick = () => {
@@ -167,8 +167,8 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"mixed-define-props\\",
   props: { ...__MACROS_normalizePropsOrEmits({
-    baz: { type: String, required: true },
-    foo: { type: String, required: false }
+    foo: { type: String, required: false },
+    baz: { type: String, required: true }
   }), ...__MACROS_normalizePropsOrEmits([\\"bar\\"]) },
   emits: [\\"update:baz\\"],
   setup(__props) {
@@ -221,10 +221,10 @@ const __default__ = defineComponent({
 var _sfc_main = /* @__PURE__ */ defineComponent({
   ...__default__,
   props: {
-    value: { type: String, required: true },
-    title: { type: String, required: true }
+    title: { type: String, required: true },
+    value: { type: String, required: true }
   },
-  emits: [\\"input\\", \\"changeInput\\", \\"change\\"],
+  emits: [\\"change\\", \\"input\\", \\"changeInput\\"],
   setup(__props, { emit }) {
     let { modelValue, value } = __MACROS_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"], [\\"value\\", void 0, \\"changeInput\\"]);
     const handleClick = () => {
