@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/api",
   "version": "0.8.6",
-  "packageManager": "pnpm@8.7.6",
+  "packageManager": "pnpm@8.8.0",
   "description": "General API for Vue Macros.",
   "keywords": [
     "vue-macros",
@@ -45,12 +45,12 @@
     "dev": "DEV=true tsup"
   },
   "dependencies": {
-    "@babel/types": "^7.22.19",
+    "@babel/types": "^7.23.0",
     "@vue-macros/common": "workspace:*",
     "resolve.exports": "^2.0.2"
   },
   "devDependencies": {
-    "rollup": "^3.29.3"
+    "rollup": "^3.29.4"
   },
   "engines": {
     "node": ">=16.14.0"
