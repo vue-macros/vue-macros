@@ -1,3 +1,4 @@
+/* eslint-disable antfu/no-const-enum */
 import {
   type ComputedRef,
   type CustomRefFactory,
