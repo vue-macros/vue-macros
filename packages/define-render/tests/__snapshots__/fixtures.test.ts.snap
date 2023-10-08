@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue > isProduction = false 1`] = `
-"import { defineComponent, h, openBlock, createElementBlock } from 'vue';
+"import { h, defineComponent, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -21,7 +21,7 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/basic.vue > isProduction = true 1`] = `
-"import { defineComponent, h } from 'vue';
+"import { h, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -38,7 +38,7 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/id.vue > isProduction = false 1`] = `
-"import { defineComponent, createVNode, createTextVNode } from 'vue';
+"import { createTextVNode, createVNode, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -56,7 +56,7 @@ export { id as default };
 `;
 
 exports[`fixtures > tests/fixtures/id.vue > isProduction = true 1`] = `
-"import { defineComponent, createVNode, createTextVNode } from 'vue';
+"import { createTextVNode, createVNode, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -74,7 +74,7 @@ export { id as default };
 `;
 
 exports[`fixtures > tests/fixtures/tsx.vue > isProduction = false 1`] = `
-"import { defineComponent, createVNode, createTextVNode, openBlock, createElementBlock } from 'vue';
+"import { createTextVNode, createVNode, defineComponent, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -94,7 +94,7 @@ export { tsx as default };
 `;
 
 exports[`fixtures > tests/fixtures/tsx.vue > isProduction = true 1`] = `
-"import { defineComponent, createVNode, createTextVNode } from 'vue';
+"import { createTextVNode, createVNode, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -111,7 +111,7 @@ export { tsx as default };
 `;
 
 exports[`fixtures > tests/fixtures/without-fn.vue > isProduction = false 1`] = `
-"import { defineComponent, createVNode, createTextVNode } from 'vue';
+"import { createTextVNode, createVNode, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -128,7 +128,7 @@ export { withoutFn as default };
 `;
 
 exports[`fixtures > tests/fixtures/without-fn.vue > isProduction = true 1`] = `
-"import { defineComponent, createVNode, createTextVNode } from 'vue';
+"import { createTextVNode, createVNode, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({

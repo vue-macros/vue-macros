@@ -16,6 +16,7 @@ describe('fixtures', async () => {
       if (id.includes('vue2'))
         return rollupBuild(id, [
           VueReactivityTransform(),
+          // @ts-expect-error rollup 4
           RollupVue2({
             compiler: require('vue2/compiler-sfc'),
           }),

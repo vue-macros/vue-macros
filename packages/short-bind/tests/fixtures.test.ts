@@ -6,13 +6,14 @@ import {
   rollupBuild,
   testFixtures,
 } from '@vue-macros/test-utils'
-import ShortBind from '../src/vite'
+import ShortBind from '../src/rollup'
 
 describe('fixtures', async () => {
   await testFixtures(
     'tests/fixtures/*.{vue,[jt]s?(x)}',
     (args, id) =>
       rollupBuild(id, [
+        // @ts-expect-error rollup 4
         ShortBind(),
         RollupVue(),
         RollupEsbuildPlugin({

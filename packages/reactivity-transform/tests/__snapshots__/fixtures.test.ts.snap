@@ -11,7 +11,7 @@ export { foo };
 `;
 
 exports[`fixtures > tests/fixtures/vue2/basic.vue 1`] = `
-"import { defineComponent, ref } from 'vue';
+"import { ref, defineComponent } from 'vue';
 import __normalizer from '[NULL]plugin-vue2:normalizer';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -167,7 +167,7 @@ export { foo };
 `;
 
 exports[`fixtures > tests/fixtures/vue3/basic.vue 1`] = `
-"import { defineComponent, ref } from 'vue';
+"import { ref, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -239,7 +239,7 @@ export { destructureProps as default };
 `;
 
 exports[`fixtures > tests/fixtures/vue3/runtime-default.vue 1`] = `
-"import { defineComponent, mergeDefaults } from 'vue';
+"import { mergeDefaults, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -259,7 +259,7 @@ export { runtimeDefault as default };
 `;
 
 exports[`fixtures > tests/fixtures/vue3/script-and-setup.vue 1`] = `
-"import { ref, defineComponent, openBlock, createElementBlock, toDisplayString, unref } from 'vue';
+"import { ref, openBlock, unref, toDisplayString, createElementBlock, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 let foo = ref(\\"msg\\");
@@ -287,7 +287,7 @@ export { scriptAndSetup as default };
 `;
 
 exports[`fixtures > tests/fixtures/vue3/trailing-comma.vue 1`] = `
-"import { defineComponent, ref } from 'vue';
+"import { ref, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({

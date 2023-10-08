@@ -34,7 +34,7 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/boolean-prop.vue 1`] = `
-"import { resolveComponent, openBlock, createElementBlock, Fragment, createCommentVNode, createVNode } from 'vue';
+"import { resolveComponent, openBlock, Fragment, createCommentVNode, createVNode, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const _sfc_main = {};
@@ -76,7 +76,7 @@ export { case233 as default };
 `;
 
 exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
-"import { defineComponent, toRefs } from 'vue';
+"import { toRefs, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -159,7 +159,7 @@ export { hoistStaticScope as default };
 `;
 
 exports[`fixtures > tests/fixtures/mixed-define-props.vue 1`] = `
-"import { defineComponent, toRefs, toRef } from 'vue';
+"import { toRefs, toRef, defineComponent } from 'vue';
 import __MACROS_normalizePropsOrEmits from '/vue-macros/define-prop/helper';
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';

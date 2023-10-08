@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
-"import { defineComponent, createElementVNode, openBlock, createElementBlock, Fragment, toDisplayString, createTextVNode, createBlock } from 'vue';
+"import { defineComponent, createElementVNode, openBlock, Fragment, toDisplayString, createElementBlock, createTextVNode, createBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const foo = \\"foo\\";
@@ -61,7 +61,7 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/dash-name.vue 1`] = `
-"import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode, createBlock, Fragment } from 'vue';
+"import { defineComponent, openBlock, renderSlot, createElementBlock, createTextVNode, Fragment, createBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({

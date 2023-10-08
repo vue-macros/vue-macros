@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/SetupFC.tsx 1`] = `
-"import { defineComponent, ref, createVNode, createTextVNode } from 'vue';
+"import { ref, createTextVNode, createVNode, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -30,7 +30,7 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/async.tsx 1`] = `
-"import { defineComponent, withAsyncContext } from 'vue';
+"import { withAsyncContext, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -160,7 +160,7 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/render.tsx 1`] = `
-"import { defineComponent, createVNode } from 'vue';
+"import { createVNode, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -192,7 +192,7 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/return-render.tsx 1`] = `
-"import { defineComponent, computed, createVNode } from 'vue';
+"import { computed, createVNode, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
