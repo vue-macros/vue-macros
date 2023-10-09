@@ -54,20 +54,27 @@ function transformDefineModels({
   )
 
   function mergeProps() {
-    const idx = codes.indexOf('__VLS_TypePropsToRuntimeProps<')
-    if (idx === -1) return false
+    const indexes = codes.reduce((res: number[], code, index) => {
+      if (code === '__VLS_TypePropsToRuntimeProps<') res.unshift(index)
+      return res
+    }, [])
+    if (indexes.length === 0) return false
 
-    codes.splice(idx + 2, 0, ' & __VLS_ModelToProps<', seg, '>')
+    for (const idx of indexes)
+      codes.splice(idx + 2, 0, ' & __VLS_ModelToProps<', seg, '>')
     return true
   }
 
   function mergeEmits() {
-    const idx = codes.indexOf(
-      'emits: ({} as __VLS_UnionToIntersection<__VLS_ConstructorOverloads<'
-    )
-    if (idx === -1) return false
+    const indexes = codes.reduce((res: number[], code, index) => {
+      if (code === 'emits: ({} as __VLS_NormalizeEmits<typeof ')
+        res.unshift(index)
+      return res
+    }, [])
+    if (indexes.length === 0) return false
 
-    codes.splice(idx + 2, 1, '>> & __VLS_ModelToEmits<', seg, '>),\n')
+    for (const idx of indexes)
+      codes.splice(idx + 2, 1, ' & __VLS_ModelToEmits<', seg, '>>),\n')
     return true
   }
 }
