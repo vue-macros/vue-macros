@@ -5,7 +5,7 @@ import {
   type Sfc,
   type VueEmbeddedFile,
   type VueLanguagePlugin,
-  replace,
+  replaceAll,
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
@@ -62,9 +62,9 @@ function transform({
     ',\n',
   ])
 
-  replace(
+  replaceAll(
     file.content,
-    'return {\n',
+    /return {\n/g,
     'return {\n...{ ',
     ...exposedStrings,
     ' },\n'

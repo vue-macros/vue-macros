@@ -2,7 +2,7 @@ import {
   type Segment,
   type Sfc,
   type VueCompilerOptions,
-  replace,
+  replaceAll,
 } from '@vue/language-core'
 import { type FileRangeCapabilities } from '@volar/language-core'
 import { type VolarOptions } from '..'
@@ -16,9 +16,9 @@ export function addProps(
   decl: Segment<FileRangeCapabilities>[],
   vueLibName: string
 ) {
-  replace(
+  replaceAll(
     content,
-    /setup\(\) {/,
+    /setup\(\) {/g,
     'props: ({} as ',
     ...decl,
     '),\n',
@@ -35,12 +35,9 @@ export function addEmits(
   content: Segment<FileRangeCapabilities>[],
   decl: Segment<FileRangeCapabilities>[]
 ) {
-  const idx = content.indexOf('setup() {\n')
-  if (idx === -1) return false
-
-  replace(
+  replaceAll(
     content,
-    /setup\(\) {/,
+    /setup\(\) {/g,
     'emits: ({} as ',
     ...decl,
     '),\n',
