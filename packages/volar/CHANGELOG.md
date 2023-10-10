@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.16.1
+
+### Patch Changes
+
+- [#520](https://github.com/vue-macros/vue-macros/pull/520) [`bd048281`](https://github.com/vue-macros/vue-macros/commit/bd0482811d95edeeea36b19dce634c210207dacc) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - compatible with volar@1.8.14
+
 ## 0.16.0
 
 ### Minor Changes
