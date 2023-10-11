@@ -2,4 +2,4 @@
 '@vue-macros/volar': minor
 ---
 
-Introduce `setupJsDoc` volar plugin
+Introduce `setupJsdoc` volar plugin
