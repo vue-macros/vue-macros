@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.17.0
+
+### Minor Changes
+
+- [#522](https://github.com/vue-macros/vue-macros/pull/522) [`728b93d4`](https://github.com/vue-macros/vue-macros/commit/728b93d4a05dba943c6d554a8d59fb6dd1f5788d) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Introduce `setupJsdoc` volar plugin
+
 ## 0.16.1
 
 ### Patch Changes
