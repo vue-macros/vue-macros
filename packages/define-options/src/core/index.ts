@@ -8,12 +8,8 @@ import {
   parseSFC,
 } from '@vue-macros/common'
 import { walkAST } from 'ast-walker-scope'
-import {
-  type ExportDefaultDeclaration,
-  type Program,
-  type Statement,
-} from '@babel/types'
 import { filterMacro, hasPropsOrEmits as hasDisallowedProp } from './utils'
+import type { ExportDefaultDeclaration, Program, Statement } from '@babel/types'
 
 export * from './utils'
 

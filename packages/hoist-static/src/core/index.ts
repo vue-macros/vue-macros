@@ -5,7 +5,7 @@ import {
   isStaticExpression,
   parseSFC,
 } from '@vue-macros/common'
-import { type Node } from '@babel/types'
+import type { Node } from '@babel/types'
 
 export const MAGIC_COMMENT = 'hoist-static'
 

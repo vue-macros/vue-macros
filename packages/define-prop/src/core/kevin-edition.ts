@@ -1,7 +1,7 @@
 import { DEFINE_PROP, escapeKey } from '@vue-macros/common'
-import { type TSType } from '@babel/types'
 import { genRuntimePropDefinition } from '@vue-macros/api'
 import { type Impl, stringifyArray } from './utils'
+import type { TSType } from '@babel/types'
 
 export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
   interface Prop {

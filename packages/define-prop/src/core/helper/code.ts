@@ -1,8 +1,8 @@
-import {
-  type ComponentObjectPropsOptions,
-  type ComponentPropsOptions,
-  type EmitsOptions,
-  type ObjectEmitsOptions,
+import type {
+  ComponentObjectPropsOptions,
+  ComponentPropsOptions,
+  EmitsOptions,
+  ObjectEmitsOptions,
 } from 'vue'
 
 export default (props: ComponentPropsOptions | EmitsOptions) => {

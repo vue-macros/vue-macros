@@ -1,4 +1,4 @@
-import { type MagicString } from '@vue-macros/common'
+import type { MagicString } from '@vue-macros/common'
 import type * as t from '@babel/types'
 
 export type Impl = (ctx: {

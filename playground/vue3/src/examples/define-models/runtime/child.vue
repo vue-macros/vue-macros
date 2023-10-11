@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Ok } from '../../../assert'
-import { type Props } from './types'
+import type { Props } from './types'
 
 defineProps<Props>()
 

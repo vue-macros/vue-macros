@@ -1,11 +1,11 @@
 import { readFile } from 'node:fs/promises'
-import { type Statement, type TSModuleBlock } from '@babel/types'
 import {
   REGEX_SUPPORTED_EXT,
   babelParse,
   getFileCodeAndLang,
 } from '@vue-macros/common'
-import { type TSNamespace } from './namespace'
+import type { Statement, TSModuleBlock } from '@babel/types'
+import type { TSNamespace } from './namespace'
 
 export interface TSScopeBase {
   exports?: TSNamespace

@@ -1,9 +1,9 @@
-import {
-  type ComponentObjectPropsOptions,
-  type ComputedRef,
-  type DeepReadonly,
-  type ExtractPropTypes,
-  type Ref,
+import type {
+  ComponentObjectPropsOptions,
+  ComputedRef,
+  DeepReadonly,
+  ExtractPropTypes,
+  Ref,
 } from 'vue'
 
 export declare type PropRefs<T> = {

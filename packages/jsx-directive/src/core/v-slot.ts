@@ -1,5 +1,5 @@
-import { type MagicString } from '@vue-macros/common'
-import { type JSXElement } from '@babel/types'
+import type { MagicString } from '@vue-macros/common'
+import type { JSXElement } from '@babel/types'
 
 export function transformVSlot(
   nodes: JSXElement[],

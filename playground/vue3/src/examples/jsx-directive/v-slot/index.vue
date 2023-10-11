@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import { type FunctionalComponent } from 'vue'
 import Child from './child.vue'
+import type { FunctionalComponent } from 'vue'
 
 const Comp: FunctionalComponent<
   {},

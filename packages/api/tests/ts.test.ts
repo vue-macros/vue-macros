@@ -2,11 +2,6 @@ import path from 'node:path'
 import { babelParse } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
 import {
-  type TSInterfaceDeclaration,
-  type TSIntersectionType,
-  type TSTypeAliasDeclaration,
-} from '@babel/types'
-import {
   type TSFile,
   getTSFile,
   resolveTSNamespace,
@@ -14,6 +9,11 @@ import {
   resolveTSReferencedType,
 } from '../src'
 import { hideAstLocation } from './_util'
+import type {
+  TSInterfaceDeclaration,
+  TSIntersectionType,
+  TSTypeAliasDeclaration,
+} from '@babel/types'
 
 const fixtures = path.resolve(__dirname, 'fixtures')
 

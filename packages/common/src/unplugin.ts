@@ -3,9 +3,9 @@ import {
   createFilter as createRollupFilter,
 } from '@rollup/pluginutils'
 import { generateTransform } from 'magic-string-ast'
-import { type ResolvedOptions } from '@vitejs/plugin-vue'
-import { type Plugin } from 'rollup'
-import { type Plugin as VitePlugin } from 'vite'
+import type { ResolvedOptions } from '@vitejs/plugin-vue'
+import type { Plugin } from 'rollup'
+import type { Plugin as VitePlugin } from 'vite'
 
 /** @deprecated use `generateTransform` instead */
 export const getTransformResult = generateTransform

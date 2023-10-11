@@ -1,9 +1,5 @@
-import {
-  type DefaultTheme,
-  type HeadConfig,
-  type LocaleConfig,
-} from 'vitepress'
 import * as common from './common'
+import type { DefaultTheme, HeadConfig, LocaleConfig } from 'vitepress'
 
 export const title = 'Vue Macros'
 export const description = 'Explore more macros and syntax sugar to Vue.'

@@ -1,16 +1,12 @@
 import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
 import { FileKind, FileRangeCapabilities } from '@volar/language-core'
 import {
-  type Segment,
-  type Sfc,
-  type VueLanguagePlugin,
-} from '@vue/language-core'
-import {
   addEmits,
   addProps,
   getVolarOptions,
   getVueLibraryName,
 } from './common'
+import type { Segment, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function transformDefineModels({
   codes,

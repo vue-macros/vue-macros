@@ -18,19 +18,14 @@ import {
   parse,
   traverseNode,
 } from '@vue/compiler-dom'
-import {
-  type CallExpression,
-  type Identifier,
-  type Node,
-  type Program,
-} from '@babel/types'
-import { type CustomBlocks, type TemplateContent } from '..'
 import { getChildrenLocation, parseVueRequest } from './utils'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE_MAIN,
 } from './constants'
+import type { CallExpression, Identifier, Node, Program } from '@babel/types'
+import type { CustomBlocks, TemplateContent } from '..'
 
 export * from './constants'
 export * from './utils'

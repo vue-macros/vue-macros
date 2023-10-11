@@ -1,5 +1,5 @@
-import { type Node } from '@babel/types'
-import { type TSFile, type TSModule } from '../ts'
+import type { Node } from '@babel/types'
+import type { TSFile, TSModule } from '../ts'
 
 export enum DefinitionKind {
   /**

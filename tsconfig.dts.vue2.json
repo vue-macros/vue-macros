@@ -1,11 +1,11 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "customConditions": ["dev"],
     "paths": {
       "vue": ["node_modules/vue2"],
       "vue/*": ["node_modules/vue2/*"]
     },
-    "customConditions": ["dev"],
     "skipLibCheck": false
   },
   "include": ["**/vue2-macros*.d.ts"]

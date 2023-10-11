@@ -1,4 +1,4 @@
-import { type ComputedRef } from 'vue'
+import type { ComputedRef } from 'vue'
 
 export function defineProp<T>(
   value: T | (() => T),

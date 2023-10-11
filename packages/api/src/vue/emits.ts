@@ -7,21 +7,6 @@ import {
   resolveString,
 } from '@vue-macros/common'
 import {
-  type CallExpression,
-  type ExpressionStatement,
-  type LVal,
-  type Node,
-  type StringLiteral,
-  type TSCallSignatureDeclaration,
-  type TSFunctionType,
-  type TSInterfaceDeclaration,
-  type TSIntersectionType,
-  type TSType,
-  type TSTypeLiteral,
-  type UnaryExpression,
-  type VariableDeclaration,
-} from '@babel/types'
-import {
   type TSFile,
   type TSResolvedType,
   isTSNamespace,
@@ -31,6 +16,21 @@ import {
 } from '../ts'
 import { type ASTDefinition, DefinitionKind } from './types'
 import { attachNodeLoc } from './utils'
+import type {
+  CallExpression,
+  ExpressionStatement,
+  LVal,
+  Node,
+  StringLiteral,
+  TSCallSignatureDeclaration,
+  TSFunctionType,
+  TSInterfaceDeclaration,
+  TSIntersectionType,
+  TSType,
+  TSTypeLiteral,
+  UnaryExpression,
+  VariableDeclaration,
+} from '@babel/types'
 
 export async function handleTSEmitsDefinition({
   s,

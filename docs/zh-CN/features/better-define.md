@@ -19,7 +19,7 @@
 
 ```vue [App.vue]
 <script setup lang="ts">
-import { type BaseProps } from './types'
+import type { BaseProps } from './types'
 
 interface Props extends BaseProps {
   foo: string

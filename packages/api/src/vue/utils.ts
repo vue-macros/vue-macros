@@ -1,10 +1,10 @@
-import { type Node } from '@babel/types'
 import {
   type TSNamespace,
   type TSResolvedType,
   isTSNamespace,
   resolveTSReferencedType,
 } from '../ts'
+import type { Node } from '@babel/types'
 
 export const UNKNOWN_TYPE = 'Unknown'
 

@@ -11,7 +11,7 @@ import {
   removeMacroImport,
   walkAST,
 } from '@vue-macros/common'
-import { type CallExpression, type Node } from '@babel/types'
+import type { CallExpression, Node } from '@babel/types'
 
 export function transformDefinePropsRefs(code: string, id: string) {
   if (!code.includes(DEFINE_PROPS_REFS)) return

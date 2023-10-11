@@ -9,8 +9,8 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import { type VolarOptions } from '..'
 import { getVolarOptions } from './common'
+import type { VolarOptions } from '..'
 
 function transform({
   fileName,

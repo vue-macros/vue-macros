@@ -7,8 +7,6 @@ import {
   babelParse,
   isCallOf,
 } from '@vue-macros/common'
-import { type CallExpression, type LVal, type Node } from '@babel/types'
-import { type TSFile } from '../ts'
 import {
   type DefaultsASTRaw,
   type DefinePropsStatement,
@@ -16,6 +14,8 @@ import {
   handleTSPropsDefinition,
 } from './props'
 import { type Emits, handleTSEmitsDefinition } from './emits'
+import type { CallExpression, LVal, Node } from '@babel/types'
+import type { TSFile } from '../ts'
 
 export type { SFC } from '@vue-macros/common'
 export { parseSFC } from '@vue-macros/common'

@@ -7,9 +7,9 @@ import {
   parseSFC,
   resolveObjectKey,
 } from '@vue-macros/common'
-import { type CallExpression, type Identifier, type Node } from '@babel/types'
 import { shouldTransform, transformAST } from './transform'
 import { helperId } from './helper'
+import type { CallExpression, Identifier, Node } from '@babel/types'
 
 export function transformVueSFC(code: string, id: string) {
   const s = new MagicString(code)

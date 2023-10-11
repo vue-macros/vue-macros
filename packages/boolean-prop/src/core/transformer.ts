@@ -1,7 +1,7 @@
-import {
-  type ConstantTypes,
-  type NodeTransform,
-  type NodeTypes,
+import type {
+  ConstantTypes,
+  NodeTransform,
+  NodeTypes,
 } from '@vue/compiler-core'
 
 export interface Options {

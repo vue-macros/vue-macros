@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { type QInputProps } from 'quasar'
 import { Assert } from '../../assert'
+import type { QInputProps } from 'quasar'
 
 defineProps<QInputProps>()
 </script>

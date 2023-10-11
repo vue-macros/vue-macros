@@ -3,8 +3,8 @@ import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dedupeDeps, defineConfig } from 'monoman'
-import { type Options } from 'tsup'
 import fg from 'fast-glob'
+import type { Options } from 'tsup'
 
 // @ts-expect-error
 const dirname = path.dirname(fileURLToPath(new URL(import.meta.url)))

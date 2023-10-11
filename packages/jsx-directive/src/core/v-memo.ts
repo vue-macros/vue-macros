@@ -3,7 +3,7 @@ import {
   type MagicString,
   importHelperFn,
 } from '@vue-macros/common'
-import { type JsxDirectiveNode } from '.'
+import type { JsxDirectiveNode } from '.'
 
 export function transformVMemo(
   nodes: JsxDirectiveNode[],
