@@ -5,23 +5,20 @@ import {
   type VueLanguagePlugin,
   replace,
 } from '@vue/language-core'
+import type ts from 'typescript'
+
+type HasJSDoc = ts.HasJSDoc & { jsDoc: ts.JSDoc[] }
 
 /**
  * Copy from https://github.com/microsoft/TypeScript/blob/5a97ce8281e2b4dce298c280b0e67ce049681d01/src/compiler/utilitiesPublic.ts#L2515
  *
  * GH#19856 Would like to return `node is Node & { jsDoc: JSDoc[] }` but it causes long compile times
  */
-function hasJSDocNodes(
-  node: import('typescript/lib/tsserverlibrary').Node
-): node is import('typescript/lib/tsserverlibrary').HasJSDoc & {
-  jsDoc: import('typescript/lib/tsserverlibrary').JSDoc[]
-} {
+function hasJSDocNodes(node: ts.Node): node is HasJSDoc {
   if (!node) return false
-
-  const { jsDoc } =
-    node as import('typescript/lib/tsserverlibrary').JSDocContainer & {
-      jsDoc: import('typescript/lib/tsserverlibrary').JSDoc[]
-    }
+  const { jsDoc } = node as ts.Node & {
+    jsDoc: ts.JSDoc[]
+  }
   return !!jsDoc && jsDoc.length > 0
 }
 
