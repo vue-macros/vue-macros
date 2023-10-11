@@ -1,12 +1,12 @@
 /* eslint-disable antfu/no-const-enum */
-import {
-  type ComputedRef,
-  type CustomRefFactory,
-  type DebuggerOptions,
-  type Ref,
-  type UnwrapRef,
-  type WritableComputedOptions,
-  type WritableComputedRef,
+import type {
+  ComputedRef,
+  CustomRefFactory,
+  DebuggerOptions,
+  Ref,
+  UnwrapRef,
+  WritableComputedOptions,
+  WritableComputedRef,
 } from 'vue'
 
 export declare const RefType: unique symbol

@@ -1,4 +1,4 @@
-import { type ComponentObjectPropsOptions, type ExtractPropTypes } from 'vue'
+import type { ComponentObjectPropsOptions, ExtractPropTypes } from 'vue'
 
 // copy from vue-core
 export type Prettify<T> = {

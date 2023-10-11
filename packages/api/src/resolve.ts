@@ -2,10 +2,10 @@ import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { exports } from 'resolve.exports'
-import { type PluginContext } from 'rollup'
-import { type ModuleNode, type Plugin } from 'vite'
 import { isDts } from '@vue-macros/common'
 import { type ResolveTSFileIdImpl, tsFileCache } from './ts'
+import type { PluginContext } from 'rollup'
+import type { ModuleNode, Plugin } from 'vite'
 
 export const deepImportRE = /^([^@][^/]*)\/|^(@[^/]+\/[^/]+)\//
 

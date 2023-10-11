@@ -4,25 +4,6 @@ import {
   resolveLiteral,
   resolveObjectKey,
 } from '@vue-macros/common'
-import {
-  type BigIntLiteral,
-  type BooleanLiteral,
-  type Expression,
-  type Node,
-  type NumericLiteral,
-  type StringLiteral,
-  type TSFunctionType,
-  type TSIndexedAccessType,
-  type TSLiteralType,
-  type TSMethodSignature,
-  type TSPropertySignature,
-  type TSType,
-  type TSTypeElement,
-  type TSTypeOperator,
-  type TSUnionType,
-  type TemplateElement,
-  type TemplateLiteral,
-} from '@babel/types'
 import { isTSNamespace } from './namespace'
 import {
   type TSProperties,
@@ -35,7 +16,26 @@ import {
   isSupportedForTSReferencedType,
   resolveTSReferencedType,
 } from './resolve-reference'
-import { type TSScope } from './scope'
+import type {
+  BigIntLiteral,
+  BooleanLiteral,
+  Expression,
+  Node,
+  NumericLiteral,
+  StringLiteral,
+  TSFunctionType,
+  TSIndexedAccessType,
+  TSLiteralType,
+  TSMethodSignature,
+  TSPropertySignature,
+  TSType,
+  TSTypeElement,
+  TSTypeOperator,
+  TSUnionType,
+  TemplateElement,
+  TemplateLiteral,
+} from '@babel/types'
+import type { TSScope } from './scope'
 
 export async function resolveTSTemplateLiteral({
   type,

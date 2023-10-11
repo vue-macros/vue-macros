@@ -1,22 +1,22 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["DOM", "ESNext"],
     "jsx": "preserve",
+    "lib": ["DOM", "ESNext"],
+    "baseUrl": ".",
+    "customConditions": ["dev"],
     "module": "esnext",
     "moduleResolution": "bundler",
-    "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"]
     },
-    "types": ["vite/client", "vitepress", "vite-plugin-pwa/client"],
-    "customConditions": ["dev"],
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "types": ["vite/client", "vitepress", "vite-plugin-pwa/client"],
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
   "vueCompilerOptions": {},

@@ -9,7 +9,6 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { type PluginContext } from 'rollup'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
 import {
   SETUP_COMPONENT_ID_REGEX,
@@ -20,6 +19,7 @@ import {
   transformSetupComponent,
 } from './core'
 import { getMainModule, isSubModule } from './core/sub-module'
+import type { PluginContext } from 'rollup'
 
 export type { SetupComponentContext } from './core'
 

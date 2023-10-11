@@ -1,7 +1,7 @@
-import { type Plugin } from 'vite'
 import { type VuePluginApi, getVuePluginApi } from '@vue-macros/common'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
 import { type Options, transformShortBind } from './core/index'
+import type { Plugin } from 'vite'
 
 export type { Options } from './core'
 

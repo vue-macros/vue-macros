@@ -1,17 +1,3 @@
-import {
-  type Node,
-  type TSCallSignatureDeclaration,
-  type TSConstructSignatureDeclaration,
-  type TSFunctionType,
-  type TSInterfaceBody,
-  type TSInterfaceDeclaration,
-  type TSIntersectionType,
-  type TSMappedType,
-  type TSMethodSignature,
-  type TSPropertySignature,
-  type TSType,
-  type TSTypeLiteral,
-} from '@babel/types'
 import { resolveLiteral } from '@vue-macros/common'
 import {
   type TSResolvedType,
@@ -23,6 +9,20 @@ import {
   resolveTSLiteralType,
   resolveTypeElements,
 } from './resolve'
+import type {
+  Node,
+  TSCallSignatureDeclaration,
+  TSConstructSignatureDeclaration,
+  TSFunctionType,
+  TSInterfaceBody,
+  TSInterfaceDeclaration,
+  TSIntersectionType,
+  TSMappedType,
+  TSMethodSignature,
+  TSPropertySignature,
+  TSType,
+  TSTypeLiteral,
+} from '@babel/types'
 
 export interface TSProperties {
   callSignatures: Array<

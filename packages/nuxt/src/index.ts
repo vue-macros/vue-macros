@@ -1,10 +1,10 @@
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { type Options, resolveOptions } from 'unplugin-vue-macros'
-import { type Plugin } from 'vite'
-import type {} from '@nuxt/devtools'
-import { type VolarOptions } from '@vue-macros/volar'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
+import type { Plugin } from 'vite'
+import type {} from '@nuxt/devtools'
+import type { VolarOptions } from '@vue-macros/volar'
 
 export type VueMacrosOptions = Options
 

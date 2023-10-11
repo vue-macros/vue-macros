@@ -9,7 +9,7 @@ import {
   resolveObjectKey,
   walkAST,
 } from '@vue-macros/common'
-import { type Node, type TSType } from '@babel/types'
+import type { Node, TSType } from '@babel/types'
 
 export function transformShortEmits(code: string, id: string) {
   const sfc = parseSFC(code, id)

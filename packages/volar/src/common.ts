@@ -4,8 +4,8 @@ import {
   type VueCompilerOptions,
   replaceAll,
 } from '@vue/language-core'
-import { type FileRangeCapabilities } from '@volar/language-core'
-import { type VolarOptions } from '..'
+import type { FileRangeCapabilities } from '@volar/language-core'
+import type { VolarOptions } from '..'
 
 export function getVueLibraryName(vueVersion: number) {
   return vueVersion < 2.7 ? '@vue/runtime-dom' : 'vue'

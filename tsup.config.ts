@@ -2,8 +2,8 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'tsup'
-import { type Plugin } from 'esbuild'
 import Macros from 'unplugin-macros/esbuild'
+import type { Plugin } from 'esbuild'
 
 const dirname = path.resolve(fileURLToPath(import.meta.url), '..')
 

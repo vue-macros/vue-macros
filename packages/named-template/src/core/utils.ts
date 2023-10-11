@@ -1,4 +1,4 @@
-import { type ElementNode } from '@vue/compiler-dom'
+import type { ElementNode } from '@vue/compiler-dom'
 
 export function getChildrenLocation(
   node: ElementNode

@@ -9,11 +9,7 @@ import {
   removeMacroImport,
   walkAST,
 } from '@vue-macros/common'
-import {
-  type CallExpression,
-  type MemberExpression,
-  type Node,
-} from '@babel/types'
+import type { CallExpression, MemberExpression, Node } from '@babel/types'
 
 export function transformChainCall(code: string, id: string) {
   if (!code.includes(DEFINE_PROPS)) return

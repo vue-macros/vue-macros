@@ -8,26 +8,6 @@ import {
   resolveString,
 } from '@vue-macros/common'
 import {
-  type CallExpression,
-  type Expression,
-  type ExpressionStatement,
-  type LVal,
-  type Node,
-  type ObjectMethod,
-  type ObjectProperty,
-  type StringLiteral,
-  type TSInterfaceDeclaration,
-  type TSIntersectionType,
-  type TSMappedType,
-  type TSMethodSignature,
-  type TSPropertySignature,
-  type TSType,
-  type TSTypeLiteral,
-  type TSTypeReference,
-  type TSUnionType,
-  type VariableDeclaration,
-} from '@babel/types'
-import {
   type TSFile,
   type TSNamespace,
   type TSProperties,
@@ -40,6 +20,26 @@ import {
 } from '../ts'
 import { type ASTDefinition, DefinitionKind } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
+import type {
+  CallExpression,
+  Expression,
+  ExpressionStatement,
+  LVal,
+  Node,
+  ObjectMethod,
+  ObjectProperty,
+  StringLiteral,
+  TSInterfaceDeclaration,
+  TSIntersectionType,
+  TSMappedType,
+  TSMethodSignature,
+  TSPropertySignature,
+  TSType,
+  TSTypeLiteral,
+  TSTypeReference,
+  TSUnionType,
+  VariableDeclaration,
+} from '@babel/types'
 
 type BuiltInTypesHandler = Record<
   string,

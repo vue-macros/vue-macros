@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext", "DOM"],
     "jsx": "preserve",
+    "lib": ["ESNext", "DOM"],
     "useDefineForClassFields": true,
+    "customConditions": ["dev"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "customConditions": ["dev"],
     "resolveJsonModule": true,
     "allowJs": true,
-    "sourceMap": true,
-    "noEmit": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
     "strict": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
     "skipLibCheck": true
   },
   "vueCompilerOptions": {

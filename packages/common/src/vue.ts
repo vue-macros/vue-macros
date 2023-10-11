@@ -4,10 +4,10 @@ import {
   type SFCScriptBlock as SFCScriptBlockMixed,
   parse,
 } from '@vue/compiler-sfc'
-import { type Node, type Program } from '@babel/types'
-import { type MagicString, type MagicStringBase } from 'magic-string-ast'
 import { babelParse, getLang, resolveString } from 'ast-kit'
 import { REGEX_VUE_SFC } from './constants'
+import type { Node, Program } from '@babel/types'
+import type { MagicString, MagicStringBase } from 'magic-string-ast'
 
 export type SFCScriptBlock = Omit<
   SFCScriptBlockMixed,

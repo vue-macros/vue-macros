@@ -1,10 +1,4 @@
 import {
-  type JSXAttribute,
-  type JSXElement,
-  type Node,
-  type Program,
-} from '@babel/types'
-import {
   MagicString,
   REGEX_SETUP_SFC,
   babelParse,
@@ -18,6 +12,7 @@ import { transformVFor } from './v-for'
 import { transformVMemo } from './v-memo'
 import { transformVHtml } from './v-html'
 import { transformVSlot } from './v-slot'
+import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
 export type JsxDirectiveNode = {
   node: JSXElement

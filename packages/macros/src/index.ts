@@ -1,4 +1,3 @@
-import { type UnpluginInstance } from 'unplugin'
 import {
   type OptionsPlugin,
   type Plugin,
@@ -84,6 +83,7 @@ import VueShortVmodel, {
 
 import { generatePluginName } from '#macros' assert { type: 'macro' }
 import { excludeDepOptimize } from './core'
+import type { UnpluginInstance } from 'unplugin'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine

@@ -1,4 +1,4 @@
-import { type SetupContext } from 'vue'
+import type { SetupContext } from 'vue'
 
 export default (
   emitFn: SetupContext['emit'],
