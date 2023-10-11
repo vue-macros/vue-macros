@@ -5,7 +5,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "./prepare.sh"
   },
   "dependencies": {
     "@vueuse/core": "^10.4.1",
