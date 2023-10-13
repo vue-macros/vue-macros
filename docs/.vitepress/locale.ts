@@ -5,7 +5,7 @@ import { webLink } from '.vitepress/configs/meta'
 export const getLocaleConfig = (lang: string) => {
   const t = createI18n(lang)
 
-  const urlPrefix = lang ? `/${lang}` : ''
+  const urlPrefix = lang && lang !== 'en' ? `/${lang}` : ''
   const title = t('Vue Macros')
   const description = t('Explore more macros and syntax sugar to Vue.')
 
