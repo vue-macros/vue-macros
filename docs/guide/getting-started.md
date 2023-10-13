@@ -9,7 +9,7 @@ We assume you are already familiar with the basic usages of Vue before you conti
 - Node.js 16.14.0 or higher.
 - Vue >= 2.7 or Vue >= 3.0.
   - Some features need Vue >= 3.2.25.
-- VSCode with the **latest** [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension.
+- VSCode with the **latest** [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension.
   - ❌ WebStorm is not supported.
 
 ## Demos
