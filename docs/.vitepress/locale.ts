@@ -1,73 +1,92 @@
-import type { DefaultTheme, HeadConfig } from 'vitepress'
+import { createI18n } from './i18n/utils'
+import type { DefaultTheme, HeadConfig, LocaleConfig } from 'vitepress'
 import { webLink } from '.vitepress/configs/meta'
 
-export const themeConfig = {
-  logo: '/favicon.svg',
-  socialLinks: [
-    { icon: 'github', link: 'https://github.com/vue-macros/vue-macros' },
-  ],
-} satisfies DefaultTheme.Config
+export const getLocaleConfig = (lang: string) => {
+  const t = createI18n(lang)
 
-export const head: HeadConfig[] = [
-  ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
-  ['meta', { property: 'og:type', content: 'website' }],
-  ['meta', { property: 'og:url', content: webLink }],
-  ['meta', { name: 'theme-color', content: '#914796' }],
-  [
-    'script',
-    {
-      async: '',
-      src: 'https://www.googletagmanager.com/gtag/js?id=G-29NKGSL23C',
-    },
-  ],
-  [
-    'script',
-    {},
-    `window.dataLayer = window.dataLayer || [];
+  const urlPrefix = lang ? `/${lang}` : ''
+  const title = t('Vue Macros')
+  const description = t('Explore more macros and syntax sugar to Vue.')
+
+  const head: HeadConfig[] = [
+    ['meta', { property: 'og:title', content: title }],
+    ['meta', { property: 'og:description', content: description }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:url', content: webLink }],
+    ['meta', { name: 'theme-color', content: '#914796' }],
+    [
+      'script',
+      {
+        async: '',
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-29NKGSL23C',
+      },
+    ],
+    [
+      'script',
+      {},
+      `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-29NKGSL23C');`,
-  ],
-]
+    ],
+  ]
 
-export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
-  const urlPrefix = lang ? `/${lang}` : ''
-  return [
+  const nav: DefaultTheme.NavItem[] = [
     {
-      text: 'Guide',
+      text: t('Guide'),
+      link: `${urlPrefix}/guide/getting-started`,
+      activeMatch: 'guide',
+    },
+    {
+      text: t('Macros'),
+      link: `${urlPrefix}/macros/`,
+      activeMatch: 'macros',
+    },
+    {
+      text: t('Features'),
+      link: `${urlPrefix}/features/hoist-static`,
+      activeMatch: 'features',
+    },
+  ]
+
+  const sidebar: DefaultTheme.SidebarItem[] = [
+    {
+      text: t('Guide'),
       items: [
         {
-          text: 'Getting Started',
+          text: t('Getting Started'),
           link: `${urlPrefix}/guide/getting-started`,
         },
         {
-          text: 'Bundler Integration',
+          text: t('Bundler Integration'),
           link: `${urlPrefix}/guide/bundler-integration`,
         },
         {
-          text: 'Nuxt Integration',
+          text: t('Nuxt Integration'),
           link: `${urlPrefix}/guide/nuxt-integration`,
         },
         {
-          text: 'Astro Integration',
+          text: t('Astro Integration'),
           link: `${urlPrefix}/guide/astro-integration`,
         },
         {
-          text: 'Configurations',
+          text: t('Configurations'),
           link: `${urlPrefix}/guide/configurations`,
         },
       ],
     },
     {
-      text: 'Macros',
+      text: t('Macros'),
       items: [
         {
-          text: 'All Macros',
+          text: t('All Macros'),
           link: `${urlPrefix}/macros/`,
         },
 
         {
-          text: 'Official',
+          text: t('Official'),
           items: [
             {
               text: 'defineOptions',
@@ -85,7 +104,7 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
         },
 
         {
-          text: 'Stable',
+          text: t('Stable'),
           items: [
             {
               text: 'defineModels',
@@ -111,7 +130,7 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
         },
 
         {
-          text: 'Experimental',
+          text: t('Experimental'),
           items: [
             {
               text: 'defineProp',
@@ -142,10 +161,10 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
       ],
     },
     {
-      text: 'Features',
+      text: t('Features'),
       items: [
         {
-          text: 'Official',
+          text: t('Official'),
           items: [
             {
               text: 'hoistStatic',
@@ -155,7 +174,7 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
         },
 
         {
-          text: 'Stable',
+          text: t('Stable'),
           items: [
             {
               text: 'betterDefine',
@@ -169,7 +188,7 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
         },
 
         {
-          text: 'Experimental',
+          text: t('Experimental'),
           items: [
             {
               text: 'namedTemplate',
@@ -200,4 +219,50 @@ export const sidebar = (lang: string): DefaultTheme.SidebarItem[] => {
       ],
     },
   ]
+
+  const themeConfig: DefaultTheme.Config = {
+    logo: '/favicon.svg',
+    nav,
+    sidebar,
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/vue-macros/vue-macros' },
+    ],
+    footer: {
+      message: t('Made with ❤️'),
+      copyright:
+        'MIT License © 2022-PRESENT <a href="https://github.com/sxzz">三咲智子 Kevin Deng</a>',
+    },
+    editLink: {
+      pattern: 'https://github.com/vue-macros/vue-macros/edit/main/docs/:path',
+      text: t('Edit this page on GitHub'),
+    },
+  }
+
+  if (lang === 'zh-CN') {
+    Object.assign(themeConfig, {
+      outline: {
+        label: '页面导航',
+      },
+      lastUpdatedText: '最后更新于',
+      darkModeSwitchLabel: '外观',
+      sidebarMenuLabel: '目录',
+      returnToTopLabel: '返回顶部',
+      langMenuLabel: '选择语言',
+      docFooter: {
+        prev: '上一页',
+        next: '下一页',
+      },
+    } satisfies DefaultTheme.Config)
+  }
+
+  const localeConfig: LocaleConfig<DefaultTheme.Config>[string] = {
+    label: t('English'),
+    lang: t('en'),
+    title,
+    description,
+    head,
+    themeConfig,
+  }
+
+  return localeConfig
 }
