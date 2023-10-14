@@ -22,6 +22,7 @@ export const zhCN = {
   'Experimental feature, use at your risk': '实验性功能，风险自负',
 
   Author: '作者',
+  'Team member': '团队成员',
   'Sponsored by': '赞助者',
   'Thanks to all the contributors!': '感谢所有的贡献者！',
 

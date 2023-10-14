@@ -15,6 +15,15 @@ const members = computed(() => [
       { icon: 'twitter', link: 'https://twitter.com/sanxiaozhizi' },
     ],
   },
+  {
+    avatar: 'https://www.github.com/zhiyuanzmj.png',
+    name: 'zhiyuanzmj',
+    title: t('Team member'),
+    links: [
+      { icon: 'github', link: 'https://github.com/zhiyuanzmj' },
+      { icon: 'twitter', link: 'https://twitter.com/zhiyuanzmj' },
+    ],
+  },
 ])
 </script>
 
