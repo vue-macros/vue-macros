@@ -7,6 +7,9 @@
     "customConditions": ["dev"],
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "paths": {
+      "#macros": ["../../macros/index.ts"]
+    },
     "resolveJsonModule": true,
     "allowJs": true,
     "strict": true,
