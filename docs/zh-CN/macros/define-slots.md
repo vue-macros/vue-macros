@@ -6,13 +6,13 @@
 
 在 Vue >= 3.3 中，此功能将默认关闭。
 
-|         特性         |         支持         |
-| :------------------: | :------------------: |
-|        Vue 3         |  :white_check_mark:  |
-|        Nuxt 3        |  :white_check_mark:  |
-|        Vue 2         |  :white_check_mark:  |
-| Volar Plugin + Vue 3 |  :white_check_mark:  |
-| Volar Plugin + Vue 2 | :x: (Volar 还不支持) |
+|         特性         |        支持        |
+| :------------------: | :----------------: |
+|        Vue 3         | :white_check_mark: |
+|        Nuxt 3        | :white_check_mark: |
+|        Vue 2         | :white_check_mark: |
+| Volar Plugin + Vue 3 | :white_check_mark: |
+| Volar Plugin + Vue 2 |        :x:         |
 
 ## 基本用法
 

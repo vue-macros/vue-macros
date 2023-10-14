@@ -6,13 +6,13 @@ Declaring type of SFC slots in `<script setup>` using the `defineSlots`.
 
 For Vue >= 3.3, this feature will be turned off by default.
 
-|       Features       |              Supported              |
-| :------------------: | :---------------------------------: |
-|        Vue 3         |         :white_check_mark:          |
-|        Nuxt 3        |         :white_check_mark:          |
-|        Vue 2         |         :white_check_mark:          |
-| Volar Plugin + Vue 3 |         :white_check_mark:          |
-| Volar Plugin + Vue 2 | :x: (Volar does not support it yet) |
+|       Features       |     Supported      |
+| :------------------: | :----------------: |
+|        Vue 3         | :white_check_mark: |
+|        Nuxt 3        | :white_check_mark: |
+|        Vue 2         | :white_check_mark: |
+| Volar Plugin + Vue 3 | :white_check_mark: |
+| Volar Plugin + Vue 2 |        :x:         |
 
 ## Basic Usage
 

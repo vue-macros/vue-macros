@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-nocheck
 import { Fail, Ok } from '../../assert'
 
 interface Slots {

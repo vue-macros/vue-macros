@@ -1,4 +1,6 @@
 <script setup lang="tsx">
+// @ts-nocheck
+
 defineSlots<{
   default: () => any
   bottom: (props: { foo: 1 }) => any
