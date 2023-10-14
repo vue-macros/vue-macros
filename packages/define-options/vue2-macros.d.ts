@@ -3,7 +3,7 @@ import type {
   ComponentOptionsWithoutProps,
   ComputedOptions,
   MethodOptions,
-} from 'vue'
+} from 'vue/types/v3-component-options'
 
 export declare function defineOptions<
   RawBindings = {},
