@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { VPTeamMembers } from 'vitepress/theme'
 import { computed } from 'vue'
-import { useI18n } from '../i18n/composable'
+import { useTranslate } from '../i18n/composable'
 
-const { t } = useI18n()
+const t = useTranslate()
 
 const members = computed(() => [
   {

@@ -1,9 +1,9 @@
-import { createI18n } from './i18n/utils'
+import { createTranslate } from './i18n/utils'
 import type { DefaultTheme, HeadConfig, LocaleConfig } from 'vitepress'
 import { webLink } from '.vitepress/configs/meta'
 
 export const getLocaleConfig = (lang: string) => {
-  const t = createI18n(lang)
+  const t = createTranslate(lang)
 
   const urlPrefix = lang && lang !== 'en' ? `/${lang}` : ''
   const title = t('Vue Macros')
