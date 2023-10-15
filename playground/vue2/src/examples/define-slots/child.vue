@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// @ts-nocheck
 import { Fail, Ok } from '../../assert'
 
 export type TitleScope = { foo: boolean | 'foo' }

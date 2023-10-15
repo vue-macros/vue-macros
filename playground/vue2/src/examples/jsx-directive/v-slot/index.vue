@@ -1,5 +1,4 @@
 <script setup lang="tsx">
-// @ts-nocheck
 import Child from './child.vue'
 
 defineRender(() => (
