@@ -16,6 +16,8 @@
 
 ## 基本用法
 
+### 简写语法
+
 ```vue
 <script setup lang="ts">
 defineSlots<{
@@ -24,6 +26,16 @@ defineSlots<{
     // 作用域插槽
     foo: 'bar' | boolean
   }
+}>()
+</script>
+```
+
+### 完整语法（官方版本）
+
+```vue
+<script setup lang="ts">
+defineSlots<{
+  title: (scope: { text: string }) => any
 }>()
 </script>
 ```

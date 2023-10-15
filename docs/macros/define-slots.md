@@ -16,6 +16,8 @@ For Vue >= 3.3, this feature will be turned off by default.
 
 ## Basic Usage
 
+### Short Syntax
+
 ```vue
 <script setup lang="ts">
 defineSlots<{
@@ -24,6 +26,16 @@ defineSlots<{
     // scoped slot
     foo: 'bar' | boolean
   }
+}>()
+</script>
+```
+
+### Full Syntax (Official Version)
+
+```vue
+<script setup lang="ts">
+defineSlots<{
+  title: (scope: { text: string }) => any
 }>()
 </script>
 ```

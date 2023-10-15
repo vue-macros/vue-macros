@@ -1,14 +1,23 @@
 <script setup lang="ts">
+// @ts-nocheck
+
+import { expectTypeOf } from 'expect-type'
 import { Assert } from '../../assert'
-import Child from './child.vue'
+import Child, { type DefaultScope, type TitleScope } from './child.vue'
+
+declare const expectTitleScope: TitleScope
+declare const expectDefaultScope: DefaultScope
 </script>
 
 <template>
   <child>
-    <template #title />
+    <template #title="scope">
+      {{ expectTypeOf(scope).toEqualTypeOf(expectTitleScope) }}
+    </template>
 
-    <template #default="{ bar }">
-      <Assert :l="bar" r="bar" />
+    <template #default="scope">
+      <Assert :l="scope.bar" r="bar" />
+      {{ expectTypeOf(scope).toEqualTypeOf(expectDefaultScope) }}
     </template>
 
     <template #any="{ any }">
