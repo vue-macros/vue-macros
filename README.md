@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://vue-macros.sxzz.moe/">📜 Documentation</a>
+  <a href="https://vue-macros.dev/">📜 Documentation</a>
 </p>
 
 ## Features

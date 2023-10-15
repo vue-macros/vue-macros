@@ -37,7 +37,7 @@ export default withPwa(
       },
     },
     sitemap: {
-      hostname: 'https://vue-macros.sxzz.moe',
+      hostname: 'https://vue-macros.dev',
     },
     pwa,
   })
