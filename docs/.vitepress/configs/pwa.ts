@@ -15,6 +15,9 @@ export const pwa: PwaOptions = {
     enabled: false,
   },
   registerType: 'autoUpdate',
+  experimental: {
+    includeAllowlist: true,
+  },
   workbox: {
     globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
     runtimeCaching: [
