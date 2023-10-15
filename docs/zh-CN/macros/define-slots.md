@@ -6,13 +6,12 @@
 
 在 Vue >= 3.3 中，此功能将默认关闭。
 
-|         特性         |        支持        |
-| :------------------: | :----------------: |
-|        Vue 3         | :white_check_mark: |
-|        Nuxt 3        | :white_check_mark: |
-|        Vue 2         | :white_check_mark: |
-| Volar Plugin + Vue 3 | :white_check_mark: |
-| Volar Plugin + Vue 2 |        :x:         |
+|     特性     |        支持        |
+| :----------: | :----------------: |
+|    Vue 3     | :white_check_mark: |
+|    Nuxt 3    | :white_check_mark: |
+|    Vue 2     | :white_check_mark: |
+| Volar Plugin | :white_check_mark: |
 
 ## 基本用法
 
@@ -46,7 +45,7 @@ defineSlots<{
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3, // Volar 暂不支持 2.7 版本
+    "target": 3, // 或 2.7 用于 Vue 2
     "plugins": [
       "@vue-macros/volar/define-slots"
       // ...更多功能
