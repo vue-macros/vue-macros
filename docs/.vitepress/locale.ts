@@ -12,9 +12,12 @@ export const getLocaleConfig = (lang: string) => {
   const head: HeadConfig[] = [
     ['meta', { property: 'og:title', content: title }],
     ['meta', { property: 'og:description', content: description }],
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    ['meta', { property: 'og:image', content: `${webLink}/og.png` }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:url', content: webLink }],
+    ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { property: 'twitter:image', content: `${webLink}/og.png` }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['meta', { name: 'theme-color', content: '#914796' }],
     [
       'script',
