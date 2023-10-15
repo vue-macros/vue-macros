@@ -1,6 +1,6 @@
-import { createTranslate } from './i18n/utils'
+import { docsLink, githubLink } from '../../../macros/repo'
+import { createTranslate } from '../i18n/utils'
 import type { DefaultTheme, HeadConfig, LocaleConfig } from 'vitepress'
-import { webLink } from '.vitepress/configs/meta'
 
 export const getLocaleConfig = (lang: string) => {
   const t = createTranslate(lang)
@@ -12,11 +12,11 @@ export const getLocaleConfig = (lang: string) => {
   const head: HeadConfig[] = [
     ['meta', { property: 'og:title', content: title }],
     ['meta', { property: 'og:description', content: description }],
-    ['meta', { property: 'og:image', content: `${webLink}/og.png` }],
+    ['meta', { property: 'og:image', content: `${docsLink}/og.png` }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:url', content: webLink }],
+    ['meta', { property: 'og:url', content: docsLink }],
     ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { property: 'twitter:image', content: `${webLink}/og.png` }],
+    ['meta', { property: 'twitter:image', content: `${docsLink}/og.png` }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['meta', { name: 'theme-color', content: '#914796' }],
     [
@@ -227,16 +227,14 @@ gtag('config', 'G-29NKGSL23C');`,
     logo: '/favicon.svg',
     nav,
     sidebar,
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vue-macros/vue-macros' },
-    ],
+    socialLinks: [{ icon: 'github', link: githubLink }],
     footer: {
       message: t('Made with ❤️'),
       copyright:
         'MIT License © 2022-PRESENT <a href="https://github.com/sxzz">三咲智子 Kevin Deng</a>',
     },
     editLink: {
-      pattern: 'https://github.com/vue-macros/vue-macros/edit/main/docs/:path',
+      pattern: `${githubLink}/edit/main/docs/:path`,
       text: t('Edit this page on GitHub'),
     },
   }

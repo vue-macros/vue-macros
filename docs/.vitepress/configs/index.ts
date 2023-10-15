@@ -1,2 +1,2 @@
-export * from './meta'
+export * from './locale'
 export * from './pwa'

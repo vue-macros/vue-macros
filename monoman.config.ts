@@ -4,6 +4,7 @@ import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dedupeDeps, defineConfig } from 'monoman'
 import fg from 'fast-glob'
+import { docsLink, githubLink } from './macros/repo'
 import type { Options } from 'tsup'
 
 // @ts-expect-error
@@ -51,11 +52,11 @@ export default defineConfig([
         ]
       }
       data.license = 'MIT'
-      data.homepage = 'https://vue-macros.dev'
-      data.bugs = { url: 'https://github.com/vue-macros/vue-macros/issues' }
+      data.homepage = docsLink
+      data.bugs = { url: `${githubLink}/issues` }
       data.repository = {
         type: 'git',
-        url: 'git+https://github.com/vue-macros/vue-macros.git',
+        url: `git+${githubLink}.git`,
         directory: `packages/${pkgName}`,
       }
       // data.author = '三咲智子 <sxzz@sxzz.moe>'
@@ -135,7 +136,7 @@ export default defineConfig([
       const pkgName = pkg.name
 
       return `# ${pkgName} [![npm](https://img.shields.io/npm/v/${pkgName}.svg)](https://npmjs.com/package/${pkgName})\n
-Please refer to [README.md](https://github.com/vue-macros/vue-macros#readme)\n`
+Please refer to [README.md](${githubLink}#readme)\n`
     },
   },
   ...dedupeDeps({

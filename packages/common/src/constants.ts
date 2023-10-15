@@ -1,3 +1,5 @@
+import { githubLink } from '#macros' assert { type: 'macro' }
+
 export const DEFINE_PROPS = 'defineProps'
 export const DEFINE_PROPS_DOLLAR = '$defineProps'
 export const DEFINE_PROPS_REFS = 'definePropsRefs'
@@ -12,7 +14,7 @@ export const DEFINE_SLOTS = 'defineSlots'
 export const DEFINE_PROP = 'defineProp'
 export const DEFINE_EMIT = 'defineEmit'
 
-export const REPO_ISSUE_URL = 'https://github.com/vue-macros/vue-macros/issues'
+export const REPO_ISSUE_URL = `${githubLink}/issues`
 
 export const REGEX_SRC_FILE = /\.[cm]?[jt]sx?$/
 

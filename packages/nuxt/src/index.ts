@@ -2,6 +2,7 @@ import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { type Options, resolveOptions } from 'unplugin-vue-macros'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
+import { githubRepo } from '#macros' assert { type: 'macro' }
 import type { Plugin } from 'vite'
 import type {} from '@nuxt/devtools'
 import type { VolarOptions } from '@vue-macros/volar'
@@ -49,7 +50,7 @@ export default defineNuxtModule<VueMacrosOptions>({
       tabs.push({
         name: 'vue-macros',
         title: 'Vue Macros',
-        icon: 'https://raw.githubusercontent.com/vue-macros/vue-macros/main/docs/public/favicon.svg',
+        icon: `https://raw.githubusercontent.com/${githubRepo}/main/docs/public/favicon.svg`,
         view: {
           type: 'iframe',
           src: '/__vue-macros',
