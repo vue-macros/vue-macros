@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
-import { pwa } from './configs'
+import { pwa, webLink } from './configs'
 import { getLocaleConfig } from './locale'
 
 export default withPwa(
@@ -37,7 +37,7 @@ export default withPwa(
       },
     },
     sitemap: {
-      hostname: 'https://vue-macros.dev',
+      hostname: webLink,
     },
     pwa,
   })
