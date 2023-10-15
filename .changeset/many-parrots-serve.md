@@ -2,4 +2,4 @@
 '@vue-macros/volar': patch
 ---
 
-support defineSlots volar plugin in vue2
+support defineSlots for vue2
