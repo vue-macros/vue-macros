@@ -51,13 +51,7 @@ export default defineConfig([
         ]
       }
       data.license = 'MIT'
-      if (pkgName === 'define-options') {
-        data.homepage =
-          'https://github.com/vue-macros/vue-macros/tree/main/packages/define-options#readme'
-      } else {
-        data.homepage = 'https://github.com/vue-macros/vue-macros#readme'
-      }
-
+      data.homepage = 'https://vue-macros.dev'
       data.bugs = { url: 'https://github.com/vue-macros/vue-macros/issues' }
       data.repository = {
         type: 'git',
