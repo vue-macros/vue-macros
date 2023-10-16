@@ -1,11 +1,8 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'tsup'
 import Macros from 'unplugin-macros/esbuild'
 import type { Plugin } from 'esbuild'
-
-const dirname = path.resolve(fileURLToPath(import.meta.url), '..')
 
 const rawRE = /[&?]raw(?:&|$)/
 const EsbuildRawPlugin: Plugin = {
@@ -57,7 +54,7 @@ export default defineConfig({
       viteConfig: {
         resolve: {
           alias: {
-            '#macros': path.resolve(dirname, 'macros/index.ts'),
+            '#macros': path.resolve(__dirname, 'macros/index.ts'),
           },
         },
       },

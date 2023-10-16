@@ -1,17 +1,13 @@
 import path from 'node:path'
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
 import { dedupeDeps, defineConfig } from 'monoman'
 import fg from 'fast-glob'
 import { docsLink, githubLink } from './macros/repo'
 import type { Options } from 'tsup'
 
-// @ts-expect-error
-const dirname = path.dirname(fileURLToPath(new URL(import.meta.url)))
-
 function getPkgName(filePath: string) {
-  const relative = path.relative(dirname, filePath)
+  const relative = path.relative(__dirname, filePath)
   const [, pkgName] = relative.split(path.sep)
   return pkgName
 }
