@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.2.0
+
+### Minor Changes
+
+- [`2c646c74`](https://github.com/vue-macros/vue-macros/commit/2c646c7435c60899b79efbf33b630a8317911c2b) Thanks [@sxzz](https://github.com/sxzz)! - Upgrade Rollup
+
 ## 1.1.3
 
 ### Patch Changes
