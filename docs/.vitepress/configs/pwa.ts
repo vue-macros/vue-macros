@@ -11,6 +11,7 @@ export const pwa: PwaOptions = {
     id: '/',
     icons,
   },
+  selfDestroying: true,
   devOptions: {
     enabled: false,
   },
