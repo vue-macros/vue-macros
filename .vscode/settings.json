@@ -1,4 +1,11 @@
 {
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/coverage": true,
+    "docs/.vitepress/cache": true,
+    "**/CHANGELOG.md": true
+  },
   "cSpell.words": [
     "attributify",
     "esbuild",
