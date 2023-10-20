@@ -4,7 +4,8 @@
     "customConditions": ["dev"],
     "paths": {
       "vue": ["node_modules/vue2"],
-      "vue/*": ["node_modules/vue2/*"]
+      "vue/*": ["node_modules/vue2/*"],
+      "#macros": ["./macros/index.ts"]
     },
     "skipLibCheck": false
   },
