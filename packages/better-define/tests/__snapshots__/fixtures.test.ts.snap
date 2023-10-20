@@ -510,12 +510,12 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     trigger: { required: true }
   },
   setup(__props) {
-    const props = __props;
     const Trigger = {
       click: \\"click\\",
       focus: \\"focus\\",
       hover: \\"hover\\"
     };
+    const props = __props;
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(
         \\"button\\",
@@ -544,12 +544,12 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     trigger: null
   },
   setup(__props) {
-    const props = __props;
     const Trigger = {
       click: \\"click\\",
       focus: \\"focus\\",
       hover: \\"hover\\"
     };
+    const props = __props;
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(
         \\"button\\",
@@ -1099,7 +1099,8 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"union-emits\\",
   emits: [\\"some\\", \\"emit\\", \\"another\\"],
-  setup(__props, { emit }) {
+  setup(__props, { emit: __emit }) {
+    const emit = __emit;
     return () => {
     };
   }
@@ -1118,7 +1119,8 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"union-emits\\",
   emits: [\\"some\\", \\"emit\\", \\"another\\"],
-  setup(__props, { emit }) {
+  setup(__props, { emit: __emit }) {
+    const emit = __emit;
     return () => {
     };
   }
