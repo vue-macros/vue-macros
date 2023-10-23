@@ -1,12 +1,12 @@
 import { FileKind } from '@volar/language-core'
 import {
   type Sfc,
-  type VueEmbeddedFile,
   type VueLanguagePlugin,
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
 import { getVolarOptions } from './common'
+import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
 import type { VolarOptions } from '..'
 
 function transform({
