@@ -3,13 +3,13 @@ import { DEFINE_SLOTS } from '@vue-macros/common'
 import {
   type Segment,
   type Sfc,
-  type VueEmbeddedFile,
   type VueLanguagePlugin,
   replace,
   toString,
 } from '@vue/language-core'
+import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
 
-const transform = ({
+function transform({
   embeddedFile,
   typeArg,
   sfc,
@@ -17,7 +17,7 @@ const transform = ({
   embeddedFile: VueEmbeddedFile
   typeArg: import('typescript/lib/tsserverlibrary').TypeNode
   sfc: Sfc
-}) => {
+}) {
   if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
   const textContent = toString(embeddedFile.content)
   if (

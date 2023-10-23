@@ -1,10 +1,6 @@
 import { FileKind } from '@volar/language-core'
-import {
-  type Sfc,
-  type VueEmbeddedFile,
-  type VueLanguagePlugin,
-  replace,
-} from '@vue/language-core'
+import { type Sfc, type VueLanguagePlugin, replace } from '@vue/language-core'
+import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
 import type ts from 'typescript'
 
 type HasJSDoc = ts.HasJSDoc & { jsDoc: ts.JSDoc[] }
