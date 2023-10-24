@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// @ts-nocheck
-
 import { expectTypeOf } from 'expect-type'
 import { Assert } from '../../assert'
 import Child, { type DefaultScope, type TitleScope } from './child.vue'

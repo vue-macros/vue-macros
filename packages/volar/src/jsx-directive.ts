@@ -3,6 +3,7 @@ import {
   type Segment,
   type Sfc,
   type VueLanguagePlugin,
+  getSlotsPropertyName,
   replaceSourceRange,
 } from '@vue/language-core'
 
@@ -17,6 +18,7 @@ type TransformOptions = {
   sfc: Sfc
   ts: typeof import('typescript/lib/tsserverlibrary')
   source: 'script' | 'scriptSetup'
+  vueVersion?: number
 }
 
 function transformVIf({
@@ -172,15 +174,17 @@ function transformVSlot({
   ts,
   sfc,
   source,
+  vueVersion,
 }: TransformOptions & {
   nodes: import('typescript/lib/tsserverlibrary').JsxElement[]
 }) {
   if (nodes.length === 0) return
-  codes.push(`type __VLS_getSlots<T> = T extends new (...args: any) => any
-  ? InstanceType<T>['$slots']
-  : T extends (props: any, ctx: infer Ctx) => any
-  ? Ctx['slots']
-  : any`)
+  codes.push(`type __VLS_getSlots<T> = T extends new () => { '${getSlotsPropertyName(
+    vueVersion || 3
+  )}': infer S } ? NonNullable<S>
+  : T extends (props: any, ctx: infer Ctx extends { slots: any }) => any
+  ? NonNullable<Ctx['slots']>
+  : {}`)
 
   nodes.forEach((node) => {
     if (!ts.isIdentifier(node.openingElement.tagName)) return
@@ -341,7 +345,13 @@ function transformVModel({
   })
 }
 
-function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
+function transformJsxDirective({
+  codes,
+  sfc,
+  ts,
+  source,
+  vueVersion,
+}: TransformOptions) {
   const vIfAttributeMap = new Map<any, JsxAttributeNode[]>()
   const vForAttributes: JsxAttributeNode[] = []
   const vSlotNodeSet = new Set<
@@ -429,7 +439,14 @@ function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
   }
   sfc[`${source}Ast`]!.forEachChild(walkJsxDirective)
 
-  transformVSlot({ nodes: Array.from(vSlotNodeSet), codes, sfc, ts, source })
+  transformVSlot({
+    nodes: Array.from(vSlotNodeSet),
+    codes,
+    sfc,
+    ts,
+    source,
+    vueVersion,
+  })
   transformVFor({ nodes: vForAttributes, codes, sfc, ts, source })
   vIfAttributeMap.forEach((nodes) =>
     transformVIf({ nodes, codes, sfc, ts, source })
@@ -437,7 +454,10 @@ function transformJsxDirective({ codes, sfc, ts, source }: TransformOptions) {
   transformVModel({ nodes: vModelAttributes, codes, sfc, ts, source })
 }
 
-const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
+const plugin: VueLanguagePlugin = ({
+  modules: { typescript: ts },
+  vueCompilerOptions,
+}) => {
   return {
     name: 'vue-macros-jsx-directive',
     version: 1,
@@ -452,6 +472,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
           sfc,
           ts,
           source,
+          vueVersion: vueCompilerOptions.target,
         })
       }
     },
