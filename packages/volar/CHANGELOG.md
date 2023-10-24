@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.17.1
+
+### Patch Changes
+
+- [#525](https://github.com/vue-macros/vue-macros/pull/525) [`e425c906`](https://github.com/vue-macros/vue-macros/commit/e425c9060ab8e74a50a91cb61b277e91d84f1cfe) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support defineSlots for vue2
+
 ## 0.17.0
 
 ### Minor Changes
