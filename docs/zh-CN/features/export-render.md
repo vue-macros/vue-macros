@@ -34,8 +34,8 @@ export default () => <div>ok</div>
 ```jsonc {6}
 // tsconfig.json
 {
-  "target": 3,
   "vueCompilerOptions": {
+    "target": 3,
     "plugins": [
       "@vue-macros/volar/export-render"
       // ...更多功能
