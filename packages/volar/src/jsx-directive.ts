@@ -332,12 +332,12 @@ function transformVModel({
   source,
 }: TransformOptions & { nodes: JsxAttributeNode[] }) {
   nodes.forEach(({ attribute }) => {
-    const start = attribute.getStart(sfc[`${source}Ast`])
+    const start = attribute.getStart(sfc[source]?.ast)
     let end = start + 7
     let name = 'modelValue'
 
     if (ts.isJsxNamespacedName(attribute.name)) {
-      name = attribute.name.name.getText(sfc[`${source}Ast`])
+      name = attribute.name.name.getText(sfc[source]?.ast)
       end += 1 + name.length
     }
 
@@ -402,7 +402,7 @@ function transformJsxDirective({
           (ts.isJsxNamespacedName(attribute.name)
             ? attribute.name.namespace
             : attribute.name
-          ).getText(sfc[`${source}Ast`])
+          ).getText(sfc[source]?.ast)
         )
       ) {
         vModelAttribute = attribute
@@ -437,7 +437,7 @@ function transformJsxDirective({
       )
     })
   }
-  sfc[`${source}Ast`]!.forEachChild(walkJsxDirective)
+  sfc[source]?.ast.forEachChild(walkJsxDirective)
 
   transformVSlot({
     nodes: Array.from(vSlotNodeSet),

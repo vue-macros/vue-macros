@@ -34,21 +34,21 @@ function transform({
   const exposed: Record<string, Segment<FileRangeCapabilities>> = Object.create(
     null
   )
-  for (const stmt of sfc.scriptSetupAst!.statements) {
+  for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (!ts.isVariableStatement(stmt)) continue
     const exportModifier = stmt.modifiers?.find(
       (m) => m.kind === ts.SyntaxKind.ExportKeyword
     )
     if (!exportModifier) continue
 
-    const start = exportModifier.getStart(sfc.scriptSetupAst!)
+    const start = exportModifier.getStart(sfc.scriptSetup?.ast)
     const end = exportModifier.getEnd()
     replaceSourceRange(file.content, 'scriptSetup', start, end)
 
     for (const decl of stmt.declarationList.declarations) {
       if (!ts.isIdentifier(decl.name)) continue
       const name = decl.name.text
-      const start = decl.name.getStart(sfc.scriptSetupAst!)
+      const start = decl.name.getStart(sfc.scriptSetup?.ast)
 
       exposed[name] = [name, 'scriptSetup', start, FileRangeCapabilities.full]
     }
@@ -82,7 +82,7 @@ const plugin: VueLanguagePlugin = ({
       if (
         embeddedFile.kind !== FileKind.TypeScriptHostFile ||
         !sfc.scriptSetup ||
-        !sfc.scriptSetupAst
+        !sfc.scriptSetup.ast
       )
         return
 

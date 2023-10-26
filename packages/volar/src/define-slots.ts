@@ -59,7 +59,7 @@ function getTypeArg(
     return node.typeArguments[0]
   }
 
-  return sfc.scriptSetupAst?.forEachChild((node) => {
+  return sfc.scriptSetup?.ast.forEachChild((node) => {
     if (ts.isExpressionStatement(node)) {
       return getCallArg(node.expression)
     } else if (ts.isVariableStatement(node)) {
@@ -82,7 +82,7 @@ const plugin: VueLanguagePlugin = ({
       if (
         embeddedFile.kind !== FileKind.TypeScriptHostFile ||
         !sfc.scriptSetup ||
-        !sfc.scriptSetupAst
+        !sfc.scriptSetup.ast
       )
         return
 

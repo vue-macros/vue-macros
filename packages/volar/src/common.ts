@@ -57,7 +57,7 @@ export function getImportNames(
   sfc: Sfc
 ) {
   const names: string[] = []
-  const sourceFile = sfc.scriptSetupAst!
+  const sourceFile = sfc.scriptSetup!.ast
   sourceFile.forEachChild((node) => {
     if (
       ts.isImportDeclaration(node) &&
