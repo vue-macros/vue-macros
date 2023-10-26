@@ -28,15 +28,15 @@ function transform({
   )
   if (!filter(fileName)) return
 
-  for (const stmt of sfc.scriptSetupAst!.statements) {
+  for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (!ts.isExportAssignment(stmt)) continue
 
-    const start = stmt.expression.getStart(sfc.scriptSetupAst)
+    const start = stmt.expression.getStart(sfc.scriptSetup?.ast)
     const end = stmt.expression.getEnd()
     replaceSourceRange(
       file.content,
       'scriptSetup',
-      stmt.getStart(sfc.scriptSetupAst),
+      stmt.getStart(sfc.scriptSetup?.ast),
       start,
       'defineRender('
     )
@@ -55,7 +55,7 @@ const plugin: VueLanguagePlugin = ({
       if (
         embeddedFile.kind !== FileKind.TypeScriptHostFile ||
         !sfc.scriptSetup ||
-        !sfc.scriptSetupAst
+        !sfc.scriptSetup.ast
       )
         return
 

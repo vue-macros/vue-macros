@@ -28,12 +28,12 @@ function transform({
   ts: typeof import('typescript/lib/tsserverlibrary')
 }) {
   let jsDoc
-  if (hasJSDocNodes(sfc.scriptSetupAst!.statements[0])) {
-    jsDoc = sfc.scriptSetupAst!.statements[0].jsDoc.at(-1)
+  if (hasJSDocNodes(sfc.scriptSetup!.ast.statements[0])) {
+    jsDoc = sfc.scriptSetup!.ast.statements[0].jsDoc.at(-1)
   }
 
   // With exportRender plugin.
-  for (const stmt of sfc.scriptSetupAst!.statements) {
+  for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (!ts.isExportAssignment(stmt)) continue
 
     if (hasJSDocNodes(stmt)) jsDoc ??= stmt.jsDoc.at(-1)
@@ -56,7 +56,7 @@ const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
       if (
         embeddedFile.kind !== FileKind.TypeScriptHostFile ||
         !sfc.scriptSetup ||
-        !sfc.scriptSetupAst
+        !sfc.scriptSetup.ast
       )
         return
 
