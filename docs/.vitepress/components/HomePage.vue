@@ -7,7 +7,7 @@ const t = useTranslate()
 
 const members = computed(() => [
   {
-    avatar: 'https://www.github.com/sxzz.png',
+    avatar: 'https://github.com/sxzz.png',
     name: '三咲智子 Kevin Deng',
     title: t('Author'),
     links: [
@@ -16,7 +16,7 @@ const members = computed(() => [
     ],
   },
   {
-    avatar: 'https://www.github.com/zhiyuanzmj.png',
+    avatar: 'https://github.com/zhiyuanzmj.png',
     name: 'zhiyuanzmj',
     title: t('Team member'),
     links: [
