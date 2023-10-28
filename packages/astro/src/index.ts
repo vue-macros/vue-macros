@@ -28,6 +28,7 @@ export default function (options?: VueMacrosOptions): AstroIntegration {
         const vueJsx = findPluginAndRemove('vite:vue-jsx', config.vite.plugins)
 
         config.vite.plugins?.push(
+          // @ts-expect-error vite 5
           VueMacros({
             ...resolvedOptions,
             plugins: {

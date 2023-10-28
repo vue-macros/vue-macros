@@ -13,7 +13,6 @@ describe('fixtures', async () => {
     'tests/fixtures/*.{vue,[jt]s?(x)}',
     (args, id) =>
       rollupBuild(id, [
-        // @ts-expect-error rollup 4
         ShortBind(),
         RollupVue(),
         RollupEsbuildPlugin({

@@ -21,6 +21,7 @@ export default defineConfig({
       },
     }),
     UnoCSS(),
+    // @ts-expect-error vite 5
     Macros({
       viteConfig: {
         resolve: {
