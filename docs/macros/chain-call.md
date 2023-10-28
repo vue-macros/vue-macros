@@ -54,7 +54,7 @@ const props = withDefaults(
 
 :::
 
-Also support [props destructuring](/features/reactivity-transform.html) and JSX:
+Also support [props destructuring](../features/reactivity-transform.md) and JSX:
 
 ```vue
 <script setup lang="tsx">
