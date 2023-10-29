@@ -2,6 +2,7 @@
 
 exports[`fixtures > tests/fixtures/SetupFC.tsx 1`] = `
 "import { ref, createTextVNode, createVNode, defineComponent } from 'vue';
+import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -10,6 +11,9 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
     const {
       App
     } = __MACROS_ctx();
+    expectTypeOf(props).toEqualTypeOf();
+    expectTypeOf(emit).toEqualTypeOf();
+    expectTypeOf(slots).toEqualTypeOf();
     const count = ref(0);
     defineRender(() => createVNode(\\"div\\", null, [createVNode(\\"p\\", null, [createTextVNode(\\"hi, this is \\"), props.name]), createVNode(\\"p\\", null, [count.value]), createVNode(\\"button\\", {
       \\"onClick\\": () => count.value++

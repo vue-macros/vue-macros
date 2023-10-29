@@ -7,4 +7,5 @@ export declare const defineSetupComponent: <T extends FunctionalComponent>(
 export declare type SetupFC<
   P = {},
   E extends EmitsOptions = {},
-> = FunctionalComponent<P, E>
+  S extends Record<string, any> = any,
+> = FunctionalComponent<P, E, S>
