@@ -6,22 +6,22 @@ Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, 
 
 ## Implemented by Vue 3.3
 
-- [defineOptions](/macros/define-options)
-- [defineSlots](/macros/define-slots)
-- [shortEmits](/macros/short-emits)
+- [defineOptions](./define-options.md)
+- [defineSlots](./define-slots.md)
+- [shortEmits](./short-emits.md)
 
 ## Stable Features
 
-- [defineModels](/macros/define-models)
-- [defineProps](/macros/define-props)
-- [definePropsRefs](/macros/define-props-refs)
-- [defineRender](/macros/define-render)
-- [shortVmodel](/macros/short-vmodel)
+- [defineModels](./define-models.md)
+- [defineProps](./define-props.md)
+- [definePropsRefs](./define-props-refs.md)
+- [defineRender](./define-render.md)
+- [shortVmodel](./short-vmodel.md)
 
 ## Experimental Features
 
-- [defineProp](/macros/define-prop)
-- [defineEmit](/macros/define-emit)
-- [setupComponent](/macros/setup-component)
-- [setupSFC](/macros/setup-sfc)
-- [chainCall](/macros/chain-call)
+- [defineProp](./define-prop.md)
+- [defineEmit](./define-emit.md)
+- [setupComponent](./setup-component.md)
+- [setupSFC](./setup-sfc.md)
+- [chainCall](./chain-call.md)

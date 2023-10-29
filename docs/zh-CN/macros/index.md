@@ -6,22 +6,22 @@
 
 ## 被 Vue 3.3 官方支持
 
-- [defineOptions](/zh-CN/macros/define-options)
-- [defineSlots](/zh-CN/macros/define-slots)
-- [shortEmits](/zh-CN/macros/short-emits)
+- [defineOptions](./define-options.md)
+- [defineSlots](./define-slots.md)
+- [shortEmits](./short-emits.md)
 
 ## 稳定功能
 
-- [defineModels](/zh-CN/macros/define-models)
-- [defineProps](/zh-CN/macros/define-props)
-- [definePropsRefs](/zh-CN/macros/define-props-refs)
-- [defineRender](/zh-CN/macros/define-render)
-- [shortVmodel](/zh-CN/macros/short-vmodel)
+- [defineModels](./define-models.md)
+- [defineProps](./define-props.md)
+- [definePropsRefs](./define-props-refs.md)
+- [defineRender](./define-render.md)
+- [shortVmodel](./short-vmodel.md)
 
 ## 实验性功能
 
-- [defineProp](/zh-CN/macros/define-prop)
-- [defineEmit](/zh-CN/macros/define-emit)
-- [setupComponent](/zh-CN/macros/setup-component)
-- [setupSFC](/zh-CN/macros/setup-sfc)
-- [chainCall](/macros/chain-call)
+- [defineProp](./define-prop.md)
+- [defineEmit](./define-emit.md)
+- [setupComponent](./setup-component.md)
+- [setupSFC](./setup-sfc.md)
+- [chainCall](./chain-call.md)
