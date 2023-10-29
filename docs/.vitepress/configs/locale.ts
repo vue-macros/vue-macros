@@ -227,7 +227,10 @@ gtag('config', 'G-29NKGSL23C');`,
     logo: '/favicon.svg',
     nav,
     sidebar,
-    socialLinks: [{ icon: 'github', link: githubLink }],
+    socialLinks: [
+      { icon: 'discord', link: 'https://discord.com/invite/RbVHMsFVXU' },
+      { icon: 'github', link: githubLink },
+    ],
     footer: {
       message: t('Made with ❤️'),
       copyright:
