@@ -112,7 +112,7 @@ function isConflicted(value: string) {
         <span absolute top-4 right-4 font-mono op60>
           {{ example.filename }}
         </span>
-        <div v-html="formatted" />
+        <div overflow-auto v-html="formatted" />
       </div>
     </div>
   </div>
