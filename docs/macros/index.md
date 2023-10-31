@@ -2,7 +2,7 @@
 
 List of all available macros.
 
-Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, read [Getting Started](/guide/getting-started) first.
+Please make sure `unplugin-vue-macros` is set up correctly. If you haven't yet, read [Getting Started](../guide/getting-started.md) first.
 
 ## Implemented by Vue 3.3
 
