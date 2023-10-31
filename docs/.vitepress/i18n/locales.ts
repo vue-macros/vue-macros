@@ -31,6 +31,9 @@ export const zhCN = {
 
   English: '简体中文',
   en: 'zh-CN',
+
+  'Loading...': '加载中…',
+  'Interactive Example': '交互式示例',
 }
 
 export const langMap: Record<string, Record<string, string>> = {
