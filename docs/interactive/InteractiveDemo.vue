@@ -6,7 +6,9 @@ import {
   type OptionsKey,
   options,
   processDefineComponent,
+  processDefineEmits,
   processDefineProps,
+  processDefineRender,
 } from './logic'
 
 const { isDark } = useData()
@@ -30,24 +32,30 @@ const state = reactive<{
   ) as any
 )
 
-const code = computed(() => {
-  const setup = processDefineProps[state.defineProps]
-  return processDefineComponent[state.defineComponents](setup)
+const example = computed(() => {
+  const props = processDefineProps[state.defineProps]
+  const emits = processDefineEmits[state.defineEmits]
+  const render = processDefineRender[state.defineRender]
+
+  return processDefineComponent[state.defineComponents](
+    `${props}\n${emits}`,
+    render
+  )
 })
 
 const formatted = ref('')
 watch(
-  [code, isDark],
+  [example, isDark],
   async () => {
     formatted.value = shiki.codeToHtml(
-      await format(code.value, {
-        parser: state.defineComponents === 'Vue SFC' ? 'vue' : 'babel-ts',
+      await format(example.value.code, {
+        parser: example.value.lang === 'vue' ? 'vue' : 'babel-ts',
         plugins: [pluginBabel, pluginHtml, pluginEstree, pluginTypeScript],
         semi: false,
         singleQuote: true,
       }),
       {
-        lang: state.defineComponents === 'Vue SFC' ? 'vue' : 'typescript',
+        lang: example.value.lang === 'vue' ? 'vue' : 'typescript',
         theme: isDark.value ? 'vitesse-dark' : 'vitesse-light',
       }
     )
@@ -57,14 +65,14 @@ watch(
 </script>
 
 <template>
-  <div p8 font-mono>
+  <div p8>
     <h1 text-6 font-bold my4>Interactive Example</h1>
 
-    <div flex="~ col gap4">
-      <div v-for="(option, key) of options" :key="key" flex="~ gap2 wrap">
-        <label w-45>{{ option.label }}:</label>
+    <div flex="~ col gap6">
+      <div v-for="(option, key) of options" :key="key" flex="~ col gap2">
+        <label>{{ option.label }}</label>
         <div flex="~ wrap gap4">
-          <label v-for="value of option.values" :key="value">
+          <label v-for="value of option.values" :key="value" font-mono text-sm>
             <input
               v-model="state[key]"
               :name="key"
@@ -75,11 +83,8 @@ watch(
           </label>
         </div>
       </div>
-
-      <div mt2>
-        <span>
-          {{ state.defineComponents === 'Vue SFC' ? 'App.vue' : 'App.tsx' }}
-        </span>
+      <div mt4 rounded-2 p6 bg="[var(--vp-code-block-bg)]" relative>
+        <span absolute top--3 font-mono op60>{{ example.filename }}</span>
         <div v-html="formatted" />
       </div>
     </div>
@@ -89,6 +94,6 @@ watch(
 <style>
 .shiki {
   background-color: transparent !important;
-  margin-top: 0;
+  margin: 0;
 }
 </style>
