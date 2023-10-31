@@ -97,6 +97,13 @@ importers:
         version: 5.89.0(esbuild@0.18.20)
 
   docs:
+    dependencies:
+      prettier:
+        specifier: ^3.0.3
+        version: 3.0.3
+      shikiji:
+        specifier: ^0.6.10
+        version: 0.6.10
     devDependencies:
       '@vite-pwa/vitepress':
         specifier: ^0.2.3
@@ -10876,7 +10883,6 @@ packages:
     resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
     engines: {node: '>=14'}
     hasBin: true
-    dev: true
 
   /pretty-bytes@5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
