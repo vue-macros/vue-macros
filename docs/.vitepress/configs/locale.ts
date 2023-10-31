@@ -52,6 +52,11 @@ gtag('config', 'G-29NKGSL23C');`,
       link: `${urlPrefix}/features/hoist-static`,
       activeMatch: 'features',
     },
+    {
+      text: t('Interactive Example'),
+      link: `${urlPrefix}/interactive/`,
+      activeMatch: 'interactive',
+    },
   ]
 
   const sidebar: DefaultTheme.SidebarItem[] = [
@@ -77,6 +82,10 @@ gtag('config', 'G-29NKGSL23C');`,
         {
           text: t('Configurations'),
           link: `${urlPrefix}/guide/configurations`,
+        },
+        {
+          text: t('Interactive Example'),
+          link: `${urlPrefix}/interactive/`,
         },
       ],
     },

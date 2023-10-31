@@ -2,6 +2,7 @@
 import { computed, reactive, ref, watch } from 'vue'
 import { getHighlighter } from 'shikiji'
 import { useData } from 'vitepress'
+import { useTranslate } from '../.vitepress/i18n/composable'
 import {
   type OptionsKey,
   conflictCases,
@@ -12,6 +13,7 @@ import {
   processDefineRender,
 } from './logic'
 
+const t = useTranslate()
 const { isDark } = useData()
 
 const shiki = await getHighlighter({
@@ -83,7 +85,7 @@ function isConflicted(value: string) {
 
 <template>
   <div p8>
-    <h1 text-7 font-bold mb8>Interactive Example</h1>
+    <h1 text-7 font-bold mb8>{{ t('Interactive Example') }}</h1>
 
     <div flex="~ col gap6">
       <div v-for="(option, key) of options" :key="key" flex="~ col gap2">
