@@ -135,4 +135,5 @@ export const conflictCases = [
   ['<template>', 'setupSFC'],
   ['<template>', 'setupComponent'],
   ['setupComponent', 'exportRender'],
+  ['setupComponent', 'exportProps'],
 ]
