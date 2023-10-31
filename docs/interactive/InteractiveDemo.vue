@@ -4,6 +4,7 @@ import { getHighlighter } from 'shikiji'
 import { useData } from 'vitepress'
 import {
   type OptionsKey,
+  conflictCases,
   options,
   processDefineComponent,
   processDefineEmits,
@@ -62,29 +63,55 @@ watch(
   },
   { immediate: true }
 )
+
+function isConflicted(value: string) {
+  const items = conflictCases
+    .map((items) => {
+      if (!items.includes(value)) return null
+      return items.filter((item) => item !== value)
+    })
+    .filter((i): i is string[] => !!i)
+    .flat()
+  if (items.length === 0) return false
+
+  const values: string[] = Object.values(state)
+  if (!items.some((another) => values.includes(another))) return false
+
+  return true
+}
 </script>
 
 <template>
   <div p8>
-    <h1 text-6 font-bold my4>Interactive Example</h1>
+    <h1 text-7 font-bold mb8>Interactive Example</h1>
 
     <div flex="~ col gap6">
       <div v-for="(option, key) of options" :key="key" flex="~ col gap2">
         <label>{{ option.label }}</label>
         <div flex="~ wrap gap4">
-          <label v-for="value of option.values" :key="value" font-mono text-sm>
-            <input
-              v-model="state[key]"
-              :name="key"
-              type="radio"
-              :value="value"
-            />
-            {{ value }}
-          </label>
+          <template v-for="value of option.values" :key="value">
+            <label
+              v-if="!isConflicted(value)"
+              font-mono
+              text-sm
+              flex="~ gap1"
+              items-center
+            >
+              <input
+                v-model="state[key]"
+                :name="key"
+                type="radio"
+                :value="value"
+              />
+              <span>{{ value }}</span>
+            </label>
+          </template>
         </div>
       </div>
       <div mt4 rounded-2 p6 bg="[var(--vp-code-block-bg)]" relative>
-        <span absolute top--3 font-mono op60>{{ example.filename }}</span>
+        <span absolute top-4 right-4 font-mono op60>
+          {{ example.filename }}
+        </span>
         <div v-html="formatted" />
       </div>
     </div>

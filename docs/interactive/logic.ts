@@ -4,6 +4,11 @@ export const options = {
     default: 'Vue SFC',
     label: 'Define Component',
   },
+  defineRender: {
+    values: ['<template>', 'defineRender', 'exportRender'],
+    default: 'defineRender',
+    label: 'Define Render',
+  },
   defineProps: {
     values: [
       'defineProps',
@@ -21,27 +26,21 @@ export const options = {
     default: 'defineEmits',
     label: 'Define Emits',
   },
-  defineRender: {
-    values: ['<template>', 'defineRender', 'exportRender'],
-    default: '<template>',
-    label: 'Define Render',
-  },
 } as const
 
-export type OptionsKey = keyof typeof options
-export type DefineComponents =
-  (typeof options)['defineComponents']['values'][number]
-export type DefineProps = (typeof options)['defineProps']['values'][number]
-type DefineEmits = (typeof options)['defineEmits']['values'][number]
-type DefineRender = (typeof options)['defineRender']['values'][number]
+export type Options = typeof options
+export type OptionsKey = keyof Options
+export type DefineComponents = Options['defineComponents']['values'][number]
+export type DefineProps = Options['defineProps']['values'][number]
+export type DefineEmits = Options['defineEmits']['values'][number]
+export type DefineRender = Options['defineRender']['values'][number]
 
 const propsType = `{\n foo?: string, bar?: number }`
 export const processDefineProps: Record<DefineProps, string> = {
   defineProps: `
   const props = withDefaults(
-    defineProps<${propsType}>(), {
-      bar: 0
-    }
+    defineProps<${propsType}>(),
+    { bar: 0 }
   )`,
 
   'prop destructure': `const { foo, bar = 0 } = defineProps<${propsType}>()`,
@@ -131,3 +130,9 @@ export const processDefineComponent: Record<
     filename: `App.${render.lang}`,
   }),
 }
+
+export const conflictCases = [
+  ['<template>', 'setupSFC'],
+  ['<template>', 'setupComponent'],
+  ['setupComponent', 'exportRender'],
+]
