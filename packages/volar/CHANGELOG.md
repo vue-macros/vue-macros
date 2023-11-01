@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.17.2
+
+### Patch Changes
+
+- [#539](https://github.com/vue-macros/vue-macros/pull/539) [`f38a5387`](https://github.com/vue-macros/vue-macros/commit/f38a5387084b7686c1796047d6aadb0f7e4041e2) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - refactor(volar): use `scriptSetup.ast` instead of scriptSetupAst
+
 ## 0.17.1
 
 ### Patch Changes

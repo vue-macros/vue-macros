@@ -1,5 +1,11 @@
 # @vue-macros/devtools
 
+## 0.1.4
+
+### Patch Changes
+
+- [`2b30e842`](https://github.com/vue-macros/vue-macros/commit/2b30e8428d6e074ce9407db2e5ea3fbadb33e932) Thanks [@sxzz](https://github.com/sxzz)! - support Vite 5
+
 ## 0.1.3
 
 ### Patch Changes
