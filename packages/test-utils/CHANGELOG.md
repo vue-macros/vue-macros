@@ -1,5 +1,13 @@
 # @vue-macros/test-utils
 
+## 1.2.1
+
+### Patch Changes
+
+- [`ce69c363`](https://github.com/vue-macros/vue-macros/commit/ce69c363f1d7ebb3175bb5ebf875583625fe5656) Thanks [@sxzz](https://github.com/sxzz)! - fix required vitest version range
+
+- [`970b3d0e`](https://github.com/vue-macros/vue-macros/commit/970b3d0e893090837fc336e7c209d46ee7ac68d8) Thanks [@sxzz](https://github.com/sxzz)! - don't inline @rollup/plugin-json
+
 ## 1.2.0
 
 ### Minor Changes

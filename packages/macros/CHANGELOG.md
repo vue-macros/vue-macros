@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies [[`2b30e842`](https://github.com/vue-macros/vue-macros/commit/2b30e8428d6e074ce9407db2e5ea3fbadb33e932)]:
+  - @vue-macros/devtools@0.1.4
+
 ## 2.6.1
 
 ### Patch Changes
