@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue'
-import { getHighlighter } from 'shikiji'
 import { useData } from 'vitepress'
 import { useTranslate } from '../.vitepress/i18n/composable'
 import {
@@ -16,16 +15,26 @@ import {
 const t = useTranslate()
 const { isDark } = useData()
 
-const shiki = await getHighlighter({
-  themes: ['vitesse-light', 'vitesse-dark'],
-  langs: ['typescript', 'vue'],
-})
-
-const { format } = await import('prettier/standalone')
-const pluginBabel = await import('prettier/plugins/babel')
-const pluginTypeScript = await import('prettier/plugins/typescript')
-const pluginHtml = await import('prettier/plugins/html')
-const pluginEstree: any = await import('prettier/plugins/estree')
+const [
+  shiki,
+  { format },
+  pluginBabel,
+  pluginTypeScript,
+  pluginHtml,
+  pluginEstree,
+] = await Promise.all([
+  import('shikiji').then(({ getHighlighter }) =>
+    getHighlighter({
+      themes: ['vitesse-light', 'vitesse-dark'],
+      langs: ['typescript', 'vue'],
+    })
+  ),
+  import('prettier/standalone'),
+  import('prettier/plugins/babel'),
+  import('prettier/plugins/typescript'),
+  import('prettier/plugins/html'),
+  import('prettier/plugins/estree') as Promise<any>,
+])
 
 const state = reactive<{
   -readonly [K in OptionsKey]: (typeof options)[K]['values'][number]
@@ -36,13 +45,16 @@ const state = reactive<{
 )
 
 const example = computed(() => {
+  const topLevel = `import { ref } from 'vue'`
+  const ref = `const count = ref(0)\n`
   const props = processDefineProps[state.defineProps]
   const emits = processDefineEmits[state.defineEmits]
   const render = processDefineRender[state.defineRender]
 
   return processDefineComponent[state.defineComponents](
-    `${props}\n${emits}`,
-    render
+    `${ref}${props}\n${emits}`,
+    render,
+    topLevel
   )
 })
 
@@ -84,7 +96,7 @@ function isConflicted(value: string) {
 </script>
 
 <template>
-  <div p8>
+  <div p8 class="interactive-example">
     <h1 text-7 font-bold mb8>{{ t('Interactive Example') }}</h1>
 
     <div flex="~ col gap6">
@@ -121,7 +133,7 @@ function isConflicted(value: string) {
 </template>
 
 <style>
-.shiki {
+.interactive-example .shiki {
   background-color: transparent !important;
   margin: 0;
 }

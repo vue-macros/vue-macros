@@ -1,3 +1,12 @@
+type OptionsTemplate = Record<
+  string,
+  {
+    values: readonly string[]
+    default: string
+    label: string
+  }
+>
+
 export const options = {
   defineComponents: {
     values: ['Vue SFC', 'setupSFC', 'setupComponent'],
@@ -26,7 +35,7 @@ export const options = {
     default: 'defineEmits',
     label: 'Define Emits',
   },
-} as const
+} as const satisfies OptionsTemplate
 
 export type Options = typeof options
 export type OptionsKey = keyof Options
@@ -47,9 +56,8 @@ export const processDefineProps: Record<DefineProps, string> = {
 
   definePropsRefs: `
   const { foo, bar } = withDefaults(
-    definePropsRefs<${propsType}>(), {
-      bar: 0
-    }
+    definePropsRefs<${propsType}>(),
+    { bar: 0 }
   )`,
 
   defineProp: `
@@ -91,12 +99,12 @@ export const processDefineRender: Record<DefineRender, Render> = {
   },
   defineRender: {
     code: '',
-    setup: `defineRender(<div>{ count }</div>)`,
+    setup: `defineRender(<div>{ count.value }</div>)`,
     lang: 'tsx',
   },
   exportRender: {
     code: '',
-    setup: 'export default () => <div>{ count }</div>',
+    setup: 'export default () => <div>{ count.value }</div>',
     lang: 'tsx',
   },
 }
@@ -105,27 +113,28 @@ export const processDefineComponent: Record<
   DefineComponents,
   (
     setup: string,
-    render: Render
+    render: Render,
+    topLevel: string
   ) => {
     code: string
     lang: Lang
     filename: string
   }
 > = {
-  'Vue SFC': (setup, render) => ({
-    code: `<script setup lang="${render.lang}">${setup}\n${
+  'Vue SFC': (setup, render, topLevel) => ({
+    code: `<script setup lang="${render.lang}">${topLevel}\n${setup}\n${
       render.setup
     }</${'script'}>${render.code}`,
     lang: 'vue',
     filename: 'App.vue',
   }),
-  setupSFC: (setup, render) => ({
-    code: `${setup}\n${render.setup}`,
+  setupSFC: (setup, render, topLevel) => ({
+    code: `${topLevel}\n${setup}\n${render.setup}`,
     lang: render.lang,
     filename: `App.setup.${render.lang}`,
   }),
-  setupComponent: (setup, render) => ({
-    code: `export const App: SetupFC = () => {\n${setup}\n${render.setup}}`,
+  setupComponent: (setup, render, topLevel) => ({
+    code: `${topLevel}\n\nexport const App: SetupFC = () => {\n${setup}\n${render.setup}}`,
     lang: render.lang,
     filename: `App.${render.lang}`,
   }),
