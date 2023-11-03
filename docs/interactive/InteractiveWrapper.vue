@@ -8,7 +8,7 @@ const t = useTranslate()
   <Suspense>
     <InteractiveDemo />
     <template #fallback>
-      <div flex justify-center items-center h-64>
+      <div h-64 flex items-center justify-center>
         <div text-2xl>{{ t('Loading...') }}</div>
       </div>
     </template>

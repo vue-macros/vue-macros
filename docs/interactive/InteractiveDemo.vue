@@ -97,7 +97,7 @@ function isConflicted(value: string) {
 
 <template>
   <div p8 class="interactive-example">
-    <h1 text-7 font-bold mb8>{{ t('Interactive Example') }}</h1>
+    <h1 mb8 text-7 font-bold>{{ t('Interactive Example') }}</h1>
 
     <div flex="~ col gap6">
       <div v-for="(option, key) of options" :key="key" flex="~ col gap2">
@@ -106,10 +106,10 @@ function isConflicted(value: string) {
           <template v-for="value of option.values" :key="value">
             <label
               v-if="!isConflicted(value)"
-              font-mono
-              text-sm
               flex="~ gap1"
               items-center
+              text-sm
+              font-mono
             >
               <input
                 v-model="state[key]"
@@ -122,8 +122,8 @@ function isConflicted(value: string) {
           </template>
         </div>
       </div>
-      <div mt4 rounded-2 p6 bg="[var(--vp-code-block-bg)]" relative>
-        <span absolute top-4 right-4 font-mono op60>
+      <div bg="[var(--vp-code-block-bg)]" relative mt4 rounded-2 p6>
+        <span absolute right-4 top-4 font-mono op60>
           {{ example.filename }}
         </span>
         <div overflow-auto v-html="formatted" />

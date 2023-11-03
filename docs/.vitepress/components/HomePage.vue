@@ -28,7 +28,7 @@ const members = computed(() => [
 </script>
 
 <template>
-  <div flex="~ col wrap" items-center mt8>
+  <div flex="~ col wrap" mt8 items-center>
     <VPTeamMembers size="small" :members="members" />
 
     <h2 text="center gray xl" mt-11 pb-2>
@@ -36,7 +36,7 @@ const members = computed(() => [
     </h2>
     <img src="https://cdn.jsdelivr.net/gh/sxzz/sponsors/sponsors.wide.svg" />
 
-    <h2 text="center lg" font-bold my-5>
+    <h2 text="center lg" my-5 font-bold>
       💕
       {{ t('Thanks to all the contributors!') }}
     </h2>
