@@ -36,4 +36,8 @@ expectTypeOf(quuz).toEqualTypeOf<ComputedRef<unknown>>()
 console.log(quuz)
 
 const unknownType = defineProp<unknown | boolean>()
+
+// @ts-expect-error reactivity transform
+const $foo = $defineProp('$foo', { default: 'foo', required: true })
+const $bar = $(defineProp('$bar', { default: 'bar' }))
 </script>

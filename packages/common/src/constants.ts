@@ -12,6 +12,7 @@ export const DEFINE_SETUP_COMPONENT = 'defineSetupComponent'
 export const DEFINE_RENDER = 'defineRender'
 export const DEFINE_SLOTS = 'defineSlots'
 export const DEFINE_PROP = 'defineProp'
+export const DEFINE_PROP_DOLLAR = '$defineProp'
 export const DEFINE_EMIT = 'defineEmit'
 
 export const REPO_ISSUE_URL = `${githubLink}/issues`
