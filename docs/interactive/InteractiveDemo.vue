@@ -112,9 +112,11 @@ function isConflicted(value: string) {
               font-mono
             >
               <button
-                @click="state[key] = value"
-                :class="['custom-button', { 'active': state[key] === value }]"
-              >{{ value }}</button>
+                :class="['custom-button', { active: state[key] === value }]"
+                @click="(state[key] as any) = value as any"
+              >
+                {{ value }}
+              </button>
             </label>
           </template>
         </div>
@@ -140,7 +142,9 @@ function isConflicted(value: string) {
   padding: 0.125rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .custom-button:hover {
@@ -148,6 +152,6 @@ function isConflicted(value: string) {
 }
 
 .custom-button.active {
-  background: #ead7fb
+  background: #ead7fb;
 }
 </style>
