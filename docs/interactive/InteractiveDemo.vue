@@ -129,7 +129,6 @@ function isConflicted(value: string) {
   </div>
 </template>
 
-
 <style>
 .interactive-example .shiki {
   background-color: transparent !important;
