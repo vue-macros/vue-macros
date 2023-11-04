@@ -2,9 +2,9 @@
 
 <StabilityLevel level="experimental" />
 
-Declare single prop one by one using `defineProp`.
+使用 `defineProp` 逐个声明单个 prop。
 
-|      Features      |     Supported      |
+|        特性        |        支持        |
 | :----------------: | :----------------: |
 |       Vue 3        | :white_check_mark: |
 |       Nuxt 3       | :white_check_mark: |
@@ -13,41 +13,41 @@ Declare single prop one by one using `defineProp`.
 
 ::: warning
 
-`defineProp` can not be used in the same file as `defineProps`.
+`defineProp` 不能与 `defineProps` 在同一文件中使用。
 
 :::
 
-## Kevin's Edition
+## Kevin 的版本
 
-### API Reference
+### API 参考
 
 ```ts
 defineProp<T>(propName)
 defineProp<T>(propName, options)
 
-// propName parameter can be optional,
-// and will be inferred from variable name
+// propName 是参数可选的,
+// 并且可从变量名中推断出
 const propName = defineProp<T>()
 ```
 
-### Basic Usage
+### 基本用法
 
 ```vue
 <script setup>
-// Declare prop
+// 声明 prop
 const count = defineProp('count')
-// Infer prop name from variable name
+// 从变量名中推断出 prop 名称
 const value = defineProp()
-// access prop value
+// 访问 prop 值
 console.log(count.value)
 </script>
 ```
 
-### With Options
+### 选项
 
 ```vue
 <script setup>
-// Declare prop with options
+// 使用选项声明 prop
 const count = defineProp('count', {
   type: Number,
   required: true,
@@ -61,49 +61,49 @@ const count = defineProp('count', {
 
 ```vue
 <script setup lang="ts">
-// Declare prop of type number and infer prop name from variable name
+// 使用类型为 number 的 prop 声明，并从变量名中推断 prop 的名称
 const count = defineProp<number>()
 count.value
 //    ^? type: number | undefined
 
-// Declare prop of TS type boolean with default value
+// 使用默认值为 true 的 TS 类型为 boolean 的 prop 声明
 const disabled = defineProp<boolean>('disabled', { default: true })
 //    ^? type: boolean
 </script>
 ```
 
-## Johnson's Edition
+## Johnson 的版本
 
-### API Reference
+### API 参考
 
 ```ts
-// the prop name will be inferred from variable name
+// 从变量名中推断出 prop 名称
 const propName = defineProp<T>()
 const propName = defineProp<T>(defaultValue)
 const propName = defineProp<T>(defaultValue, required)
 const propName = defineProp<T>(defaultValue, required, rest)
 ```
 
-### Basic Usage
+### 基本用法
 
 ```vue
 <script setup>
-// declare prop `count` with default value `0`
+// 声明带有默认值 `0` 的 prop `count`
 const count = defineProp(0)
 
-// declare required prop `disabled`
+// 声明必需的 prop `disabled`
 const disabled = defineProp(undefined, true)
 
-// access prop value
+// 访问 prop 值
 console.log(count.value, disabled.value)
 </script>
 ```
 
-### With Options
+### 选项
 
 ```vue
 <script setup>
-// Declare prop with options
+// 使用选项声明属性
 const count = defineProp(0, false, {
   type: Number,
   validator: (value) => value < 20,
@@ -119,15 +119,15 @@ const count = defineProp<number>()
 count.value
 //    ^? type: number | undefined
 
-// Declare prop of TS type boolean with default value
+// 使用默认值声明 TS 类型为 boolean 的属性
 const disabled = defineProp<boolean>(true)
 //    ^? type: boolean
 </script>
 ```
 
-## Volar Configuration
+## Volar 配置
 
-**Require Volar >= `1.3.12`**
+**需要 Volar >= `1.3.12`**
 
 ```jsonc
 // tsconfig.json
