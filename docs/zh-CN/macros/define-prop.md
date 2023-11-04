@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-使用 `defineProp` 逐个声明单个 prop
+使用 `defineProp` 逐个声明单个 prop。
 
 |        特性        |         支持        |
 | :----------------: | :----------------: |
@@ -17,9 +17,9 @@
 
 :::
 
-## Kevin's 版本
+## Kevin 的版本
 
-### API参考
+### API 参考
 
 ```ts
 defineProp<T>(propName)
@@ -68,11 +68,11 @@ count.value
 
 // 使用默认值为 true 的 TS 类型为 boolean 的 prop 声明
 const disabled = defineProp<boolean>('disabled', { default: true })
-//        ^? type: boolean
+//    ^? type: boolean
 </script>
 ```
 
-## Johnson's 版本
+## Johnson 的版本
 
 ### API 参考
 
