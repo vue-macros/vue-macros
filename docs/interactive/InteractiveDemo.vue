@@ -111,13 +111,12 @@ function isConflicted(value: string) {
               text-sm
               font-mono
             >
-              <input
-                v-model="state[key]"
-                :name="key"
-                type="radio"
-                :value="value"
-              />
-              <span>{{ value }}</span>
+              <button
+                :class="['custom-button', { active: state[key] === value }]"
+                @click="(state[key] as any) = value as any"
+              >
+                {{ value }}
+              </button>
             </label>
           </template>
         </div>
@@ -136,5 +135,24 @@ function isConflicted(value: string) {
 .interactive-example .shiki {
   background-color: transparent !important;
   margin: 0;
+}
+.custom-button {
+  border-radius: 0.25rem;
+  background-color: rgba(169, 169, 169, 0.1);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.custom-button:hover {
+  background-color: rgba(169, 169, 169, 0.2);
+}
+
+.custom-button.active {
+  background: #e576ff;
+  color: #ffffff;
 }
 </style>
