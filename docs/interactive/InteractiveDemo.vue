@@ -138,7 +138,7 @@ function isConflicted(value: string) {
 }
 .custom-button {
   border-radius: 0.25rem;
-  background-color: #9ca3af0d;
+  background-color: rgba(169, 169, 169, 0.1);
   padding: 0.125rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -148,10 +148,10 @@ function isConflicted(value: string) {
 }
 
 .custom-button:hover {
-  background: #f5f6f7;
+  background-color: rgba(169, 169, 169, 0.2);
 }
 
 .custom-button.active {
-  background: #ead7fb;
+  background: #da42febd;
 }
 </style>
