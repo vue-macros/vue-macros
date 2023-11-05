@@ -153,6 +153,6 @@ function isConflicted(value: string) {
 
 .custom-button.active {
   background: #e576ff;
-  color:#ffffff;
+  color: #ffffff;
 }
 </style>
