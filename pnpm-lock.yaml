@@ -764,8 +764,8 @@ importers:
         specifier: ^5.0.5
         version: 5.0.5(rollup@3.29.4)
       '@volar/language-core':
-        specifier: 1.10.7
-        version: 1.10.7
+        specifier: 1.11.1
+        version: 1.11.1
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
@@ -5029,10 +5029,22 @@ packages:
     dependencies:
       '@volar/source-map': 1.10.7
 
+  /@volar/language-core@1.11.1:
+    resolution: {integrity: sha512-dOcNn3i9GgZAcJt43wuaEykSluAuOkQgzni1cuxLxTV0nJKanQztp7FxyswdRILaKH+P2XZMPRp2S4MV/pElCw==}
+    dependencies:
+      '@volar/source-map': 1.11.1
+    dev: false
+
   /@volar/source-map@1.10.7:
     resolution: {integrity: sha512-anA254XO0lmmeu0p/kvgPOCkrVpqNIHWMvEkPX70PSk4ntg0iBzN/f0Kip6deXvibl6v14Q3Z8RihWrZwdZEEQ==}
     dependencies:
       muggle-string: 0.3.1
+
+  /@volar/source-map@1.11.1:
+    resolution: {integrity: sha512-hJnOnwZ4+WT5iupLRnuzbULZ42L7BWWPMmruzwtLhJfpDVoZLjNBxHDi2sY2bgZXCKlpU5XcsMFoYrsQmPhfZg==}
+    dependencies:
+      muggle-string: 0.3.1
+    dev: false
 
   /@volar/typescript@1.10.7:
     resolution: {integrity: sha512-2hvA3vjXVUn1vOpsP/nWLnE5DUmY6YKQhvDRoZVfBrnWwIo0ySxdTUP4XieXGGgSk43xJaeU1zqQS/3Wfm7QgA==}
