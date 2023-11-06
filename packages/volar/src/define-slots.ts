@@ -1,6 +1,6 @@
-import { FileKind } from '@volar/language-core'
 import { DEFINE_SLOTS } from '@vue-macros/common'
 import {
+  FileKind,
   type Sfc,
   type VueLanguagePlugin,
   replaceSourceRange,

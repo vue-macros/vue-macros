@@ -1,5 +1,5 @@
-import { FileKind } from '@volar/language-core'
 import {
+  FileKind,
   type Sfc,
   type VueLanguagePlugin,
   replaceSourceRange,

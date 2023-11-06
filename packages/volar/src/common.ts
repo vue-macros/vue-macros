@@ -1,10 +1,10 @@
 import {
+  type FileRangeCapabilities,
   type Segment,
   type Sfc,
   type VueCompilerOptions,
   replaceAll,
 } from '@vue/language-core'
-import type { FileRangeCapabilities } from '@volar/language-core'
 import type { VolarOptions } from '..'
 
 export function getVueLibraryName(vueVersion: number) {

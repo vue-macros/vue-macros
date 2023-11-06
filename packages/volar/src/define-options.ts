@@ -1,6 +1,7 @@
 import { DEFINE_OPTIONS } from '@vue-macros/common'
-import { FileKind, FileRangeCapabilities } from '@volar/language-core'
 import {
+  FileKind,
+  FileRangeCapabilities,
   type Segment,
   type Sfc,
   type VueLanguagePlugin,

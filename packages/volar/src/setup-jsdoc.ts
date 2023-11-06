@@ -1,5 +1,9 @@
-import { FileKind } from '@volar/language-core'
-import { type Sfc, type VueLanguagePlugin, replace } from '@vue/language-core'
+import {
+  FileKind,
+  type Sfc,
+  type VueLanguagePlugin,
+  replace,
+} from '@vue/language-core'
 import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
 import type ts from 'typescript'
 
