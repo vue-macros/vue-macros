@@ -23,8 +23,8 @@ export function transformShortBind(_options: Options = {}): NodeTransform {
         (prop.type === (6 satisfies NodeTypes.ATTRIBUTE)
           ? !prop.value
           : prop.type === (7 satisfies NodeTypes.DIRECTIVE)
-          ? !prop.exp
-          : false)
+            ? !prop.exp
+            : false)
       ) {
         const valueName = prop.loc.source
           .replace(reg, '')

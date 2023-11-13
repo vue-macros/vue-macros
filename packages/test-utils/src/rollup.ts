@@ -76,8 +76,8 @@ export async function rollupBuild(file: string, plugins: InputPluginOption) {
       file.type === 'chunk'
         ? file.code
         : typeof file.source === 'string'
-        ? file.source
-        : file.fileName
+          ? file.source
+          : file.fileName
     )
     .join('\n')
 }

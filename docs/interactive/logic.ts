@@ -122,9 +122,7 @@ export const processDefineComponent: Record<
   }
 > = {
   'Vue SFC': (setup, render, topLevel) => ({
-    code: `<script setup lang="${render.lang}">${topLevel}\n${setup}\n${
-      render.setup
-    }</${'script'}>${render.code}`,
+    code: `<script setup lang="${render.lang}">${topLevel}\n${setup}\n${render.setup}</${'script'}>${render.code}`,
     lang: 'vue',
     filename: 'App.vue',
   }),
