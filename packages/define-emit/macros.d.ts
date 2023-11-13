@@ -1,8 +1,8 @@
 type MaybeTupleFunction<T, R> = T extends any[]
   ? (...args: T) => R
   : T extends (...args: any) => any
-  ? (...args: Parameters<T>) => R
-  : T
+    ? (...args: Parameters<T>) => R
+    : T
 
 export declare function defineEmit<
   T extends ((...args: any) => any) | any[] = any[],

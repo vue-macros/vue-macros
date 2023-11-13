@@ -142,8 +142,8 @@ function transformVFor({
             FileRangeCapabilities.full,
           ]
         : objectIndex
-        ? ', undefined'
-        : '',
+          ? ', undefined'
+          : '',
       objectIndex
         ? [
             `, ${sfc[source]?.content.slice(
@@ -367,8 +367,8 @@ function transformJsxDirective({
     const properties = ts.isJsxElement(node)
       ? node.openingElement.attributes.properties
       : ts.isJsxSelfClosingElement(node)
-      ? node.attributes.properties
-      : []
+        ? node.attributes.properties
+        : []
     let vIfAttribute
     let vForAttribute
     let vModelAttribute
