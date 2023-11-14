@@ -153,16 +153,13 @@ export function genRuntimePropDefinition(
     const hasBoolean = types.includes('Boolean')
     const hasUnknown = types.includes(UNKNOWN_TYPE)
 
-    if (hasUnknown) types = types.filter((t) => t !== UNKNOWN_TYPE)
-
-    if (isProduction) {
+    if (isProduction || hasUnknown) {
       types = types.filter(
         (t) =>
           t === 'Boolean' || (hasBoolean && t === 'String') || t === 'Function'
       )
-    } else if (hasUnknown) {
-      types = types.filter((t) => t === 'Boolean' || t === 'Function')
-      skipCheck = types.length > 0
+
+      skipCheck = !isProduction && hasUnknown && types.length > 0
     }
 
     if (types.length > 0) {
