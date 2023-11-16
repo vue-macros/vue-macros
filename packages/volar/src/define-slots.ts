@@ -21,30 +21,30 @@ function transform({
     'scriptSetup',
     typeArg.pos,
     typeArg.pos,
-    '__VLS_DefineSlots<'
+    '__VLS_DefineSlots<',
   )
   replaceSourceRange(
     embeddedFile.content,
     'scriptSetup',
     typeArg.end,
     typeArg.end,
-    '>'
+    '>',
   )
 
   embeddedFile.content.push(
-    `type __VLS_DefineSlots<T> = { [SlotName in keyof T]: T[SlotName] extends Function ? T[SlotName] : (_: T[SlotName]) => any };\n`
+    `type __VLS_DefineSlots<T> = { [SlotName in keyof T]: T[SlotName] extends Function ? T[SlotName] : (_: T[SlotName]) => any };\n`,
   )
 
   if (vueVersion < 3) {
     embeddedFile.content.push(
-      `declare function defineSlots<S extends Record<string, any> = Record<string, any>>(): S;\n`
+      `declare function defineSlots<S extends Record<string, any> = Record<string, any>>(): S;\n`,
     )
   }
 }
 
 function getTypeArg(
   ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc
+  sfc: Sfc,
 ) {
   function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
     if (

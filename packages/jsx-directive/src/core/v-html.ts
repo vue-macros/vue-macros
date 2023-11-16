@@ -5,13 +5,13 @@ export function transformVHtml(
   nodes: JsxDirectiveNode[],
   s: MagicString,
   offset: number,
-  version: number
+  version: number,
 ) {
   nodes.forEach(({ attribute }) => {
     s.overwriteNode(
       attribute.name,
       version < 3 ? 'domPropsInnerHTML' : 'innerHTML',
-      { offset }
+      { offset },
     )
   })
 }

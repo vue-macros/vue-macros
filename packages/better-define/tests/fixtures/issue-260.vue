@@ -10,7 +10,7 @@ const props = withDefaults(
   }>(),
   {
     menu: () => ({ txt: '1-1' }),
-  }
+  },
 )
 </script>
 

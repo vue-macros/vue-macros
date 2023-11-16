@@ -41,5 +41,5 @@ export default createUnplugin<Options | undefined, false>(
         return transformShortEmits(code, id)
       },
     }
-  }
+  },
 )

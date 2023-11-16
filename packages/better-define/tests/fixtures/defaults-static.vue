@@ -22,7 +22,7 @@ withDefaults(
         quux: abc,
       },
     },
-  }
+  },
 )
 </script>
 

@@ -79,7 +79,7 @@ export default {
         }
       },
     }
-  }
+  },
 )
 
 export type CustomBlocks = Record<string, Record<string, string>>
@@ -112,13 +112,13 @@ export const PostPlugin = createUnplugin<Options | undefined, false>(
         },
       },
     }
-  }
+  },
 )
 
 const plugin = createUnplugin<Options | undefined, true>(
   (userOptions = {}, meta) => {
     return [PrePlugin.raw(userOptions, meta), PostPlugin.raw(userOptions, meta)]
-  }
+  },
 )
 
 export default plugin

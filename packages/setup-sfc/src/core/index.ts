@@ -26,7 +26,7 @@ export function transformSetupSFC(code: string, id: string) {
 
 export function hotUpdateSetupSFC(
   { modules }: HmrContext,
-  filter: (id: unknown) => boolean
+  filter: (id: unknown) => boolean,
 ) {
   function isSubModule(id: string) {
     const [filename, query] = id.split('?')

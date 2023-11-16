@@ -32,7 +32,7 @@ export function transformChainCall(code: string, id: string) {
       node.arguments[0] && s.sliceNode(node.arguments[0], { offset })
     const definePropsString = s.sliceNode(
       (node.callee as MemberExpression).object as CallExpression,
-      { offset }
+      { offset },
     )
 
     s.overwriteNode(
@@ -40,7 +40,7 @@ export function transformChainCall(code: string, id: string) {
       withDefaultString
         ? `${WITH_DEFAULTS}(${definePropsString}, ${withDefaultString})`
         : definePropsString,
-      { offset }
+      { offset },
     )
   }
 

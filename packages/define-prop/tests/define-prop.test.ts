@@ -9,7 +9,7 @@ describe("defineProp (Kevin's proposal)", () => {
       <script setup lang="ts">
         const foo = defineProp('foo')
       </script>`,
-      'test.vue'
+      'test.vue',
     )
     const code = removeSpaces(result!.code)
 
@@ -37,8 +37,8 @@ describe("defineProp (Kevin's proposal)", () => {
 
     expect(code).includes(
       `const ${PROPS_VARIABLE_NAME} = defineProps({ foo: ${removeSpaces(
-        propOptions
-      )},})`
+        propOptions,
+      )},})`,
     )
   })
 
@@ -49,14 +49,14 @@ describe("defineProp (Kevin's proposal)", () => {
         const foo = defineProp('foo')
         const bar = defineProp('bar')
       </script>`,
-      'test.vue'
+      'test.vue',
     )
     const code = removeSpaces(result!.code)
 
     expect(code).includes(`const foo = __MACROS_toRef(__props, "foo")`)
     expect(code).includes(`const bar = __MACROS_toRef(__props, "bar")`)
     expect(code).includes(
-      `const ${PROPS_VARIABLE_NAME} = defineProps(["foo", "bar"])`
+      `const ${PROPS_VARIABLE_NAME} = defineProps(["foo", "bar"])`,
     )
   })
 
@@ -68,10 +68,10 @@ describe("defineProp (Kevin's proposal)", () => {
       defineProps<T>()
       const foo = defineProp('foo')
       </script>`,
-        'test.vue'
-      )
+        'test.vue',
+      ),
     ).rejects.toThrowError(
-      'defineProp cannot be used with defineProps<T>() in the same component.'
+      'defineProp cannot be used with defineProps<T>() in the same component.',
     )
   })
 })

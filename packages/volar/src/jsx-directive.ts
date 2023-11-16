@@ -41,7 +41,7 @@ function transformVIf({
       const hasScope = parent && attribute.name.escapedText === 'v-if'
       const expressionText = sfc[source]!.content.slice(
         attribute.initializer.expression.pos,
-        attribute.initializer.expression.end
+        attribute.initializer.expression.end,
       )
       replaceSourceRange(
         codes,
@@ -55,7 +55,7 @@ function transformVIf({
           attribute.end - expressionText.length - 1,
           FileRangeCapabilities.full,
         ],
-        ') ? '
+        ') ? ',
       )
 
       const nextAttribute = nodes[index + 1]?.attribute
@@ -68,7 +68,7 @@ function transformVIf({
         source,
         node.end,
         node.end,
-        nextNodeHasElse ? ' : ' : ` : null${parent ? '}' : ''}`
+        nextNodeHasElse ? ' : ' : ` : null${parent ? '}' : ''}`,
       )
     } else if (attribute.name.escapedText === 'v-else') {
       replaceSourceRange(codes, source, node.end, node.end, parent ? '}' : '')
@@ -148,14 +148,14 @@ function transformVFor({
         ? [
             `, ${sfc[source]?.content.slice(
               objectIndex.pos + 1,
-              objectIndex.end
+              objectIndex.end,
             )}`,
             source,
             objectIndex.pos - 1,
             FileRangeCapabilities.full,
           ]
         : '',
-      ']) => '
+      ']) => ',
     )
 
     replaceSourceRange(
@@ -163,7 +163,7 @@ function transformVFor({
       source,
       node.end - 1,
       node.end,
-      `>)${parent ? '}' : ''}`
+      `>)${parent ? '}' : ''}`,
     )
     replaceSourceRange(codes, source, attribute.pos, attribute.end)
   })
@@ -181,7 +181,7 @@ function transformVSlot({
 }) {
   if (nodes.length === 0) return
   codes.push(`type __VLS_getSlots<T> = T extends new () => { '${getSlotsPropertyName(
-    vueVersion || 3
+    vueVersion || 3,
   )}': infer S } ? NonNullable<S>
   : T extends (props: any, ctx: infer Ctx extends { slots: any }) => any
   ? NonNullable<Ctx['slots']>
@@ -196,7 +196,7 @@ function transformVSlot({
         (ts.isJsxNamespacedName(attribute.name)
           ? attribute.name.namespace
           : attribute.name
-        ).escapedText === 'v-slot'
+        ).escapedText === 'v-slot',
     )
 
     const slotMap = new Map(
@@ -213,7 +213,7 @@ function transformVSlot({
               },
             ],
           ]
-        : []
+        : [],
     )
     if (!attribute) {
       for (const child of node.children) {
@@ -282,7 +282,7 @@ function transformVSlot({
             ? [
                 `${sfc[source]!.content.slice(
                   initializer.expression.pos,
-                  initializer.expression.end
+                  initializer.expression.end,
                 )}`,
                 source,
                 initializer.expression.pos,
@@ -306,7 +306,7 @@ function transformVSlot({
             ]
           }),
           '</>,',
-        ]
+        ],
       ),
       `} as __VLS_getSlots<typeof ${node.openingElement.tagName.escapedText}> }`,
     ] as Segment<FileRangeCapabilities>[]
@@ -319,7 +319,7 @@ function transformVSlot({
         source,
         node.openingElement.end - 1,
         node.openingElement.end - 1,
-        ...result
+        ...result,
       )
     }
   })
@@ -362,7 +362,7 @@ function transformJsxDirective({
 
   function walkJsxDirective(
     node: import('typescript/lib/tsserverlibrary').Node,
-    parent?: import('typescript/lib/tsserverlibrary').Node
+    parent?: import('typescript/lib/tsserverlibrary').Node,
   ) {
     const properties = ts.isJsxElement(node)
       ? node.openingElement.attributes.properties
@@ -395,7 +395,7 @@ function transformJsxDirective({
             parent &&
             ts.isJsxElement(parent)
             ? parent
-            : node
+            : node,
         )
       }
       if (
@@ -403,7 +403,7 @@ function transformJsxDirective({
           (ts.isJsxNamespacedName(attribute.name)
             ? attribute.name.namespace
             : attribute.name
-          ).getText(sfc[source]?.ast)
+          ).getText(sfc[source]?.ast),
         )
       ) {
         vModelAttribute = attribute
@@ -434,7 +434,7 @@ function transformJsxDirective({
     node.forEachChild((child) => {
       walkJsxDirective(
         child,
-        ts.isJsxElement(node) || ts.isJsxFragment(node) ? node : undefined
+        ts.isJsxElement(node) || ts.isJsxFragment(node) ? node : undefined,
       )
     })
   }
@@ -450,7 +450,7 @@ function transformJsxDirective({
   })
   transformVFor({ nodes: vForAttributes, codes, sfc, ts, source })
   vIfAttributeMap.forEach((nodes) =>
-    transformVIf({ nodes, codes, sfc, ts, source })
+    transformVIf({ nodes, codes, sfc, ts, source }),
   )
   transformVModel({ nodes: vModelAttributes, codes, sfc, ts, source })
 }

@@ -12,6 +12,5 @@ export default defineConfig({
   test: {
     threads: false,
   },
-  // @ts-expect-error vite 5
   plugins: [Macros()],
 })

@@ -99,7 +99,7 @@ const PrePlugin = createUnplugin<Options | undefined, false>(
         },
       },
     }
-  }
+  },
 )
 
 const PostPlugin = createUnplugin<Options | undefined, false>(() => {
@@ -129,7 +129,7 @@ const PostPlugin = createUnplugin<Options | undefined, false>(() => {
 const plugin = createUnplugin<Options | undefined, true>(
   (options = {}, meta) => {
     return [PrePlugin.raw(options, meta), PostPlugin.raw(options, meta)]
-  }
+  },
 )
 
 export default plugin

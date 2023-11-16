@@ -8,7 +8,7 @@ import type { JsxDirectiveNode } from '.'
 export function transformVMemo(
   nodes: JsxDirectiveNode[],
   s: MagicString,
-  offset: number
+  offset: number,
 ) {
   if (nodes.length === 0) return
   const withMemo = importHelperFn(s, offset, 'withMemo', 'vue')
@@ -23,10 +23,10 @@ export function transformVMemo(
         attribute.value
           ? s.slice(
               attribute.value.start! + offset + 1,
-              attribute.value.end! + offset - 1
+              attribute.value.end! + offset - 1,
             )
           : `[]`
-      }, () => `
+      }, () => `,
     )
 
     let index = `${nodeIndex}`
@@ -47,7 +47,7 @@ export function transformVMemo(
 
     s.prependRight(
       node.end! + offset,
-      `, ${cache}, ${index})${hasScope ? '}' : ''}`
+      `, ${cache}, ${index})${hasScope ? '}' : ''}`,
     )
 
     s.remove(attribute.start! + offset - 1, attribute.end! + offset)

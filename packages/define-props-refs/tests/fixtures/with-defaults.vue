@@ -10,7 +10,7 @@ const { foo, bar } = withDefaults(
   }>(),
   {
     foo: 'foo',
-  }
+  },
 )
 
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()

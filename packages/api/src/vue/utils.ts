@@ -9,7 +9,7 @@ import type { Node } from '@babel/types'
 export const UNKNOWN_TYPE = 'Unknown'
 
 export async function inferRuntimeType(
-  node: TSResolvedType | TSNamespace
+  node: TSResolvedType | TSNamespace,
 ): Promise<string[]> {
   if (isTSNamespace(node)) return ['Object']
 
@@ -117,7 +117,7 @@ export async function inferRuntimeType(
             return resolved && !isTSNamespace(resolved)
               ? inferRuntimeType(resolved)
               : undefined
-          })
+          }),
         )
       ).flatMap((t) => (t ? t : ['null']))
       return [...new Set(types)]
@@ -144,7 +144,7 @@ export function attachNodeLoc(node: Node, newNode: Node) {
 export function genRuntimePropDefinition(
   types: string[] | undefined,
   isProduction: boolean,
-  properties: string[]
+  properties: string[],
 ) {
   let type: string | undefined
   let skipCheck = false
@@ -156,7 +156,7 @@ export function genRuntimePropDefinition(
     if (isProduction || hasUnknown) {
       types = types.filter(
         (t) =>
-          t === 'Boolean' || (hasBoolean && t === 'String') || t === 'Function'
+          t === 'Boolean' || (hasBoolean && t === 'String') || t === 'Function',
       )
 
       skipCheck = !isProduction && hasUnknown && types.length > 0

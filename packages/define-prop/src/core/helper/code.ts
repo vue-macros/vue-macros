@@ -9,7 +9,7 @@ export default (props: ComponentPropsOptions | EmitsOptions) => {
   return Array.isArray(props)
     ? props.reduce(
         (normalized, p) => ((normalized[p] = null), normalized),
-        {} as ComponentObjectPropsOptions | ObjectEmitsOptions
+        {} as ComponentObjectPropsOptions | ObjectEmitsOptions,
       )
     : props
 }

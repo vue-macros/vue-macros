@@ -58,5 +58,5 @@ export default createUnplugin<Options | undefined, false>(
         },
       },
     }
-  }
+  },
 )

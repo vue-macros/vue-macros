@@ -27,17 +27,17 @@ function transform({
 }) {
   const filter = createFilter(
     volarOptions.include || /.*/,
-    volarOptions.exclude
+    volarOptions.exclude,
   )
   if (!filter(fileName)) return
 
   const exposed: Record<string, Segment<FileRangeCapabilities>> = Object.create(
-    null
+    null,
   )
   for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (!ts.isVariableStatement(stmt)) continue
     const exportModifier = stmt.modifiers?.find(
-      (m) => m.kind === ts.SyntaxKind.ExportKeyword
+      (m) => m.kind === ts.SyntaxKind.ExportKeyword,
     )
     if (!exportModifier) continue
 
@@ -67,7 +67,7 @@ function transform({
     /return {\n/g,
     'return {\n...{ ',
     ...exposedStrings,
-    ' },\n'
+    ' },\n',
   )
 }
 

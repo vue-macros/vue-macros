@@ -39,7 +39,7 @@ export type SetupComponentContext = Record<string, FileContext>
 
 export function scanSetupComponent(
   code: string,
-  id: string
+  id: string,
 ): FileContext | undefined {
   let program: Program
 
@@ -102,7 +102,7 @@ export function scanSetupComponent(
         !['FunctionExpression', 'ArrowFunctionExpression'].includes(decl.type)
       )
         throw new SyntaxError(
-          `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`
+          `${DEFINE_SETUP_COMPONENT}: invalid setup component definition`,
         )
 
       const body = (decl as Function)?.body
@@ -119,7 +119,7 @@ export function scanSetupComponent(
         node: fn || decl,
         scopes,
       }
-    }
+    },
   )
 
   return {
@@ -131,7 +131,7 @@ export function scanSetupComponent(
 export function transformSetupComponent(
   code: string,
   _id: string,
-  ctx: SetupComponentContext
+  ctx: SetupComponentContext,
 ) {
   const id = normalizePath(_id)
   const s = new MagicString(code)
@@ -147,11 +147,11 @@ export function transformSetupComponent(
     s.overwrite(
       node.start!,
       node.end!,
-      `${importName}(() => ({ ${scopes.join(', ')} }))`
+      `${importName}(() => ({ ${scopes.join(', ')} }))`,
     )
 
     s.prepend(
-      `import ${importName} from '${id}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`
+      `import ${importName} from '${id}${SETUP_COMPONENT_ID_SUFFIX}${i}.vue'\n`,
     )
   }
 
@@ -161,7 +161,7 @@ export function transformSetupComponent(
 export function loadSetupComponent(
   virtualId: string,
   ctx: SetupComponentContext,
-  root: string
+  root: string,
 ) {
   const index = +(SETUP_COMPONENT_ID_REGEX.exec(virtualId)?.[1] ?? -1)
   const id = virtualId.replace(SETUP_COMPONENT_ID_REGEX, '')
@@ -184,12 +184,12 @@ export function loadSetupComponent(
   }
 
   const rootVars = Object.keys(
-    attachScopes(program as any, 'scope').declarations
+    attachScopes(program as any, 'scope').declarations,
   )
   s.prepend(
     `const { ${scopes
       .filter((name) => !rootVars.includes(name))
-      .join(', ')} } = ${HELPER_PREFIX}ctx();\n`
+      .join(', ')} } = ${HELPER_PREFIX}ctx();\n`,
   )
 
   for (const i of imports) s.prepend(`${i}\n`)
@@ -202,7 +202,7 @@ export function loadSetupComponent(
 
 export async function hotUpdateSetupComponent(
   { file, modules, read }: HmrContext,
-  ctx: SetupComponentContext
+  ctx: SetupComponentContext,
 ) {
   const getSubModule = (module: ModuleNode): ModuleNode[] => {
     const importedModules = Array.from(module.importedModules)
@@ -244,7 +244,7 @@ export function transformPost(code: string, _id: string) {
           const exportDefault = node.declaration
           s.prependLeft(
             exportDefault.leadingComments?.[0].start ?? exportDefault.start!,
-            '(ctx) => '
+            '(ctx) => ',
           )
         } else if (
           node.type === 'Identifier' &&
@@ -271,7 +271,7 @@ export function transformPost(code: string, _id: string) {
           const exportDefault = node.declaration
           s.prependLeft(
             exportDefault.leadingComments?.[0].start ?? exportDefault.start!,
-            `(${HELPER_PREFIX}ctx) => `
+            `(${HELPER_PREFIX}ctx) => `,
           )
         }
       },

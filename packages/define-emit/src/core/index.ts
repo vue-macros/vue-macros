@@ -40,13 +40,13 @@ export async function transformDefineEmit(code: string, id: string) {
             parent.id.type !== 'Identifier'
           ) {
             throw new Error(
-              `A variable must be used to receive the return value of ${DEFINE_EMIT}.`
+              `A variable must be used to receive the return value of ${DEFINE_EMIT}.`,
             )
           }
           emitName = parent.id.name
         } else if (name.type !== 'StringLiteral') {
           throw new Error(
-            `The first argument of ${DEFINE_EMIT} must be a string literal.`
+            `The first argument of ${DEFINE_EMIT} must be a string literal.`,
           )
         } else {
           emitName = name.value
@@ -60,18 +60,18 @@ export async function transformDefineEmit(code: string, id: string) {
         s.overwriteNode(
           node,
           `(...args) => ${EMIT_VARIABLE_NAME}(${JSON.stringify(
-            emitName
+            emitName,
           )}, ...args)`,
-          { offset }
+          { offset },
         )
-      }
+      },
     )
   })
 
   if (emits.length > 0) {
     s.prependLeft(
       offset!,
-      `\nconst ${EMIT_VARIABLE_NAME} = defineEmits(${mountEmits()})\n`
+      `\nconst ${EMIT_VARIABLE_NAME} = defineEmits(${mountEmits()})\n`,
     )
   }
 
@@ -87,7 +87,7 @@ export async function transformDefineEmit(code: string, id: string) {
     return `{
       ${emits
         .map(
-          ({ name, validator }) => `${escapeKey(name)}: ${validator || `null`}`
+          ({ name, validator }) => `${escapeKey(name)}: ${validator || `null`}`,
         )
         .join(',\n  ')}
     }`

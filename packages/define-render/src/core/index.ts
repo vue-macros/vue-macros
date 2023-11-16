@@ -44,7 +44,7 @@ export function transformDefineRender(code: string, id: string) {
   for (const { parent, node, arg } of nodes) {
     // check parent
     const returnStmt = parent.body.find(
-      (node) => node.type === 'ReturnStatement'
+      (node) => node.type === 'ReturnStatement',
     )
     if (returnStmt) s.removeNode(returnStmt)
 

@@ -41,7 +41,7 @@ export declare function withDefaults<
 >(props: PropsWithRefs, defaults: Defaults): PropRefs<Props>
 
 export declare function definePropsRefs<PropNames extends string = string>(
-  props: PropNames[]
+  props: PropNames[],
 ): PropRefs<{
   [key in PropNames]: Ref<any>
 }>

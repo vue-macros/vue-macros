@@ -14,7 +14,7 @@ export function getVueLibraryName(vueVersion: number) {
 export function addProps(
   content: Segment<FileRangeCapabilities>[],
   decl: Segment<FileRangeCapabilities>[],
-  vueLibName: string
+  vueLibName: string,
 ) {
   replaceAll(
     content,
@@ -22,18 +22,18 @@ export function addProps(
     'props: ({} as ',
     ...decl,
     '),\n',
-    'setup() {'
+    'setup() {',
   )
   content.push(
     `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
-    `type __VLS_TypePropsToRuntimeProps<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`
+    `type __VLS_TypePropsToRuntimeProps<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`,
   )
   return true
 }
 
 export function addEmits(
   content: Segment<FileRangeCapabilities>[],
-  decl: Segment<FileRangeCapabilities>[]
+  decl: Segment<FileRangeCapabilities>[],
 ) {
   replaceAll(
     content,
@@ -41,20 +41,20 @@ export function addEmits(
     'emits: ({} as ',
     ...decl,
     '),\n',
-    'setup() {'
+    'setup() {',
   )
   return true
 }
 
 export function getVolarOptions(
-  vueCompilerOptions: VueCompilerOptions
+  vueCompilerOptions: VueCompilerOptions,
 ): VolarOptions | undefined {
   return vueCompilerOptions.vueMacros
 }
 
 export function getImportNames(
   ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc
+  sfc: Sfc,
 ) {
   const names: string[] = []
   const sourceFile = sfc.scriptSetup!.ast
@@ -65,7 +65,7 @@ export function getImportNames(
         (el) =>
           el.name.text === 'type' &&
           ts.isStringLiteral(el.value) &&
-          el.value.text === 'macro'
+          el.value.text === 'macro',
       )
     ) {
       const name = node.importClause?.name?.text

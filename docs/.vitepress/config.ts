@@ -40,5 +40,5 @@ export default withPwa(
       hostname: docsLink,
     },
     pwa,
-  })
+  }),
 )

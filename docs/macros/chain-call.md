@@ -47,7 +47,7 @@ const props = withDefaults(
   {
     foo: '111',
     bar: () => [1, 2, 3],
-  }
+  },
 )
 </script>
 ```

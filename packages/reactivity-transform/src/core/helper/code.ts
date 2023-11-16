@@ -1,6 +1,6 @@
 export function createPropsRestProxy(
   props: any,
-  excludedKeys: string[]
+  excludedKeys: string[],
 ): Record<string, any> {
   const ret: Record<string, any> = Object.create(null)
   // eslint-disable-next-line no-restricted-syntax

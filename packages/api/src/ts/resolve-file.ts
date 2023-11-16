@@ -3,7 +3,7 @@ import path from 'node:path'
 
 export type ResolveTSFileIdImpl = (
   id: string,
-  importer: string
+  importer: string,
 ) => Promise<string | undefined> | string | undefined
 let resolveTSFileIdImpl: ResolveTSFileIdImpl = resolveTSFileIdNode
 export function resolveTSFileId(id: string, importer: string) {

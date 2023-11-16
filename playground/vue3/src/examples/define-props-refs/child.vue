@@ -8,7 +8,7 @@ const { foo } = withDefaults(
   definePropsRefs<{
     foo?: string[]
   }>(),
-  { foo: () => ['foobaz'] }
+  { foo: () => ['foobaz'] },
 )
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<readonly string[]>>()
 </script>

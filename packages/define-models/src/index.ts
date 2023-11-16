@@ -76,5 +76,5 @@ export default createUnplugin<Options | undefined, false>(
         return transformDefineModels(code, id, options.version, options.unified)
       },
     }
-  }
+  },
 )

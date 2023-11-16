@@ -22,7 +22,7 @@ export default defineNuxtModule<VueMacrosOptions>({
     nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       function findPluginAndRemove(name: string): Plugin | undefined {
         const idx = config.plugins!.findIndex(
-          (plugin) => plugin && 'name' in plugin && plugin.name === name
+          (plugin) => plugin && 'name' in plugin && plugin.name === name,
         )
         if (idx === -1) return
         const plugin = config.plugins![idx]
@@ -38,7 +38,7 @@ export default defineNuxtModule<VueMacrosOptions>({
           ...resolvedOptions,
           plugins: { vue, vueJsx },
           nuxtContext: { isClient },
-        })
+        }),
       )
     })
 
@@ -142,7 +142,7 @@ export default defineNuxtModule<VueMacrosOptions>({
             value.name = value.name.replace(/-setup$/, '')
           }
           return [key, value]
-        })
+        }),
       )
     })
   },

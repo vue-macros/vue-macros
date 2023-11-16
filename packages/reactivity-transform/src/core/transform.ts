@@ -79,7 +79,7 @@ export function transform(
     sourceMap,
     parserPlugins,
     importHelpersFrom = 'vue',
-  }: RefTransformOptions = {}
+  }: RefTransformOptions = {},
 ): RefTransformResults {
   const plugins: ParserPlugin[] = parserPlugins || []
   if (filename) {
@@ -103,7 +103,7 @@ export function transform(
     s.prepend(
       `import { ${res.importedHelpers
         .map((h) => `${h} as _${h}`)
-        .join(', ')} } from '${importHelpersFrom}'\n`
+        .join(', ')} } from '${importHelpersFrom}'\n`,
     )
   }
 
@@ -132,7 +132,7 @@ export function transformAST(
       default?: any
       isConst?: boolean
     }
-  >
+  >,
 ): {
   rootRefs: string[]
   importedHelpers: string[]
@@ -147,7 +147,7 @@ export function transformAST(
   let convertSymbol: string | undefined
   let escapeSymbol: string | undefined
   for (const { local, imported, source, specifier } of Object.values(
-    userImports
+    userImports,
   )) {
     if (IMPORT_SOURCES.includes(source)) {
       if (imported === ESCAPE_SYMBOL) {
@@ -157,7 +157,7 @@ export function transformAST(
       } else if (imported !== local) {
         error(
           `macro imports for ref-creating methods do not support aliasing.`,
-          specifier
+          specifier,
         )
       }
     }
@@ -254,7 +254,7 @@ export function transformAST(
     } else {
       error(
         'registerBinding called without active scope, something is wrong.',
-        id
+        id,
       )
     }
   }
@@ -325,7 +325,7 @@ export function transformAST(
           decl.id,
           decl.init!,
           init,
-          stmt.kind === 'const'
+          stmt.kind === 'const',
         )
       } else {
         const isProps =
@@ -348,7 +348,7 @@ export function transformAST(
     id: VariableDeclarator['id'],
     init: Node,
     call: CallExpression,
-    isConst: boolean
+    isConst: boolean,
   ) {
     excludedIds.add(call.callee as Identifier)
     if (method === convertSymbol) {
@@ -372,7 +372,7 @@ export function transformAST(
       s.overwrite(
         call.start! + offset,
         call.start! + method.length + offset,
-        helper(method.slice(1))
+        helper(method.slice(1)),
       )
     } else {
       error(`${method}() cannot be used with destructure patterns.`, call)
@@ -384,7 +384,7 @@ export function transformAST(
     value: Node,
     isConst: boolean,
     tempVar?: string,
-    path: PathSegment[] = []
+    path: PathSegment[] = [],
   ) {
     if (!tempVar) {
       tempVar = genTempVar()
@@ -463,8 +463,8 @@ export function transformAST(
         s.appendLeft(
           value.end! + offset,
           `,\n  ${nameId.name} = ${helper(
-            'toRef'
-          )}(${source}, ${keyStr}${defaultStr})`
+            'toRef',
+          )}(${source}, ${keyStr}${defaultStr})`,
         )
       }
     }
@@ -478,7 +478,7 @@ export function transformAST(
     value: Node,
     isConst: boolean,
     tempVar?: string,
-    path: PathSegment[] = []
+    path: PathSegment[] = [],
   ) {
     if (!tempVar) {
       // const [x] = $(useFoo()) --> const __$temp_1 = useFoo()
@@ -514,8 +514,8 @@ export function transformAST(
         s.appendLeft(
           value.end! + offset,
           `,\n  ${nameId.name} = ${helper(
-            'toRef'
-          )}(${source}, ${i}${defaultStr})`
+            'toRef',
+          )}(${source}, ${i}${defaultStr})`,
         )
       }
     }
@@ -557,7 +557,7 @@ export function transformAST(
     scope: Scope,
     id: Identifier,
     parent: Node,
-    parentStack: Node[]
+    parentStack: Node[],
   ): boolean {
     if (hasOwn(scope, id.name)) {
       const binding = scope[id.name]
@@ -586,13 +586,13 @@ export function transformAST(
                 registerEscapedPropBinding(id)
                 s.appendLeft(
                   id.end! + offset,
-                  `: __props_${propsLocalToPublicMap[id.name]}`
+                  `: __props_${propsLocalToPublicMap[id.name]}`,
                 )
               } else {
                 // { prop } -> { prop: __props.prop }
                 s.appendLeft(
                   id.end! + offset,
-                  `: ${genPropsAccessExp(propsLocalToPublicMap[id.name])}`
+                  `: ${genPropsAccessExp(propsLocalToPublicMap[id.name])}`,
                 )
               }
             } else {
@@ -607,14 +607,14 @@ export function transformAST(
             s.overwrite(
               id.start! + offset,
               id.end! + offset,
-              `__props_${propsLocalToPublicMap[id.name]}`
+              `__props_${propsLocalToPublicMap[id.name]}`,
             )
           } else {
             // x --> __props.x
             s.overwrite(
               id.start! + offset,
               id.end! + offset,
-              genPropsAccessExp(propsLocalToPublicMap[id.name])
+              genPropsAccessExp(propsLocalToPublicMap[id.name]),
             )
           }
         } else {
@@ -635,8 +635,8 @@ export function transformAST(
       s.prependRight(
         offset,
         `const __props_${publicKey} = ${helper(
-          `toRef`
-        )}(__props, '${publicKey}');\n`
+          `toRef`,
+        )}(__props, '${publicKey}');\n`,
       )
     }
   }
@@ -710,7 +710,7 @@ export function transformAST(
           return error(
             `${refCall} can only be used as the initializer of ` +
               `a variable declaration.`,
-            node
+            node,
           )
         }
 
@@ -773,12 +773,12 @@ export function transformAST(
 function removeTrailingComma(
   s: MagicString,
   node: CallExpression,
-  offset: number
+  offset: number,
 ) {
   if (typeof node.extra?.trailingComma === 'number') {
     s.remove(
       node.extra?.trailingComma + offset,
-      node.extra?.trailingComma + offset + 1
+      node.extra?.trailingComma + offset + 1,
     )
   }
 }

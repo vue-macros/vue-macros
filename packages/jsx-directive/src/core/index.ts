@@ -25,7 +25,7 @@ export type JsxDirectiveNode = {
 export function transformJsxDirective(
   code: string,
   id: string,
-  version: number
+  version: number,
 ) {
   const lang = getLang(id)
   let asts: {
@@ -35,7 +35,7 @@ export function transformJsxDirective(
   if (lang === 'vue' || REGEX_SETUP_SFC.test(id)) {
     const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
       code,
-      id
+      id,
     )
     if (script) {
       asts.push({ ast: getScriptAst()!, offset: script.loc.start.offset })
@@ -94,7 +94,7 @@ export function transformJsxDirective(
                 node.openingElement.name.name === 'template' &&
                 parent?.type === 'JSXElement'
                 ? parent
-                : node
+                : node,
             )
           }
         }

@@ -41,7 +41,7 @@ export function transformTemplateIs(s: MagicString): NodeTransform {
 
     const propIs = node.props.find(
       (prop): prop is AttributeNode =>
-        prop.type === (6 satisfies NodeTypes.ATTRIBUTE) && prop.name === 'is'
+        prop.type === (6 satisfies NodeTypes.ATTRIBUTE) && prop.name === 'is',
     )
     if (!propIs?.value) return
 
@@ -49,7 +49,7 @@ export function transformTemplateIs(s: MagicString): NodeTransform {
     s.overwrite(
       node.loc.start.offset,
       node.loc.end.offset,
-      `<component is="named-template-${refName}" />`
+      `<component is="named-template-${refName}" />`,
     )
   }
 }
@@ -57,13 +57,13 @@ export function transformTemplateIs(s: MagicString): NodeTransform {
 export function preTransform(
   code: string,
   id: string,
-  templateContent: TemplateContent
+  templateContent: TemplateContent,
 ) {
   const root = parse(code)
 
   const templates = root.children.filter(
     (node): node is ElementNode =>
-      node.type === (1 satisfies NodeTypes.ELEMENT) && node.tag === 'template'
+      node.type === (1 satisfies NodeTypes.ELEMENT) && node.tag === 'template',
   )
   if (templates.length <= 1) return
 
@@ -71,7 +71,7 @@ export function preTransform(
   for (const node of templates) {
     const propName = node.props.find(
       (prop): prop is AttributeNode =>
-        prop.type === (6 satisfies NodeTypes.ATTRIBUTE) && prop.name === 'name'
+        prop.type === (6 satisfies NodeTypes.ATTRIBUTE) && prop.name === 'name',
     )
     if (!propName) {
       preTransformMainTemplate({ s, root, node, id, templateContent })
@@ -131,7 +131,7 @@ export function preTransformMainTemplate({
 export function postTransform(
   code: string,
   id: string,
-  customBlocks: CustomBlocks
+  customBlocks: CustomBlocks,
 ) {
   const lang = getLang(id)
   const program = babelParse(code, lang)
@@ -164,7 +164,7 @@ export function postTransform(
         s.overwrite(...loc, '...args')
         s.appendLeft(
           node.declaration.body.start! + 1,
-          `\n let [${paramsText}] = args`
+          `\n let [${paramsText}] = args`,
         )
       }
     }
@@ -183,7 +183,7 @@ export function postTransform(
           component: node.arguments[0],
           name: node.arguments[0].arguments[0].value.replace(
             'named-template-',
-            ''
+            '',
           ),
           fnName: (node.callee as Identifier).name,
         })
@@ -198,7 +198,7 @@ export function postTransform(
     if (!block) throw new SyntaxError(`Unknown named template: ${name}`)
 
     const render = `${HELPER_PREFIX}block_${escapeTemplateName(
-      name
+      name,
     )}.render(...args)`
     if (fnName === '_createVNode') {
       s.overwriteNode(vnode, render)
@@ -212,8 +212,8 @@ export function postTransform(
   for (const [name, source] of Object.entries(customBlocks[filename])) {
     s.prepend(
       `import ${HELPER_PREFIX}block_${escapeTemplateName(
-        name
-      )} from ${JSON.stringify(source)};\n`
+        name,
+      )} from ${JSON.stringify(source)};\n`,
     )
   }
 
@@ -223,7 +223,7 @@ export function postTransform(
 export function postTransformMainEntry(
   program: Program,
   id: string,
-  customBlocks: CustomBlocks
+  customBlocks: CustomBlocks,
 ) {
   for (const node of program.body) {
     if (

@@ -75,7 +75,7 @@ export default createUnplugin<Options | undefined, false>(
           code,
           id,
           options.edition,
-          options.isProduction
+          options.isProduction,
         )
       },
 
@@ -87,5 +87,5 @@ export default createUnplugin<Options | undefined, false>(
         handleHotUpdate,
       },
     }
-  }
+  },
 )

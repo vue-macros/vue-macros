@@ -40,7 +40,7 @@ type NormalObject<T extends object> = T & { [RefType]?: never }
  */
 export declare function $<T>(arg: ComputedRef<T>): ComputedRefValue<T>
 export declare function $<T>(
-  arg: WritableComputedRef<T>
+  arg: WritableComputedRef<T>,
 ): WritableComputedRefValue<T>
 export declare function $<T>(arg: Ref<T>): RefValue<T>
 export declare function $<T extends object>(arg?: T): DestructureRefs<T>
@@ -62,7 +62,7 @@ export declare function $$<T extends object>(arg: NormalObject<T>): ToRawRefs<T>
 export declare function $$<T>(value: RefValue<T>): Ref<T>
 export declare function $$<T>(value: ComputedRefValue<T>): ComputedRef<T>
 export declare function $$<T>(
-  value: WritableComputedRefValue<T>
+  value: WritableComputedRefValue<T>,
 ): WritableComputedRef<T>
 
 type ToRawRefs<T extends object> = {
@@ -92,22 +92,22 @@ export declare function $shallowRef<T>(arg: T): RefValue<T>
 
 export declare function $toRef<T extends object, K extends keyof T>(
   object: T,
-  key: K
+  key: K,
 ): RefValue<T[K]>
 
 export declare function $toRef<T extends object, K extends keyof T>(
   object: T,
   key: K,
-  defaultValue: T[K]
+  defaultValue: T[K],
 ): RefValue<Exclude<T[K], undefined>>
 
 export declare function $customRef<T>(factory: CustomRefFactory<T>): RefValue<T>
 
 export declare function $computed<T>(
   getter: () => T,
-  debuggerOptions?: DebuggerOptions
+  debuggerOptions?: DebuggerOptions,
 ): ComputedRefValue<T>
 export declare function $computed<T>(
   options: WritableComputedOptions<T>,
-  debuggerOptions?: DebuggerOptions
+  debuggerOptions?: DebuggerOptions,
 ): WritableComputedRefValue<T>

@@ -21,7 +21,7 @@
 defineRender(
   <div>
     <span>Hello</span>
-  </div>
+  </div>,
 )
 
 // 或使用渲染函数

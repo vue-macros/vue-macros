@@ -114,7 +114,7 @@ export const processDefineComponent: Record<
   (
     setup: string,
     render: Render,
-    topLevel: string
+    topLevel: string,
   ) => {
     code: string
     lang: Lang

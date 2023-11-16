@@ -13,13 +13,13 @@ describe('defineEmit', () => {
       <template>    
         <button @click="foo">foo</button>
       </template>`,
-      'test.vue'
+      'test.vue',
     )
     const code = removeSpaces(result!.code)
 
     expect(code).includes(`const ${EMIT_VARIABLE_NAME} = defineEmits(["foo"])`)
     expect(code).includes(
-      `const foo = (...args) => ${EMIT_VARIABLE_NAME}("foo", ...args)`
+      `const foo = (...args) => ${EMIT_VARIABLE_NAME}("foo", ...args)`,
     )
   })
 
@@ -33,16 +33,16 @@ describe('defineEmit', () => {
       <template>    
         <button @click="foo">foo</button>
       </template>`,
-      'test.vue'
+      'test.vue',
     )
 
     const code = removeSpaces(result!.code)
 
     expect(code).includes(
-      `const foo = (...args) => ${EMIT_VARIABLE_NAME}("foo", ...args)`
+      `const foo = (...args) => ${EMIT_VARIABLE_NAME}("foo", ...args)`,
     )
     expect(code).includes(
-      `const ${EMIT_VARIABLE_NAME} = defineEmits({ foo: (payload) => payload.length > 0 })`
+      `const ${EMIT_VARIABLE_NAME} = defineEmits({ foo: (payload) => payload.length > 0 })`,
     )
   })
 
@@ -53,19 +53,19 @@ describe('defineEmit', () => {
         const foo = defineEmit('foo')
         const bar = defineEmit('bar')
       </script>`,
-      'test.vue'
+      'test.vue',
     )
 
     const code = result?.code ? result.code.trim().replaceAll(/\s+/g, ' ') : ''
 
     expect(code).includes(
-      `const ${EMIT_VARIABLE_NAME} = defineEmits(["foo", "bar"])`
+      `const ${EMIT_VARIABLE_NAME} = defineEmits(["foo", "bar"])`,
     )
     expect(code).includes(
-      `const foo = (...args) => ${EMIT_VARIABLE_NAME}("foo", ...args)`
+      `const foo = (...args) => ${EMIT_VARIABLE_NAME}("foo", ...args)`,
     )
     expect(code).includes(
-      `const bar = (...args) => ${EMIT_VARIABLE_NAME}("bar", ...args)`
+      `const bar = (...args) => ${EMIT_VARIABLE_NAME}("bar", ...args)`,
     )
   })
 })

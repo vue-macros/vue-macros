@@ -9,7 +9,7 @@ export type RefValueObject<T> = {
 }
 
 export declare function $defineProps<PropNames extends string = string>(
-  props: PropNames[]
+  props: PropNames[],
 ): Readonly<{
   [key in PropNames]?: any
 }>

@@ -43,5 +43,5 @@ export default createUnplugin<Options | undefined, false>(
         return transformJsxDirective(code, id, options.version)
       },
     }
-  }
+  },
 )

@@ -27,7 +27,7 @@ export interface AnalyzeResult {
 
 export async function analyzeSFC(
   s: MagicString,
-  sfc: SFC
+  sfc: SFC,
 ): Promise<AnalyzeResult> {
   if (!sfc.scriptSetup) throw new Error('Only <script setup> is supported')
 
@@ -35,7 +35,7 @@ export async function analyzeSFC(
 
   const body = babelParse(
     scriptSetup.content,
-    sfc.scriptSetup.lang || 'js'
+    sfc.scriptSetup.lang || 'js',
   ).body
 
   const offset = scriptSetup.loc.start.offset
@@ -145,7 +145,7 @@ export async function analyzeSFC(
 
     if (!isCallOf(withDefaults.arguments[0], DEFINE_PROPS)) {
       throw new SyntaxError(
-        `${WITH_DEFAULTS}: first argument must be a ${DEFINE_PROPS} call.`
+        `${WITH_DEFAULTS}: first argument must be a ${DEFINE_PROPS} call.`,
       )
     }
 

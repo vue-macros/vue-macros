@@ -44,12 +44,12 @@ export type AttachWithDefaults<Props> = Props & {
     BKeys extends BooleanKey<Props>,
     Defaults extends InferDefaults<Props>,
   >(
-    defaults?: Defaults
+    defaults?: Defaults,
   ): Prettify<PropsWithDefaults<Props, Defaults, BKeys>>
 }
 
 export declare function defineProps<PropNames extends string = string>(
-  props: PropNames[]
+  props: PropNames[],
 ): Prettify<
   AttachWithDefaults<
     Readonly<{

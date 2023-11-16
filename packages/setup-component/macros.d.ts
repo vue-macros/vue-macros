@@ -1,7 +1,7 @@
 import type { EmitsOptions, FunctionalComponent } from 'vue'
 
 export declare const defineSetupComponent: <T extends FunctionalComponent>(
-  fn: T
+  fn: T,
 ) => T
 
 export declare type SetupFC<

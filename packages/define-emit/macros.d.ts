@@ -8,5 +8,5 @@ export declare function defineEmit<
   T extends ((...args: any) => any) | any[] = any[],
 >(
   emitName?: string,
-  validator?: MaybeTupleFunction<T, any>
+  validator?: MaybeTupleFunction<T, any>,
 ): MaybeTupleFunction<T, void>

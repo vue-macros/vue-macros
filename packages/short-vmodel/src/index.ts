@@ -34,7 +34,7 @@ function rollup(options: Options = {}): Plugin {
       api.options.template.compilerOptions.nodeTransforms ||= []
 
       api.options.template.compilerOptions.nodeTransforms.push(
-        transformShortVmodel(options)
+        transformShortVmodel(options),
       )
     },
   }

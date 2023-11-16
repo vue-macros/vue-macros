@@ -8,7 +8,7 @@ export type Impl = (ctx: {
 }) => {
   walkCall(
     node: t.CallExpression,
-    parent: t.ParentMaps['CallExpression']
+    parent: t.ParentMaps['CallExpression'],
   ): string
   genRuntimeProps(isProduction: boolean): Promise<string | undefined>
 }

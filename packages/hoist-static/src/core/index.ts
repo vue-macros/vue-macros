@@ -66,7 +66,7 @@ export function transformHoistStatic(code: string, id: string) {
           isStaticExpression(member.initializer, {
             unary: true,
             magicComment: MAGIC_COMMENT,
-          })
+          }),
       )
       if (!isAllConstant) continue
       moveToScript(stmt)
