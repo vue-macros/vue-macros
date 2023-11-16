@@ -48,14 +48,14 @@ function transformVIf({
         source,
         node.pos,
         node.pos,
-        `${hasScope ? `{` : ' '}`,
+        `${hasScope ? `{` : ' '}(`,
         [
           expressionText,
           source,
           attribute.end - expressionText.length - 1,
           FileRangeCapabilities.full,
         ],
-        ' ? '
+        ') ? '
       )
 
       const nextAttribute = nodes[index + 1]?.attribute
