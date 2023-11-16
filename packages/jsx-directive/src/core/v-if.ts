@@ -14,10 +14,10 @@ export function transformVIf(
       if (attribute.value)
         s.appendLeft(
           node.start! + offset,
-          `${attribute.name.name === 'v-if' && hasScope ? '{' : ''}${s.slice(
+          `${attribute.name.name === 'v-if' && hasScope ? '{' : ' '}(${s.slice(
             attribute.value.start! + offset + 1,
             attribute.value.end! + offset - 1
-          )} ? `
+          )}) ? `
         )
 
       s.appendRight(
