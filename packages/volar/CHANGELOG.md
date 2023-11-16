@@ -1,5 +1,17 @@
 # @vue-macros/volar
 
+## 0.17.3
+
+### Patch Changes
+
+- [#559](https://github.com/vue-macros/vue-macros/pull/559) [`a4b1b6bb`](https://github.com/vue-macros/vue-macros/commit/a4b1b6bb986245d6d500b8a30cf0a0aefc96bf69) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Fix the incorrect execution order of the ternary expression in v-if.
+
+- Updated dependencies [[`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7)]:
+  - @vue-macros/define-props@2.0.0
+  - @vue-macros/short-vmodel@1.4.0
+  - @vue-macros/short-bind@0.2.0
+  - @vue-macros/common@1.9.0
+
 ## 0.17.2
 
 ### Patch Changes

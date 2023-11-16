@@ -1,5 +1,18 @@
 # @vue-macros/api
 
+## 0.9.0
+
+### Minor Changes
+
+- [`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7) Thanks [@sxzz](https://github.com/sxzz)! - upgrade vite & rollup & esbuild
+
+### Patch Changes
+
+- [`531ec974`](https://github.com/vue-macros/vue-macros/commit/531ec974cc715c00a630f66d83e2cb0f2061f356) Thanks [@sxzz](https://github.com/sxzz)! - simplify runtime props types
+
+- Updated dependencies [[`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7)]:
+  - @vue-macros/common@1.9.0
+
 ## 0.8.6
 
 ### Patch Changes

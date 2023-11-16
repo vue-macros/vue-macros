@@ -1,5 +1,11 @@
 # @vue-macros/devtools
 
+## 0.2.0
+
+### Minor Changes
+
+- [`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7) Thanks [@sxzz](https://github.com/sxzz)! - upgrade vite & rollup & esbuild
+
 ## 0.1.4
 
 ### Patch Changes
