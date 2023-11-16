@@ -5,7 +5,7 @@ export function transformVSlot(
   nodes: JSXElement[],
   s: MagicString,
   offset: number,
-  version: number
+  version: number,
 ) {
   nodes.reverse().forEach((node) => {
     const attribute = node.openingElement.attributes.find(
@@ -14,7 +14,7 @@ export function transformVSlot(
         (attribute.name.type === 'JSXNamespacedName'
           ? attribute.name.namespace
           : attribute.name
-        ).name === 'v-slot'
+        ).name === 'v-slot',
     )
 
     const slots =
@@ -94,12 +94,12 @@ export function transformVSlot(
                   child.openingElement.name.name === 'template'
                   ? child.children
                   : child,
-                { offset }
+                { offset },
               )
               s.removeNode(child, { offset })
               return result
             })
-            .join('')}${version < 3 ? '</span>' : '</>'}`
+            .join('')}${version < 3 ? '</span>' : '</>'}`,
       )
       .join(',')}}}`
 

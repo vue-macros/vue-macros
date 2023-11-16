@@ -27,7 +27,7 @@ export default defineConfig({
   onwarn(warning, defaultHandler) {
     if (
       ['UNRESOLVED_IMPORT', 'UNUSED_EXTERNAL_IMPORT'].includes(
-        warning.code || ''
+        warning.code || '',
       )
     )
       return

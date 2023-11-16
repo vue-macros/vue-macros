@@ -60,7 +60,7 @@ export function transformShortBind(_options: Options = {}): NodeTransform {
               },
               source: valueName,
             },
-            0 satisfies ConstantTypes.NOT_CONSTANT
+            0 satisfies ConstantTypes.NOT_CONSTANT,
           )
 
           if (prop.arg?.type === (4 satisfies NodeTypes.SIMPLE_EXPRESSION))

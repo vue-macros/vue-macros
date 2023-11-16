@@ -27,7 +27,7 @@ const [
     getHighlighter({
       themes: ['vitesse-light', 'vitesse-dark'],
       langs: ['typescript', 'vue'],
-    })
+    }),
   ),
   import('prettier/standalone'),
   import('prettier/plugins/babel'),
@@ -40,8 +40,8 @@ const state = reactive<{
   -readonly [K in OptionsKey]: (typeof options)[K]['values'][number]
 }>(
   Object.fromEntries(
-    Object.entries(options).map(([key, value]) => [key, value.default])
-  ) as any
+    Object.entries(options).map(([key, value]) => [key, value.default]),
+  ) as any,
 )
 
 const example = computed(() => {
@@ -54,7 +54,7 @@ const example = computed(() => {
   return processDefineComponent[state.defineComponents](
     `${ref}${props}\n${emits}`,
     render,
-    topLevel
+    topLevel,
   )
 })
 
@@ -72,10 +72,10 @@ watch(
       {
         lang: example.value.lang === 'vue' ? 'vue' : 'typescript',
         theme: isDark.value ? 'vitesse-dark' : 'vitesse-light',
-      }
+      },
     )
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 function isConflicted(value: string) {

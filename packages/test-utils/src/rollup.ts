@@ -77,7 +77,7 @@ export async function rollupBuild(file: string, plugins: InputPluginOption) {
         ? file.code
         : typeof file.source === 'string'
           ? file.source
-          : file.fileName
+          : file.fileName,
     )
     .join('\n')
 }

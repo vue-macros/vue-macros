@@ -24,6 +24,6 @@ export function hasPropsOrEmits(node: ObjectExpression) {
       (prop.key.name === 'props' ||
         prop.key.name === 'emits' ||
         prop.key.name === 'expose' ||
-        prop.key.name === 'slots')
+        prop.key.name === 'slots'),
   )
 }

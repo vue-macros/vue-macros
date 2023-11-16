@@ -21,5 +21,5 @@ export declare function defineOptions<
     M,
     Mixin,
     Extends
-  > & { emits?: undefined; expose?: undefined; slots?: undefined }
+  > & { emits?: undefined; expose?: undefined; slots?: undefined },
 ): void

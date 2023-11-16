@@ -42,5 +42,5 @@ export default createUnplugin<Options | undefined, false>(
         return transformDefineSlots(code, id)
       },
     }
-  }
+  },
 )

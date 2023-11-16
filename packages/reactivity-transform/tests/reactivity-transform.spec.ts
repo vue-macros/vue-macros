@@ -59,7 +59,7 @@ test('$ref & $shallowRef declarations', () => {
     label: var e = $ref()
     `)
   expect(code).toMatch(
-    `import { ref as _ref, shallowRef as _shallowRef } from 'vue'`
+    `import { ref as _ref, shallowRef as _shallowRef } from 'vue'`,
   )
   expect(code).not.toMatch(`$ref()`)
   expect(code).not.toMatch(`$ref(1)`)
@@ -276,7 +276,7 @@ test('object destructure', () => {
   expect(code).toMatch(`h = _toRef(__$temp_1, g)`)
   expect(code).toMatch(`foo = _toRef(__$temp_2, 'foo')`)
   expect(code).toMatch(
-    `console.log(n.value, a.value, c.value, d.value, f.value, h.value, foo.value)`
+    `console.log(n.value, a.value, c.value, d.value, f.value, h.value, foo.value)`,
   )
   expect(rootRefs).toStrictEqual(['n', 'a', 'c', 'd', 'f', 'h', 'foo'])
   assertCode(code)
@@ -439,7 +439,7 @@ test('should not rewrite type identifiers', () => {
         let ids = $ref([])`,
     {
       parserPlugins: ['typescript'],
-    }
+    },
   )
   expect(code).not.toMatch('.value')
   assertCode(code)
@@ -462,7 +462,7 @@ test('handle TS casting syntax', () => {
       `,
     {
       parserPlugins: ['typescript'],
-    }
+    },
   )
   expect(code).toMatch('console.log(a.value!)')
   expect(code).toMatch('console.log(a.value as number)')
@@ -477,7 +477,7 @@ test('macro import alias and removal', () => {
 
     let a = $ref(1)
     const { x, y } = fromRefs(useMouse())
-    `
+    `,
   )
   // should remove imports
   expect(code).not.toMatch(`from 'vue/macros'`)
@@ -493,7 +493,7 @@ test('should not overwrite importing', () => {
     import { $, $$ } from './foo'
     $('foo')
     $$('bar')
-    `
+    `,
   )
   assertCode(code)
 })
@@ -507,7 +507,7 @@ test('should not overwrite existing variables', () => {
       $('foo')
       $$('bar')
     }
-    `
+    `,
   )
   assertCode(code)
 })
@@ -524,7 +524,7 @@ test('should not overwrite current scope', () => {
       console.log($ref())
       console.log($$())
     }
-    `
+    `,
   )
   assertCode(code)
 })
@@ -537,7 +537,7 @@ test('should unwrap TS node', () => {
     const qux = (<number>$ref(10)!)
     const { a, b } = $({ a: 'a', b: 'b' })! as any
     `,
-    { filename: 'foo.ts' }
+    { filename: 'foo.ts' },
   )
   assertCode(code)
 })
@@ -545,13 +545,13 @@ test('should unwrap TS node', () => {
 describe('errors', () => {
   test('$ref w/ destructure', () => {
     expect(() => transform(`let { a } = $ref(1)`)).toThrow(
-      `cannot be used with destructure`
+      `cannot be used with destructure`,
     )
   })
 
   test('$computed w/ destructure', () => {
     expect(() => transform(`let { a } = $computed(() => 1)`)).toThrow(
-      `cannot be used with destructure`
+      `cannot be used with destructure`,
     )
   })
 
@@ -559,12 +559,12 @@ describe('errors', () => {
     expect(() =>
       transform(
         `let bar = $ref(1)
-          bar = $ref(2)`
-      )
+          bar = $ref(2)`,
+      ),
     ).toThrow(`$ref can only be used as the initializer`)
 
     expect(() => transform(`let bar = { foo: $computed(1) }`)).toThrow(
-      `$computed can only be used as the initializer`
+      `$computed can only be used as the initializer`,
     )
   })
 
@@ -578,10 +578,10 @@ describe('errors', () => {
 
   test('rest element in $() destructure', () => {
     expect(() => transform(`let { a, ...b } = $(foo())`)).toThrow(
-      `does not support rest element`
+      `does not support rest element`,
     )
     expect(() => transform(`let [a, ...b] = $(foo())`)).toThrow(
-      `does not support rest element`
+      `does not support rest element`,
     )
   })
 
@@ -590,28 +590,28 @@ describe('errors', () => {
       transform(`
         const foo = $ref(0)
         foo = 1
-      `)
+      `),
     ).toThrow(`Assignment to constant variable.`)
 
     expect(() =>
       transform(`
         const [a, b] = $([1, 2])
         a = 1
-      `)
+      `),
     ).toThrow(`Assignment to constant variable.`)
 
     expect(() =>
       transform(`
         const foo = $ref(0)
         foo++
-      `)
+      `),
     ).toThrow(`Assignment to constant variable.`)
 
     expect(() =>
       transform(`
       const foo = $ref(0)
       bar = foo
-      `)
+      `),
     ).not.toThrow()
   })
 })

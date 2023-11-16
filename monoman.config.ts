@@ -96,7 +96,7 @@ export default defineConfig([
 
                 return [key, exports] as const
               })
-              .sort(([a], [b]) => a.localeCompare(b))
+              .sort(([a], [b]) => a.localeCompare(b)),
           ),
           './*': ['./*', './*.d.ts'],
         }

@@ -47,7 +47,7 @@ function transform({
     replace(
       file.content,
       /(?=export\sdefault)/,
-      `${sfc.scriptSetup?.content.slice(jsDoc.pos, jsDoc.end)}\n`
+      `${sfc.scriptSetup?.content.slice(jsDoc.pos, jsDoc.end)}\n`,
     )
   }
 }

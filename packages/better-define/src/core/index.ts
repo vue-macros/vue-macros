@@ -16,7 +16,7 @@ import {
 export async function transformBetterDefine(
   code: string,
   id: string,
-  isProduction = false
+  isProduction = false,
 ) {
   const s = new MagicString(code)
   const sfc = parseSFC(code, id)
@@ -48,7 +48,7 @@ export async function transformBetterDefine(
         return `${escapeKey(key)}: ${genRuntimePropDefinition(
           type,
           isProduction,
-          properties
+          properties,
         )}`
       })
       .join(',\n  ')}\n}`
@@ -59,7 +59,7 @@ export async function transformBetterDefine(
       decl = `${importHelperFn(
         s,
         offset,
-        'mergeDefaults'
+        'mergeDefaults',
       )}(${decl}, ${s.sliceNode(props.withDefaultsAst.arguments[1], {
         offset,
       })})`

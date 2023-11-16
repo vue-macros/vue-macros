@@ -22,6 +22,6 @@ describe('fixtures', async () => {
     {
       cwd: resolve(__dirname, '..'),
       promise: true,
-    }
+    },
   )
 })

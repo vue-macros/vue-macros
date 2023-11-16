@@ -26,7 +26,7 @@ export function transformDefineProps(code: string, id: string) {
           node.callee,
           // add space for fixing mapping
           ` ${DEFINE_PROPS}`,
-          { offset }
+          { offset },
         )
       }
     },

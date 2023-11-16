@@ -21,7 +21,7 @@ We need more feedback on [RFC Discussion](https://github.com/vuejs/rfcs/discussi
 defineRender(
   <div>
     <span>Hello</span>
-  </div>
+  </div>,
 )
 
 // Or using render function

@@ -37,7 +37,7 @@ function transformDefineModels({
     addProps(
       codes,
       ['__VLS_TypePropsToRuntimeProps<__VLS_ModelToProps<', seg, '>>'],
-      vueLibName
+      vueLibName,
     )
   mergeEmits() || addEmits(codes, ['__VLS_ModelToEmits<', seg, '>'])
 
@@ -51,7 +51,7 @@ function transformDefineModels({
     type __VLS_GetEventKey<K extends string | number> = K extends 'modelValue'${
       unified ? '' : ' & never'
     } ? 'input' : \`update:\${K}\`
-    type __VLS_ModelToEmits<T> = T extends Record<string | number, any> ? { [K in keyof T & (string | number) as __VLS_GetEventKey<K>]: (value: T[K]) => void } : T`
+    type __VLS_ModelToEmits<T> = T extends Record<string | number, any> ? { [K in keyof T & (string | number) as __VLS_GetEventKey<K>]: (value: T[K]) => void } : T`,
   )
 
   function mergeProps() {
@@ -82,7 +82,7 @@ function transformDefineModels({
 
 function getTypeArg(
   ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc
+  sfc: Sfc,
 ) {
   function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
     if (

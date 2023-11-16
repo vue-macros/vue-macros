@@ -37,7 +37,7 @@ const { foo } = withDefaults(
   definePropsRefs<{
     foo?: string
   }>(),
-  { foo: 'test' }
+  { foo: 'test' },
 )
 //          ⬇️ Ref<string>
 console.log(foo.value)

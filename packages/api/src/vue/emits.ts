@@ -137,7 +137,7 @@ export async function handleTSEmitsDefinition({
       definitionsAst.type !== 'TSFunctionType'
     )
       throw new SyntaxError(
-        `Cannot resolve TS definition: ${definitionsAst.type}`
+        `Cannot resolve TS definition: ${definitionsAst.type}`,
       )
 
     const properties = await resolveTSProperties({
@@ -172,7 +172,7 @@ export async function handleTSEmitsDefinition({
         const literal = type.literal
         if (!isStaticExpression(literal)) continue
         const evt = String(
-          resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>)
+          resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>),
         )
         if (!definitions[evt]) definitions[evt] = []
         definitions[evt].push(buildDefinition(signature))
@@ -239,7 +239,7 @@ export interface TSEmits extends EmitsBase {
   setEmit(
     name: string | StringLiteral,
     index: number,
-    signature: string
+    signature: string,
   ): boolean
 
   /**

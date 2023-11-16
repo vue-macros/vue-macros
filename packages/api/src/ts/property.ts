@@ -42,7 +42,7 @@ export interface TSProperties {
 
 export function mergeTSProperties(
   a: TSProperties,
-  b: TSProperties
+  b: TSProperties,
 ): TSProperties {
   return {
     callSignatures: [...a.callSignatures, ...b.callSignatures],
@@ -53,7 +53,7 @@ export function mergeTSProperties(
 }
 
 export function checkForTSProperties(
-  node?: Node
+  node?: Node,
 ): node is
   | TSInterfaceDeclaration
   | TSInterfaceBody
@@ -106,8 +106,8 @@ export async function resolveTSProperties({
                     scope,
                     type: node.expression,
                   })
-                : undefined
-            )
+                : undefined,
+            ),
           )
         )
           // eslint-disable-next-line unicorn/no-array-callback-reference
@@ -116,7 +116,7 @@ export async function resolveTSProperties({
         if (resolvedExtends.length > 0) {
           const ext = (
             await Promise.all(
-              resolvedExtends.map((resolved) => resolveTSProperties(resolved))
+              resolvedExtends.map((resolved) => resolveTSProperties(resolved)),
             )
           ).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
           properties = mergeTSProperties(ext, properties)
@@ -139,7 +139,7 @@ export async function resolveTSProperties({
         if (!filterValidExtends(resolved)) continue
         properties = mergeTSProperties(
           properties,
-          await resolveTSProperties(resolved)
+          await resolveTSProperties(resolved),
         )
       }
       return properties
@@ -170,7 +170,7 @@ export async function resolveTSProperties({
         if (!literal) continue
 
         const keys = resolveMaybeTSUnion(literal).map((literal) =>
-          String(resolveLiteral(literal))
+          String(resolveLiteral(literal)),
         )
         for (const key of keys) {
           properties.properties[String(key)] = {
@@ -200,7 +200,7 @@ export async function resolveTSProperties({
   }
 
   function filterValidExtends(
-    node: TSResolvedType | TSNamespace | undefined
+    node: TSResolvedType | TSNamespace | undefined,
   ): node is TSResolvedType<
     TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType
   > {

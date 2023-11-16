@@ -31,14 +31,14 @@ const VUE3_PLUGINS = ['vite:vue', 'unplugin-vue']
 const VUE2_PLUGINS = ['vite:vue2', 'unplugin-vue2']
 
 export function getVuePluginApi(
-  plugins: Readonly<(Plugin | VitePlugin)[]> | undefined
+  plugins: Readonly<(Plugin | VitePlugin)[]> | undefined,
 ): VuePluginApi | null {
   const vuePlugin = (plugins || []).find((p) =>
-    [...VUE3_PLUGINS, ...VUE2_PLUGINS].includes(p.name)
+    [...VUE3_PLUGINS, ...VUE2_PLUGINS].includes(p.name),
   )
   if (!vuePlugin)
     throw new Error(
-      'Cannot find Vue plugin (@vitejs/plugin-vue or unplugin-vue). Please make sure to add it before using Vue Macros.'
+      'Cannot find Vue plugin (@vitejs/plugin-vue or unplugin-vue). Please make sure to add it before using Vue Macros.',
     )
 
   if (VUE2_PLUGINS.includes(vuePlugin.name)) {
@@ -48,7 +48,7 @@ export function getVuePluginApi(
   const api = vuePlugin.api as VuePluginApi
   if (!api?.version) {
     throw new Error(
-      'The Vue plugin is not supported (@vitejs/plugin-vue or unplugin-vue). Please make sure version > 4.3.4.'
+      'The Vue plugin is not supported (@vitejs/plugin-vue or unplugin-vue). Please make sure version > 4.3.4.',
     )
   }
 

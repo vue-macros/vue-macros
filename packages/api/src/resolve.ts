@@ -55,13 +55,13 @@ export const RollupResolve = () => {
             const pkgPath = id.replace(`${pkgId}/`, '')
             for (const version of Object.values(pkg.typesVersions)) {
               for (const [entry, subpaths] of Object.entries(
-                version as Record<string, string[]>
+                version as Record<string, string[]>,
               )) {
                 if (pkgPath !== entry.replace('*', pkgPath)) continue
                 for (const subpath of subpaths) {
                   const resolved = path.resolve(
                     pkgRoot,
-                    subpath.replace('*', pkgPath)
+                    subpath.replace('*', pkgPath),
                   )
                   if (isDts(resolved) && existsSync(resolved)) return resolved
                 }

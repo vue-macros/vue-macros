@@ -45,5 +45,5 @@ export default createUnplugin<Options | undefined, false>(
         return transformSetupBlock(code, id, options.defaultLang)
       },
     }
-  }
+  },
 )

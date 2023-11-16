@@ -7,10 +7,10 @@ export type VueMacrosOptions = Options
 
 function findPluginAndRemove(
   name: string,
-  plugins: ViteUserConfig['plugins']
+  plugins: ViteUserConfig['plugins'],
 ): Plugin | undefined {
   const idx = plugins!.findIndex(
-    (plugin) => plugin && 'name' in plugin && plugin.name === name
+    (plugin) => plugin && 'name' in plugin && plugin.name === name,
   )
   if (idx === -1) return
   const plugin = plugins![idx]
@@ -35,7 +35,7 @@ export default function (options?: VueMacrosOptions): AstroIntegration {
               vue,
               vueJsx,
             },
-          })
+          }),
         )
       },
     },

@@ -25,13 +25,13 @@ describe('fixtures', async () => {
     {
       cwd: resolve(__dirname, '..'),
       promise: true,
-    }
+    },
   )
   await testFixtures(
     import.meta.glob('./fixtures/definePropsRefs.vue', {
       eager: true,
       as: 'raw',
     }),
-    (_, id, code) => transformChainCall(code, id)?.code
+    (_, id, code) => transformChainCall(code, id)?.code,
   )
 })

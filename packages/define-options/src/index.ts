@@ -42,7 +42,7 @@ export default createUnplugin<Options | undefined, false>(
         return transformDefineOptions(code, id)
       },
     }
-  }
+  },
 )
 
 export { transformDefineOptions as transform }

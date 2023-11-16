@@ -72,12 +72,12 @@ export function transformShortEmits(code: string, id: string) {
             case 'TSTupleType':
               params = `...args: ${s.sliceNode(
                 member.typeAnnotation.typeAnnotation,
-                { offset }
+                { offset },
               )}`
               break
             case 'TSFunctionType':
               params = stringifyParams(
-                member.typeAnnotation.typeAnnotation.parameters
+                member.typeAnnotation.typeAnnotation.parameters,
               )
               break
           }
@@ -93,7 +93,7 @@ export function transformShortEmits(code: string, id: string) {
       s.overwriteNode(
         member,
         `(evt: ${key}${params ? `, ${params}` : ''}): void`,
-        { offset }
+        { offset },
       )
     }
   }

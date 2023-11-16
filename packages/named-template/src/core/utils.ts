@@ -1,7 +1,7 @@
 import type { ElementNode } from '@vue/compiler-dom'
 
 export function getChildrenLocation(
-  node: ElementNode
+  node: ElementNode,
 ): [number, number] | undefined {
   if (node.children.length > 0) {
     const lastChild = node.children.at(-1)!

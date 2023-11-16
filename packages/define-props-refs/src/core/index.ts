@@ -43,16 +43,16 @@ export function transformDefinePropsRefs(code: string, id: string) {
 
   function processDefinePropsRefs(
     propsCall: CallExpression,
-    defaultsCall?: CallExpression
+    defaultsCall?: CallExpression,
   ) {
     let code = `${DEFINE_PROPS}${s.slice(
       offset + propsCall.callee.end!,
-      offset + propsCall.end!
+      offset + propsCall.end!,
     )}`
     if (defaultsCall) {
       code = `${WITH_DEFAULTS}(${code}, ${s.sliceNode(
         defaultsCall.arguments[1],
-        { offset }
+        { offset },
       )})`
     }
 
@@ -62,7 +62,7 @@ export function transformDefinePropsRefs(code: string, id: string) {
       `${importHelperFn(s, offset, 'toRefs')}(${HELPER_PREFIX}props)`,
       {
         offset,
-      }
+      },
     )
   }
 }

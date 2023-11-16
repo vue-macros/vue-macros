@@ -36,7 +36,7 @@ export const Devtools = ({ nuxtContext }: Options = {}): Plugin => {
           sirv(resolve(__dirname, 'client'), {
             single: true,
             dev: true,
-          })
+          }),
         )
       }
     },

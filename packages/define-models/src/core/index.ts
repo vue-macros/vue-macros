@@ -34,7 +34,7 @@ export function transformDefineModels(
   code: string,
   id: string,
   version: number,
-  unified: boolean
+  unified: boolean,
 ) {
   let hasDefineProps = false
   let hasDefineEmits = false
@@ -83,7 +83,7 @@ export function transformDefineModels(
     const typeDecl = node.typeParameters?.params?.[0]
     if (!typeDecl)
       throw new SyntaxError(
-        `${fnName}() expected a type parameter when used with ${DEFINE_MODELS}.`
+        `${fnName}() expected a type parameter when used with ${DEFINE_MODELS}.`,
       )
 
     if (type === 'props') propsTypeDecl = typeDecl
@@ -106,7 +106,7 @@ export function transformDefineModels(
   function processDefineModels(
     node: Node,
     declId?: LVal,
-    kind?: VariableDeclaration['kind']
+    kind?: VariableDeclaration['kind'],
   ) {
     if (isCallOf(node, DEFINE_MODELS)) mode = 'runtime'
     else if (isCallOf(node, DEFINE_MODELS_DOLLAR)) mode = 'reactivity-transform'
@@ -137,7 +137,7 @@ export function transformDefineModels(
       } else {
         modelIdentifier = scriptSetup!.loc.source.slice(
           declId.start!,
-          declId.end!
+          declId.end!,
         )
       }
     }
@@ -170,7 +170,7 @@ export function transformDefineModels(
           declaration.type === 'CallExpression' &&
           declaration.callee.type === 'Identifier' &&
           ['defineComponent', 'DO_defineComponent'].includes(
-            declaration.callee.name
+            declaration.callee.name,
           )
         ) {
           declaration.arguments.forEach((arg) => {
@@ -196,7 +196,7 @@ export function transformDefineModels(
         prop.key.type === 'Identifier' &&
         prop.key.name === 'model' &&
         prop.value.type === 'ObjectExpression' &&
-        prop.value.properties.length === 2
+        prop.value.properties.length === 2,
     ) as ObjectProperty
 
     if (!model) return false
@@ -243,7 +243,7 @@ export function transformDefineModels(
           ) {
             typeAnnotation += setupContent.slice(
               type.typeParameters.params[0].start!,
-              type.typeParameters.params[0].end!
+              type.typeParameters.params[0].end!,
             )
             if (type.typeParameters.params[1]?.type === 'TSTypeLiteral') {
               options = Object.create(null)
@@ -297,14 +297,14 @@ export function transformDefineModels(
     function rewriteDefines() {
       const propsText = Object.entries(map)
         .map(
-          ([key, { typeAnnotation }]) => `${getPropKey(key)}${typeAnnotation}`
+          ([key, { typeAnnotation }]) => `${getPropKey(key)}${typeAnnotation}`,
         )
         .join(';\n')
 
       const emitsText = Object.entries(map)
         .map(
           ([key, { typeAnnotation }]) =>
-            `(evt: '${getEventKey(key)}', value${typeAnnotation}): void;`
+            `(evt: '${getEventKey(key)}', value${typeAnnotation}): void;`,
         )
         .join('\n  ')
 
@@ -314,7 +314,7 @@ export function transformDefineModels(
           `(${s.sliceNode(propsTypeDecl!, {
             offset: setupOffset,
           })}) & {\n  ${propsText}\n}`,
-          { offset: setupOffset }
+          { offset: setupOffset },
         )
         if (
           mode === 'reactivity-transform' &&
@@ -324,11 +324,11 @@ export function transformDefineModels(
           for (const property of modelDestructureDecl.properties) {
             const text = code.slice(
               setupOffset + property.start!,
-              setupOffset + property.end!
+              setupOffset + property.end!,
             )
             s.appendLeft(
               setupOffset + propsDestructureDecl.start! + 1,
-              `${text}, `
+              `${text}, `,
             )
           }
       } else {
@@ -340,7 +340,7 @@ export function transformDefineModels(
           } else if (modelDestructureDecl) {
             text = code.slice(
               setupOffset + modelDestructureDecl.start!,
-              setupOffset + modelDestructureDecl.end!
+              setupOffset + modelDestructureDecl.end!,
             )
           }
         }
@@ -349,7 +349,7 @@ export function transformDefineModels(
           setupOffset,
           `\n${text ? `${kind} ${text} = ` : ''}defineProps<{
   ${propsText}
-}>();`
+}>();`,
         )
       }
 
@@ -359,7 +359,7 @@ export function transformDefineModels(
           `(${s.sliceNode(emitsTypeDecl!, {
             offset: setupOffset,
           })}) & {\n  ${emitsText}\n}`,
-          { offset: setupOffset }
+          { offset: setupOffset },
         )
       } else {
         emitsIdentifier = `${HELPER_PREFIX}emit`
@@ -369,7 +369,7 @@ export function transformDefineModels(
             mode === 'reactivity-transform' ? `const ${emitsIdentifier} = ` : ''
           }defineEmits<{
   ${emitsText}
-}>();`
+}>();`,
         )
       }
     }
@@ -380,7 +380,7 @@ export function transformDefineModels(
         setupOffset,
         'useVModel',
         useVmodelHelperId,
-        true
+        true,
       )}(${Object.entries(map)
         .map(([name, { options }]) => {
           const prop = getPropKey(name, true)
@@ -405,14 +405,14 @@ export function transformDefineModels(
   function processAssignModelVariable() {
     if (!emitsIdentifier)
       throw new Error(
-        `Identifier of returning value of ${DEFINE_EMITS} is not found, please report this issue.\n${REPO_ISSUE_URL}`
+        `Identifier of returning value of ${DEFINE_EMITS} is not found, please report this issue.\n${REPO_ISSUE_URL}`,
       )
 
     function overwrite(
       node: Node,
       id: Identifier,
       value: string,
-      original = false
+      original = false,
     ) {
       const eventName = aliasMap[id.name]
       const content = `${importHelperFn(
@@ -420,7 +420,7 @@ export function transformDefineModels(
         setupOffset,
         'emitHelper',
         emitHelperId,
-        true
+        true,
       )}(${emitsIdentifier}, '${getEventKey(String(eventName))}', ${value}${
         original ? `, ${id.name}` : ''
       })`
@@ -520,12 +520,12 @@ export function transformDefineModels(
 
   if (runtimeDefineFn)
     throw new SyntaxError(
-      `${runtimeDefineFn}() cannot accept non-type arguments when used with ${DEFINE_MODELS}()`
+      `${runtimeDefineFn}() cannot accept non-type arguments when used with ${DEFINE_MODELS}()`,
     )
 
   if (modelTypeDecl.type !== 'TSTypeLiteral') {
     throw new SyntaxError(
-      `type argument passed to ${DEFINE_MODELS}() must be a literal type, or a reference to an interface or literal type.`
+      `type argument passed to ${DEFINE_MODELS}() must be a literal type, or a reference to an interface or literal type.`,
     )
   }
 

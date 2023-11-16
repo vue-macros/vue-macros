@@ -42,14 +42,14 @@ export async function resolveTSTemplateLiteral({
   scope,
 }: TSResolvedType<TemplateLiteral>): Promise<StringLiteral[]> {
   const types = (await resolveKeys('', type.quasis, type.expressions)).map(
-    (k) => createStringLiteral(k)
+    (k) => createStringLiteral(k),
   )
   return types
 
   async function resolveKeys(
     prefix: string,
     quasis: TemplateElement[],
-    expressions: Array<Expression | TSType>
+    expressions: Array<Expression | TSType>,
   ): Promise<string[]> {
     if (expressions.length === 0) {
       return [prefix + (quasis[0]?.value.cooked ?? '')]
@@ -77,7 +77,7 @@ export async function resolveTSTemplateLiteral({
         if (!literal) continue
 
         const subKeys = resolveMaybeTSUnion(literal).map((literal) =>
-          String(resolveLiteral(literal))
+          String(resolveLiteral(literal)),
         )
         for (const key of subKeys) {
           const newPrefix = prefix + quasi.value.cooked + String(key)
@@ -113,7 +113,7 @@ export async function resolveTSLiteralType({
  */
 export function resolveTypeElements(
   scope: TSScope,
-  elements: Array<TSTypeElement>
+  elements: Array<TSTypeElement>,
 ) {
   const properties: TSProperties = {
     callSignatures: [],
@@ -175,11 +175,11 @@ export function resolveTypeElements(
 
 export async function resolveTSIndexedAccessType(
   { scope, type }: TSResolvedType<TSIndexedAccessType>,
-  stacks: TSResolvedType<any>[] = []
+  stacks: TSResolvedType<any>[] = [],
 ): Promise<{ type: TSUnionType; scope: TSScope } | undefined> {
   const object = await resolveTSReferencedType(
     { type: type.objectType, scope },
-    stacks
+    stacks,
   )
   if (!object || isTSNamespace(object)) return undefined
 
@@ -191,7 +191,7 @@ export async function resolveTSIndexedAccessType(
       types = [objectType.elementType]
     } else if (objectType.type === 'TSTupleType') {
       types = objectType.elementTypes.map((t) =>
-        t.type === 'TSNamedTupleMember' ? t.elementType : t
+        t.type === 'TSNamedTupleMember' ? t.elementType : t,
       )
     } else if (
       objectType.type === 'TSTypeReference' &&
@@ -233,7 +233,7 @@ export async function resolveTSIndexedAccessType(
       })
       if (!literal) continue
       keys = resolveMaybeTSUnion(literal).map((literal) =>
-        String(resolveLiteral(literal))
+        String(resolveLiteral(literal)),
       )
     } else if (index.type === 'TSTypeOperator') {
       const keysStrings = await resolveTSTypeOperator({
@@ -242,7 +242,7 @@ export async function resolveTSIndexedAccessType(
       })
       if (!keysStrings) continue
       keys = resolveMaybeTSUnion(keysStrings).map((literal) =>
-        String(resolveLiteral(literal))
+        String(resolveLiteral(literal)),
       )
     } else continue
 
@@ -262,8 +262,8 @@ export async function resolveTSIndexedAccessType(
             ({ type }): TSFunctionType => ({
               ...type,
               type: 'TSFunctionType',
-            })
-          )
+            }),
+          ),
         )
       }
     }
@@ -277,7 +277,7 @@ export async function resolveTSIndexedAccessType(
 
 export async function resolveTSTypeOperator(
   { scope, type }: TSResolvedType<TSTypeOperator>,
-  stacks: TSResolvedType<any>[] = []
+  stacks: TSResolvedType<any>[] = [],
 ) {
   if (type.operator !== 'keyof') return undefined
 
@@ -286,7 +286,7 @@ export async function resolveTSTypeOperator(
       type: type.typeAnnotation,
       scope,
     },
-    stacks
+    stacks,
   )
   if (!resolved || isTSNamespace(resolved)) return undefined
   const { type: resolvedType, scope: resolvedScope } = resolved
@@ -303,7 +303,7 @@ export async function resolveTSTypeOperator(
 export function resolveMaybeTSUnion<T extends Node>(node: T | T[]): T[]
 export function resolveMaybeTSUnion<T extends Node>(node: T): (T | TSType)[]
 export function resolveMaybeTSUnion<T extends Node>(
-  node: T | T[]
+  node: T | T[],
 ): (T | TSType)[] {
   if (Array.isArray(node)) return node
   if (node.type === 'TSUnionType')

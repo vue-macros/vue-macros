@@ -34,25 +34,25 @@ describe('analyzeSFC', () => {
             ast: 'TSStringKeyword...',
             code: 'string',
           },
-        })
+        }),
       )
       expect(hideAstLocation(props!.definitions.bar)).toEqual(
         expect.objectContaining({
           type: 'method',
           methods: [{ ast: 'TSMethodSignature...', code: 'bar(): void' }],
-        })
+        }),
       )
       expect(hideAstLocation(props!.definitions.baz)).toEqual(
         expect.objectContaining({
           type: 'property',
           value: { ast: 'TSUnionType...', code: 'string | number' },
-        })
+        }),
       )
       expect(hideAstLocation(props!.definitions.qux)).toEqual(
         expect.objectContaining({
           type: 'property',
           optional: true,
-        })
+        }),
       )
 
       snapshot(hideAstLocation(props!.definitions))
@@ -61,7 +61,7 @@ describe('analyzeSFC', () => {
     test('should resolve referenced type', async () => {
       const { props } = await complie(
         `type Foo = string
-        defineProps<{ foo: Foo }>()`
+        defineProps<{ foo: Foo }>()`,
       )
       expect(hideAstLocation(props!.definitions.foo)).toEqual(
         expect.objectContaining({
@@ -76,7 +76,7 @@ describe('analyzeSFC', () => {
             ast: 'TSStringKeyword...',
             code: 'string',
           },
-        })
+        }),
       )
       snapshot(hideAstLocation(props!.definitions))
     })
@@ -91,7 +91,7 @@ describe('analyzeSFC', () => {
           // override
           foo: string
         }
-        defineProps<Props>()`
+        defineProps<Props>()`,
       )
       expect(Object.keys(hideAstLocation(props!.definitions))).toEqual([
         'base',
@@ -104,7 +104,7 @@ describe('analyzeSFC', () => {
             ast: 'TSStringKeyword...',
             code: 'string',
           },
-        })
+        }),
       )
       snapshot(hideAstLocation(props!.definitions))
     })
@@ -119,7 +119,7 @@ describe('analyzeSFC', () => {
           // override
           foo: string
         }
-        defineProps<Base & Props>()`
+        defineProps<Base & Props>()`,
       )
       expect(Object.keys(hideAstLocation(props!.definitions))).toEqual([
         'base',
@@ -132,7 +132,7 @@ describe('analyzeSFC', () => {
             ast: 'TSStringKeyword...',
             code: 'string',
           },
-        })
+        }),
       )
       snapshot(hideAstLocation(props!.definitions))
     })
@@ -155,7 +155,7 @@ describe('analyzeSFC', () => {
             ast: 'TSUnionType...',
             code: 'number | string',
           },
-        })
+        }),
       )
 
       expect(props!.addProp('newProp2', 'string', true)).toBe(true)
@@ -168,7 +168,7 @@ describe('analyzeSFC', () => {
             ast: 'TSStringKeyword...',
             code: 'string',
           },
-        })
+        }),
       )
 
       snapshot(hideAstLocation(props!.definitions))
@@ -252,10 +252,10 @@ describe('analyzeSFC', () => {
         }>()`)
 
         expect(props!.setProp('onClick', '() => OverwroteMethodProp')).toBe(
-          true
+          true,
         )
         expect(s.toString()).not.toContain(
-          `onClick(): void; onClick(param: string): string`
+          `onClick(): void; onClick(param: string): string`,
         )
         expect(s.toString()).toContain(`onClick: () => OverwroteMethodProp`)
 
@@ -277,7 +277,7 @@ describe('analyzeSFC', () => {
               ast: 'TSStringKeyword...',
               code: 'string',
             },
-          })
+          }),
         )
 
         // should be not updated in source code.
@@ -444,7 +444,7 @@ describe('analyzeSFC', () => {
     test('should resolve referenced type', async () => {
       const { emits } = await complie(
         `type Foo = 'foo'
-        defineEmits<{ (evt: Foo): void }>()`
+        defineEmits<{ (evt: Foo): void }>()`,
       )
       expect(hideAstLocation(emits!.definitions.foo)).toEqual([
         {
@@ -463,7 +463,7 @@ describe('analyzeSFC', () => {
         interface Emits extends Base {
           (evt: 'foo', param?: string): void
         }
-        defineEmits<Emits>()`
+        defineEmits<Emits>()`,
       )
       expect(Object.keys(hideAstLocation(emits!.definitions))).toEqual(['foo'])
       expect(hideAstLocation(emits!.definitions.foo)).toEqual([
@@ -487,7 +487,7 @@ describe('analyzeSFC', () => {
         interface Emits {
           (evt: 'foo', param?: string): void
         }
-        defineEmits<Base & Emits>()`
+        defineEmits<Base & Emits>()`,
       )
       expect(Object.keys(hideAstLocation(emits!.definitions))).toEqual(['foo'])
       expect(hideAstLocation(emits!.definitions.foo)).toEqual([

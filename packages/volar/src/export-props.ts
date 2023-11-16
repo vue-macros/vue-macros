@@ -26,7 +26,7 @@ function transform({
 }) {
   const filter = createFilter(
     volarOptions.include || /.*/,
-    volarOptions.exclude
+    volarOptions.exclude,
   )
   if (!filter(fileName)) return
 
@@ -35,7 +35,7 @@ function transform({
   for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (!ts.isVariableStatement(stmt)) continue
     const exportModifier = stmt.modifiers?.find(
-      (m) => m.kind === ts.SyntaxKind.ExportKeyword
+      (m) => m.kind === ts.SyntaxKind.ExportKeyword,
     )
     if (!exportModifier) continue
 
@@ -60,7 +60,7 @@ ${Object.entries(props)
   .join(',\n')}
   }>`,
       ],
-      vueLibName
+      vueLibName,
     )
   }
 }

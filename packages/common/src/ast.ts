@@ -6,7 +6,7 @@ import type * as t from '@babel/types'
 export function checkInvalidScopeReference(
   node: t.Node | undefined,
   method: string,
-  setupBindings: string[]
+  setupBindings: string[],
 ) {
   if (!node) return
   walkIdentifiers(node, (id) => {
@@ -14,7 +14,7 @@ export function checkInvalidScopeReference(
       throw new SyntaxError(
         `\`${method}()\` in <script setup> cannot reference locally ` +
           `declared variables (${id.name}) because it will be hoisted outside of the ` +
-          `setup() function.`
+          `setup() function.`,
       )
   })
 }
@@ -28,7 +28,7 @@ export function isStaticExpression(
     > & {
       magicComment?: string
     }
-  > = {}
+  > = {},
 ): boolean {
   const { magicComment, fn, object, objectMethod, array, unary, regex } =
     options
@@ -37,7 +37,7 @@ export function isStaticExpression(
   if (
     magicComment &&
     node.leadingComments?.some(
-      (comment) => comment.value.trim() === magicComment
+      (comment) => comment.value.trim() === magicComment,
     )
   )
     return true
@@ -69,7 +69,7 @@ export function isStaticExpression(
       return (
         !!array &&
         node.elements.every(
-          (element) => element && isStaticExpression(element, options)
+          (element) => element && isStaticExpression(element, options),
         )
       )
 
@@ -152,7 +152,7 @@ export function importHelperFn(
   offset: number,
   local: string,
   from = 'vue',
-  isDefault = false
+  isDefault = false,
 ) {
   const imported = isDefault ? 'default' : local
   const cacheKey = `${from}@${imported}`
@@ -163,7 +163,7 @@ export function importHelperFn(
         isDefault
           ? HELPER_PREFIX + local
           : `{ ${imported} as ${HELPER_PREFIX + local} }`
-      } from ${JSON.stringify(from)};`
+      } from ${JSON.stringify(from)};`,
     )
     if (!importedMap.has(s)) {
       importedMap.set(s, new Set([cacheKey]))

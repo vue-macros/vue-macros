@@ -22,7 +22,7 @@ export function transformSetupBlock(code: string, id: string, lang?: string) {
               p.name === 'lang' &&
               p.value &&
               p.value.content &&
-              p.value.content !== 'html'
+              p.value.content !== 'html',
           ))
       ) {
         return 2 satisfies TextModes.RAWTEXT
@@ -41,12 +41,12 @@ export function transformSetupBlock(code: string, id: string, lang?: string) {
       s.overwrite(
         child.loc.start.offset + 1 /* '<'.length */,
         child.loc.start.offset + 6 /* '<setup'.length */,
-        codegen
+        codegen,
       )
       s.overwrite(
         child.loc.end.offset - 6 /* `setup>`.length */,
         child.loc.end.offset - 1 /* '>'.length */,
-        'script'
+        'script',
       )
     }
   }

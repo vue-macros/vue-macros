@@ -44,5 +44,5 @@ export default createUnplugin<Options | undefined, false>(
         return transformDefineRender(code, id)
       },
     }
-  }
+  },
 )

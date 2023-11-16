@@ -23,7 +23,7 @@ export function transformVueSFC(code: string, id: string) {
     const { importedHelpers, rootRefs } = transformAST(
       getScriptAst()!,
       s,
-      offset
+      offset,
     )
     refBindings = rootRefs
     importHelpers(s, script.loc.start.offset, importedHelpers)
@@ -45,7 +45,7 @@ export function transformVueSFC(code: string, id: string) {
         s,
         scriptSetup.loc.start.offset,
         refBindings,
-        propsDestructuredBindings
+        propsDestructuredBindings,
       )
       importHelpers(s, scriptSetup.loc.start.offset, importedHelpers)
     }
@@ -57,13 +57,13 @@ export function transformVueSFC(code: string, id: string) {
     if (node.type !== 'VariableDeclaration') return
 
     const decl = node.declarations.find((decl) =>
-      isCallOf(decl.init, DEFINE_PROPS)
+      isCallOf(decl.init, DEFINE_PROPS),
     )
     if (!decl || decl.id.type !== 'ObjectPattern') return
 
     if (node.declarations.length > 1)
       throw new SyntaxError(
-        `${DEFINE_PROPS}() don't support multiple declarations.`
+        `${DEFINE_PROPS}() don't support multiple declarations.`,
       )
 
     const offset = scriptSetup!.loc.start.offset
@@ -77,7 +77,7 @@ export function transformVueSFC(code: string, id: string) {
           propKey = resolveObjectKey(prop)
         } catch {
           throw new SyntaxError(
-            `${DEFINE_PROPS}() destructure cannot use computed key.`
+            `${DEFINE_PROPS}() destructure cannot use computed key.`,
           )
         }
 
@@ -88,7 +88,7 @@ export function transformVueSFC(code: string, id: string) {
           const { left, right } = prop.value
           if (left.type !== 'Identifier') {
             throw new SyntaxError(
-              `${DEFINE_PROPS}() destructure does not support nested patterns.`
+              `${DEFINE_PROPS}() destructure does not support nested patterns.`,
             )
           }
           local = left.name
@@ -105,7 +105,7 @@ export function transformVueSFC(code: string, id: string) {
           }
         } else {
           throw new SyntaxError(
-            `${DEFINE_PROPS}() destructure does not support nested patterns.`
+            `${DEFINE_PROPS}() destructure does not support nested patterns.`,
           )
         }
 
@@ -113,11 +113,11 @@ export function transformVueSFC(code: string, id: string) {
           const toRef = importHelperFn(
             s,
             scriptSetup!.loc.start.offset,
-            'toRef'
+            'toRef',
           )
           s.prependLeft(
             offset,
-            `const ${local} = ${toRef}(__props, ${JSON.stringify(propKey)});\n`
+            `const ${local} = ${toRef}(__props, ${JSON.stringify(propKey)});\n`,
           )
         }
       } else {
@@ -127,8 +127,8 @@ export function transformVueSFC(code: string, id: string) {
 const ${
             (prop.argument as Identifier).name
           } = createPropsRestProxy(__props, ${JSON.stringify(
-            Object.keys(propsDestructuredBindings!)
-          )});\n`
+            Object.keys(propsDestructuredBindings!),
+          )});\n`,
         )
       }
     }
@@ -140,7 +140,7 @@ const ${
         `withDefaults(${s.sliceNode(defineDecl, {
           offset,
         })}, { ${defaultStr} })`,
-        { offset }
+        { offset },
       )
     } else if (defineDecl.arguments[0]) {
       if (defaultStr) {
@@ -149,18 +149,18 @@ const ${
           `defineProps(${importHelperFn(
             s,
             offset,
-            'mergeDefaults'
+            'mergeDefaults',
           )}(${s.sliceNode(defineDecl.arguments[0], {
             offset,
           })}, { ${defaultStr} }))`,
-          { offset }
+          { offset },
         )
       } else {
         s.overwriteNode(node, s.sliceNode(defineDecl, { offset }), { offset })
       }
     } else
       throw new SyntaxError(
-        `${DEFINE_PROPS}() must have at least one argument or type argument.`
+        `${DEFINE_PROPS}() must have at least one argument or type argument.`,
       )
   }
 }
@@ -169,6 +169,8 @@ function importHelpers(s: MagicString, offset: number, helpers: string[]) {
   if (helpers.length === 0) return
   s.prependLeft(
     offset,
-    `import { ${helpers.map((h) => `${h} as _${h}`).join(', ')} } from 'vue';\n`
+    `import { ${helpers
+      .map((h) => `${h} as _${h}`)
+      .join(', ')} } from 'vue';\n`,
   )
 }

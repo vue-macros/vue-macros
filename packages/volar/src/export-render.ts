@@ -24,7 +24,7 @@ function transform({
 }) {
   const filter = createFilter(
     volarOptions.include || /.*/,
-    volarOptions.exclude
+    volarOptions.exclude,
   )
   if (!filter(fileName)) return
 
@@ -38,7 +38,7 @@ function transform({
       'scriptSetup',
       stmt.getStart(sfc.scriptSetup?.ast),
       start,
-      'defineRender('
+      'defineRender(',
     )
     replaceSourceRange(file.content, 'scriptSetup', end, end, ')')
   }

@@ -9,7 +9,7 @@ export function transformVFor(
   nodes: JsxDirectiveNode[],
   s: MagicString,
   offset: number,
-  version: number
+  version: number,
 ) {
   if (nodes.length === 0) return
   const renderList =
@@ -45,7 +45,7 @@ export function transformVFor(
       node.start! + offset,
       `${hasScope ? '{' : ''}${renderList}(${list}, (${item}${
         index ? `, ${index}` : ''
-      }${objectIndex ? `, ${objectIndex}` : ''}) => `
+      }${objectIndex ? `, ${objectIndex}` : ''}) => `,
     )
 
     const isTemplate =

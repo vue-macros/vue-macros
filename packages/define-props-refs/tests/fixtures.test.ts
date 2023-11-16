@@ -8,6 +8,6 @@ describe('fixtures', async () => {
       eager: true,
       as: 'raw',
     }),
-    (args, id, code) => transformDefinePropsRefs(code, id)?.code
+    (args, id, code) => transformDefinePropsRefs(code, id)?.code,
   )
 })

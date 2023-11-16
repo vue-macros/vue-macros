@@ -13,23 +13,23 @@ const SKIP_VUE2 = !!process.env.SKIP_VUE2
 export async function testFixtures(
   globs: string | string[],
   exec: (args: Record<string, any>, id: string) => any,
-  options?: GlobOptions & Options
+  options?: GlobOptions & Options,
 ): Promise<void>
 export async function testFixtures(
   files: Record<string, string>,
   exec: (args: Record<string, any>, id: string, code: string) => any,
-  options?: Options
+  options?: Options,
 ): Promise<void>
 export async function testFixtures(
   globsOrFiles: string | string[] | Record<string, string>,
   cb: (args: Record<string, any>, id: string, code: string) => any,
-  { params, promise, ...globOptions }: GlobOptions & Options = {}
+  { params, promise, ...globOptions }: GlobOptions & Options = {},
 ) {
   let files: Record<string, string | undefined>
 
   if (typeof globsOrFiles === 'string' || Array.isArray(globsOrFiles)) {
     files = Object.fromEntries(
-      (await glob(globsOrFiles, globOptions)).map((file) => [file, undefined])
+      (await glob(globsOrFiles, globOptions)).map((file) => [file, undefined]),
     )
   } else {
     files = globsOrFiles
@@ -47,7 +47,7 @@ export async function testFixtures(
     id: string,
     code: string | undefined,
     params: NonNullable<Options['params']>,
-    args: Record<string, any> = {}
+    args: Record<string, any> = {},
   ) {
     const [currParams, ...restParams] = params
     const [name, values = [undefined]] = currParams
@@ -58,7 +58,7 @@ export async function testFixtures(
 
           describe(
             getName(name, value),
-            makeTests(id, code, restParams, currArgs)
+            makeTests(id, code, restParams, currArgs),
           )
         }
       }
@@ -83,7 +83,7 @@ export async function testFixtures(
                 (execute() as Promise<any>).catch((error) => {
                   console.warn(error)
                   return Promise.reject(error)
-                })
+                }),
               ).resolves.toMatchSnapshot()
             } else {
               expect(execute()).toMatchSnapshot()
