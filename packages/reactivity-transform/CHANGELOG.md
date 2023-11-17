@@ -1,5 +1,16 @@
 # @vue-macros/reactivity-transform
 
+## 0.4.0
+
+### Minor Changes
+
+- [`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7) Thanks [@sxzz](https://github.com/sxzz)! - upgrade vite & rollup & esbuild
+
+### Patch Changes
+
+- Updated dependencies [[`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7)]:
+  - @vue-macros/common@1.9.0
+
 ## 0.3.23
 
 ### Patch Changes
