@@ -9,8 +9,5 @@ export default defineConfig({
     },
     conditions: ['dev'],
   },
-  test: {
-    threads: false,
-  },
   plugins: [Macros()],
 })

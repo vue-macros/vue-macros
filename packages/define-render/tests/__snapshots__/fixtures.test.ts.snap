@@ -5,16 +5,16 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = false 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic\\",
+  __name: "basic",
   setup(__props) {
-    return () => h(\\"div\\");
+    return () => h("div");
   }
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock(\\"div\\", null, \\"basic\\");
+  return openBlock(), createElementBlock("div", null, "basic");
 }
-var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", _sfc_render], __FILE__]);
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { basic as default };
 "
@@ -25,9 +25,9 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = true 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic\\",
+  __name: "basic",
   setup(__props) {
-    return () => h(\\"div\\");
+    return () => h("div");
   }
 });
 
@@ -42,9 +42,9 @@ exports[`fixtures > tests/fixtures/id.vue > isProduction = false 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"id\\",
+  __name: "id",
   setup(__props) {
-    const renderFn = () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+    const renderFn = () => createVNode("div", null, [createTextVNode("Hello")]);
     return renderFn;
   }
 });
@@ -60,9 +60,9 @@ exports[`fixtures > tests/fixtures/id.vue > isProduction = true 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"id\\",
+  __name: "id",
   setup(__props) {
-    const renderFn = () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+    const renderFn = () => createVNode("div", null, [createTextVNode("Hello")]);
     return renderFn;
   }
 });
@@ -78,16 +78,16 @@ exports[`fixtures > tests/fixtures/tsx.vue > isProduction = false 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"tsx\\",
+  __name: "tsx",
   setup(__props) {
-    return () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+    return () => createVNode("div", null, [createTextVNode("Hello")]);
   }
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock(\\"div\\");
+  return openBlock(), createElementBlock("div");
 }
-var tsx = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", _sfc_render], __FILE__]);
+var tsx = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { tsx as default };
 "
@@ -98,9 +98,9 @@ exports[`fixtures > tests/fixtures/tsx.vue > isProduction = true 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"tsx\\",
+  __name: "tsx",
   setup(__props) {
-    return () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+    return () => createVNode("div", null, [createTextVNode("Hello")]);
   }
 });
 
@@ -115,9 +115,9 @@ exports[`fixtures > tests/fixtures/without-fn.vue > isProduction = false 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"without-fn\\",
+  __name: "without-fn",
   setup(__props) {
-    return () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+    return () => createVNode("div", null, [createTextVNode("Hello")]);
   }
 });
 
@@ -132,9 +132,9 @@ exports[`fixtures > tests/fixtures/without-fn.vue > isProduction = true 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"without-fn\\",
+  __name: "without-fn",
   setup(__props) {
-    return () => createVNode(\\"div\\", null, [createTextVNode(\\"Hello\\")]);
+    return () => createVNode("div", null, [createTextVNode("Hello")]);
   }
 });
 

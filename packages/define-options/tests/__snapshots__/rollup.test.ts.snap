@@ -2,7 +2,7 @@
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "var basic = \`<script>
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
 });
@@ -24,15 +24,15 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/el-button.vue 1`] = `
 "var elButton = \`<script>
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'ElButton',
 });
 </script>
 <template>
   <button
-    ref=\\"buttonRef\\"
-    :class=\\"[
+    ref="buttonRef"
+    :class="[
       ns.b(),
       ns.m(buttonType),
       ns.m(buttonSize),
@@ -41,25 +41,25 @@ export default /*#__PURE__*/ __MACROS_defineComponent({
       ns.is('plain', plain),
       ns.is('round', round),
       ns.is('circle', circle),
-    ]\\"
-    :disabled=\\"buttonDisabled || loading\\"
-    :autofocus=\\"autofocus\\"
-    :type=\\"nativeType\\"
-    :style=\\"buttonStyle\\"
-    @click=\\"handleClick\\"
+    ]"
+    :disabled="buttonDisabled || loading"
+    :autofocus="autofocus"
+    :type="nativeType"
+    :style="buttonStyle"
+    @click="handleClick"
   >
-    <template v-if=\\"loading\\">
-      <slot v-if=\\"$slots.loading\\" name=\\"loading\\"></slot>
-      <el-icon v-else :class=\\"ns.is('loading')\\">
-        <component :is=\\"loadingIcon\\" />
+    <template v-if="loading">
+      <slot v-if="$slots.loading" name="loading"></slot>
+      <el-icon v-else :class="ns.is('loading')">
+        <component :is="loadingIcon" />
       </el-icon>
     </template>
-    <el-icon v-else-if=\\"icon\\">
-      <component :is=\\"icon\\" />
+    <el-icon v-else-if="icon">
+      <component :is="icon" />
     </el-icon>
     <span
-      v-if=\\"$slots.default\\"
-      :class=\\"{ [ns.em('text', 'expand')]: shouldAddSpace }\\"
+      v-if="$slots.default"
+      :class="{ [ns.em('text', 'expand')]: shouldAddSpace }"
     >
       <slot></slot>
     </span>
@@ -102,7 +102,7 @@ const shouldAddSpace = computed(() => {
     const slot = defaultSlot[0]
     if (slot?.type === Text) {
       const text = slot.children
-      return /^\\\\p{Unified_Ideograph}{2}$/u.test(text)
+      return /^\\p{Unified_Ideograph}{2}$/u.test(text)
     }
   }
   return false
@@ -114,7 +114,7 @@ const buttonDisabled = useDisabled()
 const buttonType = computed(() => props.type || buttonGroupContext?.type || '')
 
 // calculate hover & active color by color
-const typeColor = computed(() => useCssVar(\\\\\`--el-color-\${props.type}\\\\\`).value)
+const typeColor = computed(() => useCssVar(\\\`--el-color-\${props.type}\\\`).value)
 const buttonStyle = computed(() => {
   let styles = {}
 
@@ -180,21 +180,21 @@ export { empty as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/error1.vue 1`] = `"\`defineOptions()\` in <script setup> cannot reference locally declared variables (name) because it will be hoisted outside of the setup() function."`;
+exports[`fixtures > tests/fixtures/error1.vue 1`] = `[SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables (name) because it will be hoisted outside of the setup() function.]`;
 
-exports[`fixtures > tests/fixtures/error2.vue 1`] = `"\`defineOptions()\` in <script setup> cannot reference locally declared variables (foo) because it will be hoisted outside of the setup() function."`;
+exports[`fixtures > tests/fixtures/error2.vue 1`] = `[SyntaxError: \`defineOptions()\` in <script setup> cannot reference locally declared variables (foo) because it will be hoisted outside of the setup() function.]`;
 
-exports[`fixtures > tests/fixtures/error3.vue 1`] = `"defineOptions cannot be used with default export within <script>."`;
+exports[`fixtures > tests/fixtures/error3.vue 1`] = `[SyntaxError: defineOptions cannot be used with default export within <script>.]`;
 
-exports[`fixtures > tests/fixtures/error4.vue 1`] = `"defineOptions() please use defineProps, defineEmits, defineExpose, or defineSlots instead."`;
+exports[`fixtures > tests/fixtures/error4.vue 1`] = `[SyntaxError: defineOptions() please use defineProps, defineEmits, defineExpose, or defineSlots instead.]`;
 
-exports[`fixtures > tests/fixtures/error5.vue 1`] = `"defineOptions() please use defineProps, defineEmits, defineExpose, or defineSlots instead."`;
+exports[`fixtures > tests/fixtures/error5.vue 1`] = `[SyntaxError: defineOptions() please use defineProps, defineEmits, defineExpose, or defineSlots instead.]`;
 
-exports[`fixtures > tests/fixtures/error6.vue 1`] = `"duplicate defineOptions() call"`;
+exports[`fixtures > tests/fixtures/error6.vue 1`] = `[SyntaxError: duplicate defineOptions() call]`;
 
 exports[`fixtures > tests/fixtures/function.vue 1`] = `
-"var _function = \`<script lang=\\"ts\\">
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+"var _function = \`<script lang="ts">
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   foo() {
     console.log('hello')
@@ -212,7 +212,7 @@ export default /*#__PURE__*/ __MACROS_defineComponent({
   iife: (() => Math.random())(),
 });
 </script>
-<script lang=\\"ts\\" setup>
+<script lang="ts" setup>
 const a = 'hello'
 
 </script>
@@ -223,15 +223,15 @@ export { _function as default };
 `;
 
 exports[`fixtures > tests/fixtures/imports.vue 1`] = `
-"var imports = \`<script lang=\\"ts\\">
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+"var imports = \`<script lang="ts">
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   components: {
     Basic,
   },
 });
 </script>
-<script setup lang=\\"ts\\">
+<script setup lang="ts">
 import Basic from './basic.vue'
 
 
@@ -244,7 +244,7 @@ export { imports as default };
 
 exports[`fixtures > tests/fixtures/js.vue 1`] = `
 "var js = \`<script>
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
 });
@@ -268,7 +268,7 @@ export { js as default };
 
 exports[`fixtures > tests/fixtures/jsx.vue 1`] = `
 "var jsx = \`<script>
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Jsx',
 });
@@ -323,7 +323,7 @@ export { noTransform2 as default };
 
 exports[`fixtures > tests/fixtures/reference-var.vue 1`] = `
 "var referenceVar = \`<script>
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent(options);
 </script>
 <script setup>
@@ -337,13 +337,13 @@ export { referenceVar as default };
 `;
 
 exports[`fixtures > tests/fixtures/typescript.vue 1`] = `
-"var typescript = \`<script lang=\\"ts\\">
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+"var typescript = \`<script lang="ts">
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
 });
 </script>
-<script lang=\\"ts\\" setup>
+<script lang="ts" setup>
 
 
 console.log('Hello')
@@ -364,7 +364,7 @@ exports[`fixtures > tests/fixtures/with-script.vue 1`] = `
 "var withScript = \`<script>
 const name = '123'
 
-import { defineComponent as __MACROS_defineComponent } from \\"vue\\";
+import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
 });</script>

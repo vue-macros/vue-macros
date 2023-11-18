@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > ./fixtures/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 const { foo = 'foo', bar = 10, baz, qux = fn(), } = defineProps<{
   foo?: string,
   bar?: any,

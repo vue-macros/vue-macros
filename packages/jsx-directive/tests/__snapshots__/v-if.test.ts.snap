@@ -16,7 +16,7 @@ export default () => (
 `;
 
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else.vue 1`] = `
-"<script setup lang=\\"tsx\\">
+"<script setup lang="tsx">
 const { foo = 2 } = defineProps<{
   foo: number
 }>()
@@ -48,7 +48,7 @@ export default () => (
 `;
 
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else-if.vue 1`] = `
-"<script setup lang=\\"tsx\\">
+"<script setup lang="tsx">
 const { foo = 0 } = defineProps<{
   foo: number
 }>()
@@ -80,7 +80,7 @@ export default () => {
 `;
 
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if.vue 1`] = `
-"<script setup lang=\\"tsx\\">
+"<script setup lang="tsx">
 const { foo } = defineProps<{
   foo: number
 }>()
@@ -113,7 +113,7 @@ export default () => (
 `;
 
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if-nested.vue 1`] = `
-"<script setup lang=\\"tsx\\">
+"<script setup lang="tsx">
 const { foo = 0 } = defineProps<{
   foo: number
 }>()

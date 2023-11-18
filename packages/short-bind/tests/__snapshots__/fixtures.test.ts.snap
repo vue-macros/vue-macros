@@ -4,22 +4,22 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { ref, openBlock, Fragment, createElementVNode, createElementBlock, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-const _hoisted_1 = [\\"value\\"];
-const _hoisted_2 = [\\"modelValue\\"];
-const _hoisted_3 = [\\"model-value\\"];
+const _hoisted_1 = ["value"];
+const _hoisted_2 = ["modelValue"];
+const _hoisted_3 = ["model-value"];
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic\\",
+  __name: "basic",
   setup(__props) {
-    const value = ref(\\"\\");
-    const modelValue = ref(\\"\\");
+    const value = ref("");
+    const modelValue = ref("");
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock(
         Fragment,
         null,
         [
-          createElementVNode(\\"input\\", { value: value.value }, null, 8, _hoisted_1),
-          createElementVNode(\\"input\\", { modelValue: modelValue.value }, null, 8, _hoisted_2),
-          createElementVNode(\\"input\\", { \\"model-value\\": modelValue.value }, null, 8, _hoisted_3)
+          createElementVNode("input", { value: value.value }, null, 8, _hoisted_1),
+          createElementVNode("input", { modelValue: modelValue.value }, null, 8, _hoisted_2),
+          createElementVNode("input", { "model-value": modelValue.value }, null, 8, _hoisted_3)
         ],
         64
         /* STABLE_FRAGMENT */

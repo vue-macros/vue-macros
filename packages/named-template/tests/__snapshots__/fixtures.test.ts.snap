@@ -4,23 +4,23 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "import { defineComponent, createElementVNode, openBlock, Fragment, toDisplayString, createElementBlock, createTextVNode, createBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-const foo = \\"foo\\";
+const foo = "foo";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic\\",
+  __name: "basic",
   setup(__props, { expose: __expose }) {
     __expose();
     const __returned__ = { foo };
-    Object.defineProperty(__returned__, \\"__isScriptSetup\\", { enumerable: false, value: true });
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
 });
 
-const _hoisted_1$1 = /*#__PURE__*/createElementVNode(\\"div\\", null, \\"Test\\", -1 /* HOISTED */);
+const _hoisted_1$1 = /*#__PURE__*/createElementVNode("div", null, "Test", -1 /* HOISTED */);
 
 function render$1(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createElementBlock(Fragment, null, [
     _hoisted_1$1,
-    createElementVNode(\\"span\\", null, toDisplayString($setup.foo))
+    createElementVNode("span", null, toDisplayString($setup.foo))
   ], 64 /* STABLE_FRAGMENT */))
 }
 
@@ -32,9 +32,9 @@ var block0 = {
 };
 
 const _hoisted_1 = /* @__PURE__ */ createElementVNode(
-  \\"span\\",
+  "span",
   null,
-  \\"hello\\",
+  "hello",
   -1
   /* HOISTED */
 );
@@ -52,9 +52,9 @@ function render(...args) {
   );
 }
 
-if (typeof block0 === \\"function\\")
+if (typeof block0 === "function")
   block0(_sfc_main);
-var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", render], __FILE__]);
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", render], __FILE__]);
 
 export { basic as default };
 "
@@ -65,20 +65,20 @@ exports[`fixtures > tests/fixtures/dash-name.vue 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"dash-name\\",
+  __name: "dash-name",
   setup(__props, { expose: __expose }) {
     __expose();
     const __returned__ = {};
-    Object.defineProperty(__returned__, \\"__isScriptSetup\\", { enumerable: false, value: true });
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
 });
 
-const _hoisted_1$1 = { class: \\"btn-content\\" };
+const _hoisted_1$1 = { class: "btn-content" };
 
 function render$1(_ctx, _cache, $props, $setup, $data, $options) {
-  return (openBlock(), createElementBlock(\\"div\\", _hoisted_1$1, [
-    renderSlot(_ctx.$slots, \\"default\\")
+  return (openBlock(), createElementBlock("div", _hoisted_1$1, [
+    renderSlot(_ctx.$slots, "default")
   ]))
 }
 
@@ -89,17 +89,17 @@ var block0 = {
   }
 };
 
-const _hoisted_1 = { class: \\"a-btn\\" };
+const _hoisted_1 = { class: "a-btn" };
 function render(...args) {
  let [_ctx, _cache, $props, $setup, $data, $options] = args;
-  return openBlock(), createElementBlock(\\"div\\", _hoisted_1, [
+  return openBlock(), createElementBlock("div", _hoisted_1, [
     (openBlock(), createBlock(Fragment, null, [block0.render(...args)]))
   ]);
 }
 
-if (typeof block0 === \\"function\\")
+if (typeof block0 === "function")
   block0(_sfc_main);
-var dashName = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", render], __FILE__]);
+var dashName = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", render], __FILE__]);
 
 export { dashName as default };
 "
@@ -109,19 +109,19 @@ exports[`fixtures > tests/fixtures/multi.vue 1`] = `
 "import { defineComponent, openBlock, createElementBlock, createTextVNode, createElementVNode, Fragment, createBlock, createCommentVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-const pager = \\"top\\";
+const pager = "top";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"multi\\",
+  __name: "multi",
   setup(__props, { expose: __expose }) {
     __expose();
     const __returned__ = { pager };
-    Object.defineProperty(__returned__, \\"__isScriptSetup\\", { enumerable: false, value: true });
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
   }
 });
 
 function render$1(_ctx, _cache, $props, $setup, $data, $options) {
-  return (openBlock(), createElementBlock(\\"span\\", null, \\"This is pager\\"))
+  return (openBlock(), createElementBlock("span", null, "This is pager"))
 }
 
 var block0 = {
@@ -132,9 +132,9 @@ var block0 = {
 };
 
 const _hoisted_1 = /* @__PURE__ */ createElementVNode(
-  \\"span\\",
+  "span",
   null,
-  \\"Here is data table\\",
+  "Here is data table",
   -1
   /* HOISTED */
 );
@@ -144,18 +144,18 @@ function render(...args) {
     Fragment,
     null,
     [
-      $setup.pager === \\"top\\" ? (openBlock(), createBlock(Fragment, { key: 0 }, [block0.render(...args)])) : createCommentVNode(\\"v-if\\", true),
+      $setup.pager === "top" ? (openBlock(), createBlock(Fragment, { key: 0 }, [block0.render(...args)])) : createCommentVNode("v-if", true),
       _hoisted_1,
-      $setup.pager === \\"bottom\\" ? (openBlock(), createBlock(Fragment, { key: 1 }, [block0.render(...args)])) : createCommentVNode(\\"v-if\\", true)
+      $setup.pager === "bottom" ? (openBlock(), createBlock(Fragment, { key: 1 }, [block0.render(...args)])) : createCommentVNode("v-if", true)
     ],
     64
     /* STABLE_FRAGMENT */
   );
 }
 
-if (typeof block0 === \\"function\\")
+if (typeof block0 === "function")
   block0(_sfc_main);
-var multi = /* @__PURE__ */ _export_sfc(_sfc_main, [[\\"render\\", render], __FILE__]);
+var multi = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", render], __FILE__]);
 
 export { multi as default };
 "

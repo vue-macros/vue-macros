@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/johnson-edition/basic.vue 1`] = `
-"var basic = \`<script setup lang=\\"ts\\">
+"var basic = \`<script setup lang="ts">
 const __MACROS_props = defineProps({
   qux: { type: String },
   foo: { type: String, default: 'foo' },
@@ -10,29 +10,29 @@ const __MACROS_props = defineProps({
   unknownType: { type: Boolean, skipCheck: true },
 });
 
-import { toRef as __MACROS_toRef } from \\"vue\\";
+import { toRef as __MACROS_toRef } from "vue";
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
 import { defineProp } from '../../../macros-johnson'
 
 // defineProp()
-const qux = __MACROS_toRef(__props, \\"qux\\")
+const qux = __MACROS_toRef(__props, "qux")
 expectTypeOf(qux).toEqualTypeOf<ComputedRef<string | undefined>>()
 
 // defineProp(value)
-const foo = __MACROS_toRef(__props, \\"foo\\")
+const foo = __MACROS_toRef(__props, "foo")
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<string>>()
 
 // defineProp(value, required)
-const bar = __MACROS_toRef(__props, \\"bar\\")
+const bar = __MACROS_toRef(__props, "bar")
 expectTypeOf(bar).toEqualTypeOf<ComputedRef<string>>()
 
 // defineProp(value, required, rest)
-const baz = __MACROS_toRef(__props, \\"baz\\")
+const baz = __MACROS_toRef(__props, "baz")
 expectTypeOf(baz).toEqualTypeOf<ComputedRef<string>>()
 
 // unknown type
-const unknownType = __MACROS_toRef(__props, \\"unknownType\\")
+const unknownType = __MACROS_toRef(__props, "unknownType")
 </script>
 \`;
 
@@ -41,7 +41,7 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/kevin-edition/basic.vue 1`] = `
-"var basic = \`<script setup lang=\\"ts\\">
+"var basic = \`<script setup lang="ts">
 const __MACROS_props = defineProps({
   foo: { type: String },
   bar: { type: String, ...{
@@ -59,37 +59,37 @@ const __MACROS_props = defineProps({
   unknownType: { type: Boolean, skipCheck: true },
 });
 
-import { toRef as __MACROS_toRef } from \\"vue\\";
+import { toRef as __MACROS_toRef } from "vue";
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
 import type { Qux } from '../types'
 import { defineProp } from '../../../macros'
 
 // defineProp(prop_name)
-const foo = __MACROS_toRef(__props, \\"foo\\")
+const foo = __MACROS_toRef(__props, "foo")
 expectTypeOf(foo).toEqualTypeOf<ComputedRef<string | undefined>>()
 
 // defineProp(prop_name, options)
-const bar = __MACROS_toRef(__props, \\"bar\\")
+const bar = __MACROS_toRef(__props, "bar")
 expectTypeOf(bar).toEqualTypeOf<ComputedRef<string>>()
 
 // defineProp(prop_name, options)
-const baz = __MACROS_toRef(__props, \\"baz\\")
+const baz = __MACROS_toRef(__props, "baz")
 expectTypeOf(baz).toEqualTypeOf<ComputedRef<string | number>>()
 
 // defineProp(prop_name)
-__MACROS_toRef(__props, \\"qux\\")
+__MACROS_toRef(__props, "qux")
 
 // defineProp(prop_name, options)
-__MACROS_toRef(__props, \\"quux\\")
+__MACROS_toRef(__props, "quux")
 
 // infer prop name from variable name
 // const prop_name = defineProp()
-const quuz = __MACROS_toRef(__props, \\"quuz\\")
+const quuz = __MACROS_toRef(__props, "quuz")
 expectTypeOf(quuz).toEqualTypeOf<ComputedRef<unknown>>()
 console.log(quuz)
 
-const unknownType = __MACROS_toRef(__props, \\"unknownType\\")
+const unknownType = __MACROS_toRef(__props, "unknownType")
 </script>
 \`;
 

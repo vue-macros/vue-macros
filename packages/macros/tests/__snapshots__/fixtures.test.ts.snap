@@ -5,7 +5,7 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-const name = \\"Foo\\";
+const name = "Foo";
 const __default__ = defineComponent({
   name
 });
@@ -15,13 +15,13 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     title: { type: String, required: true },
     modelValue: { type: String, required: true }
   },
-  emits: [\\"change\\", \\"update:modelValue\\"],
+  emits: ["change", "update:modelValue"],
   setup(__props, { emit: __emit }) {
     const emit = __emit;
-    let { modelValue } = __MACROS_useVModel(\\"modelValue\\");
+    let { modelValue } = __MACROS_useVModel("modelValue");
     const handleClick = () => {
-      emit(\\"change\\");
-      modelValue.value = \\"hello, \\" + __props.title;
+      emit("change");
+      modelValue.value = "hello, " + __props.title;
     };
     return () => {
     };
@@ -41,11 +41,11 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 const _sfc_main = {};
 
 function _sfc_render(_ctx, _cache) {
-  const _component_el_form = resolveComponent(\\"el-form\\");
+  const _component_el_form = resolveComponent("el-form");
 
   return (openBlock(), createElementBlock(Fragment, null, [
-    createCommentVNode(\\" disabled \\"),
-    createVNode(_component_el_form, { inline: \\"\\" })
+    createCommentVNode(" disabled "),
+    createVNode(_component_el_form, { inline: "" })
   ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
 }
 var booleanProp = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
@@ -58,9 +58,9 @@ exports[`fixtures > tests/fixtures/case-233.vue 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-const msg = \\"Hello\\";
+const msg = "Hello";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"case-233\\",
+  __name: "case-233",
   props: {
     msg: { type: String, required: true, default: msg }
   },
@@ -81,7 +81,7 @@ exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"define-props-refs\\",
+  __name: "define-props-refs",
   props: {
     foo: { type: String, required: true }
   },
@@ -89,7 +89,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     const __MACROS_props = __props;
     const { foo } = toRefs(__MACROS_props);
     console.log(foo.value);
-    foo.value = \\"hello\\";
+    foo.value = "hello";
     return () => {
     };
   }
@@ -101,7 +101,7 @@ export { definePropsRefs as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/error-diff-lang.vue 1`] = `"[unplugin-vue-macros] <script> and <script setup> must have the same language type."`;
+exports[`fixtures > tests/fixtures/error-diff-lang.vue 1`] = `[Error: [unplugin-vue-macros] <script> and <script setup> must have the same language type.]`;
 
 exports[`fixtures > tests/fixtures/hoist-static.vue 1`] = `
 "import { defineComponent } from 'vue';
@@ -138,7 +138,7 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const [name] = (
   /* hoist-static*/
-  [\\"VarCompName\\"]
+  ["VarCompName"]
 );
 const __default__ = defineComponent({
   name
@@ -148,7 +148,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   setup(__props) {
     const test = (name2) => name2;
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock(\\"div\\", null, \\"1\\");
+      return openBlock(), createElementBlock("div", null, "1");
     };
   }
 });
@@ -166,17 +166,17 @@ import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"mixed-define-props\\",
+  __name: "mixed-define-props",
   props: { ...__MACROS_normalizePropsOrEmits({
     foo: { type: String, required: false },
     baz: { type: String, required: true }
-  }), ...__MACROS_normalizePropsOrEmits([\\"bar\\"]) },
-  emits: [\\"update:baz\\"],
+  }), ...__MACROS_normalizePropsOrEmits(["bar"]) },
+  emits: ["update:baz"],
   setup(__props) {
     const __MACROS_props = __props;
     const { foo } = toRefs(__MACROS_props);
-    const bar = toRef(__props, \\"bar\\");
-    const { baz } = __MACROS_useVModel(\\"baz\\");
+    const bar = toRef(__props, "bar");
+    const { baz } = __MACROS_useVModel("baz");
     return () => {
     };
   }
@@ -193,8 +193,8 @@ exports[`fixtures > tests/fixtures/short-emits.setup.tsx 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"short-emits.setup\\",
-  emits: [\\"update:modelValue\\"],
+  __name: "short-emits.setup",
+  emits: ["update:modelValue"],
   setup(__props) {
     return () => {
     };
@@ -213,10 +213,10 @@ import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const __default__ = defineComponent({
-  name: \\"Foo\\",
+  name: "Foo",
   model: {
-    prop: \\"value\\",
-    event: \\"changeInput\\"
+    prop: "value",
+    event: "changeInput"
   }
 });
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -225,14 +225,14 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     title: { type: String, required: true },
     value: { type: String, required: true }
   },
-  emits: [\\"change\\", \\"input\\", \\"changeInput\\"],
+  emits: ["change", "input", "changeInput"],
   setup(__props, { emit: __emit }) {
     const emit = __emit;
-    let { modelValue, value } = __MACROS_useVModel([\\"modelValue\\", \\"value\\", \\"input\\"], [\\"value\\", void 0, \\"changeInput\\"]);
+    let { modelValue, value } = __MACROS_useVModel(["modelValue", "value", "input"], ["value", void 0, "changeInput"]);
     const handleClick = () => {
-      emit(\\"change\\");
-      modelValue.value = \\"hello, \\" + __props.title;
-      value.value = \\"Word,\\" + __props.title;
+      emit("change");
+      modelValue.value = "hello, " + __props.title;
+      value.value = "Word," + __props.title;
     };
     return () => {
     };

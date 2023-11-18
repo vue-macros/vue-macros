@@ -6,9 +6,9 @@ import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic\\",
+  __name: "basic",
   props: {
-    foo: { type: String, required: false, default: \\"111\\" },
+    foo: { type: String, required: false, default: "111" },
     bar: { type: Number, required: false, default: 111 },
     baz: { type: Boolean, required: false, default: false }
   },
@@ -32,7 +32,7 @@ import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"declare\\",
+  __name: "declare",
   props: {
     bar: { type: Boolean, required: false, default: true }
   },
@@ -56,14 +56,14 @@ exports[`fixtures > tests/fixtures/destruct.vue 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"destruct\\",
+  __name: "destruct",
   props: {
-    foo: { type: String, required: false, default: \\"111\\" }
+    foo: { type: String, required: false, default: "111" }
   },
   setup(__props) {
     const { foo } = __props;
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock(\\"div\\", null, toDisplayString(foo));
+      return openBlock(), createElementBlock("div", null, toDisplayString(foo));
     };
   }
 });
@@ -80,7 +80,7 @@ import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"empty\\",
+  __name: "empty",
   setup(__props) {
     const props = __props;
     expectTypeOf().toEqualTypeOf();
@@ -101,7 +101,7 @@ import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"empty-defaults\\",
+  __name: "empty-defaults",
   props: {
     foo: { type: String, required: false }
   },
@@ -124,9 +124,9 @@ exports[`fixtures > tests/fixtures/tsx.vue 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"tsx\\",
+  __name: "tsx",
   props: {
-    foo: { type: String, required: false, default: \\"111\\" }
+    foo: { type: String, required: false, default: "111" }
   },
   setup(__props) {
     return () => {
