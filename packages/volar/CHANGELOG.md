@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.17.4
+
+### Patch Changes
+
+- [#563](https://github.com/vue-macros/vue-macros/pull/563) [`be269553`](https://github.com/vue-macros/vue-macros/commit/be269553985357f139d719ae9296197649c0b7cc) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - allow v-slot:default in template tag
+
 ## 0.17.3
 
 ### Patch Changes
