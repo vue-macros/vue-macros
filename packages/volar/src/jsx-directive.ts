@@ -228,9 +228,11 @@ function transformVSlot({
           for (const attr of child.openingElement.attributes.properties) {
             if (!ts.isJsxAttribute(attr)) continue
             if (isTemplateTag) {
-              name = ts.isJsxNamespacedName(attr.name)
-                ? attr.name.name
-                : undefined
+              name =
+                ts.isJsxNamespacedName(attr.name) &&
+                attr.name.name.escapedText !== 'default'
+                  ? attr.name.name
+                  : undefined
             }
 
             if (
