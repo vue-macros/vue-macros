@@ -16,6 +16,15 @@ const members = computed(() => [
     ],
   },
   {
+    avatar: 'https://github.com/alexzhang1030.png',
+    name: 'Alex',
+    title: t('Team member'),
+    links: [
+      { icon: 'github', link: 'https://github.com/alexzhang1030' },
+      { icon: 'twitter', link: 'https://twitter.com/AlanBro23' },
+    ],
+  },
+  {
     avatar: 'https://github.com/zhiyuanzmj.png',
     name: 'zhiyuanzmj',
     title: t('Team member'),
