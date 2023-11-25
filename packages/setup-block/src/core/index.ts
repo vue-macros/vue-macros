@@ -1,15 +1,18 @@
 import { MagicString, generateTransform } from '@vue-macros/common'
-import { type NodeTypes, type TextModes, parse } from '@vue/compiler-dom'
+import { type NodeTypes, parse, ElementNode } from '@vue/compiler-dom'
 
 export function transformSetupBlock(code: string, id: string, lang?: string) {
   const s = new MagicString(code)
 
   const node = parse(code, {
+    // @ts-ignore TODO remove ignore in 3.4
+    parseMode: 'sfc',
     // there are no components at SFC parsing level
     isNativeTag: () => true,
     // preserve all whitespaces
     isPreTag: () => true,
-    getTextMode: ({ tag, props }, parent) => {
+    // @ts-ignore (this has been removed in Vue 3.4)
+    getTextMode: ({ tag, props }: ElementNode, parent) => {
       // all top level elements except <template> are parsed as raw text
       // containers
       if (
@@ -25,9 +28,9 @@ export function transformSetupBlock(code: string, id: string, lang?: string) {
               p.value.content !== 'html',
           ))
       ) {
-        return 2 satisfies TextModes.RAWTEXT
+        return 2
       } else {
-        return 0 satisfies TextModes.DATA
+        return 0
       }
     },
   })
