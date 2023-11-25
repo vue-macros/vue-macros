@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/prefer-ts-expect-error */
 import { MagicString, generateTransform } from '@vue-macros/common'
-import { type NodeTypes, parse, ElementNode } from '@vue/compiler-dom'
+import { type ElementNode, type NodeTypes, parse } from '@vue/compiler-dom'
 
 export function transformSetupBlock(code: string, id: string, lang?: string) {
   const s = new MagicString(code)
