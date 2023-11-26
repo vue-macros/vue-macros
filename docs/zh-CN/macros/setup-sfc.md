@@ -26,10 +26,13 @@ import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [
-    VueMacros(),
-    Vue({
-      include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
-      //                   ⬆️ 需要添加 setup 模式
+    VueMacros({
+      plugins: {
+        vue: Vue({
+          include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
+          //                   ⬆️ 需要添加 setup 模式
+        }),
+      },
     }),
   ],
 })
