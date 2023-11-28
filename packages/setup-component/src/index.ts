@@ -31,7 +31,7 @@ export type OptionsResolved = MarkRequired<
   'include' | 'version' | 'root'
 >
 
-function resolveOption(options: Options): OptionsResolved {
+function resolveOptions(options: Options): OptionsResolved {
   const root = options.root || process.cwd()
   const version = options.version || detectVueVersion(root)
   return {
@@ -47,7 +47,7 @@ const name = generatePluginName()
 
 const PrePlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}, meta) => {
-    const options = resolveOption(userOptions)
+    const options = resolveOptions(userOptions)
     const filter = createFilter(options)
 
     const setupComponentContext: SetupComponentContext = {}

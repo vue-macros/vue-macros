@@ -16,7 +16,7 @@ export interface Options extends BaseOptions {
 
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 
-function resolveOption(options: Options): OptionsResolved {
+function resolveOptions(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
   return {
     include: [REGEX_VUE_SFC, REGEX_SETUP_SFC],
@@ -30,7 +30,7 @@ const name = generatePluginName()
 
 export default createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
-    const options = resolveOption(userOptions)
+    const options = resolveOptions(userOptions)
     const filter = createFilter(options)
 
     return {

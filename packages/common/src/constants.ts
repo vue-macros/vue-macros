@@ -22,7 +22,12 @@ export const REGEX_SETUP_SFC = /\.setup\.[cm]?[jt]sx?$/
 export const REGEX_SETUP_SFC_SUB = /\.setup\.[cm]?[jt]sx?((?!vue&).)*$/
 
 export const REGEX_VUE_SFC = /\.vue$/
+
+/** webpack only */
 export const REGEX_VUE_SUB = /\.vue\?vue&type=script/
+/** webpack only */
+export const REGEX_VUE_SUB_SETUP = /\.vue\?vue&type=script&setup=true/
+
 export const REGEX_NODE_MODULES = /node_modules/
 export const REGEX_SUPPORTED_EXT = /\.([cm]?[jt]sx?|vue)$/
 
