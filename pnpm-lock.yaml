@@ -825,6 +825,9 @@ importers:
       vite:
         specifier: ^5.0.2
         version: 5.0.2(@types/node@20.10.0)
+      vite-hyper-config:
+        specifier: ^0.2.0
+        version: 0.2.0(@types/node@20.10.0)(vite@5.0.2)
       vite-plugin-inspect:
         specifier: ^0.8.0
         version: 0.8.0(rollup@4.6.0)(vite@5.0.2)
