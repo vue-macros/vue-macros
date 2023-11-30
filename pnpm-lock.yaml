@@ -83,6 +83,9 @@ importers:
       unplugin-macros:
         specifier: ^0.9.0
         version: 0.9.0(@types/node@20.10.0)(rollup@4.6.0)
+      unplugin-raw:
+        specifier: ^0.1.1
+        version: 0.1.1(rollup@4.6.0)
       vite:
         specifier: ^5.0.2
         version: 5.0.2(@types/node@20.10.0)
@@ -883,6 +886,9 @@ importers:
       vite:
         specifier: ^5.0.2
         version: 5.0.2(@types/node@20.10.0)
+      vite-hyper-config:
+        specifier: ^0.2.0
+        version: 0.2.0(@types/node@20.10.0)(vite@5.0.2)
       vite-plugin-inspect:
         specifier: ^0.8.0
         version: 0.8.0(rollup@4.6.0)(vite@5.0.2)
@@ -3765,6 +3771,21 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 4.6.0
+
+  /@rollup/pluginutils@5.1.0(rollup@4.6.0):
+    resolution: {integrity: sha512-XTIWOPPcpvyKI6L1NHo0lFlCyznUEyPmPY1mc3KpPVDYulHSTvyeLNVW00QTLIAFNhR3kYnJTQHeGqU4M3n09g==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@types/estree': 1.0.5
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+      rollup: 4.6.0
+    dev: true
 
   /@rollup/rollup-android-arm-eabi@4.6.0:
     resolution: {integrity: sha512-keHkkWAe7OtdALGoutLY3utvthkGF+Y17ws9LYT8pxMBYXaCoH/8dXS2uzo6e8+sEhY7y/zi5RFo22Dy2lFpDw==}
@@ -12158,6 +12179,17 @@ packages:
       - terser
     dev: true
 
+  /unplugin-raw@0.1.1(rollup@4.6.0):
+    resolution: {integrity: sha512-ltUo6rhlvgipTPvZsvhIIiK5mfesEx5tc79su0qHhG08Xvv0X1jfAa0/ExE/ykIStU6lAlAvDUf6uswpezOFtQ==}
+    engines: {node: '>=16.14.0'}
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.6.0)
+      esbuild: 0.19.8
+      unplugin: 1.5.1
+    transitivePeerDependencies:
+      - rollup
+    dev: true
+
   /unplugin-vue@4.5.1(vite@5.0.2)(vue@3.3.9):
     resolution: {integrity: sha512-+10eeSa+zft1ZodITR68/5RCnix7KSliz3NbnveGIAZMXDxxYb2YD2UGMe5+Sui8d1kL1hiLqlPe3mh50urMlA==}
     engines: {node: '>=16.14.0'}
@@ -12378,6 +12410,27 @@ packages:
       vite: ^2.6.0 || ^3.0.0 || ^4.0.0 || ^5.0.0-0
     dependencies:
       vite: 5.0.2(@types/node@20.10.0)
+    dev: true
+
+  /vite-hyper-config@0.2.0(@types/node@20.10.0)(vite@5.0.2):
+    resolution: {integrity: sha512-JlJ++q5HrfLhagVvtVKPlh7Vo7b18HOe7+8dFe2mRA143co2JLrFwXt4ZOqiyQsTmL53Awm2HznqaV2zFgADog==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      vite: ^4.0.0 || ^5.0.0
+    dependencies:
+      cac: 6.7.14
+      picocolors: 1.0.0
+      vite: 5.0.2(@types/node@20.10.0)
+      vite-node: 0.34.6(@types/node@20.10.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
     dev: true
 
   /vite-node@0.34.6(@types/node@20.10.0):
