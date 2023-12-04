@@ -7,7 +7,13 @@ export const App: SetupFC<
   { update(value: string): void },
   { default: (scope: { msg: string }) => VNode }
 > = (props, { emit, slots }) => {
-  expectTypeOf(props).toEqualTypeOf<{ name: string }>()
+  expectTypeOf(props).toEqualTypeOf<
+    {
+      name: string
+    } & {
+      onUpdate?: (value: string) => any
+    }
+  >()
   expectTypeOf(emit).toEqualTypeOf<(event: 'update', value: string) => void>()
   expectTypeOf(slots).toEqualTypeOf<
     Readonly<{
