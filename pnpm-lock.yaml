@@ -156,9 +156,6 @@ importers:
 
   packages/astro:
     dependencies:
-      '@vue-macros/common':
-        specifier: workspace:~
-        version: link:../common
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../macros

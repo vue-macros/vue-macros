@@ -48,10 +48,9 @@
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
-    "astro": "^2.0.0"
+    "astro": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "dependencies": {
-    "@vue-macros/common": "workspace:~",
     "unplugin-vue-macros": "workspace:*"
   },
   "devDependencies": {
