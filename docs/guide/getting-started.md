@@ -12,6 +12,54 @@ We assume you are already familiar with the basic usages of Vue before you conti
 - VSCode with the **latest** [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension.
   - ❌ WebStorm is not supported.
 
+## Creating a Vue Macros Project
+
+### Installation
+
+::: code-group
+
+```bash [npm]
+npm i -g @vue-macros/cli
+```
+
+```bash [yarn]
+yarn global add @vue-macros/cli
+```
+
+```bash [pnpm]
+pnpm add -g @vue-macros/cli
+```
+
+:::
+
+This command will install [@vue-macros/cli](https://github.com/vue-macros/vue-macros-cli), the official Vue Macros scaffolding tool.
+
+### Initialization
+
+::: code-group
+
+```bash [npm]
+npm create vite@latest my-vue-macros -- --template vue-ts
+cd my-vue-macros
+vue-macros init
+```
+
+```bash [yarn]
+yarn create vite my-vue-macros --template vue-ts
+cd my-vue-macros
+vue-macros init
+```
+
+```bash [pnpm]
+pnpm create vite my-vue-macros --template vue-ts
+cd my-vue-macros
+vue-macros init
+```
+
+You will be presented with prompts for several optional experimental features.
+
+:::
+
 ## Demos
 
 - [Vite + Vue 3](https://github.com/vue-macros/vite)

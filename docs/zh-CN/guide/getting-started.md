@@ -12,6 +12,54 @@ Vue Macros 是一个库，用于实现尚未被 Vue 正式实现的提案或想�
 - VSCode 安装了 [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 扩展
   - ❌ 不支持 WebStorm
 
+## 搭建第一个 Vue Macros 项目
+
+### 安装
+
+::: code-group
+
+```bash [npm]
+npm i -g @vue-macros/cli
+```
+
+```bash [yarn]
+yarn global add @vue-macros/cli
+```
+
+```bash [pnpm]
+pnpm add -g @vue-macros/cli
+```
+
+:::
+
+这一指令将会安装 [@vue-macros/cli](https://github.com/vue-macros/vue-macros-cli)，它是 Vue Macros 官方的项目脚手架工具。
+
+### 初始化
+
+::: code-group
+
+```bash [npm]
+npm create vite@latest my-vue-macros -- --template vue-ts
+cd my-vue-macros
+vue-macros init
+```
+
+```bash [yarn]
+yarn create vite my-vue-macros --template vue-ts
+cd my-vue-macros
+vue-macros init
+```
+
+```bash [pnpm]
+pnpm create vite my-vue-macros --template vue-ts
+cd my-vue-macros
+vue-macros init
+```
+
+你将会看到一些可选的实验性功能提示。
+
+:::
+
 ## 示例
 
 - [Vite + Vue 3](https://github.com/vue-macros/vue-macros/tree/main/playground/vue3)
