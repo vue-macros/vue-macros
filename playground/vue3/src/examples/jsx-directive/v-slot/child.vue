@@ -1,13 +1,17 @@
 <script setup lang="tsx">
-defineSlots<{
+const slots = defineSlots<{
   default: () => any
   bottom: (props: { foo: 1 }) => any
 }>()
-</script>
 
-<template>
-  <span>
-    <slot />
-    <slot name="bottom" v-bind="{ foo: 1 }" />
+const emit = defineEmits<{
+  log: [foo: number]
+}>()
+
+defineRender(() => (
+  <span onClick={() => emit('log', 1)}>
+    <slots.default />
+    <slots.bottom {...{ foo: 1 }} />
   </span>
-</template>
+))
+</script>

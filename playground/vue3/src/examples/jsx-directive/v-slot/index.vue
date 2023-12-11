@@ -20,7 +20,7 @@ defineRender(() => (
       <template v-slot:default={{ foo }}>{''}</template>
     </Comp>
 
-    <Child>
+    <Child v-on={{ log: console.log }}>
       <div>default: begin</div>
 
       <template v-slot:bottom={{ foo }}>
