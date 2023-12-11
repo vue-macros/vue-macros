@@ -348,6 +348,37 @@ function transformVModel({
   })
 }
 
+function transformVOn({
+  nodes,
+  codes,
+  ts,
+  sfc,
+  source,
+}: TransformOptions & { nodes: JsxAttributeNode[] }) {
+  if (nodes.length === 0) return
+  codes.push(`type __VLS_getEmits<T> = T extends new () => { $emit: infer E } ? NonNullable<E>
+  : T extends (props: any, ctx: { slots: any; attrs: any; emit: infer E }, ...args: any) => any
+  ? NonNullable<E>
+  : {}`)
+
+  for (const { node, attribute } of nodes) {
+    const tagName = ts.isJsxSelfClosingElement(node)
+      ? node.tagName.getText(sfc[source]?.ast)
+      : ts.isJsxElement(node)
+        ? node.openingElement.tagName.getText(sfc[source]?.ast)
+        : null
+    if (!tagName) continue
+
+    replaceSourceRange(
+      codes,
+      source,
+      attribute.getEnd() - 1,
+      attribute.getEnd() - 1,
+      ` satisfies __VLS_NormalizeEmits<__VLS_getEmits<typeof ${tagName}>>`,
+    )
+  }
+}
+
 function transformJsxDirective({
   codes,
   sfc,
@@ -361,6 +392,7 @@ function transformJsxDirective({
     import('typescript/lib/tsserverlibrary').JsxElement
   >()
   const vModelAttributes: JsxAttributeNode[] = []
+  const vOnAttributes: JsxAttributeNode[] = []
 
   function walkJsxDirective(
     node: import('typescript/lib/tsserverlibrary').Node,
@@ -410,7 +442,11 @@ function transformJsxDirective({
       ) {
         vModelAttribute = attribute
       }
+      if (attribute.name.getText(sfc[source]?.ast) === 'v-on') {
+        vOnAttributes.push({ node, attribute })
+      }
     }
+
     if (vIfAttribute) {
       if (!vIfAttributeMap.has(parent!)) vIfAttributeMap.set(parent!, [])
       vIfAttributeMap.get(parent!)?.push({
@@ -455,6 +491,7 @@ function transformJsxDirective({
     transformVIf({ nodes, codes, sfc, ts, source }),
   )
   transformVModel({ nodes: vModelAttributes, codes, sfc, ts, source })
+  transformVOn({ nodes: vOnAttributes, codes, sfc, ts, source })
 }
 
 const plugin: VueLanguagePlugin = ({
@@ -468,7 +505,8 @@ const plugin: VueLanguagePlugin = ({
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (!/\sv-(if|for|slot|model)/.test(`${sfc[source]?.content}`)) continue
+        if (!/\sv-(if|for|slot|model|on)/.test(`${sfc[source]?.content}`))
+          continue
 
         transformJsxDirective({
           codes: embeddedFile.content,
