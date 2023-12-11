@@ -12,6 +12,7 @@ import { transformVFor } from './v-for'
 import { transformVMemo } from './v-memo'
 import { transformVHtml } from './v-html'
 import { transformVSlot } from './v-slot'
+import { transformVOn } from './v-on'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
 export type JsxDirectiveNode = {
@@ -51,7 +52,9 @@ export function transformJsxDirective(
 
   const s = new MagicString(code)
   for (const { ast, offset } of asts) {
-    if (!/\sv-(if|for|memo|once|html|slot)/.test(s.sliceNode(ast, { offset })))
+    if (
+      !/\sv-(if|for|memo|once|html|slot|on)/.test(s.sliceNode(ast, { offset }))
+    )
       continue
 
     const vIfMap = new Map<Node, JsxDirectiveNode[]>()
@@ -61,6 +64,7 @@ export function transformJsxDirective(
     })[] = []
     const vHtmlNodes: JsxDirectiveNode[] = []
     const vSlotSet = new Set<JSXElement>()
+    const vOnNodes: JsxDirectiveNode[] = []
     walkAST<Node>(ast, {
       enter(node, parent) {
         if (node.type !== 'JSXElement') return
@@ -97,6 +101,12 @@ export function transformJsxDirective(
                 : node,
             )
           }
+          if (attribute.name.name === 'v-on') {
+            vOnNodes.push({
+              node,
+              attribute,
+            })
+          }
         }
 
         if (vIfAttribute) {
@@ -131,6 +141,7 @@ export function transformJsxDirective(
     version >= 3.2 && transformVMemo(vMemoNodes, s, offset)
     transformVHtml(vHtmlNodes, s, offset, version)
     transformVSlot(Array.from(vSlotSet), s, offset, version)
+    transformVOn(vOnNodes, s, offset, version)
   }
 
   return generateTransform(s, id)

@@ -106,7 +106,11 @@ export function transformVSlot(
     if (attribute) {
       s.overwriteNode(attribute, result, { offset })
     } else {
-      s.appendLeft(node.openingElement.end! + offset - 1, ` ${result}`)
+      s.overwrite(
+        node.openingElement.end! + offset - 1,
+        node.openingElement.end! + offset,
+        ` ${result}>`,
+      )
     }
   })
 }

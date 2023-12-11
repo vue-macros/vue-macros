@@ -10,12 +10,19 @@
 | `v-else-if` | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 |  `v-else`   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 |   `v-for`   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|   `v-on`    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 |  `v-slot`   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 |  `v-html`   | :white_check_mark: | :white_check_mark: |         /          |
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
-## Usage
+::: warning
+
+`v-on` 仅支持绑定不带参数的事件/监听器对的对象。
+
+:::
+
+## 用法
 
 ```vue
 <script setup lang="tsx">
@@ -38,13 +45,15 @@ defineRender(() => (
       {i}
     </div>
 
-    <Child v-slot={props}>{props}</Child>
+    <Child v-on={{ submit: () => {} }} v-slot={props}>
+      {props}
+    </Child>
   </>
 ))
 </script>
 ```
 
-## Volar Configuration
+## Volar 配置
 
 ```jsonc {6}
 // tsconfig.json
