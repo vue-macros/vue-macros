@@ -5,14 +5,20 @@ export function transformVOn(
   nodes: JsxDirectiveNode[],
   s: MagicString,
   offset: number,
+  version: number,
 ) {
-  if (nodes.length > 0)
+  if (nodes.length > 0 && version >= 3)
     s.prependRight(
       offset,
       `const ${HELPER_PREFIX}transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {})`,
     )
 
   nodes.forEach(({ attribute }) => {
+    if (version < 3) {
+      s.remove(attribute.start! + offset, attribute.start! + offset + 2)
+      return
+    }
+
     s.overwriteNode(
       attribute,
       `{...${HELPER_PREFIX}transformVOn(${s.slice(

@@ -141,7 +141,7 @@ export function transformJsxDirective(
     version >= 3.2 && transformVMemo(vMemoNodes, s, offset)
     transformVHtml(vHtmlNodes, s, offset, version)
     transformVSlot(Array.from(vSlotSet), s, offset, version)
-    transformVOn(vOnNodes, s, offset)
+    transformVOn(vOnNodes, s, offset, version)
   }
 
   return generateTransform(s, id)

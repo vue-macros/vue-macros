@@ -22,7 +22,7 @@ export function transformVSlot({
   )}': infer S } ? NonNullable<S>
   : T extends (props: any, ctx: infer Ctx extends { slots: any }) => any
   ? NonNullable<Ctx['slots']>
-  : {}`)
+  : {};`)
 
   nodes.forEach((node) => {
     if (!ts.isIdentifier(node.openingElement.tagName)) return

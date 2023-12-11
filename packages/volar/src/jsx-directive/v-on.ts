@@ -9,10 +9,11 @@ export function transformVOn({
   source,
 }: TransformOptions & { nodes: JsxAttributeNode[] }) {
   if (nodes.length === 0) return
-  codes.push(`type __VLS_getEmits<T> = T extends new () => { $emit: infer E } ? NonNullable<E>
+  codes.push(`
+type __VLS_getEmits<T> = T extends new () => { $emit: infer E } ? NonNullable<E>
   : T extends (props: any, ctx: { slots: any; attrs: any; emit: infer E }, ...args: any) => any
   ? NonNullable<E>
-  : {}`)
+  : {};`)
 
   for (const { node, attribute } of nodes) {
     const tagName = ts.isJsxSelfClosingElement(node)
