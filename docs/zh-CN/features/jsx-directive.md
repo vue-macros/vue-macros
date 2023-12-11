@@ -45,7 +45,9 @@ defineRender(() => (
       {i}
     </div>
 
-    <Child  v-on={{ submit: () => {} }} v-slot={props}>{props}</Child>
+    <Child v-on={{ submit: () => {} }} v-slot={props}>
+      {props}
+    </Child>
   </>
 ))
 </script>
