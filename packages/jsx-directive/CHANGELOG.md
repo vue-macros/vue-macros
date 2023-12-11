@@ -1,5 +1,18 @@
 # @vue-macros/jsx-directive
 
+## 0.8.0
+
+### Minor Changes
+
+- [#578](https://github.com/vue-macros/vue-macros/pull/578) [`ac5494c`](https://github.com/vue-macros/vue-macros/commit/ac5494c1c0d9cfecb897d3063a5e398c14c7f2fa) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add `v-on` directive with object syntax
+
+### Patch Changes
+
+- [`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d) Thanks [@sxzz](https://github.com/sxzz)! - refactor Vue SFC filter for vue-loader
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d)]:
+  - @vue-macros/common@1.10.0
+
 ## 0.7.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @vue-macros/setup-component
 
+## 0.17.1
+
+### Patch Changes
+
+- [`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d) Thanks [@sxzz](https://github.com/sxzz)! - refactor Vue SFC filter for vue-loader
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d)]:
+  - @vue-macros/common@1.10.0
+
 ## 0.17.0
 
 ### Minor Changes

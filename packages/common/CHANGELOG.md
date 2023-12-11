@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.10.0
+
+### Minor Changes
+
+- [`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d) Thanks [@sxzz](https://github.com/sxzz)! - refactor Vue SFC filter for vue-loader
+
 ## 1.9.0
 
 ### Minor Changes

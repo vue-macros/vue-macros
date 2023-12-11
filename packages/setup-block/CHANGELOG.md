@@ -1,5 +1,16 @@
 # @vue-macros/setup-block
 
+## 0.3.1
+
+### Patch Changes
+
+- [`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d) Thanks [@sxzz](https://github.com/sxzz)! - refactor Vue SFC filter for vue-loader
+
+- [#567](https://github.com/vue-macros/vue-macros/pull/567) [`2d4a32d`](https://github.com/vue-macros/vue-macros/commit/2d4a32d2b0989813de351daccfe8850551ead98e) Thanks [@yyx990803](https://github.com/yyx990803)! - compat for Vue 3.4
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d)]:
+  - @vue-macros/common@1.10.0
+
 ## 0.3.0
 
 ### Minor Changes

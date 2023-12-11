@@ -1,5 +1,16 @@
 # @vue-macros/astro
 
+## 0.3.0
+
+### Minor Changes
+
+- [`b295174`](https://github.com/vue-macros/vue-macros/commit/b29517484034dc31da54ba9c415c99d97b5db22d) Thanks [@sxzz](https://github.com/sxzz)! - Support Astro 3 & 4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.7.1
+
 ## 0.2.0
 
 ### Minor Changes

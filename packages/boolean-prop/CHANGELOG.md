@@ -1,5 +1,12 @@
 # @vue-macros/boolean-prop
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d)]:
+  - @vue-macros/common@1.10.0
+
 ## 0.3.0
 
 ### Minor Changes
