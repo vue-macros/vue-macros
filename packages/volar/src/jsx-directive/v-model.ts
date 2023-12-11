@@ -18,6 +18,13 @@ export function transformVModel({
       end += 1 + name.length
     }
 
-    replaceSourceRange(codes, source, start, end, `onUpdate:${name} `, name)
+    replaceSourceRange(
+      codes,
+      source,
+      start,
+      end,
+      `onUpdate:${name}={() => {}} `,
+      name,
+    )
   })
 }
