@@ -10,7 +10,7 @@ export function transformVOn(
   if (nodes.length > 0 && version >= 3)
     s.prependRight(
       offset,
-      `const ${HELPER_PREFIX}transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {})`,
+      `const ${HELPER_PREFIX}transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});`,
     )
 
   nodes.forEach(({ attribute }) => {
