@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.8.1
+
+### Patch Changes
+
+- [#579](https://github.com/vue-macros/vue-macros/pull/579) [`a746d58`](https://github.com/vue-macros/vue-macros/commit/a746d586796e90eb18b0f02f67f79332e437a1c7) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Resolve conflicts with `unplugin-auto-import`
+
 ## 0.8.0
 
 ### Minor Changes
