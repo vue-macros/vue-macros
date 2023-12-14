@@ -1,5 +1,12 @@
 # @vue-macros/better-define
 
+## 1.7.2
+
+### Patch Changes
+
+- Updated dependencies [[`2b3a405`](https://github.com/vue-macros/vue-macros/commit/2b3a4055bcf7f22c55d5115cd584e4d288393bc1)]:
+  - @vue-macros/api@0.9.2
+
 ## 1.7.1
 
 ### Patch Changes

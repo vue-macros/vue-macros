@@ -1,5 +1,11 @@
 # @vue-macros/api
 
+## 0.9.2
+
+### Patch Changes
+
+- [#582](https://github.com/vue-macros/vue-macros/pull/582) [`2b3a405`](https://github.com/vue-macros/vue-macros/commit/2b3a4055bcf7f22c55d5115cd584e4d288393bc1) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support short-emits syntax
+
 ## 0.9.1
 
 ### Patch Changes
