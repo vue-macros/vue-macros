@@ -26,6 +26,8 @@ import type {
   TSFunctionType,
   TSInterfaceDeclaration,
   TSIntersectionType,
+  TSMappedType,
+  TSPropertySignature,
   TSType,
   TSTypeLiteral,
   UnaryExpression,
@@ -179,6 +181,13 @@ export async function handleTSEmitsDefinition({
       }
     }
 
+    for (const evt of Object.keys(properties.properties)) {
+      if (!definitions[evt]) definitions[evt] = []
+      definitions[evt].push(
+        buildDefinition(properties.properties[evt].signature),
+      )
+    }
+
     return {
       definitions,
       definitionsAst: buildDefinition({ scope, type: definitionsAst }),
@@ -212,7 +221,12 @@ export interface TSEmits extends EmitsBase {
 
   definitions: Record<
     string,
-    ASTDefinition<TSCallSignatureDeclaration | TSFunctionType>[]
+    ASTDefinition<
+      | TSCallSignatureDeclaration
+      | TSFunctionType
+      | TSPropertySignature
+      | TSMappedType
+    >[]
   >
   definitionsAst: ASTDefinition<
     TSTypeLiteral | TSIntersectionType | TSInterfaceDeclaration | TSFunctionType
