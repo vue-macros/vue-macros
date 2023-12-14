@@ -796,6 +796,52 @@ export { resolveFailed as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = false 1`] = `
+"import { openBlock, createElementBlock, defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "short-emits",
+  emits: ["click"],
+  setup(__props, { emit: __emit }) {
+    const emit = __emit;
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("button", {
+        onClick: _cache[0] || (_cache[0] = ($event) => emit("click"))
+      }, "click");
+    };
+  }
+});
+
+var shortEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { shortEmits as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = true 1`] = `
+"import { openBlock, createElementBlock, defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "short-emits",
+  emits: ["click"],
+  setup(__props, { emit: __emit }) {
+    const emit = __emit;
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("button", {
+        onClick: _cache[0] || (_cache[0] = ($event) => emit("click"))
+      }, "click");
+    };
+  }
+});
+
+var shortEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { shortEmits as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/special-key.vue > isProduction = false 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
