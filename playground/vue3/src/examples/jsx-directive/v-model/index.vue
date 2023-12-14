@@ -1,8 +1,11 @@
 <script setup lang="tsx">
 import Child from './child.vue'
 
+const foo = $ref(1)
+const bar = $ref('')
+
 defineRender(() => (
-  <Child>
+  <Child bar={bar} v-model:title={foo} v-model:bottom={foo} v-model={foo}>
     <template v-slot:title={{ value, ...emits }}>
       <input
         value={value}
