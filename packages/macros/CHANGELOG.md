@@ -1,5 +1,15 @@
 # unplugin-vue-macros
 
+## 2.7.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vue-macros/better-define@1.7.2
+  - @vue-macros/define-emit@0.2.2
+  - @vue-macros/define-models@1.2.1
+  - @vue-macros/define-prop@0.3.2
+
 ## 2.7.2
 
 ### Patch Changes
