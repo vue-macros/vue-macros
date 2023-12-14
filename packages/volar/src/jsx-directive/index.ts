@@ -31,7 +31,7 @@ export function transformJsxDirective({
   const vSlotNodeSet = new Set<
     import('typescript/lib/tsserverlibrary').JsxElement
   >()
-  const vModelAttributes: JsxAttributeNode[] = []
+  const vModelAttributeMap = new Map<any, JsxAttributeNode[]>()
   const vOnAttributes: JsxAttributeNode[] = []
 
   function walkJsxDirective(
@@ -45,7 +45,6 @@ export function transformJsxDirective({
         : []
     let vIfAttribute
     let vForAttribute
-    let vModelAttribute
 
     for (const attribute of properties) {
       if (!ts.isJsxAttribute(attribute)) continue
@@ -73,14 +72,15 @@ export function transformJsxDirective({
         )
       }
       if (
-        /^v-model(_.*)?$/.test(
-          (ts.isJsxNamespacedName(attribute.name)
-            ? attribute.name.namespace
-            : attribute.name
-          ).getText(sfc[source]?.ast),
-        )
+        ts.isJsxNamespacedName(attribute.name)
+          ? attribute.name.namespace.getText(sfc[source]?.ast) === 'v-model'
+          : /^v-model(_\S+)?$/.test(attribute.name.getText(sfc[source]?.ast))
       ) {
-        vModelAttribute = attribute
+        vModelAttributeMap.has(node) || vModelAttributeMap.set(node, [])
+        vModelAttributeMap.get(node)!.push({
+          node,
+          attribute,
+        })
       }
       if (attribute.name.getText(sfc[source]?.ast) === 'v-on') {
         vOnAttributes.push({ node, attribute })
@@ -100,12 +100,6 @@ export function transformJsxDirective({
         node,
         attribute: vForAttribute,
         parent: vIfAttribute ? undefined : parent,
-      })
-    }
-    if (vModelAttribute) {
-      vModelAttributes.push({
-        node,
-        attribute: vModelAttribute,
       })
     }
 
@@ -130,6 +124,8 @@ export function transformJsxDirective({
   vIfAttributeMap.forEach((nodes) =>
     transformVIf({ nodes, codes, sfc, ts, source }),
   )
-  transformVModel({ nodes: vModelAttributes, codes, sfc, ts, source })
+  vModelAttributeMap.forEach((nodes) =>
+    transformVModel({ nodes, codes, sfc, ts, source }),
+  )
   transformVOn({ nodes: vOnAttributes, codes, sfc, ts, source })
 }

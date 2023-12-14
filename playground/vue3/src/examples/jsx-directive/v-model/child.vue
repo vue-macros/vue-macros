@@ -4,10 +4,20 @@ const slots = defineSlots<{
   title: (scope: { value: string; 'onUpdate:value': (e: any) => void }) => any
 }>()
 
+defineProps<{
+  bar: string
+}>()
+
+defineModels<{
+  modelValue: number
+  title: number
+  bottom: number
+}>()
+
 const value = $ref('')
 defineRender(() => (
   <>
-    <slots.title v-model_trim={[value, 'value']}></slots.title>
+    <slots.title v-model:value_trim={value}></slots.title>
 
     <slots.default value={value}></slots.default>
   </>

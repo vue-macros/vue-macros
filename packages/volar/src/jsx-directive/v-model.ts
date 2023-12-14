@@ -1,4 +1,9 @@
-import { replaceSourceRange } from '@vue/language-core'
+import {
+  FileRangeCapabilities,
+  type Segment,
+  replaceSourceRange,
+} from '@vue/language-core'
+import { getModelsType } from '../common'
 import type { JsxAttributeNode, TransformOptions } from './index'
 
 export function transformVModel({
@@ -8,23 +13,74 @@ export function transformVModel({
   sfc,
   source,
 }: TransformOptions & { nodes: JsxAttributeNode[] }) {
-  nodes.forEach(({ attribute }) => {
-    const start = attribute.getStart(sfc[source]?.ast)
-    let end = start + 7
-    let name = 'modelValue'
-
+  let firstNamespacedNode: (JsxAttributeNode & { name: string }) | undefined
+  const result: Segment<FileRangeCapabilities>[] = []
+  for (const { attribute, node } of nodes) {
     if (ts.isJsxNamespacedName(attribute.name)) {
-      name = attribute.name.name.getText(sfc[source]?.ast)
-      end += 1 + name.length
-    }
+      const name = attribute.name.name.getText(sfc[source]?.ast).split('_')[0]
+      firstNamespacedNode ??= { attribute, node, name }
+      if (firstNamespacedNode.attribute !== attribute) {
+        replaceSourceRange(
+          codes,
+          source,
+          attribute.getStart(sfc[source]?.ast),
+          attribute.getEnd(),
+          `onUpdate:${name}={() => {}}`,
+        )
+      }
 
-    replaceSourceRange(
-      codes,
-      source,
-      start,
-      end,
-      `onUpdate:${name}={() => {}} `,
-      name,
-    )
-  })
+      result.push(
+        [
+          name,
+          source,
+          attribute.name.getStart(sfc[source]?.ast) + 8,
+          FileRangeCapabilities.full,
+        ],
+        attribute.initializer && attribute.name.name.getText?.(sfc[source]?.ast)
+          ? [
+              `:${attribute.initializer
+                .getText(sfc[source]?.ast)
+                .slice(1, -1)},`,
+              source,
+              attribute.initializer.getStart(sfc[source]?.ast),
+              FileRangeCapabilities.full,
+            ]
+          : '',
+      )
+    } else {
+      replaceSourceRange(
+        codes,
+        source,
+        attribute.name.getStart(sfc[source]?.ast),
+        attribute.name.getEnd() + 1,
+        `onUpdate:modelValue={() => {}} `,
+        [
+          'modelValue',
+          source,
+          [attribute.name.getStart(sfc[source]?.ast), attribute.name.getEnd()],
+          FileRangeCapabilities.full,
+        ],
+        '=',
+      )
+    }
+  }
+
+  if (!firstNamespacedNode) return
+  const { node, attribute, name } = firstNamespacedNode
+  getModelsType(codes)
+
+  const tagName = ts.isJsxSelfClosingElement(node)
+    ? node.tagName.getText(sfc[source]?.ast)
+    : ts.isJsxElement(node)
+      ? node.openingElement.tagName.getText(sfc[source]?.ast)
+      : null
+  replaceSourceRange(
+    codes,
+    source,
+    attribute.getStart(sfc[source]?.ast),
+    attribute.getEnd(),
+    `onUpdate:${name}={() => {}} {...{`,
+    ...result,
+    `} satisfies __VLS_getModels<typeof ${tagName}>}`,
+  )
 }

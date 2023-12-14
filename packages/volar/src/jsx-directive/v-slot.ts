@@ -1,9 +1,9 @@
 import {
   FileRangeCapabilities,
   type Segment,
-  getSlotsPropertyName,
   replaceSourceRange,
 } from '@vue/language-core'
+import { getSlotsType } from '../common'
 import type { TransformOptions } from './index'
 
 export function transformVSlot({
@@ -17,12 +17,7 @@ export function transformVSlot({
   nodes: import('typescript/lib/tsserverlibrary').JsxElement[]
 }) {
   if (nodes.length === 0) return
-  codes.push(`type __VLS_getSlots<T> = T extends new () => { '${getSlotsPropertyName(
-    vueVersion || 3,
-  )}': infer S } ? NonNullable<S>
-  : T extends (props: any, ctx: infer Ctx extends { slots: any }) => any
-  ? NonNullable<Ctx['slots']>
-  : {};`)
+  getSlotsType(codes, vueVersion)
 
   nodes.forEach((node) => {
     if (!ts.isIdentifier(node.openingElement.tagName)) return
