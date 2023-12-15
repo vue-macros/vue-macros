@@ -34,7 +34,7 @@ export function transformVModel({
       }
 
       result.push(
-        ',',
+        firstNamespacedNode.attribute !== attribute ? ',' : '',
         [
           name,
           source,
