@@ -4,7 +4,7 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 import { getSlotsType } from '../common'
-import type { TransformOptions } from './index'
+import type { JsxAttributeNode, TransformOptions } from './index'
 
 export function transformVSlot({
   nodes,
@@ -14,25 +14,34 @@ export function transformVSlot({
   source,
   vueVersion,
 }: TransformOptions & {
-  nodes: import('typescript/lib/tsserverlibrary').JsxElement[]
+  nodes: JsxAttributeNode['node'][]
 }) {
   if (nodes.length === 0) return
   getSlotsType(codes, vueVersion)
 
   nodes.forEach((node) => {
-    if (!ts.isIdentifier(node.openingElement.tagName)) return
-
-    const attribute = node.openingElement.attributes.properties.find(
+    const tagName = ts.isJsxSelfClosingElement(node)
+      ? node.tagName
+      : ts.isJsxElement(node)
+        ? node.openingElement.tagName
+        : null
+    const element = ts.isJsxSelfClosingElement(node)
+      ? node
+      : ts.isJsxElement(node)
+        ? node.openingElement
+        : null
+    if (!tagName || !element) return
+    const attribute = element.attributes.properties.find(
       (attribute) =>
         ts.isJsxAttribute(attribute) &&
         (ts.isJsxNamespacedName(attribute.name)
           ? attribute.name.namespace
           : attribute.name
         ).escapedText === 'v-slot',
-    )
+    ) as import('typescript/lib/tsserverlibrary').JsxAttribute
 
     const slotMap = new Map(
-      attribute && ts.isJsxAttribute(attribute)
+      attribute
         ? [
             [
               ts.isJsxNamespacedName(attribute.name)
@@ -41,23 +50,28 @@ export function transformVSlot({
               {
                 isTemplateTag: false,
                 initializer: attribute.initializer,
-                children: [...node.children],
+                children: ts.isJsxElement(node) ? [...node.children] : [],
               },
             ],
           ]
         : [],
     )
-    if (!attribute) {
+
+    if (!attribute && ts.isJsxElement(node)) {
       for (const child of node.children) {
         let name
         let initializer
+        const childElement = ts.isJsxElement(child)
+          ? child.openingElement
+          : ts.isJsxSelfClosingElement(child)
+            ? child
+            : null
         const isTemplateTag =
-          ts.isJsxElement(child) &&
-          ts.isIdentifier(child.openingElement.tagName) &&
-          child.openingElement.tagName.escapedText === 'template'
+          !!childElement &&
+          childElement.tagName.getText(sfc[source]?.ast) === 'template'
 
-        if (ts.isJsxElement(child)) {
-          for (const attr of child.openingElement.attributes.properties) {
+        if (childElement) {
+          for (const attr of childElement.attributes.properties) {
             if (!ts.isJsxAttribute(attr)) continue
             if (isTemplateTag) {
               name =
@@ -66,14 +80,14 @@ export function transformVSlot({
                   ? attr.name.name
                   : undefined
             }
-
             if (
               (ts.isJsxNamespacedName(attr.name)
                 ? attr.name.namespace
                 : attr.name
               ).escapedText === 'v-slot'
-            )
+            ) {
               initializer = attr.initializer
+            }
           }
         }
 
@@ -85,10 +99,11 @@ export function transformVSlot({
           })
         }
         const slot = slotMap.get(name)!
-        if (slot && !slot?.isTemplateTag) {
+        if (!slot.isTemplateTag) {
           slot.initializer = initializer
           slot.isTemplateTag = isTemplateTag
           if (isTemplateTag) {
+            console.log([child.getText(sfc[source]?.ast)], '...')
             slot.children = [child]
           } else {
             slot.children.push(child)
@@ -132,29 +147,25 @@ export function transformVSlot({
                 ? child.children
                 : child
             replaceSourceRange(codes, source, child.pos, child.end)
-            return [
-              sfc[source]!.content.slice(node.pos, node.end),
-              source,
-              node.pos,
-              FileRangeCapabilities.full,
-            ]
+            return ts.isJsxSelfClosingElement(child)
+              ? ''
+              : [
+                  sfc[source]!.content.slice(node.pos, node.end),
+                  source,
+                  node.pos,
+                  FileRangeCapabilities.full,
+                ]
           }),
           '</>,',
         ],
       ),
-      `} as __VLS_getSlots<typeof ${node.openingElement.tagName.escapedText}> }`,
+      `} as __VLS_getSlots<typeof ${tagName.getText(sfc[source]?.ast)}> }`,
     ] as Segment<FileRangeCapabilities>[]
 
     if (attribute) {
       replaceSourceRange(codes, source, attribute.pos, attribute.end, ...result)
     } else {
-      replaceSourceRange(
-        codes,
-        source,
-        node.openingElement.end - 1,
-        node.openingElement.end - 1,
-        ...result,
-      )
+      replaceSourceRange(codes, source, tagName.end, tagName.end, ...result)
     }
   })
 }

@@ -28,9 +28,7 @@ export function transformJsxDirective({
 }: TransformOptions) {
   const vIfAttributeMap = new Map<any, JsxAttributeNode[]>()
   const vForAttributes: JsxAttributeNode[] = []
-  const vSlotNodeSet = new Set<
-    import('typescript/lib/tsserverlibrary').JsxElement
-  >()
+  const vSlotNodeSet = new Set<JsxAttributeNode['node']>()
   const vModelAttributeMap = new Map<any, JsxAttributeNode[]>()
   const vOnAttributes: JsxAttributeNode[] = []
 
@@ -55,21 +53,13 @@ export function transformJsxDirective({
           vIfAttribute = attribute
         if (attribute.name.escapedText === 'v-for') vForAttribute = attribute
       }
-      if (
-        (ts.isJsxNamespacedName(attribute.name)
-          ? attribute.name.namespace
-          : attribute.name
-        ).escapedText === 'v-slot' &&
-        ts.isJsxElement(node)
-      ) {
-        vSlotNodeSet.add(
-          ts.isIdentifier(node.openingElement.tagName) &&
-            node.openingElement.tagName.escapedText === 'template' &&
-            parent &&
-            ts.isJsxElement(parent)
-            ? parent
-            : node,
-        )
+      if (/^v-slot[:_]?/.test(attribute.name.getText(sfc[source]?.ast))) {
+        const tagName = ts.isJsxSelfClosingElement(node)
+          ? node.tagName.getText(sfc[source]?.ast)
+          : ts.isJsxElement(node)
+            ? node.openingElement.tagName.getText(sfc[source]?.ast)
+            : null
+        vSlotNodeSet.add(tagName === 'template' && parent ? parent : node)
       }
       if (
         ts.isJsxNamespacedName(attribute.name)
