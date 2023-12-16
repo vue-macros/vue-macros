@@ -16,8 +16,12 @@ export function transformVModel({
   let firstNamespacedNode: (JsxAttributeNode & { name: string }) | undefined
   const result: Segment<FileRangeCapabilities>[] = []
   for (const { attribute, node } of nodes) {
-    if (ts.isJsxNamespacedName(attribute.name)) {
-      const name = attribute.name.name.getText(sfc[source]?.ast).split('_')[0]
+    if (attribute.name.getText(sfc[source]?.ast).startsWith('v-model:')) {
+      const name = attribute.name
+        .getText(sfc[source]?.ast)
+        .slice(8)
+        .split(' ')[0]
+        .split('_')[0]
       firstNamespacedNode ??= { attribute, node, name }
       if (firstNamespacedNode.attribute !== attribute) {
         replaceSourceRange(
@@ -30,17 +34,18 @@ export function transformVModel({
       }
 
       result.push(
+        firstNamespacedNode.attribute !== attribute ? ',' : '',
         [
           name,
           source,
           attribute.name.getStart(sfc[source]?.ast) + 8,
           FileRangeCapabilities.full,
         ],
-        attribute.initializer && attribute.name.name.getText?.(sfc[source]?.ast)
+        attribute.initializer && name
           ? [
               `:${attribute.initializer
                 .getText(sfc[source]?.ast)
-                .slice(1, -1)},`,
+                .slice(1, -1)}`,
               source,
               attribute.initializer.getStart(sfc[source]?.ast),
               FileRangeCapabilities.full,
