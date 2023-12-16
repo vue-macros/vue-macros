@@ -71,11 +71,7 @@ export function transformJsxDirective({
             : node,
         )
       }
-      if (
-        ts.isJsxNamespacedName(attribute.name)
-          ? attribute.name.namespace.getText(sfc[source]?.ast) === 'v-model'
-          : /^v-model(_\S+)?$/.test(attribute.name.getText(sfc[source]?.ast))
-      ) {
+      if (/^v-model[:_]?/.test(attribute.name.getText(sfc[source]?.ast))) {
         vModelAttributeMap.has(node) || vModelAttributeMap.set(node, [])
         vModelAttributeMap.get(node)!.push({
           node,
