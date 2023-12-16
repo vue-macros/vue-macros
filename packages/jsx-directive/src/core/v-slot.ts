@@ -86,20 +86,23 @@ export function transformVSlot(
             expressionContainer?.type === 'JSXExpressionContainer'
               ? s.sliceNode(expressionContainer.expression, { offset })
               : ''
-          }) => ${version < 3 ? '<span>' : '<>'}${children
-            .map((child) => {
-              const result = s.sliceNode(
-                child.type === 'JSXElement' &&
-                  child.openingElement.name.type === 'JSXIdentifier' &&
-                  child.openingElement.name.name === 'template'
-                  ? child.children
-                  : child,
-                { offset },
-              )
-              s.removeNode(child, { offset })
-              return result
-            })
-            .join('')}${version < 3 ? '</span>' : '</>'}`,
+          }) => ${version < 3 ? '<span>' : '<>'}${
+            children
+              .map((child) => {
+                const result = s.sliceNode(
+                  child.type === 'JSXElement' &&
+                    child.openingElement.name.type === 'JSXIdentifier' &&
+                    child.openingElement.name.name === 'template'
+                    ? child
+                    : child,
+                  { offset },
+                )
+
+                s.removeNode(child, { offset })
+                return result
+              })
+              .join('') || ' '
+          }${version < 3 ? '</span>' : '</>'}`,
       )
       .join(',')}}}`
 
