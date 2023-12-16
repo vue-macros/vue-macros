@@ -1,5 +1,13 @@
 # @vue-macros/volar
 
+## 0.18.1
+
+### Patch Changes
+
+- [#584](https://github.com/vue-macros/vue-macros/pull/584) [`75567f2`](https://github.com/vue-macros/vue-macros/commit/75567f25b2a25167a485a126a1bc8f4aa6998e97) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - define-models and defineSlots co-usage
+
+- [#584](https://github.com/vue-macros/vue-macros/pull/584) [`75567f2`](https://github.com/vue-macros/vue-macros/commit/75567f25b2a25167a485a126a1bc8f4aa6998e97) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support type for v-model
+
 ## 0.18.0
 
 ### Minor Changes
