@@ -1,11 +1,12 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "./prepare.sh"
+    "postinstall": "./postinstall.sh"
   },
   "dependencies": {
     "@vueuse/core": "^10.7.0",
