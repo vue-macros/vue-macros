@@ -3,6 +3,16 @@
   extends: ['github>sxzz/renovate-config'],
   packageRules: [
     {
+      matchPackageNames: ['vue', 'vue2'],
+      matchUpdateTypes: ['major'],
+      enabled: false,
+    },
+    {
+      matchPackageNames: ['typescript'],
+      matchUpdateTypes: ['major', 'minor'],
+      enabled: false,
+    },
+    {
       groupName: 'volarjs',
       groupSlug: 'volar-related',
       matchPackagePrefixes: ['@volar'],
@@ -11,5 +21,5 @@
       matchDepTypes: ['peerDependencies', 'devDependencies', 'dependencies'],
     },
   ],
-  ignoreDeps: ['vue', 'vue2', 'typescript'],
+  ignoreDeps: [],
 }
