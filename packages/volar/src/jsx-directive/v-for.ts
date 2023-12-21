@@ -1,5 +1,5 @@
 import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
-import type { JsxAttributeNode, TransformOptions } from './index'
+import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVFor({
   nodes,
@@ -7,7 +7,7 @@ export function transformVFor({
   ts,
   sfc,
   source,
-}: TransformOptions & { nodes: JsxAttributeNode[] }) {
+}: TransformOptions & { nodes: JsxDirective[] }) {
   nodes.forEach(({ attribute, node, parent }) => {
     if (
       !(

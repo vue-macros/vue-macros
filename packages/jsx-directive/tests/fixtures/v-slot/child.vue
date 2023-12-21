@@ -1,7 +1,9 @@
 <script setup lang="tsx">
 defineSlots<{
   default: () => any
+  title: (props: { foo: 1 }) => any
   bottom: (props: { foo: 1 }) => any
+  'bot-tom': (props: { foo: 1 }) => any
 }>()
 </script>
 

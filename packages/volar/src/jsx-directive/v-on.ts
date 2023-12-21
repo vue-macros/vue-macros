@@ -1,6 +1,6 @@
 import { replaceSourceRange } from '@vue/language-core'
 import { getEmitsType } from '../common'
-import type { JsxAttributeNode, TransformOptions } from './index'
+import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVOn({
   nodes,
@@ -8,7 +8,7 @@ export function transformVOn({
   ts,
   sfc,
   source,
-}: TransformOptions & { nodes: JsxAttributeNode[] }) {
+}: TransformOptions & { nodes: JsxDirective[] }) {
   if (nodes.length === 0) return
   getEmitsType(codes)
 

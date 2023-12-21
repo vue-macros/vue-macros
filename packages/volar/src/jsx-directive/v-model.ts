@@ -4,7 +4,7 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 import { getModelsType } from '../common'
-import type { JsxAttributeNode, TransformOptions } from './index'
+import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVModel({
   nodes,
@@ -12,8 +12,8 @@ export function transformVModel({
   ts,
   sfc,
   source,
-}: TransformOptions & { nodes: JsxAttributeNode[] }) {
-  let firstNamespacedNode: (JsxAttributeNode & { name: string }) | undefined
+}: TransformOptions & { nodes: JsxDirective[] }) {
+  let firstNamespacedNode: (JsxDirective & { name: string }) | undefined
   const result: Segment<FileRangeCapabilities>[] = []
   for (const { attribute, node } of nodes) {
     if (attribute.name.getText(sfc[source]?.ast).startsWith('v-model:')) {
