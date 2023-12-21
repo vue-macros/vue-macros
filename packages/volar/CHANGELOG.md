@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.18.3
+
+### Patch Changes
+
+- [#590](https://github.com/vue-macros/vue-macros/pull/590) [`d1a3b4d`](https://github.com/vue-macros/vue-macros/commit/d1a3b4d47ca29aefc459ce0d007692a98c9c46e5) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - default slot and v-if slot co-usage
+
 ## 0.18.2
 
 ### Patch Changes
