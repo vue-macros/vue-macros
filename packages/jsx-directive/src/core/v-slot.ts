@@ -1,5 +1,5 @@
 import type { MagicString } from '@vue-macros/common'
-import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
+import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
 export type VSlotMap = Map<
   JSXElement,
