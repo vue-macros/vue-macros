@@ -29,16 +29,17 @@ defineRender(() => (
     <Comp  scopedSlots={{'default': () => <span> </span>,}} />
     <Child  scopedSlots={{'bottom': ({ foo }) => <span> </span>,}} />
 
-    <Child scopedSlots={{'default': () => <span>default</span>,...(show) ? {'bottom': ({ foo }) => <span>
+    <Child scopedSlots={{...(show) ? {'title': ({ foo }) => <span>
         {show}
-      </span>,} : (show === false) ? {'bot-tom': ({ foo }) => <span>
+      </span>,} : (show === false) ? {'center': ({ foo }) => <span>
         {foo}
-      </span>,} : {'title': () => <span> </span>,},}}
+      </span>,} : {'bottom': () => <span> </span>,},'bot-tom': () => <span>bottom</span>,default: () => <span>
+      default
       
       
       
       
-    ></Child>
+    </span>}}></Child>
   </div>
 ))
 </script>
@@ -74,16 +75,17 @@ defineRender(() => (
     <Comp  v-slots={{'default': () => <> </>,}} />
     <Child  v-slots={{'bottom': ({ foo }) => <> </>,}} />
 
-    <Child v-slots={{'default': () => <>default</>,...(show) ? {'bottom': ({ foo }) => <>
+    <Child v-slots={{...(show) ? {'title': ({ foo }) => <>
         {show}
-      </>,} : (show === false) ? {'bot-tom': ({ foo }) => <>
+      </>,} : (show === false) ? {'center': ({ foo }) => <>
         {foo}
-      </>,} : {'title': () => <> </>,},}}
+      </>,} : {'bottom': () => <> </>,},'bot-tom': () => <>bottom</>,default: () => <>
+      default
       
       
       
       
-    ></Child>
+    </>}}></Child>
   </div>
 ))
 </script>
