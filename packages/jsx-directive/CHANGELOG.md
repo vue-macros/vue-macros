@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.8.2
+
+### Patch Changes
+
+- [#588](https://github.com/vue-macros/vue-macros/pull/588) [`9c9a739`](https://github.com/vue-macros/vue-macros/commit/9c9a739a9067ceea68ef0e61c0d29278f6cbd0d4) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-slot and v-if co-usage
+
 ## 0.8.1
 
 ### Patch Changes
