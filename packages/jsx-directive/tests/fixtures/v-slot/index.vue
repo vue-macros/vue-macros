@@ -27,14 +27,15 @@ defineRender(() => (
     <Child v-slot:bottom={{ foo }} />
 
     <Child>
-      <template v-slot>default</template>
-      <template v-if={show} v-slot:bottom={{ foo }}>
+      default
+      <template v-if={show} v-slot:title={{ foo }}>
         {show}
       </template>
-      <template v-else-if={show === false} v-slot:bot-tom={{ foo }}>
+      <template v-else-if={show === false} v-slot:center={{ foo }}>
         {foo}
       </template>
-      <template v-else v-slot:title />
+      <template v-else v-slot:bottom />
+      <template v-slot:bot-tom>bottom</template>
     </Child>
   </div>
 ))
