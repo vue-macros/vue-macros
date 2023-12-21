@@ -3,13 +3,42 @@
 exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/index.vue 1`] = `
 "<script setup lang="tsx">
 import Child from './child.vue'
+import type { FunctionalComponent } from 'vue'
 
+const Comp: FunctionalComponent<
+  {},
+  {},
+  {
+    default: (scope: { foo: string }) => any
+  }
+> = (props, { slots }) => {
+  return <slots.default foo="foo"></slots.default>
+}
+
+let show = $ref<boolean | undefined>()
 defineRender(() => (
   <div>
-    <Child scopedSlots={{'bottom': ({ foo }) => <span>
+    <Child  scopedSlots={{'bottom': ({ foo }) => <span>
       {foo}
-      <Child scopedSlots={{'default': () => <span>default</span>}}></Child>
-    </span>}}></Child>
+      <Child  scopedSlots={{'default': () => <span>default</span>,}}></Child>
+    </span>,}}></Child>
+
+    <Comp  scopedSlots={{'default': () => <span>default</span>,}}></Comp>
+    <Child  scopedSlots={{'bottom': ({ foo }) => <span>{foo}</span>,}}></Child>
+
+    <Comp  scopedSlots={{'default': () => <span> </span>,}} />
+    <Child  scopedSlots={{'bottom': ({ foo }) => <span> </span>,}} />
+
+    <Child scopedSlots={{'default': () => <span>default</span>,...(show) ? {'bottom': ({ foo }) => <span>
+        {show}
+      </span>,} : (show === false) ? {'bot-tom': ({ foo }) => <span>
+        {foo}
+      </span>,} : {'title': () => <span> </span>,},}}
+      
+      
+      
+      
+    ></Child>
   </div>
 ))
 </script>
@@ -19,13 +48,42 @@ defineRender(() => (
 exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/index.vue 1`] = `
 "<script setup lang="tsx">
 import Child from './child.vue'
+import type { FunctionalComponent } from 'vue'
 
+const Comp: FunctionalComponent<
+  {},
+  {},
+  {
+    default: (scope: { foo: string }) => any
+  }
+> = (props, { slots }) => {
+  return <slots.default foo="foo"></slots.default>
+}
+
+let show = $ref<boolean | undefined>()
 defineRender(() => (
   <div>
-    <Child v-slots={{'bottom': ({ foo }) => <>
+    <Child  v-slots={{'bottom': ({ foo }) => <>
       {foo}
-      <Child v-slots={{'default': () => <>default</>}}></Child>
-    </>}}></Child>
+      <Child  v-slots={{'default': () => <>default</>,}}></Child>
+    </>,}}></Child>
+
+    <Comp  v-slots={{'default': () => <>default</>,}}></Comp>
+    <Child  v-slots={{'bottom': ({ foo }) => <>{foo}</>,}}></Child>
+
+    <Comp  v-slots={{'default': () => <> </>,}} />
+    <Child  v-slots={{'bottom': ({ foo }) => <> </>,}} />
+
+    <Child v-slots={{'default': () => <>default</>,...(show) ? {'bottom': ({ foo }) => <>
+        {show}
+      </>,} : (show === false) ? {'bot-tom': ({ foo }) => <>
+        {foo}
+      </>,} : {'title': () => <> </>,},}}
+      
+      
+      
+      
+    ></Child>
   </div>
 ))
 </script>

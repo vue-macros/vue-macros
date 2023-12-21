@@ -1,116 +1,116 @@
 import type { MagicString } from '@vue-macros/common'
-import type { JSXElement } from '@babel/types'
+import type { JSXAttribute, JSXElement, Node } from '@babel/types'
+
+export type VSlotMap = Map<
+  JSXElement,
+  {
+    vSlotAttribute?: JSXAttribute
+    attributeMap: Map<
+      JSXAttribute | null,
+      {
+        children: Node[]
+        vIfAttribute?: JSXAttribute
+      }
+    >
+  }
+>
 
 export function transformVSlot(
-  nodes: JSXElement[],
+  nodeMap: VSlotMap,
   s: MagicString,
   offset: number,
   version: number,
 ) {
-  nodes.reverse().forEach((node) => {
-    const attribute = node.openingElement.attributes.find(
-      (attribute) =>
-        attribute.type === 'JSXAttribute' &&
-        (attribute.name.type === 'JSXNamespacedName'
-          ? attribute.name.namespace
-          : attribute.name
-        ).name === 'v-slot',
-    )
+  Array.from(nodeMap)
+    .reverse()
+    .forEach(([node, { attributeMap, vSlotAttribute }]) => {
+      const result = [` ${version < 3 ? 'scopedSlots' : 'v-slots'}={{`]
+      const attributes = Array.from(attributeMap)
+      attributes.forEach(([attribute, { children, vIfAttribute }], index) => {
+        if (!attribute) return
 
-    const slots =
-      attribute?.type === 'JSXAttribute'
-        ? {
-            [`${
-              attribute.name.type === 'JSXNamespacedName'
-                ? attribute.name.name.name
-                : 'default'
-            }`]: {
-              isTemplateTag: false,
-              expressionContainer: attribute.value,
-              children: node.children,
-            },
+        if (vIfAttribute) {
+          if ('v-if' === vIfAttribute.name.name) {
+            result.push('...')
           }
-        : {}
-    if (!attribute) {
-      for (const child of node.children) {
-        let name = 'default'
-        let expressionContainer
-        const isTemplateTag =
-          child.type === 'JSXElement' &&
-          child.openingElement.name.type === 'JSXIdentifier' &&
-          child.openingElement.name.name === 'template'
-
-        if (child.type === 'JSXElement') {
-          for (const attr of child.openingElement.attributes) {
-            if (attr.type !== 'JSXAttribute') continue
-            if (isTemplateTag) {
-              name =
-                attr.name.type === 'JSXNamespacedName'
-                  ? attr.name.name.name
-                  : 'default'
-            }
-
-            if (
-              (attr.name.type === 'JSXNamespacedName'
-                ? attr.name.namespace
-                : attr.name
-              ).name === 'v-slot'
+          if (
+            ['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`) &&
+            vIfAttribute.value?.type === 'JSXExpressionContainer'
+          ) {
+            result.push(
+              `(${s.sliceNode(vIfAttribute.value.expression, {
+                offset,
+              })}) ? {`,
             )
-              expressionContainer = attr.value
+          } else if ('v-else' === vIfAttribute.name.name) {
+            result.push('{')
           }
         }
 
-        slots[name] ??= {
-          isTemplateTag,
-          expressionContainer,
-          children: [child],
-        }
-        if (!slots[name].isTemplateTag) {
-          slots[name].expressionContainer = expressionContainer
-          slots[name].isTemplateTag = isTemplateTag
-          if (isTemplateTag) {
-            slots[name].children = [child]
-          } else {
-            slots[name].children.push(child)
-          }
-        }
-      }
-    }
-
-    const result = `${
-      version < 3 ? 'scopedSlots' : 'v-slots'
-    }={{${Object.entries(slots)
-      .map(
-        ([name, { expressionContainer, children }]) =>
-          `'${name}': (${
-            expressionContainer?.type === 'JSXExpressionContainer'
-              ? s.sliceNode(expressionContainer.expression, { offset })
-              : ''
-          }) => ${version < 3 ? '<span>' : '<>'}${children
+        result.push(
+          `'${
+            attribute.name.type === 'JSXNamespacedName'
+              ? attribute.name.name.name
+              : 'default'
+          }': (`,
+          attribute.value && attribute.value.type === 'JSXExpressionContainer'
+            ? s.sliceNode(attribute.value.expression, { offset })
+            : '',
+          `) => `,
+          version < 3 ? '<span>' : '<>',
+          children
             .map((child) => {
-              const result = s.sliceNode(
+              const str = s.sliceNode(
                 child.type === 'JSXElement' &&
-                  child.openingElement.name.type === 'JSXIdentifier' &&
-                  child.openingElement.name.name === 'template'
+                  s.sliceNode(child.openingElement.name, { offset }) ===
+                    'template'
                   ? child.children
                   : child,
                 { offset },
               )
-              s.removeNode(child, { offset })
-              return result
-            })
-            .join('')}${version < 3 ? '</span>' : '</>'}`,
-      )
-      .join(',')}}}`
 
-    if (attribute) {
-      s.overwriteNode(attribute, result, { offset })
-    } else {
-      s.overwrite(
-        node.openingElement.end! + offset - 1,
-        node.openingElement.end! + offset,
-        ` ${result}>`,
-      )
-    }
-  })
+              s.removeNode(child, { offset })
+              return str
+            })
+            .join('') || ' ',
+          version < 3 ? '</span>,' : '</>,',
+        )
+
+        if (vIfAttribute) {
+          if (['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`)) {
+            result.push(
+              '}',
+              `${attributes[index + 1]?.[1].vIfAttribute?.name
+                .name}`.startsWith('v-else')
+                ? ` : `
+                : ` : null,`,
+            )
+          } else if ('v-else' === vIfAttribute.name.name) {
+            result.push('},')
+          }
+        }
+      })
+
+      if (attributeMap.has(null)) {
+        result.push(`default: () => ${version < 3 ? '<span>' : '<>'}`)
+      } else {
+        result.push('}}')
+      }
+
+      if (vSlotAttribute) {
+        s.overwriteNode(vSlotAttribute, result.join(''), { offset })
+      } else if (node?.type === 'JSXElement') {
+        s.overwrite(
+          node.openingElement.end! + offset - 1,
+          node.openingElement.end! + offset,
+          result.join(''),
+        )
+        s.appendLeft(
+          node.closingElement!.start! + offset,
+          attributeMap.has(null)
+            ? `${version < 3 ? '</span>' : '</>'}}}>`
+            : '>',
+        )
+      }
+    })
 }

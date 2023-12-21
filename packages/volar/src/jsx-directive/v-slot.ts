@@ -4,156 +4,165 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 import { getSlotsType } from '../common'
-import type { TransformOptions } from './index'
+import type { JsxDirective, TransformOptions } from './index'
+
+export type VSlotMap = Map<
+  JsxDirective['node'],
+  {
+    vSlotAttribute?: JsxDirective['attribute']
+    attributeMap: Map<
+      JsxDirective['attribute'] | null,
+      {
+        children: JsxDirective['node'][]
+        vIfAttribute?: JsxDirective['attribute']
+      }
+    >
+  }
+>
 
 export function transformVSlot({
-  nodes,
+  nodeMap,
   codes,
   ts,
   sfc,
   source,
   vueVersion,
-}: TransformOptions & {
-  nodes: import('typescript/lib/tsserverlibrary').JsxElement[]
-}) {
-  if (nodes.length === 0) return
+}: TransformOptions & { nodeMap: VSlotMap }) {
+  if (nodeMap.size === 0) return
   getSlotsType(codes, vueVersion)
 
-  nodes.forEach((node) => {
-    if (!ts.isIdentifier(node.openingElement.tagName)) return
+  nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
+    const element = ts.isJsxSelfClosingElement(node)
+      ? node
+      : ts.isJsxElement(node)
+        ? node.openingElement
+        : null
+    const tagName = element?.tagName
+    if (!tagName) return
 
-    const attribute = node.openingElement.attributes.properties.find(
-      (attribute) =>
-        ts.isJsxAttribute(attribute) &&
-        (ts.isJsxNamespacedName(attribute.name)
-          ? attribute.name.namespace
-          : attribute.name
-        ).escapedText === 'v-slot',
-    )
+    const result: Segment<FileRangeCapabilities>[] = [' v-slots={{']
+    const attributes = Array.from(attributeMap)
+    attributes.forEach(([attribute, { children, vIfAttribute }], index) => {
+      if (!attribute) return
 
-    const slotMap = new Map(
-      attribute && ts.isJsxAttribute(attribute)
-        ? [
-            [
-              ts.isJsxNamespacedName(attribute.name)
-                ? attribute.name.name
-                : undefined,
-              {
-                isTemplateTag: false,
-                initializer: attribute.initializer,
-                children: [...node.children],
-              },
-            ],
-          ]
-        : [],
-    )
-    if (!attribute) {
-      for (const child of node.children) {
-        let name
-        let initializer
-        const isTemplateTag =
-          ts.isJsxElement(child) &&
-          ts.isIdentifier(child.openingElement.tagName) &&
-          child.openingElement.tagName.escapedText === 'template'
-
-        if (ts.isJsxElement(child)) {
-          for (const attr of child.openingElement.attributes.properties) {
-            if (!ts.isJsxAttribute(attr)) continue
-            if (isTemplateTag) {
-              name =
-                ts.isJsxNamespacedName(attr.name) &&
-                attr.name.name.escapedText !== 'default'
-                  ? attr.name.name
-                  : undefined
-            }
-
-            if (
-              (ts.isJsxNamespacedName(attr.name)
-                ? attr.name.namespace
-                : attr.name
-              ).escapedText === 'v-slot'
-            )
-              initializer = attr.initializer
-          }
+      const vIfAttributeName = vIfAttribute?.name.getText(sfc[source]?.ast)
+      if (vIfAttribute && vIfAttributeName) {
+        if ('v-if' === vIfAttributeName) {
+          result.push('...')
         }
-
-        if (!slotMap.get(name)) {
-          slotMap.set(name, {
-            isTemplateTag,
-            initializer,
-            children: [child],
-          })
-        }
-        const slot = slotMap.get(name)!
-        if (slot && !slot?.isTemplateTag) {
-          slot.initializer = initializer
-          slot.isTemplateTag = isTemplateTag
-          if (isTemplateTag) {
-            slot.children = [child]
-          } else {
-            slot.children.push(child)
-          }
+        if (
+          ['v-if', 'v-else-if'].includes(vIfAttributeName) &&
+          vIfAttribute.initializer &&
+          ts.isJsxExpression(vIfAttribute.initializer)
+        ) {
+          result.push(
+            `(${vIfAttribute.initializer.expression?.getText(
+              sfc[source]?.ast,
+            )}) ? {`,
+          )
+        } else if ('v-else' === vIfAttributeName) {
+          result.push('{')
         }
       }
-    }
 
-    const result = [
-      ' v-slots={{',
-      ...Array.from(slotMap.entries()).flatMap(
-        ([name, { initializer, children }]) => [
-          name
-            ? [
-                `'${name.escapedText}'`,
-                source,
-                name.pos - 1,
-                FileRangeCapabilities.full,
-              ]
-            : 'default',
-          `: (`,
-          initializer &&
-          ts.isJsxExpression(initializer) &&
-          initializer.expression
-            ? [
-                `${sfc[source]!.content.slice(
-                  initializer.expression.pos,
-                  initializer.expression.end,
-                )}`,
-                source,
-                initializer.expression.pos,
-                FileRangeCapabilities.full,
-              ]
-            : '',
-          ') => <>',
-          ...children.map((child) => {
-            const node =
-              ts.isJsxElement(child) &&
-              ts.isIdentifier(child.openingElement.tagName) &&
-              child.openingElement.tagName.escapedText === 'template'
-                ? child.children
-                : child
-            replaceSourceRange(codes, source, child.pos, child.end)
-            return [
-              sfc[source]!.content.slice(node.pos, node.end),
+      let attributeName = attribute.name
+        ?.getText(sfc[source]?.ast)
+        .slice(6)
+        .split(' ')[0]
+      const isNamespace = attributeName.startsWith(':')
+      attributeName = attributeName.slice(1)
+      const hasSpecialChart = !/^[A-Z_a-z]\w*$/.test(attributeName)
+      result.push(
+        ' ',
+        isNamespace
+          ? [
+              hasSpecialChart ? `'${attributeName}'` : attributeName,
               source,
-              node.pos,
+              attribute.getStart(sfc[source]?.ast) + (hasSpecialChart ? 6 : 7),
               FileRangeCapabilities.full,
             ]
-          }),
-          '</>,',
-        ],
-      ),
-      `} as __VLS_getSlots<typeof ${node.openingElement.tagName.escapedText}> }`,
-    ] as Segment<FileRangeCapabilities>[]
+          : 'default',
+        `: (`,
+        attribute.initializer &&
+          ts.isJsxExpression(attribute.initializer) &&
+          attribute.initializer.expression
+          ? ([
+              attribute.initializer.expression.getText(sfc[source]?.ast),
+              source,
+              attribute.initializer.expression.pos,
+              FileRangeCapabilities.full,
+            ] as Segment<FileRangeCapabilities>)
+          : '',
+        ') => <>',
+        ...children.map((child) => {
+          // Remove original children
+          replaceSourceRange(codes, source, child.pos, child.end)
 
-    if (attribute) {
-      replaceSourceRange(codes, source, attribute.pos, attribute.end, ...result)
+          const node =
+            ts.isJsxElement(child) &&
+            child.openingElement.tagName.getText(sfc[source]?.ast) ===
+              'template'
+              ? child.children
+              : child
+          return ts.isJsxSelfClosingElement(child)
+            ? ''
+            : ([
+                sfc[source]!.content.slice(node.pos, node.end),
+                source,
+                node.pos,
+                FileRangeCapabilities.full,
+              ] as Segment<FileRangeCapabilities>)
+        }),
+        '</>,',
+      )
+
+      if (vIfAttribute && vIfAttributeName) {
+        if (['v-if', 'v-else-if'].includes(vIfAttributeName)) {
+          result.push(
+            '}',
+            `${attributes[index + 1]?.[1].vIfAttribute?.name.getText(
+              sfc[source]?.ast,
+            )}`.startsWith('v-else')
+              ? ` : `
+              : ` : null,`,
+          )
+        } else if ('v-else' === vIfAttributeName) {
+          result.push('},')
+        }
+      }
+    })
+
+    const slotType = `} satisfies __VLS_getSlots<typeof ${tagName.getText(
+      sfc[source]?.ast,
+    )}>}`
+    if (attributeMap.has(null)) {
+      result.push('default: () => <>')
     } else {
+      result.push(slotType)
+    }
+
+    if (vSlotAttribute) {
+      replaceSourceRange(
+        codes,
+        source,
+        vSlotAttribute.pos,
+        vSlotAttribute.end,
+        ...result,
+      )
+    } else if (ts.isJsxElement(node)) {
       replaceSourceRange(
         codes,
         source,
         node.openingElement.end - 1,
-        node.openingElement.end - 1,
+        node.openingElement.end,
         ...result,
+      )
+      replaceSourceRange(
+        codes,
+        source,
+        node.closingElement!.pos!,
+        node.closingElement!.pos!,
+        attributeMap.has(null) ? `</>${slotType}>` : '>',
       )
     }
   })

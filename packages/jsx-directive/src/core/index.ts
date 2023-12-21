@@ -11,11 +11,11 @@ import { transformVIf } from './v-if'
 import { transformVFor } from './v-for'
 import { transformVMemo } from './v-memo'
 import { transformVHtml } from './v-html'
-import { transformVSlot } from './v-slot'
+import { type VSlotMap, transformVSlot } from './v-slot'
 import { transformVOn } from './v-on'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
-export type JsxDirectiveNode = {
+export type JsxDirective = {
   node: JSXElement
   attribute: JSXAttribute
   parent?: Node | null
@@ -57,50 +57,58 @@ export function transformJsxDirective(
     )
       continue
 
-    const vIfMap = new Map<Node, JsxDirectiveNode[]>()
-    const vForNodes: JsxDirectiveNode[] = []
-    const vMemoNodes: (JsxDirectiveNode & {
+    const vIfMap = new Map<Node | null | undefined, JsxDirective[]>()
+    const vForNodes: JsxDirective[] = []
+    const vMemoNodes: (JsxDirective & {
       vForAttribute?: JSXAttribute
     })[] = []
-    const vHtmlNodes: JsxDirectiveNode[] = []
-    const vSlotSet = new Set<JSXElement>()
-    const vOnNodes: JsxDirectiveNode[] = []
+    const vHtmlNodes: JsxDirective[] = []
+    const vSlotMap: VSlotMap = new Map()
+    const vOnNodes: JsxDirective[] = []
     walkAST<Node>(ast, {
       enter(node, parent) {
         if (node.type !== 'JSXElement') return
+        const tagName = s.sliceNode(node.openingElement.name, {
+          offset,
+        })
 
         let vIfAttribute
         let vForAttribute
         let vMemoAttribute
+        let vSlotAttribute
         for (const attribute of node.openingElement.attributes) {
           if (attribute.type !== 'JSXAttribute') continue
+
           if (
             ['v-if', 'v-else-if', 'v-else'].includes(`${attribute.name.name}`)
-          )
+          ) {
             vIfAttribute = attribute
-          if (attribute.name.name === 'v-for') vForAttribute = attribute
-          if (['v-memo', 'v-once'].includes(`${attribute.name.name}`))
+          }
+
+          if (attribute.name.name === 'v-for') {
+            vForAttribute = attribute
+          }
+
+          if (['v-memo', 'v-once'].includes(`${attribute.name.name}`)) {
             vMemoAttribute = attribute
+          }
+
           if (attribute.name.name === 'v-html') {
             vHtmlNodes.push({
               node,
               attribute,
             })
           }
+
           if (
             (attribute.name.type === 'JSXNamespacedName'
               ? attribute.name.namespace
               : attribute.name
             ).name === 'v-slot'
           ) {
-            vSlotSet.add(
-              node.openingElement.name.type === 'JSXIdentifier' &&
-                node.openingElement.name.name === 'template' &&
-                parent?.type === 'JSXElement'
-                ? parent
-                : node,
-            )
+            vSlotAttribute = attribute
           }
+
           if (attribute.name.name === 'v-on') {
             vOnNodes.push({
               node,
@@ -109,14 +117,15 @@ export function transformJsxDirective(
           }
         }
 
-        if (vIfAttribute) {
-          if (!vIfMap.has(parent!)) vIfMap.set(parent!, [])
-          vIfMap.get(parent!)?.push({
+        if (vIfAttribute && !(vSlotAttribute && tagName === 'template')) {
+          vIfMap.get(parent) || vIfMap.set(parent, [])
+          vIfMap.get(parent)!.push({
             node,
             attribute: vIfAttribute,
             parent,
           })
         }
+
         if (vForAttribute) {
           vForNodes.push({
             node,
@@ -125,6 +134,7 @@ export function transformJsxDirective(
             vMemoAttribute,
           })
         }
+
         if (vMemoAttribute) {
           vMemoNodes.push({
             node,
@@ -133,6 +143,54 @@ export function transformJsxDirective(
             vForAttribute,
           })
         }
+
+        if (vSlotAttribute) {
+          const slotNode = tagName === 'template' ? parent : node
+          if (slotNode?.type !== 'JSXElement') return
+
+          const attributeMap =
+            vSlotMap.get(slotNode)?.attributeMap ||
+            vSlotMap
+              .set(slotNode, {
+                vSlotAttribute:
+                  tagName !== 'template' ? vSlotAttribute : undefined,
+                attributeMap: new Map(),
+              })
+              .get(slotNode)!.attributeMap
+          const children =
+            attributeMap.get(vSlotAttribute)?.children ||
+            attributeMap
+              .set(vSlotAttribute, {
+                children: [],
+                vIfAttribute:
+                  tagName === 'template' && vIfAttribute
+                    ? vIfAttribute
+                    : undefined,
+              })
+              .get(vSlotAttribute)!.children
+
+          if (slotNode === parent) {
+            children.push(node)
+
+            if (attributeMap.get(null)) return
+            for (const child of parent.children) {
+              if (
+                (child.type === 'JSXElement' &&
+                  s.sliceNode(child.openingElement.name, { offset }) ===
+                    'template') ||
+                (child.type === 'JSXText' &&
+                  !s.sliceNode(child, { offset }).trim())
+              )
+                continue
+              const defaultNodes =
+                attributeMap.get(null)?.children ||
+                attributeMap.set(null, { children: [] }).get(null)!.children
+              defaultNodes.push(child)
+            }
+          } else {
+            children.push(...node.children)
+          }
+        }
       },
     })
 
@@ -140,7 +198,7 @@ export function transformJsxDirective(
     transformVFor(vForNodes, s, offset, version)
     version >= 3.2 && transformVMemo(vMemoNodes, s, offset)
     transformVHtml(vHtmlNodes, s, offset, version)
-    transformVSlot(Array.from(vSlotSet), s, offset, version)
+    transformVSlot(vSlotMap, s, offset, version)
     transformVOn(vOnNodes, s, offset, version)
   }
 

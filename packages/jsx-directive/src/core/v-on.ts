@@ -1,8 +1,8 @@
 import { HELPER_PREFIX, type MagicString } from '@vue-macros/common'
-import type { JsxDirectiveNode } from '.'
+import type { JsxDirective } from '.'
 
 export function transformVOn(
-  nodes: JsxDirectiveNode[],
+  nodes: JsxDirective[],
   s: MagicString,
   offset: number,
   version: number,

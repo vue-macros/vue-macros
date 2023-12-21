@@ -1,5 +1,5 @@
 import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
-import type { JsxAttributeNode, TransformOptions } from './index'
+import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVIf({
   nodes,
@@ -7,7 +7,7 @@ export function transformVIf({
   ts,
   sfc,
   source,
-}: TransformOptions & { nodes: JsxAttributeNode[] }) {
+}: TransformOptions & { nodes: JsxDirective[] }) {
   nodes.forEach(({ node, attribute, parent }, index) => {
     if (!ts.isIdentifier(attribute.name)) return
 
@@ -20,9 +20,8 @@ export function transformVIf({
       attribute.initializer.expression
     ) {
       const hasScope = parent && attribute.name.escapedText === 'v-if'
-      const expressionText = sfc[source]!.content.slice(
-        attribute.initializer.expression.pos,
-        attribute.initializer.expression.end,
+      const expressionText = attribute.initializer.expression.getText(
+        sfc[source]?.ast,
       )
       replaceSourceRange(
         codes,
