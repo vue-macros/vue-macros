@@ -73,7 +73,7 @@ export function transformVSlot(
               return str
             })
             .join('') || ' ',
-          version < 3 ? '</span>' : '</>,',
+          version < 3 ? '</span>,' : '</>,',
         )
 
         if (vIfAttribute) {

@@ -20,20 +20,20 @@ defineRender(() => (
   <div>
     <Child  scopedSlots={{'bottom': ({ foo }) => <span>
       {foo}
-      <Child  scopedSlots={{'default': () => <span>default</span>}}></Child>
-    </span>}}></Child>
+      <Child  scopedSlots={{'default': () => <span>default</span>,}}></Child>
+    </span>,}}></Child>
 
-    <Comp  scopedSlots={{'default': () => <span>default</span>}}></Comp>
-    <Child  scopedSlots={{'bottom': ({ foo }) => <span>{foo}</span>}}></Child>
+    <Comp  scopedSlots={{'default': () => <span>default</span>,}}></Comp>
+    <Child  scopedSlots={{'bottom': ({ foo }) => <span>{foo}</span>,}}></Child>
 
-    <Comp  scopedSlots={{'default': () => <span> </span>}} />
-    <Child  scopedSlots={{'bottom': ({ foo }) => <span> </span>}} />
+    <Comp  scopedSlots={{'default': () => <span> </span>,}} />
+    <Child  scopedSlots={{'bottom': ({ foo }) => <span> </span>,}} />
 
-    <Child scopedSlots={{'default': () => <span>default</span>...(show) ? {'bottom': ({ foo }) => <span>
+    <Child scopedSlots={{'default': () => <span>default</span>,...(show) ? {'bottom': ({ foo }) => <span>
         {show}
-      </span>} : (show === false) ? {'bot-tom': ({ foo }) => <span>
+      </span>,} : (show === false) ? {'bot-tom': ({ foo }) => <span>
         {foo}
-      </span>} : {'title': () => <span> </span>},}}
+      </span>,} : {'title': () => <span> </span>,},}}
       
       
       
