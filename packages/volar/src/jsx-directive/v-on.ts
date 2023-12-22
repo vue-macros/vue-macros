@@ -1,4 +1,4 @@
-import { replaceSourceRange } from '@vue/language-core'
+import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
 import { getEmitsType } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
@@ -25,5 +25,37 @@ export function transformVOn({
       attribute.getEnd() - 1,
       ` satisfies __VLS_getEmits<typeof ${tagName}>`,
     )
+  }
+}
+
+export function transformVOnWithModifiers({
+  nodes,
+  codes,
+  sfc,
+  source,
+}: TransformOptions & { nodes: JsxDirective[] }) {
+  for (const { attribute } of nodes) {
+    const attributeName = attribute.name.getText(sfc[source]?.ast)
+    replaceSourceRange(
+      codes,
+      source,
+      attribute.name.getStart(sfc[source]?.ast),
+      attribute.name.end,
+      [
+        attributeName.split('_')[0],
+        source,
+        [attribute.name.getStart(sfc[source]?.ast), attribute.name.getEnd()],
+        FileRangeCapabilities.full,
+      ],
+    )
+
+    if (!attribute.initializer)
+      replaceSourceRange(
+        codes,
+        source,
+        attribute.name.end,
+        attribute.name.end,
+        '={() => {}}',
+      )
   }
 }

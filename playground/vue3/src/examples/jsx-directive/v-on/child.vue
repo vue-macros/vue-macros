@@ -4,10 +4,14 @@ const slots = defineSlots<{
   bottom: (props: { foo: 1 }) => any
 }>()
 
+const emit = defineEmits<{
+  log: [foo: number]
+  click: []
+}>()
+
 defineRender(() => (
-  <span>
+  <form onSubmit_prevent onClick={() => emit('log', 1)}>
     <slots.default />
-    <slots.bottom {...{ foo: 1 }} />
-  </span>
+  </form>
 ))
 </script>

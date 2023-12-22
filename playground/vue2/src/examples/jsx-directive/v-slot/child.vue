@@ -3,14 +3,10 @@ defineSlots<{
   default: () => any
   bottom: (props: { foo: 1 }) => any
 }>()
-
-defineEmits<{
-  log: [id: number]
-}>()
 </script>
 
 <template>
-  <span @click="$emit('log', 1)">
+  <span>
     <slot />
     <slot name="bottom" v-bind="{ foo: 1 }" />
   </span>

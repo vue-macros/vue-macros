@@ -2,7 +2,7 @@ import { type VSlotMap, transformVSlot } from './v-slot'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
-import { transformVOn } from './v-on'
+import { transformVOn, transformVOnWithModifiers } from './v-on'
 import type { FileRangeCapabilities, Segment, Sfc } from '@vue/language-core'
 
 export type JsxDirective = {
@@ -42,6 +42,7 @@ export function transformJsxDirective({
   const vSlotMap: VSlotMap = new Map()
   const vModelMap = new Map<JsxDirective['node'], JsxDirective[]>()
   const vOnNodes: JsxDirective[] = []
+  const vOnWithModifiers: JsxDirective[] = []
 
   function walkJsxDirective(
     node: import('typescript/lib/tsserverlibrary').Node,
@@ -82,6 +83,10 @@ export function transformJsxDirective({
 
       if (attributeName === 'v-on') {
         vOnNodes.push({ node, attribute })
+      }
+
+      if (/^on[A-Z]\S*_\S+/.test(attributeName)) {
+        vOnWithModifiers.push({ node, attribute })
       }
     }
 
@@ -167,4 +172,5 @@ export function transformJsxDirective({
     transformVModel({ nodes, codes, sfc, ts, source }),
   )
   transformVOn({ nodes: vOnNodes, codes, sfc, ts, source })
+  transformVOnWithModifiers({ nodes: vOnWithModifiers, codes, sfc, ts, source })
 }

@@ -5,7 +5,7 @@ defineRender(() => (
   <fieldset>
     <legend>v-slot</legend>
 
-    <Child v-on={{ log: console.log }}>
+    <Child>
       <div>default: begin</div>
 
       <template v-slot:bottom={{ foo }}>

@@ -1,4 +1,8 @@
-import { HELPER_PREFIX, type MagicString } from '@vue-macros/common'
+import {
+  HELPER_PREFIX,
+  type MagicString,
+  importHelperFn,
+} from '@vue-macros/common'
 import type { JsxDirective } from '.'
 
 export function transformVOn(
@@ -27,5 +31,67 @@ export function transformVOn(
       )})}`,
       { offset },
     )
+  })
+}
+
+export function transformVOnWithModifiers(
+  nodes: JsxDirective[],
+  s: MagicString,
+  offset: number,
+  version: number,
+) {
+  let withModifiers: string
+  nodes.forEach(({ attribute }) => {
+    const attributeName = attribute.name.name.toString()
+    if (version < 3) {
+      s.overwrite(
+        attribute.name.start! + offset,
+        attribute.name.start! + 3 + offset,
+        `v-on:${attributeName[2].toLowerCase()}`,
+      )
+
+      if (!attribute.value)
+        s.appendRight(attribute.name.end! + offset, '={() => {}}')
+      return
+    }
+
+    if (!withModifiers)
+      withModifiers = importHelperFn(s, offset, 'withModifiers', 'vue')
+
+    let [name, ...modifiers] = attributeName.split('_')
+    modifiers = modifiers.filter((modifier) => {
+      if (modifier === 'capture') {
+        s.appendRight(
+          attribute.name.end! + offset,
+          modifier[0].toUpperCase() + modifier.slice(1),
+        )
+        return false
+      } else {
+        return true
+      }
+    })
+
+    s.remove(
+      attribute.name.start! + name.length + offset,
+      attribute.name.end! + offset,
+    )
+
+    if (attribute.value?.type === 'JSXExpressionContainer') {
+      s.appendRight(
+        attribute.value.expression.start! + offset,
+        `${withModifiers}(`,
+      )
+      s.appendLeft(
+        attribute.value.expression.end! + offset,
+        `,[${modifiers.map((modifier) => `'${modifier}'`).join(',')}])`,
+      )
+    } else {
+      s.appendRight(
+        attribute.name.end! + offset,
+        `={${withModifiers}(() => {}, [${modifiers
+          .map((modifier) => `'${modifier}'`)
+          .join(',')}])}`,
+      )
+    }
   })
 }

@@ -34,7 +34,7 @@ const { foo, list } = defineProps<{
 }>()
 
 defineRender(() => (
-  <>
+  <form onSubmit_prevent>
     <div v-if={foo === 0}>
       <div v-if={foo === 0}>0-0</div>
       <div v-else-if={foo === 1}>0-1</div>
@@ -45,10 +45,13 @@ defineRender(() => (
       {i}
     </div>
 
-    <Child v-on={{ submit: () => {} }} v-slot={props}>
-      {props}
+    <Child v-on={{ submit: () => {} }}>
+      default slot
+      <template v-slot:bottom={{ bar }}>
+        <span>{bar}</span>
+      </template>
     </Child>
-  </>
+  </form>
 ))
 </script>
 ```

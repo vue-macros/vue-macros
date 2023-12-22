@@ -32,14 +32,6 @@ export function transformVSlot({
   getSlotsType(codes, vueVersion)
 
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
-    const element = ts.isJsxSelfClosingElement(node)
-      ? node
-      : ts.isJsxElement(node)
-        ? node.openingElement
-        : null
-    const tagName = element?.tagName
-    if (!tagName) return
-
     const result: Segment<FileRangeCapabilities>[] = [' v-slots={{']
     const attributes = Array.from(attributeMap)
     attributes.forEach(([attribute, { children, vIfAttribute }], index) => {
@@ -133,9 +125,12 @@ export function transformVSlot({
       }
     })
 
-    const slotType = `} satisfies __VLS_getSlots<typeof ${tagName.getText(
-      sfc[source]?.ast,
-    )}>}`
+    const tagName = ts.isJsxSelfClosingElement(node)
+      ? node.tagName.getText(sfc[source]?.ast)
+      : ts.isJsxElement(node)
+        ? node.openingElement.tagName.getText(sfc[source]?.ast)
+        : null
+    const slotType = `} satisfies __VLS_getSlots<typeof ${tagName}>}`
     if (attributeMap.has(null)) {
       result.push('default: () => <>')
     } else {
