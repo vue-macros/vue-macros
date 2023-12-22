@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.8.4
+
+### Patch Changes
+
+- [#592](https://github.com/vue-macros/vue-macros/pull/592) [`92f2370`](https://github.com/vue-macros/vue-macros/commit/92f2370624dec6f93a83fe8b0c089dddf8049aec) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support modifiers for v-on
+
 ## 0.8.3
 
 ### Patch Changes
