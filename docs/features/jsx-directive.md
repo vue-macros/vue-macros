@@ -48,7 +48,7 @@ defineRender(() => (
     <Child v-on={{ submit: () => {} }}>
       default slot
       <template v-slot:bottom={{ bar }}>
-        {bar}
+        <span>{bar}</span>
       </template>
     </Child>
   </form>

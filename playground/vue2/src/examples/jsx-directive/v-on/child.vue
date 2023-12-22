@@ -6,13 +6,10 @@ defineSlots<{
 
 const { proxy } = getCurrentInstance()!
 
-const emit = defineEmits(['log','click'])
+const emit = defineEmits(['log', 'click'])
 
 defineRender(() => (
-  <form
-    onSubmit_prevent
-    onClick={() => emit('log', 1)}
-  >
+  <form onSubmit_prevent onClick={() => emit('log', 1)}>
     {proxy.$slots.default}
   </form>
 ))
