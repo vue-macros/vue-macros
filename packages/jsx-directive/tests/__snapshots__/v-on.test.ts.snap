@@ -1,0 +1,95 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/child.vue 1`] = `
+"<script setup lang="tsx">
+const slots = defineSlots<{
+  default: () => any
+  bottom: (props: { foo: 1 }) => any
+}>()
+
+const emit = defineEmits<{
+  log: [foo: number]
+  click: []
+}>()
+
+defineRender(() => (
+  <form v-on:submit_prevent={() => {}} onClick={() => emit('log', 1)}>
+    <slots.default />
+  </form>
+))
+</script>
+"
+`;
+
+exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/index.vue 1`] = `
+"<script setup lang="tsx">
+import Child from './child.vue'
+
+let bar = $ref('')
+defineRender(() => (
+  <fieldset>
+    <legend>v-on</legend>
+
+    <Child
+      on={{ log: console.log }}
+      v-on:click_capture_stop={() => console.log('stopped')}
+    >
+      <input
+        value={bar}
+        v-on:input_prevent={(event: any) => (bar = event.target.value)}
+      />
+      {bar}
+    </Child>
+  </fieldset>
+))
+</script>
+"
+`;
+
+exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/child.vue 1`] = `
+"<script setup lang="tsx">
+import { withModifiers as __MACROS_withModifiers } from "vue";
+const slots = defineSlots<{
+  default: () => any
+  bottom: (props: { foo: 1 }) => any
+}>()
+
+const emit = defineEmits<{
+  log: [foo: number]
+  click: []
+}>()
+
+defineRender(() => (
+  <form onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])} onClick={() => emit('log', 1)}>
+    <slots.default />
+  </form>
+))
+</script>
+"
+`;
+
+exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/index.vue 1`] = `
+"<script setup lang="tsx">
+import { withModifiers as __MACROS_withModifiers } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});
+import Child from './child.vue'
+
+let bar = $ref('')
+defineRender(() => (
+  <fieldset>
+    <legend>v-on</legend>
+
+    <Child
+      {...__MACROS_transformVOn({ log: console.log })}
+      onClickCapture={__MACROS_withModifiers(() => console.log('stopped'),['stop'])}
+    >
+      <input
+        value={bar}
+        onInput={__MACROS_withModifiers((event: any) => (bar = event.target.value),['prevent'])}
+      />
+      {bar}
+    </Child>
+  </fieldset>
+))
+</script>
+"
+`;

@@ -12,9 +12,6 @@ const plugin: VueLanguagePlugin = ({
       if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (!/\sv-(if|for|slot|model|on)/.test(`${sfc[source]?.content}`))
-          continue
-
         transformJsxDirective({
           codes: embeddedFile.content,
           sfc,
