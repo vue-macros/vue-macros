@@ -61,6 +61,7 @@ export function transformVSlot({
         ?.getText(sfc[source]?.ast)
         .slice(6)
         .split(' ')[0]
+        .replaceAll(/-([A-Za-z])/g, (_, name) => name.toUpperCase())
       const isNamespace = attributeName.startsWith(':')
       attributeName = attributeName.slice(1)
       const hasSpecialChart = !/^[A-Z_a-z]\w*$/.test(attributeName)
@@ -70,7 +71,11 @@ export function transformVSlot({
           ? [
               hasSpecialChart ? `'${attributeName}'` : attributeName,
               source,
-              attribute.getStart(sfc[source]?.ast) + (hasSpecialChart ? 6 : 7),
+              [
+                attribute.name.getStart(sfc[source]?.ast) +
+                  (hasSpecialChart ? 6 : 7),
+                attribute.name.end,
+              ],
               FileRangeCapabilities.full,
             ]
           : 'default',
