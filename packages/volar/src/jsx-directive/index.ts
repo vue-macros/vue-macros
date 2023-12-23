@@ -3,6 +3,7 @@ import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
+import { transformVBind } from './v-bind'
 import type { FileRangeCapabilities, Segment, Sfc } from '@vue/language-core'
 
 export type JsxDirective = {
@@ -43,6 +44,7 @@ export function transformJsxDirective({
   const vModelMap = new Map<JsxDirective['node'], JsxDirective[]>()
   const vOnNodes: JsxDirective[] = []
   const vOnWithModifiers: JsxDirective[] = []
+  const vBindNodes: JsxDirective[] = []
 
   function walkJsxDirective(
     node: import('typescript/lib/tsserverlibrary').Node,
@@ -63,30 +65,22 @@ export function transformJsxDirective({
 
       if (['v-if', 'v-else-if', 'v-else'].includes(attributeName)) {
         vIfAttribute = attribute
-      }
-
-      if (attributeName === 'v-for') {
+      } else if (attributeName === 'v-for') {
         vForAttribute = attribute
-      }
-
-      if (/^v-slot(?=:\S*|$)/.test(attributeName)) {
+      } else if (/^v-slot(?=:\S*|$)/.test(attributeName)) {
         vSlotAttribute = attribute
-      }
-
-      if (/^v-model(?=[:_]\S*|$)/.test(attributeName)) {
+      } else if (/^v-model(?=[:_]\S*|$)/.test(attributeName)) {
         vModelMap.has(node) || vModelMap.set(node, [])
         vModelMap.get(node)!.push({
           node,
           attribute,
         })
-      }
-
-      if (attributeName === 'v-on') {
+      } else if (attributeName === 'v-on') {
         vOnNodes.push({ node, attribute })
-      }
-
-      if (/^on[A-Z]\S*_\S+/.test(attributeName)) {
+      } else if (/^on[A-Z]\S*[_|-]\S+/.test(attributeName)) {
         vOnWithModifiers.push({ node, attribute })
+      } else if (/\S+[_|-]\S+/.test(attributeName)) {
+        vBindNodes.push({ node, attribute })
       }
     }
 
@@ -173,4 +167,5 @@ export function transformJsxDirective({
   )
   transformVOn({ nodes: vOnNodes, codes, sfc, ts, source })
   transformVOnWithModifiers({ nodes: vOnWithModifiers, codes, sfc, ts, source })
+  transformVBind({ nodes: vBindNodes, codes, sfc, ts, source })
 }
