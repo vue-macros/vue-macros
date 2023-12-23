@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.18.5
+
+### Patch Changes
+
+- [#594](https://github.com/vue-macros/vue-macros/pull/594) [`ddb6bcf`](https://github.com/vue-macros/vue-macros/commit/ddb6bcf29624056f67ae55c8f0968aa169fe7e84) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - convert kebabCase to camelCase
+
 ## 0.18.4
 
 ### Patch Changes
