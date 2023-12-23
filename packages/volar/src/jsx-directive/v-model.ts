@@ -13,35 +13,38 @@ export function transformVModel({
   sfc,
   source,
 }: TransformOptions & { nodes: JsxDirective[] }) {
-  let firstNamespacedNode: (JsxDirective & { name: string }) | undefined
+  let firstNamespacedNode:
+    | (JsxDirective & { attributeName: string })
+    | undefined
   const result: Segment<FileRangeCapabilities>[] = []
   for (const { attribute, node } of nodes) {
     if (attribute.name.getText(sfc[source]?.ast).startsWith('v-model:')) {
-      const name = attribute.name
+      const attributeName = attribute.name
         .getText(sfc[source]?.ast)
         .slice(8)
         .split(' ')[0]
         .split('_')[0]
-      firstNamespacedNode ??= { attribute, node, name }
+        .replaceAll(/-([A-Za-z])/g, (_, name) => name.toUpperCase())
+      firstNamespacedNode ??= { attribute, node, attributeName }
       if (firstNamespacedNode.attribute !== attribute) {
         replaceSourceRange(
           codes,
           source,
           attribute.getStart(sfc[source]?.ast),
           attribute.getEnd(),
-          `onUpdate:${name}={() => {}}`,
+          `onUpdate:${attributeName}={() => {}}`,
         )
       }
 
       result.push(
         firstNamespacedNode.attribute !== attribute ? ',' : '',
         [
-          name,
+          attributeName,
           source,
-          attribute.name.getStart(sfc[source]?.ast) + 8,
+          [attribute.name.getStart(sfc[source]?.ast) + 8, attribute.name.end],
           FileRangeCapabilities.full,
         ],
-        attribute.initializer && name
+        attribute.initializer && attributeName
           ? [
               `:${attribute.initializer
                 .getText(sfc[source]?.ast)
@@ -71,7 +74,7 @@ export function transformVModel({
   }
 
   if (!firstNamespacedNode) return
-  const { node, attribute, name } = firstNamespacedNode
+  const { node, attribute, attributeName } = firstNamespacedNode
   getModelsType(codes)
 
   const tagName = ts.isJsxSelfClosingElement(node)
@@ -84,7 +87,7 @@ export function transformVModel({
     source,
     attribute.getStart(sfc[source]?.ast),
     attribute.getEnd(),
-    `onUpdate:${name}={() => {}} {...{`,
+    `onUpdate:${attributeName}={() => {}} {...{`,
     ...result,
     `} satisfies __VLS_getModels<typeof ${tagName}>}`,
   )

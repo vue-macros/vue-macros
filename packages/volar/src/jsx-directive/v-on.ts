@@ -35,14 +35,17 @@ export function transformVOnWithModifiers({
   source,
 }: TransformOptions & { nodes: JsxDirective[] }) {
   for (const { attribute } of nodes) {
-    const attributeName = attribute.name.getText(sfc[source]?.ast)
+    const attributeName = attribute.name
+      .getText(sfc[source]?.ast)
+      .split('_')[0]
+      .replaceAll(/-([A-Za-z])/g, (_, name) => name.toUpperCase())
     replaceSourceRange(
       codes,
       source,
       attribute.name.getStart(sfc[source]?.ast),
       attribute.name.end,
       [
-        attributeName.split('_')[0],
+        attributeName,
         source,
         [attribute.name.getStart(sfc[source]?.ast), attribute.name.getEnd()],
         FileRangeCapabilities.full,
