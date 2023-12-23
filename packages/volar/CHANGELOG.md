@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.18.6
+
+### Patch Changes
+
+- [#596](https://github.com/vue-macros/vue-macros/pull/596) [`35eeec1`](https://github.com/vue-macros/vue-macros/commit/35eeec1f1f94c35f2f94ab14e1833a1b9331c670) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support kebabCase for prop
+
 ## 0.18.5
 
 ### Patch Changes
