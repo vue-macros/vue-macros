@@ -4,7 +4,7 @@ defineSlots<{
   title: (props: { foo: 1 }) => any
   bottom: (props: { foo: 1 }) => any
   center: (props: { foo: 1 }) => any
-  'bot-tom': (props: { foo: 1 }) => any
+  bodyLeft: (props: { foo: 1 }) => any
 }>()
 </script>
 

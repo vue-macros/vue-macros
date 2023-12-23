@@ -35,7 +35,7 @@ defineRender(() => (
         {foo}
       </template>
       <template v-else v-slot:bottom />
-      <template v-slot:bot-tom>bottom</template>
+      <template v-slot:body-left>body-left</template>
     </Child>
   </div>
 ))
