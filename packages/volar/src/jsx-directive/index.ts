@@ -79,7 +79,7 @@ export function transformJsxDirective({
         vOnNodes.push({ node, attribute })
       } else if (/^on[A-Z]\S*[_|-]\S+/.test(attributeName)) {
         vOnWithModifiers.push({ node, attribute })
-      } else if (/\S+[_|-]\S+/.test(attributeName)) {
+      } else if (/^(?!v-)\S+[_|-]\S+/.test(attributeName)) {
         vBindNodes.push({ node, attribute })
       }
     }
