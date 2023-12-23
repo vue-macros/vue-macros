@@ -12,11 +12,12 @@ export function transformVBind({
   getEmitsType(codes)
 
   for (const { attribute } of nodes) {
-    const attributeName = attribute.name
-      .getText(sfc[source]?.ast)
-      .replaceAll(/-([A-Za-z])/g, (_, name) => name.toUpperCase())
+    let attributeName = attribute.name.getText(sfc[source]?.ast)
 
     if (attributeName.includes('-')) {
+      attributeName = attributeName.replaceAll(/-([A-Za-z])/g, (_, name) =>
+        name.toUpperCase(),
+      )
       replaceSourceRange(
         codes,
         source,
