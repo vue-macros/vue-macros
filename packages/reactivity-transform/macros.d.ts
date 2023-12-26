@@ -1,4 +1,3 @@
-/* eslint-disable antfu/no-const-enum */
 import type {
   ComputedRef,
   CustomRefFactory,
@@ -11,6 +10,7 @@ import type {
 
 export declare const RefType: unique symbol
 
+// eslint-disable-next-line no-restricted-syntax
 export declare const enum RefTypes {
   Ref = 1,
   ComputedRef = 2,
