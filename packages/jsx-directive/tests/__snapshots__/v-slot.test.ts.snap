@@ -33,7 +33,7 @@ defineRender(() => (
         {show}
       </span>,} : (show === false) ? {'center': ({ foo }) => <span>
         {foo}
-      </span>,} : {'bottom': () => <span> </span>,},'bodyLeft': () => <span>body-left</span>,default: () => <span>
+      </span>,} : {'bottom': () => <span> </span>,},'bot-tom': () => <span>bot-tom</span>,default: () => <span>
       default
       
       
@@ -79,7 +79,7 @@ defineRender(() => (
         {show}
       </>,} : (show === false) ? {'center': ({ foo }) => <>
         {foo}
-      </>,} : {'bottom': () => <> </>,},'bodyLeft': () => <>body-left</>,default: () => <>
+      </>,} : {'bottom': () => <> </>,},'bot-tom': () => <>bot-tom</>,default: () => <>
       default
       
       
