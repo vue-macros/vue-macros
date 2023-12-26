@@ -1,10 +1,12 @@
 import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
+import { camelize } from 'vue'
 import { getEmitsType } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVBind({
   nodes,
   codes,
+  ts,
   sfc,
   source,
 }: TransformOptions & { nodes: JsxDirective[] }) {
@@ -14,10 +16,12 @@ export function transformVBind({
   for (const { attribute } of nodes) {
     let attributeName = attribute.name.getText(sfc[source]?.ast)
 
-    if (attributeName.includes('-')) {
-      attributeName = attributeName.replaceAll(/-([A-Za-z])/g, (_, name) =>
-        name.toUpperCase(),
-      )
+    if (
+      attributeName.includes('-') &&
+      attribute.initializer &&
+      !ts.isStringLiteral(attribute.initializer)
+    ) {
+      attributeName = camelize(attributeName)
       replaceSourceRange(
         codes,
         source,

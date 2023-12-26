@@ -3,6 +3,7 @@ import {
   type Segment,
   replaceSourceRange,
 } from '@vue/language-core'
+import { camelize } from 'vue'
 import { getModelsType } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
@@ -19,12 +20,13 @@ export function transformVModel({
   const result: Segment<FileRangeCapabilities>[] = []
   for (const { attribute, node } of nodes) {
     if (attribute.name.getText(sfc[source]?.ast).startsWith('v-model:')) {
-      const attributeName = attribute.name
-        .getText(sfc[source]?.ast)
-        .slice(8)
-        .split(' ')[0]
-        .split('_')[0]
-        .replaceAll(/-([A-Za-z])/g, (_, name) => name.toUpperCase())
+      const attributeName = camelize(
+        attribute.name
+          .getText(sfc[source]?.ast)
+          .slice(8)
+          .split(' ')[0]
+          .split('_')[0],
+      )
       firstNamespacedNode ??= { attribute, node, attributeName }
       if (firstNamespacedNode.attribute !== attribute) {
         replaceSourceRange(

@@ -50,9 +50,7 @@ export function transformVSlot(
         result.push(
           `'${
             attribute.name.type === 'JSXNamespacedName'
-              ? attribute.name.name.name.replaceAll(/-([A-Za-z])/g, (_, name) =>
-                  name.toUpperCase(),
-                )
+              ? attribute.name.name.name
               : 'default'
           }': (`,
           attribute.value && attribute.value.type === 'JSXExpressionContainer'
