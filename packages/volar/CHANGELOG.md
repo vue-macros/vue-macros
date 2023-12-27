@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.18.8
+
+### Patch Changes
+
+- [#603](https://github.com/vue-macros/vue-macros/pull/603) [`7559395`](https://github.com/vue-macros/vue-macros/commit/75593956ca23611afac4a9663191446f0363c1f9) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-model
+
 ## 0.18.7
 
 ### Patch Changes
