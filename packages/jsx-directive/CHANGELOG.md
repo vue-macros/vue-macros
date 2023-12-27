@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.8.5
+
+### Patch Changes
+
+- [#601](https://github.com/vue-macros/vue-macros/pull/601) [`56377eb`](https://github.com/vue-macros/vue-macros/commit/56377eb938b180e9954f5968e74ba4ca17657363) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - prevent convert `v-on` & `v-slot` to camelCase
+
 ## 0.8.4
 
 ### Patch Changes
