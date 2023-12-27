@@ -14,12 +14,19 @@ export function transformVModel({
   sfc,
   source,
 }: TransformOptions & { nodes: JsxDirective[] }) {
-  let firstNamespacedNode:
-    | (JsxDirective & { attributeName: string })
-    | undefined
+  let firstNamespacedNode: JsxDirective | undefined
   const result: Segment<FileRangeCapabilities>[] = []
   for (const { attribute, node } of nodes) {
-    if (attribute.name.getText(sfc[source]?.ast).startsWith('v-model:')) {
+    const isArrayExpression =
+      attribute.initializer &&
+      ts.isJsxExpression(attribute.initializer) &&
+      attribute.initializer.expression &&
+      ts.isArrayLiteralExpression(attribute.initializer.expression)
+
+    if (
+      attribute.name.getText(sfc[source]?.ast).startsWith('v-model:') ||
+      isArrayExpression
+    ) {
       const attributeName = camelize(
         attribute.name
           .getText(sfc[source]?.ast)
@@ -27,36 +34,55 @@ export function transformVModel({
           .split(' ')[0]
           .split('_')[0],
       )
-      firstNamespacedNode ??= { attribute, node, attributeName }
+      firstNamespacedNode ??= { attribute, node }
       if (firstNamespacedNode.attribute !== attribute) {
         replaceSourceRange(
           codes,
           source,
           attribute.getStart(sfc[source]?.ast),
           attribute.getEnd(),
-          `onUpdate:${attributeName}={() => {}}`,
         )
+        result.push(',')
       }
 
-      result.push(
-        firstNamespacedNode.attribute !== attribute ? ',' : '',
-        [
+      if (isArrayExpression) {
+        const { elements } = attribute.initializer.expression
+        if (elements[1] && !ts.isArrayLiteralExpression(elements[1])) {
+          if (!ts.isStringLiteral(elements[1])) result.push('[`${')
+          result.push([
+            elements[1].getText(sfc[source]?.ast),
+            source,
+            elements[1].getStart(sfc[source]?.ast),
+            FileRangeCapabilities.full,
+          ])
+          if (!ts.isStringLiteral(elements[1])) result.push('}`]')
+        } else {
+          result.push('modelValue')
+        }
+
+        if (elements[0])
+          result.push([
+            `:${elements[0].getText(sfc[source]?.ast)}`,
+            source,
+            elements[0].getStart(sfc[source]?.ast),
+            FileRangeCapabilities.full,
+          ])
+      } else {
+        result.push([
           attributeName,
           source,
           [attribute.name.getStart(sfc[source]?.ast) + 8, attribute.name.end],
           FileRangeCapabilities.full,
-        ],
-        attribute.initializer && attributeName
-          ? [
-              `:${attribute.initializer
-                .getText(sfc[source]?.ast)
-                .slice(1, -1)}`,
-              source,
-              attribute.initializer.getStart(sfc[source]?.ast),
-              FileRangeCapabilities.full,
-            ]
-          : '',
-      )
+        ])
+
+        if (attribute.initializer && attributeName)
+          result.push([
+            `:${attribute.initializer.getText(sfc[source]?.ast).slice(1, -1)}`,
+            source,
+            attribute.initializer.getStart(sfc[source]?.ast),
+            FileRangeCapabilities.full,
+          ])
+      }
     } else {
       replaceSourceRange(
         codes,
@@ -76,7 +102,7 @@ export function transformVModel({
   }
 
   if (!firstNamespacedNode) return
-  const { node, attribute, attributeName } = firstNamespacedNode
+  const { node, attribute } = firstNamespacedNode
   getModelsType(codes)
 
   const tagName = ts.isJsxSelfClosingElement(node)
@@ -89,7 +115,7 @@ export function transformVModel({
     source,
     attribute.getStart(sfc[source]?.ast),
     attribute.getEnd(),
-    `onUpdate:${attributeName}={() => {}} {...{`,
+    `{...{`,
     ...result,
     `} satisfies __VLS_getModels<typeof ${tagName}>}`,
   )

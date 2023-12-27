@@ -10,14 +10,14 @@ defineProps<{
 
 defineModels<{
   modelValue: number
-  title: number
+  title?: number
   bottom: number
 }>()
 
 const value = $ref('')
 defineRender(() => (
   <>
-    <slots.title v-model:value_trim={value}></slots.title>
+    <slots.title v-model:value_trim={value} onUpdate:value={() => {}} />
 
     <slots.default value={value}></slots.default>
   </>

@@ -3,9 +3,15 @@ import Child from './child.vue'
 
 const foo = $ref(1)
 const bar = $ref('')
-
+const baz = $computed(() => (foo === 0 ? 'title' : 'bottom'))
 defineRender(() => (
-  <Child bar={bar} v-model:title={foo} v-model:bottom={foo} v-model={foo}>
+  <Child
+    bar={bar}
+    v-model={[foo, foo === 1 ? 'bottom' : 'title']}
+    v-model={[foo, baz]}
+    v-model:bottom={foo}
+    v-model={foo}
+  >
     <template v-slot:title={{ value, ...emits }}>
       <input
         value={value}
