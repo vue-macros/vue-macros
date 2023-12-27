@@ -117,10 +117,13 @@ export function getModelsType(codes: Segment<FileRangeCapabilities>[]) {
   getPropsType(codes)
 
   codes.push(`
+type __VLS_CamelCase<S extends string> = S extends \`\${infer F}-\${infer RF}\${infer R}\`
+  ? \`\${F}\${Uppercase<RF>}\${__VLS_CamelCase<R>}\`
+  : S;
 type __VLS_RemoveUpdatePrefix<T> = T extends \`update:modelValue\`
   ? never
   : T extends \`update:\${infer R}\`
-    ? \`\${R}\`
+    ? __VLS_CamelCase<R>
     : T;
 type __VLS_getModels<T> = T extends object
   ? {
