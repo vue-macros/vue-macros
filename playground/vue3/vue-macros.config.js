@@ -25,11 +25,11 @@ export default {
   exportRender: {
     include: [/export-render.*\.vue$/],
   },
+  reactivityTransform: true,
 
   plugins: {
     vue: Vue({
       include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
-      reactivityTransform: true,
       script: {
         hoistStatic: false,
       },
