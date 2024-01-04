@@ -204,6 +204,7 @@ exports[`compiler > double bind > default name 1`] = `
 {
   "arg": undefined,
   "exp": {
+    "ast": null,
     "constType": 0,
     "content": "_ctx.foo",
     "isStatic": false,
@@ -237,6 +238,7 @@ exports[`compiler > double bind > default name 1`] = `
   },
   "modifiers": [],
   "name": "model",
+  "rawName": "::",
   "type": 7,
 }
 `;
@@ -263,6 +265,7 @@ exports[`compiler > double bind > w/ name 1`] = `
     "type": 4,
   },
   "exp": {
+    "ast": null,
     "constType": 0,
     "content": "_ctx.foo",
     "isStatic": false,
@@ -296,6 +299,7 @@ exports[`compiler > double bind > w/ name 1`] = `
   },
   "modifiers": [],
   "name": "model",
+  "rawName": "::foo",
   "type": 7,
 }
 `;
