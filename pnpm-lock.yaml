@@ -152,8 +152,8 @@ importers:
         version: link:../macros
     devDependencies:
       '@vitejs/plugin-vue':
-        specifier: ^4.6.2
-        version: 4.6.2(vite@5.0.10)(vue@3.4.4)
+        specifier: ^5.0.2
+        version: 5.0.2(vite@5.0.10)(vue@3.4.4)
       astro:
         specifier: ^4.0.9
         version: 4.0.9(@types/node@20.10.6)(typescript@5.3.3)
@@ -217,8 +217,8 @@ importers:
         specifier: ^7.23.6
         version: 7.23.6
       '@vitejs/plugin-vue':
-        specifier: ^4.6.2
-        version: 4.6.2(vite@5.0.10)(vue@3.4.4)
+        specifier: ^5.0.2
+        version: 5.0.2(vite@5.0.10)(vue@3.4.4)
 
   packages/define-emit:
     dependencies:
@@ -358,8 +358,8 @@ importers:
         specifier: ^0.58.3
         version: 0.58.3
       '@vitejs/plugin-vue':
-        specifier: ^4.6.2
-        version: 4.6.2(vite@5.0.10)(vue@3.4.4)
+        specifier: ^5.0.2
+        version: 5.0.2(vite@5.0.10)(vue@3.4.4)
       get-port:
         specifier: ^7.0.0
         version: 7.0.0
@@ -845,8 +845,8 @@ importers:
         specifier: ^15.2.3
         version: 15.2.3(rollup@4.9.2)
       '@vitejs/plugin-vue':
-        specifier: ^4.6.2
-        version: 4.6.2(vite@5.0.10)(vue@3.4.4)
+        specifier: ^5.0.2
+        version: 5.0.2(vite@5.0.10)(vue@3.4.4)
       '@vitejs/plugin-vue-jsx':
         specifier: ^3.1.0
         version: 3.1.0(vite@5.0.10)(vue@3.4.4)
@@ -5088,6 +5088,7 @@ packages:
     dependencies:
       vite: 5.0.10(@types/node@20.10.6)
       vue: 3.4.4(typescript@5.3.3)
+    dev: false
 
   /@vitejs/plugin-vue@5.0.2(vite@5.0.10)(vue@3.4.4):
     resolution: {integrity: sha512-kEjJHrLb5ePBvjD0SPZwJlw1QTRcjjCA9sB5VyfonoXVBxTS7TMnqL6EkLt1Eu61RDeiuZ/WN9Hf6PxXhPI2uA==}
