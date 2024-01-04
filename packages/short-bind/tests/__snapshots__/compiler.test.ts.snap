@@ -16,6 +16,19 @@ exports[`compiler > asterisk sign > default name 1`] = `
     },
   },
   "name": "*model-value",
+  "nameLoc": {
+    "end": {
+      "column": 20,
+      "line": 1,
+      "offset": 19,
+    },
+    "source": "*model-value",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
   "type": 6,
   "value": {
     "content": "modelValue",
@@ -53,6 +66,19 @@ exports[`compiler > asterisk sign > w/ name 1`] = `
     },
   },
   "name": "*foo",
+  "nameLoc": {
+    "end": {
+      "column": 12,
+      "line": 1,
+      "offset": 11,
+    },
+    "source": "*foo",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
   "type": 6,
   "value": {
     "content": "foo",
@@ -90,6 +116,19 @@ exports[`compiler > dollar sign > default name 1`] = `
     },
   },
   "name": "$model-value",
+  "nameLoc": {
+    "end": {
+      "column": 20,
+      "line": 1,
+      "offset": 19,
+    },
+    "source": "$model-value",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
   "type": 6,
   "value": {
     "content": "modelValue",
@@ -127,6 +166,19 @@ exports[`compiler > dollar sign > w/ name 1`] = `
     },
   },
   "name": "$foo",
+  "nameLoc": {
+    "end": {
+      "column": 12,
+      "line": 1,
+      "offset": 11,
+    },
+    "source": "$foo",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
   "type": 6,
   "value": {
     "content": "foo",
@@ -203,6 +255,7 @@ exports[`compiler > double bind > default name 1`] = `
   },
   "modifiers": [],
   "name": "bind",
+  "rawName": "::model-value",
   "type": 7,
 }
 `;
@@ -262,6 +315,7 @@ exports[`compiler > double bind > w/ name 1`] = `
   },
   "modifiers": [],
   "name": "bind",
+  "rawName": "::foo",
   "type": 7,
 }
 `;
@@ -321,6 +375,7 @@ exports[`compiler > short bind > default name 1`] = `
   },
   "modifiers": [],
   "name": "bind",
+  "rawName": ":value",
   "type": 7,
 }
 `;
@@ -380,6 +435,7 @@ exports[`compiler > short bind > w/ name 1`] = `
   },
   "modifiers": [],
   "name": "bind",
+  "rawName": ":foo",
   "type": 7,
 }
 `;
