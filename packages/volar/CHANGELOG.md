@@ -1,5 +1,13 @@
 # @vue-macros/volar
 
+## 0.18.9
+
+### Patch Changes
+
+- [`53c2f12`](https://github.com/vue-macros/vue-macros/commit/53c2f12ab7bafbe87f28689001d7960f626b86aa) Thanks [@sxzz](https://github.com/sxzz)! - Replace `vue` with `@vue/shared`
+
+- [#611](https://github.com/vue-macros/vue-macros/pull/611) [`a8ff7e1`](https://github.com/vue-macros/vue-macros/commit/a8ff7e19046d329ed1837ff04e372229a65eb09d) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - optimize bundle size
+
 ## 0.18.8
 
 ### Patch Changes
