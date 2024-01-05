@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.8.6
+
+### Patch Changes
+
+- [#609](https://github.com/vue-macros/vue-macros/pull/609) [`368f5ed`](https://github.com/vue-macros/vue-macros/commit/368f5ed239585d19479364f1f7806206a70bbc9e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support .jsx suffix by default
+
 ## 0.8.5
 
 ### Patch Changes
