@@ -1,9 +1,11 @@
+/* eslint-disable vue/prefer-import-from-vue */
+
 import {
   FileRangeCapabilities,
   type Segment,
   replaceSourceRange,
 } from '@vue/language-core'
-import { camelize } from 'vue'
+import { camelize } from '@vue/shared'
 import { getModelsType } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
