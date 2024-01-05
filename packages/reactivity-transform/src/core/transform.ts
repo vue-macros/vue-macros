@@ -750,7 +750,8 @@ export function transformAST(
       parent && parentStack.pop()
       if (
         (node.type === 'BlockStatement' && !isFunctionType(parent!)) ||
-        isFunctionType(node)
+        isFunctionType(node) ||
+        node.type === 'CatchClause'
       ) {
         scopeStack.pop()
         currentScope = scopeStack.at(-1)!
