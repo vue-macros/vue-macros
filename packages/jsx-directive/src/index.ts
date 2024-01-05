@@ -20,7 +20,7 @@ function resolveOptions(
 ): OptionsResolved {
   const version = options.version || detectVueVersion()
   const include = getFilterPattern(
-    [FilterFileType.VUE_SFC_WITH_SETUP, FilterFileType.SETUP_SFC],
+    [FilterFileType.VUE_SFC_WITH_SETUP, FilterFileType.SRC_FILE],
     framework,
   )
   return {
