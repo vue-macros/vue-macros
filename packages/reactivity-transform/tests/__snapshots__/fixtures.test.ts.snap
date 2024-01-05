@@ -238,6 +238,31 @@ export { destructureProps as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/vue3/issue-608.vue 1`] = `
+"import { ref, isRef, defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "issue-608",
+  setup(__props) {
+    let ref$1 = ref("value");
+    console.log(isRef(ref$1.value));
+    try {
+    } catch {
+      const ref2 = "";
+    }
+    console.log(isRef(ref$1.value));
+    return () => {
+    };
+  }
+});
+
+var issue608 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue608 as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/vue3/runtime-default.vue 1`] = `
 "import { mergeDefaults, defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
