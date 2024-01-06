@@ -45,12 +45,18 @@ export function transformVSlot({
         if (
           ['v-if', 'v-else-if'].includes(vIfAttributeName) &&
           vIfAttribute.initializer &&
-          ts.isJsxExpression(vIfAttribute.initializer)
+          ts.isJsxExpression(vIfAttribute.initializer) &&
+          vIfAttribute.initializer.expression
         ) {
           result.push(
-            `(${vIfAttribute.initializer.expression?.getText(
-              sfc[source]?.ast,
-            )}) ? {`,
+            '(',
+            [
+              vIfAttribute.initializer.expression.getText(sfc[source]?.ast),
+              source,
+              vIfAttribute.initializer.expression.getStart(sfc[source]?.ast),
+              FileRangeCapabilities.full,
+            ],
+            ') ? {',
           )
         } else if ('v-else' === vIfAttributeName) {
           result.push('{')
@@ -63,18 +69,12 @@ export function transformVSlot({
         .split(' ')[0]
       const isNamespace = attributeName.startsWith(':')
       attributeName = attributeName.slice(1)
-      const hasSpecialChart = !/^[A-Z_a-z]\w*$/.test(attributeName)
       result.push(
-        ' ',
         isNamespace
           ? [
-              hasSpecialChart ? `'${attributeName}'` : attributeName,
+              `'${attributeName}'`,
               source,
-              [
-                attribute.name.getStart(sfc[source]?.ast) +
-                  (hasSpecialChart ? 6 : 7),
-                attribute.name.end,
-              ],
+              attribute.name.getStart(sfc[source]?.ast) + 6,
               FileRangeCapabilities.full,
             ]
           : 'default',
@@ -114,7 +114,7 @@ export function transformVSlot({
 
       if (vIfAttribute && vIfAttributeName) {
         if (['v-if', 'v-else-if'].includes(vIfAttributeName)) {
-          const nextIndex = index + (attributes[index + 1][0] ? 1 : 2)
+          const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
           result.push(
             '}',
             `${attributes[nextIndex]?.[1].vIfAttribute?.name.getText(
