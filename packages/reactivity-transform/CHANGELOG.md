@@ -1,5 +1,11 @@
 # @vue-macros/reactivity-transform
 
+## 0.4.2
+
+### Patch Changes
+
+- [#608](https://github.com/vue-macros/vue-macros/pull/608) [`3a14145`](https://github.com/vue-macros/vue-macros/commit/3a14145a2e8a7ed5404c1a2154d14619978183cf) Thanks [@code-elf](https://github.com/code-elf)! - fix `catch` scope of reactivity transform
+
 ## 0.4.1
 
 ### Patch Changes

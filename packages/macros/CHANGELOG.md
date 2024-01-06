@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 2.7.9
+
+### Patch Changes
+
+- Updated dependencies [[`699402e`](https://github.com/vue-macros/vue-macros/commit/699402eadfdd1c95a7b8f44582994479404ad3ad), [`3a14145`](https://github.com/vue-macros/vue-macros/commit/3a14145a2e8a7ed5404c1a2154d14619978183cf)]:
+  - @vue-macros/jsx-directive@0.8.7
+  - @vue-macros/reactivity-transform@0.4.2
+  - @vue-macros/define-props@2.0.2
+
 ## 2.7.8
 
 ### Patch Changes

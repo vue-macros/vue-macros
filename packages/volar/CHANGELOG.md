@@ -1,5 +1,14 @@
 # @vue-macros/volar
 
+## 0.18.10
+
+### Patch Changes
+
+- [#613](https://github.com/vue-macros/vue-macros/pull/613) [`699402e`](https://github.com/vue-macros/vue-macros/commit/699402eadfdd1c95a7b8f44582994479404ad3ad) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-slot and v-else-if co-usage
+
+- Updated dependencies []:
+  - @vue-macros/define-props@2.0.2
+
 ## 0.18.9
 
 ### Patch Changes
