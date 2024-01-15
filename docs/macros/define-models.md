@@ -120,15 +120,15 @@ emit('update:count', count + 1)
   "vueCompilerOptions": {
     "target": 3, // or 2.7 for Vue 2
     "plugins": [
-      "@vue-macros/volar/define-models"
+      "@vue-macros/volar/define-models",
       // ...more feature
     ],
     "vueMacros": {
       "defineModels": {
         // Only works when target is 2.7.
-        "unified": true
-      }
-    }
-  }
+        "unified": true,
+      },
+    },
+  },
 }
 ```

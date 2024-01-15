@@ -142,15 +142,15 @@ npm i -D @vue-macros/volar
       "@vue-macros/volar/short-vmodel",
       "@vue-macros/volar/define-slots",
       "@vue-macros/volar/jsx-directive",
-      "@vue-macros/volar/setup-jsdoc"
+      "@vue-macros/volar/setup-jsdoc",
 
       // 选择以下其中一个
       // "@vue-macros/volar/export-expose",
       // "@vue-macros/volar/export-props",
       // "@vue-macros/volar/export-render",
-    ]
+    ],
     // ...
-  }
+  },
 }
 ```
 
@@ -165,20 +165,20 @@ npm i -D @vue-macros/volar
     "plugins": [
       "@vue-macros/volar/export-render",
       "@vue-macros/volar/export-expose",
-      "@vue-macros/volar/export-props"
+      "@vue-macros/volar/export-props",
     ],
     "vueMacros": {
       "exportExpose": {
-        "include": ["**/export-expose/**"]
+        "include": ["**/export-expose/**"],
       },
       "exportProps": {
-        "include": ["**/export-props/**"]
+        "include": ["**/export-props/**"],
       },
       "exportRender": {
-        "include": ["**/export-render/**"]
-      }
-    }
-  }
+        "include": ["**/export-render/**"],
+      },
+    },
+  },
 }
 ```
 

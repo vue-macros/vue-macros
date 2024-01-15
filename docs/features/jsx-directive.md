@@ -64,9 +64,9 @@ defineRender(() => (
   "vueCompilerOptions": {
     "target": 3,
     "plugins": [
-      "@vue-macros/volar/jsx-directive"
+      "@vue-macros/volar/jsx-directive",
       // ...more feature
-    ]
-  }
+    ],
+  },
 }
 ```

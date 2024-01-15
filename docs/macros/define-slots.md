@@ -47,9 +47,9 @@ defineSlots<{
   "vueCompilerOptions": {
     "target": 3, // or 2.7 for Vue 2
     "plugins": [
-      "@vue-macros/volar/define-slots"
+      "@vue-macros/volar/define-slots",
       // ...more feature
-    ]
-  }
+    ],
+  },
 }
 ```

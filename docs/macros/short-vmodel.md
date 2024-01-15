@@ -69,15 +69,15 @@ interface Options {
 {
   "vueCompilerOptions": {
     "plugins": [
-      "@vue-macros/volar/short-vmodel"
+      "@vue-macros/volar/short-vmodel",
       // ...
     ],
     "vueMacros": {
       "shortVmodel": {
-        "prefix": "$"
-      }
-    }
-  }
+        "prefix": "$",
+      },
+    },
+  },
 }
 ```
 

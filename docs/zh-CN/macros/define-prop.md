@@ -135,7 +135,7 @@ const disabled = defineProp<boolean>(true)
   // ...
   "vueCompilerOptions": {
     // "kevinEdition" | "johnsonEdition" | false
-    "experimentalDefinePropProposal": "kevinEdition"
-  }
+    "experimentalDefinePropProposal": "kevinEdition",
+  },
 }
 ```
