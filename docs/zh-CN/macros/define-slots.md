@@ -47,9 +47,9 @@ defineSlots<{
   "vueCompilerOptions": {
     "target": 3, // 或 2.7 用于 Vue 2
     "plugins": [
-      "@vue-macros/volar/define-slots"
+      "@vue-macros/volar/define-slots",
       // ...更多功能
-    ]
-  }
+    ],
+  },
 }
 ```

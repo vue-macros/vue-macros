@@ -120,15 +120,15 @@ emit('update:count', count + 1)
   "vueCompilerOptions": {
     "target": 3, // 或 2.7 用于 Vue 2
     "plugins": [
-      "@vue-macros/volar/define-models"
+      "@vue-macros/volar/define-models",
       // ...更多功能
     ],
     "vueMacros": {
       "defineModels": {
         // 仅在 target 是 2.7 时有效
-        "unified": true
-      }
-    }
-  }
+        "unified": true,
+      },
+    },
+  },
 }
 ```

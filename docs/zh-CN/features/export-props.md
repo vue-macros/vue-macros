@@ -30,9 +30,9 @@ export const bar: number = 1 // 带有默认值
   "vueCompilerOptions": {
     "target": 3,
     "plugins": [
-      "@vue-macros/volar/export-props"
+      "@vue-macros/volar/export-props",
       // ...更多功能
-    ]
-  }
+    ],
+  },
 }
 ```

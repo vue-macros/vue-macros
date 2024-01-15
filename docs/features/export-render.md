@@ -37,9 +37,9 @@ export default () => <div>ok</div>
   "vueCompilerOptions": {
     "target": 3,
     "plugins": [
-      "@vue-macros/volar/export-render"
+      "@vue-macros/volar/export-render",
       // ...more feature
-    ]
-  }
+    ],
+  },
 }
 ```

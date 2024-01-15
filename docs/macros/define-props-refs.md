@@ -52,9 +52,9 @@ console.log(foo.value)
   "vueCompilerOptions": {
     "target": 3,
     "plugins": [
-      "@vue-macros/volar/define-props-refs"
+      "@vue-macros/volar/define-props-refs",
       // ...more feature
-    ]
-  }
+    ],
+  },
 }
 ```

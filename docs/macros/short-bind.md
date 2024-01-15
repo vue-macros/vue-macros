@@ -48,10 +48,10 @@ If you have any questions about this feature, you can comment on [RFC Discussion
 {
   "vueCompilerOptions": {
     "plugins": [
-      "@vue-macros/volar/short-bind"
+      "@vue-macros/volar/short-bind",
       // ...
-    ]
-  }
+    ],
+  },
 }
 ```
 
@@ -61,7 +61,7 @@ If you have any questions about this feature, you can comment on [RFC Discussion
 // .eslintrc
 {
   "rules": {
-    "vue/valid-v-bind": "off"
-  }
+    "vue/valid-v-bind": "off",
+  },
 }
 ```

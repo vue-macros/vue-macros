@@ -48,10 +48,10 @@
 {
   "vueCompilerOptions": {
     "plugins": [
-      "@vue-macros/volar/short-bind"
+      "@vue-macros/volar/short-bind",
       // ...
-    ]
-  }
+    ],
+  },
 }
 ```
 
@@ -61,7 +61,7 @@
 // .eslintrc
 {
   "rules": {
-    "vue/valid-v-bind": "off"
-  }
+    "vue/valid-v-bind": "off",
+  },
 }
 ```

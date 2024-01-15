@@ -41,9 +41,9 @@ const fooRef = $$(foo)
   "vueCompilerOptions": {
     "target": 3,
     "plugins": [
-      "@vue-macros/volar/define-props"
+      "@vue-macros/volar/define-props",
       // ...更多功能
-    ]
-  }
+    ],
+  },
 }
 ```
