@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.10.1
+
+### Patch Changes
+
+- [`921cbbe`](https://github.com/vue-macros/vue-macros/commit/921cbbee2ecccaae8c673427fecc0025d4f0f9e3) Thanks [@sxzz](https://github.com/sxzz)! - fix vue sfc regex for webpack
+
 ## 1.10.0
 
 ### Minor Changes
