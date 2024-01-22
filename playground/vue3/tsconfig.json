@@ -9,7 +9,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "paths": {
-      "#macros": ["../../macros/index.ts"]
+      "#macros": ["../../macros/index.ts"],
     },
     "resolveJsonModule": true,
     "allowJs": true,
@@ -18,7 +18,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "vueCompilerOptions": {
     "plugins": [
@@ -33,24 +33,24 @@
       "@vue-macros/volar/export-expose",
       "@vue-macros/volar/export-props",
       "@vue-macros/volar/jsx-directive",
-      "@vue-macros/volar/setup-jsdoc"
+      "@vue-macros/volar/setup-jsdoc",
     ],
     "experimentalDefinePropProposal": "kevinEdition",
 
     "vueMacros": {
       "shortVmodel": {
-        "prefix": "$"
+        "prefix": "$",
       },
       "exportExpose": {
-        "include": ["**/export-expose/**"]
+        "include": ["**/export-expose/**"],
       },
       "exportProps": {
-        "include": ["**/export-props/**"]
+        "include": ["**/export-props/**"],
       },
       "exportRender": {
-        "include": ["**/export-render/**"]
-      }
-    }
+        "include": ["**/export-render/**"],
+      },
+    },
   },
-  "include": ["src", "*", "../../packages/shim.d.ts"]
+  "include": ["src", "*", "../../packages/shim.d.ts"],
 }

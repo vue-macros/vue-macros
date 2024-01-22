@@ -8,7 +8,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
     },
     "resolveJsonModule": true,
     "types": ["vite/client", "vitepress", "vite-plugin-pwa/client"],
@@ -17,9 +17,9 @@
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "vueCompilerOptions": {},
   "include": ["**/*", "./.*/**/*", "../packages/shim.d.ts"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["dist", "node_modules"],
 }

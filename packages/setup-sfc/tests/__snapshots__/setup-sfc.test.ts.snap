@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`setup-component > fixtures > tests/fixtures/basic.setup.tsx 1`] = `
-"import { createVNode, defineComponent } from 'vue';
+"import { defineComponent, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -28,7 +28,7 @@ export { basic_setup as default };
 `;
 
 exports[`setup-component > fixtures > tests/fixtures/with-define-options.setup.tsx 1`] = `
-"import { createVNode, defineComponent } from 'vue';
+"import { defineComponent, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({

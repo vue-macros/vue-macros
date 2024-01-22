@@ -27,7 +27,7 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/declare.vue 1`] = `
-"import { toDisplayString, defineComponent } from 'vue';
+"import { defineComponent, toDisplayString } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -52,7 +52,7 @@ export { declare as default };
 `;
 
 exports[`fixtures > tests/fixtures/destruct.vue 1`] = `
-"import { openBlock, toDisplayString, createElementBlock, defineComponent } from 'vue';
+"import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
