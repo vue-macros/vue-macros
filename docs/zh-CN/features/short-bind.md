@@ -1,12 +1,10 @@
 # shortBind
 
-<StabilityLevel level="experimental" />
+<StabilityLevel level="stable" />
 
 绑定相同数据名称的 `prop` 的语法糖。
 
 `:value` -> `:value="value"`
-
-如果你对此功能有任何疑问，欢迎在 [RFC](https://github.com/vuejs/rfcs/discussions/405) 中发表评论。
 
 |   Features   |     Supported      |
 | :----------: | :----------------: |

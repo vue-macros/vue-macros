@@ -1,12 +1,10 @@
 # shortBind
 
-<StabilityLevel level="experimental" />
+<StabilityLevel level="stable" />
 
 A shorthand for binding prop with the same data name.
 
 `:value` -> `:value="value"`
-
-If you have any questions about this feature, you can comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/405).
 
 |   Features   |     Supported      |
 | :----------: | :----------------: |
