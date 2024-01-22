@@ -28,7 +28,6 @@ export default sxzz([
     rules: {
       'no-debugger': 'off',
       'no-console': 'off',
-      'vue/valid-v-bind': 'off',
       'vue/require-prop-types': 'off',
       'vue/valid-define-props': 'off',
       'vue/valid-attribute-name': 'off',
