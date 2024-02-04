@@ -52,7 +52,7 @@ export const processDefineProps: Record<DefineProps, string> = {
     { bar: 0 }
   )`,
 
-  'prop destructure': `const { foo, bar = 0 } = defineProps<${propsType}>()`,
+  'prop destructure': `\nconst { foo, bar = 0 } = defineProps<${propsType}>()`,
 
   definePropsRefs: `
   const { foo, bar } = withDefaults(
@@ -68,7 +68,7 @@ export const processDefineProps: Record<DefineProps, string> = {
   export let foo: string
   export const bar = 0`,
 
-  chainCall: `const props = defineProps<${propsType}>().withDefaults({\n bar: 0 })`,
+  chainCall: `\nconst props = defineProps<${propsType}>().withDefaults({\n bar: 0 })`,
 }
 
 export const processDefineEmits: Record<DefineEmits, string> = {

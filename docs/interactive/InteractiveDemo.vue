@@ -23,7 +23,7 @@ const [
   pluginHtml,
   pluginEstree,
 ] = await Promise.all([
-  import('shikiji').then(({ getHighlighter }) =>
+  import('shiki').then(({ getHighlighter }) =>
     getHighlighter({
       themes: ['vitesse-light', 'vitesse-dark'],
       langs: ['typescript', 'vue'],
@@ -46,13 +46,13 @@ const state = reactive<{
 
 const example = computed(() => {
   const topLevel = `import { ref } from 'vue'`
-  const ref = `const count = ref(0)\n`
+  const ref = `\nconst count = ref(0)\n`
   const props = processDefineProps[state.defineProps]
   const emits = processDefineEmits[state.defineEmits]
   const render = processDefineRender[state.defineRender]
 
   return processDefineComponent[state.defineComponents](
-    `${ref}${props}\n${emits}`,
+    `${props}\n${emits}${ref}`,
     render,
     topLevel,
   )
