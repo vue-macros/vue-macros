@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "preserve"
   },
   "vueCompilerOptions": {
     "plugins": [
@@ -13,19 +13,19 @@
       "@vue-macros/volar/define-slots",
       "@vue-macros/volar/export-expose",
       "@vue-macros/volar/export-props",
-      "@vue-macros/volar/jsx-directive",
+      "@vue-macros/volar/jsx-directive"
     ],
     "experimentalDefinePropProposal": "kevinEdition",
     "vueMacros": {
       "shortVmodel": {
-        "prefix": "$",
+        "prefix": "$"
       },
       "exportExpose": {
-        "include": ["**/export-expose/**"],
+        "include": ["**/export-expose/**"]
       },
       "exportProps": {
-        "include": ["**/export-props/**"],
-      },
-    },
-  },
+        "include": ["**/export-props/**"]
+      }
+    }
+  }
 }
