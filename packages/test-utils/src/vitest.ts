@@ -1,3 +1,4 @@
+import process from 'node:process'
 import path from 'node:path'
 import glob, { type Options as GlobOptions } from 'fast-glob'
 import { describe, expect, test } from 'vitest'

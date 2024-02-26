@@ -44,8 +44,8 @@ import type {
 type BuiltInTypesHandler = Record<
   string,
   {
-    handleType(resolved: TSTypeReference): TSType | undefined
-    handleTSProperties?(properties: TSProperties): TSProperties
+    handleType: (resolved: TSTypeReference) => TSType | undefined
+    handleTSProperties?: (properties: TSProperties) => TSProperties
   }
 >
 const builtInTypesHandlers: BuiltInTypesHandler = {
@@ -656,11 +656,11 @@ export interface TSProps extends PropsBase {
    *
    * @returns false if the definition already exists.
    */
-  addProp(
+  addProp: (
     name: string | StringLiteral,
     type: string,
     optional?: boolean,
-  ): boolean
+  ) => boolean
 
   /**
    * Modify a definition of a prop. `definitions` will updated after this call.
@@ -671,11 +671,11 @@ export interface TSProps extends PropsBase {
    *
    * @returns false if the definition does not exist.
    */
-  setProp(
+  setProp: (
     name: string | StringLiteral,
     type: string,
     optional?: boolean,
-  ): boolean
+  ) => boolean
 
   /**
    * Removes specified prop from TS interface. `definitions` will updated after this call.
@@ -684,10 +684,10 @@ export interface TSProps extends PropsBase {
    *
    * @returns `true` if prop was removed, `false` if prop was not found.
    */
-  removeProp(name: string | StringLiteral): boolean
+  removeProp: (name: string | StringLiteral) => boolean
 
   /**
    * get runtime definitions.
    */
-  getRuntimeDefinitions(): Promise<Record<string, RuntimePropDefinition>>
+  getRuntimeDefinitions: () => Promise<Record<string, RuntimePropDefinition>>
 }

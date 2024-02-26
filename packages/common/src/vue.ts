@@ -19,8 +19,8 @@ export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   script?: SFCScriptBlock | null
   scriptSetup?: SFCScriptBlock | null
   lang: string | undefined
-  getScriptAst(): Program | undefined
-  getSetupAst(): Program | undefined
+  getScriptAst: () => Program | undefined
+  getSetupAst: () => Program | undefined
   offset: number
 } & Pick<SFCParseResult, 'errors'>
 

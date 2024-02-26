@@ -12,7 +12,7 @@ defineProps<{
 defineEmits<
   SE<{
     change: [value: string]
-    submit(name: string): void
+    submit: (name: string) => void
   }>
 >()
 
