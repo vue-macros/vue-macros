@@ -1,4 +1,4 @@
-/*eslint sort-keys/sort-keys-fix: "error"*/
+/*eslint perfectionist/sort-objects: "error"*/
 // @ts-check
 
 /** @type import('eslint-define-config').ESLintConfig */

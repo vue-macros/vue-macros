@@ -22,7 +22,7 @@ const emits = defineEmits<{
   // 元组
   'update:modelValue': [val: string]
   // 方法
-  update(val: string): void
+  update: (val: string) => void
 }>()
 </script>
 ```

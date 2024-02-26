@@ -239,7 +239,7 @@ export interface TSEmits extends EmitsBase {
    *
    * @example add('change', '(evt: "change", value: string): void')
    */
-  addEmit(name: string | StringLiteral, signature: string): void
+  addEmit: (name: string | StringLiteral, signature: string) => void
 
   /**
    * Modify a definition of a emit. `definitions` will updated after this call.
@@ -250,11 +250,11 @@ export interface TSEmits extends EmitsBase {
    *
    * @returns false if the definition does not exist.
    */
-  setEmit(
+  setEmit: (
     name: string | StringLiteral,
     index: number,
     signature: string,
-  ): boolean
+  ) => boolean
 
   /**
    * Removes specified emit from TS interface. `definitions` will updated after this call.
@@ -263,5 +263,5 @@ export interface TSEmits extends EmitsBase {
    *
    * @returns `true` if emit was removed, `false` if emit was not found.
    */
-  removeEmit(name: string | StringLiteral, index: number): boolean
+  removeEmit: (name: string | StringLiteral, index: number) => boolean
 }

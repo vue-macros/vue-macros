@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { type UnpluginContextMeta, createUnplugin } from 'unplugin'
 import {
   type BaseOptions,
