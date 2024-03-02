@@ -1,5 +1,11 @@
 # @vue-macros/test-utils
 
+## 1.4.0
+
+### Minor Changes
+
+- [`596e8b0`](https://github.com/vue-macros/vue-macros/commit/596e8b0a24eb8ed63a1f80ece45d64a271a207b9) Thanks [@sxzz](https://github.com/sxzz)! - upgrade unplugin-vue
+
 ## 1.3.0
 
 ### Minor Changes
