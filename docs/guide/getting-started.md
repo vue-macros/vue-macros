@@ -9,7 +9,8 @@ We assume you are already familiar with the basic usages of Vue before you conti
 - Node.js 16.14.0 or higher.
 - Vue >= 2.7 or Vue >= 3.0.
   - Some features need Vue >= 3.2.25.
-- VSCode with the **latest** [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension.
+- VSCode installed the [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) **v1.8.27** (the latest v1) extension.
+  - ❌ Considering that v2 is not yet stable and some issues remain unresolved, plus adapting to 2.x would mean an almost irreversible upgrade for Vue Macros, we've decided not to support 2.x at this time. In other words, we will continue to support v1.
   - ❌ WebStorm is not supported.
 
 ## Creating a Vue Macros Project
