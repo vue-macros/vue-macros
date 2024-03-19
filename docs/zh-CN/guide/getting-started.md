@@ -9,7 +9,8 @@ Vue Macros 是一个库，用于实现尚未被 Vue 正式实现的提案或想�
 - Node.js 16.14.0 或更高
 - Vue >= 2.7 或 Vue >= 3.0
   - 某些功能需要 Vue >= 3.2.25
-- VSCode 安装了 [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 扩展
+- VSCode 安装了 [Vue Language Features (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) **v1.8.27**（最新的 v1）扩展
+  - ❌ 考虑到 2.x 版本尚未稳定，还有一些问题未被解决。并且适配 2.x 对 Vue Macros 几乎是不可逆的升级。所以我们决定目前不兼容 2.x，換而言之，我们依然支持 1.x。
   - ❌ 不支持 WebStorm
 
 ## 搭建第一个 Vue Macros 项目

@@ -6,6 +6,7 @@ import { githubRepo } from '../../../macros' assert { type: 'macro' }
 import type { Plugin } from 'vite'
 import type {} from '@nuxt/devtools'
 import type { VolarOptions } from '@vue-macros/volar'
+import type { RawVueCompilerOptions } from '@vue/language-core'
 
 export type VueMacrosOptions = Options
 
@@ -62,9 +63,8 @@ export default defineNuxtModule<VueMacrosOptions>({
 
     // @ts-expect-error https://github.com/unjs/pkg-types/pull/130
     nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {}
-    const vueCompilerOptions =
-      // @ts-expect-error
-      nuxt.options.typescript.tsConfig.vueCompilerOptions
+    const vueCompilerOptions = nuxt.options.typescript.tsConfig
+      .vueCompilerOptions as unknown as RawVueCompilerOptions
 
     vueCompilerOptions.vueMacros ||= {}
     const volarOptions = vueCompilerOptions.vueMacros as VolarOptions

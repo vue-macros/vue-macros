@@ -1,6 +1,6 @@
 import path from 'node:path'
 
-import { defineMacro } from 'unplugin-macros'
+import { defineMacro } from 'unplugin-macros/api'
 
 export * from './repo'
 

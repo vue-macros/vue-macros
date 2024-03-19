@@ -45,9 +45,8 @@ export function parseSFC(code: string, id: string): SFC {
 
   const lang = scriptLang || scriptSetupLang
 
-  return {
+  return Object.assign({}, descriptor, {
     sfc,
-    ...descriptor,
     lang,
     errors,
     offset: descriptor.scriptSetup?.loc.start.offset ?? 0,
@@ -63,7 +62,7 @@ export function parseSFC(code: string, id: string): SFC {
         plugins: [['importAttributes', { deprecatedAssertSyntax: true }]],
       })
     },
-  }
+  } satisfies Partial<SFC>)
 }
 
 export function getFileCodeAndLang(
