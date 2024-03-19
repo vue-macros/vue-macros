@@ -100,14 +100,12 @@ export function transformVSlot({
               'template'
               ? child.children
               : child
-          return ts.isJsxSelfClosingElement(child)
-            ? ''
-            : ([
-                sfc[source]!.content.slice(node.pos, node.end),
-                source,
-                node.pos,
-                FileRangeCapabilities.full,
-              ] as Segment<FileRangeCapabilities>)
+          return [
+            sfc[source]!.content.slice(node.pos, node.end),
+            source,
+            node.pos,
+            FileRangeCapabilities.full,
+          ] as Segment<FileRangeCapabilities>
         }),
         '</>,',
       )
