@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.8.9
+
+### Patch Changes
+
+- [#641](https://github.com/vue-macros/vue-macros/pull/641) [`3e790d5`](https://github.com/vue-macros/vue-macros/commit/3e790d5bc1b084701b2b287d59d38431e74e12ad) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-model
+
 ## 0.8.8
 
 ### Patch Changes

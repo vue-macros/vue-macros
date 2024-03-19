@@ -1,5 +1,13 @@
 # @vue-macros/volar
 
+## 0.18.12
+
+### Patch Changes
+
+- [#641](https://github.com/vue-macros/vue-macros/pull/641) [`3e790d5`](https://github.com/vue-macros/vue-macros/commit/3e790d5bc1b084701b2b287d59d38431e74e12ad) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-model
+
+- [#642](https://github.com/vue-macros/vue-macros/pull/642) [`b76b938`](https://github.com/vue-macros/vue-macros/commit/b76b938a85ea641c84ea1a7de3ba17c2638dbd98) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support jsxSelfClosingElement in v-slot
+
 ## 0.18.11
 
 ### Patch Changes
