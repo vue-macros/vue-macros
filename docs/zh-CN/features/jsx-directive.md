@@ -16,44 +16,67 @@
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
+## 用法
+
+### `v-on`
+
 ::: warning
 
 `v-on` 仅支持绑定不带参数的事件/监听器对的对象。
 
 :::
 
-## 用法
+```tsx
+<form v-on={{ submit }} />
+```
 
-```vue
-<script setup lang="tsx">
-import Child from './Child.vue'
+### `v-if`, `v-else-if`, `v-else`
 
-const { foo, list } = defineProps<{
-  foo: number
-  list: number[]
-}>()
+```tsx
+<div v-if={foo === 0}>
+  <div v-if={foo === 0}>0-0</div>
+  <div v-else-if={foo === 1}>0-1</div>
+  <div v-else>0-2</div>
+</div>
+```
 
-defineRender(() => (
-  <form onSubmit_prevent>
-    <div v-if={foo === 0}>
-      <div v-if={foo === 0}>0-0</div>
-      <div v-else-if={foo === 1}>0-1</div>
-      <div v-else>0-2</div>
-    </div>
+### `v-for`, `v-memo`
 
-    <div v-for={(i, index) in list} v-memo={[foo === i]} key={index}>
-      {i}
-    </div>
+```tsx
+<div v-for={(item, index) in list} key={index} v-memo={[foo === item]}>
+  {item}
+</div>
+```
 
-    <Child v-on={{ submit: () => {} }}>
-      default slot
-      <template v-slot:bottom={{ bar }}>
-        <span>{bar}</span>
-      </template>
-    </Child>
-  </form>
-))
-</script>
+### `v-slot`
+
+```tsx
+<Child>
+  default slot
+  <template v-slot:bottom={{ bar }}>
+    <span>{bar}</span>
+  </template>
+</Child>
+```
+
+## 动态参数
+
+在指令参数上也可以使用一个 JavaScript 表达式，需要包含在一对 `$` 内：
+
+`v-model`
+
+```tsx
+<Comp v-model:$name$={value} />
+```
+
+## 修饰符
+
+修饰符是以 `_` 开头的特殊后缀，表明指令需要以一些特殊的方式被绑定。
+
+```tsx
+<form onSubmit_prevent>
+  <input v-model_number={value} />
+</form>
 ```
 
 ## Volar 配置

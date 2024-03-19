@@ -5,6 +5,7 @@ import JsxDirectiveVMemo from './v-memo.vue'
 import JsxDirectiveVHtml from './v-html.vue'
 import JsxDirectiveVSlot from './v-slot/index.vue'
 import JsxDirectiveVOn from './v-on/index.vue'
+import JsxDirectiveVModel from './v-model/index.vue'
 </script>
 
 <template>
@@ -15,5 +16,6 @@ import JsxDirectiveVOn from './v-on/index.vue'
     <JsxDirectiveVHtml />
     <JsxDirectiveVSlot />
     <JsxDirectiveVOn />
+    <JsxDirectiveVModel />
   </div>
 </template>
