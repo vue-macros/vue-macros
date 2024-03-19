@@ -11,6 +11,7 @@ import { transformVIf } from './v-if'
 import { transformVFor } from './v-for'
 import { transformVMemo } from './v-memo'
 import { transformVHtml } from './v-html'
+import { transformVModel } from './v-model'
 import { type VSlotMap, transformVSlot } from './v-slot'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
@@ -79,44 +80,37 @@ export function transformJsxDirective(
             ['v-if', 'v-else-if', 'v-else'].includes(`${attribute.name.name}`)
           ) {
             vIfAttribute = attribute
-          }
-
-          if (attribute.name.name === 'v-for') {
+          } else if (attribute.name.name === 'v-for') {
             vForAttribute = attribute
-          }
-
-          if (['v-memo', 'v-once'].includes(`${attribute.name.name}`)) {
+          } else if (['v-memo', 'v-once'].includes(`${attribute.name.name}`)) {
             vMemoAttribute = attribute
-          }
-
-          if (attribute.name.name === 'v-html') {
+          } else if (attribute.name.name === 'v-html') {
             vHtmlNodes.push({
               node,
               attribute,
             })
-          }
-
-          if (
+          } else if (
             (attribute.name.type === 'JSXNamespacedName'
               ? attribute.name.namespace
               : attribute.name
             ).name === 'v-slot'
           ) {
             vSlotAttribute = attribute
-          }
-
-          if (attribute.name.name === 'v-on') {
+          } else if (attribute.name.name === 'v-on') {
             vOnNodes.push({
               node,
               attribute,
             })
-          }
-
-          if (/^on[A-Z]\S*_\S+/.test(`${attribute.name.name}`)) {
+          } else if (/^on[A-Z]\S*_\S+/.test(`${attribute.name.name}`)) {
             vOnWithModifiers.push({
               node,
               attribute,
             })
+          } else if (
+            attribute.name.type === 'JSXNamespacedName' &&
+            attribute.name.namespace.name === 'v-model'
+          ) {
+            transformVModel(attribute, s, offset)
           }
         }
 

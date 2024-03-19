@@ -16,44 +16,67 @@ Vue built-in directives for JSX.
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
+## Usage
+
+### `v-on`
+
 ::: warning
 
 `v-on` only supports binding to an object of event / listener pairs without an argument.
 
 :::
 
-## Usage
+```tsx
+<form v-on={{ submit }} />
+```
 
-```vue
-<script setup lang="tsx">
-import Child from './Child.vue'
+### `v-if`, `v-else-if`, `v-else`
 
-const { foo, list } = defineProps<{
-  foo: number
-  list: number[]
-}>()
+```tsx
+<div v-if={foo === 0}>
+  <div v-if={foo === 0}>0-0</div>
+  <div v-else-if={foo === 1}>0-1</div>
+  <div v-else>0-2</div>
+</div>
+```
 
-defineRender(() => (
-  <form onSubmit_prevent>
-    <div v-if={foo === 0}>
-      <div v-if={foo === 0}>0-0</div>
-      <div v-else-if={foo === 1}>0-1</div>
-      <div v-else>0-2</div>
-    </div>
+### `v-for`, `v-memo`
 
-    <div v-for={(i, index) in list} v-memo={[foo === i]} key={index}>
-      {i}
-    </div>
+```tsx
+<div v-for={(item, index) in list} key={index} v-memo={[foo === item]}>
+  {item}
+</div>
+```
 
-    <Child v-on={{ submit: () => {} }}>
-      default slot
-      <template v-slot:bottom={{ bar }}>
-        <span>{bar}</span>
-      </template>
-    </Child>
-  </form>
-))
-</script>
+### `v-slot`
+
+```tsx
+<Child>
+  default slot
+  <template v-slot:bottom={{ bar }}>
+    <span>{bar}</span>
+  </template>
+</Child>
+```
+
+## Dynamic Arguments
+
+It is possible to use a JavaScript expression in a directive argument by wrapping it with a pair of `$`:
+
+`v-model`
+
+```tsx
+<Comp v-model:$name$={value} />
+```
+
+## Modifiers
+
+Modifiers are special postfixes denoted by a `_`, which indicate that a directive should be bound in some special way.
+
+```tsx
+<form onSubmit_prevent>
+  <input v-model_number={value} />
+</form>
 ```
 
 ## Volar Configuration
