@@ -129,7 +129,7 @@ export function transformJsxDirective({
         if (attributeMap.get(null)) return
         for (const child of parent.children) {
           if (
-            (ts.isJsxElement(child) && getTagName(child) === 'template') ||
+            getTagName(child) === 'template' ||
             (ts.isJsxText(child) && !child.getText(sfc[source]?.ast).trim())
           )
             continue

@@ -28,11 +28,11 @@ export function transformVIf({
         source,
         node.pos,
         node.pos,
-        `${hasScope ? `{` : ' '}(`,
+        `${hasScope ? '{' : ' '}(`,
         [
           expressionText,
           source,
-          attribute.end - expressionText.length - 1,
+          attribute.initializer.expression.getStart(sfc[source]?.ast),
           FileRangeCapabilities.full,
         ],
         ') ? ',
@@ -53,6 +53,7 @@ export function transformVIf({
     } else if (attribute.name.escapedText === 'v-else') {
       replaceSourceRange(codes, source, node.end, node.end, parent ? '}' : '')
     }
+
     replaceSourceRange(codes, source, attribute.pos, attribute.end)
   })
 }

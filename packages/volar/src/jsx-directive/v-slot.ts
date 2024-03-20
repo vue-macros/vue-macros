@@ -85,7 +85,7 @@ export function transformVSlot({
           ? ([
               attribute.initializer.expression.getText(sfc[source]?.ast),
               source,
-              attribute.initializer.expression.pos,
+              attribute.initializer.expression.getStart(sfc[source]?.ast),
               FileRangeCapabilities.full,
             ] as Segment<FileRangeCapabilities>)
           : '',
@@ -100,12 +100,14 @@ export function transformVSlot({
               'template'
               ? child.children
               : child
-          return [
-            sfc[source]!.content.slice(node.pos, node.end),
-            source,
-            node.pos,
-            FileRangeCapabilities.full,
-          ] as Segment<FileRangeCapabilities>
+          return ts.isJsxSelfClosingElement(child)
+            ? ''
+            : ([
+                sfc[source]!.content.slice(node.pos, node.end),
+                source,
+                node.pos,
+                FileRangeCapabilities.full,
+              ] as Segment<FileRangeCapabilities>)
         }),
         '</>,',
       )
