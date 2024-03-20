@@ -1,4 +1,8 @@
-import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
+import {
+  FileRangeCapabilities,
+  type Segment,
+  replaceSourceRange,
+} from '@vue/language-core'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVFor({
@@ -23,17 +27,18 @@ export function transformVFor({
     let objectIndex
     let item = attribute.initializer.expression.left
     const list = attribute.initializer.expression.right
-    if (
-      ts.isParenthesizedExpression(item) &&
-      ts.isBinaryExpression(item.expression)
-    ) {
-      if (ts.isBinaryExpression(item.expression.left)) {
-        index = item.expression.left.right
-        objectIndex = item.expression.right
-        item = item.expression.left.left
+    if (ts.isParenthesizedExpression(item)) {
+      if (ts.isBinaryExpression(item.expression)) {
+        if (ts.isBinaryExpression(item.expression.left)) {
+          index = item.expression.left.right
+          objectIndex = item.expression.right
+          item = item.expression.left.left
+        } else {
+          index = item.expression.right
+          item = item.expression.left
+        }
       } else {
-        index = item.expression.right
-        item = item.expression.left
+        item = item.expression
       }
     }
     if (!item || !list) return
@@ -46,39 +51,40 @@ export function transformVFor({
       `${parent ? '{' : ' '}`,
       '__VLS_getVForSourceType(',
       [
-        sfc[source]!.content.slice(list.pos + 1, list.end),
+        sfc[source]!.content.slice(list.getStart(sfc[source]?.ast), list.end),
         source,
-        list.pos + 1,
+        list.getStart(sfc[source]?.ast),
         FileRangeCapabilities.full,
       ],
       ').map(([',
       [
-        `${sfc[source]?.content.slice(item.pos, item.end)}`,
+        `${sfc[source]?.content.slice(item.getStart(sfc[source]?.ast), item.end)}`,
         source,
-        item.pos,
+        item.getStart(sfc[source]?.ast),
         FileRangeCapabilities.full,
       ],
+      ', ',
       index
         ? [
-            `, ${sfc[source]?.content.slice(index.pos + 1, index.end)}`,
+            `${sfc[source]?.content.slice(index.getStart(sfc[source]?.ast), index.end)}`,
             source,
-            index.pos - 1,
+            index.getStart(sfc[source]?.ast),
             FileRangeCapabilities.full,
           ]
         : objectIndex
-          ? ', undefined'
+          ? 'undefined'
           : '',
-      objectIndex
+      ...(objectIndex
         ? [
-            `, ${sfc[source]?.content.slice(
-              objectIndex.pos + 1,
-              objectIndex.end,
-            )}`,
-            source,
-            objectIndex.pos - 1,
-            FileRangeCapabilities.full,
+            ', ',
+            [
+              `${sfc[source]?.content.slice(objectIndex.getStart(sfc[source]?.ast), objectIndex.end)}`,
+              source,
+              objectIndex.getStart(sfc[source]?.ast),
+              FileRangeCapabilities.full,
+            ] as Segment<FileRangeCapabilities>,
           ]
-        : '',
+        : ''),
       ']) => ',
     )
 
