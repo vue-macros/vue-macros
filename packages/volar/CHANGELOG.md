@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.18.13
+
+### Patch Changes
+
+- [#644](https://github.com/vue-macros/vue-macros/pull/644) [`c53df02`](https://github.com/vue-macros/vue-macros/commit/c53df02aadaceffa7c918c2ef7b3196656730848) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use getStart instead of pos
+
 ## 0.18.12
 
 ### Patch Changes
