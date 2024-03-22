@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.18.14
+
+### Patch Changes
+
+- [#646](https://github.com/vue-macros/vue-macros/pull/646) [`e15f572`](https://github.com/vue-macros/vue-macros/commit/e15f57222b9aadd235e289f9a7d52c7d05f38b40) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support export `function` & `class` & `module` for export-expose
+
 ## 0.18.13
 
 ### Patch Changes
