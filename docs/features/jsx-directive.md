@@ -61,7 +61,7 @@ Vue built-in directives for JSX.
 
 ## Dynamic Arguments
 
-It is possible to use a JavaScript expression in a directive argument by wrapping it with a pair of `$`:
+It is also possible to use a JavaScript expression in a directive argument by wrapping it with a pair of `$`:
 
 `v-model`
 
