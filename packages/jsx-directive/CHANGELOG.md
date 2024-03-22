@@ -1,5 +1,11 @@
 # @vue-macros/jsx-directive
 
+## 0.8.10
+
+### Patch Changes
+
+- [#648](https://github.com/vue-macros/vue-macros/pull/648) [`a7d4d68`](https://github.com/vue-macros/vue-macros/commit/a7d4d68b45e4ea5eef2bbb0de446cf2d67fe2336) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-slot
+
 ## 0.8.9
 
 ### Patch Changes
