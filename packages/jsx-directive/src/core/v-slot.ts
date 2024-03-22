@@ -1,4 +1,5 @@
-import type { MagicString } from '@vue-macros/common'
+import { type MagicString, importHelperFn } from '@vue-macros/common'
+import { resolveVFor } from './v-for'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
 export type VSlotMap = Map<
@@ -10,6 +11,7 @@ export type VSlotMap = Map<
       {
         children: Node[]
         vIfAttribute?: JSXAttribute
+        vForAttribute?: JSXAttribute
       }
     >
   }
@@ -26,72 +28,95 @@ export function transformVSlot(
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
       const result = [` ${version < 3 ? 'scopedSlots' : 'v-slots'}={{`]
       const attributes = Array.from(attributeMap)
-      attributes.forEach(([attribute, { children, vIfAttribute }], index) => {
-        if (!attribute) return
+      attributes.forEach(
+        ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
+          if (!attribute) return
 
-        if (vIfAttribute) {
-          if ('v-if' === vIfAttribute.name.name) {
-            result.push('...')
+          if (vIfAttribute) {
+            if ('v-if' === vIfAttribute.name.name) {
+              result.push('...')
+            }
+            if (
+              ['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`) &&
+              vIfAttribute.value?.type === 'JSXExpressionContainer'
+            ) {
+              result.push(
+                `(${s.sliceNode(vIfAttribute.value.expression, {
+                  offset,
+                })}) ? {`,
+              )
+            } else if ('v-else' === vIfAttribute.name.name) {
+              result.push('{')
+            }
           }
-          if (
-            ['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`) &&
-            vIfAttribute.value?.type === 'JSXExpressionContainer'
-          ) {
+
+          if (vForAttribute) {
             result.push(
-              `(${s.sliceNode(vIfAttribute.value.expression, {
-                offset,
-              })}) ? {`,
+              '...Object.fromEntries(',
+              resolveVFor(vForAttribute, { s, offset, version }),
+              '([',
             )
-          } else if ('v-else' === vIfAttribute.name.name) {
-            result.push('{')
           }
-        }
 
-        result.push(
-          `'${
+          let isDynamic = false
+          let attributeName =
             attribute.name.type === 'JSXNamespacedName'
               ? attribute.name.name.name
               : 'default'
-          }': (`,
-          attribute.value && attribute.value.type === 'JSXExpressionContainer'
-            ? s.sliceNode(attribute.value.expression, { offset })
-            : '',
-          `) => `,
-          version < 3 ? '<span>' : '<>',
-          children
-            .map((child) => {
-              const str = s.sliceNode(
-                child.type === 'JSXElement' &&
-                  s.sliceNode(child.openingElement.name, { offset }) ===
-                    'template'
-                  ? child.children
-                  : child,
-                { offset },
-              )
+          attributeName = attributeName.replace(/\$(.*)\$/, (_, $1) => {
+            isDynamic = true
+            return $1
+          })
+          result.push(
+            isDynamic
+              ? `[${importHelperFn(s, offset, 'unref')}(${attributeName})]`
+              : `'${attributeName}'`,
+            vForAttribute ? ', ' : ': ',
+            '(',
+            attribute.value && attribute.value.type === 'JSXExpressionContainer'
+              ? s.sliceNode(attribute.value.expression, { offset })
+              : '',
+            ') => ',
+            version < 3 ? '<span>' : '<>',
+            children
+              .map((child) => {
+                const str = s.sliceNode(
+                  child.type === 'JSXElement' &&
+                    s.sliceNode(child.openingElement.name, { offset }) ===
+                      'template'
+                    ? child.children
+                    : child,
+                  { offset },
+                )
 
-              s.removeNode(child, { offset })
-              return str
-            })
-            .join('') || ' ',
-          version < 3 ? '</span>,' : '</>,',
-        )
+                s.removeNode(child, { offset })
+                return str
+              })
+              .join('') || ' ',
+            version < 3 ? '</span>,' : '</>,',
+          )
 
-        if (vIfAttribute) {
-          if (['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`)) {
-            const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
-            result.push(
-              '}',
-              `${attributes[nextIndex]?.[1].vIfAttribute?.name.name}`.startsWith(
-                'v-else',
+          if (vIfAttribute) {
+            if (['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`)) {
+              const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
+              result.push(
+                '}',
+                `${attributes[nextIndex]?.[1].vIfAttribute?.name.name}`.startsWith(
+                  'v-else',
+                )
+                  ? ' : '
+                  : ' : null,',
               )
-                ? ' : '
-                : ' : null,',
-            )
-          } else if ('v-else' === vIfAttribute.name.name) {
-            result.push('},')
+            } else if ('v-else' === vIfAttribute.name.name) {
+              result.push('},')
+            }
           }
-        }
-      })
+
+          if (vForAttribute) {
+            result.push('])))')
+          }
+        },
+      )
 
       if (attributeMap.has(null)) {
         result.push(`default: () => ${version < 3 ? '<span>' : '<>'}`)

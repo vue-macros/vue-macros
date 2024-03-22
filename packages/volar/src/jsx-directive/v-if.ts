@@ -20,9 +20,6 @@ export function transformVIf({
       attribute.initializer.expression
     ) {
       const hasScope = parent && attribute.name.escapedText === 'v-if'
-      const expressionText = attribute.initializer.expression.getText(
-        sfc[source]?.ast,
-      )
       replaceSourceRange(
         codes,
         source,
@@ -30,7 +27,7 @@ export function transformVIf({
         node.pos,
         `${hasScope ? '{' : ' '}(`,
         [
-          expressionText,
+          attribute.initializer.expression.getText(sfc[source]?.ast),
           source,
           attribute.initializer.expression.getStart(sfc[source]?.ast),
           FileRangeCapabilities.full,

@@ -9,22 +9,26 @@ const Comp: FunctionalComponent<
     default: (scope: { foo: string }) => any
   }
 > = (props, { slots }) => {
-  return <slots.default foo="foo"></slots.default>
+  return (
+    <Child>
+      <template v-for={(Slot, slotName) in slots} v-slot:$slotName$={scope}>
+        <Slot {...scope} />
+      </template>
+    </Child>
+  )
 }
 
 defineRender(() => (
   <fieldset>
     <legend>v-slot</legend>
 
-    <Comp>
-      <template v-slot:default={{ foo }}>{''}</template>
-    </Comp>
-
     <Child>
-      <div>default: begin</div>
+      <Comp v-slot={{ foo }}>
+        <div>default: {foo}</div>
+      </Comp>
 
       <template v-slot:bottom={{ foo }}>
-        bottom:
+        bottom:{' '}
         <Child v-if={foo} v-slot:bottom={props}>
           {props.foo + foo}
         </Child>

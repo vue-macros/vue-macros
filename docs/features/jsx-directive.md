@@ -61,12 +61,22 @@ Vue built-in directives for JSX.
 
 ## Dynamic Arguments
 
-It is possible to use a JavaScript expression in a directive argument by wrapping it with a pair of `$`:
+It is also possible to use a JavaScript expression in a directive argument by wrapping it with a pair of `$`:
 
 `v-model`
 
 ```tsx
 <Comp v-model:$name$={value} />
+```
+
+`v-slot`
+
+```tsx
+<Comp>
+  <template v-for={(Slot, slotName) in slots} v-slot:$slotName$={scope}>
+    <Slot {...scope} />
+  </template>
+</Comp>
 ```
 
 ## Modifiers

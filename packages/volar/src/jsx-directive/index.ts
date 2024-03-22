@@ -84,21 +84,23 @@ export function transformJsxDirective({
       }
     }
 
-    if (vIfAttribute && !(vSlotAttribute && tagName === 'template')) {
-      vIfMap.has(parent) || vIfMap.set(parent, [])
-      vIfMap.get(parent)!.push({
-        node,
-        attribute: vIfAttribute,
-        parent,
-      })
-    }
+    if (!(vSlotAttribute && tagName === 'template')) {
+      if (vIfAttribute) {
+        vIfMap.has(parent) || vIfMap.set(parent, [])
+        vIfMap.get(parent)!.push({
+          node,
+          attribute: vIfAttribute,
+          parent,
+        })
+      }
 
-    if (vForAttribute) {
-      vForNodes.push({
-        node,
-        attribute: vForAttribute,
-        parent: vIfAttribute ? undefined : parent,
-      })
+      if (vForAttribute) {
+        vForNodes.push({
+          node,
+          attribute: vForAttribute,
+          parent: vIfAttribute ? undefined : parent,
+        })
+      }
     }
 
     if (vSlotAttribute) {
@@ -118,8 +120,12 @@ export function transformJsxDirective({
         attributeMap
           .set(vSlotAttribute, {
             children: [],
-            vIfAttribute:
-              tagName === 'template' && vIfAttribute ? vIfAttribute : undefined,
+            ...(tagName === 'template'
+              ? {
+                  vIfAttribute,
+                  vForAttribute,
+                }
+              : {}),
           })
           .get(vSlotAttribute)!.children
 

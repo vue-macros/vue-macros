@@ -5,24 +5,17 @@ import {
 } from '@vue/language-core'
 import type { JsxDirective, TransformOptions } from './index'
 
-export function transformVFor({
-  nodes,
-  codes,
-  ts,
-  sfc,
-  source,
-}: TransformOptions & { nodes: JsxDirective[] }) {
-  nodes.forEach(({ attribute, node, parent }) => {
-    if (
-      !(
-        attribute.initializer &&
-        ts.isJsxExpression(attribute.initializer) &&
-        attribute.initializer.expression &&
-        ts.isBinaryExpression(attribute.initializer.expression)
-      )
-    )
-      return
-
+export function resolveVFor(
+  attribute: JsxDirective['attribute'],
+  { ts, sfc, source }: Omit<TransformOptions, 'codes'>,
+) {
+  const result: Segment<FileRangeCapabilities>[] = []
+  if (
+    attribute.initializer &&
+    ts.isJsxExpression(attribute.initializer) &&
+    attribute.initializer.expression &&
+    ts.isBinaryExpression(attribute.initializer.expression)
+  ) {
     let index
     let objectIndex
     let item = attribute.initializer.expression.left
@@ -41,52 +34,67 @@ export function transformVFor({
         item = item.expression
       }
     }
-    if (!item || !list) return
 
-    replaceSourceRange(
-      codes,
-      source,
-      node.pos,
-      node.pos,
-      `${parent ? '{' : ' '}`,
-      '__VLS_getVForSourceType(',
-      [
-        sfc[source]!.content.slice(list.getStart(sfc[source]?.ast), list.end),
-        source,
-        list.getStart(sfc[source]?.ast),
-        FileRangeCapabilities.full,
-      ],
-      ').map(([',
-      [
-        `${sfc[source]?.content.slice(item.getStart(sfc[source]?.ast), item.end)}`,
-        source,
-        item.getStart(sfc[source]?.ast),
-        FileRangeCapabilities.full,
-      ],
-      ', ',
-      index
-        ? [
-            `${sfc[source]?.content.slice(index.getStart(sfc[source]?.ast), index.end)}`,
-            source,
-            index.getStart(sfc[source]?.ast),
-            FileRangeCapabilities.full,
-          ]
-        : objectIndex
-          ? 'undefined'
-          : '',
-      ...(objectIndex
-        ? [
-            ', ',
-            [
-              `${sfc[source]?.content.slice(objectIndex.getStart(sfc[source]?.ast), objectIndex.end)}`,
+    if (item && list) {
+      result.push(
+        '__VLS_getVForSourceType(',
+        [
+          sfc[source]!.content.slice(list.getStart(sfc[source]?.ast), list.end),
+          source,
+          list.getStart(sfc[source]?.ast),
+          FileRangeCapabilities.full,
+        ],
+        ').map(([',
+        [
+          `${sfc[source]?.content.slice(item.getStart(sfc[source]?.ast), item.end)}`,
+          source,
+          item.getStart(sfc[source]?.ast),
+          FileRangeCapabilities.full,
+        ],
+        ', ',
+        index
+          ? [
+              `${sfc[source]?.content.slice(index.getStart(sfc[source]?.ast), index.end)}`,
               source,
-              objectIndex.getStart(sfc[source]?.ast),
+              index.getStart(sfc[source]?.ast),
               FileRangeCapabilities.full,
-            ] as Segment<FileRangeCapabilities>,
-          ]
-        : ''),
-      ']) => ',
-    )
+            ]
+          : objectIndex
+            ? 'undefined'
+            : '',
+        ...(objectIndex
+          ? [
+              ', ',
+              [
+                `${sfc[source]?.content.slice(objectIndex.getStart(sfc[source]?.ast), objectIndex.end)}`,
+                source,
+                objectIndex.getStart(sfc[source]?.ast),
+                FileRangeCapabilities.full,
+              ] as Segment<FileRangeCapabilities>,
+            ]
+          : ''),
+        ']) => ',
+      )
+    }
+  }
+
+  return result
+}
+
+export function transformVFor({
+  nodes,
+  codes,
+  ts,
+  sfc,
+  source,
+}: TransformOptions & { nodes: JsxDirective[] }) {
+  nodes.forEach(({ attribute, node, parent }) => {
+    const result = resolveVFor(attribute, { ts, sfc, source })
+    if (parent) {
+      result.unshift('{')
+    }
+
+    replaceSourceRange(codes, source, node.pos, node.pos, ...result)
 
     replaceSourceRange(
       codes,
@@ -95,6 +103,7 @@ export function transformVFor({
       node.end,
       `>)${parent ? '}' : ''}`,
     )
+
     replaceSourceRange(codes, source, attribute.pos, attribute.end)
   })
 }
