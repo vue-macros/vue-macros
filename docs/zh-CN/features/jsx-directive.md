@@ -69,6 +69,16 @@
 <Comp v-model:$name$={value} />
 ```
 
+`v-slot`
+
+```tsx
+<Comp>
+  <template v-for={(Slot, slotName) in slots} v-slot:$slotName$={scope}>
+    <Slot {...scope} />
+  </template>
+</Comp>
+```
+
 ## 修饰符
 
 修饰符是以 `_` 开头的特殊后缀，表明指令需要以一些特殊的方式被绑定。

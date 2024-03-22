@@ -69,6 +69,16 @@ It is possible to use a JavaScript expression in a directive argument by wrappin
 <Comp v-model:$name$={value} />
 ```
 
+`v-slot`
+
+```tsx
+<Comp>
+  <template v-for={(Slot, slotName) in slots} v-slot:$slotName$={scope}>
+    <Slot {...scope} />
+  </template>
+</Comp>
+```
+
 ## Modifiers
 
 Modifiers are special postfixes denoted by a `_`, which indicate that a directive should be bound in some special way.

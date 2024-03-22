@@ -9,7 +9,13 @@ const Comp: FunctionalComponent<
     default: (scope: { foo: string }) => any
   }
 > = (props, { slots }) => {
-  return <slots.default foo="foo"></slots.default>
+  return (
+    <Child>
+      <template v-for={(Slot, slotName) in slots} v-slot:$slotName$={scope}>
+        <Slot {...scope} />
+      </template>
+    </Child>
+  )
 }
 
 let show = $ref<boolean | undefined>()

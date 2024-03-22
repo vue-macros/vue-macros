@@ -5,6 +5,7 @@ const map = new Map([
 ])
 const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
+let selected = 0
 
 defineRender(() => (
   <>
@@ -20,11 +21,11 @@ defineRender(() => (
       <div>{i}</div>
     </div>
 
-    <div v-for={i in [1, 2, 3]} key={i}>
+    <div v-for={i in [1, 2, 3]} v-memo={[selected === i]} key={i}>
       <div>{i}</div>
     </div>
 
-    <div v-for={i in set} key={i}>
+    <div v-if={set} v-for={i in set} key={i}>
       <div>{i}</div>
     </div>
 

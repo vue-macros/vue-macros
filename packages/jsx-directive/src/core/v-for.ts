@@ -5,19 +5,21 @@ import {
 } from '@vue-macros/common'
 import type { JsxDirective } from '.'
 
-export function transformVFor(
-  nodes: JsxDirective[],
-  s: MagicString,
-  offset: number,
-  version: number,
+export function resolveVFor(
+  attribute: JsxDirective['attribute'],
+  {
+    s,
+    offset,
+    version,
+    vMemoAttribute,
+  }: {
+    s: MagicString
+    offset: number
+    version: number
+    vMemoAttribute?: JsxDirective['attribute']
+  },
 ) {
-  if (nodes.length === 0) return
-  const renderList =
-    version < 3 ? 'Array.from' : importHelperFn(s, offset, 'renderList', 'vue')
-
-  nodes.forEach(({ node, attribute, parent, vMemoAttribute }) => {
-    if (!attribute.value) return
-
+  if (attribute.value) {
     let item, index, objectIndex, list
     if (
       attribute.value.type === 'JSXExpressionContainer' &&
@@ -34,18 +36,41 @@ export function transformVFor(
         item = s.sliceNode(attribute.value.expression.left, { offset })
       }
 
-      if (vMemoAttribute) index ??= `${HELPER_PREFIX}index`
-
       list = s.sliceNode(attribute.value.expression.right, { offset })
     }
-    if (!item || !list) return
 
+    if (item && list) {
+      if (vMemoAttribute) {
+        index ??= `${HELPER_PREFIX}index`
+      }
+
+      const renderList =
+        version < 3
+          ? 'Array.from'
+          : importHelperFn(s, offset, 'renderList', 'vue')
+
+      return `${renderList}(${list}, (${item}${
+        index ? `, ${index}` : ''
+      }${objectIndex ? `, ${objectIndex}` : ''}) => `
+    }
+  }
+
+  return ''
+}
+
+export function transformVFor(
+  nodes: JsxDirective[],
+  s: MagicString,
+  offset: number,
+  version: number,
+) {
+  if (nodes.length === 0) return
+
+  nodes.forEach(({ node, attribute, parent, vMemoAttribute }) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
     s.appendLeft(
       node.start! + offset,
-      `${hasScope ? '{' : ''}${renderList}(${list}, (${item}${
-        index ? `, ${index}` : ''
-      }${objectIndex ? `, ${objectIndex}` : ''}) => `,
+      `${hasScope ? '{' : ''}${resolveVFor(attribute, { s, offset, version, vMemoAttribute })}`,
     )
 
     const isTemplate =
