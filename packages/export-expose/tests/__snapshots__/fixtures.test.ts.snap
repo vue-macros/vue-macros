@@ -6,7 +6,7 @@ exports[`fixtures > ./fixtures/basic.vue 1`] = `
   bar = 10
  let baz: string | undefined
  var qux = fn()
- const { a, b, c } = { a: 1, b: 2, c: 3 }
+ const { a: a1, b, c } = { a: 1, b: 2, c: 3 }
 
  function fn() {}
  class A {}
@@ -17,7 +17,7 @@ defineExpose({
   bar,
   baz,
   qux,
-  a,
+  a1,
   b,
   c,
   fn,
@@ -58,7 +58,9 @@ exports[`fixtures > ./fixtures/rename.vue 1`] = `
 const foo = 1,
   bar = 1
 
+// @ts-expect-error
 import { foo as __MACROS_expose_0 } from './types'
+// @ts-expect-error
 import * as __MACROS_expose_1 from './types'
 defineExpose({
   foo: __MACROS_expose_0,
