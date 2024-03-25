@@ -113,7 +113,7 @@ export function transformVSlot(
           }
 
           if (vForAttribute) {
-            result.push('])))')
+            result.push(']))),')
           }
         },
       )
