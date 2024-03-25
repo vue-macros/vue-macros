@@ -1,5 +1,13 @@
 # @vue-macros/nuxt
 
+## 1.9.26
+
+### Patch Changes
+
+- Updated dependencies [[`7b297cc`](https://github.com/vue-macros/vue-macros/commit/7b297ccf4d8d992e97dfad8634611b515281ced2)]:
+  - @vue-macros/volar@0.18.16
+  - unplugin-vue-macros@2.7.13
+
 ## 1.9.25
 
 ### Patch Changes

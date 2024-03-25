@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.18.16
+
+### Patch Changes
+
+- [#650](https://github.com/vue-macros/vue-macros/pull/650) [`7b297cc`](https://github.com/vue-macros/vue-macros/commit/7b297ccf4d8d992e97dfad8634611b515281ced2) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - dynamic slot and named slot co-usage
+
 ## 0.18.15
 
 ### Patch Changes
