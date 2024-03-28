@@ -524,8 +524,8 @@ importers:
         specifier: ^1.10.0
         version: 1.10.0
       unplugin-combine:
-        specifier: ^0.8.1
-        version: 0.8.1(esbuild@0.20.2)(rollup@4.13.0)(vite@5.2.6)(webpack@5.91.0)
+        specifier: ^0.9.0
+        version: 0.9.0(esbuild@0.20.2)(rollup@4.13.0)(vite@5.2.6)(webpack@5.91.0)
       unplugin-vue-define-options:
         specifier: workspace:*
         version: link:../define-options
@@ -5547,8 +5547,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /bare-fs@2.2.1:
-    resolution: {integrity: sha512-+CjmZANQDFZWy4PGbVdmALIwmt33aJg8qTkVjClU6X4WmZkTPBDxRHiBn7fpqEWEfF3AC2io++erpViAIQbSjg==}
+  /bare-fs@2.2.2:
+    resolution: {integrity: sha512-X9IqgvyB0/VA5OZJyb5ZstoN62AzD7YxVGog13kkfYWYqJYcK0kcqLZ6TrmH5qr4/8//ejVcX4x/a0UvaogXmA==}
     requiresBuild: true
     dependencies:
       bare-events: 2.2.1
@@ -10845,7 +10845,7 @@ packages:
       pump: 3.0.0
       tar-stream: 3.1.7
     optionalDependencies:
-      bare-fs: 2.2.1
+      bare-fs: 2.2.2
       bare-path: 2.1.0
     optional: true
 
@@ -11504,8 +11504,8 @@ packages:
       - supports-color
     dev: true
 
-  /unplugin-combine@0.8.1(esbuild@0.20.2)(rollup@4.13.0)(vite@5.2.6)(webpack@5.91.0):
-    resolution: {integrity: sha512-m2OSmXXRwCPZx8Ct8eF8WbjgTo8bydim2W1ofu2hDabGdr2pgDAoFjOP1J4MOIwa0OByqk1JX8IGlSdeE6uxVQ==}
+  /unplugin-combine@0.9.0(esbuild@0.20.2)(rollup@4.13.0)(vite@5.2.6)(webpack@5.91.0):
+    resolution: {integrity: sha512-1bXgHXIhw/bNEFCwNnYRlOOcamsBNQObSWBuy3FcDcnMoFLIi4ZaMsi/L0cNxltfYBTS+QvGSZ1F+LgQ0vbcLg==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
       esbuild: '>=0.13'
