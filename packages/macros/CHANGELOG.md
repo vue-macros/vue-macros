@@ -1,5 +1,11 @@
 # unplugin-vue-macros
 
+## 2.8.0
+
+### Minor Changes
+
+- [`86424a0`](https://github.com/vue-macros/vue-macros/commit/86424a03ac6cb8aa122f73d76e2a68a3eb6d1ad9) Thanks [@sxzz](https://github.com/sxzz)! - add Rspack support
+
 ## 2.7.13
 
 ### Patch Changes
