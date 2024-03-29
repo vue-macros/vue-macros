@@ -1,5 +1,11 @@
 # @vue-macros/common
 
+## 1.10.2
+
+### Patch Changes
+
+- [`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e) Thanks [@sxzz](https://github.com/sxzz)! - fix filter for rspack
+
 ## 1.10.1
 
 ### Patch Changes

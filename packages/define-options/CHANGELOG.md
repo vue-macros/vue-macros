@@ -1,5 +1,12 @@
 # unplugin-vue-define-options
 
+## 1.4.3
+
+### Patch Changes
+
+- Updated dependencies [[`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - @vue-macros/common@1.10.2
+
 ## 1.4.2
 
 ### Patch Changes

@@ -1,5 +1,40 @@
 # unplugin-vue-macros
 
+## 2.9.0
+
+### Minor Changes
+
+- [`4202a2b`](https://github.com/vue-macros/vue-macros/commit/4202a2b1ee6b302fcd2d704f1978f1dadeb20090) Thanks [@sxzz](https://github.com/sxzz)! - add rspack entry
+
+### Patch Changes
+
+- Updated dependencies [[`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - @vue-macros/common@1.10.2
+  - @vue-macros/better-define@1.7.4
+  - @vue-macros/boolean-prop@0.3.3
+  - @vue-macros/chain-call@0.2.3
+  - @vue-macros/define-emit@0.2.4
+  - @vue-macros/define-models@1.2.3
+  - unplugin-vue-define-options@1.4.3
+  - @vue-macros/define-prop@0.3.4
+  - @vue-macros/define-props@2.0.4
+  - @vue-macros/define-props-refs@1.2.3
+  - @vue-macros/define-render@1.5.3
+  - @vue-macros/define-slots@1.1.3
+  - @vue-macros/export-expose@0.1.3
+  - @vue-macros/export-props@0.4.3
+  - @vue-macros/export-render@0.2.3
+  - @vue-macros/hoist-static@1.5.3
+  - @vue-macros/jsx-directive@0.8.12
+  - @vue-macros/named-template@0.4.3
+  - @vue-macros/reactivity-transform@0.4.4
+  - @vue-macros/setup-block@0.3.3
+  - @vue-macros/setup-component@0.17.3
+  - @vue-macros/setup-sfc@0.17.3
+  - @vue-macros/short-bind@0.2.3
+  - @vue-macros/short-emits@1.5.3
+  - @vue-macros/short-vmodel@1.4.3
+
 ## 2.8.0
 
 ### Minor Changes

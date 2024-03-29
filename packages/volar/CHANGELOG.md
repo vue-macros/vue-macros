@@ -1,5 +1,15 @@
 # @vue-macros/volar
 
+## 0.18.17
+
+### Patch Changes
+
+- Updated dependencies [[`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - @vue-macros/common@1.10.2
+  - @vue-macros/define-props@2.0.4
+  - @vue-macros/short-bind@0.2.3
+  - @vue-macros/short-vmodel@1.4.3
+
 ## 0.18.16
 
 ### Patch Changes
