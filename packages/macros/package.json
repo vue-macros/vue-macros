@@ -57,6 +57,11 @@
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
+    "./rspack": {
+      "dev": "./src/rspack.ts",
+      "require": "./dist/rspack.js",
+      "import": "./dist/rspack.mjs"
+    },
     "./*": [
       "./*",
       "./*.d.ts"
