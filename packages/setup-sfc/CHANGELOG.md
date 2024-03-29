@@ -1,5 +1,12 @@
 # @vue-macros/setup-sfc
 
+## 0.17.3
+
+### Patch Changes
+
+- Updated dependencies [[`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - @vue-macros/common@1.10.2
+
 ## 0.17.2
 
 ### Patch Changes
