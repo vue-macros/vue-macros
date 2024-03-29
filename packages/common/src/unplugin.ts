@@ -81,11 +81,12 @@ export function getFilterPattern(
   framework?: string,
 ): RegExp[] {
   const filter: RegExp[] = []
+  const isWebpackLike = framework === 'webpack' || framework === 'rspack'
   if (types.includes(FilterFileType.VUE_SFC)) {
-    filter.push(framework === 'webpack' ? REGEX_VUE_SUB : REGEX_VUE_SFC)
+    filter.push(isWebpackLike ? REGEX_VUE_SUB : REGEX_VUE_SFC)
   }
   if (types.includes(FilterFileType.VUE_SFC_WITH_SETUP)) {
-    filter.push(framework === 'webpack' ? REGEX_VUE_SUB_SETUP : REGEX_VUE_SFC)
+    filter.push(isWebpackLike ? REGEX_VUE_SUB_SETUP : REGEX_VUE_SFC)
   }
   if (types.includes(FilterFileType.SETUP_SFC)) {
     filter.push(REGEX_SETUP_SFC)
