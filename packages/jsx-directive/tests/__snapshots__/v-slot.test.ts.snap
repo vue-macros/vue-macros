@@ -3,6 +3,7 @@
 exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/index.vue 1`] = `
 "<script setup lang="tsx">
 import { unref as __MACROS_unref } from "vue";
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
 
@@ -22,6 +23,7 @@ const Comp: FunctionalComponent<
   )
 }
 
+let baz = $ref('')
 let show = $ref<boolean | undefined>()
 defineRender(() => (
   <div>
@@ -33,8 +35,9 @@ defineRender(() => (
     <Comp  scopedSlots={{'default': () => <span>default</span>,}}></Comp>
     <Child  scopedSlots={{'bottom': ({ foo }) => <span>{foo}</span>,}}></Child>
 
-    <Comp  scopedSlots={{'default': () => <span> </span>,}} />
-    <Child  scopedSlots={{'bottom': ({ foo }) => <span> </span>,}} />
+    <Child baz={baz}  scopedSlots={{'title': ({ foo }) => <span>
+      {expectTypeOf<string>(foo)}
+    </span>,}}></Child>
 
     <Child scopedSlots={{...(show) ? {'title': ({ foo }) => <span>
         {show}
@@ -57,6 +60,7 @@ exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/index.vue 1`] = `
 "<script setup lang="tsx">
 import { renderList as __MACROS_renderList } from "vue";
 import { unref as __MACROS_unref } from "vue";
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
 
@@ -76,6 +80,7 @@ const Comp: FunctionalComponent<
   )
 }
 
+let baz = $ref('')
 let show = $ref<boolean | undefined>()
 defineRender(() => (
   <div>
@@ -87,8 +92,9 @@ defineRender(() => (
     <Comp  v-slots={{'default': () => <>default</>,}}></Comp>
     <Child  v-slots={{'bottom': ({ foo }) => <>{foo}</>,}}></Child>
 
-    <Comp  v-slots={{'default': () => <> </>,}} />
-    <Child  v-slots={{'bottom': ({ foo }) => <> </>,}} />
+    <Child baz={baz}  v-slots={{'title': ({ foo }) => <>
+      {expectTypeOf<string>(foo)}
+    </>,}}></Child>
 
     <Child v-slots={{...(show) ? {'title': ({ foo }) => <>
         {show}

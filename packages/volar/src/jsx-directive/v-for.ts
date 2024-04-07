@@ -7,7 +7,7 @@ import type { JsxDirective, TransformOptions } from './index'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
-  { ts, sfc, source }: Omit<TransformOptions, 'codes'>,
+  { ts, sfc, source }: TransformOptions,
 ) {
   const result: Segment<FileRangeCapabilities>[] = []
   if (
@@ -81,15 +81,14 @@ export function resolveVFor(
   return result
 }
 
-export function transformVFor({
-  nodes,
-  codes,
-  ts,
-  sfc,
-  source,
-}: TransformOptions & { nodes: JsxDirective[] }) {
+export function transformVFor(
+  nodes: JsxDirective[],
+  options: TransformOptions,
+) {
+  const { codes, source } = options
+
   nodes.forEach(({ attribute, node, parent }) => {
-    const result = resolveVFor(attribute, { ts, sfc, source })
+    const result = resolveVFor(attribute, options)
     if (parent) {
       result.unshift('{')
     }

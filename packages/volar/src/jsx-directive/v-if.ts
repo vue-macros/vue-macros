@@ -1,13 +1,9 @@
 import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
 import type { JsxDirective, TransformOptions } from './index'
 
-export function transformVIf({
-  nodes,
-  codes,
-  ts,
-  sfc,
-  source,
-}: TransformOptions & { nodes: JsxDirective[] }) {
+export function transformVIf(nodes: JsxDirective[], options: TransformOptions) {
+  const { codes, ts, sfc, source } = options
+
   nodes.forEach(({ node, attribute, parent }, index) => {
     if (!ts.isIdentifier(attribute.name)) return
 

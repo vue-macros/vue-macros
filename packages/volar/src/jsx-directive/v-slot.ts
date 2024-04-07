@@ -3,9 +3,8 @@ import {
   type Segment,
   replaceSourceRange,
 } from '@vue/language-core'
-import { getSlotsType } from '../common'
 import { resolveVFor } from './v-for'
-import type { JsxDirective, TransformOptions } from './index'
+import { type JsxDirective, type TransformOptions, getTagName } from './index'
 
 export type VSlotMap = Map<
   JsxDirective['node'],
@@ -22,16 +21,13 @@ export type VSlotMap = Map<
   }
 >
 
-export function transformVSlot({
-  nodeMap,
-  codes,
-  ts,
-  sfc,
-  source,
-  vueVersion,
-}: TransformOptions & { nodeMap: VSlotMap }) {
+export function transformVSlot(
+  nodeMap: VSlotMap,
+  ctxMap: Map<JsxDirective['node'], string>,
+  options: TransformOptions,
+) {
   if (nodeMap.size === 0) return
-  getSlotsType(codes, vueVersion)
+  const { codes, ts, sfc, source } = options
 
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
     const result: Segment<FileRangeCapabilities>[] = [' v-slots={{']
@@ -67,11 +63,7 @@ export function transformVSlot({
         }
 
         if (vForAttribute) {
-          result.push(
-            '...',
-            ...resolveVFor(vForAttribute, { ts, sfc, source }),
-            '({',
-          )
+          result.push('...', ...resolveVFor(vForAttribute, options), '({')
         }
 
         let isDynamic = false
@@ -108,16 +100,13 @@ export function transformVSlot({
           isDynamic ? ': any' : '',
           ') => <>',
           ...children.map((child) => {
-            // Remove original children
             replaceSourceRange(codes, source, child.pos, child.end)
 
+            const isSlotTemplate =
+              getTagName(child, options) === 'template' && !vSlotAttribute
             const node =
-              ts.isJsxElement(child) &&
-              child.openingElement.tagName.getText(sfc[source]?.ast) ===
-                'template'
-                ? child.children
-                : child
-            return ts.isJsxSelfClosingElement(child)
+              isSlotTemplate && ts.isJsxElement(child) ? child.children : child
+            return isSlotTemplate && ts.isJsxSelfClosingElement(child)
               ? ''
               : ([
                   sfc[source]!.content.slice(node.pos, node.end),
@@ -151,12 +140,7 @@ export function transformVSlot({
       },
     )
 
-    const tagName = ts.isJsxSelfClosingElement(node)
-      ? node.tagName.getText(sfc[source]?.ast)
-      : ts.isJsxElement(node)
-        ? node.openingElement.tagName.getText(sfc[source]?.ast)
-        : null
-    const slotType = `} satisfies __VLS_getSlots<typeof ${tagName}>}`
+    const slotType = `} satisfies typeof ${ctxMap.get(node)}.slots}`
     if (attributeMap.has(null)) {
       result.push('default: () => <>')
     } else {

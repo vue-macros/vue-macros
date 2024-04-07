@@ -2,18 +2,13 @@
 
 import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
 import { camelize } from '@vue/shared'
-import { getEmitsType } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
-export function transformVBind({
-  nodes,
-  codes,
-  ts,
-  sfc,
-  source,
-}: TransformOptions & { nodes: JsxDirective[] }) {
+export function transformVBind(
+  nodes: JsxDirective[],
+  { codes, ts, sfc, source }: TransformOptions,
+) {
   if (nodes.length === 0) return
-  getEmitsType(codes)
 
   for (const { attribute } of nodes) {
     let attributeName = attribute.name.getText(sfc[source]?.ast)

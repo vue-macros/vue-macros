@@ -1,4 +1,5 @@
 <script setup lang="tsx">
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
 
@@ -18,6 +19,7 @@ const Comp: FunctionalComponent<
   )
 }
 
+let baz = $ref('')
 let show = $ref<boolean | undefined>()
 defineRender(() => (
   <div>
@@ -29,8 +31,9 @@ defineRender(() => (
     <Comp v-slot>default</Comp>
     <Child v-slot:bottom={{ foo }}>{foo}</Child>
 
-    <Comp v-slot />
-    <Child v-slot:bottom={{ foo }} />
+    <Child baz={baz} v-slot:title={{ foo }}>
+      {expectTypeOf<string>(foo)}
+    </Child>
 
     <Child>
       default

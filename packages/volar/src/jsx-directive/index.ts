@@ -20,20 +20,8 @@ export type TransformOptions = {
   vueVersion?: number
 }
 
-export function transformJsxDirective({
-  codes,
-  sfc,
-  ts,
-  source,
-  vueVersion,
-}: TransformOptions) {
-  function getTagName(node: JsxDirective['node']) {
-    return ts.isJsxSelfClosingElement(node)
-      ? node.tagName.getText(sfc[source]?.ast)
-      : ts.isJsxElement(node)
-        ? node.openingElement.tagName.getText(sfc[source]?.ast)
-        : null
-  }
+export function transformJsxDirective(options: TransformOptions) {
+  const { sfc, ts, source } = options
 
   const vIfMap = new Map<
     JsxDirective['node'] | null | undefined,
@@ -46,11 +34,13 @@ export function transformJsxDirective({
   const vOnWithModifiers: JsxDirective[] = []
   const vBindNodes: JsxDirective[] = []
 
+  const ctxNodeSet = new Set<JsxDirective['node']>()
+
   function walkJsxDirective(
     node: import('typescript/lib/tsserverlibrary').Node,
     parent?: import('typescript/lib/tsserverlibrary').Node,
   ) {
-    const tagName = getTagName(node)
+    const tagName = getTagName(node, options)
     const properties = ts.isJsxElement(node)
       ? node.openingElement.attributes.properties
       : ts.isJsxSelfClosingElement(node)
@@ -75,8 +65,12 @@ export function transformJsxDirective({
           node,
           attribute,
         })
+
+        ctxNodeSet.add(node)
       } else if (attributeName === 'v-on') {
         vOnNodes.push({ node, attribute })
+
+        ctxNodeSet.add(node)
       } else if (/^on[A-Z]\S*[_|-]\S+/.test(attributeName)) {
         vOnWithModifiers.push({ node, attribute })
       } else if (/^(?!v-)\S+[_|-]\S+/.test(attributeName)) {
@@ -107,11 +101,13 @@ export function transformJsxDirective({
       const slotNode = tagName === 'template' ? parent : node
       if (!slotNode) return
 
+      ctxNodeSet.add(slotNode)
+
       const attributeMap =
         vSlotMap.get(slotNode)?.attributeMap ||
         vSlotMap
           .set(slotNode, {
-            vSlotAttribute: tagName !== 'template' ? vSlotAttribute : undefined,
+            vSlotAttribute: tagName === 'template' ? undefined : vSlotAttribute,
             attributeMap: new Map(),
           })
           .get(slotNode)!.attributeMap
@@ -135,7 +131,7 @@ export function transformJsxDirective({
         if (attributeMap.get(null)) return
         for (const child of parent.children) {
           if (
-            getTagName(child) === 'template' ||
+            getTagName(child, options) === 'template' ||
             (ts.isJsxText(child) && !child.getText(sfc[source]?.ast).trim())
           )
             continue
@@ -158,20 +154,72 @@ export function transformJsxDirective({
   }
   sfc[source]?.ast.forEachChild(walkJsxDirective)
 
-  transformVSlot({
-    nodeMap: vSlotMap,
-    codes,
-    sfc,
-    ts,
-    source,
-    vueVersion,
-  })
-  transformVFor({ nodes: vForNodes, codes, sfc, ts, source })
-  vIfMap.forEach((nodes) => transformVIf({ nodes, codes, sfc, ts, source }))
-  vModelMap.forEach((nodes) =>
-    transformVModel({ nodes, codes, sfc, ts, source }),
+  const ctxMap = new Map(
+    Array.from(ctxNodeSet).map((node, index) => [
+      node,
+      transformCtx(node, index, options),
+    ]),
   )
-  transformVOn({ nodes: vOnNodes, codes, sfc, ts, source })
-  transformVOnWithModifiers({ nodes: vOnWithModifiers, codes, sfc, ts, source })
-  transformVBind({ nodes: vBindNodes, codes, sfc, ts, source })
+
+  transformVSlot(vSlotMap, ctxMap, options)
+  transformVFor(vForNodes, options)
+  vIfMap.forEach((nodes) => transformVIf(nodes, options))
+  vModelMap.forEach((nodes) => transformVModel(nodes, ctxMap, options))
+  transformVOn(vOnNodes, ctxMap, options)
+  transformVOnWithModifiers(vOnWithModifiers, options)
+  transformVBind(vBindNodes, options)
+}
+
+export function getTagName(
+  node: JsxDirective['node'],
+  { ts, sfc, source }: TransformOptions,
+) {
+  return ts.isJsxSelfClosingElement(node)
+    ? node.tagName.getText(sfc[source]?.ast)
+    : ts.isJsxElement(node)
+      ? node.openingElement.tagName.getText(sfc[source]?.ast)
+      : ''
+}
+
+function transformCtx(
+  node: JsxDirective['node'],
+  index: number,
+  options: TransformOptions,
+) {
+  const { ts, sfc, source, codes } = options
+
+  const tag = ts.isJsxSelfClosingElement(node)
+    ? node
+    : ts.isJsxElement(node)
+      ? node.openingElement
+      : null
+  if (!tag) return ''
+
+  let props = ''
+  for (const prop of tag.attributes.properties) {
+    if (!ts.isJsxAttribute(prop)) continue
+    const name = prop.name.getText(sfc[source]?.ast)
+    if (name.startsWith('v-')) continue
+
+    const value =
+      prop.initializer && ts.isJsxExpression(prop.initializer)
+        ? prop.initializer.expression?.getText(sfc[source]?.ast)
+        : 'true'
+    props += `'${name}': ${value},`
+  }
+
+  const tagName = getTagName(node, options)
+  const ctxName = `__VLS_ctx${index}`
+  if (!codes.toString().includes('function __VLS_getFunctionalComponentCtx')) {
+    codes.push(
+      `function __VLS_getFunctionalComponentCtx<T, K>(comp: T, compInstance: K): __VLS_PickNotAny<
+	'__ctx' extends keyof __VLS_PickNotAny<K, {}> ? K extends { __ctx?: infer Ctx } ? Ctx : never : any
+	, T extends (props: infer P, ctx: infer Ctx) => any ? Ctx & { props: P } : any>;
+`,
+    )
+  }
+  codes.push(
+    `const ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}));\n`,
+  )
+  return ctxName
 }

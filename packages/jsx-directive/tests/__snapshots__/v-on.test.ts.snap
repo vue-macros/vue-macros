@@ -1,19 +1,23 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/child.vue 1`] = `
-"<script setup lang="tsx">
+"<script setup lang="tsx" generic="T">
+const { bar } = defineProps<{
+  bar: T
+}>()
+
 const slots = defineSlots<{
   default: () => any
   bottom: (props: { foo: 1 }) => any
 }>()
 
 const emit = defineEmits<{
-  log: [foo: number]
+  log: [foo: T]
   click: []
 }>()
 
 defineRender(() => (
-  <form v-on:submit_prevent={() => {}} onClick={() => emit('log', 1)}>
+  <form v-on:submit_prevent={() => {}} onClick={() => emit('log', bar)}>
     <slots.default />
   </form>
 ))
@@ -23,6 +27,7 @@ defineRender(() => (
 
 exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/index.vue 1`] = `
 "<script setup lang="tsx">
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 
 let bar = $ref('')
@@ -31,7 +36,8 @@ defineRender(() => (
     <legend>v-on</legend>
 
     <Child
-      on={{ log: console.log }}
+      bar={bar}
+      on={{ log: (e) => expectTypeOf<string>(e) }}
       v-on:click_capture_stop={() => console.log('stopped')}
     >
       <input
@@ -47,20 +53,24 @@ defineRender(() => (
 `;
 
 exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/child.vue 1`] = `
-"<script setup lang="tsx">
+"<script setup lang="tsx" generic="T">
 import { withModifiers as __MACROS_withModifiers } from "vue";
+const { bar } = defineProps<{
+  bar: T
+}>()
+
 const slots = defineSlots<{
   default: () => any
   bottom: (props: { foo: 1 }) => any
 }>()
 
 const emit = defineEmits<{
-  log: [foo: number]
+  log: [foo: T]
   click: []
 }>()
 
 defineRender(() => (
-  <form onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])} onClick={() => emit('log', 1)}>
+  <form onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])} onClick={() => emit('log', bar)}>
     <slots.default />
   </form>
 ))
@@ -71,6 +81,7 @@ defineRender(() => (
 exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/index.vue 1`] = `
 "<script setup lang="tsx">
 import { withModifiers as __MACROS_withModifiers } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 
 let bar = $ref('')
@@ -79,7 +90,8 @@ defineRender(() => (
     <legend>v-on</legend>
 
     <Child
-      {...__MACROS_transformVOn({ log: console.log })}
+      bar={bar}
+      {...__MACROS_transformVOn({ log: (e) => expectTypeOf<string>(e) })}
       onClickCapture={__MACROS_withModifiers(() => console.log('stopped'),['stop'])}
     >
       <input

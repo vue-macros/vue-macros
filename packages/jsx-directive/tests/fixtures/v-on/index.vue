@@ -1,4 +1,5 @@
 <script setup lang="tsx">
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 
 let bar = $ref('')
@@ -7,7 +8,8 @@ defineRender(() => (
     <legend>v-on</legend>
 
     <Child
-      v-on={{ log: console.log }}
+      bar={bar}
+      v-on={{ log: (e) => expectTypeOf<string>(e) }}
       onClick_capture_stop={() => console.log('stopped')}
     >
       <input
