@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.18.18
+
+### Patch Changes
+
+- [#658](https://github.com/vue-macros/vue-macros/pull/658) [`4ad70f5`](https://github.com/vue-macros/vue-macros/commit/4ad70f574e68831925334695ec804811ff6d05eb) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support generic component
+
 ## 0.18.17
 
 ### Patch Changes
