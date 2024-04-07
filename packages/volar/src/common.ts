@@ -3,7 +3,6 @@ import {
   type Segment,
   type Sfc,
   type VueCompilerOptions,
-  getSlotsPropertyName,
   replaceAll,
 } from '@vue/language-core'
 import type { VolarOptions } from '..'
@@ -84,64 +83,4 @@ export function getImportNames(
   })
 
   return names
-}
-
-export function getPropsType(codes: Segment<FileRangeCapabilities>[]) {
-  if (codes.toString().includes('type __VLS_getProps')) return
-
-  codes.push(`
-type __VLS_getProps<T> = T extends new () => { $props: infer P }
-  ? NonNullable<P>
-  : T extends (props: infer P, ctx: any) => any
-    ? NonNullable<P>
-    : {};`)
-}
-
-export function getEmitsType(codes: Segment<FileRangeCapabilities>[]) {
-  if (codes.toString().includes('type __VLS_getEmits')) return
-
-  codes.push(`
-type __VLS_getEmits<T> = T extends new () => { $emit: infer E }
-  ? NonNullable<__VLS_NormalizeEmits<E>>
-  : T extends (
-        props: any,
-        ctx: { slots: any; attrs: any; emit: infer E },
-      ) => any
-    ? NonNullable<__VLS_NormalizeEmits<E>>
-    : {};`)
-}
-
-export function getModelsType(codes: Segment<FileRangeCapabilities>[]) {
-  if (codes.toString().includes('type __VLS_getModels')) return
-  getEmitsType(codes)
-  getPropsType(codes)
-
-  codes.push(`
-type __VLS_CamelCase<S extends string> = S extends \`\${infer F}-\${infer RF}\${infer R}\`
-  ? \`\${F}\${Uppercase<RF>}\${__VLS_CamelCase<R>}\`
-  : S;
-type __VLS_RemoveUpdatePrefix<T> = T extends \`update:modelValue\`
-  ? never
-  : T extends \`update:\${infer R}\`
-    ? __VLS_CamelCase<R>
-    : T;
-type __VLS_getModels<T> = T extends object
-  ? {
-      [K in keyof __VLS_getEmits<T> as __VLS_RemoveUpdatePrefix<K>]: __VLS_getProps<T>[__VLS_RemoveUpdatePrefix<K>]
-    }
-  : {};`)
-}
-
-export function getSlotsType(
-  codes: Segment<FileRangeCapabilities>[],
-  vueVersion?: number,
-) {
-  if (codes.toString().includes('type __VLS_getSlots')) return
-  codes.push(`
-type __VLS_getSlots<T> = T extends new () => { '${getSlotsPropertyName(
-    vueVersion || 3,
-  )}': infer S } ? NonNullable<S>
-  : T extends (props: any, ctx: { slots: infer S; attrs: any; emit: any }) => any
-  ? NonNullable<S>
-  : {};`)
 }

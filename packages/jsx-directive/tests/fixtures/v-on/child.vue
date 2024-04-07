@@ -1,16 +1,20 @@
-<script setup lang="tsx">
+<script setup lang="tsx" generic="T">
+const { bar } = defineProps<{
+  bar: T
+}>()
+
 const slots = defineSlots<{
   default: () => any
   bottom: (props: { foo: 1 }) => any
 }>()
 
 const emit = defineEmits<{
-  log: [foo: number]
+  log: [foo: T]
   click: []
 }>()
 
 defineRender(() => (
-  <form onSubmit_prevent onClick={() => emit('log', 1)}>
+  <form onSubmit_prevent onClick={() => emit('log', bar)}>
     <slots.default />
   </form>
 ))

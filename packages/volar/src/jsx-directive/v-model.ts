@@ -6,27 +6,22 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 import { camelize } from '@vue/shared'
-import { getModelsType } from '../common'
-import type { JsxDirective, TransformOptions } from './index'
+import { type JsxDirective, type TransformOptions, getTagName } from './index'
 
-export function transformVModel({
-  nodes,
-  codes,
-  ts,
-  sfc,
-  source,
-}: TransformOptions & { nodes: JsxDirective[] }) {
+export function transformVModel(
+  nodes: JsxDirective[],
+  ctxMap: Map<JsxDirective['node'], string>,
+  options: TransformOptions,
+) {
+  const { codes, ts, sfc, source } = options
   let firstNamespacedNode:
-    | { attribute: JsxDirective['attribute']; tagName: string }
+    | { attribute: JsxDirective['attribute']; node: JsxDirective['node'] }
     | undefined
   const result: Segment<FileRangeCapabilities>[] = []
   for (const { attribute, node } of nodes) {
-    const tagName = ts.isJsxSelfClosingElement(node)
-      ? node.tagName.getText(sfc[source]?.ast)
-      : ts.isJsxElement(node)
-        ? node.openingElement.tagName.getText(sfc[source]?.ast)
-        : ''
-    const modelValue = ['input', 'select', 'textarea'].includes(tagName)
+    const modelValue = ['input', 'select', 'textarea'].includes(
+      getTagName(node, options),
+    )
       ? 'value'
       : 'modelValue'
     const isArrayExpression =
@@ -51,7 +46,7 @@ export function transformVModel({
             return $1
           }),
       )
-      firstNamespacedNode ??= { attribute, tagName }
+      firstNamespacedNode ??= { attribute, node }
       if (firstNamespacedNode.attribute !== attribute) {
         replaceSourceRange(
           codes,
@@ -128,7 +123,7 @@ export function transformVModel({
   }
 
   if (!firstNamespacedNode) return
-  const { attribute, tagName } = firstNamespacedNode
+  const { attribute, node } = firstNamespacedNode
   getModelsType(codes)
 
   replaceSourceRange(
@@ -138,6 +133,26 @@ export function transformVModel({
     attribute.getEnd(),
     `{...{`,
     ...result,
-    `} satisfies __VLS_getModels<typeof ${tagName}>}`,
+    `} satisfies __VLS_getModels<__VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>, typeof ${ctxMap.get(node)}.props>}`,
   )
+}
+
+function getModelsType(codes: Segment<FileRangeCapabilities>[]) {
+  if (codes.toString().includes('type __VLS_GetModels')) return
+
+  codes.push(`
+type __VLS_CamelCase<S extends string> = S extends \`\${infer F}-\${infer RF}\${infer R}\`
+  ? \`\${F}\${Uppercase<RF>}\${__VLS_CamelCase<R>}\`
+  : S;
+type __VLS_RemoveUpdatePrefix<T> = T extends \`update:modelValue\`
+  ? never
+  : T extends \`update:\${infer R}\`
+    ? __VLS_CamelCase<R>
+    : T;
+type __VLS_GetModels<E, P> = E extends object
+  ? {
+      [K in keyof E as __VLS_RemoveUpdatePrefix<K>]: P[__VLS_RemoveUpdatePrefix<K>]
+    }
+  : {};
+`)
 }
