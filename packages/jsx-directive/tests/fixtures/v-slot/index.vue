@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { expectTypeOf } from 'expect-type';
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
 
@@ -31,7 +31,7 @@ defineRender(() => (
     <Comp v-slot>default</Comp>
     <Child v-slot:bottom={{ foo }}>{foo}</Child>
 
-    <Child baz={baz} v-slot:title={{foo}}>
+    <Child baz={baz} v-slot:title={{ foo }}>
       {expectTypeOf<string>(foo)}
     </Child>
 

@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { expectTypeOf } from 'expect-type';
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 
 let bar = $ref('')
@@ -9,7 +9,7 @@ defineRender(() => (
 
     <Child
       bar={bar}
-      v-on={{ log: e => expectTypeOf<string>(e) }}
+      v-on={{ log: (e) => expectTypeOf<string>(e) }}
       onClick_capture_stop={() => console.log('stopped')}
     >
       <input

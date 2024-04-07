@@ -27,7 +27,7 @@ defineRender(() => (
 
 exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/index.vue 1`] = `
 "<script setup lang="tsx">
-import { expectTypeOf } from 'expect-type';
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 
 let bar = $ref('')
@@ -37,7 +37,7 @@ defineRender(() => (
 
     <Child
       bar={bar}
-      on={{ log: e => expectTypeOf<string>(e) }}
+      on={{ log: (e) => expectTypeOf<string>(e) }}
       v-on:click_capture_stop={() => console.log('stopped')}
     >
       <input
@@ -81,7 +81,7 @@ defineRender(() => (
 exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/index.vue 1`] = `
 "<script setup lang="tsx">
 import { withModifiers as __MACROS_withModifiers } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});
-import { expectTypeOf } from 'expect-type';
+import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 
 let bar = $ref('')
@@ -91,7 +91,7 @@ defineRender(() => (
 
     <Child
       bar={bar}
-      {...__MACROS_transformVOn({ log: e => expectTypeOf<string>(e) })}
+      {...__MACROS_transformVOn({ log: (e) => expectTypeOf<string>(e) })}
       onClickCapture={__MACROS_withModifiers(() => console.log('stopped'),['stop'])}
     >
       <input

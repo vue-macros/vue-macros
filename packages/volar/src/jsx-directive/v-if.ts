@@ -1,5 +1,5 @@
 import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
-import { type JsxDirective, type TransformOptions, getTagName } from './index'
+import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVIf(nodes: JsxDirective[], options: TransformOptions) {
   const { codes, ts, sfc, source } = options
