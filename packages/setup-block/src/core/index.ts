@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-ts-expect-error */
 import { MagicString, generateTransform } from '@vue-macros/common'
 import { type ElementNode, type NodeTypes, parse } from '@vue/compiler-dom'
 
