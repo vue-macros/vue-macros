@@ -1,5 +1,3 @@
-/* eslint-disable vue/prefer-import-from-vue */
-
 import MagicString, { type SourceMap } from 'magic-string'
 import { walk } from 'estree-walker'
 import {

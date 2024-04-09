@@ -1,5 +1,3 @@
-/* eslint-disable vue/prefer-import-from-vue */
-
 import {
   FileRangeCapabilities,
   type Segment,
