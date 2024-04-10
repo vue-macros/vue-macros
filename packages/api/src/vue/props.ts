@@ -295,7 +295,7 @@ export async function handleTSPropsDefinition({
       const defs = await resolveDefinitions({ type, scope }).then(
         ({ definitions }) => definitions,
       )
-      Object.keys(defs).map((key) => keys.add(key))
+      Object.keys(defs).forEach((key) => keys.add(key))
       unionDefs.push(defs)
     }
 
