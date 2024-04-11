@@ -1,5 +1,11 @@
 # @vue-macros/api
 
+## 0.9.5
+
+### Patch Changes
+
+- [`cfbe1be`](https://github.com/vue-macros/vue-macros/commit/cfbe1be171a7d032c139c5df4e16336bacd6f253) Thanks [@sxzz](https://github.com/sxzz)! - prefer `forEach`
+
 ## 0.9.4
 
 ### Patch Changes
