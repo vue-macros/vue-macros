@@ -9,7 +9,7 @@ const t = useTranslate()
 </script>
 
 <template>
-  <div mt2 flex="~ gap2">
+  <div mt2 flex="~ gap2 wrap">
     <small>
       {{ t('Stability: ') }}
       <code v-if="level === 'stable'" class="!text-green-600">
