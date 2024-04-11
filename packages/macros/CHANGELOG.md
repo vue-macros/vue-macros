@@ -1,5 +1,17 @@
 # unplugin-vue-macros
 
+## 2.9.1
+
+### Patch Changes
+
+- [`14e00c4`](https://github.com/vue-macros/vue-macros/commit/14e00c41dcee803df26993d1e14eaeded0b6692a) Thanks [@sxzz](https://github.com/sxzz)! - generate rspack plugin types
+
+- Updated dependencies []:
+  - @vue-macros/better-define@1.7.5
+  - @vue-macros/define-emit@0.2.5
+  - @vue-macros/define-models@1.2.3
+  - @vue-macros/define-prop@0.3.5
+
 ## 2.9.0
 
 ### Minor Changes
