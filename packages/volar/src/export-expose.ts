@@ -1,6 +1,5 @@
 import {
   type Code,
-  type Segment,
   type Sfc,
   type VueLanguagePlugin,
   replaceAll,
