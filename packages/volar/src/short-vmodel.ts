@@ -5,7 +5,7 @@ import type { VueLanguagePlugin } from '@vue/language-core'
 const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
   return {
     name: 'vue-macros-short-vmodel',
-    version: 1,
+    version: 2,
     resolveTemplateCompilerOptions(options) {
       const volarOptions = getVolarOptions(vueCompilerOptions)
 

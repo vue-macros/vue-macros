@@ -4,7 +4,7 @@ import type { VueLanguagePlugin } from '@vue/language-core'
 const plugin: VueLanguagePlugin = () => {
   return {
     name: 'vue-macros-short-bind',
-    version: 1,
+    version: 2,
     resolveTemplateCompilerOptions(options) {
       options.nodeTransforms ||= []
       options.nodeTransforms.push(transformShortBind())

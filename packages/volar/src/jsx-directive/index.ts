@@ -4,7 +4,7 @@ import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
 import { transformVBind } from './v-bind'
-import type { FileRangeCapabilities, Segment, Sfc } from '@vue/language-core'
+import type { Code, Sfc } from '@vue/language-core'
 
 export type JsxDirective = {
   attribute: import('typescript/lib/tsserverlibrary').JsxAttribute
@@ -13,7 +13,7 @@ export type JsxDirective = {
 }
 
 export type TransformOptions = {
-  codes: Segment<FileRangeCapabilities>[]
+  codes: Code[]
   sfc: Sfc
   ts: typeof import('typescript/lib/tsserverlibrary')
   source: 'script' | 'scriptSetup'

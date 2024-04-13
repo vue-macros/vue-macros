@@ -1,4 +1,5 @@
-import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
+import { replaceSourceRange } from '@vue/language-core'
+import { enableAllFeatures } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVOn(
@@ -33,8 +34,8 @@ export function transformVOnWithModifiers(
       [
         attributeName,
         source,
-        [attribute.name.getStart(sfc[source]?.ast), attribute.name.getEnd()],
-        FileRangeCapabilities.full,
+        attribute.name.getStart(sfc[source]?.ast),
+        enableAllFeatures(),
       ],
     )
 

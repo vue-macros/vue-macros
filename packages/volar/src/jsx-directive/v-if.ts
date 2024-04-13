@@ -1,4 +1,5 @@
-import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
+import { replaceSourceRange } from '@vue/language-core'
+import { enableAllFeatures } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVIf(nodes: JsxDirective[], options: TransformOptions) {
@@ -26,7 +27,7 @@ export function transformVIf(nodes: JsxDirective[], options: TransformOptions) {
           attribute.initializer.expression.getText(sfc[source]?.ast),
           source,
           attribute.initializer.expression.getStart(sfc[source]?.ast),
-          FileRangeCapabilities.full,
+          enableAllFeatures(),
         ],
         ') ? ',
       )

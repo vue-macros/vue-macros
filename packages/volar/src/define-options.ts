@@ -1,30 +1,24 @@
 import { DEFINE_OPTIONS } from '@vue-macros/common'
 import {
-  FileKind,
-  FileRangeCapabilities,
-  type Segment,
+  type Code,
   type Sfc,
   type VueLanguagePlugin,
-  replace,
+  replaceAll,
 } from '@vue/language-core'
+import { enableAllFeatures } from './common'
 
 function transformDefineOptions({
   codes,
   sfc,
   arg,
 }: {
-  codes: Segment<FileRangeCapabilities>[]
+  codes: Code[]
   sfc: Sfc
   arg: import('typescript/lib/tsserverlibrary').Node
 }) {
   const source = sfc.scriptSetup!.content.slice(arg.pos, arg.end)
-  const seg: Segment<FileRangeCapabilities> = [
-    source,
-    'scriptSetup',
-    arg!.pos,
-    FileRangeCapabilities.full,
-  ]
-  replace(codes, /setup\(\) {/, '...', seg, ',\nsetup() {')
+  const seg: Code = [source, 'scriptSetup', arg!.pos, enableAllFeatures()]
+  replaceAll(codes, /setup\(\) {/g, '...', seg, ',\nsetup() {')
 }
 
 function getArg(ts: typeof import('typescript/lib/tsserverlibrary'), sfc: Sfc) {
@@ -56,14 +50,9 @@ function getArg(ts: typeof import('typescript/lib/tsserverlibrary'), sfc: Sfc) {
 const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
   return {
     name: 'vue-macros-define-options',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
-      )
-        return
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
+      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
 
       const arg = getArg(ts, sfc)
       if (!arg) return

@@ -1,15 +1,12 @@
-import {
-  FileRangeCapabilities,
-  type Segment,
-  replaceSourceRange,
-} from '@vue/language-core'
+import { type Code, replaceSourceRange } from '@vue/language-core'
+import { enableAllFeatures } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
   { ts, sfc, source }: TransformOptions,
 ) {
-  const result: Segment<FileRangeCapabilities>[] = []
+  const result: Code[] = []
   if (
     attribute.initializer &&
     ts.isJsxExpression(attribute.initializer) &&
@@ -42,14 +39,14 @@ export function resolveVFor(
           sfc[source]!.content.slice(list.getStart(sfc[source]?.ast), list.end),
           source,
           list.getStart(sfc[source]?.ast),
-          FileRangeCapabilities.full,
+          enableAllFeatures(),
         ],
         ').map(([',
         [
           `${sfc[source]?.content.slice(item.getStart(sfc[source]?.ast), item.end)}`,
           source,
           item.getStart(sfc[source]?.ast),
-          FileRangeCapabilities.full,
+          enableAllFeatures(),
         ],
         ', ',
         index
@@ -57,7 +54,7 @@ export function resolveVFor(
               `${sfc[source]?.content.slice(index.getStart(sfc[source]?.ast), index.end)}`,
               source,
               index.getStart(sfc[source]?.ast),
-              FileRangeCapabilities.full,
+              enableAllFeatures(),
             ]
           : objectIndex
             ? 'undefined'
@@ -69,8 +66,8 @@ export function resolveVFor(
                 `${sfc[source]?.content.slice(objectIndex.getStart(sfc[source]?.ast), objectIndex.end)}`,
                 source,
                 objectIndex.getStart(sfc[source]?.ast),
-                FileRangeCapabilities.full,
-              ] as Segment<FileRangeCapabilities>,
+                enableAllFeatures(),
+              ] as Code,
             ]
           : ''),
         ']) => ',

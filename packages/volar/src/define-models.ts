@@ -1,17 +1,12 @@
 import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
 import {
-  FileKind,
-  FileRangeCapabilities,
-  type Segment,
-  type Sfc,
-  type VueLanguagePlugin,
-} from '@vue/language-core'
-import {
   addEmits,
   addProps,
+  enableAllFeatures,
   getVolarOptions,
   getVueLibraryName,
 } from './common'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function transformDefineModels({
   codes,
@@ -20,19 +15,14 @@ function transformDefineModels({
   vueLibName,
   unified,
 }: {
-  codes: Segment<FileRangeCapabilities>[]
+  codes: Code[]
   sfc: Sfc
   typeArg: import('typescript/lib/tsserverlibrary').TypeNode
   vueLibName: string
   unified: boolean
 }) {
   const source = sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end)
-  const seg: Segment<FileRangeCapabilities> = [
-    source,
-    'scriptSetup',
-    typeArg!.pos,
-    FileRangeCapabilities.full,
-  ]
+  const seg: Code = [source, 'scriptSetup', typeArg!.pos, enableAllFeatures()]
   mergeProps() ||
     addProps(
       codes,
@@ -116,10 +106,10 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-define-models',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
+        !['ts', 'tsx'].includes(embeddedFile.lang) ||
         !sfc.scriptSetup ||
         !sfc.scriptSetup.ast
       )

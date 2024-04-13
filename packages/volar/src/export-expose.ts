@@ -1,6 +1,5 @@
 import {
-  FileKind,
-  FileRangeCapabilities,
+  type Code,
   type Segment,
   type Sfc,
   type VueLanguagePlugin,
@@ -8,19 +7,18 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import { getVolarOptions } from './common'
-import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
+import { enableAllFeatures, getVolarOptions } from './common'
 import type { VolarOptions } from '..'
 
 function transform({
   fileName,
-  file,
+  codes,
   sfc,
   ts,
   volarOptions,
 }: {
   fileName: string
-  file: VueEmbeddedFile
+  codes: Code[]
   sfc: Sfc
   ts: typeof import('typescript/lib/tsserverlibrary')
   volarOptions: NonNullable<VolarOptions['exportExpose']>
@@ -35,10 +33,7 @@ function transform({
   for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (ts.isExportDeclaration(stmt) && stmt.exportClause) {
       if (ts.isNamedExports(stmt.exportClause)) {
-        const exportMap = new Map<
-          Segment<FileRangeCapabilities>,
-          Segment<FileRangeCapabilities>
-        >()
+        const exportMap = new Map<Code, Code>()
         stmt.exportClause.elements.forEach((element) => {
           if (element.isTypeOnly) return
 
@@ -50,13 +45,13 @@ function transform({
               propertyName.text,
               'scriptSetup',
               propertyName.getStart(sfc.scriptSetup?.ast),
-              FileRangeCapabilities.full,
+              enableAllFeatures(),
             ],
             [
               name.text,
               'scriptSetup',
               name.getStart(sfc.scriptSetup?.ast),
-              FileRangeCapabilities.full,
+              enableAllFeatures(),
             ],
           )
 
@@ -67,15 +62,9 @@ function transform({
           const start = stmt.getStart(sfc.scriptSetup?.ast)
           const end = stmt.getEnd()
 
+          replaceSourceRange(codes, 'scriptSetup', start, start + 6, 'import')
           replaceSourceRange(
-            file.content,
-            'scriptSetup',
-            start,
-            start + 6,
-            'import',
-          )
-          replaceSourceRange(
-            file.content,
+            codes,
             'scriptSetup',
             end,
             end,
@@ -83,7 +72,7 @@ function transform({
           )
         } else {
           replaceSourceRange(
-            file.content,
+            codes,
             'scriptSetup',
             stmt.getStart(sfc.scriptSetup?.ast),
             stmt.getEnd(),
@@ -99,15 +88,9 @@ function transform({
         const start = stmt.getStart(sfc.scriptSetup?.ast)
         const end = stmt.getEnd()
 
+        replaceSourceRange(codes, 'scriptSetup', start, start + 6, 'import')
         replaceSourceRange(
-          file.content,
-          'scriptSetup',
-          start,
-          start + 6,
-          'import',
-        )
-        replaceSourceRange(
-          file.content,
+          codes,
           'scriptSetup',
           end,
           end,
@@ -150,7 +133,7 @@ function transform({
       }
 
       replaceSourceRange(
-        file.content,
+        codes,
         'scriptSetup',
         exportModifier.getStart(sfc.scriptSetup?.ast),
         exportModifier.getEnd(),
@@ -168,7 +151,7 @@ function transform({
   ])
 
   replaceAll(
-    file.content,
+    codes,
     /return {\n/g,
     'return {\n...{ ',
     ...exposedStrings,
@@ -182,18 +165,13 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-export-expose',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
-      )
-        return
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
+      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
 
       transform({
         fileName,
-        file: embeddedFile,
+        codes: embeddedFile.content,
         sfc,
         ts,
         volarOptions: getVolarOptions(vueCompilerOptions)?.exportExpose || {},

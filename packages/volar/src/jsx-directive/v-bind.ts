@@ -1,5 +1,6 @@
-import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
+import { replaceSourceRange } from '@vue/language-core'
 import { camelize } from '@vue/shared'
+import { enableAllFeatures } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVBind(
@@ -25,8 +26,8 @@ export function transformVBind(
         [
           attributeName,
           source,
-          [attribute.name.getStart(sfc[source]?.ast), attribute.name.end],
-          FileRangeCapabilities.full,
+          attribute.name.getStart(sfc[source]?.ast),
+          enableAllFeatures(),
         ],
       )
     }
@@ -40,8 +41,8 @@ export function transformVBind(
         [
           attributeName.split('_')[0],
           source,
-          [attribute.name.getStart(sfc[source]?.ast), attribute.name.end],
-          FileRangeCapabilities.full,
+          attribute.name.getStart(sfc[source]?.ast),
+          enableAllFeatures(),
         ],
       )
     }

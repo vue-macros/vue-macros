@@ -1,8 +1,5 @@
-import {
-  FileRangeCapabilities,
-  type Segment,
-  replaceSourceRange,
-} from '@vue/language-core'
+import { type Code, replaceSourceRange } from '@vue/language-core'
+import { enableAllFeatures } from '../common'
 import { resolveVFor } from './v-for'
 import { type JsxDirective, type TransformOptions, getTagName } from './index'
 
@@ -30,7 +27,7 @@ export function transformVSlot(
   const { codes, ts, sfc, source } = options
 
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
-    const result: Segment<FileRangeCapabilities>[] = [' v-slots={{']
+    const result: Code[] = [' v-slots={{']
     const attributes = Array.from(attributeMap)
     attributes.forEach(
       ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -53,7 +50,7 @@ export function transformVSlot(
                 vIfAttribute.initializer.expression.getText(sfc[source]?.ast),
                 source,
                 vIfAttribute.initializer.expression.getStart(sfc[source]?.ast),
-                FileRangeCapabilities.full,
+                enableAllFeatures(),
               ],
               ') ? {',
             )
@@ -83,7 +80,7 @@ export function transformVSlot(
                 isDynamic ? `[${attributeName}]` : `'${attributeName}'`,
                 source,
                 attribute.name.getStart(sfc[source]?.ast) + (isDynamic ? 7 : 6),
-                FileRangeCapabilities.full,
+                enableAllFeatures(),
               ]
             : 'default',
           `: (`,
@@ -94,8 +91,8 @@ export function transformVSlot(
                 attribute.initializer.expression.getText(sfc[source]?.ast),
                 source,
                 attribute.initializer.expression.getStart(sfc[source]?.ast),
-                FileRangeCapabilities.full,
-              ] as Segment<FileRangeCapabilities>)
+                enableAllFeatures(),
+              ] as Code)
             : '',
           isDynamic ? ': any' : '',
           ') => <>',
@@ -112,8 +109,8 @@ export function transformVSlot(
                   sfc[source]!.content.slice(node.pos, node.end),
                   source,
                   node.pos,
-                  FileRangeCapabilities.full,
-                ] as Segment<FileRangeCapabilities>)
+                  enableAllFeatures(),
+                ] as Code)
           }),
           '</>,',
         )

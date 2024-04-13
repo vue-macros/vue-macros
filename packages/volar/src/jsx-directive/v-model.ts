@@ -1,9 +1,6 @@
-import {
-  FileRangeCapabilities,
-  type Segment,
-  replaceSourceRange,
-} from '@vue/language-core'
+import { type Code, replaceSourceRange } from '@vue/language-core'
 import { camelize } from '@vue/shared'
+import { enableAllFeatures } from '../common'
 import { type JsxDirective, type TransformOptions, getTagName } from './index'
 
 export function transformVModel(
@@ -15,7 +12,7 @@ export function transformVModel(
   let firstNamespacedNode:
     | { attribute: JsxDirective['attribute']; node: JsxDirective['node'] }
     | undefined
-  const result: Segment<FileRangeCapabilities>[] = []
+  const result: Code[] = []
   for (const { attribute, node } of nodes) {
     const modelValue = ['input', 'select', 'textarea'].includes(
       getTagName(node, options),
@@ -65,7 +62,7 @@ export function transformVModel(
               elements[1].getText(sfc[source]?.ast),
               source,
               elements[1].getStart(sfc[source]?.ast),
-              FileRangeCapabilities.full,
+              enableAllFeatures(),
             ],
             isDynamic ? '}`]' : '',
           )
@@ -78,7 +75,7 @@ export function transformVModel(
             elements[0].getText(sfc[source]?.ast),
             source,
             elements[0].getStart(sfc[source]?.ast),
-            FileRangeCapabilities.full,
+            enableAllFeatures(),
           ])
       } else {
         result.push(
@@ -86,11 +83,8 @@ export function transformVModel(
           [
             attributeName,
             source,
-            [
-              attribute.name.getStart(sfc[source]?.ast) + 8,
-              attribute.name.getEnd(),
-            ],
-            FileRangeCapabilities.full,
+            attribute.name.getStart(sfc[source]?.ast) + (isDynamic ? 9 : 8),
+            enableAllFeatures(),
           ],
           isDynamic ? '}`]' : '',
         )
@@ -100,7 +94,7 @@ export function transformVModel(
             attribute.initializer.getText(sfc[source]?.ast).slice(1, -1),
             source,
             attribute.initializer.getStart(sfc[source]?.ast) + 1,
-            FileRangeCapabilities.full,
+            enableAllFeatures(),
           ])
       }
     } else {
@@ -112,8 +106,8 @@ export function transformVModel(
         [
           modelValue,
           source,
-          [attribute.name.getStart(sfc[source]?.ast), attribute.name.getEnd()],
-          FileRangeCapabilities.full,
+          attribute.name.getStart(sfc[source]?.ast),
+          enableAllFeatures(),
         ],
         '=',
       )
@@ -131,11 +125,11 @@ export function transformVModel(
     attribute.getEnd(),
     `{...{`,
     ...result,
-    `} satisfies __VLS_getModels<__VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>, typeof ${ctxMap.get(node)}.props>}`,
+    `} satisfies __VLS_GetModels<__VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>, typeof ${ctxMap.get(node)}.props>}`,
   )
 }
 
-function getModelsType(codes: Segment<FileRangeCapabilities>[]) {
+function getModelsType(codes: Code[]) {
   if (codes.toString().includes('type __VLS_GetModels')) return
 
   codes.push(`
@@ -149,7 +143,9 @@ type __VLS_RemoveUpdatePrefix<T> = T extends \`update:modelValue\`
     : T;
 type __VLS_GetModels<E, P> = E extends object
   ? {
-      [K in keyof E as __VLS_RemoveUpdatePrefix<K>]: P[__VLS_RemoveUpdatePrefix<K>]
+      [K in keyof E as __VLS_RemoveUpdatePrefix<K>]: P extends object 
+        ? P[__VLS_RemoveUpdatePrefix<K>]
+        : never
     }
   : {};
 `)

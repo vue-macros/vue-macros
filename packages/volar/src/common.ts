@@ -1,7 +1,7 @@
 import {
-  type FileRangeCapabilities,
-  type Segment,
+  type Code,
   type Sfc,
+  type VueCodeInformation,
   type VueCompilerOptions,
   replaceAll,
 } from '@vue/language-core'
@@ -11,11 +11,7 @@ export function getVueLibraryName(vueVersion: number) {
   return vueVersion < 2.7 ? '@vue/runtime-dom' : 'vue'
 }
 
-export function addProps(
-  content: Segment<FileRangeCapabilities>[],
-  decl: Segment<FileRangeCapabilities>[],
-  vueLibName: string,
-) {
+export function addProps(content: Code[], decl: Code[], vueLibName: string) {
   replaceAll(
     content,
     /setup\(\) {/g,
@@ -31,10 +27,7 @@ export function addProps(
   return true
 }
 
-export function addEmits(
-  content: Segment<FileRangeCapabilities>[],
-  decl: Segment<FileRangeCapabilities>[],
-) {
+export function addEmits(content: Code[], decl: Code[]) {
   replaceAll(
     content,
     /setup\(\) {/g,
@@ -83,4 +76,18 @@ export function getImportNames(
   })
 
   return names
+}
+
+export function enableAllFeatures(
+  override?: Partial<VueCodeInformation>,
+): VueCodeInformation {
+  return {
+    verification: true,
+    completion: true,
+    semantic: true,
+    navigation: true,
+    structure: true,
+    format: true,
+    ...override,
+  }
 }
