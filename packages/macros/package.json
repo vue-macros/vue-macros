@@ -47,6 +47,11 @@
       "require": "./dist/rollup.js",
       "import": "./dist/rollup.mjs"
     },
+    "./rspack": {
+      "dev": "./src/rspack.ts",
+      "require": "./dist/rspack.js",
+      "import": "./dist/rspack.mjs"
+    },
     "./vite": {
       "dev": "./src/vite.ts",
       "require": "./dist/vite.js",
@@ -56,11 +61,6 @@
       "dev": "./src/webpack.ts",
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
-    },
-    "./rspack": {
-      "dev": "./src/rspack.ts",
-      "require": "./dist/rspack.js",
-      "import": "./dist/rspack.mjs"
     },
     "./*": [
       "./*",
