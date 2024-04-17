@@ -1,6 +1,6 @@
 import {
   HELPER_PREFIX,
-  MagicString,
+  MagicStringAST,
   babelParse,
   generateTransform,
   getLang,
@@ -30,7 +30,7 @@ import type { CustomBlocks, TemplateContent } from '..'
 export * from './constants'
 export * from './utils'
 
-export function transformTemplateIs(s: MagicString): NodeTransform {
+export function transformTemplateIs(s: MagicStringAST): NodeTransform {
   return (node) => {
     if (
       !(
@@ -67,7 +67,7 @@ export function preTransform(
   )
   if (templates.length <= 1) return
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   for (const node of templates) {
     const propName = node.props.find(
       (prop): prop is AttributeNode =>
@@ -105,7 +105,7 @@ export function preTransformMainTemplate({
   id,
   templateContent,
 }: {
-  s: MagicString
+  s: MagicStringAST
   root: RootNode
   node: ElementNode
   id: string
@@ -142,7 +142,7 @@ export function postTransform(
     return
   }
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const subTemplates: {
     name: string
     vnode: CallExpression

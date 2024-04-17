@@ -1,6 +1,6 @@
 import {
   DEFINE_PROPS,
-  MagicString,
+  MagicStringAST,
   WITH_DEFAULTS,
   generateTransform,
   isCallOf,
@@ -13,7 +13,7 @@ export function transformExportProps(code: string, id: string) {
   if (!scriptSetup) return
 
   const offset = scriptSetup.loc.start.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   const props: Record<string, { type: string; defaultValue?: string }> =
     Object.create(null)

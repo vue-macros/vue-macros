@@ -1,5 +1,5 @@
 import {
-  type MagicString,
+  type MagicStringAST,
   type SFC,
   babelParse,
   isStaticExpression,
@@ -45,7 +45,7 @@ export async function handleTSEmitsDefinition({
   declId,
   statement,
 }: {
-  s: MagicString
+  s: MagicStringAST
   file: TSFile
   sfc: SFC
   offset: number

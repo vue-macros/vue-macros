@@ -1,6 +1,6 @@
 import {
   DEFINE_EMITS,
-  MagicString,
+  MagicStringAST,
   escapeKey,
   generateTransform,
   importHelperFn,
@@ -18,7 +18,7 @@ export async function transformBetterDefine(
   id: string,
   isProduction = false,
 ) {
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const sfc = parseSFC(code, id)
   if (!sfc.scriptSetup) return
 

@@ -1,6 +1,6 @@
 import {
   HELPER_PREFIX,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   parseSFC,
 } from '@vue-macros/common'
@@ -12,7 +12,7 @@ export function transformExportExpose(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const nodes = getSetupAst()!.body
   const offset = scriptSetup.loc.start.offset
 

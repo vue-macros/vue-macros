@@ -1,7 +1,7 @@
 import {
   DEFINE_PROPS,
   DEFINE_PROPS_DOLLAR,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   isCallOf,
   parseSFC,
@@ -16,7 +16,7 @@ export function transformDefineProps(code: string, id: string) {
   if (!scriptSetup) return
 
   const offset = scriptSetup.loc.start.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const setupAst = getSetupAst()!
 
   walkAST<Node>(setupAst, {

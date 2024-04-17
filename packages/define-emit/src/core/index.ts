@@ -1,7 +1,7 @@
 import {
   DEFINE_EMIT,
   HELPER_PREFIX,
-  MagicString,
+  MagicStringAST,
   escapeKey,
   generateTransform,
   isCallOf,
@@ -24,7 +24,7 @@ export async function transformDefineEmit(code: string, id: string) {
   if (!scriptSetup) return
 
   const offset = scriptSetup.loc.start.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const setupAst = getSetupAst()!
   const emits: Emit[] = []
 

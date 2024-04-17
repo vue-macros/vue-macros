@@ -1,7 +1,7 @@
 import {
   DEFINE_EMITS,
   DEFINE_PROPS,
-  type MagicString,
+  type MagicStringAST,
   type SFC,
   WITH_DEFAULTS,
   babelParse,
@@ -26,7 +26,7 @@ export interface AnalyzeResult {
 }
 
 export async function analyzeSFC(
-  s: MagicString,
+  s: MagicStringAST,
   sfc: SFC,
 ): Promise<AnalyzeResult> {
   if (!sfc.scriptSetup) throw new Error('Only <script setup> is supported')

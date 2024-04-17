@@ -2,7 +2,7 @@ import {
   DEFINE_PROP,
   DEFINE_PROPS,
   HELPER_PREFIX,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   importHelperFn,
   isCallOf,
@@ -36,7 +36,7 @@ export async function transformDefineProp(
   const setupAst = sfc.getSetupAst()!
 
   const offset = sfc.scriptSetup.loc.start.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   const { walkCall, genRuntimeProps } = (
     edition === 'kevinEdition' ? kevinEdition : johnsonEdition

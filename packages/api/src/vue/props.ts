@@ -1,5 +1,5 @@
 import {
-  type MagicString,
+  type MagicStringAST,
   type SFC,
   babelParse,
   isStaticObjectKey,
@@ -93,7 +93,7 @@ export async function handleTSPropsDefinition({
   statement,
   declId,
 }: {
-  s: MagicString
+  s: MagicStringAST
   file: TSFile
   sfc: SFC
   offset: number

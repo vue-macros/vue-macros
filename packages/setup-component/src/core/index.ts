@@ -2,7 +2,7 @@ import {
   type AttachedScope,
   DEFINE_SETUP_COMPONENT,
   HELPER_PREFIX,
-  MagicString,
+  MagicStringAST,
   attachScopes,
   babelParse,
   generateTransform,
@@ -134,7 +134,7 @@ export function transformSetupComponent(
   ctx: SetupComponentContext,
 ) {
   const id = normalizePath(_id)
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   const fileContext = scanSetupComponent(code, id)
   if (!fileContext) return
@@ -172,7 +172,7 @@ export function loadSetupComponent(
   const { body, scopes } = component
   const lang = getLang(id)
 
-  const s = new MagicString(body)
+  const s = new MagicStringAST(body)
   const program = babelParse(body, lang, {
     allowReturnOutsideFunction: true,
     allowImportExportEverywhere: true,
@@ -226,7 +226,7 @@ export async function hotUpdateSetupComponent(
 }
 
 export function transformPost(code: string, _id: string) {
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   const id = normalizePath(_id)
 

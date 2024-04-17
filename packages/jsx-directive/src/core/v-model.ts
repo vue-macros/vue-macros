@@ -1,9 +1,9 @@
-import { type MagicString, importHelperFn } from '@vue-macros/common'
+import { type MagicStringAST, importHelperFn } from '@vue-macros/common'
 import type { JSXAttribute } from '@babel/types'
 
 export function transformVModel(
   attribute: JSXAttribute,
-  s: MagicString,
+  s: MagicStringAST,
   offset: number,
 ) {
   if (

@@ -1,6 +1,6 @@
 import {
   DEFINE_PROPS,
-  MagicString,
+  MagicStringAST,
   WITH_DEFAULTS,
   generateTransform,
   isCallOf,
@@ -17,7 +17,7 @@ export function transformChainCall(code: string, id: string) {
   const { scriptSetup, getSetupAst, offset } = parseSFC(code, id)
   if (!scriptSetup) return
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const setupAst = getSetupAst()!
 
   walkAST<Node>(setupAst, {

@@ -1,4 +1,4 @@
-import MagicString, { type SourceMap } from 'magic-string'
+import MagicStringAST, { type SourceMap } from 'magic-string'
 import { walk } from 'estree-walker'
 import {
   extractIdentifiers,
@@ -93,7 +93,7 @@ export function transform(
     sourceType: 'module',
     plugins,
   })
-  const s = new MagicString(src)
+  const s = new MagicStringAST(src)
   const res = transformAST(ast.program, s, 0)
 
   // inject helper imports
@@ -120,7 +120,7 @@ export function transform(
 
 export function transformAST(
   ast: Program,
-  s: MagicString,
+  s: MagicStringAST,
   offset = 0,
   knownRefs?: string[],
   knownProps?: Record<
@@ -770,7 +770,7 @@ export function transformAST(
 }
 
 function removeTrailingComma(
-  s: MagicString,
+  s: MagicStringAST,
   node: CallExpression,
   offset: number,
 ) {

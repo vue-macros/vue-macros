@@ -1,10 +1,10 @@
-import { MagicString, generateTransform, parseSFC } from '@vue-macros/common'
+import { MagicStringAST, generateTransform, parseSFC } from '@vue-macros/common'
 
 export function transformExportRender(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const nodes = getSetupAst()!.body
   const offset = scriptSetup.loc.start.offset
 

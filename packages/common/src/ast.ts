@@ -1,6 +1,6 @@
 import { walkIdentifiers } from '@vue/compiler-sfc'
 import { isFunctionType, isLiteralType, resolveObjectKey } from 'ast-kit'
-import type { MagicStringBase } from 'magic-string-ast'
+import type { MagicString } from 'magic-string-ast'
 import type * as t from '@babel/types'
 
 export function checkInvalidScopeReference(
@@ -145,10 +145,10 @@ export function resolveObjectExpression(node: t.ObjectExpression) {
   return maps
 }
 
-const importedMap = new WeakMap<MagicStringBase, Set<string>>()
+const importedMap = new WeakMap<MagicString, Set<string>>()
 export const HELPER_PREFIX = '__MACROS_'
 export function importHelperFn(
-  s: MagicStringBase,
+  s: MagicString,
   offset: number,
   local: string,
   from = 'vue',

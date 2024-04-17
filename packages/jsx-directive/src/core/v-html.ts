@@ -1,9 +1,9 @@
-import type { MagicString } from '@vue-macros/common'
+import type { MagicStringAST } from '@vue-macros/common'
 import type { JsxDirective } from '.'
 
 export function transformVHtml(
   nodes: JsxDirective[],
-  s: MagicString,
+  s: MagicStringAST,
   offset: number,
   version: number,
 ) {

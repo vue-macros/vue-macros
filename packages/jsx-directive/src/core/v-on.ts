@@ -1,13 +1,13 @@
 import {
   HELPER_PREFIX,
-  type MagicString,
+  type MagicStringAST,
   importHelperFn,
 } from '@vue-macros/common'
 import type { JsxDirective } from '.'
 
 export function transformVOn(
   nodes: JsxDirective[],
-  s: MagicString,
+  s: MagicStringAST,
   offset: number,
   version: number,
 ) {
@@ -36,7 +36,7 @@ export function transformVOn(
 
 export function transformVOnWithModifiers(
   nodes: JsxDirective[],
-  s: MagicString,
+  s: MagicStringAST,
   offset: number,
   version: number,
 ) {
