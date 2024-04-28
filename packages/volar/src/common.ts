@@ -54,7 +54,7 @@ export function getImportNames(
   sourceFile.forEachChild((node) => {
     if (
       ts.isImportDeclaration(node) &&
-      node.assertClause?.elements.some(
+      node.attributes?.elements.some(
         (el) =>
           el.name.text === 'type' &&
           ts.isStringLiteral(el.value) &&
