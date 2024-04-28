@@ -575,8 +575,8 @@ importers:
         specifier: ^3.11.2
         version: 3.11.2(rollup@4.17.0)
       '@vue/language-core':
-        specifier: 2.0.13
-        version: 2.0.13(typescript@5.4.5)
+        specifier: 2.0.14
+        version: 2.0.14(typescript@5.4.5)
 
   packages/reactivity-transform:
     dependencies:
@@ -2938,14 +2938,8 @@ packages:
   '@volar/language-core@2.2.0-alpha.10':
     resolution: {integrity: sha512-njVJLtpu0zMvDaEk7K5q4BRpOgbyEUljU++un9TfJoJNhxG0z/hWwpwgTRImO42EKvwIxF3XUzeMk+qatAFy7Q==}
 
-  '@volar/language-core@2.2.0-alpha.8':
-    resolution: {integrity: sha512-Ew1Iw7/RIRNuDLn60fWJdOLApAlfTVPxbPiSLzc434PReC9kleYtaa//Wo2WlN1oiRqneW0pWQQV0CwYqaimLQ==}
-
   '@volar/source-map@2.2.0-alpha.10':
     resolution: {integrity: sha512-nrdWApVkP5cksAnDEyy1JD9rKdwOJsEq1B+seWO4vNXmZNcxQQCx4DULLBvKt7AzRUAQiAuw5aQkb9RBaSqdVA==}
-
-  '@volar/source-map@2.2.0-alpha.8':
-    resolution: {integrity: sha512-E1ZVmXFJ5DU4fWDcWHzi8OLqqReqIDwhXvIMhVdk6+VipfMVv4SkryXu7/rs4GA/GsebcRyJdaSkKBB3OAkIcA==}
 
   '@volar/typescript@2.2.0-alpha.10':
     resolution: {integrity: sha512-GCa0vTVVdA9ULUsu2Rx7jwsIuyZQPvPVT9o3NrANTbYv+523Ao1gv3glC5vzNSDPM6bUl37r94HbCj7KINQr+g==}
@@ -3054,14 +3048,6 @@ packages:
       floating-vue: '>=2.0.0-0'
       unocss: '>=0.50.0-0'
       vue: '>=3.0.0-0'
-
-  '@vue/language-core@2.0.13':
-    resolution: {integrity: sha512-oQgM+BM66SU5GKtUMLQSQN0bxHFkFpLSSAiY87wVziPaiNQZuKVDt/3yA7GB9PiQw0y/bTNL0bOc0jM/siYjKg==}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   '@vue/language-core@2.0.14':
     resolution: {integrity: sha512-3q8mHSNcGTR7sfp2X6jZdcb4yt8AjBXAfKk0qkZIh7GAJxOnoZ10h5HToZglw4ToFvAnq+xu/Z2FFbglh9Icag==}
@@ -9707,15 +9693,7 @@ snapshots:
     dependencies:
       '@volar/source-map': 2.2.0-alpha.10
 
-  '@volar/language-core@2.2.0-alpha.8':
-    dependencies:
-      '@volar/source-map': 2.2.0-alpha.8
-
   '@volar/source-map@2.2.0-alpha.10':
-    dependencies:
-      muggle-string: 0.4.1
-
-  '@volar/source-map@2.2.0-alpha.8':
     dependencies:
       muggle-string: 0.4.1
 
@@ -9966,18 +9944,6 @@ snapshots:
       - qrcode
       - sortablejs
       - universal-cookie
-
-  '@vue/language-core@2.0.13(typescript@5.4.5)':
-    dependencies:
-      '@volar/language-core': 2.2.0-alpha.8
-      '@vue/compiler-dom': 3.4.25
-      '@vue/shared': 3.4.21
-      computeds: 0.0.1
-      minimatch: 9.0.4
-      path-browserify: 1.0.1
-      vue-template-compiler: 2.7.16
-    optionalDependencies:
-      typescript: 5.4.5
 
   '@vue/language-core@2.0.14(typescript@5.4.5)':
     dependencies:
