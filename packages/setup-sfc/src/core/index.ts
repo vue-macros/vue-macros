@@ -1,5 +1,5 @@
 import {
-  MagicString,
+  MagicStringAST,
   babelParse,
   generateTransform,
   getLang,
@@ -10,7 +10,7 @@ export function transformSetupSFC(code: string, id: string) {
   const lang = getLang(id)
   const program = babelParse(code, lang)
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   for (const stmt of program.body) {
     if (stmt.type !== 'ExportDefaultDeclaration') continue
     s.append(`defineRender(${s.sliceNode(stmt.declaration)});`)

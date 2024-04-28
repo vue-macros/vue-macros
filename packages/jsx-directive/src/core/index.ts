@@ -1,5 +1,5 @@
 import {
-  MagicString,
+  MagicStringAST,
   REGEX_SETUP_SFC,
   babelParse,
   generateTransform,
@@ -51,7 +51,7 @@ export function transformJsxDirective(
     return
   }
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   for (const { ast, offset } of asts) {
     const vIfMap = new Map<Node | null | undefined, JsxDirective[]>()
     const vForNodes: JsxDirective[] = []

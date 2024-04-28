@@ -1,6 +1,6 @@
 import {
   DEFINE_RENDER,
-  MagicString,
+  MagicStringAST,
   babelParse,
   generateTransform,
   getLang,
@@ -39,7 +39,7 @@ export function transformDefineRender(code: string, id: string) {
   })
   if (nodes.length === 0) return
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   for (const { parent, node, arg } of nodes) {
     // check parent

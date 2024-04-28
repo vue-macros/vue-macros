@@ -1,11 +1,11 @@
-import { MagicString, parseSFC } from '@vue-macros/common'
+import { MagicStringAST, parseSFC } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
 import { DefinitionKind, analyzeSFC } from '../src/vue'
 import { hideAstLocation, snapshot } from './_util'
 
 async function complie(code: string) {
   const str = `<script setup lang="ts">\n${code}</script>`
-  const s = new MagicString(str)
+  const s = new MagicStringAST(str)
   const sfc = parseSFC(str, 'test.vue')
   return { ...(await analyzeSFC(s, sfc)), s }
 }

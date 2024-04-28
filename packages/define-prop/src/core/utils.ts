@@ -1,8 +1,8 @@
-import type { MagicString } from '@vue-macros/common'
+import type { MagicStringAST } from '@vue-macros/common'
 import type * as t from '@babel/types'
 
 export type Impl = (ctx: {
-  s: MagicString
+  s: MagicStringAST
   offset: number
   resolveTSType: (type: t.TSType) => Promise<string[] | undefined>
 }) => {

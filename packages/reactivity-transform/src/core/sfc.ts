@@ -1,6 +1,6 @@
 import {
   DEFINE_PROPS,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   importHelperFn,
   isCallOf,
@@ -12,7 +12,7 @@ import { helperId } from './helper'
 import type { CallExpression, Identifier, Node } from '@babel/types'
 
 export function transformVueSFC(code: string, id: string) {
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const { script, scriptSetup, getScriptAst, getSetupAst } = parseSFC(code, id)
 
   let refBindings: string[] | undefined
@@ -165,7 +165,7 @@ const ${
   }
 }
 
-function importHelpers(s: MagicString, offset: number, helpers: string[]) {
+function importHelpers(s: MagicStringAST, offset: number, helpers: string[]) {
   if (helpers.length === 0) return
   s.prependLeft(
     offset,

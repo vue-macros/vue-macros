@@ -7,7 +7,7 @@ import {
 import { babelParse, getLang, resolveString } from 'ast-kit'
 import { REGEX_VUE_SFC } from './constants'
 import type { Node, Program } from '@babel/types'
-import type { MagicString, MagicStringBase } from 'magic-string-ast'
+import type { MagicString, MagicStringAST } from 'magic-string-ast'
 
 export type SFCScriptBlock = Omit<
   SFCScriptBlockMixed,
@@ -86,7 +86,7 @@ export function getFileCodeAndLang(
   }
 }
 
-export function addNormalScript({ script, lang }: SFC, s: MagicStringBase) {
+export function addNormalScript({ script, lang }: SFC, s: MagicString) {
   return {
     start() {
       if (script) return script.loc.end.offset
@@ -102,7 +102,11 @@ export function addNormalScript({ script, lang }: SFC, s: MagicStringBase) {
   }
 }
 
-export function removeMacroImport(node: Node, s: MagicString, offset: number) {
+export function removeMacroImport(
+  node: Node,
+  s: MagicStringAST,
+  offset: number,
+) {
   if (
     node.type === 'ImportDeclaration' &&
     node.attributes?.some(

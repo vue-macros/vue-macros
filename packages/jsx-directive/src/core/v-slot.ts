@@ -1,4 +1,4 @@
-import { type MagicString, importHelperFn } from '@vue-macros/common'
+import { type MagicStringAST, importHelperFn } from '@vue-macros/common'
 import { resolveVFor } from './v-for'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
@@ -19,7 +19,7 @@ export type VSlotMap = Map<
 
 export function transformVSlot(
   nodeMap: VSlotMap,
-  s: MagicString,
+  s: MagicStringAST,
   offset: number,
   version: number,
 ) {

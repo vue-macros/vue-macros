@@ -1,6 +1,6 @@
 import {
   DEFINE_OPTIONS,
-  MagicString,
+  MagicStringAST,
   addNormalScript,
   checkInvalidScopeReference,
   generateTransform,
@@ -33,7 +33,7 @@ export function transformDefineOptions(code: string, id: string) {
 
   const setupBindings = getRootScopeIds(setupAst)
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   const [node] = nodes
   const [arg] = node.arguments

@@ -1,13 +1,13 @@
 import {
   HELPER_PREFIX,
-  type MagicString,
+  type MagicStringAST,
   importHelperFn,
 } from '@vue-macros/common'
 import type { JsxDirective } from '.'
 
 export function transformVMemo(
   nodes: JsxDirective[],
-  s: MagicString,
+  s: MagicStringAST,
   offset: number,
 ) {
   if (nodes.length === 0) return

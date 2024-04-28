@@ -1,6 +1,6 @@
 import {
   HELPER_PREFIX,
-  type MagicString,
+  type MagicStringAST,
   importHelperFn,
 } from '@vue-macros/common'
 import type { JsxDirective } from '.'
@@ -13,7 +13,7 @@ export function resolveVFor(
     version,
     vMemoAttribute,
   }: {
-    s: MagicString
+    s: MagicStringAST
     offset: number
     version: number
     vMemoAttribute?: JsxDirective['attribute']
@@ -60,7 +60,7 @@ export function resolveVFor(
 
 export function transformVFor(
   nodes: JsxDirective[],
-  s: MagicString,
+  s: MagicStringAST,
   offset: number,
   version: number,
 ) {

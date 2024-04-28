@@ -1,7 +1,7 @@
 {
   "name": "unplugin-vue-macros",
   "version": "2.9.1",
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@9.0.5",
   "description": "Explore more macros and syntax sugar to Vue.",
   "keywords": [
     "vue-macros",
@@ -47,6 +47,11 @@
       "require": "./dist/rollup.js",
       "import": "./dist/rollup.mjs"
     },
+    "./rspack": {
+      "dev": "./src/rspack.ts",
+      "require": "./dist/rspack.js",
+      "import": "./dist/rspack.mjs"
+    },
     "./vite": {
       "dev": "./src/vite.ts",
       "require": "./dist/vite.js",
@@ -56,11 +61,6 @@
       "dev": "./src/webpack.ts",
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
-    },
-    "./rspack": {
-      "dev": "./src/rspack.ts",
-      "require": "./dist/rspack.js",
-      "import": "./dist/rspack.mjs"
     },
     "./*": [
       "./*",
@@ -109,11 +109,11 @@
     "@vue-macros/short-emits": "workspace:*",
     "@vue-macros/short-vmodel": "workspace:*",
     "unplugin": "^1.10.1",
-    "unplugin-combine": "^0.9.0",
+    "unplugin-combine": "^1.0.0",
     "unplugin-vue-define-options": "workspace:*"
   },
   "devDependencies": {
-    "vue": "^3.4.21"
+    "vue": "^3.4.23"
   },
   "engines": {
     "node": ">=16.14.0"

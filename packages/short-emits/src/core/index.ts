@@ -1,6 +1,6 @@
 import {
   DEFINE_EMITS,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   isCallOf,
   isTs,
@@ -20,7 +20,7 @@ export function transformShortEmits(code: string, id: string) {
   const ast = getSetupAst()!
 
   const params: TSType[] = []
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   walkAST<Node>(ast, {
     enter(node) {

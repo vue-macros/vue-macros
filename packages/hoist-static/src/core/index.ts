@@ -1,5 +1,5 @@
 import {
-  MagicString,
+  MagicStringAST,
   addNormalScript,
   generateTransform,
   isStaticExpression,
@@ -25,7 +25,7 @@ export function transformHoistStatic(code: string, id: string) {
 
   const setupOffset = scriptSetup.loc.start.offset
   const setupOffsetEnd = scriptSetup.loc.end.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const program = getSetupAst()!
 
   let normalScript = addNormalScript(sfc, s)

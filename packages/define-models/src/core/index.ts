@@ -6,7 +6,7 @@ import {
   DEFINE_OPTIONS,
   DEFINE_PROPS,
   HELPER_PREFIX,
-  MagicString,
+  MagicStringAST,
   REPO_ISSUE_URL,
   WITH_DEFAULTS,
   generateTransform,
@@ -464,7 +464,7 @@ export function transformDefineModels(
   const setupContent = scriptSetup.content
   const setupAst = getSetupAst()!.body
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   if (version === 2) processVue2Script()
 
