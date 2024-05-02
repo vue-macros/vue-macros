@@ -1,10 +1,9 @@
 import {
-  FileKind,
+  type Code,
   type Sfc,
   type VueLanguagePlugin,
   replace,
 } from '@vue/language-core'
-import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
 import type ts from 'typescript'
 
 type HasJSDoc = ts.HasJSDoc & { jsDoc: ts.JSDoc[] }
@@ -23,13 +22,13 @@ function hasJSDocNodes(node: ts.Node): node is HasJSDoc {
 }
 
 function transform({
-  file,
+  codes,
   sfc,
   ts,
 }: {
-  file: VueEmbeddedFile
+  codes: Code[]
   sfc: Sfc
-  ts: typeof import('typescript/lib/tsserverlibrary')
+  ts: typeof import('typescript')
 }) {
   let jsDoc
   if (hasJSDocNodes(sfc.scriptSetup!.ast.statements[0])) {
@@ -45,7 +44,7 @@ function transform({
 
   if (jsDoc) {
     replace(
-      file.content,
+      codes,
       /(?=export\sdefault)/,
       `${sfc.scriptSetup?.content.slice(jsDoc.pos, jsDoc.end)}\n`,
     )
@@ -55,17 +54,12 @@ function transform({
 const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
   return {
     name: 'vue-macros-setup-jsdoc',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
-      )
-        return
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
+      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
 
       transform({
-        file: embeddedFile,
+        codes: embeddedFile.content,
         sfc,
         ts,
       })

@@ -1,52 +1,42 @@
 import { DEFINE_SLOTS } from '@vue-macros/common'
 import {
-  FileKind,
+  type Code,
   type Sfc,
   type VueLanguagePlugin,
   replaceSourceRange,
 } from '@vue/language-core'
-import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
 
 function transform({
-  embeddedFile,
+  codes,
   typeArg,
   vueVersion,
 }: {
-  embeddedFile: VueEmbeddedFile
-  typeArg: import('typescript/lib/tsserverlibrary').TypeNode
+  codes: Code[]
+  typeArg: import('typescript').TypeNode
   vueVersion: number
 }) {
   replaceSourceRange(
-    embeddedFile.content,
+    codes,
     'scriptSetup',
     typeArg.pos,
     typeArg.pos,
     '__VLS_DefineSlots<',
   )
-  replaceSourceRange(
-    embeddedFile.content,
-    'scriptSetup',
-    typeArg.end,
-    typeArg.end,
-    '>',
-  )
+  replaceSourceRange(codes, 'scriptSetup', typeArg.end, typeArg.end, '>')
 
-  embeddedFile.content.push(
+  codes.push(
     `type __VLS_DefineSlots<T> = { [SlotName in keyof T]: T[SlotName] extends Function ? T[SlotName] : (_: T[SlotName]) => any };\n`,
   )
 
   if (vueVersion < 3) {
-    embeddedFile.content.push(
+    codes.push(
       `declare function defineSlots<S extends Record<string, any> = Record<string, any>>(): S;\n`,
     )
   }
 }
 
-function getTypeArg(
-  ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc,
-) {
-  function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
+function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
+  function getCallArg(node: import('typescript').Node) {
     if (
       !(
         ts.isCallExpression(node) &&
@@ -59,11 +49,11 @@ function getTypeArg(
     return node.typeArguments[0]
   }
 
-  return sfc.scriptSetup?.ast.forEachChild((node) => {
+  return ts.forEachChild(sfc.scriptSetup!.ast, (node) => {
     if (ts.isExpressionStatement(node)) {
       return getCallArg(node.expression)
     } else if (ts.isVariableStatement(node)) {
-      return node.declarationList.forEachChild((decl) => {
+      return ts.forEachChild(node.declarationList, (decl) => {
         if (ts.isVariableDeclaration(decl) && decl.initializer)
           return getCallArg(decl.initializer)
       })
@@ -77,10 +67,10 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-define-slots',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
+        !['ts', 'tsx'].includes(embeddedFile.lang) ||
         !sfc.scriptSetup ||
         !sfc.scriptSetup.ast
       )
@@ -90,7 +80,7 @@ const plugin: VueLanguagePlugin = ({
       if (!typeArg) return
 
       transform({
-        embeddedFile,
+        codes: embeddedFile.content,
         typeArg,
         vueVersion: vueCompilerOptions.target,
       })

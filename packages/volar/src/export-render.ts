@@ -1,27 +1,21 @@
 import {
-  FileKind,
+  type Code,
   type Sfc,
   type VueLanguagePlugin,
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import { getVolarOptions } from './common'
-import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
+import { getStart, getVolarOptions } from './common'
 import type { VolarOptions } from '..'
 
-function transform({
-  fileName,
-  file,
-  sfc,
-  ts,
-  volarOptions,
-}: {
+function transform(options: {
   fileName: string
-  file: VueEmbeddedFile
+  codes: Code[]
   sfc: Sfc
-  ts: typeof import('typescript/lib/tsserverlibrary')
+  ts: typeof import('typescript')
   volarOptions: NonNullable<VolarOptions['exportRender']>
 }) {
+  const { fileName, codes, sfc, ts, volarOptions } = options
   const filter = createFilter(
     volarOptions.include || /.*/,
     volarOptions.exclude,
@@ -31,16 +25,20 @@ function transform({
   for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (!ts.isExportAssignment(stmt)) continue
 
-    const start = stmt.expression.getStart(sfc.scriptSetup?.ast)
-    const end = stmt.expression.getEnd()
     replaceSourceRange(
-      file.content,
+      codes,
       'scriptSetup',
-      stmt.getStart(sfc.scriptSetup?.ast),
-      start,
+      getStart(stmt, options),
+      getStart(stmt.expression, options),
       'defineRender(',
     )
-    replaceSourceRange(file.content, 'scriptSetup', end, end, ')')
+    replaceSourceRange(
+      codes,
+      'scriptSetup',
+      stmt.expression.end,
+      stmt.expression.end,
+      ')',
+    )
   }
 }
 
@@ -50,18 +48,13 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-export-render',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
-      )
-        return
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
+      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
 
       transform({
         fileName,
-        file: embeddedFile,
+        codes: embeddedFile.content,
         sfc,
         ts,
         volarOptions: getVolarOptions(vueCompilerOptions)?.exportRender || {},

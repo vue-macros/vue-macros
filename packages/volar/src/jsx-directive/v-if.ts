@@ -1,18 +1,16 @@
-import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
+import { allCodeFeatures, replaceSourceRange } from '@vue/language-core'
+import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVIf(nodes: JsxDirective[], options: TransformOptions) {
-  const { codes, ts, sfc, source } = options
+  const { codes, ts, source } = options
 
   nodes.forEach(({ node, attribute, parent }, index) => {
     if (!ts.isIdentifier(attribute.name)) return
 
     if (
-      ['v-if', 'v-else-if'].includes(
-        attribute.name.getText(sfc[source]?.ast),
-      ) &&
-      attribute.initializer &&
-      ts.isJsxExpression(attribute.initializer) &&
+      ['v-if', 'v-else-if'].includes(getText(attribute.name, options)) &&
+      isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression
     ) {
       const hasScope = parent && attribute.name.escapedText === 'v-if'
@@ -23,10 +21,10 @@ export function transformVIf(nodes: JsxDirective[], options: TransformOptions) {
         node.pos,
         `${hasScope ? '{' : ' '}(`,
         [
-          attribute.initializer.expression.getText(sfc[source]?.ast),
+          getText(attribute.initializer.expression, options),
           source,
-          attribute.initializer.expression.getStart(sfc[source]?.ast),
-          FileRangeCapabilities.full,
+          getStart(attribute.initializer.expression, options),
+          allCodeFeatures,
         ],
         ') ? ',
       )

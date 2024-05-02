@@ -5,7 +5,7 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
 
   return {
     name: 'vue-macros-define-props-refs',
-    version: 1,
+    version: 2,
   }
 }
 

@@ -1,4 +1,5 @@
-import { FileRangeCapabilities, replaceSourceRange } from '@vue/language-core'
+import { allCodeFeatures, replaceSourceRange } from '@vue/language-core'
+import { getStart, getText } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVOn(
@@ -12,8 +13,8 @@ export function transformVOn(
     replaceSourceRange(
       codes,
       source,
-      attribute.getEnd() - 1,
-      attribute.getEnd() - 1,
+      attribute.end - 1,
+      attribute.end - 1,
       ` satisfies __VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>`,
     )
   }
@@ -21,30 +22,23 @@ export function transformVOn(
 
 export function transformVOnWithModifiers(
   nodes: JsxDirective[],
-  { codes, sfc, source }: TransformOptions,
+  options: TransformOptions,
 ) {
+  const { codes, source } = options
+
   for (const { attribute } of nodes) {
-    const attributeName = attribute.name.getText(sfc[source]?.ast).split('_')[0]
-    replaceSourceRange(
-      codes,
+    const attributeName = getText(attribute.name, options).split('_')[0]
+    const start = getStart(attribute.name, options)
+    const end = attribute.name.end
+
+    replaceSourceRange(codes, source, start, end, [
+      attributeName,
       source,
-      attribute.name.getStart(sfc[source]?.ast),
-      attribute.name.end,
-      [
-        attributeName,
-        source,
-        [attribute.name.getStart(sfc[source]?.ast), attribute.name.getEnd()],
-        FileRangeCapabilities.full,
-      ],
-    )
+      start,
+      allCodeFeatures,
+    ])
 
     if (!attribute.initializer)
-      replaceSourceRange(
-        codes,
-        source,
-        attribute.name.end,
-        attribute.name.end,
-        '={() => {}}',
-      )
+      replaceSourceRange(codes, source, end, end, '={() => {}}')
   }
 }

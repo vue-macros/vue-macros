@@ -1,9 +1,10 @@
 import {
-  FileRangeCapabilities,
-  type Segment,
+  type Code,
+  allCodeFeatures,
   replaceSourceRange,
 } from '@vue/language-core'
 import { camelize } from '@vue/shared'
+import { getStart, getText, isJsxExpression } from '../common'
 import { type JsxDirective, type TransformOptions, getTagName } from './index'
 
 export function transformVModel(
@@ -11,11 +12,11 @@ export function transformVModel(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, sfc, source } = options
+  const { codes, ts, source } = options
   let firstNamespacedNode:
     | { attribute: JsxDirective['attribute']; node: JsxDirective['node'] }
     | undefined
-  const result: Segment<FileRangeCapabilities>[] = []
+  const result: Code[] = []
   for (const { attribute, node } of nodes) {
     const modelValue = ['input', 'select', 'textarea'].includes(
       getTagName(node, options),
@@ -23,19 +24,16 @@ export function transformVModel(
       ? 'value'
       : 'modelValue'
     const isArrayExpression =
-      attribute.initializer &&
-      ts.isJsxExpression(attribute.initializer) &&
+      isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression &&
       ts.isArrayLiteralExpression(attribute.initializer.expression)
 
-    if (
-      attribute.name.getText(sfc[source]?.ast).startsWith('v-model:') ||
-      isArrayExpression
-    ) {
+    const name = getText(attribute.name, options)
+    const start = getStart(attribute.name, options)
+    if (name.startsWith('v-model:') || isArrayExpression) {
       let isDynamic = false
       const attributeName = camelize(
-        attribute.name
-          .getText(sfc[source]?.ast)
+        name
           .slice(8)
           .split(' ')[0]
           .split('_')[0]
@@ -49,8 +47,8 @@ export function transformVModel(
         replaceSourceRange(
           codes,
           source,
-          attribute.getStart(sfc[source]?.ast),
-          attribute.getEnd(),
+          getStart(attribute, options),
+          attribute.end,
         )
         result.push(',')
       }
@@ -62,10 +60,10 @@ export function transformVModel(
           result.push(
             isDynamic ? '[`${' : '',
             [
-              elements[1].getText(sfc[source]?.ast),
+              getText(elements[1], options),
               source,
-              elements[1].getStart(sfc[source]?.ast),
-              FileRangeCapabilities.full,
+              getStart(elements[1], options),
+              allCodeFeatures,
             ],
             isDynamic ? '}`]' : '',
           )
@@ -75,46 +73,33 @@ export function transformVModel(
 
         if (elements[0])
           result.push(':', [
-            elements[0].getText(sfc[source]?.ast),
+            getText(elements[0], options),
             source,
-            elements[0].getStart(sfc[source]?.ast),
-            FileRangeCapabilities.full,
+            getStart(elements[0], options),
+            allCodeFeatures,
           ])
       } else {
         result.push(
           isDynamic ? '[`${' : '',
-          [
-            attributeName,
-            source,
-            [
-              attribute.name.getStart(sfc[source]?.ast) + 8,
-              attribute.name.getEnd(),
-            ],
-            FileRangeCapabilities.full,
-          ],
+          [attributeName, source, start + (isDynamic ? 9 : 8), allCodeFeatures],
           isDynamic ? '}`]' : '',
         )
 
         if (attribute.initializer && attributeName)
           result.push(':', [
-            attribute.initializer.getText(sfc[source]?.ast).slice(1, -1),
+            getText(attribute.initializer, options).slice(1, -1),
             source,
-            attribute.initializer.getStart(sfc[source]?.ast) + 1,
-            FileRangeCapabilities.full,
+            getStart(attribute.initializer, options) + 1,
+            allCodeFeatures,
           ])
       }
     } else {
       replaceSourceRange(
         codes,
         source,
-        attribute.name.getStart(sfc[source]?.ast),
-        attribute.name.getEnd() + 1,
-        [
-          modelValue,
-          source,
-          [attribute.name.getStart(sfc[source]?.ast), attribute.name.getEnd()],
-          FileRangeCapabilities.full,
-        ],
+        start,
+        attribute.name.end + 1,
+        [modelValue, source, start, allCodeFeatures],
         '=',
       )
     }
@@ -127,15 +112,15 @@ export function transformVModel(
   replaceSourceRange(
     codes,
     source,
-    attribute.getStart(sfc[source]?.ast),
-    attribute.getEnd(),
+    getStart(attribute, options),
+    attribute.end,
     `{...{`,
     ...result,
-    `} satisfies __VLS_getModels<__VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>, typeof ${ctxMap.get(node)}.props>}`,
+    `} satisfies __VLS_GetModels<__VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>, typeof ${ctxMap.get(node)}.props>}`,
   )
 }
 
-function getModelsType(codes: Segment<FileRangeCapabilities>[]) {
+function getModelsType(codes: Code[]) {
   if (codes.toString().includes('type __VLS_GetModels')) return
 
   codes.push(`
@@ -149,7 +134,9 @@ type __VLS_RemoveUpdatePrefix<T> = T extends \`update:modelValue\`
     : T;
 type __VLS_GetModels<E, P> = E extends object
   ? {
-      [K in keyof E as __VLS_RemoveUpdatePrefix<K>]: P[__VLS_RemoveUpdatePrefix<K>]
+      [K in keyof E as __VLS_RemoveUpdatePrefix<K>]: P extends object 
+        ? P[__VLS_RemoveUpdatePrefix<K>]
+        : never
     }
   : {};
 `)

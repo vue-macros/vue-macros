@@ -1,8 +1,9 @@
 import {
-  FileRangeCapabilities,
-  type Segment,
+  type Code,
+  allCodeFeatures,
   replaceSourceRange,
 } from '@vue/language-core'
+import { getStart, getText, isJsxExpression } from '../common'
 import { resolveVFor } from './v-for'
 import { type JsxDirective, type TransformOptions, getTagName } from './index'
 
@@ -30,30 +31,32 @@ export function transformVSlot(
   const { codes, ts, sfc, source } = options
 
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
-    const result: Segment<FileRangeCapabilities>[] = [' v-slots={{']
+    const result: Code[] = [' v-slots={{']
     const attributes = Array.from(attributeMap)
     attributes.forEach(
       ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
         if (!attribute) return
 
-        const vIfAttributeName = vIfAttribute?.name.getText(sfc[source]?.ast)
-        if (vIfAttribute && vIfAttributeName) {
+        let vIfAttributeName
+        if (
+          vIfAttribute &&
+          (vIfAttributeName = getText(vIfAttribute.name, options))
+        ) {
           if ('v-if' === vIfAttributeName) {
             result.push('...')
           }
           if (
             ['v-if', 'v-else-if'].includes(vIfAttributeName) &&
-            vIfAttribute.initializer &&
-            ts.isJsxExpression(vIfAttribute.initializer) &&
+            isJsxExpression(vIfAttribute.initializer) &&
             vIfAttribute.initializer.expression
           ) {
             result.push(
               '(',
               [
-                vIfAttribute.initializer.expression.getText(sfc[source]?.ast),
+                getText(vIfAttribute.initializer.expression, options),
                 source,
-                vIfAttribute.initializer.expression.getStart(sfc[source]?.ast),
-                FileRangeCapabilities.full,
+                getStart(vIfAttribute.initializer.expression, options),
+                allCodeFeatures,
               ],
               ') ? {',
             )
@@ -67,8 +70,7 @@ export function transformVSlot(
         }
 
         let isDynamic = false
-        let attributeName = attribute.name
-          ?.getText(sfc[source]?.ast)
+        let attributeName = getText(attribute.name, options)
           .slice(6)
           .split(' ')[0]
           .replace(/\$(.*)\$/, (_, $1) => {
@@ -82,20 +84,19 @@ export function transformVSlot(
             ? [
                 isDynamic ? `[${attributeName}]` : `'${attributeName}'`,
                 source,
-                attribute.name.getStart(sfc[source]?.ast) + (isDynamic ? 7 : 6),
-                FileRangeCapabilities.full,
+                getStart(attribute.name, options) + (isDynamic ? 7 : 6),
+                allCodeFeatures,
               ]
             : 'default',
           `: (`,
-          attribute.initializer &&
-            ts.isJsxExpression(attribute.initializer) &&
+          isJsxExpression(attribute.initializer) &&
             attribute.initializer.expression
             ? ([
-                attribute.initializer.expression.getText(sfc[source]?.ast),
+                getText(attribute.initializer.expression, options),
                 source,
-                attribute.initializer.expression.getStart(sfc[source]?.ast),
-                FileRangeCapabilities.full,
-              ] as Segment<FileRangeCapabilities>)
+                getStart(attribute.initializer.expression, options),
+                allCodeFeatures,
+              ] as Code)
             : '',
           isDynamic ? ': any' : '',
           ') => <>',
@@ -112,8 +113,8 @@ export function transformVSlot(
                   sfc[source]!.content.slice(node.pos, node.end),
                   source,
                   node.pos,
-                  FileRangeCapabilities.full,
-                ] as Segment<FileRangeCapabilities>)
+                  allCodeFeatures,
+                ] as Code)
           }),
           '</>,',
         )
@@ -123,8 +124,9 @@ export function transformVSlot(
             const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
             result.push(
               '}',
-              `${attributes[nextIndex]?.[1].vIfAttribute?.name.getText(
-                sfc[source]?.ast,
+              `${getText(
+                attributes[nextIndex]?.[1].vIfAttribute!.name,
+                options,
               )}`.startsWith('v-else')
                 ? ' : '
                 : ' : null,',

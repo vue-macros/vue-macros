@@ -1,29 +1,27 @@
 import {
-  FileKind,
+  type Code,
   type Sfc,
   type VueLanguagePlugin,
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import { addProps, getVolarOptions, getVueLibraryName } from './common'
-import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
+import {
+  addProps,
+  getStart,
+  getVolarOptions,
+  getVueLibraryName,
+} from './common'
 import type { VolarOptions } from '..'
 
-function transform({
-  file,
-  sfc,
-  ts,
-  vueLibName,
-  volarOptions,
-  fileName,
-}: {
+function transform(options: {
   fileName: string
-  file: VueEmbeddedFile
+  codes: Code[]
   sfc: Sfc
-  ts: typeof import('typescript/lib/tsserverlibrary')
+  ts: typeof import('typescript')
   vueLibName: string
   volarOptions: NonNullable<VolarOptions['exportProps']>
 }) {
+  const { codes, sfc, ts, volarOptions, fileName } = options
   const filter = createFilter(
     volarOptions.include || /.*/,
     volarOptions.exclude,
@@ -39,29 +37,28 @@ function transform({
     )
     if (!exportModifier) continue
 
-    const start = exportModifier.getStart(sfc.scriptSetup?.ast)
-    const end = exportModifier.getEnd()
-    replaceSourceRange(file.content, 'scriptSetup', start, end)
+    replaceSourceRange(
+      codes,
+      'scriptSetup',
+      getStart(exportModifier, options),
+      exportModifier.end,
+    )
     changed = true
 
     for (const decl of stmt.declarationList.declarations) {
       if (!ts.isIdentifier(decl.name)) continue
-      props[decl.name.text] = !!decl.initializer
+      props[decl.name.escapedText!] = !!decl.initializer
     }
   }
 
   if (changed) {
-    addProps(
-      file.content,
-      [
-        `__VLS_TypePropsToRuntimeProps<{
+    addProps(codes, [
+      `__VLS_TypePropsToOption<{
 ${Object.entries(props)
   .map(([prop, optional]) => `  ${prop}${optional ? '?' : ''}: typeof ${prop}`)
   .join(',\n')}
   }>`,
-      ],
-      vueLibName,
-    )
+    ])
   }
 }
 
@@ -71,19 +68,14 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-export-props',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
-      )
-        return
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
+      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
 
       const vueLibName = getVueLibraryName(vueCompilerOptions.target)
 
       transform({
-        file: embeddedFile,
+        codes: embeddedFile.content,
         sfc,
         vueLibName,
         ts,

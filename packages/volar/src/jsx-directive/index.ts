@@ -1,21 +1,22 @@
+import { getText, isJsxExpression } from '../common'
 import { type VSlotMap, transformVSlot } from './v-slot'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
 import { transformVBind } from './v-bind'
-import type { FileRangeCapabilities, Segment, Sfc } from '@vue/language-core'
+import type { Code, Sfc } from '@vue/language-core'
 
 export type JsxDirective = {
-  attribute: import('typescript/lib/tsserverlibrary').JsxAttribute
-  node: import('typescript/lib/tsserverlibrary').Node
-  parent?: import('typescript/lib/tsserverlibrary').Node
+  attribute: import('typescript').JsxAttribute
+  node: import('typescript').Node
+  parent?: import('typescript').Node
 }
 
 export type TransformOptions = {
-  codes: Segment<FileRangeCapabilities>[]
+  codes: Code[]
   sfc: Sfc
-  ts: typeof import('typescript/lib/tsserverlibrary')
+  ts: typeof import('typescript')
   source: 'script' | 'scriptSetup'
   vueVersion?: number
 }
@@ -37,8 +38,8 @@ export function transformJsxDirective(options: TransformOptions) {
   const ctxNodeSet = new Set<JsxDirective['node']>()
 
   function walkJsxDirective(
-    node: import('typescript/lib/tsserverlibrary').Node,
-    parent?: import('typescript/lib/tsserverlibrary').Node,
+    node: import('typescript').Node,
+    parent?: import('typescript').Node,
   ) {
     const tagName = getTagName(node, options)
     const properties = ts.isJsxElement(node)
@@ -51,7 +52,7 @@ export function transformJsxDirective(options: TransformOptions) {
     let vSlotAttribute
     for (const attribute of properties) {
       if (!ts.isJsxAttribute(attribute)) continue
-      const attributeName = attribute.name.getText(sfc[source]?.ast)
+      const attributeName = getText(attribute.name, options)
 
       if (['v-if', 'v-else-if', 'v-else'].includes(attributeName)) {
         vIfAttribute = attribute
@@ -132,7 +133,7 @@ export function transformJsxDirective(options: TransformOptions) {
         for (const child of parent.children) {
           if (
             getTagName(child, options) === 'template' ||
-            (ts.isJsxText(child) && !child.getText(sfc[source]?.ast).trim())
+            (ts.isJsxText(child) && !getText(child, options).trim())
           )
             continue
           const defaultNodes =
@@ -145,14 +146,14 @@ export function transformJsxDirective(options: TransformOptions) {
       }
     }
 
-    node.forEachChild((child) => {
+    ts.forEachChild(node, (child) => {
       walkJsxDirective(
         child,
         ts.isJsxElement(node) || ts.isJsxFragment(node) ? node : undefined,
       )
     })
   }
-  sfc[source]?.ast.forEachChild(walkJsxDirective)
+  ts.forEachChild(sfc[source]!.ast, walkJsxDirective)
 
   const ctxMap = new Map(
     Array.from(ctxNodeSet).map((node, index) => [
@@ -172,12 +173,13 @@ export function transformJsxDirective(options: TransformOptions) {
 
 export function getTagName(
   node: JsxDirective['node'],
-  { ts, sfc, source }: TransformOptions,
+  options: TransformOptions,
 ) {
+  const { ts } = options
   return ts.isJsxSelfClosingElement(node)
-    ? node.tagName.getText(sfc[source]?.ast)
+    ? getText(node.tagName, options)
     : ts.isJsxElement(node)
-      ? node.openingElement.tagName.getText(sfc[source]?.ast)
+      ? getText(node.openingElement.tagName, options)
       : ''
 }
 
@@ -186,7 +188,7 @@ function transformCtx(
   index: number,
   options: TransformOptions,
 ) {
-  const { ts, sfc, source, codes } = options
+  const { ts, codes } = options
 
   const tag = ts.isJsxSelfClosingElement(node)
     ? node
@@ -198,13 +200,12 @@ function transformCtx(
   let props = ''
   for (const prop of tag.attributes.properties) {
     if (!ts.isJsxAttribute(prop)) continue
-    const name = prop.name.getText(sfc[source]?.ast)
+    const name = getText(prop.name, options)
     if (name.startsWith('v-')) continue
 
-    const value =
-      prop.initializer && ts.isJsxExpression(prop.initializer)
-        ? prop.initializer.expression?.getText(sfc[source]?.ast)
-        : 'true'
+    const value = isJsxExpression(prop.initializer)
+      ? getText(prop.initializer.expression!, options)
+      : 'true'
     props += `'${name}': ${value},`
   }
 

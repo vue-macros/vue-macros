@@ -1,30 +1,23 @@
 import {
-  FileKind,
-  FileRangeCapabilities,
-  type Segment,
+  type Code,
   type Sfc,
   type VueLanguagePlugin,
+  allCodeFeatures,
   replaceAll,
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import { getVolarOptions } from './common'
-import type { VueEmbeddedFile } from '@vue/language-core/out/virtualFile/embeddedFile'
+import { getStart, getVolarOptions } from './common'
 import type { VolarOptions } from '..'
 
-function transform({
-  fileName,
-  file,
-  sfc,
-  ts,
-  volarOptions,
-}: {
+function transform(options: {
   fileName: string
-  file: VueEmbeddedFile
+  codes: Code[]
   sfc: Sfc
-  ts: typeof import('typescript/lib/tsserverlibrary')
+  ts: typeof import('typescript')
   volarOptions: NonNullable<VolarOptions['exportExpose']>
 }) {
+  const { fileName, codes, sfc, ts, volarOptions } = options
   const filter = createFilter(
     volarOptions.include || /.*/,
     volarOptions.exclude,
@@ -34,11 +27,11 @@ function transform({
   const exposed: Record<string, string> = Object.create(null)
   for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (ts.isExportDeclaration(stmt) && stmt.exportClause) {
+      const start = getStart(stmt, options)
+      const end = stmt.end
+
       if (ts.isNamedExports(stmt.exportClause)) {
-        const exportMap = new Map<
-          Segment<FileRangeCapabilities>,
-          Segment<FileRangeCapabilities>
-        >()
+        const exportMap = new Map<Code, Code>()
         stmt.exportClause.elements.forEach((element) => {
           if (element.isTypeOnly) return
 
@@ -47,35 +40,26 @@ function transform({
 
           exportMap.set(
             [
-              propertyName.text,
+              propertyName.escapedText!,
               'scriptSetup',
-              propertyName.getStart(sfc.scriptSetup?.ast),
-              FileRangeCapabilities.full,
+              getStart(propertyName, options),
+              allCodeFeatures,
             ],
             [
-              name.text,
+              name.escapedText!,
               'scriptSetup',
-              name.getStart(sfc.scriptSetup?.ast),
-              FileRangeCapabilities.full,
+              getStart(name, options),
+              allCodeFeatures,
             ],
           )
 
-          exposed[name.text] = propertyName.text
+          exposed[name.escapedText!] = propertyName.escapedText!
         })
 
         if (stmt.moduleSpecifier) {
-          const start = stmt.getStart(sfc.scriptSetup?.ast)
-          const end = stmt.getEnd()
-
+          replaceSourceRange(codes, 'scriptSetup', start, start + 6, 'import')
           replaceSourceRange(
-            file.content,
-            'scriptSetup',
-            start,
-            start + 6,
-            'import',
-          )
-          replaceSourceRange(
-            file.content,
+            codes,
             'scriptSetup',
             end,
             end,
@@ -83,10 +67,10 @@ function transform({
           )
         } else {
           replaceSourceRange(
-            file.content,
+            codes,
             'scriptSetup',
-            stmt.getStart(sfc.scriptSetup?.ast),
-            stmt.getEnd(),
+            start,
+            end,
             `(({`,
             ...Array.from(exportMap.entries()).flatMap(([name, value]) =>
               name[0] === value[0] ? [value, ','] : [name, ':', value, ','],
@@ -96,22 +80,13 @@ function transform({
           )
         }
       } else if (ts.isNamespaceExport(stmt.exportClause)) {
-        const start = stmt.getStart(sfc.scriptSetup?.ast)
-        const end = stmt.getEnd()
-
+        replaceSourceRange(codes, 'scriptSetup', start, start + 6, 'import')
         replaceSourceRange(
-          file.content,
-          'scriptSetup',
-          start,
-          start + 6,
-          'import',
-        )
-        replaceSourceRange(
-          file.content,
+          codes,
           'scriptSetup',
           end,
           end,
-          `;[${stmt.exportClause.name.text}];`,
+          `;[${stmt.exportClause.name.escapedText!}];`,
         )
       }
     } else if (
@@ -130,30 +105,30 @@ function transform({
           if (!decl.name) continue
 
           if (ts.isIdentifier(decl.name)) {
-            const name = decl.name.text
+            const name = decl.name.escapedText!
             exposed[name] = name
           } else if (ts.isObjectBindingPattern(decl.name)) {
             decl.name.elements.forEach((element) => {
               if (!ts.isIdentifier(element.name)) return
 
-              exposedValues.push(element.name.text)
-              exposed[element.name.text] =
+              exposedValues.push(element.name.escapedText!)
+              exposed[element.name.escapedText!] =
                 element.propertyName && ts.isIdentifier(element.propertyName)
-                  ? element.propertyName.text
-                  : element.name.text
+                  ? element.propertyName.escapedText!
+                  : element.name.escapedText!
             })
           }
         }
       } else if (stmt.name && ts.isIdentifier(stmt.name)) {
-        const name = stmt.name.text
+        const name = stmt.name.escapedText!
         exposed[name] = name
       }
 
       replaceSourceRange(
-        file.content,
+        codes,
         'scriptSetup',
-        exportModifier.getStart(sfc.scriptSetup?.ast),
-        exportModifier.getEnd(),
+        getStart(exportModifier, options),
+        exportModifier.end,
         exposedValues.length > 0 ? `[${exposedValues}];` : '',
       )
     }
@@ -168,7 +143,7 @@ function transform({
   ])
 
   replaceAll(
-    file.content,
+    codes,
     /return {\n/g,
     'return {\n...{ ',
     ...exposedStrings,
@@ -182,18 +157,13 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-export-expose',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
-      )
-        return
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
+      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
 
       transform({
         fileName,
-        file: embeddedFile,
+        codes: embeddedFile.content,
         sfc,
         ts,
         volarOptions: getVolarOptions(vueCompilerOptions)?.exportExpose || {},

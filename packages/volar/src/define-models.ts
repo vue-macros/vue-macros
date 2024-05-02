@@ -1,10 +1,9 @@
 import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
 import {
-  FileKind,
-  FileRangeCapabilities,
-  type Segment,
+  type Code,
   type Sfc,
   type VueLanguagePlugin,
+  allCodeFeatures,
 } from '@vue/language-core'
 import {
   addEmits,
@@ -17,28 +16,18 @@ function transformDefineModels({
   codes,
   sfc,
   typeArg,
-  vueLibName,
   unified,
 }: {
-  codes: Segment<FileRangeCapabilities>[]
+  codes: Code[]
   sfc: Sfc
-  typeArg: import('typescript/lib/tsserverlibrary').TypeNode
+  typeArg: import('typescript').TypeNode
   vueLibName: string
   unified: boolean
 }) {
   const source = sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end)
-  const seg: Segment<FileRangeCapabilities> = [
-    source,
-    'scriptSetup',
-    typeArg!.pos,
-    FileRangeCapabilities.full,
-  ]
+  const seg: Code = [source, 'scriptSetup', typeArg!.pos, allCodeFeatures]
   mergeProps() ||
-    addProps(
-      codes,
-      ['__VLS_TypePropsToRuntimeProps<__VLS_ModelToProps<', seg, '>>'],
-      vueLibName,
-    )
+    addProps(codes, ['__VLS_TypePropsToOption<__VLS_ModelToProps<', seg, '>>'])
   mergeEmits() || addEmits(codes, ['__VLS_ModelToEmits<', seg, '>'])
 
   codes.push(
@@ -56,13 +45,19 @@ function transformDefineModels({
 
   function mergeProps() {
     const indexes = codes.reduce((res: number[], code, index) => {
-      if (code === '__VLS_TypePropsToRuntimeProps<') res.unshift(index)
+      if (code === '__VLS_TypePropsToOption<') res.unshift(index)
       return res
     }, [])
     if (indexes.length === 0) return false
 
     for (const idx of indexes)
-      codes.splice(idx + 2, 0, ' & __VLS_ModelToProps<', seg, '>')
+      codes.splice(
+        idx + 2,
+        0,
+        ' & __VLS_TypePropsToOption<__VLS_ModelToProps<',
+        seg,
+        '>>',
+      )
     return true
   }
 
@@ -80,16 +75,15 @@ function transformDefineModels({
   }
 }
 
-function getTypeArg(
-  ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc,
-) {
-  function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
+function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
+  function getCallArg(node: import('typescript').Node) {
     if (
       !(
         ts.isCallExpression(node) &&
         ts.isIdentifier(node.expression) &&
-        [DEFINE_MODELS, DEFINE_MODELS_DOLLAR].includes(node.expression.text) &&
+        [DEFINE_MODELS, DEFINE_MODELS_DOLLAR].includes(
+          node.expression.escapedText!,
+        ) &&
         node.typeArguments?.length === 1
       )
     )
@@ -98,11 +92,11 @@ function getTypeArg(
   }
 
   const sourceFile = sfc.scriptSetup!.ast
-  return sourceFile.forEachChild((node) => {
+  return ts.forEachChild(sourceFile, (node) => {
     if (ts.isExpressionStatement(node)) {
       return getCallArg(node.expression)
     } else if (ts.isVariableStatement(node)) {
-      return node.declarationList.forEachChild((decl) => {
+      return ts.forEachChild(node.declarationList, (decl) => {
         if (!ts.isVariableDeclaration(decl) || !decl.initializer) return
         return getCallArg(decl.initializer)
       })
@@ -116,10 +110,10 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-define-models',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
+        !['ts', 'tsx'].includes(embeddedFile.lang) ||
         !sfc.scriptSetup ||
         !sfc.scriptSetup.ast
       )
