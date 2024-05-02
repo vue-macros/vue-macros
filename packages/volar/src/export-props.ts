@@ -5,24 +5,23 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import { addProps, getVolarOptions, getVueLibraryName } from './common'
+import {
+  addProps,
+  getStart,
+  getVolarOptions,
+  getVueLibraryName,
+} from './common'
 import type { VolarOptions } from '..'
 
-function transform({
-  codes,
-  sfc,
-  ts,
-  vueLibName,
-  volarOptions,
-  fileName,
-}: {
+function transform(options: {
   fileName: string
   codes: Code[]
   sfc: Sfc
-  ts: typeof import('typescript/lib/tsserverlibrary')
+  ts: typeof import('typescript')
   vueLibName: string
   volarOptions: NonNullable<VolarOptions['exportProps']>
 }) {
+  const { codes, sfc, ts, volarOptions, fileName } = options
   const filter = createFilter(
     volarOptions.include || /.*/,
     volarOptions.exclude,
@@ -38,29 +37,28 @@ function transform({
     )
     if (!exportModifier) continue
 
-    const start = exportModifier.getStart(sfc.scriptSetup?.ast)
-    const end = exportModifier.getEnd()
-    replaceSourceRange(codes, 'scriptSetup', start, end)
+    replaceSourceRange(
+      codes,
+      'scriptSetup',
+      getStart(exportModifier, options),
+      exportModifier.end,
+    )
     changed = true
 
     for (const decl of stmt.declarationList.declarations) {
       if (!ts.isIdentifier(decl.name)) continue
-      props[decl.name.text] = !!decl.initializer
+      props[decl.name.escapedText!] = !!decl.initializer
     }
   }
 
   if (changed) {
-    addProps(
-      codes,
-      [
-        `__VLS_TypePropsToRuntimeProps<{
+    addProps(codes, [
+      `__VLS_TypePropsToOption<{
 ${Object.entries(props)
   .map(([prop, optional]) => `  ${prop}${optional ? '?' : ''}: typeof ${prop}`)
   .join(',\n')}
   }>`,
-      ],
-      vueLibName,
-    )
+    ])
   }
 }
 

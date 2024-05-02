@@ -2,26 +2,22 @@ import {
   type Code,
   type Sfc,
   type VueLanguagePlugin,
+  allCodeFeatures,
   replaceAll,
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import { enableAllFeatures, getVolarOptions } from './common'
+import { getStart, getVolarOptions } from './common'
 import type { VolarOptions } from '..'
 
-function transform({
-  fileName,
-  codes,
-  sfc,
-  ts,
-  volarOptions,
-}: {
+function transform(options: {
   fileName: string
   codes: Code[]
   sfc: Sfc
-  ts: typeof import('typescript/lib/tsserverlibrary')
+  ts: typeof import('typescript')
   volarOptions: NonNullable<VolarOptions['exportExpose']>
 }) {
+  const { fileName, codes, sfc, ts, volarOptions } = options
   const filter = createFilter(
     volarOptions.include || /.*/,
     volarOptions.exclude,
@@ -31,6 +27,9 @@ function transform({
   const exposed: Record<string, string> = Object.create(null)
   for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (ts.isExportDeclaration(stmt) && stmt.exportClause) {
+      const start = getStart(stmt, options)
+      const end = stmt.end
+
       if (ts.isNamedExports(stmt.exportClause)) {
         const exportMap = new Map<Code, Code>()
         stmt.exportClause.elements.forEach((element) => {
@@ -41,26 +40,23 @@ function transform({
 
           exportMap.set(
             [
-              propertyName.text,
+              propertyName.escapedText!,
               'scriptSetup',
-              propertyName.getStart(sfc.scriptSetup?.ast),
-              enableAllFeatures(),
+              getStart(propertyName, options),
+              allCodeFeatures,
             ],
             [
-              name.text,
+              name.escapedText!,
               'scriptSetup',
-              name.getStart(sfc.scriptSetup?.ast),
-              enableAllFeatures(),
+              getStart(name, options),
+              allCodeFeatures,
             ],
           )
 
-          exposed[name.text] = propertyName.text
+          exposed[name.escapedText!] = propertyName.escapedText!
         })
 
         if (stmt.moduleSpecifier) {
-          const start = stmt.getStart(sfc.scriptSetup?.ast)
-          const end = stmt.getEnd()
-
           replaceSourceRange(codes, 'scriptSetup', start, start + 6, 'import')
           replaceSourceRange(
             codes,
@@ -73,8 +69,8 @@ function transform({
           replaceSourceRange(
             codes,
             'scriptSetup',
-            stmt.getStart(sfc.scriptSetup?.ast),
-            stmt.getEnd(),
+            start,
+            end,
             `(({`,
             ...Array.from(exportMap.entries()).flatMap(([name, value]) =>
               name[0] === value[0] ? [value, ','] : [name, ':', value, ','],
@@ -84,16 +80,13 @@ function transform({
           )
         }
       } else if (ts.isNamespaceExport(stmt.exportClause)) {
-        const start = stmt.getStart(sfc.scriptSetup?.ast)
-        const end = stmt.getEnd()
-
         replaceSourceRange(codes, 'scriptSetup', start, start + 6, 'import')
         replaceSourceRange(
           codes,
           'scriptSetup',
           end,
           end,
-          `;[${stmt.exportClause.name.text}];`,
+          `;[${stmt.exportClause.name.escapedText!}];`,
         )
       }
     } else if (
@@ -112,30 +105,30 @@ function transform({
           if (!decl.name) continue
 
           if (ts.isIdentifier(decl.name)) {
-            const name = decl.name.text
+            const name = decl.name.escapedText!
             exposed[name] = name
           } else if (ts.isObjectBindingPattern(decl.name)) {
             decl.name.elements.forEach((element) => {
               if (!ts.isIdentifier(element.name)) return
 
-              exposedValues.push(element.name.text)
-              exposed[element.name.text] =
+              exposedValues.push(element.name.escapedText!)
+              exposed[element.name.escapedText!] =
                 element.propertyName && ts.isIdentifier(element.propertyName)
-                  ? element.propertyName.text
-                  : element.name.text
+                  ? element.propertyName.escapedText!
+                  : element.name.escapedText!
             })
           }
         }
       } else if (stmt.name && ts.isIdentifier(stmt.name)) {
-        const name = stmt.name.text
+        const name = stmt.name.escapedText!
         exposed[name] = name
       }
 
       replaceSourceRange(
         codes,
         'scriptSetup',
-        exportModifier.getStart(sfc.scriptSetup?.ast),
-        exportModifier.getEnd(),
+        getStart(exportModifier, options),
+        exportModifier.end,
         exposedValues.length > 0 ? `[${exposedValues}];` : '',
       )
     }

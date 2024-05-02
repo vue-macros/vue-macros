@@ -12,7 +12,7 @@ function transform({
   vueVersion,
 }: {
   codes: Code[]
-  typeArg: import('typescript/lib/tsserverlibrary').TypeNode
+  typeArg: import('typescript').TypeNode
   vueVersion: number
 }) {
   replaceSourceRange(
@@ -35,11 +35,8 @@ function transform({
   }
 }
 
-function getTypeArg(
-  ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc,
-) {
-  function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
+function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
+  function getCallArg(node: import('typescript').Node) {
     if (
       !(
         ts.isCallExpression(node) &&
@@ -52,11 +49,11 @@ function getTypeArg(
     return node.typeArguments[0]
   }
 
-  return sfc.scriptSetup?.ast.forEachChild((node) => {
+  return ts.forEachChild(sfc.scriptSetup!.ast, (node) => {
     if (ts.isExpressionStatement(node)) {
       return getCallArg(node.expression)
     } else if (ts.isVariableStatement(node)) {
-      return node.declarationList.forEachChild((decl) => {
+      return ts.forEachChild(node.declarationList, (decl) => {
         if (ts.isVariableDeclaration(decl) && decl.initializer)
           return getCallArg(decl.initializer)
       })

@@ -28,7 +28,7 @@ function transform({
 }: {
   codes: Code[]
   sfc: Sfc
-  ts: typeof import('typescript/lib/tsserverlibrary')
+  ts: typeof import('typescript')
 }) {
   let jsDoc
   if (hasJSDocNodes(sfc.scriptSetup!.ast.statements[0])) {

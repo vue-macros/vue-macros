@@ -1,15 +1,20 @@
-import { type Code, replaceSourceRange } from '@vue/language-core'
-import { enableAllFeatures } from '../common'
+import {
+  type Code,
+  allCodeFeatures,
+  replaceSourceRange,
+} from '@vue/language-core'
+import { getStart, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
-  { ts, sfc, source }: TransformOptions,
+  options: TransformOptions,
 ) {
+  const { ts, sfc, source } = options
   const result: Code[] = []
+
   if (
-    attribute.initializer &&
-    ts.isJsxExpression(attribute.initializer) &&
+    isJsxExpression(attribute.initializer) &&
     attribute.initializer.expression &&
     ts.isBinaryExpression(attribute.initializer.expression)
   ) {
@@ -36,25 +41,25 @@ export function resolveVFor(
       result.push(
         '__VLS_getVForSourceType(',
         [
-          sfc[source]!.content.slice(list.getStart(sfc[source]?.ast), list.end),
+          sfc[source]!.content.slice(getStart(list, options), list.end),
           source,
-          list.getStart(sfc[source]?.ast),
-          enableAllFeatures(),
+          getStart(list, options),
+          allCodeFeatures,
         ],
         ').map(([',
         [
-          `${sfc[source]?.content.slice(item.getStart(sfc[source]?.ast), item.end)}`,
+          `${sfc[source]?.content.slice(getStart(item, options), item.end)}`,
           source,
-          item.getStart(sfc[source]?.ast),
-          enableAllFeatures(),
+          getStart(item, options),
+          allCodeFeatures,
         ],
         ', ',
         index
           ? [
-              `${sfc[source]?.content.slice(index.getStart(sfc[source]?.ast), index.end)}`,
+              `${sfc[source]?.content.slice(getStart(index, options), index.end)}`,
               source,
-              index.getStart(sfc[source]?.ast),
-              enableAllFeatures(),
+              getStart(index, options),
+              allCodeFeatures,
             ]
           : objectIndex
             ? 'undefined'
@@ -63,10 +68,10 @@ export function resolveVFor(
           ? [
               ', ',
               [
-                `${sfc[source]?.content.slice(objectIndex.getStart(sfc[source]?.ast), objectIndex.end)}`,
+                `${sfc[source]?.content.slice(getStart(objectIndex, options), objectIndex.end)}`,
                 source,
-                objectIndex.getStart(sfc[source]?.ast),
-                enableAllFeatures(),
+                getStart(objectIndex, options),
+                allCodeFeatures,
               ] as Code,
             ]
           : ''),

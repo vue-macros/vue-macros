@@ -1,7 +1,6 @@
 import {
   type Code,
   type Sfc,
-  type VueCodeInformation,
   type VueCompilerOptions,
   replaceAll,
 } from '@vue/language-core'
@@ -11,7 +10,7 @@ export function getVueLibraryName(vueVersion: number) {
   return vueVersion < 2.7 ? '@vue/runtime-dom' : 'vue'
 }
 
-export function addProps(content: Code[], decl: Code[], vueLibName: string) {
+export function addProps(content: Code[], decl: Code[]) {
   replaceAll(
     content,
     /setup\(\) {/g,
@@ -19,10 +18,6 @@ export function addProps(content: Code[], decl: Code[], vueLibName: string) {
     ...decl,
     '),\n',
     'setup() {',
-  )
-  content.push(
-    `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
-    `type __VLS_TypePropsToRuntimeProps<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`,
   )
   return true
 }
@@ -45,31 +40,28 @@ export function getVolarOptions(
   return vueCompilerOptions.vueMacros
 }
 
-export function getImportNames(
-  ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc,
-) {
+export function getImportNames(ts: typeof import('typescript'), sfc: Sfc) {
   const names: string[] = []
   const sourceFile = sfc.scriptSetup!.ast
-  sourceFile.forEachChild((node) => {
+  ts.forEachChild(sourceFile, (node) => {
     if (
       ts.isImportDeclaration(node) &&
       node.attributes?.elements.some(
         (el) =>
-          el.name.text === 'type' &&
+          getText(el.name, { ts, sfc, source: 'scriptSetup' }) === 'type' &&
           ts.isStringLiteral(el.value) &&
-          el.value.text === 'macro',
+          getText(el.value, { ts, sfc, source: 'scriptSetup' }) === 'macro',
       )
     ) {
-      const name = node.importClause?.name?.text
+      const name = node.importClause?.name?.escapedText
       if (name) names.push(name)
 
       if (node.importClause?.namedBindings) {
         const bindings = node.importClause.namedBindings
         if (ts.isNamespaceImport(bindings)) {
-          names.push(bindings.name.text)
+          names.push(bindings.name.escapedText!)
         } else {
-          for (const el of bindings.elements) names.push(el.name.text)
+          for (const el of bindings.elements) names.push(el.name.escapedText!)
         }
       }
     }
@@ -78,16 +70,26 @@ export function getImportNames(
   return names
 }
 
-export function enableAllFeatures(
-  override?: Partial<VueCodeInformation>,
-): VueCodeInformation {
-  return {
-    verification: true,
-    completion: true,
-    semantic: true,
-    navigation: true,
-    structure: true,
-    format: true,
-    ...override,
-  }
+interface Options {
+  sfc: Sfc
+  ts: typeof import('typescript')
+  source?: 'script' | 'scriptSetup'
+}
+
+export function getStart(
+  node: import('typescript').Node,
+  { ts, sfc, source = 'scriptSetup' }: Options,
+) {
+  return (ts as any).getTokenPosOfNode(node, sfc[source]!.ast)
+}
+
+export function getText(node: import('typescript').Node, options: Options) {
+  const { sfc, source = 'scriptSetup' } = options
+  return sfc[source]!.content.slice(getStart(node, options), node.end)
+}
+
+export function isJsxExpression(
+  node?: import('typescript').Node,
+): node is import('typescript').JsxExpression {
+  return node?.kind === 294
 }
