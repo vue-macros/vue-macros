@@ -1,5 +1,5 @@
 ---
-"@vue-macros/volar": major
+"@vue-macros/volar": minor
 ---
 
-upgrade to volar2.0 #663
+Breaking change: support Volar 2, #663
