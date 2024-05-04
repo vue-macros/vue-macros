@@ -1,5 +1,14 @@
 # @vue-macros/short-emits
 
+## 1.5.4
+
+### Patch Changes
+
+- [`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25) Thanks [@sxzz](https://github.com/sxzz)! - upgrade magic-string-ast
+
+- Updated dependencies [[`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25)]:
+  - @vue-macros/common@1.10.3
+
 ## 1.5.3
 
 ### Patch Changes
