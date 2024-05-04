@@ -1,4 +1,4 @@
-import { getText, isJsxExpression } from '../common'
+import { getText } from '../common'
 import { type VSlotMap, transformVSlot } from './v-slot'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
