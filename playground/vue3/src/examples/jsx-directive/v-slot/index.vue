@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="tsx" generic="T">
 import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
 

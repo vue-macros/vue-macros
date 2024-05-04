@@ -188,7 +188,7 @@ function transformCtx(
   index: number,
   options: TransformOptions,
 ) {
-  const { ts, codes } = options
+  const { ts, codes, sfc } = options
 
   const tag = ts.isJsxSelfClosingElement(node)
     ? node
@@ -219,8 +219,16 @@ function transformCtx(
 `,
     )
   }
-  codes.push(
-    `const ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}));\n`,
-  )
+
+  const code = `const ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}));\n`
+  if (sfc.scriptSetup?.generic) {
+    const index = codes.findIndex((code) =>
+      code.includes('__VLS_setup = (async () => {'),
+    )
+    codes.splice(index + 1, 0, code)
+  } else {
+    codes.push(code)
+  }
+
   return ctxName
 }
