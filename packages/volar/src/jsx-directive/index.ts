@@ -1,10 +1,12 @@
-import { getText, isJsxExpression } from '../common'
+import { getText } from '../common'
 import { type VSlotMap, transformVSlot } from './v-slot'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
 import { transformVBind } from './v-bind'
+import { transformRef } from './ref'
+import { transformCtx } from './context'
 import type { Code, Sfc } from '@vue/language-core'
 
 export type JsxDirective = {
@@ -34,6 +36,7 @@ export function transformJsxDirective(options: TransformOptions) {
   const vOnNodes: JsxDirective[] = []
   const vOnWithModifiers: JsxDirective[] = []
   const vBindNodes: JsxDirective[] = []
+  const refNodes: JsxDirective[] = []
 
   const ctxNodeSet = new Set<JsxDirective['node']>()
 
@@ -42,15 +45,11 @@ export function transformJsxDirective(options: TransformOptions) {
     parent?: import('typescript').Node,
   ) {
     const tagName = getTagName(node, options)
-    const properties = ts.isJsxElement(node)
-      ? node.openingElement.attributes.properties
-      : ts.isJsxSelfClosingElement(node)
-        ? node.attributes.properties
-        : []
+    const properties = getOpeningElement(node, options)
     let vIfAttribute
     let vForAttribute
     let vSlotAttribute
-    for (const attribute of properties) {
+    for (const attribute of properties?.attributes.properties || []) {
       if (!ts.isJsxAttribute(attribute)) continue
       const attributeName = getText(attribute.name, options)
 
@@ -76,6 +75,8 @@ export function transformJsxDirective(options: TransformOptions) {
         vOnWithModifiers.push({ node, attribute })
       } else if (/^(?!v-)\S+[_|-]\S+/.test(attributeName)) {
         vBindNodes.push({ node, attribute })
+      } else if (attributeName === 'ref') {
+        refNodes.push({ node, attribute })
       }
     }
 
@@ -169,66 +170,35 @@ export function transformJsxDirective(options: TransformOptions) {
   transformVOn(vOnNodes, ctxMap, options)
   transformVOnWithModifiers(vOnWithModifiers, options)
   transformVBind(vBindNodes, options)
+  transformRef(refNodes, ctxMap, options)
 }
 
-export function getTagName(
+export function getOpeningElement(
   node: JsxDirective['node'],
   options: TransformOptions,
 ) {
   const { ts } = options
+
   return ts.isJsxSelfClosingElement(node)
-    ? getText(node.tagName, options)
-    : ts.isJsxElement(node)
-      ? getText(node.openingElement.tagName, options)
-      : ''
-}
-
-function transformCtx(
-  node: JsxDirective['node'],
-  index: number,
-  options: TransformOptions,
-) {
-  const { ts, codes, sfc } = options
-
-  const tag = ts.isJsxSelfClosingElement(node)
     ? node
     : ts.isJsxElement(node)
       ? node.openingElement
-      : null
-  if (!tag) return ''
+      : undefined
+}
 
-  let props = ''
-  for (const prop of tag.attributes.properties) {
-    if (!ts.isJsxAttribute(prop)) continue
-    const name = getText(prop.name, options)
-    if (name.startsWith('v-')) continue
+export function getTagName(
+  node: JsxDirective['node'],
+  options: TransformOptions & { withTypes?: boolean },
+) {
+  const openingElement = getOpeningElement(node, options)
+  if (!openingElement) return ''
 
-    const value = isJsxExpression(prop.initializer)
-      ? getText(prop.initializer.expression!, options)
-      : 'true'
-    props += `'${name}': ${value},`
+  let types = ''
+  if (options.withTypes && openingElement.typeArguments?.length) {
+    types = `<${openingElement.typeArguments
+      .map((argument) => getText(argument, options))
+      .join(', ')}>`
   }
 
-  const tagName = getTagName(node, options)
-  const ctxName = `__VLS_ctx${index}`
-  if (!codes.toString().includes('function __VLS_getFunctionalComponentCtx')) {
-    codes.push(
-      `function __VLS_getFunctionalComponentCtx<T, K>(comp: T, compInstance: K): __VLS_PickNotAny<
-	'__ctx' extends keyof __VLS_PickNotAny<K, {}> ? K extends { __ctx?: infer Ctx } ? Ctx : never : any
-	, T extends (props: infer P, ctx: infer Ctx) => any ? Ctx & { props: P } : any>;
-`,
-    )
-  }
-
-  const code = `const ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}));\n`
-  if (sfc.scriptSetup?.generic) {
-    const index = codes.findIndex((code) =>
-      code.includes('__VLS_setup = (async () => {'),
-    )
-    codes.splice(index + 1, 0, code)
-  } else {
-    codes.push(code)
-  }
-
-  return ctxName
+  return getText(openingElement.tagName, options) + types
 }

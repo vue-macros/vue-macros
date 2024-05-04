@@ -1,6 +1,6 @@
 <script setup lang="tsx" generic="T">
+import { type FunctionalComponent, shallowRef } from 'vue'
 import Child from './child.vue'
-import type { FunctionalComponent } from 'vue'
 
 const Comp: FunctionalComponent<
   {},
@@ -18,11 +18,17 @@ const Comp: FunctionalComponent<
   )
 }
 
+const childRef = shallowRef<InstanceType<typeof Child>>()
+
 defineRender(() => (
   <fieldset>
     <legend>v-slot</legend>
 
-    <Child>
+    <Child
+      ref={(e) => {
+        childRef.value = e
+      }}
+    >
       <Comp v-slot={{ foo }}>
         <div>default: {foo}</div>
       </Comp>

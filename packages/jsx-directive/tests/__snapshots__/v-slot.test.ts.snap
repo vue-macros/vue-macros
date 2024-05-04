@@ -39,7 +39,8 @@ defineRender(() => (
       {expectTypeOf<string>(foo)}
     </span>,}}></Child>
 
-    <Child scopedSlots={{...(show) ? {'title': ({ foo }) => <span>
+    <Child<number> scopedSlots={{...(show) ? {'title': ({ foo }) => <span>
+        {expectTypeOf<number>(foo)}
         {show}
       </span>,} : (show === false) ? {'center': ({ foo }) => <span>
         {foo}
@@ -96,7 +97,8 @@ defineRender(() => (
       {expectTypeOf<string>(foo)}
     </>,}}></Child>
 
-    <Child v-slots={{...(show) ? {'title': ({ foo }) => <>
+    <Child<number> v-slots={{...(show) ? {'title': ({ foo }) => <>
+        {expectTypeOf<number>(foo)}
         {show}
       </>,} : (show === false) ? {'center': ({ foo }) => <>
         {foo}

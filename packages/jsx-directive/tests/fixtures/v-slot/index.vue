@@ -35,9 +35,10 @@ defineRender(() => (
       {expectTypeOf<string>(foo)}
     </Child>
 
-    <Child>
+    <Child<number>>
       default
       <template v-if={show} v-slot:title={{ foo }}>
+        {expectTypeOf<number>(foo)}
         {show}
       </template>
       <template v-else-if={show === false} v-slot:center={{ foo }}>
