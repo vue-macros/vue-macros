@@ -1,5 +1,23 @@
 # @vue-macros/volar
 
+## 0.19.0
+
+### Minor Changes
+
+- [#672](https://github.com/vue-macros/vue-macros/pull/672) [`b868726`](https://github.com/vue-macros/vue-macros/commit/b86872621a3ea5c86886f675e18174d5bcfff62c) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Breaking change: support Volar 2, #663
+
+### Patch Changes
+
+- [#673](https://github.com/vue-macros/vue-macros/pull/673) [`3227507`](https://github.com/vue-macros/vue-macros/commit/3227507f25197344287ce5192673760d0dafb515) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support generic component for jsx-direcitve
+
+- [#674](https://github.com/vue-macros/vue-macros/pull/674) [`b3c9022`](https://github.com/vue-macros/vue-macros/commit/b3c9022a8adc5fea8543c51cf9c774ba8512a30e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add type to the functional template-ref
+
+- Updated dependencies [[`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25)]:
+  - @vue-macros/define-props@2.0.5
+  - @vue-macros/common@1.10.3
+  - @vue-macros/short-bind@0.2.4
+  - @vue-macros/short-vmodel@1.4.4
+
 ## 0.18.18
 
 ### Patch Changes
