@@ -109,9 +109,7 @@ export async function resolveTSProperties({
                 : undefined,
             ),
           )
-        )
-          // eslint-disable-next-line unicorn/no-array-callback-reference
-          .filter(filterValidExtends)
+        ).filter(filterValidExtends)
 
         if (resolvedExtends.length > 0) {
           const ext = (
