@@ -34,6 +34,13 @@ export function addEmits(content: Code[], decl: Code[]) {
   return true
 }
 
+export function addCode(codes: Code[], ...args: Code[]) {
+  const index = codes.findIndex((code) =>
+    code.includes('__VLS_setup = (async () => {'),
+  )
+  codes.splice(index > -1 ? index + 1 : codes.length, 0, ...args)
+}
+
 export function getVolarOptions(
   vueCompilerOptions: VueCompilerOptions,
 ): VolarOptions | undefined {

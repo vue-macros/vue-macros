@@ -1,4 +1,4 @@
-import { getText, isJsxExpression } from '../common'
+import { addCode, getText, isJsxExpression } from '../common'
 import {
   type JsxDirective,
   type TransformOptions,
@@ -11,7 +11,7 @@ export function transformCtx(
   index: number,
   options: TransformOptions,
 ) {
-  const { ts, codes, sfc } = options
+  const { ts, codes } = options
 
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
@@ -39,15 +39,10 @@ export function transformCtx(
     )
   }
 
-  const code = `const ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}));\n`
-  if (sfc.scriptSetup?.generic) {
-    const index = codes.findIndex((code) =>
-      code.includes('__VLS_setup = (async () => {'),
-    )
-    codes.splice(index + 1, 0, code)
-  } else {
-    codes.push(code)
-  }
+  addCode(
+    codes,
+    `const ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}));\n`,
+  )
 
   return ctxName
 }
