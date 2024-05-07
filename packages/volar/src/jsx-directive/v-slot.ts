@@ -122,12 +122,11 @@ export function transformVSlot(
         if (vIfAttribute && vIfAttributeName) {
           if (['v-if', 'v-else-if'].includes(vIfAttributeName)) {
             const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
+            const nextAttribute = attributes[nextIndex]?.[1].vIfAttribute
             result.push(
               '}',
-              `${getText(
-                attributes[nextIndex]?.[1].vIfAttribute!.name,
-                options,
-              )}`.startsWith('v-else')
+              nextAttribute &&
+                `${getText(nextAttribute.name, options)}`.startsWith('v-else')
                 ? ' : '
                 : ' : null,',
             )
