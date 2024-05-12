@@ -44,12 +44,7 @@ function transformDefineModels(options: {
       `{\n${propStrings.join(',\n')}} & `,
     )
 
-    codes.includes('__VLS_TypePropsToOption<') ||
-      addProps(
-        codes,
-        ['__VLS_TypePropsToOption<__VLS_PublicProps>'],
-        vueLibName,
-      )
+    addProps(codes, ['__VLS_TypePropsToOption<__VLS_PublicProps>'], vueLibName)
   }
 
   if (emitStrings.length) {
@@ -59,9 +54,7 @@ function transformDefineModels(options: {
       ` & ReturnType<typeof import('${vueLibName}').defineEmits<{\n${emitStrings.join(',\n')}}>>`,
     )
 
-    codes.some((code) =>
-      code.toString().includes('emits: ({} as __VLS_NormalizeEmits<'),
-    ) || addEmits(codes, ['__VLS_NormalizeEmits<typeof __VLS_modelEmitsType>'])
+    addEmits(codes, ['__VLS_NormalizeEmits<typeof __VLS_modelEmitsType>'])
   }
 }
 

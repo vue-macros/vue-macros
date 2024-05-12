@@ -10,6 +10,8 @@ export const REGEX_DEFINE_COMPONENT =
   /(?<=(default|__VLS_internalComponent =|__VLS_fnComponent =) \(await import\(\S+\)\)\.defineComponent\({\n)/g
 
 export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
+  if (codes.includes('__VLS_TypePropsToOption<')) return
+
   replaceAll(codes, REGEX_DEFINE_COMPONENT, 'props: ({} as ', ...decl, '),\n')
   codes.push(
     `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
@@ -19,6 +21,11 @@ export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
 }
 
 export function addEmits(codes: Code[], decl: Code[]) {
+  if (
+    codes.some((code) => code.includes('emits: ({} as __VLS_NormalizeEmits<'))
+  )
+    return
+
   replaceAll(codes, REGEX_DEFINE_COMPONENT, 'emits: ({} as ', ...decl, '),\n')
   return true
 }
