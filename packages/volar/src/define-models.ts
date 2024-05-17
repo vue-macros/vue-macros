@@ -3,75 +3,58 @@ import {
   type Code,
   type Sfc,
   type VueLanguagePlugin,
-  allCodeFeatures,
+  replace,
 } from '@vue/language-core'
-import {
-  addEmits,
-  addProps,
-  getVolarOptions,
-  getVueLibraryName,
-} from './common'
+import { addEmits, addProps, getText, getVolarOptions } from './common'
 
-function transformDefineModels({
-  codes,
-  sfc,
-  typeArg,
-  unified,
-}: {
+function transformDefineModels(options: {
   codes: Code[]
   sfc: Sfc
   typeArg: import('typescript').TypeNode
   vueLibName: string
   unified: boolean
+  ts: typeof import('typescript')
 }) {
-  const source = sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end)
-  const seg: Code = [source, 'scriptSetup', typeArg!.pos, allCodeFeatures]
-  mergeProps() ||
-    addProps(codes, ['__VLS_TypePropsToOption<__VLS_ModelToProps<', seg, '>>'])
-  mergeEmits() || addEmits(codes, ['__VLS_ModelToEmits<', seg, '>'])
+  const { codes, typeArg, unified, vueLibName, ts } = options
 
-  codes.push(
-    `type __VLS_GetPropKey<K> = K extends 'modelValue'${
-      unified ? '' : ' & never'
-    } ? 'value' : K
-    type __VLS_ModelToProps<T> = {
-      [K in keyof T as __VLS_GetPropKey<K>]: T[K]
+  const propStrings = []
+  const emitStrings = []
+
+  if (ts.isTypeLiteralNode(typeArg) && typeArg.members) {
+    for (const member of typeArg.members) {
+      if (ts.isPropertySignature(member) && member.type) {
+        const type = getText(member.type, options)
+        let name = getText(member.name, options)
+        if (unified && name === 'modelValue') {
+          name = 'value'
+          emitStrings.push(`input: [value: ${type}]`)
+        } else {
+          emitStrings.push(`'update:${name}': [${name}: ${type}]`)
+        }
+
+        propStrings.push(`${name}${member.questionToken ? '?' : ''}: ${type}`)
+      }
     }
-    type __VLS_GetEventKey<K extends string | number> = K extends 'modelValue'${
-      unified ? '' : ' & never'
-    } ? 'input' : \`update:\${K}\`
-    type __VLS_ModelToEmits<T> = T extends Record<string | number, any> ? { [K in keyof T & (string | number) as __VLS_GetEventKey<K>]: (value: T[K]) => void } : T;`,
-  )
-
-  function mergeProps() {
-    const indexes = codes.reduce((res: number[], code, index) => {
-      if (code === '__VLS_TypePropsToOption<') res.unshift(index)
-      return res
-    }, [])
-    if (indexes.length === 0) return false
-
-    for (const idx of indexes)
-      codes.splice(
-        idx + 2,
-        0,
-        ' & __VLS_TypePropsToOption<__VLS_ModelToProps<',
-        seg,
-        '>>',
-      )
-    return true
   }
 
-  function mergeEmits() {
-    const indexes = codes.reduce((res: number[], code, index) => {
-      if (code === 'emits: ({} as __VLS_NormalizeEmits<typeof ')
-        res.unshift(index)
-      return res
-    }, [])
-    if (indexes.length === 0) return false
+  if (propStrings.length) {
+    replace(
+      codes,
+      /(?<=type __VLS_PublicProps = )/,
+      `{\n${propStrings.join(',\n')}} & `,
+    )
 
-    for (const idx of indexes)
-      codes.splice(idx + 2, 1, ' & __VLS_ModelToEmits<', seg, '>>),\n')
-    return true
+    addProps(codes, ['__VLS_TypePropsToOption<__VLS_PublicProps>'], vueLibName)
+  }
+
+  if (emitStrings.length) {
+    replace(
+      codes,
+      /(?<=let __VLS_modelEmitsType!: {})/,
+      ` & ReturnType<typeof import('${vueLibName}').defineEmits<{\n${emitStrings.join(',\n')}}>>`,
+    )
+
+    addEmits(codes, ['__VLS_NormalizeEmits<typeof __VLS_modelEmitsType>'])
   }
 }
 
@@ -123,7 +106,7 @@ const plugin: VueLanguagePlugin = ({
       if (!typeArg) return
 
       const vueVersion = vueCompilerOptions.target
-      const vueLibName = getVueLibraryName(vueVersion)
+      const vueLibName = vueCompilerOptions.lib
       const volarOptions = getVolarOptions(vueCompilerOptions)
       const unified =
         vueVersion < 3 && (volarOptions?.defineModels?.unified ?? true)
@@ -134,6 +117,7 @@ const plugin: VueLanguagePlugin = ({
         typeArg,
         vueLibName,
         unified,
+        ts,
       })
     },
   }

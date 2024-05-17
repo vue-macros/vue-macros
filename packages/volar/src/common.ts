@@ -6,31 +6,27 @@ import {
 } from '@vue/language-core'
 import type { VolarOptions } from '..'
 
-export function getVueLibraryName(vueVersion: number) {
-  return vueVersion < 2.7 ? '@vue/runtime-dom' : 'vue'
-}
+export const REGEX_DEFINE_COMPONENT =
+  /(?<=(default|__VLS_internalComponent =|__VLS_fnComponent =) \(await import\(\S+\)\)\.defineComponent\({\n)/g
 
-export function addProps(content: Code[], decl: Code[]) {
-  replaceAll(
-    content,
-    /setup\(\) {/g,
-    'props: ({} as ',
-    ...decl,
-    '),\n',
-    'setup() {',
+export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
+  if (codes.includes('__VLS_TypePropsToOption<')) return
+
+  replaceAll(codes, REGEX_DEFINE_COMPONENT, 'props: ({} as ', ...decl, '),\n')
+  codes.push(
+    `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
+    `type __VLS_TypePropsToOption<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`,
   )
   return true
 }
 
-export function addEmits(content: Code[], decl: Code[]) {
-  replaceAll(
-    content,
-    /setup\(\) {/g,
-    'emits: ({} as ',
-    ...decl,
-    '),\n',
-    'setup() {',
+export function addEmits(codes: Code[], decl: Code[]) {
+  if (
+    codes.some((code) => code.includes('emits: ({} as __VLS_NormalizeEmits<'))
   )
+    return
+
+  replaceAll(codes, REGEX_DEFINE_COMPONENT, 'emits: ({} as ', ...decl, '),\n')
   return true
 }
 

@@ -5,12 +5,7 @@ import {
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import {
-  addProps,
-  getStart,
-  getVolarOptions,
-  getVueLibraryName,
-} from './common'
+import { addProps, getStart, getVolarOptions } from './common'
 import type { VolarOptions } from '..'
 
 function transform(options: {
@@ -21,7 +16,7 @@ function transform(options: {
   vueLibName: string
   volarOptions: NonNullable<VolarOptions['exportProps']>
 }) {
-  const { codes, sfc, ts, volarOptions, fileName } = options
+  const { codes, sfc, ts, volarOptions, fileName, vueLibName } = options
   const filter = createFilter(
     volarOptions.include || /.*/,
     volarOptions.exclude,
@@ -52,13 +47,17 @@ function transform(options: {
   }
 
   if (changed) {
-    addProps(codes, [
-      `__VLS_TypePropsToOption<{
+    addProps(
+      codes,
+      [
+        `__VLS_TypePropsToOption<{
 ${Object.entries(props)
   .map(([prop, optional]) => `  ${prop}${optional ? '?' : ''}: typeof ${prop}`)
   .join(',\n')}
   }>`,
-    ])
+      ],
+      vueLibName,
+    )
   }
 }
 
@@ -72,7 +71,7 @@ const plugin: VueLanguagePlugin = ({
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
 
-      const vueLibName = getVueLibraryName(vueCompilerOptions.target)
+      const vueLibName = vueCompilerOptions.lib
 
       transform({
         codes: embeddedFile.content,
