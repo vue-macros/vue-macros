@@ -3,11 +3,11 @@ import {
   type Sfc,
   type VueLanguagePlugin,
   allCodeFeatures,
-  replaceAll,
+  replace,
   replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
-import { getStart, getVolarOptions } from './common'
+import { addCode, getStart, getVolarOptions } from './common'
 import type { VolarOptions } from '..'
 
 function transform(options: {
@@ -142,13 +142,21 @@ function transform(options: {
     ',\n',
   ])
 
-  replaceAll(
-    codes,
-    /return {\n/g,
-    'return {\n...{ ',
-    ...exposedStrings,
-    ' },\n',
-  )
+  if (sfc.scriptSetup?.generic) {
+    addCode(codes, `const __VLS_exportExposed = {\n`, ...exposedStrings, `};\n`)
+
+    replace(
+      codes,
+      /(?<=expose\(exposed: import\(\S+\)\.ShallowUnwrapRef<)/,
+      'typeof __VLS_exportExposed & ',
+    )
+  } else {
+    replace(
+      codes,
+      /(?<=export\sdefault \(await import\(\S+\)\)\.defineComponent\({[\S\s]*setup\(\) {\nreturn {\n)/,
+      ...exposedStrings,
+    )
+  }
 }
 
 const plugin: VueLanguagePlugin = ({
