@@ -1,13 +1,13 @@
 <script setup lang="tsx">
-defineSlots<{
-  default: () => any
+const slots = defineSlots<{
+  default: (props: { foo: string }) => any
   bottom: (props: { foo: 1 }) => any
 }>()
-</script>
 
-<template>
+defineRender(() => (
   <span>
-    <slot />
-    <slot name="bottom" v-bind="{ foo: 1 }" />
+    <slots.default foo="begin" />
+    <slots.bottom {...{ foo: 1 }} />
   </span>
-</template>
+))
+</script>

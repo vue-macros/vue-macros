@@ -7,8 +7,8 @@ exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else.tsx 1`] = `
 
 export default () => (
   <>
-    {foo === 0 ? <div>0</div> :
-    foo === 1 ? <div>1</div> :
+    {(foo === 0) ? <div>0</div> :
+     (foo === 1) ? <div>1</div> :
     <div>2</div>}
   </>
 )
@@ -16,15 +16,15 @@ export default () => (
 `;
 
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else.vue 1`] = `
-"<script setup lang=\\"tsx\\">
+"<script setup lang="tsx">
 const { foo = 2 } = defineProps<{
   foo: number
 }>()
 
 defineRender(() => (
   <>
-    {foo === 0 ? <div>0</div> :
-    foo === 1 ? <div>1</div> :
+    {(foo === 0) ? <div>0</div> :
+     (foo === 1) ? <div>1</div> :
     <div>2</div>}
   </>
 ))
@@ -39,24 +39,24 @@ exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else-if.tsx 1`] = `
 
 export default () => (
   <>
-    {foo === 0 ? <div>0</div> :
-    foo === 1 ? <div>1</div> :
-    foo === 2 ? <div>2</div> : null}
+    {(foo === 0) ? <div>0</div> :
+     (foo === 1) ? <div>1</div> :
+     (foo === 2) ? <div>2</div> : null}
   </>
 )
 "
 `;
 
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else-if.vue 1`] = `
-"<script setup lang=\\"tsx\\">
+"<script setup lang="tsx">
 const { foo = 0 } = defineProps<{
   foo: number
 }>()
 
 defineRender(() => (
   <>
-    {foo === 0 ? <div>0</div> :
-    foo === 1 ? <div>1</div> : null}
+    {(foo === 0) ? <div>0</div> :
+     (foo === 1) ? <div>1</div> : null}
   </>
 ))
 </script>
@@ -71,8 +71,8 @@ exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if.tsx 1`] = `
 export default () => {
   return (
     <>
-      {foo === 0 ? <div>0</div> : null}
-      {foo === 1 ? <div>1</div> : null}
+      {(foo === 0) ? <div>0</div> : null}
+      {(foo === 1) ? <div>1</div> : null}
     </>
   )
 }
@@ -80,15 +80,15 @@ export default () => {
 `;
 
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if.vue 1`] = `
-"<script setup lang=\\"tsx\\">
+"<script setup lang="tsx">
 const { foo } = defineProps<{
   foo: number
 }>()
 
 defineRender(() => (
   <>
-    {foo === 0 ? <div>0</div> : null}
-    {foo === 1 ? <div>1</div> : null}
+    {(foo === 0) ? <div>0</div> : null}
+    {(foo ? true : false) ? <div>1</div> : null}
   </>
 ))
 </script>
@@ -102,9 +102,9 @@ exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if-nested.tsx 1`] = `
 
 export default () => (
   <>
-    {foo === 0 ? <div>
-      {foo === 0 ? <div>0-0</div> :
-      foo === 1 ? <div>0-1</div> :
+    {(foo === 0) ? <div>
+      {(foo === 0) ? <div>0-0</div> :
+       (foo === 1) ? <div>0-1</div> :
       <div>0-2</div>}
     </div> : null}
   </>
@@ -113,16 +113,16 @@ export default () => (
 `;
 
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if-nested.vue 1`] = `
-"<script setup lang=\\"tsx\\">
+"<script setup lang="tsx">
 const { foo = 0 } = defineProps<{
   foo: number
 }>()
 
 defineRender(() => (
   <>
-    {foo === 0 ? <div>
-      {foo === 0 ? <div>0-0</div> :
-      foo === 1 ? <div>0-1</div> :
+    {(foo === 0) ? <div>
+      {(foo === 0) ? <div>0-0</div> :
+       (foo === 1) ? <div>0-1</div> :
       <div>0-2</div>}
     </div> : null}
   </>

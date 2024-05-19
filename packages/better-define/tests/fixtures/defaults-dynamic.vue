@@ -5,7 +5,7 @@ withDefaults(
   }>(),
   {
     ['f' + 'oo']: 'foo',
-  }
+  },
 )
 </script>
 

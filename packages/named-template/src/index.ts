@@ -6,18 +6,18 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
 import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE,
 } from './core/constants'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 
-function resolveOption(options: Options): OptionsResolved {
+function resolveOptions(options: Options): OptionsResolved {
   const version = options.version || detectVueVersion()
   return {
     include: [REGEX_VUE_SFC],
@@ -35,7 +35,7 @@ const name = generatePluginName()
 
 export const PrePlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
-    const options = resolveOption(userOptions)
+    const options = resolveOptions(userOptions)
     const filter = createFilter(options)
 
     const templateContent: TemplateContent = Object.create(null)
@@ -79,13 +79,13 @@ export default {
         }
       },
     }
-  }
+  },
 )
 
 export type CustomBlocks = Record<string, Record<string, string>>
 export const PostPlugin = createUnplugin<Options | undefined, false>(
   (userOptions = {}) => {
-    const options = resolveOption(userOptions)
+    const options = resolveOptions(userOptions)
     const filter = createFilter(options)
     const customBlocks: CustomBlocks = Object.create(null)
 
@@ -112,13 +112,13 @@ export const PostPlugin = createUnplugin<Options | undefined, false>(
         },
       },
     }
-  }
+  },
 )
 
 const plugin = createUnplugin<Options | undefined, true>(
   (userOptions = {}, meta) => {
     return [PrePlugin.raw(userOptions, meta), PostPlugin.raw(userOptions, meta)]
-  }
+  },
 )
 
 export default plugin

@@ -1,12 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > ./fixtures/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 const __MACROS_props = defineProps<{
   foo: string[]
   bar: number
 }>()
-import { toRefs as __MACROS_toRefs } from \\"vue\\";
+import { toRefs as __MACROS_toRefs } from "vue";
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef, DeepReadonly, Ref } from 'vue'
 
@@ -22,14 +22,14 @@ expectTypeOf(bar).toEqualTypeOf<ComputedRef<number>>()
 `;
 
 exports[`fixtures > ./fixtures/with-defaults.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 const __MACROS_props = withDefaults(defineProps<{
     foo?: string
     bar?: number[]
   }>(), {
     foo: 'foo',
   })
-import { toRefs as __MACROS_toRefs } from \\"vue\\";
+import { toRefs as __MACROS_toRefs } from "vue";
 import { expectTypeOf } from 'expect-type'
 import { ComputedRef } from 'vue'
 

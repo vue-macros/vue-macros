@@ -1,12 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > ./fixtures/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
  const foo: string = 'foo',
   bar = 10
  let baz: string | undefined
  var qux = fn()
- const { a, b, c } = { a: 1, b: 2, c: 3 }
+ const { a: a1, b, c } = { a: 1, b: 2, c: 3 }
 
  function fn() {}
  class A {}
@@ -17,7 +17,7 @@ defineExpose({
   bar,
   baz,
   qux,
-  a,
+  a1,
   b,
   c,
   fn,
@@ -28,12 +28,12 @@ defineExpose({
 "
 `;
 
-exports[`fixtures > ./fixtures/error/export-all.vue 1`] = `"export from another module is not supported. Please import and export separately."`;
+exports[`fixtures > ./fixtures/error/export-all.vue 1`] = `[Error: export from another module is not supported. Please import and export separately.]`;
 
-exports[`fixtures > ./fixtures/error/export-default.vue 1`] = `"export default is not supported. Please use named export."`;
+exports[`fixtures > ./fixtures/error/export-default.vue 1`] = `[Error: export default is not supported. Please use named export.]`;
 
 exports[`fixtures > ./fixtures/export-from-other.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 import { foo as __MACROS_expose_0, type Foo, foo as __MACROS_expose_1 } from './types'
 defineExpose({
   foo: __MACROS_expose_0,
@@ -44,7 +44,7 @@ defineExpose({
 `;
 
 exports[`fixtures > ./fixtures/namespace-export.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 import * as __MACROS_expose_0 from './types'
 defineExpose({
   foo: __MACROS_expose_0,
@@ -54,11 +54,13 @@ defineExpose({
 `;
 
 exports[`fixtures > ./fixtures/rename.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 const foo = 1,
   bar = 1
 
+// @ts-expect-error
 import { foo as __MACROS_expose_0 } from './types'
+// @ts-expect-error
 import * as __MACROS_expose_1 from './types'
 defineExpose({
   foo: __MACROS_expose_0,

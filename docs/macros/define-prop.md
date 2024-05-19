@@ -45,8 +45,8 @@ VueMacros({
       // ...more feature
     ],
     // "kevinEdition" | "johnsonEdition" | false
-    "experimentalDefinePropProposal": "kevinEdition"
-  }
+    "experimentalDefinePropProposal": "kevinEdition",
+  },
 }
 ```
 

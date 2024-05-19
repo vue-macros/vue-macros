@@ -1,5 +1,296 @@
 # unplugin-vue-macros
 
+## 2.9.2
+
+### Patch Changes
+
+- Updated dependencies [[`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25)]:
+  - @vue-macros/reactivity-transform@0.4.5
+  - @vue-macros/define-props-refs@1.2.4
+  - @vue-macros/setup-component@0.17.4
+  - unplugin-vue-define-options@1.4.4
+  - @vue-macros/named-template@0.4.4
+  - @vue-macros/better-define@1.7.6
+  - @vue-macros/define-models@1.2.4
+  - @vue-macros/define-render@1.5.4
+  - @vue-macros/export-expose@0.1.4
+  - @vue-macros/export-render@0.2.4
+  - @vue-macros/jsx-directive@0.8.13
+  - @vue-macros/define-props@2.0.5
+  - @vue-macros/define-slots@1.1.4
+  - @vue-macros/export-props@0.4.4
+  - @vue-macros/hoist-static@1.5.4
+  - @vue-macros/define-emit@0.2.6
+  - @vue-macros/define-prop@0.3.6
+  - @vue-macros/setup-block@0.3.4
+  - @vue-macros/short-emits@1.5.4
+  - @vue-macros/chain-call@0.2.4
+  - @vue-macros/setup-sfc@0.17.4
+  - @vue-macros/common@1.10.3
+  - @vue-macros/boolean-prop@0.3.4
+  - @vue-macros/short-bind@0.2.4
+  - @vue-macros/short-vmodel@1.4.4
+
+## 2.9.1
+
+### Patch Changes
+
+- [`14e00c4`](https://github.com/vue-macros/vue-macros/commit/14e00c41dcee803df26993d1e14eaeded0b6692a) Thanks [@sxzz](https://github.com/sxzz)! - generate rspack plugin types
+
+- Updated dependencies []:
+  - @vue-macros/better-define@1.7.5
+  - @vue-macros/define-emit@0.2.5
+  - @vue-macros/define-models@1.2.3
+  - @vue-macros/define-prop@0.3.5
+
+## 2.9.0
+
+### Minor Changes
+
+- [`4202a2b`](https://github.com/vue-macros/vue-macros/commit/4202a2b1ee6b302fcd2d704f1978f1dadeb20090) Thanks [@sxzz](https://github.com/sxzz)! - add rspack entry
+
+### Patch Changes
+
+- Updated dependencies [[`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - @vue-macros/common@1.10.2
+  - @vue-macros/better-define@1.7.4
+  - @vue-macros/boolean-prop@0.3.3
+  - @vue-macros/chain-call@0.2.3
+  - @vue-macros/define-emit@0.2.4
+  - @vue-macros/define-models@1.2.3
+  - unplugin-vue-define-options@1.4.3
+  - @vue-macros/define-prop@0.3.4
+  - @vue-macros/define-props@2.0.4
+  - @vue-macros/define-props-refs@1.2.3
+  - @vue-macros/define-render@1.5.3
+  - @vue-macros/define-slots@1.1.3
+  - @vue-macros/export-expose@0.1.3
+  - @vue-macros/export-props@0.4.3
+  - @vue-macros/export-render@0.2.3
+  - @vue-macros/hoist-static@1.5.3
+  - @vue-macros/jsx-directive@0.8.12
+  - @vue-macros/named-template@0.4.3
+  - @vue-macros/reactivity-transform@0.4.4
+  - @vue-macros/setup-block@0.3.3
+  - @vue-macros/setup-component@0.17.3
+  - @vue-macros/setup-sfc@0.17.3
+  - @vue-macros/short-bind@0.2.3
+  - @vue-macros/short-emits@1.5.3
+  - @vue-macros/short-vmodel@1.4.3
+
+## 2.8.0
+
+### Minor Changes
+
+- [`86424a0`](https://github.com/vue-macros/vue-macros/commit/86424a03ac6cb8aa122f73d76e2a68a3eb6d1ad9) Thanks [@sxzz](https://github.com/sxzz)! - add Rspack support
+
+## 2.7.13
+
+### Patch Changes
+
+- Updated dependencies [[`7b297cc`](https://github.com/vue-macros/vue-macros/commit/7b297ccf4d8d992e97dfad8634611b515281ced2)]:
+  - @vue-macros/jsx-directive@0.8.11
+
+## 2.7.12
+
+### Patch Changes
+
+- Updated dependencies [[`a7d4d68`](https://github.com/vue-macros/vue-macros/commit/a7d4d68b45e4ea5eef2bbb0de446cf2d67fe2336)]:
+  - @vue-macros/jsx-directive@0.8.10
+
+## 2.7.11
+
+### Patch Changes
+
+- Updated dependencies [[`3e790d5`](https://github.com/vue-macros/vue-macros/commit/3e790d5bc1b084701b2b287d59d38431e74e12ad)]:
+  - @vue-macros/jsx-directive@0.8.9
+
+## 2.7.10
+
+### Patch Changes
+
+- Updated dependencies [[`921cbbe`](https://github.com/vue-macros/vue-macros/commit/921cbbee2ecccaae8c673427fecc0025d4f0f9e3)]:
+  - @vue-macros/common@1.10.1
+  - @vue-macros/better-define@1.7.3
+  - @vue-macros/boolean-prop@0.3.2
+  - @vue-macros/chain-call@0.2.2
+  - @vue-macros/define-emit@0.2.3
+  - @vue-macros/define-models@1.2.2
+  - unplugin-vue-define-options@1.4.2
+  - @vue-macros/define-prop@0.3.3
+  - @vue-macros/define-props@2.0.3
+  - @vue-macros/define-props-refs@1.2.2
+  - @vue-macros/define-render@1.5.2
+  - @vue-macros/define-slots@1.1.2
+  - @vue-macros/export-expose@0.1.2
+  - @vue-macros/export-props@0.4.2
+  - @vue-macros/export-render@0.2.2
+  - @vue-macros/hoist-static@1.5.2
+  - @vue-macros/jsx-directive@0.8.8
+  - @vue-macros/named-template@0.4.2
+  - @vue-macros/reactivity-transform@0.4.3
+  - @vue-macros/setup-block@0.3.2
+  - @vue-macros/setup-component@0.17.2
+  - @vue-macros/setup-sfc@0.17.2
+  - @vue-macros/short-bind@0.2.2
+  - @vue-macros/short-emits@1.5.2
+  - @vue-macros/short-vmodel@1.4.2
+
+## 2.7.9
+
+### Patch Changes
+
+- Updated dependencies [[`699402e`](https://github.com/vue-macros/vue-macros/commit/699402eadfdd1c95a7b8f44582994479404ad3ad), [`3a14145`](https://github.com/vue-macros/vue-macros/commit/3a14145a2e8a7ed5404c1a2154d14619978183cf)]:
+  - @vue-macros/jsx-directive@0.8.7
+  - @vue-macros/reactivity-transform@0.4.2
+  - @vue-macros/define-props@2.0.2
+
+## 2.7.8
+
+### Patch Changes
+
+- Updated dependencies [[`368f5ed`](https://github.com/vue-macros/vue-macros/commit/368f5ed239585d19479364f1f7806206a70bbc9e)]:
+  - @vue-macros/jsx-directive@0.8.6
+
+## 2.7.7
+
+### Patch Changes
+
+- Updated dependencies [[`56377eb`](https://github.com/vue-macros/vue-macros/commit/56377eb938b180e9954f5968e74ba4ca17657363)]:
+  - @vue-macros/jsx-directive@0.8.5
+
+## 2.7.6
+
+### Patch Changes
+
+- Updated dependencies [[`92f2370`](https://github.com/vue-macros/vue-macros/commit/92f2370624dec6f93a83fe8b0c089dddf8049aec)]:
+  - @vue-macros/jsx-directive@0.8.4
+
+## 2.7.5
+
+### Patch Changes
+
+- Updated dependencies [[`d1a3b4d`](https://github.com/vue-macros/vue-macros/commit/d1a3b4d47ca29aefc459ce0d007692a98c9c46e5)]:
+  - @vue-macros/jsx-directive@0.8.3
+
+## 2.7.4
+
+### Patch Changes
+
+- Updated dependencies [[`9c9a739`](https://github.com/vue-macros/vue-macros/commit/9c9a739a9067ceea68ef0e61c0d29278f6cbd0d4)]:
+  - @vue-macros/jsx-directive@0.8.2
+
+## 2.7.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @vue-macros/better-define@1.7.2
+  - @vue-macros/define-emit@0.2.2
+  - @vue-macros/define-models@1.2.1
+  - @vue-macros/define-prop@0.3.2
+
+## 2.7.2
+
+### Patch Changes
+
+- Updated dependencies [[`a746d58`](https://github.com/vue-macros/vue-macros/commit/a746d586796e90eb18b0f02f67f79332e437a1c7)]:
+  - @vue-macros/jsx-directive@0.8.1
+
+## 2.7.1
+
+### Patch Changes
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d), [`ac5494c`](https://github.com/vue-macros/vue-macros/commit/ac5494c1c0d9cfecb897d3063a5e398c14c7f2fa), [`2d4a32d`](https://github.com/vue-macros/vue-macros/commit/2d4a32d2b0989813de351daccfe8850551ead98e)]:
+  - @vue-macros/common@1.10.0
+  - @vue-macros/reactivity-transform@0.4.1
+  - @vue-macros/define-props-refs@1.2.1
+  - @vue-macros/setup-component@0.17.1
+  - unplugin-vue-define-options@1.4.1
+  - @vue-macros/named-template@0.4.1
+  - @vue-macros/better-define@1.7.1
+  - @vue-macros/define-models@1.2.1
+  - @vue-macros/define-render@1.5.1
+  - @vue-macros/export-expose@0.1.1
+  - @vue-macros/export-render@0.2.1
+  - @vue-macros/jsx-directive@0.8.0
+  - @vue-macros/define-props@2.0.1
+  - @vue-macros/define-slots@1.1.1
+  - @vue-macros/export-props@0.4.1
+  - @vue-macros/hoist-static@1.5.1
+  - @vue-macros/define-emit@0.2.1
+  - @vue-macros/define-prop@0.3.1
+  - @vue-macros/setup-block@0.3.1
+  - @vue-macros/short-emits@1.5.1
+  - @vue-macros/chain-call@0.2.1
+  - @vue-macros/setup-sfc@0.17.1
+  - @vue-macros/boolean-prop@0.3.1
+  - @vue-macros/short-bind@0.2.1
+  - @vue-macros/short-vmodel@1.4.1
+
+## 2.7.0
+
+### Minor Changes
+
+- [`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7) Thanks [@sxzz](https://github.com/sxzz)! - upgrade vite & rollup & esbuild
+
+### Patch Changes
+
+- Updated dependencies [[`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7), [`a4b1b6bb`](https://github.com/vue-macros/vue-macros/commit/a4b1b6bb986245d6d500b8a30cf0a0aefc96bf69)]:
+  - @vue-macros/reactivity-transform@0.4.0
+  - @vue-macros/define-props-refs@1.2.0
+  - @vue-macros/setup-component@0.17.0
+  - unplugin-vue-define-options@1.4.0
+  - @vue-macros/named-template@0.4.0
+  - @vue-macros/better-define@1.7.0
+  - @vue-macros/define-models@1.2.0
+  - @vue-macros/define-render@1.5.0
+  - @vue-macros/export-expose@0.1.0
+  - @vue-macros/export-render@0.2.0
+  - @vue-macros/jsx-directive@0.7.0
+  - @vue-macros/boolean-prop@0.3.0
+  - @vue-macros/define-props@2.0.0
+  - @vue-macros/define-slots@1.1.0
+  - @vue-macros/export-props@0.4.0
+  - @vue-macros/hoist-static@1.5.0
+  - @vue-macros/short-vmodel@1.4.0
+  - @vue-macros/define-emit@0.2.0
+  - @vue-macros/define-prop@0.3.0
+  - @vue-macros/setup-block@0.3.0
+  - @vue-macros/short-emits@1.5.0
+  - @vue-macros/chain-call@0.2.0
+  - @vue-macros/short-bind@0.2.0
+  - @vue-macros/setup-sfc@0.17.0
+  - @vue-macros/devtools@0.2.0
+  - @vue-macros/common@1.9.0
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies [[`2b30e842`](https://github.com/vue-macros/vue-macros/commit/2b30e8428d6e074ce9407db2e5ea3fbadb33e932)]:
+  - @vue-macros/devtools@0.1.4
+
+## 2.6.1
+
+### Patch Changes
+
+- [`df1980ac`](https://github.com/vue-macros/vue-macros/commit/df1980acf0b507b5c0a9a6ebdcd82d93d86d1d20) Thanks [@sxzz](https://github.com/sxzz)! - don't resolve types from defineProps and defineEmits on defineModels
+
+- Updated dependencies [[`df1980ac`](https://github.com/vue-macros/vue-macros/commit/df1980acf0b507b5c0a9a6ebdcd82d93d86d1d20)]:
+  - @vue-macros/define-models@1.1.0
+
+## 2.6.0
+
+### Minor Changes
+
+- [#493](https://github.com/vue-macros/vue-macros/pull/493) [`6193a84f`](https://github.com/vue-macros/vue-macros/commit/6193a84f5f471346c5bdcff8fcd98cc9f71ad43b) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Introduce `shortBind`
+
+### Patch Changes
+
+- Updated dependencies [[`6193a84f`](https://github.com/vue-macros/vue-macros/commit/6193a84f5f471346c5bdcff8fcd98cc9f71ad43b)]:
+  - @vue-macros/short-bind@0.1.0
+
 ## 2.5.1
 
 ### Patch Changes

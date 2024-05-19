@@ -3,7 +3,7 @@ import {
   DEFINE_PROPS,
   DEFINE_PROP_DOLLAR,
   HELPER_PREFIX,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   importHelperFn,
   isCallOf,
@@ -27,7 +27,7 @@ export async function transformDefineProp(
   code: string,
   id: string,
   edition: Edition = 'kevinEdition',
-  isProduction = false
+  isProduction = false,
 ) {
   if (!code.includes(DEFINE_PROP)) return
 
@@ -37,7 +37,7 @@ export async function transformDefineProp(
   const setupAst = sfc.getSetupAst()!
 
   const offset = sfc.scriptSetup.loc.start.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   const { walkCall, genRuntimeProps } = (
     edition === 'kevinEdition' ? kevinEdition : johnsonEdition
@@ -58,26 +58,26 @@ export async function transformDefineProp(
           isCallOf(node, '$') && isCallOf(node.arguments[0], DEFINE_PROP)
             ? node.arguments[0]
             : node,
-          parent
+          parent,
         )
         s.overwriteNode(
           node,
           `${isReactiveTransform ? '$(' : ''}${importHelperFn(
             s,
             offset,
-            'toRef'
+            'toRef',
           )}(__props, ${JSON.stringify(propName)})${
             isReactiveTransform ? ')' : ''
           }`,
-          { offset }
+          { offset },
         )
-      }
+      },
     )
     setup.onEnter(
       (node): node is t.CallExpression => isCallOf(node, DEFINE_PROPS),
       (node) => {
         definePropsCall = node
-      }
+      },
     )
   })
 
@@ -86,7 +86,7 @@ export async function transformDefineProp(
 
   if (definePropsCall?.typeParameters) {
     throw new SyntaxError(
-      `defineProp cannot be used with defineProps<T>() in the same component.`
+      `defineProp cannot be used with defineProps<T>() in the same component.`,
     )
   }
 
@@ -97,19 +97,19 @@ export async function transformDefineProp(
       offset,
       'normalizePropsOrEmits',
       helperId,
-      true
+      true,
     )
     s.overwriteNode(
       definePropsCall.arguments[0],
       `{ ...${normalizePropsOrEmits}(${originalProps}), ...${normalizePropsOrEmits}(${runtimeProps}) }`,
       {
         offset,
-      }
+      },
     )
   } else {
     s.prependLeft(
       offset,
-      `\nconst ${PROPS_VARIABLE_NAME} = defineProps(${runtimeProps});\n`
+      `\nconst ${PROPS_VARIABLE_NAME} = defineProps(${runtimeProps});\n`,
     )
   }
 

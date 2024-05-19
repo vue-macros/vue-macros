@@ -1,5 +1,67 @@
 # @vue-macros/define-prop
 
+## 0.3.6
+
+### Patch Changes
+
+- [`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25) Thanks [@sxzz](https://github.com/sxzz)! - upgrade magic-string-ast
+
+- Updated dependencies [[`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25)]:
+  - @vue-macros/common@1.10.3
+  - @vue-macros/api@0.9.6
+
+## 0.3.5
+
+### Patch Changes
+
+- Updated dependencies [[`cfbe1be`](https://github.com/vue-macros/vue-macros/commit/cfbe1be171a7d032c139c5df4e16336bacd6f253)]:
+  - @vue-macros/api@0.9.5
+
+## 0.3.4
+
+### Patch Changes
+
+- Updated dependencies [[`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - @vue-macros/common@1.10.2
+  - @vue-macros/api@0.9.4
+
+## 0.3.3
+
+### Patch Changes
+
+- Updated dependencies [[`921cbbe`](https://github.com/vue-macros/vue-macros/commit/921cbbee2ecccaae8c673427fecc0025d4f0f9e3)]:
+  - @vue-macros/common@1.10.1
+  - @vue-macros/api@0.9.3
+
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies [[`2b3a405`](https://github.com/vue-macros/vue-macros/commit/2b3a4055bcf7f22c55d5115cd584e4d288393bc1)]:
+  - @vue-macros/api@0.9.2
+
+## 0.3.1
+
+### Patch Changes
+
+- [`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d) Thanks [@sxzz](https://github.com/sxzz)! - refactor Vue SFC filter for vue-loader
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d)]:
+  - @vue-macros/common@1.10.0
+  - @vue-macros/api@0.9.1
+
+## 0.3.0
+
+### Minor Changes
+
+- [`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7) Thanks [@sxzz](https://github.com/sxzz)! - upgrade vite & rollup & esbuild
+
+### Patch Changes
+
+- Updated dependencies [[`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7), [`531ec974`](https://github.com/vue-macros/vue-macros/commit/531ec974cc715c00a630f66d83e2cb0f2061f356)]:
+  - @vue-macros/common@1.9.0
+  - @vue-macros/api@0.9.0
+
 ## 0.2.8
 
 ### Patch Changes

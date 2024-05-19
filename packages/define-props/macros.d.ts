@@ -1,12 +1,12 @@
-import { type ComponentObjectPropsOptions, type ExtractPropTypes } from 'vue'
-import { type RefValue } from '@vue-macros/reactivity-transform/macros'
+import type { ComponentObjectPropsOptions, ExtractPropTypes } from 'vue'
+import type { RefValue } from '@vue-macros/reactivity-transform/macros'
 
 export type RefValueObject<T> = {
   [K in keyof T]: RefValue<T[K]>
 }
 
 export declare function $defineProps<PropNames extends string = string>(
-  props: PropNames[]
+  props: PropNames[],
 ): Readonly<{
   [key in PropNames]?: any
 }>

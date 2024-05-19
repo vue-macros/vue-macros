@@ -1,26 +1,11 @@
 import {
-  type MagicString,
+  type MagicStringAST,
   type SFC,
   babelParse,
   isStaticExpression,
   resolveLiteral,
   resolveString,
 } from '@vue-macros/common'
-import {
-  type CallExpression,
-  type ExpressionStatement,
-  type LVal,
-  type Node,
-  type StringLiteral,
-  type TSCallSignatureDeclaration,
-  type TSFunctionType,
-  type TSInterfaceDeclaration,
-  type TSIntersectionType,
-  type TSType,
-  type TSTypeLiteral,
-  type UnaryExpression,
-  type VariableDeclaration,
-} from '@babel/types'
 import {
   type TSFile,
   type TSResolvedType,
@@ -31,6 +16,23 @@ import {
 } from '../ts'
 import { type ASTDefinition, DefinitionKind } from './types'
 import { attachNodeLoc } from './utils'
+import type {
+  CallExpression,
+  ExpressionStatement,
+  LVal,
+  Node,
+  StringLiteral,
+  TSCallSignatureDeclaration,
+  TSFunctionType,
+  TSInterfaceDeclaration,
+  TSIntersectionType,
+  TSMappedType,
+  TSPropertySignature,
+  TSType,
+  TSTypeLiteral,
+  UnaryExpression,
+  VariableDeclaration,
+} from '@babel/types'
 
 export async function handleTSEmitsDefinition({
   s,
@@ -43,7 +45,7 @@ export async function handleTSEmitsDefinition({
   declId,
   statement,
 }: {
-  s: MagicString
+  s: MagicStringAST
   file: TSFile
   sfc: SFC
   offset: number
@@ -137,7 +139,7 @@ export async function handleTSEmitsDefinition({
       definitionsAst.type !== 'TSFunctionType'
     )
       throw new SyntaxError(
-        `Cannot resolve TS definition: ${definitionsAst.type}`
+        `Cannot resolve TS definition: ${definitionsAst.type}`,
       )
 
     const properties = await resolveTSProperties({
@@ -172,11 +174,18 @@ export async function handleTSEmitsDefinition({
         const literal = type.literal
         if (!isStaticExpression(literal)) continue
         const evt = String(
-          resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>)
+          resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>),
         )
         if (!definitions[evt]) definitions[evt] = []
         definitions[evt].push(buildDefinition(signature))
       }
+    }
+
+    for (const evt of Object.keys(properties.properties)) {
+      if (!definitions[evt]) definitions[evt] = []
+      definitions[evt].push(
+        buildDefinition(properties.properties[evt].signature),
+      )
     }
 
     return {
@@ -212,7 +221,12 @@ export interface TSEmits extends EmitsBase {
 
   definitions: Record<
     string,
-    ASTDefinition<TSCallSignatureDeclaration | TSFunctionType>[]
+    ASTDefinition<
+      | TSCallSignatureDeclaration
+      | TSFunctionType
+      | TSPropertySignature
+      | TSMappedType
+    >[]
   >
   definitionsAst: ASTDefinition<
     TSTypeLiteral | TSIntersectionType | TSInterfaceDeclaration | TSFunctionType
@@ -225,7 +239,7 @@ export interface TSEmits extends EmitsBase {
    *
    * @example add('change', '(evt: "change", value: string): void')
    */
-  addEmit(name: string | StringLiteral, signature: string): void
+  addEmit: (name: string | StringLiteral, signature: string) => void
 
   /**
    * Modify a definition of a emit. `definitions` will updated after this call.
@@ -236,11 +250,11 @@ export interface TSEmits extends EmitsBase {
    *
    * @returns false if the definition does not exist.
    */
-  setEmit(
+  setEmit: (
     name: string | StringLiteral,
     index: number,
-    signature: string
-  ): boolean
+    signature: string,
+  ) => boolean
 
   /**
    * Removes specified emit from TS interface. `definitions` will updated after this call.
@@ -249,5 +263,5 @@ export interface TSEmits extends EmitsBase {
    *
    * @returns `true` if emit was removed, `false` if emit was not found.
    */
-  removeEmit(name: string | StringLiteral, index: number): boolean
+  removeEmit: (name: string | StringLiteral, index: number) => boolean
 }

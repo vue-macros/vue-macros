@@ -46,6 +46,9 @@ export function processDirective(node: NodeElement) {
     )
       continue
 
+    // remove `:` for `::` prefix
+    prop.arg.loc.start.offset += 1
+
     const argName = prop.arg.content.slice(1)
     node.props[i] = {
       ...prop,
@@ -61,7 +64,7 @@ export function processDirective(node: NodeElement) {
 export function processAttribute(
   prefix: string,
   node: NodeElement,
-  context: TransformContext
+  context: TransformContext,
 ) {
   for (const [i, prop] of node.props.entries()) {
     if (
@@ -86,7 +89,7 @@ export function processAttribute(
       prop.value.content,
       false,
       expLoc,
-      0 satisfies ConstantTypes.NOT_CONSTANT
+      0 satisfies ConstantTypes.NOT_CONSTANT,
     )
     const exp = processExpression(simpleExpression, context)
 
@@ -102,12 +105,12 @@ export function processAttribute(
               source: argName,
               start: {
                 offset: prop.loc.start.offset + prefix.length,
-                column: prop.loc.start.line + prefix.length,
+                column: prop.loc.start.column,
                 line: prop.loc.start.line,
               },
               end: {
                 offset: prop.loc.start.offset + prefix.length + argName.length,
-                column: prop.loc.start.line + prefix.length + argName.length,
+                column: prop.loc.start.column,
                 line: prop.loc.start.line,
               },
             },

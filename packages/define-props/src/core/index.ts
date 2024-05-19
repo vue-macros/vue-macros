@@ -1,13 +1,13 @@
 import {
   DEFINE_PROPS,
   DEFINE_PROPS_DOLLAR,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   isCallOf,
   parseSFC,
   walkAST,
 } from '@vue-macros/common'
-import { type Node } from '@babel/types'
+import type { Node } from '@babel/types'
 
 export function transformDefineProps(code: string, id: string) {
   if (!code.includes(DEFINE_PROPS_DOLLAR)) return
@@ -16,7 +16,7 @@ export function transformDefineProps(code: string, id: string) {
   if (!scriptSetup) return
 
   const offset = scriptSetup.loc.start.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const setupAst = getSetupAst()!
 
   walkAST<Node>(setupAst, {
@@ -26,7 +26,7 @@ export function transformDefineProps(code: string, id: string) {
           node.callee,
           // add space for fixing mapping
           ` ${DEFINE_PROPS}`,
-          { offset }
+          { offset },
         )
       }
     },

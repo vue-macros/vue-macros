@@ -1,19 +1,19 @@
 import {
   DEFINE_PROPS,
-  MagicString,
+  MagicStringAST,
   WITH_DEFAULTS,
   generateTransform,
   isCallOf,
   parseSFC,
 } from '@vue-macros/common'
-import { type VariableDeclarator } from '@babel/types'
+import type { VariableDeclarator } from '@babel/types'
 
 export function transformExportProps(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
   const offset = scriptSetup.loc.start.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   const props: Record<string, { type: string; defaultValue?: string }> =
     Object.create(null)

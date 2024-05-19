@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/boolean-prop",
-  "version": "0.2.1",
-  "packageManager": "pnpm@8.7.5",
+  "version": "0.3.4",
+  "packageManager": "pnpm@9.1.1",
   "description": "boolean-prop feature from Vue Macros.",
   "keywords": [
     "vue-macros",
@@ -13,7 +13,7 @@
     "boolean-prop"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/vue-macros/vue-macros#readme",
+  "homepage": "https://vue-macros.dev",
   "bugs": {
     "url": "https://github.com/vue-macros/vue-macros/issues"
   },
@@ -69,11 +69,10 @@
   },
   "dependencies": {
     "@vue-macros/common": "workspace:*",
-    "@vue/compiler-core": "^3.3.4"
+    "@vue/compiler-core": "^3.4.27"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.3.4",
-    "rollup": "^3.29.2"
+    "@vue/compiler-sfc": "^3.4.27"
   },
   "engines": {
     "node": ">=16.14.0"

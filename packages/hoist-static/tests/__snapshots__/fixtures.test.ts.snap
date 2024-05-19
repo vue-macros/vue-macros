@@ -1,10 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > ./fixtures/all-hoist.vue 1`] = `
-"<script lang=\\"ts\\">
+"<script lang="ts">
 const name = 'title'
 </script>
-<script setup lang=\\"ts\\">
+<script setup lang="ts">
 
 /* hoist static placeholder */</script>
 
@@ -15,7 +15,7 @@ const name = 'title'
 `;
 
 exports[`fixtures > ./fixtures/basic.vue 1`] = `
-"<script lang=\\"ts\\">
+"<script lang="ts">
 const a = 'Foo'
 const b = 'Foo'!
 const c = 1 + 2
@@ -25,7 +25,7 @@ const f = 1 ? 2 : 3
 const g = 1 as number
 const h = <number>2
 </script>
-<script setup lang=\\"ts\\">
+<script setup lang="ts">
 
 
 
@@ -49,10 +49,10 @@ const l = /a/
 `;
 
 exports[`fixtures > ./fixtures/magic-comment.vue 1`] = `
-"<script lang=\\"ts\\">
+"<script lang="ts">
 const name = /* hoist-static */ (globalThis as any).fn()
 </script>
-<script setup lang=\\"ts\\">
+<script setup lang="ts">
 
 /* hoist static placeholder */</script>
 "
@@ -61,10 +61,10 @@ const name = /* hoist-static */ (globalThis as any).fn()
 exports[`fixtures > ./fixtures/no-hoist.vue 1`] = `undefined`;
 
 exports[`fixtures > ./fixtures/props.vue 1`] = `
-"<script lang=\\"ts\\">
+"<script lang="ts">
 const name = 'title'
 </script>
-<script setup lang=\\"ts\\">
+<script setup lang="ts">
 
 
 defineProps([name])

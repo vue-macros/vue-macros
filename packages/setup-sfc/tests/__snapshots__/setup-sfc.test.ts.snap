@@ -5,7 +5,7 @@ exports[`setup-component > fixtures > tests/fixtures/basic.setup.tsx 1`] = `
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic.setup\\",
+  __name: "basic.setup",
   props: {
     foo: {
       type: String,
@@ -14,7 +14,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   },
   setup(__props) {
     defineRender(() => {
-      return createVNode(\\"div\\", null, null);
+      return createVNode("div", null, null);
     });
     return () => {
     };
@@ -33,12 +33,12 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   ...{
-    name: \\"App\\"
+    name: "App"
   },
-  __name: \\"with-define-options.setup\\",
+  __name: "with-define-options.setup",
   setup(__props) {
     defineRender(() => {
-      return createVNode(\\"div\\", null, null);
+      return createVNode("div", null, null);
     });
     return () => {
     };

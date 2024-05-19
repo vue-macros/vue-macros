@@ -1,5 +1,5 @@
-import { type WritableComputedRef } from 'vue'
-import { type UseVModelOptions } from '@vueuse/core'
+import type { WritableComputedRef } from 'vue'
+import type { UseVModelOptions } from '@vueuse/core'
 
 export type UseModelOptions<T> = Omit<UseVModelOptions<T>, 'passive'> & {
   /**
@@ -11,7 +11,6 @@ export type UseModelOptions<T> = Omit<UseVModelOptions<T>, 'passive'> & {
   passive?: boolean
 }
 
-// eslint-disable-next-line unused-imports/no-unused-vars
 export type ModelOptions<T, O extends UseModelOptions<T> = {}> = T
 
 export const defineModels: <T>() => {

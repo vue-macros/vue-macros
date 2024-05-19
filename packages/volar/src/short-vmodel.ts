@@ -1,11 +1,11 @@
 import { transformShortVmodel } from '@vue-macros/short-vmodel'
-import { type VueLanguagePlugin } from '@vue/language-core'
 import { getVolarOptions } from './common'
+import type { VueLanguagePlugin } from '@vue/language-core'
 
 const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
   return {
     name: 'vue-macros-short-vmodel',
-    version: 1,
+    version: 2,
     resolveTemplateCompilerOptions(options) {
       const volarOptions = getVolarOptions(vueCompilerOptions)
 
@@ -13,7 +13,7 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
       options.nodeTransforms.push(
         transformShortVmodel({
           prefix: volarOptions?.shortVmodel?.prefix || '$',
-        })
+        }),
       )
       return options
     },

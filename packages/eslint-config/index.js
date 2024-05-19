@@ -1,3 +1,4 @@
+/*eslint perfectionist/sort-objects: "error"*/
 // @ts-check
 
 /** @type import('eslint-define-config').ESLintConfig */
@@ -5,13 +6,13 @@ const config = {
   globals: {
     $: 'readonly',
     $$: 'readonly',
-    $ref: 'readonly',
-    $shallowRef: 'readonly',
     $computed: 'readonly',
     $customRef: 'readonly',
     $defineModels: 'readonly',
     $defineProps: 'readonly',
     $definePropsRefs: 'readonly',
+    $ref: 'readonly',
+    $shallowRef: 'readonly',
     $toRef: 'readonly',
     defineEmit: 'readonly',
     defineModels: 'readonly',
@@ -24,6 +25,7 @@ const config = {
   },
   rules: {
     'vue/no-setup-props-destructure': 'off',
+    'vue/valid-v-bind': 'off',
   },
 }
 

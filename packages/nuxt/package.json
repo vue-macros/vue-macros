@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/nuxt",
-  "version": "1.8.1",
-  "packageManager": "pnpm@8.7.5",
+  "version": "1.9.31",
+  "packageManager": "pnpm@9.1.1",
   "description": "nuxt feature from Vue Macros.",
   "keywords": [
     "vue-macros",
@@ -13,7 +13,7 @@
     "nuxt"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/vue-macros/vue-macros#readme",
+  "homepage": "https://vue-macros.dev",
   "bugs": {
     "url": "https://github.com/vue-macros/vue-macros/issues"
   },
@@ -48,14 +48,15 @@
     "nuxt": "^3.0.0"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.7.3",
+    "@nuxt/kit": "^3.11.2",
     "@vue-macros/common": "workspace:~",
     "@vue-macros/volar": "workspace:*",
     "unplugin-vue-macros": "workspace:*"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^0.8.3",
-    "@nuxt/schema": "^3.7.3"
+    "@nuxt/devtools": "^1.3.1",
+    "@nuxt/schema": "^3.11.2",
+    "@vue/language-core": "2.0.17"
   },
   "engines": {
     "node": ">=16.14.0"

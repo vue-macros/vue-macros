@@ -1,5 +1,114 @@
 # @vue-macros/jsx-directive
 
+## 0.8.13
+
+### Patch Changes
+
+- [`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25) Thanks [@sxzz](https://github.com/sxzz)! - upgrade magic-string-ast
+
+- Updated dependencies [[`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25)]:
+  - @vue-macros/common@1.10.3
+
+## 0.8.12
+
+### Patch Changes
+
+- Updated dependencies [[`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - @vue-macros/common@1.10.2
+
+## 0.8.11
+
+### Patch Changes
+
+- [#650](https://github.com/vue-macros/vue-macros/pull/650) [`7b297cc`](https://github.com/vue-macros/vue-macros/commit/7b297ccf4d8d992e97dfad8634611b515281ced2) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - dynamic slot and named slot co-usage
+
+## 0.8.10
+
+### Patch Changes
+
+- [#648](https://github.com/vue-macros/vue-macros/pull/648) [`a7d4d68`](https://github.com/vue-macros/vue-macros/commit/a7d4d68b45e4ea5eef2bbb0de446cf2d67fe2336) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-slot
+
+## 0.8.9
+
+### Patch Changes
+
+- [#641](https://github.com/vue-macros/vue-macros/pull/641) [`3e790d5`](https://github.com/vue-macros/vue-macros/commit/3e790d5bc1b084701b2b287d59d38431e74e12ad) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-model
+
+## 0.8.8
+
+### Patch Changes
+
+- Updated dependencies [[`921cbbe`](https://github.com/vue-macros/vue-macros/commit/921cbbee2ecccaae8c673427fecc0025d4f0f9e3)]:
+  - @vue-macros/common@1.10.1
+
+## 0.8.7
+
+### Patch Changes
+
+- [#613](https://github.com/vue-macros/vue-macros/pull/613) [`699402e`](https://github.com/vue-macros/vue-macros/commit/699402eadfdd1c95a7b8f44582994479404ad3ad) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-slot and v-else-if co-usage
+
+## 0.8.6
+
+### Patch Changes
+
+- [#609](https://github.com/vue-macros/vue-macros/pull/609) [`368f5ed`](https://github.com/vue-macros/vue-macros/commit/368f5ed239585d19479364f1f7806206a70bbc9e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support .jsx suffix by default
+
+## 0.8.5
+
+### Patch Changes
+
+- [#601](https://github.com/vue-macros/vue-macros/pull/601) [`56377eb`](https://github.com/vue-macros/vue-macros/commit/56377eb938b180e9954f5968e74ba4ca17657363) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - prevent convert `v-on` & `v-slot` to camelCase
+
+## 0.8.4
+
+### Patch Changes
+
+- [#592](https://github.com/vue-macros/vue-macros/pull/592) [`92f2370`](https://github.com/vue-macros/vue-macros/commit/92f2370624dec6f93a83fe8b0c089dddf8049aec) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support modifiers for v-on
+
+## 0.8.3
+
+### Patch Changes
+
+- [#590](https://github.com/vue-macros/vue-macros/pull/590) [`d1a3b4d`](https://github.com/vue-macros/vue-macros/commit/d1a3b4d47ca29aefc459ce0d007692a98c9c46e5) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - default slot and v-if slot co-usage
+
+## 0.8.2
+
+### Patch Changes
+
+- [#588](https://github.com/vue-macros/vue-macros/pull/588) [`9c9a739`](https://github.com/vue-macros/vue-macros/commit/9c9a739a9067ceea68ef0e61c0d29278f6cbd0d4) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-slot and v-if co-usage
+
+## 0.8.1
+
+### Patch Changes
+
+- [#579](https://github.com/vue-macros/vue-macros/pull/579) [`a746d58`](https://github.com/vue-macros/vue-macros/commit/a746d586796e90eb18b0f02f67f79332e437a1c7) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Resolve conflicts with `unplugin-auto-import`
+
+## 0.8.0
+
+### Minor Changes
+
+- [#578](https://github.com/vue-macros/vue-macros/pull/578) [`ac5494c`](https://github.com/vue-macros/vue-macros/commit/ac5494c1c0d9cfecb897d3063a5e398c14c7f2fa) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add `v-on` directive with object syntax
+
+### Patch Changes
+
+- [`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d) Thanks [@sxzz](https://github.com/sxzz)! - refactor Vue SFC filter for vue-loader
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d)]:
+  - @vue-macros/common@1.10.0
+
+## 0.7.0
+
+### Minor Changes
+
+- [`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7) Thanks [@sxzz](https://github.com/sxzz)! - upgrade vite & rollup & esbuild
+
+### Patch Changes
+
+- [#559](https://github.com/vue-macros/vue-macros/pull/559) [`a4b1b6bb`](https://github.com/vue-macros/vue-macros/commit/a4b1b6bb986245d6d500b8a30cf0a0aefc96bf69) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Fix the incorrect execution order of the ternary expression in v-if.
+
+- Updated dependencies [[`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7)]:
+  - @vue-macros/common@1.9.0
+
 ## 0.6.5
 
 ### Patch Changes

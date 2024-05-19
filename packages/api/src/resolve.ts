@@ -2,15 +2,12 @@ import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { exports } from 'resolve.exports'
-import { type PluginContext } from 'rollup'
-import { type ModuleNode, type Plugin } from 'vite'
+import { isDts } from '@vue-macros/common'
 import { type ResolveTSFileIdImpl, tsFileCache } from './ts'
+import type { PluginContext } from 'rollup'
+import type { ModuleNode, Plugin } from 'vite'
 
 export const deepImportRE = /^([^@][^/]*)\/|^(@[^/]+\/[^/]+)\//
-
-function isDts(id: string) {
-  return /\.d\.[cm]?ts$/.test(id)
-}
 
 export const RollupResolve = () => {
   const referencedFiles = new Map<
@@ -58,13 +55,13 @@ export const RollupResolve = () => {
             const pkgPath = id.replace(`${pkgId}/`, '')
             for (const version of Object.values(pkg.typesVersions)) {
               for (const [entry, subpaths] of Object.entries(
-                version as Record<string, string[]>
+                version as Record<string, string[]>,
               )) {
                 if (pkgPath !== entry.replace('*', pkgPath)) continue
                 for (const subpath of subpaths) {
                   const resolved = path.resolve(
                     pkgRoot,
-                    subpath.replace('*', pkgPath)
+                    subpath.replace('*', pkgPath),
                   )
                   if (isDts(resolved) && existsSync(resolved)) return resolved
                 }

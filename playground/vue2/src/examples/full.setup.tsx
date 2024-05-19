@@ -1,5 +1,4 @@
 import { type DefineComponent } from 'vue'
-import { foo } from './setup-component/foo'
 
 const name = 'Greet'
 defineOptions({
@@ -24,9 +23,6 @@ $defineModels<{
 export default (
   <div>
     Magic Vue!
-    <pre>
-      {name}
-      {foo}
-    </pre>
+    <pre>{name}</pre>
   </div>
 ) as any as DefineComponent

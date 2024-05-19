@@ -1,12 +1,12 @@
-import { type ComputedRef } from 'vue'
+import type { ComputedRef } from 'vue'
 
 export function defineProp<T>(
   name: string,
   options:
     | ({ required: true } & Record<string, unknown>)
-    | ({ default: any } & Record<string, unknown>)
+    | ({ default: any } & Record<string, unknown>),
 ): ComputedRef<T>
 export function defineProp<T>(
   name?: string,
-  options?: any
+  options?: any,
 ): ComputedRef<T | undefined>

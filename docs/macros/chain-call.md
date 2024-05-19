@@ -47,14 +47,14 @@ const props = withDefaults(
   {
     foo: '111',
     bar: () => [1, 2, 3],
-  }
+  },
 )
 </script>
 ```
 
 :::
 
-Also support [props destructuring](/features/reactivity-transform.html) and JSX:
+Also support [props destructuring](../features/reactivity-transform.md) and JSX:
 
 ```vue
 <script setup lang="tsx">

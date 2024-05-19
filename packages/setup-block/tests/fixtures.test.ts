@@ -8,6 +8,6 @@ describe('fixtures', async () => {
       eager: true,
       as: 'raw',
     }),
-    (args, id, code) => transformSetupBlock(code, id, 'magic')?.code
+    (args, id, code) => transformSetupBlock(code, id, 'magic')?.code,
   )
 })

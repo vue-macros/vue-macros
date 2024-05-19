@@ -4,13 +4,13 @@
 
 ::: tip
 
-If you're using `setupComponent`, then `defineRender` cannot be disabled.
+`defineRender` cannot be disabled when using `setupComponent`.
 
-Files in `node_modules` will not be ignored by default.
+Files in `node_modules` will be ignored by default.
 
 :::
 
-With `defineSetupComponent`, `<script setup>` code can be put in **pure JS/TS(X)** without [Volar](https://github.com/johnsoncodehk/volar) extension.
+With `defineSetupComponent`, `<script setup>` code can be put in **pure JS/TS(X)** without [Vue Language Tools (Volar)](https://github.com/johnsoncodehk/volar) extension.
 
 |  Features  |     Supported      |
 | :--------: | :----------------: |
@@ -19,9 +19,11 @@ With `defineSetupComponent`, `<script setup>` code can be put in **pure JS/TS(X)
 |   Vue 2    |        :x:         |
 | TypeScript |        :x:         |
 
+See also [Vue Vine](https://vue-vine.dev/) - another style for Vue functional component.
+
 ## Basic Usage
 
-```ts
+```tsx
 export const App = defineSetupComponent(() => {
   defineProps<{
     foo: string
@@ -36,6 +38,7 @@ export const App = defineSetupComponent(() => {
   })
 
   // ...
+  return <div />
 })
 ```
 

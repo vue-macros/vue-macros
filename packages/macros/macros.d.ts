@@ -1,12 +1,9 @@
-import { type defineProps as definePropsChainCall } from '@vue-macros/chain-call/macros'
 import {
   definePropsRefs,
   type withDefaults as withDefaultsDefinePropsRefs,
 } from '@vue-macros/define-props-refs/macros'
-import {
-  type RecordToUnion,
-  type UnionToIntersection,
-} from '@vue-macros/common'
+import type { defineProps as definePropsChainCall } from '@vue-macros/chain-call/macros'
+import type { RecordToUnion, UnionToIntersection } from '@vue-macros/common'
 
 export * from '@vue-macros/define-emit/macros'
 export * from '@vue-macros/define-models/macros'

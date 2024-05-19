@@ -9,7 +9,7 @@ export function hideAstLocation<T>(ast: T): T {
         (typeof value === 'object' && 'type' in value && 'loc' in value)
         ? `${value.type}...`
         : value
-    })
+    }),
   )
 }
 

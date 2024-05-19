@@ -1,7 +1,7 @@
-import { type Plugin } from 'vite'
 import { type VuePluginApi, getVuePluginApi } from '@vue-macros/common'
-import { type Options, transformShortVmodel } from './core/index'
 import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { type Options, transformShortVmodel } from './core/index'
+import type { Plugin } from 'vite'
 
 // legacy export
 export * from './api'
@@ -34,7 +34,7 @@ function rollup(options: Options = {}): Plugin {
       api.options.template.compilerOptions.nodeTransforms ||= []
 
       api.options.template.compilerOptions.nodeTransforms.push(
-        transformShortVmodel(options)
+        transformShortVmodel(options),
       )
     },
   }

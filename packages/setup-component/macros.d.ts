@@ -1,10 +1,11 @@
-import { type EmitsOptions, type FunctionalComponent } from 'vue'
+import type { EmitsOptions, FunctionalComponent } from 'vue'
 
 export declare const defineSetupComponent: <T extends FunctionalComponent>(
-  fn: T
+  fn: T,
 ) => T
 
 export declare type SetupFC<
   P = {},
   E extends EmitsOptions = {},
-> = FunctionalComponent<P, E>
+  S extends Record<string, any> = any,
+> = FunctionalComponent<P, E, S>

@@ -47,14 +47,14 @@ const props = withDefaults(
   {
     foo: '111',
     bar: () => [1, 2, 3],
-  }
+  },
 )
 </script>
 ```
 
 :::
 
-也支持 [props 解构](/features/reactivity-transform.html) 和 JSX：
+也支持 [props 解构](../features/reactivity-transform.md) 和 JSX：
 
 ```vue
 <script setup lang="tsx">

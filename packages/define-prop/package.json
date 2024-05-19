@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/define-prop",
-  "version": "0.2.8",
-  "packageManager": "pnpm@8.7.5",
+  "version": "0.3.6",
+  "packageManager": "pnpm@9.1.1",
   "description": "define-prop feature from Vue Macros.",
   "keywords": [
     "vue-macros",
@@ -14,7 +14,7 @@
     "unplugin"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/vue-macros/vue-macros#readme",
+  "homepage": "https://vue-macros.dev",
   "bugs": {
     "url": "https://github.com/vue-macros/vue-macros/issues"
   },
@@ -85,11 +85,10 @@
   "dependencies": {
     "@vue-macros/api": "workspace:*",
     "@vue-macros/common": "workspace:*",
-    "rollup": "^3.29.2",
-    "unplugin": "^1.4.0"
+    "unplugin": "^1.10.1"
   },
   "devDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.4.27"
   },
   "engines": {
     "node": ">=16.14.0"

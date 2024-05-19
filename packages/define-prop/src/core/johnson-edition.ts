@@ -1,7 +1,7 @@
 import { DEFINE_PROP, escapeKey } from '@vue-macros/common'
-import { type TSType } from '@babel/types'
 import { genRuntimePropDefinition } from '@vue-macros/api'
 import { type Impl, stringifyArray } from './utils'
+import type { TSType } from '@babel/types'
 
 export const johnsonEdition: Impl = ({ s, offset, resolveTSType }) => {
   interface Prop {
@@ -23,7 +23,7 @@ export const johnsonEdition: Impl = ({ s, offset, resolveTSType }) => {
         parent.id.type !== 'Identifier'
       )
         throw new Error(
-          `A variable must be used to receive the return value of ${DEFINE_PROP} (johnsonEdition)`
+          `A variable must be used to receive the return value of ${DEFINE_PROP} (johnsonEdition)`,
         )
 
       const propName = parent.id.name
@@ -44,7 +44,7 @@ export const johnsonEdition: Impl = ({ s, offset, resolveTSType }) => {
 
       const isAllWithoutOptions = props.every(
         ({ typeParameter, value, required, rest }) =>
-          !typeParameter && !value && !required && !rest
+          !typeParameter && !value && !required && !rest,
       )
 
       if (isAllWithoutOptions) {

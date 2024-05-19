@@ -6,7 +6,7 @@ const { foo } = defineProps<{
 defineRender(() => (
   <>
     <div v-if={foo === 0}>0</div>
-    <div v-if={foo === 1}>1</div>
+    <div v-if={foo ? true : false}>1</div>
   </>
 ))
 </script>

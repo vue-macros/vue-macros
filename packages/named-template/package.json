@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/named-template",
-  "version": "0.3.19",
-  "packageManager": "pnpm@8.7.5",
+  "version": "0.4.4",
+  "packageManager": "pnpm@9.1.1",
   "description": "named-template feature from Vue Macros.",
   "keywords": [
     "vue-macros",
@@ -14,7 +14,7 @@
     "unplugin"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/vue-macros/vue-macros#readme",
+  "homepage": "https://vue-macros.dev",
   "bugs": {
     "url": "https://github.com/vue-macros/vue-macros/issues"
   },
@@ -80,11 +80,11 @@
   },
   "dependencies": {
     "@vue-macros/common": "workspace:*",
-    "@vue/compiler-dom": "^3.3.4",
-    "unplugin": "^1.4.0"
+    "@vue/compiler-dom": "^3.4.27",
+    "unplugin": "^1.10.1"
   },
   "devDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.4.27"
   },
   "engines": {
     "node": ">=16.14.0"

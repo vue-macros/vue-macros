@@ -63,7 +63,7 @@ const buttonGroupContext = inject(buttonGroupContextKey, undefined)
 const globalConfig = useGlobalConfig('button')
 const ns = useNamespace('button')
 const autoInsertSpace = computed(
-  () => props.autoInsertSpace ?? globalConfig.value?.autoInsertSpace ?? false
+  () => props.autoInsertSpace ?? globalConfig.value?.autoInsertSpace ?? false,
 )
 
 // add space between two characters in Chinese

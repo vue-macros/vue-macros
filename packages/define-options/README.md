@@ -4,7 +4,7 @@
 
 # unplugin-vue-define-options [![npm](https://img.shields.io/npm/v/unplugin-vue-define-options.svg)](https://npmjs.com/package/unplugin-vue-define-options)
 
-<a href="https://vue-macros.sxzz.moe/macros/define-options">📜 Documentation</a>
+<a href="https://vue-macros.dev/macros/define-options">📜 Documentation</a>
 
 Options API can be declared using the `defineOptions` in `<script setup>`, specifically to be able to set `name`, `props`, `emits`, and `render` inside of one function.
 

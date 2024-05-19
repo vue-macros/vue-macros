@@ -1,6 +1,6 @@
 import {
   HELPER_PREFIX,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   parseSFC,
 } from '@vue-macros/common'
@@ -12,7 +12,7 @@ export function transformExportExpose(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const nodes = getSetupAst()!.body
   const offset = scriptSetup.loc.start.offset
 
@@ -62,7 +62,7 @@ export function transformExportExpose(code: string, id: string) {
                 s.overwriteNode(
                   specifier.local,
                   `${specifier.local.name} as ${local}`,
-                  { offset }
+                  { offset },
                 )
               } else {
                 s.overwriteNode(specifier.exported, local, { offset })
@@ -91,11 +91,11 @@ export function transformExportExpose(code: string, id: string) {
       stmt.exportKind === 'value'
     ) {
       throw new Error(
-        'export from another module is not supported. Please import and export separately.'
+        'export from another module is not supported. Please import and export separately.',
       )
     } else if (stmt.type === 'ExportDefaultDeclaration') {
       throw new Error(
-        'export default is not supported. Please use named export.'
+        'export default is not supported. Please use named export.',
       )
     }
   }

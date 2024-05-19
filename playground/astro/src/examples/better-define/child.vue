@@ -17,7 +17,7 @@ withDefaults(
   {
     ...{ union: 'defaultValue' },
     ['non' + 'StaticValue']: 'defaultValue',
-  }
+  },
 )
 
 defineEmits<Emits>()

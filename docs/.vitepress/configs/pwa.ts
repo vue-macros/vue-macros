@@ -1,5 +1,5 @@
-import { type PwaOptions } from '@vite-pwa/vitepress'
 import { icons } from './icons'
+import type { PwaOptions } from '@vite-pwa/vitepress'
 
 export const pwa: PwaOptions = {
   outDir: '.vitepress/dist',
@@ -11,10 +11,14 @@ export const pwa: PwaOptions = {
     id: '/',
     icons,
   },
+  selfDestroying: true,
   devOptions: {
     enabled: false,
   },
   registerType: 'autoUpdate',
+  experimental: {
+    includeAllowlist: true,
+  },
   workbox: {
     globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
     runtimeCaching: [
@@ -60,7 +64,7 @@ export const pwa: PwaOptions = {
         },
       },
       {
-        // For `https://contrib.rocks/image?repo=vue-macros/vue-macros`
+        // For `https://contrib.rocks/image
         urlPattern: /^https:\/\/contrib.rocks\/.*/i,
         handler: 'NetworkFirst',
         options: {

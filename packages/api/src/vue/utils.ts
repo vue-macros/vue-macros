@@ -1,15 +1,15 @@
-import { type Node } from '@babel/types'
 import {
   type TSNamespace,
   type TSResolvedType,
   isTSNamespace,
   resolveTSReferencedType,
 } from '../ts'
+import type { Node } from '@babel/types'
 
 export const UNKNOWN_TYPE = 'Unknown'
 
 export async function inferRuntimeType(
-  node: TSResolvedType | TSNamespace
+  node: TSResolvedType | TSNamespace,
 ): Promise<string[]> {
   if (isTSNamespace(node)) return ['Object']
 
@@ -117,7 +117,7 @@ export async function inferRuntimeType(
             return resolved && !isTSNamespace(resolved)
               ? inferRuntimeType(resolved)
               : undefined
-          })
+          }),
         )
       ).flatMap((t) => (t ? t : ['null']))
       return [...new Set(types)]
@@ -144,7 +144,7 @@ export function attachNodeLoc(node: Node, newNode: Node) {
 export function genRuntimePropDefinition(
   types: string[] | undefined,
   isProduction: boolean,
-  properties: string[]
+  properties: string[],
 ) {
   let type: string | undefined
   let skipCheck = false
@@ -153,16 +153,13 @@ export function genRuntimePropDefinition(
     const hasBoolean = types.includes('Boolean')
     const hasUnknown = types.includes(UNKNOWN_TYPE)
 
-    if (hasUnknown) types = types.filter((t) => t !== UNKNOWN_TYPE)
-
-    if (isProduction) {
+    if (isProduction || hasUnknown) {
       types = types.filter(
         (t) =>
-          t === 'Boolean' || (hasBoolean && t === 'String') || t === 'Function'
+          t === 'Boolean' || (hasBoolean && t === 'String') || t === 'Function',
       )
-    } else if (hasUnknown) {
-      types = types.filter((t) => t === 'Boolean' || t === 'Function')
-      skipCheck = types.length > 0
+
+      skipCheck = !isProduction && hasUnknown && types.length > 0
     }
 
     if (types.length > 0) {

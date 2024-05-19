@@ -2,9 +2,9 @@
 
 <StabilityLevel level="experimental" />
 
-Declare single emit one by one using `defineEmit`.
+使用 `defineEmit` 逐个声明单个 emit。
 
-|   Features   |     Supported      |
+|     特性     |        支持        |
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    | :white_check_mark: |
@@ -14,39 +14,39 @@ Declare single emit one by one using `defineEmit`.
 
 ::: warning
 
-`defineEmit` can not be used with `defineEmits` at same time
+`defineEmit` 不能与 `defineEmits` 同时使用。
 
 :::
 
-## API Reference
+## API 参考
 
 ```ts
 defineEmit<T>(emitName)
 defineEmit<T>(emitName, validator)
 
-// emitName parameter can be optional,
-// and will be inferred from variable name
+// emitName 参数是可选的，
+// 并且可从变量名中推断出
 const emitName = defineEmit<T>()
 ```
 
-## Basic Usage
+## 基本用法
 
 ```vue
 <script setup>
-// Declare emit
+// 声明 emit
 const increment = defineEmit('increment')
-// Infer emit name from variable name
+// 从变量名中推断出 emit 名称
 const change = defineEmit()
-// emit event
+// emit 事件
 increment()
 </script>
 ```
 
-## With Validation
+## 带验证的用法
 
 ```vue
 <script setup>
-// Declare event with validation
+// 声明带验证的事件
 const increment = defineEmit('increment', (value) => value < 20)
 </script>
 ```

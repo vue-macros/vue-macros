@@ -1,17 +1,3 @@
-import {
-  type Node,
-  type TSCallSignatureDeclaration,
-  type TSConstructSignatureDeclaration,
-  type TSFunctionType,
-  type TSInterfaceBody,
-  type TSInterfaceDeclaration,
-  type TSIntersectionType,
-  type TSMappedType,
-  type TSMethodSignature,
-  type TSPropertySignature,
-  type TSType,
-  type TSTypeLiteral,
-} from '@babel/types'
 import { resolveLiteral } from '@vue-macros/common'
 import {
   type TSResolvedType,
@@ -23,6 +9,20 @@ import {
   resolveTSLiteralType,
   resolveTypeElements,
 } from './resolve'
+import type {
+  Node,
+  TSCallSignatureDeclaration,
+  TSConstructSignatureDeclaration,
+  TSFunctionType,
+  TSInterfaceBody,
+  TSInterfaceDeclaration,
+  TSIntersectionType,
+  TSMappedType,
+  TSMethodSignature,
+  TSPropertySignature,
+  TSType,
+  TSTypeLiteral,
+} from '@babel/types'
 
 export interface TSProperties {
   callSignatures: Array<
@@ -42,7 +42,7 @@ export interface TSProperties {
 
 export function mergeTSProperties(
   a: TSProperties,
-  b: TSProperties
+  b: TSProperties,
 ): TSProperties {
   return {
     callSignatures: [...a.callSignatures, ...b.callSignatures],
@@ -53,7 +53,7 @@ export function mergeTSProperties(
 }
 
 export function checkForTSProperties(
-  node?: Node
+  node?: Node,
 ): node is
   | TSInterfaceDeclaration
   | TSInterfaceBody
@@ -106,17 +106,15 @@ export async function resolveTSProperties({
                     scope,
                     type: node.expression,
                   })
-                : undefined
-            )
+                : undefined,
+            ),
           )
-        )
-          // eslint-disable-next-line unicorn/no-array-callback-reference
-          .filter(filterValidExtends)
+        ).filter(filterValidExtends)
 
         if (resolvedExtends.length > 0) {
           const ext = (
             await Promise.all(
-              resolvedExtends.map((resolved) => resolveTSProperties(resolved))
+              resolvedExtends.map((resolved) => resolveTSProperties(resolved)),
             )
           ).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
           properties = mergeTSProperties(ext, properties)
@@ -139,7 +137,7 @@ export async function resolveTSProperties({
         if (!filterValidExtends(resolved)) continue
         properties = mergeTSProperties(
           properties,
-          await resolveTSProperties(resolved)
+          await resolveTSProperties(resolved),
         )
       }
       return properties
@@ -170,7 +168,7 @@ export async function resolveTSProperties({
         if (!literal) continue
 
         const keys = resolveMaybeTSUnion(literal).map((literal) =>
-          String(resolveLiteral(literal))
+          String(resolveLiteral(literal)),
         )
         for (const key of keys) {
           properties.properties[String(key)] = {
@@ -200,7 +198,7 @@ export async function resolveTSProperties({
   }
 
   function filterValidExtends(
-    node: TSResolvedType | TSNamespace | undefined
+    node: TSResolvedType | TSNamespace | undefined,
   ): node is TSResolvedType<
     TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType
   > {

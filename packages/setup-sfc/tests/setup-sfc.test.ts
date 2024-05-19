@@ -39,7 +39,7 @@ describe('setup-component', () => {
       {
         cwd: resolve(__dirname, '..'),
         promise: true,
-      }
+      },
     )
   })
 })

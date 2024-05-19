@@ -1,9 +1,9 @@
 import { DEFINE_OPTIONS, isCallOf } from '@vue-macros/common'
-import {
-  type CallExpression,
-  type Node,
-  type ObjectExpression,
-  type Statement,
+import type {
+  CallExpression,
+  Node,
+  ObjectExpression,
+  Statement,
 } from '@babel/types'
 
 export function filterMacro(stmts: Statement[]) {
@@ -24,6 +24,6 @@ export function hasPropsOrEmits(node: ObjectExpression) {
       (prop.key.name === 'props' ||
         prop.key.name === 'emits' ||
         prop.key.name === 'expose' ||
-        prop.key.name === 'slots')
+        prop.key.name === 'slots'),
   )
 }

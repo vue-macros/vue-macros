@@ -1,17 +1,17 @@
-import { type MagicString } from '@vue-macros/common'
-import { type JsxDirectiveNode } from '.'
+import type { MagicStringAST } from '@vue-macros/common'
+import type { JsxDirective } from '.'
 
 export function transformVHtml(
-  nodes: JsxDirectiveNode[],
-  s: MagicString,
+  nodes: JsxDirective[],
+  s: MagicStringAST,
   offset: number,
-  version: number
+  version: number,
 ) {
   nodes.forEach(({ attribute }) => {
     s.overwriteNode(
       attribute.name,
       version < 3 ? 'domPropsInnerHTML' : 'innerHTML',
-      { offset }
+      { offset },
     )
   })
 }

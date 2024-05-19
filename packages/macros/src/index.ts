@@ -1,13 +1,27 @@
-import { type UnpluginInstance } from 'unplugin'
+/* eslint-disable import/order */
+/* eslint perfectionist/sort-imports: ["error", {
+  custom-groups: {
+    "value": {
+      "vue-macros": ["@vue-macros/**", "unplugin-vue-define-options"]
+    },
+  },
+  groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index'], 'vue-macros'],
+  internal-pattern: ['#**'],
+  newlines-between: 'ignore',
+}] */
+/* eslint perfectionist/sort-interfaces: ["error", { ignore-pattern: ["OptionsCommon"] }] */
+/* eslint perfectionist/sort-objects: ["error", { ignore-pattern: ["OptionsCommon"], partition-by-new-line: true }] */
+
+import process from 'node:process'
+import type { UnpluginInstance } from 'unplugin'
 import {
   type OptionsPlugin,
   type Plugin,
   type PluginType,
   createCombinePlugin,
 } from 'unplugin-combine'
-
-import { detectVueVersion } from '@vue-macros/common'
-import { Devtools } from '@vue-macros/devtools'
+import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { excludeDepOptimize } from './core'
 
 import VueBetterDefine, {
   type Options as OptionsBetterDefine,
@@ -18,15 +32,13 @@ import VueBooleanProp, {
 import VueChainCall, {
   type Options as OptionsChainCall,
 } from '@vue-macros/chain-call'
+import { detectVueVersion } from '@vue-macros/common'
 import VueDefineEmit, {
   type Options as OptionsDefineEmit,
 } from '@vue-macros/define-emit'
 import VueDefineModels, {
   type Options as OptionsDefineModels,
 } from '@vue-macros/define-models'
-import VueDefineOptions, {
-  type Options as OptionsDefineOptions,
-} from 'unplugin-vue-define-options'
 import VueDefineProp, {
   type Options as OptionsDefineProp,
 } from '@vue-macros/define-prop'
@@ -42,6 +54,7 @@ import VueDefineRender, {
 import VueDefineSlots, {
   type Options as OptionsDefineSlots,
 } from '@vue-macros/define-slots'
+import { Devtools } from '@vue-macros/devtools'
 import VueExportExpose, {
   type Options as OptionsExportExpose,
 } from '@vue-macros/export-expose'
@@ -72,15 +85,18 @@ import VueSetupComponent, {
 import VueSetupSFC, {
   type Options as OptionsSetupSFC,
 } from '@vue-macros/setup-sfc'
+import VueShortBind, {
+  type Options as OptionsShortBind,
+} from '@vue-macros/short-bind'
 import VueShortEmits, {
   type Options as OptionsShortEmits,
 } from '@vue-macros/short-emits'
 import VueShortVmodel, {
   type Options as OptionsShortVmodel,
 } from '@vue-macros/short-vmodel'
-
-import { excludeDepOptimize } from './core'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import VueDefineOptions, {
+  type Options as OptionsDefineOptions,
+} from 'unplugin-vue-define-options'
 
 export interface FeatureOptionsMap {
   betterDefine: OptionsBetterDefine
@@ -94,9 +110,9 @@ export interface FeatureOptionsMap {
   definePropsRefs: OptionsDefinePropsRefs
   defineRender: OptionsDefineRender
   defineSlots: OptionsDefineSlots
-  exportRender: OptionsExportRender
   exportExpose: OptionsExportExpose
   exportProps: OptionsExportProps
+  exportRender: OptionsExportRender
   hoistStatic: OptionsHoistStatic
   jsxDirective: OptionsJsxDirective
   namedTemplate: OptionsNamedTemplate
@@ -104,6 +120,7 @@ export interface FeatureOptionsMap {
   setupBlock: OptionsSetupBlock
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
+  shortBind: OptionsShortBind
   shortEmits: OptionsShortEmits
   shortVmodel: OptionsShortVmodel
 }
@@ -135,11 +152,11 @@ export type OptionsResolved = Required<OptionsCommon> & {
 }
 
 export function resolveOptions({
-  root,
-  version,
-  plugins,
   isProduction,
   nuxtContext,
+  plugins,
+  root,
+  version,
 
   betterDefine,
   booleanProp,
@@ -152,9 +169,9 @@ export function resolveOptions({
   definePropsRefs,
   defineRender,
   defineSlots,
-  exportRender,
   exportExpose,
   exportProps,
+  exportRender,
   hoistStatic,
   jsxDirective,
   namedTemplate,
@@ -162,6 +179,7 @@ export function resolveOptions({
   setupBlock,
   setupComponent,
   setupSFC,
+  shortBind,
   shortEmits,
   shortVmodel,
 }: Options): OptionsResolved {
@@ -170,7 +188,7 @@ export function resolveOptions({
     commonOptions: Required<
       Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
     >,
-    defaultEnabled = true
+    defaultEnabled = true,
   ): FeatureOptionsMap[K] | false {
     options = options ?? defaultEnabled
     if (!options) return false
@@ -182,20 +200,20 @@ export function resolveOptions({
   isProduction = isProduction ?? process.env.NODE_ENV === 'production'
 
   return {
+    isProduction,
+    nuxtContext: nuxtContext || {},
     plugins: plugins || {},
     root,
     version,
-    isProduction,
-    nuxtContext: nuxtContext || {},
 
     betterDefine: resolveSubOptions<'betterDefine'>(betterDefine, {
-      version,
       isProduction,
+      version,
     }),
     booleanProp: resolveSubOptions<'booleanProp'>(
       booleanProp,
       { version },
-      false
+      false,
     ),
     chainCall: resolveSubOptions<'chainCall'>(chainCall, { version }),
     defineEmit: resolveSubOptions<'defineEmit'>(defineEmit, {
@@ -206,7 +224,7 @@ export function resolveOptions({
     defineOptions: resolveSubOptions<'defineOptions'>(
       defineOptions,
       { version },
-      version < 3.3
+      version < 3.3,
     ),
     defineProp: resolveSubOptions<'defineProp'>(defineProp, {
       isProduction,
@@ -220,44 +238,45 @@ export function resolveOptions({
     defineSlots: resolveSubOptions<'defineSlots'>(
       defineSlots,
       { version },
-      version < 3.3
-    ),
-    exportRender: resolveSubOptions<'exportRender'>(
-      exportRender,
-      { version },
-      false
+      version < 3.3,
     ),
     exportExpose: resolveSubOptions<'exportExpose'>(
       exportExpose,
       { version },
-      false
+      false,
     ),
     exportProps: resolveSubOptions<'exportProps'>(
       exportProps,
       { version },
-      false
+      false,
     ),
+    exportRender: resolveSubOptions<'exportRender'>(
+      exportRender,
+      { version },
+      false,
+    ),
+    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, { version }),
     jsxDirective: resolveSubOptions<'jsxDirective'>(jsxDirective, {
       version,
     }),
-    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, { version }),
     namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, {
       version,
     }),
     reactivityTransform: resolveSubOptions<'reactivityTransform'>(
       reactivityTransform,
-      { version }
+      { version },
     ),
     setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, { version }, false),
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
-      version,
       root,
+      version,
     }),
     setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, { version }, false),
+    shortBind: resolveSubOptions<'shortBind'>(shortBind, { version }, false),
     shortEmits: resolveSubOptions<'shortEmits'>(
       shortEmits,
       { version },
-      version < 3.3
+      version < 3.3,
     ),
     shortVmodel: resolveSubOptions<'shortVmodel'>(shortVmodel, { version }),
   }
@@ -266,19 +285,19 @@ export function resolveOptions({
 function resolvePlugin(
   unplugin: UnpluginInstance<any, true>,
   framework: PluginType,
-  options: FeatureOptions | false
+  options: FeatureOptions | false,
 ): Plugin[] | undefined
 
 function resolvePlugin(
   unplugin: UnpluginInstance<any, false>,
   framework: PluginType,
-  options: FeatureOptions | false
+  options: FeatureOptions | false,
 ): Plugin | undefined
 
 function resolvePlugin(
   unplugin: UnpluginInstance<any, boolean>,
   framework: PluginType,
-  options: FeatureOptions | false
+  options: FeatureOptions | false,
 ): Plugin | Plugin[] | undefined {
   if (!options) return
   return unplugin[framework!](options)
@@ -293,12 +312,12 @@ export default createCombinePlugin<Options | undefined>(
     const setupComponentPlugins = resolvePlugin(
       VueSetupComponent,
       framework,
-      options.setupComponent
+      options.setupComponent,
     )
     const namedTemplatePlugins = resolvePlugin(
       VueNamedTemplate,
       framework,
-      options.namedTemplate
+      options.namedTemplate,
     )
 
     const plugins: OptionsPlugin[] = [
@@ -332,7 +351,7 @@ export default createCombinePlugin<Options | undefined>(
       resolvePlugin(
         VueReactivityTransform,
         framework,
-        options.reactivityTransform
+        options.reactivityTransform,
       ),
       resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
       resolvePlugin(VueDefineOptions, framework, options.defineOptions),
@@ -344,13 +363,19 @@ export default createCombinePlugin<Options | undefined>(
               // VueBooleanProp is not an unplugin, by now
               VueBooleanProp as any,
               framework,
-              options.booleanProp
+              options.booleanProp,
+            ),
+            resolvePlugin(
+              // VueShortBind is not an unplugin, by now
+              VueShortBind as any,
+              framework,
+              options.shortBind,
             ),
             resolvePlugin(
               // VueShortVmodel is not an unplugin, by now
               VueShortVmodel as any,
               framework,
-              options.shortVmodel
+              options.shortVmodel,
             ),
           ]
         : []),
@@ -370,5 +395,5 @@ export default createCombinePlugin<Options | undefined>(
       name,
       plugins,
     }
-  }
+  },
 )

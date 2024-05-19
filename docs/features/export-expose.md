@@ -183,9 +183,9 @@ export default a
   "vueCompilerOptions": {
     "target": 3,
     "plugins": [
-      "@vue-macros/volar/export-expose"
+      "@vue-macros/volar/export-expose",
       // ...more feature
-    ]
-  }
+    ],
+  },
 }
 ```

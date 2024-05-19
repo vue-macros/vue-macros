@@ -1,11 +1,11 @@
 import {
-  MagicString,
+  MagicStringAST,
   addNormalScript,
   generateTransform,
   isStaticExpression,
   parseSFC,
 } from '@vue-macros/common'
-import { type Node } from '@babel/types'
+import type { Node } from '@babel/types'
 
 export const MAGIC_COMMENT = 'hoist-static'
 
@@ -25,7 +25,7 @@ export function transformHoistStatic(code: string, id: string) {
 
   const setupOffset = scriptSetup.loc.start.offset
   const setupOffsetEnd = scriptSetup.loc.end.offset
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const program = getSetupAst()!
 
   let normalScript = addNormalScript(sfc, s)
@@ -66,7 +66,7 @@ export function transformHoistStatic(code: string, id: string) {
           isStaticExpression(member.initializer, {
             unary: true,
             magicComment: MAGIC_COMMENT,
-          })
+          }),
       )
       if (!isAllConstant) continue
       moveToScript(stmt)

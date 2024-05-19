@@ -1,5 +1,255 @@
 # @vue-macros/nuxt
 
+## 1.9.31
+
+### Patch Changes
+
+- Updated dependencies [[`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25), [`3227507`](https://github.com/vue-macros/vue-macros/commit/3227507f25197344287ce5192673760d0dafb515), [`b868726`](https://github.com/vue-macros/vue-macros/commit/b86872621a3ea5c86886f675e18174d5bcfff62c), [`b3c9022`](https://github.com/vue-macros/vue-macros/commit/b3c9022a8adc5fea8543c51cf9c774ba8512a30e)]:
+  - @vue-macros/common@1.10.3
+  - @vue-macros/volar@0.19.0
+  - unplugin-vue-macros@2.9.2
+
+## 1.9.30
+
+### Patch Changes
+
+- Updated dependencies [[`14e00c4`](https://github.com/vue-macros/vue-macros/commit/14e00c41dcee803df26993d1e14eaeded0b6692a)]:
+  - unplugin-vue-macros@2.9.1
+
+## 1.9.29
+
+### Patch Changes
+
+- Updated dependencies [[`4ad70f5`](https://github.com/vue-macros/vue-macros/commit/4ad70f574e68831925334695ec804811ff6d05eb)]:
+  - @vue-macros/volar@0.18.18
+
+## 1.9.28
+
+### Patch Changes
+
+- Updated dependencies [[`4202a2b`](https://github.com/vue-macros/vue-macros/commit/4202a2b1ee6b302fcd2d704f1978f1dadeb20090), [`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - unplugin-vue-macros@2.9.0
+  - @vue-macros/common@1.10.2
+  - @vue-macros/volar@0.18.17
+
+## 1.9.27
+
+### Patch Changes
+
+- Updated dependencies [[`86424a0`](https://github.com/vue-macros/vue-macros/commit/86424a03ac6cb8aa122f73d76e2a68a3eb6d1ad9)]:
+  - unplugin-vue-macros@2.8.0
+
+## 1.9.26
+
+### Patch Changes
+
+- Updated dependencies [[`7b297cc`](https://github.com/vue-macros/vue-macros/commit/7b297ccf4d8d992e97dfad8634611b515281ced2)]:
+  - @vue-macros/volar@0.18.16
+  - unplugin-vue-macros@2.7.13
+
+## 1.9.25
+
+### Patch Changes
+
+- Updated dependencies [[`a7d4d68`](https://github.com/vue-macros/vue-macros/commit/a7d4d68b45e4ea5eef2bbb0de446cf2d67fe2336)]:
+  - @vue-macros/volar@0.18.15
+  - unplugin-vue-macros@2.7.12
+
+## 1.9.24
+
+### Patch Changes
+
+- Updated dependencies [[`e15f572`](https://github.com/vue-macros/vue-macros/commit/e15f57222b9aadd235e289f9a7d52c7d05f38b40)]:
+  - @vue-macros/volar@0.18.14
+
+## 1.9.23
+
+### Patch Changes
+
+- Updated dependencies [[`c53df02`](https://github.com/vue-macros/vue-macros/commit/c53df02aadaceffa7c918c2ef7b3196656730848)]:
+  - @vue-macros/volar@0.18.13
+
+## 1.9.22
+
+### Patch Changes
+
+- Updated dependencies [[`3e790d5`](https://github.com/vue-macros/vue-macros/commit/3e790d5bc1b084701b2b287d59d38431e74e12ad), [`b76b938`](https://github.com/vue-macros/vue-macros/commit/b76b938a85ea641c84ea1a7de3ba17c2638dbd98)]:
+  - @vue-macros/volar@0.18.12
+  - unplugin-vue-macros@2.7.11
+
+## 1.9.21
+
+### Patch Changes
+
+- Updated dependencies [[`921cbbe`](https://github.com/vue-macros/vue-macros/commit/921cbbee2ecccaae8c673427fecc0025d4f0f9e3)]:
+  - @vue-macros/common@1.10.1
+  - unplugin-vue-macros@2.7.10
+  - @vue-macros/volar@0.18.11
+
+## 1.9.20
+
+### Patch Changes
+
+- Updated dependencies [[`699402e`](https://github.com/vue-macros/vue-macros/commit/699402eadfdd1c95a7b8f44582994479404ad3ad)]:
+  - @vue-macros/volar@0.18.10
+  - unplugin-vue-macros@2.7.9
+
+## 1.9.19
+
+### Patch Changes
+
+- Updated dependencies [[`53c2f12`](https://github.com/vue-macros/vue-macros/commit/53c2f12ab7bafbe87f28689001d7960f626b86aa), [`a8ff7e1`](https://github.com/vue-macros/vue-macros/commit/a8ff7e19046d329ed1837ff04e372229a65eb09d)]:
+  - @vue-macros/volar@0.18.9
+  - unplugin-vue-macros@2.7.8
+
+## 1.9.18
+
+### Patch Changes
+
+- Updated dependencies [[`7559395`](https://github.com/vue-macros/vue-macros/commit/75593956ca23611afac4a9663191446f0363c1f9)]:
+  - @vue-macros/volar@0.18.8
+
+## 1.9.17
+
+### Patch Changes
+
+- Updated dependencies [[`56377eb`](https://github.com/vue-macros/vue-macros/commit/56377eb938b180e9954f5968e74ba4ca17657363)]:
+  - @vue-macros/volar@0.18.7
+  - unplugin-vue-macros@2.7.7
+
+## 1.9.16
+
+### Patch Changes
+
+- Updated dependencies [[`35eeec1`](https://github.com/vue-macros/vue-macros/commit/35eeec1f1f94c35f2f94ab14e1833a1b9331c670)]:
+  - @vue-macros/volar@0.18.6
+
+## 1.9.15
+
+### Patch Changes
+
+- Updated dependencies [[`ddb6bcf`](https://github.com/vue-macros/vue-macros/commit/ddb6bcf29624056f67ae55c8f0968aa169fe7e84)]:
+  - @vue-macros/volar@0.18.5
+
+## 1.9.14
+
+### Patch Changes
+
+- Updated dependencies [[`92f2370`](https://github.com/vue-macros/vue-macros/commit/92f2370624dec6f93a83fe8b0c089dddf8049aec)]:
+  - @vue-macros/volar@0.18.4
+  - unplugin-vue-macros@2.7.6
+
+## 1.9.13
+
+### Patch Changes
+
+- Updated dependencies [[`d1a3b4d`](https://github.com/vue-macros/vue-macros/commit/d1a3b4d47ca29aefc459ce0d007692a98c9c46e5)]:
+  - @vue-macros/volar@0.18.3
+  - unplugin-vue-macros@2.7.5
+
+## 1.9.12
+
+### Patch Changes
+
+- Updated dependencies [[`9c9a739`](https://github.com/vue-macros/vue-macros/commit/9c9a739a9067ceea68ef0e61c0d29278f6cbd0d4)]:
+  - @vue-macros/volar@0.18.2
+  - unplugin-vue-macros@2.7.4
+
+## 1.9.11
+
+### Patch Changes
+
+- Updated dependencies [[`75567f2`](https://github.com/vue-macros/vue-macros/commit/75567f25b2a25167a485a126a1bc8f4aa6998e97), [`75567f2`](https://github.com/vue-macros/vue-macros/commit/75567f25b2a25167a485a126a1bc8f4aa6998e97)]:
+  - @vue-macros/volar@0.18.1
+
+## 1.9.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.7.3
+
+## 1.9.9
+
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.7.2
+
+## 1.9.8
+
+### Patch Changes
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d), [`ac5494c`](https://github.com/vue-macros/vue-macros/commit/ac5494c1c0d9cfecb897d3063a5e398c14c7f2fa)]:
+  - @vue-macros/common@1.10.0
+  - @vue-macros/volar@0.18.0
+  - unplugin-vue-macros@2.7.1
+
+## 1.9.7
+
+### Patch Changes
+
+- Updated dependencies [[`be269553`](https://github.com/vue-macros/vue-macros/commit/be269553985357f139d719ae9296197649c0b7cc)]:
+  - @vue-macros/volar@0.17.4
+
+## 1.9.6
+
+### Patch Changes
+
+- Updated dependencies [[`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7), [`a4b1b6bb`](https://github.com/vue-macros/vue-macros/commit/a4b1b6bb986245d6d500b8a30cf0a0aefc96bf69)]:
+  - @vue-macros/common@1.9.0
+  - unplugin-vue-macros@2.7.0
+  - @vue-macros/volar@0.17.3
+
+## 1.9.5
+
+### Patch Changes
+
+- Updated dependencies [[`f38a5387`](https://github.com/vue-macros/vue-macros/commit/f38a5387084b7686c1796047d6aadb0f7e4041e2)]:
+  - @vue-macros/volar@0.17.2
+  - unplugin-vue-macros@2.6.2
+
+## 1.9.4
+
+### Patch Changes
+
+- Updated dependencies [[`e425c906`](https://github.com/vue-macros/vue-macros/commit/e425c9060ab8e74a50a91cb61b277e91d84f1cfe)]:
+  - @vue-macros/volar@0.17.1
+
+## 1.9.3
+
+### Patch Changes
+
+- Updated dependencies [[`728b93d4`](https://github.com/vue-macros/vue-macros/commit/728b93d4a05dba943c6d554a8d59fb6dd1f5788d)]:
+  - @vue-macros/volar@0.17.0
+
+## 1.9.2
+
+### Patch Changes
+
+- Updated dependencies [[`bd048281`](https://github.com/vue-macros/vue-macros/commit/bd0482811d95edeeea36b19dce634c210207dacc)]:
+  - @vue-macros/volar@0.16.1
+
+## 1.9.1
+
+### Patch Changes
+
+- Updated dependencies [[`87f36760`](https://github.com/vue-macros/vue-macros/commit/87f36760231d10b7096a71f3746ca726f80ec961), [`df1980ac`](https://github.com/vue-macros/vue-macros/commit/df1980acf0b507b5c0a9a6ebdcd82d93d86d1d20)]:
+  - @vue-macros/volar@0.16.0
+  - unplugin-vue-macros@2.6.1
+
+## 1.9.0
+
+### Minor Changes
+
+- [#493](https://github.com/vue-macros/vue-macros/pull/493) [`6193a84f`](https://github.com/vue-macros/vue-macros/commit/6193a84f5f471346c5bdcff8fcd98cc9f71ad43b) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Introduce `shortBind`
+
+### Patch Changes
+
+- Updated dependencies [[`6193a84f`](https://github.com/vue-macros/vue-macros/commit/6193a84f5f471346c5bdcff8fcd98cc9f71ad43b)]:
+  - @vue-macros/volar@0.15.0
+  - unplugin-vue-macros@2.6.0
+
 ## 1.8.1
 
 ### Patch Changes

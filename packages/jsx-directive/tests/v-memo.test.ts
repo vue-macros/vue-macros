@@ -9,7 +9,7 @@ describe('jsx-vue-directive', () => {
         eager: true,
         as: 'raw',
       }),
-      (_, id, code) => transformJsxDirective(code, id, 3.2)?.code
+      (_, id, code) => transformJsxDirective(code, id, 3.2)?.code,
     )
   })
 })

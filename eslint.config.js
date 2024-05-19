@@ -2,7 +2,7 @@ import { sxzz } from '@sxzz/eslint-config'
 
 export default sxzz([
   {
-    ignores: ['playground/vue2', 'playground/nuxt', 'playground/astro'],
+    ignores: ['playground/vue2/src', 'playground/nuxt', 'playground/astro'],
   },
 
   {
@@ -17,6 +17,7 @@ export default sxzz([
     files: ['**/*.md/*.{js,ts,vue}'],
     rules: {
       'no-var': 'off',
+      'vue/valid-v-bind': 'off',
       'import/no-mutable-exports': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/no-empty-function': 'off',

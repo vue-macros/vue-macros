@@ -1,7 +1,7 @@
 import { DEFINE_PROP, escapeKey } from '@vue-macros/common'
-import { type TSType } from '@babel/types'
 import { genRuntimePropDefinition } from '@vue-macros/api'
 import { type Impl, stringifyArray } from './utils'
+import type { TSType } from '@babel/types'
 
 export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
   interface Prop {
@@ -23,12 +23,12 @@ export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
           parent.id.type !== 'Identifier'
         )
           throw new Error(
-            `A variable must be used to receive the return value of ${DEFINE_PROP} when the first argument is not passed. (kevinEdition)`
+            `A variable must be used to receive the return value of ${DEFINE_PROP} when the first argument is not passed. (kevinEdition)`,
           )
         propName = parent.id.name
       } else if (name.type !== 'StringLiteral') {
         throw new Error(
-          `The first argument of ${DEFINE_PROP} must be a literal string. (kevinEdition)`
+          `The first argument of ${DEFINE_PROP} must be a literal string. (kevinEdition)`,
         )
       } else {
         propName = name.value
@@ -49,7 +49,7 @@ export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
       if (props.length === 0) return
 
       const isAllWithoutOptions = props.every(
-        ({ definition, typeParameter }) => !definition && !typeParameter
+        ({ definition, typeParameter }) => !definition && !typeParameter,
       )
 
       if (isAllWithoutOptions) {

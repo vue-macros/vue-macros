@@ -10,9 +10,11 @@ export default {
   defineSlots: true,
   hoistStatic: true,
   shortEmits: true,
+  shortBind: true,
 
   namedTemplate: false,
   setupSFC: true,
+  booleanProp: true,
 
   exportProps: {
     include: [/export-props.*\.vue$/],
@@ -23,11 +25,11 @@ export default {
   exportRender: {
     include: [/export-render.*\.vue$/],
   },
+  reactivityTransform: true,
 
   plugins: {
     vue: Vue({
       include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
-      reactivityTransform: true,
       script: {
         hoistStatic: false,
       },

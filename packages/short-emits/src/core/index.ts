@@ -1,6 +1,6 @@
 import {
   DEFINE_EMITS,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   isCallOf,
   isTs,
@@ -9,7 +9,7 @@ import {
   resolveObjectKey,
   walkAST,
 } from '@vue-macros/common'
-import { type Node, type TSType } from '@babel/types'
+import type { Node, TSType } from '@babel/types'
 
 export function transformShortEmits(code: string, id: string) {
   const sfc = parseSFC(code, id)
@@ -20,7 +20,7 @@ export function transformShortEmits(code: string, id: string) {
   const ast = getSetupAst()!
 
   const params: TSType[] = []
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   walkAST<Node>(ast, {
     enter(node) {
@@ -72,12 +72,12 @@ export function transformShortEmits(code: string, id: string) {
             case 'TSTupleType':
               params = `...args: ${s.sliceNode(
                 member.typeAnnotation.typeAnnotation,
-                { offset }
+                { offset },
               )}`
               break
             case 'TSFunctionType':
               params = stringifyParams(
-                member.typeAnnotation.typeAnnotation.parameters
+                member.typeAnnotation.typeAnnotation.parameters,
               )
               break
           }
@@ -93,7 +93,7 @@ export function transformShortEmits(code: string, id: string) {
       s.overwriteNode(
         member,
         `(evt: ${key}${params ? `, ${params}` : ''}): void`,
-        { offset }
+        { offset },
       )
     }
   }

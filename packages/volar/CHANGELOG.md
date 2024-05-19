@@ -1,5 +1,223 @@
 # @vue-macros/volar
 
+## 0.19.0
+
+### Minor Changes
+
+- [#672](https://github.com/vue-macros/vue-macros/pull/672) [`b868726`](https://github.com/vue-macros/vue-macros/commit/b86872621a3ea5c86886f675e18174d5bcfff62c) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Breaking change: support Volar 2, #663
+
+### Patch Changes
+
+- [#673](https://github.com/vue-macros/vue-macros/pull/673) [`3227507`](https://github.com/vue-macros/vue-macros/commit/3227507f25197344287ce5192673760d0dafb515) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support generic component for jsx-direcitve
+
+- [#674](https://github.com/vue-macros/vue-macros/pull/674) [`b3c9022`](https://github.com/vue-macros/vue-macros/commit/b3c9022a8adc5fea8543c51cf9c774ba8512a30e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add type to the functional template-ref
+
+- Updated dependencies [[`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25)]:
+  - @vue-macros/define-props@2.0.5
+  - @vue-macros/common@1.10.3
+  - @vue-macros/short-bind@0.2.4
+  - @vue-macros/short-vmodel@1.4.4
+
+## 0.18.18
+
+### Patch Changes
+
+- [#658](https://github.com/vue-macros/vue-macros/pull/658) [`4ad70f5`](https://github.com/vue-macros/vue-macros/commit/4ad70f574e68831925334695ec804811ff6d05eb) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support generic component
+
+## 0.18.17
+
+### Patch Changes
+
+- Updated dependencies [[`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e)]:
+  - @vue-macros/common@1.10.2
+  - @vue-macros/define-props@2.0.4
+  - @vue-macros/short-bind@0.2.3
+  - @vue-macros/short-vmodel@1.4.3
+
+## 0.18.16
+
+### Patch Changes
+
+- [#650](https://github.com/vue-macros/vue-macros/pull/650) [`7b297cc`](https://github.com/vue-macros/vue-macros/commit/7b297ccf4d8d992e97dfad8634611b515281ced2) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - dynamic slot and named slot co-usage
+
+## 0.18.15
+
+### Patch Changes
+
+- [#648](https://github.com/vue-macros/vue-macros/pull/648) [`a7d4d68`](https://github.com/vue-macros/vue-macros/commit/a7d4d68b45e4ea5eef2bbb0de446cf2d67fe2336) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-slot
+
+## 0.18.14
+
+### Patch Changes
+
+- [#646](https://github.com/vue-macros/vue-macros/pull/646) [`e15f572`](https://github.com/vue-macros/vue-macros/commit/e15f57222b9aadd235e289f9a7d52c7d05f38b40) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support export `function` & `class` & `module` for export-expose
+
+## 0.18.13
+
+### Patch Changes
+
+- [#644](https://github.com/vue-macros/vue-macros/pull/644) [`c53df02`](https://github.com/vue-macros/vue-macros/commit/c53df02aadaceffa7c918c2ef7b3196656730848) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use getStart instead of pos
+
+## 0.18.12
+
+### Patch Changes
+
+- [#641](https://github.com/vue-macros/vue-macros/pull/641) [`3e790d5`](https://github.com/vue-macros/vue-macros/commit/3e790d5bc1b084701b2b287d59d38431e74e12ad) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-model
+
+- [#642](https://github.com/vue-macros/vue-macros/pull/642) [`b76b938`](https://github.com/vue-macros/vue-macros/commit/b76b938a85ea641c84ea1a7de3ba17c2638dbd98) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support jsxSelfClosingElement in v-slot
+
+## 0.18.11
+
+### Patch Changes
+
+- Updated dependencies [[`921cbbe`](https://github.com/vue-macros/vue-macros/commit/921cbbee2ecccaae8c673427fecc0025d4f0f9e3)]:
+  - @vue-macros/common@1.10.1
+  - @vue-macros/define-props@2.0.3
+  - @vue-macros/short-bind@0.2.2
+  - @vue-macros/short-vmodel@1.4.2
+
+## 0.18.10
+
+### Patch Changes
+
+- [#613](https://github.com/vue-macros/vue-macros/pull/613) [`699402e`](https://github.com/vue-macros/vue-macros/commit/699402eadfdd1c95a7b8f44582994479404ad3ad) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-slot and v-else-if co-usage
+
+- Updated dependencies []:
+  - @vue-macros/define-props@2.0.2
+
+## 0.18.9
+
+### Patch Changes
+
+- [`53c2f12`](https://github.com/vue-macros/vue-macros/commit/53c2f12ab7bafbe87f28689001d7960f626b86aa) Thanks [@sxzz](https://github.com/sxzz)! - Replace `vue` with `@vue/shared`
+
+- [#611](https://github.com/vue-macros/vue-macros/pull/611) [`a8ff7e1`](https://github.com/vue-macros/vue-macros/commit/a8ff7e19046d329ed1837ff04e372229a65eb09d) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - optimize bundle size
+
+## 0.18.8
+
+### Patch Changes
+
+- [#603](https://github.com/vue-macros/vue-macros/pull/603) [`7559395`](https://github.com/vue-macros/vue-macros/commit/75593956ca23611afac4a9663191446f0363c1f9) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support dynamic argument for v-model
+
+## 0.18.7
+
+### Patch Changes
+
+- [#601](https://github.com/vue-macros/vue-macros/pull/601) [`56377eb`](https://github.com/vue-macros/vue-macros/commit/56377eb938b180e9954f5968e74ba4ca17657363) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - prevent convert `v-on` & `v-slot` to camelCase
+
+## 0.18.6
+
+### Patch Changes
+
+- [#596](https://github.com/vue-macros/vue-macros/pull/596) [`35eeec1`](https://github.com/vue-macros/vue-macros/commit/35eeec1f1f94c35f2f94ab14e1833a1b9331c670) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support kebabCase for prop
+
+## 0.18.5
+
+### Patch Changes
+
+- [#594](https://github.com/vue-macros/vue-macros/pull/594) [`ddb6bcf`](https://github.com/vue-macros/vue-macros/commit/ddb6bcf29624056f67ae55c8f0968aa169fe7e84) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - convert kebabCase to camelCase
+
+## 0.18.4
+
+### Patch Changes
+
+- [#592](https://github.com/vue-macros/vue-macros/pull/592) [`92f2370`](https://github.com/vue-macros/vue-macros/commit/92f2370624dec6f93a83fe8b0c089dddf8049aec) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support modifiers for v-on
+
+## 0.18.3
+
+### Patch Changes
+
+- [#590](https://github.com/vue-macros/vue-macros/pull/590) [`d1a3b4d`](https://github.com/vue-macros/vue-macros/commit/d1a3b4d47ca29aefc459ce0d007692a98c9c46e5) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - default slot and v-if slot co-usage
+
+## 0.18.2
+
+### Patch Changes
+
+- [#588](https://github.com/vue-macros/vue-macros/pull/588) [`9c9a739`](https://github.com/vue-macros/vue-macros/commit/9c9a739a9067ceea68ef0e61c0d29278f6cbd0d4) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-slot and v-if co-usage
+
+## 0.18.1
+
+### Patch Changes
+
+- [#584](https://github.com/vue-macros/vue-macros/pull/584) [`75567f2`](https://github.com/vue-macros/vue-macros/commit/75567f25b2a25167a485a126a1bc8f4aa6998e97) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - define-models and defineSlots co-usage
+
+- [#584](https://github.com/vue-macros/vue-macros/pull/584) [`75567f2`](https://github.com/vue-macros/vue-macros/commit/75567f25b2a25167a485a126a1bc8f4aa6998e97) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support type for v-model
+
+## 0.18.0
+
+### Minor Changes
+
+- [#578](https://github.com/vue-macros/vue-macros/pull/578) [`ac5494c`](https://github.com/vue-macros/vue-macros/commit/ac5494c1c0d9cfecb897d3063a5e398c14c7f2fa) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add `v-on` directive with object syntax
+
+### Patch Changes
+
+- Updated dependencies [[`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d)]:
+  - @vue-macros/common@1.10.0
+  - @vue-macros/define-props@2.0.1
+  - @vue-macros/short-bind@0.2.1
+  - @vue-macros/short-vmodel@1.4.1
+
+## 0.17.4
+
+### Patch Changes
+
+- [#563](https://github.com/vue-macros/vue-macros/pull/563) [`be269553`](https://github.com/vue-macros/vue-macros/commit/be269553985357f139d719ae9296197649c0b7cc) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - allow v-slot:default in template tag
+
+## 0.17.3
+
+### Patch Changes
+
+- [#559](https://github.com/vue-macros/vue-macros/pull/559) [`a4b1b6bb`](https://github.com/vue-macros/vue-macros/commit/a4b1b6bb986245d6d500b8a30cf0a0aefc96bf69) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Fix the incorrect execution order of the ternary expression in v-if.
+
+- Updated dependencies [[`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7)]:
+  - @vue-macros/define-props@2.0.0
+  - @vue-macros/short-vmodel@1.4.0
+  - @vue-macros/short-bind@0.2.0
+  - @vue-macros/common@1.9.0
+
+## 0.17.2
+
+### Patch Changes
+
+- [#539](https://github.com/vue-macros/vue-macros/pull/539) [`f38a5387`](https://github.com/vue-macros/vue-macros/commit/f38a5387084b7686c1796047d6aadb0f7e4041e2) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - refactor(volar): use `scriptSetup.ast` instead of scriptSetupAst
+
+## 0.17.1
+
+### Patch Changes
+
+- [#525](https://github.com/vue-macros/vue-macros/pull/525) [`e425c906`](https://github.com/vue-macros/vue-macros/commit/e425c9060ab8e74a50a91cb61b277e91d84f1cfe) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support defineSlots for vue2
+
+## 0.17.0
+
+### Minor Changes
+
+- [#522](https://github.com/vue-macros/vue-macros/pull/522) [`728b93d4`](https://github.com/vue-macros/vue-macros/commit/728b93d4a05dba943c6d554a8d59fb6dd1f5788d) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Introduce `setupJsdoc` volar plugin
+
+## 0.16.1
+
+### Patch Changes
+
+- [#520](https://github.com/vue-macros/vue-macros/pull/520) [`bd048281`](https://github.com/vue-macros/vue-macros/commit/bd0482811d95edeeea36b19dce634c210207dacc) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - compatible with volar@1.8.14
+
+## 0.16.0
+
+### Minor Changes
+
+- [`87f36760`](https://github.com/vue-macros/vue-macros/commit/87f36760231d10b7096a71f3746ca726f80ec961) Thanks [@sxzz](https://github.com/sxzz)! - remove hack macro imports
+
+  BREAKING CHANGE: Require `vue-tsc` or Volar >= `1.8.14`
+
+## 0.15.0
+
+### Minor Changes
+
+- [#493](https://github.com/vue-macros/vue-macros/pull/493) [`6193a84f`](https://github.com/vue-macros/vue-macros/commit/6193a84f5f471346c5bdcff8fcd98cc9f71ad43b) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - Introduce `shortBind`
+
+### Patch Changes
+
+- Updated dependencies [[`6193a84f`](https://github.com/vue-macros/vue-macros/commit/6193a84f5f471346c5bdcff8fcd98cc9f71ad43b)]:
+  - @vue-macros/short-bind@0.1.0
+
 ## 0.14.3
 
 ### Patch Changes

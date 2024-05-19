@@ -22,7 +22,7 @@ exports[`analyzeSFC > defineEmits > addEmit should work 1`] = `
 `;
 
 exports[`analyzeSFC > defineEmits > addEmit should work 2`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 defineEmits<{
         (evt: 'click'): void
         (evt: 'change'): void
@@ -54,7 +54,7 @@ exports[`analyzeSFC > defineEmits > addEmit should work in intersection 1`] = `
 `;
 
 exports[`analyzeSFC > defineEmits > addEmit should work in intersection 2`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 defineEmits<{
         (evt: 'click'): void
       } & { (evt: 'change'): void } & { (evt: 'update'): void }>()</script>"
@@ -173,7 +173,7 @@ exports[`analyzeSFC > defineProps > addProp should work 1`] = `
 `;
 
 exports[`analyzeSFC > defineProps > addProp should work 2`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 defineProps<{
         foo: string
         newProp: number | string
@@ -226,7 +226,7 @@ exports[`analyzeSFC > defineProps > addProp should work in intersection 1`] = `
 `;
 
 exports[`analyzeSFC > defineProps > addProp should work in intersection 2`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 
       type Foo = { foo: string }
       type Bar = { bar: number }
@@ -423,7 +423,7 @@ exports[`analyzeSFC > defineProps > removeProp should work > remove props added 
 `;
 
 exports[`analyzeSFC > defineProps > removeProp should work > remove props added by API 2`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 defineProps<{
           foo: string
           testProp: number | string
@@ -449,7 +449,7 @@ exports[`analyzeSFC > defineProps > setProp should work > set method prop 1`] = 
 `;
 
 exports[`analyzeSFC > defineProps > setProp should work > set method prop 2`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 defineProps<{
           onClick: () => OverwroteMethodProp 
         }>()</script>"
@@ -474,7 +474,7 @@ exports[`analyzeSFC > defineProps > setProp should work > set property prop 1`] 
 `;
 
 exports[`analyzeSFC > defineProps > setProp should work > set property prop 2`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 defineProps<{
           foo?: OverwrotePropertyProp
         }>()</script>"
@@ -499,7 +499,7 @@ exports[`analyzeSFC > defineProps > setProp should work > set props added by API
 `;
 
 exports[`analyzeSFC > defineProps > setProp should work > set props added by API 2`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 defineProps<{  foo: number | string
 }>()</script>"
 `;

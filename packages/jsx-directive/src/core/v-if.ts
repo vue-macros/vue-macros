@@ -1,11 +1,11 @@
-import { type MagicString } from '@vue-macros/common'
-import { type JsxDirectiveNode } from '.'
+import type { MagicStringAST } from '@vue-macros/common'
+import type { JsxDirective } from '.'
 
 export function transformVIf(
-  nodes: JsxDirectiveNode[],
-  s: MagicString,
+  nodes: JsxDirective[],
+  s: MagicStringAST,
   offset: number,
-  version: number
+  version: number,
 ) {
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
@@ -14,17 +14,17 @@ export function transformVIf(
       if (attribute.value)
         s.appendLeft(
           node.start! + offset,
-          `${attribute.name.name === 'v-if' && hasScope ? '{' : ''}${s.slice(
+          `${attribute.name.name === 'v-if' && hasScope ? '{' : ' '}(${s.slice(
             attribute.value.start! + offset + 1,
-            attribute.value.end! + offset - 1
-          )} ? `
+            attribute.value.end! + offset - 1,
+          )}) ? `,
         )
 
       s.appendRight(
         node.end! + offset,
         `${nodes[index + 1]?.attribute.name.name}`.startsWith('v-else')
           ? ' :'
-          : ` : null${hasScope ? '}' : ''}`
+          : ` : null${hasScope ? '}' : ''}`,
       )
     } else if (attribute.name.name === 'v-else') {
       s.appendRight(node.end! + offset, hasScope ? '}' : '')

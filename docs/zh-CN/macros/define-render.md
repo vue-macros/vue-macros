@@ -11,6 +11,8 @@
 |   Vue 2    | :white_check_mark: |
 | TypeScript | :white_check_mark: |
 
+在 [RFC 讨论](https://github.com/vuejs/rfcs/discussions/585) 中，我们需要更多的反馈！
+
 ## 基本用法
 
 ```vue
@@ -19,7 +21,7 @@
 defineRender(
   <div>
     <span>Hello</span>
-  </div>
+  </div>,
 )
 
 // 或使用渲染函数

@@ -30,9 +30,9 @@ export const bar: number = 1 // with default value
   "vueCompilerOptions": {
     "target": 3,
     "plugins": [
-      "@vue-macros/volar/export-props"
+      "@vue-macros/volar/export-props",
       // ...more feature
-    ]
-  }
+    ],
+  },
 }
 ```

@@ -1,15 +1,19 @@
 <script setup lang="tsx">
-const slots = defineSlots<{
-  default: (scope: { value: string }) => any
-  title: (scope: { value: string; 'onUpdate:value': (e: any) => void }) => any
+defineProps<{
+  bar: string
 }>()
 
-const value = $ref('')
+const { title } = defineModels<{
+  modelValue: number
+  title?: string
+}>()
+
+const slots = defineSlots()
+
 defineRender(() => (
   <>
-    <slots.title v-model_trim={[value, 'value']}></slots.title>
-
-    <slots.default value={value}></slots.default>
+    <input v-model={title.value} />
+    <slots.default></slots.default>
   </>
 ))
 </script>

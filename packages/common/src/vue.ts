@@ -4,10 +4,10 @@ import {
   type SFCScriptBlock as SFCScriptBlockMixed,
   parse,
 } from '@vue/compiler-sfc'
-import { type Node, type Program } from '@babel/types'
-import { type MagicString, type MagicStringBase } from 'magic-string-ast'
 import { babelParse, getLang, resolveString } from 'ast-kit'
 import { REGEX_VUE_SFC } from './constants'
+import type { Node, Program } from '@babel/types'
+import type { MagicString, MagicStringAST } from 'magic-string-ast'
 
 export type SFCScriptBlock = Omit<
   SFCScriptBlockMixed,
@@ -19,8 +19,8 @@ export type SFC = Omit<SFCDescriptor, 'script' | 'scriptSetup'> & {
   script?: SFCScriptBlock | null
   scriptSetup?: SFCScriptBlock | null
   lang: string | undefined
-  getScriptAst(): Program | undefined
-  getSetupAst(): Program | undefined
+  getScriptAst: () => Program | undefined
+  getSetupAst: () => Program | undefined
   offset: number
 } & Pick<SFCParseResult, 'errors'>
 
@@ -39,15 +39,14 @@ export function parseSFC(code: string, id: string): SFC {
     (scriptLang || 'js') !== (scriptSetupLang || 'js')
   ) {
     throw new Error(
-      `[unplugin-vue-macros] <script> and <script setup> must have the same language type.`
+      `[unplugin-vue-macros] <script> and <script setup> must have the same language type.`,
     )
   }
 
   const lang = scriptLang || scriptSetupLang
 
-  return {
+  return Object.assign({}, descriptor, {
     sfc,
-    ...descriptor,
     lang,
     errors,
     offset: descriptor.scriptSetup?.loc.start.offset ?? 0,
@@ -63,12 +62,12 @@ export function parseSFC(code: string, id: string): SFC {
         plugins: [['importAttributes', { deprecatedAssertSyntax: true }]],
       })
     },
-  }
+  } satisfies Partial<SFC>)
 }
 
 export function getFileCodeAndLang(
   code: string,
-  id: string
+  id: string,
 ): { code: string; lang: string } {
   if (!REGEX_VUE_SFC.test(id)) {
     return {
@@ -87,7 +86,7 @@ export function getFileCodeAndLang(
   }
 }
 
-export function addNormalScript({ script, lang }: SFC, s: MagicStringBase) {
+export function addNormalScript({ script, lang }: SFC, s: MagicString) {
   return {
     start() {
       if (script) return script.loc.end.offset
@@ -103,12 +102,16 @@ export function addNormalScript({ script, lang }: SFC, s: MagicStringBase) {
   }
 }
 
-export function removeMacroImport(node: Node, s: MagicString, offset: number) {
+export function removeMacroImport(
+  node: Node,
+  s: MagicStringAST,
+  offset: number,
+) {
   if (
     node.type === 'ImportDeclaration' &&
     node.attributes?.some(
       (attr) =>
-        resolveString(attr.key) === 'type' && attr.value.value === 'macro'
+        resolveString(attr.key) === 'type' && attr.value.value === 'macro',
     )
   ) {
     s.removeNode(node, { offset })

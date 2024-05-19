@@ -1,5 +1,5 @@
-<script setup lang="tsx">
-import { type FunctionalComponent } from 'vue'
+<script setup lang="tsx" generic="T">
+import { type FunctionalComponent, shallowRef } from 'vue'
 import Child from './child.vue'
 
 const Comp: FunctionalComponent<
@@ -9,17 +9,29 @@ const Comp: FunctionalComponent<
     default: (scope: { foo: string }) => any
   }
 > = (props, { slots }) => {
-  return <slots.default foo="foo"></slots.default>
+  return (
+    <Child>
+      <template v-for={(Slot, slotName) in slots} v-slot:$slotName$={scope}>
+        <Slot {...scope} />
+      </template>
+    </Child>
+  )
 }
+
+const childRef = shallowRef<InstanceType<typeof Child>>()
 
 defineRender(() => (
   <fieldset>
     <legend>v-slot</legend>
 
-    <Comp v-slot={{ foo }}>{''}</Comp>
-
-    <Child>
-      <div>default: begin</div>
+    <Child
+      ref={(e) => {
+        childRef.value = e
+      }}
+    >
+      <Comp v-slot={{ foo }}>
+        <div>default: {foo}</div>
+      </Comp>
 
       <template v-slot:bottom={{ foo }}>
         bottom:{' '}

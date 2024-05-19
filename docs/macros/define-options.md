@@ -150,9 +150,9 @@ export default {
   "vueCompilerOptions": {
     "target": 3, // or 2.7 for Vue 2
     "plugins": [
-      "@vue-macros/volar/define-options"
+      "@vue-macros/volar/define-options",
       // ...more feature
-    ]
-  }
+    ],
+  },
 }
 ```

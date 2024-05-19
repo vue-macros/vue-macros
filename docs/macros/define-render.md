@@ -11,6 +11,8 @@ Defining render function in `<script setup>` using the `defineRender`.
 |   Vue 2    | :white_check_mark: |
 | TypeScript | :white_check_mark: |
 
+We need more feedback on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/585)!
+
 ## Basic Usage
 
 ```vue
@@ -19,7 +21,7 @@ Defining render function in `<script setup>` using the `defineRender`.
 defineRender(
   <div>
     <span>Hello</span>
-  </div>
+  </div>,
 )
 
 // Or using render function

@@ -1,13 +1,10 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node"],
     "customConditions": ["dev"],
-    "paths": {
-      "#macros": ["./macros/index.ts"]
-    }
+    "types": ["node"]
   },
-  "include": ["packages", "tsup.config.ts"],
+  "include": ["packages", "macros", "tsup.config.ts"],
   "exclude": [
     "**/dist",
     "**/tests",

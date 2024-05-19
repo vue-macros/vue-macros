@@ -28,7 +28,7 @@ export interface TSResolvedType<
 type TSReferencedType = TSType | Identifier | TSDeclaration
 
 export function isSupportedForTSReferencedType(
-  node: Node
+  node: Node,
 ): node is TSReferencedType {
   return isTSType(node) || node.type === 'Identifier' || isTSDeclaration(node)
 }
@@ -42,7 +42,7 @@ export function isSupportedForTSReferencedType(
  */
 export async function resolveTSReferencedType(
   ref: TSResolvedType<TSReferencedType>,
-  stacks: TSResolvedType<any>[] = []
+  stacks: TSResolvedType<any>[] = [],
 ): Promise<TSResolvedType | TSNamespace | undefined> {
   const { scope, type } = ref
   if (stacks.some((stack) => stack.scope === scope && stack.type === type)) {
@@ -55,7 +55,7 @@ export async function resolveTSReferencedType(
     case 'TSParenthesizedType':
       return resolveTSReferencedType(
         { scope, type: type.typeAnnotation },
-        stacks
+        stacks,
       )
     case 'TSIndexedAccessType':
       return resolveTSIndexedAccessType({ type, scope }, stacks)
@@ -79,7 +79,7 @@ export async function resolveTSReferencedType(
 
   await resolveTSNamespace(scope)
   const refNames = resolveIdentifier(
-    type.type === 'TSTypeReference' ? type.typeName : type
+    type.type === 'TSTypeReference' ? type.typeName : type,
   )
 
   let resolved: TSResolvedType | TSNamespace | undefined =

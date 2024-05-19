@@ -1,16 +1,17 @@
 <script setup lang="tsx">
 import Child from './child.vue'
 
+const foo = $ref(1)
+const bar = $ref('')
+// eslint-disable-next-line unused-imports/no-unused-vars
+const baz = $ref('title')
 defineRender(() => (
-  <Child>
-    <template v-slot:title={{ value, ...emits }}>
-      <input
-        value={value}
-        onInput={(e: any) => emits['onUpdate:value'](e.target.value)}
-      />
-    </template>
+  <fieldset>
+    <legend>v-model</legend>
 
-    <template v-slot={{ value }}>{value}</template>
-  </Child>
+    <Child bar={bar} v-model={foo} v-model:$baz$={bar}>
+      {bar}
+    </Child>
+  </fieldset>
 ))
 </script>

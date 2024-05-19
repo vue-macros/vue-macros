@@ -22,7 +22,7 @@ const emits = defineEmits<{
   // tuple
   'update:modelValue': [val: string]
   // function
-  update(val: string): void
+  update: (val: string) => void
 }>()
 </script>
 ```

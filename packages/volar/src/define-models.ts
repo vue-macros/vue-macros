@@ -1,87 +1,72 @@
 import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
-import { FileKind, FileRangeCapabilities } from '@volar/language-core'
 import {
-  type Segment,
+  type Code,
   type Sfc,
   type VueLanguagePlugin,
+  replace,
 } from '@vue/language-core'
-import {
-  addEmits,
-  addProps,
-  getVolarOptions,
-  getVueLibraryName,
-} from './common'
+import { addEmits, addProps, getText, getVolarOptions } from './common'
 
-function transformDefineModels({
-  codes,
-  sfc,
-  typeArg,
-  vueLibName,
-  unified,
-}: {
-  codes: Segment<FileRangeCapabilities>[]
+function transformDefineModels(options: {
+  codes: Code[]
   sfc: Sfc
-  typeArg: import('typescript/lib/tsserverlibrary').TypeNode
+  typeArg: import('typescript').TypeNode
   vueLibName: string
   unified: boolean
+  ts: typeof import('typescript')
 }) {
-  const source = sfc.scriptSetup!.content.slice(typeArg.pos, typeArg.end)
-  const seg: Segment<FileRangeCapabilities> = [
-    source,
-    'scriptSetup',
-    typeArg!.pos,
-    FileRangeCapabilities.full,
-  ]
-  mergeProps() ||
-    addProps(
-      codes,
-      ['__VLS_TypePropsToRuntimeProps<__VLS_ModelToProps<', seg, '>>'],
-      vueLibName
-    )
-  mergeEmits() || addEmits(codes, ['__VLS_ModelToEmits<', seg, '>'])
+  const { codes, typeArg, unified, vueLibName, ts } = options
 
-  codes.push(
-    `type __VLS_GetPropKey<K> = K extends 'modelValue'${
-      unified ? '' : ' & never'
-    } ? 'value' : K
-    type __VLS_ModelToProps<T> = {
-      [K in keyof T as __VLS_GetPropKey<K>]: T[K]
+  const propStrings = []
+  const emitStrings = []
+
+  if (ts.isTypeLiteralNode(typeArg) && typeArg.members) {
+    for (const member of typeArg.members) {
+      if (ts.isPropertySignature(member) && member.type) {
+        const type = getText(member.type, options)
+        let name = getText(member.name, options)
+        if (unified && name === 'modelValue') {
+          name = 'value'
+          emitStrings.push(`input: [value: ${type}]`)
+        } else {
+          emitStrings.push(`'update:${name}': [${name}: ${type}]`)
+        }
+
+        propStrings.push(`${name}${member.questionToken ? '?' : ''}: ${type}`)
+      }
     }
-    type __VLS_GetEventKey<K extends string | number> = K extends 'modelValue'${
-      unified ? '' : ' & never'
-    } ? 'input' : \`update:\${K}\`
-    type __VLS_ModelToEmits<T> = T extends Record<string | number, any> ? { [K in keyof T & (string | number) as __VLS_GetEventKey<K>]: (value: T[K]) => void } : T`
-  )
-
-  function mergeProps() {
-    const idx = codes.indexOf('__VLS_TypePropsToRuntimeProps<')
-    if (idx === -1) return false
-
-    codes.splice(idx + 2, 0, ' & __VLS_ModelToProps<', seg, '>')
-    return true
   }
 
-  function mergeEmits() {
-    const idx = codes.indexOf(
-      'emits: ({} as __VLS_UnionToIntersection<__VLS_ConstructorOverloads<'
+  if (propStrings.length) {
+    replace(
+      codes,
+      /(?<=type __VLS_PublicProps = )/,
+      `{\n${propStrings.join(',\n')}} & `,
     )
-    if (idx === -1) return false
 
-    codes.splice(idx + 2, 1, '>> & __VLS_ModelToEmits<', seg, '>),\n')
-    return true
+    addProps(codes, ['__VLS_TypePropsToOption<__VLS_PublicProps>'], vueLibName)
+  }
+
+  if (emitStrings.length) {
+    replace(
+      codes,
+      /(?<=let __VLS_modelEmitsType!: {})/,
+      ` & ReturnType<typeof import('${vueLibName}').defineEmits<{\n${emitStrings.join(',\n')}}>>`,
+    )
+
+    addEmits(codes, ['__VLS_NormalizeEmits<typeof __VLS_modelEmitsType>'])
   }
 }
 
-function getTypeArg(
-  ts: typeof import('typescript/lib/tsserverlibrary'),
-  sfc: Sfc
-) {
-  function getCallArg(node: import('typescript/lib/tsserverlibrary').Node) {
+function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
+  function getCallArg(node: import('typescript').Node) {
     if (
       !(
         ts.isCallExpression(node) &&
         ts.isIdentifier(node.expression) &&
-        [DEFINE_MODELS, DEFINE_MODELS_DOLLAR].includes(node.expression.text) &&
+        [DEFINE_MODELS, DEFINE_MODELS_DOLLAR].includes(
+          node.expression.escapedText!,
+        ) &&
         node.typeArguments?.length === 1
       )
     )
@@ -89,12 +74,12 @@ function getTypeArg(
     return node.typeArguments[0]
   }
 
-  const sourceFile = sfc.scriptSetupAst!
-  return sourceFile.forEachChild((node) => {
+  const sourceFile = sfc.scriptSetup!.ast
+  return ts.forEachChild(sourceFile, (node) => {
     if (ts.isExpressionStatement(node)) {
       return getCallArg(node.expression)
     } else if (ts.isVariableStatement(node)) {
-      return node.declarationList.forEachChild((decl) => {
+      return ts.forEachChild(node.declarationList, (decl) => {
         if (!ts.isVariableDeclaration(decl) || !decl.initializer) return
         return getCallArg(decl.initializer)
       })
@@ -108,12 +93,12 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-define-models',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
+        !['ts', 'tsx'].includes(embeddedFile.lang) ||
         !sfc.scriptSetup ||
-        !sfc.scriptSetupAst
+        !sfc.scriptSetup.ast
       )
         return
 
@@ -121,7 +106,7 @@ const plugin: VueLanguagePlugin = ({
       if (!typeArg) return
 
       const vueVersion = vueCompilerOptions.target
-      const vueLibName = getVueLibraryName(vueVersion)
+      const vueLibName = vueCompilerOptions.lib
       const volarOptions = getVolarOptions(vueCompilerOptions)
       const unified =
         vueVersion < 3 && (volarOptions?.defineModels?.unified ?? true)
@@ -132,6 +117,7 @@ const plugin: VueLanguagePlugin = ({
         typeArg,
         vueLibName,
         unified,
+        ts,
       })
     },
   }

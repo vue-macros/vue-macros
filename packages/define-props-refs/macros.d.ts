@@ -1,9 +1,9 @@
-import {
-  type ComponentObjectPropsOptions,
-  type ComputedRef,
-  type DeepReadonly,
-  type ExtractPropTypes,
-  type Ref,
+import type {
+  ComponentObjectPropsOptions,
+  ComputedRef,
+  DeepReadonly,
+  ExtractPropTypes,
+  Ref,
 } from 'vue'
 
 export declare type PropRefs<T> = {
@@ -41,7 +41,7 @@ export declare function withDefaults<
 >(props: PropsWithRefs, defaults: Defaults): PropRefs<Props>
 
 export declare function definePropsRefs<PropNames extends string = string>(
-  props: PropNames[]
+  props: PropNames[],
 ): PropRefs<{
   [key in PropNames]: Ref<any>
 }>

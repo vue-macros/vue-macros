@@ -180,12 +180,12 @@ export default a
 ```jsonc {6}
 // tsconfig.json
 {
-  "target": 3,
   "vueCompilerOptions": {
+    "target": 3,
     "plugins": [
-      "@vue-macros/volar/export-expose"
+      "@vue-macros/volar/export-expose",
       // ...更多功能
-    ]
-  }
+    ],
+  },
 }
 ```

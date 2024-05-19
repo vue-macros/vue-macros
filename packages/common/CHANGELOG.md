@@ -1,5 +1,35 @@
 # @vue-macros/common
 
+## 1.10.3
+
+### Patch Changes
+
+- [`102a074`](https://github.com/vue-macros/vue-macros/commit/102a0745206c246393d534e7849351df4d471c25) Thanks [@sxzz](https://github.com/sxzz)! - upgrade magic-string-ast
+
+## 1.10.2
+
+### Patch Changes
+
+- [`781d7dc`](https://github.com/vue-macros/vue-macros/commit/781d7dc255a0d09bfabe2293bae884cfdc1d852e) Thanks [@sxzz](https://github.com/sxzz)! - fix filter for rspack
+
+## 1.10.1
+
+### Patch Changes
+
+- [`921cbbe`](https://github.com/vue-macros/vue-macros/commit/921cbbee2ecccaae8c673427fecc0025d4f0f9e3) Thanks [@sxzz](https://github.com/sxzz)! - fix vue sfc regex for webpack
+
+## 1.10.0
+
+### Minor Changes
+
+- [`a66216b`](https://github.com/vue-macros/vue-macros/commit/a66216be18db59944a32102f449c84be677c374d) Thanks [@sxzz](https://github.com/sxzz)! - refactor Vue SFC filter for vue-loader
+
+## 1.9.0
+
+### Minor Changes
+
+- [`cb9b967c`](https://github.com/vue-macros/vue-macros/commit/cb9b967ca141ca10693a1933e2a68f51525460e7) Thanks [@sxzz](https://github.com/sxzz)! - upgrade vite & rollup & esbuild
+
 ## 1.8.0
 
 ### Minor Changes

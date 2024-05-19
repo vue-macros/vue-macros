@@ -1,8 +1,10 @@
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { defineMacro } from 'unplugin-macros'
 
-const root = path.resolve(fileURLToPath(new URL(import.meta.url)), '../..')
+import { defineMacro } from 'unplugin-macros/api'
+
+export * from './repo'
+
+const root = path.resolve(__dirname, '..')
 
 function getPkgName(filePath: string) {
   const relative = path.relative(root, filePath)

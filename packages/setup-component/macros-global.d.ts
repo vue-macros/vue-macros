@@ -2,4 +2,5 @@ declare const defineSetupComponent: typeof import('./macros').defineSetupCompone
 declare type SetupFC<
   P = {},
   E extends import('vue').EmitsOptions = {},
-> = import('./macros').SetupFC<P, E>
+  S extends Record<string, any> = any,
+> = import('./macros').SetupFC<P, E, S>

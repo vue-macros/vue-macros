@@ -1,16 +1,16 @@
-import { type MagicString } from '@vue-macros/common'
+import type { MagicStringAST } from '@vue-macros/common'
 import type * as t from '@babel/types'
 
 export type Impl = (ctx: {
-  s: MagicString
+  s: MagicStringAST
   offset: number
-  resolveTSType(type: t.TSType): Promise<string[] | undefined>
+  resolveTSType: (type: t.TSType) => Promise<string[] | undefined>
 }) => {
-  walkCall(
+  walkCall: (
     node: t.CallExpression,
-    parent: t.ParentMaps['CallExpression']
-  ): string
-  genRuntimeProps(isProduction: boolean): Promise<string | undefined>
+    parent: t.ParentMaps['CallExpression'],
+  ) => string
+  genRuntimeProps: (isProduction: boolean) => Promise<string | undefined>
 }
 
 export function stringifyArray(strs: string[]) {

@@ -11,9 +11,11 @@ export default defineNuxtConfig({
     defineSlots: true,
     hoistStatic: true,
     shortEmits: true,
+    shortBind: true,
 
     namedTemplate: false,
     setupSFC: true,
+    booleanProp: true,
 
     exportProps: {
       include: [/export-props.*\.vue$/],

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Assert } from '../../assert'
-import { type Warn } from './warning'
-import { type BaseEmits, type BaseProps } from './types'
-import { type DtsDemo } from './test-dts'
+import type { Warn } from './warning'
+import type { BaseEmits, BaseProps } from './types'
+import type { DtsDemo } from './test-dts'
 
 export interface Props extends BaseProps {
   msg: string
@@ -22,7 +22,7 @@ withDefaults(
   {
     ...{ union: 'defaultValue' },
     ['non' + 'StaticValue']: 'defaultValue',
-  }
+  },
 )
 
 defineEmits<Emits>()

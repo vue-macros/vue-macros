@@ -5,6 +5,6 @@ const props = withDefaults(
   }>(),
   {
     fn: () => {},
-  }
+  },
 )
 </script>

@@ -1,6 +1,6 @@
 import {
   DEFINE_SLOTS,
-  MagicString,
+  MagicStringAST,
   generateTransform,
   isCallOf,
   parseSFC,
@@ -12,7 +12,7 @@ export function transformDefineSlots(code: string, id: string) {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   for (const stmt of getSetupAst()!.body) {
     if (

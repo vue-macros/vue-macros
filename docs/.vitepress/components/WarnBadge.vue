@@ -1,5 +1,5 @@
 <template>
-  <span text-yellow-600 dark:text-yellow text-xs border p-1 rounded>
+  <span border rounded p-1 text-xs text-yellow-600 dark:text-yellow>
     ⚠️ <slot />
   </span>
 </template>

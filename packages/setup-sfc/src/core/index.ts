@@ -1,16 +1,16 @@
 import {
-  MagicString,
+  MagicStringAST,
   babelParse,
   generateTransform,
   getLang,
 } from '@vue-macros/common'
-import { type HmrContext } from 'vite'
+import type { HmrContext } from 'vite'
 
 export function transformSetupSFC(code: string, id: string) {
   const lang = getLang(id)
   const program = babelParse(code, lang)
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   for (const stmt of program.body) {
     if (stmt.type !== 'ExportDefaultDeclaration') continue
     s.append(`defineRender(${s.sliceNode(stmt.declaration)});`)
@@ -26,7 +26,7 @@ export function transformSetupSFC(code: string, id: string) {
 
 export function hotUpdateSetupSFC(
   { modules }: HmrContext,
-  filter: (id: unknown) => boolean
+  filter: (id: unknown) => boolean,
 ) {
   function isSubModule(id: string) {
     const [filename, query] = id.split('?')

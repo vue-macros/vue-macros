@@ -1,6 +1,6 @@
 import {
   DEFINE_OPTIONS,
-  MagicString,
+  MagicStringAST,
   addNormalScript,
   checkInvalidScopeReference,
   generateTransform,
@@ -8,12 +8,8 @@ import {
   parseSFC,
 } from '@vue-macros/common'
 import { walkAST } from 'ast-walker-scope'
-import {
-  type ExportDefaultDeclaration,
-  type Program,
-  type Statement,
-} from '@babel/types'
 import { filterMacro, hasPropsOrEmits as hasDisallowedProp } from './utils'
+import type { ExportDefaultDeclaration, Program, Statement } from '@babel/types'
 
 export * from './utils'
 
@@ -37,7 +33,7 @@ export function transformDefineOptions(code: string, id: string) {
 
   const setupBindings = getRootScopeIds(setupAst)
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
 
   const [node] = nodes
   const [arg] = node.arguments
@@ -51,13 +47,13 @@ export function transformDefineOptions(code: string, id: string) {
       `\nexport default /*#__PURE__*/ ${importHelperFn(
         s,
         scriptOffset,
-        'defineComponent'
-      )}(`
+        'defineComponent',
+      )}(`,
     )
 
     if (arg.type === 'ObjectExpression' && hasDisallowedProp(arg))
       throw new SyntaxError(
-        `${DEFINE_OPTIONS}() please use defineProps, defineEmits, defineExpose, or defineSlots instead.`
+        `${DEFINE_OPTIONS}() please use defineProps, defineEmits, defineExpose, or defineSlots instead.`,
       )
 
     checkInvalidScopeReference(arg, DEFINE_OPTIONS, setupBindings)
@@ -81,11 +77,11 @@ export function transformDefineOptions(code: string, id: string) {
 function checkDefaultExport(stmts: Statement[]) {
   const hasDefaultExport = stmts.some(
     (node): node is ExportDefaultDeclaration =>
-      node.type === 'ExportDefaultDeclaration'
+      node.type === 'ExportDefaultDeclaration',
   )
   if (hasDefaultExport)
     throw new SyntaxError(
-      `${DEFINE_OPTIONS} cannot be used with default export within <script>.`
+      `${DEFINE_OPTIONS} cannot be used with default export within <script>.`,
     )
 }
 

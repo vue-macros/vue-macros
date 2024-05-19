@@ -11,6 +11,6 @@ describe('fixtures', async () => {
     (args, id, code) => {
       const version = id.includes('vue2') ? 2 : 3
       return transformDefineModels(code, id, version, true)?.code
-    }
+    },
   )
 })

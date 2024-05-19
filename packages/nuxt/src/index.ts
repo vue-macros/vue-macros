@@ -1,10 +1,12 @@
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { type Options, resolveOptions } from 'unplugin-vue-macros'
-import { type Plugin } from 'vite'
-import type {} from '@nuxt/devtools'
-import { type VolarOptions } from '@vue-macros/volar'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
+import { githubRepo } from '../../../macros' assert { type: 'macro' }
+import type { Plugin } from 'vite'
+import type {} from '@nuxt/devtools'
+import type { VolarOptions } from '@vue-macros/volar'
+import type { RawVueCompilerOptions } from '@vue/language-core'
 
 export type VueMacrosOptions = Options
 
@@ -21,7 +23,7 @@ export default defineNuxtModule<VueMacrosOptions>({
     nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       function findPluginAndRemove(name: string): Plugin | undefined {
         const idx = config.plugins!.findIndex(
-          (plugin) => plugin && 'name' in plugin && plugin.name === name
+          (plugin) => plugin && 'name' in plugin && plugin.name === name,
         )
         if (idx === -1) return
         const plugin = config.plugins![idx]
@@ -37,7 +39,7 @@ export default defineNuxtModule<VueMacrosOptions>({
           ...resolvedOptions,
           plugins: { vue, vueJsx },
           nuxtContext: { isClient },
-        })
+        }),
       )
     })
 
@@ -49,7 +51,7 @@ export default defineNuxtModule<VueMacrosOptions>({
       tabs.push({
         name: 'vue-macros',
         title: 'Vue Macros',
-        icon: 'https://raw.githubusercontent.com/vue-macros/vue-macros/main/docs/public/favicon.svg',
+        icon: `https://raw.githubusercontent.com/${githubRepo}/main/docs/public/favicon.svg`,
         view: {
           type: 'iframe',
           src: '/__vue-macros',
@@ -61,9 +63,8 @@ export default defineNuxtModule<VueMacrosOptions>({
 
     // @ts-expect-error https://github.com/unjs/pkg-types/pull/130
     nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {}
-    const vueCompilerOptions =
-      // @ts-expect-error
-      nuxt.options.typescript.tsConfig.vueCompilerOptions
+    const vueCompilerOptions = nuxt.options.typescript.tsConfig
+      .vueCompilerOptions as unknown as RawVueCompilerOptions
 
     vueCompilerOptions.vueMacros ||= {}
     const volarOptions = vueCompilerOptions.vueMacros as VolarOptions
@@ -95,6 +96,9 @@ export default defineNuxtModule<VueMacrosOptions>({
     if (resolvedOptions.defineProp)
       vueCompilerOptions.experimentalDefinePropProposal =
         resolvedOptions.defineProp.edition || 'kevinEdition'
+
+    if (resolvedOptions.shortBind)
+      volarPlugins.push('@vue-macros/volar/short-bind')
 
     if (resolvedOptions.shortVmodel) {
       volarPlugins.push('@vue-macros/volar/short-vmodel')
@@ -138,7 +142,7 @@ export default defineNuxtModule<VueMacrosOptions>({
             value.name = value.name.replace(/-setup$/, '')
           }
           return [key, value]
-        })
+        }),
       )
     })
   },

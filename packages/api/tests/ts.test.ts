@@ -2,11 +2,6 @@ import path from 'node:path'
 import { babelParse } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
 import {
-  type TSInterfaceDeclaration,
-  type TSIntersectionType,
-  type TSTypeAliasDeclaration,
-} from '@babel/types'
-import {
   type TSFile,
   getTSFile,
   resolveTSNamespace,
@@ -14,6 +9,11 @@ import {
   resolveTSReferencedType,
 } from '../src'
 import { hideAstLocation } from './_util'
+import type {
+  TSInterfaceDeclaration,
+  TSIntersectionType,
+  TSTypeAliasDeclaration,
+} from '@babel/types'
 
 const fixtures = path.resolve(__dirname, 'fixtures')
 
@@ -64,7 +64,7 @@ type Base2 = {
   itShouldBeNumber: boolean
   (): string
 }
-`
+`,
     )
     const interfaceProperties = await resolveTSProperties({
       scope: file,
@@ -148,10 +148,10 @@ type Base2 = {
       hideAstLocation(
         (
           await resolveTSReferencedType(
-            interfaceProperties.properties.bar.value!
+            interfaceProperties.properties.bar.value!,
           )
-        )?.type
-      )
+        )?.type,
+      ),
     ).toMatchInlineSnapshot('"TSStringKeyword..."')
 
     const intersectionProperties = await resolveTSProperties({
@@ -199,7 +199,7 @@ type Base2 = {
     const file = mockTSFile(
       `export type AliasString1 = string
 type AliasString2 = AliasString1
-type Foo = AliasString`
+type Foo = AliasString`,
     )
     const node = file.ast![1] as TSTypeAliasDeclaration
     const result = (await resolveTSReferencedType({
@@ -251,8 +251,8 @@ type Foo = AliasString`
           await resolveTSProperties({
             scope: file,
             type: exports.Inferface?.type as any,
-          })
-        )
+          }),
+        ),
       ).toMatchInlineSnapshot(`
         {
           "callSignatures": [],
@@ -293,7 +293,7 @@ type Foo = AliasString`
 
     test('circular referencing', async () => {
       const file = await getTSFile(
-        path.resolve(fixtures, 'circular-referencing/foo.ts')
+        path.resolve(fixtures, 'circular-referencing/foo.ts'),
       )
       await resolveTSNamespace(file)
       const exports = file.exports!

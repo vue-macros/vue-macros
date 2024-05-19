@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
-import { type Ref } from 'vue'
 import { Assert } from '../../assert'
+import type { Ref } from 'vue'
 
 const { foo } = $defineProps<{
   foo: string[]
