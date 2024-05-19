@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.20.0
+
+### Minor Changes
+
+- [#684](https://github.com/vue-macros/vue-macros/pull/684) [`1f22091`](https://github.com/vue-macros/vue-macros/commit/1f220910fafd9b1e51c4006db030ad64e3762fec) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add define-emit plugin
+
 ## 0.19.1
 
 ### Patch Changes
