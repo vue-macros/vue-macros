@@ -143,15 +143,13 @@ console.log(foo, bar)
 
 ## Volar 配置
 
-**需要 Volar >= `1.3.12`**
-
 ```jsonc {6,10}
 // tsconfig.json
 {
   // ...
   "vueCompilerOptions": {
     "plugins": [
-      "@vue-macros/volar/define-prop"
+      "@vue-macros/volar/define-prop",
       // ...更多功能
     ],
     // "kevinEdition" | "johnsonEdition" | false

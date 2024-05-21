@@ -34,12 +34,11 @@ const baz = __MACROS_toRef(__props, "baz")
 expectTypeOf(baz).toEqualTypeOf<ComputedRef<string>>()
 
 // unknown type
-const unknownType = __MACROS_toRef(__props, \\"unknownType\\")
+const unknownType = __MACROS_toRef(__props, "unknownType")
 
 // @ts-expect-error reactivity transform
-const $bar = $(__MACROS_toRef(__props, \\"$bar\\"))
-const $baz = $(__MACROS_toRef(__props, \\"$baz\\"))
-const unknownType = __MACROS_toRef(__props, "unknownType")
+const $bar = $(__MACROS_toRef(__props, "$bar"))
+const $baz = $(__MACROS_toRef(__props, "$baz"))
 </script>
 \`;
 
@@ -98,12 +97,11 @@ const quuz = __MACROS_toRef(__props, "quuz")
 expectTypeOf(quuz).toEqualTypeOf<ComputedRef<unknown>>()
 console.log(quuz)
 
-const unknownType = __MACROS_toRef(__props, \\"unknownType\\")
+const unknownType = __MACROS_toRef(__props, "unknownType")
 
 // @ts-expect-error reactivity transform
-const $foo = $(__MACROS_toRef(__props, \\"$foo\\"))
-const $bar = $(__MACROS_toRef(__props, \\"$bar\\"))
-const unknownType = __MACROS_toRef(__props, "unknownType")
+const $foo = $(__MACROS_toRef(__props, "$foo"))
+const $bar = $(__MACROS_toRef(__props, "$bar"))
 </script>
 \`;
 
