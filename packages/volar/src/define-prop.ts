@@ -118,7 +118,7 @@ function getDefineProp(
     if (
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&
-      [DEFINE_PROP, DEFINE_PROP_DOLLAR].includes(node.expression.text)
+      [DEFINE_PROP, DEFINE_PROP_DOLLAR].includes(node.expression.escapedText!)
     ) {
       if (
         vueCompilerOptions.experimentalDefinePropProposal === 'kevinEdition'
@@ -174,8 +174,8 @@ function getDefineProp(
           defaultValue,
           required,
           isReactivityTransform:
-            node.expression.text === DEFINE_PROP_DOLLAR ||
-            isReactivityTransform,
+            isReactivityTransform ||
+            node.expression.escapedText === DEFINE_PROP_DOLLAR,
         })
       } else if (
         vueCompilerOptions.experimentalDefinePropProposal ===
@@ -198,7 +198,7 @@ function getDefineProp(
             node.arguments[1].kind === ts.SyntaxKind.TrueKeyword,
           isReactivityTransform:
             isReactivityTransform ||
-            node.expression.text === DEFINE_PROP_DOLLAR,
+            node.expression.escapedText === DEFINE_PROP_DOLLAR,
         })
       }
     }
@@ -214,7 +214,7 @@ function getDefineProp(
         if (
           ts.isCallExpression(decl.initializer) &&
           ts.isIdentifier(decl.initializer.expression) &&
-          decl.initializer.expression.text === '$' &&
+          decl.initializer.expression.escapedText === '$' &&
           decl.initializer.arguments.length > 0
         ) {
           visitNode(decl.initializer.arguments[0], decl, true)
