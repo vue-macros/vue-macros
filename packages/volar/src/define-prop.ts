@@ -1,82 +1,58 @@
 import { DEFINE_PROP, DEFINE_PROP_DOLLAR } from '@vue-macros/common'
-import { FileKind, type FileRangeCapabilities } from '@volar/language-core'
 import {
-  type Segment,
+  type Code,
   type Sfc,
   type VueCompilerOptions,
   type VueLanguagePlugin,
   replace,
 } from '@vue/language-core'
-import { getVueLibraryName } from './common'
-
-interface TextRange {
-  start: number
-  end: number
-}
+import { addProps, getText } from './common'
 
 interface DefineProp {
-  name: TextRange | undefined
-  prop: TextRange | undefined
-  type: TextRange | undefined
-  defaultValue: TextRange | undefined
+  name?: string
+  prop?: string
+  type?: string
+  defaultValue?: string
   required: boolean
   isReactivityTransform: boolean
 }
 
-function transform({
+function transformDefineProp({
   codes,
-  sfc,
   defineProps,
   vueLibName,
   vueCompilerOptions,
 }: {
-  codes: Segment<FileRangeCapabilities>[]
-  sfc: Sfc
+  codes: Code[]
   defineProps: DefineProp[]
   vueLibName: string
   vueCompilerOptions: VueCompilerOptions
 }) {
-  replace(codes, /(?<!},)(?=\nsetup\(\) {)/, '\nprops: {\n},')
   replace(
     codes,
-    /(?=},\nsetup\(\) {)/,
-    '...({} as {\n',
+    /(?<=type __VLS_PublicProps = )/,
+    '{\n',
     ...defineProps.flatMap((defineProp) => {
-      let propName = 'modelValue'
-      const result: string[] = []
+      const result = [defineProp.name ?? 'modelValue']
 
-      if (defineProp.name) {
-        propName = sfc.scriptSetup!.content.slice(
-          defineProp.name.start,
-          defineProp.name.end
-        )
+      if (!defineProp.required) {
+        result.push('?')
       }
-      result.push(propName, `: `)
+      result.push(': ')
 
       let type = 'any'
       if (defineProp.type) {
-        type = sfc.scriptSetup!.content.slice(
-          defineProp.type.start,
-          defineProp.type.end
-        )
+        type = defineProp.type
       } else if (defineProp.defaultValue && defineProp.prop) {
-        type = `NonNullable<typeof ${sfc.scriptSetup!.content.slice(
-          defineProp.prop.start,
-          defineProp.prop.end
-        )}${defineProp.isReactivityTransform ? '' : `['value']`}>`
+        type = `NonNullable<typeof ${defineProp.prop}${defineProp.isReactivityTransform ? '' : `['value']`}>`
       }
 
-      if (defineProp.required) {
-        result.push(
-          `{ required: true, type: import('${vueLibName}').PropType<${type}> },\n`
-        )
-      } else {
-        result.push(`import('${vueLibName}').PropType<${type}>,\n`)
-      }
+      result.push(type, `,\n`)
       return result
     }),
-    '})\n'
+    '} & ',
   )
+  addProps(codes, ['__VLS_TypePropsToOption<__VLS_PublicProps>'], vueLibName)
 
   if (vueCompilerOptions.experimentalDefinePropProposal === 'kevinEdition') {
     codes.push(`
@@ -89,88 +65,84 @@ declare function $defineProp<T>(
   options: 
     | ({ default: T } & __VLS_PropOptions<T>)
     | ({ required: true } & __VLS_PropOptions<T>)
-): import('unplugin-vue-macros/macros').ComputedRefValue<T>
+): T
 declare function $defineProp<T>(
   name?: string,
   options?: __VLS_PropOptions<T>
-): import('unplugin-vue-macros/macros').ComputedRefValue<T | undefined>`)
-  }
-  if (vueCompilerOptions.experimentalDefinePropProposal === 'johnsonEdition') {
+): T | undefined`)
+  } else if (
+    vueCompilerOptions.experimentalDefinePropProposal === 'johnsonEdition'
+  ) {
     codes.push(`
 type __VLS_Widen<T> = T extends number | string | boolean | symbol
   ? ReturnType<T['valueOf']>
   : T
-type __VLS_PropOptions<T> = Exclude<
-  import('${vueLibName}').Prop<__VLS_Widen<T>>,
-  import('${vueLibName}').PropType<__VLS_Widen<T>>
+type __VLS_PropOptions<T> = Omit<
+  Omit<
+    Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>, 
+    'default'
+  >,
+  'required'
 >
 declare function $defineProp<T>(
   value: T | (() => T) | undefined,
   required: true,
   options?: __VLS_PropOptions<T>
-): import('unplugin-vue-macros/macros').ComputedRefValue<__VLS_Widen<T>>
+): __VLS_Widen<T>
 declare function $defineProp<T>(
   value: T | (() => T),
   required?: boolean,
   options?: __VLS_PropOptions<T>
-): import('unplugin-vue-macros/macros').ComputedRefValue<__VLS_Widen<T>>
+): __VLS_Widen<T>
 declare function $defineProp<T>(
   value?: T | (() => T),
   required?: boolean,
   options?: __VLS_PropOptions<T>
-): import('unplugin-vue-macros/macros').ComputedRefValue<
-  | __VLS_Widen<T>
-  | undefined
->`)
+): | __VLS_Widen<T>
+   | undefined
+`)
   }
 }
 
-function getDefineProps(
-  ts: typeof import('typescript/lib/tsserverlibrary'),
+function getDefineProp(
+  ts: typeof import('typescript'),
   sfc: Sfc,
-  vueCompilerOptions: VueCompilerOptions
+  vueCompilerOptions: VueCompilerOptions,
 ) {
-  const ast = sfc.scriptSetupAst!
-  function _getStartEnd(node: import('typescript/lib/tsserverlibrary').Node) {
-    return {
-      start: node.getStart(ast),
-      end: node.getEnd(),
-    }
-  }
-
   const defineProps: DefineProp[] = []
   function visitNode(
-    node: import('typescript/lib/tsserverlibrary').Node,
-    parent: import('typescript/lib/tsserverlibrary').Node,
-    isReactivityTransform = false
+    node: import('typescript').Node,
+    parent: import('typescript').Node,
+    isReactivityTransform = false,
   ) {
     if (
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&
-      [DEFINE_PROP, DEFINE_PROP_DOLLAR].includes(node.expression.getText(ast))
+      [DEFINE_PROP, DEFINE_PROP_DOLLAR].includes(node.expression.text)
     ) {
       if (
         vueCompilerOptions.experimentalDefinePropProposal === 'kevinEdition'
       ) {
         const type = node.typeArguments?.length
-          ? _getStartEnd(node.typeArguments[0])
+          ? getText(node.typeArguments[0], { ts, sfc })
           : undefined
         const name =
           node.arguments[0] && ts.isStringLiteral(node.arguments[0])
-            ? _getStartEnd(node.arguments[0])
-            : ts.isVariableDeclaration(parent)
-            ? _getStartEnd(parent.name)
+            ? node.arguments[0].text
+            : ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)
+              ? parent.name.text
+              : undefined
+        const prop =
+          ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)
+            ? parent.name.text
             : undefined
-        const prop = ts.isVariableDeclaration(parent)
-          ? _getStartEnd(parent.name)
-          : undefined
         const optionArg =
           node.arguments[0] && ts.isObjectLiteralExpression(node.arguments[0])
             ? node.arguments[0]
             : node.arguments[1] &&
-              ts.isObjectLiteralExpression(node.arguments[1])
-            ? node.arguments[1]
-            : undefined
+                ts.isObjectLiteralExpression(node.arguments[1])
+              ? node.arguments[1]
+              : undefined
 
         let required = false
         let defaultValue
@@ -181,13 +153,16 @@ function getDefineProps(
               ts.isIdentifier(property.name)
             ) {
               if (
-                property.name.getText(sfc.scriptSetupAst) === 'required' &&
+                property.name.text === 'required' &&
                 property.initializer.kind === ts.SyntaxKind.TrueKeyword
               )
                 required = true
 
-              if (property.name.getText(sfc.scriptSetupAst) === 'default')
-                defaultValue = _getStartEnd(property.initializer)
+              if (
+                ts.isIdentifier(property.name) &&
+                property.name.text === 'default'
+              )
+                defaultValue = getText(property.initializer, { ts, sfc })
             }
           }
         }
@@ -199,7 +174,7 @@ function getDefineProps(
           defaultValue,
           required,
           isReactivityTransform:
-            node.expression.getText(ast) === DEFINE_PROP_DOLLAR ||
+            node.expression.text === DEFINE_PROP_DOLLAR ||
             isReactivityTransform,
         })
       } else if (
@@ -207,36 +182,39 @@ function getDefineProps(
           'johnsonEdition' &&
         ts.isVariableDeclaration(parent)
       ) {
+        const name = ts.isIdentifier(parent.name) ? parent.name.text : undefined
         defineProps.push({
-          name: _getStartEnd(parent.name),
-          prop: _getStartEnd(parent.name),
+          name,
+          prop: name,
           defaultValue:
             node.arguments.length > 0
-              ? _getStartEnd(node.arguments[0])
+              ? getText(node.arguments[0], { ts, sfc })
               : undefined,
           type: node.typeArguments?.length
-            ? _getStartEnd(node.typeArguments[0])
+            ? getText(node.typeArguments[0], { ts, sfc })
             : undefined,
           required:
             node.arguments.length >= 2 &&
             node.arguments[1].kind === ts.SyntaxKind.TrueKeyword,
           isReactivityTransform:
-            node.expression.getText(ast) === DEFINE_PROP_DOLLAR ||
-            isReactivityTransform,
+            isReactivityTransform ||
+            node.expression.text === DEFINE_PROP_DOLLAR,
         })
       }
     }
   }
 
-  ast.forEachChild((node) => {
+  const ast = sfc.scriptSetup!.ast
+  ts.forEachChild(ast, (node) => {
     if (ts.isExpressionStatement(node)) {
       visitNode(node.expression, ast)
     } else if (ts.isVariableStatement(node)) {
-      node.declarationList.forEachChild((decl) => {
+      ts.forEachChild(node.declarationList, (decl) => {
         if (!ts.isVariableDeclaration(decl) || !decl.initializer) return
         if (
           ts.isCallExpression(decl.initializer) &&
-          decl.initializer.expression.getText(ast) === '$' &&
+          ts.isIdentifier(decl.initializer.expression) &&
+          decl.initializer.expression.text === '$' &&
           decl.initializer.arguments.length > 0
         ) {
           visitNode(decl.initializer.arguments[0], decl, true)
@@ -256,24 +234,22 @@ const plugin: VueLanguagePlugin = ({
 }) => {
   return {
     name: 'vue-macros-define-prop',
-    version: 1,
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
+    version: 2,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
-        embeddedFile.kind !== FileKind.TypeScriptHostFile ||
+        !['ts', 'tsx'].includes(embeddedFile.lang) ||
         !sfc.scriptSetup ||
-        !sfc.scriptSetupAst
+        !sfc.scriptSetup.ast
       )
         return
 
-      const defineProps = getDefineProps(ts, sfc, vueCompilerOptions)
+      const defineProps = getDefineProp(ts, sfc, vueCompilerOptions)
       if (defineProps.length === 0) return
 
-      const vueVersion = vueCompilerOptions.target
-      const vueLibName = getVueLibraryName(vueVersion)
+      const vueLibName = vueCompilerOptions.lib
 
-      transform({
+      transformDefineProp({
         codes: embeddedFile.content,
-        sfc,
         defineProps,
         vueLibName,
         vueCompilerOptions,

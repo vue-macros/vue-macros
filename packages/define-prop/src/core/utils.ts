@@ -6,10 +6,7 @@ export type Impl = (ctx: {
   offset: number
   resolveTSType: (type: t.TSType) => Promise<string[] | undefined>
 }) => {
-  walkCall: (
-    node: t.CallExpression,
-    parent: t.ParentMaps['CallExpression'],
-  ) => string
+  walkCall: (node: t.CallExpression, parent?: t.Node | null) => string
   genRuntimeProps: (isProduction: boolean) => Promise<string | undefined>
 }
 
