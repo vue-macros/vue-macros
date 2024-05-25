@@ -2,6 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "customConditions": ["dev"],
+    "types": ["vue/jsx"],
     "skipLibCheck": false
   },
   "include": ["**/macros*.d.ts"]
