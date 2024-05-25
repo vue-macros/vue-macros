@@ -1,3 +1,4 @@
+import 'vue/jsx'
 import type { VNodeChild } from 'vue'
 
 export declare function defineRender(
