@@ -79,12 +79,17 @@ export function transformVSlot(
           })
         const isNamespace = attributeName.startsWith(':')
         attributeName = attributeName.slice(1)
+        const wrapByQuotes = !attributeName || attributeName.includes('-')
         result.push(
           isNamespace
             ? [
-                isDynamic ? `[${attributeName}]` : `'${attributeName}'`,
+                isDynamic
+                  ? `[${attributeName}]`
+                  : wrapByQuotes
+                    ? `'${attributeName}'`
+                    : attributeName,
                 source,
-                getStart(attribute.name, options) + (isDynamic ? 7 : 6),
+                getStart(attribute.name, options) + (wrapByQuotes ? 6 : 7),
                 allCodeFeatures,
               ]
             : 'default',
