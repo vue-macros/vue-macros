@@ -125,15 +125,33 @@ const disabled = defineProp<boolean>(true)
 </script>
 ```
 
+### 响应性语法糖
+
+```vue
+<script setup lang="ts">
+// Kevin's Edition
+const foo = $defineProp('foo', { default: 'foo' })
+const bar = $(defineProp('bar', { default: 'bar', required: true }))
+console.log(foo, bar)
+
+// Johnson's Edition
+const foo = $defineProp('foo')
+const bar = $(defineProp('bar', true))
+console.log(foo, bar)
+</script>
+```
+
 ## Volar 配置
 
-**需要 Volar >= `1.3.12`**
-
-```jsonc
+```jsonc {6,10}
 // tsconfig.json
 {
   // ...
   "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/define-prop",
+      // ...更多功能
+    ],
     // "kevinEdition" | "johnsonEdition" | false
     "experimentalDefinePropProposal": "kevinEdition",
   },

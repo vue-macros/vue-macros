@@ -1,13 +1,14 @@
 import {
   DEFINE_PROP,
   DEFINE_PROPS,
+  DEFINE_PROP_DOLLAR,
   HELPER_PREFIX,
   MagicStringAST,
   generateTransform,
   importHelperFn,
   isCallOf,
   parseSFC,
-  walkASTSetup,
+  walkAST,
 } from '@vue-macros/common'
 import { inferRuntimeType, resolveTSReferencedType } from '@vue-macros/api'
 import { kevinEdition } from './kevin-edition'
@@ -43,33 +44,39 @@ export async function transformDefineProp(
   )({ s, offset, resolveTSType })
 
   let definePropsCall: t.CallExpression | undefined
-  await walkASTSetup(setupAst, (setup) => {
-    setup.onEnter(
-      (node, parent): node is t.CallExpression =>
-        (isCallOf(node, '$') && isCallOf(node.arguments[0], DEFINE_PROP)) ||
-        (!isCallOf(parent, '$') && isCallOf(node, DEFINE_PROP)),
-      (node, parent) => {
-        const propName = walkCall(
-          isCallOf(node, '$') && isCallOf(node.arguments[0], DEFINE_PROP)
-            ? node.arguments[0]
-            : node,
-          parent,
-        )
-        s.overwriteNode(
-          node,
-          `${importHelperFn(s, offset, 'toRef')}(__props, ${JSON.stringify(
-            propName,
-          )})`,
-          { offset },
-        )
-      },
-    )
-    setup.onEnter(
-      (node): node is t.CallExpression => isCallOf(node, DEFINE_PROPS),
-      (node) => {
+  const parentMap = new WeakMap<t.Node, t.Node | undefined | null>()
+  walkAST<t.Node>(setupAst, {
+    enter: (node, parent) => {
+      if (isCallOf(node, DEFINE_PROPS)) {
         definePropsCall = node
-      },
-    )
+      }
+
+      parentMap.set(node, parent)
+
+      if (!isCallOf(node, [DEFINE_PROP, DEFINE_PROP_DOLLAR])) return
+
+      const isCallOfDollar =
+        isCallOf(parent, '$') && isCallOf(node, DEFINE_PROP)
+
+      const isReactiveTransform =
+        isCallOfDollar || isCallOf(node, DEFINE_PROP_DOLLAR)
+
+      const propName = walkCall(
+        node,
+        isCallOfDollar ? parentMap.get(parent) : parent,
+      )
+      s.overwriteNode(
+        isCallOfDollar ? parent : node,
+        `${isReactiveTransform ? '$(' : ''}${importHelperFn(
+          s,
+          offset,
+          'toRef',
+        )}(__props, ${JSON.stringify(propName)})${
+          isReactiveTransform ? ')' : ''
+        }`,
+        { offset },
+      )
+    },
   })
 
   const runtimeProps = await genRuntimeProps(isProduction)

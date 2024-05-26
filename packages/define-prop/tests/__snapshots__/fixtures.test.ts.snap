@@ -8,6 +8,8 @@ const __MACROS_props = defineProps({
   bar: { default: 'bar', required: false },
   baz: { type: String, default: 'bar', required: false, ...{ validator: () => true } },
   unknownType: { type: Boolean, skipCheck: true },
+  $bar: { default: 'bar', required: true },
+  $baz: { default: 'baz' },
 });
 
 import { toRef as __MACROS_toRef } from "vue";
@@ -33,6 +35,10 @@ expectTypeOf(baz).toEqualTypeOf<ComputedRef<string>>()
 
 // unknown type
 const unknownType = __MACROS_toRef(__props, "unknownType")
+
+// @ts-expect-error reactivity transform
+const $bar = $(__MACROS_toRef(__props, "$bar"))
+const $baz = $(__MACROS_toRef(__props, "$baz"))
 </script>
 \`;
 
@@ -57,6 +63,8 @@ const __MACROS_props = defineProps({
   quux: { type: Boolean, ...{ default: true } },
   quuz: null,
   unknownType: { type: Boolean, skipCheck: true },
+  $foo: { default: 'foo', required: true },
+  $bar: { default: 'bar' },
 });
 
 import { toRef as __MACROS_toRef } from "vue";
@@ -90,6 +98,10 @@ expectTypeOf(quuz).toEqualTypeOf<ComputedRef<unknown>>()
 console.log(quuz)
 
 const unknownType = __MACROS_toRef(__props, "unknownType")
+
+// @ts-expect-error reactivity transform
+const $foo = $(__MACROS_toRef(__props, "$foo"))
+const $bar = $(__MACROS_toRef(__props, "$bar"))
 </script>
 \`;
 
