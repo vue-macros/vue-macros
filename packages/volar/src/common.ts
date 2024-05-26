@@ -7,7 +7,7 @@ import {
 import type { VolarOptions } from '..'
 
 export const REGEX_DEFINE_COMPONENT =
-  /(?<=(default|__VLS_internalComponent =|__VLS_fnComponent =) \(await import\(\S+\)\)\.defineComponent\({\n)/g
+  /(?<=\(await import\(\S+\)\)\.defineComponent\({\n)/g
 
 export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
   if (codes.includes('__VLS_TypePropsToOption<')) return

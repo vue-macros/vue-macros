@@ -72,24 +72,30 @@ export function transformVSlot(
         let isDynamic = false
         let attributeName = getText(attribute.name, options)
           .slice(6)
-          .split(' ')[0]
+          .split(/\s/)[0]
           .replace(/\$(.*)\$/, (_, $1) => {
             isDynamic = true
             return $1
           })
         const isNamespace = attributeName.startsWith(':')
         attributeName = attributeName.slice(1)
+        const wrapByQuotes = !attributeName || attributeName.includes('-')
         result.push(
           isNamespace
             ? [
-                isDynamic ? `[${attributeName}]` : `'${attributeName}'`,
+                isDynamic
+                  ? `[${attributeName}]`
+                  : wrapByQuotes
+                    ? `'${attributeName}'`
+                    : attributeName,
                 source,
-                getStart(attribute.name, options) + (isDynamic ? 7 : 6),
+                getStart(attribute.name, options) + (wrapByQuotes ? 6 : 7),
                 allCodeFeatures,
               ]
             : 'default',
           `: (`,
-          isJsxExpression(attribute.initializer) &&
+          (!isNamespace || attributeName) &&
+            isJsxExpression(attribute.initializer) &&
             attribute.initializer.expression
             ? ([
                 getText(attribute.initializer.expression, options),
@@ -153,8 +159,10 @@ export function transformVSlot(
         codes,
         source,
         vSlotAttribute.pos,
-        vSlotAttribute.end,
+        vSlotAttribute.end + 1,
         ...result,
+        // Fix `v-slot:` without type hints
+        sfc[source]!.content.slice(vSlotAttribute.end, vSlotAttribute.end + 1),
       )
     } else if (ts.isJsxElement(node)) {
       replaceSourceRange(
@@ -167,8 +175,8 @@ export function transformVSlot(
       replaceSourceRange(
         codes,
         source,
-        node.closingElement!.pos!,
-        node.closingElement!.pos!,
+        node.closingElement.pos,
+        node.closingElement.pos,
         attributeMap.has(null) ? `</>${slotType}>` : '>',
       )
     }

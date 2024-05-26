@@ -12,7 +12,7 @@ export function transformVModel(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, source } = options
+  const { codes, ts, source, sfc } = options
   let firstNamespacedNode:
     | { attribute: JsxDirective['attribute']; node: JsxDirective['node'] }
     | undefined
@@ -35,7 +35,7 @@ export function transformVModel(
       const attributeName = camelize(
         name
           .slice(8)
-          .split(' ')[0]
+          .split(/\s/)[0]
           .split('_')[0]
           .replace(/^\$(.*)\$/, (_, $1) => {
             isDynamic = true
@@ -113,10 +113,12 @@ export function transformVModel(
     codes,
     source,
     getStart(attribute, options),
-    attribute.end,
+    attribute.end + 1,
     `{...{`,
     ...result,
-    `} satisfies __VLS_GetModels<__VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>, typeof ${ctxMap.get(node)}.props>}`,
+    `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>, __VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>>}`,
+    // Fix `v-model:` without type hints
+    sfc[source]!.content.slice(attribute.end, attribute.end + 1),
   )
 }
 
@@ -124,19 +126,36 @@ function getModelsType(codes: Code[]) {
   if (codes.toString().includes('type __VLS_GetModels')) return
 
   codes.push(`
+type __VLS_NormalizeProps<T> = T extends object
+  ? {
+      [K in keyof T as {} extends Record<K, 1>
+        ? never
+        : K extends keyof import('vue').VNodeProps | 'class' | 'style'
+          ? never
+          : K extends \`on\${infer F}\${infer _}\`
+            ? F extends Uppercase<F>
+              ? never
+              : K
+            : K]: T[K]
+    }
+  : never;
 type __VLS_CamelCase<S extends string> = S extends \`\${infer F}-\${infer RF}\${infer R}\`
   ? \`\${F}\${Uppercase<RF>}\${__VLS_CamelCase<R>}\`
   : S;
-type __VLS_RemoveUpdatePrefix<T> = T extends \`update:modelValue\`
-  ? never
-  : T extends \`update:\${infer R}\`
-    ? __VLS_CamelCase<R>
-    : T;
-type __VLS_GetModels<E, P> = E extends object
+type __VLS_EmitsToProps<T> = T extends object
   ? {
-      [K in keyof E as __VLS_RemoveUpdatePrefix<K>]: P extends object 
-        ? P[__VLS_RemoveUpdatePrefix<K>]
-        : never
+      [K in keyof T as K extends \`update:\${infer R}\`
+        ? R extends 'modelValue'
+          ? never
+          : __VLS_CamelCase<R>
+        : never]: T[K]
+    }
+  : never;
+type __VLS_GetModels<P, E> = E extends object
+  ? {
+      [K in keyof __VLS_EmitsToProps<E> as K extends keyof P
+        ? K
+        : never]: K extends keyof P ? P[K] : never
     }
   : {};
 `)
