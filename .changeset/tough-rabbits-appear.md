@@ -2,4 +2,4 @@
 "@vue-macros/volar": patch
 ---
 
-fix `v-slot:` & `v-model:` without type hints
+add type hint for `v-slot:` & `v-model:`

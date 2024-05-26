@@ -72,7 +72,7 @@ export function transformVSlot(
         let isDynamic = false
         let attributeName = getText(attribute.name, options)
           .slice(6)
-          .split(' ')[0]
+          .split(/\s/)[0]
           .replace(/\$(.*)\$/, (_, $1) => {
             isDynamic = true
             return $1
@@ -94,7 +94,8 @@ export function transformVSlot(
               ]
             : 'default',
           `: (`,
-          isJsxExpression(attribute.initializer) &&
+          (!isNamespace || attributeName) &&
+            isJsxExpression(attribute.initializer) &&
             attribute.initializer.expression
             ? ([
                 getText(attribute.initializer.expression, options),
