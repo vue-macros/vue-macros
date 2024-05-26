@@ -12,7 +12,7 @@ export function transformVModel(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, source } = options
+  const { codes, ts, source, sfc } = options
   let firstNamespacedNode:
     | { attribute: JsxDirective['attribute']; node: JsxDirective['node'] }
     | undefined
@@ -113,10 +113,12 @@ export function transformVModel(
     codes,
     source,
     getStart(attribute, options),
-    attribute.end,
+    attribute.end + 1,
     `{...{`,
     ...result,
     `} satisfies __VLS_GetModels<__VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>, typeof ${ctxMap.get(node)}.props>}`,
+    // Fix `v-model:` without type hints
+    sfc[source]!.content.slice(attribute.end, attribute.end + 1),
   )
 }
 

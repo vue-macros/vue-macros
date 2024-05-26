@@ -158,8 +158,10 @@ export function transformVSlot(
         codes,
         source,
         vSlotAttribute.pos,
-        vSlotAttribute.end,
+        vSlotAttribute.end + 1,
         ...result,
+        // Fix `v-slot:` without type hints
+        sfc[source]!.content.slice(vSlotAttribute.end, vSlotAttribute.end + 1),
       )
     } else if (ts.isJsxElement(node)) {
       replaceSourceRange(
@@ -172,8 +174,8 @@ export function transformVSlot(
       replaceSourceRange(
         codes,
         source,
-        node.closingElement!.pos!,
-        node.closingElement!.pos!,
+        node.closingElement.pos,
+        node.closingElement.pos,
         attributeMap.has(null) ? `</>${slotType}>` : '>',
       )
     }

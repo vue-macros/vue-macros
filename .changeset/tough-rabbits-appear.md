@@ -2,4 +2,4 @@
 "@vue-macros/volar": patch
 ---
 
-better type hint for jsx-directive/v-slot
+fix `v-slot` & `v-model` without type hints
