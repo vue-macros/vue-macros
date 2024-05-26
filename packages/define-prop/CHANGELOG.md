@@ -1,5 +1,15 @@
 # @vue-macros/define-prop
 
+## 0.3.7
+
+### Patch Changes
+
+- [#510](https://github.com/vue-macros/vue-macros/pull/510) [`a883ee3`](https://github.com/vue-macros/vue-macros/commit/a883ee34148d568af5752d3e673c56666485847c) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add reactivity transform support to defineProp
+
+- Updated dependencies [[`a883ee3`](https://github.com/vue-macros/vue-macros/commit/a883ee34148d568af5752d3e673c56666485847c)]:
+  - @vue-macros/common@1.10.4
+  - @vue-macros/api@0.9.7
+
 ## 0.3.6
 
 ### Patch Changes
