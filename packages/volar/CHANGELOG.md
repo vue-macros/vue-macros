@@ -1,5 +1,21 @@
 # @vue-macros/volar
 
+## 0.21.0
+
+### Minor Changes
+
+- [#510](https://github.com/vue-macros/vue-macros/pull/510) [`a883ee3`](https://github.com/vue-macros/vue-macros/commit/a883ee34148d568af5752d3e673c56666485847c) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add reactivity transform support to defineProp
+
+### Patch Changes
+
+- [#689](https://github.com/vue-macros/vue-macros/pull/689) [`a2486ca`](https://github.com/vue-macros/vue-macros/commit/a2486cafde8ac9ceeed3102bbe5d0dac40ee01c8) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add type hint for `v-slot:` & `v-model:`
+
+- Updated dependencies [[`a883ee3`](https://github.com/vue-macros/vue-macros/commit/a883ee34148d568af5752d3e673c56666485847c)]:
+  - @vue-macros/common@1.10.4
+  - @vue-macros/define-props@2.0.6
+  - @vue-macros/short-bind@0.2.5
+  - @vue-macros/short-vmodel@1.4.5
+
 ## 0.20.0
 
 ### Minor Changes
