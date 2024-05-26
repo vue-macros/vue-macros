@@ -10,7 +10,7 @@
 |    Nuxt 3    | :white_check_mark: |
 |    Vue 2     | :white_check_mark: |
 |  TypeScript  | :white_check_mark: |
-| Volar Plugin |        :x:         |
+| Volar Plugin | :white_check_mark: |
 
 ::: warning
 
@@ -61,4 +61,19 @@ const decrement = defineEmit<[value: number]>()
 increment(2) // pass
 increment('2') // TS type error
 </script>
+```
+
+## Volar 配置
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3, // 或 2.7 用于 Vue 2
+    "plugins": [
+      "@vue-macros/volar/define-emit",
+      // ...更多功能
+    ],
+  },
+}
 ```

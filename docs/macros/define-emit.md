@@ -10,7 +10,7 @@ Declare single emit one by one using `defineEmit`.
 |    Nuxt 3    | :white_check_mark: |
 |    Vue 2     | :white_check_mark: |
 |  TypeScript  | :white_check_mark: |
-| Volar Plugin |        :x:         |
+| Volar Plugin | :white_check_mark: |
 
 ::: warning
 
@@ -61,4 +61,19 @@ const decrement = defineEmit<[value: number]>()
 increment(2) // pass
 increment('2') // TS type error
 </script>
+```
+
+## Volar Configuration
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3, // or 2.7 for Vue 2
+    "plugins": [
+      "@vue-macros/volar/define-emit",
+      // ...more feature
+    ],
+  },
+}
 ```

@@ -14,7 +14,7 @@ const baz = defineEmit<(value: number) => void>(
 expectTypeOf(baz).toEqualTypeOf<(value: number) => void>()
 
 const qux = defineEmit<[value: string]>(
-  'baz',
+  'qux',
   (value) => typeof value === 'string',
 )
 expectTypeOf(qux).toEqualTypeOf<(value: string) => void>()
