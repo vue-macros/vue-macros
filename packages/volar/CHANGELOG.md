@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.21.1
+
+### Patch Changes
+
+- [#693](https://github.com/vue-macros/vue-macros/pull/693) [`2ae2495`](https://github.com/vue-macros/vue-macros/commit/2ae249597dbb833089ee9ae4eda50c945c1bb797) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - $defineProp and defineSlots co-usage #692
+
 ## 0.21.0
 
 ### Minor Changes
