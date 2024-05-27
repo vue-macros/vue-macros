@@ -69,7 +69,8 @@ declare function $defineProp<T>(
 declare function $defineProp<T>(
   name?: string,
   options?: __VLS_PropOptions<T>
-): T | undefined`)
+): T | undefined;
+`)
   } else if (
     vueCompilerOptions.experimentalDefinePropProposal === 'johnsonEdition'
   ) {
