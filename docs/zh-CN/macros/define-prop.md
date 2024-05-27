@@ -132,12 +132,10 @@ const disabled = defineProp<boolean>(true)
 // Kevin's Edition
 const foo = $defineProp('foo', { default: 'foo' })
 const bar = $(defineProp('bar', { default: 'bar', required: true }))
-console.log(foo, bar)
 
 // Johnson's Edition
 const foo = $defineProp('foo')
 const bar = $(defineProp('bar', true))
-console.log(foo, bar)
 </script>
 ```
 

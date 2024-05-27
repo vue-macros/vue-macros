@@ -59,13 +59,13 @@ function transformDefineProp({
 type __VLS_PropOptions<T> = Exclude<
   import('${vueLibName}').Prop<T>,
   import('${vueLibName}').PropType<T>
->
+>;
 declare function $defineProp<T>(
   name: string,
   options: 
     | ({ default: T } & __VLS_PropOptions<T>)
     | ({ required: true } & __VLS_PropOptions<T>)
-): T
+): T;
 declare function $defineProp<T>(
   name?: string,
   options?: __VLS_PropOptions<T>
@@ -76,30 +76,30 @@ declare function $defineProp<T>(
     codes.push(`
 type __VLS_Widen<T> = T extends number | string | boolean | symbol
   ? ReturnType<T['valueOf']>
-  : T
+  : T;
 type __VLS_PropOptions<T> = Omit<
   Omit<
     Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>, 
     'default'
   >,
   'required'
->
+>;
 declare function $defineProp<T>(
   value: T | (() => T) | undefined,
   required: true,
   options?: __VLS_PropOptions<T>
-): __VLS_Widen<T>
+): __VLS_Widen<T>;
 declare function $defineProp<T>(
   value: T | (() => T),
   required?: boolean,
   options?: __VLS_PropOptions<T>
-): __VLS_Widen<T>
+): __VLS_Widen<T>;
 declare function $defineProp<T>(
   value?: T | (() => T),
   required?: boolean,
   options?: __VLS_PropOptions<T>
 ): | __VLS_Widen<T>
-   | undefined
+   | undefined;
 `)
   }
 }
