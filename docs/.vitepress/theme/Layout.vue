@@ -2,6 +2,16 @@
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { nextTick, provide } from 'vue'
+import {
+  NolebaseEnhancedReadabilitiesMenu,
+  NolebaseEnhancedReadabilitiesScreenMenu,
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import { NolebaseHighlightTargetedHeading } from '@nolebase/vitepress-plugin-highlight-targeted-heading/client'
+
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
+import '@nolebase/vitepress-plugin-enhanced-mark/client/style.css'
+import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css'
+
 import HomePage from '../components/HomePage.vue'
 
 const { isDark } = useData()
@@ -45,6 +55,15 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   <DefaultTheme.Layout>
     <template #home-features-after>
       <HomePage />
+    </template>
+    <template #nav-bar-content-after>
+      <NolebaseEnhancedReadabilitiesMenu />
+    </template>
+    <template #nav-screen-content-after>
+      <NolebaseEnhancedReadabilitiesScreenMenu />
+    </template>
+    <template #layout-top>
+      <NolebaseHighlightTargetedHeading />
     </template>
   </DefaultTheme.Layout>
 </template>
