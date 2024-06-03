@@ -14,6 +14,17 @@ export default {
   enhanceApp({ app }: EnhanceAppContext) {
     app.component('WarnBadge', WarnBadge)
     app.component('StabilityLevel', StabilityLevel)
-    app.use(NolebaseGitChangelogPlugin)
+    app.use(NolebaseGitChangelogPlugin, {
+      mapAuthors: [
+        {
+          name: 'Kevin Deng',
+          mapByNameAliases: [
+            '三咲智子 Kevin Deng',
+            '三咲智子',
+            '三咲智子 (Kevin)',
+          ],
+        },
+      ],
+    })
   },
 }
