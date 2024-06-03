@@ -70,7 +70,8 @@ const { foo } = defineProps<{ foo: string }>().withDefaults({
 
 ```vue
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros' assert { type: 'macro' }
+import { defineProps } from 'unplugin-vue-macros/macros' assert { type:
+  'macro' }
 
 defineProps<{
   /* ... */

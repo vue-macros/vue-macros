@@ -70,7 +70,8 @@ To fully support TypeScript, you need to import this macro from `unplugin-vue-ma
 
 ```vue
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros' assert { type: 'macro' }
+import { defineProps } from 'unplugin-vue-macros/macros' assert { type:
+  'macro' }
 
 defineProps<{
   /* ... */
