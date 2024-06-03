@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros' assert { type: 'macro' }
+import { defineProps } from 'unplugin-vue-macros/macros' assert { type:
+  'macro' }
 import { Assert } from '../../assert'
 
 defineProps<{

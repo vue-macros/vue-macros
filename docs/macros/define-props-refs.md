@@ -31,7 +31,7 @@ console.log(foo.value, bar.value)
 
 ```vue {2-3,8}
 <script setup lang="ts">
-import { withDefaults } from 'unplugin-vue-macros/macros' assert { type: 'macro' }
+import { withDefaults } from 'unplugin-vue-macros/macros' with { type: 'macro' }
 
 const { foo } = withDefaults(
   definePropsRefs<{
