@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { defineProps } from '../../macros' assert { type: 'macro' }
+import { defineProps } from '../../macros' with { type: 'macro' }
 
 defineProps<{
   foo?: string

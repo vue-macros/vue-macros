@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits } from '../../macros' assert { type: 'macro' }
+import { defineEmits } from '../../macros' with { type: 'macro' }
 
 const emit = defineEmits<{
   // TSPropertySignature

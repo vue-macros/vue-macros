@@ -1,4 +1,4 @@
-import { githubLink } from '#macros' assert { type: 'macro' }
+import { githubLink } from '#macros' with { type: 'macro' }
 
 export const DEFINE_PROPS = 'defineProps'
 export const DEFINE_PROPS_DOLLAR = '$defineProps'

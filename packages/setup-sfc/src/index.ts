@@ -6,7 +6,7 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import { hotUpdateSetupSFC, transformSetupSFC } from './core'
 
 export type Options = BaseOptions

@@ -10,7 +10,7 @@ import {
   createFilter,
   detectVueVersion,
 } from '@vue-macros/common'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   SETUP_COMPONENT_ID_REGEX,
   type SetupComponentContext,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
-import { Prettify, defineProps } from '../../macros' assert { type: 'macro' }
+import { Prettify, defineProps } from '../../macros' with { type: 'macro' }
 
 const props = defineProps<{
   foo?: string
