@@ -84,8 +84,16 @@
       ]
     },
     "overrides": {
+      "@vue/compiler-core": "alpha",
+      "@vue/compiler-dom": "alpha",
+      "@vue/compiler-sfc": "alpha",
+      "@vue/reactivity": "alpha",
+      "@vue/runtime-core": "alpha",
+      "@vue/runtime-dom": "alpha",
+      "@vue/shared": "alpha",
       "is-core-module": "npm:@no-shims/is-core-module",
-      "smartwrap": "npm:@no-shims/smartwrap"
+      "smartwrap": "npm:@no-shims/smartwrap",
+      "vue": "alpha"
     }
   },
   "prettier": "@sxzz/prettier-config"
