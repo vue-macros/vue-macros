@@ -51,29 +51,6 @@ export { declare as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/destruct.vue 1`] = `
-"import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
-
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "destruct",
-  props: {
-    foo: { type: String, required: false, default: "111" }
-  },
-  setup(__props) {
-    const { foo } = __props;
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", null, toDisplayString(foo));
-    };
-  }
-});
-
-var destruct = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
-
-export { destruct as default };
-"
-`;
-
 exports[`fixtures > tests/fixtures/empty.vue 1`] = `
 "import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
