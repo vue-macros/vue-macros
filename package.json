@@ -88,9 +88,17 @@
       ]
     },
     "overrides": {
+      "@vue/compiler-core": "catalog:",
+      "@vue/compiler-dom": "catalog:",
+      "@vue/compiler-sfc": "catalog:",
+      "@vue/reactivity": "catalog:",
+      "@vue/runtime-core": "catalog:",
+      "@vue/runtime-dom": "catalog:",
+      "@vue/shared": "catalog:",
       "esbuild": "^0.23.0",
       "is-core-module": "npm:@no-shims/is-core-module",
-      "smartwrap": "npm:@no-shims/smartwrap"
+      "smartwrap": "npm:@no-shims/smartwrap",
+      "vue": "catalog:"
     }
   },
   "prettier": "@sxzz/prettier-config"
