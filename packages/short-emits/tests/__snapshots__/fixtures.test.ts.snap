@@ -31,7 +31,7 @@ emit(0, false)
 
 exports[`fixtures > ./fixtures/without-se.vue 1`] = `
 "<script setup lang="ts">
-import { defineEmits } from '../../macros' assert { type: 'macro' }
+import { defineEmits } from '../../macros' with { type: 'macro' }
 
 const emit = defineEmits<{
   // TSPropertySignature

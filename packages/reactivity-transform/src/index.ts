@@ -10,7 +10,7 @@ import {
   getFilterPattern,
   normalizePath,
 } from '@vue-macros/common'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import { shouldTransform, transform, transformVueSFC } from './core'
 import { helperCode, helperId } from './core/helper'
 

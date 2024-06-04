@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
 import { ComputedRef } from 'vue'
-import { withDefaults } from '../../macros' assert { type: 'macro' }
+import { withDefaults } from '../../macros' with { type: 'macro' }
 
 const { foo, bar } = withDefaults(
   definePropsRefs<{

@@ -10,7 +10,7 @@ import {
   normalizePath,
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import { type Edition, transformDefineProp } from './core'
 import { helperCode, helperId } from './core/helper'
 import type { PluginContext } from 'rollup'

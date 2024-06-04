@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
-import { defineProps } from '../../macros' assert { type: 'macro' }
+import { defineProps } from '../../macros' with { type: 'macro' }
 
 const props = defineProps<{
   bar?: boolean

@@ -20,7 +20,7 @@ import {
   type PluginType,
   createCombinePlugin,
 } from 'unplugin-combine'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import { excludeDepOptimize } from './core'
 
 import VueBetterDefine, {

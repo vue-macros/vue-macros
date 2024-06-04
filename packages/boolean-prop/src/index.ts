@@ -1,5 +1,5 @@
 import { type VuePluginApi, getVuePluginApi } from '@vue-macros/common'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import { type Options, transformBooleanProp } from './core/index'
 import type { Plugin } from 'vite'
 

@@ -9,7 +9,7 @@ import {
   getFilterPattern,
 } from '@vue-macros/common'
 import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformDefineEmit } from './core'
 import type { PluginContext } from 'rollup'
 

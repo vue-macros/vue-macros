@@ -7,7 +7,7 @@ import {
   detectVueVersion,
   getFilterPattern,
 } from '@vue-macros/common'
-import { generatePluginName } from '#macros' assert { type: 'macro' }
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformDefineProps } from './core'
 
 export type Options = BaseOptions
