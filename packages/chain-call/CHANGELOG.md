@@ -1,5 +1,12 @@
 # @vue-macros/chain-call
 
+## 0.3.0
+### Minor Changes
+
+
+
+- [`128fda6`](https://github.com/vue-macros/vue-macros/commit/128fda6e9de369d7c66a80244beaefcdebb571fd) Thanks [@sxzz](https://github.com/sxzz)! - drop destructure support
+
 ## 0.2.5
 
 ### Patch Changes
