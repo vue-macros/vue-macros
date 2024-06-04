@@ -1,5 +1,11 @@
 # unplugin-vue-macros
 
+## 2.9.4
+### Patch Changes
+
+- Updated dependencies [[`128fda6`](https://github.com/vue-macros/vue-macros/commit/128fda6e9de369d7c66a80244beaefcdebb571fd)]:
+  - @vue-macros/chain-call@0.3.0
+
 ## 2.9.3
 
 ### Patch Changes
