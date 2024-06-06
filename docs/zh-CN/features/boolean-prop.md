@@ -41,3 +41,18 @@ defineProps<{
 }>()
 </script>
 ```
+
+## Volar 配置
+
+```jsonc {6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/boolean-prop",
+      // ...更多功能
+    ],
+  },
+}
+```

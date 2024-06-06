@@ -733,6 +733,9 @@ importers:
       '@rollup/pluginutils':
         specifier: ^5.1.0
         version: 5.1.0(rollup@4.18.0)
+      '@vue-macros/boolean-prop':
+        specifier: workspace:*
+        version: link:../boolean-prop
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common

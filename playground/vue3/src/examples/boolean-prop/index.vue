@@ -3,5 +3,5 @@ import Child from './child.vue'
 </script>
 
 <template>
-  <Child checked />
+  <Child checked !enabled />
 </template>
