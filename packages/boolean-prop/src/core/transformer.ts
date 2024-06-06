@@ -11,9 +11,9 @@ export interface Options {
   negativePrefix?: string
 }
 
-export function transformBooleanProp(
-  options: Options = { negativePrefix: '!' },
-): NodeTransform {
+export function transformBooleanProp({
+  negativePrefix = '!',
+}: Options = {}): NodeTransform {
   return (node) => {
     if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
     for (const [i, prop] of node.props.entries()) {
@@ -23,51 +23,27 @@ export function transformBooleanProp(
       )
         continue
 
-      let { negativePrefix } = options
-      negativePrefix ||= '!'
-      if (prop.name.slice(0, 1) === negativePrefix) {
-        const propName = prop.name.slice(1)
-        node.props[i] = {
-          type: 7 satisfies NodeTypes.DIRECTIVE,
-          name: 'bind',
-          arg: {
-            type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-            constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-            content: propName,
-            isStatic: true,
-            loc: prop.loc,
-          },
-          exp: {
-            type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-            constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-            content: 'false',
-            isStatic: false,
-            loc: prop.loc,
-          },
+      const isNegative = prop.name[0] === negativePrefix
+      const propName = isNegative ? prop.name.slice(1) : prop.name
+      node.props[i] = {
+        type: 7 satisfies NodeTypes.DIRECTIVE,
+        name: 'bind',
+        arg: {
+          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
+          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
+          content: propName,
+          isStatic: true,
           loc: prop.loc,
-          modifiers: [],
-        }
-      } else {
-        node.props[i] = {
-          type: 7 satisfies NodeTypes.DIRECTIVE,
-          name: 'bind',
-          arg: {
-            type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-            constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-            content: prop.name,
-            isStatic: true,
-            loc: prop.loc,
-          },
-          exp: {
-            type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-            constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-            content: 'true',
-            isStatic: false,
-            loc: prop.loc,
-          },
+        },
+        exp: {
+          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
+          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
+          content: String(!isNegative),
+          isStatic: false,
           loc: prop.loc,
-          modifiers: [],
-        }
+        },
+        loc: prop.loc,
+        modifiers: [],
       }
     }
   }
