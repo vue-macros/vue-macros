@@ -8,5 +8,6 @@ export const { a: a1, b, c } = { a: 1, b: 2, c: 3 }
 export function fn() {}
 export class A {}
 
+const a = 1
 export { foo as foo1, bar }
 </script>
