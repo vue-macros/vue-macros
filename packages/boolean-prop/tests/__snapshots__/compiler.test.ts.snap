@@ -58,3 +58,121 @@ exports[`compiler > basic 1`] = `
   "type": 7,
 }
 `;
+
+exports[`compiler > false prop 1`] = `
+{
+  "arg": {
+    "constType": 3,
+    "content": "checked",
+    "isStatic": true,
+    "loc": {
+      "end": {
+        "column": 16,
+        "line": 1,
+        "offset": 15,
+      },
+      "source": "!checked",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "exp": {
+    "constType": 3,
+    "content": "false",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 16,
+        "line": 1,
+        "offset": 15,
+      },
+      "source": "!checked",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 16,
+      "line": 1,
+      "offset": 15,
+    },
+    "source": "!checked",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "bind",
+  "type": 7,
+}
+`;
+
+exports[`compiler > false prop prefix 1`] = `
+{
+  "arg": {
+    "constType": 3,
+    "content": "checked",
+    "isStatic": true,
+    "loc": {
+      "end": {
+        "column": 16,
+        "line": 1,
+        "offset": 15,
+      },
+      "source": "~checked",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "exp": {
+    "constType": 3,
+    "content": "false",
+    "isStatic": false,
+    "loc": {
+      "end": {
+        "column": 16,
+        "line": 1,
+        "offset": 15,
+      },
+      "source": "~checked",
+      "start": {
+        "column": 8,
+        "line": 1,
+        "offset": 7,
+      },
+    },
+    "type": 4,
+  },
+  "loc": {
+    "end": {
+      "column": 16,
+      "line": 1,
+      "offset": 15,
+    },
+    "source": "~checked",
+    "start": {
+      "column": 8,
+      "line": 1,
+      "offset": 7,
+    },
+  },
+  "modifiers": [],
+  "name": "bind",
+  "type": 7,
+}
+`;
