@@ -1,4 +1,3 @@
-import type { BaseOptions } from '@vue-macros/common'
 import type {
   ConstantTypes,
   NodeTransform,
