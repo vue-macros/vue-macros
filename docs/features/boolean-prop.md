@@ -4,6 +4,8 @@
 
 Convert `<Comp checked />` to `<Comp :checked="true" />`.
 
+Convert `<Comp !checked />` to `<Comp :checked="false" />`.
+
 |   Features   |     Supported      |
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
@@ -11,11 +13,22 @@ Convert `<Comp checked />` to `<Comp :checked="true" />`.
 |    Vue 2     |        :x:         |
 | Volar Plugin | :white_check_mark: |
 
+## Options
+
+```ts
+interface Options {
+  /**
+   * @default '!'
+   */
+  negativePrefix?: string
+}
+```
+
 ## Usage
 
 ```vue
 <template>
-  <Comp checked />
+  <Comp checked !enabled />
 </template>
 ```
 
@@ -24,6 +37,7 @@ Convert `<Comp checked />` to `<Comp :checked="true" />`.
 // Comp.vue
 defineProps<{
   checked?: any
+  enabled: boolean
 }>()
 </script>
 ```
