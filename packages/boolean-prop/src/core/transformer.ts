@@ -8,11 +8,11 @@ export interface Options {
   /**
    * @default '!'
    */
-  prefix?: string
+  negativePrefix?: string
 }
 
 export function transformBooleanProp(
-  options: Options = { prefix: '!' },
+  options: Options = { negativePrefix: '!' },
 ): NodeTransform {
   return (node) => {
     if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
@@ -23,9 +23,9 @@ export function transformBooleanProp(
       )
         continue
 
-      let { prefix } = options
-      prefix ||= '!'
-      if (prop.name.slice(0, 1) === prefix) {
+      let { negativePrefix } = options
+      negativePrefix ||= '!'
+      if (prop.name.slice(0, 1) === negativePrefix) {
         const propName = prop.name.slice(1)
         node.props[i] = {
           type: 7 satisfies NodeTypes.DIRECTIVE,

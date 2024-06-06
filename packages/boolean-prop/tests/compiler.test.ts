@@ -2,7 +2,7 @@ import { compileTemplate } from '@vue/compiler-sfc'
 import { describe, expect, test } from 'vitest'
 import { transformBooleanProp } from '../src'
 
-function compile(code: string, prefix?: string) {
+function compile(code: string, negativePrefix?: string) {
   return compileTemplate({
     source: code,
     filename: 'anonymous.vue',
@@ -10,7 +10,7 @@ function compile(code: string, prefix?: string) {
     compilerOptions: {
       nodeTransforms: [
         transformBooleanProp({
-          prefix,
+          negativePrefix,
         }),
       ],
     },

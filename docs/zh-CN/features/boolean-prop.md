@@ -20,7 +20,7 @@ interface Options {
   /**
    * @default '!'
    */
-  prefix?: string
+  negativePrefix?: string
 }
 ```
 
