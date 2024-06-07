@@ -26,7 +26,7 @@ export function transformBooleanProp({
 
       const isNegative = prop.name[0] === negativePrefix
       const propName = isNegative ? prop.name.slice(1) : prop.name
-      const valueName = String(!isNegative)
+      const value = String(!isNegative)
       if (isNegative) prop.loc.start.offset++
       node.props[i] = {
         type: 7 satisfies NodeTypes.DIRECTIVE,
@@ -41,7 +41,7 @@ export function transformBooleanProp({
         exp: {
           type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
           constType,
-          content: valueName,
+          content: value,
           isStatic: false,
           loc: {
             start: {
@@ -49,7 +49,7 @@ export function transformBooleanProp({
               offset: prop.loc.start.offset + 1,
             },
             end: prop.loc.end,
-            source: valueName,
+            source: value,
           },
         },
         loc: prop.loc,
