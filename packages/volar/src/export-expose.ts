@@ -71,7 +71,7 @@ function transform(options: {
             'scriptSetup',
             start,
             end,
-            `(({`,
+            `;(({`,
             ...Array.from(exportMap.entries()).flatMap(([name, value]) =>
               name[0] === value[0] ? [value, ','] : [name, ':', value, ','],
             ),
