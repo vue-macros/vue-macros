@@ -13,7 +13,8 @@ export interface Options {
 
 export function transformBooleanProp({
   negativePrefix = '!',
-}: Options = {}): NodeTransform {
+  constType = 3 satisfies ConstantTypes.CAN_STRINGIFY,
+}: Options & { constType?: ConstantTypes } = {}): NodeTransform {
   return (node) => {
     if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
     for (const [i, prop] of node.props.entries()) {
@@ -25,6 +26,8 @@ export function transformBooleanProp({
 
       const isNegative = prop.name[0] === negativePrefix
       const propName = isNegative ? prop.name.slice(1) : prop.name
+      const value = String(!isNegative)
+      if (isNegative) prop.loc.start.offset++
       node.props[i] = {
         type: 7 satisfies NodeTypes.DIRECTIVE,
         name: 'bind',
@@ -37,10 +40,17 @@ export function transformBooleanProp({
         },
         exp: {
           type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
-          content: String(!isNegative),
+          constType,
+          content: value,
           isStatic: false,
-          loc: prop.loc,
+          loc: {
+            start: {
+              ...prop.loc.start,
+              offset: prop.loc.start.offset + 1,
+            },
+            end: prop.loc.end,
+            source: value,
+          },
         },
         loc: prop.loc,
         modifiers: [],

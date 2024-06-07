@@ -6,7 +6,10 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const _sfc_main = {};
 
-const _hoisted_1 = { checked: true };
+const _hoisted_1 = {
+  checked: true,
+  enabled: false
+};
 
 function _sfc_render(_ctx, _cache) {
   return (openBlock(), createElementBlock("input", _hoisted_1))

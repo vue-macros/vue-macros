@@ -1,3 +1,3 @@
 <template>
-  <input checked />
+  <input checked !enabled />
 </template>

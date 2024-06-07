@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { Assert } from '../../assert'
 defineProps<{
-  checked?: any
+  checked?: boolean
+  enabled: boolean
 }>()
 </script>
 
 <template>
   <Assert :l="checked" :r="true" />
+  <Assert :l="enabled" :r="false" />
 </template>

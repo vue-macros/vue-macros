@@ -144,6 +144,7 @@ npm i -D @vue-macros/volar
       "@vue-macros/volar/define-slots",
       "@vue-macros/volar/jsx-directive",
       "@vue-macros/volar/setup-jsdoc",
+      "@vue-macros/volar/boolean-prop",
 
       // Choose only one of the following
       // "@vue-macros/volar/export-expose",
