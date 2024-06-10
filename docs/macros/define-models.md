@@ -30,7 +30,7 @@ VueMacros({
 
 Requires [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core), install it by yourself before using.
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const { modelValue, count } = defineModels<{
   modelValue: string
@@ -56,7 +56,7 @@ const { modelValue } = defineModels({
 
 ## With Model Options
 
-```vue 3-6
+```vue twoslash 3-6
 <script setup lang="ts">
 const { modelValue } = defineModels<{
   modelValue: ModelOptions<
@@ -77,7 +77,7 @@ Assignment expression is only supported in `<script setup>` block. In other word
 
 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) is not required.
 
-```vue {7-9}
+```vue twoslash {7-9}
 <script setup lang="ts">
 let { modelValue, count } = $defineModels<{
   modelValue: string
@@ -92,7 +92,7 @@ count++
 
 ::: details Compiled Code
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const { modelValue, count } = defineProps<{
   modelValue: string

@@ -1,14 +1,12 @@
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { defineConfig } from 'tsup'
+import config from '../../tsup.config.js'
 
 export default defineConfig({
+  ...config,
   entry: ['./src/*.ts', '!./src/*.d.ts', '!./src/common.ts'],
-  format: ['cjs'],
-  target: 'node16.14',
   splitting: false,
-  dts: false,
-  clean: true,
   esbuildPlugins: [
     {
       name: 'rewrite-export-default',

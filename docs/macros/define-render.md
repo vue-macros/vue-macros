@@ -15,7 +15,7 @@ We need more feedback on [RFC Discussion](https://github.com/vuejs/rfcs/discussi
 
 ## Basic Usage
 
-```vue
+```vue twoslash
 <script setup lang="tsx">
 // JSX passed directly
 defineRender(

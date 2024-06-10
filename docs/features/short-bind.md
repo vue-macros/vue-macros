@@ -17,12 +17,14 @@ A shorthand for binding prop with the same data name.
 
 ### Basic Usage
 
-```vue
+```vue twoslash
+<script setup>
+const foo = 'foo'
+</script>
+
 <template>
-  <input :msg />
-  <!-- => <input :msg="msg" /> -->
-  <demo $msg />
-  <!-- => <input $msg="msg" /> -->
+  <input :foo />
+  <!-- => <input :foo="foo" /> -->
 </template>
 ```
 
@@ -30,12 +32,12 @@ A shorthand for binding prop with the same data name.
 
 ```vue
 <template>
-  <input ::msg />
-  <!-- => <input ::msg="msg" /> => <input v-model:msg="msg" /> -->
-  <demo $msg />
-  <!-- => <input $msg="msg" /> => <input v-model:msg="msg" /> -->
-  <demo *msg />
-  <!-- => <input *msg="msg" /> => <input v-model:msg="msg" /> -->
+  <input ::foo />
+  <!-- => <input ::foo="foo" /> => <input v-model:foo="foo" /> -->
+  <input $foo />
+  <!-- => <input $foo="foo" /> => <input v-model:foo="foo" /> -->
+  <input *foo />
+  <!-- => <input *foo="foo" /> => <input v-model:foo="foo" /> -->
 </template>
 ```
 
@@ -49,17 +51,6 @@ A shorthand for binding prop with the same data name.
       "@vue-macros/volar/short-bind",
       // ...
     ],
-  },
-}
-```
-
-## ESLint Configuration
-
-```jsonc {4}
-// .eslintrc
-{
-  "rules": {
-    "vue/valid-v-bind": "off",
   },
 }
 ```

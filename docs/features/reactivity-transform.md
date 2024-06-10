@@ -88,7 +88,7 @@ Ever since the introduction of the Composition API, one of the primary unresolve
 
 Reactivity Transform is a compile-time transform that allows us to write code like this:
 
-```vue
+```vue twoslash
 <script setup>
 let count = $ref(0)
 
@@ -108,7 +108,7 @@ The `$ref()` method here is a **compile-time macro**: it is not an actual method
 
 Reactive variables can be accessed and re-assigned just like normal variables, but these operations are compiled into refs with `.value`. For example, the `<script>` part of the above component is compiled into:
 
-```js{5,8}
+```js{5,8} twoslash
 import { ref } from 'vue'
 
 let count = ref(0)
@@ -130,7 +130,7 @@ Every reactivity API that returns refs will have a `$`-prefixed macro equivalent
 
 These macros are globally available and do not need to be imported when Reactivity Transform is enabled, but you can optionally import them from `unplugin-vue-macros/macros` or `@vue-macros/reactivity-transform/macros-global` if you want to be more explicit:
 
-```js
+```js twoslash
 import { $ref } from 'unplugin-vue-macros/macros'
 // for standalone version:
 // import { $ref } from '@vue-macros/reactivity-transform/macros-global'
@@ -142,7 +142,7 @@ const count = $ref(0)
 
 It is common for a composition function to return an object of refs, and use destructuring to retrieve these refs. For this purpose, reactivity transform provides the **`$()`** macro:
 
-```js
+```js twoslash
 import { useMouse } from '@vueuse/core'
 
 const { x, y } = $(useMouse())
@@ -152,7 +152,7 @@ console.log(x, y)
 
 Compiled output:
 
-```js
+```js twoslash
 import { toRef } from 'vue'
 import { useMouse } from '@vueuse/core'
 
@@ -171,7 +171,9 @@ Note that if `x` is already a ref, `toRef(__temp, 'x')` will simply return it as
 
 In some cases we may have wrapped functions that also return refs. However, the Vue compiler won't be able to know ahead of time that a function is going to return a ref. In such cases, the `$()` macro can also be used to convert any existing refs into reactive variables:
 
-```js
+```js twoslash
+import { ref } from 'vue'
+
 function myCreateRef() {
   return ref(0)
 }
@@ -189,34 +191,38 @@ There are two pain points with the current `defineProps()` usage in `<script set
 
 We can address these issues by applying a compile-time transform when `defineProps` is used with destructuring, similar to what we saw earlier with `$()`:
 
-```html
+```vue twoslash
 <script setup lang="ts">
-  interface Props {
-    msg: string
-    count?: number
-    foo?: string
-  }
+import { watchEffect } from 'vue'
 
-  const {
-    msg,
-    // default value just works
-    count = 1,
-    // local aliasing also just works
-    // here we are aliasing `props.foo` to `bar`
-    foo: bar,
-  } = defineProps<Props>()
+interface Props {
+  msg: string
+  count?: number
+  foo?: string
+}
 
-  watchEffect(() => {
-    // will log whenever the props change
-    console.log(msg, count, bar)
-  })
+const {
+  msg,
+  // default value just works
+  count = 1,
+  // local aliasing also just works
+  // here we are aliasing `props.foo` to `bar`
+  foo: bar,
+} = defineProps<Props>()
+
+watchEffect(() => {
+  // will log whenever the props change
+  console.log(msg, count, bar)
+})
 </script>
 ```
 
 The above will be compiled into the following runtime declaration equivalent:
 
-```js
-export default {
+```js twoslash
+import { defineComponent, watchEffect } from 'vue'
+
+export default defineComponent({
   props: {
     msg: { type: String, required: true },
     count: { type: Number, default: 1 },
@@ -227,7 +233,7 @@ export default {
       console.log(props.msg, props.count, props.foo)
     })
   },
-}
+})
 ```
 
 ## Retaining Reactivity Across Function Boundaries {#retaining-reactivity-across-function-boundaries}
@@ -238,7 +244,9 @@ While reactive variables relieve us from having to use `.value` everywhere, it c
 
 Given a function that expects a ref as an argument, e.g.:
 
-```ts
+```ts twoslash
+import { type Ref, watch } from 'vue'
+
 function trackChange(x: Ref<number>) {
   watch(x, (x) => {
     console.log('x changed!')
@@ -246,6 +254,7 @@ function trackChange(x: Ref<number>) {
 }
 
 const count = $ref(0)
+// @errors: 2345
 trackChange(count) // doesn't work!
 ```
 
@@ -279,7 +288,7 @@ As we can see, `$$()` is a macro that serves as an **escape hint**: reactive var
 
 Reactivity can also be lost if reactive variables are used directly in a returned expression:
 
-```ts
+```ts twoslash
 function useMouse() {
   const x = $ref(0)
   const y = $ref(0)
@@ -307,7 +316,7 @@ In order to retain reactivity, we should be returning the actual refs, not the c
 
 Again, we can use `$$()` to fix this. In this case, `$$()` can be used directly on the returned object - any reference to reactive variables inside the `$$()` call will retain the reference to their underlying refs:
 
-```ts
+```ts twoslash
 function useMouse() {
   const x = $ref(0)
   const y = $ref(0)
@@ -326,21 +335,31 @@ function useMouse() {
 
 `$$()` works on destructured props since they are reactive variables as well. The compiler will convert it with `toRef` for efficiency:
 
-```ts
+```vue twoslash
+<script setup lang="ts">
+import { useCounter } from '@vueuse/core'
+
 const { count } = defineProps<{ count: number }>()
 
-passAsRef($$(count))
+useCounter($$(count))
+</script>
 ```
 
 compiles to:
 
-```js
-export default {
+```js twoslash
+import { useCounter } from '@vueuse/core'
+import { defineComponent, toRef } from 'vue'
+
+export default defineComponent({
+  props: {
+    count: { type: Number },
+  },
   setup(props) {
     const __props_count = toRef(props, 'count')
-    passAsRef(__props_count)
+    useCounter(__props_count)
   },
-}
+})
 ```
 
 ## TypeScript Integration <sup class="vt-badge ts" /> {#typescript-integration}

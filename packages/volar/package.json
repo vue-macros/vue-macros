@@ -32,7 +32,8 @@
       "types": "./index.d.ts"
     },
     "./*": {
-      "require": "./dist/*.js"
+      "require": "./dist/*.js",
+      "import": "./dist/*.mjs"
     }
   },
   "scripts": {

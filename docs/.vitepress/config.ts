@@ -1,5 +1,20 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+
+// Volar plugins
+import defineOptions from '@vue-macros/volar/define-options'
+import defineEmit from '@vue-macros/volar/define-emit'
+import defineProp from '@vue-macros/volar/define-prop'
+import defineProps from '@vue-macros/volar/define-props'
+import definePropsRefs from '@vue-macros/volar/define-props-refs'
+import defineSlots from '@vue-macros/volar/define-slots'
+import defineModels from '@vue-macros/volar/define-models'
+import exportExpose from '@vue-macros/volar/export-expose'
+import exportRender from '@vue-macros/volar/export-render'
+import jsxDirective from '@vue-macros/volar/jsx-directive'
+import booleanProp from '@vue-macros/volar/boolean-prop'
+
 import { docsLink } from '../../macros'
 import { getLocaleConfig, pwa } from './configs'
 
@@ -40,5 +55,31 @@ export default withPwa(
       hostname: docsLink,
     },
     pwa,
+    markdown: {
+      codeTransformers: [
+        transformerTwoslash({
+          twoslashOptions: {
+            compilerOptions: {
+              types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
+            },
+            vueCompilerOptions: {
+              plugins: [
+                defineOptions,
+                defineModels,
+                defineSlots,
+                defineEmit,
+                defineProp,
+                defineProps,
+                definePropsRefs,
+                exportRender,
+                exportExpose,
+                jsxDirective,
+                booleanProp,
+              ],
+            },
+          },
+        }),
+      ],
+    },
   }),
 )

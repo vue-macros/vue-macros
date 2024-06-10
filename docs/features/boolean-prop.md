@@ -26,18 +26,35 @@ interface Options {
 
 ## Usage
 
-```vue
+<!-- prettier-ignore-start -->
+```vue twoslash
+<script setup>
+import type { FunctionalComponent } from 'vue'
+
+export const Comp: FunctionalComponent<
+  {
+    checked: true,
+    enabled: false,
+  },
+> = () => null
+// ---cut---
+// @noErrors
+import Comp from './Comp.vue'
+</script>
+
 <template>
   <Comp checked !enabled />
+  //             ^?
 </template>
 ```
+<!-- prettier-ignore-end -->
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 // Comp.vue
 defineProps<{
-  checked?: any
-  enabled: boolean
+  checked: true
+  enabled: false
 }>()
 </script>
 ```

@@ -15,7 +15,7 @@
 
 Using export syntax to declare props.
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 export let foo: string
 export const bar: number = 1 // with default value
