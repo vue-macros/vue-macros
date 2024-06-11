@@ -1,22 +1,25 @@
+import { createRequire } from 'node:module'
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-
-// Volar plugins
-import defineOptions from '@vue-macros/volar/define-options'
-import defineEmit from '@vue-macros/volar/define-emit'
-import defineProp from '@vue-macros/volar/define-prop'
-import defineProps from '@vue-macros/volar/define-props'
-import definePropsRefs from '@vue-macros/volar/define-props-refs'
-import defineSlots from '@vue-macros/volar/define-slots'
-import defineModels from '@vue-macros/volar/define-models'
-import exportExpose from '@vue-macros/volar/export-expose'
-import exportRender from '@vue-macros/volar/export-render'
-import jsxDirective from '@vue-macros/volar/jsx-directive'
-import booleanProp from '@vue-macros/volar/boolean-prop'
-
+import ts from 'typescript'
 import { docsLink } from '../../macros'
 import { getLocaleConfig, pwa } from './configs'
+
+const require = createRequire(import.meta.url)
+
+// Volar plugins
+const defineOptions = require('@vue-macros/volar/define-options')
+const defineEmit = require('@vue-macros/volar/define-emit')
+const defineProp = require('@vue-macros/volar/define-prop')
+const defineProps = require('@vue-macros/volar/define-props')
+const definePropsRefs = require('@vue-macros/volar/define-props-refs')
+const defineSlots = require('@vue-macros/volar/define-slots')
+const defineModels = require('@vue-macros/volar/define-models')
+const exportExpose = require('@vue-macros/volar/export-expose')
+const exportRender = require('@vue-macros/volar/export-render')
+const jsxDirective = require('@vue-macros/volar/jsx-directive')
+const booleanProp = require('@vue-macros/volar/boolean-prop')
 
 export default withPwa(
   defineConfig({
@@ -60,7 +63,7 @@ export default withPwa(
         transformerTwoslash({
           twoslashOptions: {
             compilerOptions: {
-              jsx: 1,
+              jsx: ts.JsxEmit.Preserve,
               jsxFactory: 'vue',
               types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
             },
