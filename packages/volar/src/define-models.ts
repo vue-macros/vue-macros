@@ -1,11 +1,6 @@
 import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
-import {
-  type Code,
-  type Sfc,
-  type VueLanguagePlugin,
-  replace,
-} from '@vue/language-core'
 import { addEmits, addProps, getText, getVolarOptions } from './common'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function transformDefineModels(options: {
   codes: Code[]
