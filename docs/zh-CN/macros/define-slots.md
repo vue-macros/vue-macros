@@ -17,7 +17,7 @@
 
 ### 简写语法
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 defineSlots<{
   // 插槽名称
@@ -31,7 +31,7 @@ defineSlots<{
 
 ### 完整语法（官方版本）
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 defineSlots<{
   title: (scope: { text: string }) => any

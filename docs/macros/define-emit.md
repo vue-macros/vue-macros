@@ -31,7 +31,7 @@ const emitName = defineEmit<T>()
 
 ## Basic Usage
 
-```vue
+```vue twoslash
 <script setup>
 // Declare emit
 const increment = defineEmit('increment')
@@ -44,7 +44,7 @@ increment()
 
 ## With Validation
 
-```vue
+```vue twoslash
 <script setup>
 // Declare event with validation
 const increment = defineEmit('increment', (value) => value < 20)
@@ -53,12 +53,13 @@ const increment = defineEmit('increment', (value) => value < 20)
 
 ## TypeScript
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const increment = defineEmit('increment', (value: number) => value < 20)
 const decrement = defineEmit<[value: number]>()
 
 increment(2) // pass
+// @errors: 2345
 increment('2') // TS type error
 </script>
 ```

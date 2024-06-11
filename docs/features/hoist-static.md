@@ -14,7 +14,7 @@ For Vue >= 3.3, this feature will be turned off by default.
 
 ## Basic Usage
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const name = 'AppFoo'
 defineOptions({
@@ -38,8 +38,10 @@ export default {
 
 ## Magic Comments
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+const fn = () => 'AppFoo'
+
 // A value that's even not a constant
 const name = /* hoist-static */ fn()
 defineOptions({

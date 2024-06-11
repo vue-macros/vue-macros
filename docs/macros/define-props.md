@@ -21,15 +21,15 @@ See also [Vue issue](https://github.com/vuejs/core/issues/6876), [Reactivity Tra
 
 ## Basic Usage
 
-```vue
+```vue twoslash
 <script setup lang="ts">
-//       ⬇️ ReactiveVariable<string[]>
 const { foo } = $defineProps<{
+  //     ^?
   foo: string[]
 }>()
 
-//     ⬇️ Ref<string[]>
 const fooRef = $$(foo)
+//     ^?
 </script>
 ```
 

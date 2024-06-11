@@ -21,15 +21,15 @@
 
 ## 基本用法
 
-```vue
+```vue twoslash
 <script setup lang="ts">
-//       ⬇️ ReactiveVariable<string[]>
 const { foo } = $defineProps<{
+  //     ^?
   foo: string[]
 }>()
 
-//     ⬇️ Ref<string[]>
 const fooRef = $$(foo)
+//     ^?
 </script>
 ```
 

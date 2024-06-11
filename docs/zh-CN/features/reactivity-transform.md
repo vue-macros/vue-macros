@@ -88,7 +88,7 @@ module.exports = {
 
 响应性语法糖是一个编译时的转换步骤，让我们可以像这样书写代码：
 
-```vue
+```vue twoslash
 <script setup>
 let count = $ref(0)
 
@@ -108,7 +108,7 @@ function increment() {
 
 响应式的变量可以像普通变量那样被访问和重新赋值，但这些操作在编译后都会变为带 `.value` 的 ref。比如上面例子中 `<script>` 部分的代码就被编译成了下面这样：
 
-```js{5,8}
+```js{5,8} twoslash
 import { ref } from 'vue'
 
 let count = ref(0)
@@ -130,7 +130,7 @@ function increment() {
 
 当启用响应性语法糖时，这些宏函数都是全局可用的、无需手动导入。但如果你想让它更明显，你也可以选择从 `unplugin-vue-macros/macros` 或 `@vue-macros/reactivity-transform/macros-global` 中引入它们：
 
-```js
+```js twoslash
 import { $ref } from 'unplugin-vue-macros/macros'
 // 适用于独立版本：
 // import { $ref } from '@vue-macros/reactivity-transform/macros-global'
@@ -142,9 +142,15 @@ const count = $ref(0)
 
 我们常常会让一个组合函数返回一个含数个 ref 的对象，然后解构得到这些 ref。对于这种场景，响应性语法糖提供了一个 **`$()`** 宏：
 
-```js
-import { useMouse } from '@vueuse/core'
-
+```ts twoslash
+import { ref } from 'vue'
+function useMouse() {
+  return {
+    x: ref(0),
+    y: ref(0),
+  }
+}
+// ---cut---
 const { x, y } = $(useMouse())
 
 console.log(x, y)
@@ -152,10 +158,15 @@ console.log(x, y)
 
 编译输出为：
 
-```js
-import { toRef } from 'vue'
-import { useMouse } from '@vueuse/core'
-
+```js twoslash
+import { ref, toRef } from 'vue'
+function useMouse() {
+  return {
+    x: ref(0),
+    y: ref(0),
+  }
+}
+// ---cut---
 const __temp = useMouse(),
   x = toRef(__temp, 'x'),
   y = toRef(__temp, 'y')
@@ -171,7 +182,9 @@ console.log(x.value, y.value)
 
 在某些场景中我们可能已经有了会返回 ref 的函数。然而，Vue 编译器并不能够提前知道该函数会返回一个 ref。那么此时可以使用 `$()` 宏来将现存的 ref 转换为响应式变量。
 
-```js
+```js twoslash
+import { ref } from 'vue'
+
 function myCreateRef() {
   return ref(0)
 }
@@ -189,34 +202,38 @@ const count = $(myCreateRef())
 
 当 `defineProps` 与解构一起使用时，我们可以通过应用编译时转换来解决这些问题，类似于我们之前看到的 `$()`：
 
-```html
+```vue twoslash
 <script setup lang="ts">
-  interface Props {
-    msg: string
-    count?: number
-    foo?: string
-  }
+import { watchEffect } from 'vue'
 
-  const {
-    msg,
-    // 默认值正常可用
-    count = 1,
-    // 解构时命别名也可用
-    // 这里我们就将 `props.foo` 命别名为 `bar`
-    foo: bar,
-  } = defineProps<Props>()
+interface Props {
+  msg: string
+  count?: number
+  foo?: string
+}
 
-  watchEffect(() => {
-    // 会在 props 变化时打印
-    console.log(msg, count, bar)
-  })
+const {
+  msg,
+  // 默认值正常可用
+  count = 1,
+  // 解构时命别名也可用
+  // 这里我们就将 `props.foo` 命别名为 `bar`
+  foo: bar,
+} = defineProps<Props>()
+
+watchEffect(() => {
+  // 会在 props 变化时打印
+  console.log(msg, count, bar)
+})
 </script>
 ```
 
 上面的代码将被编译成下面这样的运行时声明：
 
-```js
-export default {
+```ts twoslash
+import { defineComponent, watchEffect } from 'vue'
+
+export default defineComponent({
   props: {
     msg: { type: String, required: true },
     count: { type: Number, default: 1 },
@@ -227,7 +244,7 @@ export default {
       console.log(props.msg, props.count, props.foo)
     })
   },
-}
+})
 ```
 
 ## 保持在函数间传递时的响应性 {#retaining-reactivity-across-function-boundaries}
@@ -238,7 +255,9 @@ export default {
 
 假设有一个期望接收一个 ref 对象为参数的函数：
 
-```ts
+```ts twoslash
+import { type Ref, watch } from 'vue'
+
 function trackChange(x: Ref<number>) {
   watch(x, (x) => {
     console.log('x 改变了！')
@@ -246,6 +265,7 @@ function trackChange(x: Ref<number>) {
 }
 
 const count = $ref(0)
+// @errors: 2345
 trackChange(count) // 无效！
 ```
 
@@ -279,7 +299,7 @@ trackChange(count)
 
 如果将响应式变量直接放在返回值表达式中会丢失掉响应性：
 
-```ts
+```ts twoslash
 function useMouse() {
   const x = $ref(0)
   const y = $ref(0)
@@ -307,7 +327,7 @@ return {
 
 我们还是可以使用 `$$()` 来解决这个问题。在这个例子中，`$$()` 可以直接用在要返回的对象上，`$$()` 调用时任何对响应式变量的引用都会保留为对相应 ref 的引用：
 
-```ts
+```ts twoslash
 function useMouse() {
   const x = $ref(0)
   const y = $ref(0)
@@ -326,21 +346,36 @@ function useMouse() {
 
 `$$()` 也适用于已解构的 props，因为它们也是响应式的变量。编译器会高效地通过 `toRef` 来做转换：
 
-```ts
+```vue twoslash
+<script setup lang="ts">
+import type { Ref } from 'vue'
+function passAsRef(count: Ref<number>) {
+  return count
+}
+// ---cut---
 const { count } = defineProps<{ count: number }>()
 
 passAsRef($$(count))
+</script>
 ```
 
 编译结果为：
 
-```js
-export default {
+```ts twoslash
+import { type Ref, defineComponent, toRef } from 'vue'
+function passAsRef(count: Ref<number>) {
+  return count
+}
+// ---cut---
+export default defineComponent({
+  props: {
+    count: { type: Number, required: true },
+  },
   setup(props) {
     const __props_count = toRef(props, 'count')
     passAsRef(__props_count)
   },
-}
+})
 ```
 
 ## TypeScript 集成 <sup class="vt-badge ts" /> {#typescript-integration}

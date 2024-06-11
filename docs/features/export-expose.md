@@ -23,12 +23,13 @@ Support these syntaxes:
 
 ### 1. local variable/function/class
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 export const foo: string = 'foo',
   bar = 10
 export let baz: string | undefined
 export var qux = fn()
+// @errors: 2448 2454 2695
 export const { a, b, c } = { a: 1, b: 2, c: 3 }
 
 export function fn() {}
@@ -38,8 +39,8 @@ export class A {}
 
 ::: details Compiled Code
 
-```vue
-<script lang="ts">
+```vue twoslash
+<script setup lang="ts">
 const foo: string = 'foo',
   bar = 10
 let baz: string | undefined
@@ -67,16 +68,20 @@ defineExpose({
 
 ### 2. export with alias
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+const foo = ''
+
 export { foo as foo1 }
 </script>
 ```
 
 ::: details Compiled Code
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+const foo = 'foo'
+
 defineExpose({
   foo1: foo,
 })
@@ -87,16 +92,35 @@ defineExpose({
 
 ### 3. export from other file
 
-```vue
+::: code-group
+
+```vue [App.vue] twoslash
 <script setup lang="ts">
+// #region export-file
+const foo = 'foo'
+type Foo = string
+
+export { type Foo, foo }
+// #endregion export-file
+// ---cut---
+// @noErrors
 export { foo, type Foo, foo as bar } from './types'
 </script>
 ```
 
+<<< ./export-expose.md#export-file{ts} [types.ts]
+
+:::
+
 ::: details Compiled Code
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+const __MACROS_expose_0 = 'foo'
+const __MACROS_expose_1 = 'foo'
+type Foo = string
+// ---cut---
+// @noErrors
 import {
   type Foo,
   foo as __MACROS_expose_0,
@@ -113,16 +137,32 @@ defineExpose({
 
 ### 4. namespace export
 
-```vue
+::: code-group
+
+```vue [App.vue] twoslash
 <script setup lang="ts">
+const foo = { foo: 'foo' }
+// ---cut---
+// @noErrors
 export * as foo from './types'
 </script>
 ```
 
+```ts [types.ts]
+export const foo = 'foo'
+```
+
+:::
+
 ::: details Compiled Code
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+const __MACROS_expose_0 = {
+  foo: 'foo',
+}
+// ---cut---
+// @noErrors
 import * as __MACROS_expose_0 from './types'
 defineExpose({
   foo: __MACROS_expose_0,

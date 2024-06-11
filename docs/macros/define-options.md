@@ -88,20 +88,26 @@ module.exports = {
 
 ## Basic Usage
 
-```vue {3-6}
+```vue twoslash {3-6}
 <script setup lang="ts">
-import { useSlots } from 'vue'
 defineOptions({
   name: 'Foo',
   inheritAttrs: false,
 })
-const slots = useSlots()
+
+defineProps<{
+  foo: number
+}>()
 </script>
+
+<template>
+  <Foo :foo="1" />
+</template>
 ```
 
 ::: details Compiled Code
 
-```vue
+```vue twoslash
 <script lang="ts">
 export default {
   name: 'Foo',
@@ -109,16 +115,22 @@ export default {
 }
 </script>
 
-<script setup>
-const slots = useSlots()
+<script setup lang="ts">
+defineProps<{
+  foo: number
+}>()
 </script>
+
+<template>
+  <Foo :foo="1" />
+</template>
 ```
 
 :::
 
 ## JSX in `<script setup>`
 
-```vue {3-5}
+```vue twoslash {3-5}
 <script setup lang="tsx">
 defineOptions({
   render() {

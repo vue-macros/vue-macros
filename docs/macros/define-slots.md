@@ -17,7 +17,7 @@ For Vue >= 3.3, this feature will be turned off by default.
 
 ### Short Syntax
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 defineSlots<{
   // slot name
@@ -31,7 +31,7 @@ defineSlots<{
 
 ### Full Syntax (Official Version)
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 defineSlots<{
   title: (scope: { text: string }) => any

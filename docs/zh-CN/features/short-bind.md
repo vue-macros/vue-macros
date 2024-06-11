@@ -17,12 +17,14 @@
 
 ### 基本用法
 
-```vue
+```vue twoslash
+<script setup>
+const value = 'foo'
+</script>
+
 <template>
-  <input :msg />
-  <!-- => <input :msg="msg" /> -->
-  <demo $msg />
-  <!-- => <input $msg="msg" /> -->
+  <input :value />
+  <!-- => <input :value="value" /> -->
 </template>
 ```
 
@@ -30,12 +32,12 @@
 
 ```vue
 <template>
-  <input ::msg />
-  <!-- => <input ::msg="msg" /> => <input v-model:msg="msg" /> -->
-  <demo $msg />
-  <!-- => <input $msg="msg" /> => <input v-model:msg="msg" /> -->
-  <demo *msg />
-  <!-- => <input *msg="msg" /> => <input v-model:msg="msg" /> -->
+  <Comp ::msg />
+  <!-- => <Comp ::foo="foo" /> => <Comp v-model:foo="foo" /> -->
+  <Comp $msg />
+  <!-- => <Comp $foo="foo" /> => <Comp v-model:foo="foo" /> -->
+  <Comp *msg />
+  <!-- => <Comp *foo="foo" /> => <Comp v-model:foo="foo" /> -->
 </template>
 ```
 

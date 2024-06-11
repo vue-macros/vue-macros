@@ -21,6 +21,8 @@ export default sxzz([
       'import/no-mutable-exports': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/no-empty-function': 'off',
+      'import/first': 'off',
+      'import/order': 'off',
     },
   },
   {

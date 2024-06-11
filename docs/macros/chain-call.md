@@ -21,8 +21,10 @@ Extends `defineProps`, support call `withDefaults` as a chain.
 
 ## Basic Usage
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+import { defineProps } from 'unplugin-vue-macros/macros'
+
 const props = defineProps<{
   foo?: string
   bar?: number[]
@@ -36,7 +38,7 @@ const props = defineProps<{
 
 ::: details Compiled Code
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
@@ -56,8 +58,10 @@ const props = withDefaults(
 
 Also support [props destructuring](../features/reactivity-transform.md) and JSX:
 
-```vue
-<script setup lang="tsx">
+```vue twoslash
+<script setup lang="ts">
+import { defineProps } from 'unplugin-vue-macros/macros'
+
 const { foo } = defineProps<{ foo: string }>().withDefaults({
   foo: '111',
 })
@@ -68,9 +72,9 @@ const { foo } = defineProps<{ foo: string }>().withDefaults({
 
 To fully support TypeScript, you need to import this macro from `unplugin-vue-macros/macros` with specific syntax.
 
-```vue
+```vue twoslash
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros' with { type: 'macro' }
+import { defineProps } from 'unplugin-vue-macros/macros'
 
 defineProps<{
   /* ... */
@@ -83,11 +87,11 @@ defineProps<{
 
 Works without import assertion, but tsc will report an error:
 
-```ts
+```ts twoslash
+// @errors: 2339
 defineProps<{
   /* ... */
 }>().withDefaults({
   /* ... */
 })
-// ❌ Property 'withDefaults' does not exist on type 'DefineProps<{ /* ... */ }>'.
 ```

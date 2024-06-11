@@ -13,7 +13,7 @@ Declare single prop one by one using `defineProp`.
 
 ::: warning
 
-`defineProp` can not be used in the same file as `defineProps`.
+`defineProp` can not be used in the same file as type-declared `defineProps`.
 
 :::
 
@@ -63,12 +63,16 @@ const propName = defineProp<T>()
 
 ### Basic Usage
 
-```vue
+```vue twoslash
 <script setup>
+// @experimentalDefinePropProposal=kevinEdition
+// ---cut---
 // Declare prop
 const count = defineProp('count')
+
 // Infer prop name from variable name
 const value = defineProp()
+
 // access prop value
 console.log(count.value)
 </script>
@@ -76,8 +80,10 @@ console.log(count.value)
 
 ### With Options
 
-```vue
+```vue twoslash
 <script setup>
+// @experimentalDefinePropProposal=kevinEdition
+// ---cut---
 // Declare prop with options
 const count = defineProp('count', {
   type: Number,
@@ -90,18 +96,28 @@ const count = defineProp('count', {
 
 ### TypeScript
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+// @experimentalDefinePropProposal=kevinEdition
+// ---cut---
 // Declare prop of type number and infer prop name from variable name
 const count = defineProp<number>()
 count.value
-//    ^? type: number | undefined
 
 // Declare prop of TS type boolean with default value
 const disabled = defineProp<boolean>('disabled', { default: true })
 disabled.value
-//        ^? type: boolean
 </script>
+```
+
+### With Reactivity Transform
+
+```ts
+const foo = $defineProp<string>('foo')
+//    ^? type: string | undefined
+
+const bar = $(defineProp('bar', { default: 'bar' }))
+//    ^? type: string
 ```
 
 ## Johnson's Edition
@@ -118,8 +134,10 @@ const propName = defineProp<T>(defaultValue, required, rest)
 
 ### Basic Usage
 
-```vue
+```vue twoslash
 <script setup>
+// @experimentalDefinePropProposal=johnsonEdition
+// ---cut---
 // declare prop `count` with default value `0`
 const count = defineProp(0)
 
@@ -133,8 +151,10 @@ console.log(count.value, disabled.value)
 
 ### With Options
 
-```vue
+```vue twoslash
 <script setup>
+// @experimentalDefinePropProposal=johnsonEdition
+// ---cut---
 // Declare prop with options
 const count = defineProp(0, false, {
   type: Number,
@@ -145,16 +165,16 @@ const count = defineProp(0, false, {
 
 ### TypeScript
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+// @experimentalDefinePropProposal=johnsonEdition
+// ---cut---
 const count = defineProp<number>()
 count.value
-//    ^? type: number | undefined
 
 // Declare prop of TS type boolean with default value
 const disabled = defineProp<boolean>(true)
 disabled.value
-//        ^? type: boolean
 </script>
 ```
 
@@ -162,12 +182,10 @@ disabled.value
 
 ```vue
 <script setup lang="ts">
-// Kevin's Edition
-const foo = $defineProp('foo', { default: 'foo' })
-const bar = $(defineProp('bar', { default: 'bar', required: true }))
+const foo = $defineProp<number>()
+//    ^? type: number | undefined
 
-// Johnson's Edition
-const foo = $defineProp('foo')
-const bar = $(defineProp('bar', true))
+const bar = $(defineProp(0, true))
+//    ^? type: number
 </script>
 ```

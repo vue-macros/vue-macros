@@ -30,7 +30,7 @@ VueMacros({
 
 在开始之前，请先自行安装 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core)
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const { modelValue, count } = defineModels<{
   modelValue: string
@@ -56,7 +56,7 @@ const { modelValue } = defineModels({
 
 ## model 选项
 
-```vue 3-6
+```vue twoslash 3-6
 <script setup lang="ts">
 const { modelValue } = defineModels<{
   modelValue: ModelOptions<
@@ -77,7 +77,7 @@ const { modelValue } = defineModels<{
 
 [`@vueuse/core`](https://www.npmjs.com/package/@vueuse/core) 在这不是必需的。
 
-```vue {7-9}
+```vue twoslash {7-9}
 <script setup lang="ts">
 let { modelValue, count } = $defineModels<{
   modelValue: string
@@ -92,7 +92,7 @@ count++
 
 ::: details 编译后的代码
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const { modelValue, count } = defineProps<{
   modelValue: string

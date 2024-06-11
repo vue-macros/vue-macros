@@ -23,7 +23,7 @@ See also [Vue Vine](https://vue-vine.dev/) - another style for Vue functional co
 
 ## Basic Usage
 
-```tsx
+```tsx twoslash
 export const App = defineSetupComponent(() => {
   defineProps<{
     foo: string
@@ -44,7 +44,7 @@ export const App = defineSetupComponent(() => {
 
 ## Type Annotation
 
-```ts
+```ts twoslash
 export const App: SetupFC = () => {
   defineProps<{
     foo: string

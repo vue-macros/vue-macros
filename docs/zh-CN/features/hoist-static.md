@@ -14,7 +14,7 @@
 
 ## 基本用法
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const name = 'AppFoo'
 defineOptions({
@@ -38,8 +38,10 @@ export default {
 
 ## 魔法注释
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+const fn = () => 'AppFoo'
+
 // 一个甚至不是常量的值
 const name = /* hoist-static */ fn()
 defineOptions({

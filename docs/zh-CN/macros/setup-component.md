@@ -23,7 +23,7 @@
 
 ## 基本用法
 
-```tsx
+```tsx twoslash
 export const App = defineSetupComponent(() => {
   defineProps<{
     foo: string
@@ -44,7 +44,7 @@ export const App = defineSetupComponent(() => {
 
 ## 类型注解
 
-```ts
+```ts twoslash
 export const App: SetupFC = () => {
   defineProps<{
     foo: string

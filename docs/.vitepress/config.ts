@@ -1,7 +1,25 @@
+import { createRequire } from 'node:module'
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import ts from 'typescript'
 import { docsLink } from '../../macros'
 import { getLocaleConfig, pwa } from './configs'
+
+const require = createRequire(import.meta.url)
+
+// Volar plugins
+const defineOptions = require('@vue-macros/volar/define-options')
+const defineEmit = require('@vue-macros/volar/define-emit')
+const defineProp = require('@vue-macros/volar/define-prop')
+const defineProps = require('@vue-macros/volar/define-props')
+const definePropsRefs = require('@vue-macros/volar/define-props-refs')
+const defineSlots = require('@vue-macros/volar/define-slots')
+const defineModels = require('@vue-macros/volar/define-models')
+const exportExpose = require('@vue-macros/volar/export-expose')
+const exportRender = require('@vue-macros/volar/export-render')
+const jsxDirective = require('@vue-macros/volar/jsx-directive')
+const booleanProp = require('@vue-macros/volar/boolean-prop')
 
 export default withPwa(
   defineConfig({
@@ -40,5 +58,33 @@ export default withPwa(
       hostname: docsLink,
     },
     pwa,
+    markdown: {
+      codeTransformers: [
+        transformerTwoslash({
+          twoslashOptions: {
+            compilerOptions: {
+              jsx: ts.JsxEmit.Preserve,
+              jsxFactory: 'vue',
+              types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
+            },
+            vueCompilerOptions: {
+              plugins: [
+                defineOptions,
+                defineModels,
+                defineSlots,
+                defineEmit,
+                defineProp,
+                defineProps,
+                definePropsRefs,
+                exportRender,
+                exportExpose,
+                jsxDirective,
+                booleanProp,
+              ],
+            },
+          },
+        }),
+      ],
+    },
   }),
 )

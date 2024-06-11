@@ -15,23 +15,24 @@ Returns refs from `defineProps` instead of a reactive object. It can be destruct
 
 ## Basic Usage
 
-```vue {2-3,8}
+```vue twoslash {2-3,8}
 <script setup lang="ts">
 // ✅ won't lose reactivity with destructuring
 const { foo, bar } = definePropsRefs<{
   foo: string
   bar: number
 }>()
-//          ⬇️ Ref<string>
+
 console.log(foo.value, bar.value)
+//           ^?
 </script>
 ```
 
 ## With Default Value
 
-```vue {2-3,8}
+```vue twoslash {2-3,8}
 <script setup lang="ts">
-import { withDefaults } from 'unplugin-vue-macros/macros' with { type: 'macro' }
+import { withDefaults } from 'unplugin-vue-macros/macros'
 
 const { foo } = withDefaults(
   definePropsRefs<{
@@ -39,8 +40,9 @@ const { foo } = withDefaults(
   }>(),
   { foo: 'test' },
 )
-//          ⬇️ Ref<string>
+
 console.log(foo.value)
+//           ^?
 </script>
 ```
 
