@@ -1,11 +1,6 @@
 import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
-import {
-  type Code,
-  type Sfc,
-  type VueLanguagePlugin,
-  replace,
-} from '@vue/language-core'
 import { addEmits, addProps, getText, getVolarOptions } from './common'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function transformDefineModels(options: {
   codes: Code[]
@@ -17,8 +12,8 @@ function transformDefineModels(options: {
 }) {
   const { codes, typeArg, unified, vueLibName, ts } = options
 
-  const propStrings = []
-  const emitStrings = []
+  const propStrings: Code[] = []
+  const emitStrings: Code[] = []
 
   if (ts.isTypeLiteralNode(typeArg) && typeArg.members) {
     for (const member of typeArg.members) {
@@ -37,25 +32,8 @@ function transformDefineModels(options: {
     }
   }
 
-  if (propStrings.length) {
-    replace(
-      codes,
-      /(?<=type __VLS_PublicProps = )/,
-      `{\n${propStrings.join(',\n')}} & `,
-    )
-
-    addProps(codes, ['__VLS_TypePropsToOption<__VLS_PublicProps>'], vueLibName)
-  }
-
-  if (emitStrings.length) {
-    replace(
-      codes,
-      /(?<=let __VLS_modelEmitsType!: {})/,
-      ` & ReturnType<typeof import('${vueLibName}').defineEmits<{\n${emitStrings.join(',\n')}}>>`,
-    )
-
-    addEmits(codes, ['__VLS_NormalizeEmits<typeof __VLS_modelEmitsType>'])
-  }
+  addProps(codes, propStrings, vueLibName)
+  addEmits(codes, emitStrings, vueLibName)
 }
 
 function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
