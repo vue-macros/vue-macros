@@ -50,10 +50,7 @@
       "require": "./dist/vite.js",
       "import": "./dist/vite.mjs"
     },
-    "./*": [
-      "./*",
-      "./*.d.ts"
-    ]
+    "./*": "./*"
   },
   "typesVersions": {
     "*": {

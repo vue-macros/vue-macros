@@ -35,10 +35,7 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
-    "./*": [
-      "./*",
-      "./*.d.ts"
-    ]
+    "./*": "./*"
   },
   "scripts": {
     "build": "tsup",

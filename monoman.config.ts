@@ -25,6 +25,7 @@ export default defineConfig([
       const isESM = data.type === 'module'
       const cjsPrefix = isESM ? 'c' : ''
       const esmPrefix = isESM ? '' : 'm'
+      const hasRootDts = (await fg('*.d.ts', { cwd: pkgRoot })).length > 0
 
       const descriptions: Record<string, string> = {
         'define-options': 'Add defineOptions macro for Vue <script setup>.',
@@ -60,9 +61,7 @@ export default defineConfig([
 
       if (!existsSync(path.resolve(pkgRoot, 'index.js'))) {
         data.files = ['dist']
-        if ((await fg('*.d.ts', { cwd: pkgRoot })).length > 0) {
-          data.files.push('*.d.ts')
-        }
+        if (hasRootDts) data.files.push('*.d.ts')
       } else {
         data.files = ['index.js']
       }
@@ -98,7 +97,7 @@ export default defineConfig([
               })
               .sort(([a], [b]) => a.localeCompare(b)),
           ),
-          './*': ['./*', './*.d.ts'],
+          './*': hasRootDts ? ['./*', './*.d.ts'] : './*',
         }
 
         const onlyIndex = entries.length === 1 && entries[0] === 'index'
