@@ -39,7 +39,7 @@ export function addEmits(codes: Code[], decl: Code[], vueLibName: string) {
   const index = codes.indexOf('const __VLS_modelEmitsType = ')
   if (codes[index + 1] === '{}') {
     codes[index + 1] =
-      `import('${vueLibName}').defineEmits<{\n${decl.join(',\n')}\n}>()`
+      `(await import('${vueLibName}')).defineEmits<{\n${decl.join(',\n')}\n}>()`
   } else {
     codes.splice(index + 2, 0, `\n${decl.join(',\n')}\n`)
   }
