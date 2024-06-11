@@ -26,6 +26,9 @@ importers:
       '@sxzz/prettier-config':
         specifier: ^2.0.2
         version: 2.0.2
+      '@types/eslint':
+        specifier: ^8.56.10
+        version: 8.56.10
       '@types/node':
         specifier: ^20.14.2
         version: 20.14.2
@@ -47,9 +50,6 @@ importers:
       eslint:
         specifier: ^9.4.0
         version: 9.4.0
-      eslint-define-config:
-        specifier: ^1.24.1
-        version: 1.24.1
       expect-type:
         specifier: ^0.19.0
         version: 0.19.0
@@ -3959,10 +3959,6 @@ packages:
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
-
-  eslint-define-config@1.24.1:
-    resolution: {integrity: sha512-o36vBhPSWyIQlHoMqGhhcGmOOm2A2ccBVIdLTG/AWdm9YmjpsLpf+5ntf9LlHR6dduLREgxtGwvwPwSt7vnXJg==}
-    engines: {node: '>=18.0.0', npm: '>=9.0.0', pnpm: '>= 8.6.0'}
 
   eslint-define-config@2.1.0:
     resolution: {integrity: sha512-QUp6pM9pjKEVannNAbSJNeRuYwW3LshejfyBBpjeMGaJjaDUpVps4C6KVR8R7dWZnD3i0synmrE36znjTkJvdQ==}
@@ -10990,8 +10986,6 @@ snapshots:
   eslint-config-prettier@9.1.0(eslint@9.4.0):
     dependencies:
       eslint: 9.4.0
-
-  eslint-define-config@1.24.1: {}
 
   eslint-define-config@2.1.0: {}
 

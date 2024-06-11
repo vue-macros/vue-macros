@@ -36,13 +36,11 @@ export default sxzz([
     },
   },
   {
-    files: ['**/helper/*', 'playground/vue3/**'],
-    rules: {
-      'import/no-default-export': 'off',
-    },
-  },
-  {
-    files: ['packages/volar/**'],
+    files: [
+      '**/helper/*',
+      'playground/vue3/**',
+      'packages/{volar,eslint-config}/**',
+    ],
     rules: {
       'import/no-default-export': 'off',
     },
