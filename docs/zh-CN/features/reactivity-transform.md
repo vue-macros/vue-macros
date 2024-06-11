@@ -144,7 +144,7 @@ const count = $ref(0)
 
 ```ts twoslash
 import { ref } from 'vue'
-function useMouse(){
+function useMouse() {
   return {
     x: ref(0),
     y: ref(0),
@@ -159,8 +159,8 @@ console.log(x, y)
 编译输出为：
 
 ```js twoslash
-import { ref , toRef } from 'vue'
-function useMouse(){
+import { ref, toRef } from 'vue'
+function useMouse() {
   return {
     x: ref(0),
     y: ref(0),
@@ -349,7 +349,7 @@ function useMouse() {
 ```vue twoslash
 <script setup lang="ts">
 import type { Ref } from 'vue'
-function passAsRef(count: Ref<number>){
+function passAsRef(count: Ref<number>) {
   return count
 }
 // ---cut---
@@ -363,7 +363,7 @@ passAsRef($$(count))
 
 ```ts twoslash
 import { type Ref, defineComponent, toRef } from 'vue'
-function passAsRef(count: Ref<number>){
+function passAsRef(count: Ref<number>) {
   return count
 }
 // ---cut---

@@ -144,7 +144,7 @@ It is common for a composition function to return an object of refs, and use des
 
 ```js twoslash
 import { ref } from 'vue'
-function useMouse(){
+function useMouse() {
   return {
     x: ref(0),
     y: ref(0),
@@ -160,7 +160,7 @@ Compiled output:
 
 ```js twoslash
 import { ref } from 'vue'
-function useMouse(){
+function useMouse() {
   return {
     x: ref(0),
     y: ref(0),
@@ -349,7 +349,7 @@ function useMouse() {
 ```vue twoslash
 <script setup lang="ts">
 import type { Ref } from 'vue'
-function passAsRef(count: Ref<number>){
+function passAsRef(count: Ref<number>) {
   return count
 }
 // ---cut---
@@ -363,7 +363,7 @@ compiles to:
 
 ```ts twoslash
 import { type Ref, defineComponent, toRef } from 'vue'
-function passAsRef(count: Ref<number>){
+function passAsRef(count: Ref<number>) {
   return count
 }
 // ---cut---
