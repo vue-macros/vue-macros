@@ -103,12 +103,10 @@ const count = defineProp('count', {
 // Declare prop of type number and infer prop name from variable name
 const count = defineProp<number>()
 count.value
-//    ^? type: number | undefined
 
 // Declare prop of TS type boolean with default value
 const disabled = defineProp<boolean>('disabled', { default: true })
 disabled.value
-//        ^? type: boolean
 </script>
 ```
 
@@ -117,6 +115,7 @@ disabled.value
 ```ts
 const foo = $defineProp<string>('foo')
 //    ^? type: string | undefined
+
 const bar = $(defineProp('bar', { default: 'bar' }))
 //    ^? type: string
 ```
@@ -172,12 +171,10 @@ const count = defineProp(0, false, {
 // ---cut---
 const count = defineProp<number>()
 count.value
-//    ^? type: number | undefined
 
 // Declare prop of TS type boolean with default value
 const disabled = defineProp<boolean>(true)
 disabled.value
-//        ^? type: boolean
 </script>
 ```
 
@@ -187,6 +184,7 @@ disabled.value
 <script setup lang="ts">
 const foo = $defineProp<number>()
 //    ^? type: number | undefined
+
 const bar = $(defineProp(0, true))
 //    ^? type: number
 </script>

@@ -17,22 +17,27 @@
 
 ::: code-group
 
-```vue [App.vue]
+```vue twoslash [App.vue]
 <script setup lang="ts">
+// #region basic
+type BaseProps = {
+  title: string
+}
+
+export type { BaseProps }
+// #endregion basic
+// ---cut---
+// @noErrors
 import type { BaseProps } from './types'
 
 interface Props extends BaseProps {
   foo: string
 }
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 ```
 
-```ts [types.ts]
-export interface BaseProps {
-  title: string
-}
-```
+<<< ./better-define.md#basic{ts} [types.ts]
 
 :::
 

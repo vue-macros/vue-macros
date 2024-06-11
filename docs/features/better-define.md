@@ -30,11 +30,10 @@ export type { BaseProps }
 // @noErrors
 import type { BaseProps } from './types'
 
-type Props = BaseProps & {
-  foo: number
+interface Props extends BaseProps {
+  foo: string
 }
-
-defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 ```
 

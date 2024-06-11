@@ -15,7 +15,7 @@
 
 ## 基本用法
 
-```vue
+```vue twoslash
 <script setup lang="tsx">
 // 可以直接传递 JSX
 defineRender(

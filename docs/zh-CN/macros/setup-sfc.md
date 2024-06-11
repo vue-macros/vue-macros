@@ -68,7 +68,7 @@ export default defineConfig({
 
 ## 基本用法
 
-```tsx
+```tsx twoslash
 // Foo.setup.tsx
 defineProps<{
   foo: string

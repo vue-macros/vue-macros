@@ -42,7 +42,7 @@ const { foo } = withDefaults(
 )
 
 console.log(foo.value)
-//          ^?
+//           ^?
 </script>
 ```
 

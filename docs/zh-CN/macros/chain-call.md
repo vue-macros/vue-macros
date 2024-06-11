@@ -21,8 +21,10 @@
 
 ## 基本用法
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+import { defineProps } from 'unplugin-vue-macros/macros'
+
 const props = defineProps<{
   foo?: string
   bar?: number[]
@@ -36,7 +38,7 @@ const props = defineProps<{
 
 ::: details 编译后的代码
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
@@ -56,8 +58,10 @@ const props = withDefaults(
 
 也支持 [props 解构](../features/reactivity-transform.md) 和 JSX：
 
-```vue
-<script setup lang="tsx">
+```vue twoslash
+<script setup lang="ts">
+import { defineProps } from 'unplugin-vue-macros/macros'
+
 const { foo } = defineProps<{ foo: string }>().withDefaults({
   foo: '111',
 })
@@ -68,9 +72,9 @@ const { foo } = defineProps<{ foo: string }>().withDefaults({
 
 为了更好的类型支持，你需要使用特定的语法从 `unplugin-vue-macros/macros` 中导入此宏。
 
-```vue
+```vue twoslash
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros' with { type: 'macro' }
+import { defineProps } from 'unplugin-vue-macros/macros'
 
 defineProps<{
   /* ... */
@@ -83,11 +87,11 @@ defineProps<{
 
 没有 `import` 也可以正常使用，但 `tsc` 会报告一个类型错误：
 
-```ts
+```ts twoslash
+// @errors: 2339
 defineProps<{
   /* ... */
 }>().withDefaults({
   /* ... */
 })
-// ❌ Property 'withDefaults' does not exist on type 'DefineProps<{ /* ... */ }>'.
 ```

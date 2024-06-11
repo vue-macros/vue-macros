@@ -15,7 +15,7 @@
 
 使用导出语法来声明 `props`。
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 export let foo: string
 export const bar: number = 1 // 带有默认值

@@ -31,7 +31,7 @@ const emitName = defineEmit<T>()
 
 ## 基本用法
 
-```vue
+```vue twoslash
 <script setup>
 // 声明 emit
 const increment = defineEmit('increment')
@@ -44,7 +44,7 @@ increment()
 
 ## 带验证的用法
 
-```vue
+```vue twoslash
 <script setup>
 // 声明带验证的事件
 const increment = defineEmit('increment', (value) => value < 20)
@@ -53,12 +53,13 @@ const increment = defineEmit('increment', (value) => value < 20)
 
 ## TypeScript
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 const increment = defineEmit('increment', (value: number) => value < 20)
 const decrement = defineEmit<[value: number]>()
 
 increment(2) // pass
+// @errors: 2345
 increment('2') // TS type error
 </script>
 ```

@@ -15,23 +15,24 @@
 
 ## 基本用法
 
-```vue {2-3,8}
+```vue twoslash {2-3,8}
 <script setup lang="ts">
 // ✅ 解构不丢失响应式
 const { foo, bar } = definePropsRefs<{
   foo: string
   bar: number
 }>()
-//          ⬇️ Ref<string>
+
 console.log(foo.value, bar.value)
+//           ^?
 </script>
 ```
 
 ## 默认值
 
-```vue {2-3,8}
+```vue twoslash {2-3,8}
 <script setup lang="ts">
-import { withDefaults } from 'unplugin-vue-macros/macros' with { type: 'macro' }
+import { withDefaults } from 'unplugin-vue-macros/macros'
 
 const { foo } = withDefaults(
   definePropsRefs<{
@@ -39,8 +40,9 @@ const { foo } = withDefaults(
   }>(),
   { foo: 'test' },
 )
-//          ⬇️ Ref<string>
+
 console.log(foo.value)
+//           ^?
 </script>
 ```
 

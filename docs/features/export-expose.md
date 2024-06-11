@@ -25,11 +25,11 @@ Support these syntaxes:
 
 ```vue twoslash
 <script setup lang="ts">
-// @errors: 2448 2454 2695
 export const foo: string = 'foo',
   bar = 10
 export let baz: string | undefined
 export var qux = fn()
+// @errors: 2448 2454 2695
 export const { a, b, c } = { a: 1, b: 2, c: 3 }
 
 export function fn() {}
@@ -40,8 +40,7 @@ export class A {}
 ::: details Compiled Code
 
 ```vue twoslash
-<script lang="ts">
-// @errors: 2307
+<script setup lang="ts">
 const foo: string = 'foo',
   bar = 10
 let baz: string | undefined

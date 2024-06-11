@@ -19,12 +19,12 @@ A shorthand for binding prop with the same data name.
 
 ```vue twoslash
 <script setup>
-const foo = 'foo'
+const value = 'foo'
 </script>
 
 <template>
-  <input :foo />
-  <!-- => <input :foo="foo" /> -->
+  <input :value />
+  <!-- => <input :foo="value" /> -->
 </template>
 ```
 
@@ -32,12 +32,12 @@ const foo = 'foo'
 
 ```vue
 <template>
-  <input ::foo />
-  <!-- => <input ::foo="foo" /> => <input v-model:foo="foo" /> -->
-  <input $foo />
-  <!-- => <input $foo="foo" /> => <input v-model:foo="foo" /> -->
-  <input *foo />
-  <!-- => <input *foo="foo" /> => <input v-model:foo="foo" /> -->
+  <Comp ::value />
+  <!-- => <Comp ::foo="foo" /> => <Comp v-model:foo="foo" /> -->
+  <Comp $foo />
+  <!-- => <Comp $foo="foo" /> => <Comp v-model:foo="foo" /> -->
+  <Comp *foo />
+  <!-- => <Comp *foo="foo" /> => <Comp v-model:foo="foo" /> -->
 </template>
 ```
 

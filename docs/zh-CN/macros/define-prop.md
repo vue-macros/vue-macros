@@ -13,7 +13,7 @@
 
 ::: warning
 
-`defineProp` 不能与 `defineProps` 在同一文件中使用。
+`defineProp` 不能与类型声明的 `defineProps` 在同一文件中使用。
 
 :::
 
@@ -32,12 +32,16 @@ const propName = defineProp<T>()
 
 ### 基本用法
 
-```vue
+```vue twoslash
 <script setup>
+// @experimentalDefinePropProposal=kevinEdition
+// ---cut---
 // 声明 prop
 const count = defineProp('count')
+
 // 从变量名中推断出 prop 名称
 const value = defineProp()
+
 // 访问 prop 值
 console.log(count.value)
 </script>
@@ -45,8 +49,10 @@ console.log(count.value)
 
 ### 选项
 
-```vue
+```vue twoslash
 <script setup>
+// @experimentalDefinePropProposal=kevinEdition
+// ---cut---
 // 使用选项声明 prop
 const count = defineProp('count', {
   type: Number,
@@ -59,17 +65,27 @@ const count = defineProp('count', {
 
 ### TypeScript
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+// @experimentalDefinePropProposal=kevinEdition
+// ---cut---
 // 使用类型为 number 的 prop 声明，并从变量名中推断 prop 的名称
 const count = defineProp<number>()
 count.value
-//    ^? type: number | undefined
 
 // 使用默认值为 true 的 TS 类型为 boolean 的 prop 声明
 const disabled = defineProp<boolean>('disabled', { default: true })
-//    ^? type: boolean
+disabled.value
 </script>
+```
+
+### 响应性语法糖
+
+```ts
+const foo = $defineProp<string>('foo')
+//    ^? type: string | undefined
+const bar = $(defineProp('bar', { default: 'bar' }))
+//    ^? type: string
 ```
 
 ## Johnson 的版本
@@ -86,8 +102,10 @@ const propName = defineProp<T>(defaultValue, required, rest)
 
 ### 基本用法
 
-```vue
+```vue twoslash
 <script setup>
+// @experimentalDefinePropProposal=johnsonEdition
+// ---cut---
 // 声明带有默认值 `0` 的 prop `count`
 const count = defineProp(0)
 
@@ -101,8 +119,10 @@ console.log(count.value, disabled.value)
 
 ### 选项
 
-```vue
+```vue twoslash
 <script setup>
+// @experimentalDefinePropProposal=johnsonEdition
+// ---cut---
 // 使用选项声明属性
 const count = defineProp(0, false, {
   type: Number,
@@ -113,15 +133,16 @@ const count = defineProp(0, false, {
 
 ### TypeScript
 
-```vue
+```vue twoslash
 <script setup lang="ts">
+// @experimentalDefinePropProposal=johnsonEdition
+// ---cut---
 const count = defineProp<number>()
 count.value
-//    ^? type: number | undefined
 
 // 使用默认值声明 TS 类型为 boolean 的属性
 const disabled = defineProp<boolean>(true)
-//    ^? type: boolean
+disabled.value
 </script>
 ```
 
@@ -129,13 +150,11 @@ const disabled = defineProp<boolean>(true)
 
 ```vue
 <script setup lang="ts">
-// Kevin's Edition
-const foo = $defineProp('foo', { default: 'foo' })
-const bar = $(defineProp('bar', { default: 'bar', required: true }))
+const foo = $defineProp<number>()
+//    ^? type: number | undefined
 
-// Johnson's Edition
-const foo = $defineProp('foo')
-const bar = $(defineProp('bar', true))
+const bar = $(defineProp(0, true))
+//    ^? type: number
 </script>
 ```
 

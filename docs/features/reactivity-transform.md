@@ -143,8 +143,14 @@ const count = $ref(0)
 It is common for a composition function to return an object of refs, and use destructuring to retrieve these refs. For this purpose, reactivity transform provides the **`$()`** macro:
 
 ```js twoslash
-import { useMouse } from '@vueuse/core'
-
+import { ref } from 'vue'
+function useMouse(){
+  return {
+    x: ref(0),
+    y: ref(0),
+  }
+}
+// ---cut---
 const { x, y } = $(useMouse())
 
 console.log(x, y)
@@ -153,9 +159,14 @@ console.log(x, y)
 Compiled output:
 
 ```js twoslash
-import { toRef } from 'vue'
-import { useMouse } from '@vueuse/core'
-
+import { ref } from 'vue'
+function useMouse(){
+  return {
+    x: ref(0),
+    y: ref(0),
+  }
+}
+// ---cut---
 const __temp = useMouse(),
   x = toRef(__temp, 'x'),
   y = toRef(__temp, 'y')
@@ -219,7 +230,7 @@ watchEffect(() => {
 
 The above will be compiled into the following runtime declaration equivalent:
 
-```js twoslash
+```ts twoslash
 import { defineComponent, watchEffect } from 'vue'
 
 export default defineComponent({
@@ -337,27 +348,32 @@ function useMouse() {
 
 ```vue twoslash
 <script setup lang="ts">
-import { useCounter } from '@vueuse/core'
-
+import type { Ref } from 'vue'
+function passAsRef(count: Ref<number>){
+  return count
+}
+// ---cut---
 const { count } = defineProps<{ count: number }>()
 
-useCounter($$(count))
+passAsRef($$(count))
 </script>
 ```
 
 compiles to:
 
-```js twoslash
-import { useCounter } from '@vueuse/core'
-import { defineComponent, toRef } from 'vue'
-
+```ts twoslash
+import { type Ref, defineComponent, toRef } from 'vue'
+function passAsRef(count: Ref<number>){
+  return count
+}
+// ---cut---
 export default defineComponent({
   props: {
-    count: { type: Number },
+    count: { type: Number, required: true },
   },
   setup(props) {
     const __props_count = toRef(props, 'count')
-    useCounter(__props_count)
+    passAsRef(__props_count)
   },
 })
 ```

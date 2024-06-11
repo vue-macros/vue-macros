@@ -142,9 +142,8 @@ defineOptions({
 
 ::: details Compiled Code
 
-```vue twoslash
+```vue
 <script lang="tsx">
-// @errors: 2307
 export default {
   render() {
     return <h1>Hello World</h1>

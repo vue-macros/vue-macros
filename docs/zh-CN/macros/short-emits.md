@@ -14,16 +14,31 @@
 
 ## 基本用法
 
-使用 `ShortEmits` 或简写为 `SE`，可以使用元组或方法定义。
-
-```vue
+```vue twoslash
 <script setup lang="ts">
+import { defineEmits } from 'unplugin-vue-macros/macros'
+
 const emits = defineEmits<{
   // 元组
   'update:modelValue': [val: string]
   // 方法
   update: (val: string) => void
 }>()
+</script>
+```
+
+使用 `ShortEmits` 或简写为 `SE`，可以使用元组或方法定义。
+
+```vue twoslash
+<script setup lang="ts">
+const emits = defineEmits<
+  SE<{
+    // 元组
+    'update:modelValue': [val: string]
+    // 方法
+    update: (val: string) => void
+  }>
+>()
 </script>
 ```
 
