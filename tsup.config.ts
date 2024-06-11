@@ -11,14 +11,15 @@ export default defineConfig({
   splitting: true,
   cjsInterop: true,
   watch: !!process.env.DEV,
-  dts: process.env.DEV
-    ? false
-    : {
-        compilerOptions: {
-          composite: false,
-          customConditions: [],
+  dts:
+    process.env.DEV || process.env.NO_DTS
+      ? false
+      : {
+          compilerOptions: {
+            composite: false,
+            customConditions: [],
+          },
         },
-      },
   tsconfig: '../../tsconfig.lib.json',
   clean: true,
   define: {
