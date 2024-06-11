@@ -60,6 +60,8 @@ export default withPwa(
         transformerTwoslash({
           twoslashOptions: {
             compilerOptions: {
+              jsx: 1,
+              jsxFactory: 'vue',
               types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
             },
             vueCompilerOptions: {
