@@ -99,8 +99,8 @@ importers:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
       vue-tsc:
-        specifier: 2.0.19
-        version: 2.0.19(typescript@5.4.5)
+        specifier: 2.0.21
+        version: 2.0.21(typescript@5.4.5)
       vue2:
         specifier: npm:vue@^2.7.16
         version: vue@2.7.16
@@ -587,8 +587,8 @@ importers:
         specifier: ^3.11.2
         version: 3.11.2(rollup@4.18.0)
       '@vue/language-core':
-        specifier: 2.0.19
-        version: 2.0.19(typescript@5.4.5)
+        specifier: 2.0.21
+        version: 2.0.21(typescript@5.4.5)
 
   packages/reactivity-transform:
     dependencies:
@@ -749,8 +749,8 @@ importers:
         specifier: workspace:*
         version: link:../short-vmodel
       '@vue/language-core':
-        specifier: 2.0.19
-        version: 2.0.19(typescript@5.4.5)
+        specifier: 2.0.21
+        version: 2.0.21(typescript@5.4.5)
       '@vue/shared':
         specifier: ^3.4.27
         version: 3.4.27
@@ -762,8 +762,8 @@ importers:
         specifier: ~5.4.5
         version: 5.4.5
       vue-tsc:
-        specifier: 2.0.19
-        version: 2.0.19(typescript@5.4.5)
+        specifier: 2.0.21
+        version: 2.0.21(typescript@5.4.5)
 
   playground/astro:
     dependencies:
@@ -844,8 +844,8 @@ importers:
         specifier: ^0.8.4
         version: 0.8.4(@nuxt/kit@3.11.2(rollup@4.18.0))(rollup@4.18.0)(vite@5.2.13(@types/node@20.14.2)(less@4.2.0)(terser@5.31.0))
       vue-tsc:
-        specifier: 2.0.19
-        version: 2.0.19(typescript@5.4.5)
+        specifier: 2.0.21
+        version: 2.0.21(typescript@5.4.5)
 
   playground/vue3:
     dependencies:
@@ -908,8 +908,8 @@ importers:
         specifier: ^0.8.4
         version: 0.8.4(@nuxt/kit@3.11.2(rollup@4.18.0))(rollup@4.18.0)(vite@5.2.13(@types/node@20.14.2)(less@4.2.0)(terser@5.31.0))
       vue-tsc:
-        specifier: 2.0.19
-        version: 2.0.19(typescript@5.4.5)
+        specifier: 2.0.21
+        version: 2.0.21(typescript@5.4.5)
 
 packages:
 
@@ -2937,14 +2937,14 @@ packages:
   '@vitest/utils@1.6.0':
     resolution: {integrity: sha512-21cPiuGMoMZwiOHa2i4LXkMkMkCGzA+MVFV70jRwHo95dL4x/ts5GZhML1QWuy7yfp3WzK3lRvZi3JnXTYqrBw==}
 
-  '@volar/language-core@2.2.5':
-    resolution: {integrity: sha512-2htyAuxRrAgETmFeUhT4XLELk3LiEcqoW/B8YUXMF6BrGWLMwIR09MFaZYvrA2UhbdAeSyeQ726HaWSWkexUcQ==}
+  '@volar/language-core@2.3.0':
+    resolution: {integrity: sha512-pvhL24WUh3VDnv7Yw5N1sjhPtdx7q9g+Wl3tggmnkMcyK8GcCNElF2zHiKznryn0DiUGk+eez/p2qQhz+puuHw==}
 
-  '@volar/source-map@2.2.5':
-    resolution: {integrity: sha512-wrOEIiZNf4E+PWB0AxyM4tfhkfldPsb3bxg8N6FHrxJH2ohar7aGu48e98bp3pR9HUA7P/pR9VrLmkTrgCCnWQ==}
+  '@volar/source-map@2.3.0':
+    resolution: {integrity: sha512-G/228aZjAOGhDjhlyZ++nDbKrS9uk+5DMaEstjvzglaAw7nqtDyhnQAsYzUg6BMP9BtwZ59RIw5HGePrutn00Q==}
 
-  '@volar/typescript@2.2.5':
-    resolution: {integrity: sha512-eSV/n75+ppfEVugMC/salZsI44nXDPAyL6+iTYCNLtiLHGJsnMv9GwiDMujrvAUj/aLQyqRJgYtXRoxop2clCw==}
+  '@volar/typescript@2.3.0':
+    resolution: {integrity: sha512-PtUwMM87WsKVeLJN33GSTUjBexlKfKgouWlOUIv7pjrOnTwhXHZNSmpc312xgXdTjQPpToK6KXSIcKu9sBQ5LQ==}
 
   '@vue/babel-helper-vue-jsx-merge-props@1.4.0':
     resolution: {integrity: sha512-JkqXfCkUDp4PIlFdDQ0TdXoIejMtTHP67/pvxlgeY+u5k3LEdKuWZ3LK6xkxo52uDoABIVyRwqVkfLQJhk7VBA==}
@@ -3059,8 +3059,8 @@ packages:
       unocss: '>=0.50.0-0'
       vue: '>=3.0.0-0'
 
-  '@vue/language-core@2.0.19':
-    resolution: {integrity: sha512-A9EGOnvb51jOvnCYoRLnMP+CcoPlbZVxI9gZXE/y2GksRWM6j/PrLEIC++pnosWTN08tFpJgxhSS//E9v/Sg+Q==}
+  '@vue/language-core@2.0.21':
+    resolution: {integrity: sha512-vjs6KwnCK++kIXT+eI63BGpJHfHNVJcUCr3RnvJsccT3vbJnZV5IhHR2puEkoOkIbDdp0Gqi1wEnv3hEd3WsxQ==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -6796,6 +6796,9 @@ packages:
       jsdom:
         optional: true
 
+  vscode-uri@3.0.8:
+    resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
+
   vue-demi@0.14.8:
     resolution: {integrity: sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==}
     engines: {node: '>=12'}
@@ -6826,8 +6829,8 @@ packages:
   vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}
 
-  vue-tsc@2.0.19:
-    resolution: {integrity: sha512-JWay5Zt2/871iodGF72cELIbcAoPyhJxq56mPPh+M2K7IwI688FMrFKc/+DvB05wDWEuCPexQJ6L10zSwzzapg==}
+  vue-tsc@2.0.21:
+    resolution: {integrity: sha512-E6x1p1HaHES6Doy8pqtm7kQern79zRtIewkf9fiv7Y43Zo4AFDS5hKi+iHi2RwEhqRmuiwliB1LCEFEGwvxQnw==}
     hasBin: true
     peerDependencies:
       typescript: '*'
@@ -9582,18 +9585,19 @@ snapshots:
       loupe: 2.3.7
       pretty-format: 29.7.0
 
-  '@volar/language-core@2.2.5':
+  '@volar/language-core@2.3.0':
     dependencies:
-      '@volar/source-map': 2.2.5
+      '@volar/source-map': 2.3.0
 
-  '@volar/source-map@2.2.5':
+  '@volar/source-map@2.3.0':
     dependencies:
       muggle-string: 0.4.1
 
-  '@volar/typescript@2.2.5':
+  '@volar/typescript@2.3.0':
     dependencies:
-      '@volar/language-core': 2.2.5
+      '@volar/language-core': 2.3.0
       path-browserify: 1.0.1
+      vscode-uri: 3.0.8
 
   '@vue/babel-helper-vue-jsx-merge-props@1.4.0': {}
 
@@ -9832,9 +9836,9 @@ snapshots:
       - sortablejs
       - universal-cookie
 
-  '@vue/language-core@2.0.19(typescript@5.4.5)':
+  '@vue/language-core@2.0.21(typescript@5.4.5)':
     dependencies:
-      '@volar/language-core': 2.2.5
+      '@volar/language-core': 2.3.0
       '@vue/compiler-dom': 3.4.27
       '@vue/shared': 3.4.27
       computeds: 0.0.1
@@ -14338,6 +14342,8 @@ snapshots:
       - supports-color
       - terser
 
+  vscode-uri@3.0.8: {}
+
   vue-demi@0.14.8(vue@2.7.16):
     dependencies:
       vue: 2.7.16
@@ -14372,10 +14378,10 @@ snapshots:
       de-indent: 1.0.2
       he: 1.2.0
 
-  vue-tsc@2.0.19(typescript@5.4.5):
+  vue-tsc@2.0.21(typescript@5.4.5):
     dependencies:
-      '@volar/typescript': 2.2.5
-      '@vue/language-core': 2.0.19(typescript@5.4.5)
+      '@volar/typescript': 2.3.0
+      '@vue/language-core': 2.0.21(typescript@5.4.5)
       semver: 7.6.2
       typescript: 5.4.5
 

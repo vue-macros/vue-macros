@@ -49,13 +49,9 @@ function transform(options: {
   if (changed) {
     addProps(
       codes,
-      [
-        `__VLS_TypePropsToOption<{
-${Object.entries(props)
-  .map(([prop, optional]) => `  ${prop}${optional ? '?' : ''}: typeof ${prop}`)
-  .join(',\n')}
-  }>`,
-      ],
+      Object.entries(props).map(
+        ([prop, optional]) => `${prop}${optional ? '?' : ''}: typeof ${prop}`,
+      ),
       vueLibName,
     )
   }

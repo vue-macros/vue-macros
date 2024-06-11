@@ -1,12 +1,11 @@
 import { DEFINE_PROP, DEFINE_PROP_DOLLAR } from '@vue-macros/common'
-import {
-  type Code,
-  type Sfc,
-  type VueCompilerOptions,
-  type VueLanguagePlugin,
-  replace,
-} from '@vue/language-core'
 import { addProps, getText } from './common'
+import type {
+  Code,
+  Sfc,
+  VueCompilerOptions,
+  VueLanguagePlugin,
+} from '@vue/language-core'
 
 interface DefineProp {
   name?: string
@@ -28,17 +27,15 @@ function transformDefineProp({
   vueLibName: string
   vueCompilerOptions: VueCompilerOptions
 }) {
-  replace(
+  addProps(
     codes,
-    /(?<=type __VLS_PublicProps = )/,
-    '{\n',
-    ...defineProps.flatMap((defineProp) => {
-      const result = [defineProp.name ?? 'modelValue']
+    defineProps.map((defineProp) => {
+      let result = defineProp.name ?? 'modelValue'
 
       if (!defineProp.required) {
-        result.push('?')
+        result += '?'
       }
-      result.push(': ')
+      result += ': '
 
       let type = 'any'
       if (defineProp.type) {
@@ -46,13 +43,11 @@ function transformDefineProp({
       } else if (defineProp.defaultValue && defineProp.prop) {
         type = `NonNullable<typeof ${defineProp.prop}${defineProp.isReactivityTransform ? '' : `['value']`}>`
       }
-
-      result.push(type, `,\n`)
+      result += type
       return result
     }),
-    '} & ',
+    vueLibName,
   )
-  addProps(codes, ['__VLS_TypePropsToOption<__VLS_PublicProps>'], vueLibName)
 
   if (vueCompilerOptions.experimentalDefinePropProposal === 'kevinEdition') {
     codes.push(`
