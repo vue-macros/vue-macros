@@ -1,28 +1,6 @@
 import { DEFINE_EMIT } from '@vue-macros/common'
-import {
-  type Code,
-  type Sfc,
-  type VueLanguagePlugin,
-  replace,
-} from '@vue/language-core'
 import { addEmits, getText } from './common'
-
-function transformDefineModels(options: {
-  codes: Code[]
-  sfc: Sfc
-  emitStrings: string[]
-  vueLibName: string
-  ts: typeof import('typescript')
-}) {
-  const { codes, emitStrings, vueLibName } = options
-
-  replace(
-    codes,
-    /(?<=let __VLS_modelEmitsType!: {})/,
-    ` & ReturnType<typeof import('${vueLibName}').defineEmits<{\n${emitStrings.join(',\n')}\n}>>`,
-  )
-  addEmits(codes, ['__VLS_NormalizeEmits<typeof __VLS_modelEmitsType>'])
-}
+import type { Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function getEmitStrings(options: {
   ts: typeof import('typescript')
@@ -93,13 +71,7 @@ const plugin: VueLanguagePlugin = ({
 
       const vueLibName = vueCompilerOptions.lib
 
-      transformDefineModels({
-        codes: embeddedFile.content,
-        sfc,
-        emitStrings,
-        vueLibName,
-        ts,
-      })
+      addEmits(embeddedFile.content, emitStrings, vueLibName)
     },
   }
 }

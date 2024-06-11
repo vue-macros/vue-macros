@@ -2,17 +2,30 @@ import {
   type Code,
   type Sfc,
   type VueCompilerOptions,
+  replace,
   replaceAll,
 } from '@vue/language-core'
 import type { VolarOptions } from '..'
 
 export const REGEX_DEFINE_COMPONENT =
-  /(?<=\(await import\(\S+\)\)\.defineComponent\({\n)/g
+  /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\({\n)/g
 
 export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
+  if (!decl.length) return
+
+  replace(
+    codes,
+    /(?<=type __VLS_PublicProps = )/,
+    `{\n${decl.join(',\n')}\n} & `,
+  )
+
   if (codes.includes('__VLS_TypePropsToOption<')) return
 
-  replaceAll(codes, REGEX_DEFINE_COMPONENT, 'props: ({} as ', ...decl, '),\n')
+  replaceAll(
+    codes,
+    REGEX_DEFINE_COMPONENT,
+    '  props: ({} as __VLS_TypePropsToOption<__VLS_PublicProps>),\n',
+  )
   codes.push(
     `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
     `type __VLS_TypePropsToOption<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`,
@@ -20,13 +33,27 @@ export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
   return true
 }
 
-export function addEmits(codes: Code[], decl: Code[]) {
+export function addEmits(codes: Code[], decl: Code[], vueLibName: string) {
+  if (!decl.length) return
+
+  const index = codes.indexOf('const __VLS_modelEmitsType = ')
+  if (codes[index + 1] === '{}') {
+    codes[index + 1] =
+      `import('${vueLibName}').defineEmits<{\n${decl.join(',\n')}\n}>()`
+  } else {
+    codes.splice(index + 2, 0, `\n${decl.join(',\n')}\n`)
+  }
+
   if (
     codes.some((code) => code.includes('emits: ({} as __VLS_NormalizeEmits<'))
   )
     return
 
-  replaceAll(codes, REGEX_DEFINE_COMPONENT, 'emits: ({} as ', ...decl, '),\n')
+  replaceAll(
+    codes,
+    REGEX_DEFINE_COMPONENT,
+    'emits: ({} as __VLS_NormalizeEmits<typeof __VLS_modelEmitsType>),\n',
+  )
   return true
 }
 
