@@ -17,7 +17,12 @@ const emit = defineEmits<{
 }>()
 
 defineRender(() => (
-  <form v-on:submit_prevent={() => {}} onClick={() => emit('log', bar)} v-on:keydown_down={() => {}} v-on:keyup_up={() => {}}>
+  <form
+    v-on:submit_prevent={() => {}}
+    onClick={() => emit('log', bar)}
+    v-on:keydown_down={() => {}}
+    v-on:keyup_up={() => {}}
+  >
     <slots.default />
   </form>
 ))
@@ -71,7 +76,12 @@ const emit = defineEmits<{
 }>()
 
 defineRender(() => (
-  <form onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])} onClick={() => emit('log', bar)} onKeydown={__MACROS_withKeys(() => {}, ['down'])} onKeyup={__MACROS_withKeys(() => {}, ['up'])}>
+  <form
+    onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])}
+    onClick={() => emit('log', bar)}
+    onKeydown={__MACROS_withKeys(() => {}, ['down'])}
+    onKeyup={__MACROS_withKeys(() => {}, ['up'])}
+  >
     <slots.default />
   </form>
 ))
