@@ -14,7 +14,12 @@ const emit = defineEmits<{
 }>()
 
 defineRender(() => (
-  <form onSubmit_prevent onClick={() => emit('log', bar)}>
+  <form
+    onSubmit_prevent
+    onClick={() => emit('log', bar)}
+    onKeydown_down={() => {}}
+    onKeyup_up
+  >
     <slots.default />
   </form>
 ))

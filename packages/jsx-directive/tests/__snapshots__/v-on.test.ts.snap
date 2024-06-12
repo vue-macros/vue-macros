@@ -17,7 +17,12 @@ const emit = defineEmits<{
 }>()
 
 defineRender(() => (
-  <form v-on:submit_prevent={() => {}} onClick={() => emit('log', bar)}>
+  <form
+    v-on:submit_prevent={() => {}}
+    onClick={() => emit('log', bar)}
+    v-on:keydown_down={() => {}}
+    v-on:keyup_up={() => {}}
+  >
     <slots.default />
   </form>
 ))
@@ -55,6 +60,7 @@ defineRender(() => (
 exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/child.vue 1`] = `
 "<script setup lang="tsx" generic="T">
 import { withModifiers as __MACROS_withModifiers } from "vue";
+import { withKeys as __MACROS_withKeys } from "vue";
 const { bar } = defineProps<{
   bar: T
 }>()
@@ -70,7 +76,12 @@ const emit = defineEmits<{
 }>()
 
 defineRender(() => (
-  <form onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])} onClick={() => emit('log', bar)}>
+  <form
+    onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])}
+    onClick={() => emit('log', bar)}
+    onKeydown={__MACROS_withKeys(() => {}, ['down'])}
+    onKeyup={__MACROS_withKeys(() => {}, ['up'])}
+  >
     <slots.default />
   </form>
 ))
@@ -92,11 +103,11 @@ defineRender(() => (
     <Child
       bar={bar}
       {...__MACROS_transformVOn({ log: (e) => expectTypeOf<string>(e) })}
-      onClickCapture={__MACROS_withModifiers(() => console.log('stopped'),['stop'])}
+      onClickCapture={__MACROS_withModifiers(() => console.log('stopped'), ['stop'])}
     >
       <input
         value={bar}
-        onInput={__MACROS_withModifiers((event: any) => (bar = event.target.value),['prevent'])}
+        onInput={__MACROS_withModifiers((event: any) => (bar = event.target.value), ['prevent'])}
       />
       {bar}
     </Child>
