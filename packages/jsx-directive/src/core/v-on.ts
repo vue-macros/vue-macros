@@ -40,7 +40,6 @@ export function transformVOnWithModifiers(
   offset: number,
   version: number,
 ) {
-  let withModifiers: string
   nodes.forEach(({ attribute }) => {
     const attributeName = attribute.name.name.toString()
     if (version < 3) {
@@ -55,10 +54,14 @@ export function transformVOnWithModifiers(
       return
     }
 
-    if (!withModifiers)
-      withModifiers = importHelperFn(s, offset, 'withModifiers', 'vue')
-
     let [name, ...modifiers] = attributeName.split('_')
+    const withModifiersOrKeys = importHelperFn(
+      s,
+      offset,
+      isKeyboardEvent(name) ? 'withKeys' : 'withModifiers',
+      'vue',
+    )
+
     modifiers = modifiers.filter((modifier) => {
       if (modifier === 'capture') {
         s.appendRight(
@@ -71,27 +74,27 @@ export function transformVOnWithModifiers(
       }
     })
 
+    const result = `, [${modifiers.map((modifier) => `'${modifier}'`)}])`
+    if (attribute.value?.type === 'JSXExpressionContainer') {
+      s.appendRight(
+        attribute.value.expression.start! + offset,
+        `${withModifiersOrKeys}(`,
+      )
+      s.appendLeft(attribute.value.expression.end! + offset, result)
+    } else {
+      s.appendRight(
+        attribute.name.end! + offset,
+        `={${withModifiersOrKeys}(() => {}${result}}`,
+      )
+    }
+
     s.remove(
       attribute.name.start! + name.length + offset,
       attribute.name.end! + offset,
     )
-
-    if (attribute.value?.type === 'JSXExpressionContainer') {
-      s.appendRight(
-        attribute.value.expression.start! + offset,
-        `${withModifiers}(`,
-      )
-      s.appendLeft(
-        attribute.value.expression.end! + offset,
-        `,[${modifiers.map((modifier) => `'${modifier}'`).join(',')}])`,
-      )
-    } else {
-      s.appendRight(
-        attribute.name.end! + offset,
-        `={${withModifiers}(() => {}, [${modifiers
-          .map((modifier) => `'${modifier}'`)
-          .join(',')}])}`,
-      )
-    }
   })
+}
+
+function isKeyboardEvent(value: string) {
+  return ['onKeyup', 'onKeydown', 'onKeypress'].includes(value)
 }
