@@ -21,7 +21,7 @@ defineRender(() => (
     v-on:submit_prevent={() => {}}
     onClick={() => emit('log', bar)}
     v-on:keydown_down={() => {}}
-    v-on:keyup_up={() => {}}
+    v-on:keydown_up={() => {}}
   >
     <slots.default />
   </form>
@@ -80,7 +80,7 @@ defineRender(() => (
     onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])}
     onClick={() => emit('log', bar)}
     onKeydown={__MACROS_withKeys(() => {}, ['down'])}
-    onKeyup={__MACROS_withKeys(() => {}, ['up'])}
+    onKeydown={__MACROS_withKeys(() => {}, ['up'])}
   >
     <slots.default />
   </form>

@@ -18,7 +18,7 @@ defineRender(() => (
     onSubmit_prevent
     onClick={() => emit('log', bar)}
     onKeydown_down={() => {}}
-    onKeyup_up
+    onKeydown_up
   >
     <slots.default />
   </form>

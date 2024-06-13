@@ -1,5 +1,5 @@
 import { allCodeFeatures, replaceSourceRange } from '@vue/language-core'
-import { getStart, getText } from '../common'
+import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVOn(
@@ -31,14 +31,28 @@ export function transformVOnWithModifiers(
     const start = getStart(attribute.name, options)
     const end = attribute.name.end
 
-    replaceSourceRange(codes, source, start, end, [
+    replaceSourceRange(codes, source, start, end, '{...{', [
       attributeName,
       source,
       start,
       allCodeFeatures,
     ])
 
-    if (!attribute.initializer)
-      replaceSourceRange(codes, source, end, end, '={() => {}}')
+    if (!attribute.initializer) {
+      replaceSourceRange(codes, source, end, end, ': () => {}}}')
+    } else if (
+      isJsxExpression(attribute.initializer) &&
+      attribute.initializer.expression
+    ) {
+      replaceSourceRange(
+        codes,
+        source,
+        end,
+        getStart(attribute.initializer.expression, options),
+        ': ',
+      )
+
+      replaceSourceRange(codes, source, attribute.end, attribute.end, '}')
+    }
   }
 }
