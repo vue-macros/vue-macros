@@ -17,12 +17,7 @@ const emit = defineEmits<{
 }>()
 
 defineRender(() => (
-  <form
-    v-on:submit_prevent={() => {}}
-    onClick={() => emit('log', bar)}
-    v-on:keydown_down={() => {}}
-    v-on:keyup_up={() => {}}
-  >
+  <form v-on:submit_prevent={() => {}} onClick={() => emit('log', bar)}>
     <slots.default />
   </form>
 ))
@@ -48,6 +43,8 @@ defineRender(() => (
       <input
         value={bar}
         v-on:input_prevent={(event: any) => (bar = event.target.value)}
+        v-on:keydown_down={() => {}}
+        v-on:keydown_up={() => {}}
       />
       {bar}
     </Child>
@@ -60,7 +57,6 @@ defineRender(() => (
 exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/child.vue 1`] = `
 "<script setup lang="tsx" generic="T">
 import { withModifiers as __MACROS_withModifiers } from "vue";
-import { withKeys as __MACROS_withKeys } from "vue";
 const { bar } = defineProps<{
   bar: T
 }>()
@@ -76,12 +72,7 @@ const emit = defineEmits<{
 }>()
 
 defineRender(() => (
-  <form
-    onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])}
-    onClick={() => emit('log', bar)}
-    onKeydown={__MACROS_withKeys(() => {}, ['down'])}
-    onKeyup={__MACROS_withKeys(() => {}, ['up'])}
-  >
+  <form onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])} onClick={() => emit('log', bar)}>
     <slots.default />
   </form>
 ))
@@ -91,7 +82,8 @@ defineRender(() => (
 
 exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/index.vue 1`] = `
 "<script setup lang="tsx">
-import { withModifiers as __MACROS_withModifiers } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});
+import { withModifiers as __MACROS_withModifiers } from "vue";
+import { withKeys as __MACROS_withKeys } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});
 import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 
@@ -108,6 +100,8 @@ defineRender(() => (
       <input
         value={bar}
         onInput={__MACROS_withModifiers((event: any) => (bar = event.target.value), ['prevent'])}
+        onKeydown={__MACROS_withKeys(() => {}, ['down'])}
+        onKeydown={__MACROS_withKeys(() => {}, ['up'])}
       />
       {bar}
     </Child>

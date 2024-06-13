@@ -15,6 +15,8 @@ defineRender(() => (
       <input
         value={bar}
         onInput_prevent={(event: any) => (bar = event.target.value)}
+        onKeydown_down={() => {}}
+        onKeydown_up
       />
       {bar}
     </Child>
