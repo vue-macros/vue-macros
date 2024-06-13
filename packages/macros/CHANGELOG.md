@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 2.9.5
+### Patch Changes
+
+- Updated dependencies [[`dd3a2ae`](https://github.com/vue-macros/vue-macros/commit/dd3a2aed28b9ab683cfdffaee963214e9619ca9f), [`c8e3b5d`](https://github.com/vue-macros/vue-macros/commit/c8e3b5d5d7b5727734a51a4a5d7fa4c4b1c297d0), [`6fa5860`](https://github.com/vue-macros/vue-macros/commit/6fa5860d7e441af547e77c51ddfd859b9f27b726)]:
+  - @vue-macros/boolean-prop@0.4.0
+  - @vue-macros/jsx-directive@0.8.15
+
 ## 2.9.4
 ### Patch Changes
 

@@ -1,5 +1,19 @@
 # @vue-macros/boolean-prop
 
+## 0.4.0
+### Minor Changes
+
+
+
+- [#699](https://github.com/vue-macros/vue-macros/pull/699) [`dd3a2ae`](https://github.com/vue-macros/vue-macros/commit/dd3a2aed28b9ab683cfdffaee963214e9619ca9f) Thanks [@yuyinws](https://github.com/yuyinws)! - support negative prefix
+
+
+### Patch Changes
+
+
+
+- [#701](https://github.com/vue-macros/vue-macros/pull/701) [`c8e3b5d`](https://github.com/vue-macros/vue-macros/commit/c8e3b5d5d7b5727734a51a4a5d7fa4c4b1c297d0) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce `boolean-prop` volar plugin
+
 ## 0.3.5
 
 ### Patch Changes
