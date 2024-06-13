@@ -1,5 +1,12 @@
 # @vue-macros/jsx-directive
 
+## 0.8.15
+### Patch Changes
+
+
+
+- [#707](https://github.com/vue-macros/vue-macros/pull/707) [`6fa5860`](https://github.com/vue-macros/vue-macros/commit/6fa5860d7e441af547e77c51ddfd859b9f27b726) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support keyboard event with keys
+
 ## 0.8.14
 
 ### Patch Changes

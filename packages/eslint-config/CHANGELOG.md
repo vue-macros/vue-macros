@@ -1,5 +1,12 @@
 # @vue-macros/eslint-config
 
+## 0.3.0
+### Minor Changes
+
+
+
+- [`f3b364f`](https://github.com/vue-macros/vue-macros/commit/f3b364fa7256f119a9c6fb08b49551962f6797f3) Thanks [@sxzz](https://github.com/sxzz)! - support flat config
+
 ## 0.2.0
 
 ### Minor Changes

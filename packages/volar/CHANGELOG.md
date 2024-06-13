@@ -1,5 +1,30 @@
 # @vue-macros/volar
 
+## 0.22.0
+### Minor Changes
+
+
+
+- [#701](https://github.com/vue-macros/vue-macros/pull/701) [`c8e3b5d`](https://github.com/vue-macros/vue-macros/commit/c8e3b5d5d7b5727734a51a4a5d7fa4c4b1c297d0) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce `boolean-prop` volar plugin
+
+
+### Patch Changes
+
+
+
+- [#708](https://github.com/vue-macros/vue-macros/pull/708) [`80c31ed`](https://github.com/vue-macros/vue-macros/commit/80c31ed0865aeb8e64f2376eb99f7543d7fadd92) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - allow duplicate events with modifiers
+
+
+
+- [#702](https://github.com/vue-macros/vue-macros/pull/702) [`19fc5eb`](https://github.com/vue-macros/vue-macros/commit/19fc5eb5a00b3b1f0a461c5d6d3889023f24171a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add prefix semicolon to fix syntax errors
+
+
+
+- [#703](https://github.com/vue-macros/vue-macros/pull/703) [`07aebd7`](https://github.com/vue-macros/vue-macros/commit/07aebd78f57f4409b49a2294b2a43b41e8fdb418) Thanks [@renovate](https://github.com/apps/renovate)! - support volar@2.0.21
+
+- Updated dependencies [[`dd3a2ae`](https://github.com/vue-macros/vue-macros/commit/dd3a2aed28b9ab683cfdffaee963214e9619ca9f), [`c8e3b5d`](https://github.com/vue-macros/vue-macros/commit/c8e3b5d5d7b5727734a51a4a5d7fa4c4b1c297d0)]:
+  - @vue-macros/boolean-prop@0.4.0
+
 ## 0.21.1
 
 ### Patch Changes
