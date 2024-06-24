@@ -83,6 +83,10 @@
       "allowAny": [
         "vue"
       ]
+    },
+    "overrides": {
+      "is-core-module": "npm:@no-shims/is-core-module",
+      "smartwrap": "npm:@no-shims/smartwrap"
     }
   },
   "prettier": "@sxzz/prettier-config"
