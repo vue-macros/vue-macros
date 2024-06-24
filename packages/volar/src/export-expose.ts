@@ -3,10 +3,9 @@ import {
   type Sfc,
   type VueLanguagePlugin,
   allCodeFeatures,
-  replace,
-  replaceSourceRange,
 } from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
+import { replace, replaceSourceRange } from 'muggle-string'
 import { addCode, getStart, getVolarOptions } from './common'
 import type { VolarOptions } from '..'
 

@@ -1,11 +1,7 @@
-import {
-  type Code,
-  type Sfc,
-  type VueLanguagePlugin,
-  replaceSourceRange,
-} from '@vue/language-core'
 import { createFilter } from '@rollup/pluginutils'
+import { replaceSourceRange } from 'muggle-string'
 import { addProps, getStart, getVolarOptions } from './common'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 import type { VolarOptions } from '..'
 
 function transform(options: {

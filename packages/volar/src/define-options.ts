@@ -4,8 +4,8 @@ import {
   type Sfc,
   type VueLanguagePlugin,
   allCodeFeatures,
-  replaceAll,
 } from '@vue/language-core'
+import { replaceAll } from 'muggle-string'
 
 function transformDefineOptions({
   codes,

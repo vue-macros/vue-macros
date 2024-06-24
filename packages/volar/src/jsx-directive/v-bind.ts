@@ -1,5 +1,6 @@
-import { allCodeFeatures, replaceSourceRange } from '@vue/language-core'
+import { allCodeFeatures } from '@vue/language-core'
 import { camelize } from '@vue/shared'
+import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
