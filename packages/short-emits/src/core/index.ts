@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_EMITS,
   MagicStringAST,
   generateTransform,
@@ -11,7 +12,10 @@ import {
 } from '@vue-macros/common'
 import type { Node, TSType } from '@babel/types'
 
-export function transformShortEmits(code: string, id: string) {
+export function transformShortEmits(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   const sfc = parseSFC(code, id)
   const { scriptSetup, lang, getSetupAst } = sfc
   if (!scriptSetup || !isTs(lang)) return

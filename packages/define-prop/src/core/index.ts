@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_PROP,
   DEFINE_PROPS,
   DEFINE_PROP_DOLLAR,
@@ -20,7 +21,7 @@ export * from './utils'
 export * from './kevin-edition'
 export * from './johnson-edition'
 
-export const PROPS_VARIABLE_NAME = `${HELPER_PREFIX}props`
+export const PROPS_VARIABLE_NAME: '__MACROS_props' = `${HELPER_PREFIX}props`
 export type Edition = 'kevinEdition' | 'johnsonEdition'
 
 export async function transformDefineProp(
@@ -28,7 +29,7 @@ export async function transformDefineProp(
   id: string,
   edition: Edition = 'kevinEdition',
   isProduction = false,
-) {
+): Promise<CodeTransform | undefined> {
   if (!code.includes(DEFINE_PROP)) return
 
   const sfc = parseSFC(code, id)

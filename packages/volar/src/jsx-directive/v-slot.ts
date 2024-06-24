@@ -26,7 +26,7 @@ export function transformVSlot(
   nodeMap: VSlotMap,
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
-) {
+): void {
   if (nodeMap.size === 0) return
   const { codes, ts, sfc, source } = options
 

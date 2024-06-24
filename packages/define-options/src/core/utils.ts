@@ -6,7 +6,7 @@ import type {
   Statement,
 } from '@babel/types'
 
-export function filterMacro(stmts: Statement[]) {
+export function filterMacro(stmts: Statement[]): CallExpression[] {
   return stmts
     .map((raw: Node) => {
       let node = raw
@@ -16,7 +16,7 @@ export function filterMacro(stmts: Statement[]) {
     .filter((node): node is CallExpression => !!node)
 }
 
-export function hasPropsOrEmits(node: ObjectExpression) {
+export function hasPropsOrEmits(node: ObjectExpression): boolean {
   return node.properties.some(
     (prop) =>
       (prop.type === 'ObjectProperty' || prop.type === 'ObjectMethod') &&

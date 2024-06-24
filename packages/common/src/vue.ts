@@ -88,7 +88,7 @@ export function getFileCodeAndLang(
 
 export function addNormalScript({ script, lang }: SFC, s: MagicString) {
   return {
-    start() {
+    start(): number {
       if (script) return script.loc.end.offset
 
       const attrs = lang ? ` lang="${lang}"` : ''
@@ -96,7 +96,7 @@ export function addNormalScript({ script, lang }: SFC, s: MagicString) {
       return 0
     },
 
-    end() {
+    end(): void {
       if (!script) s.appendRight(0, `\n</script>\n`)
     },
   }

@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_EMIT,
   HELPER_PREFIX,
   MagicStringAST,
@@ -10,14 +11,17 @@ import {
 } from '@vue-macros/common'
 import type * as t from '@babel/types'
 
-export const EMIT_VARIABLE_NAME = `${HELPER_PREFIX}emit`
+export const EMIT_VARIABLE_NAME: '__MACROS_emit' = `${HELPER_PREFIX}emit`
 
 export interface Emit {
   name: string
   validator?: string
 }
 
-export async function transformDefineEmit(code: string, id: string) {
+export async function transformDefineEmit(
+  code: string,
+  id: string,
+): Promise<CodeTransform | undefined> {
   if (!code.includes(DEFINE_EMIT)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)

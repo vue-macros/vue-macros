@@ -9,7 +9,7 @@ import type { JsxDirective, TransformOptions } from './index'
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
   options: TransformOptions,
-) {
+): Code[] {
   const { ts, sfc, source } = options
   const result: Code[] = []
 
@@ -86,7 +86,7 @@ export function resolveVFor(
 export function transformVFor(
   nodes: JsxDirective[],
   options: TransformOptions,
-) {
+): void {
   const { codes, source } = options
 
   nodes.forEach(({ attribute, node, parent }) => {

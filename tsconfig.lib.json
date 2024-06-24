@@ -2,10 +2,15 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "customConditions": ["dev"],
-    "types": ["node"]
+    "types": ["node"],
+    "allowJs": false,
+    "declaration": true,
+    "isolatedDeclarations": true
   },
-  "include": ["packages", "macros", "tsup.config.ts"],
+  "include": ["packages", "macros"],
   "exclude": [
+    "**/tsup.config.ts",
+    "**/vite.config.mts",
     "**/dist",
     "**/tests",
     "**/vue2-macros*.d.ts",

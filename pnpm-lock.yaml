@@ -88,8 +88,8 @@ importers:
         specifier: ^0.61.0
         version: 0.61.0(rollup@4.18.0)(vite@5.3.1(@types/node@20.14.8)(less@4.2.0)(terser@5.31.1))
       unplugin-macros:
-        specifier: ^0.13.0
-        version: 0.13.0(@types/node@20.14.8)(less@4.2.0)(rollup@4.18.0)(terser@5.31.1)
+        specifier: ^0.13.1
+        version: 0.13.1(@types/node@20.14.8)(less@4.2.0)(rollup@4.18.0)(terser@5.31.1)
       unplugin-raw:
         specifier: ^0.2.0
         version: 0.2.0(rollup@4.18.0)
@@ -232,8 +232,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0
       magic-string-ast:
-        specifier: ^0.6.1
-        version: 0.6.1
+        specifier: ^0.6.2
+        version: 0.6.2
     devDependencies:
       '@babel/parser':
         specifier: ^7.24.7
@@ -4031,12 +4031,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  magic-string-ast@0.5.0:
-    resolution: {integrity: sha512-mxjxZ5zoR4+ybulZ7Z5qdZUTdAfiKJ1Il80kN/I4jWsHTTqNKZ9KsBa3Jepo+3U09I04qiyC2+7MZD8v4rJOoA==}
-    engines: {node: '>=16.14.0'}
-
-  magic-string-ast@0.6.1:
-    resolution: {integrity: sha512-eczKQUDaBpB/mcEqZZNGEUG1FQNsXCuk3uOrCpu6y7qTygIy6jnpqDa62j9MGKSoqlXhM1lCFQv1THuGDQtvUA==}
+  magic-string-ast@0.6.2:
+    resolution: {integrity: sha512-oN3Bcd7ZVt+0VGEs7402qR/tjgjbM7kPlH/z7ufJnzTLVBzXJITRHOJiwMmmYMgZfdoWQsfQcY+iKlxiBppnMA==}
     engines: {node: '>=16.14.0'}
 
   magic-string@0.30.10:
@@ -5430,8 +5426,8 @@ packages:
       webpack:
         optional: true
 
-  unplugin-macros@0.13.0:
-    resolution: {integrity: sha512-BN3aNqMv73UOt7DQQXRT0m7NnXz/tHz+vv8NjKPq5Mibup30SpVL2GsY3d0daCZwDdjoUsr5eu5mF3FnZZesQA==}
+  unplugin-macros@0.13.1:
+    resolution: {integrity: sha512-P7G5qer03UbtSTKJ6MGZeZ2eUy7tvucNM17myyFzb99vxcd/br5gi0NCUOALYMtJjtWnl0D/j4ww8ZEwpIlm4w==}
     engines: {node: '>=18.12.0'}
 
   unplugin-raw@0.2.0:
@@ -9787,11 +9783,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  magic-string-ast@0.5.0:
-    dependencies:
-      magic-string: 0.30.10
-
-  magic-string-ast@0.6.1:
+  magic-string-ast@0.6.2:
     dependencies:
       magic-string: 0.30.10
 
@@ -11524,11 +11516,11 @@ snapshots:
       vite: 5.3.1(@types/node@20.14.8)(less@4.2.0)(terser@5.31.1)
       webpack: 5.92.1(esbuild@0.21.5)
 
-  unplugin-macros@0.13.0(@types/node@20.14.8)(less@4.2.0)(rollup@4.18.0)(terser@5.31.1):
+  unplugin-macros@0.13.1(@types/node@20.14.8)(less@4.2.0)(rollup@4.18.0)(terser@5.31.1):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
       ast-kit: 0.12.2
-      magic-string-ast: 0.5.0
+      magic-string-ast: 0.6.2
       unplugin: 1.10.1
       vite: 5.3.1(@types/node@20.14.8)(less@4.2.0)(terser@5.31.1)
       vite-node: 1.6.0(@types/node@20.14.8)(less@4.2.0)(terser@5.31.1)

@@ -5,7 +5,9 @@ import type {
   ObjectEmitsOptions,
 } from 'vue'
 
-export default (props: ComponentPropsOptions | EmitsOptions) => {
+export default (
+  props: ComponentPropsOptions | EmitsOptions,
+): ComponentObjectPropsOptions | ObjectEmitsOptions => {
   return Array.isArray(props)
     ? props.reduce(
         (normalized, p) => ((normalized[p] = null), normalized),

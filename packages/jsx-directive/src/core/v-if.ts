@@ -6,7 +6,7 @@ export function transformVIf(
   s: MagicStringAST,
   offset: number,
   version: number,
-) {
+): void {
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
 

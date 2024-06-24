@@ -6,7 +6,7 @@ import { type TSScope, getTSFile, resolveTSScope } from './scope'
 import { isTSDeclaration } from './is'
 import { resolveTSFileId } from './resolve-file'
 
-export const namespaceSymbol = Symbol('namespace')
+export const namespaceSymbol: unique symbol = Symbol('namespace')
 export type TSNamespace = {
   [K in string]: TSResolvedType | TSNamespace | undefined
 } & { [namespaceSymbol]: true }

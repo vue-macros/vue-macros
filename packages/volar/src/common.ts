@@ -7,7 +7,7 @@ import {
 } from '@vue/language-core'
 import type { VolarOptions } from '..'
 
-export const REGEX_DEFINE_COMPONENT =
+export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\({\n)/g
 
 export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
@@ -57,7 +57,7 @@ export function addEmits(codes: Code[], decl: Code[], vueLibName: string) {
   return true
 }
 
-export function addCode(codes: Code[], ...args: Code[]) {
+export function addCode(codes: Code[], ...args: Code[]): void {
   const index = codes.findIndex((code) =>
     code.includes('__VLS_setup = (async () => {'),
   )
@@ -70,7 +70,10 @@ export function getVolarOptions(
   return vueCompilerOptions.vueMacros
 }
 
-export function getImportNames(ts: typeof import('typescript'), sfc: Sfc) {
+export function getImportNames(
+  ts: typeof import('typescript'),
+  sfc: Sfc,
+): string[] {
   const names: string[] = []
   const sourceFile = sfc.scriptSetup!.ast
   ts.forEachChild(sourceFile, (node) => {
@@ -109,11 +112,14 @@ interface Options {
 export function getStart(
   node: import('typescript').Node,
   { ts, sfc, source = 'scriptSetup' }: Options,
-) {
+): number {
   return (ts as any).getTokenPosOfNode(node, sfc[source]!.ast)
 }
 
-export function getText(node: import('typescript').Node, options: Options) {
+export function getText(
+  node: import('typescript').Node,
+  options: Options,
+): string {
   const { sfc, source = 'scriptSetup' } = options
   return sfc[source]!.content.slice(getStart(node, options), node.end)
 }

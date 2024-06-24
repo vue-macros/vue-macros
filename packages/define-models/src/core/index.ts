@@ -1,5 +1,6 @@
 import { extractIdentifiers, walkAST } from 'ast-walker-scope'
 import {
+  type CodeTransform,
   DEFINE_EMITS,
   DEFINE_MODELS,
   DEFINE_MODELS_DOLLAR,
@@ -35,7 +36,7 @@ export function transformDefineModels(
   id: string,
   version: number,
   unified: boolean,
-) {
+): CodeTransform | undefined {
   let hasDefineProps = false
   let hasDefineEmits = false
   let hasDefineModels = false

@@ -7,10 +7,11 @@ import type { Plugin } from 'vite'
 import type {} from '@nuxt/devtools'
 import type { VolarOptions } from '@vue-macros/volar'
 import type { RawVueCompilerOptions } from '@vue/language-core'
+import type { NuxtModule } from '@nuxt/schema'
 
 export type VueMacrosOptions = Options
 
-export default defineNuxtModule<VueMacrosOptions>({
+const module: NuxtModule<Options> = defineNuxtModule<VueMacrosOptions>({
   meta: {
     name: 'unplugin-vue-macros',
     configKey: 'macros',
@@ -147,6 +148,7 @@ export default defineNuxtModule<VueMacrosOptions>({
     })
   },
 })
+export default module
 
 declare module '@nuxt/schema' {
   interface NuxtConfig {

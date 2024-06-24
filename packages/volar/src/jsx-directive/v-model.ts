@@ -11,7 +11,7 @@ export function transformVModel(
   nodes: JsxDirective[],
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
-) {
+): void {
   const { codes, ts, source, sfc } = options
   let firstNamespacedNode:
     | { attribute: JsxDirective['attribute']; node: JsxDirective['node'] }

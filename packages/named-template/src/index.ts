@@ -1,4 +1,4 @@
-import { createUnplugin } from 'unplugin'
+import { type UnpluginInstance, createUnplugin } from 'unplugin'
 import {
   type BaseOptions,
   type MarkRequired,
@@ -33,8 +33,8 @@ export type TemplateContent = Record<
 
 const name = generatePluginName()
 
-export const PrePlugin = createUnplugin<Options | undefined, false>(
-  (userOptions = {}) => {
+export const PrePlugin: UnpluginInstance<Options | undefined, false> =
+  createUnplugin((userOptions = {}) => {
     const options = resolveOptions(userOptions)
     const filter = createFilter(options)
 
@@ -67,24 +67,23 @@ export const PrePlugin = createUnplugin<Options | undefined, false>(
           const { name } = query as any
           const request = `${filename}?vue&${QUERY_TEMPLATE}&name=${name}`
           return `import { createTextVNode } from 'vue'
-          import { render } from ${JSON.stringify(request)}
+        import { render } from ${JSON.stringify(request)}
 export default {
-  render: (...args) => {
-    const r = render(...args)
-    return typeof r === 'string' ? createTextVNode(r) : r
-  }
+render: (...args) => {
+  const r = render(...args)
+  return typeof r === 'string' ? createTextVNode(r) : r
+}
 }`
         } else {
           return preTransform(code, id, templateContent)
         }
       },
     }
-  },
-)
+  })
 
 export type CustomBlocks = Record<string, Record<string, string>>
-export const PostPlugin = createUnplugin<Options | undefined, false>(
-  (userOptions = {}) => {
+export const PostPlugin: UnpluginInstance<Options | undefined, false> =
+  createUnplugin((userOptions = {}) => {
     const options = resolveOptions(userOptions)
     const filter = createFilter(options)
     const customBlocks: CustomBlocks = Object.create(null)
@@ -112,10 +111,9 @@ export const PostPlugin = createUnplugin<Options | undefined, false>(
         },
       },
     }
-  },
-)
+  })
 
-const plugin = createUnplugin<Options | undefined, true>(
+const plugin: UnpluginInstance<Options | undefined, true> = createUnplugin(
   (userOptions = {}, meta) => {
     return [PrePlugin.raw(userOptions, meta), PostPlugin.raw(userOptions, meta)]
   },

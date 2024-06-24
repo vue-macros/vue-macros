@@ -10,7 +10,7 @@ export function transformVOn(
   s: MagicStringAST,
   offset: number,
   version: number,
-) {
+): void {
   if (nodes.length > 0 && version >= 3)
     s.prependRight(
       offset,
@@ -39,7 +39,7 @@ export function transformVOnWithModifiers(
   s: MagicStringAST,
   offset: number,
   version: number,
-) {
+): void {
   nodes.forEach(({ attribute }) => {
     const attributeName = attribute.name.name.toString()
     if (version < 3) {

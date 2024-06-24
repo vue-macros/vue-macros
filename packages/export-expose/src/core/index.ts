@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   HELPER_PREFIX,
   MagicStringAST,
   generateTransform,
@@ -8,7 +9,10 @@ import { extractIdentifiers } from '@vue/compiler-sfc'
 
 const MACROS_VAR_PREFIX = `${HELPER_PREFIX}expose_`
 
-export function transformExportExpose(code: string, id: string) {
+export function transformExportExpose(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 

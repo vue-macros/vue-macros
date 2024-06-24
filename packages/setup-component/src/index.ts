@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { createUnplugin } from 'unplugin'
+import { type UnpluginInstance, createUnplugin } from 'unplugin'
 import {
   type BaseOptions,
   type MarkRequired,
@@ -46,7 +46,7 @@ function resolveOptions(options: Options): OptionsResolved {
 
 const name = generatePluginName()
 
-const PrePlugin = createUnplugin<Options | undefined, false>(
+const PrePlugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, meta) => {
     const options = resolveOptions(userOptions)
     const filter = createFilter(options)
@@ -103,31 +103,33 @@ const PrePlugin = createUnplugin<Options | undefined, false>(
   },
 )
 
-const PostPlugin = createUnplugin<Options | undefined, false>(() => {
-  return {
-    name: `${name}-post`,
-    enforce: 'post',
+const PostPlugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
+  () => {
+    return {
+      name: `${name}-post`,
+      enforce: 'post',
 
-    transformInclude(id) {
-      return isSubModule(id)
-    },
-    transform(code, id) {
-      return transformPost(code, id)
-    },
+      transformInclude(id) {
+        return isSubModule(id)
+      },
+      transform(code, id) {
+        return transformPost(code, id)
+      },
 
-    rollup: {
-      transform: {
-        order: 'post',
-        handler(code, id) {
-          if (!isSubModule(id)) return
-          return transformPost(code, id)
+      rollup: {
+        transform: {
+          order: 'post',
+          handler(code, id) {
+            if (!isSubModule(id)) return
+            return transformPost(code, id)
+          },
         },
       },
-    },
-  }
-})
+    }
+  },
+)
 
-const plugin = createUnplugin<Options | undefined, true>(
+const plugin: UnpluginInstance<Options | undefined, true> = createUnplugin(
   (options = {}, meta) => {
     return [PrePlugin.raw(options, meta), PostPlugin.raw(options, meta)]
   },

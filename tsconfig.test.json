@@ -2,8 +2,14 @@
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
     "lib": ["ES2022", "DOM"],
-    "types": ["node", "vite/client"]
+    "types": ["node", "vite/client"],
+    "isolatedDeclarations": false
   },
-  "include": ["packages/*/tests", "packages/*/src", "packages/shim.d.ts"],
+  "include": [
+    "packages/*/tests",
+    "packages/*/src",
+    "packages/shim.d.ts",
+    "**/tsup.config.ts"
+  ],
   "exclude": ["**/dist", "**/tests/fixtures", "packages/volar", "packages/nuxt"]
 }

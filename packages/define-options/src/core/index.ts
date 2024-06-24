@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_OPTIONS,
   MagicStringAST,
   addNormalScript,
@@ -13,7 +14,10 @@ import type { ExportDefaultDeclaration, Program, Statement } from '@babel/types'
 
 export * from './utils'
 
-export function transformDefineOptions(code: string, id: string) {
+export function transformDefineOptions(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   if (!code.includes(DEFINE_OPTIONS)) return
 
   const sfc = parseSFC(code, id)

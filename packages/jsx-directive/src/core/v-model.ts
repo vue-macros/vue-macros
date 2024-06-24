@@ -5,7 +5,7 @@ export function transformVModel(
   attribute: JSXAttribute,
   s: MagicStringAST,
   offset: number,
-) {
+): void {
   if (
     attribute.name.type === 'JSXNamespacedName' &&
     attribute.value?.type === 'JSXExpressionContainer'

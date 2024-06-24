@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_RENDER,
   MagicStringAST,
   babelParse,
@@ -10,7 +11,10 @@ import {
 } from '@vue-macros/common'
 import type * as t from '@babel/types'
 
-export function transformDefineRender(code: string, id: string) {
+export function transformDefineRender(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   if (!code.includes(DEFINE_RENDER)) return
 
   const lang = getLang(id)

@@ -22,7 +22,7 @@ export function transformVSlot(
   s: MagicStringAST,
   offset: number,
   version: number,
-) {
+): void {
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {

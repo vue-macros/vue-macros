@@ -5,15 +5,18 @@ export type ResolveTSFileIdImpl = (
   id: string,
   importer: string,
 ) => Promise<string | undefined> | string | undefined
-let resolveTSFileIdImpl: ResolveTSFileIdImpl = resolveTSFileIdNode
-export function resolveTSFileId(id: string, importer: string) {
+
+export const resolveTSFileId: ResolveTSFileIdImpl = (id, importer) => {
   return resolveTSFileIdImpl(id, importer)
 }
 
 /**
  * @limitation don't node_modules and JavaScript file
  */
-export function resolveTSFileIdNode(id: string, importer: string) {
+export const resolveTSFileIdNode: ResolveTSFileIdImpl = (
+  id: string,
+  importer: string,
+) => {
   function tryResolve(id: string, importer: string) {
     const filePath = path.resolve(importer, '..', id)
     if (!existsSync(filePath)) return
@@ -29,6 +32,8 @@ export function resolveTSFileIdNode(id: string, importer: string) {
   )
 }
 
-export function setResolveTSFileIdImpl(impl: ResolveTSFileIdImpl) {
+let resolveTSFileIdImpl: ResolveTSFileIdImpl = resolveTSFileIdNode
+
+export function setResolveTSFileIdImpl(impl: ResolveTSFileIdImpl): void {
   resolveTSFileIdImpl = impl
 }

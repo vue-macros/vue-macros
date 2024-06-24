@@ -6,7 +6,7 @@ export default (
     | string
     | [string, string | undefined, string | undefined, UseVModelOptions<any>]
   )[]
-) => {
+): Record<string, Ref<any>> => {
   const props = getCurrentInstance()!.proxy!.$props as Record<string, any>
   const ret: Record<string, Ref<any>> = Object.create(null)
   for (const _k of keys) {

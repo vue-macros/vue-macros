@@ -18,7 +18,7 @@ export function resolveVFor(
     version: number
     vMemoAttribute?: JsxDirective['attribute']
   },
-) {
+): string {
   if (attribute.value) {
     let item, index, objectIndex, list
     if (
@@ -63,7 +63,7 @@ export function transformVFor(
   s: MagicStringAST,
   offset: number,
   version: number,
-) {
+): void {
   if (nodes.length === 0) return
 
   nodes.forEach(({ node, attribute, parent, vMemoAttribute }) => {

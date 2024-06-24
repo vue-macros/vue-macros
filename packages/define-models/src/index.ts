@@ -1,4 +1,8 @@
-import { type UnpluginContextMeta, createUnplugin } from 'unplugin'
+import {
+  type UnpluginContextMeta,
+  type UnpluginInstance,
+  createUnplugin,
+} from 'unplugin'
 import {
   type BaseOptions,
   FilterFileType,
@@ -51,7 +55,7 @@ function resolveOptions(
 
 const name = generatePluginName()
 
-export default createUnplugin<Options | undefined, false>(
+const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
     const filter = createFilter(options)
@@ -81,3 +85,4 @@ export default createUnplugin<Options | undefined, false>(
     }
   },
 )
+export default plugin

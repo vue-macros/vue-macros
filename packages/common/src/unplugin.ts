@@ -15,7 +15,7 @@ import type { Plugin } from 'rollup'
 import type { Plugin as VitePlugin } from 'vite'
 
 /** @deprecated use `generateTransform` instead */
-export const getTransformResult = generateTransform
+export const getTransformResult: typeof generateTransform = generateTransform
 
 export interface BaseOptions {
   include?: FilterPattern
@@ -23,7 +23,9 @@ export interface BaseOptions {
   version?: number
 }
 
-export function createFilter(options: BaseOptions) {
+export function createFilter(
+  options: BaseOptions,
+): (id: string | unknown) => boolean {
   return createRollupFilter(options.include, options.exclude)
 }
 

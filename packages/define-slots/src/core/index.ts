@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_SLOTS,
   MagicStringAST,
   generateTransform,
@@ -6,7 +7,10 @@ import {
   parseSFC,
 } from '@vue-macros/common'
 
-export function transformDefineSlots(code: string, id: string) {
+export function transformDefineSlots(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   if (!code.includes(DEFINE_SLOTS)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)

@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_PROPS,
   DEFINE_PROPS_DOLLAR,
   MagicStringAST,
@@ -9,7 +10,10 @@ import {
 } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 
-export function transformDefineProps(code: string, id: string) {
+export function transformDefineProps(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   if (!code.includes(DEFINE_PROPS_DOLLAR)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)

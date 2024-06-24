@@ -6,7 +6,7 @@ export function transformRef(
   nodes: JsxDirective[],
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
-) {
+): void {
   const { codes, source, ts } = options
 
   for (const { node, attribute } of nodes) {

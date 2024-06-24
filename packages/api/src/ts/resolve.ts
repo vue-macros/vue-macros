@@ -114,7 +114,7 @@ export async function resolveTSLiteralType({
 export function resolveTypeElements(
   scope: TSScope,
   elements: Array<TSTypeElement>,
-) {
+): TSProperties {
   const properties: TSProperties = {
     callSignatures: [],
     constructSignatures: [],
@@ -278,7 +278,7 @@ export async function resolveTSIndexedAccessType(
 export async function resolveTSTypeOperator(
   { scope, type }: TSResolvedType<TSTypeOperator>,
   stacks: TSResolvedType<any>[] = [],
-) {
+): Promise<StringLiteral[] | undefined> {
   if (type.operator !== 'keyof') return undefined
 
   const resolved = await resolveTSReferencedType(

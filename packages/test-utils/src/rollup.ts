@@ -49,7 +49,10 @@ export const RollupEscapeNullCharacterPlugin = (): Plugin => {
   }
 }
 
-export async function rollupBuild(file: string, plugins: InputPluginOption) {
+export async function rollupBuild(
+  file: string,
+  plugins: InputPluginOption,
+): Promise<string> {
   const bundle = await rollup({
     input: [file],
     external: ['vue', '@vueuse/core', /^\0.*/, /^\/vue-macros\/.*/],

@@ -136,7 +136,7 @@ export async function inferRuntimeType(
   return [UNKNOWN_TYPE]
 }
 
-export function attachNodeLoc(node: Node, newNode: Node) {
+export function attachNodeLoc(node: Node, newNode: Node): void {
   newNode.start = node.start
   newNode.end = node.end
 }
@@ -145,7 +145,7 @@ export function genRuntimePropDefinition(
   types: string[] | undefined,
   isProduction: boolean,
   properties: string[],
-) {
+): string {
   let type: string | undefined
   let skipCheck = false
 

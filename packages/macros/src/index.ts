@@ -18,6 +18,7 @@ import {
   type OptionsPlugin,
   type Plugin,
   type PluginType,
+  type UnpluginCombineInstance,
   createCombinePlugin,
 } from 'unplugin-combine'
 import { generatePluginName } from '#macros' with { type: 'macro' }
@@ -304,8 +305,8 @@ function resolvePlugin(
 }
 
 const name = generatePluginName()
-export default createCombinePlugin<Options | undefined>(
-  (userOptions = {}, meta) => {
+const plugin: UnpluginCombineInstance<Options | undefined> =
+  createCombinePlugin<Options | undefined>((userOptions = {}, meta) => {
     const options = resolveOptions(userOptions)
 
     const framework = meta.framework!
@@ -395,5 +396,5 @@ export default createCombinePlugin<Options | undefined>(
       name,
       plugins,
     }
-  },
-)
+  })
+export default plugin

@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_PROPS,
   MagicStringAST,
   WITH_DEFAULTS,
@@ -11,7 +12,10 @@ import {
 } from '@vue-macros/common'
 import type { CallExpression, MemberExpression, Node } from '@babel/types'
 
-export function transformChainCall(code: string, id: string) {
+export function transformChainCall(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   if (!code.includes(DEFINE_PROPS)) return
 
   const { scriptSetup, getSetupAst, offset } = parseSFC(code, id)

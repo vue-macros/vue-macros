@@ -2,7 +2,10 @@ import { allCodeFeatures, replaceSourceRange } from '@vue/language-core'
 import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
-export function transformVIf(nodes: JsxDirective[], options: TransformOptions) {
+export function transformVIf(
+  nodes: JsxDirective[],
+  options: TransformOptions,
+): void {
   const { codes, ts, source } = options
 
   nodes.forEach(({ node, attribute, parent }, index) => {

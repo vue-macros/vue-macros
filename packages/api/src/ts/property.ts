@@ -206,7 +206,7 @@ export async function resolveTSProperties({
   }
 }
 
-export function getTSPropertiesKeys(properties: TSProperties) {
+export function getTSPropertiesKeys(properties: TSProperties): string[] {
   return [
     ...new Set([
       ...Object.keys(properties.properties),

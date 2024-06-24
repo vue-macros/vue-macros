@@ -6,7 +6,7 @@ export function transformVOn(
   nodes: JsxDirective[],
   ctxMap: Map<JsxDirective['node'], string>,
   { codes, source }: TransformOptions,
-) {
+): void {
   if (nodes.length === 0) return
 
   for (const { node, attribute } of nodes) {
@@ -23,7 +23,7 @@ export function transformVOn(
 export function transformVOnWithModifiers(
   nodes: JsxDirective[],
   options: TransformOptions,
-) {
+): void {
   const { codes, source } = options
 
   for (const { attribute } of nodes) {

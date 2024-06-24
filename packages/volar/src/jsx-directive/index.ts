@@ -7,6 +7,7 @@ import { transformVOn, transformVOnWithModifiers } from './v-on'
 import { transformVBind } from './v-bind'
 import { transformRef } from './ref'
 import { transformCtx } from './context'
+import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 import type { Code, Sfc } from '@vue/language-core'
 
 export type JsxDirective = {
@@ -23,7 +24,7 @@ export type TransformOptions = {
   vueVersion?: number
 }
 
-export function transformJsxDirective(options: TransformOptions) {
+export function transformJsxDirective(options: TransformOptions): void {
   const { sfc, ts, source } = options
 
   const vIfMap = new Map<
@@ -176,7 +177,7 @@ export function transformJsxDirective(options: TransformOptions) {
 export function getOpeningElement(
   node: JsxDirective['node'],
   options: TransformOptions,
-) {
+): JsxSelfClosingElement | JsxOpeningElement | undefined {
   const { ts } = options
 
   return ts.isJsxSelfClosingElement(node)
@@ -189,7 +190,7 @@ export function getOpeningElement(
 export function getTagName(
   node: JsxDirective['node'],
   options: TransformOptions & { withTypes?: boolean },
-) {
+): string {
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
 

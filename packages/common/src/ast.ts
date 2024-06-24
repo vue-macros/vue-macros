@@ -7,7 +7,7 @@ export function checkInvalidScopeReference(
   node: t.Node | undefined,
   method: string,
   setupBindings: string[],
-) {
+): void {
   if (!node) return
   walkIdentifiers(node, (id) => {
     if (setupBindings.includes(id.name))
@@ -127,7 +127,9 @@ export function isStaticObjectKey(node: t.ObjectExpression): boolean {
 /**
  * @param node must be a static expression, SpreadElement is not supported
  */
-export function resolveObjectExpression(node: t.ObjectExpression) {
+export function resolveObjectExpression(
+  node: t.ObjectExpression,
+): Record<string | number, t.ObjectMethod | t.ObjectProperty> | undefined {
   const maps: Record<string | number, t.ObjectMethod | t.ObjectProperty> =
     Object.create(null)
   for (const property of node.properties) {

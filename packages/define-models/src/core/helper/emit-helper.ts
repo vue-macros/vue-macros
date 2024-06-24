@@ -5,7 +5,7 @@ export default (
   key: string,
   value: unknown,
   ...args: unknown[]
-) => {
+): any => {
   emitFn(key, value)
   return args.length > 0 ? args[0] : value
 }

@@ -6,7 +6,7 @@ import type { JsxDirective, TransformOptions } from './index'
 export function transformVBind(
   nodes: JsxDirective[],
   options: TransformOptions,
-) {
+): void {
   if (nodes.length === 0) return
 
   const { codes, ts, source } = options

@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_PROPS,
   MagicStringAST,
   generateTransform,
@@ -11,7 +12,10 @@ import { shouldTransform, transformAST } from './transform'
 import { helperId } from './helper'
 import type { CallExpression, Identifier, Node } from '@babel/types'
 
-export function transformVueSFC(code: string, id: string) {
+export function transformVueSFC(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   const s = new MagicStringAST(code)
   const { script, scriptSetup, getScriptAst, getSetupAst } = parseSFC(code, id)
 

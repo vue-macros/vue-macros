@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_PROPS,
   MagicStringAST,
   WITH_DEFAULTS,
@@ -8,7 +9,10 @@ import {
 } from '@vue-macros/common'
 import type { VariableDeclarator } from '@babel/types'
 
-export function transformExportProps(code: string, id: string) {
+export function transformExportProps(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 

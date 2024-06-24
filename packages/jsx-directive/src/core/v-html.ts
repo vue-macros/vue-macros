@@ -6,7 +6,7 @@ export function transformVHtml(
   s: MagicStringAST,
   offset: number,
   version: number,
-) {
+): void {
   nodes.forEach(({ attribute }) => {
     s.overwriteNode(
       attribute.name,

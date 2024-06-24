@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_EMITS,
   MagicStringAST,
   escapeKey,
@@ -17,7 +18,7 @@ export async function transformBetterDefine(
   code: string,
   id: string,
   isProduction = false,
-) {
+): Promise<CodeTransform | undefined> {
   const s = new MagicStringAST(code)
   const sfc = parseSFC(code, id)
   if (!sfc.scriptSetup) return

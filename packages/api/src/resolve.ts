@@ -7,9 +7,12 @@ import { type ResolveTSFileIdImpl, tsFileCache } from './ts'
 import type { PluginContext } from 'rollup'
 import type { ModuleNode, Plugin } from 'vite'
 
-export const deepImportRE = /^([^@][^/]*)\/|^(@[^/]+\/[^/]+)\//
+export const deepImportRE: RegExp = /^([^@][^/]*)\/|^(@[^/]+\/[^/]+)\//
 
-export const RollupResolve = () => {
+export const RollupResolve = (): {
+  resolve: (ctx: PluginContext) => ResolveTSFileIdImpl
+  handleHotUpdate: NonNullable<Plugin['handleHotUpdate']>
+} => {
   const referencedFiles = new Map<
     string /* file */,
     Set<string /* importer */>

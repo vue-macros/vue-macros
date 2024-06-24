@@ -35,7 +35,7 @@ export function transformShortVmodel({
   }
 }
 
-export function processDirective(node: NodeElement) {
+export function processDirective(node: NodeElement): void {
   for (const [i, prop] of node.props.entries()) {
     if (
       !(
@@ -65,7 +65,7 @@ export function processAttribute(
   prefix: string,
   node: NodeElement,
   context: TransformContext,
-) {
+): void {
   for (const [i, prop] of node.props.entries()) {
     if (
       !(

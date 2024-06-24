@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   MagicStringAST,
   babelParse,
   generateTransform,
@@ -6,7 +7,10 @@ import {
 } from '@vue-macros/common'
 import type { HmrContext } from 'vite'
 
-export function transformSetupSFC(code: string, id: string) {
+export function transformSetupSFC(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   const lang = getLang(id)
   const program = babelParse(code, lang)
 
@@ -27,7 +31,7 @@ export function transformSetupSFC(code: string, id: string) {
 export function hotUpdateSetupSFC(
   { modules }: HmrContext,
   filter: (id: unknown) => boolean,
-) {
+): import('vite').ModuleNode[] {
   function isSubModule(id: string) {
     const [filename, query] = id.split('?')
     if (!query) return false

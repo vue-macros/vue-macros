@@ -40,7 +40,11 @@ function rollup(options: Options = {}): Plugin {
   }
 }
 
-export default {
+const plugin: {
+  rollup: typeof rollup
+  vite: typeof rollup
+} = {
   rollup,
   vite: rollup,
 }
+export default plugin

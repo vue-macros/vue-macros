@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   MagicStringAST,
   addNormalScript,
   generateTransform,
@@ -9,7 +10,10 @@ import type { Node } from '@babel/types'
 
 export const MAGIC_COMMENT = 'hoist-static'
 
-export function transformHoistStatic(code: string, id: string) {
+export function transformHoistStatic(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
     if (scriptOffset === undefined) scriptOffset = normalScript.start()
 

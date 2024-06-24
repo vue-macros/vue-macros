@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   MagicStringAST,
   REGEX_SETUP_SFC,
   babelParse,
@@ -28,7 +29,7 @@ export function transformJsxDirective(
   code: string,
   id: string,
   version: number,
-) {
+): CodeTransform | undefined {
   const lang = getLang(id)
   let asts: {
     ast: Program

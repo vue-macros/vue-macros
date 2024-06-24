@@ -1,6 +1,14 @@
-import { MagicStringAST, generateTransform, parseSFC } from '@vue-macros/common'
+import {
+  type CodeTransform,
+  MagicStringAST,
+  generateTransform,
+  parseSFC,
+} from '@vue-macros/common'
 
-export function transformExportRender(code: string, id: string) {
+export function transformExportRender(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 

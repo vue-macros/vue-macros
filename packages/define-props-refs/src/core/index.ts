@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   DEFINE_PROPS,
   DEFINE_PROPS_REFS,
   HELPER_PREFIX,
@@ -13,7 +14,10 @@ import {
 } from '@vue-macros/common'
 import type { CallExpression, Node } from '@babel/types'
 
-export function transformDefinePropsRefs(code: string, id: string) {
+export function transformDefinePropsRefs(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   if (!code.includes(DEFINE_PROPS_REFS)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)

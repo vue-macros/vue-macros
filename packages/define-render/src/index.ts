@@ -1,4 +1,4 @@
-import { createUnplugin } from 'unplugin'
+import { type UnpluginInstance, createUnplugin } from 'unplugin'
 import {
   type BaseOptions,
   type MarkRequired,
@@ -27,7 +27,7 @@ function resolveOptions(options: Options): OptionsResolved {
 }
 const name = generatePluginName()
 
-export default createUnplugin<Options | undefined, false>(
+const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}) => {
     const options = resolveOptions(userOptions)
     const filter = createFilter(options)
@@ -46,3 +46,4 @@ export default createUnplugin<Options | undefined, false>(
     }
   },
 )
+export default plugin

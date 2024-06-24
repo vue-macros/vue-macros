@@ -12,7 +12,7 @@ function getPkgName(filePath: string) {
   return pkgName
 }
 
-export const generatePluginName = defineMacro(function () {
+export const generatePluginName: () => string = defineMacro(function () {
   const pkgName = getPkgName(this.id)
   return `unplugin-vue-${pkgName}`
 })

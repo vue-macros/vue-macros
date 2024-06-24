@@ -10,7 +10,7 @@ export function transformCtx(
   node: JsxDirective['node'],
   index: number,
   options: TransformOptions,
-) {
+): string {
   const { ts, codes } = options
 
   const openingElement = getOpeningElement(node, options)

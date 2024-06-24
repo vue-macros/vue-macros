@@ -1,5 +1,6 @@
 import {
   type AttachedScope,
+  type CodeTransform,
   DEFINE_SETUP_COMPONENT,
   HELPER_PREFIX,
   MagicStringAST,
@@ -132,7 +133,7 @@ export function transformSetupComponent(
   code: string,
   _id: string,
   ctx: SetupComponentContext,
-) {
+): CodeTransform | undefined {
   const id = normalizePath(_id)
   const s = new MagicStringAST(code)
 
@@ -162,7 +163,7 @@ export function loadSetupComponent(
   virtualId: string,
   ctx: SetupComponentContext,
   root: string,
-) {
+): string | undefined {
   const index = +(SETUP_COMPONENT_ID_REGEX.exec(virtualId)?.[1] ?? -1)
   const id = virtualId.replace(SETUP_COMPONENT_ID_REGEX, '')
   const { components, imports } = ctx[id] || ctx[root + id] || {}
@@ -203,7 +204,7 @@ export function loadSetupComponent(
 export async function hotUpdateSetupComponent(
   { file, modules, read }: HmrContext,
   ctx: SetupComponentContext,
-) {
+): Promise<ModuleNode[] | undefined> {
   const getSubModule = (module: ModuleNode): ModuleNode[] => {
     const importedModules = Array.from(module.importedModules)
     if (importedModules.length === 0) return []
@@ -225,7 +226,10 @@ export async function hotUpdateSetupComponent(
   return [...modules, ...affectedModules]
 }
 
-export function transformPost(code: string, _id: string) {
+export function transformPost(
+  code: string,
+  _id: string,
+): CodeTransform | undefined {
   const s = new MagicStringAST(code)
 
   const id = normalizePath(_id)
@@ -281,7 +285,7 @@ export function transformPost(code: string, _id: string) {
   }
 }
 
-export function getScopeDecls(scope: AttachedScope | undefined) {
+export function getScopeDecls(scope: AttachedScope | undefined): string[] {
   const scopes = new Set<string>()
   do {
     if (!scope?.declarations) continue

@@ -1,4 +1,5 @@
 import {
+  type CodeTransform,
   HELPER_PREFIX,
   MagicStringAST,
   babelParse,
@@ -58,7 +59,7 @@ export function preTransform(
   code: string,
   id: string,
   templateContent: TemplateContent,
-) {
+): CodeTransform | undefined {
   const root = parse(code)
 
   const templates = root.children.filter(
@@ -110,7 +111,7 @@ export function preTransformMainTemplate({
   node: ElementNode
   id: string
   templateContent: TemplateContent
-}) {
+}): void {
   const ctx = createTransformContext(root, {
     filename: id,
     nodeTransforms: [transformTemplateIs(s)],
@@ -132,7 +133,7 @@ export function postTransform(
   code: string,
   id: string,
   customBlocks: CustomBlocks,
-) {
+): CodeTransform | undefined {
   const lang = getLang(id)
   const program = babelParse(code, lang)
   const { filename } = parseVueRequest(id)
@@ -224,7 +225,7 @@ export function postTransformMainEntry(
   program: Program,
   id: string,
   customBlocks: CustomBlocks,
-) {
+): void {
   for (const node of program.body) {
     if (
       node.type === 'ImportDeclaration' &&
