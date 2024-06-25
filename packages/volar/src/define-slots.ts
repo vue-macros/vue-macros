@@ -1,10 +1,6 @@
 import { DEFINE_SLOTS } from '@vue-macros/common'
-import {
-  type Code,
-  type Sfc,
-  type VueLanguagePlugin,
-  replaceSourceRange,
-} from '@vue/language-core'
+import { replaceSourceRange } from 'muggle-string'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function transform({
   codes,

@@ -1,10 +1,5 @@
-import {
-  type Code,
-  type Sfc,
-  type VueCompilerOptions,
-  replace,
-  replaceAll,
-} from '@vue/language-core'
+import { replace, replaceAll } from 'muggle-string'
+import type { Code, Sfc, VueCompilerOptions } from '@vue/language-core'
 import type { VolarOptions } from '..'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =

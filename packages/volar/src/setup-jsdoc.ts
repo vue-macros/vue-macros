@@ -1,9 +1,5 @@
-import {
-  type Code,
-  type Sfc,
-  type VueLanguagePlugin,
-  replace,
-} from '@vue/language-core'
+import { replace } from 'muggle-string'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 import type ts from 'typescript'
 
 type HasJSDoc = ts.HasJSDoc & { jsDoc: ts.JSDoc[] }

@@ -50,7 +50,7 @@ console.log(count.value)
 ### 选项
 
 ```vue twoslash
-<script setup>
+<script setup lang="ts">
 // @experimentalDefinePropProposal=kevinEdition
 // ---cut---
 // 使用选项声明 prop
@@ -58,7 +58,7 @@ const count = defineProp('count', {
   type: Number,
   required: true,
   default: 0,
-  validator: (value) => value < 20,
+  validator: (value: number) => value < 20,
 })
 </script>
 ```
@@ -120,13 +120,13 @@ console.log(count.value, disabled.value)
 ### 选项
 
 ```vue twoslash
-<script setup>
+<script setup lang="ts">
 // @experimentalDefinePropProposal=johnsonEdition
 // ---cut---
 // 使用选项声明属性
 const count = defineProp(0, false, {
   type: Number,
-  validator: (value) => value < 20,
+  validator: (value: number) => value < 20,
 })
 </script>
 ```
