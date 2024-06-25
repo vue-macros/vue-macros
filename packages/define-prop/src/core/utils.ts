@@ -10,6 +10,6 @@ export type Impl = (ctx: {
   genRuntimeProps: (isProduction: boolean) => Promise<string | undefined>
 }
 
-export function stringifyArray(strs: string[]) {
+export function stringifyArray(strs: string[]): string {
   return `[${strs.map((s) => JSON.stringify(s)).join(', ')}]`
 }

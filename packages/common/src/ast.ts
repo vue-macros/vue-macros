@@ -155,7 +155,7 @@ export function importHelperFn(
   local: string,
   from = 'vue',
   isDefault = false,
-) {
+): string {
   const imported = isDefault ? 'default' : local
   const cacheKey = `${from}@${imported}`
   if (!importedMap.get(s)?.has(cacheKey)) {

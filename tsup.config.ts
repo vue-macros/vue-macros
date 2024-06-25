@@ -3,11 +3,13 @@ import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, type Options } from 'tsup'
 import { createUnplugin } from 'unplugin'
+import { IsolatedDecl } from 'unplugin-isolated-decl'
 import Macros from 'unplugin-macros'
 import Raw from 'unplugin-raw'
 import { Unused, type Options as UnusedOptions } from 'unplugin-unused'
 
 const filename = fileURLToPath(import.meta.url)
+const macros = path.resolve(filename, '../macros')
 
 export function config({
   ignoreDeps = { peerDependencies: ['vue'] },
@@ -29,16 +31,7 @@ export function config({
     splitting,
     cjsInterop: true,
     watch: !!process.env.DEV,
-    dts:
-      process.env.DEV || process.env.NO_DTS
-        ? false
-        : {
-            compilerOptions: {
-              composite: false,
-              customConditions: [],
-              noCheck: true,
-            },
-          },
+    dts: false,
     tsconfig: '../../tsconfig.lib.json',
     clean: true,
     define: {
@@ -58,6 +51,7 @@ export function config({
             },
             meta,
           ),
+          IsolatedDecl.raw({ exclude: [/node_modules/, `${macros}/**`] }, meta),
           Raw.raw(
             {
               transform: {
