@@ -21,10 +21,8 @@
 
 ## 基本用法
 
-```vue twoslash
+```vue
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros'
-
 const props = defineProps<{
   foo?: string
   bar?: number[]
@@ -58,10 +56,8 @@ const props = withDefaults(
 
 也支持 [props 解构](../features/reactivity-transform.md) 和 JSX：
 
-```vue twoslash
+```vue
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros'
-
 const { foo } = defineProps<{ foo: string }>().withDefaults({
   foo: '111',
 })
@@ -74,7 +70,7 @@ const { foo } = defineProps<{ foo: string }>().withDefaults({
 
 ```vue twoslash
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros'
+import { defineProps } from 'unplugin-vue-macros/macros' with { type: 'macro' }
 
 defineProps<{
   /* ... */

@@ -21,10 +21,8 @@ Extends `defineProps`, support call `withDefaults` as a chain.
 
 ## Basic Usage
 
-```vue twoslash
+```vue
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros'
-
 const props = defineProps<{
   foo?: string
   bar?: number[]
@@ -58,10 +56,8 @@ const props = withDefaults(
 
 Also support [props destructuring](../features/reactivity-transform.md) and JSX:
 
-```vue twoslash
+```vue
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros'
-
 const { foo } = defineProps<{ foo: string }>().withDefaults({
   foo: '111',
 })
@@ -74,7 +70,7 @@ To fully support TypeScript, you need to import this macro from `unplugin-vue-ma
 
 ```vue twoslash
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros'
+import { defineProps } from 'unplugin-vue-macros/macros' with { type: 'macro' }
 
 defineProps<{
   /* ... */
