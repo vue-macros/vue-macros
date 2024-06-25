@@ -66,15 +66,13 @@ export function transformJsxDirective(options: TransformOptions): void {
           node,
           attribute,
         })
-
         ctxNodeSet.add(node)
       } else if (attributeName === 'v-on') {
         vOnNodes.push({ node, attribute })
-
         ctxNodeSet.add(node)
-      } else if (/^on[A-Z]\S*[_|-]\S+/.test(attributeName)) {
+      } else if (/^on[A-Z]\S*_\S+/.test(attributeName)) {
         vOnWithModifiers.push({ node, attribute })
-      } else if (/^(?!v-)\S+[_|-]\S+/.test(attributeName)) {
+      } else if (/^(?!v-|on[A-Z])\S+[_|-]\S+/.test(attributeName)) {
         vBindNodes.push({ node, attribute })
       } else if (attributeName === 'ref') {
         refNodes.push({ node, attribute })
