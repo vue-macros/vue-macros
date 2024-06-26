@@ -1,5 +1,19 @@
 # @vue-macros/volar
 
+## 0.23.0
+### Minor Changes
+
+
+
+- [#712](https://github.com/vue-macros/vue-macros/pull/712) [`908511e`](https://github.com/vue-macros/vue-macros/commit/908511e7f5d67184f5ff1f2213e1cbd279445c6c) Thanks [@renovate](https://github.com/apps/renovate)! - support volar@2.0.22
+
+
+### Patch Changes
+
+
+
+- [#714](https://github.com/vue-macros/vue-macros/pull/714) [`d3ec4c6`](https://github.com/vue-macros/vue-macros/commit/d3ec4c61e8dba4a561b5ba7c437fd744835233a4) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - remove camelCase events support
+
 ## 0.22.0
 ### Minor Changes
 
