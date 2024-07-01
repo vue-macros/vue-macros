@@ -7,7 +7,7 @@ import {
   generateTransform,
   isCallOf,
   parseSFC,
-  walkASTSetup,
+  walkAST,
 } from '@vue-macros/common'
 import type * as t from '@babel/types'
 
@@ -18,10 +18,10 @@ export interface Emit {
   validator?: string
 }
 
-export async function transformDefineEmit(
+export function transformDefineEmit(
   code: string,
   id: string,
-): Promise<CodeTransform | undefined> {
+): CodeTransform | undefined {
   if (!code.includes(DEFINE_EMIT)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
@@ -32,44 +32,43 @@ export async function transformDefineEmit(
   const setupAst = getSetupAst()!
   const emits: Emit[] = []
 
-  await walkASTSetup(setupAst, (setup) => {
-    setup.onEnter(
-      (node): node is t.CallExpression => isCallOf(node, DEFINE_EMIT),
-      (node, parent) => {
-        const [name, validator] = node.arguments
-        let emitName: string
-        if (!name) {
-          if (
-            parent?.type !== 'VariableDeclarator' ||
-            parent.id.type !== 'Identifier'
-          ) {
-            throw new Error(
-              `A variable must be used to receive the return value of ${DEFINE_EMIT}.`,
-            )
-          }
-          emitName = parent.id.name
-        } else if (name.type !== 'StringLiteral') {
+  walkAST<t.Node>(setupAst, {
+    enter(node, parent) {
+      if (!isCallOf(node, DEFINE_EMIT)) return
+
+      const [name, validator] = node.arguments
+      let emitName: string
+      if (!name) {
+        if (
+          parent?.type !== 'VariableDeclarator' ||
+          parent.id.type !== 'Identifier'
+        ) {
           throw new Error(
-            `The first argument of ${DEFINE_EMIT} must be a string literal.`,
+            `A variable must be used to receive the return value of ${DEFINE_EMIT}.`,
           )
-        } else {
-          emitName = name.value
         }
-
-        emits.push({
-          name: emitName,
-          validator: validator ? s.sliceNode(validator, { offset }) : undefined,
-        })
-
-        s.overwriteNode(
-          node,
-          `(...args) => ${EMIT_VARIABLE_NAME}(${JSON.stringify(
-            emitName,
-          )}, ...args)`,
-          { offset },
+        emitName = parent.id.name
+      } else if (name.type !== 'StringLiteral') {
+        throw new Error(
+          `The first argument of ${DEFINE_EMIT} must be a string literal.`,
         )
-      },
-    )
+      } else {
+        emitName = name.value
+      }
+
+      emits.push({
+        name: emitName,
+        validator: validator ? s.sliceNode(validator, { offset }) : undefined,
+      })
+
+      s.overwriteNode(
+        node,
+        `(...args) => ${EMIT_VARIABLE_NAME}(${JSON.stringify(
+          emitName,
+        )}, ...args)`,
+        { offset },
+      )
+    },
   })
 
   if (emits.length > 0) {
