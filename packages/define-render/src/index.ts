@@ -41,7 +41,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       },
 
       transform(code, id) {
-        return transformDefineRender(code, id)
+        return transformDefineRender(code, id, options)
       },
     }
   },
