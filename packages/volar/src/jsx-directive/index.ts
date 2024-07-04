@@ -1,5 +1,5 @@
 import { getText } from '../common'
-import { type VSlotMap, transformVSlot } from './v-slot'
+import { type VSlotMap, transformVSlot, transformVSlots } from './v-slot'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
@@ -38,6 +38,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   const vOnWithModifiers: JsxDirective[] = []
   const vBindNodes: JsxDirective[] = []
   const refNodes: JsxDirective[] = []
+  const vSlots: JsxDirective[] = []
 
   const ctxNodeSet = new Set<JsxDirective['node']>()
 
@@ -76,6 +77,9 @@ export function transformJsxDirective(options: TransformOptions): void {
         vBindNodes.push({ node, attribute })
       } else if (attributeName === 'ref') {
         refNodes.push({ node, attribute })
+      } else if (attributeName === 'v-slots') {
+        ctxNodeSet.add(node)
+        vSlots.push({ node, attribute })
       }
     }
 
@@ -170,6 +174,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   transformVOnWithModifiers(vOnWithModifiers, options)
   transformVBind(vBindNodes, options)
   transformRef(refNodes, ctxMap, options)
+  transformVSlots(vSlots, ctxMap, options)
 }
 
 export function getOpeningElement(
