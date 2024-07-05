@@ -1,4 +1,4 @@
-import { getText } from '../common'
+import { getText, isJsxExpression } from '../common'
 import { type VSlotMap, transformVSlot, transformVSlots } from './v-slot'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
@@ -85,7 +85,7 @@ export function transformJsxDirective(options: TransformOptions): void {
 
     // Object Expression slots
     if (
-      ts.isJsxExpression(node) &&
+      isJsxExpression(node) &&
       node.expression &&
       ts.isObjectLiteralExpression(node.expression) &&
       parent &&
