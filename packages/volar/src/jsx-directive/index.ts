@@ -83,6 +83,23 @@ export function transformJsxDirective(options: TransformOptions): void {
       }
     }
 
+    // Object Expression slots
+    if (
+      ts.isJsxElement(node) &&
+      node.children.length === 1 &&
+      ts.isJsxExpression(node.children[0]) &&
+      node.children[0].expression &&
+      ts.isObjectLiteralExpression(node.children[0].expression)
+    ) {
+      ctxNodeSet.add(node)
+      vSlots.push({
+        node,
+        attribute: {
+          initializer: { kind: 294, expression: node.children[0].expression },
+        } as any,
+      })
+    }
+
     if (!(vSlotAttribute && tagName === 'template')) {
       if (vIfAttribute) {
         vIfMap.has(parent) || vIfMap.set(parent, [])

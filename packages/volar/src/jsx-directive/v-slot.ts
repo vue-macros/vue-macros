@@ -187,17 +187,16 @@ export function transformVSlots(
 ): void {
   const { codes, source } = options
 
-  for (const { node, attribute } of nodes) {
-    if (
-      attribute.initializer &&
-      isJsxExpression(attribute.initializer) &&
-      attribute.initializer.expression
-    ) {
+  for (const {
+    node,
+    attribute: { initializer },
+  } of nodes) {
+    if (initializer && isJsxExpression(initializer) && initializer.expression) {
       replaceSourceRange(
         codes,
         source,
-        attribute.end - 1,
-        attribute.end - 1,
+        initializer.expression.end,
+        initializer.expression.end,
         ` satisfies typeof ${ctxMap.get(node)}.slots`,
       )
     }
