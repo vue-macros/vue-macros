@@ -1,4 +1,4 @@
-import { getText } from '../common'
+import { getText, isJsxExpression } from '../common'
 import { type VSlotMap, transformVSlot, transformVSlots } from './v-slot'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
@@ -81,6 +81,29 @@ export function transformJsxDirective(options: TransformOptions): void {
         ctxNodeSet.add(node)
         vSlots.push({ node, attribute })
       }
+    }
+
+    // Object Expression slots
+    if (
+      isJsxExpression(node) &&
+      node.expression &&
+      ts.isObjectLiteralExpression(node.expression) &&
+      parent &&
+      ts.isJsxElement(parent) &&
+      parent.children.filter((child) =>
+        ts.isJsxText(child) ? getText(child, options).trim() : true,
+      ).length === 1
+    ) {
+      ctxNodeSet.add(parent)
+      vSlots.push({
+        node: parent,
+        attribute: {
+          initializer: {
+            kind: ts.SyntaxKind.JsxExpression,
+            expression: node.expression,
+          },
+        },
+      } as any)
     }
 
     if (!(vSlotAttribute && tagName === 'template')) {
