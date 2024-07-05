@@ -85,19 +85,25 @@ export function transformJsxDirective(options: TransformOptions): void {
 
     // Object Expression slots
     if (
-      ts.isJsxElement(node) &&
-      node.children.length === 1 &&
-      ts.isJsxExpression(node.children[0]) &&
-      node.children[0].expression &&
-      ts.isObjectLiteralExpression(node.children[0].expression)
+      ts.isJsxExpression(node) &&
+      node.expression &&
+      ts.isObjectLiteralExpression(node.expression) &&
+      parent &&
+      ts.isJsxElement(parent) &&
+      parent.children.filter((child) =>
+        ts.isJsxText(child) ? getText(child, options).trim() : true,
+      ).length === 1
     ) {
-      ctxNodeSet.add(node)
+      ctxNodeSet.add(parent)
       vSlots.push({
-        node,
+        node: parent,
         attribute: {
-          initializer: { kind: 294, expression: node.children[0].expression },
-        } as any,
-      })
+          initializer: {
+            kind: ts.SyntaxKind.JsxExpression,
+            expression: node.expression,
+          },
+        },
+      } as any)
     }
 
     if (!(vSlotAttribute && tagName === 'template')) {
