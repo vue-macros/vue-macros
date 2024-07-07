@@ -1,5 +1,16 @@
 # @vue-macros/volar
 
+## 0.23.1
+### Patch Changes
+
+
+
+- [#722](https://github.com/vue-macros/vue-macros/pull/722) [`058404f`](https://github.com/vue-macros/vue-macros/commit/058404fc117f93f5e73debb705e3a0b515a3118c) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support slots type hint for object expression
+
+
+
+- [#720](https://github.com/vue-macros/vue-macros/pull/720) [`23f15c0`](https://github.com/vue-macros/vue-macros/commit/23f15c063afee363fd4005201a6d4447e56453e2) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support type hint for v-slots
+
 ## 0.23.0
 ### Minor Changes
 
