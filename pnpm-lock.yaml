@@ -4,6 +4,36 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@vue/compiler-core':
+      specifier: ^3.4.31
+      version: 3.4.31
+    '@vue/compiler-dom':
+      specifier: ^3.4.31
+      version: 3.4.31
+    '@vue/compiler-sfc':
+      specifier: ^3.4.31
+      version: 3.4.31
+    '@vue/language-core':
+      specifier: 2.0.24
+      version: 2.0.24
+    '@vue/shared':
+      specifier: ^3.4.31
+      version: 3.4.31
+    unplugin:
+      specifier: ^1.11.0
+      version: 1.11.0
+    vite:
+      specifier: ^5.3.3
+      version: 5.3.3
+    vue:
+      specifier: ^3.4.31
+      version: 3.4.31
+    vue-tsc:
+      specifier: 2.0.24
+      version: 2.0.24
+
 overrides:
   esbuild: ^0.23.0
   is-core-module: npm:@no-shims/is-core-module
@@ -95,16 +125,16 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(rollup@4.18.0)
       vite:
-        specifier: ^5.3.3
+        specifier: 'catalog:'
         version: 5.3.3(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1)
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@20.14.10)(@vitest/ui@1.6.0)(less@4.2.0)(terser@5.31.1)
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
       vue-tsc:
-        specifier: 2.0.24
+        specifier: 'catalog:'
         version: 2.0.24(typescript@5.5.3)
       vue2:
         specifier: npm:vue@^2.7.16
@@ -153,7 +183,7 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.10)(less@4.2.0)(postcss@8.4.39)(terser@5.31.1)(typescript@5.5.3)
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/api:
@@ -190,7 +220,7 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
 
   packages/boolean-prop:
@@ -199,11 +229,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@vue/compiler-core':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
     devDependencies:
       '@vue/compiler-sfc':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
 
   packages/chain-call:
@@ -212,7 +242,7 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
 
   packages/common:
@@ -224,7 +254,7 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(rollup@4.18.0)
       '@vue/compiler-sfc':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       ast-kit:
         specifier: ^1.0.0
@@ -252,11 +282,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/define-models:
@@ -268,7 +298,7 @@ importers:
         specifier: ^0.6.1
         version: 0.6.1
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       '@vue-macros/api':
@@ -278,7 +308,7 @@ importers:
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.31(typescript@5.5.3))
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/define-options:
@@ -290,11 +320,11 @@ importers:
         specifier: ^0.6.1
         version: 0.6.1
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/define-prop:
@@ -306,11 +336,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/define-props:
@@ -319,14 +349,14 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       '@vue-macros/reactivity-transform':
         specifier: workspace:*
         version: link:../reactivity-transform
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/define-props-refs:
@@ -335,11 +365,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/define-render:
@@ -348,11 +378,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/define-slots:
@@ -361,11 +391,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/devtools:
@@ -374,7 +404,7 @@ importers:
         specifier: ^2.0.4
         version: 2.0.4
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
     devDependencies:
       '@unocss/reset':
@@ -390,7 +420,7 @@ importers:
         specifier: ^0.61.3
         version: 0.61.3(rollup@4.18.0)(vite@5.3.3(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1))
       vite:
-        specifier: ^5.3.3
+        specifier: 'catalog:'
         version: 5.3.3(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1)
 
   packages/eslint-config:
@@ -405,14 +435,14 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@vue/compiler-sfc':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/export-props:
@@ -421,11 +451,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/export-render:
@@ -434,14 +464,14 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@vue/compiler-sfc':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/hoist-static:
@@ -450,7 +480,7 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
 
   packages/jsx-directive:
@@ -459,11 +489,11 @@ importers:
         specifier: workspace:~
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/macros:
@@ -544,7 +574,7 @@ importers:
         specifier: workspace:*
         version: link:../short-vmodel
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
       unplugin-combine:
         specifier: ^1.0.0
@@ -554,7 +584,7 @@ importers:
         version: link:../define-options
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/named-template:
@@ -563,14 +593,14 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@vue/compiler-dom':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/nuxt:
@@ -595,7 +625,7 @@ importers:
         specifier: ^3.12.3
         version: 3.12.3(rollup@4.18.0)
       '@vue/language-core':
-        specifier: 2.0.24
+        specifier: 'catalog:'
         version: 2.0.24(typescript@5.5.3)
 
   packages/reactivity-transform:
@@ -607,16 +637,16 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@vue/compiler-core':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       '@vue/shared':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       magic-string:
         specifier: ^0.30.10
         version: 0.30.10
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       estree-walker:
@@ -629,10 +659,10 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@vue/compiler-dom':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
 
   packages/setup-component:
@@ -641,11 +671,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/setup-sfc:
@@ -654,11 +684,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
     devDependencies:
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/short-bind:
@@ -667,11 +697,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@vue/compiler-core':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
     devDependencies:
       '@vue/compiler-sfc':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
 
   packages/short-emits:
@@ -680,7 +710,7 @@ importers:
         specifier: workspace:*
         version: link:../common
       unplugin:
-        specifier: ^1.11.0
+        specifier: 'catalog:'
         version: 1.11.0
 
   packages/short-vmodel:
@@ -689,11 +719,11 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@vue/compiler-core':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
     devDependencies:
       '@vue/compiler-sfc':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
 
   packages/test-utils:
@@ -730,10 +760,10 @@ importers:
         version: 5.0.5(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1)(vue@3.4.31(typescript@5.5.3))
     devDependencies:
       vite:
-        specifier: ^5.3.3
+        specifier: 'catalog:'
         version: 5.3.3(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1)
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   packages/volar:
@@ -757,23 +787,23 @@ importers:
         specifier: workspace:*
         version: link:../short-vmodel
       '@vue/language-core':
-        specifier: 2.0.24
+        specifier: 'catalog:'
         version: 2.0.24(typescript@5.5.3)
       '@vue/shared':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       muggle-string:
         specifier: ^0.4.1
         version: 0.4.1
     devDependencies:
       '@vue/compiler-dom':
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31
       typescript:
         specifier: ~5.5.3
         version: 5.5.3
       vue-tsc:
-        specifier: 2.0.24
+        specifier: 'catalog:'
         version: 2.0.24(typescript@5.5.3)
 
   playground/astro:
@@ -791,7 +821,7 @@ importers:
         specifier: ^4.11.5
         version: 4.11.5(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1)(typescript@5.5.3)
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
 
   playground/vue2:
@@ -846,7 +876,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/macros
       vite:
-        specifier: ^5.3.3
+        specifier: 'catalog:'
         version: 5.3.3(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1)
       vite-hyper-config:
         specifier: ^0.2.1
@@ -855,7 +885,7 @@ importers:
         specifier: ^0.8.4
         version: 0.8.4(@nuxt/kit@3.12.3(magicast@0.3.4)(rollup@4.18.0))(rollup@4.18.0)(vite@5.3.3(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1))
       vue-tsc:
-        specifier: 2.0.24
+        specifier: 'catalog:'
         version: 2.0.24(typescript@5.5.3)
 
   playground/vue3:
@@ -867,7 +897,7 @@ importers:
         specifier: ^2.16.5
         version: 2.16.5
       vue:
-        specifier: ^3.4.31
+        specifier: 'catalog:'
         version: 3.4.31(typescript@5.5.3)
     devDependencies:
       '@rollup/plugin-commonjs':
@@ -910,7 +940,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/macros
       vite:
-        specifier: ^5.3.3
+        specifier: 'catalog:'
         version: 5.3.3(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1)
       vite-hyper-config:
         specifier: ^0.2.1
@@ -919,7 +949,7 @@ importers:
         specifier: ^0.8.4
         version: 0.8.4(@nuxt/kit@3.12.3(magicast@0.3.4)(rollup@4.18.0))(rollup@4.18.0)(vite@5.3.3(@types/node@20.14.10)(less@4.2.0)(terser@5.31.1))
       vue-tsc:
-        specifier: 2.0.24
+        specifier: 'catalog:'
         version: 2.0.24(typescript@5.5.3)
 
 packages:
