@@ -10,7 +10,9 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformDefineRender } from './core'
 
-export type Options = BaseOptions
+export type Options = BaseOptions & {
+  vapor?: boolean
+}
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 
 function resolveOptions(options: Options): OptionsResolved {
@@ -41,7 +43,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       },
 
       transform(code, id) {
-        return transformDefineRender(code, id)
+        return transformDefineRender(code, id, options)
       },
     }
   },
