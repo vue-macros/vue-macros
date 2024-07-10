@@ -12,8 +12,6 @@ export function detectVueVersion(root: string = process.cwd()): number {
   if (!isFile) paths.unshift(path.resolve(root, '_index.js'))
   const vuePkg = getPackageInfoSync('vue', { paths })
   if (vuePkg && vuePkg.version) {
-    // should be removed after the Vapor official version is released
-    if (vuePkg.packageJson.name === '@vue-vapor/vue') return 3.6
     const version = Number.parseFloat(vuePkg.version)
     return version >= 2 && version < 3 ? Math.trunc(version) : version
   } else {
