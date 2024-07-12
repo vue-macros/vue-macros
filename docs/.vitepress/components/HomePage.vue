@@ -33,6 +33,15 @@ const members = computed(() => [
       { icon: 'twitter', link: 'https://twitter.com/zhiyuanzmj' },
     ],
   },
+  {
+    avatar: 'https://github.com/konata33.png',
+    name: 'konata33',
+    title: t('Logo Designer'),
+    links: [
+      { icon: 'github', link: 'https://github.com/konata33' },
+      { icon: 'twitter', link: 'https://twitter.com/Mrcat333' },
+    ],
+  },
 ])
 </script>
 
