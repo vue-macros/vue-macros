@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import ts from 'typescript'
 import { docsLink } from '../../macros'
-import { getLocaleConfig } from './configs'
+import { getLocaleConfig } from './locale'
 
 const require = createRequire(import.meta.url)
 

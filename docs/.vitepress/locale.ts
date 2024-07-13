@@ -1,8 +1,8 @@
-import { docsLink, githubLink } from '../../../macros/repo'
-import { createTranslate } from '../i18n/utils'
+import { docsLink, githubLink } from '../../macros/repo'
+import { createTranslate } from './i18n/utils'
 import type { DefaultTheme, HeadConfig, LocaleConfig } from 'vitepress'
 
-export const getLocaleConfig = (lang: string) => {
+export function getLocaleConfig(lang: string) {
   const t = createTranslate(lang)
 
   const urlPrefix = lang && lang !== 'en' ? `/${lang}` : ''
@@ -29,10 +29,12 @@ export const getLocaleConfig = (lang: string) => {
     [
       'script',
       {},
-      `window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-29NKGSL23C');`,
+      `window.dataLayer = window.dataLayer || []
+        function gtag() {
+          dataLayer.push(arguments)
+        }
+        gtag('js', new Date())
+        gtag('config', 'G-29NKGSL23C')`,
     ],
   ]
 
