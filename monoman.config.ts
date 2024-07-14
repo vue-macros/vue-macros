@@ -7,7 +7,7 @@ import { docsLink, githubLink } from './macros/repo'
 import type { Options } from 'tsup'
 
 function getPkgName(filePath: string) {
-  const relative = path.relative(__dirname, filePath)
+  const relative = path.relative(import.meta.dirname, filePath)
   const [, pkgName] = relative.split(path.sep)
   return pkgName
 }
@@ -65,7 +65,7 @@ export default defineConfig([
 
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && existsSync(tsupFile)) {
-        const tsupConfig: Options = await import(tsupFile)
+        const tsupConfig: Options = (await import(tsupFile)).default
         const format = tsupConfig.format || []
         const hasCJS = format.includes('cjs')
         const hasESM = format.includes('esm')

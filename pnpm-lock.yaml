@@ -92,8 +92,8 @@ importers:
         specifier: ^3.3.2
         version: 3.3.2
       monoman:
-        specifier: ^0.4.2
-        version: 0.4.2
+        specifier: ^0.4.3
+        version: 0.4.3
       npm-run-all2:
         specifier: ^6.2.2
         version: 6.2.2
@@ -2664,6 +2664,12 @@ packages:
     peerDependencies:
       esbuild: ^0.23.0
 
+  bundle-require@5.0.0:
+    resolution: {integrity: sha512-GuziW3fSSmopcx4KRymQEJVbZUfqlCqcq7dvs6TYwKRZiegK/2buMxQTPs6MGlNv50wms1699qYO54R8XfRX4w==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    peerDependencies:
+      esbuild: ^0.23.0
+
   c12@1.11.1:
     resolution: {integrity: sha512-KDU0TvSvVdaYcQKQ6iPHATGz/7p/KiVjPg4vQrB6Jg/wX9R0yl5RZxWm9IoZqaIHD2+6PZd81+KMGwRr/lRIUg==}
     peerDependencies:
@@ -3587,6 +3593,9 @@ packages:
   import-meta-resolve@4.1.0:
     resolution: {integrity: sha512-I6fiaX09Xivtk+THaMfAwnA3MVA5Big1WHF1Dfx9hFuvNIWpXnorlkzhcQf6ehrqQiiZECRt1poOAkPmer3ruw==}
 
+  importx@0.3.11:
+    resolution: {integrity: sha512-KsFrXKNGeNdeaBsTWU2sEhL3xo+uxquONy5FWnTBititJKebUBg8EgHW8Wl5bpNP+8iN9yOpGqIhVyjfjJigtA==}
+
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
@@ -4160,9 +4169,9 @@ packages:
   mlly@1.7.1:
     resolution: {integrity: sha512-rrVRZRELyQzrIUAVMHxP97kv+G786pHmOKzuFII8zDYahFBS7qnHh2AlYSl1GAHhaMPCz6/oHjVMcfFYgFYHgA==}
 
-  monoman@0.4.2:
-    resolution: {integrity: sha512-a3f5oiWPVgwRKRXC+HsLM/DhzshYtc1MZHnXqZN8TmqiVrfX+njsvvM86L6JIgMqZbqipzFckCv1rOeMRzyRbA==}
-    engines: {node: '>=16.14.0'}
+  monoman@0.4.3:
+    resolution: {integrity: sha512-K0IBBKt/3mSTT10/+HX/eqJ48gQG4+eyPDDReAbfjyv/EJqwT6X1FD45GgJ5Fjw7TA77j5fhEuerwb3YmEl1BQ==}
+    engines: {node: '>=18.12.0'}
     hasBin: true
 
   mri@1.2.0:
@@ -5082,6 +5091,9 @@ packages:
 
   unconfig@0.3.13:
     resolution: {integrity: sha512-N9Ph5NC4+sqtcOjPfHrRcHekBCadCXWTBzp2VYYbySOHW0PfD9XLCeXshTXjkPYwLrBr9AtSeU0CZmkYECJhng==}
+
+  unconfig@0.4.5:
+    resolution: {integrity: sha512-+b4pZmGFeT3FD9EHWGkNwuOwrNzfgUq4ZoTh63+EKDyxLvYKajbowjRcKLumGExmPKNi5jxIpzhheKsPtV8dig==}
 
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
@@ -8031,6 +8043,11 @@ snapshots:
       esbuild: 0.23.0
       load-tsconfig: 0.2.5
 
+  bundle-require@5.0.0(esbuild@0.23.0):
+    dependencies:
+      esbuild: 0.23.0
+      load-tsconfig: 0.2.5
+
   c12@1.11.1(magicast@0.3.4):
     dependencies:
       chokidar: 3.6.0
@@ -9035,6 +9052,18 @@ snapshots:
 
   import-meta-resolve@4.1.0: {}
 
+  importx@0.3.11:
+    dependencies:
+      bundle-require: 5.0.0(esbuild@0.23.0)
+      debug: 4.3.5
+      esbuild: 0.23.0
+      jiti: 1.21.6
+      pathe: 1.1.2
+      pkg-types: 1.1.3
+      tsx: 4.16.2
+    transitivePeerDependencies:
+      - supports-color
+
   imurmurhash@0.1.4: {}
 
   indent-string@4.0.0: {}
@@ -9739,13 +9768,15 @@ snapshots:
       pkg-types: 1.1.1
       ufo: 1.5.3
 
-  monoman@0.4.2:
+  monoman@0.4.3:
     dependencies:
       '@antfu/utils': 0.7.10
       citty: 0.1.6
       consola: 3.2.3
       fast-glob: 3.3.2
-      unconfig: 0.3.13
+      unconfig: 0.4.5
+    transitivePeerDependencies:
+      - supports-color
 
   mri@1.2.0: {}
 
@@ -10702,6 +10733,14 @@ snapshots:
       '@antfu/utils': 0.7.10
       defu: 6.1.4
       jiti: 1.21.6
+
+  unconfig@0.4.5:
+    dependencies:
+      '@antfu/utils': 0.7.10
+      defu: 6.1.4
+      importx: 0.3.11
+    transitivePeerDependencies:
+      - supports-color
 
   uncrypto@0.1.3: {}
 

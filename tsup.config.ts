@@ -1,8 +1,11 @@
 import process from 'node:process'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'tsup'
 import Macros from 'unplugin-macros/esbuild'
 import Raw from 'unplugin-raw/esbuild'
+
+const filename = fileURLToPath(import.meta.url)
 
 export default defineConfig({
   entry: ['./src/*.ts'],
@@ -37,7 +40,7 @@ export default defineConfig({
       viteConfig: {
         resolve: {
           alias: {
-            '#macros': path.resolve(__dirname, 'macros/index.ts'),
+            '#macros': path.resolve(filename, '../macros/index.ts'),
           },
         },
       },
