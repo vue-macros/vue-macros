@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-如果 `script` 标签没有 `lang` 属性，则默认为 `ts`。
+为 `<script>` 块设置默认语言。
 
 ::: tip
 把 `<script setup>` 转换为 `<script setup lang="ts">`.
@@ -20,10 +20,9 @@
 ```ts
 interface Options {
   /**
-   * @property {'ts' | 'tsx' | 'jsx'}
    * @default 'ts'
    */
-  default?: string
+  defaultLang?: 'ts' | 'tsx' | 'jsx' | string
 }
 ```
 

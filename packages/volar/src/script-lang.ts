@@ -9,7 +9,7 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => ({
     const {
       descriptor: { script, scriptSetup },
     } = sfc
-    const lang = vueMacros?.scriptLang?.default || 'ts'
+    const lang = vueMacros?.scriptLang?.defaultLang || 'ts'
 
     if (script && !script.attrs.lang) {
       script.lang = lang

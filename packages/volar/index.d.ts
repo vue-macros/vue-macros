@@ -20,6 +20,6 @@ export interface VolarOptions {
     exclude?: FilterPattern
   }
   scriptLang?: {
-    default?: string
+    defaultLang?: string
   }
 }

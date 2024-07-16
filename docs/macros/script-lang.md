@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-If the `script` tag does not have a `lang` attribute, default to `ts`.
+Set the default language for `<script>` block.
 
 ::: tip
 Convert `<script setup>` to `<script setup lang="ts">`.
@@ -20,10 +20,9 @@ Convert `<script setup>` to `<script setup lang="ts">`.
 ```ts
 interface Options {
   /**
-   * @property {'ts' | 'tsx' | 'jsx'}
    * @default 'ts'
    */
-  default?: string
+  defaultLang?: 'ts' | 'tsx' | 'jsx' | string
 }
 ```
 
