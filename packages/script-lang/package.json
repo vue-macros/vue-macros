@@ -1,0 +1,91 @@
+{
+  "name": "@vue-macros/script-lang",
+  "version": "0.0.1",
+  "packageManager": "pnpm@9.5.0",
+  "description": "script-lang feature from Vue Macros.",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-lang",
+    "unplugin"
+  ],
+  "license": "MIT",
+  "homepage": "https://vue-macros.dev",
+  "bugs": {
+    "url": "https://github.com/vue-macros/vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vue-macros/vue-macros.git",
+    "directory": "packages/script-lang"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./api": {
+      "dev": "./src/api.ts",
+      "require": "./dist/api.js",
+      "import": "./dist/api.mjs"
+    },
+    "./esbuild": {
+      "dev": "./src/esbuild.ts",
+      "require": "./dist/esbuild.js",
+      "import": "./dist/esbuild.mjs"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "require": "./dist/rollup.js",
+      "import": "./dist/rollup.mjs"
+    },
+    "./vite": {
+      "dev": "./src/vite.ts",
+      "require": "./dist/vite.js",
+      "import": "./dist/vite.mjs"
+    },
+    "./webpack": {
+      "dev": "./src/webpack.ts",
+      "require": "./dist/webpack.js",
+      "import": "./dist/webpack.mjs"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "DEV=true tsup"
+  },
+  "peerDependencies": {
+    "vue": "^2.7.0 || ^3.0.0"
+  },
+  "dependencies": {
+    "@vue-macros/common": "workspace:*",
+    "unplugin": "catalog:"
+  },
+  "devDependencies": {
+    "vue": "catalog:"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}
