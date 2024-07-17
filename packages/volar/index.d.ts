@@ -21,5 +21,7 @@ export interface VolarOptions {
   }
   scriptLang?: {
     defaultLang?: string
+    include?: FilterPattern
+    exclude?: FilterPattern
   }
 }

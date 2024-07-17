@@ -1,10 +1,17 @@
+import { createFilter } from '@rollup/pluginutils'
 import { type VueLanguagePlugin, parse } from '@vue/language-core'
 
 const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => ({
   name: 'vue-macros-script-lang',
   version: 2,
   order: -1,
-  parseSFC(_, content) {
+  parseSFC(fileName, content) {
+    const filter = createFilter(
+      vueMacros?.scriptLang?.include || /.*/,
+      vueMacros?.scriptLang?.exclude,
+    )
+    if (!filter(fileName)) return
+
     const sfc = parse(content)
     const {
       descriptor: { script, scriptSetup },
