@@ -8,5 +8,6 @@
 /// <reference types="@vue-macros/reactivity-transform/macros-global" />
 /// <reference types="@vue-macros/setup-component/macros-global" />
 /// <reference types="@vue-macros/short-emits/macros-global" />
+/// <reference types="@vue-macros/volar/macros-global" />
 
 export {}
