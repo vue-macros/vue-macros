@@ -2,5 +2,5 @@
 "@vue-macros/volar": patch
 ---
 
-fix sourcemap offset overflow for jsx-directive
+fix sourceMap offset overflow for jsx-directive
   
