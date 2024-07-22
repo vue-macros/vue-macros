@@ -256,7 +256,7 @@ While reactive variables relieve us from having to use `.value` everywhere, it c
 Given a function that expects a ref as an argument, e.g.:
 
 ```ts twoslash
-import { type Ref, watch } from 'vue'
+import { watch, type Ref } from 'vue'
 
 function trackChange(x: Ref<number>) {
   watch(x, (x) => {
@@ -362,7 +362,7 @@ passAsRef($$(count))
 compiles to:
 
 ```ts twoslash
-import { type Ref, defineComponent, toRef } from 'vue'
+import { defineComponent, toRef, type Ref } from 'vue'
 function passAsRef(count: Ref<number>) {
   return count
 }

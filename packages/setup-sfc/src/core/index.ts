@@ -1,9 +1,9 @@
 import {
-  type CodeTransform,
-  MagicStringAST,
   babelParse,
   generateTransform,
   getLang,
+  MagicStringAST,
+  type CodeTransform,
 } from '@vue-macros/common'
 import type { HmrContext } from 'vite'
 

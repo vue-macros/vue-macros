@@ -1,6 +1,6 @@
 import { replace, replaceAll } from 'muggle-string'
-import type { Code, Sfc, VueCompilerOptions } from '@vue/language-core'
 import type { VolarOptions } from '..'
+import type { Code, Sfc, VueCompilerOptions } from '@vue/language-core'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\({\n)/g

@@ -1,7 +1,7 @@
+import UnoCSS from 'unocss/vite'
+import VueMacros from 'unplugin-vue-macros/vite'
 import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
-import VueMacros from 'unplugin-vue-macros/vite'
-import UnoCSS from 'unocss/vite'
 
 import options from './vue-macros.config'
 

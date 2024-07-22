@@ -22,7 +22,6 @@ export default sxzz([
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/no-empty-function': 'off',
       'import/first': 'off',
-      'import/order': 'off',
     },
   },
   {

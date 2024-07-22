@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import DefineRender from './examples/define-render/index.vue'
-import DefineOptions from './examples/define-options/index.vue'
-import DefineProps from './examples/define-props/index.vue'
-import DefinePropsRefs from './examples/define-props-refs/index.vue'
-import HoistStatic from './examples/hoist-static/index.vue'
+import BetterDefine from './examples/better-define/index.vue'
+import BooleanProp from './examples/boolean-prop/index.vue'
+import ChainCall from './examples/chain-call/index.vue'
+import DefineEmit from './examples/define-emit/index.vue'
 import DefineModelReactivity from './examples/define-models/reactivity-transform/parent.vue'
 import DefineModelRuntime from './examples/define-models/runtime/parent.vue'
+import DefineOptions from './examples/define-options/index.vue'
+import DefineProp from './examples/define-prop/index.vue'
+import DefinePropsRefs from './examples/define-props-refs/index.vue'
+import DefineProps from './examples/define-props/index.vue'
+import DefineRender from './examples/define-render/index.vue'
 import DefineSlots from './examples/define-slots/parent.vue'
-import ExportProps from './examples/export-props/index.vue'
 import ExportExpose from './examples/export-expose/index.vue'
+import ExportProps from './examples/export-props/index.vue'
 import ExportRender from './examples/export-render/index.vue'
-import BetterDefine from './examples/better-define/index.vue'
+import Full from './examples/full.setup'
+import HoistStatic from './examples/hoist-static/index.vue'
+
+import JsxDirective from './examples/jsx-directive/index.vue'
+import ReactivityTransform from './examples/reactivity-transform/index.vue'
+
 // import NamedTemplate from './examples/named-template/index.vue'
 import SetupBlock from './examples/setup-block/index.vue'
-import ChainCall from './examples/chain-call/index.vue'
-import ReactivityTransform from './examples/reactivity-transform/index.vue'
-import JsxDirective from './examples/jsx-directive/index.vue'
-import BooleanProp from './examples/boolean-prop/index.vue'
-
-import DefineProp from './examples/define-prop/index.vue'
-import DefineEmit from './examples/define-emit/index.vue'
 
 import { SetupComponentFoo } from './examples/setup-component'
-
 import SetupSFC from './examples/setup-sfc/index.setup'
-import ShortVmodel from './examples/short-vmodel/parent.vue'
 import ShortBind from './examples/short-bind/index.vue'
-import Full from './examples/full.setup'
+import ShortVmodel from './examples/short-vmodel/parent.vue'
 </script>
 
 <template>

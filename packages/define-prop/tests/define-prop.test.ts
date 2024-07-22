@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { removeSpaces } from '@vue-macros/test-utils'
+import { describe, expect, it } from 'vitest'
 import { PROPS_VARIABLE_NAME, transformDefineProp } from '../src/core'
 
 describe("defineProp (Kevin's proposal)", () => {

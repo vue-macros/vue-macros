@@ -6,16 +6,17 @@ import {
 } from '@vue-macros/common'
 import { isTSNamespace } from './namespace'
 import {
-  type TSProperties,
   checkForTSProperties,
   getTSPropertiesKeys,
   resolveTSProperties,
+  type TSProperties,
 } from './property'
 import {
-  type TSResolvedType,
   isSupportedForTSReferencedType,
   resolveTSReferencedType,
+  type TSResolvedType,
 } from './resolve-reference'
+import type { TSScope } from './scope'
 import type {
   BigIntLiteral,
   BooleanLiteral,
@@ -23,6 +24,8 @@ import type {
   Node,
   NumericLiteral,
   StringLiteral,
+  TemplateElement,
+  TemplateLiteral,
   TSFunctionType,
   TSIndexedAccessType,
   TSLiteralType,
@@ -32,10 +35,7 @@ import type {
   TSTypeElement,
   TSTypeOperator,
   TSUnionType,
-  TemplateElement,
-  TemplateLiteral,
 } from '@babel/types'
-import type { TSScope } from './scope'
 
 export async function resolveTSTemplateLiteral({
   type,

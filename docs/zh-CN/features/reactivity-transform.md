@@ -256,7 +256,7 @@ export default defineComponent({
 假设有一个期望接收一个 ref 对象为参数的函数：
 
 ```ts twoslash
-import { type Ref, watch } from 'vue'
+import { watch, type Ref } from 'vue'
 
 function trackChange(x: Ref<number>) {
   watch(x, (x) => {
@@ -362,7 +362,7 @@ passAsRef($$(count))
 编译结果为：
 
 ```ts twoslash
-import { type Ref, defineComponent, toRef } from 'vue'
+import { defineComponent, toRef, type Ref } from 'vue'
 function passAsRef(count: Ref<number>) {
   return count
 }

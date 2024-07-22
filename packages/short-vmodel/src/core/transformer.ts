@@ -1,4 +1,6 @@
 import {
+  createSimpleExpression,
+  processExpression,
   type ComponentNode,
   type ConstantTypes,
   type NodeTransform,
@@ -7,8 +9,6 @@ import {
   type SlotOutletNode,
   type TemplateNode,
   type TransformContext,
-  createSimpleExpression,
-  processExpression,
 } from '@vue/compiler-core'
 
 export type Prefix = '::' | '$' | '*'

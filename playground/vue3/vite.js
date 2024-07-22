@@ -2,9 +2,9 @@
 
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { startVite } from 'vite-hyper-config'
 import Macros from 'unplugin-macros/vite'
 import Raw from 'unplugin-raw/vite'
+import { startVite } from 'vite-hyper-config'
 
 const dirname = path.dirname(fileURLToPath(new URL(import.meta.url)))
 const projectRoot = path.resolve(dirname, '../..')

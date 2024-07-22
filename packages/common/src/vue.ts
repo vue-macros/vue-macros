@@ -1,8 +1,8 @@
 import {
+  parse,
   type SFCDescriptor,
   type SFCParseResult,
   type SFCScriptBlock as SFCScriptBlockMixed,
-  parse,
 } from '@vue/compiler-sfc'
 import { babelParse, getLang, resolveString } from 'ast-kit'
 import { REGEX_VUE_SFC } from './constants'

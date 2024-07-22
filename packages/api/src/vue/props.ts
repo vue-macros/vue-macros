@@ -1,24 +1,24 @@
 import {
-  type MagicStringAST,
-  type SFC,
   babelParse,
   isStaticObjectKey,
   resolveIdentifier,
   resolveObjectExpression,
   resolveString,
+  type MagicStringAST,
+  type SFC,
 } from '@vue-macros/common'
 import {
+  isTSNamespace,
+  resolveTSProperties,
+  resolveTSReferencedType,
+  resolveTSScope,
   type TSFile,
   type TSNamespace,
   type TSProperties,
   type TSResolvedType,
   type TSScope,
-  isTSNamespace,
-  resolveTSProperties,
-  resolveTSReferencedType,
-  resolveTSScope,
 } from '../ts'
-import { type ASTDefinition, DefinitionKind } from './types'
+import { DefinitionKind, type ASTDefinition } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
 import type {
   CallExpression,

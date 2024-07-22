@@ -1,7 +1,7 @@
-import { type Code, allCodeFeatures } from '@vue/language-core'
+import { allCodeFeatures, type Code } from '@vue/language-core'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText, isJsxExpression } from '../common'
-import { type JsxDirective, type TransformOptions, getTagName } from './index'
+import { getTagName, type JsxDirective, type TransformOptions } from './index'
 
 export function transformVModel(
   nodes: JsxDirective[],

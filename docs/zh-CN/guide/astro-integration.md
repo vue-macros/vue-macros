@@ -22,9 +22,9 @@ pnpm add -D @vue-macros/astro
 
 ```ts
 // astro.config.mjs
-import { defineConfig } from 'astro/config'
 import Vue from '@astrojs/vue'
 import Macros from '@vue-macros/astro'
+import { defineConfig } from 'astro/config'
 
 export default defineConfig({
   integrations: [

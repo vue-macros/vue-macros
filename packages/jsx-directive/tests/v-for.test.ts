@@ -1,5 +1,5 @@
-import { describe } from 'vitest'
 import { testFixtures } from '@vue-macros/test-utils'
+import { describe } from 'vitest'
 import { transformJsxDirective } from '../src/api'
 
 describe('jsx-vue-directive', () => {

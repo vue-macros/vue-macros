@@ -1,20 +1,20 @@
 import {
-  type CodeTransform,
-  MagicStringAST,
-  REGEX_SETUP_SFC,
   babelParse,
   generateTransform,
   getLang,
+  MagicStringAST,
   parseSFC,
+  REGEX_SETUP_SFC,
   walkAST,
+  type CodeTransform,
 } from '@vue-macros/common'
-import { transformVIf } from './v-if'
 import { transformVFor } from './v-for'
-import { transformVMemo } from './v-memo'
 import { transformVHtml } from './v-html'
+import { transformVIf } from './v-if'
+import { transformVMemo } from './v-memo'
 import { transformVModel } from './v-model'
-import { type VSlotMap, transformVSlot } from './v-slot'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
+import { transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
 export type JsxDirective = {

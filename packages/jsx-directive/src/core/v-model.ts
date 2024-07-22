@@ -1,4 +1,4 @@
-import { type MagicStringAST, importHelperFn } from '@vue-macros/common'
+import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import type { JSXAttribute } from '@babel/types'
 
 export function transformVModel(

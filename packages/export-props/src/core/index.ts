@@ -1,11 +1,11 @@
 import {
-  type CodeTransform,
   DEFINE_PROPS,
-  MagicStringAST,
-  WITH_DEFAULTS,
   generateTransform,
   isCallOf,
+  MagicStringAST,
   parseSFC,
+  WITH_DEFAULTS,
+  type CodeTransform,
 } from '@vue-macros/common'
 import type { VariableDeclarator } from '@babel/types'
 

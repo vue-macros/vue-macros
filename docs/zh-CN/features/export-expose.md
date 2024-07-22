@@ -100,11 +100,11 @@ defineExpose({
 const foo = 'foo'
 type Foo = string
 
-export { type Foo, foo }
+export { foo, type Foo }
 // #endregion export-file
 // ---cut---
 // @noErrors
-export { foo, type Foo, foo as bar } from './types'
+export { foo, foo as bar, type Foo } from './types'
 </script>
 ```
 
@@ -122,9 +122,9 @@ type Foo = string
 // ---cut---
 // @noErrors
 import {
-  type Foo,
   foo as __MACROS_expose_0,
   foo as __MACROS_expose_1,
+  type Foo,
 } from './types'
 defineExpose({
   foo: __MACROS_expose_0,

@@ -2,11 +2,11 @@
 
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineConfig } from 'rollup'
-import VueMacros from 'unplugin-vue-macros/rollup'
-import Esbuild from 'rollup-plugin-esbuild'
-import NodeResolve from '@rollup/plugin-node-resolve'
 import CommonJS from '@rollup/plugin-commonjs'
+import NodeResolve from '@rollup/plugin-node-resolve'
+import { defineConfig } from 'rollup'
+import Esbuild from 'rollup-plugin-esbuild'
+import VueMacros from 'unplugin-vue-macros/rollup'
 
 import options from './vue-macros.config.js'
 

@@ -1,13 +1,13 @@
+import { createFilter } from '@rollup/pluginutils'
 import {
+  allCodeFeatures,
   type Code,
   type Sfc,
   type VueLanguagePlugin,
-  allCodeFeatures,
 } from '@vue/language-core'
-import { createFilter } from '@rollup/pluginutils'
 import { replace, replaceSourceRange } from 'muggle-string'
-import { addCode, getStart, getVolarOptions } from './common'
 import type { VolarOptions } from '..'
+import { addCode, getStart, getVolarOptions } from './common'
 
 function transform(options: {
   fileName: string

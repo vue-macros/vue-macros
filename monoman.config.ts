@@ -1,8 +1,8 @@
-import path from 'node:path'
-import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
-import { dedupeDeps, defineConfig } from 'monoman'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 import fg from 'fast-glob'
+import { dedupeDeps, defineConfig } from 'monoman'
 import { docsLink, githubLink } from './macros/repo'
 import type { Options } from 'tsup'
 
