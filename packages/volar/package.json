@@ -33,6 +33,9 @@
     ".": {
       "types": "./index.d.ts"
     },
+    "./all": {
+      "require": "./dist/all.js"
+    },
     "./*": {
       "dev": "./src/*.ts",
       "require": "./dist/*.js"
