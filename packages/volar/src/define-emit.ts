@@ -13,7 +13,7 @@ function getEmitStrings(options: {
     if (
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&
-      DEFINE_EMIT === node.expression.text
+      DEFINE_EMIT === node.expression.escapedText
     ) {
       const name =
         node.arguments.length && ts.isStringLiteral(node.arguments[0])
