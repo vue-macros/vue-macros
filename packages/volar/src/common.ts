@@ -31,12 +31,14 @@ export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
 export function addEmits(codes: Code[], decl: Code[], vueLibName: string) {
   if (!decl.length) return
 
-  const index = codes.indexOf('const __VLS_modelEmitsType = ')
+  const index = codes.findIndex((code) =>
+    code.toString().startsWith('type __VLS_ModelEmitsType = '),
+  )
   if (codes[index + 1] === '{}') {
     codes[index + 1] =
-      `(await import('${vueLibName}')).defineEmits<{\n${decl.join(',\n')}\n}>()`
+      ` typeof __VLS_modelEmitsType; const __VLS_modelEmitsType = (await import('${vueLibName}')).defineEmits<{\n${decl.join(',\n')}\n}>()`
   } else {
-    codes.splice(index + 2, 0, `\n${decl.join(',\n')}\n`)
+    codes.splice(index + 4, 0, `${decl.join(',\n')}\n`)
   }
 
   if (
@@ -47,7 +49,7 @@ export function addEmits(codes: Code[], decl: Code[], vueLibName: string) {
   replaceAll(
     codes,
     REGEX_DEFINE_COMPONENT,
-    'emits: ({} as __VLS_NormalizeEmits<typeof __VLS_modelEmitsType>),\n',
+    'emits: ({} as __VLS_NormalizeEmits<__VLS_ModelEmitsType>),\n',
   )
   return true
 }
