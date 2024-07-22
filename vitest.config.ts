@@ -6,6 +6,7 @@ import Macros from 'unplugin-macros/vite'
 export default defineConfig({
   test: {
     reporters: process.env.GITHUB_ACTIONS ? ['dot', 'github-actions'] : ['dot'],
+    setupFiles: ['./vitest-setup.ts'],
   },
   resolve: {
     alias: {

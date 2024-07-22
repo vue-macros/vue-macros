@@ -1,7 +1,11 @@
-import { type InputPluginOption, type Plugin, rollup } from 'rollup'
+import {
+  RollupEscapeNullCharacterPlugin,
+  rollupBuild as _rollupBuild,
+} from '@sxzz/test-utils'
 import ViteVueJsx, {
   type Options as VueJsxOptions,
 } from '@vitejs/plugin-vue-jsx'
+import type { InputPluginOption, Plugin } from 'rollup'
 
 export { default as RollupEsbuildPlugin } from 'rollup-plugin-esbuild'
 export { default as RollupVue } from 'unplugin-vue/rollup'
@@ -10,13 +14,6 @@ export const RollupVueJsx = ViteVueJsx as (options?: VueJsxOptions) => Plugin
 
 export { default as RollupJson } from '@rollup/plugin-json'
 export { nodeResolve as RollupNodeResolve } from '@rollup/plugin-node-resolve'
-
-export const RollupToStringPlugin = (): Plugin => {
-  return {
-    name: 'to-string',
-    transform: (code) => `export default \`${code.replaceAll('`', '\\`')}\``,
-  }
-}
 
 export const RollupRemoveVueFilePathPlugin = (): Plugin => {
   const REGEX = [
@@ -34,53 +31,16 @@ export const RollupRemoveVueFilePathPlugin = (): Plugin => {
   }
 }
 
-export const RollupEscapeNullCharacterPlugin = (): Plugin => {
-  return {
-    name: 'escape-null-character',
-    generateBundle(options, bundle) {
-      for (const filename of Object.keys(bundle)) {
-        const b = bundle[filename]
-        if (b.type !== 'chunk') continue
-        if (b.code.includes('\0')) {
-          b.code = b.code.replaceAll('\0', '[NULL]')
-        }
-      }
-    },
-  }
-}
-
 export async function rollupBuild(
   file: string,
   plugins: InputPluginOption,
 ): Promise<string> {
-  const bundle = await rollup({
-    input: [file],
+  const { snapshot } = await _rollupBuild(file, plugins, {
     external: ['vue', '@vueuse/core', /^\0.*/, /^\/vue-macros\/.*/],
     plugins: [
-      plugins,
       RollupEscapeNullCharacterPlugin(),
       RollupRemoveVueFilePathPlugin(),
     ],
-    treeshake: false,
-    onwarn(warning, defaultHandler) {
-      if (
-        ['UNUSED_EXTERNAL_IMPORT', 'UNRESOLVED_IMPORT'].includes(warning.code!)
-      )
-        return
-      defaultHandler(warning)
-    },
   })
-  const output = await bundle.generate({
-    format: 'esm',
-    sourcemap: false,
-  })
-  return output.output
-    .map((file) =>
-      file.type === 'chunk'
-        ? file.code
-        : typeof file.source === 'string'
-          ? file.source
-          : file.fileName,
-    )
-    .join('\n')
+  return snapshot
 }

@@ -737,6 +737,9 @@ importers:
       '@rollup/pluginutils':
         specifier: ^5.1.0
         version: 5.1.0(rollup@4.19.0)
+      '@sxzz/test-utils':
+        specifier: ^0.2.0
+        version: 0.2.0(vitest@2.0.4(@types/node@20.14.11)(@vitest/ui@2.0.4)(less@4.2.0)(terser@5.31.3))
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.0.0
         version: 4.0.0(vite@5.3.4(@types/node@20.14.11)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.3))
@@ -1967,6 +1970,12 @@ packages:
 
   '@sxzz/prettier-config@2.0.2':
     resolution: {integrity: sha512-yBKxaIr6WqgHTaLgX0g6gxNuMllkwR1QGeXynfJGmyD+XrZqO96t9xT5Mfbr9H3+N56SXY9/yFvP/e8lcJI7KA==}
+
+  '@sxzz/test-utils@0.2.0':
+    resolution: {integrity: sha512-mQVQ+oJ6a2J3c2AkVUPg6cAMDa2NVP4I5MFNtrhm3SXoIfUP2/IK7UTr56DxcmCV67As6sKthqhh15aVGMSKBQ==}
+    engines: {node: '>=18.12.0'}
+    peerDependencies:
+      vitest: ^2.0.3
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -6962,6 +6971,13 @@ snapshots:
       - typescript
 
   '@sxzz/prettier-config@2.0.2': {}
+
+  '@sxzz/test-utils@0.2.0(vitest@2.0.4(@types/node@20.14.11)(@vitest/ui@2.0.4)(less@4.2.0)(terser@5.31.3))':
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.19.0)
+      fast-glob: 3.3.2
+      rollup: 4.19.0
+      vitest: 2.0.4(@types/node@20.14.11)(@vitest/ui@2.0.4)(less@4.2.0)(terser@5.31.3)
 
   '@types/babel__core@7.20.5':
     dependencies:
