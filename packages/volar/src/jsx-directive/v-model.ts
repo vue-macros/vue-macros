@@ -1,5 +1,4 @@
 import { type Code, allCodeFeatures } from '@vue/language-core'
-import { camelize } from '@vue/shared'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText, isJsxExpression } from '../common'
 import { type JsxDirective, type TransformOptions, getTagName } from './index'
@@ -29,16 +28,14 @@ export function transformVModel(
     const start = getStart(attribute.name, options)
     if (name.startsWith('v-model:') || isArrayExpression) {
       let isDynamic = false
-      const attributeName = camelize(
-        name
-          .slice(8)
-          .split(/\s/)[0]
-          .split('_')[0]
-          .replace(/^\$(.*)\$/, (_, $1) => {
-            isDynamic = true
-            return $1
-          }),
-      )
+      const attributeName = name
+        .slice(8)
+        .split(/\s/)[0]
+        .split('_')[0]
+        .replace(/^\$(.*)\$/, (_, $1) => {
+          isDynamic = true
+          return $1
+        })
       firstNamespacedNode ??= { attribute, node }
       if (firstNamespacedNode.attribute !== attribute) {
         replaceSourceRange(
@@ -78,15 +75,29 @@ export function transformVModel(
       } else {
         result.push(
           isDynamic ? '[`${' : '',
-          [attributeName, source, start + (isDynamic ? 9 : 8), allCodeFeatures],
+          ...(attributeName
+            .split('-')
+            .map((code, index, codes) => [
+              index ? code.at(0)?.toUpperCase() + code.slice(1) : code,
+              source,
+              start +
+                (isDynamic ? 9 : 8) +
+                (index && codes[index - 1].length + 1),
+              allCodeFeatures,
+            ]) as Code[]),
           isDynamic ? '}`]' : '',
         )
 
-        if (attribute.initializer && attributeName)
+        if (
+          attribute.initializer &&
+          ts.isJsxExpression(attribute.initializer) &&
+          attribute.initializer.expression &&
+          attributeName
+        )
           result.push(':', [
-            getText(attribute.initializer, options).slice(1, -1),
+            getText(attribute.initializer.expression, options),
             source,
-            getStart(attribute.initializer, options) + 1,
+            getStart(attribute.initializer.expression, options),
             allCodeFeatures,
           ])
       }
@@ -95,9 +106,9 @@ export function transformVModel(
         codes,
         source,
         start,
-        attribute.name.end + 1,
-        [modelValue, source, start, allCodeFeatures],
-        '=',
+        attribute.name.end,
+        modelValue.slice(0, 3),
+        [modelValue.slice(3), source, start, allCodeFeatures],
       )
     }
   }

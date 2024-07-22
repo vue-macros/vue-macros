@@ -1,5 +1,4 @@
-import { allCodeFeatures } from '@vue/language-core'
-import { camelize } from '@vue/shared'
+import { type Code, allCodeFeatures } from '@vue/language-core'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
@@ -13,7 +12,7 @@ export function transformVBind(
   const { codes, ts, source } = options
 
   for (const { attribute } of nodes) {
-    let attributeName = getText(attribute.name, options)
+    const attributeName = getText(attribute.name, options)
     const start = getStart(attribute.name, options)
     const end = attribute.name.end
 
@@ -22,22 +21,21 @@ export function transformVBind(
       attribute.initializer &&
       !ts.isStringLiteral(attribute.initializer)
     ) {
-      attributeName = camelize(attributeName)
-      replaceSourceRange(codes, source, start, end, [
-        attributeName,
+      replaceSourceRange(
+        codes,
         source,
         start,
-        allCodeFeatures,
-      ])
-    }
-
-    if (attributeName.includes('_')) {
-      replaceSourceRange(codes, source, start, end, [
-        attributeName.split('_')[0],
-        source,
-        start,
-        allCodeFeatures,
-      ])
+        end,
+        ...(attributeName
+          .split('_')[0]
+          .split('-')
+          .map((code, index, codes) => [
+            index ? code.at(0)?.toUpperCase() + code.slice(1) : code,
+            source,
+            start + (index && codes[index - 1].length + 1),
+            allCodeFeatures,
+          ]) as Code[]),
+      )
     }
   }
 }
