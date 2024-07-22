@@ -90,7 +90,7 @@ export function transformVModel(
 
         if (
           attribute.initializer &&
-          ts.isJsxExpression(attribute.initializer) &&
+          isJsxExpression(attribute.initializer) &&
           attribute.initializer.expression &&
           attributeName
         )
