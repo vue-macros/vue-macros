@@ -18,21 +18,18 @@ function transformTemplateRef({
         'scriptSetup',
         node.expression.end,
         node.expression.end,
-        `<Parameters<typeof __VLS_ctx_${node.arguments[0].text}.expose>[0]>`,
+        `<Parameters<typeof __VLS_ctx_${node.arguments[0].text}.expose>[0] | null>`,
       )
     }
   }
 
-  const refs: string[] = []
   for (const [, tagName, props, ref] of toString(codes).matchAll(
     /__VLS_asFunctionalComponent\((.*), new \1\({(.*ref: \("(.*)"\).*)}\)\)/g,
   )) {
-    refs.push(
+    addCode(
+      codes,
       `const __VLS_ctx_${ref} = __VLS_pickFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}));\n`,
     )
-  }
-  if (refs.length) {
-    addCode(codes, ...refs)
   }
 }
 
@@ -64,7 +61,7 @@ function getTemplateRefNodes(
           ts.isIdentifier(decl.initializer.expression)
         ) {
           const node =
-            decl.initializer.expression.text === '$'
+            decl.initializer.expression.escapedText === '$'
               ? decl.initializer.arguments[0]
               : decl.initializer
           if (isTemplateRefCall(node)) result.push(node)

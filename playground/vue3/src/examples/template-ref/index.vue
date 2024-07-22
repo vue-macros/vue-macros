@@ -4,7 +4,7 @@ import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 
 const child = $(templateRef(`child`))
-expectTypeOf<1>(child.foo)
+expectTypeOf<1 | null>(child && child.foo)
 </script>
 
 <template>
