@@ -179,6 +179,9 @@ importers:
       '@vue-macros/volar':
         specifier: workspace:*
         version: link:../packages/volar
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.33(typescript@5.5.3))
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../packages/macros
