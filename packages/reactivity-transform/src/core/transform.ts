@@ -1,5 +1,5 @@
 import { parse, type ParserPlugin } from '@babel/parser'
-import { TS_NODE_TYPES, unwrapTSNode } from '@vue-macros/common'
+import { TS_NODE_TYPES, unwrapTSNode, walkAST } from '@vue-macros/common'
 import {
   extractIdentifiers,
   isFunctionType,
@@ -9,7 +9,6 @@ import {
   walkFunctionParams,
 } from '@vue/compiler-core'
 import { genPropsAccessExp, hasOwn, isArray, isString } from '@vue/shared'
-import { walk } from 'estree-walker'
 import MagicStringAST, { type SourceMap } from 'magic-string'
 import type {
   ArrayPattern,
@@ -641,8 +640,8 @@ export function transformAST(
 
   // check root scope first
   walkScope(ast, true)
-  ;(walk as any)(ast, {
-    enter(node: Node, parent?: Node) {
+  walkAST<Node>(ast, {
+    enter(node, parent) {
       parent && parentStack.push(parent)
 
       // function scopes
@@ -744,7 +743,7 @@ export function transformAST(
         }
       }
     },
-    leave(node: Node, parent?: Node) {
+    leave(node, parent) {
       parent && parentStack.pop()
       if (
         (node.type === 'BlockStatement' && !isFunctionType(parent!)) ||
