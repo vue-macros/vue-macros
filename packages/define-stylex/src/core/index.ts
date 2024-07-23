@@ -10,10 +10,10 @@ import {
 } from '@vue-macros/common'
 import {
   createTransformContext,
+  NodeTypes,
   traverseNode,
   type DirectiveNode,
   type NodeTransform,
-  type NodeTypes,
 } from '@vue/compiler-dom'
 import type { Node } from '@babel/types'
 
@@ -22,17 +22,14 @@ const STYLEX_ATTRS = '_stylex_attrs'
 
 function transformDirective(s: MagicStringAST): NodeTransform {
   return (node) => {
-    if (!(node.type === (1 satisfies NodeTypes.ELEMENT))) return
+    if (!(node.type === NodeTypes.ELEMENT)) return
     const i = node.props.findIndex(
       (item) =>
-        item.type === (7 satisfies NodeTypes.DIRECTIVE) &&
-        item.rawName === 'v-stylex',
+        item.type === NodeTypes.DIRECTIVE && item.rawName === 'v-stylex',
     )
     if (i === -1) return
     const directiveVStyleX = node.props[i] as DirectiveNode
-    if (
-      directiveVStyleX.exp?.type !== (4 satisfies NodeTypes.SIMPLE_EXPRESSION)
-    )
+    if (directiveVStyleX.exp?.type !== NodeTypes.SIMPLE_EXPRESSION)
       throw new Error('`v-stylex` must be passed a expression')
 
     const hasColon =

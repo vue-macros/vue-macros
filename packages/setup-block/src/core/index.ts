@@ -3,7 +3,7 @@ import {
   MagicStringAST,
   type CodeTransform,
 } from '@vue-macros/common'
-import { parse, type ElementNode, type NodeTypes } from '@vue/compiler-dom'
+import { NodeTypes, parse, type ElementNode } from '@vue/compiler-dom'
 
 export function transformSetupBlock(
   code: string,
@@ -29,7 +29,7 @@ export function transformSetupBlock(
         (tag === 'template' &&
           props.some(
             (p) =>
-              p.type === (6 satisfies NodeTypes.ATTRIBUTE) &&
+              p.type === NodeTypes.ATTRIBUTE &&
               p.name === 'lang' &&
               p.value &&
               p.value.content &&

@@ -1,6 +1,6 @@
 import { transformBooleanProp } from '@vue-macros/boolean-prop/api'
+import { ConstantTypes } from '@vue/compiler-core'
 import type { VueMacrosPlugin } from './common'
-import type { ConstantTypes } from '@vue/compiler-dom'
 
 const plugin: VueMacrosPlugin<'booleanProp'> = (_, options = {}) => {
   if (!options) return []
@@ -12,7 +12,7 @@ const plugin: VueMacrosPlugin<'booleanProp'> = (_, options = {}) => {
       options.nodeTransforms ||= []
       options.nodeTransforms.push(
         transformBooleanProp({
-          constType: 0 satisfies ConstantTypes.NOT_CONSTANT,
+          constType: ConstantTypes.NOT_CONSTANT,
         }),
       )
       return options

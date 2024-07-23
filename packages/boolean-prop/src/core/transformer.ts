@@ -1,7 +1,7 @@
-import type {
+import {
   ConstantTypes,
-  NodeTransform,
   NodeTypes,
+  type NodeTransform,
 } from '@vue/compiler-core'
 
 export interface Options {
@@ -13,15 +13,12 @@ export interface Options {
 
 export function transformBooleanProp({
   negativePrefix = '!',
-  constType = 3 satisfies ConstantTypes.CAN_STRINGIFY,
+  constType = ConstantTypes.CAN_STRINGIFY,
 }: Options & { constType?: ConstantTypes } = {}): NodeTransform {
   return (node) => {
-    if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
+    if (node.type !== NodeTypes.ELEMENT) return
     for (const [i, prop] of node.props.entries()) {
-      if (
-        prop.type !== (6 satisfies NodeTypes.ATTRIBUTE) ||
-        prop.value !== undefined
-      )
+      if (prop.type !== NodeTypes.ATTRIBUTE || prop.value !== undefined)
         continue
 
       const isNegative = prop.name[0] === negativePrefix
@@ -29,17 +26,17 @@ export function transformBooleanProp({
       const value = String(!isNegative)
       if (isNegative) prop.loc.start.offset++
       node.props[i] = {
-        type: 7 satisfies NodeTypes.DIRECTIVE,
+        type: NodeTypes.DIRECTIVE,
         name: 'bind',
         arg: {
-          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
-          constType: 3 satisfies ConstantTypes.CAN_STRINGIFY,
+          type: NodeTypes.SIMPLE_EXPRESSION,
+          constType: ConstantTypes.CAN_STRINGIFY,
           content: propName,
           isStatic: true,
           loc: prop.loc,
         },
         exp: {
-          type: 4 satisfies NodeTypes.SIMPLE_EXPRESSION,
+          type: NodeTypes.SIMPLE_EXPRESSION,
           constType,
           content: value,
           isStatic: false,
