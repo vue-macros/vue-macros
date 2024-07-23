@@ -1,5 +1,5 @@
-import { type VueLanguagePlugin, parse } from '@vue/language-core'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
+import { parse, type VueLanguagePlugin } from '@vue/language-core'
 import type { SFCParseResult } from 'vue/compiler-sfc'
 
 const plugin: VueLanguagePlugin = () => {
