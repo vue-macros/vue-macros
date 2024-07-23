@@ -2,11 +2,11 @@ import path from 'node:path'
 import { babelParse } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
 import {
-  type TSFile,
   getTSFile,
   resolveTSNamespace,
   resolveTSProperties,
   resolveTSReferencedType,
+  type TSFile,
 } from '../src'
 import { hideAstLocation } from './_util'
 import type {

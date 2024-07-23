@@ -1,5 +1,23 @@
 # @vue-macros/common
 
+## 1.11.0
+### Minor Changes
+
+
+
+- [`9e19eaf`](https://github.com/vue-macros/vue-macros/commit/9e19eaf2666fce4a45aba3502e5f8118633f1ed8) Thanks [@sxzz](https://github.com/sxzz)! - Move to ESM-first
+
+
+### Patch Changes
+
+
+
+- [`831027b`](https://github.com/vue-macros/vue-macros/commit/831027b4142cf1bdf090f3b44820c0f8839288b4) Thanks [@sxzz](https://github.com/sxzz)! - add module type
+
+
+
+- [#719](https://github.com/vue-macros/vue-macros/pull/719) [`f734af7`](https://github.com/vue-macros/vue-macros/commit/f734af76922584765e6ef3982f29a5f3a735c710) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - disabled auto-wrapping function when in vapor mode
+
 ## 1.10.4
 
 ### Patch Changes

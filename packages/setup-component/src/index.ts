@@ -1,23 +1,23 @@
 import process from 'node:process'
-import { type UnpluginInstance, createUnplugin } from 'unplugin'
 import {
-  type BaseOptions,
-  type MarkRequired,
+  createFilter,
+  detectVueVersion,
   REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
   REGEX_VUE_SUB,
-  createFilter,
-  detectVueVersion,
+  type BaseOptions,
+  type MarkRequired,
 } from '@vue-macros/common'
+import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
-  SETUP_COMPONENT_ID_REGEX,
-  type SetupComponentContext,
   hotUpdateSetupComponent,
   loadSetupComponent,
+  SETUP_COMPONENT_ID_REGEX,
   transformPost,
   transformSetupComponent,
+  type SetupComponentContext,
 } from './core'
 import { getMainModule, isSubModule } from './core/sub-module'
 import type { PluginContext } from 'rollup'

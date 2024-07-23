@@ -1,5 +1,5 @@
-import type { MagicStringAST } from '@vue-macros/common'
 import type { JsxDirective } from '.'
+import type { MagicStringAST } from '@vue-macros/common'
 
 export function transformVIf(
   nodes: JsxDirective[],

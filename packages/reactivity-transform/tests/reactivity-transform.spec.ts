@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'vitest'
 import { parse } from '@babel/parser'
+import { describe, expect, test } from 'vitest'
 import { transform } from '../src/core/transform'
 
 function assertCode(code: string) {

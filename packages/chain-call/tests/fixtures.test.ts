@@ -1,12 +1,12 @@
 import { resolve } from 'node:path'
-import { describe } from 'vitest'
 import {
+  rollupBuild,
   RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
   RollupVue,
-  rollupBuild,
   testFixtures,
 } from '@vue-macros/test-utils'
+import { describe } from 'vitest'
 import { transformChainCall } from '../src/core'
 import VueChainCall from '../src/rollup'
 

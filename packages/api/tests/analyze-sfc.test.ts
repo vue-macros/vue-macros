@@ -1,6 +1,6 @@
 import { MagicStringAST, parseSFC } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
-import { DefinitionKind, analyzeSFC } from '../src/vue'
+import { analyzeSFC, DefinitionKind } from '../src/vue'
 import { hideAstLocation, snapshot } from './_util'
 
 async function complie(code: string) {

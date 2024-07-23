@@ -1,10 +1,10 @@
-import {
-  type TSResolvedType,
-  resolveTSReferencedType,
-} from './resolve-reference'
-import { type TSScope, getTSFile, resolveTSScope } from './scope'
 import { isTSDeclaration } from './is'
 import { resolveTSFileId } from './resolve-file'
+import {
+  resolveTSReferencedType,
+  type TSResolvedType,
+} from './resolve-reference'
+import { getTSFile, resolveTSScope, type TSScope } from './scope'
 
 export const namespaceSymbol: unique symbol = Symbol('namespace')
 export type TSNamespace = {

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { removeSpaces } from '@vue-macros/test-utils'
+import { describe, expect, it } from 'vitest'
 import { EMIT_VARIABLE_NAME, transformDefineEmit } from '../src/core'
 
 describe('defineEmit', () => {

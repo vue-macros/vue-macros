@@ -1,13 +1,13 @@
 import {
-  type CodeTransform,
   DEFINE_EMIT,
-  HELPER_PREFIX,
-  MagicStringAST,
   escapeKey,
   generateTransform,
+  HELPER_PREFIX,
   isCallOf,
+  MagicStringAST,
   parseSFC,
   walkAST,
+  type CodeTransform,
 } from '@vue-macros/common'
 import type * as t from '@babel/types'
 

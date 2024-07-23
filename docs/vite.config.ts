@@ -1,11 +1,11 @@
-import { defineConfig } from 'vite'
-import Unocss from 'unocss/vite'
-import VueJsx from '@vitejs/plugin-vue-jsx'
-import Devtools from 'vite-plugin-vue-devtools'
 import {
   GitChangelog,
   GitChangelogMarkdownSection,
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
+import VueJsx from '@vitejs/plugin-vue-jsx'
+import Unocss from 'unocss/vite'
+import { defineConfig } from 'vite'
+import Devtools from 'vite-plugin-vue-devtools'
 import { githubLink } from '../macros/repo'
 export default defineConfig({
   plugins: [

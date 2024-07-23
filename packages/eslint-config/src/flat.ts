@@ -3,7 +3,7 @@
 import { globals, rules } from './common'
 import type { Linter } from 'eslint'
 
-const config: Linter.FlatConfig = {
+const config: Linter.Config = {
   languageOptions: {
     globals,
   },

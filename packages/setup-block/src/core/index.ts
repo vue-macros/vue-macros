@@ -1,9 +1,9 @@
 import {
-  type CodeTransform,
-  MagicStringAST,
   generateTransform,
+  MagicStringAST,
+  type CodeTransform,
 } from '@vue-macros/common'
-import { type ElementNode, type NodeTypes, parse } from '@vue/compiler-dom'
+import { parse, type ElementNode, type NodeTypes } from '@vue/compiler-dom'
 
 export function transformSetupBlock(
   code: string,

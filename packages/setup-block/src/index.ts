@@ -1,12 +1,12 @@
-import { type UnpluginInstance, createUnplugin } from 'unplugin'
 import {
-  type BaseOptions,
-  type MarkRequired,
-  REGEX_SETUP_SFC,
-  REGEX_VUE_SFC,
   createFilter,
   detectVueVersion,
+  REGEX_SETUP_SFC,
+  REGEX_VUE_SFC,
+  type BaseOptions,
+  type MarkRequired,
 } from '@vue-macros/common'
+import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformSetupBlock } from './core'
 

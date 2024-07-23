@@ -1,5 +1,5 @@
-import { type Ref, getCurrentInstance } from 'vue'
-import { type UseVModelOptions, useVModel } from '@vueuse/core'
+import { useVModel, type UseVModelOptions } from '@vueuse/core'
+import { getCurrentInstance, type Ref } from 'vue'
 
 export default (
   ...keys: (

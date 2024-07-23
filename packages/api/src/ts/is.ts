@@ -1,4 +1,4 @@
-import { type Declaration, type TypeScript, isDeclaration } from '@babel/types'
+import { isDeclaration, type Declaration, type TypeScript } from '@babel/types'
 
 export type TSDeclaration = TypeScript & Declaration
 export function isTSDeclaration(node: any): node is TSDeclaration {

@@ -1,12 +1,12 @@
 import { resolve } from 'node:path'
-import { describe } from 'vitest'
 import {
+  rollupBuild,
   RollupEsbuildPlugin,
   RollupVue,
   RollupVue2,
-  rollupBuild,
   testFixtures,
 } from '@vue-macros/test-utils'
+import { describe } from 'vitest'
 import VueReactivityTransform from '../src/rollup'
 
 describe('fixtures', async () => {
