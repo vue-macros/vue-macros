@@ -28,6 +28,7 @@ export default defineConfig({
   define: {
     'import.meta.DEV': JSON.stringify(!!process.env.DEV),
   },
+  removeNodeProtocol: false,
   esbuildPlugins: [
     Raw({
       transform: {
