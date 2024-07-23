@@ -33,7 +33,7 @@ function transformTemplateRef({
           `<Parameters<Required<typeof __VLS_ctx_${argument.text}>['expose']>[0] | null>`,
         )
         if (ts.isIdentifier(decl.name)) {
-          const name = decl.name.text
+          const name = decl.name.escapedText
           refs.push(`${name}: ${name}.value`)
           replace(codes, new RegExp(`${name}: ${name} as typeof ${name},`))
           replaceAll(
@@ -56,7 +56,7 @@ function transformTemplateRef({
   )
 
   const codeString = toString(codes)
-  for (const [, tagName, props, ref] of toString(codes).matchAll(
+  for (const [, tagName, props, ref] of codeString.matchAll(
     /__VLS_asFunctionalComponent\((.*), new \1\({(.*ref: \("(.*)"\).*)}\)\)/g,
   )) {
     if (tagName.startsWith('__VLS_')) {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue'
 import { templateRef } from '@vueuse/core'
 import { expectTypeOf } from 'expect-type'
+import { defineComponent, ref } from 'vue'
 import Comp2 from './comp.vue'
 
 const foo = ref(1)

@@ -24,9 +24,9 @@ export const Comp = defineComponent({
 })
 // #endregion comp
 // ---cut---
+import { templateRef } from '@vueuse/core'
 // @noErrors
 import { Comp } from './Comp.ts'
-import { templateRef } from '@vueuse/core'
 
 const comp = templateRef('comp')
 comp.value?.foo
