@@ -1,13 +1,13 @@
 import { resolve } from 'node:path'
-import { describe, expect, test } from 'vitest'
+import { REGEX_SETUP_SFC } from '@vue-macros/common'
 import {
+  rollupBuild,
   RollupEsbuildPlugin,
   RollupVue,
   RollupVueJsx,
-  rollupBuild,
   testFixtures,
 } from '@vue-macros/test-utils'
-import { REGEX_SETUP_SFC } from '@vue-macros/common'
+import { describe, expect, test } from 'vitest'
 import VueSetupSFC from '../src/rollup'
 
 describe('setup-component', () => {

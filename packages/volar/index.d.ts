@@ -19,6 +19,9 @@ export interface VolarOptions {
     include?: FilterPattern
     exclude?: FilterPattern
   }
+  templateRef?: {
+    alias?: string[]
+  }
   scriptLang?: {
     defaultLang?: string
     include?: FilterPattern

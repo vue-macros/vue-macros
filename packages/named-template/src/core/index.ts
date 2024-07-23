@@ -1,32 +1,32 @@
 import {
-  type CodeTransform,
-  HELPER_PREFIX,
-  MagicStringAST,
   babelParse,
   generateTransform,
   getLang,
+  HELPER_PREFIX,
   importHelperFn,
   isCallOf,
+  MagicStringAST,
   walkAST,
+  type CodeTransform,
 } from '@vue-macros/common'
 import {
+  createTransformContext,
+  parse,
+  traverseNode,
   type AttributeNode,
   type ElementNode,
   type NodeTransform,
   type NodeTypes,
   type RootNode,
-  createTransformContext,
-  parse,
-  traverseNode,
 } from '@vue/compiler-dom'
-import { getChildrenLocation, parseVueRequest } from './utils'
+import type { CustomBlocks, TemplateContent } from '..'
 import {
   MAIN_TEMPLATE,
   QUERY_NAMED_TEMPLATE,
   QUERY_TEMPLATE_MAIN,
 } from './constants'
+import { getChildrenLocation, parseVueRequest } from './utils'
 import type { CallExpression, Identifier, Node, Program } from '@babel/types'
-import type { CustomBlocks, TemplateContent } from '..'
 
 export * from './constants'
 export * from './utils'

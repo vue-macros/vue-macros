@@ -1,10 +1,10 @@
 import {
-  type CodeTransform,
   DEFINE_SLOTS,
-  MagicStringAST,
   generateTransform,
   isCallOf,
+  MagicStringAST,
   parseSFC,
+  type CodeTransform,
 } from '@vue-macros/common'
 
 export function transformDefineSlots(

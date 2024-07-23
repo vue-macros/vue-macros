@@ -1,6 +1,6 @@
-import process from 'node:process'
-import path from 'node:path'
 import { statSync } from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
 import { getPackageInfoSync } from 'local-pkg'
 
 export function detectVueVersion(root: string = process.cwd()): number {

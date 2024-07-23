@@ -1,4 +1,4 @@
-import { type MagicStringAST, importHelperFn } from '@vue-macros/common'
+import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { resolveVFor } from './v-for'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 

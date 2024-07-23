@@ -1,5 +1,5 @@
 <script setup lang="tsx" generic="T">
-import { type FunctionalComponent, shallowRef } from 'vue'
+import { shallowRef, type FunctionalComponent } from 'vue'
 import Child from './child.vue'
 
 const Comp: FunctionalComponent<

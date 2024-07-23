@@ -1,6 +1,6 @@
-import { DEFINE_PROP, escapeKey } from '@vue-macros/common'
 import { genRuntimePropDefinition } from '@vue-macros/api'
-import { type Impl, stringifyArray } from './utils'
+import { DEFINE_PROP, escapeKey } from '@vue-macros/common'
+import { stringifyArray, type Impl } from './utils'
 import type { TSType } from '@babel/types'
 
 export const johnsonEdition: Impl = ({ s, offset, resolveTSType }) => {

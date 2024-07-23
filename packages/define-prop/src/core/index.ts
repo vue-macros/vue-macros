@@ -1,20 +1,20 @@
+import { inferRuntimeType, resolveTSReferencedType } from '@vue-macros/api'
 import {
-  type CodeTransform,
   DEFINE_PROP,
-  DEFINE_PROPS,
   DEFINE_PROP_DOLLAR,
-  HELPER_PREFIX,
-  MagicStringAST,
+  DEFINE_PROPS,
   generateTransform,
+  HELPER_PREFIX,
   importHelperFn,
   isCallOf,
+  MagicStringAST,
   parseSFC,
   walkAST,
+  type CodeTransform,
 } from '@vue-macros/common'
-import { inferRuntimeType, resolveTSReferencedType } from '@vue-macros/api'
-import { kevinEdition } from './kevin-edition'
-import { johnsonEdition } from './johnson-edition'
 import { helperId } from './helper'
+import { johnsonEdition } from './johnson-edition'
+import { kevinEdition } from './kevin-edition'
 import type * as t from '@babel/types'
 
 export * from './utils'

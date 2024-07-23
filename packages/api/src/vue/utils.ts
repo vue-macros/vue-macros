@@ -1,8 +1,8 @@
 import {
-  type TSNamespace,
-  type TSResolvedType,
   isTSNamespace,
   resolveTSReferencedType,
+  type TSNamespace,
+  type TSResolvedType,
 } from '../ts'
 import type { Node } from '@babel/types'
 

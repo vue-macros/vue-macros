@@ -1,12 +1,12 @@
 import {
-  type CodeTransform,
-  DEFINE_OPTIONS,
-  MagicStringAST,
   addNormalScript,
   checkInvalidScopeReference,
+  DEFINE_OPTIONS,
   generateTransform,
   importHelperFn,
+  MagicStringAST,
   parseSFC,
+  type CodeTransform,
 } from '@vue-macros/common'
 import { walkAST } from 'ast-walker-scope'
 import { filterMacro, hasPropsOrEmits as hasDisallowedProp } from './utils'

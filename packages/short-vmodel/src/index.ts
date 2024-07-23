@@ -1,6 +1,6 @@
-import { type VuePluginApi, getVuePluginApi } from '@vue-macros/common'
+import { getVuePluginApi, type VuePluginApi } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { type Options, transformShortVmodel } from './core/index'
+import { transformShortVmodel, type Options } from './core/index'
 import type { Plugin } from 'vite'
 
 // legacy export

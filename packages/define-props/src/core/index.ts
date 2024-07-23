@@ -1,12 +1,12 @@
 import {
-  type CodeTransform,
   DEFINE_PROPS,
   DEFINE_PROPS_DOLLAR,
-  MagicStringAST,
   generateTransform,
   isCallOf,
+  MagicStringAST,
   parseSFC,
   walkAST,
+  type CodeTransform,
 } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 

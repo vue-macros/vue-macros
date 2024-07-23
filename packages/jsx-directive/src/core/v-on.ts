@@ -1,7 +1,7 @@
 import {
   HELPER_PREFIX,
-  type MagicStringAST,
   importHelperFn,
+  type MagicStringAST,
 } from '@vue-macros/common'
 import type { JsxDirective } from '.'
 

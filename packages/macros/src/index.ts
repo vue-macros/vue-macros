@@ -1,29 +1,28 @@
-/* eslint-disable import/order */
 /* eslint perfectionist/sort-imports: ["error", {
-  custom-groups: {
+  customGroups: {
     "value": {
       "vue-macros": ["@vue-macros/**", "unplugin-vue-define-options"]
     },
   },
-  groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index'], 'vue-macros'],
-  internal-pattern: ['#**'],
-  newlines-between: 'ignore',
+  groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'vue-macros'],
+  internalPattern: ['#**'],
+  newlinesBetween: 'ignore',
 }] */
-/* eslint perfectionist/sort-interfaces: ["error", { ignore-pattern: ["OptionsCommon"] }] */
-/* eslint perfectionist/sort-objects: ["error", { ignore-pattern: ["OptionsCommon"], partition-by-new-line: true }] */
+/* eslint perfectionist/sort-interfaces: ["error", { ignorePattern: ["OptionsCommon"] }] */
+/* eslint perfectionist/sort-objects: ["error", { ignorePattern: ["OptionsCommon"], partitionByNewLine: true }] */
 
 import process from 'node:process'
+
 import type { UnpluginInstance } from 'unplugin'
 import {
+  createCombinePlugin,
   type OptionsPlugin,
   type Plugin,
   type PluginType,
   type UnpluginCombineInstance,
-  createCombinePlugin,
 } from 'unplugin-combine'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { excludeDepOptimize } from './core'
-
 import VueBetterDefine, {
   type Options as OptionsBetterDefine,
 } from '@vue-macros/better-define'

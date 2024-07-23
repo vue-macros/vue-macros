@@ -1,21 +1,21 @@
-import { extractIdentifiers, walkAST } from 'ast-walker-scope'
 import {
-  type CodeTransform,
   DEFINE_EMITS,
   DEFINE_MODELS,
   DEFINE_MODELS_DOLLAR,
   DEFINE_OPTIONS,
   DEFINE_PROPS,
-  HELPER_PREFIX,
-  MagicStringAST,
-  REPO_ISSUE_URL,
-  WITH_DEFAULTS,
   generateTransform,
+  HELPER_PREFIX,
   importHelperFn,
   isCallOf,
+  MagicStringAST,
   parseSFC,
+  REPO_ISSUE_URL,
   resolveObjectKey,
+  WITH_DEFAULTS,
+  type CodeTransform,
 } from '@vue-macros/common'
+import { extractIdentifiers, walkAST } from 'ast-walker-scope'
 import { emitHelperId, useVmodelHelperId } from './helper'
 import type {
   Identifier,

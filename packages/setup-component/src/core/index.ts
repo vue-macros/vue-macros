@@ -1,23 +1,23 @@
 import {
-  type AttachedScope,
-  type CodeTransform,
-  DEFINE_SETUP_COMPONENT,
-  HELPER_PREFIX,
-  MagicStringAST,
   attachScopes,
   babelParse,
+  DEFINE_SETUP_COMPONENT,
   generateTransform,
   getLang,
+  HELPER_PREFIX,
   isCallOf,
+  MagicStringAST,
   normalizePath,
   walkAST,
+  type AttachedScope,
+  type CodeTransform,
 } from '@vue-macros/common'
-import { isSubModule } from './sub-module'
 import {
   SETUP_COMPONENT_ID_REGEX,
   SETUP_COMPONENT_ID_SUFFIX,
   SETUP_COMPONENT_TYPE,
 } from './constants'
+import { isSubModule } from './sub-module'
 import type { Function, Node, Program } from '@babel/types'
 import type { HmrContext, ModuleNode } from 'vite'
 

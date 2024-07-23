@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Assert } from '../../assert'
-import type { Warn } from './warning'
-import type { BaseEmits, BaseProps } from './types'
 import type { DtsDemo } from './test-dts'
+import type { BaseEmits, BaseProps } from './types'
+import type { Warn } from './warning'
 
 export interface Props extends BaseProps {
   msg: string
