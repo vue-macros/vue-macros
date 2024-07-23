@@ -1,5 +1,42 @@
 # @vue-macros/volar
 
+## 0.24.0
+### Minor Changes
+
+
+
+- [#738](https://github.com/vue-macros/vue-macros/pull/738) [`3c676f4`](https://github.com/vue-macros/vue-macros/commit/3c676f44af0b2126fefe8cecc4614d0eae721384) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce template-ref
+
+
+
+- [`9e19eaf`](https://github.com/vue-macros/vue-macros/commit/9e19eaf2666fce4a45aba3502e5f8118633f1ed8) Thanks [@sxzz](https://github.com/sxzz)! - Move to ESM-first
+
+
+### Patch Changes
+
+
+
+- [`831027b`](https://github.com/vue-macros/vue-macros/commit/831027b4142cf1bdf090f3b44820c0f8839288b4) Thanks [@sxzz](https://github.com/sxzz)! - add module type
+
+
+
+- [#736](https://github.com/vue-macros/vue-macros/pull/736) [`809a07b`](https://github.com/vue-macros/vue-macros/commit/809a07bcb4234f102e14f08084331ded8d9541e6) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - fix sourceMap offset overflow for jsx-directive
+
+
+
+- [`d31544c`](https://github.com/vue-macros/vue-macros/commit/d31544cbb8400b1006c997078f43de96c4bdfc20) Thanks [@sxzz](https://github.com/sxzz)! - fix import isJsxExpression
+
+
+
+- [#739](https://github.com/vue-macros/vue-macros/pull/739) [`b0e465e`](https://github.com/vue-macros/vue-macros/commit/b0e465e82d2e0d2290ccf7e939550646b04e03dc) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support volar 2.0.28
+
+- Updated dependencies [[`831027b`](https://github.com/vue-macros/vue-macros/commit/831027b4142cf1bdf090f3b44820c0f8839288b4), [`f734af7`](https://github.com/vue-macros/vue-macros/commit/f734af76922584765e6ef3982f29a5f3a735c710), [`9e19eaf`](https://github.com/vue-macros/vue-macros/commit/9e19eaf2666fce4a45aba3502e5f8118633f1ed8)]:
+  - @vue-macros/boolean-prop@0.4.1
+  - @vue-macros/define-props@2.0.7
+  - @vue-macros/short-vmodel@1.4.6
+  - @vue-macros/short-bind@0.2.6
+  - @vue-macros/common@1.11.0
+
 ## 0.23.1
 ### Patch Changes
 

@@ -1,5 +1,22 @@
 # @vue-macros/astro
 
+## 0.4.0
+### Minor Changes
+
+
+
+- [`9e19eaf`](https://github.com/vue-macros/vue-macros/commit/9e19eaf2666fce4a45aba3502e5f8118633f1ed8) Thanks [@sxzz](https://github.com/sxzz)! - Move to ESM-first
+
+
+### Patch Changes
+
+
+
+- [`831027b`](https://github.com/vue-macros/vue-macros/commit/831027b4142cf1bdf090f3b44820c0f8839288b4) Thanks [@sxzz](https://github.com/sxzz)! - add module type
+
+- Updated dependencies [[`831027b`](https://github.com/vue-macros/vue-macros/commit/831027b4142cf1bdf090f3b44820c0f8839288b4)]:
+  - unplugin-vue-macros@2.9.6
+
 ## 0.3.19
 ### Patch Changes
 

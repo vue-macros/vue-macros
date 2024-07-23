@@ -1,5 +1,24 @@
 # @vue-macros/nuxt
 
+## 1.10.0
+### Minor Changes
+
+
+
+- [`9e19eaf`](https://github.com/vue-macros/vue-macros/commit/9e19eaf2666fce4a45aba3502e5f8118633f1ed8) Thanks [@sxzz](https://github.com/sxzz)! - Move to ESM-first
+
+
+### Patch Changes
+
+
+
+- [`831027b`](https://github.com/vue-macros/vue-macros/commit/831027b4142cf1bdf090f3b44820c0f8839288b4) Thanks [@sxzz](https://github.com/sxzz)! - add module type
+
+- Updated dependencies [[`831027b`](https://github.com/vue-macros/vue-macros/commit/831027b4142cf1bdf090f3b44820c0f8839288b4), [`f734af7`](https://github.com/vue-macros/vue-macros/commit/f734af76922584765e6ef3982f29a5f3a735c710), [`3c676f4`](https://github.com/vue-macros/vue-macros/commit/3c676f44af0b2126fefe8cecc4614d0eae721384), [`9e19eaf`](https://github.com/vue-macros/vue-macros/commit/9e19eaf2666fce4a45aba3502e5f8118633f1ed8), [`809a07b`](https://github.com/vue-macros/vue-macros/commit/809a07bcb4234f102e14f08084331ded8d9541e6), [`d31544c`](https://github.com/vue-macros/vue-macros/commit/d31544cbb8400b1006c997078f43de96c4bdfc20), [`b0e465e`](https://github.com/vue-macros/vue-macros/commit/b0e465e82d2e0d2290ccf7e939550646b04e03dc)]:
+  - @vue-macros/common@1.11.0
+  - unplugin-vue-macros@2.9.6
+  - @vue-macros/volar@0.24.0
+
 ## 1.9.39
 ### Patch Changes
 

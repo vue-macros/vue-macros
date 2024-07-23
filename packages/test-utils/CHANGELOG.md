@@ -1,5 +1,16 @@
 # @vue-macros/test-utils
 
+## 1.5.0
+### Minor Changes
+
+
+
+- [`9e19eaf`](https://github.com/vue-macros/vue-macros/commit/9e19eaf2666fce4a45aba3502e5f8118633f1ed8) Thanks [@sxzz](https://github.com/sxzz)! - Move to ESM-first
+
+
+
+- [`21c8939`](https://github.com/vue-macros/vue-macros/commit/21c8939cc2805c616e93be0d664dc26d681cb0ff) Thanks [@sxzz](https://github.com/sxzz)! - Extract features to `@sxzz/test-utils`
+
 ## 1.4.0
 
 ### Minor Changes
