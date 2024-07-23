@@ -4,6 +4,7 @@ import path from 'node:path'
 import fg from 'fast-glob'
 import { dedupeDeps, defineConfig } from 'monoman'
 import { docsLink, githubLink } from './macros/repo'
+import type { PackageJson } from 'pkg-types'
 import type { Options } from 'tsup'
 
 function getPkgName(filePath: string) {
@@ -18,7 +19,7 @@ export default defineConfig([
   {
     include: ['packages/*/package.json'],
     type: 'json',
-    async contents(data: Record<string, any>, { filePath }) {
+    async contents(data: PackageJson, { filePath }) {
       const pkgRoot = path.resolve(filePath, '..')
       const pkgSrc = path.resolve(pkgRoot, 'src')
       const pkgName = getPkgName(filePath)
@@ -96,6 +97,12 @@ export default defineConfig([
           './*': hasRootDts ? ['./*', './*.d.ts'] : './*',
         }
 
+        const mainExport = data.exports['.']
+        if (mainExport) {
+          data.main = stripCurrentDir((mainExport as any).require)
+          data.module = stripCurrentDir((mainExport as any).import)
+        }
+
         const onlyIndex = entries.length === 1 && entries[0] === 'index'
 
         if (onlyIndex) delete data.typesVersions
@@ -111,7 +118,7 @@ export default defineConfig([
         Object.keys(data.dependencies || {}).includes('unplugin') ||
         data?.meta?.plugin
       ) {
-        data.keywords.push('unplugin')
+        data.keywords!.push('unplugin')
       }
 
       return data
@@ -160,3 +167,7 @@ Please refer to [README.md](${githubLink}#readme)\n`
     },
   },
 ])
+
+function stripCurrentDir(filePath: string) {
+  return filePath.replace(/^\.\//, '')
+}

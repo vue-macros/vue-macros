@@ -3,7 +3,7 @@
   "version": "1.10.4",
   "packageManager": "pnpm@9.6.0",
   "description": "common feature from Vue Macros.",
-  "type": "commonjs",
+  "type": "module",
   "keywords": [
     "vue-macros",
     "macros",
@@ -27,14 +27,14 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     },
     "./*": "./*"
   },
