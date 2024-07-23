@@ -1,8 +1,8 @@
 import {
-  type CodeTransform,
-  MagicString,
   generateTransform,
+  MagicString,
   parseSFC,
+  type CodeTransform,
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
 

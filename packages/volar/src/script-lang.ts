@@ -1,5 +1,5 @@
 import { createFilter } from '@rollup/pluginutils'
-import { type VueLanguagePlugin, parse } from '@vue/language-core'
+import { parse, type VueLanguagePlugin } from '@vue/language-core'
 
 const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => ({
   name: 'vue-macros-script-lang',
