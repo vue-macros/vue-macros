@@ -3,8 +3,6 @@ import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformShortBind, type Options } from './core/index'
 import type { Plugin } from 'vite'
 
-export type { Options } from './core'
-
 const name = generatePluginName()
 
 function rollup(options: Options = {}): Plugin {
