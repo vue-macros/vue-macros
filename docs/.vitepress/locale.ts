@@ -244,7 +244,7 @@ export function getLocaleConfig(lang: string) {
           text: t('Experimental'),
           items: [
             {
-              text: 'template-ref',
+              text: 'templateRef',
               link: `${urlPrefix}/volar/template-ref`,
             },
           ],
