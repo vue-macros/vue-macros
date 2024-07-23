@@ -72,6 +72,11 @@ jobs:
 
       - name: Type Check
         run: nr typecheck
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+
+      - name: Publint
+        run: nr publint
+        if: ${{ matrix.os == 'ubuntu-latest' }}
 
       - name: Unit Test
         run: nr test
