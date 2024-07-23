@@ -27,6 +27,7 @@ export default defineConfig([
       const esmPrefix = isESM ? '' : 'm'
       const hasRootDts = (await fg('*.d.ts', { cwd: pkgRoot })).length > 0
 
+      data.type ||= 'commonjs'
       const descriptions: Record<string, string> = {
         'define-options': 'Add defineOptions macro for Vue <script setup>.',
         macros: 'Explore more macros and syntax sugar to Vue.',
