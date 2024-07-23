@@ -1,9 +1,9 @@
 import { DEFINE_OPTIONS } from '@vue-macros/common'
 import {
+  allCodeFeatures,
   type Code,
   type Sfc,
   type VueLanguagePlugin,
-  allCodeFeatures,
 } from '@vue/language-core'
 import { replaceAll } from 'muggle-string'
 

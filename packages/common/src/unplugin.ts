@@ -1,6 +1,6 @@
 import {
-  type FilterPattern,
   createFilter as createRollupFilter,
+  type FilterPattern,
 } from '@rollup/pluginutils'
 import { generateTransform } from 'magic-string-ast'
 import {
@@ -30,8 +30,8 @@ export function createFilter(
 }
 
 export {
-  normalizePath,
   createFilter as createRollupFilter,
+  normalizePath,
 } from '@rollup/pluginutils'
 
 export interface VuePluginApi {

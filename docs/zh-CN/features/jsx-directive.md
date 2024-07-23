@@ -121,7 +121,7 @@ export default () => (
 <script setup lang="tsx">
 // ---cut-start---
 // #region v-model
-import { type FunctionalComponent, ref } from 'vue'
+import { ref, type FunctionalComponent } from 'vue'
 
 export const Comp: FunctionalComponent<
   {

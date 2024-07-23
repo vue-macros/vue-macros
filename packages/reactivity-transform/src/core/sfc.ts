@@ -1,15 +1,15 @@
 import {
-  type CodeTransform,
   DEFINE_PROPS,
-  MagicStringAST,
   generateTransform,
   importHelperFn,
   isCallOf,
+  MagicStringAST,
   parseSFC,
   resolveObjectKey,
+  type CodeTransform,
 } from '@vue-macros/common'
-import { shouldTransform, transformAST } from './transform'
 import { helperId } from './helper'
+import { shouldTransform, transformAST } from './transform'
 import type { CallExpression, Identifier, Node } from '@babel/types'
 
 export function transformVueSFC(

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
 import { useData } from 'vitepress'
+import { computed, reactive, ref, watch } from 'vue'
 import { useTranslate } from '../.vitepress/i18n/composable'
 import {
-  type OptionsKey,
   conflictCases,
   options,
   processDefineComponent,
   processDefineEmits,
   processDefineProps,
   processDefineRender,
+  type OptionsKey,
 } from './logic'
 
 const t = useTranslate()

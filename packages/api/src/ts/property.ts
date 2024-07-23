@@ -1,14 +1,14 @@
 import { resolveLiteral } from '@vue-macros/common'
-import {
-  type TSResolvedType,
-  resolveTSReferencedType,
-} from './resolve-reference'
-import { type TSNamespace, isTSNamespace } from './namespace'
+import { isTSNamespace, type TSNamespace } from './namespace'
 import {
   resolveMaybeTSUnion,
   resolveTSLiteralType,
   resolveTypeElements,
 } from './resolve'
+import {
+  resolveTSReferencedType,
+  type TSResolvedType,
+} from './resolve-reference'
 import type {
   Node,
   TSCallSignatureDeclaration,

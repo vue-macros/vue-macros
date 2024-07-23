@@ -1,5 +1,5 @@
-import type { MagicStringAST } from '@vue-macros/common'
 import type * as t from '@babel/types'
+import type { MagicStringAST } from '@vue-macros/common'
 
 export type Impl = (ctx: {
   s: MagicStringAST

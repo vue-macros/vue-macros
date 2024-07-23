@@ -1,9 +1,9 @@
 import {
-  type CodeTransform,
+  generateTransform,
   HELPER_PREFIX,
   MagicStringAST,
-  generateTransform,
   parseSFC,
+  type CodeTransform,
 } from '@vue-macros/common'
 import { extractIdentifiers } from '@vue/compiler-sfc'
 

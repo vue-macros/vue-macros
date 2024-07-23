@@ -1,5 +1,5 @@
-import type { ComponentObjectPropsOptions } from 'vue/types/v3-component-props'
 import type { ComputedRef, DeepReadonly, ExtractPropTypes, Ref } from 'vue'
+import type { ComponentObjectPropsOptions } from 'vue/types/v3-component-props'
 
 export declare type PropRefs<T> = {
   [K in keyof T]-?: ComputedRef<DeepReadonly<T[K]>>

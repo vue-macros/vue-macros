@@ -1,8 +1,8 @@
 import path from 'node:path'
-import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import Macros from 'unplugin-macros/vite'
+import { defineConfig } from 'vite'
 
 const DEV_SERVER_PATH = '/__vue-macros'
 

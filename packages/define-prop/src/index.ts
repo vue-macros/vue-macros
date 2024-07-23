@@ -1,21 +1,21 @@
 import process from 'node:process'
+import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
 import {
-  type UnpluginContextMeta,
-  type UnpluginInstance,
-  createUnplugin,
-} from 'unplugin'
-import {
-  type BaseOptions,
-  FilterFileType,
-  type MarkRequired,
   createFilter,
   detectVueVersion,
+  FilterFileType,
   getFilterPattern,
   normalizePath,
+  type BaseOptions,
+  type MarkRequired,
 } from '@vue-macros/common'
-import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
+import {
+  createUnplugin,
+  type UnpluginContextMeta,
+  type UnpluginInstance,
+} from 'unplugin'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { type Edition, transformDefineProp } from './core'
+import { transformDefineProp, type Edition } from './core'
 import { helperCode, helperId } from './core/helper'
 import type { PluginContext } from 'rollup'
 

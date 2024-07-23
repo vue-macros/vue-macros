@@ -1,14 +1,14 @@
 import {
-  type CodeTransform,
   DEFINE_EMITS,
-  MagicStringAST,
   generateTransform,
   isCallOf,
   isTs,
   isTypeOf,
+  MagicStringAST,
   parseSFC,
   resolveObjectKey,
   walkAST,
+  type CodeTransform,
 } from '@vue-macros/common'
 import type { Node, TSType } from '@babel/types'
 

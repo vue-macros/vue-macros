@@ -1,20 +1,20 @@
-import { resolveIdentifier } from '@vue-macros/common'
 import {
+  isTSType,
   type Identifier,
   type Node,
   type TSParenthesizedType,
   type TSType,
   type TSTypeAliasDeclaration,
-  isTSType,
 } from '@babel/types'
+import { resolveIdentifier } from '@vue-macros/common'
+import { isTSDeclaration, type TSDeclaration } from './is'
 import {
-  type TSNamespace,
   isTSNamespace,
   resolveTSNamespace,
+  type TSNamespace,
 } from './namespace'
 import { resolveTSIndexedAccessType } from './resolve'
-import { type TSScope, resolveTSScope } from './scope'
-import { type TSDeclaration, isTSDeclaration } from './is'
+import { resolveTSScope, type TSScope } from './scope'
 
 export interface TSResolvedType<
   T =

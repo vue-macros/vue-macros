@@ -1,10 +1,10 @@
 import {
-  type CodeTransform,
-  MagicStringAST,
   addNormalScript,
   generateTransform,
   isStaticExpression,
+  MagicStringAST,
   parseSFC,
+  type CodeTransform,
 } from '@vue-macros/common'
 import type { Node } from '@babel/types'
 

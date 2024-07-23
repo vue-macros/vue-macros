@@ -1,7 +1,7 @@
 /* eslint perfectionist/sort-objects: "error" */
-import type { ESLint, Linter } from 'eslint'
+import type { Linter } from 'eslint'
 
-export const globals: ESLint.Globals = {
+export const globals: Linter.Globals = {
   $: 'readonly',
   $$: 'readonly',
   $computed: 'readonly',

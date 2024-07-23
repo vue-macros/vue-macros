@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Assert } from '../../assert'
-import Child from './child.vue'
 import ChildGeneric from './child-generic.vue'
+import Child from './child.vue'
 
 const child = ref<InstanceType<typeof Child>>()
 const childGeneric = ref<ComponentExposed<typeof Child>>()

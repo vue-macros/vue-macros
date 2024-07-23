@@ -1,13 +1,13 @@
 import {
-  type CodeTransform,
-  DEFINE_RENDER,
-  MagicStringAST,
   babelParse,
+  DEFINE_RENDER,
   generateTransform,
   getLang,
   isCallOf,
   isFunctionType,
+  MagicStringAST,
   walkAST,
+  type CodeTransform,
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
 import type * as t from '@babel/types'

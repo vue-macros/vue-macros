@@ -1,6 +1,6 @@
 import {
-  RollupEscapeNullCharacterPlugin,
   rollupBuild as _rollupBuild,
+  RollupEscapeNullCharacterPlugin,
 } from '@sxzz/test-utils'
 import ViteVueJsx, {
   type Options as VueJsxOptions,

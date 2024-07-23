@@ -1,9 +1,9 @@
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
-import { exports } from 'resolve.exports'
 import { isDts } from '@vue-macros/common'
-import { type ResolveTSFileIdImpl, tsFileCache } from './ts'
+import { exports } from 'resolve.exports'
+import { tsFileCache, type ResolveTSFileIdImpl } from './ts'
 import type { PluginContext } from 'rollup'
 import type { ModuleNode, Plugin } from 'vite'
 

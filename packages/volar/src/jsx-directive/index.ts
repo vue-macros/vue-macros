@@ -1,14 +1,14 @@
 import { getText, isJsxExpression } from '../common'
-import { type VSlotMap, transformVSlot, transformVSlots } from './v-slot'
+import { transformCtx } from './context'
+import { transformRef } from './ref'
+import { transformVBind } from './v-bind'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
-import { transformVBind } from './v-bind'
-import { transformRef } from './ref'
-import { transformCtx } from './context'
-import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
+import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
 import type { Code, Sfc } from '@vue/language-core'
+import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 
 export type JsxDirective = {
   attribute: import('typescript').JsxAttribute

@@ -1,18 +1,18 @@
 import {
-  type CodeTransform,
+  analyzeSFC,
+  genRuntimePropDefinition,
+  type TSEmits,
+  type TSProps,
+} from '@vue-macros/api'
+import {
   DEFINE_EMITS,
-  MagicStringAST,
   escapeKey,
   generateTransform,
   importHelperFn,
+  MagicStringAST,
   parseSFC,
+  type CodeTransform,
 } from '@vue-macros/common'
-import {
-  type TSEmits,
-  type TSProps,
-  analyzeSFC,
-  genRuntimePropDefinition,
-} from '@vue-macros/api'
 
 export async function transformBetterDefine(
   code: string,

@@ -1,8 +1,9 @@
 {
   "name": "@vue-macros/volar",
-  "version": "0.23.1",
+  "version": "0.24.0",
   "packageManager": "pnpm@9.6.0",
   "description": "Volar plugin for Vue Macros.",
+  "type": "commonjs",
   "keywords": [
     "vue-macros",
     "macros",
@@ -27,6 +28,7 @@
     "*.d.ts",
     "dist"
   ],
+  "types": "./index.d.ts",
   "exports": {
     ".": {
       "types": "./index.d.ts"

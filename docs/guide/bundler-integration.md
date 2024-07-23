@@ -22,8 +22,8 @@ pnpm add -D unplugin-vue-macros
 
 ```ts [Vite (first-class support)]
 // vite.config.ts
-import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
+import VueMacros from 'unplugin-vue-macros/vite'
 // import VueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
@@ -40,8 +40,8 @@ export default defineConfig({
 
 ```ts [Rollup (first-class support)]
 // rollup.config.js
-import Vue from 'unplugin-vue/rollup'
 import VueMacros from 'unplugin-vue-macros/rollup'
+import Vue from 'unplugin-vue/rollup'
 
 export default {
   plugins: [

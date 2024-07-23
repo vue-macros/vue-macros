@@ -1,7 +1,7 @@
 import { walkIdentifiers } from '@vue/compiler-sfc'
 import { isFunctionType, isLiteralType, resolveObjectKey } from 'ast-kit'
-import type { MagicString } from 'magic-string-ast'
 import type * as t from '@babel/types'
+import type { MagicString } from 'magic-string-ast'
 
 export function checkInvalidScopeReference(
   node: t.Node | undefined,

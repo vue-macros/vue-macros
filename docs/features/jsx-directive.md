@@ -121,7 +121,7 @@ It is also possible to use a variable in a directive argument by wrapping it wit
 <script setup lang="tsx">
 // ---cut-start---
 // #region v-model
-import { type FunctionalComponent, ref } from 'vue'
+import { ref, type FunctionalComponent } from 'vue'
 
 export const Comp: FunctionalComponent<
   {

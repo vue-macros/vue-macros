@@ -1,7 +1,7 @@
 export {
+  removeSpaces,
   RollupEscapeNullCharacterPlugin,
   RollupToStringPlugin,
-  removeSpaces,
   testFixtures,
   testFixturesSkip,
 } from '@sxzz/test-utils'
