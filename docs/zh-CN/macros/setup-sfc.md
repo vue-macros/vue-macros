@@ -98,7 +98,3 @@ export default () => (
   },
 }
 ```
-
-## 已知的问题
-
-- Source map 在 JSX/TSX 文件中不能正确的映射。

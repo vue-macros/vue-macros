@@ -98,7 +98,3 @@ export default () => (
   },
 }
 ```
-
-## Known Issues
-
-- The source map does not correspond properly in JSX/TSX files.
