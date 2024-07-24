@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-自动给 `templateRef` 和 `useTemplateRef` <small>(vue3.5)</small> 添加类型.
+自动推断 `templateRef` 和 `useTemplateRef` <small>(vue3.5)</small> 的类型.
 
 |   Features   |     Supported      |
 | :----------: | :----------------: |
