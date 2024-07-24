@@ -66,6 +66,7 @@ You will be presented with prompts for several optional experimental features.
 - [Vite + Vue 2](https://github.com/vue-macros/vue-macros/tree/main/playground/vue2)
 - [Nuxt 3 + Vue 3](https://github.com/vue-macros/nuxt)
 - [Vue CLI + Vue 2](https://github.com/vue-macros/vue2-vue-cli)
+- [Rspack + Vue 2](https://github.com/vue-macros/vue2-rspack)
 
 🌟 More demos are welcome!
 

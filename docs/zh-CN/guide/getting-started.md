@@ -66,6 +66,7 @@ vue-macros init
 - [Vite + Vue 2](https://github.com/vue-macros/vue-macros/tree/main/playground/vue2)
 - [Nuxt 3 + Vue 3](https://github.com/vue-macros/nuxt)
 - [Vue CLI + Vue 2](https://github.com/vue-macros/vue2-vue-cli)
+- [Rspack + Vue 2](https://github.com/vue-macros/vue2-rspack)
 
 🌟 欢迎提供更多示例！
 
