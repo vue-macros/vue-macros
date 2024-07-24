@@ -5,6 +5,7 @@ import VueJsx from '@vitejs/plugin-vue2-jsx'
 /** @type {import('unplugin-vue-macros').Options} */
 export default {
   setupBlock: true,
+  scriptLang: true,
 
   namedTemplate: false,
   setupSFC: true,

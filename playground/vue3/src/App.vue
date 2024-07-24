@@ -20,9 +20,10 @@ import HoistStatic from './examples/hoist-static/index.vue'
 import JsxDirective from './examples/jsx-directive/index.vue'
 import ReactivityTransform from './examples/reactivity-transform/index.vue'
 
+import ScriptLang from './examples/script-lang/index.vue'
+
 // import NamedTemplate from './examples/named-template/index.vue'
 import SetupBlock from './examples/setup-block/index.vue'
-
 import { SetupComponentFoo } from './examples/setup-component'
 import SetupSFC from './examples/setup-sfc/index.setup'
 import ShortBind from './examples/short-bind/index.vue'
@@ -151,6 +152,11 @@ import ShortVmodel from './examples/short-vmodel/parent.vue'
     <fieldset>
       <legend>shortBind</legend>
       <ShortBind />
+    </fieldset>
+
+    <fieldset>
+      <legend>scriptLang</legend>
+      <ScriptLang />
     </fieldset>
   </div>
 </template>

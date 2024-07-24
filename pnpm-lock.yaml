@@ -564,6 +564,9 @@ importers:
       '@vue-macros/reactivity-transform':
         specifier: workspace:*
         version: link:../reactivity-transform
+      '@vue-macros/script-lang':
+        specifier: workspace:*
+        version: link:../script-lang
       '@vue-macros/setup-block':
         specifier: workspace:*
         version: link:../setup-block
@@ -657,6 +660,19 @@ importers:
       unplugin:
         specifier: 'catalog:'
         version: 1.11.0
+
+  packages/script-lang:
+    dependencies:
+      '@vue-macros/common':
+        specifier: workspace:*
+        version: link:../common
+      unplugin:
+        specifier: 'catalog:'
+        version: 1.11.0
+    devDependencies:
+      vue:
+        specifier: 'catalog:'
+        version: 3.4.33(typescript@5.5.3)
 
   packages/setup-block:
     dependencies:

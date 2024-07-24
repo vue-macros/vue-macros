@@ -233,6 +233,10 @@ export function getLocaleConfig(lang: string) {
               text: 'booleanProp',
               link: `${urlPrefix}/features/boolean-prop`,
             },
+            {
+              text: 'scriptLang',
+              link: `${urlPrefix}/features/script-lang`,
+            },
           ],
         },
       ],

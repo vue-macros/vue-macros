@@ -12,6 +12,7 @@
       "#macros": ["../../macros/index.ts"]
     },
     "resolveJsonModule": true,
+    "types": ["vue/jsx"],
     "allowJs": true,
     "strict": true,
     "noEmit": true,
@@ -37,7 +38,8 @@
       "@vue-macros/volar/jsx-directive",
       "@vue-macros/volar/setup-jsdoc",
       "@vue-macros/volar/boolean-prop",
-      "@vue-macros/volar/template-ref"
+      "@vue-macros/volar/template-ref",
+      "@vue-macros/volar/script-lang"
     ],
     "experimentalDefinePropProposal": "kevinEdition",
 
