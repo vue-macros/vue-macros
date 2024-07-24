@@ -10,14 +10,14 @@ Define the component's JSDoc in the script setup block.
 
 ## Basic Usage
 
-```vue twoslash
+````vue twoslash
 <script setup lang="tsx">
 /**
  * @example
  * ```vue
  * <Comp :foo="1" />
  * ```
-*/
+ */
 const Comp = () => <div />
 // ---cut---
 // @noErrors
@@ -28,26 +28,26 @@ import Comp from './Comp.vue'
 <template>
   <Comp />
 </template>
-```
+````
 
 ### There are two places to define
 
 1. The first line of the script setup block.
 
-```vue
+````vue
 <script setup lang="ts">
 /**
  * @example
  * ```vue
  * <Comp :foo="1" />
  * ```
-*/
+ */
 
 defineProps<{
   foo: number
 }>()
 </script>
-```
+````
 
 2. Above the `export default` expression.
 
@@ -57,7 +57,7 @@ This feature depends on `exportRender`, and make sure `exportRender` is not disa
 
 :::
 
-```vue
+````vue
 <script setup lang="tsx">
 defineProps<{
   foo: number
@@ -68,12 +68,10 @@ defineProps<{
  * ```vue
  * <Comp :foo="1" />
  * ```
-*/
-export default (
-  <div />
-)
+ */
+export default <div />
 </script>
-```
+````
 
 ## Volar Configuration
 
