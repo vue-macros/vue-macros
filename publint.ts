@@ -1,9 +1,12 @@
+import { readdir } from 'node:fs/promises'
+import path from 'node:path'
 import process from 'node:process'
-import fg from 'fast-glob'
 import { publint } from 'publint'
 import { formatMessage } from 'publint/utils'
 
-const pkgs = await fg('packages/*', { onlyDirectories: true })
+const pkgs = (await readdir('packages', { withFileTypes: true }))
+  .filter((pkg) => pkg.isDirectory())
+  .map((pkg) => path.join('packages', pkg.name))
 
 await Promise.all(
   pkgs.map(async (pkg) => {

@@ -1,4 +1,4 @@
-# defineModels
+# defineModels <PackageVersion name="@vue-macros/define-models" />
 
 <StabilityLevel level="stable" />
 

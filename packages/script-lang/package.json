@@ -1,0 +1,95 @@
+{
+  "name": "@vue-macros/script-lang",
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.6.0",
+  "description": "script-lang feature from Vue Macros.",
+  "type": "module",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "script-lang",
+    "unplugin"
+  ],
+  "license": "MIT",
+  "homepage": "https://vue-macros.dev",
+  "bugs": {
+    "url": "https://github.com/vue-macros/vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vue-macros/vue-macros.git",
+    "directory": "packages/script-lang"
+  },
+  "author": "zhiyuanzmj",
+  "contributors": [
+    "三咲智子 <sxzz@sxzz.moe>"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./api": {
+      "dev": "./src/api.ts",
+      "require": "./dist/api.cjs",
+      "import": "./dist/api.js"
+    },
+    "./esbuild": {
+      "dev": "./src/esbuild.ts",
+      "require": "./dist/esbuild.cjs",
+      "import": "./dist/esbuild.js"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "require": "./dist/rollup.cjs",
+      "import": "./dist/rollup.js"
+    },
+    "./vite": {
+      "dev": "./src/vite.ts",
+      "require": "./dist/vite.cjs",
+      "import": "./dist/vite.js"
+    },
+    "./webpack": {
+      "dev": "./src/webpack.ts",
+      "require": "./dist/webpack.cjs",
+      "import": "./dist/webpack.js"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "DEV=true tsup"
+  },
+  "peerDependencies": {
+    "vue": "^2.7.0 || ^3.0.0"
+  },
+  "dependencies": {
+    "@vue-macros/common": "workspace:*",
+    "unplugin": "catalog:"
+  },
+  "devDependencies": {
+    "vue": "catalog:"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}

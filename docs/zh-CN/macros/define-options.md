@@ -1,4 +1,4 @@
-# defineOptions
+# defineOptions <PackageVersion name="unplugin-vue-define-options" />
 
 <StabilityLevel level="stable" />
 

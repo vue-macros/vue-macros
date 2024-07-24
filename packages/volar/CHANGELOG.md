@@ -1,5 +1,15 @@
 # @vue-macros/volar
 
+## 0.24.1
+### Patch Changes
+
+
+
+- [#741](https://github.com/vue-macros/vue-macros/pull/741) [`5724272`](https://github.com/vue-macros/vue-macros/commit/572427231a6976b420379ce9c4f6c0cef15c8b15) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support GlobalComponents for template-ref
+
+- Updated dependencies []:
+  - @vue-macros/define-props@2.0.8
+
 ## 0.24.0
 ### Minor Changes
 

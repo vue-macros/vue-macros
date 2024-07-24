@@ -1,4 +1,4 @@
-# defineRender
+# defineRender <PackageVersion name="@vue-macros/define-render" />
 
 <StabilityLevel level="stable" />
 

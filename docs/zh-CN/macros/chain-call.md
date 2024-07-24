@@ -1,4 +1,4 @@
-# chainCall
+# chainCall <PackageVersion name="@vue-macros/chain-call" />
 
 <StabilityLevel level="experimental" />
 

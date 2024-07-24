@@ -1,4 +1,4 @@
-# Reactivity Transform
+# Reactivity Transform <PackageVersion name="@vue-macros/reactivity-transform" />
 
 <StabilityLevel level="stable" />
 
