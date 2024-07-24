@@ -25,4 +25,3 @@
 - [setupComponent](./setup-component.md)
 - [setupSFC](./setup-sfc.md)
 - [chainCall](./chain-call.md)
-- [scriptLang](./script-lang.md)
