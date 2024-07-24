@@ -34,6 +34,7 @@
       "types": "./index.d.ts"
     },
     "./*": {
+      "types": "./*.d.ts",
       "dev": "./src/*.ts",
       "require": "./dist/*.js"
     }
