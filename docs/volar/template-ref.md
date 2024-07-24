@@ -1,4 +1,4 @@
-# templateRef
+# templateRef <PackageVersion name="@vue-macros/volar" />
 
 <StabilityLevel level="experimental" />
 

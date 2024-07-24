@@ -1,4 +1,4 @@
-# hoistStatic
+# hoistStatic <PackageVersion name="@vue-macros/hoist-static" />
 
 <StabilityLevel level="stable" />
 

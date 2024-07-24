@@ -1,4 +1,4 @@
-# jsxDirective
+# jsxDirective <PackageVersion name="@vue-macros/jsx-directive" />
 
 <StabilityLevel level="experimental" />
 

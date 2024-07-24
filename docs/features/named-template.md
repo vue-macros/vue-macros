@@ -1,4 +1,4 @@
-# namedTemplate
+# namedTemplate <PackageVersion name="@vue-macros/named-template" />
 
 <StabilityLevel level="experimental" />
 

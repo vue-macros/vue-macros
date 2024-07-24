@@ -1,4 +1,4 @@
-# setupSFC
+# setupSFC <PackageVersion name="@vue-macros/setup-sfc" />
 
 <StabilityLevel level="experimental" />
 
