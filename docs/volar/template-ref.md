@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-Automatically add type for `templateRef` and `useTemplateRef` <small>(vue3.5)</small>.
+Automatically infer type for `templateRef` and `useTemplateRef` <small>(vue3.5)</small>.
 
 |   Features   |     Supported      |
 | :----------: | :----------------: |

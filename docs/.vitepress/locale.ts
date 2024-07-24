@@ -260,6 +260,10 @@ export function getLocaleConfig(lang: string) {
               text: 'templateRef',
               link: `${urlPrefix}/volar/template-ref`,
             },
+            {
+              text: 'DefineGeneric',
+              link: `${urlPrefix}/volar/define-generic`,
+            },
           ],
         },
       ],

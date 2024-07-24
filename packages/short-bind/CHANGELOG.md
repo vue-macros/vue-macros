@@ -1,5 +1,12 @@
 # @vue-macros/short-bind
 
+## 1.0.0
+### Major Changes
+
+
+
+- [`af5301b`](https://github.com/vue-macros/vue-macros/commit/af5301ba1307df059ed97283fd14eb38c8afb4a4) Thanks [@sxzz](https://github.com/sxzz)! - Nothing changed, promote to stable version.
+
 ## 0.2.6
 ### Patch Changes
 
