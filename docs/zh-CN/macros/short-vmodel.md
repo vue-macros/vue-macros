@@ -1,4 +1,4 @@
-# shortVmodel
+# shortVmodel <PackageVersion name="@vue-macros/short-vmodel" />
 
 <StabilityLevel level="stable" />
 

@@ -1,4 +1,4 @@
-# booleanProp
+# booleanProp <PackageVersion name="@vue-macros/boolean-prop" />
 
 <StabilityLevel level="experimental" />
 

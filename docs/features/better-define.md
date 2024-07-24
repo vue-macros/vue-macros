@@ -1,4 +1,4 @@
-# betterDefine
+# betterDefine <PackageVersion name="@vue-macros/better-define" />
 
 <StabilityLevel level="stable" />
 

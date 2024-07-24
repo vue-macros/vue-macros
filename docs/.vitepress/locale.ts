@@ -55,6 +55,11 @@ export function getLocaleConfig(lang: string) {
       activeMatch: 'features',
     },
     {
+      text: 'Volar',
+      link: `${urlPrefix}/volar/template-ref`,
+      activeMatch: 'volar',
+    },
+    {
       text: t('Interactive Example'),
       link: `${urlPrefix}/interactive/`,
       activeMatch: 'interactive',
@@ -231,6 +236,20 @@ export function getLocaleConfig(lang: string) {
             {
               text: 'booleanProp',
               link: `${urlPrefix}/features/boolean-prop`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      text: 'Volar',
+      items: [
+        {
+          text: t('Experimental'),
+          items: [
+            {
+              text: 'templateRef',
+              link: `${urlPrefix}/volar/template-ref`,
             },
           ],
         },

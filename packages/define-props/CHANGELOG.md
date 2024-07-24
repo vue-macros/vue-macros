@@ -1,5 +1,11 @@
 # @vue-macros/define-props
 
+## 2.0.8
+### Patch Changes
+
+- Updated dependencies [[`feeb2eb`](https://github.com/vue-macros/vue-macros/commit/feeb2eb9f866efc3ae8dd9cdc368a6e4c34217a7)]:
+  - @vue-macros/reactivity-transform@0.4.8
+
 ## 2.0.7
 ### Patch Changes
 

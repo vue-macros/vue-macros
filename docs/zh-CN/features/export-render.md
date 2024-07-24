@@ -1,4 +1,4 @@
-# exportRender
+# exportRender <PackageVersion name="@vue-macros/export-render" />
 
 <StabilityLevel level="experimental" />
 
