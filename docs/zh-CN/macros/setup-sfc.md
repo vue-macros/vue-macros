@@ -13,7 +13,7 @@
 |       Vue 3        | :white_check_mark: |
 |       Nuxt 3       | :white_check_mark: |
 |       Vue 2        | :white_check_mark: |
-| TypeScript / Volar |        :x:         |
+| TypeScript / Volar | :white_check_mark: |
 
 ## 安装
 
@@ -85,7 +85,16 @@ export default () => (
 )
 ```
 
-## 已知的问题
+## Volar 配置
 
-- Source map 在 JSX/TSX 文件中不能正确的映射。
-- TypeScript 支持尚未完成。
+```jsonc {5}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/setup-sfc",
+      // ...更多功能
+    ],
+  },
+}
+```

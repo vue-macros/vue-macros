@@ -13,7 +13,7 @@ If you're using `setupSFC`, then `defineRender` cannot be disabled.
 |       Vue 3        | :white_check_mark: |
 |       Nuxt 3       | :white_check_mark: |
 |       Vue 2        | :white_check_mark: |
-| TypeScript / Volar |        :x:         |
+| TypeScript / Volar | :white_check_mark: |
 
 ## Setup
 
@@ -85,7 +85,16 @@ export default () => (
 )
 ```
 
-## Known Issues
+## Volar Configuration
 
-- The source map does not correspond properly in JSX/TSX files.
-- TypeScript support is not yet completed.
+```jsonc {5}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/setup-sfc",
+      // ...more feature
+    ],
+  },
+}
+```
