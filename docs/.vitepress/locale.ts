@@ -171,10 +171,6 @@ export function getLocaleConfig(lang: string) {
               text: 'chainCall',
               link: `${urlPrefix}/macros/chain-call`,
             },
-            {
-              text: 'scriptLang',
-              link: `${urlPrefix}/macros/script-lang`,
-            },
           ],
         },
       ],
@@ -236,6 +232,10 @@ export function getLocaleConfig(lang: string) {
             {
               text: 'booleanProp',
               link: `${urlPrefix}/features/boolean-prop`,
+            },
+            {
+              text: 'scriptLang',
+              link: `${urlPrefix}/features/script-lang`,
             },
           ],
         },

@@ -12,7 +12,7 @@ export function transformScriptLang(
   options: OptionsResolved,
 ): CodeTransform | undefined {
   const s = new MagicString(code)
-  const lang = ` lang="${options?.defaultLang || 'ts'}">`
+  const lang = ` lang="${options?.defaultLang || 'ts'}"`
 
   const {
     sfc: {
@@ -22,11 +22,11 @@ export function transformScriptLang(
 
   if (script && !script.attrs.lang) {
     const start = script.loc.start.offset
-    s.overwrite(start - 1, start, lang)
+    s.appendLeft(start - 1, lang)
   }
   if (scriptSetup && !scriptSetup.attrs.lang) {
     const start = scriptSetup.loc.start.offset
-    s.overwrite(start - 1, start, lang)
+    s.appendLeft(start - 1, lang)
   }
 
   return generateTransform(s, id)

@@ -13,7 +13,7 @@ export interface Options extends BaseOptions {
   /**
    * @default 'ts'
    */
-  defaultLang?: string
+  defaultLang?: 'ts' | 'tsx' | 'jsx' | (string & {})
 }
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
 

@@ -1,4 +1,4 @@
-# scriptLang
+# scriptLang <PackageVersion name="@vue-macros/setup-lang" />
 
 <StabilityLevel level="experimental" />
 
