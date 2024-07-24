@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > tests/fixtures/basic.vue > isProduction = false 1`] = `
+"import { defineComponent, toDisplayString } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+const bar = 1;
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "basic",
+  props: {
+    foo: {}
+  },
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return toDisplayString(_ctx.foo);
+    };
+  }
+});
+
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return toDisplayString($props.foo);
+}
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
+
+export { bar, basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/basic.vue > isProduction = true 1`] = `
+"import { defineComponent, toDisplayString } from 'vue';
+
+const bar = 1;
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "basic",
+  props: {
+    foo: {}
+  },
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return toDisplayString(_ctx.foo);
+    };
+  }
+});
+
+export { bar, _sfc_main as default };
+"
+`;

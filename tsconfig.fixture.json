@@ -18,7 +18,8 @@
       "@vue-macros/volar/export-expose",
       "@vue-macros/volar/export-render",
       "@vue-macros/volar/jsx-directive",
-      "@vue-macros/volar/boolean-prop"
+      "@vue-macros/volar/boolean-prop",
+      "@vue-macros/volar/script-lang"
     ],
     "vueMacros": {
       "shortVmodel": {
@@ -29,6 +30,9 @@
       },
       "exportExpose": {
         "include": ["**/export-expose/**"]
+      },
+      "scriptLang": {
+        "include": ["**/script-lang/**"]
       }
     }
   }

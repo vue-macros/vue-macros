@@ -1,5 +1,12 @@
 # @vue-macros/reactivity-transform
 
+## 0.4.8
+### Patch Changes
+
+
+
+- [`feeb2eb`](https://github.com/vue-macros/vue-macros/commit/feeb2eb9f866efc3ae8dd9cdc368a6e4c34217a7) Thanks [@sxzz](https://github.com/sxzz)! - remove duplicated dependency `estree-walker`
+
 ## 0.4.7
 ### Patch Changes
 

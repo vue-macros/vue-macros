@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs'
-import { readFile } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import fg from 'fast-glob'
 import { dedupeDeps, defineConfig } from 'monoman'
@@ -26,7 +26,9 @@ export default defineConfig([
       const isESM = data.type === 'module'
       const cjsPrefix = isESM ? 'c' : ''
       const esmPrefix = isESM ? '' : 'm'
-      const hasRootDts = (await fg('*.d.ts', { cwd: pkgRoot })).length > 0
+      const hasRootDts = (await readdir(pkgRoot)).some((file) =>
+        file.endsWith('.d.ts'),
+      )
 
       data.type ||= 'commonjs'
       const descriptions: Record<string, string> = {

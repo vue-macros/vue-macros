@@ -76,6 +76,9 @@ import VueNamedTemplate, {
 import VueReactivityTransform, {
   type Options as OptionsReactivityTransform,
 } from '@vue-macros/reactivity-transform'
+import VueScriptLang, {
+  type Options as OptionsScriptLang,
+} from '@vue-macros/script-lang'
 import VueSetupBlock, {
   type Options as OptionsSetupBlock,
 } from '@vue-macros/setup-block'
@@ -117,6 +120,7 @@ export interface FeatureOptionsMap {
   jsxDirective: OptionsJsxDirective
   namedTemplate: OptionsNamedTemplate
   reactivityTransform: OptionsReactivityTransform
+  scriptLang: OptionsScriptLang
   setupBlock: OptionsSetupBlock
   setupComponent: OptionsSetupComponent
   setupSFC: OptionsSetupSFC
@@ -176,6 +180,7 @@ export function resolveOptions({
   jsxDirective,
   namedTemplate,
   reactivityTransform,
+  scriptLang,
   setupBlock,
   setupComponent,
   setupSFC,
@@ -266,6 +271,7 @@ export function resolveOptions({
       reactivityTransform,
       { version },
     ),
+    scriptLang: resolveSubOptions<'scriptLang'>(scriptLang, { version }, false),
     setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, { version }, false),
     setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
       root,
@@ -324,6 +330,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
       resolvePlugin(VueSetupSFC, framework, options.setupSFC),
       setupComponentPlugins?.[0],
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
+      resolvePlugin(VueScriptLang, framework, options.scriptLang),
       namedTemplatePlugins?.[0],
 
       // props

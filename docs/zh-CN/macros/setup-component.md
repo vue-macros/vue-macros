@@ -1,4 +1,4 @@
-# setupComponent
+# setupComponent <PackageVersion name="@vue-macros/setup-component" />
 
 <StabilityLevel level="experimental" />
 

@@ -1,10 +1,3 @@
-import { ref } from 'vue'
+import Comp from './comp.setup'
 
-const msg = ref('Hello World')
-
-export default () => (
-  <div>
-    <input type="text" v-model={msg.value} />
-    <div>{msg.value}</div>
-  </div>
-)
+export default <Comp foo={1} />

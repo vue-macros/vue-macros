@@ -1,4 +1,4 @@
-# exportProps
+# exportProps <PackageVersion name="@vue-macros/define-props" />
 
 <StabilityLevel level="experimental" />
 

@@ -19,6 +19,7 @@ const defineSlots = require('@vue-macros/volar/define-slots')
 const exportExpose = require('@vue-macros/volar/export-expose')
 const exportRender = require('@vue-macros/volar/export-render')
 const jsxDirective = require('@vue-macros/volar/jsx-directive')
+const templateRef = require('@vue-macros/volar/template-ref')
 
 export default defineConfig({
   lastUpdated: true,
@@ -77,6 +78,7 @@ export default defineConfig({
               exportExpose,
               jsxDirective,
               booleanProp,
+              templateRef,
             ],
           },
         },

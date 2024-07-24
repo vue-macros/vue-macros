@@ -1,4 +1,4 @@
-# shortEmits
+# shortEmits <PackageVersion name="@vue-macros/short-emits" />
 
 <StabilityLevel level="stable" />
 

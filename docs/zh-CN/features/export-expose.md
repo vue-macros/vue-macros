@@ -1,4 +1,4 @@
-# exportExpose
+# exportExpose <PackageVersion name="@vue-macros/export-expose" />
 
 <StabilityLevel level="experimental" />
 

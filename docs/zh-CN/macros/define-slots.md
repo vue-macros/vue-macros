@@ -1,4 +1,4 @@
-# defineSlots
+# defineSlots <PackageVersion name="@vue-macros/define-slots" />
 
 <StabilityLevel level="stable" />
 

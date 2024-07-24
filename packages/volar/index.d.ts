@@ -22,4 +22,9 @@ export interface VolarOptions {
   templateRef?: {
     alias?: string[]
   }
+  scriptLang?: {
+    defaultLang?: string
+    include?: FilterPattern
+    exclude?: FilterPattern
+  }
 }

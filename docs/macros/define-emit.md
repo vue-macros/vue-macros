@@ -1,4 +1,4 @@
-# defineEmit
+# defineEmit <PackageVersion name="@vue-macros/define-emit" />
 
 <StabilityLevel level="experimental" />
 

@@ -1,4 +1,4 @@
-# shortBind
+# shortBind <PackageVersion name="@vue-macros/short-bind" />
 
 <StabilityLevel level="stable" />
 

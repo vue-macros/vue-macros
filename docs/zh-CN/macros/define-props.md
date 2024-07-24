@@ -1,4 +1,4 @@
-# defineProps
+# defineProps <PackageVersion name="@vue-macros/define-props" />
 
 <StabilityLevel level="stable" />
 
