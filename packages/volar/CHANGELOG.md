@@ -1,5 +1,27 @@
 # @vue-macros/volar
 
+## 0.25.0
+### Minor Changes
+
+
+
+- [#731](https://github.com/vue-macros/vue-macros/pull/731) [`39e6c28`](https://github.com/vue-macros/vue-macros/commit/39e6c2862089fd3308dceb3a6bc78b2e694d0f3e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce script-lang
+
+
+
+- [#733](https://github.com/vue-macros/vue-macros/pull/733) [`27a0f36`](https://github.com/vue-macros/vue-macros/commit/27a0f36266bbde1de6bc65fdc04c253454e0d409) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce DefineGeneric
+
+
+
+- [#734](https://github.com/vue-macros/vue-macros/pull/734) [`5ef368b`](https://github.com/vue-macros/vue-macros/commit/5ef368b9c8e985cc1a2a2cf8067b769dee1aee60) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce setup-sfc
+
+
+### Patch Changes
+
+- Updated dependencies [[`af5301b`](https://github.com/vue-macros/vue-macros/commit/af5301ba1307df059ed97283fd14eb38c8afb4a4)]:
+  - @vue-macros/short-bind@1.0.0
+  - @vue-macros/define-props@3.0.0
+
 ## 0.24.1
 ### Patch Changes
 
