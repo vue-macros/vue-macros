@@ -18,7 +18,7 @@
 <script setup lang="ts">
 // @errors: 2322
 defineOptions({
-  name: 'App'
+  name: 'App',
 })
 
 type T = DefineGeneric<number>
