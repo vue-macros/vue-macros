@@ -245,6 +245,15 @@ export function getLocaleConfig(lang: string) {
       text: 'Volar',
       items: [
         {
+          text: t('Stable'),
+          items: [
+            {
+              text: 'setupJSDoc',
+              link: `${urlPrefix}/volar/setup-jsdoc`,
+            },
+          ],
+        },
+        {
           text: t('Experimental'),
           items: [
             {
