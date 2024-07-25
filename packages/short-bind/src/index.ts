@@ -42,9 +42,11 @@ function rollup(options: Options = {}): Plugin {
 
 const plugin: {
   rollup: typeof rollup
+  rolldown: typeof rollup
   vite: typeof rollup
 } = {
   rollup,
+  rolldown: rollup,
   vite: rollup,
 }
 export default plugin

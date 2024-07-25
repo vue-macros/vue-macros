@@ -50,10 +50,20 @@
       "require": "./dist/esbuild.cjs",
       "import": "./dist/esbuild.js"
     },
+    "./rolldown": {
+      "dev": "./src/rolldown.ts",
+      "require": "./dist/rolldown.cjs",
+      "import": "./dist/rolldown.js"
+    },
     "./rollup": {
       "dev": "./src/rollup.ts",
       "require": "./dist/rollup.cjs",
       "import": "./dist/rollup.js"
+    },
+    "./rspack": {
+      "dev": "./src/rspack.ts",
+      "require": "./dist/rspack.cjs",
+      "import": "./dist/rspack.js"
     },
     "./vite": {
       "dev": "./src/vite.ts",

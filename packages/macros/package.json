@@ -43,6 +43,11 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
+    "./rolldown": {
+      "dev": "./src/rolldown.ts",
+      "require": "./dist/rolldown.js",
+      "import": "./dist/rolldown.mjs"
+    },
     "./rollup": {
       "dev": "./src/rollup.ts",
       "require": "./dist/rollup.js",

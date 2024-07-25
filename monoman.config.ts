@@ -1,11 +1,17 @@
-import { existsSync } from 'node:fs'
-import { readdir, readFile } from 'node:fs/promises'
+import { access, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import fg from 'fast-glob'
 import { dedupeDeps, defineConfig } from 'monoman'
 import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
 import type { Options } from 'tsup'
+
+function exists(filePath: string) {
+  return access(filePath).then(
+    () => true,
+    () => false,
+  )
+}
 
 function getPkgName(filePath: string) {
   const relative = path.relative(import.meta.dirname, filePath)
@@ -67,8 +73,35 @@ export default defineConfig([
       if (hasRootDts) data.files.push('*.d.ts')
       data.files.sort()
 
+      if (
+        Object.keys(data.dependencies || {}).includes('unplugin') ||
+        data?.meta?.plugin
+      ) {
+        data.keywords!.push('unplugin')
+
+        // write unplugin entries
+        const entries = [
+          'vite',
+          'webpack',
+          'rollup',
+          'esbuild',
+          'rspack',
+          'rolldown',
+        ]
+        Promise.all(
+          entries.map((entry) =>
+            writeFile(
+              path.resolve(pkgSrc, `${entry}.ts`),
+              `import unplugin from '.'\n
+export default unplugin.${entry} as typeof unplugin.${entry}\n`,
+              'utf8',
+            ),
+          ),
+        )
+      }
+
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
-      if (!data.meta?.skipExports && existsSync(tsupFile)) {
+      if (!data.meta?.skipExports && (await exists(tsupFile))) {
         const tsupConfig: Options = (await import(tsupFile)).default
         const format = tsupConfig.format || []
         const hasCJS = format.includes('cjs')
@@ -114,13 +147,6 @@ export default defineConfig([
               '*': ['./dist/*', './*'],
             },
           }
-      }
-
-      if (
-        Object.keys(data.dependencies || {}).includes('unplugin') ||
-        data?.meta?.plugin
-      ) {
-        data.keywords!.push('unplugin')
       }
 
       return data
