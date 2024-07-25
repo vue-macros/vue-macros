@@ -1,4 +1,4 @@
-# setupJSDoc <PackageVersion name="@vue-macros/volar" />
+# setupJsdoc <PackageVersion name="@vue-macros/volar" />
 
 <StabilityLevel level="stable" />
 

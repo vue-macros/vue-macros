@@ -248,7 +248,7 @@ export function getLocaleConfig(lang: string) {
           text: t('Stable'),
           items: [
             {
-              text: 'setupJSDoc',
+              text: 'setupJsdoc',
               link: `${urlPrefix}/volar/setup-jsdoc`,
             },
           ],
