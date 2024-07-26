@@ -37,6 +37,16 @@
     },
     "./*": "./*"
   },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
+      },
+      "./*": "./*"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch"

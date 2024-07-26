@@ -38,6 +38,16 @@
     },
     "./*": "./*"
   },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
+      },
+      "./*": "./*"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"

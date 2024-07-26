@@ -77,6 +77,40 @@
       ]
     }
   },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "require": "./dist/index.js",
+        "import": "./dist/index.mjs"
+      },
+      "./esbuild": {
+        "require": "./dist/esbuild.js",
+        "import": "./dist/esbuild.mjs"
+      },
+      "./rolldown": {
+        "require": "./dist/rolldown.js",
+        "import": "./dist/rolldown.mjs"
+      },
+      "./rollup": {
+        "require": "./dist/rollup.js",
+        "import": "./dist/rollup.mjs"
+      },
+      "./rspack": {
+        "require": "./dist/rspack.js",
+        "import": "./dist/rspack.mjs"
+      },
+      "./vite": {
+        "require": "./dist/vite.js",
+        "import": "./dist/vite.mjs"
+      },
+      "./webpack": {
+        "require": "./dist/webpack.js",
+        "import": "./dist/webpack.mjs"
+      },
+      "./*": "./*"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"

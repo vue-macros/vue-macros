@@ -51,7 +51,18 @@
     }
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
+      },
+      "./flat": {
+        "require": "./dist/flat.cjs",
+        "import": "./dist/flat.js"
+      },
+      "./*": "./*"
+    }
   },
   "scripts": {
     "build": "tsup",

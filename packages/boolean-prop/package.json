@@ -66,6 +66,32 @@
       ]
     }
   },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "require": "./dist/index.js",
+        "import": "./dist/index.mjs"
+      },
+      "./api": {
+        "require": "./dist/api.js",
+        "import": "./dist/api.mjs"
+      },
+      "./rolldown": {
+        "require": "./dist/rolldown.js",
+        "import": "./dist/rolldown.mjs"
+      },
+      "./rollup": {
+        "require": "./dist/rollup.js",
+        "import": "./dist/rollup.mjs"
+      },
+      "./vite": {
+        "require": "./dist/vite.js",
+        "import": "./dist/vite.mjs"
+      },
+      "./*": "./*"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"

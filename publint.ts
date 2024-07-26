@@ -20,12 +20,6 @@ await Promise.all(
 
     messages = messages.filter((msg) => {
       if (
-        msg.code === 'EXPORTS_GLOB_NO_MATCHED_FILES' &&
-        msg.path.at(-1) === 'dev'
-      ) {
-        return false
-      }
-      if (
         msg.code === 'EXPORT_TYPES_INVALID_FORMAT' &&
         pkg === 'packages/volar'
       ) {

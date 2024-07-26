@@ -100,6 +100,9 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
         )
       }
 
+      data.publishConfig ||= {}
+      data.publishConfig.access = 'public'
+
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && (await exists(tsupFile))) {
         const tsupConfig: Options = (await import(tsupFile)).default
@@ -114,23 +117,8 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
           })
         ).map((file) => path.basename(path.relative(pkgSrc, file), '.ts'))
 
-        data.exports = {
-          ...Object.fromEntries(
-            entries
-              .map((entry) => {
-                const key = entry === 'index' ? '.' : `./${entry}`
-                const exports: Record<string, any> = {
-                  dev: `./src/${entry}.ts`,
-                }
-                if (hasCJS) exports.require = `./dist/${entry}.${cjsPrefix}js`
-                if (hasESM) exports.import = `./dist/${entry}.${esmPrefix}js`
-
-                return [key, exports] as const
-              })
-              .sort(([a], [b]) => a.localeCompare(b)),
-          ),
-          './*': hasRootDts ? ['./*', './*.d.ts'] : './*',
-        }
+        data.exports = buildExports(true)
+        data.publishConfig.exports = buildExports()
 
         const mainExport = data.exports['.']
         if (mainExport) {
@@ -147,6 +135,28 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
               '*': ['./dist/*', './*'],
             },
           }
+
+        function buildExports(withDev?: boolean) {
+          return {
+            ...Object.fromEntries(
+              entries
+                .map((entry) => {
+                  const key = entry === 'index' ? '.' : `./${entry}`
+                  const exports: Record<string, any> = withDev
+                    ? {
+                        dev: `./src/${entry}.ts`,
+                      }
+                    : {}
+                  if (hasCJS) exports.require = `./dist/${entry}.${cjsPrefix}js`
+                  if (hasESM) exports.import = `./dist/${entry}.${esmPrefix}js`
+
+                  return [key, exports] as const
+                })
+                .sort(([a], [b]) => a.localeCompare(b)),
+            ),
+            './*': hasRootDts ? ['./*', './*.d.ts'] : './*',
+          }
+        }
       }
 
       return data

@@ -39,6 +39,18 @@
       "require": "./dist/*.js"
     }
   },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./index.d.ts"
+      },
+      "./*": {
+        "types": "./*.d.ts",
+        "require": "./dist/*.js"
+      }
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch"
