@@ -20,7 +20,7 @@ pnpm add -D unplugin-vue-macros
 
 ::: code-group
 
-```ts [Vite (first-class support)]
+```ts [Vite]
 // vite.config.ts
 import Vue from '@vitejs/plugin-vue'
 import VueMacros from 'unplugin-vue-macros/vite'
@@ -38,7 +38,7 @@ export default defineConfig({
 })
 ```
 
-```ts [Rollup (first-class support)]
+```ts [Rollup]
 // rollup.config.js
 import VueMacros from 'unplugin-vue-macros/rollup'
 import Vue from 'unplugin-vue/rollup'
@@ -79,6 +79,14 @@ module.exports = {
 }
 ```
 
+```js [Rspack]
+// rspack.config.js
+module.exports = {
+  /* ... */
+  plugins: [require('unplugin-vue-macros/rspack')({})],
+}
+```
+
 ```js [Vue CLI]
 // vue.config.js
 const { defineConfig } = require('@vue/cli-service')
@@ -93,6 +101,12 @@ module.exports = defineConfig({
   },
 })
 ```
+
+:::
+
+::: tip
+
+完全支持 Vite 和 Rollup，其他打包器的支持有限。
 
 :::
 
