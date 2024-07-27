@@ -38,6 +38,16 @@
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     },
+    "./config": {
+      "dev": "./src/config.ts",
+      "require": "./dist/config.js",
+      "import": "./dist/config.mjs"
+    },
+    "./config-worker": {
+      "dev": "./src/config-worker.ts",
+      "require": "./dist/config-worker.js",
+      "import": "./dist/config-worker.mjs"
+    },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
       "require": "./dist/esbuild.js",
@@ -87,6 +97,14 @@
       ".": {
         "require": "./dist/index.js",
         "import": "./dist/index.mjs"
+      },
+      "./config": {
+        "require": "./dist/config.js",
+        "import": "./dist/config.mjs"
+      },
+      "./config-worker": {
+        "require": "./dist/config-worker.js",
+        "import": "./dist/config-worker.mjs"
       },
       "./esbuild": {
         "require": "./dist/esbuild.js",
@@ -152,6 +170,8 @@
     "@vue-macros/short-bind": "workspace:*",
     "@vue-macros/short-emits": "workspace:*",
     "@vue-macros/short-vmodel": "workspace:*",
+    "make-synchronized": "^0.2.9",
+    "unconfig": "^0.4.5",
     "unplugin": "catalog:",
     "unplugin-combine": "^1.0.0",
     "unplugin-vue-define-options": "workspace:*"

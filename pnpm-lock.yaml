@@ -588,6 +588,12 @@ importers:
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
+      make-synchronized:
+        specifier: ^0.2.9
+        version: 0.2.9
+      unconfig:
+        specifier: ^0.4.5
+        version: 0.4.5
       unplugin:
         specifier: 'catalog:'
         version: 1.11.0
@@ -960,6 +966,9 @@ importers:
       unocss:
         specifier: ^0.61.5
         version: 0.61.5(rollup@4.19.0)(vite@5.3.4(@types/node@20.14.11)(less@4.2.0)(terser@5.31.3))
+      unplugin-vue:
+        specifier: ^5.0.5
+        version: 5.0.5(@types/node@20.14.11)(less@4.2.0)(terser@5.31.3)(vue@3.4.33(typescript@5.5.3))
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../../packages/macros
@@ -4066,6 +4075,9 @@ packages:
   make-dir@4.0.0:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
+
+  make-synchronized@0.2.9:
+    resolution: {integrity: sha512-4wczOs8SLuEdpEvp3vGo83wh8rjJ78UsIk7DIX5fxdfmfMJGog4bQzxfvOwq7Q3yCHLC4jp1urPHIxRS/A93gA==}
 
   mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
@@ -9631,6 +9643,8 @@ snapshots:
   make-dir@4.0.0:
     dependencies:
       semver: 7.6.3
+
+  make-synchronized@0.2.9: {}
 
   mark.js@8.11.1: {}
 
