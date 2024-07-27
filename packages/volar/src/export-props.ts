@@ -1,6 +1,5 @@
 import { createFilter } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
-import type { VolarOptions } from '..'
 import { addProps, getStart, getVolarOptions } from './common'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
