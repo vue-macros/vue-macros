@@ -57,7 +57,7 @@ export default defineConfig({
             // @ts-ignore
             vueMacros: {
               scriptLang: true,
-              setupSfc: true,
+              setupSFC: true,
               booleanProp: true,
               defineProp: true,
               templateRef: true,

@@ -29,6 +29,6 @@ export interface VolarOptions {
   jsxDirective?: BaseOptions
   setupJsdoc?: BaseOptions
   booleanProp?: BaseOptions
-  defineGeneric?: BaseOptions
-  setupSfc?: BaseOptions
+  DefineGeneric?: BaseOptions
+  setupSFC: BaseOptions
 }
