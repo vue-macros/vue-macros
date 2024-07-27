@@ -24,15 +24,14 @@ export const bar: number = 1 // with default value
 
 ## Volar Configuration
 
-```jsonc {6}
+```jsonc {4,6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3,
-    "plugins": [
-      "@vue-macros/volar/export-props",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "exportProps": true,
+    },
   },
 }
 ```

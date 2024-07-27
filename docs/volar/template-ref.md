@@ -44,14 +44,11 @@ comp.value?.foo
 
 ## Volar Configuration
 
-```jsonc {5,13}
+```jsonc {4,10}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/template-ref",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
     "vueMacros": {
       "templateRef": {
         /**

@@ -1,6 +1,6 @@
 # jsxDirective <PackageVersion name="@vue-macros/jsx-directive" />
 
-<StabilityLevel level="experimental" />
+<StabilityLevel level="stable" />
 
 Vue built-in directives for JSX.
 
@@ -213,15 +213,11 @@ Modifiers are special postfixes denoted by a `_`, which indicate that a directiv
 
 ## Volar Configuration
 
-```jsonc {6}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3,
-    "plugins": [
-      "@vue-macros/volar/jsx-directive",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
   },
 }
 ```

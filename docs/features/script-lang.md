@@ -38,15 +38,16 @@ defineProps<{
 
 ## Volar Configuration
 
-```jsonc {6}
+```jsonc {4,6-8}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3,
-    "plugins": [
-      "@vue-macros/volar/script-lang",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "scriptLang": {
+        "defaultLang": "ts",
+      },
+    },
   },
 }
 ```

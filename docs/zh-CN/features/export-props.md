@@ -24,15 +24,14 @@ export const bar: number = 1 // 带有默认值
 
 ## Volar 配置
 
-```jsonc {6}
+```jsonc {4,6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3,
-    "plugins": [
-      "@vue-macros/volar/export-props",
-      // ...更多功能
-    ],
+    "plugins": ["@vue-macros/volar"],
+  },
+  "vueMacros": {
+    "exportProps": true,
   },
 }
 ```

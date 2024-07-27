@@ -41,15 +41,11 @@ defineSlots<{
 
 ## Volar 配置
 
-```jsonc {6}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3, // 或 2.7 用于 Vue 2
-    "plugins": [
-      "@vue-macros/volar/define-slots",
-      // ...更多功能
-    ],
+    "plugins": ["@vue-macros/volar"],
   },
 }
 ```

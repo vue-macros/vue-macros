@@ -66,15 +66,14 @@ increment('2') // TS type error
 
 ## Volar Configuration
 
-```jsonc {6}
+```jsonc {4,6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3, // or 2.7 for Vue 2
-    "plugins": [
-      "@vue-macros/volar/define-emit",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "defineEmit": true,
+    },
   },
 }
 ```

@@ -43,14 +43,11 @@ const value = 'foo'
 
 ## Volar Configuration
 
-```jsonc {5}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/short-bind",
-      // ...
-    ],
+    "plugins": ["@vue-macros/volar"],
   },
 }
 ```

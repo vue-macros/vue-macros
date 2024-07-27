@@ -35,15 +35,11 @@ const fooRef = $$(foo)
 
 ## Volar Configuration
 
-```jsonc {6}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3,
-    "plugins": [
-      "@vue-macros/volar/define-props",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
   },
 }
 ```

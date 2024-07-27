@@ -43,25 +43,11 @@ const value = 'foo'
 
 ## Volar 配置
 
-```jsonc {5}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/short-bind",
-      // ...
-    ],
-  },
-}
-```
-
-## ESLint 配置
-
-```jsonc {4}
-// .eslintrc
-{
-  "rules": {
-    "vue/valid-v-bind": "off",
+    "plugins": ["@vue-macros/volar"],
   },
 }
 ```

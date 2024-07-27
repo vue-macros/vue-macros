@@ -31,23 +31,6 @@ VueMacros({
 })
 ```
 
-### Volar
-
-```jsonc {6,10}
-// tsconfig.json
-{
-  // ...
-  "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/define-prop",
-      // ...more feature
-    ],
-    // "kevinEdition" | "johnsonEdition" | false
-    "experimentalDefinePropProposal": "kevinEdition",
-  },
-}
-```
-
 ## Kevin's Edition (Default)
 
 ### API Reference
@@ -188,4 +171,20 @@ const foo = $defineProp<number>()
 const bar = $(defineProp(0, true))
 //    ^? type: number
 </script>
+```
+
+### Volar Configuration
+
+```jsonc {4,6}
+// tsconfig.json
+{
+  "vueCompilerOptions": {
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "defineProp": true,
+    },
+    // "kevinEdition" | "johnsonEdition" | false
+    "experimentalDefinePropProposal": "kevinEdition",
+  },
+}
 ```

@@ -64,14 +64,11 @@ interface Options {
 
 ## Volar 配置
 
-```jsonc {5,9-11}
+```jsonc {4,6-8}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/short-vmodel",
-      // ...
-    ],
+    "plugins": ["@vue-macros/volar"],
     "vueMacros": {
       "shortVmodel": {
         "prefix": "$",
