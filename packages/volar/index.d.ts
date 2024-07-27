@@ -30,5 +30,5 @@ export interface VolarOptions {
   setupJsdoc?: BaseOptions
   booleanProp?: BaseOptions
   DefineGeneric?: BaseOptions
-  setupSFC: BaseOptions
+  setupSFC?: BaseOptions
 }
