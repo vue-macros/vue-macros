@@ -4,16 +4,26 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import CommonJS from '@rollup/plugin-commonjs'
 import NodeResolve from '@rollup/plugin-node-resolve'
+import VueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'rollup'
 import Esbuild from 'rollup-plugin-esbuild'
 import VueMacros from 'unplugin-vue-macros/rollup'
-
-import options from './vue-macros.config.js'
+import Vue from 'unplugin-vue/rollup'
 
 export default defineConfig({
   input: ['./src/main.ts'],
   plugins: [
-    VueMacros(options),
+    VueMacros({
+      plugins: {
+        vue: Vue({
+          include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
+          script: {
+            hoistStatic: false,
+          },
+        }),
+        vueJsx: VueJsx(),
+      },
+    }),
     NodeResolve(),
     CommonJS(),
     Esbuild({

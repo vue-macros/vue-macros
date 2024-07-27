@@ -1,9 +1,6 @@
-// @ts-check
-import Vue from '@vitejs/plugin-vue'
-import VueJsx from '@vitejs/plugin-vue-jsx'
+import { defineConfig } from 'unplugin-vue-macros'
 
-/** @type {import('unplugin-vue-macros').Options} */
-export default {
+export default defineConfig({
   setupBlock: true,
   scriptLang: true,
 
@@ -27,14 +24,4 @@ export default {
     include: [/export-render.*\.vue$/],
   },
   reactivityTransform: true,
-
-  plugins: {
-    vue: Vue({
-      include: [/\.vue$/, /\.setup\.[cm]?[jt]sx?$/],
-      script: {
-        hoistStatic: false,
-      },
-    }),
-    vueJsx: VueJsx(),
-  },
-}
+})
