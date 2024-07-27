@@ -14,7 +14,8 @@ import jsxDirective from './jsx-directive'
 import scriptLang from './script-lang'
 import setupJsdoc from './setup-jsdoc'
 import setupSfc from './setup-sfc'
-import defineVmodel from './short-vmodel'
+import shortBind from './short-bind'
+import shortVmodel from './short-vmodel'
 import templateRef from './template-ref'
 import type { VueLanguagePlugin } from '@vue/language-core'
 
@@ -24,7 +25,8 @@ const plugin: VueLanguagePlugin = (ctx) => {
     defineModels,
     defineProps,
     definePropsRefs,
-    defineVmodel,
+    shortBind,
+    shortVmodel,
     defineSlots,
     jsxDirective,
     setupJsdoc,

@@ -64,7 +64,7 @@ const plugin: VueLanguagePlugin = ({
       resolveEmbeddedCode(fileName, sfc) {
         if (
           filter(fileName) &&
-          !sfc.scriptSetup!.attrs.generic &&
+          !sfc.scriptSetup?.attrs.generic &&
           sfc.scriptSetup?.content.includes('DefineGeneric')
         ) {
           sfc.scriptSetup!.attrs.generic = 'T'

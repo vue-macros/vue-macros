@@ -26,10 +26,11 @@
     "experimentalDefinePropProposal": "kevinEdition",
 
     "vueMacros": {
+      "scriptLang": true,
       "setupSfc": true,
-      "shortVmodel": {
-        "prefix": "$"
-      },
+      "booleanProp": true,
+      "defineProp": true,
+      "templateRef": true,
       "exportExpose": {
         "include": ["**/export-expose/**"]
       },
