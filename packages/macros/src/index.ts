@@ -13,16 +13,14 @@
 
 import process from 'node:process'
 
-import type { UnpluginInstance } from 'unplugin'
 import {
   createCombinePlugin,
   type OptionsPlugin,
-  type Plugin,
-  type PluginType,
   type UnpluginCombineInstance,
 } from 'unplugin-combine'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { excludeDepOptimize } from './core'
+import { excludeDepOptimize } from './core/exclude-macros'
+import { resolvePlugin } from './core/plugin'
 import VueBetterDefine, {
   type Options as OptionsBetterDefine,
 } from '@vue-macros/better-define'
@@ -188,22 +186,11 @@ export function resolveOptions({
   shortEmits,
   shortVmodel,
 }: Options): OptionsResolved {
-  function resolveSubOptions<K extends FeatureName>(
-    options: OptionalSubOptions<FeatureOptionsMap[K]>,
-    commonOptions: Required<
-      Pick<OptionsCommon, keyof OptionsCommon & keyof FeatureOptionsMap[K]>
-    >,
-    defaultEnabled = true,
-  ): FeatureOptionsMap[K] | false {
-    options = options ?? defaultEnabled
-    if (!options) return false
-    return { ...(options === true ? {} : options), ...commonOptions }
-  }
-
   root = root || process.cwd()
   version = version || detectVueVersion(root)
   isProduction = isProduction ?? process.env.NODE_ENV === 'production'
 
+  const globalOptions = { isProduction, root, version }
   return {
     isProduction,
     nuxtContext: nuxtContext || {},
@@ -211,102 +198,48 @@ export function resolveOptions({
     root,
     version,
 
-    betterDefine: resolveSubOptions<'betterDefine'>(betterDefine, {
-      isProduction,
-      version,
-    }),
-    booleanProp: resolveSubOptions<'booleanProp'>(
-      booleanProp,
-      { version },
-      false,
-    ),
-    chainCall: resolveSubOptions<'chainCall'>(chainCall, { version }),
-    defineEmit: resolveSubOptions<'defineEmit'>(defineEmit, {
-      isProduction,
-      version,
-    }),
-    defineModels: resolveSubOptions<'defineModels'>(defineModels, { version }),
-    defineOptions: resolveSubOptions<'defineOptions'>(
-      defineOptions,
-      { version },
-      version < 3.3,
-    ),
-    defineProp: resolveSubOptions<'defineProp'>(defineProp, {
-      isProduction,
-      version,
-    }),
-    defineProps: resolveSubOptions<'defineProps'>(defineProps, { version }),
-    definePropsRefs: resolveSubOptions<'definePropsRefs'>(definePropsRefs, {
-      version,
-    }),
-    defineRender: resolveSubOptions<'defineRender'>(defineRender, { version }),
-    defineSlots: resolveSubOptions<'defineSlots'>(
-      defineSlots,
-      { version },
-      version < 3.3,
-    ),
-    exportExpose: resolveSubOptions<'exportExpose'>(
-      exportExpose,
-      { version },
-      false,
-    ),
-    exportProps: resolveSubOptions<'exportProps'>(
-      exportProps,
-      { version },
-      false,
-    ),
-    exportRender: resolveSubOptions<'exportRender'>(
-      exportRender,
-      { version },
-      false,
-    ),
-    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic, { version }),
-    jsxDirective: resolveSubOptions<'jsxDirective'>(jsxDirective, {
-      version,
-    }),
-    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate, {
-      version,
-    }),
-    reactivityTransform: resolveSubOptions<'reactivityTransform'>(
-      reactivityTransform,
-      { version },
-    ),
-    scriptLang: resolveSubOptions<'scriptLang'>(scriptLang, { version }, false),
-    setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, { version }, false),
-    setupComponent: resolveSubOptions<'setupComponent'>(setupComponent, {
-      root,
-      version,
-    }),
-    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, { version }, false),
-    shortBind: resolveSubOptions<'shortBind'>(shortBind, { version }, false),
-    shortEmits: resolveSubOptions<'shortEmits'>(
-      shortEmits,
-      { version },
-      version < 3.3,
-    ),
-    shortVmodel: resolveSubOptions<'shortVmodel'>(shortVmodel, { version }),
+    betterDefine: resolveSubOptions<'betterDefine'>(betterDefine),
+    booleanProp: resolveSubOptions<'booleanProp'>(booleanProp, false),
+    chainCall: resolveSubOptions<'chainCall'>(chainCall),
+    defineEmit: resolveSubOptions<'defineEmit'>(defineEmit),
+    defineModels: resolveSubOptions<'defineModels'>(defineModels),
+    defineOptions: resolveSubOptions<'defineOptions'>(defineOptions, 3.3),
+    defineProp: resolveSubOptions<'defineProp'>(defineProp),
+    defineProps: resolveSubOptions<'defineProps'>(defineProps),
+    definePropsRefs: resolveSubOptions<'definePropsRefs'>(definePropsRefs),
+    defineRender: resolveSubOptions<'defineRender'>(defineRender),
+    defineSlots: resolveSubOptions<'defineSlots'>(defineSlots, 3.3),
+    exportExpose: resolveSubOptions<'exportExpose'>(exportExpose, false),
+    exportProps: resolveSubOptions<'exportProps'>(exportProps, false),
+    exportRender: resolveSubOptions<'exportRender'>(exportRender, false),
+    hoistStatic: resolveSubOptions<'hoistStatic'>(hoistStatic),
+    jsxDirective: resolveSubOptions<'jsxDirective'>(jsxDirective),
+    namedTemplate: resolveSubOptions<'namedTemplate'>(namedTemplate),
+    reactivityTransform:
+      resolveSubOptions<'reactivityTransform'>(reactivityTransform),
+    scriptLang: resolveSubOptions<'scriptLang'>(scriptLang, false),
+    setupBlock: resolveSubOptions<'setupBlock'>(setupBlock, false),
+    setupComponent: resolveSubOptions<'setupComponent'>(setupComponent),
+    setupSFC: resolveSubOptions<'setupSFC'>(setupSFC, false),
+    shortBind: resolveSubOptions<'shortBind'>(shortBind, false),
+    shortEmits: resolveSubOptions<'shortEmits'>(shortEmits, 3.3),
+    shortVmodel: resolveSubOptions<'shortVmodel'>(shortVmodel),
   }
-}
 
-function resolvePlugin(
-  unplugin: UnpluginInstance<any, true>,
-  framework: PluginType,
-  options: FeatureOptions | false,
-): Plugin[] | undefined
+  function resolveSubOptions<K extends FeatureName>(
+    options: OptionalSubOptions<FeatureOptionsMap[K]>,
+    belowVersion: boolean | number = true,
+  ): FeatureOptionsMap[K] | false {
+    const defaultEnabled =
+      typeof belowVersion === 'boolean' ? belowVersion : version! < belowVersion
 
-function resolvePlugin(
-  unplugin: UnpluginInstance<any, false>,
-  framework: PluginType,
-  options: FeatureOptions | false,
-): Plugin | undefined
-
-function resolvePlugin(
-  unplugin: UnpluginInstance<any, boolean>,
-  framework: PluginType,
-  options: FeatureOptions | false,
-): Plugin | Plugin[] | undefined {
-  if (!options) return
-  return unplugin[framework!](options)
+    options = options ?? defaultEnabled
+    if (!options) return false
+    return {
+      ...globalOptions,
+      ...(options === true ? {} : options),
+    }
+  }
 }
 
 const name = generatePluginName()
