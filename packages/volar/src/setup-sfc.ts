@@ -15,7 +15,7 @@ const plugin: VueLanguagePlugin = () => {
       if (!isValidFile(fileName)) return
 
       const lang = fileName.split(/\.[cm]?/).at(-1)
-      const prefix = `<script setup lang="${lang}">\n`
+      const prefix = `<script setup lang="${lang}">`
       return patchSFC(parse(`${prefix}${content}\n</script>`), prefix.length)
     },
   }
