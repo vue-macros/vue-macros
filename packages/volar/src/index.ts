@@ -40,7 +40,7 @@ const plugin: VueLanguagePlugin = (ctx) => {
     setupSfc,
     scriptLang,
     templateRef,
-  ].flatMap((plugin) => plugin(ctx)) as ReturnType<VueLanguagePlugin>
+  ].flatMap((plugin) => plugin(ctx))
 }
 
 export default plugin

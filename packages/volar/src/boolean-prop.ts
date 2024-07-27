@@ -8,7 +8,7 @@ const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => {
 
   return {
     name: 'vue-macros-boolean-prop',
-    version: 2,
+    version: 2.1,
     resolveTemplateCompilerOptions(options) {
       options.nodeTransforms ||= []
       options.nodeTransforms.push(transformBooleanProp({ constType: 0 }))
