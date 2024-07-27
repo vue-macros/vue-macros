@@ -1,4 +1,4 @@
-import { createFilter } from '@rollup/pluginutils'
+import { createFilter } from '@vue-macros/common'
 import {
   allCodeFeatures,
   type Code,
@@ -6,22 +6,14 @@ import {
   type VueLanguagePlugin,
 } from '@vue/language-core'
 import { replace, replaceSourceRange } from 'muggle-string'
-import type { VolarOptions } from '..'
 import { addCode, getStart, getVolarOptions } from './common'
 
 function transform(options: {
-  fileName: string
   codes: Code[]
   sfc: Sfc
   ts: typeof import('typescript')
-  volarOptions: NonNullable<VolarOptions['exportExpose']>
 }) {
-  const { fileName, codes, sfc, ts, volarOptions } = options
-  const filter = createFilter(
-    volarOptions.include || /.*/,
-    volarOptions.exclude,
-  )
-  if (!filter(fileName)) return
+  const { codes, sfc, ts } = options
 
   const exposed: Record<string, string> = Object.create(null)
   for (const stmt of sfc.scriptSetup!.ast.statements) {
@@ -159,21 +151,24 @@ function transform(options: {
 }
 
 const plugin: VueLanguagePlugin = ({
-  vueCompilerOptions,
   modules: { typescript: ts },
+  vueCompilerOptions: { vueMacros },
 }) => {
+  const volarOptions = getVolarOptions(vueMacros, 'exportExpose', false)
+  if (!volarOptions) return []
+
+  const filter = createFilter(volarOptions)
+
   return {
     name: 'vue-macros-export-expose',
-    version: 2,
+    version: 2.1,
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
-      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
+      if (!filter(fileName) || !sfc.scriptSetup?.ast) return
 
       transform({
-        fileName,
         codes: embeddedFile.content,
         sfc,
         ts,
-        volarOptions: getVolarOptions(vueCompilerOptions)?.exportExpose || {},
       })
     },
   }

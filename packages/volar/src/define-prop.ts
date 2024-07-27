@@ -1,11 +1,10 @@
-import { DEFINE_PROP, DEFINE_PROP_DOLLAR } from '@vue-macros/common'
-import { addProps, getText } from './common'
-import type {
-  Code,
-  Sfc,
-  VueCompilerOptions,
-  VueLanguagePlugin,
-} from '@vue/language-core'
+import {
+  createFilter,
+  DEFINE_PROP,
+  DEFINE_PROP_DOLLAR,
+} from '@vue-macros/common'
+import { addProps, getText, getVolarOptions } from './common'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 interface DefineProp {
   name?: string
@@ -20,12 +19,12 @@ function transformDefineProp({
   codes,
   defineProps,
   vueLibName,
-  vueCompilerOptions,
+  edition,
 }: {
   codes: Code[]
   defineProps: DefineProp[]
   vueLibName: string
-  vueCompilerOptions: VueCompilerOptions
+  edition: 'kevinEdition' | 'johnsonEdition'
 }) {
   addProps(
     codes,
@@ -49,7 +48,7 @@ function transformDefineProp({
     vueLibName,
   )
 
-  if (vueCompilerOptions.experimentalDefinePropProposal === 'kevinEdition') {
+  if (edition === 'kevinEdition') {
     codes.push(`
 type __VLS_PropOptions<T> = Exclude<
   import('${vueLibName}').Prop<T>,
@@ -66,9 +65,7 @@ declare function $defineProp<T>(
   options?: __VLS_PropOptions<T>
 ): T | undefined;
 `)
-  } else if (
-    vueCompilerOptions.experimentalDefinePropProposal === 'johnsonEdition'
-  ) {
+  } else if (edition === 'johnsonEdition') {
     codes.push(`
 type __VLS_Widen<T> = T extends number | string | boolean | symbol
   ? ReturnType<T['valueOf']>
@@ -103,7 +100,7 @@ declare function $defineProp<T>(
 function getDefineProp(
   ts: typeof import('typescript'),
   sfc: Sfc,
-  vueCompilerOptions: VueCompilerOptions,
+  edition: 'kevinEdition' | 'johnsonEdition',
 ) {
   const defineProps: DefineProp[] = []
   function visitNode(
@@ -116,9 +113,7 @@ function getDefineProp(
       ts.isIdentifier(node.expression) &&
       [DEFINE_PROP, DEFINE_PROP_DOLLAR].includes(node.expression.escapedText!)
     ) {
-      if (
-        vueCompilerOptions.experimentalDefinePropProposal === 'kevinEdition'
-      ) {
+      if (edition === 'kevinEdition') {
         const type = node.typeArguments?.length
           ? getText(node.typeArguments[0], { ts, sfc })
           : undefined
@@ -174,8 +169,7 @@ function getDefineProp(
             node.expression.escapedText === DEFINE_PROP_DOLLAR,
         })
       } else if (
-        vueCompilerOptions.experimentalDefinePropProposal ===
-          'johnsonEdition' &&
+        edition === 'johnsonEdition' &&
         ts.isVariableDeclaration(parent)
       ) {
         const name = ts.isIdentifier(parent.name) ? parent.name.text : undefined
@@ -226,29 +220,33 @@ function getDefineProp(
 
 const plugin: VueLanguagePlugin = ({
   modules: { typescript: ts },
-  vueCompilerOptions,
+  vueCompilerOptions: { vueMacros, experimentalDefinePropProposal, lib },
 }) => {
+  const volarOptions = getVolarOptions(vueMacros, 'defineProp', false)
+  if (!volarOptions) return []
+
+  const filter = createFilter(volarOptions)
+
   return {
     name: 'vue-macros-define-prop',
-    version: 2,
+    version: 2.1,
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
+        !filter(fileName) ||
         !['ts', 'tsx'].includes(embeddedFile.lang) ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
+        !sfc.scriptSetup?.ast
       )
         return
 
-      const defineProps = getDefineProp(ts, sfc, vueCompilerOptions)
+      const edition = volarOptions.edition ?? experimentalDefinePropProposal
+      const defineProps = getDefineProp(ts, sfc, edition)
       if (defineProps.length === 0) return
-
-      const vueLibName = vueCompilerOptions.lib
 
       transformDefineProp({
         codes: embeddedFile.content,
         defineProps,
-        vueLibName,
-        vueCompilerOptions,
+        vueLibName: lib,
+        edition,
       })
     },
   }

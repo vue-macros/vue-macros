@@ -1,5 +1,5 @@
-import { DEFINE_EMIT } from '@vue-macros/common'
-import { addEmits, getText } from './common'
+import { createFilter, DEFINE_EMIT } from '@vue-macros/common'
+import { addEmits, getText, getVolarOptions } from './common'
 import type { Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function getEmitStrings(options: {
@@ -53,25 +53,28 @@ function getEmitStrings(options: {
 
 const plugin: VueLanguagePlugin = ({
   modules: { typescript: ts },
-  vueCompilerOptions,
+  vueCompilerOptions: { vueMacros, lib },
 }) => {
+  const volarOptions = getVolarOptions(vueMacros, 'defineEmit', false)
+  if (!volarOptions) return []
+
+  const filter = createFilter(volarOptions)
+
   return {
     name: 'vue-macros-define-emit',
-    version: 2,
+    version: 2.1,
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
+        !filter(fileName) ||
         !['ts', 'tsx'].includes(embeddedFile.lang) ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
+        !sfc.scriptSetup?.ast
       )
         return
 
       const emitStrings = getEmitStrings({ ts, sfc })
       if (!emitStrings.length) return
 
-      const vueLibName = vueCompilerOptions.lib
-
-      addEmits(embeddedFile.content, emitStrings, vueLibName)
+      addEmits(embeddedFile.content, emitStrings, lib)
     },
   }
 }

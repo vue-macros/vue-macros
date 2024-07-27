@@ -1,30 +1,34 @@
-import type { FilterPattern } from '@rollup/pluginutils'
+import type { BaseOptions as _BaseOptions } from '@vue-macros/common'
+
+type BaseOptions<T = {}> = (T & Omit<_BaseOptions, 'version'>) | boolean
 
 export interface VolarOptions {
-  defineModels?: {
+  defineModels?: BaseOptions<{
     unified?: boolean
-  }
-  shortVmodel?: {
-    prefix?: '::' | '$' | '*'
-  }
-  exportExpose?: {
-    include?: FilterPattern
-    exclude?: FilterPattern
-  }
-  exportProps?: {
-    include?: FilterPattern
-    exclude?: FilterPattern
-  }
-  exportRender?: {
-    include?: FilterPattern
-    exclude?: FilterPattern
-  }
-  templateRef?: {
+  }>
+  shortVmodel?: BaseOptions<{ prefix?: '::' | '$' | '*' }>
+  templateRef?: BaseOptions<{
     alias?: string[]
-  }
-  scriptLang?: {
+  }>
+  scriptLang?: BaseOptions<{
     defaultLang?: string
-    include?: FilterPattern
-    exclude?: FilterPattern
-  }
+  }>
+  defineProp?: BaseOptions<{
+    edition: 'kevinEdition' | 'johnsonEdition'
+  }>
+  exportExpose?: BaseOptions
+  exportProps?: BaseOptions
+  exportRender?: BaseOptions
+  defineOptions?: BaseOptions
+  defineEmit?: BaseOptions
+  defineProps?: BaseOptions
+  definePropsRefs?: BaseOptions
+  shortBind?: BaseOptions
+  defineVmodel?: BaseOptions
+  defineSlots?: BaseOptions
+  jsxDirective?: BaseOptions
+  setupJsdoc?: BaseOptions
+  booleanProp?: BaseOptions
+  defineGeneric?: BaseOptions
+  setupSfc?: BaseOptions
 }
