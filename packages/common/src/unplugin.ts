@@ -17,14 +17,13 @@ import type { Plugin as VitePlugin } from 'vite'
 /** @deprecated use `generateTransform` instead */
 export const getTransformResult: typeof generateTransform = generateTransform
 
-export interface BaseOptions {
+export interface FilterOptions {
   include?: FilterPattern
   exclude?: FilterPattern
-  version?: number
 }
 
 export function createFilter(
-  options: BaseOptions,
+  options: FilterOptions,
 ): (id: string | unknown) => boolean {
   return createRollupFilter(options.include, options.exclude)
 }

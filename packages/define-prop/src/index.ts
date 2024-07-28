@@ -20,7 +20,6 @@ import { helperCode, helperId } from './core/helper'
 import type { PluginContext } from 'rollup'
 
 export interface Options extends BaseOptions {
-  isProduction?: boolean
   edition?: Edition
 }
 

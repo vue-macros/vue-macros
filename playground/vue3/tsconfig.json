@@ -23,23 +23,7 @@
   },
   "vueCompilerOptions": {
     "plugins": ["@vue-macros/volar"],
-    "experimentalDefinePropProposal": "kevinEdition",
-
-    "vueMacros": {
-      "scriptLang": true,
-      "setupSFC": true,
-      "booleanProp": true,
-      "defineEmit": true,
-      "defineProp": true,
-      "templateRef": true,
-      "defineGeneric": true,
-      "exportExpose": {
-        "include": ["**/export-expose/**"]
-      },
-      "exportProps": {
-        "include": ["**/export-props/**"]
-      }
-    }
+    "experimentalDefinePropProposal": "kevinEdition"
   },
   "include": ["src", "*", "../../packages/shim.d.ts"]
 }

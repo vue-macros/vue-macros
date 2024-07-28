@@ -1,7 +1,7 @@
-/* eslint perfectionist/sort-interfaces: ["error", { ignorePattern: ["OptionsCommon"] }] */
-import type { BaseOptions as _BaseOptions } from '@vue-macros/common'
+/* eslint perfectionist/sort-interfaces: "error" */
+import type { FilterOptions } from '@vue-macros/common'
 
-type BaseOptions<T = {}> = (T & Omit<_BaseOptions, 'version'>) | boolean
+type BaseOptions<T = {}> = (T & Omit<FilterOptions, 'version'>) | boolean
 
 export interface VolarOptions {
   booleanProp?: BaseOptions

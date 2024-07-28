@@ -1,4 +1,4 @@
-import type { FeatureOptions } from '..'
+import type { FeatureOptions } from '@vue-macros/config'
 import type { UnpluginInstance } from 'unplugin'
 import type { Plugin, PluginType } from 'unplugin-combine'
 

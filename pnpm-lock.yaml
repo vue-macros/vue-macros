@@ -285,6 +285,96 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1(vite@5.3.5(@types/node@22.0.0)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
 
+  packages/config:
+    dependencies:
+      '@vue-macros/better-define':
+        specifier: workspace:*
+        version: link:../better-define
+      '@vue-macros/boolean-prop':
+        specifier: workspace:*
+        version: link:../boolean-prop
+      '@vue-macros/chain-call':
+        specifier: workspace:^
+        version: link:../chain-call
+      '@vue-macros/common':
+        specifier: workspace:*
+        version: link:../common
+      '@vue-macros/define-emit':
+        specifier: workspace:^
+        version: link:../define-emit
+      '@vue-macros/define-models':
+        specifier: workspace:*
+        version: link:../define-models
+      '@vue-macros/define-prop':
+        specifier: workspace:^
+        version: link:../define-prop
+      '@vue-macros/define-props':
+        specifier: workspace:*
+        version: link:../define-props
+      '@vue-macros/define-props-refs':
+        specifier: workspace:*
+        version: link:../define-props-refs
+      '@vue-macros/define-render':
+        specifier: workspace:*
+        version: link:../define-render
+      '@vue-macros/define-slots':
+        specifier: workspace:*
+        version: link:../define-slots
+      '@vue-macros/devtools':
+        specifier: workspace:^
+        version: link:../devtools
+      '@vue-macros/export-expose':
+        specifier: workspace:*
+        version: link:../export-expose
+      '@vue-macros/export-props':
+        specifier: workspace:*
+        version: link:../export-props
+      '@vue-macros/export-render':
+        specifier: workspace:*
+        version: link:../export-render
+      '@vue-macros/hoist-static':
+        specifier: workspace:*
+        version: link:../hoist-static
+      '@vue-macros/jsx-directive':
+        specifier: workspace:*
+        version: link:../jsx-directive
+      '@vue-macros/named-template':
+        specifier: workspace:*
+        version: link:../named-template
+      '@vue-macros/reactivity-transform':
+        specifier: workspace:*
+        version: link:../reactivity-transform
+      '@vue-macros/script-lang':
+        specifier: workspace:*
+        version: link:../script-lang
+      '@vue-macros/setup-block':
+        specifier: workspace:*
+        version: link:../setup-block
+      '@vue-macros/setup-component':
+        specifier: workspace:*
+        version: link:../setup-component
+      '@vue-macros/setup-sfc':
+        specifier: workspace:*
+        version: link:../setup-sfc
+      '@vue-macros/short-bind':
+        specifier: workspace:*
+        version: link:../short-bind
+      '@vue-macros/short-emits':
+        specifier: workspace:*
+        version: link:../short-emits
+      '@vue-macros/short-vmodel':
+        specifier: workspace:*
+        version: link:../short-vmodel
+      make-synchronized:
+        specifier: ^0.2.9
+        version: 0.2.9
+      unconfig:
+        specifier: ^0.4.5
+        version: 0.4.5
+      unplugin-vue-define-options:
+        specifier: workspace:*
+        version: link:../define-options
+
   packages/define-emit:
     dependencies:
       '@vue-macros/api':
@@ -522,6 +612,9 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
+      '@vue-macros/config':
+        specifier: workspace:*
+        version: link:../config
       '@vue-macros/define-emit':
         specifier: workspace:^
         version: link:../define-emit
