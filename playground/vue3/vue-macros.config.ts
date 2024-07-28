@@ -16,7 +16,7 @@ export default defineConfig({
     include: [/export-props.*\.vue$/],
   },
   exportRender: {
-    include: [/export-render.*\.vue$/],
+    include: [/export-render.*\.vue$/, /\.setup\.tsx?$/],
   },
   hoistStatic: true,
   namedTemplate: false,
