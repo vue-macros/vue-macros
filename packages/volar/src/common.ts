@@ -72,7 +72,6 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
   key: K,
 ): OptionsResolved[K] {
   resolvedOptions ||= resolveOptions(vueMacros)
-  console.log(resolvedOptions)
   return resolvedOptions[key]
 }
 

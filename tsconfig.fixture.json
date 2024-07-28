@@ -12,11 +12,14 @@
       "shortVmodel": {
         "prefix": "$"
       },
+      "exportExpose": {
+        "include": ["**/export-expose/**"]
+      },
       "exportProps": {
         "include": ["**/export-props/**"]
       },
-      "exportExpose": {
-        "include": ["**/export-expose/**"]
+      "exportRender": {
+        "include": ["**/export-render/**"]
       },
       "scriptLang": {
         "include": ["**/script-lang/**"]
