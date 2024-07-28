@@ -45,21 +45,6 @@ export default (
 "
 `;
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if.tsx 1`] = `
-"import { expectTypeOf } from 'expect-type'
-const { foo } = defineProps<{
-  foo: number
-}>()
-
-export default (
-  <>
-    {(foo === 0) ? <div>{expectTypeOf<0>(foo)}</div> : null}
-    {(foo ? true : false) ? <div>1</div> : null}
-  </>
-)
-"
-`;
-
 exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if-nested.setup.tsx 1`] = `
 "const { foo = 0 } = defineProps<{
   foo: number
