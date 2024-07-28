@@ -85,7 +85,7 @@ export interface FeatureOptionsMap {
   shortBind: OptionsShortBind
   shortEmits: OptionsShortEmits
   shortVmodel: OptionsShortVmodel
-  templateRef: FilterOptions
+  templateRef: FilterOptions & { alias?: string[] }
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -99,7 +99,7 @@ export type OptionsResolved = Required<OptionsCommon> & {
   [K in FeatureName]: false | FeatureOptionsMap[K]
 }
 
-export function resolveOptions(options: Options): OptionsResolved {
+export function resolveOptions(options?: Options): OptionsResolved {
   const config = loadConfig()
 
   let { isProduction, nuxtContext, plugins, root, version, ...subOptions } = {

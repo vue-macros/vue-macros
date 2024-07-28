@@ -3,7 +3,7 @@ import { parse, type VueLanguagePlugin } from '@vue/language-core'
 import { getVolarOptions } from './common'
 
 const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => {
-  const volarOptions = getVolarOptions(vueMacros, 'scriptLang', false)
+  const volarOptions = getVolarOptions(vueMacros, 'scriptLang')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)

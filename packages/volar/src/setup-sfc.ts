@@ -4,7 +4,7 @@ import { getVolarOptions } from './common'
 import type { SFCParseResult } from 'vue/compiler-sfc'
 
 const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => {
-  const volarOptions = getVolarOptions(vueMacros, 'setupSFC', false)
+  const volarOptions = getVolarOptions(vueMacros, 'setupSFC')
   if (!volarOptions) return []
 
   const isValidFile = createFilter({

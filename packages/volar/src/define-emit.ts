@@ -55,7 +55,7 @@ const plugin: VueLanguagePlugin = ({
   modules: { typescript: ts },
   vueCompilerOptions: { vueMacros, lib },
 }) => {
-  const volarOptions = getVolarOptions(vueMacros, 'defineEmit', false)
+  const volarOptions = getVolarOptions(vueMacros, 'defineEmit')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)

@@ -119,7 +119,7 @@ const plugin: VueLanguagePlugin = ({
   modules: { typescript: ts },
   vueCompilerOptions: { vueMacros },
 }) => {
-  const volarOptions = getVolarOptions(vueMacros, 'templateRef', false)
+  const volarOptions = getVolarOptions(vueMacros, 'templateRef')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)

@@ -31,12 +31,12 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
+      "types": "./dist/index.d.ts",
       "dev": "./src/index.ts",
       "require": "./dist/index.js"
     },
     "./*": {
-      "types": "./*.d.ts",
+      "types": "./dist/*.d.ts",
       "dev": "./src/*.ts",
       "require": "./dist/*.js"
     }
@@ -45,12 +45,12 @@
     "access": "public",
     "exports": {
       ".": {
-        "types": "./index.d.ts",
+        "types": "./dist/index.d.ts",
         "dev": "./dist/index.ts",
         "require": "./dist/index.js"
       },
       "./*": {
-        "types": "./*.d.ts",
+        "types": "./dist/*.d.ts",
         "require": "./dist/*.js"
       }
     }
@@ -70,6 +70,7 @@
   "dependencies": {
     "@vue-macros/boolean-prop": "workspace:*",
     "@vue-macros/common": "workspace:*",
+    "@vue-macros/config": "workspace:*",
     "@vue-macros/define-props": "workspace:*",
     "@vue-macros/short-bind": "workspace:*",
     "@vue-macros/short-vmodel": "workspace:*",
