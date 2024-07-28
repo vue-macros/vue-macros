@@ -8,7 +8,8 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
+      "#macros": ["../macros/index.ts"]
     },
     "resolveJsonModule": true,
     "types": ["vite/client", "vitepress"],
@@ -20,6 +21,6 @@
     "skipLibCheck": true
   },
   "vueCompilerOptions": {},
-  "include": ["**/*", "./.*/**/*", "../packages/shim.d.ts"],
+  "include": ["**/*", "./.*/**/*", "../**/shim.d.ts"],
   "exclude": ["dist", "node_modules"]
 }
