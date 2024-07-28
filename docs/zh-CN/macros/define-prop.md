@@ -160,15 +160,14 @@ const bar = $(defineProp(0, true))
 
 ## Volar 配置
 
-```jsonc {6,10}
+```jsonc {4,6}
 // tsconfig.json
 {
-  // ...
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/define-prop",
-      // ...更多功能
-    ],
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "defineProp": true,
+    },
     // "kevinEdition" | "johnsonEdition" | false
     "experimentalDefinePropProposal": "kevinEdition",
   },

@@ -148,50 +148,39 @@ npm i -D @vue-macros/volar
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/define-options",
-      "@vue-macros/volar/define-models",
-      "@vue-macros/volar/define-prop",
-      "@vue-macros/volar/define-props",
-      "@vue-macros/volar/define-props-refs",
-      "@vue-macros/volar/short-vmodel",
-      "@vue-macros/volar/define-slots",
-      "@vue-macros/volar/jsx-directive",
-      "@vue-macros/volar/setup-jsdoc",
-      "@vue-macros/volar/boolean-prop",
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "setupSFC": true,
+      "defineEmit": true,
+      "defineProp": true,
+      "scriptLang": true,
+      "booleanProp": true,
+      "templateRef": true,
+      "defineGeneric": true,
 
       // 选择以下其中一个
-      // "@vue-macros/volar/export-expose",
-      // "@vue-macros/volar/export-props",
-      // "@vue-macros/volar/export-render",
-    ],
-    // ...
+      // "exportProps": true
+      // "exportExpose": true
+    },
   },
 }
 ```
 
 ### Scoped Plugins
 
-除非提供范围，否则不能同时使用 `export-expose`、`export-props` 和 `export-render` 插件。
+除非提供范围，否则不能同时使用 `export-expose` 和 `export-props` 插件。
 
 ```jsonc
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/export-render",
-      "@vue-macros/volar/export-expose",
-      "@vue-macros/volar/export-props",
-    ],
+    "plugins": ["@vue-macros/volar"],
     "vueMacros": {
       "exportExpose": {
         "include": ["**/export-expose/**"],
       },
       "exportProps": {
         "include": ["**/export-props/**"],
-      },
-      "exportRender": {
-        "include": ["**/export-render/**"],
       },
     },
   },

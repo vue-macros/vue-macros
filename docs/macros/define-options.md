@@ -88,7 +88,7 @@ module.exports = {
 
 ## Basic Usage
 
-```vue twoslash {3-6}
+```vue twoslash {3-4}
 <script setup lang="ts">
 defineOptions({
   name: 'Foo',
@@ -156,15 +156,11 @@ export default {
 
 ## Volar Configuration
 
-```jsonc {6}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3, // or 2.7 for Vue 2
-    "plugins": [
-      "@vue-macros/volar/define-options",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
   },
 }
 ```

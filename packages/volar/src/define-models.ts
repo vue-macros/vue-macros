@@ -1,4 +1,8 @@
-import { DEFINE_MODELS, DEFINE_MODELS_DOLLAR } from '@vue-macros/common'
+import {
+  createFilter,
+  DEFINE_MODELS,
+  DEFINE_MODELS_DOLLAR,
+} from '@vue-macros/common'
 import { addEmits, addProps, getText, getVolarOptions } from './common'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
@@ -67,33 +71,34 @@ function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
 
 const plugin: VueLanguagePlugin = ({
   modules: { typescript: ts },
-  vueCompilerOptions,
+  vueCompilerOptions: { vueMacros, target, lib },
 }) => {
+  const volarOptions = getVolarOptions(vueMacros, 'defineModels')
+  if (!volarOptions) return []
+
+  const filter = createFilter(volarOptions)
+
   return {
     name: 'vue-macros-define-models',
-    version: 2,
+    version: 2.1,
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
+        !filter(fileName) ||
         !['ts', 'tsx'].includes(embeddedFile.lang) ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
+        !sfc.scriptSetup?.ast
       )
         return
 
       const typeArg = getTypeArg(ts, sfc)
       if (!typeArg) return
 
-      const vueVersion = vueCompilerOptions.target
-      const vueLibName = vueCompilerOptions.lib
-      const volarOptions = getVolarOptions(vueCompilerOptions)
-      const unified =
-        vueVersion < 3 && (volarOptions?.defineModels?.unified ?? true)
+      const unified = target < 3 && (volarOptions?.unified ?? true)
 
       transformDefineModels({
         codes: embeddedFile.content,
         sfc,
         typeArg,
-        vueLibName,
+        vueLibName: lib,
         unified,
         ts,
       })

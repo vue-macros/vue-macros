@@ -203,6 +203,10 @@ export function getLocaleConfig(lang: string) {
               text: 'reactivityTransform',
               link: `${urlPrefix}/features/reactivity-transform`,
             },
+            {
+              text: 'jsxDirective',
+              link: `${urlPrefix}/features/jsx-directive`,
+            },
           ],
         },
 
@@ -224,10 +228,6 @@ export function getLocaleConfig(lang: string) {
             {
               text: 'exportRender',
               link: `${urlPrefix}/features/export-render`,
-            },
-            {
-              text: 'jsxDirective',
-              link: `${urlPrefix}/features/jsx-directive`,
             },
             {
               text: 'booleanProp',
@@ -261,7 +261,7 @@ export function getLocaleConfig(lang: string) {
               link: `${urlPrefix}/volar/template-ref`,
             },
             {
-              text: 'DefineGeneric',
+              text: 'defineGeneric',
               link: `${urlPrefix}/volar/define-generic`,
             },
           ],

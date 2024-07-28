@@ -1,8 +1,8 @@
-# DefineGeneric <PackageVersion name="@vue-macros/volar" />
+# defineGeneric <PackageVersion name="@vue-macros/volar" />
 
 <StabilityLevel level="experimental" />
 
-Declare single generic one by one using DefineGeneric.
+Declare single generic one by one using `DefineGeneric`.
 
 > Especially useful for `setup-sfc`.
 
@@ -37,14 +37,14 @@ defineProps<{
 
 ## Volar Configuration
 
-```jsonc {5}
+```jsonc {4,6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/define-generic",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "defineGeneric": true,
+    },
   },
 }
 ```

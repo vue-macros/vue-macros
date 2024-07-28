@@ -148,50 +148,39 @@ npm i -D @vue-macros/volar
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/define-options",
-      "@vue-macros/volar/define-models",
-      "@vue-macros/volar/define-prop",
-      "@vue-macros/volar/define-props",
-      "@vue-macros/volar/define-props-refs",
-      "@vue-macros/volar/short-vmodel",
-      "@vue-macros/volar/define-slots",
-      "@vue-macros/volar/jsx-directive",
-      "@vue-macros/volar/setup-jsdoc",
-      "@vue-macros/volar/boolean-prop",
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "setupSFC": true,
+      "defineEmit": true,
+      "defineProp": true,
+      "scriptLang": true,
+      "booleanProp": true,
+      "templateRef": true,
+      "defineGeneric": true,
 
       // Choose only one of the following
-      // "@vue-macros/volar/export-expose",
-      // "@vue-macros/volar/export-props",
-      // "@vue-macros/volar/export-render",
-    ],
-    // ...
+      // "exportProps": true
+      // "exportExpose": true
+    },
   },
 }
 ```
 
 ### Scoped Plugins
 
-`export-expose`, `export-props`, and `export-render` plugins cannot be used at the same time unless providing a scope.
+`export-expose` and `export-props` plugins cannot be used at the same time unless providing a scope.
 
 ```jsonc
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/export-render",
-      "@vue-macros/volar/export-expose",
-      "@vue-macros/volar/export-props",
-    ],
+    "plugins": ["@vue-macros/volar"],
     "vueMacros": {
       "exportExpose": {
         "include": ["**/export-expose/**"],
       },
       "exportProps": {
         "include": ["**/export-props/**"],
-      },
-      "exportRender": {
-        "include": ["**/export-render/**"],
       },
     },
   },

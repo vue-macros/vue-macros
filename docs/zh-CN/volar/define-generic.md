@@ -37,14 +37,14 @@ defineProps<{
 
 ## Volar 配置
 
-```jsonc {5}
+```jsonc {4,6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/define-generic",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "defineGeneric": true,
+    },
   },
 }
 ```

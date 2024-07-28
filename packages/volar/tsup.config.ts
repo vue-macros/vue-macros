@@ -3,7 +3,7 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  entry: ['./src/*.ts', '!./src/*.d.ts', '!./src/common.ts'],
+  entry: ['./src/*.ts', '!./src/*.d.ts'],
   format: ['cjs'],
   target: 'node16.14',
   splitting: false,

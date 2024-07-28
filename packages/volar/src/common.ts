@@ -1,6 +1,6 @@
 import { replace, replaceAll } from 'muggle-string'
 import type { VolarOptions } from '..'
-import type { Code, Sfc, VueCompilerOptions } from '@vue/language-core'
+import type { Code, Sfc } from '@vue/language-core'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\({\n)/g
@@ -61,10 +61,15 @@ export function addCode(codes: Code[], ...args: Code[]): void {
   codes.splice(index > -1 ? index + 1 : codes.length, 0, ...args)
 }
 
-export function getVolarOptions(
-  vueCompilerOptions: VueCompilerOptions,
-): VolarOptions | undefined {
-  return vueCompilerOptions.vueMacros
+export function getVolarOptions<K extends keyof VolarOptions>(
+  vueMacros: VolarOptions | undefined,
+  key: K,
+  defaultEnabled = true,
+): Exclude<VolarOptions[K], boolean> | undefined {
+  const options = vueMacros?.[key] ?? defaultEnabled
+  if (options) {
+    return options === true ? ({} as any) : options
+  }
 }
 
 export function getImportNames(

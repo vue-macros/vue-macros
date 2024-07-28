@@ -1,4 +1,4 @@
-import { DEFINE_OPTIONS } from '@vue-macros/common'
+import { createFilter, DEFINE_OPTIONS } from '@vue-macros/common'
 import {
   allCodeFeatures,
   type Code,
@@ -6,6 +6,7 @@ import {
   type VueLanguagePlugin,
 } from '@vue/language-core'
 import { replaceAll } from 'muggle-string'
+import { getVolarOptions, REGEX_DEFINE_COMPONENT } from './common'
 
 function transformDefineOptions({
   codes,
@@ -18,7 +19,7 @@ function transformDefineOptions({
 }) {
   const source = sfc.scriptSetup!.content.slice(arg.pos, arg.end)
   const seg: Code = [source, 'scriptSetup', arg!.pos, allCodeFeatures]
-  replaceAll(codes, /setup\(\) {/g, '...', seg, ',\nsetup() {')
+  replaceAll(codes, REGEX_DEFINE_COMPONENT, '...', seg, ',\n')
 }
 
 function getArg(ts: typeof import('typescript'), sfc: Sfc) {
@@ -47,12 +48,20 @@ function getArg(ts: typeof import('typescript'), sfc: Sfc) {
   })
 }
 
-const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
+const plugin: VueLanguagePlugin = ({
+  modules: { typescript: ts },
+  vueCompilerOptions: { vueMacros },
+}) => {
+  const volarOptions = getVolarOptions(vueMacros, 'defineOptions')
+  if (!volarOptions) return []
+
+  const filter = createFilter(volarOptions)
+
   return {
     name: 'vue-macros-define-options',
-    version: 2,
+    version: 2.1,
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
-      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
+      if (!filter(fileName) || !sfc.scriptSetup?.ast) return
 
       const arg = getArg(ts, sfc)
       if (!arg) return

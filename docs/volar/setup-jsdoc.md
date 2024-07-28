@@ -75,14 +75,11 @@ export default <div />
 
 ## Volar Configuration
 
-```jsonc {5,13}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/setup-jsdoc",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
   },
 }
 ```

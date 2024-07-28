@@ -217,15 +217,14 @@ export default a
 
 ## Volar Configuration
 
-```jsonc {6}
+```jsonc {4,6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3,
-    "plugins": [
-      "@vue-macros/volar/export-expose",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "exportExpose": true,
+    },
   },
 }
 ```

@@ -1,4 +1,6 @@
+import { createFilter } from '@vue-macros/common'
 import { replace } from 'muggle-string'
+import { getVolarOptions } from './common'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 import type ts from 'typescript'
 
@@ -47,12 +49,20 @@ function transform({
   }
 }
 
-const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => {
+const plugin: VueLanguagePlugin = ({
+  modules: { typescript: ts },
+  vueCompilerOptions: { vueMacros },
+}) => {
+  const volarOptions = getVolarOptions(vueMacros, 'setupJsdoc')
+  if (!volarOptions) return []
+
+  const filter = createFilter(volarOptions)
+
   return {
     name: 'vue-macros-setup-jsdoc',
-    version: 2,
+    version: 2.1,
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
-      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
+      if (!filter(fileName) || !sfc.scriptSetup?.ast) return
 
       transform({
         codes: embeddedFile.content,

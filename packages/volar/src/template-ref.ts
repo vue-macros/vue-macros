@@ -1,10 +1,11 @@
+import { createFilter } from '@vue-macros/common'
 import {
   replace,
   replaceAll,
   replaceSourceRange,
   toString,
 } from 'muggle-string'
-import { addCode } from './common'
+import { addCode, getVolarOptions } from './common'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function transformTemplateRef({
@@ -118,16 +119,18 @@ const plugin: VueLanguagePlugin = ({
   modules: { typescript: ts },
   vueCompilerOptions: { vueMacros },
 }) => {
+  const volarOptions = getVolarOptions(vueMacros, 'templateRef', false)
+  if (!volarOptions) return []
+
+  const filter = createFilter(volarOptions)
+
   return {
     name: 'vue-macros-template-ref',
-    version: 2,
-    resolveEmbeddedCode(_, sfc, embeddedFile) {
-      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
+    version: 2.1,
+    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
+      if (!filter(fileName) || !sfc.scriptSetup?.ast) return
 
-      const alias = vueMacros?.templateRef?.alias || [
-        'templateRef',
-        'useTemplateRef',
-      ]
+      const alias = volarOptions.alias || ['templateRef', 'useTemplateRef']
       const nodes = getTemplateRefNodes(ts, sfc, alias)
       if (!nodes.length) return
 

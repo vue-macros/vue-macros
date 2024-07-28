@@ -87,14 +87,14 @@ export default () => (
 
 ## Volar Configuration
 
-```jsonc {5}
+```jsonc {4,6}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": [
-      "@vue-macros/volar/setup-sfc",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
+    "vueMacros": {
+      "setupSFC": true,
+    },
   },
 }
 ```

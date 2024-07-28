@@ -114,15 +114,12 @@ emit('update:count', count + 1)
 
 ## Volar Configuration
 
-```jsonc {6,9-12}
+```jsonc {5,7-10}
 // tsconfig.json
 {
   "vueCompilerOptions": {
     "target": 3, // or 2.7 for Vue 2
-    "plugins": [
-      "@vue-macros/volar/define-models",
-      // ...more feature
-    ],
+    "plugins": ["@vue-macros/volar"],
     "vueMacros": {
       "defineModels": {
         // Only works when target is 2.7.

@@ -1,5 +1,6 @@
+import { createFilter } from '@vue-macros/common'
 import { replace, replaceSourceRange } from 'muggle-string'
-import { getText } from './common'
+import { getText, getVolarOptions } from './common'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function getDefineGenerics(
@@ -46,36 +47,47 @@ function getDefineGenerics(
   return result
 }
 
-const plugin: VueLanguagePlugin = ({ modules: { typescript: ts } }) => [
-  {
-    name: 'vue-macros-define-generic-pre',
-    version: 2,
-    order: -1,
-    resolveEmbeddedCode(_, sfc) {
-      if (
-        !sfc.scriptSetup!.attrs.generic &&
-        sfc.scriptSetup?.content.includes('DefineGeneric')
-      ) {
-        sfc.scriptSetup!.attrs.generic = 'T'
-      }
-    },
-  },
-  {
-    name: 'vue-macros-define-generic',
-    version: 2.1,
-    resolveEmbeddedCode(_, sfc, embeddedFile) {
-      if (!sfc.scriptSetup || !sfc.scriptSetup.ast) return
+const plugin: VueLanguagePlugin = ({
+  modules: { typescript: ts },
+  vueCompilerOptions: { vueMacros },
+}) => {
+  const volarOptions = getVolarOptions(vueMacros, 'defineGeneric', false)
+  if (!volarOptions) return []
 
-      const defineGenerics = getDefineGenerics(ts, sfc, embeddedFile.content)
-      if (!defineGenerics.length) return
+  const filter = createFilter(volarOptions)
 
-      replace(
-        embeddedFile.content,
-        /(?<=export\sdefault\s\(<).*(?=,>)/,
-        defineGenerics.join(', '),
-      )
+  return [
+    {
+      name: 'vue-macros-define-generic-pre',
+      version: 2.1,
+      order: -1,
+      resolveEmbeddedCode(fileName, sfc) {
+        if (
+          filter(fileName) &&
+          !sfc.scriptSetup?.attrs.generic &&
+          sfc.scriptSetup?.content.includes('DefineGeneric')
+        ) {
+          sfc.scriptSetup!.attrs.generic = 'T'
+        }
+      },
     },
-  },
-]
+    {
+      name: 'vue-macros-define-generic',
+      version: 2.1,
+      resolveEmbeddedCode(fileName, sfc, embeddedFile) {
+        if (!filter(fileName) || !sfc.scriptSetup?.ast) return
+
+        const defineGenerics = getDefineGenerics(ts, sfc, embeddedFile.content)
+        if (!defineGenerics.length) return
+
+        replace(
+          embeddedFile.content,
+          /(?<=export\sdefault\s\(<).*(?=,>)/,
+          defineGenerics.join(', '),
+        )
+      },
+    },
+  ]
+}
 
 export default plugin

@@ -1,5 +1,6 @@
-import { DEFINE_SLOTS } from '@vue-macros/common'
+import { createFilter, DEFINE_SLOTS } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
+import { getVolarOptions } from './common'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 function transform({
@@ -59,16 +60,21 @@ function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
 
 const plugin: VueLanguagePlugin = ({
   modules: { typescript: ts },
-  vueCompilerOptions,
+  vueCompilerOptions: { vueMacros, target },
 }) => {
+  const volarOptions = getVolarOptions(vueMacros, 'defineSlots')
+  if (!volarOptions) return []
+
+  const filter = createFilter(volarOptions)
+
   return {
     name: 'vue-macros-define-slots',
-    version: 2,
+    version: 2.1,
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (
+        !filter(fileName) ||
         !['ts', 'tsx'].includes(embeddedFile.lang) ||
-        !sfc.scriptSetup ||
-        !sfc.scriptSetup.ast
+        !sfc.scriptSetup?.ast
       )
         return
 
@@ -78,7 +84,7 @@ const plugin: VueLanguagePlugin = ({
       transform({
         codes: embeddedFile.content,
         typeArg,
-        vueVersion: vueCompilerOptions.target,
+        vueVersion: target,
       })
     },
   }

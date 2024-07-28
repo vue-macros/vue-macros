@@ -114,15 +114,12 @@ emit('update:count', count + 1)
 
 ## Volar 配置
 
-```jsonc {6,9-12}
+```jsonc {5,7-10}
 // tsconfig.json
 {
   "vueCompilerOptions": {
     "target": 3, // 或 2.7 用于 Vue 2
-    "plugins": [
-      "@vue-macros/volar/define-models",
-      // ...更多功能
-    ],
+    "plugins": ["@vue-macros/volar"],
     "vueMacros": {
       "defineModels": {
         // 仅在 target 是 2.7 时有效

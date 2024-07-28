@@ -1,30 +1,37 @@
-import type { FilterPattern } from '@rollup/pluginutils'
+/* eslint perfectionist/sort-interfaces: ["error", { ignorePattern: ["OptionsCommon"] }] */
+import type { BaseOptions as _BaseOptions } from '@vue-macros/common'
+
+type BaseOptions<T = {}> = (T & Omit<_BaseOptions, 'version'>) | boolean
 
 export interface VolarOptions {
-  defineModels?: {
+  booleanProp?: BaseOptions
+  defineEmit?: BaseOptions
+  defineGeneric?: BaseOptions
+  defineModels?: BaseOptions<{
     unified?: boolean
-  }
-  shortVmodel?: {
-    prefix?: '::' | '$' | '*'
-  }
-  exportExpose?: {
-    include?: FilterPattern
-    exclude?: FilterPattern
-  }
-  exportProps?: {
-    include?: FilterPattern
-    exclude?: FilterPattern
-  }
-  exportRender?: {
-    include?: FilterPattern
-    exclude?: FilterPattern
-  }
-  templateRef?: {
-    alias?: string[]
-  }
-  scriptLang?: {
+  }>
+  defineOptions?: BaseOptions
+  defineProp?: BaseOptions<{
+    edition: 'kevinEdition' | 'johnsonEdition'
+  }>
+  defineProps?: BaseOptions
+  definePropsRefs?: BaseOptions
+  defineSlots?: BaseOptions
+  defineVmodel?: BaseOptions
+  exportExpose?: BaseOptions
+  exportProps?: BaseOptions
+  exportRender?: BaseOptions
+  jsxDirective?: BaseOptions
+  scriptLang?: BaseOptions<{
     defaultLang?: string
-    include?: FilterPattern
-    exclude?: FilterPattern
-  }
+  }>
+  setupJsdoc?: BaseOptions
+  setupSFC?: BaseOptions
+  shortBind?: BaseOptions
+  shortVmodel?: BaseOptions<{
+    prefix?: '::' | '$' | '*'
+  }>
+  templateRef?: BaseOptions<{
+    alias?: string[]
+  }>
 }

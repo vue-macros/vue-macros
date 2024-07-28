@@ -6,20 +6,7 @@ import { docsLink } from '../../macros'
 import { getLocaleConfig } from './locale'
 
 const require = createRequire(import.meta.url)
-
-const booleanProp = require('@vue-macros/volar/boolean-prop')
-const defineEmit = require('@vue-macros/volar/define-emit')
-const defineModels = require('@vue-macros/volar/define-models')
-// Volar plugins
-const defineOptions = require('@vue-macros/volar/define-options')
-const defineProp = require('@vue-macros/volar/define-prop')
-const defineProps = require('@vue-macros/volar/define-props')
-const definePropsRefs = require('@vue-macros/volar/define-props-refs')
-const defineSlots = require('@vue-macros/volar/define-slots')
-const exportExpose = require('@vue-macros/volar/export-expose')
-const exportRender = require('@vue-macros/volar/export-render')
-const jsxDirective = require('@vue-macros/volar/jsx-directive')
-const templateRef = require('@vue-macros/volar/template-ref')
+const vueMacrosPlugin = require('@vue-macros/volar')
 
 export default defineConfig({
   lastUpdated: true,
@@ -66,20 +53,17 @@ export default defineConfig({
             types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
           },
           vueCompilerOptions: {
-            plugins: [
-              defineOptions,
-              defineModels,
-              defineSlots,
-              defineEmit,
-              defineProp,
-              defineProps,
-              definePropsRefs,
-              exportRender,
-              exportExpose,
-              jsxDirective,
-              booleanProp,
-              templateRef,
-            ],
+            plugins: [vueMacrosPlugin],
+            // @ts-ignore
+            vueMacros: {
+              scriptLang: true,
+              setupSFC: true,
+              booleanProp: true,
+              defineEmit: true,
+              defineProp: true,
+              templateRef: true,
+              defineGeneric: true,
+            },
           },
         },
       }),

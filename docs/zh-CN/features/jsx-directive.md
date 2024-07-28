@@ -1,6 +1,6 @@
 # jsxDirective <PackageVersion name="@vue-macros/jsx-directive" />
 
-<StabilityLevel level="experimental" />
+<StabilityLevel level="stable" />
 
 在 JSX 中使用 Vue 内置指令。
 
@@ -213,15 +213,11 @@ export default () => (
 
 ## Volar 配置
 
-```jsonc {6}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "target": 3,
-    "plugins": [
-      "@vue-macros/volar/jsx-directive",
-      // ...更多功能
-    ],
+    "plugins": ["@vue-macros/volar"],
   },
 }
 ```
