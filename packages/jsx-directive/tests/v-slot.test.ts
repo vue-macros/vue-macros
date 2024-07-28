@@ -5,7 +5,7 @@ import { transformJsxDirective } from '../src/api'
 describe('jsx-vue-directive', () => {
   describe('vue 3 v-slot', async () => {
     await testFixtures(
-      import.meta.glob('./fixtures/v-slot/index.{vue,jsx,tsx}', {
+      import.meta.glob('./fixtures/v-slot/*.{vue,jsx,tsx}', {
         eager: true,
         as: 'raw',
       }),
@@ -15,7 +15,7 @@ describe('jsx-vue-directive', () => {
 
   describe('vue 2.7 v-slot', async () => {
     await testFixtures(
-      import.meta.glob('./fixtures/v-slot/index.{vue,jsx,tsx}', {
+      import.meta.glob('./fixtures/v-slot/*.{vue,jsx,tsx}', {
         eager: true,
         as: 'raw',
       }),

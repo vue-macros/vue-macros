@@ -3,8 +3,6 @@ import {
   generateTransform,
   getLang,
   MagicStringAST,
-  parseSFC,
-  REGEX_SETUP_SFC,
   walkAST,
   type CodeTransform,
 } from '@vue-macros/common'
@@ -35,18 +33,7 @@ export function transformJsxDirective(
     ast: Program
     offset: number
   }[] = []
-  if (lang === 'vue' || REGEX_SETUP_SFC.test(id)) {
-    const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
-      code,
-      id,
-    )
-    if (script) {
-      asts.push({ ast: getScriptAst()!, offset: script.loc.start.offset })
-    }
-    if (scriptSetup) {
-      asts.push({ ast: getSetupAst()!, offset: scriptSetup.loc.start.offset })
-    }
-  } else if (['jsx', 'tsx'].includes(lang)) {
+  if (['jsx', 'tsx'].includes(lang)) {
     asts = [{ ast: babelParse(code, lang), offset: 0 }]
   } else {
     return

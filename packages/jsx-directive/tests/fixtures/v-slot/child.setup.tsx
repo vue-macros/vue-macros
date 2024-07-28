@@ -1,20 +1,19 @@
-<script setup lang="tsx" generic="T">
+type T = DefineGeneric
 defineProps<{
   baz?: T
 }>()
 
-defineSlots<{
+const slots = defineSlots<{
   default: () => any
   title: (props: { foo: T }) => any
   bottom: (props: { foo: 1 }) => any
   center: (props: { foo: 1 }) => any
   'bot-tom': (props: { foo: 1 }) => any
 }>()
-</script>
 
-<template>
+export default (
   <span>
-    <slot />
-    <slot name="bottom" v-bind="{ foo: 1 }" />
+    <slots.default />
+    <slots.bottom foo={1} />
   </span>
-</template>
+)

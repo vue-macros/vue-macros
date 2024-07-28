@@ -1,4 +1,5 @@
-<script setup lang="tsx" generic="T">
+type T = DefineGeneric
+
 const { bar } = defineProps<{
   bar: T
 }>()
@@ -13,9 +14,8 @@ const emit = defineEmits<{
   click: []
 }>()
 
-defineRender(() => (
+export default (
   <form onSubmit_prevent onClick={() => emit('log', bar)}>
     <slots.default />
   </form>
-))
-</script>
+)

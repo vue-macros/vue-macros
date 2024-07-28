@@ -2,7 +2,7 @@ const { foo = 0 } = defineProps<{
   foo: number
 }>()
 
-export default () => (
+export default (
   <>
     <div v-if={foo === 0}>
       <div v-if={foo === 0}>0-0</div>
