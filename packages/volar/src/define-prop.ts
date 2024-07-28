@@ -238,7 +238,8 @@ const plugin: VueLanguagePlugin = ({
       )
         return
 
-      const edition = volarOptions.edition ?? experimentalDefinePropProposal
+      const edition =
+        volarOptions.edition || experimentalDefinePropProposal || 'kevinEdition'
       const defineProps = getDefineProp(ts, sfc, edition)
       if (defineProps.length === 0) return
 
