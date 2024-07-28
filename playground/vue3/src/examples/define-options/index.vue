@@ -15,8 +15,9 @@ defineOptions({
 const Comp = defineComponent({
   setup() {},
 })
+let comp!: InstanceType<typeof Comp>
 // @ts-expect-error
-console.log(new Comp()?.foo)
+console.log(comp?.foo)
 
 const vm = getCurrentInstance()!
 </script>
