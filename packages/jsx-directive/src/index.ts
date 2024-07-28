@@ -23,10 +23,7 @@ function resolveOptions(
   framework: UnpluginContextMeta['framework'],
 ): OptionsResolved {
   const version = options.version || detectVueVersion()
-  const include = getFilterPattern(
-    [FilterFileType.VUE_SFC_WITH_SETUP, FilterFileType.SRC_FILE],
-    framework,
-  )
+  const include = getFilterPattern([FilterFileType.SRC_FILE], framework)
   return {
     include,
     exclude: [REGEX_NODE_MODULES],
@@ -44,7 +41,6 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
 
     return {
       name,
-      enforce: 'pre',
 
       transformInclude: filter,
       transform(code, id) {

@@ -270,7 +270,6 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
       ),
       resolvePlugin(VueHoistStatic, framework, options.hoistStatic),
       resolvePlugin(VueDefineOptions, framework, options.defineOptions),
-      resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
 
       ...(framework === 'vite' ||
       framework === 'rollup' ||
@@ -298,6 +297,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
         : []),
 
       options.plugins.vue,
+      resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
       options.plugins.vueJsx,
       resolvePlugin(VueDefineRender, framework, options.defineRender),
       setupComponentPlugins?.[1],

@@ -1,6 +1,6 @@
 let selected = $ref(0)
 
-export default () => (
+export default (
   <div v-once onClick={() => selected++}>
     {selected}
   </div>

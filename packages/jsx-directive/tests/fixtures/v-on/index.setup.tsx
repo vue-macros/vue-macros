@@ -1,9 +1,8 @@
-<script setup lang="tsx">
 import { expectTypeOf } from 'expect-type'
-import Child from './child.vue'
+import Child from './child.setup'
 
 let bar = $ref('')
-defineRender(() => (
+export default (
   <fieldset>
     <legend>v-on</legend>
 
@@ -21,5 +20,4 @@ defineRender(() => (
       {bar}
     </Child>
   </fieldset>
-))
-</script>
+)

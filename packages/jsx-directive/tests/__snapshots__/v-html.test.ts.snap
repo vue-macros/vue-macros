@@ -1,25 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > vue 2.7 v-html > ./fixtures/v-html/v-html.tsx 1`] = `
-"export default () => <div domPropsInnerHTML={'<div>123<div>'} />
+exports[`jsx-vue-directive > vue 2.7 v-html > ./fixtures/v-html/index.setup.tsx 1`] = `
+"export default <div domPropsInnerHTML={'<div>123<div>'} />
 "
 `;
 
-exports[`jsx-vue-directive > vue 2.7 v-html > ./fixtures/v-html/v-html.vue 1`] = `
-"<script setup lang="tsx">
-defineRender(() => <div domPropsInnerHTML={'<div>123<div>'} />)
-</script>
-"
-`;
-
-exports[`jsx-vue-directive > vue 3 v-html > ./fixtures/v-html/v-html.tsx 1`] = `
-"export default () => <div innerHTML={'<div>123<div>'} />
-"
-`;
-
-exports[`jsx-vue-directive > vue 3 v-html > ./fixtures/v-html/v-html.vue 1`] = `
-"<script setup lang="tsx">
-defineRender(() => <div innerHTML={'<div>123<div>'} />)
-</script>
+exports[`jsx-vue-directive > vue 3 v-html > ./fixtures/v-html/index.setup.tsx 1`] = `
+"export default <div innerHTML={'<div>123<div>'} />
 "
 `;

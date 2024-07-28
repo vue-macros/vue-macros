@@ -7,6 +7,8 @@
   "vueCompilerOptions": {
     "plugins": ["@vue-macros/volar"],
     "vueMacros": {
+      "setupSFC": true,
+      "defineGeneric": true,
       "shortVmodel": {
         "prefix": "$"
       },
