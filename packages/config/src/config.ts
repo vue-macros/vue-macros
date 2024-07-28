@@ -4,8 +4,9 @@ import type { Options } from './options'
 export function loadConfig(): Omit<Options, 'plugins'> {
   const url = import.meta.url
   const isDist = url.endsWith('.js')
+  const filename = 'config-worker.js'
   const workerPath = new URL(
-    isDist ? './config-worker.mjs' : '../dist/config-worker.mjs',
+    isDist ? `./${filename}` : `../dist/${filename}`,
     import.meta.url,
   )
   const { loadConfigAsync } =

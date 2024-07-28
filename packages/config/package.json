@@ -36,7 +36,35 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
+    "./config": {
+      "dev": "./src/config.ts",
+      "require": "./dist/config.cjs",
+      "import": "./dist/config.js"
+    },
+    "./config-worker": {
+      "dev": "./src/config-worker.ts",
+      "require": "./dist/config-worker.cjs",
+      "import": "./dist/config-worker.js"
+    },
+    "./define": {
+      "dev": "./src/define.ts",
+      "require": "./dist/define.cjs",
+      "import": "./dist/define.js"
+    },
+    "./options": {
+      "dev": "./src/options.ts",
+      "require": "./dist/options.cjs",
+      "import": "./dist/options.js"
+    },
     "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
   },
   "publishConfig": {
     "access": "public",
@@ -44,6 +72,22 @@
       ".": {
         "require": "./dist/index.cjs",
         "import": "./dist/index.js"
+      },
+      "./config": {
+        "require": "./dist/config.cjs",
+        "import": "./dist/config.js"
+      },
+      "./config-worker": {
+        "require": "./dist/config-worker.cjs",
+        "import": "./dist/config-worker.js"
+      },
+      "./define": {
+        "require": "./dist/define.cjs",
+        "import": "./dist/define.js"
+      },
+      "./options": {
+        "require": "./dist/options.cjs",
+        "import": "./dist/options.js"
       },
       "./*": "./*"
     }
@@ -80,7 +124,7 @@
     "@vue-macros/short-emits": "workspace:*",
     "@vue-macros/short-vmodel": "workspace:*",
     "make-synchronized": "^0.2.9",
-    "unconfig": "^0.4.5",
+    "unconfig": "^0.5.1",
     "unplugin-vue-define-options": "workspace:*"
   },
   "engines": {
