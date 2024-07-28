@@ -22,21 +22,8 @@
   },
   "vueCompilerOptions": {
     "target": 2.7,
-    "plugins": ["@vue-macros/volar"],
-    "experimentalDefinePropProposal": "kevinEdition",
-
-    "vueMacros": {
-      "scriptLang": true,
-      "shortVmodel": {
-        "prefix": "$"
-      },
-      "exportExpose": {
-        "include": ["**/export-expose/**"]
-      },
-      "exportProps": {
-        "include": ["**/export-props/**"]
-      }
-    }
+    "plugins": ["unplugin-vue-macros/volar"],
+    "experimentalDefinePropProposal": "kevinEdition"
   },
   "include": ["src", "*", "../../packages/shim.d.ts"]
 }

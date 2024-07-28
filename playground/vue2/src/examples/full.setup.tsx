@@ -25,4 +25,4 @@ export default (
     Magic Vue!
     <pre>{name}</pre>
   </div>
-) as any as DefineComponent
+)

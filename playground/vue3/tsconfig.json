@@ -22,7 +22,7 @@
     "skipLibCheck": true
   },
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "experimentalDefinePropProposal": "kevinEdition"
   },
   "include": ["src", "*", "../../packages/shim.d.ts"]
