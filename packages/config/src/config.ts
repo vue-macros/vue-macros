@@ -7,7 +7,7 @@ export function loadConfig(): Omit<Options, 'plugins'> {
   const filename = 'config-worker.js'
   const workerPath = new URL(
     isDist ? `./${filename}` : `../dist/${filename}`,
-    import.meta.url,
+    url,
   )
   const { loadConfigAsync } =
     makeSynchronized<typeof import('./config-worker')>(workerPath)
