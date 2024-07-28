@@ -723,11 +723,8 @@ importers:
         specifier: ^3.12.4
         version: 3.12.4(magicast@0.3.4)(rollup@4.19.1)
       '@vue-macros/common':
-        specifier: workspace:~
-        version: link:../common
-      '@vue-macros/volar':
         specifier: workspace:*
-        version: link:../volar
+        version: link:../common
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../macros
