@@ -62,7 +62,7 @@ export default defineConfig({
               defineEmit: true,
               defineProp: true,
               templateRef: true,
-              DefineGeneric: true,
+              defineGeneric: true,
             },
           },
         },

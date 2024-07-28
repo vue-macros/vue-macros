@@ -156,7 +156,7 @@ npm i -D @vue-macros/volar
       "scriptLang": true,
       "booleanProp": true,
       "templateRef": true,
-      "DefineGeneric": true,
+      "defineGeneric": true,
 
       // 选择以下其中一个
       // "exportProps": true
