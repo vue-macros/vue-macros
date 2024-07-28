@@ -50,6 +50,7 @@ npm i -D unplugin-vue-macros
 ## Related Libraries
 
 - [vue-functional-ref](https://github.com/sxzz/vue-functional-ref) - Functional-style refs for Vue.
+- [Vue Vine](https://vue-vine.dev/) - Another style of writing Vue components.
 
 ## License
 
