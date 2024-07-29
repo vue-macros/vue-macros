@@ -19,18 +19,7 @@ export default {
     app.component('WarnBadge', WarnBadge)
     app.component('StabilityLevel', StabilityLevel)
     app.component('PackageVersion', PackageVersion)
-    app.use(NolebaseGitChangelogPlugin, {
-      mapAuthors: [
-        {
-          name: 'Kevin Deng',
-          mapByNameAliases: [
-            '三咲智子 Kevin Deng',
-            '三咲智子',
-            '三咲智子 (Kevin)',
-          ],
-        },
-      ],
-    })
+    app.use(NolebaseGitChangelogPlugin)
     app.use(TwoslashFloatingVue)
   },
 }

@@ -17,7 +17,7 @@ export { nodeResolve as RollupNodeResolve } from '@rollup/plugin-node-resolve'
 
 export const RollupRemoveVueFilePathPlugin = (): Plugin => {
   const REGEX = [
-    /\[["']__file["'],\s*["'](.*?)["']]/g,
+    /\[["']__file["'],\s*["'](.*?)["']\]/g,
     /__component__\.options\.__file.*/,
   ]
   return {

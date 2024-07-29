@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// basic.js
+import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -27,7 +28,8 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/declare.vue 1`] = `
-"import { defineComponent, toDisplayString } from 'vue';
+"// declare.js
+import { defineComponent, toDisplayString } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -52,7 +54,8 @@ export { declare as default };
 `;
 
 exports[`fixtures > tests/fixtures/empty.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// empty.js
+import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -73,7 +76,8 @@ export { empty as default };
 `;
 
 exports[`fixtures > tests/fixtures/empty-defaults.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// empty-defaults.js
+import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -97,7 +101,8 @@ export { emptyDefaults as default };
 `;
 
 exports[`fixtures > tests/fixtures/tsx.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// tsx.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({

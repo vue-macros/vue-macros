@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue > isProduction = false 1`] = `
-"import { defineComponent, renderSlot } from 'vue';
+"// basic.js
+import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -29,7 +30,8 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/basic.vue > isProduction = true 1`] = `
-"import { defineComponent, renderSlot } from 'vue';
+"// basic.js
+import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -57,7 +59,8 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/built-in.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// built-in.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -80,7 +83,8 @@ export { builtIn as default };
 `;
 
 exports[`fixtures > tests/fixtures/built-in.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// built-in.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -103,7 +107,8 @@ export { builtIn as default };
 `;
 
 exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = false 1`] = `
-"import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
+"// defaults-dynamic.js
+import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -127,7 +132,8 @@ export { defaultsDynamic as default };
 `;
 
 exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = true 1`] = `
-"import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
+"// defaults-dynamic.js
+import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -151,7 +157,8 @@ export { defaultsDynamic as default };
 `;
 
 exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = false 1`] = `
-"import { defineComponent, openBlock, createElementBlock } from 'vue';
+"// defaults-static.js
+import { defineComponent, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -182,7 +189,8 @@ export { defaultsStatic as default };
 `;
 
 exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = true 1`] = `
-"import { defineComponent, openBlock, createElementBlock } from 'vue';
+"// defaults-static.js
+import { defineComponent, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -213,7 +221,8 @@ export { defaultsStatic as default };
 `;
 
 exports[`fixtures > tests/fixtures/fn-default.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// fn-default.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -236,7 +245,8 @@ export { fnDefault as default };
 `;
 
 exports[`fixtures > tests/fixtures/fn-default.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// fn-default.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -259,7 +269,8 @@ export { fnDefault as default };
 `;
 
 exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction = false 1`] = `
-"import { defineComponent, renderSlot } from 'vue';
+"// import-from-vue.js
+import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -290,7 +301,8 @@ export { importFromVue as default };
 `;
 
 exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction = true 1`] = `
-"import { defineComponent, renderSlot } from 'vue';
+"// import-from-vue.js
+import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -321,7 +333,8 @@ export { importFromVue as default };
 `;
 
 exports[`fixtures > tests/fixtures/intersection.vue > isProduction = false 1`] = `
-"import { defineComponent, renderSlot } from 'vue';
+"// intersection.js
+import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -348,7 +361,8 @@ export { intersection as default };
 `;
 
 exports[`fixtures > tests/fixtures/intersection.vue > isProduction = true 1`] = `
-"import { defineComponent, renderSlot } from 'vue';
+"// intersection.js
+import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -375,7 +389,8 @@ export { intersection as default };
 `;
 
 exports[`fixtures > tests/fixtures/issue-260.vue > isProduction = false 1`] = `
-"import { defineComponent, toDisplayString } from 'vue';
+"// issue-260.js
+import { defineComponent, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -398,7 +413,8 @@ export { issue260 as default };
 `;
 
 exports[`fixtures > tests/fixtures/issue-260.vue > isProduction = true 1`] = `
-"import { defineComponent, toDisplayString } from 'vue';
+"// issue-260.js
+import { defineComponent, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -421,7 +437,8 @@ export { issue260 as default };
 `;
 
 exports[`fixtures > tests/fixtures/issue-328.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// issue-328.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -440,7 +457,8 @@ export { issue328 as default };
 `;
 
 exports[`fixtures > tests/fixtures/issue-328.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// issue-328.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -459,7 +477,8 @@ export { issue328 as default };
 `;
 
 exports[`fixtures > tests/fixtures/issue-351.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// issue-351.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -480,7 +499,8 @@ export { issue351 as default };
 `;
 
 exports[`fixtures > tests/fixtures/issue-351.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// issue-351.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -501,7 +521,8 @@ export { issue351 as default };
 `;
 
 exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = false 1`] = `
-"import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+"// issue-362.js
+import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -535,7 +556,8 @@ export { issue362 as default };
 `;
 
 exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = true 1`] = `
-"import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+"// issue-362.js
+import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -569,7 +591,8 @@ export { issue362 as default };
 `;
 
 exports[`fixtures > tests/fixtures/json-resolve.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// json-resolve.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -592,7 +615,8 @@ export { jsonResolve as default };
 `;
 
 exports[`fixtures > tests/fixtures/json-resolve.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// json-resolve.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -615,7 +639,8 @@ export { jsonResolve as default };
 `;
 
 exports[`fixtures > tests/fixtures/namespace.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// namespace.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -638,7 +663,8 @@ export { namespace as default };
 `;
 
 exports[`fixtures > tests/fixtures/namespace.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// namespace.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -661,7 +687,8 @@ export { namespace as default };
 `;
 
 exports[`fixtures > tests/fixtures/optional-method.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// optional-method.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -683,7 +710,8 @@ export { optionalMethod as default };
 `;
 
 exports[`fixtures > tests/fixtures/optional-method.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// optional-method.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -705,7 +733,8 @@ export { optionalMethod as default };
 `;
 
 exports[`fixtures > tests/fixtures/playground.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// playground.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -726,7 +755,8 @@ export { playground as default };
 `;
 
 exports[`fixtures > tests/fixtures/playground.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// playground.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -747,7 +777,8 @@ export { playground as default };
 `;
 
 exports[`fixtures > tests/fixtures/resolve-failed.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// resolve-failed.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -772,7 +803,8 @@ export { resolveFailed as default };
 `;
 
 exports[`fixtures > tests/fixtures/resolve-failed.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// resolve-failed.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -797,7 +829,8 @@ export { resolveFailed as default };
 `;
 
 exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = false 1`] = `
-"import { defineComponent, openBlock, createElementBlock } from 'vue';
+"// short-emits.js
+import { defineComponent, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -820,7 +853,8 @@ export { shortEmits as default };
 `;
 
 exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = true 1`] = `
-"import { defineComponent, openBlock, createElementBlock } from 'vue';
+"// short-emits.js
+import { defineComponent, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -843,7 +877,8 @@ export { shortEmits as default };
 `;
 
 exports[`fixtures > tests/fixtures/special-key.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// special-key.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -864,7 +899,8 @@ export { specialKey as default };
 `;
 
 exports[`fixtures > tests/fixtures/special-key.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// special-key.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -885,7 +921,8 @@ export { specialKey as default };
 `;
 
 exports[`fixtures > tests/fixtures/template-keys.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// template-keys.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -914,7 +951,8 @@ export { templateKeys as default };
 `;
 
 exports[`fixtures > tests/fixtures/template-keys.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// template-keys.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -943,7 +981,8 @@ export { templateKeys as default };
 `;
 
 exports[`fixtures > tests/fixtures/ts-indexed-access-type.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// ts-indexed-access-type.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -974,7 +1013,8 @@ export { tsIndexedAccessType as default };
 `;
 
 exports[`fixtures > tests/fixtures/ts-indexed-access-type.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// ts-indexed-access-type.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1005,7 +1045,8 @@ export { tsIndexedAccessType as default };
 `;
 
 exports[`fixtures > tests/fixtures/ts-utility-types.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// ts-utility-types.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1027,7 +1068,8 @@ export { tsUtilityTypes as default };
 `;
 
 exports[`fixtures > tests/fixtures/ts-utility-types.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// ts-utility-types.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1049,7 +1091,8 @@ export { tsUtilityTypes as default };
 `;
 
 exports[`fixtures > tests/fixtures/undefined.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// undefined.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1070,7 +1113,8 @@ export { _undefined as default };
 `;
 
 exports[`fixtures > tests/fixtures/undefined.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// undefined.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1091,7 +1135,8 @@ export { _undefined as default };
 `;
 
 exports[`fixtures > tests/fixtures/union.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// union.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1115,7 +1160,8 @@ export { union as default };
 `;
 
 exports[`fixtures > tests/fixtures/union.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// union.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1139,7 +1185,8 @@ export { union as default };
 `;
 
 exports[`fixtures > tests/fixtures/union-emits.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// union-emits.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1159,7 +1206,8 @@ export { unionEmits as default };
 `;
 
 exports[`fixtures > tests/fixtures/union-emits.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// union-emits.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1179,7 +1227,8 @@ export { unionEmits as default };
 `;
 
 exports[`fixtures > tests/fixtures/union-props.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// union-props.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1202,7 +1251,8 @@ export { unionProps as default };
 `;
 
 exports[`fixtures > tests/fixtures/union-props.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// union-props.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1225,7 +1275,8 @@ export { unionProps as default };
 `;
 
 exports[`fixtures > tests/fixtures/unresolved.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// unresolved.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1246,7 +1297,8 @@ export { unresolved as default };
 `;
 
 exports[`fixtures > tests/fixtures/unresolved.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// unresolved.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1267,7 +1319,8 @@ export { unresolved as default };
 `;
 
 exports[`fixtures > tests/fixtures/vue-core-7553.vue > isProduction = false 1`] = `
-"import { defineComponent } from 'vue';
+"// vue-core-7553.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1291,7 +1344,8 @@ export { vueCore7553 as default };
 `;
 
 exports[`fixtures > tests/fixtures/vue-core-7553.vue > isProduction = true 1`] = `
-"import { defineComponent } from 'vue';
+"// vue-core-7553.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({

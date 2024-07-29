@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/johnson-edition/basic.vue 1`] = `
-"var basic = \`<script setup lang="ts">
+"// basic.js
+var basic = \`<script setup lang="ts">
 const __MACROS_props = defineProps({
   qux: { type: String },
   foo: { type: String, default: 'foo' },
@@ -47,7 +48,8 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/kevin-edition/basic.vue 1`] = `
-"var basic = \`<script setup lang="ts">
+"// basic.js
+var basic = \`<script setup lang="ts">
 const __MACROS_props = defineProps({
   foo: { type: String },
   bar: { type: String, ...{

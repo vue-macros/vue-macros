@@ -6,7 +6,7 @@ import {
   type NodeTypes,
 } from '@vue/compiler-core'
 
-const reg = /^(::?|\$|\*)(?=[A-Z_a-z])/
+const reg = /^(::?|\$|\*)(?=[A-Z_])/i
 
 export interface Options {
   // empty
@@ -28,7 +28,7 @@ export function transformShortBind(_options: Options = {}): NodeTransform {
       ) {
         const valueName = prop.loc.source
           .replace(reg, '')
-          .replaceAll(/-([A-Za-z])/g, (_, name) => name.toUpperCase())
+          .replaceAll(/-([A-Z])/gi, (_, name) => name.toUpperCase())
 
         if (prop.type === (6 satisfies NodeTypes.ATTRIBUTE)) {
           prop.value = {

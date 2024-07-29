@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/SetupFC.tsx 1`] = `
-"import { defineComponent, ref, createVNode, createTextVNode } from 'vue';
+"// SetupFC.js
+import { defineComponent, ref, createVNode, createTextVNode } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -34,7 +35,8 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/async.tsx 1`] = `
-"import { defineComponent, withAsyncContext } from 'vue';
+"// async.js
+import { defineComponent, withAsyncContext } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -68,7 +70,8 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/basic.ts 1`] = `
-"import { defineComponent, h } from 'vue';
+"// basic.js
+import { defineComponent, h } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -97,7 +100,8 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/context.tsx 1`] = `
-"import { defineComponent } from 'vue';
+"// context.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main$1 = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -164,7 +168,8 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/render.tsx 1`] = `
-"import { defineComponent, createVNode } from 'vue';
+"// render.js
+import { defineComponent, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -196,7 +201,8 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/return-render.tsx 1`] = `
-"import { defineComponent, computed, createVNode } from 'vue';
+"// return-render.js
+import { defineComponent, computed, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
@@ -229,7 +235,8 @@ export { App };
 `;
 
 exports[`fixtures > tests/fixtures/type-annotation.ts 1`] = `
-"import { defineComponent, h } from 'vue';
+"// type-annotation.js
+import { defineComponent, h } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
