@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
-"var basic = \`<script>
+"// basic.js
+var basic = \`<script>
 import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
@@ -23,7 +24,8 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/el-button.vue 1`] = `
-"var elButton = \`<script>
+"// el-button.js
+var elButton = \`<script>
 import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'ElButton',
@@ -169,7 +171,8 @@ export { elButton as default };
 `;
 
 exports[`fixtures > tests/fixtures/empty.vue 1`] = `
-"var empty = \`<script setup>
+"// empty.js
+var empty = \`<script setup>
 
 
 console.log(123)
@@ -193,7 +196,8 @@ exports[`fixtures > tests/fixtures/error5.vue 1`] = `[SyntaxError: defineOptions
 exports[`fixtures > tests/fixtures/error6.vue 1`] = `[SyntaxError: duplicate defineOptions() call]`;
 
 exports[`fixtures > tests/fixtures/function.vue 1`] = `
-"var _function = \`<script lang="ts">
+"// function.js
+var _function = \`<script lang="ts">
 import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   foo() {
@@ -223,7 +227,8 @@ export { _function as default };
 `;
 
 exports[`fixtures > tests/fixtures/imports.vue 1`] = `
-"var imports = \`<script lang="ts">
+"// imports.js
+var imports = \`<script lang="ts">
 import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   components: {
@@ -243,7 +248,8 @@ export { imports as default };
 `;
 
 exports[`fixtures > tests/fixtures/js.vue 1`] = `
-"var js = \`<script>
+"// js.js
+var js = \`<script>
 import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
@@ -267,7 +273,8 @@ export { js as default };
 `;
 
 exports[`fixtures > tests/fixtures/jsx.vue 1`] = `
-"var jsx = \`<script>
+"// jsx.js
+var jsx = \`<script>
 import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Jsx',
@@ -284,7 +291,8 @@ export { jsx as default };
 `;
 
 exports[`fixtures > tests/fixtures/no-transform.vue 1`] = `
-"var noTransform = \`<script setup>
+"// no-transform.js
+var noTransform = \`<script setup>
 console.log('setup')
 </script>
 
@@ -306,7 +314,8 @@ export { noTransform as default };
 `;
 
 exports[`fixtures > tests/fixtures/no-transform2.vue 1`] = `
-"var noTransform2 = \`<script setup>
+"// no-transform2.js
+var noTransform2 = \`<script setup>
 console.log('setup')
 </script>
 
@@ -322,7 +331,8 @@ export { noTransform2 as default };
 `;
 
 exports[`fixtures > tests/fixtures/reference-var.vue 1`] = `
-"var referenceVar = \`<script>
+"// reference-var.js
+var referenceVar = \`<script>
 import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent(options);
 </script>
@@ -337,7 +347,8 @@ export { referenceVar as default };
 `;
 
 exports[`fixtures > tests/fixtures/typescript.vue 1`] = `
-"var typescript = \`<script lang="ts">
+"// typescript.js
+var typescript = \`<script lang="ts">
 import { defineComponent as __MACROS_defineComponent } from "vue";
 export default /*#__PURE__*/ __MACROS_defineComponent({
   name: 'Foo',
@@ -361,7 +372,8 @@ export { typescript as default };
 `;
 
 exports[`fixtures > tests/fixtures/with-script.vue 1`] = `
-"var withScript = \`<script>
+"// with-script.js
+var withScript = \`<script>
 const name = '123'
 
 import { defineComponent as __MACROS_defineComponent } from "vue";

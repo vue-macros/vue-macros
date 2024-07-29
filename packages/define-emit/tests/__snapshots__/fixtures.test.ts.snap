@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/define-emit.vue 1`] = `
-"var defineEmit = \`<script setup lang="ts">
+"// define-emit.js
+var defineEmit = \`<script setup lang="ts">
 const __MACROS_emit = defineEmits({
       foo: null,
   bar: (value: string) => typeof value === 'string',

@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// basic.js
+import { defineComponent } from 'vue';
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -35,7 +36,8 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/boolean-prop.vue 1`] = `
-"import { resolveComponent, openBlock, createElementBlock, Fragment, createCommentVNode, createVNode } from 'vue';
+"// boolean-prop.js
+import { resolveComponent, openBlock, createElementBlock, Fragment, createCommentVNode, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const _sfc_main = {};
@@ -55,7 +57,8 @@ export { booleanProp as default };
 `;
 
 exports[`fixtures > tests/fixtures/case-233.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// case-233.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const msg = "Hello";
@@ -77,7 +80,8 @@ export { case233 as default };
 `;
 
 exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
-"import { defineComponent, toRefs } from 'vue';
+"// define-props-refs.js
+import { defineComponent, toRefs } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -104,7 +108,8 @@ export { definePropsRefs as default };
 exports[`fixtures > tests/fixtures/error-diff-lang.vue 1`] = `[Error: [unplugin-vue-macros] <script> and <script setup> must have the same language type.]`;
 
 exports[`fixtures > tests/fixtures/hoist-static.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// hoist-static.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const name = 'App';
@@ -133,7 +138,8 @@ export { hoistStatic as default };
 `;
 
 exports[`fixtures > tests/fixtures/hoist-static-scope.vue 1`] = `
-"import { defineComponent, openBlock, createElementBlock } from 'vue';
+"// hoist-static-scope.js
+import { defineComponent, openBlock, createElementBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const [name] = (
@@ -160,7 +166,8 @@ export { hoistStaticScope as default };
 `;
 
 exports[`fixtures > tests/fixtures/mixed-define-props.vue 1`] = `
-"import { defineComponent, toRefs, toRef } from 'vue';
+"// mixed-define-props.js
+import { defineComponent, toRefs, toRef } from 'vue';
 import __MACROS_normalizePropsOrEmits from '/vue-macros/define-prop/helper';
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
@@ -189,7 +196,8 @@ export { mixedDefineProps as default };
 `;
 
 exports[`fixtures > tests/fixtures/short-emits.setup.tsx 1`] = `
-"import { defineComponent } from 'vue';
+"// short-emits.setup.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -208,7 +216,8 @@ export { shortEmits_setup as default };
 `;
 
 exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// vue2-model.js
+import { defineComponent } from 'vue';
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 

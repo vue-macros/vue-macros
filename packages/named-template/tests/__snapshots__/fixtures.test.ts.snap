@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
-"import { defineComponent, createElementVNode, openBlock, createElementBlock, Fragment, toDisplayString, createTextVNode, createBlock } from 'vue';
+"// basic.js
+import { defineComponent, createElementVNode, openBlock, createElementBlock, Fragment, toDisplayString, createTextVNode, createBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const foo = "foo";
@@ -60,7 +61,8 @@ export { basic as default };
 `;
 
 exports[`fixtures > tests/fixtures/dash-name.vue 1`] = `
-"import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode, createBlock, Fragment } from 'vue';
+"// dash-name.js
+import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode, createBlock, Fragment } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -104,7 +106,8 @@ export { dashName as default };
 `;
 
 exports[`fixtures > tests/fixtures/multi.vue 1`] = `
-"import { defineComponent, openBlock, createElementBlock, createTextVNode, createElementVNode, Fragment, createBlock, createCommentVNode } from 'vue';
+"// multi.js
+import { defineComponent, openBlock, createElementBlock, createTextVNode, createElementVNode, Fragment, createBlock, createCommentVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const pager = "top";
