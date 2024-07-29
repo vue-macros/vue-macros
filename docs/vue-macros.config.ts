@@ -1,11 +1,13 @@
+/* eslint perfectionist/sort-objects: "error" */
 import { defineConfig } from 'unplugin-vue-macros'
 
 export default defineConfig({
-  scriptLang: true,
-  setupSFC: true,
   booleanProp: true,
   defineEmit: true,
-  defineProp: true,
-  templateRef: true,
   defineGeneric: true,
+  defineProp: true,
+  exportRender: true,
+  scriptLang: true,
+  setupSFC: true,
+  templateRef: true,
 })
