@@ -3,7 +3,7 @@ import type { VolarOptions } from '..'
 import type { Code, Sfc } from '@vue/language-core'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =
-  /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\({\n)/g
+  /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
 
 export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
   if (!decl.length) return

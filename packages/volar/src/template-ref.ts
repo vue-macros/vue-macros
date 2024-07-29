@@ -48,8 +48,8 @@ function transformTemplateRef({
   }
   addCode(codes, `const __VLS_refs = {\n${refs.join(',\n')}\n}`)
 
-  replace(codes, /function __VLS_template\(\) {/)
-  replace(codes, /(?<=__VLS_defineComponent\([\S\s]*?\);)\n}/)
+  replace(codes, /function __VLS_template\(\) \{/)
+  replace(codes, /(?<=__VLS_defineComponent\([\s\S]*?\);)\n\}/)
   replace(
     codes,
     /return __VLS_slots;\n/,
@@ -58,7 +58,7 @@ function transformTemplateRef({
 
   const codeString = toString(codes)
   for (const [, tagName, props, ref] of codeString.matchAll(
-    /__VLS_asFunctionalComponent\((.*), new \1\({(.*ref: \("(.*)"\).*)}\)\)/g,
+    /__VLS_asFunctionalComponent\((.*), new \1\(\{(.*ref: \("(.*)"\).*)\}\)\)/g,
   )) {
     if (tagName.startsWith('__VLS_')) {
       const result = codeString.match(

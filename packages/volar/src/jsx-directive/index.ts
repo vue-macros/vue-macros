@@ -59,9 +59,9 @@ export function transformJsxDirective(options: TransformOptions): void {
         vIfAttribute = attribute
       } else if (attributeName === 'v-for') {
         vForAttribute = attribute
-      } else if (/^v-slot(?=:\S*|$)/.test(attributeName)) {
+      } else if (/^v-slot(?=:|$)/.test(attributeName)) {
         vSlotAttribute = attribute
-      } else if (/^v-model(?=[:_]\S*|$)/.test(attributeName)) {
+      } else if (/^v-model(?=[:_]|$)/.test(attributeName)) {
         vModelMap.has(node) || vModelMap.set(node, [])
         vModelMap.get(node)!.push({
           node,
