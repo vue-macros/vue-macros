@@ -14,6 +14,13 @@ export default defineConfig({
     Devtools(),
     GitChangelog({
       repoURL: () => githubLink,
+      mapAuthors: [
+        {
+          name: 'Kevin Deng',
+          username: 'sxzz',
+          mapByEmailAliases: ['sxzz@sxzz.moe'],
+        },
+      ],
     }),
     GitChangelogMarkdownSection(),
   ],
