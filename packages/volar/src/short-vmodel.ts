@@ -2,8 +2,8 @@ import { transformShortVmodel } from '@vue-macros/short-vmodel'
 import { getVolarOptions } from './common'
 import type { VueLanguagePlugin } from '@vue/language-core'
 
-const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => {
-  const volarOptions = getVolarOptions(vueMacros, 'shortVmodel')
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'shortVmodel')
   if (!volarOptions) return []
 
   return {

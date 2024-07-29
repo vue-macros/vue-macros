@@ -4,7 +4,7 @@ import {
   type OptionsResolved,
 } from '@vue-macros/config'
 import { replace, replaceAll } from 'muggle-string'
-import type { Code, Sfc } from '@vue/language-core'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
@@ -65,14 +65,23 @@ export function addCode(codes: Code[], ...args: Code[]): void {
   codes.splice(index > -1 ? index + 1 : codes.length, 0, ...args)
 }
 
-let resolvedOptions: OptionsResolved | undefined
+export type PluginContext = Parameters<VueLanguagePlugin>[0]
+
+const resolvedOptions: Map<string, OptionsResolved> = new Map()
 
 export function getVolarOptions<K extends keyof OptionsResolved>(
-  vueMacros: Options | undefined,
+  context: PluginContext,
   key: K,
 ): OptionsResolved[K] {
-  resolvedOptions ||= resolveOptions(vueMacros)
-  return resolvedOptions[key]
+  const root = context.compilerOptions.pathsBasePath as string
+
+  let resolved: OptionsResolved | undefined
+  if (!resolvedOptions.has(root)) {
+    resolved = resolveOptions(context.vueCompilerOptions.vueMacros, root)
+    resolvedOptions.set(root, resolved)
+  }
+
+  return (resolved || resolvedOptions.get(root)!)[key]
 }
 
 export function getImportNames(

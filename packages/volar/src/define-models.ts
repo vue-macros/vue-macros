@@ -69,14 +69,15 @@ function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
   })
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros, target, lib },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'defineModels')
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'defineModels')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
+  const {
+    modules: { typescript: ts },
+    vueCompilerOptions: { target, lib },
+  } = ctx
 
   return {
     name: 'vue-macros-define-models',

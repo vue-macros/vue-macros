@@ -1,6 +1,6 @@
 declare module '@vue/language-core' {
   export interface VueCompilerOptions {
-    vueMacros?: import('..').VolarOptions
+    vueMacros?: import('@vue-macros/config').Options
   }
 }
 

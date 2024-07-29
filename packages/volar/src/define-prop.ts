@@ -218,14 +218,15 @@ function getDefineProp(
   return defineProps
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros, experimentalDefinePropProposal, lib },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'defineProp')
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'defineProp')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
+  const {
+    modules: { typescript: ts },
+    vueCompilerOptions: { experimentalDefinePropProposal, lib },
+  } = ctx
 
   return {
     name: 'vue-macros-define-prop',

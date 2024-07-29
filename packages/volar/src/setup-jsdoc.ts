@@ -49,11 +49,8 @@ function transform({
   }
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'setupJsdoc')
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'setupJsdoc')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
@@ -67,7 +64,7 @@ const plugin: VueLanguagePlugin = ({
       transform({
         codes: embeddedFile.content,
         sfc,
-        ts,
+        ts: ctx.modules.typescript,
       })
     },
   }

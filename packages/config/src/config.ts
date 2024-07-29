@@ -1,7 +1,7 @@
 import { makeSynchronized } from 'make-synchronized'
 import type { Options } from './options'
 
-export function loadConfig(): Omit<Options, 'plugins'> {
+export function loadConfig(cwd: string): Omit<Options, 'plugins'> {
   const url = import.meta.url
   const isDist = url.endsWith('.js')
   const filename = 'config-worker.js'
@@ -11,5 +11,5 @@ export function loadConfig(): Omit<Options, 'plugins'> {
   )
   const { loadConfigAsync } =
     makeSynchronized<typeof import('./config-worker')>(workerPath)
-  return loadConfigAsync()
+  return loadConfigAsync(cwd)
 }

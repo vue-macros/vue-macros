@@ -99,15 +99,18 @@ export type OptionsResolved = Required<OptionsCommon> & {
   [K in FeatureName]: false | FeatureOptionsMap[K]
 }
 
-export function resolveOptions(options?: Options): OptionsResolved {
-  const config = loadConfig()
+export function resolveOptions(
+  options?: Options,
+  cwd: string = process.cwd(),
+): OptionsResolved {
+  const config = loadConfig(cwd)
 
   let { isProduction, nuxtContext, plugins, root, version, ...subOptions } = {
     ...config,
     ...options,
   }
 
-  root = root || process.cwd()
+  root = root || cwd
   version = version || detectVueVersion(root)
   isProduction = isProduction ?? process.env.NODE_ENV === 'production'
 
