@@ -7,29 +7,29 @@ settings:
 catalogs:
   default:
     '@vue/compiler-core':
-      specifier: ^3.4.33
-      version: 3.4.33
+      specifier: ^3.4.34
+      version: 3.4.34
     '@vue/compiler-dom':
-      specifier: ^3.4.33
-      version: 3.4.33
+      specifier: ^3.4.34
+      version: 3.4.34
     '@vue/compiler-sfc':
-      specifier: ^3.4.33
-      version: 3.4.33
+      specifier: ^3.4.34
+      version: 3.4.34
     '@vue/language-core':
       specifier: 2.0.28
       version: 2.0.28
     '@vue/shared':
-      specifier: ^3.4.33
-      version: 3.4.33
+      specifier: ^3.4.34
+      version: 3.4.34
     unplugin:
-      specifier: ^1.11.0
-      version: 1.11.0
+      specifier: ^1.12.0
+      version: 1.12.0
     vite:
       specifier: ^5.3.4
       version: 5.3.4
     vue:
-      specifier: ^3.4.33
-      version: 3.4.33
+      specifier: ^3.4.34
+      version: 3.4.34
     vue-tsc:
       specifier: 2.0.28
       version: 2.0.28
@@ -141,7 +141,7 @@ importers:
         version: 2.0.4(@types/node@20.14.13)(@vitest/ui@2.0.4)(less@4.2.0)(terser@5.31.3)
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
       vue-tsc:
         specifier: 'catalog:'
         version: 2.0.28(typescript@5.5.4)
@@ -178,25 +178,25 @@ importers:
         version: 1.12.0(@nuxt/kit@3.12.4(rollup@4.19.1))(typescript@5.5.4)
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.0.0
-        version: 4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+        version: 4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       '@vue-macros/volar':
         specifier: workspace:*
         version: link:../packages/volar
       '@vueuse/core':
         specifier: ^10.11.0
-        version: 10.11.0(vue@3.4.33(typescript@5.5.4))
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../packages/macros
       vite-plugin-vue-devtools:
         specifier: ^7.3.7
-        version: 7.3.7(@nuxt/kit@3.12.4(rollup@4.19.1))(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+        version: 7.3.7(@nuxt/kit@3.12.4(rollup@4.19.1))(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       vitepress:
         specifier: ^1.3.1
         version: 1.3.1(@algolia/client-search@4.24.0)(@types/node@20.14.13)(less@4.2.0)(postcss@8.4.40)(terser@5.31.3)(typescript@5.5.4)
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/api:
     dependencies:
@@ -233,7 +233,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
 
   packages/boolean-prop:
     dependencies:
@@ -242,11 +242,11 @@ importers:
         version: link:../common
       '@vue/compiler-core':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
     devDependencies:
       '@vue/compiler-sfc':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
 
   packages/chain-call:
     dependencies:
@@ -255,7 +255,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
 
   packages/common:
     dependencies:
@@ -267,7 +267,7 @@ importers:
         version: 5.1.0(rollup@4.19.1)
       '@vue/compiler-sfc':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
       ast-kit:
         specifier: ^1.0.0
         version: 1.0.0
@@ -295,11 +295,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/define-models:
     dependencies:
@@ -311,17 +311,17 @@ importers:
         version: 0.6.1
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       '@vue-macros/api':
         specifier: workspace:^
         version: link:../api
       '@vueuse/core':
         specifier: ^10.11.0
-        version: 10.11.0(vue@3.4.33(typescript@5.5.4))
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/define-options:
     dependencies:
@@ -333,11 +333,11 @@ importers:
         version: 0.6.1
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/define-prop:
     dependencies:
@@ -349,11 +349,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/define-props:
     dependencies:
@@ -362,14 +362,14 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       '@vue-macros/reactivity-transform':
         specifier: workspace:*
         version: link:../reactivity-transform
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/define-props-refs:
     dependencies:
@@ -378,11 +378,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/define-render:
     dependencies:
@@ -391,11 +391,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/define-slots:
     dependencies:
@@ -404,11 +404,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/devtools:
     dependencies:
@@ -417,14 +417,14 @@ importers:
         version: 2.0.4
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
     devDependencies:
       '@unocss/reset':
         specifier: ^0.61.6
         version: 0.61.6
       '@vitejs/plugin-vue':
         specifier: ^5.1.1
-        version: 5.1.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+        version: 5.1.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       get-port:
         specifier: ^7.1.0
         version: 7.1.0
@@ -448,14 +448,14 @@ importers:
         version: link:../common
       '@vue/compiler-sfc':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/export-props:
     dependencies:
@@ -464,11 +464,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/export-render:
     dependencies:
@@ -477,14 +477,14 @@ importers:
         version: link:../common
       '@vue/compiler-sfc':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/hoist-static:
     dependencies:
@@ -493,7 +493,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
 
   packages/jsx-directive:
     dependencies:
@@ -502,11 +502,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/macros:
     dependencies:
@@ -596,7 +596,7 @@ importers:
         version: 0.4.5
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
       unplugin-combine:
         specifier: ^1.0.2
         version: 1.0.2(@rspack/core@0.7.5)(esbuild@0.23.0)(rolldown@0.12.2)(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(webpack@5.93.0(esbuild@0.23.0))
@@ -606,7 +606,7 @@ importers:
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/named-template:
     dependencies:
@@ -615,14 +615,14 @@ importers:
         version: link:../common
       '@vue/compiler-dom':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/nuxt:
     dependencies:
@@ -659,16 +659,16 @@ importers:
         version: link:../common
       '@vue/compiler-core':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
       '@vue/shared':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
       magic-string:
         specifier: ^0.30.11
         version: 0.30.11
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
 
   packages/script-lang:
     dependencies:
@@ -677,11 +677,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/setup-block:
     dependencies:
@@ -690,10 +690,10 @@ importers:
         version: link:../common
       '@vue/compiler-dom':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
 
   packages/setup-component:
     dependencies:
@@ -702,11 +702,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/setup-sfc:
     dependencies:
@@ -715,11 +715,11 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
     devDependencies:
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/short-bind:
     dependencies:
@@ -728,11 +728,11 @@ importers:
         version: link:../common
       '@vue/compiler-core':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
     devDependencies:
       '@vue/compiler-sfc':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
 
   packages/short-emits:
     dependencies:
@@ -741,7 +741,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.11.0
+        version: 1.12.0
 
   packages/short-vmodel:
     dependencies:
@@ -750,11 +750,11 @@ importers:
         version: link:../common
       '@vue/compiler-core':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
     devDependencies:
       '@vue/compiler-sfc':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
 
   packages/test-utils:
     dependencies:
@@ -772,10 +772,10 @@ importers:
         version: 0.2.1(vitest@2.0.4(@types/node@20.14.13)(@vitest/ui@2.0.4)(less@4.2.0)(terser@5.31.3))
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.0.0
-        version: 4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+        version: 4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       '@vitejs/plugin-vue2':
         specifier: ^2.3.1
-        version: 2.3.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+        version: 2.3.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       esbuild:
         specifier: ^0.23.0
         version: 0.23.0
@@ -790,14 +790,14 @@ importers:
         version: 6.1.1(esbuild@0.23.0)(rollup@4.19.1)
       unplugin-vue:
         specifier: ^5.0.5
-        version: 5.0.5(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(vue@3.4.33(typescript@5.5.4))
+        version: 5.0.5(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(vue@3.4.34(typescript@5.5.4))
     devDependencies:
       vite:
         specifier: 'catalog:'
         version: 5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   packages/volar:
     dependencies:
@@ -825,7 +825,7 @@ importers:
     devDependencies:
       '@vue/compiler-dom':
         specifier: 'catalog:'
-        version: 3.4.33
+        version: 3.4.34
       typescript:
         specifier: ~5.5.4
         version: 5.5.4
@@ -837,19 +837,19 @@ importers:
     dependencies:
       '@astrojs/vue':
         specifier: ^4.5.0
-        version: 4.5.0(astro@4.12.2(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(typescript@5.5.4))(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+        version: 4.5.0(astro@4.12.2(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(typescript@5.5.4))(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       '@vue-macros/astro':
         specifier: workspace:*
         version: link:../../packages/astro
       '@vueuse/core':
         specifier: ^10.11.0
-        version: 10.11.0(vue@3.4.33(typescript@5.5.4))
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
       astro:
         specifier: ^4.12.2
         version: 4.12.2(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(typescript@5.5.4)
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
 
   playground/vue2:
     dependencies:
@@ -919,13 +919,13 @@ importers:
     dependencies:
       '@vueuse/core':
         specifier: ^10.11.0
-        version: 10.11.0(vue@3.4.33(typescript@5.5.4))
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
       quasar:
         specifier: ^2.16.6
         version: 2.16.6
       vue:
         specifier: 'catalog:'
-        version: 3.4.33(typescript@5.5.4)
+        version: 3.4.34(typescript@5.5.4)
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: ^26.0.1
@@ -935,10 +935,10 @@ importers:
         version: 15.2.3(rollup@4.19.1)
       '@vitejs/plugin-vue':
         specifier: ^5.1.1
-        version: 5.1.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+        version: 5.1.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.0.0
-        version: 4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+        version: 4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       '@vue-macros/volar':
         specifier: workspace:*
         version: link:../../packages/volar
@@ -965,7 +965,7 @@ importers:
         version: 0.61.6(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))
       unplugin-vue:
         specifier: ^5.0.5
-        version: 5.0.5(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(vue@3.4.33(typescript@5.5.4))
+        version: 5.0.5(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(vue@3.4.34(typescript@5.5.4))
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../../packages/macros
@@ -2454,14 +2454,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@vue/compiler-core@3.4.33':
-    resolution: {integrity: sha512-MoIREbkdPQlnGfSKDMgzTqzqx5nmEjIc0ydLVYlTACGBsfvOJ4tHSbZXKVF536n6fB+0eZaGEOqsGThPpdvF5A==}
-
   '@vue/compiler-core@3.4.34':
     resolution: {integrity: sha512-Z0izUf32+wAnQewjHu+pQf1yw00EGOmevl1kE+ljjjMe7oEfpQ+BI3/JNK7yMB4IrUsqLDmPecUrpj3mCP+yJQ==}
-
-  '@vue/compiler-dom@3.4.33':
-    resolution: {integrity: sha512-GzB8fxEHKw0gGet5BKlpfXEqoBnzSVWwMnT+dc25wE7pFEfrU/QsvjZMP9rD4iVXHBBoemTct8mN0GJEI6ZX5A==}
 
   '@vue/compiler-dom@3.4.34':
     resolution: {integrity: sha512-3PUOTS1h5cskdOJMExCu2TInXuM0j60DRPpSCJDqOCupCfUZCJoyQmKtRmA8EgDNZ5kcEE7vketamRZfrEuVDw==}
@@ -2469,14 +2463,8 @@ packages:
   '@vue/compiler-sfc@2.7.16':
     resolution: {integrity: sha512-KWhJ9k5nXuNtygPU7+t1rX6baZeqOYLEforUPjgNDBnLicfHCoi48H87Q8XyLZOrNNsmhuwKqtpDQWjEFe6Ekg==}
 
-  '@vue/compiler-sfc@3.4.33':
-    resolution: {integrity: sha512-7rk7Vbkn21xMwIUpHQR4hCVejwE6nvhBOiDgoBcR03qvGqRKA7dCBSsHZhwhYUsmjlbJ7OtD5UFIyhP6BY+c8A==}
-
   '@vue/compiler-sfc@3.4.34':
     resolution: {integrity: sha512-x6lm0UrM03jjDXTPZgD9Ad8bIVD1ifWNit2EaWQIZB5CULr46+FbLQ5RpK7AXtDHGjx9rmvC7QRCTjsiGkAwRw==}
-
-  '@vue/compiler-ssr@3.4.33':
-    resolution: {integrity: sha512-0WveC9Ai+eT/1b6LCV5IfsufBZ0HP7pSSTdDjcuW302tTEgoBw8rHVHKPbGUtzGReUFCRXbv6zQDDgucnV2WzQ==}
 
   '@vue/compiler-ssr@3.4.34':
     resolution: {integrity: sha512-8TDBcLaTrFm5rnF+Qm4BlliaopJgqJ28Nsrc80qazynm5aJO+Emu7y0RWw34L8dNnTRdcVBpWzJxhGYzsoVu4g==}
@@ -2509,36 +2497,19 @@ packages:
       typescript:
         optional: true
 
-  '@vue/reactivity@3.4.33':
-    resolution: {integrity: sha512-B24QIelahDbyHipBgbUItQblbd4w5HpG3KccL+YkGyo3maXyS253FzcTR3pSz739OTphmzlxP7JxEMWBpewilA==}
-
   '@vue/reactivity@3.4.34':
     resolution: {integrity: sha512-ua+Lo+wBRlBEX9TtgPOShE2JwIO7p6BTZ7t1KZVPoaBRfqbC7N3c8Mpzicx173fXxx5VXeU6ykiHo7WgLzJQDA==}
-
-  '@vue/runtime-core@3.4.33':
-    resolution: {integrity: sha512-6wavthExzT4iAxpe8q37/rDmf44nyOJGISJPxCi9YsQO+8w9v0gLCFLfH5TzD1V1AYrTAdiF4Y1cgUmP68jP6w==}
 
   '@vue/runtime-core@3.4.34':
     resolution: {integrity: sha512-PXhkiRPwcPGJ1BnyBZFI96GfInCVskd0HPNIAZn7i3YOmLbtbTZpB7/kDTwC1W7IqdGPkTVC63IS7J2nZs4Ebg==}
 
-  '@vue/runtime-dom@3.4.33':
-    resolution: {integrity: sha512-iHsMCUSFJ+4z432Bn9kZzHX+zOXa6+iw36DaVRmKYZpPt9jW9riF32SxNwB124i61kp9+AZtheQ/mKoJLerAaQ==}
-
   '@vue/runtime-dom@3.4.34':
     resolution: {integrity: sha512-dXqIe+RqFAK2Euak4UsvbIupalrhc67OuQKpD7HJ3W2fv8jlqvI7szfBCsAEcE8o/wyNpkloxB6J8viuF/E3gw==}
-
-  '@vue/server-renderer@3.4.33':
-    resolution: {integrity: sha512-jTH0d6gQcaYideFP/k0WdEu8PpRS9MF8d0b6SfZzNi+ap972pZ0TNIeTaESwdOtdY0XPVj54XEJ6K0wXxir4fw==}
-    peerDependencies:
-      vue: 3.4.33
 
   '@vue/server-renderer@3.4.34':
     resolution: {integrity: sha512-GeyEUfMVRZMD/mZcNONEqg7MiU10QQ1DB3O/Qr6+8uXpbwdlmVgQ5Qs1/ZUAFX1X2UUtqMoGrDRbxdWfOJFT7Q==}
     peerDependencies:
       vue: 3.4.34
-
-  '@vue/shared@3.4.33':
-    resolution: {integrity: sha512-aoRY0jQk3A/cuvdkodTrM4NMfxco8n55eG4H7ML/CRy7OryHfiqvug4xrCBBMbbN+dvXAetDDwZW9DXWWjBntA==}
 
   '@vue/shared@3.4.34':
     resolution: {integrity: sha512-x5LmiRLpRsd9KTjAB8MPKf0CDPMcuItjP0gbNqFCIgL1I8iYp4zglhj9w9FPCdIbHG2M91RVeIbArFfFTz9I3A==}
@@ -5438,6 +5409,10 @@ packages:
     resolution: {integrity: sha512-3r7VWZ/webh0SGgJScpWl2/MRCZK5d3ZYFcNaeci/GQ7Teop7zf0Nl2pUuz7G21BwPd9pcUPOC5KmJ2L3WgC5g==}
     engines: {node: '>=14.0.0'}
 
+  unplugin@1.12.0:
+    resolution: {integrity: sha512-KeczzHl2sATPQUx1gzo+EnUkmN4VmGBYRRVOZSGvGITE9rGHRDGqft6ONceP3vgXcyJ2XjX5axG5jMWUwNCYLw==}
+    engines: {node: '>=14.0.0'}
+
   unplugin@1.7.1:
     resolution: {integrity: sha512-JqzORDAPxxs8ErLV4x+LL7bk5pk3YlcWqpSNsIkAZj972KzFZLClc/ekppahKkOczGkwIG6ElFgdOgOlK4tXZw==}
 
@@ -5621,14 +5596,6 @@ packages:
   vue@2.7.16:
     resolution: {integrity: sha512-4gCtFXaAA3zYZdTp5s4Hl2sozuySsgz4jy1EnpBHNfpMa9dK1ZCG7viqBPCwXtmgc8nHqUsAu3G4gtmXkkY3Sw==}
     deprecated: Vue 2 has reached EOL and is no longer actively maintained. See https://v2.vuejs.org/eol/ for more details.
-
-  vue@3.4.33:
-    resolution: {integrity: sha512-VdMCWQOummbhctl4QFMcW6eNtXHsFyDlX60O/tsSQuCcuDOnJ1qPOhhVla65Niece7xq/P2zyZReIO5mP+LGTQ==}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   vue@3.4.34:
     resolution: {integrity: sha512-VZze05HWlA3ItreQ/ka7Sx7PoD0/3St8FEiSlSTVgb6l4hL+RjtP2/8g5WQBzZgyf8WG2f+g1bXzC7zggLhAJA==}
@@ -5941,14 +5908,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/vue@4.5.0(astro@4.12.2(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(typescript@5.5.4))(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))':
+  '@astrojs/vue@4.5.0(astro@4.12.2(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(typescript@5.5.4))(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))':
     dependencies:
-      '@vitejs/plugin-vue': 5.1.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
-      '@vitejs/plugin-vue-jsx': 4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+      '@vitejs/plugin-vue': 5.1.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
+      '@vitejs/plugin-vue-jsx': 4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       '@vue/compiler-sfc': 3.4.34
       astro: 4.12.2(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(typescript@5.5.4)
-      vite-plugin-vue-devtools: 7.3.7(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
-      vue: 3.4.33(typescript@5.5.4)
+      vite-plugin-vue-devtools: 7.3.7(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
+      vue: 3.4.34(typescript@5.5.4)
     transitivePeerDependencies:
       - '@nuxt/kit'
       - rollup
@@ -7669,13 +7636,13 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  '@vitejs/plugin-vue-jsx@4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))':
+  '@vitejs/plugin-vue-jsx@4.0.0(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))':
     dependencies:
       '@babel/core': 7.24.9
       '@babel/plugin-transform-typescript': 7.24.8(@babel/core@7.24.9)
       '@vue/babel-plugin-jsx': 1.2.2(@babel/core@7.24.9)
       vite: 5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)
-      vue: 3.4.33(typescript@5.5.4)
+      vue: 3.4.34(typescript@5.5.4)
     transitivePeerDependencies:
       - supports-color
 
@@ -7697,15 +7664,10 @@ snapshots:
       vite: 5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)
       vue: 2.7.16
 
-  '@vitejs/plugin-vue2@2.3.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))':
+  '@vitejs/plugin-vue2@2.3.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))':
     dependencies:
       vite: 5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)
-      vue: 3.4.33(typescript@5.5.4)
-
-  '@vitejs/plugin-vue@5.1.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))':
-    dependencies:
-      vite: 5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)
-      vue: 3.4.33(typescript@5.5.4)
+      vue: 3.4.34(typescript@5.5.4)
 
   '@vitejs/plugin-vue@5.1.1(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))':
     dependencies:
@@ -7886,14 +7848,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vue/compiler-core@3.4.33':
-    dependencies:
-      '@babel/parser': 7.25.0
-      '@vue/shared': 3.4.33
-      entities: 4.5.0
-      estree-walker: 2.0.2
-      source-map-js: 1.2.0
-
   '@vue/compiler-core@3.4.34':
     dependencies:
       '@babel/parser': 7.25.0
@@ -7901,11 +7855,6 @@ snapshots:
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.2.0
-
-  '@vue/compiler-dom@3.4.33':
-    dependencies:
-      '@vue/compiler-core': 3.4.33
-      '@vue/shared': 3.4.33
 
   '@vue/compiler-dom@3.4.34':
     dependencies:
@@ -7920,18 +7869,6 @@ snapshots:
     optionalDependencies:
       prettier: 2.8.8
 
-  '@vue/compiler-sfc@3.4.33':
-    dependencies:
-      '@babel/parser': 7.25.0
-      '@vue/compiler-core': 3.4.33
-      '@vue/compiler-dom': 3.4.33
-      '@vue/compiler-ssr': 3.4.33
-      '@vue/shared': 3.4.33
-      estree-walker: 2.0.2
-      magic-string: 0.30.11
-      postcss: 8.4.40
-      source-map-js: 1.2.0
-
   '@vue/compiler-sfc@3.4.34':
     dependencies:
       '@babel/parser': 7.25.0
@@ -7943,11 +7880,6 @@ snapshots:
       magic-string: 0.30.11
       postcss: 8.4.40
       source-map-js: 1.2.0
-
-  '@vue/compiler-ssr@3.4.33':
-    dependencies:
-      '@vue/compiler-dom': 3.4.33
-      '@vue/shared': 3.4.33
 
   '@vue/compiler-ssr@3.4.34':
     dependencies:
@@ -7969,7 +7901,7 @@ snapshots:
     transitivePeerDependencies:
       - vite
 
-  '@vue/devtools-core@7.3.7(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))':
+  '@vue/devtools-core@7.3.7(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))':
     dependencies:
       '@vue/devtools-kit': 7.3.7
       '@vue/devtools-shared': 7.3.7
@@ -7977,7 +7909,7 @@ snapshots:
       nanoid: 3.3.7
       pathe: 1.1.2
       vite-hot-client: 0.2.3(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))
-      vue: 3.4.33(typescript@5.5.4)
+      vue: 3.4.34(typescript@5.5.4)
     transitivePeerDependencies:
       - vite
 
@@ -8018,30 +7950,14 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.4
 
-  '@vue/reactivity@3.4.33':
-    dependencies:
-      '@vue/shared': 3.4.33
-
   '@vue/reactivity@3.4.34':
     dependencies:
       '@vue/shared': 3.4.34
-
-  '@vue/runtime-core@3.4.33':
-    dependencies:
-      '@vue/reactivity': 3.4.33
-      '@vue/shared': 3.4.33
 
   '@vue/runtime-core@3.4.34':
     dependencies:
       '@vue/reactivity': 3.4.34
       '@vue/shared': 3.4.34
-
-  '@vue/runtime-dom@3.4.33':
-    dependencies:
-      '@vue/reactivity': 3.4.33
-      '@vue/runtime-core': 3.4.33
-      '@vue/shared': 3.4.33
-      csstype: 3.1.3
 
   '@vue/runtime-dom@3.4.34':
     dependencies:
@@ -8050,19 +7966,11 @@ snapshots:
       '@vue/shared': 3.4.34
       csstype: 3.1.3
 
-  '@vue/server-renderer@3.4.33(vue@3.4.33(typescript@5.5.4))':
-    dependencies:
-      '@vue/compiler-ssr': 3.4.33
-      '@vue/shared': 3.4.33
-      vue: 3.4.33(typescript@5.5.4)
-
   '@vue/server-renderer@3.4.34(vue@3.4.34(typescript@5.5.4))':
     dependencies:
       '@vue/compiler-ssr': 3.4.34
       '@vue/shared': 3.4.34
       vue: 3.4.34(typescript@5.5.4)
-
-  '@vue/shared@3.4.33': {}
 
   '@vue/shared@3.4.34': {}
 
@@ -8072,16 +7980,6 @@ snapshots:
       '@vueuse/metadata': 10.11.0
       '@vueuse/shared': 10.11.0(vue@2.7.16)
       vue-demi: 0.14.8(vue@2.7.16)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-
-  '@vueuse/core@10.11.0(vue@3.4.33(typescript@5.5.4))':
-    dependencies:
-      '@types/web-bluetooth': 0.0.20
-      '@vueuse/metadata': 10.11.0
-      '@vueuse/shared': 10.11.0(vue@3.4.33(typescript@5.5.4))
-      vue-demi: 0.14.8(vue@3.4.33(typescript@5.5.4))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -8112,13 +8010,6 @@ snapshots:
   '@vueuse/shared@10.11.0(vue@2.7.16)':
     dependencies:
       vue-demi: 0.14.8(vue@2.7.16)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - vue
-
-  '@vueuse/shared@10.11.0(vue@3.4.33(typescript@5.5.4))':
-    dependencies:
-      vue-demi: 0.14.8(vue@3.4.33(typescript@5.5.4))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -11391,7 +11282,7 @@ snapshots:
   unplugin-combine@1.0.2(@rspack/core@0.7.5)(esbuild@0.23.0)(rolldown@0.12.2)(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(webpack@5.93.0(esbuild@0.23.0)):
     dependencies:
       '@antfu/utils': 0.7.10
-      unplugin: 1.11.0
+      unplugin: 1.12.0
     optionalDependencies:
       '@rspack/core': 0.7.5
       esbuild: 0.23.0
@@ -11427,13 +11318,13 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  unplugin-vue@5.0.5(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(vue@3.4.33(typescript@5.5.4)):
+  unplugin-vue@5.0.5(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)(vue@3.4.34(typescript@5.5.4)):
     dependencies:
       '@vue/reactivity': 3.4.34
       debug: 4.3.5
       unplugin: 1.7.1
       vite: 5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3)
-      vue: 3.4.33(typescript@5.5.4)
+      vue: 3.4.34(typescript@5.5.4)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -11445,6 +11336,13 @@ snapshots:
       - terser
 
   unplugin@1.11.0:
+    dependencies:
+      acorn: 8.12.1
+      chokidar: 3.6.0
+      webpack-sources: 3.2.3
+      webpack-virtual-modules: 0.6.2
+
+  unplugin@1.12.0:
     dependencies:
       acorn: 8.12.1
       chokidar: 3.6.0
@@ -11593,9 +11491,9 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-vue-devtools@7.3.7(@nuxt/kit@3.12.4(rollup@4.19.1))(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4)):
+  vite-plugin-vue-devtools@7.3.7(@nuxt/kit@3.12.4(rollup@4.19.1))(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4)):
     dependencies:
-      '@vue/devtools-core': 7.3.7(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+      '@vue/devtools-core': 7.3.7(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       '@vue/devtools-kit': 7.3.7
       '@vue/devtools-shared': 7.3.7
       execa: 8.0.1
@@ -11609,9 +11507,9 @@ snapshots:
       - supports-color
       - vue
 
-  vite-plugin-vue-devtools@7.3.7(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4)):
+  vite-plugin-vue-devtools@7.3.7(rollup@4.19.1)(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4)):
     dependencies:
-      '@vue/devtools-core': 7.3.7(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.33(typescript@5.5.4))
+      '@vue/devtools-core': 7.3.7(vite@5.3.4(@types/node@20.14.13)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
       '@vue/devtools-kit': 7.3.7
       '@vue/devtools-shared': 7.3.7
       execa: 8.0.1
@@ -11741,10 +11639,6 @@ snapshots:
     dependencies:
       vue: 2.7.16
 
-  vue-demi@0.14.8(vue@3.4.33(typescript@5.5.4)):
-    dependencies:
-      vue: 3.4.33(typescript@5.5.4)
-
   vue-demi@0.14.8(vue@3.4.34(typescript@5.5.4)):
     dependencies:
       vue: 3.4.34(typescript@5.5.4)
@@ -11782,16 +11676,6 @@ snapshots:
     dependencies:
       '@vue/compiler-sfc': 2.7.16
       csstype: 3.1.3
-
-  vue@3.4.33(typescript@5.5.4):
-    dependencies:
-      '@vue/compiler-dom': 3.4.33
-      '@vue/compiler-sfc': 3.4.33
-      '@vue/runtime-dom': 3.4.33
-      '@vue/server-renderer': 3.4.33(vue@3.4.33(typescript@5.5.4))
-      '@vue/shared': 3.4.33
-    optionalDependencies:
-      typescript: 5.5.4
 
   vue@3.4.34(typescript@5.5.4):
     dependencies:
