@@ -164,7 +164,7 @@ const bar = $(defineProp(0, true))
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "vueMacros": {
       "defineProp": true,
     },

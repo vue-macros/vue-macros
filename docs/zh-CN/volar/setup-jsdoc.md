@@ -79,7 +79,7 @@ export default <div />
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
   },
 }
 ```

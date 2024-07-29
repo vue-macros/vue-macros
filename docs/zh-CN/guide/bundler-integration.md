@@ -148,7 +148,7 @@ npm i -D @vue-macros/volar
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "vueMacros": {
       "setupSFC": true,
       "defineEmit": true,
@@ -156,7 +156,7 @@ npm i -D @vue-macros/volar
       "scriptLang": true,
       "booleanProp": true,
       "templateRef": true,
-      "defineGeneric": true,
+      "exportRender": true,
 
       // 选择以下其中一个
       // "exportProps": true
@@ -174,7 +174,7 @@ npm i -D @vue-macros/volar
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "vueMacros": {
       "exportExpose": {
         "include": ["**/export-expose/**"],

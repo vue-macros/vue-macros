@@ -19,7 +19,7 @@
 
 ::: code-group
 
-```ts {7-11} [Vite]
+```ts {7-14} [Vite]
 // vite.config.ts
 import Vue from '@vitejs/plugin-vue'
 import VueMacros from 'unplugin-vue-macros/vite'
@@ -91,7 +91,7 @@ export default () => (
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
   },
 }
 ```

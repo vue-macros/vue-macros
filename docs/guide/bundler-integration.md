@@ -140,15 +140,11 @@ Vite and Rollup are fully supported, while other bundlers have limited support.
 
 For detailed configuration, please refer to the description of the specific macro.
 
-```bash
-npm i -D @vue-macros/volar
-```
-
 ```jsonc
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "vueMacros": {
       "setupSFC": true,
       "defineEmit": true,
@@ -156,7 +152,7 @@ npm i -D @vue-macros/volar
       "scriptLang": true,
       "booleanProp": true,
       "templateRef": true,
-      "defineGeneric": true,
+      "exportRender": true,
 
       // Choose only one of the following
       // "exportProps": true
@@ -174,7 +170,7 @@ npm i -D @vue-macros/volar
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "vueMacros": {
       "exportExpose": {
         "include": ["**/export-expose/**"],

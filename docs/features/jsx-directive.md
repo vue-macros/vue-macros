@@ -217,7 +217,7 @@ Modifiers are special postfixes denoted by a `_`, which indicate that a directiv
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
   },
 }
 ```
