@@ -1,8 +1,4 @@
-import {
-  resolveOptions,
-  type Options,
-  type OptionsResolved,
-} from '@vue-macros/config'
+import { resolveOptions, type OptionsResolved } from '@vue-macros/config'
 import { replace, replaceAll } from 'muggle-string'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 

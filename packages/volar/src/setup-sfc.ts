@@ -7,8 +7,6 @@ const plugin: VueLanguagePlugin = (ctx) => {
   const volarOptions = getVolarOptions(ctx, 'setupSFC')
   if (!volarOptions) return []
 
-  console.log(volarOptions)
-
   const isValidFile = createFilter({
     ...volarOptions,
     include: volarOptions.include || REGEX_SETUP_SFC,
