@@ -41,7 +41,7 @@ defineProps<{
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"]
+    "plugins": ["unplugin-vue-macros/volar"],
   },
 }
 ```
