@@ -20,6 +20,7 @@ export default defineConfig({
   namedTemplate: false,
   reactivityTransform: true,
   scriptLang: true,
+  scriptSFC: true,
   setupBlock: true,
   setupSFC: true,
   shortBind: true,
