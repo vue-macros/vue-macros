@@ -31,11 +31,14 @@ export default () => <div>ok</div>
 
 ## Volar 配置
 
-```jsonc {4}
+```jsonc {4,8}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
+    "vueMacros": {
+      "exportRender": true,
+    },
   },
 }
 ```

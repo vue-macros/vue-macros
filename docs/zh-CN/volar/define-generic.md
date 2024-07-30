@@ -1,6 +1,6 @@
 # templateRef <PackageVersion name="@vue-macros/volar" />
 
-<StabilityLevel level="experimental" />
+<StabilityLevel level="stable" />
 
 使用 `DefineGeneric` 逐个声明单个范型。
 
@@ -37,14 +37,11 @@ defineProps<{
 
 ## Volar 配置
 
-```jsonc {4,6}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
-    "vueMacros": {
-      "defineGeneric": true,
-    },
+    "plugins": ["unplugin-vue-macros/volar"],
   },
 }
 ```

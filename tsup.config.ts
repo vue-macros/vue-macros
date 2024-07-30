@@ -8,7 +8,7 @@ import Raw from 'unplugin-raw/esbuild'
 const filename = fileURLToPath(import.meta.url)
 
 export default defineConfig({
-  entry: ['./src/*.ts'],
+  entry: ['./src/*.ts', '!./**.d.ts'],
   format: ['cjs', 'esm'],
   target: 'node16.14',
   splitting: true,

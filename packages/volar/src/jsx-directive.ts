@@ -3,11 +3,8 @@ import { getVolarOptions } from './common'
 import { transformJsxDirective } from './jsx-directive/index'
 import type { VueLanguagePlugin } from '@vue/language-core'
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros, target },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'jsxDirective')
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'jsxDirective')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
@@ -25,9 +22,9 @@ const plugin: VueLanguagePlugin = ({
         transformJsxDirective({
           codes: embeddedFile.content,
           sfc,
-          ts,
+          ts: ctx.modules.typescript,
           source,
-          vueVersion: target,
+          vueVersion: ctx.vueCompilerOptions.target,
         })
       }
     },

@@ -101,7 +101,7 @@ console.log(quuz)
 
 const unknownType = __MACROS_toRef(__props, "unknownType")
 
-// @ts-expect-error reactivity transform
+// @ts-ignore reactivity transform
 const $foo = $(__MACROS_toRef(__props, "$foo"))
 const $bar = $(__MACROS_toRef(__props, "$bar"))
 </script>

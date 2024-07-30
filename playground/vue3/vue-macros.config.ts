@@ -1,27 +1,28 @@
 import { defineConfig } from 'unplugin-vue-macros'
 
 export default defineConfig({
-  setupBlock: true,
-  scriptLang: true,
-
-  defineOptions: true,
-  defineSlots: true,
-  hoistStatic: true,
-  shortEmits: true,
-  shortBind: true,
-
-  namedTemplate: false,
-  setupSFC: true,
   booleanProp: true,
-
-  exportProps: {
-    include: [/export-props.*\.vue$/],
-  },
+  defineEmit: true,
+  defineGeneric: true,
+  defineOptions: true,
+  defineProp: true,
+  defineSlots: true,
   exportExpose: {
     include: [/export-expose.*\.vue$/],
   },
-  exportRender: {
-    include: [/export-render.*\.vue$/],
+  exportProps: {
+    include: [/export-props.*\.vue$/],
   },
+  exportRender: {
+    include: [/export-render.*\.vue$/, /\.setup\.tsx?$/],
+  },
+  hoistStatic: true,
+  namedTemplate: false,
   reactivityTransform: true,
+  scriptLang: true,
+  setupBlock: true,
+  setupSFC: true,
+  shortBind: true,
+  shortEmits: true,
+  templateRef: true,
 })

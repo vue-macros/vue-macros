@@ -8,13 +8,15 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/vue": "^4.5.0",
     "@vue-macros/astro": "workspace:*",
     "@vueuse/core": "^10.11.0",
     "astro": "^4.12.2",
+    "unplugin-vue-macros": "workspace:*",
     "vue": "catalog:"
   }
 }

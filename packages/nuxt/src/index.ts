@@ -5,21 +5,27 @@ import VueMacros from 'unplugin-vue-macros/vite'
 import { githubRepo } from '../../../macros' with { type: 'macro' }
 import type {} from '@nuxt/devtools'
 import type { NuxtModule } from '@nuxt/schema'
-import type { VolarOptions } from '@vue-macros/volar'
 import type { RawVueCompilerOptions } from '@vue/language-core'
 import type { Plugin } from 'vite'
 
-export type VueMacrosOptions = Options
-
-const module: NuxtModule<Options> = defineNuxtModule<VueMacrosOptions>({
+const module: NuxtModule<Options> = defineNuxtModule<Options>({
   meta: {
-    name: 'unplugin-vue-macros',
+    name: 'vue-macros',
     configKey: 'macros',
   },
   defaults: {},
   setup(options) {
     const nuxt = useNuxt()
     const resolvedOptions = resolveOptions(options)
+
+    nuxt.options.typescript.tsConfig ||= {}
+    // @ts-expect-error
+    nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {}
+    const vueCompilerOptions = nuxt.options.typescript.tsConfig
+      .vueCompilerOptions as unknown as RawVueCompilerOptions
+
+    vueCompilerOptions.plugins ||= []
+    vueCompilerOptions.plugins.push('unplugin-vue-macros/volar')
 
     nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       function findPluginAndRemove(name: string): Plugin | undefined {
@@ -40,6 +46,7 @@ const module: NuxtModule<Options> = defineNuxtModule<VueMacrosOptions>({
           ...resolvedOptions,
           plugins: { vue, vueJsx },
           nuxtContext: { isClient },
+          // TODO: no config file
         }),
       )
     })
@@ -60,56 +67,7 @@ const module: NuxtModule<Options> = defineNuxtModule<VueMacrosOptions>({
       })
     })
 
-    nuxt.options.typescript.tsConfig ||= {}
-
-    // @ts-expect-error https://github.com/unjs/pkg-types/pull/130
-    nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {}
-    const vueCompilerOptions = nuxt.options.typescript.tsConfig
-      .vueCompilerOptions as unknown as RawVueCompilerOptions
-
-    vueCompilerOptions.vueMacros ||= {}
-    const volarOptions = vueCompilerOptions.vueMacros as VolarOptions
-
-    vueCompilerOptions.plugins ||= []
-    const volarPlugins = vueCompilerOptions.plugins
-
-    if (resolvedOptions.defineOptions)
-      volarPlugins.push('@vue-macros/volar/define-options')
-
-    if (resolvedOptions.defineSlots)
-      volarPlugins.push('@vue-macros/volar/define-slots')
-
-    if (resolvedOptions.defineModels)
-      volarPlugins.push('@vue-macros/volar/define-models')
-
-    if (resolvedOptions.defineProps)
-      volarPlugins.push('@vue-macros/volar/define-props')
-
-    if (resolvedOptions.definePropsRefs)
-      volarPlugins.push('@vue-macros/volar/define-props-refs')
-
-    if (resolvedOptions.exportProps)
-      volarPlugins.push('@vue-macros/volar/export-props')
-
-    if (resolvedOptions.jsxDirective)
-      volarPlugins.push('@vue-macros/volar/jsx-directive')
-
-    if (resolvedOptions.defineProp)
-      vueCompilerOptions.experimentalDefinePropProposal =
-        resolvedOptions.defineProp.edition || 'kevinEdition'
-
-    if (resolvedOptions.shortBind)
-      volarPlugins.push('@vue-macros/volar/short-bind')
-
-    if (resolvedOptions.shortVmodel) {
-      volarPlugins.push('@vue-macros/volar/short-vmodel')
-      volarOptions.shortVmodel = {
-        prefix: resolvedOptions.shortVmodel.prefix,
-      }
-    }
-
     const viteVue = (nuxt.options.vite.vue ||= {})
-
     if (resolvedOptions.setupSFC) {
       viteVue.include ||= [/\.vue$/]
       if (!Array.isArray(viteVue.include)) viteVue.include = [viteVue.include]
@@ -152,9 +110,9 @@ export default module
 
 declare module '@nuxt/schema' {
   interface NuxtConfig {
-    macros?: VueMacrosOptions
+    macros?: Options
   }
   interface NuxtOptions {
-    macros?: VueMacrosOptions
+    macros?: Options
   }
 }

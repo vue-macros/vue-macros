@@ -1,6 +1,6 @@
-# 打包器集成
+# 构建工具集成
 
-### 安装
+## 安装
 
 ::: code-group
 
@@ -31,8 +31,9 @@ export default defineConfig({
     VueMacros({
       plugins: {
         vue: Vue(),
-        // vueJsx: VueJsx(), // 如果需要
+        // vueJsx: VueJsx(), // 如有需要
       },
+      // 覆盖插件选项
     }),
   ],
 })
@@ -48,8 +49,9 @@ export default {
     VueMacros({
       plugins: {
         vue: Vue(),
-        // vueJsx: VueJsx(), // 如果需要
+        // vueJsx: VueJsx(), // 如有需要
       },
+      // 覆盖插件选项
     }),
   ],
 }
@@ -64,8 +66,9 @@ build({
     require('unplugin-vue-macros/esbuild')({
       plugins: {
         vue: require('unplugin-vue/esbuild')(),
-        // vueJsx: VueJsx(), // 如果需要
+        // vueJsx: VueJsx(), // 如有需要
       },
+      // 覆盖插件选项
     }),
   ],
 })
@@ -75,7 +78,11 @@ build({
 // webpack.config.js
 module.exports = {
   /* ... */
-  plugins: [require('unplugin-vue-macros/webpack')({})],
+  plugins: [
+    require('unplugin-vue-macros/webpack')({
+      // 覆盖插件选项
+    }),
+  ],
 }
 ```
 
@@ -83,7 +90,11 @@ module.exports = {
 // rspack.config.js
 module.exports = {
   /* ... */
-  plugins: [require('unplugin-vue-macros/rspack')({})],
+  plugins: [
+    require('unplugin-vue-macros/rspack')({
+      // 覆盖插件选项
+    }),
+  ],
 }
 ```
 
@@ -97,7 +108,11 @@ module.exports = defineConfig({
   // ⚠️ 重要
   parallel: false,
   configureWebpack: {
-    plugins: [VueMacros({})],
+    plugins: [
+      VueMacros({
+        // 覆盖插件选项
+      }),
+    ],
   },
 })
 ```
@@ -106,11 +121,24 @@ module.exports = defineConfig({
 
 ::: tip
 
-完全支持 Vite 和 Rollup，其他打包器的支持有限。
+完全支持 Vite 和 Rollup，其他构建工具支持有限。
 
 :::
 
-## TypeScript 支持 {#typescript-support}
+## 配置
+
+详情请参阅 [配置](./configurations.md)。
+
+```ts twoslash
+// vue-macros.config.ts
+
+import { defineConfig } from 'unplugin-vue-macros'
+export default defineConfig({
+  // 选项
+})
+```
+
+## TypeScript 支持
 
 ::: code-group
 
@@ -138,55 +166,40 @@ module.exports = defineConfig({
 
 ## Volar 支持
 
-有关宏的详细配置请参考每个宏的具体说明。
-
-```bash
-npm i -D @vue-macros/volar
-```
+详细配置请参阅具体宏的描述。
 
 ```jsonc
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
-    "vueMacros": {
-      "setupSFC": true,
-      "defineEmit": true,
-      "defineProp": true,
-      "scriptLang": true,
-      "booleanProp": true,
-      "templateRef": true,
-      "defineGeneric": true,
-
-      // 选择以下其中一个
-      // "exportProps": true
-      // "exportExpose": true
-    },
+    "plugins": ["unplugin-vue-macros/volar"],
   },
 }
 ```
 
-### Scoped Plugins
+### 作用域插件
 
-除非提供范围，否则不能同时使用 `export-expose` 和 `export-props` 插件。
+`exportExpose`、`exportProps` 和 `exportRender` 插件不能同时使用，除非提供作用域。
 
-```jsonc
-// tsconfig.json
-{
-  "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
-    "vueMacros": {
-      "exportExpose": {
-        "include": ["**/export-expose/**"],
-      },
-      "exportProps": {
-        "include": ["**/export-props/**"],
-      },
-    },
+```ts twoslash
+// vue-macros.config.ts
+
+import { defineConfig } from 'unplugin-vue-macros'
+export default defineConfig({
+  exportExpose: {
+    include: ['**/export-expose/**'],
   },
-}
+  exportProps: {
+    include: ['**/export-props/**'],
+  },
+  exportRender: {
+    include: ['**/export-render/**'],
+  },
+})
 ```
 
-:tada: 恭喜你! 目前你已经成功将 Vue Macros 设置完成。
+---
 
-如果你还想要了解有关宏的更多信息, 请访问 [全部宏](/zh-CN/macros/) :laughing:。
+:tada: 恭喜！你已成功设置 Vue Macros。
+
+想了解更多关于宏的信息，请访问 [所有宏](/macros/) :laughing:.

@@ -47,11 +47,8 @@ function getDefineGenerics(
   return result
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'defineGeneric', false)
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'defineGeneric')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
@@ -77,7 +74,11 @@ const plugin: VueLanguagePlugin = ({
       resolveEmbeddedCode(fileName, sfc, embeddedFile) {
         if (!filter(fileName) || !sfc.scriptSetup?.ast) return
 
-        const defineGenerics = getDefineGenerics(ts, sfc, embeddedFile.content)
+        const defineGenerics = getDefineGenerics(
+          ctx.modules.typescript,
+          sfc,
+          embeddedFile.content,
+        )
         if (!defineGenerics.length) return
 
         replace(

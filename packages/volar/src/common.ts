@@ -1,6 +1,6 @@
+import { resolveOptions, type OptionsResolved } from '@vue-macros/config'
 import { replace, replaceAll } from 'muggle-string'
-import type { VolarOptions } from '..'
-import type { Code, Sfc } from '@vue/language-core'
+import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
@@ -61,15 +61,23 @@ export function addCode(codes: Code[], ...args: Code[]): void {
   codes.splice(index > -1 ? index + 1 : codes.length, 0, ...args)
 }
 
-export function getVolarOptions<K extends keyof VolarOptions>(
-  vueMacros: VolarOptions | undefined,
+export type PluginContext = Parameters<VueLanguagePlugin>[0]
+
+const resolvedOptions: Map<string, OptionsResolved> = new Map()
+
+export function getVolarOptions<K extends keyof OptionsResolved>(
+  context: PluginContext,
   key: K,
-  defaultEnabled = true,
-): Exclude<VolarOptions[K], boolean> | undefined {
-  const options = vueMacros?.[key] ?? defaultEnabled
-  if (options) {
-    return options === true ? ({} as any) : options
+): OptionsResolved[K] {
+  const root = context.compilerOptions.pathsBasePath as string
+
+  let resolved: OptionsResolved | undefined
+  if (!resolvedOptions.has(root)) {
+    resolved = resolveOptions(context.vueCompilerOptions.vueMacros, root)
+    resolvedOptions.set(root, resolved)
   }
+
+  return (resolved || resolvedOptions.get(root)!)[key]
 }
 
 export function getImportNames(
@@ -105,7 +113,7 @@ export function getImportNames(
   return names
 }
 
-interface Options {
+export interface VolarContext {
   sfc: Sfc
   ts: typeof import('typescript')
   source?: 'script' | 'scriptSetup'
@@ -113,17 +121,17 @@ interface Options {
 
 export function getStart(
   node: import('typescript').Node,
-  { ts, sfc, source = 'scriptSetup' }: Options,
+  { ts, sfc, source = 'scriptSetup' }: VolarContext,
 ): number {
   return (ts as any).getTokenPosOfNode(node, sfc[source]!.ast)
 }
 
 export function getText(
   node: import('typescript').Node,
-  options: Options,
+  context: VolarContext,
 ): string {
-  const { sfc, source = 'scriptSetup' } = options
-  return sfc[source]!.content.slice(getStart(node, options), node.end)
+  const { sfc, source = 'scriptSetup' } = context
+  return sfc[source]!.content.slice(getStart(node, context), node.end)
 }
 
 export function isJsxExpression(

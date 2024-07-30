@@ -26,6 +26,6 @@ features:
     title: 类型安全
     details: 完整的 TypeScript 和 Volar 支持。
   - icon: ⚡️
-    title: 支持多个打包器
+    title: 支持多个构建工具
     details: 由 unplugin 驱动，支持 Vite、Nuxt、Webpack、Vue CLI、Rollup 3、esbuild 等。
 ---

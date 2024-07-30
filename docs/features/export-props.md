@@ -28,7 +28,7 @@ export const bar: number = 1 // with default value
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "vueMacros": {
       "exportProps": true,
     },

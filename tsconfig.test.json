@@ -8,8 +8,13 @@
   "include": [
     "packages/*/tests",
     "packages/*/src",
-    "packages/shim.d.ts",
+    "**/shim.d.ts",
     "**/tsup.config.ts"
   ],
-  "exclude": ["**/dist", "**/tests/fixtures", "packages/volar", "packages/nuxt"]
+  "exclude": [
+    "**/dist",
+    "**/tests/fixtures",
+    "packages/volar/src",
+    "packages/nuxt"
+  ]
 }

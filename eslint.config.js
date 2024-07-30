@@ -49,4 +49,10 @@ export default sxzz([
       '@typescript-eslint/no-dynamic-delete': 'off',
     },
   },
+  {
+    files: ['**/vue-macros.config.ts'],
+    rules: {
+      'perfectionist/sort-objects': 'error',
+    },
+  },
 ])

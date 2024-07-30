@@ -3,8 +3,6 @@ import VueMacros from 'unplugin-vue-macros/vite'
 import type { AstroIntegration, ViteUserConfig } from 'astro'
 import type { Plugin } from 'vite'
 
-export type VueMacrosOptions = Options
-
 function findPluginAndRemove(
   name: string,
   plugins: ViteUserConfig['plugins'],
@@ -18,12 +16,12 @@ function findPluginAndRemove(
   return plugin as any
 }
 
-export default function (options?: VueMacrosOptions): AstroIntegration {
+export default function (options?: Options): AstroIntegration {
   return {
     name: '@vue-macros/astro',
     hooks: {
       'astro:config:setup': ({ config }) => {
-        const resolvedOptions = resolveOptions(options ?? {})
+        const resolvedOptions = resolveOptions(options || {})
         const vue = findPluginAndRemove('vite:vue', config.vite.plugins)
         const vueJsx = findPluginAndRemove('vite:vue-jsx', config.vite.plugins)
 

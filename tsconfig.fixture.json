@@ -5,18 +5,20 @@
   },
   "include": ["**/fixtures/**/*", "packages/macros/macros-global.d.ts"],
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "vueMacros": {
       "setupSFC": true,
-      "defineGeneric": true,
       "shortVmodel": {
         "prefix": "$"
+      },
+      "exportExpose": {
+        "include": ["**/export-expose/**"]
       },
       "exportProps": {
         "include": ["**/export-props/**"]
       },
-      "exportExpose": {
-        "include": ["**/export-expose/**"]
+      "exportRender": {
+        "include": ["**/export-render/**", "**.setup.tsx"]
       },
       "scriptLang": {
         "include": ["**/script-lang/**"]
