@@ -1,5 +1,5 @@
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import vueMacrosPlugin from '@vue-macros/volar'
+import VueMacrosPlugin from '@vue-macros/volar'
 import ts from 'typescript'
 import { defineConfig } from 'vitepress'
 import { docsLink } from '../../macros'
@@ -50,7 +50,7 @@ export default defineConfig({
             types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
           },
           vueCompilerOptions: {
-            plugins: [vueMacrosPlugin],
+            plugins: [VueMacrosPlugin],
           },
         },
       }),
