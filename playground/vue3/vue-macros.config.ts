@@ -20,7 +20,9 @@ export default defineConfig({
   namedTemplate: false,
   reactivityTransform: true,
   scriptLang: true,
-  scriptSFC: true,
+  scriptSFC: {
+    include: [/script-sfc.*\.tsx$/],
+  },
   setupBlock: true,
   setupSFC: true,
   shortBind: true,

@@ -1,4 +1,4 @@
-import { createFilter } from '@vue-macros/common'
+import { createFilter, REGEX_NODE_MODULES } from '@vue-macros/common'
 import { parse, type VueLanguagePlugin } from '@vue/language-core'
 import { getVolarOptions, patchSFC } from './common'
 
@@ -8,16 +8,15 @@ const plugin: VueLanguagePlugin = (ctx) => {
 
   const isValidFile = createFilter({
     ...volarOptions,
-    include: volarOptions.include || [/\.[cm]?tsx?$/],
+    include: volarOptions.include || /\.[cm]?tsx?$/,
+    exclude: volarOptions.exclude || REGEX_NODE_MODULES,
   })
 
   return {
     name: 'vue-macros-script-sfc',
     version: 2.1,
     order: -1,
-    isValidFile: (fileName) => {
-      return isValidFile(fileName)
-    },
+    isValidFile,
     parseSFC2(fileName, _, content) {
       if (!isValidFile(fileName)) return
 
