@@ -6,14 +6,16 @@ import {
   type NodeTypes,
 } from '@vue/compiler-core'
 
-const reg = /^(::?|\$|\*)(?=[A-Z_])/i
-
 export interface Options {
   version?: number
 }
 
 export function transformShortBind(options: Options = {}): NodeTransform {
   const version = options.version || 3.3
+  const reg = new RegExp(
+    `^(::${version < 3.4 ? '?' : ''}|\\$|\\*)(?=[A-Z_])`,
+    'i',
+  )
 
   return (node, context) => {
     if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
@@ -27,13 +29,9 @@ export function transformShortBind(options: Options = {}): NodeTransform {
             ? !prop.exp
             : false)
       ) {
-        let [, prefix, valueName] = prop.loc.source.split(reg)
-        if (valueName) {
-          valueName = valueName.replaceAll(/-([A-Z])/gi, (_, name) =>
-            name.toUpperCase(),
-          )
-        }
-        if (version >= 3.4 && prefix === ':') return
+        const valueName = prop.loc.source
+          .replace(reg, '')
+          .replaceAll(/-([A-Z])/gi, (_, name) => name.toUpperCase())
 
         if (prop.type === (6 satisfies NodeTypes.ATTRIBUTE)) {
           prop.value = {
