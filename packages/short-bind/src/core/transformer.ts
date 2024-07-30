@@ -6,14 +6,17 @@ import {
   type NodeTypes,
 } from '@vue/compiler-core'
 
-const reg = /^(::?|\$|\*)(?=[A-Z_])/i
-
 export interface Options {
-  // empty
+  version?: number
 }
 
-// eslint-disable-next-line unused-imports/no-unused-vars -- not be used by now
-export function transformShortBind(_options: Options = {}): NodeTransform {
+export function transformShortBind(options: Options = {}): NodeTransform {
+  const version = options.version || 3.3
+  const reg = new RegExp(
+    `^(::${version < 3.4 ? '?' : ''}|\\$|\\*)(?=[A-Z_])`,
+    'i',
+  )
+
   return (node, context) => {
     if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
 

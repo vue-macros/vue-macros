@@ -146,7 +146,7 @@ export function resolveOptions(
     setupComponent: resolveSubOptions('setupComponent'),
     setupJsdoc: resolveSubOptions('setupJsdoc'),
     setupSFC: resolveSubOptions('setupSFC', false),
-    shortBind: resolveSubOptions('shortBind', false),
+    shortBind: resolveSubOptions('shortBind'),
     shortEmits: resolveSubOptions('shortEmits', 3.3),
     shortVmodel: resolveSubOptions('shortVmodel'),
     templateRef: resolveSubOptions('templateRef'),

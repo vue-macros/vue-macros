@@ -11,7 +11,9 @@ const plugin: VueLanguagePlugin = (ctx) => {
     version: 2.1,
     resolveTemplateCompilerOptions(options) {
       options.nodeTransforms ||= []
-      options.nodeTransforms.push(transformShortBind())
+      options.nodeTransforms.push(
+        transformShortBind({ version: ctx.vueCompilerOptions.target }),
+      )
       return options
     },
   }
