@@ -76,9 +76,6 @@ importers:
       '@vue-macros/test-utils':
         specifier: workspace:*
         version: link:packages/test-utils
-      '@vue-macros/volar':
-        specifier: workspace:*
-        version: link:packages/volar
       esbuild:
         specifier: ^0.23.0
         version: 0.23.0
@@ -133,6 +130,9 @@ importers:
       unplugin-raw:
         specifier: ^0.2.2
         version: 0.2.2(rollup@4.19.1)
+      unplugin-vue-macros:
+        specifier: workspace:*
+        version: link:packages/macros
       vite:
         specifier: 'catalog:'
         version: 5.3.5(@types/node@22.0.0)(less@4.2.0)(terser@5.31.3)
@@ -284,6 +284,96 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^5.1.1
         version: 5.1.1(vite@5.3.5(@types/node@22.0.0)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
+
+  packages/config:
+    dependencies:
+      '@vue-macros/better-define':
+        specifier: workspace:*
+        version: link:../better-define
+      '@vue-macros/boolean-prop':
+        specifier: workspace:*
+        version: link:../boolean-prop
+      '@vue-macros/chain-call':
+        specifier: workspace:^
+        version: link:../chain-call
+      '@vue-macros/common':
+        specifier: workspace:*
+        version: link:../common
+      '@vue-macros/define-emit':
+        specifier: workspace:^
+        version: link:../define-emit
+      '@vue-macros/define-models':
+        specifier: workspace:*
+        version: link:../define-models
+      '@vue-macros/define-prop':
+        specifier: workspace:^
+        version: link:../define-prop
+      '@vue-macros/define-props':
+        specifier: workspace:*
+        version: link:../define-props
+      '@vue-macros/define-props-refs':
+        specifier: workspace:*
+        version: link:../define-props-refs
+      '@vue-macros/define-render':
+        specifier: workspace:*
+        version: link:../define-render
+      '@vue-macros/define-slots':
+        specifier: workspace:*
+        version: link:../define-slots
+      '@vue-macros/devtools':
+        specifier: workspace:^
+        version: link:../devtools
+      '@vue-macros/export-expose':
+        specifier: workspace:*
+        version: link:../export-expose
+      '@vue-macros/export-props':
+        specifier: workspace:*
+        version: link:../export-props
+      '@vue-macros/export-render':
+        specifier: workspace:*
+        version: link:../export-render
+      '@vue-macros/hoist-static':
+        specifier: workspace:*
+        version: link:../hoist-static
+      '@vue-macros/jsx-directive':
+        specifier: workspace:*
+        version: link:../jsx-directive
+      '@vue-macros/named-template':
+        specifier: workspace:*
+        version: link:../named-template
+      '@vue-macros/reactivity-transform':
+        specifier: workspace:*
+        version: link:../reactivity-transform
+      '@vue-macros/script-lang':
+        specifier: workspace:*
+        version: link:../script-lang
+      '@vue-macros/setup-block':
+        specifier: workspace:*
+        version: link:../setup-block
+      '@vue-macros/setup-component':
+        specifier: workspace:*
+        version: link:../setup-component
+      '@vue-macros/setup-sfc':
+        specifier: workspace:*
+        version: link:../setup-sfc
+      '@vue-macros/short-bind':
+        specifier: workspace:*
+        version: link:../short-bind
+      '@vue-macros/short-emits':
+        specifier: workspace:*
+        version: link:../short-emits
+      '@vue-macros/short-vmodel':
+        specifier: workspace:*
+        version: link:../short-vmodel
+      make-synchronized:
+        specifier: ^0.2.9
+        version: 0.2.9
+      unconfig:
+        specifier: ^0.5.1
+        version: 0.5.2
+      unplugin-vue-define-options:
+        specifier: workspace:*
+        version: link:../define-options
 
   packages/define-emit:
     dependencies:
@@ -522,6 +612,9 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
+      '@vue-macros/config':
+        specifier: workspace:*
+        version: link:../config
       '@vue-macros/define-emit':
         specifier: workspace:^
         version: link:../define-emit
@@ -588,12 +681,9 @@ importers:
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
-      make-synchronized:
-        specifier: ^0.2.9
-        version: 0.2.9
-      unconfig:
-        specifier: ^0.5.1
-        version: 0.5.1
+      '@vue-macros/volar':
+        specifier: workspace:*
+        version: link:../volar
       unplugin:
         specifier: 'catalog:'
         version: 1.12.0
@@ -630,11 +720,8 @@ importers:
         specifier: ^3.12.4
         version: 3.12.4(magicast@0.3.4)(rollup@4.19.1)
       '@vue-macros/common':
-        specifier: workspace:~
-        version: link:../common
-      '@vue-macros/volar':
         specifier: workspace:*
-        version: link:../volar
+        version: link:../common
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:../macros
@@ -807,6 +894,9 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
+      '@vue-macros/config':
+        specifier: workspace:*
+        version: link:../config
       '@vue-macros/define-props':
         specifier: workspace:*
         version: link:../define-props
@@ -847,6 +937,9 @@ importers:
       astro:
         specifier: ^4.12.2
         version: 4.12.2(@types/node@22.0.0)(less@4.2.0)(terser@5.31.3)(typescript@5.5.4)
+      unplugin-vue-macros:
+        specifier: workspace:*
+        version: link:../../packages/macros
       vue:
         specifier: 'catalog:'
         version: 3.4.34(typescript@5.5.4)
@@ -872,9 +965,6 @@ importers:
       '@vitejs/plugin-vue2-jsx':
         specifier: ^1.1.1
         version: 1.1.1(rollup@4.19.1)(vite@5.3.5(@types/node@22.0.0)(less@4.2.0)(terser@5.31.3))(vue@2.7.16)
-      '@vue-macros/volar':
-        specifier: workspace:*
-        version: link:../../packages/volar
       '@vue/babel-helper-vue-jsx-merge-props':
         specifier: ^1.4.0
         version: 1.4.0
@@ -939,9 +1029,6 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.0.0
         version: 4.0.0(vite@5.3.5(@types/node@22.0.0)(less@4.2.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4))
-      '@vue-macros/volar':
-        specifier: workspace:*
-        version: link:../../packages/volar
       esbuild:
         specifier: ^0.23.0
         version: 0.23.0
@@ -5295,8 +5382,8 @@ packages:
   unconfig@0.4.5:
     resolution: {integrity: sha512-+b4pZmGFeT3FD9EHWGkNwuOwrNzfgUq4ZoTh63+EKDyxLvYKajbowjRcKLumGExmPKNi5jxIpzhheKsPtV8dig==}
 
-  unconfig@0.5.1:
-    resolution: {integrity: sha512-Axtv3JqA8c4fS0rdcoX58kchLfvOxP/9se9yTkWS5SitxKEIBnIKUz9uey3kd7ytevGDMq+cDiv6uplLyXTHJg==}
+  unconfig@0.5.2:
+    resolution: {integrity: sha512-t/A8ckfwCSO0pB9ZTcianK27GbWpgiZScB0N8IgQnli3fQNLKFW4GTS6Ekf+oCwXQz/uvxZ7MhKTpcH25B6hEA==}
 
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
@@ -11158,7 +11245,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  unconfig@0.5.1:
+  unconfig@0.5.2:
     dependencies:
       '@antfu/utils': 0.7.10
       defu: 6.1.4

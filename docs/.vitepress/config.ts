@@ -1,12 +1,9 @@
-import { createRequire } from 'node:module'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import VueMacrosPlugin from '@vue-macros/volar'
 import ts from 'typescript'
 import { defineConfig } from 'vitepress'
 import { docsLink } from '../../macros'
 import { getLocaleConfig } from './locale'
-
-const require = createRequire(import.meta.url)
-const vueMacrosPlugin = require('@vue-macros/volar')
 
 export default defineConfig({
   lastUpdated: true,
@@ -53,17 +50,7 @@ export default defineConfig({
             types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
           },
           vueCompilerOptions: {
-            plugins: [vueMacrosPlugin],
-            // @ts-ignore
-            vueMacros: {
-              scriptLang: true,
-              setupSFC: true,
-              booleanProp: true,
-              defineEmit: true,
-              defineProp: true,
-              templateRef: true,
-              defineGeneric: true,
-            },
+            plugins: [VueMacrosPlugin],
           },
         },
       }),

@@ -37,7 +37,7 @@ console.log(quuz)
 
 const unknownType = defineProp<unknown | boolean>()
 
-// @ts-expect-error reactivity transform
+// @ts-ignore reactivity transform
 const $foo = $defineProp('$foo', { default: 'foo', required: true })
 const $bar = $(defineProp('$bar', { default: 'bar' }))
 </script>

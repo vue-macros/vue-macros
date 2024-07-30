@@ -1,6 +1,6 @@
 # Bundler Integration
 
-### Installation
+## Installation
 
 ::: code-group
 
@@ -33,6 +33,7 @@ export default defineConfig({
         vue: Vue(),
         // vueJsx: VueJsx(), // if needed
       },
+      // overrides plugin options
     }),
   ],
 })
@@ -50,6 +51,7 @@ export default {
         vue: Vue(),
         // vueJsx: VueJsx(), // if needed
       },
+      // overrides plugin options
     }),
   ],
 }
@@ -66,6 +68,7 @@ build({
         vue: require('unplugin-vue/esbuild')(),
         // vueJsx: VueJsx(), // if needed
       },
+      // overrides plugin options
     }),
   ],
 })
@@ -75,7 +78,11 @@ build({
 // webpack.config.js
 module.exports = {
   /* ... */
-  plugins: [require('unplugin-vue-macros/webpack')({})],
+  plugins: [
+    require('unplugin-vue-macros/webpack')({
+      // overrides plugin options
+    }),
+  ],
 }
 ```
 
@@ -83,7 +90,11 @@ module.exports = {
 // rspack.config.js
 module.exports = {
   /* ... */
-  plugins: [require('unplugin-vue-macros/rspack')({})],
+  plugins: [
+    require('unplugin-vue-macros/rspack')({
+      // overrides plugin options
+    }),
+  ],
 }
 ```
 
@@ -97,7 +108,11 @@ module.exports = defineConfig({
   // ⚠️ IMPORTANT
   parallel: false,
   configureWebpack: {
-    plugins: [VueMacros({})],
+    plugins: [
+      VueMacros({
+        // overrides plugin options
+      }),
+    ],
   },
 })
 ```
@@ -109,6 +124,19 @@ module.exports = defineConfig({
 Vite and Rollup are fully supported, while other bundlers have limited support.
 
 :::
+
+## Configuration
+
+See the [Configurations](./configurations.md) for more details.
+
+```ts twoslash
+// vue-macros.config.ts
+
+import { defineConfig } from 'unplugin-vue-macros'
+export default defineConfig({
+  // options
+})
+```
 
 ## TypeScript Support
 
@@ -140,51 +168,35 @@ Vite and Rollup are fully supported, while other bundlers have limited support.
 
 For detailed configuration, please refer to the description of the specific macro.
 
-```bash
-npm i -D @vue-macros/volar
-```
-
 ```jsonc
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
-    "vueMacros": {
-      "setupSFC": true,
-      "defineEmit": true,
-      "defineProp": true,
-      "scriptLang": true,
-      "booleanProp": true,
-      "templateRef": true,
-      "defineGeneric": true,
-
-      // Choose only one of the following
-      // "exportProps": true
-      // "exportExpose": true
-    },
+    "plugins": ["unplugin-vue-macros/volar"],
   },
 }
 ```
 
 ### Scoped Plugins
 
-`export-expose` and `export-props` plugins cannot be used at the same time unless providing a scope.
+`exportExpose`, `exportProps`, and `exportRender` plugins cannot be used
+at the same time unless providing a scope.
 
-```jsonc
-// tsconfig.json
-{
-  "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
-    "vueMacros": {
-      "exportExpose": {
-        "include": ["**/export-expose/**"],
-      },
-      "exportProps": {
-        "include": ["**/export-props/**"],
-      },
-    },
+```ts twoslash
+// vue-macros.config.ts
+
+import { defineConfig } from 'unplugin-vue-macros'
+export default defineConfig({
+  exportExpose: {
+    include: ['**/export-expose/**'],
   },
-}
+  exportProps: {
+    include: ['**/export-props/**'],
+  },
+  exportRender: {
+    include: ['**/export-render/**'],
+  },
+})
 ```
 
 ---

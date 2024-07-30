@@ -28,36 +28,224 @@
     "*.d.ts",
     "dist"
   ],
-  "types": "./index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
       "dev": "./src/index.ts",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
     },
-    "./*": {
-      "types": "./*.d.ts",
-      "dev": "./src/*.ts",
-      "require": "./dist/*.js"
+    "./boolean-prop": {
+      "dev": "./src/boolean-prop.ts",
+      "require": "./dist/boolean-prop.js",
+      "import": "./dist/boolean-prop.mjs"
+    },
+    "./common": {
+      "dev": "./src/common.ts",
+      "require": "./dist/common.js",
+      "import": "./dist/common.mjs"
+    },
+    "./define-emit": {
+      "dev": "./src/define-emit.ts",
+      "require": "./dist/define-emit.js",
+      "import": "./dist/define-emit.mjs"
+    },
+    "./define-generic": {
+      "dev": "./src/define-generic.ts",
+      "require": "./dist/define-generic.js",
+      "import": "./dist/define-generic.mjs"
+    },
+    "./define-models": {
+      "dev": "./src/define-models.ts",
+      "require": "./dist/define-models.js",
+      "import": "./dist/define-models.mjs"
+    },
+    "./define-options": {
+      "dev": "./src/define-options.ts",
+      "require": "./dist/define-options.js",
+      "import": "./dist/define-options.mjs"
+    },
+    "./define-prop": {
+      "dev": "./src/define-prop.ts",
+      "require": "./dist/define-prop.js",
+      "import": "./dist/define-prop.mjs"
+    },
+    "./define-props": {
+      "dev": "./src/define-props.ts",
+      "require": "./dist/define-props.js",
+      "import": "./dist/define-props.mjs"
+    },
+    "./define-props-refs": {
+      "dev": "./src/define-props-refs.ts",
+      "require": "./dist/define-props-refs.js",
+      "import": "./dist/define-props-refs.mjs"
+    },
+    "./define-slots": {
+      "dev": "./src/define-slots.ts",
+      "require": "./dist/define-slots.js",
+      "import": "./dist/define-slots.mjs"
+    },
+    "./export-expose": {
+      "dev": "./src/export-expose.ts",
+      "require": "./dist/export-expose.js",
+      "import": "./dist/export-expose.mjs"
+    },
+    "./export-props": {
+      "dev": "./src/export-props.ts",
+      "require": "./dist/export-props.js",
+      "import": "./dist/export-props.mjs"
+    },
+    "./export-render": {
+      "dev": "./src/export-render.ts",
+      "require": "./dist/export-render.js",
+      "import": "./dist/export-render.mjs"
+    },
+    "./jsx-directive": {
+      "dev": "./src/jsx-directive.ts",
+      "require": "./dist/jsx-directive.js",
+      "import": "./dist/jsx-directive.mjs"
+    },
+    "./script-lang": {
+      "dev": "./src/script-lang.ts",
+      "require": "./dist/script-lang.js",
+      "import": "./dist/script-lang.mjs"
+    },
+    "./setup-jsdoc": {
+      "dev": "./src/setup-jsdoc.ts",
+      "require": "./dist/setup-jsdoc.js",
+      "import": "./dist/setup-jsdoc.mjs"
+    },
+    "./setup-sfc": {
+      "dev": "./src/setup-sfc.ts",
+      "require": "./dist/setup-sfc.js",
+      "import": "./dist/setup-sfc.mjs"
+    },
+    "./short-bind": {
+      "dev": "./src/short-bind.ts",
+      "require": "./dist/short-bind.js",
+      "import": "./dist/short-bind.mjs"
+    },
+    "./short-vmodel": {
+      "dev": "./src/short-vmodel.ts",
+      "require": "./dist/short-vmodel.js",
+      "import": "./dist/short-vmodel.mjs"
+    },
+    "./template-ref": {
+      "dev": "./src/template-ref.ts",
+      "require": "./dist/template-ref.js",
+      "import": "./dist/template-ref.mjs"
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
     }
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": {
-        "types": "./index.d.ts",
-        "dev": "./dist/index.ts",
-        "require": "./dist/index.js"
+        "require": "./dist/index.js",
+        "import": "./dist/index.mjs"
       },
-      "./*": {
-        "types": "./*.d.ts",
-        "require": "./dist/*.js"
-      }
+      "./boolean-prop": {
+        "require": "./dist/boolean-prop.js",
+        "import": "./dist/boolean-prop.mjs"
+      },
+      "./common": {
+        "require": "./dist/common.js",
+        "import": "./dist/common.mjs"
+      },
+      "./define-emit": {
+        "require": "./dist/define-emit.js",
+        "import": "./dist/define-emit.mjs"
+      },
+      "./define-generic": {
+        "require": "./dist/define-generic.js",
+        "import": "./dist/define-generic.mjs"
+      },
+      "./define-models": {
+        "require": "./dist/define-models.js",
+        "import": "./dist/define-models.mjs"
+      },
+      "./define-options": {
+        "require": "./dist/define-options.js",
+        "import": "./dist/define-options.mjs"
+      },
+      "./define-prop": {
+        "require": "./dist/define-prop.js",
+        "import": "./dist/define-prop.mjs"
+      },
+      "./define-props": {
+        "require": "./dist/define-props.js",
+        "import": "./dist/define-props.mjs"
+      },
+      "./define-props-refs": {
+        "require": "./dist/define-props-refs.js",
+        "import": "./dist/define-props-refs.mjs"
+      },
+      "./define-slots": {
+        "require": "./dist/define-slots.js",
+        "import": "./dist/define-slots.mjs"
+      },
+      "./export-expose": {
+        "require": "./dist/export-expose.js",
+        "import": "./dist/export-expose.mjs"
+      },
+      "./export-props": {
+        "require": "./dist/export-props.js",
+        "import": "./dist/export-props.mjs"
+      },
+      "./export-render": {
+        "require": "./dist/export-render.js",
+        "import": "./dist/export-render.mjs"
+      },
+      "./jsx-directive": {
+        "require": "./dist/jsx-directive.js",
+        "import": "./dist/jsx-directive.mjs"
+      },
+      "./script-lang": {
+        "require": "./dist/script-lang.js",
+        "import": "./dist/script-lang.mjs"
+      },
+      "./setup-jsdoc": {
+        "require": "./dist/setup-jsdoc.js",
+        "import": "./dist/setup-jsdoc.mjs"
+      },
+      "./setup-sfc": {
+        "require": "./dist/setup-sfc.js",
+        "import": "./dist/setup-sfc.mjs"
+      },
+      "./short-bind": {
+        "require": "./dist/short-bind.js",
+        "import": "./dist/short-bind.mjs"
+      },
+      "./short-vmodel": {
+        "require": "./dist/short-vmodel.js",
+        "import": "./dist/short-vmodel.mjs"
+      },
+      "./template-ref": {
+        "require": "./dist/template-ref.js",
+        "import": "./dist/template-ref.mjs"
+      },
+      "./*": [
+        "./*",
+        "./*.d.ts"
+      ]
     }
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "DEV=true tsup --watch"
   },
   "peerDependencies": {
     "vue-tsc": "^2.0.0"
@@ -70,6 +258,7 @@
   "dependencies": {
     "@vue-macros/boolean-prop": "workspace:*",
     "@vue-macros/common": "workspace:*",
+    "@vue-macros/config": "workspace:*",
     "@vue-macros/define-props": "workspace:*",
     "@vue-macros/short-bind": "workspace:*",
     "@vue-macros/short-vmodel": "workspace:*",
@@ -83,8 +272,5 @@
   },
   "engines": {
     "node": ">=16.14.0"
-  },
-  "meta": {
-    "skipExports": true
   }
 }

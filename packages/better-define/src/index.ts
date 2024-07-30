@@ -17,10 +17,7 @@ import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformBetterDefine } from './core'
 import type { PluginContext } from 'rollup'
 
-export interface Options extends BaseOptions {
-  isProduction?: boolean
-}
-
+export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<
   Options,
   'include' | 'version' | 'isProduction'

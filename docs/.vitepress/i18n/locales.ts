@@ -9,8 +9,8 @@ export const zhCN = {
   'Explore more macros and syntax sugar to Vue.':
     '探索更多宏和语法糖到 Vue 中。',
 
-  'Getting Started': '入门',
-  'Bundler Integration': '打包器集成',
+  'Getting Started': '入门指南',
+  'Bundler Integration': '构建工具集成',
   'Nuxt Integration': 'Nuxt 集成',
   'Astro Integration': 'Astro 集成',
   Configurations: '配置',

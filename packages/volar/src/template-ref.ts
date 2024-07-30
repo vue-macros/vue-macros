@@ -115,11 +115,8 @@ function getTemplateRefNodes(
   return result
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'templateRef', false)
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'templateRef')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
@@ -130,6 +127,7 @@ const plugin: VueLanguagePlugin = ({
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (!filter(fileName) || !sfc.scriptSetup?.ast) return
 
+      const ts = ctx.modules.typescript
       const alias = volarOptions.alias || ['templateRef', 'useTemplateRef']
       const nodes = getTemplateRefNodes(ts, sfc, alias)
       if (!nodes.length) return

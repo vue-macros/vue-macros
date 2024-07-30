@@ -1,12 +1,13 @@
 import { loadConfig } from 'unconfig'
-import type { Options } from '.'
+import type { Options } from './options'
 
-export async function getConfigAsync(): Promise<Options> {
+export async function loadConfigAsync(cwd: string): Promise<Options> {
   const { config } = await loadConfig<Options>({
     sources: [
       {
         files: 'vue-macros.config',
-        extensions: ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs', 'json', ''],
+        extensions: ['mts', 'cts', 'ts', 'mjs', 'cjs', 'js', 'json', ''],
+        loader: 'jiti',
       },
       {
         files: 'package.json',
@@ -15,6 +16,7 @@ export async function getConfigAsync(): Promise<Options> {
       },
     ],
     defaults: {},
+    cwd,
   })
   delete config.plugins
   return config

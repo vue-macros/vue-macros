@@ -49,7 +49,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "DEV=true tsup --watch"
   },
   "peerDependencies": {
     "vitest": ">=0.29.0"

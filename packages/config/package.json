@@ -1,0 +1,133 @@
+{
+  "name": "@vue-macros/config",
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.6.0",
+  "description": "Config API for Vue Macros.",
+  "type": "module",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "config"
+  ],
+  "license": "MIT",
+  "homepage": "https://vue-macros.dev",
+  "bugs": {
+    "url": "https://github.com/vue-macros/vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vue-macros/vue-macros.git",
+    "directory": "packages/config"
+  },
+  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./config": {
+      "dev": "./src/config.ts",
+      "require": "./dist/config.cjs",
+      "import": "./dist/config.js"
+    },
+    "./config-worker": {
+      "dev": "./src/config-worker.ts",
+      "require": "./dist/config-worker.cjs",
+      "import": "./dist/config-worker.js"
+    },
+    "./define": {
+      "dev": "./src/define.ts",
+      "require": "./dist/define.cjs",
+      "import": "./dist/define.js"
+    },
+    "./options": {
+      "dev": "./src/options.ts",
+      "require": "./dist/options.cjs",
+      "import": "./dist/options.js"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
+      },
+      "./config": {
+        "require": "./dist/config.cjs",
+        "import": "./dist/config.js"
+      },
+      "./config-worker": {
+        "require": "./dist/config-worker.cjs",
+        "import": "./dist/config-worker.js"
+      },
+      "./define": {
+        "require": "./dist/define.cjs",
+        "import": "./dist/define.js"
+      },
+      "./options": {
+        "require": "./dist/options.cjs",
+        "import": "./dist/options.js"
+      },
+      "./*": "./*"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "DEV=true tsup"
+  },
+  "dependencies": {
+    "@vue-macros/better-define": "workspace:*",
+    "@vue-macros/boolean-prop": "workspace:*",
+    "@vue-macros/chain-call": "workspace:^",
+    "@vue-macros/common": "workspace:*",
+    "@vue-macros/define-emit": "workspace:^",
+    "@vue-macros/define-models": "workspace:*",
+    "@vue-macros/define-prop": "workspace:^",
+    "@vue-macros/define-props": "workspace:*",
+    "@vue-macros/define-props-refs": "workspace:*",
+    "@vue-macros/define-render": "workspace:*",
+    "@vue-macros/define-slots": "workspace:*",
+    "@vue-macros/devtools": "workspace:^",
+    "@vue-macros/export-expose": "workspace:*",
+    "@vue-macros/export-props": "workspace:*",
+    "@vue-macros/export-render": "workspace:*",
+    "@vue-macros/hoist-static": "workspace:*",
+    "@vue-macros/jsx-directive": "workspace:*",
+    "@vue-macros/named-template": "workspace:*",
+    "@vue-macros/reactivity-transform": "workspace:*",
+    "@vue-macros/script-lang": "workspace:*",
+    "@vue-macros/setup-block": "workspace:*",
+    "@vue-macros/setup-component": "workspace:*",
+    "@vue-macros/setup-sfc": "workspace:*",
+    "@vue-macros/short-bind": "workspace:*",
+    "@vue-macros/short-emits": "workspace:*",
+    "@vue-macros/short-vmodel": "workspace:*",
+    "make-synchronized": "^0.2.9",
+    "unconfig": "^0.5.1",
+    "unplugin-vue-define-options": "workspace:*"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  }
+}

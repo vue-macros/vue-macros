@@ -6,6 +6,16 @@ import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
 import type { Options } from 'tsup'
 
+const descriptions: Record<string, string> = {
+  'define-options': 'Add defineOptions macro for Vue <script setup>.',
+  macros: 'Explore more macros and syntax sugar to Vue.',
+  volar: 'Volar plugin for Vue Macros.',
+  devtools: 'Devtools plugin for Vue Macros.',
+  api: 'General API for Vue Macros.',
+  astro: 'Astro integration of Vue Macros.',
+  config: 'Config API for Vue Macros.',
+}
+
 function exists(filePath: string) {
   return access(filePath).then(
     () => true,
@@ -37,14 +47,6 @@ export default defineConfig([
       )
 
       data.type ||= 'commonjs'
-      const descriptions: Record<string, string> = {
-        'define-options': 'Add defineOptions macro for Vue <script setup>.',
-        macros: 'Explore more macros and syntax sugar to Vue.',
-        volar: 'Volar plugin for Vue Macros.',
-        devtools: 'Devtools plugin for Vue Macros.',
-        api: 'General API for Vue Macros.',
-        astro: 'Astro integration of Vue Macros.',
-      }
       if (!data.private) {
         data.description =
           descriptions[pkgName] || `${pkgName} feature from Vue Macros.`

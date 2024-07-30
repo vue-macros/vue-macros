@@ -1,6 +1,6 @@
 # defineGeneric <PackageVersion name="@vue-macros/volar" />
 
-<StabilityLevel level="experimental" />
+<StabilityLevel level="stable" />
 
 Declare single generic one by one using `DefineGeneric`.
 
@@ -37,14 +37,11 @@ defineProps<{
 
 ## Volar Configuration
 
-```jsonc {4,6}
+```jsonc {4}
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
-    "vueMacros": {
-      "defineGeneric": true,
-    },
+    "plugins": ["unplugin-vue-macros/volar"],
   },
 }
 ```

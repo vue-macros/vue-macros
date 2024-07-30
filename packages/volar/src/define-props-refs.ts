@@ -1,13 +1,11 @@
 import { getVolarOptions } from './common'
 import type { VueLanguagePlugin } from '@vue/language-core'
 
-const plugin: VueLanguagePlugin = ({
-  vueCompilerOptions: { vueMacros, macros },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'definePropsRefs')
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'definePropsRefs')
   if (!volarOptions) return []
 
-  macros.defineProps.push('definePropsRefs')
+  ctx.vueCompilerOptions.macros.defineProps.push('definePropsRefs')
 
   return {
     name: 'vue-macros-define-props-refs',

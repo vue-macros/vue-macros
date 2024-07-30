@@ -48,11 +48,8 @@ function getArg(ts: typeof import('typescript'), sfc: Sfc) {
   })
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'defineOptions')
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'defineOptions')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
@@ -63,7 +60,7 @@ const plugin: VueLanguagePlugin = ({
     resolveEmbeddedCode(fileName, sfc, embeddedFile) {
       if (!filter(fileName) || !sfc.scriptSetup?.ast) return
 
-      const arg = getArg(ts, sfc)
+      const arg = getArg(ctx.modules.typescript, sfc)
       if (!arg) return
 
       transformDefineOptions({

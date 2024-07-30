@@ -58,14 +58,15 @@ function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
   })
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros, target },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'defineSlots')
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'defineSlots')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
+  const {
+    modules: { typescript: ts },
+    vueCompilerOptions: { target },
+  } = ctx
 
   return {
     name: 'vue-macros-define-slots',

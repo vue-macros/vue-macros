@@ -45,11 +45,8 @@ function transform(options: {
   }
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros, lib },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'exportProps', false)
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'exportProps')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
@@ -63,8 +60,8 @@ const plugin: VueLanguagePlugin = ({
       transform({
         codes: embeddedFile.content,
         sfc,
-        vueLibName: lib,
-        ts,
+        vueLibName: ctx.vueCompilerOptions.lib,
+        ts: ctx.modules.typescript,
       })
     },
   }

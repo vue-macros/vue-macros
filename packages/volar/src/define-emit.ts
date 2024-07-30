@@ -51,11 +51,8 @@ function getEmitStrings(options: {
   return emitStrings
 }
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions: { vueMacros, lib },
-}) => {
-  const volarOptions = getVolarOptions(vueMacros, 'defineEmit', false)
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'defineEmit')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
@@ -71,10 +68,13 @@ const plugin: VueLanguagePlugin = ({
       )
         return
 
-      const emitStrings = getEmitStrings({ ts, sfc })
+      const emitStrings = getEmitStrings({
+        ts: ctx.modules.typescript,
+        sfc,
+      })
       if (!emitStrings.length) return
 
-      addEmits(embeddedFile.content, emitStrings, lib)
+      addEmits(embeddedFile.content, emitStrings, ctx.vueCompilerOptions.lib)
     },
   }
 }

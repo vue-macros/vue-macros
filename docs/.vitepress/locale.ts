@@ -251,6 +251,10 @@ export function getLocaleConfig(lang: string) {
               text: 'setupJsdoc',
               link: `${urlPrefix}/volar/setup-jsdoc`,
             },
+            {
+              text: 'defineGeneric',
+              link: `${urlPrefix}/volar/define-generic`,
+            },
           ],
         },
         {
@@ -259,10 +263,6 @@ export function getLocaleConfig(lang: string) {
             {
               text: 'templateRef',
               link: `${urlPrefix}/volar/template-ref`,
-            },
-            {
-              text: 'defineGeneric',
-              link: `${urlPrefix}/volar/define-generic`,
             },
           ],
         },

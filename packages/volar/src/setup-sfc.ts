@@ -3,8 +3,8 @@ import { parse, type VueLanguagePlugin } from '@vue/language-core'
 import { getVolarOptions } from './common'
 import type { SFCParseResult } from 'vue/compiler-sfc'
 
-const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => {
-  const volarOptions = getVolarOptions(vueMacros, 'setupSFC', false)
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'setupSFC')
   if (!volarOptions) return []
 
   const isValidFile = createFilter({

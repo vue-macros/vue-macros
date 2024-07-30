@@ -70,7 +70,7 @@ increment('2') // TS type error
 // tsconfig.json
 {
   "vueCompilerOptions": {
-    "plugins": ["@vue-macros/volar"],
+    "plugins": ["unplugin-vue-macros/volar"],
     "vueMacros": {
       "defineEmit": true,
     },

@@ -2,8 +2,8 @@ import { createFilter } from '@vue-macros/common'
 import { parse, type VueLanguagePlugin } from '@vue/language-core'
 import { getVolarOptions } from './common'
 
-const plugin: VueLanguagePlugin = ({ vueCompilerOptions: { vueMacros } }) => {
-  const volarOptions = getVolarOptions(vueMacros, 'scriptLang', false)
+const plugin: VueLanguagePlugin = (ctx) => {
+  const volarOptions = getVolarOptions(ctx, 'scriptLang')
   if (!volarOptions) return []
 
   const filter = createFilter(volarOptions)
