@@ -28,7 +28,7 @@ export default {
     // ...
   ],
   macros: {
-    // configure plugin options, if needed
+    // overrides config options
   },
 }
 ```

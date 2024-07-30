@@ -4,10 +4,8 @@
 
 All features are enabled by default except the following.
 
-- `defineOptions` (Vue >= 3.3)
-- `defineSlots` (Vue >= 3.3)
-- `hoistStatic` (Vue >= 3.3)
-- `shortEmits` (Vue >= 3.3)
+#### Disabled by Default
+
 - `exportExpose`
 - `exportProps`
 - `exportRender`
@@ -15,10 +13,20 @@ All features are enabled by default except the following.
 - `booleanProp`
 - `shortBind`
 
-You can disable them by setting the option to `false`.
+#### Disabled by Default when Vue >= 3.3
 
-```ts
-VueMacros({
+- `defineOptions`
+- `defineSlots`
+- `hoistStatic`
+- `shortEmits`
+
+You can re-enable them by setting the option to `true`.
+
+```ts twoslash
+// vue-macros.config.[js,ts,json]
+
+import { defineConfig } from 'unplugin-vue-macros'
+export default defineConfig({
   root: '/your-project-path',
 
   /**
@@ -28,20 +36,13 @@ VueMacros({
    */
   version: 3,
 
-  plugins: {
-    vue: Vue(),
-    vueJsx: VueJsx(),
-  },
-
-  /** Defaults to true  */
+  /** Defaults to true */
   defineModels: {
-    /**
-     * Unified mode, only works for Vue 2
-     *
-     * Converts `modelValue` to `value`
-     */
     unified: true,
   },
+
+  // Enable features
+  defineOptions: true,
 
   // Disable features
   hoistStatic: false,
@@ -50,4 +51,4 @@ VueMacros({
 })
 ```
 
-See the features page for options for each feature.
+Refer to the macros and features page for available options.

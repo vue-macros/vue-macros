@@ -30,7 +30,7 @@ export default defineConfig({
   integrations: [
     Vue(),
     Macros({
-      // ... 如果需要，在这里配置插件
+      // 覆盖配置选项
     }),
   ],
 })
@@ -38,7 +38,7 @@ export default defineConfig({
 
 ## TypeScript 支持 和 Volar 支持
 
-参见 [打包器集成](./bundler-integration.md#typescript-support) 的对应章节。
+参见 [构建工具集成](./bundler-integration.md#typescript-support) 的对应章节。
 
 ---
 

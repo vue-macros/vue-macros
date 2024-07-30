@@ -30,7 +30,7 @@ export default defineConfig({
   integrations: [
     Vue(),
     Macros({
-      // ... configs
+      // overrides config options
     }),
   ],
 })
