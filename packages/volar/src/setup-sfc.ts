@@ -1,7 +1,6 @@
 import { createFilter, REGEX_SETUP_SFC } from '@vue-macros/common'
 import { parse, type VueLanguagePlugin } from '@vue/language-core'
-import { getVolarOptions } from './common'
-import type { SFCParseResult } from 'vue/compiler-sfc'
+import { getVolarOptions, patchSFC } from './common'
 
 const plugin: VueLanguagePlugin = (ctx) => {
   const volarOptions = getVolarOptions(ctx, 'setupSFC')
@@ -13,6 +12,7 @@ const plugin: VueLanguagePlugin = (ctx) => {
   })
 
   return {
+    name: 'vue-macros-setup-sfc',
     version: 2.1,
     order: -1,
     isValidFile,
@@ -21,25 +21,11 @@ const plugin: VueLanguagePlugin = (ctx) => {
 
       const lang = fileName.split(/\.[cm]?/).at(-1)
       const prefix = `<script setup lang="${lang}">`
-      return patchSFC(parse(`${prefix}${content}\n</script>`), prefix.length)
+      const sfc = parse(`${prefix}${content}\n</script>`)
+      patchSFC(sfc.descriptor.scriptSetup, prefix.length)
+      return sfc
     },
   }
 }
 
 export default plugin
-
-function patchSFC(sfc: SFCParseResult, offset: number): SFCParseResult {
-  const {
-    descriptor: { scriptSetup },
-  } = sfc
-
-  if (scriptSetup) {
-    scriptSetup.loc.start.column -= offset
-    scriptSetup.loc.start.offset -= offset
-    scriptSetup.loc.end.offset -= offset
-    if (scriptSetup.loc.end.line === scriptSetup.loc.start.line) {
-      scriptSetup.loc.end.column -= offset
-    }
-  }
-  return sfc
-}

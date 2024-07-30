@@ -1,6 +1,7 @@
 import { resolveOptions, type OptionsResolved } from '@vue-macros/config'
 import { replace, replaceAll } from 'muggle-string'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import type { Code, Sfc } from '@vue/language-core'
+import type { SFCScriptBlock } from 'vue/compiler-sfc'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
@@ -138,4 +139,15 @@ export function isJsxExpression(
   node?: import('typescript').Node,
 ): node is import('typescript').JsxExpression {
   return node?.kind === 294
+}
+
+export function patchSFC(block: SFCScriptBlock | null, offset: number): void {
+  if (block) {
+    block.loc.start.column -= offset
+    block.loc.start.offset -= offset
+    block.loc.end.offset -= offset
+    if (block.loc.end.line === block.loc.start.line) {
+      block.loc.end.column -= offset
+    }
+  }
 }

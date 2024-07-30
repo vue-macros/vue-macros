@@ -12,6 +12,7 @@ import exportProps from './export-props'
 import exportRender from './export-render'
 import jsxDirective from './jsx-directive'
 import scriptLang from './script-lang'
+import scriptSFC from './script-sfc'
 import setupJsdoc from './setup-jsdoc'
 import setupSFC from './setup-sfc'
 import shortBind from './short-bind'
@@ -38,6 +39,7 @@ const plugin: VueLanguagePlugin = (ctx) => {
     defineGeneric,
     setupJsdoc,
     setupSFC,
+    scriptSFC,
     scriptLang,
     templateRef,
   ].flatMap((plugin) => plugin(ctx))
