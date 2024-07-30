@@ -9,11 +9,12 @@ import {
 const reg = /^(::?|\$|\*)(?=[A-Z_])/i
 
 export interface Options {
-  // empty
+  version?: number
 }
 
-// eslint-disable-next-line unused-imports/no-unused-vars -- not be used by now
-export function transformShortBind(_options: Options = {}): NodeTransform {
+export function transformShortBind(options: Options = {}): NodeTransform {
+  const version = options.version || 3.3
+
   return (node, context) => {
     if (node.type !== (1 satisfies NodeTypes.ELEMENT)) return
 
@@ -26,9 +27,13 @@ export function transformShortBind(_options: Options = {}): NodeTransform {
             ? !prop.exp
             : false)
       ) {
-        const valueName = prop.loc.source
-          .replace(reg, '')
-          .replaceAll(/-([A-Z])/gi, (_, name) => name.toUpperCase())
+        let [, prefix, valueName] = prop.loc.source.split(reg)
+        if (valueName) {
+          valueName = valueName.replaceAll(/-([A-Z])/gi, (_, name) =>
+            name.toUpperCase(),
+          )
+        }
+        if (version >= 3.4 && prefix === ':') return
 
         if (prop.type === (6 satisfies NodeTypes.ATTRIBUTE)) {
           prop.value = {
