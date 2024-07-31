@@ -25,6 +25,7 @@ pnpm add -D unplugin-vue-macros
 import Vue from '@vitejs/plugin-vue'
 import VueMacros from 'unplugin-vue-macros/vite'
 // import VueJsx from '@vitejs/plugin-vue-jsx'
+// import VueRouter from 'unplugin-vue-router/vite'
 
 export default defineConfig({
   plugins: [
@@ -32,6 +33,9 @@ export default defineConfig({
       plugins: {
         vue: Vue(),
         // vueJsx: VueJsx(), // if needed
+        // vueRouter: VueRouter({ // if needed
+        //   extensions: ['.vue', '.setup.tsx']
+        // })
       },
       // overrides plugin options
     }),
@@ -43,6 +47,7 @@ export default defineConfig({
 // rollup.config.js
 import VueMacros from 'unplugin-vue-macros/rollup'
 import Vue from 'unplugin-vue/rollup'
+// import VueRouter from 'unplugin-vue-router/rollup'
 
 export default {
   plugins: [
@@ -50,6 +55,9 @@ export default {
       plugins: {
         vue: Vue(),
         // vueJsx: VueJsx(), // if needed
+        // vueRouter: VueRouter({ // if needed
+        //   extensions: ['.vue', '.setup.tsx']
+        // })
       },
       // overrides plugin options
     }),
@@ -60,6 +68,7 @@ export default {
 ```js [esbuild]
 // esbuild.config.js
 import { build } from 'esbuild'
+// import VueRouter from 'unplugin-vue-router/esbuild'
 
 build({
   plugins: [
@@ -67,6 +76,9 @@ build({
       plugins: {
         vue: require('unplugin-vue/esbuild')(),
         // vueJsx: VueJsx(), // if needed
+        // vueRouter: VueRouter({ // if needed
+        //   extensions: ['.vue', '.setup.tsx']
+        // })
       },
       // overrides plugin options
     }),
