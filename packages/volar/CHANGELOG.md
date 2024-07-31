@@ -1,5 +1,39 @@
 # @vue-macros/volar
 
+## 0.26.0
+### Minor Changes
+
+
+
+- [#750](https://github.com/vue-macros/vue-macros/pull/750) [`9e11639`](https://github.com/vue-macros/vue-macros/commit/9e11639b346083bf4b77f0ca1d3057127a220bf9) Thanks [@sxzz](https://github.com/sxzz)! - Support config file (e.g `vue-macros.config.ts`)
+
+
+
+- [#746](https://github.com/vue-macros/vue-macros/pull/746) [`6f71ef8`](https://github.com/vue-macros/vue-macros/commit/6f71ef80d904b156427e7d7471174dec35ec4ba8) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add "@vue-macros/volar" plugin
+
+
+### Patch Changes
+
+
+
+- [#753](https://github.com/vue-macros/vue-macros/pull/753) [`bf7fa2e`](https://github.com/vue-macros/vue-macros/commit/bf7fa2e825761b4edcee590d110ec4661ad68664) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - only transform shortVmodel's prefix after Vue 3.4
+
+
+
+- [#748](https://github.com/vue-macros/vue-macros/pull/748) [`a33a6af`](https://github.com/vue-macros/vue-macros/commit/a33a6af9c709d1b3e4689f61ea613a75630af560) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - fix auto imports not working in setup-sfc
+
+
+
+- [`4e2cca7`](https://github.com/vue-macros/vue-macros/commit/4e2cca758107b3357c986f2d00438ca17e09e851) Thanks [@sxzz](https://github.com/sxzz)! - Remove `dev` condition from `exports` of `package.json`
+
+- Updated dependencies [[`9e11639`](https://github.com/vue-macros/vue-macros/commit/9e11639b346083bf4b77f0ca1d3057127a220bf9), [`bf7fa2e`](https://github.com/vue-macros/vue-macros/commit/bf7fa2e825761b4edcee590d110ec4661ad68664), [`7ad8e77`](https://github.com/vue-macros/vue-macros/commit/7ad8e777dd98a5d84225b9b37afe58ba56c4b2a1), [`4e2cca7`](https://github.com/vue-macros/vue-macros/commit/4e2cca758107b3357c986f2d00438ca17e09e851), [`23be90e`](https://github.com/vue-macros/vue-macros/commit/23be90ed1bc3ff1b144cdc051627ca13532a56dd)]:
+  - @vue-macros/common@1.12.0
+  - @vue-macros/config@0.2.0
+  - @vue-macros/short-bind@1.0.1
+  - @vue-macros/boolean-prop@0.4.2
+  - @vue-macros/define-props@3.0.1
+  - @vue-macros/short-vmodel@1.4.7
+
 ## 0.25.0
 ### Minor Changes
 
