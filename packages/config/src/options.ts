@@ -50,6 +50,7 @@ export interface OptionsCommon extends Omit<BaseOptions, keyof FilterOptions> {
   plugins?: {
     vue?: any
     vueJsx?: any
+    vueRouter?: any
   }
   /** @internal */
   nuxtContext?: {

@@ -20,7 +20,8 @@ export const REPO_ISSUE_URL: 'https://github.com/vue-macros/vue-macros/issues' =
 export const REGEX_SRC_FILE: RegExp = /\.[cm]?[jt]sx?$/
 
 export const REGEX_SETUP_SFC: RegExp = /\.setup\.[cm]?[jt]sx?$/
-export const REGEX_SETUP_SFC_SUB: RegExp = /\.setup\.[cm]?[jt]sx?((?!vue&).)*$/
+export const REGEX_SETUP_SFC_SUB: RegExp =
+  /\.setup\.[cm]?[jt]sx?((?!(?<!definePage&)vue&).)*$/
 
 export const REGEX_VUE_SFC: RegExp = /\.vue$/
 

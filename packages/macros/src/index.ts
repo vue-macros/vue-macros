@@ -70,6 +70,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
       setupComponentPlugins?.[0],
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
       resolvePlugin(VueScriptLang, framework, options.scriptLang),
+      options.plugins.vueRouter,
       namedTemplatePlugins?.[0],
 
       // props
