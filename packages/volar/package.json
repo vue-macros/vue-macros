@@ -112,6 +112,11 @@
       "require": "./dist/script-lang.js",
       "import": "./dist/script-lang.mjs"
     },
+    "./script-sfc": {
+      "dev": "./src/script-sfc.ts",
+      "require": "./dist/script-sfc.js",
+      "import": "./dist/script-sfc.mjs"
+    },
     "./setup-jsdoc": {
       "dev": "./src/setup-jsdoc.ts",
       "require": "./dist/setup-jsdoc.js",
@@ -216,6 +221,10 @@
       "./script-lang": {
         "require": "./dist/script-lang.js",
         "import": "./dist/script-lang.mjs"
+      },
+      "./script-sfc": {
+        "require": "./dist/script-sfc.js",
+        "import": "./dist/script-sfc.mjs"
       },
       "./setup-jsdoc": {
         "require": "./dist/setup-jsdoc.js",

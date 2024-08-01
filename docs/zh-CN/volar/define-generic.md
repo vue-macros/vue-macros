@@ -10,7 +10,7 @@
 | :----------: | :----------------: |
 | Volar Plugin | :white_check_mark: |
 
-## Basic Usage
+## 基本用法
 
 ::: code-group
 

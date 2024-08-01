@@ -79,6 +79,7 @@ export interface FeatureOptionsMap {
   namedTemplate: OptionsNamedTemplate
   reactivityTransform: OptionsReactivityTransform
   scriptLang: OptionsScriptLang
+  scriptSFC: FilterOptions
   setupBlock: OptionsSetupBlock
   setupComponent: OptionsSetupComponent
   setupJsdoc: FilterOptions
@@ -143,6 +144,7 @@ export function resolveOptions(
     namedTemplate: resolveSubOptions('namedTemplate'),
     reactivityTransform: resolveSubOptions('reactivityTransform'),
     scriptLang: resolveSubOptions('scriptLang', false),
+    scriptSFC: resolveSubOptions('scriptSFC', false),
     setupBlock: resolveSubOptions('setupBlock', false),
     setupComponent: resolveSubOptions('setupComponent'),
     setupJsdoc: resolveSubOptions('setupJsdoc'),

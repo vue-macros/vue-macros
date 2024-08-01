@@ -1,23 +1,19 @@
-import {
-  createFilter,
-  REGEX_NODE_MODULES,
-  REGEX_SETUP_SFC,
-} from '@vue-macros/common'
+import { createFilter, REGEX_NODE_MODULES } from '@vue-macros/common'
 import { parse, type VueLanguagePlugin } from '@vue/language-core'
 import { getVolarOptions, patchSFC } from './common'
 
 const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'setupSFC')
+  const volarOptions = getVolarOptions(ctx, 'scriptSFC')
   if (!volarOptions) return []
 
   const isValidFile = createFilter({
     ...volarOptions,
-    include: volarOptions.include || REGEX_SETUP_SFC,
+    include: volarOptions.include || /\.[cm]?tsx?$/,
     exclude: volarOptions.exclude || REGEX_NODE_MODULES,
   })
 
   return {
-    name: 'vue-macros-setup-sfc',
+    name: 'vue-macros-script-sfc',
     version: 2.1,
     order: -1,
     isValidFile,
@@ -25,9 +21,9 @@ const plugin: VueLanguagePlugin = (ctx) => {
       if (!isValidFile(fileName)) return
 
       const lang = fileName.split(/\.[cm]?/).at(-1)
-      const prefix = `<script setup lang="${lang}">`
+      const prefix = `<script lang="${lang}">`
       const sfc = parse(`${prefix}${content}\n</script>`)
-      patchSFC(sfc.descriptor.scriptSetup, prefix.length)
+      patchSFC(sfc.descriptor.script, prefix.length)
       return sfc
     },
   }

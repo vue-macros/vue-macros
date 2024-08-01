@@ -264,6 +264,10 @@ export function getLocaleConfig(lang: string) {
               text: 'templateRef',
               link: `${urlPrefix}/volar/template-ref`,
             },
+            {
+              text: 'scriptSFC',
+              link: `${urlPrefix}/volar/script-sfc`,
+            },
           ],
         },
       ],
