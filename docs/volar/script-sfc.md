@@ -10,7 +10,7 @@ Enabled Volar support for `.ts` | `.tsx` files.
 
 ## Basic Usage
 
-### With `jsx-directive`
+### With `jsxDirective`
 
 ::: code-group
 

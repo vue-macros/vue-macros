@@ -10,7 +10,7 @@
 
 ## 基本用法
 
-### 和 `jsx-directive` 一起使用
+### 和 `jsxDirective` 一起使用
 
 ::: code-group
 
