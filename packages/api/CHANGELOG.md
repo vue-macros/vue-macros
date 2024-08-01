@@ -1,5 +1,15 @@
 # @vue-macros/api
 
+## 0.10.1
+### Patch Changes
+
+
+
+- [`4e2cca7`](https://github.com/vue-macros/vue-macros/commit/4e2cca758107b3357c986f2d00438ca17e09e851) Thanks [@sxzz](https://github.com/sxzz)! - Remove `dev` condition from `exports` of `package.json`
+
+- Updated dependencies [[`9e11639`](https://github.com/vue-macros/vue-macros/commit/9e11639b346083bf4b77f0ca1d3057127a220bf9), [`7ad8e77`](https://github.com/vue-macros/vue-macros/commit/7ad8e777dd98a5d84225b9b37afe58ba56c4b2a1), [`4e2cca7`](https://github.com/vue-macros/vue-macros/commit/4e2cca758107b3357c986f2d00438ca17e09e851)]:
+  - @vue-macros/common@1.12.0
+
 ## 0.10.0
 ### Minor Changes
 

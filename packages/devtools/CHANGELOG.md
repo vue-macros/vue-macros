@@ -1,5 +1,12 @@
 # @vue-macros/devtools
 
+## 0.3.1
+### Patch Changes
+
+
+
+- [`4e2cca7`](https://github.com/vue-macros/vue-macros/commit/4e2cca758107b3357c986f2d00438ca17e09e851) Thanks [@sxzz](https://github.com/sxzz)! - Remove `dev` condition from `exports` of `package.json`
+
 ## 0.3.0
 ### Minor Changes
 

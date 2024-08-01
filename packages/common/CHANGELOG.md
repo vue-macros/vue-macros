@@ -1,5 +1,23 @@
 # @vue-macros/common
 
+## 1.12.0
+### Minor Changes
+
+
+
+- [#750](https://github.com/vue-macros/vue-macros/pull/750) [`9e11639`](https://github.com/vue-macros/vue-macros/commit/9e11639b346083bf4b77f0ca1d3057127a220bf9) Thanks [@sxzz](https://github.com/sxzz)! - Support config file (e.g `vue-macros.config.ts`)
+
+
+### Patch Changes
+
+
+
+- [#755](https://github.com/vue-macros/vue-macros/pull/755) [`7ad8e77`](https://github.com/vue-macros/vue-macros/commit/7ad8e777dd98a5d84225b9b37afe58ba56c4b2a1) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - setup-sfc and unplugin-vue-router co-usage
+
+
+
+- [`4e2cca7`](https://github.com/vue-macros/vue-macros/commit/4e2cca758107b3357c986f2d00438ca17e09e851) Thanks [@sxzz](https://github.com/sxzz)! - Remove `dev` condition from `exports` of `package.json`
+
 ## 1.11.0
 ### Minor Changes
 

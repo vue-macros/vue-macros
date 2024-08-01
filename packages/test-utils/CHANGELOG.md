@@ -1,5 +1,19 @@
 # @vue-macros/test-utils
 
+## 1.6.0
+### Minor Changes
+
+
+
+- [#750](https://github.com/vue-macros/vue-macros/pull/750) [`9e11639`](https://github.com/vue-macros/vue-macros/commit/9e11639b346083bf4b77f0ca1d3057127a220bf9) Thanks [@sxzz](https://github.com/sxzz)! - Support config file (e.g `vue-macros.config.ts`)
+
+
+### Patch Changes
+
+
+
+- [`4e2cca7`](https://github.com/vue-macros/vue-macros/commit/4e2cca758107b3357c986f2d00438ca17e09e851) Thanks [@sxzz](https://github.com/sxzz)! - Remove `dev` condition from `exports` of `package.json`
+
 ## 1.5.0
 ### Minor Changes
 
