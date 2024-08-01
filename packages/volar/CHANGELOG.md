@@ -1,5 +1,12 @@
 # @vue-macros/volar
 
+## 0.27.0
+### Minor Changes
+
+
+
+- [#754](https://github.com/vue-macros/vue-macros/pull/754) [`c6bafe8`](https://github.com/vue-macros/vue-macros/commit/c6bafe8565bdb762661a3f017418d9e69a8906e2) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce script-sfc
+
 ## 0.26.0
 ### Minor Changes
 
