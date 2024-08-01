@@ -1,5 +1,12 @@
 # @vue-macros/config
 
+## 0.2.1
+### Patch Changes
+
+
+
+- [#757](https://github.com/vue-macros/vue-macros/pull/757) [`da9c86a`](https://github.com/vue-macros/vue-macros/commit/da9c86a5016c815674aaad73ab94cfd319227275) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add script-sfc option
+
 ## 0.2.0
 ### Minor Changes
 
