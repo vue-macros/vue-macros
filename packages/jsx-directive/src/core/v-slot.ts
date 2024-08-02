@@ -26,7 +26,7 @@ export function transformVSlot(
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
-      const result = [` ${version < 3 ? 'scopedSlots' : 'v-slots'}={{`]
+      const result = [` ${version < 3 ? 'scopedSlots' : 'vSlots'}={{`]
       const attributes = Array.from(attributeMap)
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -96,6 +96,10 @@ export function transformVSlot(
             version < 3 ? '</span>,' : '</>,',
           )
 
+          if (vForAttribute) {
+            result.push(']))),')
+          }
+
           if (vIfAttribute) {
             if (['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`)) {
               const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
@@ -110,10 +114,6 @@ export function transformVSlot(
             } else if ('v-else' === vIfAttribute.name.name) {
               result.push('},')
             }
-          }
-
-          if (vForAttribute) {
-            result.push(']))),')
           }
         },
       )
