@@ -11,7 +11,7 @@ export function transformVOn(
   offset: number,
   version: number,
 ): void {
-  if (nodes.length > 0 && version >= 3)
+  if (nodes.length > 0 && !(version >= 2 && version < 3))
     s.prependRight(
       offset,
       `const ${HELPER_PREFIX}transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});`,

@@ -35,7 +35,7 @@ export function transformVIf(
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      const content = version >= 3 ? '' : 'span'
+      const content = version >= 2 && version < 3 ? 'span' : ''
       s.overwriteNode(node.openingElement.name, content, { offset })
       s.overwriteNode(node.closingElement.name, content, { offset })
     }

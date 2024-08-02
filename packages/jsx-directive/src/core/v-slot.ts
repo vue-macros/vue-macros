@@ -26,7 +26,9 @@ export function transformVSlot(
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
-      const result = [` ${version >= 3 ? 'vSlots' : 'scopedSlots'}={{`]
+      const result = [
+        ` ${version >= 2 && version < 3 ? 'scopedSlots' : 'vSlots'}={{`,
+      ]
       const attributes = Array.from(attributeMap)
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -77,7 +79,7 @@ export function transformVSlot(
               ? s.sliceNode(attribute.value.expression, { offset })
               : '',
             ') => ',
-            version >= 3 ? '<>' : '<span>',
+            version >= 2 && version < 3 ? '<span>' : '<>',
             children
               .map((child) => {
                 const str = s.sliceNode(
@@ -93,7 +95,7 @@ export function transformVSlot(
                 return str
               })
               .join('') || ' ',
-            version >= 3 ? '</>,' : '</span>,',
+            version >= 2 && version < 3 ? '</span>,' : '</>,',
           )
 
           if (vForAttribute) {
@@ -119,7 +121,9 @@ export function transformVSlot(
       )
 
       if (attributeMap.has(null)) {
-        result.push(`default: () => ${version >= 3 ? '<>' : '<span>'}`)
+        result.push(
+          `default: () => ${version >= 2 && version < 3 ? '<span>' : '<>'}`,
+        )
       } else {
         result.push('}}')
       }
@@ -135,7 +139,7 @@ export function transformVSlot(
         s.appendLeft(
           node.closingElement!.start! + offset,
           attributeMap.has(null)
-            ? `${version >= 3 ? '</>' : '</span>'}}}>`
+            ? `${version >= 2 && version < 3 ? '</span>' : '</>'}}}>`
             : '>',
         )
       }

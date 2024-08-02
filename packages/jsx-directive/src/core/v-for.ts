@@ -45,14 +45,14 @@ export function resolveVFor(
       }
 
       const renderList =
-        version >= 3
-          ? importHelperFn(
+        version >= 2 && version < 3
+          ? 'Array.from'
+          : importHelperFn(
               s,
               offset,
               'renderList',
               version ? 'vue' : '@vue-macros/jsx-directive/helpers',
             )
-          : 'Array.from'
 
       return `${renderList}(${list}, (${item}${
         index ? `, ${index}` : ''
@@ -83,7 +83,7 @@ export function transformVFor(
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      const content = version >= 3 ? '' : 'span'
+      const content = version >= 2 && version < 3 ? 'span' : ''
       s.overwriteNode(node.openingElement.name, content, { offset })
       s.overwriteNode(node.closingElement.name, content, { offset })
     }
