@@ -98,7 +98,7 @@ export function transformJsxDirective(
             attribute.name.type === 'JSXNamespacedName' &&
             attribute.name.namespace.name === 'v-model'
           ) {
-            transformVModel(attribute, s, offset)
+            transformVModel(attribute, s, offset, version)
           }
         }
 
@@ -185,7 +185,7 @@ export function transformJsxDirective(
 
     vIfMap.forEach((nodes) => transformVIf(nodes, s, offset, version))
     transformVFor(vForNodes, s, offset, version)
-    version >= 3.2 && transformVMemo(vMemoNodes, s, offset)
+    version >= 3.2 && transformVMemo(vMemoNodes, s, offset, version)
     transformVHtml(vHtmlNodes, s, offset, version)
     transformVOn(vOnNodes, s, offset, version)
     transformVOnWithModifiers(vOnWithModifiers, s, offset, version)

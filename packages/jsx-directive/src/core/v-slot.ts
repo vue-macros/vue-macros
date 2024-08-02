@@ -26,7 +26,7 @@ export function transformVSlot(
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
-      const result = [` ${version < 3 ? 'scopedSlots' : 'v-slots'}={{`]
+      const result = [` ${version >= 3 ? 'v-slots' : 'scopedSlots'}={{`]
       const attributes = Array.from(attributeMap)
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -69,7 +69,7 @@ export function transformVSlot(
           })
           result.push(
             isDynamic
-              ? `[${importHelperFn(s, offset, 'unref', '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
+              ? `[${importHelperFn(s, offset, 'unref', version ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
               : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
             '(',
@@ -77,7 +77,7 @@ export function transformVSlot(
               ? s.sliceNode(attribute.value.expression, { offset })
               : '',
             ') => ',
-            version < 3 ? '<span>' : '<>',
+            version >= 3 ? '<>' : '<span>',
             children
               .map((child) => {
                 const str = s.sliceNode(
@@ -93,7 +93,7 @@ export function transformVSlot(
                 return str
               })
               .join('') || ' ',
-            version < 3 ? '</span>,' : '</>,',
+            version >= 3 ? '</>,' : '</span>,',
           )
 
           if (vIfAttribute) {
@@ -119,7 +119,7 @@ export function transformVSlot(
       )
 
       if (attributeMap.has(null)) {
-        result.push(`default: () => ${version < 3 ? '<span>' : '<>'}`)
+        result.push(`default: () => ${version >= 3 ? '<>' : '<span>'}`)
       } else {
         result.push('}}')
       }
@@ -135,7 +135,7 @@ export function transformVSlot(
         s.appendLeft(
           node.closingElement!.start! + offset,
           attributeMap.has(null)
-            ? `${version < 3 ? '</span>' : '</>'}}}>`
+            ? `${version >= 3 ? '</>' : '</span>'}}}>`
             : '>',
         )
       }

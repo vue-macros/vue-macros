@@ -9,13 +9,14 @@ export function transformVMemo(
   nodes: JsxDirective[],
   s: MagicStringAST,
   offset: number,
+  version: number,
 ): void {
   if (nodes.length === 0) return
   const withMemo = importHelperFn(
     s,
     offset,
     'withMemo',
-    '@vue-macros/jsx-directive/helpers',
+    version ? 'vue' : '@vue-macros/jsx-directive/helpers',
   )
   s.prependRight(offset, `const ${HELPER_PREFIX}cache = [];`)
 

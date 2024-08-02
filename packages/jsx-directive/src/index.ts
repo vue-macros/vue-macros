@@ -1,3 +1,4 @@
+import process from 'node:process'
 import {
   createFilter,
   detectVueVersion,
@@ -22,7 +23,7 @@ function resolveOptions(
   options: Options,
   framework: UnpluginContextMeta['framework'],
 ): OptionsResolved {
-  const version = options.version || detectVueVersion()
+  const version = options.version || detectVueVersion(process.cwd(), 0)
   const include = getFilterPattern([FilterFileType.SRC_FILE], framework)
   return {
     include,

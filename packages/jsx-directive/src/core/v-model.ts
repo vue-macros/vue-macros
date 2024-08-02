@@ -5,6 +5,7 @@ export function transformVModel(
   attribute: JSXAttribute,
   s: MagicStringAST,
   offset: number,
+  version: number,
 ): void {
   if (
     attribute.name.type === 'JSXNamespacedName' &&
@@ -15,7 +16,7 @@ export function transformVModel(
 
     let [, argument, modifiers] = matched
     const value = s.sliceNode(attribute.value.expression, { offset })
-    argument = `${importHelperFn(s, offset, 'unref', '@vue-macros/jsx-directive/helpers')}(${argument})`
+    argument = `${importHelperFn(s, offset, 'unref', version ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${argument})`
     modifiers = modifiers
       ? `, [${argument} + "Modifiers"]: { ${modifiers
           .split('_')

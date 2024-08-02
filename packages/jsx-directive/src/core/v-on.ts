@@ -18,7 +18,7 @@ export function transformVOn(
     )
 
   nodes.forEach(({ attribute }) => {
-    if (version < 3) {
+    if (version >= 2 && version < 3) {
       s.remove(attribute.start! + offset, attribute.start! + offset + 2)
       return
     }
@@ -42,7 +42,7 @@ export function transformVOnWithModifiers(
 ): void {
   nodes.forEach(({ attribute }) => {
     const attributeName = attribute.name.name.toString()
-    if (version < 3) {
+    if (version >= 2 && version < 3) {
       s.overwrite(
         attribute.name.start! + offset,
         attribute.name.start! + 3 + offset,
@@ -59,7 +59,7 @@ export function transformVOnWithModifiers(
       s,
       offset,
       isKeyboardEvent(name) ? 'withKeys' : 'withModifiers',
-      '@vue-macros/jsx-directive/helpers',
+      version ? 'vue' : '@vue-macros/jsx-directive/helpers',
     )
 
     modifiers = modifiers.filter((modifier) => {

@@ -10,7 +10,7 @@ export function transformVHtml(
   nodes.forEach(({ attribute }) => {
     s.overwriteNode(
       attribute.name,
-      version < 3 ? 'domPropsInnerHTML' : 'innerHTML',
+      version >= 3 ? 'innerHTML' : 'domPropsInnerHTML',
       { offset },
     )
   })
