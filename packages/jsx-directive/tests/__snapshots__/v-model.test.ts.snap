@@ -2,7 +2,7 @@
 
 exports[`jsx-vue-directive > v-model > ./fixtures/v-model/index.setup.tsx 1`] = `
 "
-import { unref as __MACROS_unref } from "vue";import { ref } from 'vue'
+import { unref as __MACROS_unref } from "@vue-macros/jsx-directive/helpers";import { ref } from 'vue'
 
 let foo = ref('')
 const value = ref('value')

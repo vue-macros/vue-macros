@@ -59,7 +59,7 @@ export function transformVOnWithModifiers(
       s,
       offset,
       isKeyboardEvent(name) ? 'withKeys' : 'withModifiers',
-      'vue',
+      '@vue-macros/jsx-directive/helpers',
     )
 
     modifiers = modifiers.filter((modifier) => {

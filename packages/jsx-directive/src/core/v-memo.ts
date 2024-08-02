@@ -11,7 +11,12 @@ export function transformVMemo(
   offset: number,
 ): void {
   if (nodes.length === 0) return
-  const withMemo = importHelperFn(s, offset, 'withMemo', 'vue')
+  const withMemo = importHelperFn(
+    s,
+    offset,
+    'withMemo',
+    '@vue-macros/jsx-directive/helpers',
+  )
   s.prependRight(offset, `const ${HELPER_PREFIX}cache = [];`)
 
   nodes.forEach(({ node, attribute, parent, vForAttribute }, nodeIndex) => {

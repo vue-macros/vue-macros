@@ -15,7 +15,7 @@ export function transformVModel(
 
     let [, argument, modifiers] = matched
     const value = s.sliceNode(attribute.value.expression, { offset })
-    argument = `${importHelperFn(s, offset, 'unref')}(${argument})`
+    argument = `${importHelperFn(s, offset, 'unref', '@vue-macros/jsx-directive/helpers')}(${argument})`
     modifiers = modifiers
       ? `, [${argument} + "Modifiers"]: { ${modifiers
           .split('_')

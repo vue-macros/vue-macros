@@ -75,6 +75,11 @@
       "require": "./dist/webpack.js",
       "import": "./dist/webpack.mjs"
     },
+    "./helpers": {
+      "dev": "./src/helpers.ts",
+      "require": "./dist/helpers.js",
+      "import": "./dist/helpers.mjs"
+    },
     "./*": "./*"
   },
   "typesVersions": {
@@ -129,7 +134,8 @@
   },
   "dependencies": {
     "@vue-macros/common": "workspace:~",
-    "unplugin": "catalog:"
+    "unplugin": "catalog:",
+    "vue": "catalog"
   },
   "devDependencies": {
     "vue": "catalog:"

@@ -47,7 +47,12 @@ export function resolveVFor(
       const renderList =
         version < 3
           ? 'Array.from'
-          : importHelperFn(s, offset, 'renderList', 'vue')
+          : importHelperFn(
+              s,
+              offset,
+              'renderList',
+              '@vue-macros/jsx-directive/helpers',
+            )
 
       return `${renderList}(${list}, (${item}${
         index ? `, ${index}` : ''

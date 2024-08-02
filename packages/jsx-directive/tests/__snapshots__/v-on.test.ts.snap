@@ -54,7 +54,7 @@ export default (
 
 exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/child.setup.tsx 1`] = `
 "
-import { withModifiers as __MACROS_withModifiers } from "vue";type T = DefineGeneric
+import { withModifiers as __MACROS_withModifiers } from "@vue-macros/jsx-directive/helpers";type T = DefineGeneric
 
 const { bar } = defineProps<{
   bar: T
@@ -80,8 +80,8 @@ export default (
 
 exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/index.setup.tsx 1`] = `
 "
-import { withModifiers as __MACROS_withModifiers } from "vue";
-import { withKeys as __MACROS_withKeys } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});import { expectTypeOf } from 'expect-type'
+import { withModifiers as __MACROS_withModifiers } from "@vue-macros/jsx-directive/helpers";
+import { withKeys as __MACROS_withKeys } from "@vue-macros/jsx-directive/helpers";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});import { expectTypeOf } from 'expect-type'
 import Child from './child.setup'
 
 let bar = $ref('')

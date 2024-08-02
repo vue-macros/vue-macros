@@ -73,6 +73,9 @@ importers:
       '@vitest/ui':
         specifier: ^2.0.4
         version: 2.0.4(vitest@2.0.4)
+      '@vue-macros/jsx-directive':
+        specifier: workspace:*
+        version: link:packages/jsx-directive
       '@vue-macros/test-utils':
         specifier: workspace:*
         version: link:packages/test-utils
