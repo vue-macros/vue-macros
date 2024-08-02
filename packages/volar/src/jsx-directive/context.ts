@@ -34,7 +34,7 @@ export function transformCtx(
     codes.push(
       `function __VLS_getFunctionalComponentCtx<T, K>(comp: T, compInstance: K): __VLS_PickNotAny<
 	'__ctx' extends keyof __VLS_PickNotAny<K, {}> ? K extends { __ctx?: infer Ctx } ? Ctx : never : any
-	, T extends (props: infer P, ctx: infer Ctx) => any ? Ctx & { props: P } : any>;
+	, T extends (props: infer P, ctx: infer Ctx) => any ? { props: P, slots: P['vSlots'] } & Ctx : any>;
 `,
     )
   }
