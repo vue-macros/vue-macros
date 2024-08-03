@@ -1,5 +1,12 @@
 # @vue-macros/define-emit
 
+## 0.3.2
+### Patch Changes
+
+- Updated dependencies [[`52f0d7e`](https://github.com/vue-macros/vue-macros/commit/52f0d7e8ad85814264a8f473ea48cb732972f79a)]:
+  - @vue-macros/common@1.12.2
+  - @vue-macros/api@0.10.3
+
 ## 0.3.1
 ### Patch Changes
 

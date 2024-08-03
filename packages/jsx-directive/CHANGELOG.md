@@ -1,5 +1,15 @@
 # @vue-macros/jsx-directive
 
+## 0.8.19
+### Patch Changes
+
+
+
+- [#760](https://github.com/vue-macros/vue-macros/pull/760) [`52f0d7e`](https://github.com/vue-macros/vue-macros/commit/52f0d7e8ad85814264a8f473ea48cb732972f79a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - decouple from vue
+
+- Updated dependencies [[`52f0d7e`](https://github.com/vue-macros/vue-macros/commit/52f0d7e8ad85814264a8f473ea48cb732972f79a)]:
+  - @vue-macros/common@1.12.2
+
 ## 0.8.18
 ### Patch Changes
 
