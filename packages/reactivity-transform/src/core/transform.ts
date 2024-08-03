@@ -36,7 +36,7 @@ const IMPORT_SOURCES = [
 ]
 const shorthands = ['ref', 'computed', 'shallowRef', 'toRef', 'customRef']
 const transformCheckRE =
-  /\W\$(?:\$|ref|computed|shallowRef|toRef|customRef)?\s*[(<]|as/
+  /\W\$(?:\$|ref|computed|shallowRef|toRef|customRef)?\s*(?:[(<]|as)/
 
 export function shouldTransform(src: string): boolean {
   return transformCheckRE.test(src)
