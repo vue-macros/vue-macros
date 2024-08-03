@@ -1,5 +1,12 @@
 # @vue-macros/common
 
+## 1.12.1
+### Patch Changes
+
+
+
+- [`2370065`](https://github.com/vue-macros/vue-macros/commit/2370065c07206fb0f59914a29675a70939f5f71f) Thanks [@sxzz](https://github.com/sxzz)! - Fix TS function without body
+
 ## 1.12.0
 ### Minor Changes
 
