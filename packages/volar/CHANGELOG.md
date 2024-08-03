@@ -1,5 +1,20 @@
 # @vue-macros/volar
 
+## 0.27.2
+### Patch Changes
+
+
+
+- [#759](https://github.com/vue-macros/vue-macros/pull/759) [`d5db988`](https://github.com/vue-macros/vue-macros/commit/d5db988c10572d404113d9680da880f139a4a205) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use vSlots prop as component's slots
+
+- Updated dependencies [[`2370065`](https://github.com/vue-macros/vue-macros/commit/2370065c07206fb0f59914a29675a70939f5f71f)]:
+  - @vue-macros/common@1.12.1
+  - @vue-macros/config@0.2.2
+  - @vue-macros/define-props@3.0.2
+  - @vue-macros/boolean-prop@0.4.3
+  - @vue-macros/short-bind@1.0.2
+  - @vue-macros/short-vmodel@1.4.8
+
 ## 0.27.1
 ### Patch Changes
 
