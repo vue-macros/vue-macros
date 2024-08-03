@@ -1,4 +1,5 @@
 import booleanProp from './boolean-prop'
+import { getVolarOptions } from './common'
 import defineEmit from './define-emit'
 import defineGeneric from './define-generic'
 import defineModels from './define-models'
@@ -20,29 +21,34 @@ import shortVmodel from './short-vmodel'
 import templateRef from './template-ref'
 import type { VueLanguagePlugin } from '@vue/language-core'
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  return [
-    defineOptions,
-    defineModels,
-    defineProps,
-    definePropsRefs,
-    shortBind,
-    shortVmodel,
-    defineSlots,
-    jsxDirective,
-    booleanProp,
-    exportRender,
-    exportProps,
-    exportExpose,
-    defineProp,
-    defineEmit,
-    defineGeneric,
-    setupJsdoc,
-    setupSFC,
-    scriptSFC,
-    scriptLang,
-    templateRef,
-  ].flatMap((plugin) => plugin(ctx))
+const plugins = {
+  defineOptions,
+  defineModels,
+  defineProps,
+  definePropsRefs,
+  shortBind,
+  shortVmodel,
+  defineSlots,
+  jsxDirective,
+  booleanProp,
+  exportRender,
+  exportProps,
+  exportExpose,
+  defineProp,
+  defineEmit,
+  defineGeneric,
+  setupJsdoc,
+  setupSFC,
+  scriptSFC,
+  scriptLang,
+  templateRef,
 }
+
+const plugin: VueLanguagePlugin = (ctx) =>
+  Object.entries(plugins).flatMap(([name, plugin]) => {
+    const options = getVolarOptions(ctx, name as keyof typeof plugins)
+    if (!options) return []
+    return plugin(ctx, options)
+  })
 
 export default plugin

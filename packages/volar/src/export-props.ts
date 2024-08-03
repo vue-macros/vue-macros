@@ -1,7 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
-import { addProps, getStart, getVolarOptions } from './common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import { addProps, getStart, type VueMacrosPlugin } from './common'
+import type { Code, Sfc } from '@vue/language-core'
 
 function transform(options: {
   codes: Code[]
@@ -45,11 +45,10 @@ function transform(options: {
   }
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'exportProps')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'exportProps'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
 
   return {
     name: 'vue-macros-export-props',

@@ -1,12 +1,11 @@
 import { createFilter } from '@vue-macros/common'
-import { parse, type VueLanguagePlugin } from '@vue/language-core'
-import { getVolarOptions } from './common'
+import { parse } from '@vue/language-core'
+import type { VueMacrosPlugin } from './common'
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'scriptLang')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'scriptLang'> = (_, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
 
   return {
     name: 'vue-macros-script-lang',
@@ -19,7 +18,7 @@ const plugin: VueLanguagePlugin = (ctx) => {
       const {
         descriptor: { script, scriptSetup },
       } = sfc
-      const lang = volarOptions.defaultLang || 'ts'
+      const lang = options.defaultLang || 'ts'
 
       if (script && !script.attrs.lang) {
         script.lang = lang

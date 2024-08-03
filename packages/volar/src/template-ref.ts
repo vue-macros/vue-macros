@@ -5,8 +5,8 @@ import {
   replaceSourceRange,
   toString,
 } from 'muggle-string'
-import { addCode, getVolarOptions } from './common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import { addCode, type VueMacrosPlugin } from './common'
+import type { Code, Sfc } from '@vue/language-core'
 
 function transformTemplateRef({
   nodes,
@@ -115,11 +115,10 @@ function getTemplateRefNodes(
   return result
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'templateRef')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'templateRef'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
 
   return {
     name: 'vue-macros-template-ref',
@@ -128,7 +127,7 @@ const plugin: VueLanguagePlugin = (ctx) => {
       if (!filter(fileName) || !sfc.scriptSetup?.ast) return
 
       const ts = ctx.modules.typescript
-      const alias = volarOptions.alias || ['templateRef', 'useTemplateRef']
+      const alias = options.alias || ['templateRef', 'useTemplateRef']
       const nodes = getTemplateRefNodes(ts, sfc, alias)
       if (!nodes.length) return
 

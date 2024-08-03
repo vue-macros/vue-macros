@@ -1,7 +1,7 @@
 import { createFilter, DEFINE_SLOTS } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
-import { getVolarOptions } from './common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import type { VueMacrosPlugin } from './common'
+import type { Code, Sfc } from '@vue/language-core'
 
 function transform({
   codes,
@@ -58,11 +58,10 @@ function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
   })
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'defineSlots')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'defineSlots'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
   const {
     modules: { typescript: ts },
     vueCompilerOptions: { target },

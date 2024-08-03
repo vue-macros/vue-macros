@@ -3,17 +3,16 @@ import {
   REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
 } from '@vue-macros/common'
-import { parse, type VueLanguagePlugin } from '@vue/language-core'
-import { getVolarOptions, patchSFC } from './common'
+import { parse } from '@vue/language-core'
+import { patchSFC, type VueMacrosPlugin } from './common'
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'setupSFC')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'setupSFC'> = (_, options = {}) => {
+  if (!options) return []
 
   const isValidFile = createFilter({
-    ...volarOptions,
-    include: volarOptions.include || REGEX_SETUP_SFC,
-    exclude: volarOptions.exclude || REGEX_NODE_MODULES,
+    ...options,
+    include: options.include || REGEX_SETUP_SFC,
+    exclude: options.exclude || REGEX_NODE_MODULES,
   })
 
   return {

@@ -1,11 +1,9 @@
 import { transformBooleanProp } from '@vue-macros/boolean-prop/api'
-import { getVolarOptions } from './common'
+import type { VueMacrosPlugin } from './common'
 import type { ConstantTypes } from '@vue/compiler-dom'
-import type { VueLanguagePlugin } from '@vue/language-core'
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'booleanProp')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'booleanProp'> = (_, options = {}) => {
+  if (!options) return []
 
   return {
     name: 'vue-macros-boolean-prop',

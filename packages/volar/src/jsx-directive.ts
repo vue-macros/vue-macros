@@ -1,13 +1,11 @@
 import { createFilter } from '@vue-macros/common'
-import { getVolarOptions } from './common'
 import { transformJsxDirective } from './jsx-directive/index'
-import type { VueLanguagePlugin } from '@vue/language-core'
+import type { VueMacrosPlugin } from './common'
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'jsxDirective')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'jsxDirective'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
 
   return {
     name: 'vue-macros-jsx-directive',

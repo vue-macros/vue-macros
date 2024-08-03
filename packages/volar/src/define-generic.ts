@@ -1,7 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { replace, replaceSourceRange } from 'muggle-string'
-import { getText, getVolarOptions } from './common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import { getText, type VueMacrosPlugin } from './common'
+import type { Code, Sfc } from '@vue/language-core'
 
 function getDefineGenerics(
   ts: typeof import('typescript'),
@@ -47,11 +47,10 @@ function getDefineGenerics(
   return result
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'defineGeneric')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'defineGeneric'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
 
   return [
     {
