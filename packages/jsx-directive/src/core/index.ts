@@ -13,7 +13,7 @@ import { transformVMemo } from './v-memo'
 import { transformVModel } from './v-model'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
 import { transformVSlot, type VSlotMap } from './v-slot'
-import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
+import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
 export type JsxDirective = {
   node: JSXElement
