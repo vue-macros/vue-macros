@@ -1,8 +1,12 @@
 import { parse, type ParserPlugin } from '@babel/parser'
-import { TS_NODE_TYPES, unwrapTSNode, walkAST } from '@vue-macros/common'
+import {
+  isFunctionType,
+  TS_NODE_TYPES,
+  unwrapTSNode,
+  walkAST,
+} from '@vue-macros/common'
 import {
   extractIdentifiers,
-  isFunctionType,
   isInDestructureAssignment,
   isReferencedIdentifier,
   isStaticProperty,

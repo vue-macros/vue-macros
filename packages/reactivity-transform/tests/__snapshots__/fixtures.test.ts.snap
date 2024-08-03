@@ -274,6 +274,19 @@ export { issue608 as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/vue3/issue-764.ts 1`] = `
+"// issue-764.js
+import { ref } from 'vue';
+
+let foo = ref("msg");
+foo.value = "world";
+class LogEntry {
+}
+
+export { LogEntry };
+"
+`;
+
 exports[`fixtures > tests/fixtures/vue3/runtime-default.vue 1`] = `
 "// runtime-default.js
 import { defineComponent, mergeDefaults } from 'vue';
