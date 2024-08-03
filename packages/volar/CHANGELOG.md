@@ -1,5 +1,20 @@
 # @vue-macros/volar
 
+## 0.27.3
+### Patch Changes
+
+
+
+- [#763](https://github.com/vue-macros/vue-macros/pull/763) [`c90316f`](https://github.com/vue-macros/vue-macros/commit/c90316fff94f6eb187f82276185bda809100ce34) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - compatible with old usage
+
+- Updated dependencies [[`52f0d7e`](https://github.com/vue-macros/vue-macros/commit/52f0d7e8ad85814264a8f473ea48cb732972f79a)]:
+  - @vue-macros/common@1.12.2
+  - @vue-macros/config@0.2.3
+  - @vue-macros/boolean-prop@0.4.4
+  - @vue-macros/define-props@3.0.3
+  - @vue-macros/short-bind@1.0.3
+  - @vue-macros/short-vmodel@1.4.9
+
 ## 0.27.2
 ### Patch Changes
 

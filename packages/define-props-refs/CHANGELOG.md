@@ -1,5 +1,11 @@
 # @vue-macros/define-props-refs
 
+## 1.2.9
+### Patch Changes
+
+- Updated dependencies [[`52f0d7e`](https://github.com/vue-macros/vue-macros/commit/52f0d7e8ad85814264a8f473ea48cb732972f79a)]:
+  - @vue-macros/common@1.12.2
+
 ## 1.2.8
 ### Patch Changes
 
