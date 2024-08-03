@@ -4,7 +4,7 @@ import {
   DEFINE_PROP_DOLLAR,
 } from '@vue-macros/common'
 import { addProps, getText, type VueMacrosPlugin } from './common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import type { Code, Sfc } from '@vue/language-core'
 
 interface DefineProp {
   name?: string
