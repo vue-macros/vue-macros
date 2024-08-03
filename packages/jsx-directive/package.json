@@ -50,6 +50,11 @@
       "require": "./dist/esbuild.js",
       "import": "./dist/esbuild.mjs"
     },
+    "./helpers": {
+      "dev": "./src/helpers.ts",
+      "require": "./dist/helpers.js",
+      "import": "./dist/helpers.mjs"
+    },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
       "require": "./dist/rolldown.js",
@@ -100,6 +105,10 @@
         "require": "./dist/esbuild.js",
         "import": "./dist/esbuild.mjs"
       },
+      "./helpers": {
+        "require": "./dist/helpers.js",
+        "import": "./dist/helpers.mjs"
+      },
       "./rolldown": {
         "require": "./dist/rolldown.js",
         "import": "./dist/rolldown.mjs"
@@ -129,9 +138,7 @@
   },
   "dependencies": {
     "@vue-macros/common": "workspace:~",
-    "unplugin": "catalog:"
-  },
-  "devDependencies": {
+    "unplugin": "catalog:",
     "vue": "catalog:"
   },
   "engines": {

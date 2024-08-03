@@ -3,33 +3,31 @@ import {
   importHelperFn,
   type MagicStringAST,
 } from '@vue-macros/common'
-import type { JsxDirective } from '.'
+import { isVue2, type JsxDirective } from '.'
 
 export function transformVOn(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  offset: number,
   version: number,
 ): void {
-  if (nodes.length > 0 && version >= 3)
+  if (nodes.length > 0 && !isVue2(version))
     s.prependRight(
-      offset,
+      0,
       `const ${HELPER_PREFIX}transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});`,
     )
 
   nodes.forEach(({ attribute }) => {
-    if (version < 3) {
-      s.remove(attribute.start! + offset, attribute.start! + offset + 2)
+    if (isVue2(version)) {
+      s.remove(attribute.start!, attribute.start! + 2)
       return
     }
 
     s.overwriteNode(
       attribute,
       `{...${HELPER_PREFIX}transformVOn(${s.slice(
-        attribute.value!.start! + offset + 1,
-        attribute.value!.end! + offset - 1,
+        attribute.value!.start! + 1,
+        attribute.value!.end! - 1,
       )})}`,
-      { offset },
     )
   })
 }
@@ -37,35 +35,33 @@ export function transformVOn(
 export function transformVOnWithModifiers(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  offset: number,
   version: number,
 ): void {
   nodes.forEach(({ attribute }) => {
     const attributeName = attribute.name.name.toString()
-    if (version < 3) {
+    if (isVue2(version)) {
       s.overwrite(
-        attribute.name.start! + offset,
-        attribute.name.start! + 3 + offset,
+        attribute.name.start!,
+        attribute.name.start! + 3,
         `v-on:${attributeName[2].toLowerCase()}`,
       )
 
-      if (!attribute.value)
-        s.appendRight(attribute.name.end! + offset, '={() => {}}')
+      if (!attribute.value) s.appendRight(attribute.name.end!, '={() => {}}')
       return
     }
 
     let [name, ...modifiers] = attributeName.split('_')
     const withModifiersOrKeys = importHelperFn(
       s,
-      offset,
+      0,
       isKeyboardEvent(name) ? 'withKeys' : 'withModifiers',
-      'vue',
+      version ? 'vue' : '@vue-macros/jsx-directive/helpers',
     )
 
     modifiers = modifiers.filter((modifier) => {
       if (modifier === 'capture') {
         s.appendRight(
-          attribute.name.end! + offset,
+          attribute.name.end!,
           modifier[0].toUpperCase() + modifier.slice(1),
         )
         return false
@@ -77,21 +73,18 @@ export function transformVOnWithModifiers(
     const result = `, [${modifiers.map((modifier) => `'${modifier}'`)}])`
     if (attribute.value?.type === 'JSXExpressionContainer') {
       s.appendRight(
-        attribute.value.expression.start! + offset,
+        attribute.value.expression.start!,
         `${withModifiersOrKeys}(`,
       )
-      s.appendLeft(attribute.value.expression.end! + offset, result)
+      s.appendLeft(attribute.value.expression.end!, result)
     } else {
       s.appendRight(
-        attribute.name.end! + offset,
+        attribute.name.end!,
         `={${withModifiersOrKeys}(() => {}${result}}`,
       )
     }
 
-    s.remove(
-      attribute.name.start! + name.length + offset,
-      attribute.name.end! + offset,
-    )
+    s.remove(attribute.name.start! + name.length, attribute.name.end!)
   })
 }
 

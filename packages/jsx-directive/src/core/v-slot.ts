@@ -1,5 +1,6 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { resolveVFor } from './v-for'
+import { isVue2 } from '.'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
 export type VSlotMap = Map<
@@ -20,13 +21,12 @@ export type VSlotMap = Map<
 export function transformVSlot(
   nodeMap: VSlotMap,
   s: MagicStringAST,
-  offset: number,
   version: number,
 ): void {
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
-      const result = [` ${version < 3 ? 'scopedSlots' : 'vSlots'}={{`]
+      const result = [` ${isVue2(version) ? 'scopedSlots' : 'vSlots'}={{`]
       const attributes = Array.from(attributeMap)
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -40,11 +40,7 @@ export function transformVSlot(
               ['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`) &&
               vIfAttribute.value?.type === 'JSXExpressionContainer'
             ) {
-              result.push(
-                `(${s.sliceNode(vIfAttribute.value.expression, {
-                  offset,
-                })}) ? {`,
-              )
+              result.push(`(${s.sliceNode(vIfAttribute.value.expression)}) ? {`)
             } else if ('v-else' === vIfAttribute.name.name) {
               result.push('{')
             }
@@ -53,7 +49,7 @@ export function transformVSlot(
           if (vForAttribute) {
             result.push(
               '...Object.fromEntries(',
-              resolveVFor(vForAttribute, { s, offset, version }),
+              resolveVFor(vForAttribute, { s, version }),
               '([',
             )
           }
@@ -69,31 +65,29 @@ export function transformVSlot(
           })
           result.push(
             isDynamic
-              ? `[${importHelperFn(s, offset, 'unref')}(${attributeName})]`
+              ? `[${importHelperFn(s, 0, 'unref', version ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
               : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
             '(',
             attribute.value && attribute.value.type === 'JSXExpressionContainer'
-              ? s.sliceNode(attribute.value.expression, { offset })
+              ? s.sliceNode(attribute.value.expression)
               : '',
             ') => ',
-            version < 3 ? '<span>' : '<>',
+            isVue2(version) ? '<span>' : '<>',
             children
               .map((child) => {
                 const str = s.sliceNode(
                   child.type === 'JSXElement' &&
-                    s.sliceNode(child.openingElement.name, { offset }) ===
-                      'template'
+                    s.sliceNode(child.openingElement.name) === 'template'
                     ? child.children
                     : child,
-                  { offset },
                 )
 
-                s.removeNode(child, { offset })
+                s.removeNode(child)
                 return str
               })
               .join('') || ' ',
-            version < 3 ? '</span>,' : '</>,',
+            isVue2(version) ? '</span>,' : '</>,',
           )
 
           if (vForAttribute) {
@@ -119,23 +113,23 @@ export function transformVSlot(
       )
 
       if (attributeMap.has(null)) {
-        result.push(`default: () => ${version < 3 ? '<span>' : '<>'}`)
+        result.push(`default: () => ${isVue2(version) ? '<span>' : '<>'}`)
       } else {
         result.push('}}')
       }
 
       if (vSlotAttribute) {
-        s.overwriteNode(vSlotAttribute, result.join(''), { offset })
+        s.overwriteNode(vSlotAttribute, result.join(''))
       } else if (node?.type === 'JSXElement') {
         s.overwrite(
-          node.openingElement.end! + offset - 1,
-          node.openingElement.end! + offset,
+          node.openingElement.end! - 1,
+          node.openingElement.end!,
           result.join(''),
         )
         s.appendLeft(
-          node.closingElement!.start! + offset,
+          node.closingElement!.start!,
           attributeMap.has(null)
-            ? `${version < 3 ? '</span>' : '</>'}}}>`
+            ? `${isVue2(version) ? '</span>' : '</>'}}}>`
             : '>',
         )
       }

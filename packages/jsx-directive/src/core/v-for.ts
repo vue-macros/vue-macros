@@ -3,18 +3,16 @@ import {
   importHelperFn,
   type MagicStringAST,
 } from '@vue-macros/common'
-import type { JsxDirective } from '.'
+import { isVue2, type JsxDirective } from '.'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
   {
     s,
-    offset,
     version,
     vMemoAttribute,
   }: {
     s: MagicStringAST
-    offset: number
     version: number
     vMemoAttribute?: JsxDirective['attribute']
   },
@@ -27,16 +25,14 @@ export function resolveVFor(
     ) {
       if (attribute.value.expression.left.type === 'SequenceExpression') {
         const expressions = attribute.value.expression.left.expressions
-        item = expressions[0] ? s.sliceNode(expressions[0], { offset }) : ''
-        index = expressions[1] ? s.sliceNode(expressions[1], { offset }) : ''
-        objectIndex = expressions[2]
-          ? s.sliceNode(expressions[2], { offset })
-          : ''
+        item = expressions[0] ? s.sliceNode(expressions[0]) : ''
+        index = expressions[1] ? s.sliceNode(expressions[1]) : ''
+        objectIndex = expressions[2] ? s.sliceNode(expressions[2]) : ''
       } else {
-        item = s.sliceNode(attribute.value.expression.left, { offset })
+        item = s.sliceNode(attribute.value.expression.left)
       }
 
-      list = s.sliceNode(attribute.value.expression.right, { offset })
+      list = s.sliceNode(attribute.value.expression.right)
     }
 
     if (item && list) {
@@ -44,10 +40,14 @@ export function resolveVFor(
         index ??= `${HELPER_PREFIX}index`
       }
 
-      const renderList =
-        version < 3
-          ? 'Array.from'
-          : importHelperFn(s, offset, 'renderList', 'vue')
+      const renderList = isVue2(version)
+        ? 'Array.from'
+        : importHelperFn(
+            s,
+            0,
+            'renderList',
+            version ? 'vue' : '@vue-macros/jsx-directive/helpers',
+          )
 
       return `${renderList}(${list}, (${item}${
         index ? `, ${index}` : ''
@@ -61,7 +61,6 @@ export function resolveVFor(
 export function transformVFor(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  offset: number,
   version: number,
 ): void {
   if (nodes.length === 0) return
@@ -69,8 +68,8 @@ export function transformVFor(
   nodes.forEach(({ node, attribute, parent, vMemoAttribute }) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
     s.appendLeft(
-      node.start! + offset,
-      `${hasScope ? '{' : ''}${resolveVFor(attribute, { s, offset, version, vMemoAttribute })}`,
+      node.start!,
+      `${hasScope ? '{' : ''}${resolveVFor(attribute, { s, version, vMemoAttribute })}`,
     )
 
     const isTemplate =
@@ -78,12 +77,12 @@ export function transformVFor(
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      const content = version < 3 ? 'span' : ''
-      s.overwriteNode(node.openingElement.name, content, { offset })
-      s.overwriteNode(node.closingElement.name, content, { offset })
+      const content = isVue2(version) ? 'span' : ''
+      s.overwriteNode(node.openingElement.name, content)
+      s.overwriteNode(node.closingElement.name, content)
     }
 
-    s.prependRight(node.end! + offset, `)${hasScope ? '}' : ''}`)
-    s.remove(attribute.start! + offset - 1, attribute.end! + offset)
+    s.prependRight(node.end!, `)${hasScope ? '}' : ''}`)
+    s.remove(attribute.start! - 1, attribute.end!)
   })
 }

@@ -8,23 +8,25 @@ import type { JsxDirective } from '.'
 export function transformVMemo(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  offset: number,
+  version: number,
 ): void {
   if (nodes.length === 0) return
-  const withMemo = importHelperFn(s, offset, 'withMemo', 'vue')
-  s.prependRight(offset, `const ${HELPER_PREFIX}cache = [];`)
+  const withMemo = importHelperFn(
+    s,
+    0,
+    'withMemo',
+    version ? 'vue' : '@vue-macros/jsx-directive/helpers',
+  )
+  s.prependRight(0, `const ${HELPER_PREFIX}cache = [];`)
 
   nodes.forEach(({ node, attribute, parent, vForAttribute }, nodeIndex) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
 
     s.appendLeft(
-      node.start! + offset,
+      node.start!,
       `${hasScope ? '{' : ''}${withMemo}(${
         attribute.value
-          ? s.slice(
-              attribute.value.start! + offset + 1,
-              attribute.value.end! + offset - 1,
-            )
+          ? s.slice(attribute.value.start! + 1, attribute.value.end! - 1)
           : `[]`
       }, () => `,
     )
@@ -41,15 +43,12 @@ export function transformVMemo(
         vForIndex = vForAttribute.value.expression.left.expressions[1].name
 
       cache += `[${index}]`
-      s.appendRight(offset, `${cache} = [];`)
+      s.appendRight(0, `${cache} = [];`)
       index += ` + ${vForIndex} + 1`
     }
 
-    s.prependRight(
-      node.end! + offset,
-      `, ${cache}, ${index})${hasScope ? '}' : ''}`,
-    )
+    s.prependRight(node.end!, `, ${cache}, ${index})${hasScope ? '}' : ''}`)
 
-    s.remove(attribute.start! + offset - 1, attribute.end! + offset)
+    s.remove(attribute.start! - 1, attribute.end!)
   })
 }
