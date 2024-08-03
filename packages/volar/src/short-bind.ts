@@ -1,10 +1,8 @@
 import { transformShortBind } from '@vue-macros/short-bind/api'
-import { getVolarOptions } from './common'
-import type { VueLanguagePlugin } from '@vue/language-core'
+import type { VueMacrosPlugin } from './common'
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'shortBind')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'shortBind'> = (ctx, options = {}) => {
+  if (!options) return []
 
   return {
     name: 'vue-macros-short-bind',

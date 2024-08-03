@@ -62,6 +62,11 @@ export function addCode(codes: Code[], ...args: Code[]): void {
   codes.splice(index > -1 ? index + 1 : codes.length, 0, ...args)
 }
 
+export type VueMacrosPlugin<K extends keyof OptionsResolved> = (
+  ctx: PluginContext,
+  options?: OptionsResolved[K],
+) => ReturnType<VueLanguagePlugin>
+
 export type PluginContext = Parameters<VueLanguagePlugin>[0]
 
 const resolvedOptions: Map<string, OptionsResolved> = new Map()

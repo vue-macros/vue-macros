@@ -3,8 +3,8 @@ import {
   DEFINE_MODELS,
   DEFINE_MODELS_DOLLAR,
 } from '@vue-macros/common'
-import { addEmits, addProps, getText, getVolarOptions } from './common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import { addEmits, addProps, getText, type VueMacrosPlugin } from './common'
+import type { Code, Sfc } from '@vue/language-core'
 
 function transformDefineModels(options: {
   codes: Code[]
@@ -69,11 +69,10 @@ function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
   })
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'defineModels')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'defineModels'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
   const {
     modules: { typescript: ts },
     vueCompilerOptions: { target, lib },
@@ -93,7 +92,7 @@ const plugin: VueLanguagePlugin = (ctx) => {
       const typeArg = getTypeArg(ts, sfc)
       if (!typeArg) return
 
-      const unified = target < 3 && (volarOptions?.unified ?? true)
+      const unified = target < 3 && (options?.unified ?? true)
 
       transformDefineModels({
         codes: embeddedFile.content,

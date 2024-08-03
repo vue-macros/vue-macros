@@ -1,7 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { replace } from 'muggle-string'
-import { getVolarOptions } from './common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import type { VueMacrosPlugin } from './common'
+import type { Code, Sfc } from '@vue/language-core'
 import type ts from 'typescript'
 
 type HasJSDoc = ts.HasJSDoc & { jsDoc: ts.JSDoc[] }
@@ -49,11 +49,10 @@ function transform({
   }
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'setupJsdoc')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'setupJsdoc'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
 
   return {
     name: 'vue-macros-setup-jsdoc',

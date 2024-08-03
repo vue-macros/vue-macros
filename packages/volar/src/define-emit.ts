@@ -1,6 +1,6 @@
 import { createFilter, DEFINE_EMIT } from '@vue-macros/common'
-import { addEmits, getText, getVolarOptions } from './common'
-import type { Sfc, VueLanguagePlugin } from '@vue/language-core'
+import { addEmits, getText, type VueMacrosPlugin } from './common'
+import type { Sfc } from '@vue/language-core'
 
 function getEmitStrings(options: {
   ts: typeof import('typescript')
@@ -51,11 +51,10 @@ function getEmitStrings(options: {
   return emitStrings
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'defineEmit')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'defineEmit'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
 
   return {
     name: 'vue-macros-define-emit',

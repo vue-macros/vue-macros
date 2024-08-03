@@ -3,8 +3,8 @@ import {
   DEFINE_PROP,
   DEFINE_PROP_DOLLAR,
 } from '@vue-macros/common'
-import { addProps, getText, getVolarOptions } from './common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import { addProps, getText, type VueMacrosPlugin } from './common'
+import type { Code, Sfc } from '@vue/language-core'
 
 interface DefineProp {
   name?: string
@@ -218,11 +218,10 @@ function getDefineProp(
   return defineProps
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'defineProp')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
   const {
     modules: { typescript: ts },
     vueCompilerOptions: { experimentalDefinePropProposal, lib },
@@ -240,7 +239,7 @@ const plugin: VueLanguagePlugin = (ctx) => {
         return
 
       const edition =
-        volarOptions.edition || experimentalDefinePropProposal || 'kevinEdition'
+        options.edition || experimentalDefinePropProposal || 'kevinEdition'
       const defineProps = getDefineProp(ts, sfc, edition)
       if (defineProps.length === 0) return
 

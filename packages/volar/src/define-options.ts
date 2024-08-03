@@ -1,12 +1,7 @@
 import { createFilter, DEFINE_OPTIONS } from '@vue-macros/common'
-import {
-  allCodeFeatures,
-  type Code,
-  type Sfc,
-  type VueLanguagePlugin,
-} from '@vue/language-core'
+import { allCodeFeatures, type Code, type Sfc } from '@vue/language-core'
 import { replaceAll } from 'muggle-string'
-import { getVolarOptions, REGEX_DEFINE_COMPONENT } from './common'
+import { REGEX_DEFINE_COMPONENT, type VueMacrosPlugin } from './common'
 
 function transformDefineOptions({
   codes,
@@ -48,11 +43,10 @@ function getArg(ts: typeof import('typescript'), sfc: Sfc) {
   })
 }
 
-const plugin: VueLanguagePlugin = (ctx) => {
-  const volarOptions = getVolarOptions(ctx, 'defineOptions')
-  if (!volarOptions) return []
+const plugin: VueMacrosPlugin<'defineOptions'> = (ctx, options = {}) => {
+  if (!options) return []
 
-  const filter = createFilter(volarOptions)
+  const filter = createFilter(options)
 
   return {
     name: 'vue-macros-define-options',
