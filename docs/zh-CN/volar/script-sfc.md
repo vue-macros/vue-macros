@@ -15,8 +15,6 @@
 ::: code-group
 
 ```tsx [App.tsx]
-import { expectTypeOf } from 'expect-type'
-
 export default ({ foo }: { foo: number }) => (
   <div v-if={foo === 1}>{foo}</div>
   //                     ^ 将被推断为 1

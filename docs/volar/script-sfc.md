@@ -15,8 +15,6 @@ Enabled Volar support for `.ts` | `.tsx` files.
 ::: code-group
 
 ```tsx [App.tsx]
-import { expectTypeOf } from 'expect-type'
-
 export default ({ foo }: { foo: number }) => (
   <div v-if={foo === 1}>{foo}</div>
   //                     ^ will be inferred as 1
