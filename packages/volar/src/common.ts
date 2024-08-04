@@ -1,4 +1,8 @@
-import { resolveOptions, type OptionsResolved } from '@vue-macros/config'
+import {
+  resolveOptions,
+  type FeatureName,
+  type OptionsResolved,
+} from '@vue-macros/config'
 import { replace, replaceAll } from 'muggle-string'
 import type { SFCScriptBlock } from '@vue-macros/common'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
@@ -62,7 +66,7 @@ export function addCode(codes: Code[], ...args: Code[]): void {
   codes.splice(index > -1 ? index + 1 : codes.length, 0, ...args)
 }
 
-export type VueMacrosPlugin<K extends keyof OptionsResolved> = (
+export type VueMacrosPlugin<K extends FeatureName> = (
   ctx: PluginContext,
   options?: OptionsResolved[K],
 ) => ReturnType<VueLanguagePlugin>
