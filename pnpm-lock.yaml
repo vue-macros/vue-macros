@@ -287,6 +287,16 @@ importers:
 
   packages/config:
     dependencies:
+      '@vue-macros/common':
+        specifier: workspace:*
+        version: link:../common
+      make-synchronized:
+        specifier: ^0.2.9
+        version: 0.2.9
+      unconfig:
+        specifier: ^0.5.1
+        version: 0.5.2
+    devDependencies:
       '@vue-macros/better-define':
         specifier: workspace:*
         version: link:../better-define
@@ -296,9 +306,6 @@ importers:
       '@vue-macros/chain-call':
         specifier: workspace:^
         version: link:../chain-call
-      '@vue-macros/common':
-        specifier: workspace:*
-        version: link:../common
       '@vue-macros/define-emit':
         specifier: workspace:^
         version: link:../define-emit
@@ -365,12 +372,6 @@ importers:
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
-      make-synchronized:
-        specifier: ^0.2.9
-        version: 0.2.9
-      unconfig:
-        specifier: ^0.5.1
-        version: 0.5.2
       unplugin-vue-define-options:
         specifier: workspace:*
         version: link:../define-options

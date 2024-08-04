@@ -97,6 +97,11 @@
     "dev": "DEV=true tsup"
   },
   "dependencies": {
+    "@vue-macros/common": "workspace:*",
+    "make-synchronized": "^0.2.9",
+    "unconfig": "^0.5.1"
+  },
+  "devDependencies": {
     "@vue-macros/better-define": "workspace:*",
     "@vue-macros/boolean-prop": "workspace:*",
     "@vue-macros/chain-call": "workspace:^",
@@ -123,8 +128,6 @@
     "@vue-macros/short-bind": "workspace:*",
     "@vue-macros/short-emits": "workspace:*",
     "@vue-macros/short-vmodel": "workspace:*",
-    "make-synchronized": "^0.2.9",
-    "unconfig": "^0.5.1",
     "unplugin-vue-define-options": "workspace:*"
   },
   "engines": {
