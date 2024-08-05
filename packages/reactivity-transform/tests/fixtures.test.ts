@@ -12,28 +12,16 @@ import VueReactivityTransform from '../src/rollup'
 describe('fixtures', async () => {
   await testFixtures(
     'tests/fixtures/**/*.{vue,js,ts}',
-    (args, id) => {
-      if (id.includes('vue2'))
-        return rollupBuild(id, [
-          VueReactivityTransform(),
-          RollupVue2({
-            compiler: require('vue2/compiler-sfc'),
-          }),
-          RollupEsbuildPlugin({
-            target: 'esnext',
-          }),
-        ])
-      else
-        return rollupBuild(id, [
-          VueReactivityTransform(),
-          RollupVue({
-            compiler: require('vue/compiler-sfc'),
-          }),
-          RollupEsbuildPlugin({
-            target: 'esnext',
-          }),
-        ])
-    },
+    async (args, id) =>
+      rollupBuild(id, [
+        VueReactivityTransform(),
+        id.includes('vue2')
+          ? RollupVue2({ compiler: (await import('vue2/compiler-sfc')) as any })
+          : RollupVue({ compiler: await import('vue/compiler-sfc') }),
+        RollupEsbuildPlugin({
+          target: 'esnext',
+        }),
+      ]),
     {
       cwd: resolve(__dirname, '..'),
       promise: true,
