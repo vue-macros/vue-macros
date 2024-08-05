@@ -12,6 +12,7 @@ defineOptions({
   },
 })
 
+// eslint-disable-next-line unused-imports/no-unused-vars
 const Comp = defineComponent({
   setup() {},
 })
