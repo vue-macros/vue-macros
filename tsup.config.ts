@@ -2,10 +2,13 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'tsup'
-import Macros from 'unplugin-macros/esbuild'
+import { createUnplugin } from 'unplugin'
+import { IsolatedDecl } from 'unplugin-isolated-decl'
+import Macros from 'unplugin-macros'
 import Raw from 'unplugin-raw/esbuild'
 
 const filename = fileURLToPath(import.meta.url)
+const macros = path.resolve(filename, '../macros')
 
 export default defineConfig({
   entry: ['./src/*.ts', '!./**.d.ts'],
@@ -14,15 +17,7 @@ export default defineConfig({
   splitting: true,
   cjsInterop: true,
   watch: !!process.env.DEV,
-  dts:
-    process.env.DEV || process.env.NO_DTS
-      ? false
-      : {
-          compilerOptions: {
-            composite: false,
-            customConditions: [],
-          },
-        },
+  dts: false,
   tsconfig: '../../tsconfig.lib.json',
   clean: true,
   define: {
@@ -30,19 +25,27 @@ export default defineConfig({
   },
   removeNodeProtocol: false,
   esbuildPlugins: [
+    createUnplugin<undefined, true>((opt, meta) => {
+      return [
+        IsolatedDecl.raw({ exclude: [/node_modules/, `${macros}/**`] }, meta),
+        Macros.raw(
+          {
+            viteConfig: {
+              resolve: {
+                alias: {
+                  '#macros': path.resolve(filename, '../macros/index.ts'),
+                },
+              },
+            },
+          },
+          meta,
+        ),
+      ]
+    }).esbuild(),
     Raw({
       transform: {
         options: {
           minifyWhitespace: true,
-        },
-      },
-    }),
-    Macros({
-      viteConfig: {
-        resolve: {
-          alias: {
-            '#macros': path.resolve(filename, '../macros/index.ts'),
-          },
         },
       },
     }),
