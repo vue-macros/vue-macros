@@ -7,6 +7,7 @@ const config: Linter.Config = {
   languageOptions: {
     globals,
   },
+  name: 'vue-macros/rules',
   rules,
 }
 

@@ -1,4 +1,5 @@
 /* eslint perfectionist/sort-objects: "error" */
+import type { Rules } from '@sxzz/eslint-config'
 import type { Linter } from 'eslint'
 
 export const globals: Linter.Globals = {
@@ -23,6 +24,8 @@ export const globals: Linter.Globals = {
 }
 
 export const rules: Linter.RulesRecord = {
-  'vue/no-setup-props-destructure': 'off',
-  'vue/valid-v-bind': 'off',
-}
+  'vue/no-export-in-script-setup': 'off', // exportRender / exportExpose / exportProps
+  'vue/valid-attribute-name': 'off', // short-vmodel
+  'vue/valid-define-props': 'off', // hoistStatic
+  'vue/valid-v-bind': 'off', // shortBind + shortVmodel
+} satisfies Rules
