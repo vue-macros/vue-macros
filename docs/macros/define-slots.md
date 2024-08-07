@@ -10,8 +10,8 @@ For Vue >= 3.3, this feature will be turned off by default.
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    | :white_check_mark: |
-|    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
+|    Vue 2     |        :x:         |
 
 ## Basic Usage
 

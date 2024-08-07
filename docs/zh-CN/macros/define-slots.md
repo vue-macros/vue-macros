@@ -10,8 +10,8 @@
 | :----------: | :----------------: |
 |    Vue 3     | :white_check_mark: |
 |    Nuxt 3    | :white_check_mark: |
-|    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
+|    Vue 2     |        :x:         |
 
 ## 基本用法
 
