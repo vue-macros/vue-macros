@@ -43,6 +43,19 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       transform(code, id) {
         return transformScriptLang(code, id, options)
       },
+
+      vite: {
+        handleHotUpdate(ctx) {
+          if (!filter(ctx.file)) return
+
+          const { read } = ctx
+          ctx.read = async () => {
+            const content = await read()
+            const s = transformScriptLang(content, ctx.file, options)
+            return s?.code || content
+          }
+        },
+      },
     }
   },
 )
