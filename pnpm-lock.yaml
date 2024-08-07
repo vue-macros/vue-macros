@@ -25,8 +25,8 @@ catalogs:
       specifier: ~5.5.4
       version: 5.5.4
     unplugin:
-      specifier: ^1.12.0
-      version: 1.12.0
+      specifier: ^1.12.1
+      version: 1.12.1
     vite:
       specifier: ^5.4.0
       version: 5.4.0
@@ -132,10 +132,10 @@ importers:
         version: 0.61.9(rollup@4.20.0)(vite@5.4.0(@types/node@22.1.0)(less@4.2.0)(terser@5.31.4))
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
       unplugin-isolated-decl:
-        specifier: 0.4.1
-        version: 0.4.1(rollup@4.20.0)(typescript@5.5.4)
+        specifier: ^0.4.4
+        version: 0.4.4(rollup@4.20.0)(typescript@5.5.4)
       unplugin-macros:
         specifier: ^0.13.1
         version: 0.13.1(@types/node@22.1.0)(less@4.2.0)(rollup@4.20.0)(terser@5.31.4)
@@ -245,7 +245,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
 
   packages/boolean-prop:
     dependencies:
@@ -267,7 +267,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
 
   packages/common:
     dependencies:
@@ -398,7 +398,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -414,7 +414,7 @@ importers:
         version: 0.6.1
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       '@vue-macros/api':
         specifier: workspace:^
@@ -436,7 +436,7 @@ importers:
         version: 0.6.1
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -452,7 +452,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -465,7 +465,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       '@vue-macros/reactivity-transform':
         specifier: workspace:*
@@ -481,7 +481,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -494,7 +494,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -507,7 +507,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -554,7 +554,7 @@ importers:
         version: 3.4.36
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -567,7 +567,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -583,7 +583,7 @@ importers:
         version: 3.4.36
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -596,7 +596,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
 
   packages/jsx-directive:
     dependencies:
@@ -605,7 +605,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
       vue:
         specifier: 'catalog:'
         version: 3.4.36(typescript@5.5.4)
@@ -698,7 +698,7 @@ importers:
         version: link:../volar
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
       unplugin-combine:
         specifier: ^1.0.2
         version: 1.0.2(@rspack/core@0.7.5)(esbuild@0.23.0)(rolldown@0.12.2)(rollup@4.20.0)(vite@5.4.0(@types/node@22.1.0)(less@4.2.0)(terser@5.31.4))(webpack@5.93.0(esbuild@0.23.0))
@@ -720,7 +720,7 @@ importers:
         version: 3.4.36
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -767,7 +767,7 @@ importers:
         version: 0.30.11
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
 
   packages/script-lang:
     dependencies:
@@ -776,7 +776,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -792,7 +792,7 @@ importers:
         version: 3.4.36
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
 
   packages/setup-component:
     dependencies:
@@ -801,7 +801,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -814,7 +814,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -840,7 +840,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.12.0
+        version: 1.12.1
 
   packages/short-vmodel:
     dependencies:
@@ -1885,43 +1885,43 @@ packages:
     resolution: {integrity: sha512-H7FwBV4ChssMaeiLyPdVLOLUa0326ebp3pNbJfGgFt7rSoKh1MmgjorecA8JMxOQZziy3w6EELf4+5cgLh/F1w==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
-  '@oxc-transform/binding-darwin-arm64@0.16.3':
-    resolution: {integrity: sha512-PShqNXHeGAT1UUMoqgsVV5d2cAjqNSKt4fniMhGMiaQU/gTJVmSor9L0ai/Zw0tM4yqPc/49Um6+FLzOCnU/dg==}
+  '@oxc-transform/binding-darwin-arm64@0.23.0':
+    resolution: {integrity: sha512-IDTjBFaaIdkLVO2PWMxPLXnbK6PdOWbOx/rOiriWE7x5rQSlqR+8WFRkFHrQr+E3jrItE+sdsDrtOdq0lJJ+3w==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxc-transform/binding-darwin-x64@0.16.3':
-    resolution: {integrity: sha512-x8VojH5rPTMWZXY/SWTX5WIb1RzOBrbPdXeNN/o28MUbb0Kb2lD8JhQwTI8SpDpEjv+RBag/vnEJiBPDnfQVdA==}
+  '@oxc-transform/binding-darwin-x64@0.23.0':
+    resolution: {integrity: sha512-ATtu7+g4QmI4BiwQZU0+54DdBTbxqf6+fS+sK4DNrR/xxKsGi33k++N0OFzStV5JQ3+/09teRIHK9bAbUzxkhg==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxc-transform/binding-linux-arm64-gnu@0.16.3':
-    resolution: {integrity: sha512-F5d0cKy3t+NzUjmT+IJ0uMLMo1ZjtzCWI6Lyyph6Dl4R1ZL/BhA1RaBnCEEWBSfHYs3mGnqSM8nqsBx+1aASdA==}
+  '@oxc-transform/binding-linux-arm64-gnu@0.23.0':
+    resolution: {integrity: sha512-TA2KvZrY1C1e53TcttdIi0yFC8LOLKoVr4lOWgyvDHr6SUaOHRBgiSHk1lfvEFgyRyAb/1eKrJcJVzGbWNWyQQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxc-transform/binding-linux-arm64-musl@0.16.3':
-    resolution: {integrity: sha512-cV19dC6Ajgw2UDbgZ6eoWMlg4cfGRFiwCz9YBlt0qzLl88wixDthPergZBXJxkopgv/jLFSOSIR6DHQNqeurYg==}
+  '@oxc-transform/binding-linux-arm64-musl@0.23.0':
+    resolution: {integrity: sha512-eCAwjxCKSOxWB3K4j3aeIxKS2ILrlWanNwiPaG7uwvTevwRcH07B+daRL4HmZ1GT9lx5Aix0V0c36TWytdAJTA==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxc-transform/binding-linux-x64-gnu@0.16.3':
-    resolution: {integrity: sha512-7JgHGqycjA9dv41ELQ55HHcGTO+UJcYL91/tXoEY4qwuWLpXDekLRg+qUgmFI93jUxyknCB6+zC7H6VgJkij4A==}
+  '@oxc-transform/binding-linux-x64-gnu@0.23.0':
+    resolution: {integrity: sha512-8geG/gZ840J5AzSckVyocZAT00Hhd2WFlgeQ5U9/htaU3Iib88aWpKAZXtct8EWUIiVxtadtKgRBhNrmSMc/0w==}
     cpu: [x64]
     os: [linux]
 
-  '@oxc-transform/binding-linux-x64-musl@0.16.3':
-    resolution: {integrity: sha512-b0V06PFnLK3CAwa+F/4dMDxqY5Jn9bbH6haeOgWNzayJLA6wKxYknbSpU6ZHjdmu/sy6Q0Ez62Cp1ioyFYlrTg==}
+  '@oxc-transform/binding-linux-x64-musl@0.23.0':
+    resolution: {integrity: sha512-DxCk0vtCX5StMfIoU/4nSHlhoFJSQqz/ks2nadqGQI5FSLjDKgSiNObQCqMgtXhPOsdsgs7YnD8mED+HmC6cPA==}
     cpu: [x64]
     os: [linux]
 
-  '@oxc-transform/binding-win32-arm64-msvc@0.16.3':
-    resolution: {integrity: sha512-dXHhIcbjX61jpmXBMx1Vvna2vyFJDgl/EcPFbZfhAgcGIHOoMJ+w5xrhH+WnKS2w+BEcfrjoBiF1gKg08gOcIA==}
+  '@oxc-transform/binding-win32-arm64-msvc@0.23.0':
+    resolution: {integrity: sha512-mNPUqq5KZ/QhPlhiidg3el1s7TpgVGfiu8m4l8vf3tw4GL6vdcmEi4a2SQSd/wfYEwVcSIOgoP7DFYaJXgG3hA==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxc-transform/binding-win32-x64-msvc@0.16.3':
-    resolution: {integrity: sha512-tYqmHGGSYbNUnnN4nACNCxi/zDLyZu5DGcr2Cif89GZboxX2SjWOv15hRnu+Ku/H3ctTxTsHSt4PxnSCF2axEg==}
+  '@oxc-transform/binding-win32-x64-msvc@0.23.0':
+    resolution: {integrity: sha512-lkUSMK4fpUzbQ1RV2kBOSlQ2QItEbHWGzRMwUgBgWS3IyupzorOKY6G1YVQ9VvwkGDw+G/7LADRc3Yvs4Z5xFg==}
     cpu: [x64]
     os: [win32]
 
@@ -4625,8 +4625,8 @@ packages:
   outdent@0.5.0:
     resolution: {integrity: sha512-/jHxFIzoMXdqPzTaCpFzAAWhpkSjZPF4Vsn6jAfNpmbH/ymsmd7Qc6VE9BGn0L6YMj6uwpQLxCECpus4ukKS9Q==}
 
-  oxc-transform@0.16.3:
-    resolution: {integrity: sha512-0VzI9MtIdsU46G73qCo+tIHP9sO+Ok8a68htz80eX0+aROONEKcCzJcyRXrJo0NBtiaD4Gx+GqbhthfZdJxDgw==}
+  oxc-transform@0.23.0:
+    resolution: {integrity: sha512-0wnyvQxUpz4/HQb26NMiX+JKTPZrBAPGMUBri8oRw2M35K6AwOiVyTekwlMkymR9NbXJcLo9N656a+L52LksVQ==}
 
   p-filter@2.1.0:
     resolution: {integrity: sha512-ZBxxZ5sL2HghephhpGAQdoskxplTwr7ICaehZwLIlfL6acuVgZPm8yBNuRAFBGEqtD/hmUeq9eqLg2ys9Xr/yw==}
@@ -5551,8 +5551,8 @@ packages:
       webpack:
         optional: true
 
-  unplugin-isolated-decl@0.4.1:
-    resolution: {integrity: sha512-9G/0ododLbyfFylgzdxI5qeplzdzgD2VlLP8JuBOTRBBnJ5xyAj5RxqDOG66aeRYyuvkI+CLka5ZPp+RzbMotw==}
+  unplugin-isolated-decl@0.4.4:
+    resolution: {integrity: sha512-VKAAnl445L5jqNr/moBR0mGbbAUtNVvLEqvoNJ6H8+Cs1hdYPwAq75SxMtjHtj3skscjKvTlLf+UEJ9VAfP77Q==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
       '@swc/core': ^1.6.6
@@ -5579,6 +5579,10 @@ packages:
 
   unplugin@1.12.0:
     resolution: {integrity: sha512-KeczzHl2sATPQUx1gzo+EnUkmN4VmGBYRRVOZSGvGITE9rGHRDGqft6ONceP3vgXcyJ2XjX5axG5jMWUwNCYLw==}
+    engines: {node: '>=14.0.0'}
+
+  unplugin@1.12.1:
+    resolution: {integrity: sha512-aXEH9c5qi3uYZHo0niUtxDlT9ylG/luMW/dZslSCkbtC31wCyFkmM0kyoBBh+Grhn7CL+/kvKLfN61/EdxPxMQ==}
     engines: {node: '>=14.0.0'}
 
   unplugin@1.7.1:
@@ -7169,28 +7173,28 @@ snapshots:
       - rollup
       - supports-color
 
-  '@oxc-transform/binding-darwin-arm64@0.16.3':
+  '@oxc-transform/binding-darwin-arm64@0.23.0':
     optional: true
 
-  '@oxc-transform/binding-darwin-x64@0.16.3':
+  '@oxc-transform/binding-darwin-x64@0.23.0':
     optional: true
 
-  '@oxc-transform/binding-linux-arm64-gnu@0.16.3':
+  '@oxc-transform/binding-linux-arm64-gnu@0.23.0':
     optional: true
 
-  '@oxc-transform/binding-linux-arm64-musl@0.16.3':
+  '@oxc-transform/binding-linux-arm64-musl@0.23.0':
     optional: true
 
-  '@oxc-transform/binding-linux-x64-gnu@0.16.3':
+  '@oxc-transform/binding-linux-x64-gnu@0.23.0':
     optional: true
 
-  '@oxc-transform/binding-linux-x64-musl@0.16.3':
+  '@oxc-transform/binding-linux-x64-musl@0.23.0':
     optional: true
 
-  '@oxc-transform/binding-win32-arm64-msvc@0.16.3':
+  '@oxc-transform/binding-win32-arm64-msvc@0.23.0':
     optional: true
 
-  '@oxc-transform/binding-win32-x64-msvc@0.16.3':
+  '@oxc-transform/binding-win32-x64-msvc@0.23.0':
     optional: true
 
   '@pkgjs/parseargs@0.11.0':
@@ -10513,16 +10517,16 @@ snapshots:
 
   outdent@0.5.0: {}
 
-  oxc-transform@0.16.3:
+  oxc-transform@0.23.0:
     optionalDependencies:
-      '@oxc-transform/binding-darwin-arm64': 0.16.3
-      '@oxc-transform/binding-darwin-x64': 0.16.3
-      '@oxc-transform/binding-linux-arm64-gnu': 0.16.3
-      '@oxc-transform/binding-linux-arm64-musl': 0.16.3
-      '@oxc-transform/binding-linux-x64-gnu': 0.16.3
-      '@oxc-transform/binding-linux-x64-musl': 0.16.3
-      '@oxc-transform/binding-win32-arm64-msvc': 0.16.3
-      '@oxc-transform/binding-win32-x64-msvc': 0.16.3
+      '@oxc-transform/binding-darwin-arm64': 0.23.0
+      '@oxc-transform/binding-darwin-x64': 0.23.0
+      '@oxc-transform/binding-linux-arm64-gnu': 0.23.0
+      '@oxc-transform/binding-linux-arm64-musl': 0.23.0
+      '@oxc-transform/binding-linux-x64-gnu': 0.23.0
+      '@oxc-transform/binding-linux-x64-musl': 0.23.0
+      '@oxc-transform/binding-win32-arm64-msvc': 0.23.0
+      '@oxc-transform/binding-win32-x64-msvc': 0.23.0
 
   p-filter@2.1.0:
     dependencies:
@@ -11529,7 +11533,7 @@ snapshots:
   unplugin-combine@1.0.2(@rspack/core@0.7.5)(esbuild@0.23.0)(rolldown@0.12.2)(rollup@4.20.0)(vite@5.4.0(@types/node@22.1.0)(less@4.2.0)(terser@5.31.4))(webpack@5.93.0(esbuild@0.23.0)):
     dependencies:
       '@antfu/utils': 0.7.10
-      unplugin: 1.12.0
+      unplugin: 1.12.1
     optionalDependencies:
       '@rspack/core': 0.7.5
       esbuild: 0.23.0
@@ -11538,11 +11542,11 @@ snapshots:
       vite: 5.4.0(@types/node@22.1.0)(less@4.2.0)(terser@5.31.4)
       webpack: 5.93.0(esbuild@0.23.0)
 
-  unplugin-isolated-decl@0.4.1(rollup@4.20.0)(typescript@5.5.4):
+  unplugin-isolated-decl@0.4.4(rollup@4.20.0)(typescript@5.5.4):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.20.0)
-      oxc-transform: 0.16.3
-      unplugin: 1.12.0
+      oxc-transform: 0.23.0
+      unplugin: 1.12.1
     optionalDependencies:
       typescript: 5.5.4
     transitivePeerDependencies:
@@ -11553,7 +11557,7 @@ snapshots:
       '@rollup/pluginutils': 5.1.0(rollup@4.20.0)
       ast-kit: 0.12.2
       magic-string-ast: 0.6.2
-      unplugin: 1.12.0
+      unplugin: 1.12.1
       vite: 5.4.0(@types/node@22.1.0)(less@4.2.0)(terser@5.31.4)
       vite-node: 1.6.0(@types/node@22.1.0)(less@4.2.0)(terser@5.31.4)
     transitivePeerDependencies:
@@ -11572,7 +11576,7 @@ snapshots:
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.20.0)
       esbuild: 0.23.0
-      unplugin: 1.12.0
+      unplugin: 1.12.1
     transitivePeerDependencies:
       - rollup
 
@@ -11595,6 +11599,13 @@ snapshots:
       - terser
 
   unplugin@1.12.0:
+    dependencies:
+      acorn: 8.12.1
+      chokidar: 3.6.0
+      webpack-sources: 3.2.3
+      webpack-virtual-modules: 0.6.2
+
+  unplugin@1.12.1:
     dependencies:
       acorn: 8.12.1
       chokidar: 3.6.0
