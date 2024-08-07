@@ -1,6 +1,7 @@
 import { access, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import fg from 'fast-glob'
+import { importx } from 'importx'
 import { dedupeDeps, defineConfig } from 'monoman'
 import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
@@ -107,7 +108,12 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && (await exists(tsupFile))) {
-        const tsupConfig: Options = (await import(tsupFile)).default
+        const tsupConfig: Options = (
+          await importx(tsupFile, {
+            parentURL: import.meta.url,
+            loader: 'bundle-require',
+          })
+        ).default
         const format = tsupConfig.format || []
         const hasCJS = format.includes('cjs')
         const hasESM = format.includes('esm')
