@@ -1,5 +1,12 @@
 # @vue-macros/eslint-config
 
+## 0.6.0
+### Minor Changes
+
+
+
+- [`e49d0f4`](https://github.com/vue-macros/vue-macros/commit/e49d0f415450083a8cf5582ba1e83df838e23173) Thanks [@sxzz](https://github.com/sxzz)! - turn off more rules
+
 ## 0.5.0
 ### Minor Changes
 
