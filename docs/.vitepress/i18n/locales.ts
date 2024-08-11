@@ -1,7 +1,7 @@
 export const zhCN = {
   Guide: '指南',
   Macros: '宏',
-  Features: '特性',
+  Features: '功能',
   Official: '官方',
   Stable: '稳定',
   Experimental: '实验',
@@ -13,6 +13,7 @@ export const zhCN = {
   'Bundler Integration': '构建工具集成',
   'Nuxt Integration': 'Nuxt 集成',
   'Astro Integration': 'Astro 集成',
+  'ESLint Integration': 'ESLint 集成',
   Configurations: '配置',
   'All Macros': '全部宏',
 

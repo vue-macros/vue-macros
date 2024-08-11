@@ -5,7 +5,7 @@ import type { DefaultTheme, HeadConfig, LocaleConfig } from 'vitepress'
 export function getLocaleConfig(lang: string) {
   const t = createTranslate(lang)
 
-  const urlPrefix = lang && lang !== 'en' ? `/${lang}` : ''
+  const urlPrefix = lang && lang !== 'en' ? (`/${lang}` as const) : ''
   const title = t('Vue Macros')
   const description = t('Explore more macros and syntax sugar to Vue.')
 
@@ -69,39 +69,45 @@ export function getLocaleConfig(lang: string) {
   const sidebar: DefaultTheme.SidebarItem[] = [
     {
       text: t('Guide'),
+      base: urlPrefix,
       items: [
         {
           text: t('Getting Started'),
-          link: `${urlPrefix}/guide/getting-started`,
+          link: `/guide/getting-started`,
         },
         {
           text: t('Bundler Integration'),
-          link: `${urlPrefix}/guide/bundler-integration`,
+          link: `/guide/bundler-integration`,
         },
         {
           text: t('Nuxt Integration'),
-          link: `${urlPrefix}/guide/nuxt-integration`,
+          link: `/guide/nuxt-integration`,
         },
         {
           text: t('Astro Integration'),
-          link: `${urlPrefix}/guide/astro-integration`,
+          link: `/guide/astro-integration`,
+        },
+        {
+          text: t('ESLint Integration'),
+          link: '/guide/eslint-integration',
         },
         {
           text: t('Configurations'),
-          link: `${urlPrefix}/guide/configurations`,
+          link: `/guide/configurations`,
         },
         {
           text: t('Interactive Example'),
-          link: `${urlPrefix}/interactive/`,
+          link: `/interactive`,
         },
       ],
     },
     {
       text: t('Macros'),
+      base: `${urlPrefix}/macros`,
       items: [
         {
           text: t('All Macros'),
-          link: `${urlPrefix}/macros/`,
+          link: `/`,
         },
 
         {
@@ -109,15 +115,15 @@ export function getLocaleConfig(lang: string) {
           items: [
             {
               text: 'defineOptions',
-              link: `${urlPrefix}/macros/define-options`,
+              link: `/define-options`,
             },
             {
               text: 'defineSlots',
-              link: `${urlPrefix}/macros/define-slots`,
+              link: `/define-slots`,
             },
             {
               text: 'shortEmits',
-              link: `${urlPrefix}/macros/short-emits`,
+              link: `/short-emits`,
             },
           ],
         },
@@ -127,23 +133,23 @@ export function getLocaleConfig(lang: string) {
           items: [
             {
               text: 'defineModels',
-              link: `${urlPrefix}/macros/define-models`,
+              link: `/define-models`,
             },
             {
               text: 'defineProps',
-              link: `${urlPrefix}/macros/define-props`,
+              link: `/define-props`,
             },
             {
               text: 'definePropsRefs',
-              link: `${urlPrefix}/macros/define-props-refs`,
+              link: `/define-props-refs`,
             },
             {
               text: 'defineRender',
-              link: `${urlPrefix}/macros/define-render`,
+              link: `/define-render`,
             },
             {
               text: 'shortVmodel',
-              link: `${urlPrefix}/macros/short-vmodel`,
+              link: `/short-vmodel`,
             },
           ],
         },
@@ -153,23 +159,23 @@ export function getLocaleConfig(lang: string) {
           items: [
             {
               text: 'defineProp',
-              link: `${urlPrefix}/macros/define-prop`,
+              link: `/define-prop`,
             },
             {
               text: 'defineEmit',
-              link: `${urlPrefix}/macros/define-emit`,
+              link: `/define-emit`,
             },
             {
               text: 'setupComponent',
-              link: `${urlPrefix}/macros/setup-component`,
+              link: `/setup-component`,
             },
             {
               text: 'setupSFC',
-              link: `${urlPrefix}/macros/setup-sfc`,
+              link: `/setup-sfc`,
             },
             {
               text: 'chainCall',
-              link: `${urlPrefix}/macros/chain-call`,
+              link: `/chain-call`,
             },
           ],
         },
@@ -177,17 +183,18 @@ export function getLocaleConfig(lang: string) {
     },
     {
       text: t('Features'),
+      base: `${urlPrefix}/features`,
       items: [
         {
           text: t('Official'),
           items: [
             {
               text: 'hoistStatic',
-              link: `${urlPrefix}/features/hoist-static`,
+              link: `/hoist-static`,
             },
             {
               text: 'shortBind',
-              link: `${urlPrefix}/features/short-bind`,
+              link: `/short-bind`,
             },
           ],
         },
@@ -197,15 +204,15 @@ export function getLocaleConfig(lang: string) {
           items: [
             {
               text: 'betterDefine',
-              link: `${urlPrefix}/features/better-define`,
+              link: `/better-define`,
             },
             {
               text: 'reactivityTransform',
-              link: `${urlPrefix}/features/reactivity-transform`,
+              link: `/reactivity-transform`,
             },
             {
               text: 'jsxDirective',
-              link: `${urlPrefix}/features/jsx-directive`,
+              link: `/jsx-directive`,
             },
           ],
         },
@@ -215,27 +222,27 @@ export function getLocaleConfig(lang: string) {
           items: [
             {
               text: 'namedTemplate',
-              link: `${urlPrefix}/features/named-template`,
+              link: `/named-template`,
             },
             {
               text: 'exportProps',
-              link: `${urlPrefix}/features/export-props`,
+              link: `/export-props`,
             },
             {
               text: 'exportExpose',
-              link: `${urlPrefix}/features/export-expose`,
+              link: `/export-expose`,
             },
             {
               text: 'exportRender',
-              link: `${urlPrefix}/features/export-render`,
+              link: `/export-render`,
             },
             {
               text: 'booleanProp',
-              link: `${urlPrefix}/features/boolean-prop`,
+              link: `/boolean-prop`,
             },
             {
               text: 'scriptLang',
-              link: `${urlPrefix}/features/script-lang`,
+              link: `/script-lang`,
             },
           ],
         },
@@ -243,17 +250,18 @@ export function getLocaleConfig(lang: string) {
     },
     {
       text: 'Volar',
+      base: `${urlPrefix}/volar`,
       items: [
         {
           text: t('Stable'),
           items: [
             {
               text: 'setupJsdoc',
-              link: `${urlPrefix}/volar/setup-jsdoc`,
+              link: `/setup-jsdoc`,
             },
             {
               text: 'defineGeneric',
-              link: `${urlPrefix}/volar/define-generic`,
+              link: `/define-generic`,
             },
           ],
         },
@@ -262,11 +270,11 @@ export function getLocaleConfig(lang: string) {
           items: [
             {
               text: 'templateRef',
-              link: `${urlPrefix}/volar/template-ref`,
+              link: `/template-ref`,
             },
             {
               text: 'scriptSFC',
-              link: `${urlPrefix}/volar/script-sfc`,
+              link: `/script-sfc`,
             },
           ],
         },
