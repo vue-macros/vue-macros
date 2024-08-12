@@ -1,4 +1,4 @@
-# ESLint 集成
+# <div i-logos:eslint inline-block /> ESLint 集成 <PackageVersion name="@vue-macros/eslint-config" />
 
 ## 安装
 

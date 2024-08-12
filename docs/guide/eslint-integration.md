@@ -1,4 +1,4 @@
-# ESLint Integration
+# <div i-logos:eslint inline-block /> ESLint Integration <PackageVersion name="@vue-macros/eslint-config" />
 
 ## Installation
 

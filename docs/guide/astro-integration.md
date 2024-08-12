@@ -1,4 +1,4 @@
-# Astro Integration
+# Astro Integration <PackageVersion name="@vue-macros/astro" />
 
 ### Installation
 

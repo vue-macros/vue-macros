@@ -1,4 +1,4 @@
-# 构建工具集成
+# 构建工具集成 <PackageVersion name="unplugin-vue-macros" />
 
 ## 安装
 

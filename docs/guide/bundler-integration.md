@@ -1,4 +1,4 @@
-# Bundler Integration
+# Bundler Integration <PackageVersion name="unplugin-vue-macros" />
 
 ## Installation
 

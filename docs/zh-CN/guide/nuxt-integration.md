@@ -1,4 +1,4 @@
-# Nuxt 集成
+# <div i-logos:nuxt-icon inline-block /> Nuxt 集成 <PackageVersion name="@vue-macros/nuxt" />
 
 ### 安装
 

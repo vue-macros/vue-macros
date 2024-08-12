@@ -1,4 +1,4 @@
-# Nuxt Integration
+# <div i-logos:nuxt-icon inline-block /> Nuxt Integration <PackageVersion name="@vue-macros/nuxt" />
 
 ### Installation
 
