@@ -1,5 +1,12 @@
 # @vue-macros/script-lang
 
+## 0.1.4
+### Patch Changes
+
+
+
+- [`0911c63`](https://github.com/vue-macros/vue-macros/commit/0911c6370237fff7e70486613ba587427926f319) Thanks [@sxzz](https://github.com/sxzz)! - transform on HMR
+
 ## 0.1.3
 ### Patch Changes
 

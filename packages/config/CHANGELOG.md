@@ -1,5 +1,12 @@
 # @vue-macros/config
 
+## 0.2.4
+### Patch Changes
+
+
+
+- [`018a0a5`](https://github.com/vue-macros/vue-macros/commit/018a0a5268312e1994fd919dd376c440ce31b1da) Thanks [@sxzz](https://github.com/sxzz)! - move sub-packages to devDep
+
 ## 0.2.3
 ### Patch Changes
 
