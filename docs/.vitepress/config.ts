@@ -2,6 +2,7 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import VueMacrosPlugin from '@vue-macros/volar'
 import ts from 'typescript'
 import { defineConfig } from 'vitepress'
+import { groupIconPlugin } from 'vitepress-plugin-group-icons'
 import { docsLink } from '../../macros'
 import { getLocaleConfig } from './locale'
 
@@ -55,5 +56,9 @@ export default defineConfig({
         },
       }),
     ],
+    config(md) {
+      // Use any for now, wait upstream fix: https://github.com/vuejs/vitepress/issues/4116
+      md.use(groupIconPlugin as any)
+    },
   },
 })
