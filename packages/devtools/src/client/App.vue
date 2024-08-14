@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { docsLink } from '#macros' with { type: 'macro' }
+import { docsLink } from './macros'
 </script>
 
 <template>
