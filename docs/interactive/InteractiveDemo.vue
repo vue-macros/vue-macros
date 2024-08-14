@@ -11,6 +11,7 @@ import {
   processDefineRender,
   type OptionsKey,
 } from './logic'
+import type { ShikiTransformer } from 'shiki'
 
 const t = useTranslate()
 const { isDark } = useData()
@@ -58,6 +59,21 @@ const example = computed(() => {
   )
 })
 
+const transformers: ShikiTransformer[] = [
+  {
+    name: 'vitepress:add-class',
+    pre(node) {
+      this.addClassToHast(node, 'vp-code')
+    },
+  },
+  {
+    name: 'vitepress:clean-up',
+    pre(node) {
+      delete node.properties.style
+    },
+  },
+]
+
 const formatted = ref('')
 watch(
   [example, isDark],
@@ -72,6 +88,7 @@ watch(
       {
         lang: example.value.lang === 'vue' ? 'vue' : 'typescript',
         theme: isDark.value ? 'vitesse-dark' : 'vitesse-light',
+        transformers,
       },
     )
   },
@@ -121,11 +138,12 @@ function isConflicted(value: string) {
           </template>
         </div>
       </div>
-      <div bg="[var(--vp-code-block-bg)]" relative mt4 rounded-2 p6>
-        <span absolute right-4 top-4 font-mono op60>
-          {{ example.filename }}
-        </span>
-        <div overflow-auto v-html="formatted" />
+      <div class="vp-doc">
+        <div class="language-vue">
+          <button title="Copy Code" class="copy" />
+          <span class="lang">vue</span>
+          <div v-html="formatted" />
+        </div>
       </div>
     </div>
   </div>

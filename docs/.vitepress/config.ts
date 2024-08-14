@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import VueMacrosPlugin from '@vue-macros/volar'
 import ts from 'typescript'
@@ -47,18 +48,22 @@ export default defineConfig({
       md.use(groupIconPlugin)
     },
     codeTransformers: [
-      transformerTwoslash({
-        twoslashOptions: {
-          compilerOptions: {
-            jsx: ts.JsxEmit.Preserve,
-            jsxFactory: 'vue',
-            types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
-          },
-          vueCompilerOptions: {
-            plugins: [VueMacrosPlugin],
-          },
-        },
-      }),
+      ...(process.env.NO_TWOSLASH
+        ? []
+        : [
+            transformerTwoslash({
+              twoslashOptions: {
+                compilerOptions: {
+                  jsx: ts.JsxEmit.Preserve,
+                  jsxFactory: 'vue',
+                  types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
+                },
+                vueCompilerOptions: {
+                  plugins: [VueMacrosPlugin],
+                },
+              },
+            }),
+          ]),
     ],
   },
 })
