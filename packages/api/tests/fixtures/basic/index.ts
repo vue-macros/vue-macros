@@ -14,3 +14,4 @@ export { Foo }
 export type { Foo as FooAlias }
 export { Test as OuterTest } from './export-all'
 export * from './export-all'
+export * from './folder'

@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs'
+import { lstatSync } from 'node:fs'
 import path from 'node:path'
 
 export type ResolveTSFileIdImpl = (
@@ -19,8 +19,12 @@ export const resolveTSFileIdNode: ResolveTSFileIdImpl = (
 ) => {
   function tryResolve(id: string, importer: string) {
     const filePath = path.resolve(importer, '..', id)
-    if (!existsSync(filePath)) return
-    return filePath
+    try {
+      const stat = lstatSync(filePath)
+      if (stat.isFile()) return filePath
+    } catch {
+      return
+    }
   }
   return (
     tryResolve(id, importer) ||

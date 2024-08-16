@@ -219,6 +219,9 @@ type Foo = AliasString`,
           "ExportAll": {
             "type": "TSLiteralType...",
           },
+          "Folder": {
+            "type": "TSLiteralType...",
+          },
           "Foo": {
             "type": "TSLiteralType...",
           },
