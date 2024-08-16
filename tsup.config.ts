@@ -51,7 +51,13 @@ export function config({
             },
             meta,
           ),
-          IsolatedDecl.raw({ exclude: [/node_modules/, `${macros}/**`] }, meta),
+          IsolatedDecl.raw(
+            {
+              exclude: [/node_modules/, `${macros}/**`],
+              transformer: 'typescript',
+            },
+            meta,
+          ),
           Raw.raw(
             {
               transform: {
