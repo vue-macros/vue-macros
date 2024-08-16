@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/define-models",
   "version": "1.2.9",
-  "packageManager": "pnpm@9.7.0",
+  "packageManager": "pnpm@9.7.1",
   "description": "define-models feature from Vue Macros.",
   "type": "commonjs",
   "keywords": [
@@ -141,12 +141,12 @@
   },
   "dependencies": {
     "@vue-macros/common": "workspace:*",
-    "ast-walker-scope": "^0.6.1",
+    "ast-walker-scope": "^0.6.2",
     "unplugin": "catalog:"
   },
   "devDependencies": {
     "@vue-macros/api": "workspace:^",
-    "@vueuse/core": "^10.11.1",
+    "@vueuse/core": "^11.0.0",
     "vue": "catalog:"
   },
   "engines": {
