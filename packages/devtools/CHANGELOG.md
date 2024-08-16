@@ -1,5 +1,12 @@
 # @vue-macros/devtools
 
+## 0.3.2
+### Patch Changes
+
+
+
+- [`d8c8402`](https://github.com/vue-macros/vue-macros/commit/d8c8402ccb8d72d1ca5b10789cfa3d4fb94252e4) Thanks [@sxzz](https://github.com/sxzz)! - fix devtools not working
+
 ## 0.3.1
 ### Patch Changes
 

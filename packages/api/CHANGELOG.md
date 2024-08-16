@@ -1,5 +1,12 @@
 # @vue-macros/api
 
+## 0.10.4
+### Patch Changes
+
+
+
+- [`9c9f141`](https://github.com/vue-macros/vue-macros/commit/9c9f1414bf3e41289ba27517263b418daa2f9476) Thanks [@sxzz](https://github.com/sxzz)! - Don't resolve directory
+
 ## 0.10.3
 ### Patch Changes
 
