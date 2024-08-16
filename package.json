@@ -7,7 +7,7 @@
   "type": "module",
   "author": "三咲智子 <sxzz@sxzz.moe>",
   "scripts": {
-    "build": "pnpm run --filter=\"./packages/*\" --stream build",
+    "build": "pnpm run --filter=\"./packages/*\" --parallel build",
     "dev": "pnpm run --filter=\"./packages/*\" --parallel dev",
     "clean": "rimraf packages/*/dist",
     "docs:dev": "pnpm run -C ./docs dev",

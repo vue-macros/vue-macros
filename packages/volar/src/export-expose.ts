@@ -1,7 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { allCodeFeatures, type Code, type Sfc } from '@vue/language-core'
 import { replace, replaceSourceRange } from 'muggle-string'
-import { addCode, getStart, type VueMacrosPlugin } from './common'
+import { addCode, getStart, getText, type VueMacrosPlugin } from './common'
 
 function transform(options: {
   codes: Code[]
@@ -26,20 +26,20 @@ function transform(options: {
 
           exportMap.set(
             [
-              propertyName.escapedText!,
+              getText(propertyName, options),
               'scriptSetup',
               getStart(propertyName, options),
               allCodeFeatures,
             ],
             [
-              name.escapedText!,
+              getText(name, options),
               'scriptSetup',
               getStart(name, options),
               allCodeFeatures,
             ],
           )
 
-          exposed[name.escapedText!] = propertyName.escapedText!
+          exposed[getText(name, options)] = getText(propertyName, options)
         })
 
         if (stmt.moduleSpecifier) {
@@ -72,7 +72,7 @@ function transform(options: {
           'scriptSetup',
           end,
           end,
-          `;[${stmt.exportClause.name.escapedText!}];`,
+          `;[${getText(stmt.exportClause.name, options)}];`,
         )
       }
     } else if (
@@ -91,22 +91,22 @@ function transform(options: {
           if (!decl.name) continue
 
           if (ts.isIdentifier(decl.name)) {
-            const name = decl.name.escapedText!
+            const name = getText(decl.name, options)
             exposed[name] = name
           } else if (ts.isObjectBindingPattern(decl.name)) {
             decl.name.elements.forEach((element) => {
               if (!ts.isIdentifier(element.name)) return
 
-              exposedValues.push(element.name.escapedText!)
-              exposed[element.name.escapedText!] =
+              exposedValues.push(getText(element.name, options))
+              exposed[getText(element.name, options)] =
                 element.propertyName && ts.isIdentifier(element.propertyName)
-                  ? element.propertyName.escapedText!
-                  : element.name.escapedText!
+                  ? getText(element.propertyName, options)
+                  : getText(element.name, options)
             })
           }
         }
       } else if (stmt.name && ts.isIdentifier(stmt.name)) {
-        const name = stmt.name.escapedText!
+        const name = getText(stmt.name, options)
         exposed[name] = name
       }
 

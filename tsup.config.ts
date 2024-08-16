@@ -21,6 +21,7 @@ export default defineConfig({
           compilerOptions: {
             composite: false,
             customConditions: [],
+            noCheck: true,
           },
         },
   tsconfig: '../../tsconfig.lib.json',
