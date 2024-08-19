@@ -44,7 +44,6 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
-      // @ts-expect-error wait upstream fix: https://github.com/vuejs/vitepress/issues/4116
       md.use(groupIconPlugin)
     },
     codeTransformers: [
