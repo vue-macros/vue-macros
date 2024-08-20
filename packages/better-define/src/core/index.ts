@@ -1,6 +1,8 @@
 import {
   analyzeSFC,
   genRuntimePropDefinition,
+  type Error,
+  type Result,
   type TSEmits,
   type TSProps,
 } from '@vue-macros/api'
@@ -12,26 +14,14 @@ import {
   MagicStringAST,
   parseSFC,
   type CodeTransform,
-  type TransformError,
 } from '@vue-macros/common'
-import { ok, safeTry, type Result } from 'neverthrow'
+import { ok, safeTry } from 'neverthrow'
 
 export function transformBetterDefine(
   code: string,
   id: string,
   isProduction = false,
-): Promise<
-  Result<
-    CodeTransform | undefined,
-    TransformError<
-      | 'Only <script setup> is supported'
-      | 'Cannot resolve TS definition.'
-      | `Cannot resolve TS definition: ${string}`
-      | 'withDefaults: first argument must be a defineProps call.'
-      | `unknown node: ${string}`
-    >
-  >
-> {
+): Promise<Result<CodeTransform | undefined>> {
   return safeTry(async function* () {
     const s = new MagicStringAST(code)
     const sfc = parseSFC(code, id)

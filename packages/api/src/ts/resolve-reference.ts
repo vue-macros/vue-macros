@@ -7,7 +7,8 @@ import {
   type TSTypeAliasDeclaration,
 } from '@babel/types'
 import { resolveIdentifier, type TransformError } from '@vue-macros/common'
-import { ok, safeTry, type Result } from 'neverthrow'
+import { ok, type Result } from 'neverthrow'
+import type { ErrorUnknownNode } from '../error'
 import { isTSDeclaration, type TSDeclaration } from './is'
 import {
   isTSNamespace,
@@ -47,7 +48,7 @@ export async function resolveTSReferencedType(
 ): Promise<
   Result<
     TSResolvedType | TSNamespace | undefined,
-    TransformError<`unknown node: ${string}`>
+    TransformError<ErrorUnknownNode>
   >
 > {
   const { scope, type } = ref

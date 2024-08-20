@@ -20,6 +20,7 @@ import {
   type TSResolvedType,
   type TSScope,
 } from '../ts'
+import type { ErrorResolveTS, ErrorUnknownNode } from '../error'
 import { DefinitionKind, type ASTDefinition } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
 import type {
@@ -109,16 +110,7 @@ export function handleTSPropsDefinition({
   statement: DefinePropsStatement
   declId?: LVal
 }): Promise<
-  Result<
-    TSProps,
-    TransformError<
-      | 'Cannot resolve TS definition. Union type contains different types of results.'
-      | 'Cannot resolve TS definition.'
-      | `Cannot resolve TS definition: ${string}`
-      | `Cannot resolve TS type: ${string}`
-      | `unknown node: ${string}`
-    >
-  >
+  Result<TSProps, TransformError<ErrorResolveTS | ErrorUnknownNode>>
 > {
   return safeTry(async function* () {
     const { definitions, definitionsAst } = yield* (
@@ -474,13 +466,7 @@ export function handleTSPropsDefinition({
         definitions: TSProps['definitions']
         definitionsAst: TSProps['definitionsAst']
       },
-      TransformError<
-        | 'Cannot resolve TS definition. Union type contains different types of results.'
-        | 'Cannot resolve TS definition.'
-        | `Cannot resolve TS type: ${string}`
-        | `Cannot resolve TS definition: ${string}`
-        | `unknown node: ${string}`
-      >
+      TransformError<ErrorResolveTS | ErrorUnknownNode>
     >
   > {
     return safeTry(async function* () {
@@ -742,7 +728,7 @@ export interface TSProps extends PropsBase {
   getRuntimeDefinitions: () => Promise<
     Result<
       Record<string, RuntimePropDefinition>,
-      TransformError<`unknown node: ${string}`>
+      TransformError<ErrorUnknownNode>
     >
   >
 }

@@ -5,6 +5,7 @@ import {
   type TSNamespace,
   type TSResolvedType,
 } from '../ts'
+import type { ErrorUnknownNode } from '../error'
 import type { Node } from '@babel/types'
 import type { TransformError } from '@vue-macros/common'
 
@@ -12,7 +13,7 @@ export const UNKNOWN_TYPE = 'Unknown'
 
 export function inferRuntimeType(
   node: TSResolvedType | TSNamespace,
-): Promise<Result<string[], TransformError<`unknown node: ${string}`>>> {
+): Promise<Result<string[], TransformError<ErrorUnknownNode>>> {
   return safeTry(async function* () {
     if (isTSNamespace(node)) return ok(['Object'])
 

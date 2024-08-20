@@ -6,6 +6,7 @@ import {
   type TransformError,
 } from '@vue-macros/common'
 import { ok, safeTry, type Result } from 'neverthrow'
+import type { ErrorUnknownNode } from '../error'
 import { isTSNamespace } from './namespace'
 import {
   checkForTSProperties,
@@ -43,7 +44,7 @@ export async function resolveTSTemplateLiteral({
   type,
   scope,
 }: TSResolvedType<TemplateLiteral>): Promise<
-  Result<StringLiteral[], TransformError<`unknown node: ${string}`>>
+  Result<StringLiteral[], TransformError<ErrorUnknownNode>>
 > {
   const types = (await resolveKeys('', type.quasis, type.expressions)).map(
     (keys) => keys.map((k) => createStringLiteral(k)),
@@ -54,7 +55,7 @@ export async function resolveTSTemplateLiteral({
     prefix: string,
     quasis: TemplateElement[],
     expressions: Array<Expression | TSType>,
-  ): Promise<Result<string[], TransformError<`unknown node: ${string}`>>> {
+  ): Promise<Result<string[], TransformError<ErrorUnknownNode>>> {
     return safeTry(async function* () {
       if (expressions.length === 0) {
         return ok([prefix + (quasis[0]?.value.cooked ?? '')])
@@ -114,7 +115,7 @@ export async function resolveTSLiteralType({
     | BooleanLiteral
     | BigIntLiteral
     | undefined,
-    TransformError<`unknown node: ${string}`>
+    TransformError<ErrorUnknownNode>
   >
 > {
   if (type.literal.type === 'UnaryExpression') return ok(undefined)
@@ -196,7 +197,7 @@ export function resolveTSIndexedAccessType(
 ): Promise<
   Result<
     { type: TSUnionType; scope: TSScope } | undefined,
-    TransformError<`unknown node: ${string}`>
+    TransformError<ErrorUnknownNode>
   >
 > {
   return safeTry(async function* () {
@@ -308,7 +309,7 @@ export function resolveTSTypeOperator(
   { scope, type }: TSResolvedType<TSTypeOperator>,
   stacks: TSResolvedType<any>[] = [],
 ): Promise<
-  Result<StringLiteral[] | undefined, TransformError<`unknown node: ${string}`>>
+  Result<StringLiteral[] | undefined, TransformError<ErrorUnknownNode>>
 > {
   return safeTry(async function* () {
     if (type.operator !== 'keyof') return ok(undefined)

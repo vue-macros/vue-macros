@@ -9,6 +9,13 @@ import {
   type SFC,
 } from '@vue-macros/common'
 import { err, ok, safeTry, type Result } from 'neverthrow'
+import type {
+  Error,
+  ErrorResolveTS,
+  ErrorUnknownNode,
+  ErrorVueSFC,
+  ErrorWithDefaults,
+} from '../error'
 import type { TSFile } from '../ts'
 import { handleTSEmitsDefinition, type Emits } from './emits'
 import {
@@ -30,21 +37,12 @@ export interface AnalyzeResult {
 export function analyzeSFC(
   s: MagicStringAST,
   sfc: SFC,
-): Promise<
-  Result<
-    AnalyzeResult,
-    TransformError<
-      | 'Only <script setup> is supported'
-      | 'Cannot resolve TS definition.'
-      | `Cannot resolve TS definition: ${string}`
-      | 'withDefaults: first argument must be a defineProps call.'
-      | `unknown node: ${string}`
-    >
-  >
-> {
+): Promise<Result<AnalyzeResult, Error>> {
   return safeTry(async function* () {
     if (!sfc.scriptSetup)
-      return err(new TransformError('Only <script setup> is supported'))
+      return err(
+        new TransformError('<script> is not supported, only <script setup>.'),
+      )
 
     const { scriptSetup } = sfc
 
@@ -123,7 +121,9 @@ export function analyzeSFC(
 
       withDefaultsAst?: CallExpression
       defaultsDeclRaw?: DefaultsASTRaw
-    }) {
+    }): Promise<
+      Result<boolean, TransformError<ErrorResolveTS | ErrorUnknownNode>>
+    > {
       return safeTry(async function* () {
         if (!isCallOf(defineProps, DEFINE_PROPS) || props) return ok(false)
 
@@ -155,6 +155,7 @@ export function analyzeSFC(
       })
     }
 
+    // eslint-disable-next-line require-await
     async function processWithDefaults({
       withDefaults,
       declId,
@@ -166,7 +167,7 @@ export function analyzeSFC(
     }): Promise<
       Result<
         boolean,
-        TransformError<'withDefaults: first argument must be a defineProps call.'>
+        TransformError<ErrorWithDefaults | ErrorResolveTS | ErrorUnknownNode>
       >
     > {
       if (!isCallOf(withDefaults, WITH_DEFAULTS)) return ok(false)
@@ -179,16 +180,13 @@ export function analyzeSFC(
         )
       }
 
-      const isDefineProps = await processDefineProps({
+      return processDefineProps({
         defineProps: withDefaults.arguments[0],
         declId,
         statement: stmt,
         withDefaultsAst: withDefaults,
         defaultsDeclRaw: withDefaults.arguments[1],
       })
-      if (!isDefineProps) return ok(false)
-
-      return ok(true)
     }
 
     function processDefineEmits({

@@ -1,5 +1,6 @@
 import { resolveLiteral, TransformError } from '@vue-macros/common'
 import { err, ok, Result, safeTry } from 'neverthrow'
+import type { ErrorUnknownNode } from '../error'
 import { isTSNamespace, type TSNamespace } from './namespace'
 import {
   resolveMaybeTSUnion,
@@ -90,7 +91,7 @@ export function resolveTSProperties({
   | TSIntersectionType
   | TSMappedType
   | TSFunctionType
->): Promise<Result<TSProperties, TransformError<`unknown node: ${string}`>>> {
+>): Promise<Result<TSProperties, TransformError<ErrorUnknownNode>>> {
   return safeTry(async function* () {
     switch (type.type) {
       case 'TSInterfaceBody':

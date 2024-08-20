@@ -16,6 +16,7 @@ import {
   type TSFile,
   type TSResolvedType,
 } from '../ts'
+import type { ErrorResolveTS, ErrorUnknownNode } from '../error'
 import { DefinitionKind, type ASTDefinition } from './types'
 import { attachNodeLoc } from './utils'
 import type {
@@ -58,14 +59,7 @@ export function handleTSEmitsDefinition({
   statement: DefineEmitsStatement
   declId?: LVal
 }): Promise<
-  Result<
-    TSEmits,
-    TransformError<
-      | 'Cannot resolve TS definition.'
-      | `Cannot resolve TS definition: ${string}`
-      | `unknown node: ${string}`
-    >
-  >
+  Result<TSEmits, TransformError<ErrorResolveTS | ErrorUnknownNode>>
 > {
   return safeTry(async function* () {
     const { definitions, definitionsAst } = yield* (

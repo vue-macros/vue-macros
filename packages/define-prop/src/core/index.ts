@@ -124,6 +124,8 @@ export async function transformDefineProp(
       },
       type,
     })
-    return resolved && inferRuntimeType(resolved)
+    if (resolved.isOk() && resolved.value) {
+      return (await inferRuntimeType(resolved.value)).unwrapOr(undefined)
+    }
   }
 }

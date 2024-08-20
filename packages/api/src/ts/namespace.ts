@@ -1,4 +1,5 @@
 import { ok, safeTry, type Result } from 'neverthrow'
+import type { ErrorUnknownNode } from '../error'
 import { isTSDeclaration } from './is'
 import { resolveTSFileId } from './resolve-file'
 import {
@@ -24,7 +25,7 @@ export function isTSNamespace(val: unknown): val is TSNamespace {
  */
 export function resolveTSNamespace(
   scope: TSScope,
-): Promise<Result<void, TransformError<`unknown node: ${string}`>>> {
+): Promise<Result<void, TransformError<ErrorUnknownNode>>> {
   return safeTry(async function* () {
     if (scope.exports) return ok(undefined)
 
