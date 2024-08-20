@@ -3,10 +3,12 @@ import {
   DEFINE_EMITS,
   DEFINE_PROPS,
   isCallOf,
+  TransformError,
   WITH_DEFAULTS,
   type MagicStringAST,
   type SFC,
 } from '@vue-macros/common'
+import { err, ok, safeTry, type Result } from 'neverthrow'
 import type { TSFile } from '../ts'
 import { handleTSEmitsDefinition, type Emits } from './emits'
 import {
@@ -25,172 +27,205 @@ export interface AnalyzeResult {
   emits: Emits
 }
 
-export async function analyzeSFC(
+export function analyzeSFC(
   s: MagicStringAST,
   sfc: SFC,
-): Promise<AnalyzeResult> {
-  if (!sfc.scriptSetup) throw new Error('Only <script setup> is supported')
+): Promise<
+  Result<
+    AnalyzeResult,
+    TransformError<
+      | 'Only <script setup> is supported'
+      | 'Cannot resolve TS definition.'
+      | `Cannot resolve TS definition: ${string}`
+      | 'withDefaults: first argument must be a defineProps call.'
+      | `unknown node: ${string}`
+    >
+  >
+> {
+  return safeTry(async function* () {
+    if (!sfc.scriptSetup)
+      return err(new TransformError('Only <script setup> is supported'))
 
-  const { scriptSetup } = sfc
+    const { scriptSetup } = sfc
 
-  const body = babelParse(
-    scriptSetup.content,
-    sfc.scriptSetup.lang || 'js',
-  ).body
+    const body = babelParse(
+      scriptSetup.content,
+      sfc.scriptSetup.lang || 'js',
+    ).body
 
-  const offset = scriptSetup.loc.start.offset
-  const file: TSFile = {
-    kind: 'file',
-    filePath: sfc.filename,
-    content: scriptSetup.content,
-    ast: body,
-  }
+    const offset = scriptSetup.loc.start.offset
+    const file: TSFile = {
+      kind: 'file',
+      filePath: sfc.filename,
+      content: scriptSetup.content,
+      ast: body,
+    }
 
-  let props: Props
-  let emits: Emits
+    let props: Props
+    let emits: Emits
 
-  for (const node of body) {
-    if (node.type === 'ExpressionStatement') {
-      await processDefineProps({
-        statement: node,
-        defineProps: node.expression,
-      })
-      await processWithDefaults({
-        statement: node,
-        withDefaults: node.expression,
-      })
-      await processDefineEmits({
-        statement: node,
-        defineEmits: node.expression,
-      })
-    } else if (node.type === 'VariableDeclaration' && !node.declare) {
-      for (const decl of node.declarations) {
-        if (!decl.init) continue
+    for (const node of body) {
+      if (node.type === 'ExpressionStatement') {
         await processDefineProps({
           statement: node,
-          defineProps: decl.init,
-          declId: decl.id,
+          defineProps: node.expression,
         })
-        await processWithDefaults({
-          statement: node,
-          withDefaults: decl.init,
-          declId: decl.id,
-        })
-        await processDefineEmits({
-          statement: node,
-          defineEmits: decl.init,
-          declId: decl.id,
-        })
+        yield* (
+          await processWithDefaults({
+            statement: node,
+            withDefaults: node.expression,
+          })
+        ).safeUnwrap()
+        yield* (
+          await processDefineEmits({
+            statement: node,
+            defineEmits: node.expression,
+          })
+        ).safeUnwrap()
+      } else if (node.type === 'VariableDeclaration' && !node.declare) {
+        for (const decl of node.declarations) {
+          if (!decl.init) continue
+          await processDefineProps({
+            statement: node,
+            defineProps: decl.init,
+            declId: decl.id,
+          })
+          await processWithDefaults({
+            statement: node,
+            withDefaults: decl.init,
+            declId: decl.id,
+          })
+          await processDefineEmits({
+            statement: node,
+            defineEmits: decl.init,
+            declId: decl.id,
+          })
+        }
       }
     }
-  }
 
-  return {
-    props,
-    emits,
-  }
+    return ok({
+      props,
+      emits,
+    })
 
-  async function processDefineProps({
-    defineProps,
-    declId,
-    statement,
+    function processDefineProps({
+      defineProps,
+      declId,
+      statement,
 
-    withDefaultsAst,
-    defaultsDeclRaw,
-  }: {
-    defineProps: Node
-    declId?: LVal
-    statement: DefinePropsStatement
+      withDefaultsAst,
+      defaultsDeclRaw,
+    }: {
+      defineProps: Node
+      declId?: LVal
+      statement: DefinePropsStatement
 
-    withDefaultsAst?: CallExpression
-    defaultsDeclRaw?: DefaultsASTRaw
-  }) {
-    if (!isCallOf(defineProps, DEFINE_PROPS) || props) return false
+      withDefaultsAst?: CallExpression
+      defaultsDeclRaw?: DefaultsASTRaw
+    }) {
+      return safeTry(async function* () {
+        if (!isCallOf(defineProps, DEFINE_PROPS) || props) return ok(false)
 
-    const typeDeclRaw = defineProps.typeParameters?.params[0]
-    if (typeDeclRaw) {
-      props = await handleTSPropsDefinition({
-        s,
-        file,
-        sfc,
-        offset,
+        const typeDeclRaw = defineProps.typeParameters?.params[0]
+        if (typeDeclRaw) {
+          props = yield* (
+            await handleTSPropsDefinition({
+              s,
+              file,
+              sfc,
+              offset,
 
-        definePropsAst: defineProps,
-        typeDeclRaw,
+              definePropsAst: defineProps,
+              typeDeclRaw,
 
-        withDefaultsAst,
-        defaultsDeclRaw,
+              withDefaultsAst,
+              defaultsDeclRaw,
 
-        statement,
-        declId,
+              statement,
+              declId,
+            })
+          ).safeUnwrap()
+        } else {
+          // TODO: runtime
+          return ok(false)
+        }
+
+        return ok(true)
       })
-    } else {
-      // TODO: runtime
-      return false
     }
 
-    return true
-  }
-
-  async function processWithDefaults({
-    withDefaults,
-    declId,
-    statement: stmt,
-  }: {
-    withDefaults: Node
-    declId?: LVal
-    statement: DefinePropsStatement
-  }): Promise<boolean> {
-    if (!isCallOf(withDefaults, WITH_DEFAULTS)) return false
-
-    if (!isCallOf(withDefaults.arguments[0], DEFINE_PROPS)) {
-      throw new SyntaxError(
-        `${WITH_DEFAULTS}: first argument must be a ${DEFINE_PROPS} call.`,
-      )
-    }
-
-    const isDefineProps = await processDefineProps({
-      defineProps: withDefaults.arguments[0],
+    async function processWithDefaults({
+      withDefaults,
       declId,
       statement: stmt,
-      withDefaultsAst: withDefaults,
-      defaultsDeclRaw: withDefaults.arguments[1],
-    })
-    if (!isDefineProps) return false
+    }: {
+      withDefaults: Node
+      declId?: LVal
+      statement: DefinePropsStatement
+    }): Promise<
+      Result<
+        boolean,
+        TransformError<'withDefaults: first argument must be a defineProps call.'>
+      >
+    > {
+      if (!isCallOf(withDefaults, WITH_DEFAULTS)) return ok(false)
 
-    return true
-  }
+      if (!isCallOf(withDefaults.arguments[0], DEFINE_PROPS)) {
+        return err(
+          new TransformError(
+            `${WITH_DEFAULTS}: first argument must be a ${DEFINE_PROPS} call.`,
+          ),
+        )
+      }
 
-  async function processDefineEmits({
-    defineEmits,
-    declId,
-    statement,
-  }: {
-    defineEmits: Node
-    declId?: LVal
-    statement: DefinePropsStatement
-  }) {
-    if (!isCallOf(defineEmits, DEFINE_EMITS) || emits) return false
-
-    const typeDeclRaw = defineEmits.typeParameters?.params[0]
-    if (typeDeclRaw) {
-      emits = await handleTSEmitsDefinition({
-        s,
-        file,
-        sfc,
-        offset,
-
-        defineEmitsAst: defineEmits,
-        typeDeclRaw,
-
-        statement,
+      const isDefineProps = await processDefineProps({
+        defineProps: withDefaults.arguments[0],
         declId,
+        statement: stmt,
+        withDefaultsAst: withDefaults,
+        defaultsDeclRaw: withDefaults.arguments[1],
       })
-    } else {
-      // TODO: runtime
-      return false
+      if (!isDefineProps) return ok(false)
+
+      return ok(true)
     }
 
-    return true
-  }
+    function processDefineEmits({
+      defineEmits,
+      declId,
+      statement,
+    }: {
+      defineEmits: Node
+      declId?: LVal
+      statement: DefinePropsStatement
+    }) {
+      return safeTry(async function* () {
+        if (!isCallOf(defineEmits, DEFINE_EMITS) || emits) return ok(false)
+
+        const typeDeclRaw = defineEmits.typeParameters?.params[0]
+        if (typeDeclRaw) {
+          emits = yield* (
+            await handleTSEmitsDefinition({
+              s,
+              file,
+              sfc,
+              offset,
+
+              defineEmitsAst: defineEmits,
+              typeDeclRaw,
+
+              statement,
+              declId,
+            })
+          ).safeUnwrap()
+        } else {
+          // TODO: runtime
+          return ok(false)
+        }
+
+        return ok(true)
+      })
+    }
+  })
 }

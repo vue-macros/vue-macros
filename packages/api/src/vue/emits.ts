@@ -3,9 +3,11 @@ import {
   isStaticExpression,
   resolveLiteral,
   resolveString,
+  TransformError,
   type MagicStringAST,
   type SFC,
 } from '@vue-macros/common'
+import { err, ok, safeTry, type Result } from 'neverthrow'
 import {
   isTSNamespace,
   resolveTSProperties,
@@ -34,7 +36,7 @@ import type {
   VariableDeclaration,
 } from '@babel/types'
 
-export async function handleTSEmitsDefinition({
+export function handleTSEmitsDefinition({
   s,
   file,
   offset,
@@ -55,143 +57,166 @@ export async function handleTSEmitsDefinition({
 
   statement: DefineEmitsStatement
   declId?: LVal
-}): Promise<TSEmits> {
-  const { definitions, definitionsAst } = await resolveDefinitions({
-    type: typeDeclRaw,
-    scope: file,
-  })
+}): Promise<
+  Result<
+    TSEmits,
+    TransformError<
+      | 'Cannot resolve TS definition.'
+      | `Cannot resolve TS definition: ${string}`
+      | `unknown node: ${string}`
+    >
+  >
+> {
+  return safeTry(async function* () {
+    const { definitions, definitionsAst } = yield* (
+      await resolveDefinitions({
+        type: typeDeclRaw,
+        scope: file,
+      })
+    ).safeUnwrap()
 
-  const addEmit: TSEmits['addEmit'] = (name, signature) => {
-    const key = resolveString(name)
+    const addEmit: TSEmits['addEmit'] = (name, signature) => {
+      const key = resolveString(name)
 
-    if (definitionsAst.scope === file) {
-      if (definitionsAst.ast.type === 'TSIntersectionType') {
-        s.appendLeft(definitionsAst.ast.end! + offset, ` & { ${signature} }`)
-      } else {
-        s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
+      if (definitionsAst.scope === file) {
+        if (definitionsAst.ast.type === 'TSIntersectionType') {
+          s.appendLeft(definitionsAst.ast.end! + offset, ` & { ${signature} }`)
+        } else {
+          s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
+        }
       }
+      if (!definitions[key]) definitions[key] = []
+      const ast = parseSignature(signature)
+      definitions[key].push({
+        code: signature,
+        ast,
+        scope: undefined,
+      })
     }
-    if (!definitions[key]) definitions[key] = []
-    const ast = parseSignature(signature)
-    definitions[key].push({
-      code: signature,
-      ast,
-      scope: undefined,
+    const setEmit: TSEmits['setEmit'] = (name, idx, signature) => {
+      const key = resolveString(name)
+
+      const def = definitions[key][idx]
+      if (!def) return false
+
+      const ast = parseSignature(signature)
+      attachNodeLoc(def.ast, ast)
+      if (def.scope === file) s.overwriteNode(def.ast, signature, { offset })
+
+      definitions[key][idx] = {
+        code: signature,
+        ast,
+        scope: undefined,
+      }
+
+      return true
+    }
+    const removeEmit: TSEmits['removeEmit'] = (name, idx) => {
+      const key = resolveString(name)
+
+      const def = definitions[key][idx]
+      if (!def) return false
+
+      if (def.scope === file) s.removeNode(def.ast, { offset })
+      definitions[key].splice(idx, 1)
+      return true
+    }
+
+    return ok<TSEmits>({
+      kind: DefinitionKind.TS,
+      definitions,
+      definitionsAst,
+      declId,
+      addEmit,
+      setEmit,
+      removeEmit,
+
+      statementAst: statement,
+      defineEmitsAst,
     })
-  }
-  const setEmit: TSEmits['setEmit'] = (name, idx, signature) => {
-    const key = resolveString(name)
-
-    const def = definitions[key][idx]
-    if (!def) return false
-
-    const ast = parseSignature(signature)
-    attachNodeLoc(def.ast, ast)
-    if (def.scope === file) s.overwriteNode(def.ast, signature, { offset })
-
-    definitions[key][idx] = {
-      code: signature,
-      ast,
-      scope: undefined,
-    }
-
-    return true
-  }
-  const removeEmit: TSEmits['removeEmit'] = (name, idx) => {
-    const key = resolveString(name)
-
-    const def = definitions[key][idx]
-    if (!def) return false
-
-    if (def.scope === file) s.removeNode(def.ast, { offset })
-    definitions[key].splice(idx, 1)
-    return true
-  }
-
-  return {
-    kind: DefinitionKind.TS,
-    definitions,
-    definitionsAst,
-    declId,
-    addEmit,
-    setEmit,
-    removeEmit,
-
-    statementAst: statement,
-    defineEmitsAst,
-  }
+  })
 
   function parseSignature(signature: string): TSCallSignatureDeclaration {
     return (babelParse(`interface T {${signature}}`, 'ts').body[0] as any).body
       .body[0]
   }
 
-  async function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
-    const resolved = await resolveTSReferencedType(typeDeclRaw)
-    if (!resolved || isTSNamespace(resolved))
-      throw new SyntaxError(`Cannot resolve TS definition.`)
+  function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
+    return safeTry(async function* () {
+      const resolved = yield* (
+        await resolveTSReferencedType(typeDeclRaw)
+      ).safeUnwrap()
+      if (!resolved || isTSNamespace(resolved))
+        return err(new TransformError('Cannot resolve TS definition.'))
 
-    const { type: definitionsAst, scope } = resolved
-    if (
-      definitionsAst.type !== 'TSInterfaceDeclaration' &&
-      definitionsAst.type !== 'TSTypeLiteral' &&
-      definitionsAst.type !== 'TSIntersectionType' &&
-      definitionsAst.type !== 'TSFunctionType'
-    )
-      throw new SyntaxError(
-        `Cannot resolve TS definition: ${definitionsAst.type}`,
-      )
-
-    const properties = await resolveTSProperties({
-      scope,
-      type: definitionsAst,
-    })
-
-    const definitions: TSEmits['definitions'] = Object.create(null)
-    for (const signature of properties.callSignatures) {
-      const evtArg = signature.type.parameters[0]
+      const { type: definitionsAst, scope } = resolved
       if (
-        !evtArg ||
-        evtArg.type !== 'Identifier' ||
-        evtArg.typeAnnotation?.type !== 'TSTypeAnnotation'
+        definitionsAst.type !== 'TSInterfaceDeclaration' &&
+        definitionsAst.type !== 'TSTypeLiteral' &&
+        definitionsAst.type !== 'TSIntersectionType' &&
+        definitionsAst.type !== 'TSFunctionType'
       )
-        continue
-
-      const evtType = await resolveTSReferencedType({
-        type: evtArg.typeAnnotation.typeAnnotation,
-        scope: signature.scope,
-      })
-
-      if (isTSNamespace(evtType) || !evtType?.type) continue
-
-      const types =
-        evtType.type.type === 'TSUnionType'
-          ? evtType.type.types
-          : [evtType.type]
-
-      for (const type of types) {
-        if (type.type !== 'TSLiteralType') continue
-        const literal = type.literal
-        if (!isStaticExpression(literal)) continue
-        const evt = String(
-          resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>),
+        return err(
+          new TransformError(
+            `Cannot resolve TS definition: ${definitionsAst.type}` as const,
+          ),
         )
-        if (!definitions[evt]) definitions[evt] = []
-        definitions[evt].push(buildDefinition(signature))
+
+      const properties = yield* (
+        await resolveTSProperties({
+          scope,
+          type: definitionsAst,
+        })
+      ).safeUnwrap()
+
+      const definitions: TSEmits['definitions'] = Object.create(null)
+      for (const signature of properties.callSignatures) {
+        const evtArg = signature.type.parameters[0]
+        if (
+          !evtArg ||
+          evtArg.type !== 'Identifier' ||
+          evtArg.typeAnnotation?.type !== 'TSTypeAnnotation'
+        )
+          continue
+
+        const evtType = yield* (
+          await resolveTSReferencedType({
+            type: evtArg.typeAnnotation.typeAnnotation,
+            scope: signature.scope,
+          })
+        ).safeUnwrap()
+
+        if (isTSNamespace(evtType) || !evtType?.type) continue
+
+        const types =
+          evtType.type.type === 'TSUnionType'
+            ? evtType.type.types
+            : [evtType.type]
+
+        for (const type of types) {
+          if (type.type !== 'TSLiteralType') continue
+          const literal = type.literal
+          if (!isStaticExpression(literal)) continue
+          const evt = String(
+            resolveLiteral(literal as Exclude<typeof literal, UnaryExpression>),
+          )
+          if (!definitions[evt]) definitions[evt] = []
+          definitions[evt].push(buildDefinition(signature))
+        }
       }
-    }
 
-    for (const evt of Object.keys(properties.properties)) {
-      if (!definitions[evt]) definitions[evt] = []
-      definitions[evt].push(
-        buildDefinition(properties.properties[evt].signature),
-      )
-    }
+      for (const evt of Object.keys(properties.properties)) {
+        if (!definitions[evt]) definitions[evt] = []
+        definitions[evt].push(
+          buildDefinition(properties.properties[evt].signature),
+        )
+      }
 
-    return {
-      definitions,
-      definitionsAst: buildDefinition({ scope, type: definitionsAst }),
-    }
+      return ok({
+        definitions,
+        definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      })
+    })
   }
 
   function buildDefinition<T extends Node>({

@@ -1,3 +1,4 @@
+import { ok, safeTry, type Result } from 'neverthrow'
 import {
   isTSNamespace,
   resolveTSReferencedType,
@@ -5,135 +6,143 @@ import {
   type TSResolvedType,
 } from '../ts'
 import type { Node } from '@babel/types'
+import type { TransformError } from '@vue-macros/common'
 
 export const UNKNOWN_TYPE = 'Unknown'
 
-export async function inferRuntimeType(
+export function inferRuntimeType(
   node: TSResolvedType | TSNamespace,
-): Promise<string[]> {
-  if (isTSNamespace(node)) return ['Object']
+): Promise<Result<string[], TransformError<`unknown node: ${string}`>>> {
+  return safeTry(async function* () {
+    if (isTSNamespace(node)) return ok(['Object'])
 
-  switch (node.type.type) {
-    case 'TSStringKeyword':
-      return ['String']
-    case 'TSNumberKeyword':
-      return ['Number']
-    case 'TSBooleanKeyword':
-      return ['Boolean']
-    case 'TSObjectKeyword':
-      return ['Object']
-    case 'TSTypeLiteral': {
-      // TODO (nice to have) generate runtime property validation
-      const types = new Set<string>()
-      for (const m of node.type.members) {
-        switch (m.type) {
-          case 'TSCallSignatureDeclaration':
-          case 'TSConstructSignatureDeclaration':
-            types.add('Function')
-            break
-          default:
-            types.add('Object')
+    switch (node.type.type) {
+      case 'TSStringKeyword':
+        return ok(['String'])
+      case 'TSNumberKeyword':
+        return ok(['Number'])
+      case 'TSBooleanKeyword':
+        return ok(['Boolean'])
+      case 'TSObjectKeyword':
+        return ok(['Object'])
+      case 'TSTypeLiteral': {
+        // TODO (nice to have) generate runtime property validation
+        const types = new Set<string>()
+        for (const m of node.type.members) {
+          switch (m.type) {
+            case 'TSCallSignatureDeclaration':
+            case 'TSConstructSignatureDeclaration':
+              types.add('Function')
+              break
+            default:
+              types.add('Object')
+          }
         }
+        return ok(Array.from(types))
       }
-      return Array.from(types)
-    }
-    case 'TSFunctionType':
-      return ['Function']
-    case 'TSArrayType':
-    case 'TSTupleType':
-      // TODO (nice to have) generate runtime element type/length checks
-      return ['Array']
+      case 'TSFunctionType':
+        return ok(['Function'])
+      case 'TSArrayType':
+      case 'TSTupleType':
+        // TODO (nice to have) generate runtime element type/length checks
+        return ok(['Array'])
 
-    case 'TSLiteralType':
-      switch (node.type.literal.type) {
-        case 'StringLiteral':
-          return ['String']
-        case 'BooleanLiteral':
-          return ['Boolean']
-        case 'NumericLiteral':
-        case 'BigIntLiteral':
-          return ['Number']
-      }
-      break
-
-    case 'TSTypeReference':
-      if (node.type.typeName.type === 'Identifier') {
-        switch (node.type.typeName.name) {
-          case 'Array':
-          case 'Function':
-          case 'Object':
-          case 'Set':
-          case 'Map':
-          case 'WeakSet':
-          case 'WeakMap':
-          case 'Date':
-          case 'Promise':
-            return [node.type.typeName.name]
-          case 'Record':
-          case 'Partial':
-          case 'Readonly':
-          case 'Pick':
-          case 'Omit':
-          case 'Required':
-          case 'InstanceType':
-            return ['Object']
-
-          case 'Extract':
-            if (
-              node.type.typeParameters &&
-              node.type.typeParameters.params[1]
-            ) {
-              const t = await resolveTSReferencedType({
-                scope: node.scope,
-                type: node.type.typeParameters.params[1],
-              })
-              if (t) return inferRuntimeType(t)
-            }
-            break
-          case 'Exclude':
-            if (
-              node.type.typeParameters &&
-              node.type.typeParameters.params[0]
-            ) {
-              const t = await resolveTSReferencedType({
-                scope: node.scope,
-                type: node.type.typeParameters.params[0],
-              })
-              if (t) return inferRuntimeType(t)
-            }
-            break
+      case 'TSLiteralType':
+        switch (node.type.literal.type) {
+          case 'StringLiteral':
+            return ok(['String'])
+          case 'BooleanLiteral':
+            return ok(['Boolean'])
+          case 'NumericLiteral':
+          case 'BigIntLiteral':
+            return ok(['Number'])
         }
-      }
-      break
+        break
 
-    case 'TSUnionType': {
-      const types = (
-        await Promise.all(
-          node.type.types.map(async (subType) => {
-            const resolved = await resolveTSReferencedType({
+      case 'TSTypeReference':
+        if (node.type.typeName.type === 'Identifier') {
+          switch (node.type.typeName.name) {
+            case 'Array':
+            case 'Function':
+            case 'Object':
+            case 'Set':
+            case 'Map':
+            case 'WeakSet':
+            case 'WeakMap':
+            case 'Date':
+            case 'Promise':
+              return ok([node.type.typeName.name])
+            case 'Record':
+            case 'Partial':
+            case 'Readonly':
+            case 'Pick':
+            case 'Omit':
+            case 'Required':
+            case 'InstanceType':
+              return ok(['Object'])
+
+            case 'Extract':
+              if (
+                node.type.typeParameters &&
+                node.type.typeParameters.params[1]
+              ) {
+                const t = yield* (
+                  await resolveTSReferencedType({
+                    scope: node.scope,
+                    type: node.type.typeParameters.params[1],
+                  })
+                ).safeUnwrap()
+                if (t) return inferRuntimeType(t)
+              }
+              break
+            case 'Exclude':
+              if (
+                node.type.typeParameters &&
+                node.type.typeParameters.params[0]
+              ) {
+                const t = yield* (
+                  await resolveTSReferencedType({
+                    scope: node.scope,
+                    type: node.type.typeParameters.params[0],
+                  })
+                ).safeUnwrap()
+                if (t) return inferRuntimeType(t)
+              }
+              break
+          }
+        }
+        break
+
+      case 'TSUnionType': {
+        const types: string[] = []
+        for (const subType of node.type.types) {
+          const resolved = yield* (
+            await resolveTSReferencedType({
               scope: node.scope,
               type: subType,
             })
-            return resolved && !isTSNamespace(resolved)
-              ? inferRuntimeType(resolved)
-              : undefined
-          }),
-        )
-      ).flatMap((t) => (t ? t : ['null']))
-      return [...new Set(types)]
+          ).safeUnwrap()
+          types.push(
+            ...(resolved && !isTSNamespace(resolved)
+              ? yield* (await inferRuntimeType(resolved)).safeUnwrap()
+              : ['null']),
+          )
+        }
+        return ok([...new Set(types)])
+      }
+      case 'TSIntersectionType':
+        return ok(['Object'])
+
+      case 'TSSymbolKeyword':
+        return ok(['Symbol'])
+
+      case 'TSInterfaceDeclaration':
+        return ok(['Object'])
     }
-    case 'TSIntersectionType':
-      return ['Object']
 
-    case 'TSSymbolKeyword':
-      return ['Symbol']
-
-    case 'TSInterfaceDeclaration':
-      return ['Object']
-  }
-
-  // no runtime check
-  return [UNKNOWN_TYPE]
+    // no runtime check
+    return ok([UNKNOWN_TYPE])
+  })
 }
 
 export function attachNodeLoc(node: Node, newNode: Node): void {

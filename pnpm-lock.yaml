@@ -218,6 +218,9 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
+      neverthrow:
+        specifier: ^7.0.1
+        version: 7.0.1
       resolve.exports:
         specifier: ^2.0.2
         version: 2.0.2
@@ -243,6 +246,9 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
+      neverthrow:
+        specifier: ^7.0.1
+        version: 7.0.1
       unplugin:
         specifier: 'catalog:'
         version: 1.12.2
@@ -4501,6 +4507,10 @@ packages:
   neotraverse@0.6.18:
     resolution: {integrity: sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==}
     engines: {node: '>= 10'}
+
+  neverthrow@7.0.1:
+    resolution: {integrity: sha512-NY1sD1wZn6dwwzV9/5KZ4wRIpH4xC7ARy3fGmnEi2Pi8CHDTWlp+WSF+if8cudrwuCWGrk2y2BE/dnGh070iuA==}
+    engines: {node: '>=18'}
 
   nlcst-to-string@4.0.0:
     resolution: {integrity: sha512-YKLBCcUYKAg0FNlOBT6aI91qFmSiFKiluk655WzPF+DDMA02qIyy8uiRqI8QXtcFpEvll12LpL5MXqEmAZ+dcA==}
@@ -10386,6 +10396,8 @@ snapshots:
   neo-async@2.6.2: {}
 
   neotraverse@0.6.18: {}
+
+  neverthrow@7.0.1: {}
 
   nlcst-to-string@4.0.0:
     dependencies:

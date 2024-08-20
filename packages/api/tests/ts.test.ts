@@ -66,10 +66,12 @@ type Base2 = {
 }
 `,
     )
-    const interfaceProperties = await resolveTSProperties({
-      scope: file,
-      type: file.ast![0] as TSInterfaceDeclaration,
-    })
+    const interfaceProperties = (
+      await resolveTSProperties({
+        scope: file,
+        type: file.ast![0] as TSInterfaceDeclaration,
+      })
+    )._unsafeUnwrap()
 
     expect(hideAstLocation(interfaceProperties)).toMatchInlineSnapshot(`
       {
@@ -150,15 +152,17 @@ type Base2 = {
           await resolveTSReferencedType(
             interfaceProperties.properties.bar.value!,
           )
-        )?.type,
+        )._unsafeUnwrap()?.type,
       ),
     ).toMatchInlineSnapshot('"TSStringKeyword..."')
 
-    const intersectionProperties = await resolveTSProperties({
-      scope: file,
-      type: (file.ast![1] as TSTypeAliasDeclaration)
-        .typeAnnotation as TSIntersectionType,
-    })
+    const intersectionProperties = (
+      await resolveTSProperties({
+        scope: file,
+        type: (file.ast![1] as TSTypeAliasDeclaration)
+          .typeAnnotation as TSIntersectionType,
+      })
+    )._unsafeUnwrap()
     expect(hideAstLocation(intersectionProperties)).toMatchInlineSnapshot(`
       {
         "callSignatures": [
@@ -202,10 +206,12 @@ type AliasString2 = AliasString1
 type Foo = AliasString`,
     )
     const node = file.ast![1] as TSTypeAliasDeclaration
-    const result = (await resolveTSReferencedType({
-      scope: file,
-      type: node.typeAnnotation,
-    }))!
+    const result = (
+      await resolveTSReferencedType({
+        scope: file,
+        type: node.typeAnnotation,
+      })
+    )._unsafeUnwrap()!
     expect(result.type!.type).toBe('TSStringKeyword')
   })
 
@@ -251,10 +257,12 @@ type Foo = AliasString`,
 
       expect(
         hideAstLocation(
-          await resolveTSProperties({
-            scope: file,
-            type: exports.Inferface?.type as any,
-          }),
+          (
+            await resolveTSProperties({
+              scope: file,
+              type: exports.Inferface?.type as any,
+            })
+          )._unsafeUnwrap(),
         ),
       ).toMatchInlineSnapshot(`
         {

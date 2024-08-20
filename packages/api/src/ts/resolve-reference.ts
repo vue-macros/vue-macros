@@ -6,7 +6,8 @@ import {
   type TSType,
   type TSTypeAliasDeclaration,
 } from '@babel/types'
-import { resolveIdentifier } from '@vue-macros/common'
+import { resolveIdentifier, type TransformError } from '@vue-macros/common'
+import { ok, safeTry, type Result } from 'neverthrow'
 import { isTSDeclaration, type TSDeclaration } from './is'
 import {
   isTSNamespace,
@@ -43,10 +44,15 @@ export function isSupportedForTSReferencedType(
 export async function resolveTSReferencedType(
   ref: TSResolvedType<TSReferencedType>,
   stacks: TSResolvedType<any>[] = [],
-): Promise<TSResolvedType | TSNamespace | undefined> {
+): Promise<
+  Result<
+    TSResolvedType | TSNamespace | undefined,
+    TransformError<`unknown node: ${string}`>
+  >
+> {
   const { scope, type } = ref
   if (stacks.some((stack) => stack.scope === scope && stack.type === type)) {
-    return ref as any
+    return ok(ref as any)
   }
   stacks.push(ref)
 
@@ -68,14 +74,14 @@ export async function resolveTSReferencedType(
           scope,
         }
         await resolveTSNamespace(newScope)
-        return newScope.exports
+        return ok(newScope.exports)
       }
-      return undefined
+      return ok(undefined)
     }
   }
 
   if (type.type !== 'Identifier' && type.type !== 'TSTypeReference')
-    return { scope, type }
+    return ok({ scope, type })
 
   await resolveTSNamespace(scope)
   const refNames = resolveIdentifier(
@@ -89,9 +95,9 @@ export async function resolveTSReferencedType(
     if (isTSNamespace(resolved) && resolved[name]) {
       resolved = resolved[name]
     } else if (type.type === 'TSTypeReference') {
-      return { type, scope }
+      return ok({ type, scope })
     }
   }
 
-  return resolved
+  return ok(resolved)
 }

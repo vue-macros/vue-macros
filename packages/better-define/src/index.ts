@@ -62,9 +62,13 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       transformInclude: filter,
       async transform(code, id) {
         try {
-          return await transformBetterDefine(code, id, options.isProduction)
+          return (
+            await transformBetterDefine(code, id, options.isProduction)
+          ).match(
+            (res) => res,
+            (error) => console.warn(error),
+          )
         } catch (error: unknown) {
-          this.warn(`${name} ${error}`)
           console.warn(error)
         }
       },
