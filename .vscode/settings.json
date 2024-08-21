@@ -1,11 +1,4 @@
 {
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/coverage": true,
-    "docs/.vitepress/cache": true,
-    "**/CHANGELOG.md": true
-  },
   "cSpell.words": [
     "attributify",
     "esbuild",
@@ -17,15 +10,25 @@
     "vmodel",
     "vueuse"
   ],
-  "unocss.root": ["./", "./playground/vue3", "./packages/devtools/src/client"],
+  "eslint.options": {
+    "flags": ["unstable_ts_config"]
+  },
   "explorer.fileNesting.patterns": {
     "index.ts": "rollup.ts, vite.ts, webpack.ts, esbuild.ts, rspack.ts, rolldown.ts",
     "macros.d.ts": "macros*.d.ts, vue2-macros*.d.ts"
   },
-  "exportall.config.semis": false,
   "exportall.config.folderListener": [
     "/packages/api/src/vue",
     "/packages/api/src/ts",
     "/packages/config/src"
-  ]
+  ],
+  "exportall.config.semis": false,
+  "search.exclude": {
+    "**/CHANGELOG.md": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "docs/.vitepress/cache": true
+  },
+  "unocss.root": ["./", "./playground/vue3", "./packages/devtools/src/client"]
 }

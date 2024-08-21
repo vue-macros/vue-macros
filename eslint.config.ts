@@ -1,13 +1,6 @@
 // @ts-check
 import { sxzz } from '@sxzz/eslint-config'
-import { importx } from 'importx'
-
-const vueMacros = (
-  await importx('./packages/eslint-config/src/flat.ts', {
-    parentURL: import.meta.url,
-    loader: 'bundle-require',
-  })
-).default
+import vueMacros from './packages/eslint-config/src/flat.ts'
 
 export default sxzz([
   vueMacros,

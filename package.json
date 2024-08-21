@@ -19,7 +19,7 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:ecosystem": "SKIP_VUE2=true run-p test typecheck-vue3",
-    "lint": "eslint --max-warnings 0 --cache .",
+    "lint": "eslint --max-warnings 0 --cache --flag unstable_ts_config .",
     "format": "prettier --write --cache .",
     "format:check": "prettier --check --cache .",
     "mono": "monoman",
