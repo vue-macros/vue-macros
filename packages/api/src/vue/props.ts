@@ -20,6 +20,7 @@ import {
   type TSResolvedType,
   type TSScope,
 } from '../ts'
+import { extractError } from '../utils'
 import type { ErrorResolveTS, ErrorUnknownNode } from '../error'
 import { DefinitionKind, type ASTDefinition } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
@@ -303,14 +304,25 @@ export function handleTSPropsDefinition({
     })
   })
 
-  async function resolveUnion(definitionsAst: TSUnionType, scope: TSScope) {
+  async function resolveUnion(
+    definitionsAst: TSUnionType,
+    scope: TSScope,
+  ): Promise<
+    Result<
+      {
+        definitions: TSProps['definitions']
+        definitionsAst: TSProps['definitionsAst']
+      },
+      TransformError<ErrorResolveTS | ErrorUnknownNode>
+    >
+  > {
     const unionDefs: TSProps['definitions'][] = []
     const keys = new Set<string>()
     for (const type of definitionsAst.types) {
       const defs = (await resolveDefinitions({ type, scope })).map(
         ({ definitions }) => definitions,
       )
-      if (defs.isErr()) return err(defs.error)
+      if (defs.isErr()) return extractError(defs)
       Object.keys(defs.value).forEach((key) => keys.add(key))
       unionDefs.push(defs.value)
     }
@@ -406,7 +418,7 @@ export function handleTSPropsDefinition({
       const defMap = (await resolveDefinitions({ type, scope })).map(
         ({ definitions }) => definitions,
       )
-      if (defMap.isErr()) return err(defMap.error)
+      if (defMap.isErr()) return extractError(defMap)
       for (const [key, def] of Object.entries(defMap.value)) {
         const result = results[key]
         if (!result) {
