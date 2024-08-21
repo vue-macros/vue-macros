@@ -1,4 +1,5 @@
-import { ok, safeTry, type Result } from 'neverthrow'
+import { TransformError } from '@vue-macros/common'
+import { err, ok, safeTry, type Result } from 'neverthrow'
 import type { ErrorUnknownNode } from '../error'
 import { isTSDeclaration } from './is'
 import { resolveTSFileId } from './resolve-file'
@@ -7,7 +8,6 @@ import {
   type TSResolvedType,
 } from './resolve-reference'
 import { getTSFile, resolveTSScope, type TSScope } from './scope'
-import type { TransformError } from '@vue-macros/common'
 
 export const namespaceSymbol: unique symbol = Symbol('namespace')
 export type TSNamespace = {
@@ -91,7 +91,12 @@ export function resolveTSNamespace(
             // export { x } from 'xxx'
             exported = sourceExports![specifier.local.name]
           } else {
-            throw new Error(`Unknown export type: ${(specifier as any).type}`)
+            return err(
+              new TransformError(
+                // @ts-expect-error unknown type
+                `Unknown export type: ${specifier.type as string}`,
+              ),
+            )
           }
 
           const name =
@@ -151,7 +156,12 @@ export function resolveTSNamespace(
                 : specifier.imported.value
             imported = exports[name]
           } else {
-            throw new Error(`Unknown import type: ${(specifier as any).type}`)
+            return err(
+              new TransformError(
+                // @ts-expect-error unknown type
+                `Unknown import type: ${specifier.type as string}`,
+              ),
+            )
           }
           declarations[local] = imported
         }
