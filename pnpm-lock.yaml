@@ -204,8 +204,8 @@ importers:
         specifier: ^1.3.3
         version: 1.3.3(@algolia/client-search@4.24.0)(@types/node@22.4.1)(less@4.2.0)(postcss@8.4.41)(terser@5.31.6)(typescript@5.6.1-rc)
       vitepress-plugin-group-icons:
-        specifier: ^0.0.9
-        version: 0.0.9(vitepress@1.3.3(@algolia/client-search@4.24.0)(@types/node@22.4.1)(less@4.2.0)(postcss@8.4.41)(terser@5.31.6)(typescript@5.6.1-rc))(vue@3.4.38(typescript@5.6.1-rc))
+        specifier: ^1.0.3
+        version: 1.0.3
       vue:
         specifier: 'catalog:'
         version: 3.4.38(typescript@5.6.1-rc)
@@ -1158,6 +1158,9 @@ packages:
   '@antfu/install-pkg@0.1.1':
     resolution: {integrity: sha512-LyB/8+bSfa0DFGC06zpCEfs89/XoWZwws5ygEa5D+Xsm3OfI+aXQ86VgVG7Acyef+rSZ5HE7J8rrxzrQeM3PjQ==}
 
+  '@antfu/install-pkg@0.4.0':
+    resolution: {integrity: sha512-vI73C0pFA9L+5v+djh0WSLXb8qYQGH5fX8nczaFe1OTI/8Fh03JS1Mov1V7urb6P3A2cBlBqZNjJIKv54+zVRw==}
+
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
 
@@ -1671,10 +1674,8 @@ packages:
   '@iconify/utils@2.1.30':
     resolution: {integrity: sha512-bY0IO5xLOlbzJBnjWLxknp6Sss3yla03sVY9VeUz9nT6dbc+EGKlLfCt+6uytJnWm5CUvTF/BNotsLWF7kI61A==}
 
-  '@iconify/vue@4.1.2':
-    resolution: {integrity: sha512-CQnYqLiQD5LOAaXhBrmj1mdL2/NCJvwcC4jtW2Z8ukhThiFkLDkutarTOV2trfc9EXqUqRs0KqXOL9pZ/IyysA==}
-    peerDependencies:
-      vue: '>=3'
+  '@iconify/utils@2.1.32':
+    resolution: {integrity: sha512-LeifFZPPKu28O3AEDpYJNdEbvS4/ojAPyIW+pF/vUpJTYnbTiXUHkCh0bwgFRzKvdpb8H4Fbfd/742++MF4fPQ==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -4648,6 +4649,9 @@ packages:
   package-json-from-dist@1.0.0:
     resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
 
+  package-manager-detector@0.1.2:
+    resolution: {integrity: sha512-iePyefLTOm2gEzbaZKSW+eBMjg+UYsQvUKxmvGXAQ987K16efBg10MxIjZs08iyX+DY2/owKY9DIdu193kX33w==}
+
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -5289,6 +5293,9 @@ packages:
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
 
+  tinyexec@0.2.0:
+    resolution: {integrity: sha512-au8dwv4xKSDR+Fw52csDo3wcDztPdne2oM1o/7LFro4h6bdFmvyUAeAfX40pwDtzHgRFqz1XWaUqgKS2G83/ig==}
+
   tinyglobby@0.2.2:
     resolution: {integrity: sha512-mZ2sDMaySvi1PkTp4lTo1In2zjU+cY8OvZsfwrDrx3YGRbXPX1/cbPwCR9zkm3O/Fz9Jo0F1HNgIQ1b8BepqyQ==}
     engines: {node: '>=12.0.0'}
@@ -5666,11 +5673,8 @@ packages:
       vite:
         optional: true
 
-  vitepress-plugin-group-icons@0.0.9:
-    resolution: {integrity: sha512-6kWyZZsf1xg9GuG+PK0CxKBFuCrxqwAfG/hurq3EaxBhCZY6KGJZG9neqJQwzKymor3+os4PRTv4KicdWCqcrA==}
-    peerDependencies:
-      vitepress: ^1.0.0
-      vue: ^3.0.0
+  vitepress-plugin-group-icons@1.0.3:
+    resolution: {integrity: sha512-IGQ7Jw52vHeBKTT1sgjhl/pGT1TwtL0MyeCb6m1xHthyoFQLqnkzVyEyUGkZfw0LBtro5OwmRvcYbDUSjMVOGw==}
 
   vitepress@1.3.3:
     resolution: {integrity: sha512-6UzEw/wZ41S/CATby7ea7UlffvRER/uekxgN6hbEvSys9ukmLOKsz87Ehq9yOx1Rwiw+Sj97yjpivP8w1sUmng==}
@@ -6018,6 +6022,11 @@ snapshots:
     dependencies:
       execa: 5.1.1
       find-up: 5.0.0
+
+  '@antfu/install-pkg@0.4.0':
+    dependencies:
+      package-manager-detector: 0.1.2
+      tinyexec: 0.2.0
 
   '@antfu/utils@0.7.10': {}
 
@@ -6702,10 +6711,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@iconify/vue@4.1.2(vue@3.4.38(typescript@5.6.1-rc))':
+  '@iconify/utils@2.1.32':
     dependencies:
+      '@antfu/install-pkg': 0.4.0
+      '@antfu/utils': 0.7.10
       '@iconify/types': 2.0.0
-      vue: 3.4.38(typescript@5.6.1-rc)
+      debug: 4.3.6
+      kolorist: 1.8.0
+      local-pkg: 0.5.0
+      mlly: 1.7.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
@@ -10545,6 +10561,8 @@ snapshots:
 
   package-json-from-dist@1.0.0: {}
 
+  package-manager-detector@0.1.2: {}
+
   parent-module@1.0.1:
     dependencies:
       callsites: 3.1.0
@@ -11253,6 +11271,8 @@ snapshots:
 
   tinybench@2.9.0: {}
 
+  tinyexec@0.2.0: {}
+
   tinyglobby@0.2.2:
     dependencies:
       fdir: 6.2.0(picomatch@4.0.2)
@@ -11755,12 +11775,12 @@ snapshots:
     optionalDependencies:
       vite: 5.4.1(@types/node@22.4.1)(less@4.2.0)(terser@5.31.6)
 
-  vitepress-plugin-group-icons@0.0.9(vitepress@1.3.3(@algolia/client-search@4.24.0)(@types/node@22.4.1)(less@4.2.0)(postcss@8.4.41)(terser@5.31.6)(typescript@5.6.1-rc))(vue@3.4.38(typescript@5.6.1-rc)):
+  vitepress-plugin-group-icons@1.0.3:
     dependencies:
       '@iconify-json/logos': 1.1.44
-      '@iconify/vue': 4.1.2(vue@3.4.38(typescript@5.6.1-rc))
-      vitepress: 1.3.3(@algolia/client-search@4.24.0)(@types/node@22.4.1)(less@4.2.0)(postcss@8.4.41)(terser@5.31.6)(typescript@5.6.1-rc)
-      vue: 3.4.38(typescript@5.6.1-rc)
+      '@iconify/utils': 2.1.32
+    transitivePeerDependencies:
+      - supports-color
 
   vitepress@1.3.3(@algolia/client-search@4.24.0)(@types/node@22.4.1)(less@4.2.0)(postcss@8.4.41)(terser@5.31.6)(typescript@5.6.1-rc):
     dependencies:

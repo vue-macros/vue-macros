@@ -3,7 +3,7 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import VueMacrosPlugin from '@vue-macros/volar'
 import ts from 'typescript'
 import { defineConfig } from 'vitepress'
-import { groupIconPlugin } from 'vitepress-plugin-group-icons'
+import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import { docsLink } from '../../macros'
 import { getLocaleConfig } from './locale'
 
@@ -44,7 +44,7 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
-      md.use(groupIconPlugin)
+      md.use(groupIconMdPlugin)
     },
     codeTransformers: [
       ...(process.env.NO_TWOSLASH
