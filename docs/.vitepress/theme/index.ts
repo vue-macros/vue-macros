@@ -1,8 +1,6 @@
 import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
-import { GroupIconComponent } from 'vitepress-plugin-group-icons/client'
 import Theme from 'vitepress/theme'
-import rspack from '../../assets/rspack.svg?raw'
 import PackageVersion from '../components/PackageVersion.vue'
 import StabilityLevel from '../components/StabilityLevel.vue'
 import WarnBadge from '../components/WarnBadge.vue'
@@ -13,6 +11,7 @@ import './style.css'
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 import '@shikijs/vitepress-twoslash/style.css'
 import 'uno.css'
+import 'virtual:group-icons.css'
 
 export default {
   ...Theme,
@@ -23,8 +22,5 @@ export default {
     app.component('PackageVersion', PackageVersion)
     app.use(NolebaseGitChangelogPlugin)
     app.use(TwoslashFloatingVue)
-    app.use(GroupIconComponent, {
-      rspack,
-    })
   },
 }

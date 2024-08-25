@@ -6,6 +6,10 @@ import VueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import { defineConfig } from 'vite'
 import Devtools from 'vite-plugin-vue-devtools'
+import {
+  groupIconVitePlugin,
+  localIconLoader,
+} from 'vitepress-plugin-group-icons'
 import { githubLink } from '../macros/repo'
 export default defineConfig({
   plugins: [
@@ -23,6 +27,11 @@ export default defineConfig({
       ],
     }),
     GitChangelogMarkdownSection(),
+    groupIconVitePlugin({
+      customIcon: {
+        rspack: localIconLoader(import.meta.url, './assets/rspack.svg'),
+      },
+    }),
   ],
   optimizeDeps: {
     include: [
