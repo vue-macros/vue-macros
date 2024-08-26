@@ -13,12 +13,19 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       required: true
     }
   },
-  setup(__props) {
+  setup(__props, {
+    expose: __expose
+  }) {
+    __expose();
     defineRender(() => {
       return createVNode("div", null, null);
     });
-    return () => {
-    };
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 
@@ -38,12 +45,19 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     name: "App"
   },
   __name: "with-define-options.setup",
-  setup(__props) {
+  setup(__props, {
+    expose: __expose
+  }) {
+    __expose();
     defineRender(() => {
       return createVNode("div", null, null);
     });
-    return () => {
-    };
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 

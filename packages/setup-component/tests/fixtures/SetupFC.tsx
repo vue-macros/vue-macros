@@ -1,5 +1,5 @@
 import { expectTypeOf } from 'expect-type'
-import { SetupFC } from '../../macros'
+import type { SetupFC } from '../../macros'
 import { VNode, ref } from 'vue'
 
 export const App: SetupFC<

@@ -13,11 +13,15 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     bar: { type: Number, required: false, default: 111 },
     baz: { type: Boolean, required: false, default: false }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
     expectTypeOf(props).toEqualTypeOf();
-    return () => {
-    };
+    const __returned__ = { props, get expectTypeOf() {
+      return expectTypeOf;
+    } };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -38,16 +42,20 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     bar: { type: Boolean, required: false, default: true }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
     expectTypeOf(props).toEqualTypeOf();
-    return (_ctx, _cache) => {
-      return toDisplayString(props);
-    };
+    const __returned__ = { props };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var declare = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return toDisplayString($setup.props);
+}
+var declare = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { declare as default };
 "
@@ -61,11 +69,15 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "empty",
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
     expectTypeOf().toEqualTypeOf();
-    return () => {
-    };
+    const __returned__ = { props, get expectTypeOf() {
+      return expectTypeOf;
+    } };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -86,11 +98,15 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     foo: { type: String, required: false }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
     expectTypeOf().toEqualTypeOf();
-    return () => {
-    };
+    const __returned__ = { props, get expectTypeOf() {
+      return expectTypeOf;
+    } };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -110,9 +126,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     foo: { type: String, required: false, default: "111" }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 

@@ -2,13 +2,16 @@
 
 exports[`fixtures > tests/fixtures/SetupFC.tsx 1`] = `
 "// SetupFC.js
-import { defineComponent, ref, createVNode, createTextVNode } from 'vue';
+import { defineComponent, ref, createVNode, createTextVNode, VNode } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: "SetupFC.tsx-setup-component-0",
-  setup(__props) {
+  setup(__props, {
+    expose: __expose
+  }) {
+    __expose();
     const {
       App
     } = __MACROS_ctx();
@@ -19,8 +22,20 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
     defineRender(() => createVNode("div", null, [createVNode("p", null, [createTextVNode("hi, this is "), props.name]), createVNode("p", null, [count.value]), createVNode("button", {
       "onClick": () => count.value++
     }, [createTextVNode("inc")])]));
-    return () => {
+    const __returned__ = {
+      App,
+      count,
+      VNode,
+      ref,
+      get expectTypeOf() {
+        return expectTypeOf;
+      }
     };
+    Object.defineProperty(__returned__, "__isScriptSetup", {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 
@@ -47,15 +62,24 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
       required: true
     }
   },
-  async setup(__props) {
+  async setup(__props, {
+    expose: __expose
+  }) {
+    __expose();
     let __temp, __restore;
     const {
       App
     } = __MACROS_ctx();
     ;
     [__temp, __restore] = withAsyncContext(() => globalThis.foo()), await __temp, __restore();
-    return () => {
+    const __returned__ = {
+      App
     };
+    Object.defineProperty(__returned__, "__isScriptSetup", {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 
@@ -83,10 +107,12 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
     foo: { type: String, required: true }
   },
   emits: ["change"],
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const { App } = __MACROS_ctx();
-    return () => {
-    };
+    const __returned__ = { App, h };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -106,7 +132,10 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main$1 = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: "context.tsx-setup-component-1",
-  setup(__props) {
+  setup(__props, {
+    expose: __expose
+  }) {
+    __expose();
     const {
       qux,
       quux,
@@ -116,8 +145,19 @@ var _sfc_main$1 = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
       baz
     } = __MACROS_ctx();
     console.log(foo, bar, baz, qux, quux);
-    return () => {
+    const __returned__ = {
+      qux,
+      quux,
+      foo,
+      bar,
+      App,
+      baz
     };
+    Object.defineProperty(__returned__, "__isScriptSetup", {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 
@@ -126,15 +166,27 @@ var __MACROS_setupComponent_1 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main$1
 const bar$1 = "BAR";
 var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
   __name: "context.tsx-setup-component-0",
-  setup(__props) {
+  setup(__props, {
+    expose: __expose
+  }) {
+    __expose();
     const {
       foo,
       App,
       baz
     } = __MACROS_ctx();
     console.log(foo, bar$1, baz, App);
-    return () => {
+    const __returned__ = {
+      foo,
+      App,
+      baz,
+      bar: bar$1
     };
+    Object.defineProperty(__returned__, "__isScriptSetup", {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 
@@ -180,13 +232,22 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
       required: true
     }
   },
-  setup(__props) {
+  setup(__props, {
+    expose: __expose
+  }) {
+    __expose();
     const {
       App
     } = __MACROS_ctx();
     defineRender(() => createVNode("div", null, null));
-    return () => {
+    const __returned__ = {
+      App
     };
+    Object.defineProperty(__returned__, "__isScriptSetup", {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 
@@ -213,14 +274,25 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
       required: true
     }
   },
-  setup(__props) {
+  setup(__props, {
+    expose: __expose
+  }) {
+    __expose();
     const {
       App
     } = __MACROS_ctx();
     const sum = computed(() => 1 + 2);
     defineRender(() => createVNode("div", null, [sum.value]));
-    return () => {
+    const __returned__ = {
+      App,
+      sum,
+      computed
     };
+    Object.defineProperty(__returned__, "__isScriptSetup", {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 
@@ -248,10 +320,12 @@ var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
     foo: { type: String, required: true }
   },
   emits: ["change"],
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const { App } = __MACROS_ctx();
-    return () => {
-    };
+    const __returned__ = { App, h };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
