@@ -132,19 +132,24 @@ const _sfc_main = {
   foo: String,
   baz: Number,
 },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+  __expose();
 const propAlias2 = toRef(__props, "baz");
 const propAlias = toRef(__props, "foo");
 
 
 
-return (_ctx, _cache) => {
-  return toDisplayString(propAlias.value) + " " + toDisplayString(propAlias2.value)
-}
+const __returned__ = { propAlias2, propAlias, __MACROS_toRef: toRef };
+Object.defineProperty(__returned__, '__isScriptSetup', { enumerable: false, value: true });
+return __returned__
 }
 
 };
-var alias = /*#__PURE__*/_export_sfc(_sfc_main, [__FILE__]);
+
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return toDisplayString($setup.propAlias) + " " + toDisplayString($setup.propAlias2)
+}
+var alias = /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],__FILE__]);
 
 export { alias as default };
 "
@@ -180,11 +185,17 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "basic",
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     let foo = ref("msg");
     foo.value = "world";
-    return () => {
-    };
+    const __returned__ = { get foo() {
+      return foo;
+    }, set foo(v) {
+      foo = v;
+    }, _ref: ref };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -208,10 +219,12 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     obj: { type: Object, required: true, default: () => ({ foo: "bar" }) },
     arr: { type: Array, required: true, default: () => ["foo", "bar"] }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     console.log(__props.fn, __props.obj, __props.arr);
-    return () => {
-    };
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -234,11 +247,15 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     bar: { type: Number, required: true, default: 10 },
     baz: { type: Boolean, required: true }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = createPropsRestProxy(__props, ["foo", "bar"]);
     console.log(__props.foo, __props.bar, props);
-    return () => {
-    };
+    const __returned__ = { props, get createPropsRestProxy() {
+      return createPropsRestProxy;
+    } };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -255,7 +272,8 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "issue-608",
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     let ref$1 = ref("value");
     console.log(isRef(ref$1.value));
     try {
@@ -263,8 +281,13 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       const ref2 = "";
     }
     console.log(isRef(ref$1.value));
-    return () => {
-    };
+    const __returned__ = { get ref() {
+      return ref$1;
+    }, set ref(v) {
+      ref$1 = v;
+    }, _ref: ref, isRef };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -295,10 +318,12 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "runtime-default",
   props: mergeDefaults(["foo"], { foo: "str" }),
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     console.log(__props.foo);
-    return () => {
-    };
+    const __returned__ = { __MACROS_mergeDefaults: mergeDefaults };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -310,28 +335,36 @@ export { runtimeDefault as default };
 
 exports[`fixtures > tests/fixtures/vue3/script-and-setup.vue 1`] = `
 "// script-and-setup.js
-import { ref, defineComponent, openBlock, createElementBlock, toDisplayString, unref } from 'vue';
+import { ref, defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 let foo = ref("msg");
 foo.value = "world";
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "script-and-setup",
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     foo.value = "foo";
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock(
-        "div",
-        null,
-        toDisplayString(unref(foo)),
-        1
-        /* TEXT */
-      );
-    };
+    const __returned__ = { get foo() {
+      return foo;
+    }, set foo(v) {
+      foo = v;
+    } };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var scriptAndSetup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock(
+    "div",
+    null,
+    toDisplayString($setup.foo),
+    1
+    /* TEXT */
+  );
+}
+var scriptAndSetup = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { scriptAndSetup as default };
 "
@@ -344,12 +377,14 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "trailing-comma",
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const foo = ref("msg");
     const bar = foo.value;
     const baz = bar;
-    return () => {
-    };
+    const __returned__ = { foo, bar, baz, _ref: ref };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 

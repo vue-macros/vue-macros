@@ -9,12 +9,13 @@ const bar = 1;
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "basic",
   props: {
-    foo: {}
+    foo: { type: String, required: true }
   },
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return toDisplayString(_ctx.foo);
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = { bar };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 

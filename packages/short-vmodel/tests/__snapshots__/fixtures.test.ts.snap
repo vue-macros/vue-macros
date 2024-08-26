@@ -7,32 +7,36 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "basic",
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const val = ref("");
-    return (_ctx, _cache) => {
-      const _component_A = resolveComponent("A");
-      return openBlock(), createElementBlock(
-        Fragment,
-        null,
-        [
-          createCommentVNode(" prettier-ignore "),
-          createVNode(_component_A, {
-            modelValue: val.value,
-            "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => val.value = $event)
-          }, null, 8, ["modelValue"]),
-          createVNode(_component_A, {
-            foo: val.value,
-            "onUpdate:foo": _cache[1] || (_cache[1] = ($event) => val.value = $event)
-          }, null, 8, ["foo"])
-        ],
-        64
-        /* STABLE_FRAGMENT */
-      );
-    };
+    const __returned__ = { val };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_A = resolveComponent("A");
+  return openBlock(), createElementBlock(
+    Fragment,
+    null,
+    [
+      createCommentVNode(" prettier-ignore "),
+      createVNode(_component_A, {
+        modelValue: $setup.val,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => $setup.val = $event)
+      }, null, 8, ["modelValue"]),
+      createVNode(_component_A, {
+        foo: $setup.val,
+        "onUpdate:foo": _cache[1] || (_cache[1] = ($event) => $setup.val = $event)
+      }, null, 8, ["foo"])
+    ],
+    64
+    /* STABLE_FRAGMENT */
+  );
+}
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { basic as default };
 "

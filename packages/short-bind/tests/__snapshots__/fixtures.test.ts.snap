@@ -5,31 +5,35 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 import { defineComponent, ref, openBlock, createElementBlock, Fragment, createElementVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-const _hoisted_1 = ["value"];
-const _hoisted_2 = ["modelValue"];
-const _hoisted_3 = ["model-value"];
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "basic",
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const value = ref("");
     const modelValue = ref("");
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock(
-        Fragment,
-        null,
-        [
-          createElementVNode("input", { value: value.value }, null, 8, _hoisted_1),
-          createElementVNode("input", { modelValue: modelValue.value }, null, 8, _hoisted_2),
-          createElementVNode("input", { "model-value": modelValue.value }, null, 8, _hoisted_3)
-        ],
-        64
-        /* STABLE_FRAGMENT */
-      );
-    };
+    const __returned__ = { value, modelValue };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+const _hoisted_1 = ["value"];
+const _hoisted_2 = ["modelValue"];
+const _hoisted_3 = ["model-value"];
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock(
+    Fragment,
+    null,
+    [
+      createElementVNode("input", { value: $setup.value }, null, 8, _hoisted_1),
+      createElementVNode("input", { modelValue: $setup.modelValue }, null, 8, _hoisted_2),
+      createElementVNode("input", { "model-value": $setup.modelValue }, null, 8, _hoisted_3)
+    ],
+    64
+    /* STABLE_FRAGMENT */
+  );
+}
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { basic as default };
 "
