@@ -46,8 +46,8 @@ const members = computed(() => [
 </script>
 
 <template>
-  <div flex="~ col wrap" mt8 items-center>
-    <VPTeamMembers size="small" :members="members" />
+  <div flex="~ col wrap" mt8 items-center px-4>
+    <VPTeamMembers size="small" :members="members" w-full px-2 />
 
     <h2 text="center gray xl" mt-11 pb-2>
       {{ t('Sponsored by') }}
