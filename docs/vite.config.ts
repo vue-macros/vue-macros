@@ -11,6 +11,7 @@ import {
   localIconLoader,
 } from 'vitepress-plugin-group-icons'
 import { githubLink } from '../macros/repo'
+
 export default defineConfig({
   plugins: [
     VueJsx(),
