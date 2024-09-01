@@ -1,4 +1,17 @@
 <script setup lang="ts">
+import pluginBabel from 'prettier/plugins/babel'
+import pluginEstree from 'prettier/plugins/estree'
+import pluginHtml from 'prettier/plugins/html'
+import pluginTypeScript from 'prettier/plugins/typescript'
+import { format } from 'prettier/standalone'
+import {
+  createHighlighterCoreSync,
+  createJavaScriptRegexEngine,
+} from 'shiki/core'
+import langTypeScript from 'shiki/langs/typescript.mjs'
+import langVue from 'shiki/langs/vue.mjs'
+import themeVitesseDark from 'shiki/themes/vitesse-dark.mjs'
+import themeVitesseLight from 'shiki/themes/vitesse-light.mjs'
 import { useData } from 'vitepress'
 import { computed, reactive, ref, watch } from 'vue'
 import { useTranslate } from '../.vitepress/i18n/composable'
@@ -16,26 +29,11 @@ import type { ShikiTransformer } from 'shiki'
 const t = useTranslate()
 const { isDark } = useData()
 
-const [
-  shiki,
-  { format },
-  pluginBabel,
-  pluginTypeScript,
-  pluginHtml,
-  pluginEstree,
-] = await Promise.all([
-  import('shiki').then(({ getHighlighter }) =>
-    getHighlighter({
-      themes: ['vitesse-light', 'vitesse-dark'],
-      langs: ['typescript', 'vue'],
-    }),
-  ),
-  import('prettier/standalone'),
-  import('prettier/plugins/babel'),
-  import('prettier/plugins/typescript'),
-  import('prettier/plugins/html'),
-  import('prettier/plugins/estree') as Promise<any>,
-])
+const shiki = createHighlighterCoreSync({
+  themes: [themeVitesseLight, themeVitesseDark],
+  langs: [langTypeScript, langVue],
+  engine: createJavaScriptRegexEngine(),
+})
 
 const state = reactive<{
   -readonly [K in OptionsKey]: (typeof options)[K]['values'][number]

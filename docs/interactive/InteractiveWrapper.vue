@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
 import { useTranslate } from '../.vitepress/i18n/composable'
-import InteractiveDemo from './InteractiveDemo.vue'
+
+const InteractiveDemo = defineAsyncComponent(
+  () => import('./InteractiveDemo.vue'),
+)
 const t = useTranslate()
 </script>
 
