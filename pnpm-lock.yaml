@@ -130,12 +130,18 @@ importers:
       unocss:
         specifier: ^0.62.3
         version: 0.62.3(rollup@4.21.0)(vite@5.4.2(@types/node@22.5.0)(less@4.2.0)(terser@5.31.6))
+      unplugin:
+        specifier: 'catalog:'
+        version: 1.12.2
       unplugin-macros:
         specifier: ^0.13.3
         version: 0.13.3(@types/node@22.5.0)(less@4.2.0)(rollup@4.21.0)(terser@5.31.6)
       unplugin-raw:
         specifier: ^0.2.2
         version: 0.2.2(rollup@4.21.0)
+      unplugin-unused:
+        specifier: ^0.1.3
+        version: 0.1.3(rollup@4.21.0)
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:packages/macros
@@ -581,9 +587,6 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
-      '@vue/compiler-sfc':
-        specifier: 'catalog:'
-        version: 3.4.38
       unplugin:
         specifier: 'catalog:'
         version: 1.12.2
@@ -624,9 +627,6 @@ importers:
       '@vue-macros/chain-call':
         specifier: workspace:^
         version: link:../chain-call
-      '@vue-macros/common':
-        specifier: workspace:*
-        version: link:../common
       '@vue-macros/config':
         specifier: workspace:*
         version: link:../config
@@ -866,9 +866,6 @@ importers:
       '@rollup/plugin-node-resolve':
         specifier: ^15.2.3
         version: 15.2.3(rollup@4.21.0)
-      '@rollup/pluginutils':
-        specifier: ^5.1.0
-        version: 5.1.0(rollup@4.21.0)
       '@sxzz/test-utils':
         specifier: ^0.2.1
         version: 0.2.1(vitest@2.0.5(@types/node@22.5.0)(@vitest/ui@2.0.5)(less@4.2.0)(terser@5.31.6))
@@ -878,12 +875,6 @@ importers:
       '@vitejs/plugin-vue2':
         specifier: ^2.3.1
         version: 2.3.1(vite@5.4.2(@types/node@22.5.0)(less@4.2.0)(terser@5.31.6))(vue@3.4.38(typescript@5.6.1-rc))
-      esbuild:
-        specifier: ^0.23.1
-        version: 0.23.1
-      fast-glob:
-        specifier: ^3.3.2
-        version: 3.3.2
       rollup:
         specifier: ^4.21.0
         version: 4.21.0
@@ -912,9 +903,6 @@ importers:
       '@vue-macros/config':
         specifier: workspace:*
         version: link:../config
-      '@vue-macros/define-props':
-        specifier: workspace:*
-        version: link:../define-props
       '@vue-macros/short-bind':
         specifier: workspace:*
         version: link:../short-bind
@@ -5705,6 +5693,10 @@ packages:
   unplugin-raw@0.2.2:
     resolution: {integrity: sha512-4PgR0g7WkUhiWMH3SIJ2h98YuDEF4NQJ1tnfLV9Z/XyCZJX3DN37DptyjP1P8jlqgxq30RLceF38C9dmCdDBtw==}
     engines: {node: '>=16.14.0'}
+
+  unplugin-unused@0.1.3:
+    resolution: {integrity: sha512-D/G0D4ZLVEmcsX90r+qpLjmPUPnNc/SDQL2muBSGZN7/6HaGvbGu8vu88FFq9Losbsk78R2RiY8ErxLcmaJPpQ==}
+    engines: {node: '>=18.12.0'}
 
   unplugin-vue-define-options@1.4.9:
     resolution: {integrity: sha512-tA6u7RLCFTMUxCiER4yTaTJhp7kU7q7yNmjiLRG3ZMrOUq7WaMeimKYqhrplC2lELNQUnsmcMSmFVi7LfBnWqA==}
@@ -11979,6 +11971,15 @@ snapshots:
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
       esbuild: 0.23.1
+      unplugin: 1.12.2
+    transitivePeerDependencies:
+      - rollup
+
+  unplugin-unused@0.1.3(rollup@4.21.0):
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
+      js-tokens: 9.0.0
+      pkg-types: 1.2.0
       unplugin: 1.12.2
     transitivePeerDependencies:
       - rollup
