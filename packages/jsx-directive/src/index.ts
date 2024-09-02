@@ -4,6 +4,7 @@ import {
   FilterFileType,
   getFilterPattern,
   REGEX_NODE_MODULES,
+  REGEX_SETUP_SFC,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
@@ -26,7 +27,7 @@ function resolveOptions(
   const include = getFilterPattern([FilterFileType.SRC_FILE], framework)
   return {
     include,
-    exclude: [REGEX_NODE_MODULES],
+    exclude: [REGEX_NODE_MODULES, REGEX_SETUP_SFC],
     ...options,
     version,
   }
@@ -41,6 +42,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
 
     return {
       name,
+      enforce: 'pre',
 
       transformInclude: filter,
       transform(code, id) {

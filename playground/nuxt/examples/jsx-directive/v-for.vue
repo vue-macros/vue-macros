@@ -19,9 +19,9 @@ defineRender(() => (
     <legend>v-for</legend>
 
     <span v-if={list} v-for={i in list} class="flex gap-3">
-      <template v-for={(item, index) in list}>
+      <span v-for={(item, index) in list}>
         <Foo count={index + i} />
-      </template>
+      </span>
     </span>
   </fieldset>
 ))
