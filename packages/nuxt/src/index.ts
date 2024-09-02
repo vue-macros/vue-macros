@@ -27,7 +27,7 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
     vueCompilerOptions.plugins ||= []
     vueCompilerOptions.plugins.push('unplugin-vue-macros/volar')
 
-    nuxt.hook('vite:extendConfig', (config, { isClient }) => {
+    nuxt.hook('vite:configResolved', (config, { isClient }) => {
       function findPluginAndRemove(name: string): Plugin | undefined {
         const idx = config.plugins!.findIndex(
           (plugin) => plugin && 'name' in plugin && plugin.name === name,
