@@ -102,6 +102,11 @@ export function transformVFor(
       `>)${parent ? '}' : ''}`,
     )
 
-    replaceSourceRange(codes, source, attribute.pos, attribute.end)
+    replaceSourceRange(
+      codes,
+      source,
+      getStart(attribute, options),
+      attribute.end,
+    )
   })
 }

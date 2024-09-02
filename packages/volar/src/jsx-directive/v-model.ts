@@ -10,9 +10,15 @@ export function transformVModel(
 ): void {
   const { codes, ts, source, sfc } = options
   let firstNamespacedNode:
-    | { attribute: JsxDirective['attribute']; node: JsxDirective['node'] }
+    | {
+        attribute: JsxDirective['attribute']
+        node: JsxDirective['node']
+        attributeName: string
+      }
     | undefined
+
   const result: Code[] = []
+  const emits: string[] = []
   for (const { attribute, node } of nodes) {
     const modelValue = ['input', 'select', 'textarea'].includes(
       getTagName(node, options),
@@ -36,7 +42,11 @@ export function transformVModel(
           isDynamic = true
           return $1
         })
-      firstNamespacedNode ??= { attribute, node }
+      firstNamespacedNode ??= {
+        attribute,
+        attributeName,
+        node,
+      }
       if (firstNamespacedNode.attribute !== attribute) {
         replaceSourceRange(
           codes,
@@ -101,12 +111,15 @@ export function transformVModel(
             allCodeFeatures,
           ])
       }
+
+      emits.push(`'onUpdate:${attributeName}': () => {}, `)
     } else {
       replaceSourceRange(
         codes,
         source,
         start,
         attribute.name.end,
+        `{...{'onUpdate:${modelValue}': () => {} }} `,
         modelValue.slice(0, 3),
         [modelValue.slice(3), source, start, allCodeFeatures],
       )
@@ -114,19 +127,23 @@ export function transformVModel(
   }
 
   if (!firstNamespacedNode) return
-  const { attribute, node } = firstNamespacedNode
+  const { attribute, attributeName, node } = firstNamespacedNode
   getModelsType(codes)
 
+  const end = attributeName ? attribute.end : getStart(attribute, options) + 8
   replaceSourceRange(
     codes,
     source,
     getStart(attribute, options),
-    attribute.end + 1,
+    end + 1,
     `{...{`,
     ...result,
-    `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>, __VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>>}`,
+    `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>>}`,
+    ` {...{`,
+    ...emits,
+    `}}`,
     // Fix `v-model:` without type hints
-    sfc[source]!.content.slice(attribute.end, attribute.end + 1),
+    sfc[source]!.content.slice(end, end + 1),
   )
 }
 
@@ -140,28 +157,24 @@ type __VLS_NormalizeProps<T> = T extends object
         ? never
         : K extends keyof import('vue').VNodeProps | 'class' | 'style'
           ? never
-          : K extends \`on\${infer F}\${infer _}\`
-            ? F extends Uppercase<F>
-              ? never
-              : K
-            : K]: T[K]
+          : K]: T[K]
     }
   : never;
 type __VLS_CamelCase<S extends string> = S extends \`\${infer F}-\${infer RF}\${infer R}\`
   ? \`\${F}\${Uppercase<RF>}\${__VLS_CamelCase<R>}\`
   : S;
-type __VLS_EmitsToProps<T> = T extends object
+type __VLS_PropsToEmits<T> = T extends object
+    ? {
+        [K in keyof T as K extends \`onUpdate:\${infer R}\`
+          ? R extends 'modelValue'
+            ? never
+            : __VLS_CamelCase<R>
+          : never]: T[K]
+      }
+    : never
+type __VLS_GetModels<P, E = __VLS_PropsToEmits<P>> = E extends object
   ? {
-      [K in keyof T as K extends \`update:\${infer R}\`
-        ? R extends 'modelValue'
-          ? never
-          : __VLS_CamelCase<R>
-        : never]: T[K]
-    }
-  : never;
-type __VLS_GetModels<P, E> = E extends object
-  ? {
-      [K in keyof __VLS_EmitsToProps<E> as K extends keyof P
+      [K in keyof E as K extends keyof P
         ? K
         : never]: K extends keyof P ? P[K] : never
     }
