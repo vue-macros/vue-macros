@@ -155,7 +155,7 @@ export function transformVSlot(
       replaceSourceRange(
         codes,
         source,
-        vSlotAttribute.pos,
+        getStart(vSlotAttribute, options),
         vSlotAttribute.end + 1,
         ...result,
         // Fix `v-slot:` without type hints
