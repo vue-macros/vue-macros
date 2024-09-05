@@ -42,7 +42,7 @@ function __VLS_getFunctionalComponentCtx<T, K, const S>(
     if (
       name === 'ref' &&
       prop.initializer &&
-      ts.isJsxExpression(prop.initializer) &&
+      isJsxExpression(prop.initializer) &&
       prop.initializer.expression
     ) {
       refValue = getRefValue(prop.initializer.expression, options)

@@ -4,7 +4,7 @@ import { resolveOptions, type Options } from 'unplugin-vue-macros'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { githubRepo } from '../../../macros' with { type: 'macro' }
 import type {} from '@nuxt/devtools'
-import type { NuxtModule } from '@nuxt/schema'
+import type { NuxtModule, ViteConfig } from '@nuxt/schema'
 import type { RawVueCompilerOptions } from '@vue/language-core'
 import type { Plugin } from 'vite'
 
@@ -27,7 +27,7 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
     vueCompilerOptions.plugins ||= []
     vueCompilerOptions.plugins.push('unplugin-vue-macros/volar')
 
-    nuxt.hook('vite:extendConfig', (config, { isClient }) => {
+    nuxt.hook('vite:configResolved', (config: ViteConfig, { isClient }) => {
       function findPluginAndRemove(name: string): Plugin | undefined {
         const idx = config.plugins!.findIndex(
           (plugin) => plugin && 'name' in plugin && plugin.name === name,
