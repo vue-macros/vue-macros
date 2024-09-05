@@ -1,5 +1,12 @@
 # @vue-macros/test-utils
 
+## 1.6.1
+### Patch Changes
+
+
+
+- [`fc3d9c1`](https://github.com/vue-macros/vue-macros/commit/fc3d9c18496d4385fbcbe6085fb06384bf2e100e) Thanks [@sxzz](https://github.com/sxzz)! - Remove unused dependencies
+
 ## 1.6.0
 ### Minor Changes
 

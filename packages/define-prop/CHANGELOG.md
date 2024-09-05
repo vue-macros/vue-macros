@@ -1,5 +1,12 @@
 # @vue-macros/define-prop
 
+## 0.4.4
+### Patch Changes
+
+
+
+- [`384d95b`](https://github.com/vue-macros/vue-macros/commit/384d95bb3bdf60cd44daf60bb0632609546938d1) Thanks [@sxzz](https://github.com/sxzz)! - Respect `isProduction` options passed by users.
+
 ## 0.4.3
 ### Patch Changes
 
