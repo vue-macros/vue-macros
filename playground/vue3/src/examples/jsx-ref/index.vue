@@ -25,6 +25,7 @@ defineRender(
     {expectTypeOf<[number | null | undefined]>([comp1?.foo])}
 
     <a ref={comp2} />
+    {expectTypeOf<[HTMLAnchorElement | null | undefined]>([comp2.value])}
   </>,
 )
 </script>
