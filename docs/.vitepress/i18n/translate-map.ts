@@ -38,6 +38,6 @@ export const zhCN = {
   'Interactive Example': '交互式示例',
 }
 
-export const langMap: Record<string, Record<string, string>> = {
+export const translateMap: Record<string, Record<string, string>> = {
   'zh-CN': zhCN,
 }

@@ -1,7 +1,7 @@
-import { langMap } from './locales'
+import { translateMap } from './translate-map'
 
 export function t(key: string, lang: string) {
-  return langMap[lang]?.[key] || key
+  return translateMap[lang]?.[key] || key
 }
 
 export function createTranslate(lang: string) {

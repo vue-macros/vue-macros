@@ -1,5 +1,5 @@
-import { docsLink, githubLink } from '../../macros/repo'
-import { createTranslate } from './i18n/utils'
+import { docsLink, githubLink } from '../../../macros/repo'
+import { createTranslate } from '../i18n/utils'
 import type { DefaultTheme, HeadConfig, LocaleConfig } from 'vitepress'
 
 export function getLocaleConfig(lang: string) {
@@ -294,6 +294,12 @@ export function getLocaleConfig(lang: string) {
     socialLinks: [
       { icon: 'discord', link: 'https://discord.com/invite/RbVHMsFVXU' },
       { icon: 'github', link: githubLink },
+      {
+        icon: {
+          svg: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 3C19.538 3 22 5.5 22 9c0 7-7.5 11-10 12.5C9.5 20 2 16 2 9c0-3.5 2.5-6 5.5-6C9.36 3 11 4 12 5c1-1 2.64-2 4.5-2m-3.566 15.604a27 27 0 0 0 2.42-1.701C18.335 14.533 20 11.943 20 9c0-2.36-1.537-4-3.5-4c-1.076 0-2.24.57-3.086 1.414L12 7.828l-1.414-1.414C9.74 5.57 8.576 5 7.5 5C5.56 5 4 6.657 4 9c0 2.944 1.666 5.533 4.645 7.903c.745.593 1.54 1.146 2.421 1.7c.299.189.595.37.934.572c.339-.202.635-.383.934-.571"/></svg>',
+        },
+        link: 'https://github.com/sponsors/vue-macros',
+      },
     ],
     footer: {
       message: t('Made with ❤️'),

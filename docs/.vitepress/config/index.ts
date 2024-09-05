@@ -4,8 +4,8 @@ import VueMacrosPlugin from '@vue-macros/volar'
 import ts from 'typescript'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
-import { docsLink } from '../../macros'
-import { getLocaleConfig } from './locale'
+import { docsLink } from '../../../macros'
+import { getLocaleConfig } from './theme'
 
 export default defineConfig({
   lastUpdated: true,
