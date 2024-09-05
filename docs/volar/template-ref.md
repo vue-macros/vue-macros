@@ -1,12 +1,20 @@
 # templateRef <PackageVersion name="@vue-macros/volar" />
 
-<StabilityLevel level="experimental" />
+<StabilityLevel level="official" />
 
-Automatically infer type for `templateRef` and `useTemplateRef` <small>(vue3.5)</small>.
+Automatically infer type for `templateRef` <small>(from [VueUse](https://vueuse.org/core/templateRef/))</small>
+and `useTemplateRef` <small>(Vue 3.5+)</small>.
 
-|   Features   |     Supported      |
-| :----------: | :----------------: |
-| Volar Plugin | :white_check_mark: |
+::: warning
+
+This feature is officially supported since Volar (`vue-tsc`) v2.1.0.
+You can remove this plugin and use the built-in support in Volar.
+
+:::
+
+| Features |     Supported      |
+| :------: | :----------------: |
+|  Volar   | :white_check_mark: |
 
 ## Basic Usage
 
@@ -44,19 +52,4 @@ comp.value?.foo
 
 ## Volar Configuration
 
-```jsonc {4,10}
-// tsconfig.json
-{
-  "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
-    "vueMacros": {
-      "templateRef": {
-        /**
-         * @default ["templateRef", "useTemplateRef"]
-         */
-        "alias": ["templateRef"],
-      },
-    },
-  },
-}
-```
+No configuration required.

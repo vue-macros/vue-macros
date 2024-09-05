@@ -7,5 +7,4 @@ export default defineConfig({
   exportRender: true,
   scriptLang: true,
   setupSFC: true,
-  templateRef: true,
 })

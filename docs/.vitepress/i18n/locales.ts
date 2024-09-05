@@ -17,6 +17,7 @@ export const zhCN = {
   Configurations: '配置',
   'All Macros': '全部宏',
 
+  official: '官方',
   stable: '稳定',
   experimental: '实验性',
   'Stability: ': '稳定性: ',

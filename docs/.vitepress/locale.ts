@@ -253,6 +253,15 @@ export function getLocaleConfig(lang: string) {
       base: `${urlPrefix}/volar`,
       items: [
         {
+          text: t('Official'),
+          items: [
+            {
+              text: 'templateRef',
+              link: `/template-ref`,
+            },
+          ],
+        },
+        {
           text: t('Stable'),
           items: [
             {
@@ -268,10 +277,6 @@ export function getLocaleConfig(lang: string) {
         {
           text: t('Experimental'),
           items: [
-            {
-              text: 'templateRef',
-              link: `/template-ref`,
-            },
             {
               text: 'scriptSFC',
               link: `/script-sfc`,

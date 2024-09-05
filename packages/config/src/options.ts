@@ -87,7 +87,6 @@ export interface FeatureOptionsMap {
   shortBind: OptionsShortBind
   shortEmits: OptionsShortEmits
   shortVmodel: OptionsShortVmodel
-  templateRef: FilterOptions & { alias?: string[] }
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -152,7 +151,6 @@ export function resolveOptions(
     shortBind: resolveSubOptions('shortBind'),
     shortEmits: resolveSubOptions('shortEmits', 3.3),
     shortVmodel: resolveSubOptions('shortVmodel'),
-    templateRef: resolveSubOptions('templateRef'),
   }
 
   function resolveSubOptions<K extends FeatureName>(

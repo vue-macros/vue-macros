@@ -2,7 +2,7 @@
 import { useTranslate } from '../i18n/composable'
 
 defineProps<{
-  level: 'stable' | 'experimental' | 'deprecated'
+  level: 'official' | 'stable' | 'experimental' | 'deprecated'
 }>()
 
 const t = useTranslate()
@@ -12,7 +12,10 @@ const t = useTranslate()
   <div mt2 flex="~ gap2 wrap">
     <small>
       {{ t('Stability: ') }}
-      <code v-if="level === 'stable'" class="!text-green-600">
+      <code v-if="level === 'official'" class="!text-green-600">
+        {{ t('official') }}
+      </code>
+      <code v-else-if="level === 'stable'" class="!text-green-600">
         {{ t('stable') }}
       </code>
       <code v-else-if="level === 'experimental'" class="!text-yellow-700">
