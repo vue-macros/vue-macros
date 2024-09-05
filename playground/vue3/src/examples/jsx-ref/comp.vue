@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T">
 const { foo } = defineProps<{
-  foo: T
+  foo?: T
 }>()
 
 defineExpose({

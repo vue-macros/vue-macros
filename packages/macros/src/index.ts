@@ -46,6 +46,8 @@ import VueShortEmits from '@vue-macros/short-emits'
 import VueShortVmodel from '@vue-macros/short-vmodel'
 import VueDefineOptions from 'unplugin-vue-define-options'
 
+export { shallowRef as useRef } from 'vue'
+
 export { defineConfig, resolveOptions, type Options } from '@vue-macros/config'
 
 const name = generatePluginName()

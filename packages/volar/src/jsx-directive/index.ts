@@ -77,6 +77,7 @@ export function transformJsxDirective(options: TransformOptions): void {
         vBindNodes.push({ node, attribute })
       } else if (attributeName === 'ref') {
         refNodes.push({ node, attribute })
+        ctxNodeSet.add(node)
       } else if (attributeName === 'v-slots') {
         ctxNodeSet.add(node)
         vSlots.push({ node, attribute })

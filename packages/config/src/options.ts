@@ -76,6 +76,7 @@ export interface FeatureOptionsMap {
   exportRender: OptionsExportRender
   hoistStatic: OptionsHoistStatic
   jsxDirective: OptionsJsxDirective
+  jsxRef: FilterOptions & { alias?: string[] }
   namedTemplate: OptionsNamedTemplate
   reactivityTransform: OptionsReactivityTransform
   scriptLang: OptionsScriptLang
@@ -87,7 +88,6 @@ export interface FeatureOptionsMap {
   shortBind: OptionsShortBind
   shortEmits: OptionsShortEmits
   shortVmodel: OptionsShortVmodel
-  templateRef: FilterOptions & { alias?: string[] }
 }
 export type FeatureName = keyof FeatureOptionsMap
 export type FeatureOptions = FeatureOptionsMap[FeatureName]
@@ -141,6 +141,7 @@ export function resolveOptions(
     exportRender: resolveSubOptions('exportRender', false),
     hoistStatic: resolveSubOptions('hoistStatic'),
     jsxDirective: resolveSubOptions('jsxDirective'),
+    jsxRef: resolveSubOptions('jsxRef'),
     namedTemplate: resolveSubOptions('namedTemplate'),
     reactivityTransform: resolveSubOptions('reactivityTransform'),
     scriptLang: resolveSubOptions('scriptLang', false),
@@ -152,7 +153,6 @@ export function resolveOptions(
     shortBind: resolveSubOptions('shortBind'),
     shortEmits: resolveSubOptions('shortEmits', 3.3),
     shortVmodel: resolveSubOptions('shortVmodel'),
-    templateRef: resolveSubOptions('templateRef'),
   }
 
   function resolveSubOptions<K extends FeatureName>(
