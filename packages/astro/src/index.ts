@@ -1,7 +1,7 @@
 import { resolveOptions, type Options } from 'unplugin-vue-macros'
 import VueMacros from 'unplugin-vue-macros/vite'
 import type { AstroIntegration, ViteUserConfig } from 'astro'
-import type { Plugin, PluginOption } from 'vite'
+import type { Plugin } from 'vite'
 
 function findPluginAndRemove(
   name: string,
@@ -32,7 +32,7 @@ export default function (options?: Options): AstroIntegration {
               vue,
               vueJsx,
             },
-          }) as PluginOption,
+          }) as any,
         )
       },
     },
