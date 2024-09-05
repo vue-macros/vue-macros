@@ -1,5 +1,12 @@
 # @vue-macros/jsx-directive
 
+## 0.8.20
+### Patch Changes
+
+
+
+- [#786](https://github.com/vue-macros/vue-macros/pull/786) [`85d2402`](https://github.com/vue-macros/vue-macros/commit/85d2402112b8abed02b5f062f853dd2cc6fb0394) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - set enforce to pre
+
 ## 0.8.19
 ### Patch Changes
 

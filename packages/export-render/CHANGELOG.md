@@ -1,5 +1,12 @@
 # @vue-macros/export-render
 
+## 0.2.10
+### Patch Changes
+
+
+
+- [`fc3d9c1`](https://github.com/vue-macros/vue-macros/commit/fc3d9c18496d4385fbcbe6085fb06384bf2e100e) Thanks [@sxzz](https://github.com/sxzz)! - Remove unused dependencies
+
 ## 0.2.9
 ### Patch Changes
 
