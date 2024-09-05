@@ -59,33 +59,146 @@ export interface OptionsCommon extends Omit<BaseOptions, keyof FilterOptions> {
 }
 
 export interface FeatureOptionsMap {
+  /**
+   * @see {@link https://vue-macros.dev/features/better-define.html}
+   * @default true
+   */
   betterDefine: OptionsBetterDefine
+  /**
+   * @see {@link https://vue-macros.dev/features/boolean-prop.html}
+   * @default false
+   */
   booleanProp: OptionsBooleanProp
+  /**
+   * @see {@link https://vue-macros.dev/macros/chain-call.html}
+   * @default true
+   */
   chainCall: OptionsChainCall
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-emit.html}
+   * @default true
+   */
   defineEmit: OptionsDefineEmit
+  /**
+   * @see {@link https://vue-macros.dev/volar/define-generic.html}
+   * @default true
+   */
   defineGeneric: FilterOptions
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-models.html}
+   * @default true
+   */
   defineModels: OptionsDefineModels
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-options.html}
+   * @default vueVersion < 3.3
+   */
   defineOptions: OptionsDefineOptions
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-prop.html}
+   * @default true
+   */
   defineProp: OptionsDefineProp
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-props.html}
+   * @default true
+   */
   defineProps: OptionsDefineProps
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-props-refs.html}
+   * @default true
+   */
   definePropsRefs: OptionsDefinePropsRefs
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-render.html}
+   * @default true
+   */
   defineRender: OptionsDefineRender
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-slots.html}
+   * @default vueVersion < 3.3
+   */
   defineSlots: OptionsDefineSlots
+  /**
+   * @see {@link https://vue-macros.dev/features/export-expose.html}
+   * @default false
+   */
   exportExpose: OptionsExportExpose
+  /**
+   * @see {@link https://vue-macros.dev/features/export-props.html}
+   * @default false
+   */
   exportProps: OptionsExportProps
+  /**
+   * @see {@link https://vue-macros.dev/features/export-render.html}
+   * @default false
+   */
   exportRender: OptionsExportRender
+  /**
+   * @see {@link https://vue-macros.dev/features/hoist-static.html}
+   * @default true
+   */
   hoistStatic: OptionsHoistStatic
+  /**
+   * @see {@link https://vue-macros.dev/features/jsx-directive.html}
+   * @default true
+   */
   jsxDirective: OptionsJsxDirective
+  /**
+   * @see {@link https://vue-macros.dev/features/named-template.html}
+   * @default false
+   * @deprecated Not actively maintained now. Try [createReusableTemplate](https://vueuse.org/core/createReusableTemplate/) instead.
+   */
   namedTemplate: OptionsNamedTemplate
+  /**
+   * @see {@link https://vue-macros.dev/features/reactivity-transform.html}
+   * @default true
+   */
   reactivityTransform: OptionsReactivityTransform
+  /**
+   * @see {@link https://vue-macros.dev/features/script-lang.html}
+   * @default false
+   */
   scriptLang: OptionsScriptLang
+  /**
+   * @see {@link https://vue-macros.dev/volar/script-sfc.html}
+   * @default false
+   */
   scriptSFC: FilterOptions
+  /**
+   * **experimental**: unpublished feature
+   * @default false
+   */
   setupBlock: OptionsSetupBlock
+  /**
+   * @see {@link https://vue-macros.dev/macros/setup-component.html}
+   * @default true
+   */
   setupComponent: OptionsSetupComponent
+  /**
+   * @see {@link https://vue-macros.dev/volar/setup-jsdoc.html}
+   * @default true
+   */
   setupJsdoc: FilterOptions
+  /**
+   * @see {@link https://vue-macros.dev/macros/setup-sfc.html}
+   * @default false
+   */
   setupSFC: OptionsSetupSFC
+  /**
+   * @see {@link https://vue-macros.dev/features/short-bind.html}
+   * @default true
+   */
   shortBind: OptionsShortBind
+  /**
+   * @see {@link https://vue-macros.dev/macros/short-emits.html}
+   * @default vueVersion < 3.3
+   */
   shortEmits: OptionsShortEmits
+  /**
+   * @see {@link https://vue-macros.dev/macros/short-vmodel.html}
+   * @default true
+   */
   shortVmodel: OptionsShortVmodel
 }
 export type FeatureName = keyof FeatureOptionsMap
@@ -93,11 +206,11 @@ export type FeatureOptions = FeatureOptionsMap[FeatureName]
 
 type OptionalSubOptions<T> = boolean | Omit<T, keyof OptionsCommon> | undefined
 export type Options = OptionsCommon & {
-  [K in FeatureName]?: OptionalSubOptions<FeatureOptionsMap[K]>
+  [K in keyof FeatureOptionsMap]?: OptionalSubOptions<FeatureOptionsMap[K]>
 }
 
 export type OptionsResolved = Required<OptionsCommon> & {
-  [K in FeatureName]: false | FeatureOptionsMap[K]
+  [K in keyof FeatureOptionsMap]: false | FeatureOptionsMap[K]
 }
 
 export function resolveOptions(
