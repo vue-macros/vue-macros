@@ -107,6 +107,11 @@
       "require": "./dist/jsx-directive.js",
       "import": "./dist/jsx-directive.mjs"
     },
+    "./jsx-ref": {
+      "dev": "./src/jsx-ref.ts",
+      "require": "./dist/jsx-ref.js",
+      "import": "./dist/jsx-ref.mjs"
+    },
     "./script-lang": {
       "dev": "./src/script-lang.ts",
       "require": "./dist/script-lang.js",
@@ -136,11 +141,6 @@
       "dev": "./src/short-vmodel.ts",
       "require": "./dist/short-vmodel.js",
       "import": "./dist/short-vmodel.mjs"
-    },
-    "./template-ref": {
-      "dev": "./src/template-ref.ts",
-      "require": "./dist/template-ref.js",
-      "import": "./dist/template-ref.mjs"
     },
     "./*": [
       "./*",
@@ -218,6 +218,10 @@
         "require": "./dist/jsx-directive.js",
         "import": "./dist/jsx-directive.mjs"
       },
+      "./jsx-ref": {
+        "require": "./dist/jsx-ref.js",
+        "import": "./dist/jsx-ref.mjs"
+      },
       "./script-lang": {
         "require": "./dist/script-lang.js",
         "import": "./dist/script-lang.mjs"
@@ -241,10 +245,6 @@
       "./short-vmodel": {
         "require": "./dist/short-vmodel.js",
         "import": "./dist/short-vmodel.mjs"
-      },
-      "./template-ref": {
-        "require": "./dist/template-ref.js",
-        "import": "./dist/template-ref.mjs"
       },
       "./*": [
         "./*",
