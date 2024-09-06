@@ -121,11 +121,6 @@ export async function handleTSEmitsDefinition({
     defineEmitsAst,
   }
 
-  function parseSignature(signature: string): TSCallSignatureDeclaration {
-    return (babelParse(`interface T {${signature}}`, 'ts').body[0] as any).body
-      .body[0]
-  }
-
   async function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
     const resolved = await resolveTSReferencedType(typeDeclRaw)
     if (!resolved || isTSNamespace(resolved))
@@ -193,16 +188,21 @@ export async function handleTSEmitsDefinition({
       definitionsAst: buildDefinition({ scope, type: definitionsAst }),
     }
   }
+}
 
-  function buildDefinition<T extends Node>({
-    type,
+function parseSignature(signature: string): TSCallSignatureDeclaration {
+  return (babelParse(`interface T {${signature}}`, 'ts').body[0] as any).body
+    .body[0]
+}
+
+function buildDefinition<T extends Node>({
+  type,
+  scope,
+}: TSResolvedType<T>): ASTDefinition<T> {
+  return {
+    code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
+    ast: type,
     scope,
-  }: TSResolvedType<T>): ASTDefinition<T> {
-    return {
-      code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
-      ast: type,
-      scope,
-    }
   }
 }
 

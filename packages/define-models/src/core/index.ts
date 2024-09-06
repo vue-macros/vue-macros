@@ -374,33 +374,33 @@ export function transformDefineModels(
         )
       }
     }
+  }
 
-    function rewriteRuntime() {
-      const text = `${importHelperFn(
-        s,
-        setupOffset,
-        'useVModel',
-        useVmodelHelperId,
-        true,
-      )}(${Object.entries(map)
-        .map(([name, { options }]) => {
-          const prop = getPropKey(name, true)
-          const evt = getEventKey(name, true)
-          if (!prop && !evt && !options) return stringifyValue(name)
+  function rewriteRuntime() {
+    const text = `${importHelperFn(
+      s,
+      setupOffset,
+      'useVModel',
+      useVmodelHelperId,
+      true,
+    )}(${Object.entries(map)
+      .map(([name, { options }]) => {
+        const prop = getPropKey(name, true)
+        const evt = getEventKey(name, true)
+        if (!prop && !evt && !options) return stringifyValue(name)
 
-          const args = [name, prop, evt].map((arg) => stringifyValue(arg))
-          if (options) {
-            const str = Object.entries(options)
-              .map(([k, v]) => `  ${stringifyValue(k)}: ${v}`)
-              .join(',\n')
-            args.push(`{\n${str}\n}`)
-          }
+        const args = [name, prop, evt].map((arg) => stringifyValue(arg))
+        if (options) {
+          const str = Object.entries(options)
+            .map(([k, v]) => `  ${stringifyValue(k)}: ${v}`)
+            .join(',\n')
+          args.push(`{\n${str}\n}`)
+        }
 
-          return `[${args.join(', ')}]`
-        })
-        .join(', ')})`
-      s.overwriteNode(modelDecl!, text, { offset: setupOffset })
-    }
+        return `[${args.join(', ')}]`
+      })
+      .join(', ')})`
+    s.overwriteNode(modelDecl!, text, { offset: setupOffset })
   }
 
   function processAssignModelVariable() {
