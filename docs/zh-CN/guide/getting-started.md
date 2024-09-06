@@ -1,3 +1,7 @@
+<script setup>
+import { version } from 'vue-tsc/package.json'
+</script>
+
 # 入门指南
 
 Vue Macros 是一个实现 Vue 非官方提案和想法的库，探索并扩展了其功能和语法。
@@ -6,10 +10,11 @@ Vue Macros 是一个实现 Vue 非官方提案和想法的库，探索并扩展�
 
 ## 要求
 
-- Node.js >= `16.14.0`。
-- Vue >= `2.7` 或 Vue >= `3.0`。
-  - 某些功能需要 Vue >= `3.2.25`。
-- 为 VSCode 安装**最新的** [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 扩展。
+- Node.js `>= v16.14.0`
+- Vue `>= v2.7` 或 Vue `>= v3.0`
+  - 某些功能需要 Vue `>= v3.2.25`
+- VSCode 扩展 [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) 和 `vue-tsc` 为 <code>v{{ version }}</code>
+  - Vue Macros 会持续尽快适配最新版本，旧版本可能不受支持
 
 ::: warning
 不支持 WebStorm。
