@@ -1,4 +1,4 @@
-export default function(){
+export default function () {
   const foo = defineModel('foo')
   return <div>{foo.value}</div>
 }

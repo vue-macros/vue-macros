@@ -1032,9 +1032,6 @@ importers:
 
   playground/vue3:
     dependencies:
-      '@vue-macros/jsx-macros':
-        specifier: workspace:*
-        version: link:../../packages/jsx-macros
       '@vueuse/core':
         specifier: ^11.0.3
         version: 11.0.3(vue@3.5.3(typescript@5.6.1-rc))

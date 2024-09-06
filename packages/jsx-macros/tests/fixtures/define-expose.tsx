@@ -1,6 +1,6 @@
-export default function(){
+export default function () {
   defineExpose({
-    foo: 1
+    foo: 1,
   })
   return <div />
 }
