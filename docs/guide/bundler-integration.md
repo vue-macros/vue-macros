@@ -2,6 +2,12 @@
 
 ## Installation
 
+::: tip
+
+Vite and Rollup are fully supported, while other bundlers have limited support.
+
+:::
+
 ::: code-group
 
 ```bash [npm]
@@ -144,12 +150,6 @@ module.exports = defineConfig({
   },
 })
 ```
-
-:::
-
-::: tip
-
-Vite and Rollup are fully supported, while other bundlers have limited support.
 
 :::
 

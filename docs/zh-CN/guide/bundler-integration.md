@@ -2,6 +2,12 @@
 
 ## 安装
 
+::: tip
+
+完全支持 Vite 和 Rollup，其他构建工具支持有限。
+
+:::
+
 ::: code-group
 
 ```bash [npm]
@@ -144,12 +150,6 @@ module.exports = defineConfig({
   },
 })
 ```
-
-:::
-
-::: tip
-
-完全支持 Vite 和 Rollup，其他构建工具支持有限。
 
 :::
 

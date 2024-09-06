@@ -20,7 +20,7 @@ Vue Macros 是一个实现 Vue 非官方提案和想法的库，探索并扩展�
 不支持 WebStorm。
 :::
 
-## 创建一个 Vue Macros 项目
+## 创建 Vue Macros 项目
 
 ### 安装
 
