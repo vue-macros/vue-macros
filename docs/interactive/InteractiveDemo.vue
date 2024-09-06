@@ -13,7 +13,7 @@ import langVue from 'shiki/langs/vue.mjs'
 import themeVitesseDark from 'shiki/themes/vitesse-dark.mjs'
 import themeVitesseLight from 'shiki/themes/vitesse-light.mjs'
 import { useData } from 'vitepress'
-import { computed, reactive, ref, watch } from 'vue'
+import { computed, onServerPrefetch, reactive, ref, watch } from 'vue'
 import { useTranslate } from '../.vitepress/i18n/composable'
 import {
   conflictCases,
@@ -73,25 +73,22 @@ const transformers: ShikiTransformer[] = [
 ]
 
 const formatted = ref('')
-watch(
-  [example, isDark],
-  async () => {
-    formatted.value = shiki.codeToHtml(
-      await format(example.value.code, {
-        parser: example.value.lang === 'vue' ? 'vue' : 'babel-ts',
-        plugins: [pluginBabel, pluginHtml, pluginEstree, pluginTypeScript],
-        semi: false,
-        singleQuote: true,
-      }),
-      {
-        lang: example.value.lang === 'vue' ? 'vue' : 'typescript',
-        theme: isDark.value ? 'vitesse-dark' : 'vitesse-light',
-        transformers,
-      },
-    )
-  },
-  { immediate: true },
-)
+async function formatCode() {
+  formatted.value = shiki.codeToHtml(
+    await format(example.value.code, {
+      parser: example.value.lang === 'vue' ? 'vue' : 'babel-ts',
+      plugins: [pluginBabel, pluginHtml, pluginEstree, pluginTypeScript],
+      semi: false,
+      singleQuote: true,
+    }),
+    {
+      lang: example.value.lang === 'vue' ? 'vue' : 'typescript',
+      theme: isDark.value ? 'vitesse-dark' : 'vitesse-light',
+      transformers,
+    },
+  )
+}
+watch([example, isDark], formatCode, { immediate: true })
 
 function isConflicted(value: string) {
   const items = conflictCases
@@ -108,6 +105,8 @@ function isConflicted(value: string) {
 
   return true
 }
+
+onServerPrefetch(() => formatCode())
 </script>
 
 <template>

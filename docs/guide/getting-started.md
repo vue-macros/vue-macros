@@ -1,3 +1,7 @@
+<script setup>
+import { version } from 'vue-tsc/package.json'
+</script>
+
 # Getting Started
 
 Vue Macros is a library that implements unofficial proposals and ideas for Vue,
@@ -7,10 +11,11 @@ We assume you are already familiar with the basic usages of Vue before you conti
 
 ## Requirements
 
-- Node.js >= `16.14.0`.
-- Vue >= `2.7` or Vue >= `3.0`.
-  - Some features need Vue >= `3.2.25`.
-- Install the **latest** [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension for VSCode.
+- Node.js `>= v16.14.0`.
+- Vue `>= v2.7` or Vue `>= v3.0`.
+  - Some features need Vue `>= v3.2.25`.
+- VSCode extension [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) and `vue-tsc` are <code>v{{ version }}</code>
+  - Vue Macros will continue to adapt to the latest version as soon as possible, older versions may not be supported.
 
 ::: warning
 WebStorm is not supported.

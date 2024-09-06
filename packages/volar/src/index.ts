@@ -18,7 +18,6 @@ import setupJsdoc from './setup-jsdoc'
 import setupSFC from './setup-sfc'
 import shortBind from './short-bind'
 import shortVmodel from './short-vmodel'
-import templateRef from './template-ref'
 import type { VueLanguagePlugin } from '@vue/language-core'
 
 const plugins = {
@@ -41,7 +40,6 @@ const plugins = {
   setupSFC,
   scriptSFC,
   scriptLang,
-  templateRef,
 }
 
 const plugin: VueLanguagePlugin = (ctx) =>

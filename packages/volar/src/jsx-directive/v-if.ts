@@ -49,6 +49,11 @@ export function transformVIf(
       replaceSourceRange(codes, source, node.end, node.end, parent ? '}' : '')
     }
 
-    replaceSourceRange(codes, source, attribute.pos, attribute.end)
+    replaceSourceRange(
+      codes,
+      source,
+      getStart(attribute, options),
+      attribute.end,
+    )
   })
 }

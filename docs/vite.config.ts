@@ -25,19 +25,22 @@ export default defineConfig({
           username: 'sxzz',
           mapByEmailAliases: ['sxzz@sxzz.moe'],
         },
+        {
+          name: 'zhiyuanzmj',
+          username: 'zhiyuanzmj',
+          mapByEmailAliases: ['260480378@qq.com'],
+        },
       ],
     }),
     GitChangelogMarkdownSection(),
     groupIconVitePlugin({
       customIcon: {
         rspack: localIconLoader(import.meta.url, './assets/rspack.svg'),
+        rsbuild: localIconLoader(import.meta.url, './assets/rsbuild.svg'),
       },
     }),
   ],
   optimizeDeps: {
-    include: [
-      '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas',
-    ],
     exclude: [
       '@nolebase/vitepress-plugin-enhanced-readabilities/client',
       'vitepress',

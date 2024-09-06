@@ -1,5 +1,22 @@
 # unplugin-vue-macros
 
+## 2.11.7
+### Patch Changes
+
+
+
+- [`fc3d9c1`](https://github.com/vue-macros/vue-macros/commit/fc3d9c18496d4385fbcbe6085fb06384bf2e100e) Thanks [@sxzz](https://github.com/sxzz)! - Remove unused dependencies
+
+- Updated dependencies [[`f475dbc`](https://github.com/vue-macros/vue-macros/commit/f475dbca96403193a4263933e253661bf49ac6c7), [`85d2402`](https://github.com/vue-macros/vue-macros/commit/85d2402112b8abed02b5f062f853dd2cc6fb0394), [`a3c156d`](https://github.com/vue-macros/vue-macros/commit/a3c156d6771b6fca01ebc3d804fc6309de16598f), [`fc3d9c1`](https://github.com/vue-macros/vue-macros/commit/fc3d9c18496d4385fbcbe6085fb06384bf2e100e), [`384d95b`](https://github.com/vue-macros/vue-macros/commit/384d95bb3bdf60cd44daf60bb0632609546938d1), [`0290218`](https://github.com/vue-macros/vue-macros/commit/029021889366be2afeea8f2992c91af7ad890628)]:
+  - @vue-macros/volar@0.28.0
+  - @vue-macros/jsx-directive@0.8.20
+  - @vue-macros/config@0.3.0
+  - @vue-macros/export-render@0.2.10
+  - @vue-macros/devtools@0.3.3
+  - @vue-macros/better-define@1.8.4
+  - @vue-macros/define-emit@0.3.4
+  - @vue-macros/define-prop@0.4.4
+
 ## 2.11.6
 ### Patch Changes
 

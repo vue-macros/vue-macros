@@ -1,5 +1,15 @@
 # @vue-macros/nuxt
 
+## 1.11.7
+### Patch Changes
+
+
+
+- [#787](https://github.com/vue-macros/vue-macros/pull/787) [`01f2230`](https://github.com/vue-macros/vue-macros/commit/01f2230f8f8c39e8a0231fe2ee8bb9d227d5e5da) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use configResolved instead of extendConfig
+
+- Updated dependencies [[`fc3d9c1`](https://github.com/vue-macros/vue-macros/commit/fc3d9c18496d4385fbcbe6085fb06384bf2e100e)]:
+  - unplugin-vue-macros@2.11.7
+
 ## 1.11.6
 ### Patch Changes
 
