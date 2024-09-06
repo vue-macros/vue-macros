@@ -51,14 +51,6 @@
     "build": "tsup",
     "dev": "DEV=true tsup --watch"
   },
-  "peerDependencies": {
-    "vitest": ">=0.29.0"
-  },
-  "peerDependenciesMeta": {
-    "vitest": {
-      "optional": true
-    }
-  },
   "dependencies": {
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",

@@ -1,8 +1,6 @@
-import { defineConfig } from 'tsup'
-import cfg from '../../tsup.config.js'
+import { config } from '../../tsup.config.js'
 
-export default defineConfig({
-  ...cfg,
-  entry: ['./src/index.ts'],
+export default config({
+  onlyIndex: true,
   splitting: false,
 })

@@ -13,16 +13,20 @@ export function config({
   ignoreDeps = [],
   shims,
   treeshake,
+  splitting = true,
+  onlyIndex = false,
 }: {
   ignoreDeps?: string[]
   shims?: boolean
   treeshake?: boolean
+  splitting?: boolean
+  onlyIndex?: boolean
 } = {}): Options {
   return {
-    entry: ['./src/*.ts', '!./**.d.ts'],
+    entry: onlyIndex ? ['./src/index.ts'] : ['./src/*.ts', '!./**.d.ts'],
     format: ['cjs', 'esm'],
     target: 'node16.14',
-    splitting: true,
+    splitting,
     cjsInterop: true,
     watch: !!process.env.DEV,
     dts:
