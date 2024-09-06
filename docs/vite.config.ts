@@ -31,6 +31,7 @@ export default defineConfig({
     groupIconVitePlugin({
       customIcon: {
         rspack: localIconLoader(import.meta.url, './assets/rspack.svg'),
+        rsbuild: localIconLoader(import.meta.url, './assets/rsbuild.svg'),
       },
     }),
   ],

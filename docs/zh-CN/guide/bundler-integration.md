@@ -110,6 +110,22 @@ module.exports = {
 }
 ```
 
+```js [Rsbuild]
+// rsbuild.config.js
+module.exports = {
+  // ...
+  tools: {
+    rspack: {
+      plugins: [
+        require('unplugin-vue-macros/rspack')({
+          // 覆盖插件选项
+        }),
+      ],
+    },
+  },
+}
+```
+
 ```js [Vue CLI]
 // vue.config.js
 const { defineConfig } = require('@vue/cli-service')
