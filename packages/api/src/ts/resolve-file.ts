@@ -17,15 +17,6 @@ export const resolveTSFileIdNode: ResolveTSFileIdImpl = (
   id: string,
   importer: string,
 ) => {
-  function tryResolve(id: string, importer: string) {
-    const filePath = path.resolve(importer, '..', id)
-    try {
-      const stat = lstatSync(filePath)
-      if (stat.isFile()) return filePath
-    } catch {
-      return
-    }
-  }
   return (
     tryResolve(id, importer) ||
     tryResolve(`${id}.ts`, importer) ||
@@ -34,6 +25,15 @@ export const resolveTSFileIdNode: ResolveTSFileIdImpl = (
     tryResolve(`${id}/index.ts`, importer) ||
     tryResolve(`${id}/index.d.ts`, importer)
   )
+}
+function tryResolve(id: string, importer: string) {
+  const filePath = path.resolve(importer, '..', id)
+  try {
+    const stat = lstatSync(filePath)
+    if (stat.isFile()) return filePath
+  } catch {
+    return
+  }
 }
 
 let resolveTSFileIdImpl: ResolveTSFileIdImpl = resolveTSFileIdNode

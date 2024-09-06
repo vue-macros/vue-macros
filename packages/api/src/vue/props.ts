@@ -530,34 +530,34 @@ export async function handleTSPropsDefinition({
 
     return { defaults, defaultsAst }
   }
+}
 
-  function buildNewProp(
-    name: string | StringLiteral,
-    value: string,
-    optional: boolean | undefined,
-  ) {
-    const key = resolveString(name)
-    const signature = `${name}${optional ? '?' : ''}: ${value}`
+function buildNewProp(
+  name: string | StringLiteral,
+  value: string,
+  optional: boolean | undefined,
+) {
+  const key = resolveString(name)
+  const signature = `${name}${optional ? '?' : ''}: ${value}`
 
-    const valueAst = (babelParse(`type T = (${value})`, 'ts').body[0] as any)
-      .typeAnnotation.typeAnnotation
+  const valueAst = (babelParse(`type T = (${value})`, 'ts').body[0] as any)
+    .typeAnnotation.typeAnnotation
 
-    const signatureAst = (
-      babelParse(`interface T {${signature}}`, 'ts').body[0] as any
-    ).body.body[0]
+  const signatureAst = (
+    babelParse(`interface T {${signature}}`, 'ts').body[0] as any
+  ).body.body[0]
 
-    return { key, signature, signatureAst, valueAst }
-  }
+  return { key, signature, signatureAst, valueAst }
+}
 
-  function buildDefinition<T extends Node>({
-    type,
+function buildDefinition<T extends Node>({
+  type,
+  scope,
+}: TSResolvedType<T>): ASTDefinition<T> {
+  return {
+    code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
+    ast: type,
     scope,
-  }: TSResolvedType<T>): ASTDefinition<T> {
-    return {
-      code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
-      ast: type,
-      scope,
-    }
   }
 }
 
