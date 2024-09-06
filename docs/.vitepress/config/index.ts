@@ -7,6 +7,12 @@ import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import { docsLink } from '../../../macros'
 import { getLocaleConfig } from './theme'
 
+const enableTwoslash = !!process.env.TWOSLASH
+
+if (!enableTwoslash) {
+  console.warn('twoslash is not enabled, set TWOSLASH=1 to enable it')
+}
+
 export default defineConfig({
   lastUpdated: true,
   locales: {
@@ -47,9 +53,8 @@ export default defineConfig({
       md.use(groupIconMdPlugin)
     },
     codeTransformers: [
-      ...(process.env.NO_TWOSLASH
-        ? []
-        : [
+      ...(enableTwoslash
+        ? [
             transformerTwoslash({
               twoslashOptions: {
                 compilerOptions: {
@@ -62,7 +67,8 @@ export default defineConfig({
                 },
               },
             }),
-          ]),
+          ]
+        : []),
     ],
   },
 })
