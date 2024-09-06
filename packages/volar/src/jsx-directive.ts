@@ -14,8 +14,6 @@ const plugin: VueMacrosPlugin<'jsxDirective'> = (ctx, options = {}) => {
       if (!filter(fileName) || !['jsx', 'tsx'].includes(embeddedFile.lang))
         return
 
-      if (!ctx.globalTypesHolder) ctx.globalTypesHolder = fileName
-
       for (const source of ['script', 'scriptSetup'] as const) {
         if (!sfc[source]?.ast) continue
 

@@ -11,7 +11,11 @@ export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
 
 export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
-  if (!decl.length) return
+  if (
+    !decl.length ||
+    codes.toString().includes('{} as __VLS_TypePropsToOption<')
+  )
+    return
 
   replace(
     codes,
@@ -19,12 +23,10 @@ export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
     `{\n${decl.join(',\n')}\n} & `,
   )
 
-  if (codes.includes('__VLS_TypePropsToOption<')) return
-
   replaceAll(
     codes,
     REGEX_DEFINE_COMPONENT,
-    '  props: ({} as __VLS_TypePropsToOption<__VLS_PublicProps>),\n',
+    'props: {} as __VLS_TypePropsToOption<__VLS_PublicProps>,\n',
   )
   codes.push(
     `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
@@ -34,27 +36,30 @@ export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
 }
 
 export function addEmits(codes: Code[], decl: Code[], vueLibName: string) {
-  if (!decl.length) return
+  if (!decl.length || codes.toString().includes('{} as __VLS_NormalizeEmits<'))
+    return
 
-  const index = codes.findIndex((code) =>
-    code.toString().startsWith('type __VLS_ModelEmitsType = '),
+  let index = codes.findIndex((code) =>
+    code.toString().startsWith('const __VLS_modelEmitsType = '),
   )
-  if (codes[index + 1] === '{}') {
-    codes[index + 1] =
-      ` typeof __VLS_modelEmitsType; const __VLS_modelEmitsType = (await import('${vueLibName}')).defineEmits<{\n${decl.join(',\n')}\n}>()`
+  if (index < 0) {
+    index = codes.findIndex((code) =>
+      code.toString().includes('type __VLS_PublicProps = '),
+    )
+    codes.splice(
+      index,
+      0,
+      `const __VLS_modelEmitsType = (await import('${vueLibName}')).defineEmits<{\n${decl.join(',\n')}\n}>();\n`,
+      `type __VLS_ModelEmitsType = typeof __VLS_modelEmitsType;\n`,
+    )
   } else {
     codes.splice(index + 4, 0, `${decl.join(',\n')}\n`)
   }
 
-  if (
-    codes.some((code) => code.includes('emits: ({} as __VLS_NormalizeEmits<'))
-  )
-    return
-
   replaceAll(
     codes,
     REGEX_DEFINE_COMPONENT,
-    'emits: ({} as __VLS_NormalizeEmits<__VLS_ModelEmitsType>),\n',
+    'emits: {} as __VLS_NormalizeEmits<__VLS_ModelEmitsType>,\n',
   )
   return true
 }
