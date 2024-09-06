@@ -25,6 +25,11 @@ export default defineConfig({
           username: 'sxzz',
           mapByEmailAliases: ['sxzz@sxzz.moe'],
         },
+        {
+          name: 'zhiyuanzmj',
+          username: 'zhiyuanzmj',
+          mapByEmailAliases: ['260480378@qq.com'],
+        },
       ],
     }),
     GitChangelogMarkdownSection(),
