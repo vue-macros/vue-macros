@@ -12,8 +12,9 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@vueuse/core": "^11.0.3",
     "quasar": "^2.16.9",
+    "@vue-macros/jsx-macros": "workspace:*",
+    "@vueuse/core": "^11.0.3",
     "vue": "catalog:"
   },
   "devDependencies": {

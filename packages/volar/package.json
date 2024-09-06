@@ -142,6 +142,11 @@
       "require": "./dist/template-ref.js",
       "import": "./dist/template-ref.mjs"
     },
+    "./jsx-macros": {
+      "dev": "./src/jsx-macros.ts",
+      "require": "./dist/jsx-macros.js",
+      "import": "./dist/jsx-macros.mjs"
+    },
     "./*": [
       "./*",
       "./*.d.ts"
@@ -270,11 +275,11 @@
     "@vue-macros/config": "workspace:*",
     "@vue-macros/short-bind": "workspace:*",
     "@vue-macros/short-vmodel": "workspace:*",
+    "@vue/compiler-dom": "catalog:",
     "@vue/language-core": "catalog:",
     "muggle-string": "^0.4.1"
   },
   "devDependencies": {
-    "@vue/compiler-dom": "catalog:",
     "typescript": "catalog:",
     "vue-tsc": "catalog:"
   },

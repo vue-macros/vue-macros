@@ -18,6 +18,7 @@ import Full from './examples/full.setup'
 import HoistStatic from './examples/hoist-static/index.vue'
 
 import JsxDirective from './examples/jsx-directive/index.vue'
+import JsxMacros from './examples/jsx-macros/index'
 import ReactivityTransform from './examples/reactivity-transform/index.vue'
 
 import ScriptLang from './examples/script-lang/index.vue'
@@ -137,6 +138,11 @@ import ShortVmodel from './examples/short-vmodel/parent.vue'
     <fieldset>
       <legend>jsxDirective</legend>
       <JsxDirective />
+    </fieldset>
+
+    <fieldset>
+      <legend>jsxMacros</legend>
+      <JsxMacros />
     </fieldset>
 
     <fieldset>

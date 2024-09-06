@@ -12,6 +12,7 @@ import exportExpose from './export-expose'
 import exportProps from './export-props'
 import exportRender from './export-render'
 import jsxDirective from './jsx-directive'
+import jsxMacros from './jsx-macros'
 import scriptLang from './script-lang'
 import scriptSFC from './script-sfc'
 import setupJsdoc from './setup-jsdoc'
@@ -30,6 +31,7 @@ const plugins = {
   shortVmodel,
   defineSlots,
   jsxDirective,
+  jsxMacros,
   booleanProp,
   exportRender,
   exportProps,

@@ -130,16 +130,19 @@ export interface VolarContext {
 }
 
 export function getStart(
-  node: import('typescript').Node,
+  node:
+    | import('typescript').Node
+    | import('typescript').SignatureDeclarationBase['parameters'],
   { ts, sfc, source = 'scriptSetup' }: VolarContext,
 ): number {
   return (ts as any).getTokenPosOfNode(node, sfc[source]!.ast)
 }
 
 export function getText(
-  node: import('typescript').Node,
+  node: import('typescript').Node | undefined,
   context: VolarContext,
 ): string {
+  if (!node) return ''
   const { sfc, source = 'scriptSetup' } = context
   return sfc[source]!.content.slice(getStart(node, context), node.end)
 }
