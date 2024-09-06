@@ -3,9 +3,9 @@
 exports[`fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
 import { useExpose as __MACROS_useExpose } from "@vue-macros/jsx-macros/helpers";
-import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export default function(_props){
+import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export default function (_props) {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
-    foo: 1
+    foo: 1,
   })
   return <div />
 }
@@ -14,7 +14,7 @@ import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export d
 
 exports[`fixtures > ./fixtures/define-model.tsx 1`] = `
 "
-import { useModel as __MACROS_useModel } from "@vue-macros/jsx-macros/helpers";export default function(_props){
+import { useModel as __MACROS_useModel } from "@vue-macros/jsx-macros/helpers";export default function (_props) {
   const foo = __MACROS_useModel(_props, 'foo')
   return <div>{foo.value}</div>
 }

@@ -107,6 +107,11 @@
       "require": "./dist/jsx-directive.js",
       "import": "./dist/jsx-directive.mjs"
     },
+    "./jsx-macros": {
+      "dev": "./src/jsx-macros.ts",
+      "require": "./dist/jsx-macros.js",
+      "import": "./dist/jsx-macros.mjs"
+    },
     "./script-lang": {
       "dev": "./src/script-lang.ts",
       "require": "./dist/script-lang.js",
@@ -141,11 +146,6 @@
       "dev": "./src/template-ref.ts",
       "require": "./dist/template-ref.js",
       "import": "./dist/template-ref.mjs"
-    },
-    "./jsx-macros": {
-      "dev": "./src/jsx-macros.ts",
-      "require": "./dist/jsx-macros.js",
-      "import": "./dist/jsx-macros.mjs"
     },
     "./*": [
       "./*",
@@ -222,6 +222,10 @@
       "./jsx-directive": {
         "require": "./dist/jsx-directive.js",
         "import": "./dist/jsx-directive.mjs"
+      },
+      "./jsx-macros": {
+        "require": "./dist/jsx-macros.js",
+        "import": "./dist/jsx-macros.mjs"
       },
       "./script-lang": {
         "require": "./dist/script-lang.js",
