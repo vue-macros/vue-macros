@@ -88,7 +88,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
 
       vite: {
         configResolved(config) {
-          options.isProduction = config.isProduction
+          options.isProduction ??= config.isProduction
         },
 
         handleHotUpdate,

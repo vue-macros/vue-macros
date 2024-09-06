@@ -26,5 +26,4 @@ export default defineConfig({
   setupSFC: true,
   shortBind: true,
   shortEmits: true,
-  templateRef: true,
 })

@@ -1,5 +1,19 @@
 # @vue-macros/config
 
+## 0.3.0
+### Minor Changes
+
+
+
+- [`0290218`](https://github.com/vue-macros/vue-macros/commit/029021889366be2afeea8f2992c91af7ad890628) Thanks [@sxzz](https://github.com/sxzz)! - Drop `templateRef` plugin
+
+
+### Patch Changes
+
+
+
+- [`a3c156d`](https://github.com/vue-macros/vue-macros/commit/a3c156d6771b6fca01ebc3d804fc6309de16598f) Thanks [@sxzz](https://github.com/sxzz)! - Add JSDoc
+
 ## 0.2.4
 ### Patch Changes
 
