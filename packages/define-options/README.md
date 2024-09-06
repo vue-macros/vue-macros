@@ -4,8 +4,6 @@
 
 # unplugin-vue-define-options [![npm](https://img.shields.io/npm/v/unplugin-vue-define-options.svg)](https://npmjs.com/package/unplugin-vue-define-options)
 
-<a href="https://vue-macros.dev/macros/define-options">📜 Documentation</a>
-
 Options API can be declared using the `defineOptions` in `<script setup>`, specifically to be able to set `name`, `props`, `emits`, and `render` inside of one function.
 
 If you support this feature, feel free to hit like 👍 or comment on [RFC Discussion](https://github.com/vuejs/rfcs/discussions/430). Thanks!
@@ -21,6 +19,10 @@ If you support this feature, feel free to hit like 👍 or comment on [RFC Discu
   - Rollup 3
   - esbuild
   - and more...
+
+## Usage
+
+[📜 Documentation](https://vue-macros.dev/macros/define-options.html)
 
 ### See Also
 

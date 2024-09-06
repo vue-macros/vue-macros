@@ -12,10 +12,6 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="https://vue-macros.dev/">📜 Documentation</a>
-</p>
-
 ## Features
 
 - ✨ Explore more macros and syntax sugar to Vue.
@@ -33,6 +29,10 @@
 ```bash
 npm i -D unplugin-vue-macros
 ```
+
+## Usage
+
+[📜 Documentation](https://vue-macros.dev/)
 
 ## Sponsors
 
