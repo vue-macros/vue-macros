@@ -1,14 +1,21 @@
 # templateRef <PackageVersion name="@vue-macros/volar" />
 
-<StabilityLevel level="experimental" />
+<StabilityLevel level="official" />
 
-自动推断 `templateRef` 和 `useTemplateRef` <small>(vue3.5)</small> 的类型.
+自动推断 `templateRef` <small>(来自 [VueUse](https://vueuse.org/core/templateRef/))</small> 和 `useTemplateRef` <small>(Vue 3.5+)</small> 的类型。
 
-|   Features   |     Supported      |
-| :----------: | :----------------: |
-| Volar Plugin | :white_check_mark: |
+::: warning
 
-## 基本用法
+此功能自 Volar (`vue-tsc`) v2.1.0 起已得到官方支持。
+您可以移除此插件并使用 Volar 中的内置支持。
+
+:::
+
+| 特性  |        支持        |
+| :---: | :----------------: |
+| Volar | :white_check_mark: |
+
+## Basic Usage
 
 ::: code-group
 
@@ -44,19 +51,4 @@ comp.value?.foo
 
 ## Volar 配置
 
-```jsonc {4,10}
-// tsconfig.json
-{
-  "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
-    "vueMacros": {
-      "templateRef": {
-        /**
-         * @default ["templateRef", "useTemplateRef"]
-         */
-        "alias": ["templateRef"],
-      },
-    },
-  },
-}
-```
+无需额外配置

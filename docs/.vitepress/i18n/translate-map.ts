@@ -17,6 +17,7 @@ export const zhCN = {
   Configurations: '配置',
   'All Macros': '全部宏',
 
+  official: '官方',
   stable: '稳定',
   experimental: '实验性',
   'Stability: ': '稳定性: ',
@@ -37,6 +38,6 @@ export const zhCN = {
   'Interactive Example': '交互式示例',
 }
 
-export const langMap: Record<string, Record<string, string>> = {
+export const translateMap: Record<string, Record<string, string>> = {
   'zh-CN': zhCN,
 }

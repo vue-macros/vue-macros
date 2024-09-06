@@ -2,6 +2,12 @@
 
 ## 安装
 
+::: tip
+
+完全支持 Vite 和 Rollup，其他构建工具支持有限。
+
+:::
+
 ::: code-group
 
 ```bash [npm]
@@ -110,6 +116,22 @@ module.exports = {
 }
 ```
 
+```js [Rsbuild]
+// rsbuild.config.js
+module.exports = {
+  // ...
+  tools: {
+    rspack: {
+      plugins: [
+        require('unplugin-vue-macros/rspack')({
+          // 覆盖插件选项
+        }),
+      ],
+    },
+  },
+}
+```
+
 ```js [Vue CLI]
 // vue.config.js
 const { defineConfig } = require('@vue/cli-service')
@@ -128,12 +150,6 @@ module.exports = defineConfig({
   },
 })
 ```
-
-:::
-
-::: tip
-
-完全支持 Vite 和 Rollup，其他构建工具支持有限。
 
 :::
 

@@ -1,5 +1,26 @@
 # @vue-macros/volar
 
+## 0.28.0
+### Minor Changes
+
+
+
+- [`0290218`](https://github.com/vue-macros/vue-macros/commit/029021889366be2afeea8f2992c91af7ad890628) Thanks [@sxzz](https://github.com/sxzz)! - Drop `templateRef` plugin
+
+
+### Patch Changes
+
+
+
+- [#785](https://github.com/vue-macros/vue-macros/pull/785) [`f475dbc`](https://github.com/vue-macros/vue-macros/commit/f475dbca96403193a4263933e253661bf49ac6c7) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add event-prop for v-model
+
+
+
+- [`fc3d9c1`](https://github.com/vue-macros/vue-macros/commit/fc3d9c18496d4385fbcbe6085fb06384bf2e100e) Thanks [@sxzz](https://github.com/sxzz)! - Remove unused dependencies
+
+- Updated dependencies [[`a3c156d`](https://github.com/vue-macros/vue-macros/commit/a3c156d6771b6fca01ebc3d804fc6309de16598f), [`0290218`](https://github.com/vue-macros/vue-macros/commit/029021889366be2afeea8f2992c91af7ad890628)]:
+  - @vue-macros/config@0.3.0
+
 ## 0.27.4
 ### Patch Changes
 

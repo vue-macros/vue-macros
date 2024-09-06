@@ -25,12 +25,18 @@ export default defineConfig({
           username: 'sxzz',
           mapByEmailAliases: ['sxzz@sxzz.moe'],
         },
+        {
+          name: 'zhiyuanzmj',
+          username: 'zhiyuanzmj',
+          mapByEmailAliases: ['260480378@qq.com'],
+        },
       ],
     }),
     GitChangelogMarkdownSection(),
     groupIconVitePlugin({
       customIcon: {
         rspack: localIconLoader(import.meta.url, './assets/rspack.svg'),
+        rsbuild: localIconLoader(import.meta.url, './assets/rsbuild.svg'),
       },
     }),
   ],
