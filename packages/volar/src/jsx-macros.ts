@@ -168,7 +168,7 @@ export function transformJsxMacros(options: TransformOptions): void {
       )
     }
     root.body &&
-      root.body.forEachChild((node) => {
+      ts.forEachChild(root.body, (node) => {
         if (ts.isReturnStatement(node) && node.expression) {
           replaceSourceRange(
             codes,
