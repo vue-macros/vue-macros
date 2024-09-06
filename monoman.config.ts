@@ -2,7 +2,11 @@ import { access, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import fg from 'fast-glob'
 import { importx } from 'importx'
-import { dedupeDeps, defineConfig } from 'monoman'
+import {
+  defineConfig,
+  noDuplicatedDeps,
+  noDuplicatedPnpmLockfile,
+} from 'monoman'
 import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
 import type { Options } from 'tsup'
@@ -183,7 +187,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 Please refer to [README.md](${githubLink}#readme)\n`
     },
   },
-  ...dedupeDeps({
+  ...noDuplicatedDeps({
     include: [
       'package.json',
       'packages/*/package.json',
@@ -191,7 +195,7 @@ Please refer to [README.md](${githubLink}#readme)\n`
     ],
     exclude: ['playground/vue2/package.json'],
   }),
-  ...dedupeDeps({
+  ...noDuplicatedDeps({
     include: [
       'package.json',
       'packages/*/package.json',
@@ -212,6 +216,22 @@ Please refer to [README.md](${githubLink}#readme)\n`
       return data
     },
   },
+  ...noDuplicatedPnpmLockfile({
+    deps: [
+      'typescript',
+      /^@vue\/(?!compiler-sfc|devtools|language-core)/,
+      /shiki/,
+      /babel/,
+      /esbuild/,
+      /vite/,
+      /unocss/,
+      /rolldown/,
+    ],
+  }),
+  ...noDuplicatedPnpmLockfile({
+    deps: ['vue', 'lru-cache', 'minimatch', 'debug'],
+    allowMajor: true,
+  }),
 ])
 
 function stripCurrentDir(filePath: string) {
