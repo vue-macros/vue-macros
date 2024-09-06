@@ -140,8 +140,8 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2(rollup@4.21.2)(webpack-sources@3.2.3)
       unplugin-unused:
-        specifier: ^0.1.4
-        version: 0.1.4(rollup@4.21.2)(webpack-sources@3.2.3)
+        specifier: ^0.1.7
+        version: 0.1.7(rollup@4.21.2)(webpack-sources@3.2.3)
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:packages/macros
@@ -5641,8 +5641,8 @@ packages:
     resolution: {integrity: sha512-4PgR0g7WkUhiWMH3SIJ2h98YuDEF4NQJ1tnfLV9Z/XyCZJX3DN37DptyjP1P8jlqgxq30RLceF38C9dmCdDBtw==}
     engines: {node: '>=16.14.0'}
 
-  unplugin-unused@0.1.4:
-    resolution: {integrity: sha512-oboBoI6jiuLOZ/OAzWH14rAbn+i1CjeRRQ/XpWxZMRrzghzpGCnIY5g47lQygn4VrZI4ux6/Yapu0akGmPGJCQ==}
+  unplugin-unused@0.1.7:
+    resolution: {integrity: sha512-MZfp6/k9Z/g3FyPYCQHPHhQPrRkoGhokNTqyWLBpWJkrBFWp+FD9qlldB0ktK28GqgIF3EthbRcQ2o1FGqs/eA==}
     engines: {node: '>=18.12.0'}
 
   unplugin-vue-define-options@1.4.9:
@@ -11843,7 +11843,7 @@ snapshots:
       - rollup
       - webpack-sources
 
-  unplugin-unused@0.1.4(rollup@4.21.2)(webpack-sources@3.2.3):
+  unplugin-unused@0.1.7(rollup@4.21.2)(webpack-sources@3.2.3):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.2)
       js-tokens: 9.0.0
