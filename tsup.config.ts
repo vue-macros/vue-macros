@@ -13,8 +13,8 @@ export function config({
   ignoreDeps = [],
   shims,
   treeshake,
-  splitting = true,
   onlyIndex = false,
+  splitting = !onlyIndex,
 }: {
   ignoreDeps?: string[]
   shims?: boolean
