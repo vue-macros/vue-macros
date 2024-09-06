@@ -3,6 +3,7 @@ import {
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
+  normalizePath,
   REGEX_SETUP_SFC,
   type BaseOptions,
   type MarkRequired,
@@ -14,6 +15,13 @@ import {
 } from 'unplugin'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformJsxMacros } from './core'
+import {
+  helperPrefix,
+  useExposeHelperCode,
+  useExposeHelperId,
+  useModelHelperCode,
+  useModelHelperId,
+} from './core/helper'
 
 export type Options = BaseOptions & {
   lib?: string
@@ -46,6 +54,19 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
     return {
       name,
       enforce: 'pre',
+
+      resolveId(id) {
+        if (normalizePath(id).startsWith(helperPrefix)) return id
+      },
+      loadInclude(id) {
+        return normalizePath(id).startsWith(helperPrefix)
+      },
+      load(_id) {
+        const id = normalizePath(_id)
+        if (id === useExposeHelperId) return useExposeHelperCode
+        else if (id === useModelHelperId) return useModelHelperCode
+      },
+
       transformInclude: filter,
       transform(code, id) {
         return transformJsxMacros(code, id, options)
