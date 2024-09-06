@@ -258,7 +258,7 @@ export function resolveOptions(
     exportRender: resolveSubOptions('exportRender', false),
     hoistStatic: resolveSubOptions('hoistStatic'),
     jsxDirective: resolveSubOptions('jsxDirective'),
-    jsxRef: resolveSubOptions('jsxRef'),
+    jsxRef: resolveSubOptions('jsxRef', false),
     namedTemplate: resolveSubOptions('namedTemplate'),
     reactivityTransform: resolveSubOptions('reactivityTransform'),
     scriptLang: resolveSubOptions('scriptLang', false),

@@ -32,7 +32,7 @@ export default function (options?: Options): AstroIntegration {
               vue,
               vueJsx,
             },
-          }) as any,
+          }),
         )
       },
     },
