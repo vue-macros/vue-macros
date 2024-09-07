@@ -219,7 +219,7 @@ Please refer to [README.md](${githubLink}#readme)\n`
   ...noDuplicatedPnpmLockfile({
     deps: [
       'typescript',
-      /^@vue\/(?!compiler-sfc|devtools|language-core)/,
+      /^@vue\/(?!compiler-sfc|devtools)/,
       /shiki/,
       /babel/,
       /esbuild/,
