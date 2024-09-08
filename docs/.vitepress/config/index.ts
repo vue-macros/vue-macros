@@ -1,7 +1,7 @@
 import process from 'node:process'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import VueMacrosPlugin from '@vue-macros/volar'
 import ts from 'typescript'
+import VueMacrosPlugin from 'unplugin-vue-macros/volar'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
 import { docsLink } from '../../../macros'
