@@ -1,5 +1,15 @@
 # @vue-macros/astro
 
+## 0.5.9
+### Patch Changes
+
+
+
+- [`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db) Thanks [@sxzz](https://github.com/sxzz)! - improve single file bundle
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.11.9
+
 ## 0.5.8
 ### Patch Changes
 

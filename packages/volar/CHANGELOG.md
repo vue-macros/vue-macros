@@ -1,5 +1,23 @@
 # @vue-macros/volar
 
+## 0.28.2
+### Patch Changes
+
+
+
+- [`b61d2f9`](https://github.com/vue-macros/vue-macros/commit/b61d2f98fd53c442d15a06cc1b2bffe787f4a113) Thanks [@sxzz](https://github.com/sxzz)! - pin `vue-tsc` peer dep
+
+
+
+- [#798](https://github.com/vue-macros/vue-macros/pull/798) [`af5328e`](https://github.com/vue-macros/vue-macros/commit/af5328e60d413e78e5ba047a000bed4e242cb416) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - remove duplicate __VLS_PropOptions type
+
+- Updated dependencies [[`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db)]:
+  - @vue-macros/common@1.12.3
+  - @vue-macros/config@0.3.1
+  - @vue-macros/boolean-prop@0.4.5
+  - @vue-macros/short-bind@1.0.4
+  - @vue-macros/short-vmodel@1.4.10
+
 ## 0.28.1
 ### Patch Changes
 
