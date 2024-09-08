@@ -142,6 +142,11 @@
       "require": "./dist/short-vmodel.js",
       "import": "./dist/short-vmodel.mjs"
     },
+    "./template-ref": {
+      "dev": "./src/template-ref.ts",
+      "require": "./dist/template-ref.js",
+      "import": "./dist/template-ref.mjs"
+    },
     "./*": [
       "./*",
       "./*.d.ts"
@@ -245,6 +250,10 @@
       "./short-vmodel": {
         "require": "./dist/short-vmodel.js",
         "import": "./dist/short-vmodel.mjs"
+      },
+      "./template-ref": {
+        "require": "./dist/template-ref.js",
+        "import": "./dist/template-ref.mjs"
       },
       "./*": [
         "./*",
