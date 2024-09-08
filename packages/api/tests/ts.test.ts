@@ -228,7 +228,7 @@ type Foo = AliasString`,
           "FooAlias": {
             "type": "TSLiteralType...",
           },
-          "Inferface": {
+          "Interface": {
             "type": "TSInterfaceDeclaration...",
           },
           "Num": {
@@ -253,7 +253,7 @@ type Foo = AliasString`,
         hideAstLocation(
           await resolveTSProperties({
             scope: file,
-            type: exports.Inferface?.type as any,
+            type: exports.Interface?.type as any,
           }),
         ),
       ).toMatchInlineSnapshot(`
