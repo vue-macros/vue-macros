@@ -22,7 +22,6 @@ expectTypeOf(baz).toEqualTypeOf<ComputedRef<string>>()
 // unknown type
 const unknownType = defineProp<unknown | boolean>()
 
-// @ts-expect-error reactivity transform
 const $bar = $defineProp('bar', true)
 const $baz = $(defineProp('baz'))
 </script>

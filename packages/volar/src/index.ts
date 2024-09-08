@@ -13,6 +13,7 @@ import exportProps from './export-props'
 import exportRender from './export-render'
 import jsxDirective from './jsx-directive'
 import jsxMacros from './jsx-macros'
+import jsxRef from './jsx-ref'
 import scriptLang from './script-lang'
 import scriptSFC from './script-sfc'
 import setupJsdoc from './setup-jsdoc'
@@ -30,7 +31,6 @@ const plugins = {
   shortVmodel,
   defineSlots,
   jsxDirective,
-  jsxMacros,
   booleanProp,
   exportRender,
   exportProps,
@@ -42,6 +42,8 @@ const plugins = {
   setupSFC,
   scriptSFC,
   scriptLang,
+  jsxRef,
+  jsxMacros,
 }
 
 const plugin: VueLanguagePlugin = (ctx) =>

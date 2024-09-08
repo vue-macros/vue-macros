@@ -18,6 +18,7 @@ export default defineConfig({
   },
   hoistStatic: true,
   jsxMacros: true,
+  jsxRef: true,
   namedTemplate: false,
   reactivityTransform: true,
   scriptLang: true,
