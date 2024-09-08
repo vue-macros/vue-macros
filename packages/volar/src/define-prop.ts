@@ -50,10 +50,6 @@ function transformDefineProp({
 
   if (edition === 'kevinEdition') {
     codes.push(`
-type __VLS_PropOptions<T> = Exclude<
-  import('${vueLibName}').Prop<T>,
-  import('${vueLibName}').PropType<T>
->;
 declare function $defineProp<T>(
   name: string,
   options: 
