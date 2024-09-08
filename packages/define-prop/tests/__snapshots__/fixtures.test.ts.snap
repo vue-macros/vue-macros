@@ -37,7 +37,6 @@ expectTypeOf(baz).toEqualTypeOf<ComputedRef<string>>()
 // unknown type
 const unknownType = __MACROS_toRef(__props, "unknownType")
 
-// @ts-expect-error reactivity transform
 const $bar = $(__MACROS_toRef(__props, "$bar"))
 const $baz = $(__MACROS_toRef(__props, "$baz"))
 </script>
