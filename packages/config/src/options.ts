@@ -145,6 +145,11 @@ export interface FeatureOptionsMap {
    */
   jsxDirective: OptionsJsxDirective
   /**
+   * @see {@link https://vue-macros.dev/features/jsx-ref.html}
+   * @default false
+   */
+  jsxRef: FilterOptions & { alias?: string[] }
+  /**
    * @see {@link https://vue-macros.dev/features/named-template.html}
    * @default false
    * @deprecated Not actively maintained now. Try [createReusableTemplate](https://vueuse.org/core/createReusableTemplate/) instead.
@@ -253,6 +258,7 @@ export function resolveOptions(
     exportRender: resolveSubOptions('exportRender', false),
     hoistStatic: resolveSubOptions('hoistStatic'),
     jsxDirective: resolveSubOptions('jsxDirective'),
+    jsxRef: resolveSubOptions('jsxRef', false),
     namedTemplate: resolveSubOptions('namedTemplate'),
     reactivityTransform: resolveSubOptions('reactivityTransform'),
     scriptLang: resolveSubOptions('scriptLang', false),

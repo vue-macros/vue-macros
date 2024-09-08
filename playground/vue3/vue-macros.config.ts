@@ -17,6 +17,7 @@ export default defineConfig({
     include: [/export-render.*\.vue$/, /\.setup\.tsx?$/],
   },
   hoistStatic: true,
+  jsxRef: true,
   namedTemplate: false,
   reactivityTransform: true,
   scriptLang: true,

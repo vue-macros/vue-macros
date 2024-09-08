@@ -107,6 +107,11 @@
       "require": "./dist/jsx-directive.js",
       "import": "./dist/jsx-directive.mjs"
     },
+    "./jsx-ref": {
+      "dev": "./src/jsx-ref.ts",
+      "require": "./dist/jsx-ref.js",
+      "import": "./dist/jsx-ref.mjs"
+    },
     "./script-lang": {
       "dev": "./src/script-lang.ts",
       "require": "./dist/script-lang.js",
@@ -217,6 +222,10 @@
       "./jsx-directive": {
         "require": "./dist/jsx-directive.js",
         "import": "./dist/jsx-directive.mjs"
+      },
+      "./jsx-ref": {
+        "require": "./dist/jsx-ref.js",
+        "import": "./dist/jsx-ref.mjs"
       },
       "./script-lang": {
         "require": "./dist/script-lang.js",
