@@ -219,6 +219,8 @@ Please refer to [README.md](${githubLink}#readme)\n`
   ...noDuplicatedPnpmLockfile({
     deps: [
       'typescript',
+      'vue-tsc',
+      /twoslash/,
       /^@vue\/(?!compiler-sfc|devtools)/,
       /shiki/,
       /babel/,
