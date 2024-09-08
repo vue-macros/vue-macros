@@ -1,1 +1,4 @@
-export { default } from '../../tsup.config.js'
+import { config } from '../../tsup.config.js'
+export default config({
+  ignoreDeps: ['vue-tsc'],
+})

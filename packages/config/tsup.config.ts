@@ -1,7 +1,5 @@
-import { defineConfig } from 'tsup'
-import config from '../../tsup.config.js'
+import { config } from '../../tsup.config.js'
 
-export default defineConfig({
-  ...config,
+export default config({
   shims: true,
 })
