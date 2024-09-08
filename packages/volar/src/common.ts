@@ -144,10 +144,9 @@ export function getStart(
 }
 
 export function getText(
-  node: import('typescript').Node | undefined,
+  node: import('typescript').Node,
   context: VolarContext,
 ): string {
-  if (!node) return ''
   const { sfc, source = 'scriptSetup' } = context
   return sfc[source]!.content.slice(getStart(node, context), node.end)
 }

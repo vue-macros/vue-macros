@@ -2,6 +2,7 @@ import {
   babelParse,
   generateTransform,
   getLang,
+  HELPER_PREFIX,
   importHelperFn,
   MagicStringAST,
   walkAST,
@@ -68,7 +69,7 @@ export function transformJsxMacros(
   })
 
   for (const [root, map] of roots) {
-    let propsName = '_props'
+    let propsName = `${HELPER_PREFIX}props`
     const paramsStart = root.params[0]
       ? root.params[0].start!
       : root.start! +
@@ -87,11 +88,14 @@ export function transformJsxMacros(
           root.params[0].type === 'ObjectPattern' &&
           root.params[0].properties.at(-1)
         ) {
-          s.appendLeft(root.params[0].properties.at(-1)!.end!, `, ..._props`)
+          s.appendLeft(
+            root.params[0].properties.at(-1)!.end!,
+            `, ...${HELPER_PREFIX}props`,
+          )
         }
       }
     } else {
-      s.appendRight(paramsStart, '_props')
+      s.appendRight(paramsStart, `${HELPER_PREFIX}props`)
     }
 
     for (const [macroName, nodes] of map) {
@@ -104,7 +108,7 @@ export function transformJsxMacros(
               node.callee.end!,
             `Object.assign`,
           )
-          const slots = `${importHelperFn(s, 0, 'getCurrentInstance', options.lib)}().slots`
+          const slots = `${importHelperFn(s, 0, 'getCurrentInstance', options.lib)}()?.slots`
           s.appendLeft(
             node.end! - 1,
             `${node.arguments[0] ? ',' : '{}, '}${slots}`,

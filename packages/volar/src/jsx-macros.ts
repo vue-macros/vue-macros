@@ -1,33 +1,70 @@
-import { createFilter } from '@vue-macros/common'
+import { createFilter, HELPER_PREFIX } from '@vue-macros/common'
 import { toValidAssetId } from '@vue/compiler-dom'
 import { allCodeFeatures } from '@vue/language-core'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText, type VueMacrosPlugin } from './common'
 import type { TransformOptions } from './jsx-directive/index'
-import type {
-  ArrowFunction,
-  CallExpression,
-  FunctionDeclaration,
-  Node,
-} from 'typescript'
 
-function isFunction(
-  node: Node,
+type RootMap = Map<
+  import('typescript').ArrowFunction | import('typescript').FunctionDeclaration,
+  Map<string, string[]>
+>
+
+function getMacroCall(
+  node: import('typescript').Node | undefined,
   ts: typeof import('typescript'),
-): node is ArrowFunction | FunctionDeclaration {
-  return ts.isArrowFunction(node) || ts.isFunctionDeclaration(node)
+): import('typescript').CallExpression | undefined {
+  if (!node) return
+
+  if (ts.isVariableStatement(node)) {
+    return ts.forEachChild(node.declarationList, (decl) => getExpression(decl))
+  } else {
+    return getExpression(node)
+  }
+
+  function getExpression(decl: import('typescript').Node) {
+    if (
+      ts.isVariableDeclaration(decl) &&
+      decl.initializer &&
+      ts.isCallExpression(decl.initializer) &&
+      ts.isIdentifier(decl.initializer.expression)
+    ) {
+      const expression =
+        decl.initializer.expression.escapedText === '$'
+          ? decl.initializer.arguments[0]
+          : decl.initializer
+      if (isMacroCall(expression)) return expression
+    } else if (ts.isExpressionStatement(decl) && isMacroCall(decl.expression)) {
+      return decl.expression
+    }
+  }
+
+  function isMacroCall(
+    node: import('typescript').Node,
+  ): node is import('typescript').CallExpression {
+    return !!(
+      ts.isCallExpression(node) &&
+      ts.isIdentifier(node.expression) &&
+      ['defineSlots', 'defineModel', 'defineExpose'].includes(
+        node.expression.escapedText!,
+      )
+    )
+  }
 }
 
-export function transformJsxMacros(options: TransformOptions): void {
+function getRootMap(options: TransformOptions): RootMap {
   const { ts, sfc, source, codes } = options
-  const rootMap = new Map<
-    ArrowFunction | FunctionDeclaration,
-    Map<string, string[]>
-  >()
+  const rootMap: RootMap = new Map()
 
-  function walk(node: Node, parents: Node[]) {
+  function walk(
+    node: import('typescript').Node,
+    parents: import('typescript').Node[],
+  ) {
     const root =
-      parents[1] && isFunction(parents[1], ts) ? parents[1] : undefined
+      parents[1] &&
+      (ts.isArrowFunction(parents[1]) || ts.isFunctionDeclaration(parents[1]))
+        ? parents[1]
+        : undefined
     const macro = root && getMacroCall(node, ts)
     if (macro) {
       if (!rootMap.has(root)) {
@@ -63,7 +100,7 @@ export function transformJsxMacros(options: TransformOptions): void {
             }
           }
         }
-        const id = toValidAssetId(modelName, '_VLS_model' as any)
+        const id = toValidAssetId(modelName, `${HELPER_PREFIX}model` as any)
         const typeString = `import("vue").UnwrapRef<typeof ${id}>`
         const requiredString = required ? ':' : '?:'
         propMap
@@ -77,8 +114,8 @@ export function transformJsxMacros(options: TransformOptions): void {
           source,
           getStart(macro, options),
           getStart(macro, options),
-          `${id}; let ${id} =`,
-          ['__MACROS_', source, getStart(macro, options), allCodeFeatures],
+          `// @ts-ignore\n${id};\nlet ${id} =`,
+          [HELPER_PREFIX, source, getStart(macro, options), allCodeFeatures],
         )
       } else if (name === 'defineSlots') {
         replaceSourceRange(
@@ -86,27 +123,27 @@ export function transformJsxMacros(options: TransformOptions): void {
           source,
           getStart(macro, options),
           getStart(macro, options),
-          `__MACROS_slots; let __MACROS_slots =`,
+          `// @ts-ignore\n${HELPER_PREFIX}slots;\nlet ${HELPER_PREFIX}slots =`,
           [
-            '__MACROS_',
+            HELPER_PREFIX,
             source,
             getStart(macro.expression, options),
             allCodeFeatures,
           ],
         )
-        propMap.get(name)?.push('{ vSlots?: typeof __MACROS_slots }')
+        propMap.get(name)?.push(`{ vSlots?: typeof ${HELPER_PREFIX}slots }`)
       } else if (name === 'defineExpose') {
         replaceSourceRange(
           codes,
           source,
           getStart(macro, options),
           getStart(macro, options),
-          `let __MACROS_expose = ${getText(macro.arguments[0], options)};`,
-          ['__MACROS_', source, getStart(macro, options), allCodeFeatures],
+          `const ${HELPER_PREFIX}expose = ${getText(macro.arguments[0], options)};`,
+          [HELPER_PREFIX, source, getStart(macro, options), allCodeFeatures],
         )
         propMap
           .get(name)
-          ?.push('{ vExpose?: (exposed: typeof __MACROS_expose) => any }')
+          ?.push(`(exposed: typeof ${HELPER_PREFIX}expose) => {}`)
       }
     }
 
@@ -117,35 +154,47 @@ export function transformJsxMacros(options: TransformOptions): void {
     })
   }
   ts.forEachChild(sfc[source]!.ast, (node) => walk(node, []))
+  return rootMap
+}
+
+function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
+  const { ts, source, codes } = options
 
   for (const [root, props] of rootMap) {
-    const result: string[] = []
-    for (const [name, members] of props) {
-      if (name === 'defineModel') {
-        result.push(`{${members.join(', ')}}`)
-      } else {
-        result.push(members.join(''))
-      }
-    }
-
+    const asyncPrefix = root.modifiers?.find(
+      (modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword,
+    )
+      ? 'async'
+      : ''
+    const result = `({}) as Awaited<typeof ${HELPER_PREFIX}setup>['render'] & { __ctx: Awaited<typeof ${
+      HELPER_PREFIX
+    }setup> }`
     if (ts.isFunctionDeclaration(root) && root.body) {
       replaceSourceRange(
         codes,
         source,
         root.parameters.pos,
-        getStart(root.body, options),
-        `_props: `,
+        root.parameters.pos,
+        `${HELPER_PREFIX}props: `,
         root.parameters[0]?.type
           ? `${getText(root.parameters[0].type, options)} & `
           : '',
-        `Awaited<typeof __MACROS_setup>['props'], __MACROS_setup = ((${getText(root.parameters[0], options)}) =>`,
+        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncPrefix}(`,
+      )
+      replaceSourceRange(
+        codes,
+        source,
+        getStart(root.body, options),
+        getStart(root.body, options),
+        '=>',
       )
       replaceSourceRange(
         codes,
         source,
         root.body.end - 1,
         root.body.end - 1,
-        `})()){ return {} as Awaited<typeof __MACROS_setup>['render']`,
+        `})({} as any)){ return `,
+        result,
       )
     } else {
       replaceSourceRange(
@@ -153,20 +202,22 @@ export function transformJsxMacros(options: TransformOptions): void {
         source,
         getStart(root.parameters, options),
         getStart(root.parameters, options),
-        `_props: `,
+        `${HELPER_PREFIX}props: `,
         root.parameters[0]?.type
           ? `${getText(root.parameters[0].type, options)} & `
           : '',
-        `Awaited<typeof __MACROS_setup>['props'], __MACROS_setup = ((`,
+        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncPrefix}(`,
       )
       replaceSourceRange(
         codes,
         source,
         root.end,
         root.end,
-        `)()) => ({}) as Awaited<typeof __MACROS_setup>['render']`,
+        `)({} as any)) => `,
+        result,
       )
     }
+
     root.body &&
       ts.forEachChild(root.body, (node) => {
         if (ts.isReturnStatement(node) && node.expression) {
@@ -175,65 +226,37 @@ export function transformJsxMacros(options: TransformOptions): void {
             source,
             getStart(node, options),
             getStart(node.expression, options),
-            `return { props: {} as ${result.join(' &\n')},`,
-            `render: `,
+            `return {\nprops: {} as `,
+            props.get('defineModel')?.length
+              ? `{ ${props.get('defineModel')?.join(', ')} }`
+              : '{}',
+            props.get('defineSlots')?.length
+              ? ` & ${props.get('defineSlots')?.join()}`
+              : '',
+            props.get('defineExpose')?.length
+              ? `,\nexpose: ${props.get('defineExpose')?.join()}`
+              : '',
+            `,\nrender: `,
           )
           replaceSourceRange(
             codes,
             source,
             node.expression.end,
             node.expression.end,
-            `}`,
+            `\n}`,
           )
         }
       })
   }
 
-  if (rootMap.size) {
+  if (
+    rootMap.size &&
+    !codes.toString().includes(`declare function ${HELPER_PREFIX}defineSlots`)
+  ) {
     codes.push(`
-declare function __MACROS_defineSlots<T extends Record<string, any>>(slots?: T): T
-declare const __MACROS_defineExpose: typeof import('vue').defineExpose;
-declare const __MACROS_defineModel: typeof import('vue').defineModel;\n`)
-  }
-}
-
-function getMacroCall(
-  node: import('typescript').Node | undefined,
-  ts: typeof import('typescript'),
-): CallExpression | undefined {
-  if (!node) return
-
-  if (ts.isVariableStatement(node)) {
-    return ts.forEachChild(node.declarationList, (decl) => getExpression(decl))
-  } else {
-    return getExpression(node)
-  }
-
-  function getExpression(decl: Node) {
-    if (
-      ts.isVariableDeclaration(decl) &&
-      decl.initializer &&
-      ts.isCallExpression(decl.initializer) &&
-      ts.isIdentifier(decl.initializer.expression)
-    ) {
-      const expression =
-        decl.initializer.expression.escapedText === '$'
-          ? decl.initializer.arguments[0]
-          : decl.initializer
-      if (isMacroCall(expression)) return expression
-    } else if (ts.isExpressionStatement(decl) && isMacroCall(decl.expression)) {
-      return decl.expression
-    }
-  }
-
-  function isMacroCall(node: Node): node is CallExpression {
-    return !!(
-      ts.isCallExpression(node) &&
-      ts.isIdentifier(node.expression) &&
-      ['defineSlots', 'defineModel', 'defineExpose'].includes(
-        node.expression.escapedText!,
-      )
-    )
+declare function ${HELPER_PREFIX}defineSlots<T extends Record<string, any>>(slots?: T): T
+declare const ${HELPER_PREFIX}defineExpose: typeof import('vue').defineExpose;
+declare const ${HELPER_PREFIX}defineModel: typeof import('vue').defineModel;\n`)
   }
 }
 
@@ -249,14 +272,15 @@ const plugin: VueMacrosPlugin<'jsxMacros'> = (ctx, options = {}) => {
       if (!filter(fileName) || !['tsx'].includes(embeddedFile.lang)) return
 
       for (const source of ['script', 'scriptSetup'] as const) {
-        if (!sfc[source]) return
-        transformJsxMacros({
-          codes: embeddedFile.content,
+        if (!sfc[source]) continue
+        const options = {
           sfc,
-          ts: ctx.modules.typescript,
           source,
-          vueVersion: ctx.vueCompilerOptions.target,
-        })
+          ts: ctx.modules.typescript,
+          codes: embeddedFile.content,
+        }
+        const rootMap = getRootMap(options)
+        if (rootMap.size) transformJsxMacros(rootMap, options)
       }
     },
   }
