@@ -58,6 +58,11 @@
       "require": "./dist/rspack.js",
       "import": "./dist/rspack.mjs"
     },
+    "./runtime": {
+      "dev": "./src/runtime.ts",
+      "require": "./dist/runtime.js",
+      "import": "./dist/runtime.mjs"
+    },
     "./vite": {
       "dev": "./src/vite.ts",
       "require": "./dist/vite.js",
@@ -108,6 +113,10 @@
       "./rspack": {
         "require": "./dist/rspack.js",
         "import": "./dist/rspack.mjs"
+      },
+      "./runtime": {
+        "require": "./dist/runtime.js",
+        "import": "./dist/runtime.mjs"
       },
       "./vite": {
         "require": "./dist/vite.js",
