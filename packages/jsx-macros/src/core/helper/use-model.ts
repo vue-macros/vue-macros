@@ -19,11 +19,11 @@ export function useModel(
   const modifiers = getModelModifiers(props, name)
   const res = {
     get value() {
-      const result = props?.[name] ?? options?.default
+      const result = props[name] ?? options?.default
       return options?.get ? options.get(result) : result
     },
     set value(v) {
-      props?.[`onUpdate:${name}`]?.(v)
+      props[`onUpdate:${name}`]?.(v)
     },
     __v_isRef: true,
   }
