@@ -1,5 +1,12 @@
 # @vue-macros/test-utils
 
+## 1.6.2
+### Patch Changes
+
+
+
+- [`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db) Thanks [@sxzz](https://github.com/sxzz)! - improve single file bundle
+
 ## 1.6.1
 ### Patch Changes
 
