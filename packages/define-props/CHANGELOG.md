@@ -1,5 +1,12 @@
 # @vue-macros/define-props
 
+## 3.0.4
+### Patch Changes
+
+- Updated dependencies [[`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db)]:
+  - @vue-macros/common@1.12.3
+  - @vue-macros/reactivity-transform@1.0.4
+
 ## 3.0.3
 ### Patch Changes
 

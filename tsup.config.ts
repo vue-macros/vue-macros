@@ -5,8 +5,7 @@ import { defineConfig, type Options } from 'tsup'
 import { createUnplugin } from 'unplugin'
 import Macros from 'unplugin-macros'
 import Raw from 'unplugin-raw'
-import Unused from 'unplugin-unused'
-import type { Options as UnusedOptions } from 'unplugin-unused/api'
+import { Unused, type Options as UnusedOptions } from 'unplugin-unused'
 
 const filename = fileURLToPath(import.meta.url)
 
