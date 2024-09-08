@@ -18,19 +18,13 @@ import type {
   Node,
 } from '@babel/types'
 
-export function transformJsxMacros(
-  code: string,
-  id: string,
-  options: OptionsResolved,
-): CodeTransform | undefined {
-  const s = new MagicStringAST(code)
-
+function getRootMap(s: MagicStringAST, id: string) {
   const parents: (Node | undefined | null)[] = []
-  const roots: Map<
+  const rootMap: Map<
     FunctionDeclaration | FunctionExpression | ArrowFunctionExpression,
     Map<string, CallExpression[]>
   > = new Map()
-  walkAST<Node>(babelParse(code, getLang(id)), {
+  walkAST<Node>(babelParse(s.toString(), getLang(id)), {
     enter(node, parent) {
       parents.unshift(parent)
       const expression =
@@ -48,8 +42,8 @@ export function transformJsxMacros(
           : undefined
       if (!root || !isMacro(expression)) return
 
-      if (!roots.has(root))
-        roots.set(
+      if (!rootMap.has(root))
+        rootMap.set(
           root,
           new Map([
             ['defineModel', []],
@@ -57,7 +51,7 @@ export function transformJsxMacros(
             ['defineExpose', []],
           ]),
         )
-      const map = roots.get(root)!
+      const map = rootMap.get(root)!
       const macroName = s.sliceNode(expression.callee)
       if (macroName) {
         map.get(macroName)?.push(expression)
@@ -67,8 +61,18 @@ export function transformJsxMacros(
       parents.shift()
     },
   })
+  return rootMap
+}
 
-  for (const [root, map] of roots) {
+export function transformJsxMacros(
+  code: string,
+  id: string,
+  options: OptionsResolved,
+): CodeTransform | undefined {
+  const s = new MagicStringAST(code)
+  const rootMap = getRootMap(s, id)
+
+  for (const [root, map] of rootMap) {
     let propsName = `${HELPER_PREFIX}props`
     const paramsStart = root.params[0]
       ? root.params[0].start!
