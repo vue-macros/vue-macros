@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/volar",
-  "version": "0.28.0",
+  "version": "0.28.1",
   "packageManager": "pnpm@9.9.0",
   "description": "Volar plugin for Vue Macros.",
   "type": "commonjs",
@@ -266,7 +266,7 @@
     "dev": "DEV=true tsup --watch"
   },
   "peerDependencies": {
-    "vue-tsc": "^2.0.0"
+    "vue-tsc": "catalog:"
   },
   "peerDependenciesMeta": {
     "vue-tsc": {

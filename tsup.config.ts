@@ -6,23 +6,28 @@ import { createUnplugin } from 'unplugin'
 import Macros from 'unplugin-macros'
 import Raw from 'unplugin-raw'
 import Unused from 'unplugin-unused'
+import type { Options as UnusedOptions } from 'unplugin-unused/api'
 
 const filename = fileURLToPath(import.meta.url)
 
 export function config({
-  ignoreDeps = [],
+  ignoreDeps = { peerDependencies: ['vue'] },
   shims,
   treeshake,
+  onlyIndex = false,
+  splitting = !onlyIndex,
 }: {
-  ignoreDeps?: string[]
+  ignoreDeps?: UnusedOptions['ignore']
   shims?: boolean
   treeshake?: boolean
+  splitting?: boolean
+  onlyIndex?: boolean
 } = {}): Options {
   return {
-    entry: ['./src/*.ts', '!./**.d.ts'],
+    entry: onlyIndex ? ['./src/index.ts'] : ['./src/*.ts', '!./**.d.ts'],
     format: ['cjs', 'esm'],
     target: 'node16.14',
-    splitting: true,
+    splitting,
     cjsInterop: true,
     watch: !!process.env.DEV,
     dts:
