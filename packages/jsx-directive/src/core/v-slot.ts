@@ -37,7 +37,7 @@ export function transformVSlot(
               result.push('...')
             }
             if (
-              ['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`) &&
+              ['v-if', 'v-else-if'].includes(String(vIfAttribute.name.name)) &&
               vIfAttribute.value?.type === 'JSXExpressionContainer'
             ) {
               result.push(`(${s.sliceNode(vIfAttribute.value.expression)}) ? {`)
@@ -95,13 +95,15 @@ export function transformVSlot(
           }
 
           if (vIfAttribute) {
-            if (['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`)) {
+            if (
+              ['v-if', 'v-else-if'].includes(String(vIfAttribute.name.name))
+            ) {
               const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
               result.push(
                 '}',
-                `${attributes[nextIndex]?.[1].vIfAttribute?.name.name}`.startsWith(
-                  'v-else',
-                )
+                String(
+                  attributes[nextIndex]?.[1].vIfAttribute?.name.name,
+                ).startsWith('v-else')
                   ? ' : '
                   : ' : null,',
               )

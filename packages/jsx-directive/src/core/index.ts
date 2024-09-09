@@ -54,12 +54,12 @@ export function transformJsxDirective(
         if (attribute.type !== 'JSXAttribute') continue
 
         if (
-          ['v-if', 'v-else-if', 'v-else'].includes(`${attribute.name.name}`)
+          ['v-if', 'v-else-if', 'v-else'].includes(String(attribute.name.name))
         ) {
           vIfAttribute = attribute
         } else if (attribute.name.name === 'v-for') {
           vForAttribute = attribute
-        } else if (['v-memo', 'v-once'].includes(`${attribute.name.name}`)) {
+        } else if (['v-memo', 'v-once'].includes(String(attribute.name.name))) {
           vMemoAttribute = attribute
         } else if (attribute.name.name === 'v-html') {
           vHtmlNodes.push({
@@ -78,7 +78,7 @@ export function transformJsxDirective(
             node,
             attribute,
           })
-        } else if (/^on[A-Z]\S*_\S+/.test(`${attribute.name.name}`)) {
+        } else if (/^on[A-Z]\S*_\S+/.test(String(attribute.name.name))) {
           vOnWithModifiers.push({
             node,
             attribute,

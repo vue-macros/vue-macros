@@ -133,7 +133,7 @@ export function transformVSlot(
             result.push(
               '}',
               nextAttribute &&
-                `${getText(nextAttribute.name, options)}`.startsWith('v-else')
+                getText(nextAttribute.name, options).startsWith('v-else')
                 ? ' : '
                 : ' : null,',
             )

@@ -36,7 +36,7 @@ export function transformVIf(
       const nextAttribute = nodes[index + 1]?.attribute
       const nextNodeHasElse =
         nextAttribute && ts.isIdentifier(nextAttribute.name)
-          ? `${nextAttribute.name.escapedText}`.startsWith('v-else')
+          ? String(nextAttribute.name.escapedText).startsWith('v-else')
           : false
       replaceSourceRange(
         codes,

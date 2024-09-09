@@ -21,7 +21,7 @@ export function transformSetupSFC(
     s.removeNode(stmt)
   }
 
-  const attrs = `${lang ? ` lang="${lang}"` : ''}`
+  const attrs = lang ? ` lang="${lang}"` : ''
   s.prepend(`<script setup${attrs}>`)
   s.append(`</script>`)
 

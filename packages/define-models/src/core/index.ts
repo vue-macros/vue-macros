@@ -261,8 +261,7 @@ export function transformDefineModels(
                 }
               }
             }
-          } else
-            typeAnnotation += `${setupContent.slice(type.start!, type.end!)}`
+          } else typeAnnotation += setupContent.slice(type.start!, type.end!)
         }
 
         map[m.key.name] = { typeAnnotation, options }
