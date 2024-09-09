@@ -1,5 +1,12 @@
 # @vue-macros/volar
 
+## 0.29.1
+### Patch Changes
+
+
+
+- [`02672e8`](https://github.com/vue-macros/vue-macros/commit/02672e8350b1e80f32a06b594c11c29122f497f4) Thanks [@sxzz](https://github.com/sxzz)! - fallback to cwd for root path
+
 ## 0.29.0
 ### Minor Changes
 
