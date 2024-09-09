@@ -92,8 +92,9 @@ export function transformJsxMacros(
           root.params[0].type === 'ObjectPattern' &&
           root.params[0].properties.at(-1)
         ) {
-          s.appendLeft(
+          s.overwrite(
             root.params[0].properties.at(-1)!.end!,
+            root.params[0].end! - 1,
             `, ...${HELPER_PREFIX}props`,
           )
         }
