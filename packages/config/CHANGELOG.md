@@ -1,5 +1,12 @@
 # @vue-macros/config
 
+## 0.3.2
+### Patch Changes
+
+
+
+- [#790](https://github.com/vue-macros/vue-macros/pull/790) [`5d92073`](https://github.com/vue-macros/vue-macros/commit/5d92073515661f6976f83e1ac68dd9b18c2d0b8a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce jsx-ref
+
 ## 0.3.1
 ### Patch Changes
 

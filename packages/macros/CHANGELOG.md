@@ -1,5 +1,16 @@
 # unplugin-vue-macros
 
+## 2.11.10
+### Patch Changes
+
+
+
+- [#790](https://github.com/vue-macros/vue-macros/pull/790) [`5d92073`](https://github.com/vue-macros/vue-macros/commit/5d92073515661f6976f83e1ac68dd9b18c2d0b8a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce jsx-ref
+
+- Updated dependencies [[`5d92073`](https://github.com/vue-macros/vue-macros/commit/5d92073515661f6976f83e1ac68dd9b18c2d0b8a), [`8a50141`](https://github.com/vue-macros/vue-macros/commit/8a50141fd8571513e3d4e8e3f8b3685112e98ad8), [`06aed12`](https://github.com/vue-macros/vue-macros/commit/06aed122614673e48ab3596155dc61b68484fcfd)]:
+  - @vue-macros/volar@0.29.0
+  - @vue-macros/config@0.3.2
+
 ## 2.11.9
 ### Patch Changes
 
