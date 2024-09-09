@@ -18,7 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4.0.0
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,20 +27,17 @@ jobs:
           node-version: lts/*
           cache: pnpm
 
-      - name: Setup
-        run: pnpm i -g @antfu/ni
-
       - name: Install
-        run: nci
+        run: pnpm i
 
       - name: Lint
-        run: nr lint
+        run: pnpm run lint
 
       - name: Format Check
-        run: nr format:check
+        run: pnpm run format:check
 
       - name: Monorepo Check
-        run: nr mono:check
+        run: pnpm run mono:check
 
   test:
     strategy:
@@ -53,7 +51,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4.0.0
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Set node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -61,25 +60,22 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      - name: Setup
-        run: pnpm i -g @antfu/ni
-
       - name: Install
-        run: nci
+        run: pnpm i
 
       - name: Build
-        run: nr build
+        run: pnpm run build
 
       - name: Type Check
-        run: nr typecheck
+        run: pnpm run typecheck
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
       - name: Publint
-        run: nr publint
+        run: pnpm run publint
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
       - name: Unit Test
-        run: nr test
+        run: pnpm run test
 
       - name: Build Playground
         run: pnpm run --filter "./playground/*" --parallel build
