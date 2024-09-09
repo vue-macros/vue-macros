@@ -18,6 +18,7 @@ export function transformVBind(
 
     if (
       attributeName.includes('-') &&
+      attributeName.includes('_') &&
       attribute.initializer &&
       !ts.isStringLiteral(attribute.initializer)
     ) {
