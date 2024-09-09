@@ -1,5 +1,11 @@
 # @vue-macros/nuxt
 
+## 1.11.11
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.11.11
+
 ## 1.11.10
 ### Patch Changes
 
