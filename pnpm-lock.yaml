@@ -25,8 +25,8 @@ catalogs:
       specifier: 5.6.1-rc
       version: 5.6.1-rc
     unplugin:
-      specifier: ^1.13.1
-      version: 1.13.1
+      specifier: ^1.14.0
+      version: 1.14.0
     vite:
       specifier: ^5.4.3
       version: 5.4.3
@@ -132,7 +132,7 @@ importers:
         version: 0.62.3(rollup@4.21.2)(vite@5.4.3(@types/node@22.5.4)(less@4.2.0)(terser@5.32.0))
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
       unplugin-macros:
         specifier: ^0.13.3
         version: 0.13.3(@types/node@22.5.4)(less@4.2.0)(rollup@4.21.2)(terser@5.32.0)(webpack-sources@3.2.3)
@@ -140,8 +140,8 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2(rollup@4.21.2)(webpack-sources@3.2.3)
       unplugin-unused:
-        specifier: ^0.2.2
-        version: 0.2.2(rollup@4.21.2)(webpack-sources@3.2.3)
+        specifier: ^0.2.3
+        version: 0.2.3(rollup@4.21.2)(webpack-sources@3.2.3)
       unplugin-vue-macros:
         specifier: workspace:*
         version: link:packages/macros
@@ -248,7 +248,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
 
   packages/boolean-prop:
     dependencies:
@@ -270,7 +270,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
 
   packages/common:
     dependencies:
@@ -401,7 +401,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -417,7 +417,7 @@ importers:
         version: 0.6.2
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       '@vue-macros/api':
         specifier: workspace:^
@@ -439,7 +439,7 @@ importers:
         version: 0.6.2
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -455,7 +455,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -468,7 +468,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       '@vue-macros/reactivity-transform':
         specifier: workspace:*
@@ -484,7 +484,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -497,7 +497,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -510,7 +510,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -560,7 +560,7 @@ importers:
         version: 3.5.3
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -573,7 +573,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -586,7 +586,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -599,7 +599,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
 
   packages/jsx-directive:
     dependencies:
@@ -608,7 +608,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
       vue:
         specifier: 'catalog:'
         version: 3.5.3(typescript@5.6.1-rc)
@@ -698,7 +698,7 @@ importers:
         version: link:../volar
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
       unplugin-combine:
         specifier: ^1.0.3
         version: 1.0.3(@rspack/core@1.0.3)(esbuild@0.23.1)(rolldown@0.13.2)(rollup@4.21.2)(vite@5.4.3(@types/node@22.5.4)(less@4.2.0)(terser@5.32.0))(webpack-sources@3.2.3)(webpack@5.94.0(esbuild@0.23.1))
@@ -720,7 +720,7 @@ importers:
         version: 3.5.3
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -767,7 +767,7 @@ importers:
         version: 0.30.11
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
 
   packages/script-lang:
     dependencies:
@@ -776,7 +776,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -792,7 +792,7 @@ importers:
         version: 3.5.3
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
 
   packages/setup-component:
     dependencies:
@@ -801,7 +801,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -814,7 +814,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -840,7 +840,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 1.13.1(webpack-sources@3.2.3)
+        version: 1.14.0(webpack-sources@3.2.3)
 
   packages/short-vmodel:
     dependencies:
@@ -5908,8 +5908,8 @@ packages:
     resolution: {integrity: sha512-4PgR0g7WkUhiWMH3SIJ2h98YuDEF4NQJ1tnfLV9Z/XyCZJX3DN37DptyjP1P8jlqgxq30RLceF38C9dmCdDBtw==}
     engines: {node: '>=16.14.0'}
 
-  unplugin-unused@0.2.2:
-    resolution: {integrity: sha512-A3ijvEUDpvnLmKRz0Zw7KzHkm2i8WK23GNTQCSP/0TlzyTqx4xJXlJGKR5ZbFvC3l+kWpzrflvUokbf4sb19hA==}
+  unplugin-unused@0.2.3:
+    resolution: {integrity: sha512-qX708+nM4zi51RPMPgvOSqRs/73kUFKUO49oaBngg2t/VW5MhdbTkSQG/S1HEGsIvZcB/t32KzbISCF0n+UPSw==}
     engines: {node: '>=18.12.0'}
 
   unplugin-vue-define-options@1.4.10:
@@ -5927,15 +5927,6 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       vue: ^3.2.25
-
-  unplugin@1.13.1:
-    resolution: {integrity: sha512-6Kq1iSSwg7KyjcThRUks9LuqDAKvtnioxbL9iEtB9ctTyBA5OmrB8gZd/d225VJu1w3UpUsKV7eGrvf59J7+VA==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      webpack-sources: ^3
-    peerDependenciesMeta:
-      webpack-sources:
-        optional: true
 
   unplugin@1.14.0:
     resolution: {integrity: sha512-cfkZeALGyW7tKYjZbi0G+pn0XnUFa0QvLIeLJEUUlnU0R8YYsBQnt5+h9Eu1B7AB7KETld+UBFI5lOeBL+msoQ==}
@@ -12373,7 +12364,7 @@ snapshots:
   unplugin-combine@1.0.3(@rspack/core@1.0.3)(esbuild@0.23.1)(rolldown@0.13.2)(rollup@4.21.2)(vite@5.4.3(@types/node@22.5.4)(less@4.2.0)(terser@5.32.0))(webpack-sources@3.2.3)(webpack@5.94.0(esbuild@0.23.1)):
     dependencies:
       '@antfu/utils': 0.7.10
-      unplugin: 1.13.1(webpack-sources@3.2.3)
+      unplugin: 1.14.0(webpack-sources@3.2.3)
     optionalDependencies:
       '@rspack/core': 1.0.3
       esbuild: 0.23.1
@@ -12389,7 +12380,7 @@ snapshots:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.2)
       ast-kit: 1.1.0
       magic-string-ast: 0.6.2
-      unplugin: 1.13.1(webpack-sources@3.2.3)
+      unplugin: 1.14.0(webpack-sources@3.2.3)
       vite: 5.4.3(@types/node@22.5.4)(less@4.2.0)(terser@5.32.0)
       vite-node: 2.0.5(@types/node@22.5.4)(less@4.2.0)(terser@5.32.0)
     transitivePeerDependencies:
@@ -12409,12 +12400,12 @@ snapshots:
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.2)
       esbuild: 0.23.1
-      unplugin: 1.13.1(webpack-sources@3.2.3)
+      unplugin: 1.14.0(webpack-sources@3.2.3)
     transitivePeerDependencies:
       - rollup
       - webpack-sources
 
-  unplugin-unused@0.2.2(rollup@4.21.2)(webpack-sources@3.2.3):
+  unplugin-unused@0.2.3(rollup@4.21.2)(webpack-sources@3.2.3):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.2)
       js-tokens: 9.0.0
@@ -12499,13 +12490,6 @@ snapshots:
       - supports-color
       - terser
       - webpack-sources
-
-  unplugin@1.13.1(webpack-sources@3.2.3):
-    dependencies:
-      acorn: 8.12.1
-      webpack-virtual-modules: 0.6.2
-    optionalDependencies:
-      webpack-sources: 3.2.3
 
   unplugin@1.14.0(webpack-sources@3.2.3):
     dependencies:
