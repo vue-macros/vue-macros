@@ -1,3 +1,4 @@
+import path from 'node:path'
 import {
   resolveOptions,
   type FeatureName,
@@ -84,7 +85,7 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
   context: PluginContext,
   key: K,
 ): OptionsResolved[K] {
-  const root = context.compilerOptions.pathsBasePath as string
+  const root = path.dirname(context.compilerOptions.configFilePath as string)
 
   let resolved: OptionsResolved | undefined
   if (!resolvedOptions.has(root)) {
