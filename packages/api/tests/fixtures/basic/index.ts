@@ -6,7 +6,7 @@ export type { Str as StrAlias }
 
 export type Num = number
 
-export interface Inferface extends Base1, Base2 {
+export interface Interface extends Base1, Base2 {
   foo: 'foo'
 }
 
