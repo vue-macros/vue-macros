@@ -1,4 +1,5 @@
 import path from 'node:path'
+import process from 'node:process'
 import {
   resolveOptions,
   type FeatureName,
@@ -85,8 +86,9 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
   context: PluginContext,
   key: K,
 ): OptionsResolved[K] {
-  const root = path.dirname(context.compilerOptions.configFilePath as string)
-
+  const configPath = context.compilerOptions.configFilePath
+  const root =
+    typeof configPath === 'string' ? path.dirname(configPath) : process.cwd()
   let resolved: OptionsResolved | undefined
   if (!resolvedOptions.has(root)) {
     resolved = resolveOptions(context.vueCompilerOptions.vueMacros, root)
