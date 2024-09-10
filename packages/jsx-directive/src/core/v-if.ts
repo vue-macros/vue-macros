@@ -7,9 +7,11 @@ export function transformVIf(
   version: number,
 ): void {
   nodes.forEach(({ node, attribute, parent }, index) => {
-    const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
+    const hasScope = ['JSXElement', 'JSXFragment'].includes(
+      String(parent?.type),
+    )
 
-    if (['v-if', 'v-else-if'].includes(`${attribute.name.name}`)) {
+    if (['v-if', 'v-else-if'].includes(String(attribute.name.name))) {
       if (attribute.value)
         s.appendLeft(
           node.start!,
@@ -21,7 +23,7 @@ export function transformVIf(
 
       s.appendRight(
         node.end!,
-        `${nodes[index + 1]?.attribute.name.name}`.startsWith('v-else')
+        String(nodes[index + 1]?.attribute.name.name).startsWith('v-else')
           ? ' :'
           : ` : null${hasScope ? '}' : ''}`,
       )

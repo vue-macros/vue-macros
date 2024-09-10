@@ -66,7 +66,9 @@ export function transformVFor(
   if (nodes.length === 0) return
 
   nodes.forEach(({ node, attribute, parent, vMemoAttribute }) => {
-    const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
+    const hasScope = ['JSXElement', 'JSXFragment'].includes(
+      String(parent?.type),
+    )
     s.appendLeft(
       node.start!,
       `${hasScope ? '{' : ''}${resolveVFor(attribute, { s, version, vMemoAttribute })}`,

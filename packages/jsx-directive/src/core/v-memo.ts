@@ -20,7 +20,9 @@ export function transformVMemo(
   s.prependRight(0, `const ${HELPER_PREFIX}cache = [];`)
 
   nodes.forEach(({ node, attribute, parent, vForAttribute }, nodeIndex) => {
-    const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
+    const hasScope = ['JSXElement', 'JSXFragment'].includes(
+      String(parent?.type),
+    )
 
     s.appendLeft(
       node.start!,
@@ -31,7 +33,7 @@ export function transformVMemo(
       }, () => `,
     )
 
-    let index = `${nodeIndex}`
+    let index = String(nodeIndex)
     let cache = `${HELPER_PREFIX}cache`
     let vForIndex = `${HELPER_PREFIX}index`
     if (vForAttribute?.value?.type === 'JSXExpressionContainer') {

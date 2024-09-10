@@ -45,7 +45,7 @@ export function resolveVFor(
         ],
         ').map(([',
         [
-          `${sfc[source]?.content.slice(getStart(item, options), item.end)}`,
+          String(sfc[source]?.content.slice(getStart(item, options), item.end)),
           source,
           getStart(item, options),
           allCodeFeatures,
@@ -53,7 +53,9 @@ export function resolveVFor(
         ', ',
         index
           ? [
-              `${sfc[source]?.content.slice(getStart(index, options), index.end)}`,
+              String(
+                sfc[source]?.content.slice(getStart(index, options), index.end),
+              ),
               source,
               getStart(index, options),
               allCodeFeatures,
@@ -65,7 +67,12 @@ export function resolveVFor(
           ? [
               ', ',
               [
-                `${sfc[source]?.content.slice(getStart(objectIndex, options), objectIndex.end)}`,
+                String(
+                  sfc[source]?.content.slice(
+                    getStart(objectIndex, options),
+                    objectIndex.end,
+                  ),
+                ),
                 source,
                 getStart(objectIndex, options),
                 allCodeFeatures,
