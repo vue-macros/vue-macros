@@ -14,7 +14,12 @@ import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export d
 
 exports[`fixtures > ./fixtures/define-model.tsx 1`] = `
 "
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export default function (__MACROS_props) {
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props}) => {
+  const foo = __MACROS_useModel(__MACROS_props, 'foo', { default: bar })
+  return <div>{foo.value}</div>
+}
+
+export default function (__MACROS_props) {
   const foo = __MACROS_useModel(__MACROS_props, 'foo')
   return <div>{foo.value}</div>
 }
@@ -23,11 +28,32 @@ import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model"
 
 exports[`fixtures > ./fixtures/define-slots.tsx 1`] = `
 "
-import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export default function (__MACROS_props) {
+import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export const Comp = (__MACROS_props) => {
+  const slots = Object.assign<{
+    default: () => any
+  }>({}, __MACROS_getCurrentInstance()?.slots)
+  return <div>{slots.default()}</div>
+}
+
+export default function (__MACROS_props) {
   const slots = Object.assign({
     default: () => <div>default</div>,
   },__MACROS_getCurrentInstance()?.slots)
   return <div>{slots.default()}</div>
+}
+"
+`;
+
+exports[`fixtures > ./fixtures/index.tsx 1`] = `
+"
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export const Comp = (__MACROS_props) => {
+  __MACROS_useModel(__MACROS_props, 'foo')
+  return <div />
+}
+
+export const Comp1 = (__MACROS_props) => {
+  __MACROS_useModel(__MACROS_props, 'foo')
+  return <div />
 }
 "
 `;

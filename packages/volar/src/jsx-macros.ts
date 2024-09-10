@@ -6,11 +6,13 @@ import { getStart, getText, type VueMacrosPlugin } from './common'
 import type { TransformOptions } from './jsx-directive/index'
 
 type RootMap = Map<
-  import('typescript').ArrowFunction | import('typescript').FunctionDeclaration,
+  | import('typescript').ArrowFunction
+  | import('typescript').FunctionExpression
+  | import('typescript').FunctionDeclaration,
   Map<string, string[]>
 >
 
-function getMacroCall(
+function getMacro(
   node: import('typescript').Node | undefined,
   ts: typeof import('typescript'),
 ): import('typescript').CallExpression | undefined {
@@ -33,13 +35,13 @@ function getMacroCall(
         decl.initializer.expression.escapedText === '$'
           ? decl.initializer.arguments[0]
           : decl.initializer
-      if (isMacroCall(expression)) return expression
-    } else if (ts.isExpressionStatement(decl) && isMacroCall(decl.expression)) {
+      if (isMacro(expression)) return expression
+    } else if (ts.isExpressionStatement(decl) && isMacro(decl.expression)) {
       return decl.expression
     }
   }
 
-  function isMacroCall(
+  function isMacro(
     node: import('typescript').Node,
   ): node is import('typescript').CallExpression {
     return !!(
@@ -62,10 +64,12 @@ function getRootMap(options: TransformOptions): RootMap {
   ) {
     const root =
       parents[1] &&
-      (ts.isArrowFunction(parents[1]) || ts.isFunctionDeclaration(parents[1]))
+      (ts.isArrowFunction(parents[1]) ||
+        ts.isFunctionExpression(parents[1]) ||
+        ts.isFunctionDeclaration(parents[1]))
         ? parents[1]
         : undefined
-    const macro = root && getMacroCall(node, ts)
+    const macro = root && getMacro(node, ts)
     if (macro) {
       if (!rootMap.has(root)) {
         rootMap.set(
@@ -161,6 +165,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
   const { ts, source, codes } = options
 
   for (const [root, props] of rootMap) {
+    if (!root.body) continue
     const asyncPrefix = root.modifiers?.find(
       (modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword,
     )
@@ -169,7 +174,28 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     const result = `({}) as Awaited<typeof ${HELPER_PREFIX}setup>['render'] & { __ctx: Awaited<typeof ${
       HELPER_PREFIX
     }setup> }`
-    if (ts.isFunctionDeclaration(root) && root.body) {
+
+    if (ts.isArrowFunction(root)) {
+      replaceSourceRange(
+        codes,
+        source,
+        getStart(root.parameters, options),
+        getStart(root.parameters, options),
+        `${HELPER_PREFIX}props: `,
+        root.parameters[0]?.type
+          ? `${getText(root.parameters[0].type, options)} & `
+          : '',
+        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncPrefix}(`,
+      )
+      replaceSourceRange(
+        codes,
+        source,
+        root.end,
+        root.end,
+        `)({} as any)) => `,
+        result,
+      )
+    } else {
       replaceSourceRange(
         codes,
         source,
@@ -196,57 +222,36 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
         `})({} as any)){ return `,
         result,
       )
-    } else {
-      replaceSourceRange(
-        codes,
-        source,
-        getStart(root.parameters, options),
-        getStart(root.parameters, options),
-        `${HELPER_PREFIX}props: `,
-        root.parameters[0]?.type
-          ? `${getText(root.parameters[0].type, options)} & `
-          : '',
-        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncPrefix}(`,
-      )
-      replaceSourceRange(
-        codes,
-        source,
-        root.end,
-        root.end,
-        `)({} as any)) => `,
-        result,
-      )
     }
 
-    root.body &&
-      ts.forEachChild(root.body, (node) => {
-        if (ts.isReturnStatement(node) && node.expression) {
-          replaceSourceRange(
-            codes,
-            source,
-            getStart(node, options),
-            getStart(node.expression, options),
-            `return {\nprops: {} as `,
-            props.get('defineModel')?.length
-              ? `{ ${props.get('defineModel')?.join(', ')} }`
-              : '{}',
-            props.get('defineSlots')?.length
-              ? ` & ${props.get('defineSlots')?.join()}`
-              : '',
-            props.get('defineExpose')?.length
-              ? `,\nexpose: ${props.get('defineExpose')?.join()}`
-              : '',
-            `,\nrender: `,
-          )
-          replaceSourceRange(
-            codes,
-            source,
-            node.expression.end,
-            node.expression.end,
-            `\n}`,
-          )
-        }
-      })
+    ts.forEachChild(root.body, (node) => {
+      if (ts.isReturnStatement(node) && node.expression) {
+        replaceSourceRange(
+          codes,
+          source,
+          getStart(node, options),
+          getStart(node.expression, options),
+          `return {\nprops: {} as `,
+          props.get('defineModel')?.length
+            ? `{ ${props.get('defineModel')?.join(', ')} }`
+            : '{}',
+          props.get('defineSlots')?.length
+            ? ` & ${props.get('defineSlots')?.join()}`
+            : '',
+          props.get('defineExpose')?.length
+            ? `,\nexpose: ${props.get('defineExpose')?.join()}`
+            : '',
+          `,\nrender: `,
+        )
+        replaceSourceRange(
+          codes,
+          source,
+          node.expression.end,
+          node.expression.end,
+          `\n}`,
+        )
+      }
+    })
   }
 
   if (
