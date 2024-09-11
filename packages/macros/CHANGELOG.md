@@ -1,5 +1,19 @@
 # unplugin-vue-macros
 
+## 2.11.12
+### Patch Changes
+
+
+
+- [`cfafa9e`](https://github.com/vue-macros/vue-macros/commit/cfafa9eb266e3b3f802b1c652dbcc10861b2daa7) Thanks [@sxzz](https://github.com/sxzz)! - pin sub packages
+
+- Updated dependencies [[`59ebd02`](https://github.com/vue-macros/vue-macros/commit/59ebd027960a3cfa9b4e1765ae1ac418e4cdbdb1)]:
+  - @vue-macros/better-define@1.8.6
+  - @vue-macros/config@0.3.2
+  - @vue-macros/define-emit@0.3.6
+  - @vue-macros/define-models@1.2.10
+  - @vue-macros/define-prop@0.4.6
+
 ## 2.11.11
 ### Patch Changes
 
