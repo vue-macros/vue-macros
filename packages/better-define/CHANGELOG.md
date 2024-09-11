@@ -1,5 +1,15 @@
 # @vue-macros/better-define
 
+## 1.8.6
+### Patch Changes
+
+
+
+- [`59ebd02`](https://github.com/vue-macros/vue-macros/commit/59ebd027960a3cfa9b4e1765ae1ac418e4cdbdb1) Thanks [@sxzz](https://github.com/sxzz)! - Fix resolve interface
+
+- Updated dependencies [[`59ebd02`](https://github.com/vue-macros/vue-macros/commit/59ebd027960a3cfa9b4e1765ae1ac418e4cdbdb1)]:
+  - @vue-macros/api@0.10.6
+
 ## 1.8.5
 ### Patch Changes
 
