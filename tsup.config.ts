@@ -106,7 +106,7 @@ export function config({
         input,
         plugins: [dts()],
         external(id) {
-          return id[0] !== '.' && id[0] !== '/'
+          return id[0] !== '.' && !path.isAbsolute(id)
         },
       })
 

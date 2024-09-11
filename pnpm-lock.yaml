@@ -137,8 +137,8 @@ importers:
         specifier: 'catalog:'
         version: 1.14.0(webpack-sources@3.2.3)
       unplugin-isolated-decl:
-        specifier: ^0.5.1
-        version: 0.5.1(rollup@4.21.2)(typescript@5.6.2)(webpack-sources@3.2.3)
+        specifier: ^0.5.2
+        version: 0.5.2(rollup@4.21.2)(typescript@5.6.2)(webpack-sources@3.2.3)
       unplugin-macros:
         specifier: ^0.13.3
         version: 0.13.3(@types/node@22.5.4)(less@4.2.0)(rollup@4.21.2)(terser@5.32.0)(webpack-sources@3.2.3)
@@ -6014,8 +6014,8 @@ packages:
       webpack:
         optional: true
 
-  unplugin-isolated-decl@0.5.1:
-    resolution: {integrity: sha512-z3GKiwYJsTQna9Gt6kannKIZrI+awzpWnhs8AYLhHWN0WABe5RhNU/+7GmP7Yrt6FAZKb5p1ORQsoNYnpM47Nw==}
+  unplugin-isolated-decl@0.5.2:
+    resolution: {integrity: sha512-43sdRp446un/CW5ad4bJqNSO+dgbywejP/t3P06AGWjU5vmH2vZKELJ6jtV45LPd7SSqlpQW6rGRLfRujh2+Gw==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
       '@swc/core': ^1.6.6
@@ -12590,7 +12590,7 @@ snapshots:
     transitivePeerDependencies:
       - webpack-sources
 
-  unplugin-isolated-decl@0.5.1(rollup@4.21.2)(typescript@5.6.2)(webpack-sources@3.2.3):
+  unplugin-isolated-decl@0.5.2(rollup@4.21.2)(typescript@5.6.2)(webpack-sources@3.2.3):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.2)
       oxc-parser: 0.27.0
