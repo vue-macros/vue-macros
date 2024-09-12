@@ -118,6 +118,9 @@ importers:
       rollup:
         specifier: ^4.21.2
         version: 4.21.2
+      rollup-plugin-dts:
+        specifier: ^6.1.1
+        version: 6.1.1(rollup@4.21.2)(typescript@5.6.2)
       tsup:
         specifier: ^8.2.4
         version: 8.2.4(jiti@1.21.6)(postcss@8.4.45)(tsx@4.19.0)(typescript@5.6.2)(yaml@2.5.1)
@@ -133,6 +136,9 @@ importers:
       unplugin:
         specifier: 'catalog:'
         version: 1.14.0(webpack-sources@3.2.3)
+      unplugin-isolated-decl:
+        specifier: ^0.5.2
+        version: 0.5.2(rollup@4.21.2)(typescript@5.6.2)(webpack-sources@3.2.3)
       unplugin-macros:
         specifier: ^0.13.3
         version: 0.13.3(@types/node@22.5.4)(less@4.2.0)(rollup@4.21.2)(terser@5.32.0)(webpack-sources@3.2.3)
@@ -178,16 +184,16 @@ importers:
         version: 2.2.246
       '@nolebase/vitepress-plugin-enhanced-mark':
         specifier: ^2.5.0
-        version: 2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+        version: 2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: ^2.5.0
-        version: 2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+        version: 2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: ^2.5.0
-        version: 2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+        version: 2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       '@nolebase/vitepress-plugin-highlight-targeted-heading':
         specifier: ^2.5.0
-        version: 2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+        version: 2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       '@shikijs/vitepress-twoslash':
         specifier: ^1.16.3
         version: 1.16.3(@nuxt/kit@3.13.1(magicast@0.3.5)(rollup@4.21.2)(webpack-sources@3.2.3))(typescript@5.6.2)
@@ -205,7 +211,7 @@ importers:
         version: 7.4.4(@nuxt/kit@3.13.1(magicast@0.3.5)(rollup@4.21.2)(webpack-sources@3.2.3))(rollup@4.21.2)(vite@5.4.3(@types/node@22.5.4)(less@4.2.0)(terser@5.32.0))(vue@3.5.3(typescript@5.6.2))
       vitepress:
         specifier: ^1.3.4
-        version: 1.3.4(@algolia/client-search@5.3.2)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+        version: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       vitepress-plugin-group-icons:
         specifier: ^1.1.0
         version: 1.1.0
@@ -1112,19 +1118,11 @@ packages:
   '@algolia/client-common@4.24.0':
     resolution: {integrity: sha512-bc2ROsNL6w6rqpl5jj/UywlIYC21TwSSoFHKl01lYirGMW+9Eek6r02Tocg4gZ8HAw3iBvu6XQiM3BEbmEMoiA==}
 
-  '@algolia/client-common@5.3.2':
-    resolution: {integrity: sha512-4OxrO3q2FNgXCuOO8hUMt5saPwmY1efNLd9zzXbADnSwQHQeuAKLC/b2DZC+i9bCXXk3uENm7dKf4nm29/H0gw==}
-    engines: {node: '>= 14.0.0'}
-
   '@algolia/client-personalization@4.24.0':
     resolution: {integrity: sha512-l5FRFm/yngztweU0HdUzz1rC4yoWCFo3IF+dVIVTfEPg906eZg5BOd1k0K6rZx5JzyyoP4LdmOikfkfGsKVE9w==}
 
   '@algolia/client-search@4.24.0':
     resolution: {integrity: sha512-uRW6EpNapmLAD0mW47OXqTP8eiIx5F6qN9/x/7HHO6owL3N1IXqydGwW5nhDFBrV+ldouro2W1VX3XlcUXEFCA==}
-
-  '@algolia/client-search@5.3.2':
-    resolution: {integrity: sha512-iJN3nylaSh9XuqUK0DRrRi/qwVqvA4PiWPydUB1a5NaceH7ng254GL4xwntAsX7RPIb8gQ2t65Gqoy5ToLs0kA==}
-    engines: {node: '>= 14.0.0'}
 
   '@algolia/logger-common@4.24.0':
     resolution: {integrity: sha512-LLUNjkahj9KtKYrQhFKCzMx0BY3RnNP4FEtO+sBybCjJ73E8jNdaKJ/Dd8A/VA4imVHP5tADZ8pn5B8Ga/wTMA==}
@@ -1138,19 +1136,11 @@ packages:
   '@algolia/requester-browser-xhr@4.24.0':
     resolution: {integrity: sha512-Z2NxZMb6+nVXSjF13YpjYTdvV3032YTBSGm2vnYvYPA6mMxzM3v5rsCiSspndn9rzIW4Qp1lPHBvuoKJV6jnAA==}
 
-  '@algolia/requester-browser-xhr@5.3.2':
-    resolution: {integrity: sha512-5DVcWHuZZLbso2mgIsZ2KgPZGCQbgzgpjkAZZGlOc9xEEqUe3K7ZurqYKkfhYJmo7OQGoyEiqFNa71b3Yyparw==}
-    engines: {node: '>= 14.0.0'}
-
   '@algolia/requester-common@4.24.0':
     resolution: {integrity: sha512-k3CXJ2OVnvgE3HMwcojpvY6d9kgKMPRxs/kVohrwF5WMr2fnqojnycZkxPoEg+bXm8fi5BBfFmOqgYztRtHsQA==}
 
   '@algolia/requester-node-http@4.24.0':
     resolution: {integrity: sha512-JF18yTjNOVYvU/L3UosRcvbPMGT9B+/GQWNWnenIImglzNVGpyzChkXLnrSf6uxwVNO6ESGu6oN8MqcGQcjQJw==}
-
-  '@algolia/requester-node-http@5.3.2':
-    resolution: {integrity: sha512-SgBoGAvPZRkTUkBvb4GU3qT7zVWJ947MQCdLBmZ4gkYwYkTq56NMmthMgpQY/Hfl08oOPQOILofSZnmEprqHng==}
-    engines: {node: '>= 14.0.0'}
 
   '@algolia/transporter@4.24.0':
     resolution: {integrity: sha512-86nI7w6NzWxd1Zp9q3413dRshDqAzSbsQjhcDhPIatEFiZrL1/TjnHL8S7jVKFePlIMzDsZWXAXwXzcok9c5oA==}
@@ -2100,6 +2090,86 @@ packages:
 
   '@oslojs/encoding@0.4.1':
     resolution: {integrity: sha512-hkjo6MuIK/kQR5CrGNdAPZhS01ZCXuWDRJ187zh6qqF2+yMHZpD9fAYpX8q2bOO6Ryhl3XpCT6kUX76N8hhm4Q==}
+
+  '@oxc-parser/binding-darwin-arm64@0.27.0':
+    resolution: {integrity: sha512-8APIO08svef8rgqkiV2dbrPceNBs5zuWzwC8Xijs9KPBxkM84B8Ob1AJJZaP8/TAuEoMAGJIaTgqbEBD0WLvcg==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@oxc-parser/binding-darwin-x64@0.27.0':
+    resolution: {integrity: sha512-R1C4jfF/0vMy+Kz6C9gahNUlXpXvqkIdRRwexa7BjvhlyVQkqjLluxUVpWx/1gpqicDxTMT8qBP7qcmyBPbPjw==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@oxc-parser/binding-linux-arm64-gnu@0.27.0':
+    resolution: {integrity: sha512-KyMQCRi5crOELO6d4S17C8aEvKX+ZMA7X9VfUBhUAryo6tn14ru9QIU04faBJ3atiPWC7YRqZG7a3JAOkMKaOw==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@oxc-parser/binding-linux-arm64-musl@0.27.0':
+    resolution: {integrity: sha512-LE+pcilyAKZq/frT5rnMiCM+AvYvvbN9IQFaWAdJJBIRkkynlgy5kAyU3zzVKAEbSAKQqY+WdUvG5dTRowg1gA==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@oxc-parser/binding-linux-x64-gnu@0.27.0':
+    resolution: {integrity: sha512-FgLfOepxA4bgDdfvp7VIP6GhCaCCW0GknZCjZlUjvriq7g5Jtecfvc8i1rmF3pnzaYNOfzcoaYaK0htt6A6ZyA==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oxc-parser/binding-linux-x64-musl@0.27.0':
+    resolution: {integrity: sha512-bpCyMM+uybuWWkUdrjup9VINiTYGl7Uu10vHQJeTRLGYSeM0fA5OPAjEvDGGlg8L2cd5nhcrUnyKalZe/XwX3A==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oxc-parser/binding-win32-arm64-msvc@0.27.0':
+    resolution: {integrity: sha512-yVrpkjfzL+jOx9R4Q1/BFu0rc0TnO3P4reGGmnYOKvbTpGNKWgTepWP4fWC5HyGMlELAwMXhDpjT6B8t2T4BUw==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@oxc-parser/binding-win32-x64-msvc@0.27.0':
+    resolution: {integrity: sha512-6e2MqZysh1iJyDURj+B2OHG3EkfhSNpGy1iUCkSSL/+RUjeCDpQ5ktq00MK7B1mC1gpD8AwtK2a2qJ+XrNxugQ==}
+    cpu: [x64]
+    os: [win32]
+
+  '@oxc-transform/binding-darwin-arm64@0.27.0':
+    resolution: {integrity: sha512-htEbtSbt2VXZBg+mInCwed2JgX+aihY40FUUJklRUsDaFiJOkUffnlxVXw2bVD2wfNDCYNvp4vsmqs9MKj8B5w==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@oxc-transform/binding-darwin-x64@0.27.0':
+    resolution: {integrity: sha512-cTpN4Q/+riVyJD/+MES+zmRP//z4Hz3yBkxTf9FwLvwxZZHrRB/caSeS9ebZhbGpE7X+wT5xiSBWcNCToREQ7A==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@oxc-transform/binding-linux-arm64-gnu@0.27.0':
+    resolution: {integrity: sha512-VSZU0WcO8iLloElftRABENiRgTuv2wAOtwm3P2InfziOyPTDNdpgMtX7/yIW4L2nEGnXvfSZ582FwvZinzHEcA==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@oxc-transform/binding-linux-arm64-musl@0.27.0':
+    resolution: {integrity: sha512-t7gPlqxNMn2lHdvT0qqcOUMBvDvliMfdzX+J3yDvPyBW+pAWz6pjAPIG81oK/yib1+rA7n/fNjHWceg7m0ueCw==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@oxc-transform/binding-linux-x64-gnu@0.27.0':
+    resolution: {integrity: sha512-CaR9Cl7ez4Iw2kde4MY+nSjIixmfIqd/RNHR5iu+5KOMpzNKe878ewB/ToKoOZ+fx4JzdRrDIZ0m+AVNhGisjA==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oxc-transform/binding-linux-x64-musl@0.27.0':
+    resolution: {integrity: sha512-knR4/zoK0BPPt5weDTXypJ1ahOuI8vjWKqKKgQPjWsOODkkZTdnsAVoGAc2Et1Mym7A7iU5Br0dvbmiaMH+Fmw==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oxc-transform/binding-win32-arm64-msvc@0.27.0':
+    resolution: {integrity: sha512-yvLZkGtPL024kOdo3ZbwE3Kdl3j52I1MW6kG241f+DwlqIpb8LOgOz5rWSU1Wr7q2I2WN4pjIlBpK4rlEyZNzA==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@oxc-transform/binding-win32-x64-msvc@0.27.0':
+    resolution: {integrity: sha512-lbivu0hGt/Me29DeNN1Sk5V53ccYn2N8Cur1Ln3bELXM/rEoFmgSdEABtrsiyT5AhIrx86Oi3hkjBV3DmCwpYQ==}
+    cpu: [x64]
+    os: [win32]
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -5000,6 +5070,12 @@ packages:
   outdent@0.5.0:
     resolution: {integrity: sha512-/jHxFIzoMXdqPzTaCpFzAAWhpkSjZPF4Vsn6jAfNpmbH/ymsmd7Qc6VE9BGn0L6YMj6uwpQLxCECpus4ukKS9Q==}
 
+  oxc-parser@0.27.0:
+    resolution: {integrity: sha512-MN2gMocgT7tqM8oTjgA8QIVws6z29Zi49pNJRtp/nbm3YUmJvLvAVEcLZvt+gjGekcFtgxVl0unfibkoO7qfaw==}
+
+  oxc-transform@0.27.0:
+    resolution: {integrity: sha512-gMw3Toy+EtfTtfUwqOZ0CuyyFM9zEiuj0IZWldmtcbcst+Iq/GYpM2ULOx/sGjSnUpYRJA5dPc5JU8CXPR/hTg==}
+
   p-filter@2.1.0:
     resolution: {integrity: sha512-ZBxxZ5sL2HghephhpGAQdoskxplTwr7ICaehZwLIlfL6acuVgZPm8yBNuRAFBGEqtD/hmUeq9eqLg2ys9Xr/yw==}
     engines: {node: '>=8'}
@@ -5368,6 +5444,13 @@ packages:
   rolldown@0.13.2:
     resolution: {integrity: sha512-vIWIgy7LR82EU/Gv8/iUJOT6Kq/o/72mv0DEYJAlkmOTABN5S9DkWgScDUzy1s0gLiFzh220qRNfWYTdKaZ8IQ==}
     hasBin: true
+
+  rollup-plugin-dts@6.1.1:
+    resolution: {integrity: sha512-aSHRcJ6KG2IHIioYlvAOcEq6U99sVtqDDKVhnwt70rW6tsz3tv5OSjEiWcgzfsHdLyGXZ/3b/7b/+Za3Y6r1XA==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      rollup: ^3.29.4 || ^4
+      typescript: ^4.5 || ^5.0
 
   rollup-plugin-esbuild@6.1.1:
     resolution: {integrity: sha512-CehMY9FAqJD5OUaE/Mi1r5z0kNeYxItmRO2zG4Qnv2qWKF09J2lTy5GUzjJR354ZPrLkCj4fiBN41lo8PzBUhw==}
@@ -5931,6 +6014,18 @@ packages:
       webpack:
         optional: true
 
+  unplugin-isolated-decl@0.5.2:
+    resolution: {integrity: sha512-43sdRp446un/CW5ad4bJqNSO+dgbywejP/t3P06AGWjU5vmH2vZKELJ6jtV45LPd7SSqlpQW6rGRLfRujh2+Gw==}
+    engines: {node: '>=18.12.0'}
+    peerDependencies:
+      '@swc/core': ^1.6.6
+      typescript: ^5.5.2
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      typescript:
+        optional: true
+
   unplugin-macros@0.13.3:
     resolution: {integrity: sha512-IrXVXI62qbDhEd1gpPoScVHpfPyzOgBsAp3tacuD7aCQeBeKZ8XrHLKdMt3eE1n3aR7jyURPbxwRZ/Mcx+pLyA==}
     engines: {node: '>=18.12.0'}
@@ -6312,31 +6407,31 @@ packages:
 
 snapshots:
 
-  '@algolia/autocomplete-core@1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)':
+  '@algolia/autocomplete-core@1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)':
     dependencies:
-      '@algolia/autocomplete-plugin-algolia-insights': 1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)
+      '@algolia/autocomplete-plugin-algolia-insights': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
       - search-insights
 
-  '@algolia/autocomplete-plugin-algolia-insights@1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)':
+  '@algolia/autocomplete-plugin-algolia-insights@1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)':
     dependencies:
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - algoliasearch
 
-  '@algolia/autocomplete-preset-algolia@1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)':
+  '@algolia/autocomplete-preset-algolia@1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)':
     dependencies:
-      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)
-      '@algolia/client-search': 5.3.2
+      '@algolia/autocomplete-shared': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
+      '@algolia/client-search': 4.24.0
       algoliasearch: 4.24.0
 
-  '@algolia/autocomplete-shared@1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)':
+  '@algolia/autocomplete-shared@1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)':
     dependencies:
-      '@algolia/client-search': 5.3.2
+      '@algolia/client-search': 4.24.0
       algoliasearch: 4.24.0
 
   '@algolia/cache-browser-local-storage@4.24.0':
@@ -6367,8 +6462,6 @@ snapshots:
       '@algolia/requester-common': 4.24.0
       '@algolia/transporter': 4.24.0
 
-  '@algolia/client-common@5.3.2': {}
-
   '@algolia/client-personalization@4.24.0':
     dependencies:
       '@algolia/client-common': 4.24.0
@@ -6380,12 +6473,6 @@ snapshots:
       '@algolia/client-common': 4.24.0
       '@algolia/requester-common': 4.24.0
       '@algolia/transporter': 4.24.0
-
-  '@algolia/client-search@5.3.2':
-    dependencies:
-      '@algolia/client-common': 5.3.2
-      '@algolia/requester-browser-xhr': 5.3.2
-      '@algolia/requester-node-http': 5.3.2
 
   '@algolia/logger-common@4.24.0': {}
 
@@ -6411,19 +6498,11 @@ snapshots:
     dependencies:
       '@algolia/requester-common': 4.24.0
 
-  '@algolia/requester-browser-xhr@5.3.2':
-    dependencies:
-      '@algolia/client-common': 5.3.2
-
   '@algolia/requester-common@4.24.0': {}
 
   '@algolia/requester-node-http@4.24.0':
     dependencies:
       '@algolia/requester-common': 4.24.0
-
-  '@algolia/requester-node-http@5.3.2':
-    dependencies:
-      '@algolia/client-common': 5.3.2
 
   '@algolia/transporter@4.24.0':
     dependencies:
@@ -7090,9 +7169,9 @@ snapshots:
 
   '@docsearch/css@3.6.1': {}
 
-  '@docsearch/js@3.6.1(@algolia/client-search@5.3.2)':
+  '@docsearch/js@3.6.1(@algolia/client-search@4.24.0)':
     dependencies:
-      '@docsearch/react': 3.6.1(@algolia/client-search@5.3.2)
+      '@docsearch/react': 3.6.1(@algolia/client-search@4.24.0)
       preact: 10.23.2
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -7101,10 +7180,10 @@ snapshots:
       - react-dom
       - search-insights
 
-  '@docsearch/react@3.6.1(@algolia/client-search@5.3.2)':
+  '@docsearch/react@3.6.1(@algolia/client-search@4.24.0)':
     dependencies:
-      '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)
-      '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@5.3.2)(algoliasearch@4.24.0)
+      '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
+      '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
       '@docsearch/css': 3.6.1
       algoliasearch: 4.24.0
     transitivePeerDependencies:
@@ -7474,11 +7553,11 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nolebase/ui@2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
+  '@nolebase/ui@2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
     dependencies:
       '@iconify-json/octicon': 1.2.0
       less: 4.2.0
-      vitepress: 1.3.4(@algolia/client-search@5.3.2)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+      vitepress: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       vue: 3.5.3(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -7509,10 +7588,10 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-enhanced-mark@2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
+  '@nolebase/vitepress-plugin-enhanced-mark@2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
     dependencies:
       less: 4.2.0
-      vitepress: 1.3.4(@algolia/client-search@5.3.2)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+      vitepress: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -7542,13 +7621,13 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-enhanced-readabilities@2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
+  '@nolebase/vitepress-plugin-enhanced-readabilities@2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
     dependencies:
       '@iconify-json/carbon': 1.2.1
       '@iconify-json/icon-park-outline': 1.2.0
-      '@nolebase/ui': 2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+      '@nolebase/ui': 2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       less: 4.2.0
-      vitepress: 1.3.4(@algolia/client-search@5.3.2)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+      vitepress: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -7578,10 +7657,10 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-git-changelog@2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
+  '@nolebase/vitepress-plugin-git-changelog@2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
     dependencies:
       '@iconify-json/octicon': 1.2.0
-      '@nolebase/ui': 2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+      '@nolebase/ui': 2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       colorette: 2.0.20
       date-fns: 3.6.0
       defu: 6.1.4
@@ -7591,7 +7670,7 @@ snapshots:
       gray-matter: 4.0.3
       less: 4.2.0
       uncrypto: 0.1.3
-      vitepress: 1.3.4(@algolia/client-search@5.3.2)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+      vitepress: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -7621,10 +7700,10 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.5.0(@algolia/client-search@5.3.2)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
+  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.5.0(@algolia/client-search@4.24.0)(@types/node@22.5.4)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)':
     dependencies:
       less: 4.2.0
-      vitepress: 1.3.4(@algolia/client-search@5.3.2)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
+      vitepress: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -7774,6 +7853,54 @@ snapshots:
       - webpack-sources
 
   '@oslojs/encoding@0.4.1': {}
+
+  '@oxc-parser/binding-darwin-arm64@0.27.0':
+    optional: true
+
+  '@oxc-parser/binding-darwin-x64@0.27.0':
+    optional: true
+
+  '@oxc-parser/binding-linux-arm64-gnu@0.27.0':
+    optional: true
+
+  '@oxc-parser/binding-linux-arm64-musl@0.27.0':
+    optional: true
+
+  '@oxc-parser/binding-linux-x64-gnu@0.27.0':
+    optional: true
+
+  '@oxc-parser/binding-linux-x64-musl@0.27.0':
+    optional: true
+
+  '@oxc-parser/binding-win32-arm64-msvc@0.27.0':
+    optional: true
+
+  '@oxc-parser/binding-win32-x64-msvc@0.27.0':
+    optional: true
+
+  '@oxc-transform/binding-darwin-arm64@0.27.0':
+    optional: true
+
+  '@oxc-transform/binding-darwin-x64@0.27.0':
+    optional: true
+
+  '@oxc-transform/binding-linux-arm64-gnu@0.27.0':
+    optional: true
+
+  '@oxc-transform/binding-linux-arm64-musl@0.27.0':
+    optional: true
+
+  '@oxc-transform/binding-linux-x64-gnu@0.27.0':
+    optional: true
+
+  '@oxc-transform/binding-linux-x64-musl@0.27.0':
+    optional: true
+
+  '@oxc-transform/binding-win32-arm64-msvc@0.27.0':
+    optional: true
+
+  '@oxc-transform/binding-win32-x64-msvc@0.27.0':
+    optional: true
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -11424,6 +11551,28 @@ snapshots:
 
   outdent@0.5.0: {}
 
+  oxc-parser@0.27.0:
+    optionalDependencies:
+      '@oxc-parser/binding-darwin-arm64': 0.27.0
+      '@oxc-parser/binding-darwin-x64': 0.27.0
+      '@oxc-parser/binding-linux-arm64-gnu': 0.27.0
+      '@oxc-parser/binding-linux-arm64-musl': 0.27.0
+      '@oxc-parser/binding-linux-x64-gnu': 0.27.0
+      '@oxc-parser/binding-linux-x64-musl': 0.27.0
+      '@oxc-parser/binding-win32-arm64-msvc': 0.27.0
+      '@oxc-parser/binding-win32-x64-msvc': 0.27.0
+
+  oxc-transform@0.27.0:
+    optionalDependencies:
+      '@oxc-transform/binding-darwin-arm64': 0.27.0
+      '@oxc-transform/binding-darwin-x64': 0.27.0
+      '@oxc-transform/binding-linux-arm64-gnu': 0.27.0
+      '@oxc-transform/binding-linux-arm64-musl': 0.27.0
+      '@oxc-transform/binding-linux-x64-gnu': 0.27.0
+      '@oxc-transform/binding-linux-x64-musl': 0.27.0
+      '@oxc-transform/binding-win32-arm64-msvc': 0.27.0
+      '@oxc-transform/binding-win32-x64-msvc': 0.27.0
+
   p-filter@2.1.0:
     dependencies:
       p-map: 2.1.0
@@ -11812,6 +11961,14 @@ snapshots:
       '@rolldown/binding-win32-arm64-msvc': 0.13.2
       '@rolldown/binding-win32-ia32-msvc': 0.13.2
       '@rolldown/binding-win32-x64-msvc': 0.13.2
+
+  rollup-plugin-dts@6.1.1(rollup@4.21.2)(typescript@5.6.2):
+    dependencies:
+      magic-string: 0.30.11
+      rollup: 4.21.2
+      typescript: 5.6.2
+    optionalDependencies:
+      '@babel/code-frame': 7.24.7
 
   rollup-plugin-esbuild@6.1.1(esbuild@0.23.1)(rollup@4.21.2):
     dependencies:
@@ -12433,6 +12590,18 @@ snapshots:
     transitivePeerDependencies:
       - webpack-sources
 
+  unplugin-isolated-decl@0.5.2(rollup@4.21.2)(typescript@5.6.2)(webpack-sources@3.2.3):
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.21.2)
+      oxc-parser: 0.27.0
+      oxc-transform: 0.27.0
+      unplugin: 1.14.0(webpack-sources@3.2.3)
+    optionalDependencies:
+      typescript: 5.6.2
+    transitivePeerDependencies:
+      - rollup
+      - webpack-sources
+
   unplugin-macros@0.13.3(@types/node@22.5.4)(less@4.2.0)(rollup@4.21.2)(terser@5.32.0)(webpack-sources@3.2.3):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.2)
@@ -12711,10 +12880,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vitepress@1.3.4(@algolia/client-search@5.3.2)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2):
+  vitepress@1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2):
     dependencies:
       '@docsearch/css': 3.6.1
-      '@docsearch/js': 3.6.1(@algolia/client-search@5.3.2)
+      '@docsearch/js': 3.6.1(@algolia/client-search@4.24.0)
       '@shikijs/core': 1.16.3
       '@shikijs/transformers': 1.16.3
       '@types/markdown-it': 14.1.2

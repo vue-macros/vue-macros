@@ -3,7 +3,6 @@ import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformShortVmodel, type Options } from './core/index'
 import type { Plugin } from 'vite'
 
-// legacy export
 export * from './api'
 
 const name = generatePluginName()
