@@ -42,7 +42,7 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
       const vueJsx = findPluginAndRemove('vite:vue-jsx')
 
       config.plugins.push(
-        VueMacros({
+        ...VueMacros({
           ...resolvedOptions,
           plugins: { vue, vueJsx },
           nuxtContext: { isClient },
