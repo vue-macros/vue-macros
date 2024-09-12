@@ -28,27 +28,32 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
     vueCompilerOptions.plugins.push('unplugin-vue-macros/volar')
 
     nuxt.hook('vite:configResolved', (config: ViteConfig, { isClient }) => {
-      function findPluginAndRemove(name: string): Plugin | undefined {
+      function findPluginAndRemove(
+        name: string,
+      ): [plugin: Plugin | null, index: number] {
         const idx = config.plugins!.findIndex(
           (plugin) => plugin && 'name' in plugin && plugin.name === name,
         )
-        if (idx === -1) return
+        if (idx === -1) return [null, idx]
         const plugin = config.plugins![idx]
         config.plugins!.splice(idx, 1)
-        return plugin as any
+        return [plugin as any, idx]
       }
       config.plugins ||= []
-      const vue = findPluginAndRemove('vite:vue')
-      const vueJsx = findPluginAndRemove('vite:vue-jsx')
+      const [vue, idx] = findPluginAndRemove('vite:vue')
+      const [vueJsx] = findPluginAndRemove('vite:vue-jsx')
 
-      config.plugins.push(
-        ...VueMacros({
-          ...resolvedOptions,
-          plugins: { vue, vueJsx },
-          nuxtContext: { isClient },
-          // TODO: no config file
-        }),
-      )
+      const vueMacrosPlugins = VueMacros({
+        ...resolvedOptions,
+        plugins: { vue, vueJsx },
+        nuxtContext: { isClient },
+        // TODO: no config file
+      })
+      if (idx !== -1) {
+        config.plugins.splice(idx, 0, ...vueMacrosPlugins)
+      } else {
+        config.plugins.push(...vueMacrosPlugins)
+      }
     })
 
     nuxt.hook('prepare:types', (opts) => {
