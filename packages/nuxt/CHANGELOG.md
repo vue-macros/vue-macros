@@ -1,5 +1,12 @@
 # @vue-macros/nuxt
 
+## 1.11.14
+### Patch Changes
+
+
+
+- [`575ca13`](https://github.com/vue-macros/vue-macros/commit/575ca135b0d9c1dff4b327c6972461a1e75cc986) Thanks [@sxzz](https://github.com/sxzz)! - keep vue plugin order
+
 ## 1.11.13
 ### Patch Changes
 
