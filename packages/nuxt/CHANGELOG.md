@@ -1,5 +1,12 @@
 # @vue-macros/nuxt
 
+## 1.11.13
+### Patch Changes
+
+
+
+- [`7ec74c0`](https://github.com/vue-macros/vue-macros/commit/7ec74c0d7fb6bb4730aa4e07f82dc9cceebf8d77) Thanks [@sxzz](https://github.com/sxzz)! - Compatibility of other nuxt modules.
+
 ## 1.11.12
 ### Patch Changes
 
