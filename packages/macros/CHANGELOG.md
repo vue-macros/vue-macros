@@ -1,5 +1,17 @@
 # unplugin-vue-macros
 
+## 2.12.1
+### Patch Changes
+
+
+
+- [`abe85fe`](https://github.com/vue-macros/vue-macros/commit/abe85fe1e7928cbc817c02af32fff09d09c335de) Thanks [@sxzz](https://github.com/sxzz)! - Disable `shortBind` by default when Vue >= 3.4
+
+- Updated dependencies [[`abe85fe`](https://github.com/vue-macros/vue-macros/commit/abe85fe1e7928cbc817c02af32fff09d09c335de), [`746cf03`](https://github.com/vue-macros/vue-macros/commit/746cf03ca6a6fee7646d0d183acc64af2638964e)]:
+  - @vue-macros/config@0.4.1
+  - @vue-macros/export-props@0.6.0
+  - @vue-macros/volar@0.30.1
+
 ## 2.12.0
 ### Minor Changes
 
