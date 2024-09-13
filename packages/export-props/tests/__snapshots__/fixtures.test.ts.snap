@@ -13,6 +13,8 @@ const { foo = 'foo', bar = 10, baz, qux = fn(), } = defineProps<{
 
 
 
+console.log(foo, bar, baz)
+
 function fn() {}
 </script>
 "

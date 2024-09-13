@@ -11,6 +11,13 @@
 |    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
+## Pre-requisite
+
+[Props destructuring](https://vuejs.org/guide/components/props.html#reactive-props-destructure) or [Reactivity Transform](./reactivity-transform.md) is **required** to use this feature.
+
+Reactivity Transform is enabled by default in Vue Macros,
+while props destructuring is enabled by default in Vue 3.5+.
+
 ## Usage
 
 Using export syntax to declare props.
