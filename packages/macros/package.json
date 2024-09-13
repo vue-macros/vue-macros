@@ -3,7 +3,7 @@
   "version": "2.11.12",
   "packageManager": "pnpm@9.10.0",
   "description": "Explore more macros and syntax sugar to Vue.",
-  "type": "commonjs",
+  "type": "module",
   "keywords": [
     "vue-macros",
     "macros",
@@ -29,54 +29,54 @@
     "*.d.ts",
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
-      "require": "./dist/esbuild.js",
-      "import": "./dist/esbuild.mjs"
+      "require": "./dist/esbuild.cjs",
+      "import": "./dist/esbuild.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
-      "require": "./dist/rolldown.js",
-      "import": "./dist/rolldown.mjs"
+      "require": "./dist/rolldown.cjs",
+      "import": "./dist/rolldown.js"
     },
     "./rollup": {
       "dev": "./src/rollup.ts",
-      "require": "./dist/rollup.js",
-      "import": "./dist/rollup.mjs"
+      "require": "./dist/rollup.cjs",
+      "import": "./dist/rollup.js"
     },
     "./rspack": {
       "dev": "./src/rspack.ts",
-      "require": "./dist/rspack.js",
-      "import": "./dist/rspack.mjs"
+      "require": "./dist/rspack.cjs",
+      "import": "./dist/rspack.js"
     },
     "./runtime": {
       "dev": "./src/runtime.ts",
-      "require": "./dist/runtime.js",
-      "import": "./dist/runtime.mjs"
+      "require": "./dist/runtime.cjs",
+      "import": "./dist/runtime.js"
     },
     "./vite": {
       "dev": "./src/vite.ts",
-      "require": "./dist/vite.js",
-      "import": "./dist/vite.mjs"
+      "require": "./dist/vite.cjs",
+      "import": "./dist/vite.js"
     },
     "./volar": {
       "dev": "./src/volar.ts",
-      "require": "./dist/volar.js",
-      "import": "./dist/volar.mjs"
+      "require": "./dist/volar.cjs",
+      "import": "./dist/volar.js"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
-      "require": "./dist/webpack.js",
-      "import": "./dist/webpack.mjs"
+      "require": "./dist/webpack.cjs",
+      "import": "./dist/webpack.js"
     },
     "./*": [
       "./*",
@@ -95,40 +95,40 @@
     "access": "public",
     "exports": {
       ".": {
-        "require": "./dist/index.js",
-        "import": "./dist/index.mjs"
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
       },
       "./esbuild": {
-        "require": "./dist/esbuild.js",
-        "import": "./dist/esbuild.mjs"
+        "require": "./dist/esbuild.cjs",
+        "import": "./dist/esbuild.js"
       },
       "./rolldown": {
-        "require": "./dist/rolldown.js",
-        "import": "./dist/rolldown.mjs"
+        "require": "./dist/rolldown.cjs",
+        "import": "./dist/rolldown.js"
       },
       "./rollup": {
-        "require": "./dist/rollup.js",
-        "import": "./dist/rollup.mjs"
+        "require": "./dist/rollup.cjs",
+        "import": "./dist/rollup.js"
       },
       "./rspack": {
-        "require": "./dist/rspack.js",
-        "import": "./dist/rspack.mjs"
+        "require": "./dist/rspack.cjs",
+        "import": "./dist/rspack.js"
       },
       "./runtime": {
-        "require": "./dist/runtime.js",
-        "import": "./dist/runtime.mjs"
+        "require": "./dist/runtime.cjs",
+        "import": "./dist/runtime.js"
       },
       "./vite": {
-        "require": "./dist/vite.js",
-        "import": "./dist/vite.mjs"
+        "require": "./dist/vite.cjs",
+        "import": "./dist/vite.js"
       },
       "./volar": {
-        "require": "./dist/volar.js",
-        "import": "./dist/volar.mjs"
+        "require": "./dist/volar.cjs",
+        "import": "./dist/volar.js"
       },
       "./webpack": {
-        "require": "./dist/webpack.js",
-        "import": "./dist/webpack.mjs"
+        "require": "./dist/webpack.cjs",
+        "import": "./dist/webpack.js"
       },
       "./*": [
         "./*",

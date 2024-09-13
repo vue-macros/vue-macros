@@ -3,7 +3,7 @@
   "version": "0.17.10",
   "packageManager": "pnpm@9.10.0",
   "description": "setup-component feature from Vue Macros.",
-  "type": "commonjs",
+  "type": "module",
   "keywords": [
     "vue-macros",
     "macros",
@@ -29,49 +29,49 @@
     "*.d.ts",
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     },
     "./api": {
       "dev": "./src/api.ts",
-      "require": "./dist/api.js",
-      "import": "./dist/api.mjs"
+      "require": "./dist/api.cjs",
+      "import": "./dist/api.js"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
-      "require": "./dist/esbuild.js",
-      "import": "./dist/esbuild.mjs"
+      "require": "./dist/esbuild.cjs",
+      "import": "./dist/esbuild.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
-      "require": "./dist/rolldown.js",
-      "import": "./dist/rolldown.mjs"
+      "require": "./dist/rolldown.cjs",
+      "import": "./dist/rolldown.js"
     },
     "./rollup": {
       "dev": "./src/rollup.ts",
-      "require": "./dist/rollup.js",
-      "import": "./dist/rollup.mjs"
+      "require": "./dist/rollup.cjs",
+      "import": "./dist/rollup.js"
     },
     "./rspack": {
       "dev": "./src/rspack.ts",
-      "require": "./dist/rspack.js",
-      "import": "./dist/rspack.mjs"
+      "require": "./dist/rspack.cjs",
+      "import": "./dist/rspack.js"
     },
     "./vite": {
       "dev": "./src/vite.ts",
-      "require": "./dist/vite.js",
-      "import": "./dist/vite.mjs"
+      "require": "./dist/vite.cjs",
+      "import": "./dist/vite.js"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
-      "require": "./dist/webpack.js",
-      "import": "./dist/webpack.mjs"
+      "require": "./dist/webpack.cjs",
+      "import": "./dist/webpack.js"
     },
     "./*": [
       "./*",
@@ -90,36 +90,36 @@
     "access": "public",
     "exports": {
       ".": {
-        "require": "./dist/index.js",
-        "import": "./dist/index.mjs"
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
       },
       "./api": {
-        "require": "./dist/api.js",
-        "import": "./dist/api.mjs"
+        "require": "./dist/api.cjs",
+        "import": "./dist/api.js"
       },
       "./esbuild": {
-        "require": "./dist/esbuild.js",
-        "import": "./dist/esbuild.mjs"
+        "require": "./dist/esbuild.cjs",
+        "import": "./dist/esbuild.js"
       },
       "./rolldown": {
-        "require": "./dist/rolldown.js",
-        "import": "./dist/rolldown.mjs"
+        "require": "./dist/rolldown.cjs",
+        "import": "./dist/rolldown.js"
       },
       "./rollup": {
-        "require": "./dist/rollup.js",
-        "import": "./dist/rollup.mjs"
+        "require": "./dist/rollup.cjs",
+        "import": "./dist/rollup.js"
       },
       "./rspack": {
-        "require": "./dist/rspack.js",
-        "import": "./dist/rspack.mjs"
+        "require": "./dist/rspack.cjs",
+        "import": "./dist/rspack.js"
       },
       "./vite": {
-        "require": "./dist/vite.js",
-        "import": "./dist/vite.mjs"
+        "require": "./dist/vite.cjs",
+        "import": "./dist/vite.js"
       },
       "./webpack": {
-        "require": "./dist/webpack.js",
-        "import": "./dist/webpack.mjs"
+        "require": "./dist/webpack.cjs",
+        "import": "./dist/webpack.js"
       },
       "./*": [
         "./*",

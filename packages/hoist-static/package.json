@@ -3,7 +3,7 @@
   "version": "1.5.10",
   "packageManager": "pnpm@9.10.0",
   "description": "hoist-static feature from Vue Macros.",
-  "type": "commonjs",
+  "type": "module",
   "keywords": [
     "vue-macros",
     "macros",
@@ -28,44 +28,44 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
-      "require": "./dist/esbuild.js",
-      "import": "./dist/esbuild.mjs"
+      "require": "./dist/esbuild.cjs",
+      "import": "./dist/esbuild.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
-      "require": "./dist/rolldown.js",
-      "import": "./dist/rolldown.mjs"
+      "require": "./dist/rolldown.cjs",
+      "import": "./dist/rolldown.js"
     },
     "./rollup": {
       "dev": "./src/rollup.ts",
-      "require": "./dist/rollup.js",
-      "import": "./dist/rollup.mjs"
+      "require": "./dist/rollup.cjs",
+      "import": "./dist/rollup.js"
     },
     "./rspack": {
       "dev": "./src/rspack.ts",
-      "require": "./dist/rspack.js",
-      "import": "./dist/rspack.mjs"
+      "require": "./dist/rspack.cjs",
+      "import": "./dist/rspack.js"
     },
     "./vite": {
       "dev": "./src/vite.ts",
-      "require": "./dist/vite.js",
-      "import": "./dist/vite.mjs"
+      "require": "./dist/vite.cjs",
+      "import": "./dist/vite.js"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
-      "require": "./dist/webpack.js",
-      "import": "./dist/webpack.mjs"
+      "require": "./dist/webpack.cjs",
+      "import": "./dist/webpack.js"
     },
     "./*": "./*"
   },
@@ -81,32 +81,32 @@
     "access": "public",
     "exports": {
       ".": {
-        "require": "./dist/index.js",
-        "import": "./dist/index.mjs"
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
       },
       "./esbuild": {
-        "require": "./dist/esbuild.js",
-        "import": "./dist/esbuild.mjs"
+        "require": "./dist/esbuild.cjs",
+        "import": "./dist/esbuild.js"
       },
       "./rolldown": {
-        "require": "./dist/rolldown.js",
-        "import": "./dist/rolldown.mjs"
+        "require": "./dist/rolldown.cjs",
+        "import": "./dist/rolldown.js"
       },
       "./rollup": {
-        "require": "./dist/rollup.js",
-        "import": "./dist/rollup.mjs"
+        "require": "./dist/rollup.cjs",
+        "import": "./dist/rollup.js"
       },
       "./rspack": {
-        "require": "./dist/rspack.js",
-        "import": "./dist/rspack.mjs"
+        "require": "./dist/rspack.cjs",
+        "import": "./dist/rspack.js"
       },
       "./vite": {
-        "require": "./dist/vite.js",
-        "import": "./dist/vite.mjs"
+        "require": "./dist/vite.cjs",
+        "import": "./dist/vite.js"
       },
       "./webpack": {
-        "require": "./dist/webpack.js",
-        "import": "./dist/webpack.mjs"
+        "require": "./dist/webpack.cjs",
+        "import": "./dist/webpack.js"
       },
       "./*": "./*"
     }
