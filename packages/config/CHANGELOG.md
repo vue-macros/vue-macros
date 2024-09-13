@@ -1,5 +1,12 @@
 # @vue-macros/config
 
+## 0.4.1
+### Patch Changes
+
+
+
+- [`abe85fe`](https://github.com/vue-macros/vue-macros/commit/abe85fe1e7928cbc817c02af32fff09d09c335de) Thanks [@sxzz](https://github.com/sxzz)! - Disable `shortBind` by default when Vue >= 3.4
+
 ## 0.4.0
 ### Minor Changes
 

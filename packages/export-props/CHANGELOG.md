@@ -1,5 +1,12 @@
 # @vue-macros/export-props
 
+## 0.6.0
+### Minor Changes
+
+
+
+- [`746cf03`](https://github.com/vue-macros/vue-macros/commit/746cf03ca6a6fee7646d0d183acc64af2638964e) Thanks [@sxzz](https://github.com/sxzz)! - Support transform `export let` as `defineModel`
+
 ## 0.5.0
 ### Minor Changes
 
