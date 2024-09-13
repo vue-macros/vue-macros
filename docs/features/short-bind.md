@@ -2,9 +2,11 @@
 
 <StabilityLevel level="stable" />
 
-A shorthand for binding prop with the same data name.
-
 `:value` -> `:value="value"`
+
+Same-name shorthand for binding prop. If the attribute has the same name with the JavaScript value being bound, the syntax can be further shortened to omit the attribute value.
+
+For Vue >= 3.4, this feature will be turned off by default.
 
 |   Features   |     Supported      |
 | :----------: | :----------------: |
