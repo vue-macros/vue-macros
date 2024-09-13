@@ -13,10 +13,9 @@
 
 ## Pre-requisite
 
-[Props destructuring](https://vuejs.org/guide/components/props.html#reactive-props-destructure) or [Reactivity Transform](./reactivity-transform.md) is **required** to use this feature.
+[Reactivity Transform](./reactivity-transform.md) is required to use this feature, but it is enabled by default in Vue Macros.
 
-Reactivity Transform is enabled by default in Vue Macros,
-while props destructuring is enabled by default in Vue 3.5+.
+`export let` will be changed to `defineModel`, which is supported in Vue 3.4+.
 
 ## Usage
 

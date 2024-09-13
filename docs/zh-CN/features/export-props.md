@@ -13,9 +13,10 @@
 
 ## 前置条件
 
-使用此功能**需要** [Props 解构](https://cn.vuejs.org/guide/components/props#reactive-props-destructure) 或 [Reactivity Transform](./reactivity-transform.md)。
+要使用此功能，需要 [Reactivity Transform](./reactivity-transform.md)，
+但在 Vue Macros 中已经默认启用。
 
-在 Vue Macros 中，Reactivity Transform 默认启用，而在 Vue 3.5+ 中，props 解构默认启用。
+`export let` 将编译为 `defineModel`，该功能在 Vue 3.4+ 中受支持。
 
 ## 用法
 
