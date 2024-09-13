@@ -4,4 +4,5 @@ export default config({
   shims: true,
   treeshake: true,
   ignoreDeps: ['vue'],
+  platform: 'node',
 })

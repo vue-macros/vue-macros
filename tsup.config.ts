@@ -24,12 +24,14 @@ export function config({
   treeshake,
   onlyIndex = false,
   splitting = !onlyIndex,
+  platform = 'neutral',
 }: {
   ignoreDeps?: UnusedOptions['ignore']
   shims?: boolean
   treeshake?: boolean
   splitting?: boolean
   onlyIndex?: boolean
+  platform?: Options['platform']
 } = {}): Options {
   const entry = onlyIndex ? ['./src/index.ts'] : ['./src/*.ts', '!./**.d.ts']
 
@@ -49,6 +51,7 @@ export function config({
     removeNodeProtocol: false,
     shims,
     treeshake,
+    platform,
 
     esbuildPlugins: [
       createUnplugin<undefined, true>((opt, meta) => {
