@@ -59,7 +59,8 @@ export function transformExportProps(
       destructureString += ` ${name}${defaultValue ? ` = ${defaultValue}` : ''},`
     }
   }
-  propsCodegen = `const {${destructureString} } = defineProps<{\n${propsCodegen}}>()`
+  if (propsCodegen)
+    propsCodegen = `const {${destructureString} } = defineProps<{\n${propsCodegen}}>()`
 
   s.prependLeft(offset, `\n${propsCodegen}${modelCodegen}`)
 
