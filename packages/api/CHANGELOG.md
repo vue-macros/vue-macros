@@ -1,5 +1,18 @@
 # @vue-macros/api
 
+## 0.11.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+
+### Patch Changes
+
+- Updated dependencies [[`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279)]:
+  - @vue-macros/common@1.13.0
+
 ## 0.10.6
 ### Patch Changes
 
