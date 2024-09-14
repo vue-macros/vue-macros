@@ -610,7 +610,7 @@ importers:
   packages/jsx-directive:
     dependencies:
       '@vue-macros/common':
-        specifier: workspace:~
+        specifier: workspace:*
         version: link:../common
       unplugin:
         specifier: 'catalog:'
