@@ -1,5 +1,15 @@
 # @vue-macros/jsx-directive
 
+## 0.9.1
+### Patch Changes
+
+
+
+- [`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d) Thanks [@sxzz](https://github.com/sxzz)! - Fix missing `hackViteHMR`
+
+- Updated dependencies [[`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d)]:
+  - @vue-macros/common@1.14.0
+
 ## 0.9.0
 ### Minor Changes
 
