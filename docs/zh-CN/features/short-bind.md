@@ -45,8 +45,7 @@ const value = 'foo'
 
 ## Volar 配置
 
-```jsonc {4}
-// tsconfig.json
+```jsonc {3} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

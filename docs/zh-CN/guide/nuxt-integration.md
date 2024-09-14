@@ -20,8 +20,7 @@ pnpm add -D @vue-macros/nuxt
 
 ## 配置
 
-```ts
-// nuxt.config.ts
+```ts [nuxt.config.ts]
 export default {
   modules: [
     '@vue-macros/nuxt',

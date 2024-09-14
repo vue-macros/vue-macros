@@ -213,8 +213,8 @@ importers:
         specifier: ^1.3.4
         version: 1.3.4(@algolia/client-search@4.24.0)(@types/node@22.5.4)(less@4.2.0)(postcss@8.4.45)(terser@5.32.0)(typescript@5.6.2)
       vitepress-plugin-group-icons:
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.2.1
+        version: 1.2.1
       vue:
         specifier: 'catalog:'
         version: 3.5.4(typescript@5.6.2)
@@ -1870,8 +1870,8 @@ packages:
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
-  '@iconify/utils@2.1.32':
-    resolution: {integrity: sha512-LeifFZPPKu28O3AEDpYJNdEbvS4/ojAPyIW+pF/vUpJTYnbTiXUHkCh0bwgFRzKvdpb8H4Fbfd/742++MF4fPQ==}
+  '@iconify/utils@2.1.33':
+    resolution: {integrity: sha512-jP9h6v/g0BIZx0p7XGJJVtkVnydtbgTgt9mVNcGDYwaa7UhdHdI9dvoq+gKj9sijMSJKxUPEG2JyjsgXjxL7Kw==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -6158,8 +6158,8 @@ packages:
       vite:
         optional: true
 
-  vitepress-plugin-group-icons@1.1.0:
-    resolution: {integrity: sha512-hKf/imrMxa63kAXJlztsb8l6DZYBNZiVSZpJ15rNTeqAL1Hhbuf/DC87Q2r4b/mGKHUusEOI5ogt/jrJ8JoeUw==}
+  vitepress-plugin-group-icons@1.2.1:
+    resolution: {integrity: sha512-N1B/AgZ2OVYi8RTfxDIsklV2RU0ZW+Ozbul3M08akPVryPpDFkuirr/yB7uNUbyqEYW2b3OA3CbBQDzU4j26zg==}
 
   vitepress@1.3.4:
     resolution: {integrity: sha512-I1/F6OW1xl3kW4PaIMC6snxjWgf3qfziq2aqsDoFc/Gt41WbcRv++z8zjw8qGRIJ+I4bUW7ZcKFDHHN/jkH9DQ==}
@@ -7363,7 +7363,7 @@ snapshots:
 
   '@iconify/types@2.0.0': {}
 
-  '@iconify/utils@2.1.32':
+  '@iconify/utils@2.1.33':
     dependencies:
       '@antfu/install-pkg': 0.4.1
       '@antfu/utils': 0.7.10
@@ -8399,7 +8399,7 @@ snapshots:
 
   '@unocss/preset-icons@0.62.3':
     dependencies:
-      '@iconify/utils': 2.1.32
+      '@iconify/utils': 2.1.33
       '@unocss/core': 0.62.3
       ofetch: 1.3.4
     transitivePeerDependencies:
@@ -12860,11 +12860,11 @@ snapshots:
     optionalDependencies:
       vite: 5.4.4(@types/node@22.5.4)(less@4.2.0)(terser@5.32.0)
 
-  vitepress-plugin-group-icons@1.1.0:
+  vitepress-plugin-group-icons@1.2.1:
     dependencies:
       '@iconify-json/logos': 1.2.0
       '@iconify-json/vscode-icons': 1.2.1
-      '@iconify/utils': 2.1.32
+      '@iconify/utils': 2.1.33
     transitivePeerDependencies:
       - supports-color
 

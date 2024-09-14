@@ -38,8 +38,7 @@ defineProps<{
 
 ## Volar Configuration
 
-```jsonc {4,6-8}
-// tsconfig.json
+```jsonc {3,5-7} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

@@ -30,8 +30,7 @@ export const bar: number = 1 // with default value
 
 ## Volar Configuration
 
-```jsonc {4,6}
-// tsconfig.json
+```jsonc {3,5} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

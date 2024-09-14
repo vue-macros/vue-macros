@@ -157,9 +157,7 @@ module.exports = defineConfig({
 
 See the [Configurations](./configurations.md) for more details.
 
-```ts twoslash
-// vue-macros.config.ts
-
+```ts twoslash [vue-macros.config.ts]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   // options
@@ -196,8 +194,7 @@ export default defineConfig({
 
 For detailed configuration, please refer to the description of the specific macro.
 
-```jsonc
-// tsconfig.json
+```jsonc [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],
@@ -210,9 +207,7 @@ For detailed configuration, please refer to the description of the specific macr
 `exportExpose`, `exportProps`, and `exportRender` plugins cannot be used
 at the same time unless providing a scope.
 
-```ts twoslash
-// vue-macros.config.ts
-
+```ts twoslash [vue-macros.config.ts]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   exportExpose: {
