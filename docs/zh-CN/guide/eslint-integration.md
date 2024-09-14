@@ -22,8 +22,7 @@ npm i -D @vue-macros/eslint-config
 
 ### Flat 风格配置
 
-```js
-// eslint.config.js
+```js [eslint.config.js]
 import vueMacros from '@vue-macros/eslint-config'
 export default [
   vueMacros,
@@ -33,8 +32,7 @@ export default [
 
 ### 传统风格配置
 
-```jsonc
-// .eslintrc
+```jsonc [.eslintrc]
 {
   "extends": [
     "@vue-macros/eslint-config",

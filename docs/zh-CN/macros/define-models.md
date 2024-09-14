@@ -114,8 +114,7 @@ emit('update:count', count + 1)
 
 ## Volar 配置
 
-```jsonc {5,7-10}
-// tsconfig.json
+```jsonc {4,6-9} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "target": 3, // 或 2.7 用于 Vue 2

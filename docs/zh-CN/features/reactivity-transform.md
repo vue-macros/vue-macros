@@ -72,8 +72,7 @@ module.exports = {
 
 ### TypeScript 支持
 
-```json
-// tsconfig.json
+```json [tsconfig.json]
 {
   "compilerOptions": {
     // ...
@@ -386,7 +385,7 @@ Vue 为这些宏函数都提供了类型声明 (全局可用)，因此类型推�
 
 因为这些宏函数都是全局可用的，它们的类型需要被显式地引用 (例如，在 `env.d.ts` 文件中)：
 
-```ts
+```ts [env.d.ts]
 /// <reference types="unplugin-vue-macros/macros-global" />
 
 // 或适用于独立版本：

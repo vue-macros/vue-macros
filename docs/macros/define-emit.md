@@ -66,8 +66,7 @@ increment('2') // TS type error
 
 ## Volar Configuration
 
-```jsonc {4,6}
-// tsconfig.json
+```jsonc {3,5} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],
