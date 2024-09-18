@@ -72,8 +72,7 @@ module.exports = {
 
 ### TypeScript Support
 
-```json
-// tsconfig.json
+```json [tsconfig.json]
 {
   "compilerOptions": {
     // ...
@@ -386,7 +385,7 @@ This also means the macros can work in any files where valid JS / TS are allowed
 
 Since the macros are available globally, their types need to be explicitly referenced (e.g. in a `env.d.ts` file):
 
-```ts
+```ts [env.d.ts]
 /// <reference types="unplugin-vue-macros/macros-global" />
 
 // or for standalone version:

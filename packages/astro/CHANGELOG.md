@@ -1,5 +1,40 @@
 # @vue-macros/astro
 
+## 0.6.2
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.12.2
+
+## 0.6.1
+### Patch Changes
+
+- Updated dependencies [[`abe85fe`](https://github.com/vue-macros/vue-macros/commit/abe85fe1e7928cbc817c02af32fff09d09c335de)]:
+  - unplugin-vue-macros@2.12.1
+
+## 0.6.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+
+### Patch Changes
+
+
+
+- [`b10241b`](https://github.com/vue-macros/vue-macros/commit/b10241bf4a07ef1419226c651f34dc3963b1e14f) Thanks [@sxzz](https://github.com/sxzz)! - compatibility of other plugins
+
+- Updated dependencies [[`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279)]:
+  - unplugin-vue-macros@2.12.0
+
+## 0.5.12
+### Patch Changes
+
+- Updated dependencies [[`cfafa9e`](https://github.com/vue-macros/vue-macros/commit/cfafa9eb266e3b3f802b1c652dbcc10861b2daa7)]:
+  - unplugin-vue-macros@2.11.12
+
 ## 0.5.11
 ### Patch Changes
 

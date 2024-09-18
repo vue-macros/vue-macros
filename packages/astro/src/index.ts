@@ -25,15 +25,15 @@ export default function (options?: Options): AstroIntegration {
         const vue = findPluginAndRemove('vite:vue', config.vite.plugins)
         const vueJsx = findPluginAndRemove('vite:vue-jsx', config.vite.plugins)
 
-        config.vite.plugins?.push(
-          VueMacros({
-            ...resolvedOptions,
-            plugins: {
-              vue,
-              vueJsx,
-            },
-          }),
-        )
+        const vueMacrosPlugins = VueMacros({
+          ...resolvedOptions,
+          plugins: {
+            vue,
+            vueJsx,
+          },
+        })
+        config.vite.plugins ||= []
+        config.vite.plugins.push(...vueMacrosPlugins)
       },
     },
   }

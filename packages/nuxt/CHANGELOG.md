@@ -1,5 +1,52 @@
 # @vue-macros/nuxt
 
+## 1.12.2
+### Patch Changes
+
+- Updated dependencies [[`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d)]:
+  - @vue-macros/common@1.14.0
+  - unplugin-vue-macros@2.12.2
+
+## 1.12.1
+### Patch Changes
+
+- Updated dependencies [[`abe85fe`](https://github.com/vue-macros/vue-macros/commit/abe85fe1e7928cbc817c02af32fff09d09c335de)]:
+  - unplugin-vue-macros@2.12.1
+
+## 1.12.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+
+### Patch Changes
+
+- Updated dependencies [[`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279)]:
+  - unplugin-vue-macros@2.12.0
+  - @vue-macros/common@1.13.0
+
+## 1.11.14
+### Patch Changes
+
+
+
+- [`575ca13`](https://github.com/vue-macros/vue-macros/commit/575ca135b0d9c1dff4b327c6972461a1e75cc986) Thanks [@sxzz](https://github.com/sxzz)! - keep vue plugin order
+
+## 1.11.13
+### Patch Changes
+
+
+
+- [`7ec74c0`](https://github.com/vue-macros/vue-macros/commit/7ec74c0d7fb6bb4730aa4e07f82dc9cceebf8d77) Thanks [@sxzz](https://github.com/sxzz)! - Compatibility of other nuxt modules.
+
+## 1.11.12
+### Patch Changes
+
+- Updated dependencies [[`cfafa9e`](https://github.com/vue-macros/vue-macros/commit/cfafa9eb266e3b3f802b1c652dbcc10861b2daa7)]:
+  - unplugin-vue-macros@2.11.12
+
 ## 1.11.11
 ### Patch Changes
 

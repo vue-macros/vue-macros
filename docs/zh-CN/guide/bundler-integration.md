@@ -157,9 +157,7 @@ module.exports = defineConfig({
 
 详情请参阅 [配置](./configurations.md)。
 
-```ts twoslash
-// vue-macros.config.ts
-
+```ts twoslash [vue-macros.config.ts]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   // 选项
@@ -196,8 +194,7 @@ export default defineConfig({
 
 详细配置请参阅具体宏的描述。
 
-```jsonc
-// tsconfig.json
+```jsonc [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],
@@ -209,9 +206,7 @@ export default defineConfig({
 
 `exportExpose`、`exportProps` 和 `exportRender` 插件不能同时使用，除非提供作用域。
 
-```ts twoslash
-// vue-macros.config.ts
-
+```ts twoslash [vue-macros.config.ts]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   exportExpose: {

@@ -22,7 +22,7 @@
 
 你可以通过将选项设置为 `true` 来重新启用它们。
 
-```ts twoslash
+```ts twoslash [vue-macros.config.ts(js|ts|json)]
 // vue-macros.config.[js,ts,json]
 
 import { defineConfig } from 'unplugin-vue-macros'

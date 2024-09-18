@@ -37,6 +37,7 @@ export default defineConfig({
       customIcon: {
         rspack: localIconLoader(import.meta.url, './assets/rspack.svg'),
         rsbuild: localIconLoader(import.meta.url, './assets/rsbuild.svg'),
+        'vue-macros': localIconLoader(import.meta.url, './public/logo.svg'),
       },
     }),
   ],

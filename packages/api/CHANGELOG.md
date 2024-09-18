@@ -1,5 +1,31 @@
 # @vue-macros/api
 
+## 0.11.1
+### Patch Changes
+
+- Updated dependencies [[`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d)]:
+  - @vue-macros/common@1.14.0
+
+## 0.11.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+
+### Patch Changes
+
+- Updated dependencies [[`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279)]:
+  - @vue-macros/common@1.13.0
+
+## 0.10.6
+### Patch Changes
+
+
+
+- [`59ebd02`](https://github.com/vue-macros/vue-macros/commit/59ebd027960a3cfa9b4e1765ae1ac418e4cdbdb1) Thanks [@sxzz](https://github.com/sxzz)! - Fix resolve interface
+
 ## 0.10.5
 ### Patch Changes
 
