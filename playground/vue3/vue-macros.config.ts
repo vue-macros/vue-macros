@@ -23,7 +23,7 @@ export default defineConfig({
   reactivityTransform: true,
   scriptLang: true,
   scriptSFC: {
-    include: [/script-sfc.*\.tsx$/, /jsx-macros.*\.tsx$/],
+    include: [/vue3\/.*\.tsx$/],
   },
   setupBlock: true,
   setupSFC: true,

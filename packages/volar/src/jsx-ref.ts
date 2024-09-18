@@ -51,7 +51,7 @@ function getRefNodes(
   const result: RefNode[] = []
   function walk(node: import('typescript').Node) {
     if (ts.isVariableStatement(node)) {
-      return ts.forEachChild(node.declarationList, (decl) => {
+      ts.forEachChild(node.declarationList, (decl) => {
         if (
           ts.isVariableDeclaration(decl) &&
           ts.isIdentifier(decl.name) &&

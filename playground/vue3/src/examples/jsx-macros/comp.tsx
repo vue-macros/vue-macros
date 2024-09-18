@@ -1,6 +1,6 @@
 import { watch } from 'vue'
 
-export function Comp<T>({ foo }: { foo: T }) {
+export function Comp<const T>({ foo }: { foo: T }) {
   const slots = defineSlots({
     default: (props: { bar: string }) => <div>{props.bar}</div>,
   })

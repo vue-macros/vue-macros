@@ -621,6 +621,9 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
+      '@vue/compiler-core':
+        specifier: 'catalog:'
+        version: 3.5.3
       unplugin:
         specifier: 'catalog:'
         version: 1.14.0(webpack-sources@3.2.3)

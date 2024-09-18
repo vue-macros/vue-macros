@@ -9,7 +9,11 @@ type RootMap = Map<
   | import('typescript').ArrowFunction
   | import('typescript').FunctionExpression
   | import('typescript').FunctionDeclaration,
-  Map<string, string[]>
+  {
+    defineModel?: string[]
+    defineSlots?: string
+    defineExpose?: string
+  }
 >
 
 function getMacro(
@@ -69,21 +73,27 @@ function getRootMap(options: TransformOptions): RootMap {
         ts.isFunctionDeclaration(parents[1]))
         ? parents[1]
         : undefined
+    if (
+      root &&
+      !ts.isFunctionDeclaration(root) &&
+      ts.isVariableDeclaration(parents[2]) &&
+      parents[2].type &&
+      getText(parents[2].type, options) === 'SetupFC'
+    ) {
+      replaceSourceRange(
+        codes,
+        source,
+        parents[2].name.end,
+        parents[2].type.end,
+      )
+    }
+
     const macro = root && getMacro(node, ts)
     if (macro) {
       if (!rootMap.has(root)) {
-        rootMap.set(
-          root,
-          new Map([
-            ['defineSlots', []],
-            ['defineModel', []],
-            ['defineExpose', []],
-          ]),
-        )
+        rootMap.set(root, {})
       }
-      const propMap = rootMap.get(root)!
       const name = getText(macro.expression, options)
-
       if (name === 'defineModel') {
         const modelName =
           macro.arguments[0] && ts.isStringLiteralLike(macro.arguments[0])
@@ -107,9 +117,9 @@ function getRootMap(options: TransformOptions): RootMap {
         const id = toValidAssetId(modelName, `${HELPER_PREFIX}model` as any)
         const typeString = `import("vue").UnwrapRef<typeof ${id}>`
         const requiredString = required ? ':' : '?:'
-        propMap
-          .get(name)
-          ?.push(
+        rootMap
+          .get(root)!
+          .defineModel?.push(
             `${modelName}${requiredString} ${typeString}`,
             `'onUpdate:${modelName}'${requiredString} ($event: ${typeString}) => any`,
           )
@@ -127,7 +137,7 @@ function getRootMap(options: TransformOptions): RootMap {
           source,
           getStart(macro, options),
           getStart(macro, options),
-          `// @ts-ignore\n${HELPER_PREFIX}slots;\nlet ${HELPER_PREFIX}slots =`,
+          `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
           [
             HELPER_PREFIX,
             source,
@@ -135,7 +145,8 @@ function getRootMap(options: TransformOptions): RootMap {
             allCodeFeatures,
           ],
         )
-        propMap.get(name)?.push(`{ vSlots?: typeof ${HELPER_PREFIX}slots }`)
+        rootMap.get(root)!.defineSlots =
+          `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
       } else if (name === 'defineExpose') {
         replaceSourceRange(
           codes,
@@ -145,12 +156,10 @@ function getRootMap(options: TransformOptions): RootMap {
           `const ${HELPER_PREFIX}expose = ${getText(macro.arguments[0], options)};`,
           [HELPER_PREFIX, source, getStart(macro, options), allCodeFeatures],
         )
-        propMap
-          .get(name)
-          ?.push(`(exposed: typeof ${HELPER_PREFIX}expose) => {}`)
+        rootMap.get(root)!.defineExpose =
+          `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
       }
     }
-
     ts.forEachChild(node, (child) => {
       parents.unshift(node)
       walk(child, parents)
@@ -171,7 +180,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     )
       ? 'async'
       : ''
-    const result = `({}) as Awaited<typeof ${HELPER_PREFIX}setup>['render'] & { __ctx: Awaited<typeof ${
+    const result = `({}) as __VLS_MaybeReturnType<Awaited<typeof ${HELPER_PREFIX}setup>['render']> & { __ctx: Awaited<typeof ${
       HELPER_PREFIX
     }setup> }`
 
@@ -232,15 +241,11 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
           getStart(node, options),
           getStart(node.expression, options),
           `return {\nprops: {} as `,
-          props.get('defineModel')?.length
-            ? `{ ${props.get('defineModel')?.join(', ')} }`
+          props.defineModel?.length
+            ? `{ ${props.defineModel?.join(', ')} }`
             : '{}',
-          props.get('defineSlots')?.length
-            ? ` & ${props.get('defineSlots')?.join()}`
-            : '',
-          props.get('defineExpose')?.length
-            ? `,\nexpose: ${props.get('defineExpose')?.join()}`
-            : '',
+          props.defineSlots ? ` & ${props.defineSlots}` : '',
+          props.defineExpose ? `,\nexpose: ${props.defineExpose}` : '',
           `,\nrender: `,
         )
         replaceSourceRange(
@@ -258,10 +263,14 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     rootMap.size &&
     !codes.toString().includes(`declare function ${HELPER_PREFIX}defineSlots`)
   ) {
-    codes.push(`
+    codes.push(
+      `
 declare function ${HELPER_PREFIX}defineSlots<T extends Record<string, any>>(slots?: T): T
 declare const ${HELPER_PREFIX}defineExpose: typeof import('vue').defineExpose;
-declare const ${HELPER_PREFIX}defineModel: typeof import('vue').defineModel;\n`)
+declare const ${HELPER_PREFIX}defineModel: typeof import('vue').defineModel;
+declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
+`,
+    )
   }
 }
 

@@ -3,7 +3,7 @@
 exports[`fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
 import { useExpose as __MACROS_useExpose } from "/vue-macros/jsx-macros/use-expose";
-import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export default function (__MACROS_props) {
+import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export default function Comp({foo, ...__MACROS_props}) {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
     foo: 1,
   })
@@ -44,16 +44,45 @@ export default function (__MACROS_props) {
 "
 `;
 
-exports[`fixtures > ./fixtures/index.tsx 1`] = `
+exports[`react fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export const Comp = (__MACROS_props) => {
-  __MACROS_useModel(__MACROS_props, 'foo')
+import { forwardRef as __MACROS_forwardRef } from "react";
+import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";export default function Comp(...__MACROS_rest){ return (__MACROS_forwardRef(function Comp({foo, ...__MACROS_props}, __MACROS_ref) {
+  __MACROS_useImperativeHandle(__MACROS_ref, () =>({
+    foo: 1,
+  }), [])
   return <div />
+}))(...__MACROS_rest)}
+"
+`;
+
+exports[`react fixtures > ./fixtures/define-model.tsx 1`] = `
+"
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props}) => {
+  const foo = __MACROS_useModel(__MACROS_props, 'foo', { default: bar })
+  return <div>{foo.value}</div>
 }
 
-export const Comp1 = (__MACROS_props) => {
-  __MACROS_useModel(__MACROS_props, 'foo')
-  return <div />
+export default function (__MACROS_props) {
+  const foo = __MACROS_useModel(__MACROS_props, 'foo')
+  return <div>{foo.value}</div>
+}
+"
+`;
+
+exports[`react fixtures > ./fixtures/define-slots.tsx 1`] = `
+"export const Comp = (__MACROS_props) => {
+  const slots = Object.assign<{
+    default: () => any
+  }>({}, __MACROS_props.vSlots)
+  return <div>{slots.default()}</div>
+}
+
+export default function (__MACROS_props) {
+  const slots = Object.assign({
+    default: () => <div>default</div>,
+  },__MACROS_props.vSlots)
+  return <div>{slots.default()}</div>
 }
 "
 `;

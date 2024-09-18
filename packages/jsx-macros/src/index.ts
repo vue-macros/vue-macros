@@ -26,7 +26,10 @@ import {
 export type Options = BaseOptions & {
   lib?: string
 }
-export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
+export type OptionsResolved = MarkRequired<
+  Options,
+  'include' | 'version' | 'lib'
+>
 
 function resolveOptions(
   options: Options,

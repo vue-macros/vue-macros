@@ -16,3 +16,18 @@ describe('fixtures', async () => {
       })?.code,
   )
 })
+
+describe('react fixtures', async () => {
+  await testFixtures(
+    import.meta.glob('./fixtures/**/*.tsx', {
+      eager: true,
+      as: 'raw',
+    }),
+    (args, id, code) =>
+      transformJsxMacros(code, id, {
+        lib: 'react',
+        include: ['*.tsx'],
+        version: 18,
+      })?.code,
+  )
+})
