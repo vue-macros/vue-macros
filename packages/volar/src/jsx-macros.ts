@@ -3,6 +3,7 @@ import { toValidAssetId } from '@vue/compiler-dom'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText, type VueMacrosPlugin } from './common'
 import type { TransformOptions } from './jsx-directive/index'
+import type { VueCompilerOptions } from '@vue/language-core'
 
 type RootMap = Map<
   | import('typescript').ArrowFunction
@@ -18,6 +19,7 @@ type RootMap = Map<
 function getMacro(
   node: import('typescript').Node | undefined,
   ts: typeof import('typescript'),
+  vueCompilerOptions: VueCompilerOptions,
 ):
   | {
       expression: import('typescript').CallExpression
@@ -65,14 +67,19 @@ function getMacro(
     return !!(
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&
-      ['defineSlots', 'defineModel', 'defineExpose'].includes(
-        node.expression.escapedText!,
-      )
+      [
+        ...vueCompilerOptions.macros.defineModel,
+        ...vueCompilerOptions.macros.defineExpose,
+        ...vueCompilerOptions.macros.defineSlots,
+      ].includes(node.expression.escapedText!)
     )
   }
 }
 
-function getRootMap(options: TransformOptions): RootMap {
+function getRootMap(
+  options: TransformOptions,
+  vueCompilerOptions: VueCompilerOptions,
+): RootMap {
   const { ts, sfc, source, codes } = options
   const rootMap: RootMap = new Map()
 
@@ -102,14 +109,14 @@ function getRootMap(options: TransformOptions): RootMap {
       )
     }
 
-    const macro = root && getMacro(node, ts)
+    const macro = root && getMacro(node, ts, vueCompilerOptions)
     if (macro) {
       const { expression, isReactivityTransform, initializer } = macro
       if (!rootMap.has(root)) {
         rootMap.set(root, {})
       }
       const name = getText(expression.expression, options)
-      if (name === 'defineModel') {
+      if (vueCompilerOptions.macros.defineModel.includes(name)) {
         const modelName =
           expression.arguments[0] &&
           ts.isStringLiteralLike(expression.arguments[0])
@@ -154,7 +161,7 @@ function getRootMap(options: TransformOptions): RootMap {
           getStart(isReactivityTransform ? initializer : expression, options),
           `// @ts-ignore\n${id};\nlet ${id} =`,
         )
-      } else if (name === 'defineSlots') {
+      } else if (vueCompilerOptions.macros.defineSlots.includes(name)) {
         replaceSourceRange(
           codes,
           source,
@@ -165,7 +172,7 @@ function getRootMap(options: TransformOptions): RootMap {
         )
         rootMap.get(root)!.defineSlots =
           `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
-      } else if (name === 'defineExpose') {
+      } else if (vueCompilerOptions.macros.defineExpose.includes(name)) {
         replaceSourceRange(
           codes,
           source,
@@ -311,7 +318,7 @@ const plugin: VueMacrosPlugin<'jsxMacros'> = (ctx, options = {}) => {
           ts: ctx.modules.typescript,
           codes: embeddedFile.content,
         }
-        const rootMap = getRootMap(options)
+        const rootMap = getRootMap(options, ctx.vueCompilerOptions)
         if (rootMap.size) transformJsxMacros(rootMap, options)
       }
     },
