@@ -11,7 +11,6 @@ export function transformSetupFC(
   s: MagicStringAST,
 ): void {
   if (node.params[0]) {
-    restructure(s, node)
     const isBlockStatement = node.body.type === 'BlockStatement'
     const start = node.body.extra?.parenthesized
       ? (node.body.extra.parenStart as number)
@@ -27,7 +26,8 @@ export function transformSetupFC(
     if (!isBlockStatement) {
       s.appendRight(node.end!, '}')
     }
-
     s.removeNode(node.params[0])
+
+    restructure(s, node)
   }
 }

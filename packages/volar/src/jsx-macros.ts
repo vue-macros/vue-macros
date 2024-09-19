@@ -112,9 +112,7 @@ function getRootMap(
     const macro = root && getMacro(node, ts, vueCompilerOptions)
     if (macro) {
       const { expression, isReactivityTransform, initializer } = macro
-      if (!rootMap.has(root)) {
-        rootMap.set(root, {})
-      }
+      if (!rootMap.has(root)) rootMap.set(root, { defineModel: [] })
       const name = getText(expression.expression, options)
       if (vueCompilerOptions.macros.defineModel.includes(name)) {
         const modelName =
@@ -150,13 +148,6 @@ function getRootMap(
         replaceSourceRange(
           codes,
           source,
-          getStart(expression, options),
-          getStart(expression, options),
-          HELPER_PREFIX,
-        )
-        replaceSourceRange(
-          codes,
-          source,
           getStart(isReactivityTransform ? initializer : expression, options),
           getStart(isReactivityTransform ? initializer : expression, options),
           `// @ts-ignore\n${id};\nlet ${id} =`,
@@ -168,7 +159,6 @@ function getRootMap(
           getStart(expression, options),
           getStart(expression, options),
           `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
-          HELPER_PREFIX,
         )
         rootMap.get(root)!.defineSlots =
           `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
@@ -179,7 +169,6 @@ function getRootMap(
           getStart(expression, options),
           getStart(expression, options),
           `const ${HELPER_PREFIX}expose = ${getText(expression.arguments[0], options)};`,
-          HELPER_PREFIX,
         )
         rootMap.get(root)!.defineExpose =
           `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
@@ -203,8 +192,8 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     const asyncPrefix = root.modifiers?.find(
       (modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword,
     )
-      ? 'async'
-      : ''
+    if (asyncPrefix)
+      replaceSourceRange(codes, source, asyncPrefix.pos, asyncPrefix.end, '')
     const result = `({}) as __VLS_MaybeReturnType<Awaited<typeof ${HELPER_PREFIX}setup>['render']> & { __ctx: Awaited<typeof ${
       HELPER_PREFIX
     }setup> }`
@@ -219,7 +208,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
         root.parameters[0]?.type
           ? `${getText(root.parameters[0].type, options)} & `
           : '',
-        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncPrefix}(`,
+        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncPrefix ? 'async' : ''}(`,
       )
       replaceSourceRange(
         codes,
@@ -290,9 +279,9 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
   ) {
     codes.push(
       `
-declare function ${HELPER_PREFIX}defineSlots<T extends Record<string, any>>(slots?: T): T
-declare const ${HELPER_PREFIX}defineExpose: typeof import('vue').defineExpose;
-declare const ${HELPER_PREFIX}defineModel: typeof import('vue').defineModel;
+declare function defineSlots<T extends Record<string, any>>(slots?: T): T
+declare const defineExpose: typeof import('vue').defineExpose;
+declare const defineModel: typeof import('vue').defineModel;
 declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
 `,
     )
