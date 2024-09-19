@@ -1,6 +1,5 @@
 import { createFilter, HELPER_PREFIX } from '@vue-macros/common'
 import { toValidAssetId } from '@vue/compiler-dom'
-import { allCodeFeatures } from '@vue/language-core'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText, type VueMacrosPlugin } from './common'
 import type { TransformOptions } from './jsx-directive/index'
@@ -19,7 +18,13 @@ type RootMap = Map<
 function getMacro(
   node: import('typescript').Node | undefined,
   ts: typeof import('typescript'),
-): import('typescript').CallExpression | undefined {
+):
+  | {
+      expression: import('typescript').CallExpression
+      initializer: import('typescript').Node
+      isReactivityTransform?: boolean
+    }
+  | undefined {
   if (!node) return
 
   if (ts.isVariableStatement(node)) {
@@ -35,13 +40,22 @@ function getMacro(
       ts.isCallExpression(decl.initializer) &&
       ts.isIdentifier(decl.initializer.expression)
     ) {
-      const expression =
+      const isReactivityTransform =
         decl.initializer.expression.escapedText === '$'
-          ? decl.initializer.arguments[0]
-          : decl.initializer
-      if (isMacro(expression)) return expression
+      const expression = isReactivityTransform
+        ? decl.initializer.arguments[0]
+        : decl.initializer
+      if (isMacro(expression))
+        return {
+          expression,
+          isReactivityTransform,
+          initializer: decl.initializer,
+        }
     } else if (ts.isExpressionStatement(decl) && isMacro(decl.expression)) {
-      return decl.expression
+      return {
+        expression: decl.expression,
+        initializer: decl,
+      }
     }
   }
 
@@ -90,19 +104,22 @@ function getRootMap(options: TransformOptions): RootMap {
 
     const macro = root && getMacro(node, ts)
     if (macro) {
+      const { expression, isReactivityTransform, initializer } = macro
       if (!rootMap.has(root)) {
         rootMap.set(root, {})
       }
-      const name = getText(macro.expression, options)
+      const name = getText(expression.expression, options)
       if (name === 'defineModel') {
         const modelName =
-          macro.arguments[0] && ts.isStringLiteralLike(macro.arguments[0])
-            ? macro.arguments[0].text
+          expression.arguments[0] &&
+          ts.isStringLiteralLike(expression.arguments[0])
+            ? expression.arguments[0].text
             : 'modelValue'
         const modelOptions =
-          macro.arguments[0] && ts.isStringLiteralLike(macro.arguments[0])
-            ? macro.arguments[1]
-            : macro.arguments[0]
+          expression.arguments[0] &&
+          ts.isStringLiteralLike(expression.arguments[0])
+            ? expression.arguments[1]
+            : expression.arguments[0]
         let required = false
         if (modelOptions && ts.isObjectLiteralExpression(modelOptions)) {
           for (const prop of modelOptions.properties) {
@@ -126,24 +143,25 @@ function getRootMap(options: TransformOptions): RootMap {
         replaceSourceRange(
           codes,
           source,
-          getStart(macro, options),
-          getStart(macro, options),
+          getStart(expression, options),
+          getStart(expression, options),
+          HELPER_PREFIX,
+        )
+        replaceSourceRange(
+          codes,
+          source,
+          getStart(isReactivityTransform ? initializer : expression, options),
+          getStart(isReactivityTransform ? initializer : expression, options),
           `// @ts-ignore\n${id};\nlet ${id} =`,
-          [HELPER_PREFIX, source, getStart(macro, options), allCodeFeatures],
         )
       } else if (name === 'defineSlots') {
         replaceSourceRange(
           codes,
           source,
-          getStart(macro, options),
-          getStart(macro, options),
+          getStart(expression, options),
+          getStart(expression, options),
           `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
-          [
-            HELPER_PREFIX,
-            source,
-            getStart(macro.expression, options),
-            allCodeFeatures,
-          ],
+          HELPER_PREFIX,
         )
         rootMap.get(root)!.defineSlots =
           `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
@@ -151,10 +169,10 @@ function getRootMap(options: TransformOptions): RootMap {
         replaceSourceRange(
           codes,
           source,
-          getStart(macro, options),
-          getStart(macro, options),
-          `const ${HELPER_PREFIX}expose = ${getText(macro.arguments[0], options)};`,
-          [HELPER_PREFIX, source, getStart(macro, options), allCodeFeatures],
+          getStart(expression, options),
+          getStart(expression, options),
+          `const ${HELPER_PREFIX}expose = ${getText(expression.arguments[0], options)};`,
+          HELPER_PREFIX,
         )
         rootMap.get(root)!.defineExpose =
           `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
