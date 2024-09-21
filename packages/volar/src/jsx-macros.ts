@@ -13,6 +13,10 @@ type RootMap = Map<
     defineModel?: string[]
     defineSlots?: string
     defineExpose?: string
+    setupFC?: {
+      start: number
+      end: number
+    }
   }
 >
 
@@ -87,6 +91,12 @@ function getRootMap(
     node: import('typescript').Node,
     parents: import('typescript').Node[],
   ) {
+    ts.forEachChild(node, (child) => {
+      parents.unshift(node)
+      walk(child, parents)
+      parents.shift()
+    })
+
     const root =
       parents[1] &&
       (ts.isArrowFunction(parents[1]) ||
@@ -94,92 +104,100 @@ function getRootMap(
         ts.isFunctionDeclaration(parents[1]))
         ? parents[1]
         : undefined
+    if (!root) return
+
     if (
-      root &&
-      !ts.isFunctionDeclaration(root) &&
+      parents[2] &&
       ts.isVariableDeclaration(parents[2]) &&
       parents[2].type &&
       getText(parents[2].type, options) === 'SetupFC'
     ) {
+      if (!rootMap.has(root)) rootMap.set(root, {})
+      rootMap.get(root)!.setupFC = {
+        start: parents[2].name.end,
+        end: parents[2].type.end,
+      }
+    }
+    if (
+      parents[2] &&
+      ts.isCallExpression(parents[2]) &&
+      !parents[2].typeArguments &&
+      ['defineComponent', 'defineSetupComponent'].includes(
+        getText(parents[2].expression, options),
+      )
+    ) {
+      if (!rootMap.has(root)) rootMap.set(root, {})
+      rootMap.get(root)!.setupFC = {
+        start: getStart(parents[2].expression, options),
+        end: parents[2].expression.end,
+      }
+    }
+
+    const macro = getMacro(node, ts, vueCompilerOptions)
+    if (!macro) return
+
+    const { expression, isReactivityTransform, initializer } = macro
+    if (!rootMap.has(root)) rootMap.set(root, {})
+    const name = getText(expression.expression, options)
+    if (vueCompilerOptions.macros.defineModel.includes(name)) {
+      const modelName =
+        expression.arguments[0] &&
+        ts.isStringLiteralLike(expression.arguments[0])
+          ? expression.arguments[0].text
+          : 'modelValue'
+      const modelOptions =
+        expression.arguments[0] &&
+        ts.isStringLiteralLike(expression.arguments[0])
+          ? expression.arguments[1]
+          : expression.arguments[0]
+      let required = false
+      if (modelOptions && ts.isObjectLiteralExpression(modelOptions)) {
+        for (const prop of modelOptions.properties) {
+          if (
+            ts.isPropertyAssignment(prop) &&
+            getText(prop.name, options) === 'required'
+          ) {
+            required = prop.initializer.kind === ts.SyntaxKind.TrueKeyword
+          }
+        }
+      }
+      const id = toValidAssetId(modelName, `${HELPER_PREFIX}model` as any)
+      const typeString = `import("vue").UnwrapRef<typeof ${id}>`
+      const requiredString = required ? ':' : '?:'
+      ;(rootMap.get(root)!.defineModel ??= [])!.push(
+        `${modelName}${requiredString} ${typeString}`,
+        `'onUpdate:${modelName}'${requiredString} ($event: ${typeString}) => any`,
+      )
       replaceSourceRange(
         codes,
         source,
-        parents[2].name.end,
-        parents[2].type.end,
+        getStart(isReactivityTransform ? initializer : expression, options),
+        getStart(isReactivityTransform ? initializer : expression, options),
+        `// @ts-ignore\n${id};\nlet ${id} =`,
       )
+    } else if (vueCompilerOptions.macros.defineSlots.includes(name)) {
+      replaceSourceRange(
+        codes,
+        source,
+        getStart(expression, options),
+        getStart(expression, options),
+        `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
+      )
+      rootMap.get(root)!.defineSlots =
+        `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
+    } else if (vueCompilerOptions.macros.defineExpose.includes(name)) {
+      replaceSourceRange(
+        codes,
+        source,
+        getStart(expression, options),
+        getStart(expression, options),
+        `const ${HELPER_PREFIX}expose = ${getText(expression.arguments[0], options)};`,
+      )
+      rootMap.get(root)!.defineExpose =
+        `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
     }
-
-    const macro = root && getMacro(node, ts, vueCompilerOptions)
-    if (macro) {
-      const { expression, isReactivityTransform, initializer } = macro
-      if (!rootMap.has(root)) rootMap.set(root, { defineModel: [] })
-      const name = getText(expression.expression, options)
-      if (vueCompilerOptions.macros.defineModel.includes(name)) {
-        const modelName =
-          expression.arguments[0] &&
-          ts.isStringLiteralLike(expression.arguments[0])
-            ? expression.arguments[0].text
-            : 'modelValue'
-        const modelOptions =
-          expression.arguments[0] &&
-          ts.isStringLiteralLike(expression.arguments[0])
-            ? expression.arguments[1]
-            : expression.arguments[0]
-        let required = false
-        if (modelOptions && ts.isObjectLiteralExpression(modelOptions)) {
-          for (const prop of modelOptions.properties) {
-            if (
-              ts.isPropertyAssignment(prop) &&
-              getText(prop.name, options) === 'required'
-            ) {
-              required = prop.initializer.kind === ts.SyntaxKind.TrueKeyword
-            }
-          }
-        }
-        const id = toValidAssetId(modelName, `${HELPER_PREFIX}model` as any)
-        const typeString = `import("vue").UnwrapRef<typeof ${id}>`
-        const requiredString = required ? ':' : '?:'
-        rootMap
-          .get(root)!
-          .defineModel?.push(
-            `${modelName}${requiredString} ${typeString}`,
-            `'onUpdate:${modelName}'${requiredString} ($event: ${typeString}) => any`,
-          )
-        replaceSourceRange(
-          codes,
-          source,
-          getStart(isReactivityTransform ? initializer : expression, options),
-          getStart(isReactivityTransform ? initializer : expression, options),
-          `// @ts-ignore\n${id};\nlet ${id} =`,
-        )
-      } else if (vueCompilerOptions.macros.defineSlots.includes(name)) {
-        replaceSourceRange(
-          codes,
-          source,
-          getStart(expression, options),
-          getStart(expression, options),
-          `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
-        )
-        rootMap.get(root)!.defineSlots =
-          `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
-      } else if (vueCompilerOptions.macros.defineExpose.includes(name)) {
-        replaceSourceRange(
-          codes,
-          source,
-          getStart(expression, options),
-          getStart(expression, options),
-          `const ${HELPER_PREFIX}expose = ${getText(expression.arguments[0], options)};`,
-        )
-        rootMap.get(root)!.defineExpose =
-          `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
-      }
-    }
-    ts.forEachChild(node, (child) => {
-      parents.unshift(node)
-      walk(child, parents)
-      parents.shift()
-    })
   }
+
   ts.forEachChild(sfc[source]!.ast, (node) => walk(node, []))
   return rootMap
 }
@@ -187,13 +205,13 @@ function getRootMap(
 function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
   const { ts, source, codes } = options
 
-  for (const [root, props] of rootMap) {
+  for (const [root, map] of rootMap) {
     if (!root.body) continue
-    const asyncPrefix = root.modifiers?.find(
+    const asyncModifier = root.modifiers?.find(
       (modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword,
     )
-    if (asyncPrefix)
-      replaceSourceRange(codes, source, asyncPrefix.pos, asyncPrefix.end, '')
+    if (asyncModifier)
+      replaceSourceRange(codes, source, asyncModifier.pos, asyncModifier.end)
     const result = `({}) as __VLS_MaybeReturnType<Awaited<typeof ${HELPER_PREFIX}setup>['render']> & { __ctx: Awaited<typeof ${
       HELPER_PREFIX
     }setup> }`
@@ -208,7 +226,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
         root.parameters[0]?.type
           ? `${getText(root.parameters[0].type, options)} & `
           : '',
-        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncPrefix ? 'async' : ''}(`,
+        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`,
       )
       replaceSourceRange(
         codes,
@@ -228,7 +246,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
         root.parameters[0]?.type
           ? `${getText(root.parameters[0].type, options)} & `
           : '',
-        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncPrefix}(`,
+        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`,
       )
       replaceSourceRange(
         codes,
@@ -247,6 +265,13 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
       )
     }
 
+    if (
+      map.setupFC &&
+      (root.parameters.length || Object.keys(map).length > 1)
+    ) {
+      replaceSourceRange(codes, source, map.setupFC.start, map.setupFC.end)
+    }
+
     ts.forEachChild(root.body, (node) => {
       if (ts.isReturnStatement(node) && node.expression) {
         replaceSourceRange(
@@ -255,11 +280,9 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
           getStart(node, options),
           getStart(node.expression, options),
           `return {\nprops: {} as `,
-          props.defineModel?.length
-            ? `{ ${props.defineModel?.join(', ')} }`
-            : '{}',
-          props.defineSlots ? ` & ${props.defineSlots}` : '',
-          props.defineExpose ? `,\nexpose: ${props.defineExpose}` : '',
+          map.defineModel?.length ? `{ ${map.defineModel?.join(', ')} }` : '{}',
+          map.defineSlots ? ` & ${map.defineSlots}` : '',
+          map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
           `,\nrender: `,
         )
         replaceSourceRange(

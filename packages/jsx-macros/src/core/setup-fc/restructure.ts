@@ -77,7 +77,7 @@ export function restructure(s: MagicString, node: FunctionalNode): void {
   let index = 0
   const propMap: PropMap = new Map()
   for (const param of node.params) {
-    const path = `${HELPER_PREFIX}props${index++}`
+    const path = `${HELPER_PREFIX}props${index ? index++ : ''}`
     if (collectProps(param, path, s, propMap)) {
       s.overwrite(param.start!, param.end!, path)
     }

@@ -2,13 +2,13 @@
 
 exports[`fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
-import { useExpose as __MACROS_useExpose } from "/vue-macros/jsx-macros/use-expose";
-import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export default function (__MACROS_props) {
-  __MACROS_useExpose(__MACROS_getCurrentInstance(), {
+import { forwardRef as __MACROS_forwardRef } from "vue";
+import { useImperativeHandle as __MACROS_useImperativeHandle } from "vue";export default __MACROS_forwardRef(function (__MACROS_props, __MACROS_ref) {
+  __MACROS_useImperativeHandle(__MACROS_ref, () =>({
     foo: 1,
-  })
+  }), [])
   return <div />
-}
+})
 "
 `;
 
@@ -40,6 +40,31 @@ export default function (__MACROS_props) {
     default: () => <div>default</div>,
   },__MACROS_getCurrentInstance()?.slots)
   return <div>{slots.default()}</div>
+}
+"
+`;
+
+exports[`fixtures > ./fixtures/setup-fc.tsx 1`] = `
+"
+import { useAttrs as __MACROS_useAttrs } from "vue";
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";const Comp = defineComponent(() => {
+const __MACROS_props = __MACROS_useAttrs();
+  const foo = __MACROS_useModel(__MACROS_props, 'foo')
+  return () => {
+    return <div>{[foo.value, __MACROS_props.bar]}</div>
+  }
+})
+
+const SetupComp = defineSetupComponent(() => {
+const __MACROS_props = __MACROS_useAttrs();
+  return () => {
+    return <div>{__MACROS_props.foo}</div>
+  }
+})
+
+const SetupCompType: SetupFC = () => {
+const __MACROS_props = __MACROS_useAttrs();
+  return <div>{__MACROS_props.foo}</div>
 }
 "
 `;
@@ -83,6 +108,31 @@ export default function (__MACROS_props) {
     default: () => <div>default</div>,
   },__MACROS_props.vSlots)
   return <div>{slots.default()}</div>
+}
+"
+`;
+
+exports[`react fixtures > ./fixtures/setup-fc.tsx 1`] = `
+"
+import { useAttrs as __MACROS_useAttrs } from "vue";
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";const Comp = defineComponent(() => {
+const __MACROS_props = __MACROS_useAttrs();
+  const foo = __MACROS_useModel(__MACROS_props, 'foo')
+  return () => {
+    return <div>{[foo.value, __MACROS_props.bar]}</div>
+  }
+})
+
+const SetupComp = defineSetupComponent(() => {
+const __MACROS_props = __MACROS_useAttrs();
+  return () => {
+    return <div>{__MACROS_props.foo}</div>
+  }
+})
+
+const SetupCompType: SetupFC = () => {
+const __MACROS_props = __MACROS_useAttrs();
+  return <div>{__MACROS_props.foo}</div>
 }
 "
 `;

@@ -70,17 +70,20 @@ function getRootMap(s: MagicStringAST, id: string) {
           : undefined
       if (!root) return
 
-      let isSetupFC = false
       if (
-        root.type !== 'FunctionDeclaration' &&
-        parents[2]?.type === 'VariableDeclarator' &&
-        parents[2].id.type === 'Identifier' &&
-        parents[2].id.typeAnnotation?.type === 'TSTypeAnnotation' &&
-        s.sliceNode(parents[2].id.typeAnnotation.typeAnnotation) === 'SetupFC'
+        (root.type !== 'FunctionDeclaration' &&
+          parents[2]?.type === 'VariableDeclarator' &&
+          parents[2].id.type === 'Identifier' &&
+          parents[2].id.typeAnnotation?.type === 'TSTypeAnnotation' &&
+          s.sliceNode(parents[2].id.typeAnnotation.typeAnnotation) ===
+            'SetupFC') ||
+        (parents[2]?.type === 'CallExpression' &&
+          ['defineComponent', 'defineSetupComponent'].includes(
+            s.sliceNode(parents[2].callee),
+          ))
       ) {
-        isSetupFC = true
         if (!rootMap.has(root)) rootMap.set(root, {})
-        rootMap.get(root)!.isSetupFC = isSetupFC
+        rootMap.get(root)!.isSetupFC = true
       }
 
       if (!isMacro(expression)) return
@@ -124,7 +127,9 @@ export function transformJsxMacros(
 
   for (const [root, map] of rootMap) {
     let propsName = `${HELPER_PREFIX}props`
-    if (root.params[0]) {
+    if (map.isSetupFC) {
+      transformSetupFC(root, s)
+    } else if (root.params[0]) {
       if (root.params[0].type === 'Identifier') {
         propsName = root.params[0].name
       } else if (root.params[0].type === 'ObjectPattern') {
@@ -144,10 +149,10 @@ export function transformJsxMacros(
         }
       }
     } else {
-      s.appendRight(getParamsStart(root, s.original), `${HELPER_PREFIX}props`)
+      s.appendRight(getParamsStart(root, s.original), propsName)
     }
 
-    if (map.defineModel?.length && !map.isSetupFC) {
+    if (map.defineModel?.length) {
       map.defineModel.forEach((node) => {
         transformDefineModel(node, propsName, s)
       })
@@ -155,16 +160,8 @@ export function transformJsxMacros(
     if (map.defineSlots) {
       transformDefineSlots(map.defineSlots, propsName, s, options.lib)
     }
-    if (map.defineExpose && !map.isSetupFC) {
-      if (options.lib.includes('vue')) {
-        transformVueDefineExpose(map.defineExpose, s, options.lib)
-      } else if (options.lib.includes('react')) {
-        transformReactDefineExpose(map.defineExpose, root, s, options.lib)
-      }
-    }
-
-    if (map.isSetupFC) {
-      transformSetupFC(root, s)
+    if (map.defineExpose) {
+      transformReactDefineExpose(map.defineExpose, root, s, options.lib)
     }
   }
 

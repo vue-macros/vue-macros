@@ -1,29 +1,29 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`transform > reconstruct 1`] = `
-"const App = (__MACROS_props0, __MACROS_props1) => {
-        function onClick(__MACROS_props0){
-          return { foo: __MACROS_props0.foo, baz: __MACROS_props1.baz.baz }
+"const App = (__MACROS_props, __MACROS_props) => {
+        function onClick(__MACROS_props){
+          return { foo: __MACROS_props.foo, baz: __MACROS_props.baz.baz }
         };
-        return [ __MACROS_props0[0][0][1], __MACROS_props0[1].id.foo[0], __MACROS_props1.baz ]
+        return [ __MACROS_props[0][0][1], __MACROS_props[1].id.foo[0], __MACROS_props.baz ]
       }"
 `;
 
 exports[`transform > reconstruct arrowFunctionExpression 1`] = `
-"const App = (__MACROS_props0) => (
-        <>{[__MACROS_props0[0].root.foo]}</>
+"const App = (__MACROS_props) => (
+        <>{[__MACROS_props[0].root.foo]}</>
       )"
 `;
 
 exports[`transform > reconstruct default-prop 1`] = `
-"function App(__MACROS_props0, __MACROS_props1){Object.defineProperty(__MACROS_props0, 'foo', { enumerable: true, get: () => __MACROS_props0['foo'] ?? [] });Object.defineProperty(__MACROS_props1, 'bar', { enumerable: true, get: () => __MACROS_props1['bar'] ?? 1 });
-        return <>{[__MACROS_props0.foo, __MACROS_props1.bar, __MACROS_props1[1]]}</>
+"function App(__MACROS_props, __MACROS_props){Object.defineProperty(__MACROS_props, 'foo', { enumerable: true, get: () => __MACROS_props['foo'] ?? [] });Object.defineProperty(__MACROS_props, 'bar', { enumerable: true, get: () => __MACROS_props['bar'] ?? 1 });
+        return <>{[__MACROS_props.foo, __MACROS_props.bar, __MACROS_props[1]]}</>
       }"
 `;
 
 exports[`transform > reconstruct rest-prop 1`] = `
 "
-import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";function App(__MACROS_props0){Object.defineProperty(__MACROS_props0, 'bar', { enumerable: true, get: () => __MACROS_props0['bar'] ?? 1 });const rest = __MACROS_createPropsRestProxy(__MACROS_props0, ['foo', 'bar']);
-        return <>{[__MACROS_props0.foo, __MACROS_props0.bar, rest]}</>
+import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";function App(__MACROS_props){Object.defineProperty(__MACROS_props, 'bar', { enumerable: true, get: () => __MACROS_props['bar'] ?? 1 });const rest = __MACROS_createPropsRestProxy(__MACROS_props, ['foo', 'bar']);
+        return <>{[__MACROS_props.foo, __MACROS_props.bar, rest]}</>
       }"
 `;
