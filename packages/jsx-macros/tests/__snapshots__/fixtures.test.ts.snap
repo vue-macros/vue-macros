@@ -46,25 +46,22 @@ export default function (__MACROS_props) {
 
 exports[`fixtures > ./fixtures/setup-fc.tsx 1`] = `
 "
+import { defineComponent as __MACROS_defineComponent } from "vue";
 import { useAttrs as __MACROS_useAttrs } from "vue";
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";const Comp = defineComponent(() => {
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";const Comp = __MACROS_defineComponent(() => {
 const __MACROS_props = __MACROS_useAttrs();
   const foo = __MACROS_useModel(__MACROS_props, 'foo')
-  return () => {
-    return <div>{[foo.value, __MACROS_props.bar]}</div>
-  }
+  return () => <div>{[foo.value, __MACROS_props.bar]}</div>
 })
 
 const SetupComp = defineSetupComponent(() => {
 const __MACROS_props = __MACROS_useAttrs();
-  return () => {
-    return <div>{__MACROS_props.foo}</div>
-  }
+  return () => <div>{__MACROS_props.foo}</div>
 })
 
 const SetupCompType: SetupFC = () => {
 const __MACROS_props = __MACROS_useAttrs();
-  return <div>{__MACROS_props.foo}</div>
+  return () => <div>{__MACROS_props.foo}</div>
 }
 "
 `;
@@ -114,20 +111,17 @@ export default function (__MACROS_props) {
 
 exports[`react fixtures > ./fixtures/setup-fc.tsx 1`] = `
 "
+import { defineComponent as __MACROS_defineComponent } from "vue";
 import { useAttrs as __MACROS_useAttrs } from "vue";
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";const Comp = defineComponent(() => {
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";const Comp = __MACROS_defineComponent(() => {
 const __MACROS_props = __MACROS_useAttrs();
   const foo = __MACROS_useModel(__MACROS_props, 'foo')
-  return () => {
-    return <div>{[foo.value, __MACROS_props.bar]}</div>
-  }
+  return <div>{[foo.value, __MACROS_props.bar]}</div>
 })
 
 const SetupComp = defineSetupComponent(() => {
 const __MACROS_props = __MACROS_useAttrs();
-  return () => {
-    return <div>{__MACROS_props.foo}</div>
-  }
+  return <div>{__MACROS_props.foo}</div>
 })
 
 const SetupCompType: SetupFC = () => {

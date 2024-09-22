@@ -3,6 +3,7 @@ import {
   generateTransform,
   getLang,
   HELPER_PREFIX,
+  importHelperFn,
   isCallOf,
   MagicStringAST,
   walkAST,
@@ -60,19 +61,30 @@ function getRootMap(s: MagicStringAST, id: string) {
       if (!root) return
 
       if (
-        (root.type !== 'FunctionDeclaration' &&
-          parents[2]?.type === 'VariableDeclarator' &&
-          parents[2].id.type === 'Identifier' &&
-          parents[2].id.typeAnnotation?.type === 'TSTypeAnnotation' &&
-          s.sliceNode(parents[2].id.typeAnnotation.typeAnnotation) ===
-            'SetupFC') ||
-        (parents[2]?.type === 'CallExpression' &&
-          ['defineComponent', 'defineSetupComponent'].includes(
-            s.sliceNode(parents[2].callee),
-          ))
+        root.type !== 'FunctionDeclaration' &&
+        parents[2]?.type === 'VariableDeclarator' &&
+        parents[2].id.type === 'Identifier' &&
+        parents[2].id.typeAnnotation?.type === 'TSTypeAnnotation' &&
+        s.sliceNode(parents[2].id.typeAnnotation.typeAnnotation) === 'SetupFC'
       ) {
         if (!rootMap.has(root)) rootMap.set(root, {})
         rootMap.get(root)!.isSetupFC = true
+      }
+      if (
+        parents[2]?.type === 'CallExpression' &&
+        ['defineComponent', 'defineSetupComponent'].includes(
+          s.sliceNode(parents[2].callee),
+        )
+      ) {
+        if (!rootMap.has(root)) rootMap.set(root, {})
+        if (rootMap.get(root)!.isSetupFC) return
+        rootMap.get(root)!.isSetupFC = true
+        if (s.sliceNode(parents[2].callee) === 'defineComponent') {
+          s.overwriteNode(
+            parents[2].callee,
+            importHelperFn(s, 0, 'defineComponent', 'vue'),
+          )
+        }
       }
 
       const expression =
@@ -123,7 +135,7 @@ export function transformJsxMacros(
   for (const [root, map] of rootMap) {
     let propsName = `${HELPER_PREFIX}props`
     if (map.isSetupFC) {
-      transformSetupFC(root, s)
+      transformSetupFC(root, s, options.lib)
     } else if (root.params[0]) {
       if (root.params[0].type === 'Identifier') {
         propsName = root.params[0].name

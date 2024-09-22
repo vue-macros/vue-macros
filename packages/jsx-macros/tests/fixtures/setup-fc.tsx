@@ -1,14 +1,10 @@
 const Comp = defineComponent(({ bar }: { bar: string }) => {
   const foo = defineModel('foo')
-  return () => {
-    return <div>{[foo.value, bar]}</div>
-  }
+  return <div>{[foo.value, bar]}</div>
 })
 
 const SetupComp = defineSetupComponent(({ foo }: { foo: string }) => {
-  return () => {
-    return <div>{foo}</div>
-  }
+  return <div>{foo}</div>
 })
 
 const SetupCompType: SetupFC = ({ foo }: { foo: string }) => {

@@ -6,6 +6,7 @@ import {
 import { walkIdentifiers } from '@vue/compiler-core'
 import { withDefaultsHelperId } from '../helper'
 import type { FunctionalNode } from '..'
+import { prependFunctionalNode } from '.'
 import type { Node } from '@babel/types'
 
 type Prop = {
@@ -92,25 +93,6 @@ function getProps(
   return props.length ? props : undefined
 }
 
-export function prependFunctionalNode(
-  node: FunctionalNode,
-  s: MagicString,
-  result: string,
-): void {
-  const isBlockStatement = node.body.type === 'BlockStatement'
-  const start = node.body.extra?.parenthesized
-    ? (node.body.extra.parenStart as number)
-    : node.body.start!
-  s.prependRight(
-    start + (isBlockStatement ? 1 : 0),
-    `${result};${!isBlockStatement ? 'return ' : ''}`,
-  )
-  if (!isBlockStatement) {
-    s.prependLeft(start, '{')
-    s.prependRight(node.end! + 1, '}')
-  }
-}
-
 export function restructure(
   s: MagicString,
   node: FunctionalNode,
@@ -137,23 +119,14 @@ export function restructure(
 
   if (propList.length) {
     const defaultValues: Record<string, Prop[]> = {}
+    const rests = []
     for (const prop of propList) {
       if (prop.defaultValue) {
         const basePath = prop.path.split(/\.|\[/)[0]
         ;(defaultValues[basePath] ??= []).push(prop)
       }
       if (prop.isRest) {
-        const createPropsRestProxy = importHelperFn(
-          s,
-          0,
-          'createPropsRestProxy',
-          'vue',
-        )
-        prependFunctionalNode(
-          node,
-          s,
-          `\nconst ${prop.name} = ${createPropsRestProxy}(${prop.path}, [${prop.value}])`,
-        )
+        rests.push(prop)
       }
     }
     for (const [path, values] of Object.entries(defaultValues)) {
@@ -176,6 +149,20 @@ export function restructure(
         node,
         s,
         `\nconst ${path} = ${createDefaultPropsProxy}(${resolvedPath}, {${resolvedValues}})`,
+      )
+    }
+
+    for (const prop of rests) {
+      const createPropsRestProxy = importHelperFn(
+        s,
+        0,
+        'createPropsRestProxy',
+        'vue',
+      )
+      prependFunctionalNode(
+        node,
+        s,
+        `\nconst ${prop.name} = ${createPropsRestProxy}(${prop.path}, [${prop.value}])`,
       )
     }
 

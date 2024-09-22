@@ -265,11 +265,37 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
       )
     }
 
-    if (
-      map.setupFC &&
-      (root.parameters.length || Object.keys(map).length > 1)
-    ) {
+    if (map.setupFC) {
       replaceSourceRange(codes, source, map.setupFC.start, map.setupFC.end)
+
+      if (ts.isStatement(root.body)) {
+        ts.forEachChild(root.body, (node) => {
+          if (
+            ts.isReturnStatement(node) &&
+            node.expression &&
+            !(
+              ts.isArrowFunction(node.expression) ||
+              ts.isFunctionExpression(node.expression)
+            )
+          ) {
+            replaceSourceRange(
+              codes,
+              source,
+              getStart(node.expression, options),
+              getStart(node.expression, options),
+              `() =>`,
+            )
+          }
+        })
+      } else {
+        replaceSourceRange(
+          codes,
+          source,
+          getStart(root.body, options),
+          getStart(root.body, options),
+          `() =>`,
+        )
+      }
     }
 
     ts.forEachChild(root.body, (node) => {
@@ -302,9 +328,8 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
   ) {
     codes.push(
       `
-declare function defineSlots<T extends Record<string, any>>(slots?: T): T
-declare const defineExpose: typeof import('vue').defineExpose;
-declare const defineModel: typeof import('vue').defineModel;
+import { defineComponent, defineModel, defineExpose } from 'vue';
+declare function defineSlots<T extends Record<string, any>>(slots?: T): T;
 declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
 `,
     )
