@@ -1,7 +1,7 @@
 import { babelParse, walkAST } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
 import { MagicString } from 'vue/compiler-sfc'
-import { restructure } from '../src/core'
+import { restructure } from '../src/api'
 import type { Node } from '@babel/types'
 
 export function transformRestructure(code: string) {
@@ -45,8 +45,8 @@ describe('transform', () => {
 
   test('reconstruct default-prop', () => {
     const code = transformRestructure(
-      `function App({foo = []}, [bar = 1, baz]){
-        return <>{[foo, bar, baz]}</>
+      `function App({foo: bar = 'bar', baz: qux, ...rest}, [foo = 'foo']){
+        return <>{[bar, qux, rest, foo]}</>
       }`,
     )!
     expect(code).toMatchSnapshot()

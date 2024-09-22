@@ -2,13 +2,13 @@
 
 exports[`fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
-import { forwardRef as __MACROS_forwardRef } from "vue";
-import { useImperativeHandle as __MACROS_useImperativeHandle } from "vue";export default __MACROS_forwardRef(function (__MACROS_props, __MACROS_ref) {
-  __MACROS_useImperativeHandle(__MACROS_ref, () =>({
+import { useExpose as __MACROS_useExpose } from "/vue-macros/jsx-macros/use-expose";
+import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export default function (__MACROS_props) {
+  __MACROS_useExpose(__MACROS_getCurrentInstance(), {
     foo: 1,
-  }), [])
+  })
   return <div />
-})
+}
 "
 `;
 

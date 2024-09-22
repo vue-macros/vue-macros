@@ -7,3 +7,6 @@ export { default as useExposeHelperCode } from './use-expose?raw'
 
 export const useModelHelperId: '/vue-macros/jsx-macros/use-model' = `${helperPrefix}/use-model`
 export { default as useModelHelperCode } from './use-model?raw'
+
+export const withDefaultsHelperId: '/vue-macros/jsx-macros/with-defaults' = `${helperPrefix}/with-defaults`
+export { default as withDefaultsCode } from './with-defaults?raw'

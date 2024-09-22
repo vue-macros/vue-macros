@@ -9,10 +9,7 @@ import {
   type CodeTransform,
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
-import {
-  transformReactDefineExpose,
-  transformVueDefineExpose,
-} from './define-expose'
+import { transformDefineExpose } from './define-expose'
 import { transformDefineModel } from './define-model'
 import { transformDefineSlots } from './define-slots'
 import { transformSetupFC } from './setup-fc'
@@ -23,8 +20,6 @@ import type {
   FunctionExpression,
   Node,
 } from '@babel/types'
-
-export { restructure } from './setup-fc/restructure'
 
 export type FunctionalNode =
   | FunctionDeclaration
@@ -55,12 +50,6 @@ function getRootMap(s: MagicStringAST, id: string) {
   walkAST<Node>(babelParse(s.original, getLang(id)), {
     enter(node, parent) {
       parents.unshift(parent)
-      const expression =
-        node.type === 'VariableDeclaration'
-          ? node.declarations[0].init
-          : node.type === 'ExpressionStatement'
-            ? node.expression
-            : undefined
       const root =
         parents[1] &&
         (parents[1].type === 'ArrowFunctionExpression' ||
@@ -86,6 +75,12 @@ function getRootMap(s: MagicStringAST, id: string) {
         rootMap.get(root)!.isSetupFC = true
       }
 
+      const expression =
+        node.type === 'VariableDeclaration'
+          ? node.declarations[0].init
+          : node.type === 'ExpressionStatement'
+            ? node.expression
+            : undefined
       if (!isMacro(expression)) return
       if (!rootMap.has(root)) rootMap.set(root, {})
       const macro =
@@ -161,7 +156,7 @@ export function transformJsxMacros(
       transformDefineSlots(map.defineSlots, propsName, s, options.lib)
     }
     if (map.defineExpose) {
-      transformReactDefineExpose(map.defineExpose, root, s, options.lib)
+      transformDefineExpose(map.defineExpose, root, s, options.lib)
     }
   }
 

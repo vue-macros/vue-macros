@@ -4,19 +4,23 @@ import {
   type MagicString,
 } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
+import { withDefaultsHelperId } from '../helper'
 import type { FunctionalNode } from '..'
 import type { Node } from '@babel/types'
 
-type PropMap = Map<
-  string,
-  { path: string; value: string; defaultValue?: string; isRest?: boolean }
->
+type Prop = {
+  path: string
+  name: string
+  value: string
+  defaultValue?: string
+  isRest?: boolean
+}
 
-function collectProps(
+function getProps(
   node: Node,
   path: string = '',
   s: MagicString,
-  propMap: PropMap,
+  props: Prop[] = [],
 ) {
   const properties =
     node.type === 'ObjectPattern'
@@ -29,14 +33,17 @@ function collectProps(
   const propNames: string[] = []
   properties.forEach((prop, index) => {
     if (prop?.type === 'Identifier') {
-      propMap.set(prop.name, { path, value: `[${index}]` })
+      // { foo }
+      props.push({ name: prop.name, path, value: `[${index}]` })
       propNames.push(`'${prop.name}'`)
     } else if (
       prop?.type === 'AssignmentPattern' &&
       prop.left.type === 'Identifier'
     ) {
-      propMap.set(prop.left.name, {
+      // [foo = 'foo']
+      props.push({
         path,
+        name: prop.left.name,
         value: `.${prop.left.name}`,
         defaultValue: s.slice(prop.right.start!, prop.right.end!),
       })
@@ -45,71 +52,137 @@ function collectProps(
       prop?.type === 'ObjectProperty' &&
       prop.key.type === 'Identifier'
     ) {
-      if (prop.value.type === 'AssignmentPattern') {
-        propMap.set(prop.key.name, {
+      if (
+        prop.value.type === 'AssignmentPattern' &&
+        prop.value.left.type === 'Identifier'
+      ) {
+        // { foo: bar = 'foo' }
+        props.push({
           path,
+          name: prop.value.left.name,
           value: `.${prop.key.name}`,
           defaultValue: s.slice(prop.value.right.start!, prop.value.right.end!),
         })
-      } else if (
-        !collectProps(prop.value, `${path}.${prop.key.name}`, s, propMap)
-      ) {
-        propMap.set(prop.key.name, { path, value: `.${prop.key.name}` })
+      } else if (!getProps(prop.value, `${path}.${prop.key.name}`, s, props)) {
+        // { foo: bar }
+        props.push({
+          path,
+          name:
+            prop.value.type === 'Identifier' ? prop.value.name : prop.key.name,
+          value: `.${prop.key.name}`,
+        })
       }
       propNames.push(`'${prop.key.name}'`)
     } else if (
       prop?.type === 'RestElement' &&
-      prop?.argument.type === 'Identifier'
+      prop.argument.type === 'Identifier' &&
+      !prop.argument.name.startsWith(`${HELPER_PREFIX}props`)
     ) {
-      propMap.set(prop.argument.name, {
+      // { ...rest }
+      props.push({
         path,
+        name: prop.argument.name,
         value: propNames.join(', '),
         isRest: true,
       })
     } else if (prop) {
-      collectProps(prop, `${path}[${index}]`, s, propMap)
+      getProps(prop, `${path}[${index}]`, s, props)
     }
   })
-  return true
+  return props.length ? props : undefined
 }
 
-export function restructure(s: MagicString, node: FunctionalNode): void {
+export function prependFunctionalNode(
+  node: FunctionalNode,
+  s: MagicString,
+  result: string,
+): void {
+  const isBlockStatement = node.body.type === 'BlockStatement'
+  const start = node.body.extra?.parenthesized
+    ? (node.body.extra.parenStart as number)
+    : node.body.start!
+  s.prependRight(
+    start + (isBlockStatement ? 1 : 0),
+    `${result};${!isBlockStatement ? 'return ' : ''}`,
+  )
+  if (!isBlockStatement) {
+    s.prependLeft(start, '{')
+    s.prependRight(node.end! + 1, '}')
+  }
+}
+
+export function restructure(
+  s: MagicString,
+  node: FunctionalNode,
+  withDefaultsFrom: string = withDefaultsHelperId,
+): void {
   let index = 0
-  const propMap: PropMap = new Map()
+  const propList: Prop[] = []
   for (const param of node.params) {
-    const path = `${HELPER_PREFIX}props${index ? index++ : ''}`
-    if (collectProps(param, path, s, propMap)) {
+    const path = `${HELPER_PREFIX}props${index++ || ''}`
+    const props = getProps(param, path, s)
+    if (props) {
+      const hasDefaultValue = props.some((i) => i.defaultValue)
       s.overwrite(param.start!, param.end!, path)
+      propList.push(
+        ...(hasDefaultValue
+          ? props.map((i) => ({
+              ...i,
+              path: i.path.replace(HELPER_PREFIX, `${HELPER_PREFIX}defaults_`),
+            }))
+          : props),
+      )
     }
   }
 
-  if (propMap.size) {
-    for (const [key, { path, value, defaultValue, isRest }] of propMap) {
-      if (!(defaultValue || isRest)) continue
-
-      const result = defaultValue
-        ? `Object.defineProperty(${path}, '${key}', { enumerable: true, get: () => ${path}['${key}'] ?? ${defaultValue} })`
-        : `const ${key} = ${importHelperFn(s, 0, 'createPropsRestProxy', 'vue')}(${path}, [${value}])`
-      const isBlockStatement = node.body.type === 'BlockStatement'
-      const start = node.body.extra?.parenthesized
-        ? (node.body.extra.parenStart as number)
-        : node.body.start!
-      if (!isBlockStatement) {
-        s.appendLeft(start, '{')
+  if (propList.length) {
+    const defaultValues: Record<string, Prop[]> = {}
+    for (const prop of propList) {
+      if (prop.defaultValue) {
+        const basePath = prop.path.split(/\.|\[/)[0]
+        ;(defaultValues[basePath] ??= []).push(prop)
       }
-      s.appendRight(
-        start + (isBlockStatement ? 1 : 0),
-        `${result};${!isBlockStatement ? 'return ' : ''}`,
+      if (prop.isRest) {
+        const createPropsRestProxy = importHelperFn(
+          s,
+          0,
+          'createPropsRestProxy',
+          'vue',
+        )
+        prependFunctionalNode(
+          node,
+          s,
+          `\nconst ${prop.name} = ${createPropsRestProxy}(${prop.path}, [${prop.value}])`,
+        )
+      }
+    }
+    for (const [path, values] of Object.entries(defaultValues)) {
+      const createDefaultPropsProxy = importHelperFn(
+        s,
+        0,
+        'createDefaultPropsProxy',
+        withDefaultsFrom,
       )
-      if (!isBlockStatement) {
-        s.appendRight(node.end! + 1, '}')
-      }
+      const resolvedPath = path.replace(
+        `${HELPER_PREFIX}defaults_`,
+        HELPER_PREFIX,
+      )
+      const resolvedValues = values
+        .map(
+          (i) => `'${i.path.replace(path, '')}${i.value}': ${i.defaultValue}`,
+        )
+        .join(', ')
+      prependFunctionalNode(
+        node,
+        s,
+        `\nconst ${path} = ${createDefaultPropsProxy}(${resolvedPath}, {${resolvedValues}})`,
+      )
     }
 
     walkIdentifiers(
       node.body,
       (id, parent, __, ___, isLocal) => {
-        const prop = propMap.get(id.name)
+        const prop = propList.find((i) => i.name === id.name)
         if (!isLocal && prop && !prop.isRest) {
           s.overwrite(
             id.start!,

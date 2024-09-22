@@ -21,6 +21,8 @@ import {
   useExposeHelperId,
   useModelHelperCode,
   useModelHelperId,
+  withDefaultsCode,
+  withDefaultsHelperId,
 } from './core/helper'
 
 export type Options = BaseOptions & {
@@ -68,6 +70,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
         const id = normalizePath(_id)
         if (id === useExposeHelperId) return useExposeHelperCode
         else if (id === useModelHelperId) return useModelHelperCode
+        else if (id === withDefaultsHelperId) return withDefaultsCode
       },
 
       transformInclude: filter,
