@@ -13,10 +13,8 @@ type RootMap = Map<
     defineModel?: string[]
     defineSlots?: string
     defineExpose?: string
-    setupFC?: {
-      start: number
-      end: number
-    }
+    isComponent?: true
+    isSetupFC?: true
   }
 >
 
@@ -113,9 +111,14 @@ function getRootMap(
       getText(parents[2].type, options) === 'SetupFC'
     ) {
       if (!rootMap.has(root)) rootMap.set(root, {})
-      rootMap.get(root)!.setupFC = {
-        start: parents[2].name.end,
-        end: parents[2].type.end,
+      if (!rootMap.get(root)!.isSetupFC) {
+        rootMap.get(root)!.isSetupFC = true
+        replaceSourceRange(
+          codes,
+          source,
+          parents[2].name.end,
+          parents[2].type.end,
+        )
       }
     }
     if (
@@ -127,9 +130,16 @@ function getRootMap(
       )
     ) {
       if (!rootMap.has(root)) rootMap.set(root, {})
-      rootMap.get(root)!.setupFC = {
-        start: getStart(parents[2].expression, options),
-        end: parents[2].expression.end,
+      if (!rootMap.get(root)!.isComponent) {
+        rootMap.get(root)!.isComponent = true
+
+        replaceSourceRange(
+          codes,
+          source,
+          getStart(parents[2], options),
+          getStart(parents[2], options),
+          HELPER_PREFIX,
+        )
       }
     }
 
@@ -212,7 +222,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     )
     if (asyncModifier)
       replaceSourceRange(codes, source, asyncModifier.pos, asyncModifier.end)
-    const result = `({}) as __VLS_MaybeReturnType<Awaited<typeof ${HELPER_PREFIX}setup>['render']> & { __ctx: Awaited<typeof ${
+    const result = `({}) as Awaited<typeof ${HELPER_PREFIX}setup>['render'] & { __ctx: Awaited<typeof ${
       HELPER_PREFIX
     }setup> }`
 
@@ -265,39 +275,6 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
       )
     }
 
-    if (map.setupFC) {
-      replaceSourceRange(codes, source, map.setupFC.start, map.setupFC.end)
-
-      if (ts.isStatement(root.body)) {
-        ts.forEachChild(root.body, (node) => {
-          if (
-            ts.isReturnStatement(node) &&
-            node.expression &&
-            !(
-              ts.isArrowFunction(node.expression) ||
-              ts.isFunctionExpression(node.expression)
-            )
-          ) {
-            replaceSourceRange(
-              codes,
-              source,
-              getStart(node.expression, options),
-              getStart(node.expression, options),
-              `() =>`,
-            )
-          }
-        })
-      } else {
-        replaceSourceRange(
-          codes,
-          source,
-          getStart(root.body, options),
-          getStart(root.body, options),
-          `() =>`,
-        )
-      }
-    }
-
     ts.forEachChild(root.body, (node) => {
       if (ts.isReturnStatement(node) && node.expression) {
         replaceSourceRange(
@@ -324,12 +301,14 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
 
   if (
     rootMap.size &&
-    !codes.toString().includes(`declare function ${HELPER_PREFIX}defineSlots`)
+    !codes.toString().includes(`declare function defineSlots`)
   ) {
     codes.push(
       `
-import { defineComponent, defineModel, defineExpose } from 'vue';
+const { defineModel, defineExpose } = await import('vue')
 declare function defineSlots<T extends Record<string, any>>(slots?: T): T;
+declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T): T
+declare function ${HELPER_PREFIX}defineSetupComponent<T extends ((props?: any) => any)>(setup: T): T
 declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
 `,
     )
