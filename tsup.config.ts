@@ -66,7 +66,7 @@ export function config({
           IsolatedDecl.raw(
             {
               exclude: [/node_modules/, `${macros}/**`],
-              transformer: 'typescript',
+              transformer: 'oxc',
               extraOutdir: 'temp',
             },
             meta,
