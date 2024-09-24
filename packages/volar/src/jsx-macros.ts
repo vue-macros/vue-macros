@@ -222,41 +222,30 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     )
     if (asyncModifier)
       replaceSourceRange(codes, source, asyncModifier.pos, asyncModifier.end)
-    const result = `({}) as Awaited<typeof ${HELPER_PREFIX}setup>['render'] & { __ctx: Awaited<typeof ${
+    const result = `({}) as Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['render'] & { __ctx: Awaited<ReturnType<typeof ${
       HELPER_PREFIX
-    }setup> }`
+    }setup>> }`
 
+    const propsType = root.parameters[0]?.type
+      ? String(getText(root.parameters[0].type, options))
+      : '{}'
+    const params = `${HELPER_PREFIX}props: Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['props'] & ${propsType}, ${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`
     if (ts.isArrowFunction(root)) {
       replaceSourceRange(
         codes,
         source,
         getStart(root.parameters, options),
         getStart(root.parameters, options),
-        `${HELPER_PREFIX}props: `,
-        root.parameters[0]?.type
-          ? `${getText(root.parameters[0].type, options)} & `
-          : '',
-        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`,
+        params,
       )
-      replaceSourceRange(
-        codes,
-        source,
-        root.end,
-        root.end,
-        `)({} as any)) => `,
-        result,
-      )
+      replaceSourceRange(codes, source, root.end, root.end, `)) => `, result)
     } else {
       replaceSourceRange(
         codes,
         source,
         root.parameters.pos,
         root.parameters.pos,
-        `${HELPER_PREFIX}props: `,
-        root.parameters[0]?.type
-          ? `${getText(root.parameters[0].type, options)} & `
-          : '',
-        `Awaited<typeof ${HELPER_PREFIX}setup>['props'], ${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`,
+        params,
       )
       replaceSourceRange(
         codes,
@@ -277,12 +266,25 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
 
     ts.forEachChild(root.body, (node) => {
       if (ts.isReturnStatement(node) && node.expression) {
+        const defaultProps =
+          root.parameters[0] &&
+          !root.parameters[0].type &&
+          ts.isObjectBindingPattern(root.parameters[0].name)
+            ? root.parameters[0].name.elements
+                .map((element) =>
+                  ts.isIdentifier(element.name)
+                    ? `${element.name.text}${element.initializer ? '?:' : ':'} typeof ${element.name.text}`
+                    : '',
+                )
+                .filter(Boolean)
+                .join(', ')
+            : ''
         replaceSourceRange(
           codes,
           source,
           getStart(node, options),
           getStart(node.expression, options),
-          `return {\nprops: {} as `,
+          `return {\nprops: {} as {${defaultProps}} & `,
           map.defineModel?.length ? `{ ${map.defineModel?.join(', ')} }` : '{}',
           map.defineSlots ? ` & ${map.defineSlots}` : '',
           map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
