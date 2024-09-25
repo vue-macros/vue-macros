@@ -31,19 +31,25 @@ export function transformDirective(s?: MagicStringAST): NodeTransform {
     if (directiveVStyleX.exp?.type !== NodeTypes.SIMPLE_EXPRESSION)
       throw new Error('`v-stylex` must be passed a expression')
 
+    const hasColon =
+      directiveVStyleX.exp.content.startsWith('(') &&
+      directiveVStyleX.exp.content.endsWith(')')
+    const prefix = hasColon ? '' : '('
+    const postfix = hasColon ? '' : ')'
+
     node.props[i] = {
       ...directiveVStyleX,
       name: 'bind',
       exp: {
         ...directiveVStyleX.exp,
-        content: `${STYLEX_ATTRS}(${directiveVStyleX.exp.content})`,
+        content: `${STYLEX_ATTRS}${prefix}${directiveVStyleX.exp.content}${postfix}`,
       },
     } // For volar
 
     s?.overwrite(
       directiveVStyleX.loc.start.offset,
       directiveVStyleX.loc.end.offset,
-      `v-bind="${STYLEX_ATTRS}(${directiveVStyleX.exp.content})"`,
+      `v-bind="${STYLEX_ATTRS}${prefix}${directiveVStyleX.exp.content}${postfix}"`,
     )
   }
 }
@@ -92,8 +98,12 @@ export function transformDefineStyleX(
   const ctx = createTransformContext(template.ast!, {
     nodeTransforms: [transformDirective(s)],
   })
-
   traverseNode(template.ast!, ctx)
+
+  s.appendRight(
+    setupOffset,
+    `\nimport { create as ${STYLEX_CREATE}, attrs as ${STYLEX_ATTRS} } from '@stylexjs/stylex'`,
+  )
 
   return generateTransform(s, id)
 }
