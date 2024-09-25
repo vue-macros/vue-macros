@@ -87,6 +87,11 @@
       "require": "./dist/define-slots.js",
       "import": "./dist/define-slots.mjs"
     },
+    "./define-stylex": {
+      "dev": "./src/define-stylex.ts",
+      "require": "./dist/define-stylex.js",
+      "import": "./dist/define-stylex.mjs"
+    },
     "./export-expose": {
       "dev": "./src/export-expose.ts",
       "require": "./dist/export-expose.js",
@@ -206,6 +211,10 @@
       "./define-slots": {
         "require": "./dist/define-slots.js",
         "import": "./dist/define-slots.mjs"
+      },
+      "./define-stylex": {
+        "require": "./dist/define-stylex.js",
+        "import": "./dist/define-stylex.mjs"
       },
       "./export-expose": {
         "require": "./dist/export-expose.js",
