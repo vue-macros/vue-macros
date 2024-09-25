@@ -13,3 +13,38 @@ const styles = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
 </template>
 "
 `;
+
+exports[`fixtures > ./fixtures/multiple-rules.vue 1`] = `
+"<script lang="ts">
+const styles = _stylex_create({
+  red: { color: 'red' },
+  bold: { fontWeight: 'bold' },
+})
+</script>
+<script setup lang="ts">
+
+</script>
+
+<template>
+  <p><span v-bind="_stylex_attrs((styles.red, styles.bold))">Red</span> Text</p>
+</template>
+"
+`;
+
+exports[`fixtures > ./fixtures/optional-rules.vue 1`] = `
+"<script lang="ts">
+const styles = _stylex_create({
+  red: { color: 'red' },
+  bold: { fontWeight: 'bold' },
+})
+</script>
+<script setup lang="ts">
+defineProps<{ bold?: boolean }>()
+
+</script>
+
+<template>
+  <p><span v-bind="_stylex_attrs((styles.red, bold && styles.bold))">Red</span> Text</p>
+</template>
+"
+`;
