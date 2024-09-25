@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > ./fixtures/basic.vue 1`] = `
+"<script lang="ts">
+const styles = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
+</script>
+<script setup lang="ts">
+
+</script>
+
+<template>
+  <p><span v-bind="_stylex_attrs(styles.redBold)">Red</span> Text</p>
+</template>
+"
+`;
