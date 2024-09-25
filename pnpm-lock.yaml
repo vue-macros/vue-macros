@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@stylexjs/stylex':
+      specifier: ^0.7.5
+      version: 0.7.5
     '@vue/compiler-core':
       specifier: ^3.5.11
       version: 3.5.11
@@ -30,6 +33,9 @@ catalogs:
     vite:
       specifier: ^5.4.8
       version: 5.4.8
+    vite-plugin-stylex:
+      specifier: ^0.10.1
+      version: 0.10.1
     vue:
       specifier: ^3.5.11
       version: 3.5.11
@@ -996,6 +1002,9 @@ importers:
       '@rollup/plugin-node-resolve':
         specifier: ^15.3.0
         version: 15.3.0(rollup@4.24.0)
+      '@stylexjs/stylex':
+        specifier: 'catalog:'
+        version: 0.7.5
       '@vitejs/plugin-vue2':
         specifier: ^2.3.1
         version: 2.3.1(vite@5.4.8(@types/node@22.7.5)(less@4.2.0)(terser@5.34.1))(vue@2.7.16)
@@ -1038,6 +1047,9 @@ importers:
       vite-plugin-inspect:
         specifier: ^0.8.7
         version: 0.8.7(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.24.0)(webpack-sources@3.2.3))(rollup@4.24.0)(vite@5.4.8(@types/node@22.7.5)(less@4.2.0)(terser@5.34.1))
+      vite-plugin-stylex:
+        specifier: 'catalog:'
+        version: 0.10.1(@stylexjs/stylex@0.7.5)(vite@5.4.8(@types/node@22.7.5)(less@4.2.0)(terser@5.34.1))
       vue-tsc:
         specifier: 'catalog:'
         version: 2.1.6(typescript@5.6.2)
@@ -1061,7 +1073,7 @@ importers:
         specifier: ^15.3.0
         version: 15.3.0(rollup@4.24.0)
       '@stylexjs/stylex':
-        specifier: ^0.7.5
+        specifier: 'catalog:'
         version: 0.7.5
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -1106,7 +1118,7 @@ importers:
         specifier: ^0.8.7
         version: 0.8.7(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.24.0)(webpack-sources@3.2.3))(rollup@4.24.0)(vite@5.4.8(@types/node@22.7.5)(less@4.2.0)(terser@5.34.1))
       vite-plugin-stylex:
-        specifier: ^0.10.1
+        specifier: 'catalog:'
         version: 0.10.1(@stylexjs/stylex@0.7.5)(vite@5.4.8(@types/node@22.7.5)(less@4.2.0)(terser@5.34.1))
       vue-tsc:
         specifier: 'catalog:'

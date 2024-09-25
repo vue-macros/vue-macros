@@ -12,6 +12,7 @@ All features are enabled by default except the following.
 - `setupSFC`
 - `booleanProp`
 - `shortBind`
+- `defineStyleX`
 
 #### Disabled by Default when Vue >= 3.3
 
