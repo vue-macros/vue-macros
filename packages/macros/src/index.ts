@@ -94,7 +94,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
       resolvePlugin(VueDefineProp, framework, options.defineProp),
 
       resolvePlugin(VueDefineSlots, framework, options.defineSlots),
-      resolvePlugin(VueDefineStyleX, framework, options.defineSlots),
+      resolvePlugin(VueDefineStyleX, framework, options.defineStyleX),
       resolvePlugin(VueExportRender, framework, options.exportRender),
       resolvePlugin(VueExportExpose, framework, options.exportExpose),
       resolvePlugin(

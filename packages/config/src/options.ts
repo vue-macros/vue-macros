@@ -29,6 +29,7 @@ import type { Options as OptionsDefineProps } from '@vue-macros/define-props'
 import type { Options as OptionsDefinePropsRefs } from '@vue-macros/define-props-refs'
 import type { Options as OptionsDefineRender } from '@vue-macros/define-render'
 import type { Options as OptionsDefineSlots } from '@vue-macros/define-slots'
+import type { Options as OptionsDefineStyleX } from '@vue-macros/define-stylex'
 import type { Options as OptionsExportExpose } from '@vue-macros/export-expose'
 import type { Options as OptionsExportProps } from '@vue-macros/export-props'
 import type { Options as OptionsExportRender } from '@vue-macros/export-render'
@@ -119,6 +120,11 @@ export interface FeatureOptionsMap {
    * @default vueVersion < 3.3
    */
   defineSlots: OptionsDefineSlots
+  /**
+   * @see {@link https://vue-macros.dev/macros/define-stylex.html}
+   * @default false
+   */
+  defineStyleX: OptionsDefineStyleX
   /**
    * @see {@link https://vue-macros.dev/features/export-expose.html}
    * @default false
@@ -253,6 +259,7 @@ export function resolveOptions(
     definePropsRefs: resolveSubOptions('definePropsRefs'),
     defineRender: resolveSubOptions('defineRender'),
     defineSlots: resolveSubOptions('defineSlots', 3.3),
+    defineStyleX: resolveSubOptions('defineStyleX', false),
     exportExpose: resolveSubOptions('exportExpose', false),
     exportProps: resolveSubOptions('exportProps', false),
     exportRender: resolveSubOptions('exportRender', false),

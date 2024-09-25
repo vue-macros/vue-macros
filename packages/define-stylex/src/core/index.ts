@@ -20,17 +20,27 @@ import type { Node } from '@babel/types'
 const STYLEX_CREATE = '_stylex_create'
 const STYLEX_ATTRS = '_stylex_attrs'
 
-const transformDirective = (s: MagicStringAST): NodeTransform => {
+export function transformDirective(s?: MagicStringAST): NodeTransform {
   return (node) => {
     if (!(node.type === NodeTypes.ELEMENT)) return
-    const directiveVStyleX = node.props.find(
+    const i = node.props.findIndex(
       (item) => item.type === NodeTypes.DIRECTIVE && item.name === 'stylex',
-    ) as DirectiveNode | undefined
-    if (!directiveVStyleX) return
+    )
+    if (i === -1) return
+    const directiveVStyleX = node.props[i] as DirectiveNode
     if (directiveVStyleX.exp?.type !== NodeTypes.SIMPLE_EXPRESSION)
       throw new Error('`v-stylex` must be passed a expression')
 
-    s.overwrite(
+    node.props[i] = {
+      ...directiveVStyleX,
+      name: 'bind',
+      exp: {
+        ...directiveVStyleX.exp,
+        content: `${STYLEX_ATTRS}(${directiveVStyleX.exp.content})`,
+      },
+    } // For volar
+
+    s?.overwrite(
       directiveVStyleX.loc.start.offset,
       directiveVStyleX.loc.end.offset,
       `v-bind="${STYLEX_ATTRS}(${directiveVStyleX.exp.content})"`,
