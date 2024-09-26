@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "dist/.tsbuildinfo",
     "target": "ESNext",
     "jsx": "preserve",
     "lib": ["ESNext", "DOM"],
