@@ -22,6 +22,7 @@ pnpm add @stylexjs/stylex vite-plugin-stylex
 ```
 
 ```ts {4,13}
+// vite.config.ts
 import Vue from '@vitejs/plugin-vue'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { defineConfig } from 'vite'
@@ -41,8 +42,6 @@ export default defineConfig({
 
 ```vue twoslash {9-10}
 <!--App.vue-->
-<script setup lang="ts"></script>
-
 <template>
   <div>some content</div>
 </template>
@@ -67,17 +66,15 @@ const styles = defineStyleX({
 </template>
 ```
 
-which will be transformed to:
+:::details Compiled Code
 
 ```vue twoslash
-<script setup lang="ts">
+<script lang="ts">
 import {
   create as _stylex_create,
   attrs as stylex_attrs,
 } from '@stylexjs/stylex'
-</script>
 
-<script lang="ts">
 const styles = _stylex_create({
   red: { color: 'red' },
 })
@@ -87,6 +84,8 @@ const styles = _stylex_create({
   <p v-bind="_stylex_attrs(styles.red)">Red Text</p>
 </template>
 ```
+
+:::
 
 Optional and multiple rules are supported.
 
@@ -104,7 +103,7 @@ const styles = defineStyleX({
 </template>
 ```
 
-will be transformed to:
+:::details Compiled Code
 
 ```vue twoslash
 <script lang="ts">
@@ -129,3 +128,5 @@ defineProps<{ bold?: boolean }>()
   </p>
 </template>
 ```
+
+:::
