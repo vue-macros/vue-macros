@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "dist/lib.tsbuildinfo",
     "customConditions": ["dev"],
     "types": ["node"],
     "allowJs": false,

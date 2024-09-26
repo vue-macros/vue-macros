@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
+    "tsBuildInfoFile": "dist/test.tsbuildinfo",
     "lib": ["ES2022", "DOM"],
     "types": ["node", "vite/client"],
     "isolatedDeclarations": false
