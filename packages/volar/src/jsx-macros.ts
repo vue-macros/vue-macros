@@ -266,7 +266,9 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
           source,
           getStart(node, options),
           getStart(node.expression, options),
-          `   return {\nprops: {} as {${defaultProps}} & `,
+          `return {\nprops: {} as `,
+          options.vueVersion ? `import('vue').PublicProps & ` : '',
+          `{${defaultProps}} & `,
           map.defineModel?.length ? `{ ${map.defineModel?.join(', ')} }` : '{}',
           map.defineSlots ? ` & ${map.defineSlots}` : '',
           map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
@@ -289,8 +291,9 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
   ) {
     codes.push(
       `
-const { defineModel, defineExpose } = await import('vue')
+const { defineModel } = await import('vue')
 declare function defineSlots<T extends Record<string, any>>(slots?: T): T;
+declare function defineExpose<Exposed extends Record<string, any> = Record<string, any>>(exposed?: Exposed): void;
 declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs'> & { props?: import('vue').ComponentObjectPropsOptions }): T
 declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
 `,

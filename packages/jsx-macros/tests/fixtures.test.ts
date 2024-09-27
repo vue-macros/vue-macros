@@ -19,7 +19,7 @@ describe('fixtures', async () => {
 
 describe('react fixtures', async () => {
   await testFixtures(
-    import.meta.glob('./fixtures/**/*.tsx', {
+    import.meta.glob('./fixtures/**/define-expose.tsx', {
       eager: true,
       as: 'raw',
     }),

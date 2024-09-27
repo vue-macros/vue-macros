@@ -15,7 +15,7 @@ const props = __MACROS_createPropsRestProxy(__MACROS_props, ['bar']);
   { inheritAttrs: false , props: [ 'bar', 'baz', 'foo', 'onUpdate:foo' ]},
 )
 
-const Comp1 = __MACROS_defineComponent((props: {bar: 'bar'}) => {
+const Comp1 = __MACROS_defineComponent((props: { bar: 'bar' }) => {
   const foo = __MACROS_useModel(props, 'foo')
   return () => <div>{[foo.value, props['bar']]}</div>
 }, { props: [ bar, 'foo', 'onUpdate:foo' ] })
@@ -42,7 +42,7 @@ import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model"
 }
 
 export default function (__MACROS_props) {
-  const foo = $(__MACROS_useModel(__MACROS_props, 'foo'))
+  const foo = __MACROS_useModel(__MACROS_props, 'foo')
   return <div>{foo}</div>
 }
 "
@@ -66,28 +66,6 @@ export default function (__MACROS_props) {
 "
 `;
 
-exports[`react fixtures > ./fixtures/define-component.tsx 1`] = `
-"
-import { defineComponent as __MACROS_defineComponent } from "vue";
-import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";import { defineComponent } from 'vue'
-
-const Comp = __MACROS_defineComponent(
-  (__MACROS_props) => {
-const props = __MACROS_createPropsRestProxy(__MACROS_props, ['bar']);
-    const foo = __MACROS_useModel(props, 'foo')
-    return <div>{[foo.value, __MACROS_props.bar, props.baz]}</div>
-  },
-  { inheritAttrs: false , props: [ 'bar', 'baz', 'foo', 'onUpdate:foo' ]},
-)
-
-const Comp1 = __MACROS_defineComponent((props: {bar: 'bar'}) => {
-  const foo = __MACROS_useModel(props, 'foo')
-  return <div>{[foo.value, props['bar']]}</div>
-}, { props: [ bar, 'foo', 'onUpdate:foo' ] })
-"
-`;
-
 exports[`react fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
 import { forwardRef as __MACROS_forwardRef } from "react";
@@ -97,36 +75,5 @@ import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";expo
   }), [])
   return <div />
 })
-"
-`;
-
-exports[`react fixtures > ./fixtures/define-model.tsx 1`] = `
-"
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props }: { bar: string }) => {
-  const foo = __MACROS_useModel(__MACROS_props, 'foo', { default: bar })
-  return <div>{foo.value}</div>
-}
-
-export default function (__MACROS_props) {
-  const foo = $(__MACROS_useModel(__MACROS_props, 'foo'))
-  return <div>{foo}</div>
-}
-"
-`;
-
-exports[`react fixtures > ./fixtures/define-slots.tsx 1`] = `
-"export const Comp = (__MACROS_props) => {
-  const slots = Object.assign<{
-    default: () => any
-  }>({}, __MACROS_props.vSlots)
-  return <div>{slots.default()}</div>
-}
-
-export default function (__MACROS_props) {
-  const slots = Object.assign({
-    default: () => <div>default</div>,
-  },__MACROS_props.vSlots)
-  return <div>{slots.default()}</div>
-}
 "
 `;

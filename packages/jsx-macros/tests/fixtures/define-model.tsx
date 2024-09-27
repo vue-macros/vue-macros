@@ -4,6 +4,6 @@ export const Comp = ({ bar }: { bar: string }) => {
 }
 
 export default function () {
-  const foo = $(defineModel('foo'))
+  const foo = defineModel('foo')
   return <div>{foo}</div>
 }

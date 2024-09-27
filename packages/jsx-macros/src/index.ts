@@ -26,7 +26,7 @@ import {
 } from './core/helper'
 
 export type Options = BaseOptions & {
-  lib?: string
+  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact'
 }
 export type OptionsResolved = MarkRequired<
   Options,

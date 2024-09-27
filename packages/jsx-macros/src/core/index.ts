@@ -3,7 +3,6 @@ import {
   generateTransform,
   getLang,
   HELPER_PREFIX,
-  isCallOf,
   MagicStringAST,
   walkAST,
   type CodeTransform,
@@ -27,7 +26,6 @@ export type FunctionalNode =
   | ArrowFunctionExpression
 
 function isMacro(node?: Node | null): node is CallExpression {
-  node = isCallOf(node, '$') ? node.arguments[0] : node
   return !!(
     node &&
     node.type === 'CallExpression' &&
@@ -76,15 +74,10 @@ function getRootMap(s: MagicStringAST, id: string) {
             : undefined
       if (!isMacro(expression)) return
       if (!rootMap.has(root)) rootMap.set(root, {})
-      const macro =
-        isCallOf(expression, '$') &&
-        expression.arguments[0].type === 'CallExpression'
-          ? expression.arguments[0]
-          : expression
-      const macroName = s.sliceNode(macro.callee)
+      const macroName = s.sliceNode(expression.callee)
       if (macroName) {
         if (macroName === 'defineModel')
-          (rootMap.get(root)!.defineModel ??= []).push(macro)
+          (rootMap.get(root)!.defineModel ??= []).push(expression)
         else if (macroName === 'defineSlots' || macroName === 'defineExpose')
           rootMap.get(root)![macroName] = expression
       }
