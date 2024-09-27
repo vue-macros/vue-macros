@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "dist/fixture.tsbuildinfo",
     "lib": ["ES2022", "DOM"]
   },
   "include": ["**/fixtures/**/*", "packages/macros/macros-global.d.ts"],

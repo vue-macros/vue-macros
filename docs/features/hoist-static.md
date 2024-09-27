@@ -38,10 +38,8 @@ export default {
 
 ## Magic Comments
 
-```vue twoslash
+```vue
 <script setup lang="ts">
-const fn = () => 'AppFoo'
-
 // A value that's even not a constant
 const name = /* hoist-static */ fn()
 defineOptions({
