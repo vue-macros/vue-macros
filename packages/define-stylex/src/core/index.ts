@@ -24,7 +24,8 @@ export function transformDirective(s?: MagicStringAST): NodeTransform {
   return (node) => {
     if (!(node.type === NodeTypes.ELEMENT)) return
     const i = node.props.findIndex(
-      (item) => item.type === NodeTypes.DIRECTIVE && item.name === 'stylex',
+      (item) =>
+        item.type === NodeTypes.DIRECTIVE && item.rawName === 'v-stylex',
     )
     if (i === -1) return
     const directiveVStyleX = node.props[i] as DirectiveNode
@@ -36,6 +37,15 @@ export function transformDirective(s?: MagicStringAST): NodeTransform {
       directiveVStyleX.exp.content.endsWith(')')
     const prefix = hasColon ? '' : '('
     const postfix = hasColon ? '' : ')'
+
+    if (directiveVStyleX.exp.content.includes(STYLEX_ATTRS)) {
+      s?.overwrite(
+        directiveVStyleX.loc.start.offset,
+        directiveVStyleX.loc.end.offset,
+        `v-bind="${directiveVStyleX.exp.content}"`,
+      )
+      return
+    }
 
     node.props[i] = {
       ...directiveVStyleX,
