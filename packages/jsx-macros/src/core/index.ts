@@ -3,17 +3,16 @@ import {
   generateTransform,
   getLang,
   HELPER_PREFIX,
-  importHelperFn,
   isCallOf,
   MagicStringAST,
   walkAST,
   type CodeTransform,
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
+import { transformDefineComponent } from './define-component'
 import { transformDefineExpose } from './define-expose'
 import { transformDefineModel } from './define-model'
 import { transformDefineSlots } from './define-slots'
-import { transformSetupFC } from './setup-fc'
 import type {
   ArrowFunctionExpression,
   CallExpression,
@@ -37,17 +36,16 @@ function isMacro(node?: Node | null): node is CallExpression {
   )
 }
 
+export type RootMapValue = {
+  defineComponent?: CallExpression
+  defineModel?: CallExpression[]
+  defineSlots?: CallExpression
+  defineExpose?: CallExpression
+}
+
 function getRootMap(s: MagicStringAST, id: string) {
   const parents: (Node | undefined | null)[] = []
-  const rootMap: Map<
-    FunctionalNode,
-    {
-      isSetupFC?: boolean
-      defineModel?: CallExpression[]
-      defineSlots?: CallExpression
-      defineExpose?: CallExpression
-    }
-  > = new Map()
+  const rootMap = new Map<FunctionalNode, RootMapValue>()
   walkAST<Node>(babelParse(s.original, getLang(id)), {
     enter(node, parent) {
       parents.unshift(parent)
@@ -61,29 +59,12 @@ function getRootMap(s: MagicStringAST, id: string) {
       if (!root) return
 
       if (
-        root.type !== 'FunctionDeclaration' &&
-        parents[2]?.type === 'VariableDeclarator' &&
-        parents[2].id.type === 'Identifier' &&
-        parents[2].id.typeAnnotation?.type === 'TSTypeAnnotation' &&
-        s.sliceNode(parents[2].id.typeAnnotation.typeAnnotation) === 'SetupFC'
-      ) {
-        if (!rootMap.has(root)) rootMap.set(root, {})
-        rootMap.get(root)!.isSetupFC = true
-      }
-      if (
         parents[2]?.type === 'CallExpression' &&
-        ['defineComponent', 'defineSetupComponent'].includes(
-          s.sliceNode(parents[2].callee),
-        )
+        s.sliceNode(parents[2].callee) === 'defineComponent'
       ) {
         if (!rootMap.has(root)) rootMap.set(root, {})
-        if (rootMap.get(root)!.isSetupFC) return
-        rootMap.get(root)!.isSetupFC = true
-        if (s.sliceNode(parents[2].callee) === 'defineComponent') {
-          s.overwriteNode(
-            parents[2].callee,
-            importHelperFn(s, 0, 'defineComponent', 'vue'),
-          )
+        if (!rootMap.get(root)!.defineComponent) {
+          rootMap.get(root)!.defineComponent = parents[2]
         }
       }
 
@@ -134,9 +115,7 @@ export function transformJsxMacros(
 
   for (const [root, map] of rootMap) {
     let propsName = `${HELPER_PREFIX}props`
-    if (map.isSetupFC) {
-      transformSetupFC(root, s, options.lib)
-    } else if (root.params[0]) {
+    if (root.params[0]) {
       if (root.params[0].type === 'Identifier') {
         propsName = root.params[0].name
       } else if (root.params[0].type === 'ObjectPattern') {
@@ -159,6 +138,9 @@ export function transformJsxMacros(
       s.appendRight(getParamsStart(root, s.original), propsName)
     }
 
+    if (map.defineComponent) {
+      transformDefineComponent(root, propsName, map, s, options.lib)
+    }
     if (map.defineModel?.length) {
       map.defineModel.forEach((node) => {
         transformDefineModel(node, propsName, s)

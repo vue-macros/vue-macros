@@ -67,7 +67,6 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
     )
 
     const plugins: OptionsPlugin[] = [
-      resolvePlugin(VueJsxMacros, framework, options.jsxMacros),
       resolvePlugin(VueSetupSFC, framework, options.setupSFC),
       setupComponentPlugins?.[0],
       resolvePlugin(VueSetupBlock, framework, options.setupBlock),
@@ -131,6 +130,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
         : []),
 
       options.plugins.vue,
+      resolvePlugin(VueJsxMacros, framework, options.jsxMacros),
       resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
       options.plugins.vueJsx,
       resolvePlugin(VueDefineRender, framework, options.defineRender),

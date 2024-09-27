@@ -6,7 +6,6 @@ import {
 import { walkIdentifiers } from '@vue/compiler-core'
 import { withDefaultsHelperId } from '../helper'
 import type { FunctionalNode } from '..'
-import { prependFunctionalNode } from '.'
 import type { Node } from '@babel/types'
 
 type Prop = {
@@ -93,11 +92,30 @@ function getProps(
   return props.length ? props : undefined
 }
 
+export function prependFunctionalNode(
+  node: FunctionalNode,
+  s: MagicString,
+  result: string,
+): void {
+  const isBlockStatement = node.body.type === 'BlockStatement'
+  const start = node.body.extra?.parenthesized
+    ? (node.body.extra.parenStart as number)
+    : node.body.start!
+  s.appendRight(
+    start + (isBlockStatement ? 1 : 0),
+    `${result};${!isBlockStatement ? 'return ' : ''}`,
+  )
+  if (!isBlockStatement) {
+    s.appendLeft(start, '{')
+    s.appendRight(node.end!, '}')
+  }
+}
+
 export function restructure(
   s: MagicString,
   node: FunctionalNode,
   withDefaultsFrom: string = withDefaultsHelperId,
-): void {
+): Prop[] {
   let index = 0
   const propList: Prop[] = []
   for (const param of node.params) {
@@ -168,9 +186,9 @@ export function restructure(
 
     walkIdentifiers(
       node.body,
-      (id, parent, __, ___, isLocal) => {
+      (id, parent) => {
         const prop = propList.find((i) => i.name === id.name)
-        if (!isLocal && prop && !prop.isRest) {
+        if (prop && !prop.isRest) {
           s.overwrite(
             id.start!,
             id.end!,
@@ -185,4 +203,6 @@ export function restructure(
       false,
     )
   }
+
+  return propList
 }

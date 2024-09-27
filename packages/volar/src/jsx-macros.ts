@@ -13,8 +13,7 @@ type RootMap = Map<
     defineModel?: string[]
     defineSlots?: string
     defineExpose?: string
-    isComponent?: true
-    isSetupFC?: true
+    defineComponent?: true
   }
 >
 
@@ -106,33 +105,13 @@ function getRootMap(
 
     if (
       parents[2] &&
-      ts.isVariableDeclaration(parents[2]) &&
-      parents[2].type &&
-      getText(parents[2].type, options) === 'SetupFC'
-    ) {
-      if (!rootMap.has(root)) rootMap.set(root, {})
-      if (!rootMap.get(root)!.isSetupFC) {
-        rootMap.get(root)!.isSetupFC = true
-        replaceSourceRange(
-          codes,
-          source,
-          parents[2].name.end,
-          parents[2].type.end,
-        )
-      }
-    }
-    if (
-      parents[2] &&
       ts.isCallExpression(parents[2]) &&
       !parents[2].typeArguments &&
-      ['defineComponent', 'defineSetupComponent'].includes(
-        getText(parents[2].expression, options),
-      )
+      getText(parents[2].expression, options) === 'defineComponent'
     ) {
       if (!rootMap.has(root)) rootMap.set(root, {})
-      if (!rootMap.get(root)!.isComponent) {
-        rootMap.get(root)!.isComponent = true
-
+      if (!rootMap.get(root)!.defineComponent) {
+        rootMap.get(root)!.defineComponent = true
         replaceSourceRange(
           codes,
           source,
@@ -222,7 +201,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     )
     if (asyncModifier)
       replaceSourceRange(codes, source, asyncModifier.pos, asyncModifier.end)
-    const result = `({}) as Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['render'] & { __ctx: Awaited<ReturnType<typeof ${
+    const result = `({}) as __VLS_MaybeReturnType<Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['render']> & { __ctx: Awaited<ReturnType<typeof ${
       HELPER_PREFIX
     }setup>> }`
 
@@ -259,7 +238,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
         source,
         root.body.end - 1,
         root.body.end - 1,
-        `})({} as any)){ return `,
+        `})){ return `,
         result,
       )
     }
@@ -271,11 +250,14 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
           !root.parameters[0].type &&
           ts.isObjectBindingPattern(root.parameters[0].name)
             ? root.parameters[0].name.elements
-                .map((element) =>
-                  ts.isIdentifier(element.name)
-                    ? `${element.name.text}${element.initializer ? '?:' : ':'} typeof ${element.name.text}`
-                    : '',
-                )
+                .map((element) => {
+                  const isRequired = element.initializer
+                    ? ts.isNonNullExpression(element.initializer)
+                    : false
+                  return ts.isIdentifier(element.name)
+                    ? `${element.name.text}${isRequired ? ':' : '?:'} typeof ${element.name.text}`
+                    : ''
+                })
                 .filter(Boolean)
                 .join(', ')
             : ''
@@ -284,7 +266,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
           source,
           getStart(node, options),
           getStart(node.expression, options),
-          `return {\nprops: {} as {${defaultProps}} & `,
+          `   return {\nprops: {} as {${defaultProps}} & `,
           map.defineModel?.length ? `{ ${map.defineModel?.join(', ')} }` : '{}',
           map.defineSlots ? ` & ${map.defineSlots}` : '',
           map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
@@ -309,8 +291,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
       `
 const { defineModel, defineExpose } = await import('vue')
 declare function defineSlots<T extends Record<string, any>>(slots?: T): T;
-declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T): T
-declare function ${HELPER_PREFIX}defineSetupComponent<T extends ((props?: any) => any)>(setup: T): T
+declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs'> & { props?: import('vue').ComponentObjectPropsOptions }): T
 declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
 `,
     )

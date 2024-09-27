@@ -1,4 +1,7 @@
-import { camelize, type ModelRef } from 'vue'
+// Copy from: https://github.com/vuejs/core/blob/main/packages/runtime-core/src/helpers/useModel.ts
+
+import { camelize, hasChanged, hyphenate } from '@vue/shared'
+import { customRef, watchSyncEffect, type ModelRef } from 'vue'
 
 type DefineModelOptions<T = Record<string, any>> = {
   default?: any
@@ -15,18 +18,68 @@ export function useModel(
   name: string = 'modelValue',
   options: DefineModelOptions = {},
 ): any {
-  name = camelize(name)
+  const camelizedName = camelize(name)
+  const hyphenatedName = hyphenate(name)
   const modifiers = getModelModifiers(props, name)
-  const res = {
-    get value() {
-      const result = props[name] ?? options?.default
-      return options?.get ? options.get(result) : result
-    },
-    set value(v) {
-      props[`onUpdate:${name}`]?.(v)
-    },
-    __v_isRef: true,
-  }
+
+  const res = customRef((track, trigger) => {
+    let localValue: any = options?.default
+    let prevSetValue: any
+    let prevEmittedValue: any
+
+    watchSyncEffect(() => {
+      const propValue = props[name]
+      if (hasChanged(localValue, propValue)) {
+        localValue = propValue
+        trigger()
+      }
+    })
+
+    return {
+      get() {
+        track()
+        return options.get ? options.get(localValue) : localValue
+      },
+
+      set(value) {
+        if (!hasChanged(value, localValue)) {
+          return
+        }
+        if (
+          !(
+            // check if parent has passed v-model
+            (
+              (name in props ||
+                camelizedName in props ||
+                hyphenatedName in props) &&
+              (`onUpdate:${name}` in props ||
+                `onUpdate:${camelizedName}` in props ||
+                `onUpdate:${hyphenatedName}` in props)
+            )
+          )
+        ) {
+          // no v-model, local update
+          localValue = value
+          trigger()
+        }
+        const emittedValue = options.set ? options.set(value) : value
+        props[`onUpdate:${name}`]?.(emittedValue)
+        // #10279: if the local value is converted via a setter but the value
+        // emitted to parent was the same, the parent will not trigger any
+        // updates and there will be no prop sync. However the local input state
+        // may be out of sync, so we need to force an update here.
+        if (
+          value !== emittedValue &&
+          value !== prevSetValue &&
+          emittedValue === prevEmittedValue
+        ) {
+          trigger()
+        }
+        prevSetValue = value
+        prevEmittedValue = emittedValue
+      },
+    }
+  })
 
   // @ts-expect-error
   res[Symbol.iterator] = () => {
@@ -44,11 +97,13 @@ export function useModel(
   return res
 }
 
-export const getModelModifiers = (
+const getModelModifiers = (
   props: Record<string, any>,
   modelName: string,
-): Record<string, true | undefined> | undefined => {
-  return modelName === 'modelValue'
+): Record<string, boolean> | undefined => {
+  return modelName === 'modelValue' || modelName === 'model-value'
     ? props.modelModifiers
-    : props[`${modelName}Modifiers`] || props[`${camelize(modelName)}Modifiers`]
+    : props[`${modelName}Modifiers`] ||
+        props[`${camelize(modelName)}Modifiers`] ||
+        props[`${hyphenate(modelName)}Modifiers`]
 }
