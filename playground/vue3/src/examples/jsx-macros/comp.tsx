@@ -1,6 +1,6 @@
 import { watch } from 'vue'
 
-export function Comp<const T>({ foo }: { foo: T }) {
+export const Comp = defineComponent(function <const T>({ foo }: { foo: T }) {
   const slots = defineSlots({
     default: (props: { bar: string }) => <div>{props.bar}</div>,
   })
@@ -34,4 +34,4 @@ export function Comp<const T>({ foo }: { foo: T }) {
       <slots.default bar={modelValue.value}></slots.default>
     </div>
   )
-}
+})

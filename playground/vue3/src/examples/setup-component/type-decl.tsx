@@ -3,24 +3,16 @@ import { foo } from './foo'
 
 console.log(foo)
 
-const Comp: SetupFC = ({ foo }: { foo: number }) => <span>{foo}</span>
-
 export const SetupComponentTypeDecl: SetupFC = () => {
-  const count = ref(1)
+  const count = ref(0)
   const double = computed(() => count.value * 2)
-  defineExpose({ double })
-  const slots = defineSlots({
-    default: Comp,
-  })
 
-  const foo = ref(1)
   return () => (
     <fieldset>
       <legend>Type Declaration</legend>
-      <input v-model={foo.value} type="number" />
-      count: <Comp foo={foo.value} />
-      <slots.default foo={foo.value} />
       <button onClick={() => count.value++}>inc</button>
+      <div>count: {count.value}</div>
+      <div>double: {double.value}</div>
     </fieldset>
   )
 }

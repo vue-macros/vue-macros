@@ -4,13 +4,18 @@ exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
 "
 import { defineComponent as __MACROS_defineComponent } from "vue";
 import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";const Comp = __MACROS_defineComponent((__MACROS_props) => {
-const props = __MACROS_createPropsRestProxy(__MACROS_props, ['bar']);
-  const foo = __MACROS_useModel(props, 'foo')
-  return () => <div>{[foo.value, __MACROS_props.bar, props.baz]}</div>
-}, { inheritAttrs: false,  props: [ 'bar', 'baz', 'foo', 'onUpdate:foo' ]})
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";import { defineComponent } from 'vue'
 
-const Comp1 = __MACROS_defineComponent((props) => {
+const Comp = __MACROS_defineComponent(
+  (__MACROS_props) => {
+const props = __MACROS_createPropsRestProxy(__MACROS_props, ['bar']);
+    const foo = __MACROS_useModel(props, 'foo')
+    return () => <div>{[foo.value, __MACROS_props.bar, props.baz]}</div>
+  },
+  { inheritAttrs: false , props: [ 'bar', 'baz', 'foo', 'onUpdate:foo' ]},
+)
+
+const Comp1 = __MACROS_defineComponent((props: {bar: 'bar'}) => {
   const foo = __MACROS_useModel(props, 'foo')
   return () => <div>{[foo.value, props['bar']]}</div>
 }, { props: [ bar, 'foo', 'onUpdate:foo' ] })
@@ -65,13 +70,18 @@ exports[`react fixtures > ./fixtures/define-component.tsx 1`] = `
 "
 import { defineComponent as __MACROS_defineComponent } from "vue";
 import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";const Comp = __MACROS_defineComponent((__MACROS_props) => {
-const props = __MACROS_createPropsRestProxy(__MACROS_props, ['bar']);
-  const foo = __MACROS_useModel(props, 'foo')
-  return <div>{[foo.value, __MACROS_props.bar, props.baz]}</div>
-}, { inheritAttrs: false,  props: [ 'bar', 'baz', 'foo', 'onUpdate:foo' ]})
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";import { defineComponent } from 'vue'
 
-const Comp1 = __MACROS_defineComponent((props) => {
+const Comp = __MACROS_defineComponent(
+  (__MACROS_props) => {
+const props = __MACROS_createPropsRestProxy(__MACROS_props, ['bar']);
+    const foo = __MACROS_useModel(props, 'foo')
+    return <div>{[foo.value, __MACROS_props.bar, props.baz]}</div>
+  },
+  { inheritAttrs: false , props: [ 'bar', 'baz', 'foo', 'onUpdate:foo' ]},
+)
+
+const Comp1 = __MACROS_defineComponent((props: {bar: 'bar'}) => {
   const foo = __MACROS_useModel(props, 'foo')
   return <div>{[foo.value, props['bar']]}</div>
 }, { props: [ bar, 'foo', 'onUpdate:foo' ] })

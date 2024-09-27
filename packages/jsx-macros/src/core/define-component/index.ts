@@ -4,7 +4,7 @@ import {
   type MagicStringAST,
 } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
-import { camelize } from 'vue'
+import { camelize } from '@vue/shared'
 import type { FunctionalNode, RootMapValue } from '..'
 import { restructure } from './restructure'
 
