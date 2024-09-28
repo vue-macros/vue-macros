@@ -180,7 +180,7 @@ function getRootMap(
         source,
         getStart(expression, options),
         getStart(expression, options),
-        `const ${HELPER_PREFIX}expose = ${getText(expression.arguments[0], options)};`,
+        `// @ts-ignore\n${HELPER_PREFIX}expose;\nconst ${HELPER_PREFIX}expose =`,
       )
       rootMap.get(root)!.defineExpose =
         `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
@@ -293,7 +293,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
       `
 const { defineModel } = await import('vue')
 declare function defineSlots<T extends Record<string, any>>(slots?: T): T;
-declare function defineExpose<Exposed extends Record<string, any> = Record<string, any>>(exposed?: Exposed): void;
+declare function defineExpose<Exposed extends Record<string, any> = Record<string, any>>(exposed?: Exposed): Exposed;
 declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs'> & { props?: import('vue').ComponentObjectPropsOptions }): T
 declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
 `,
