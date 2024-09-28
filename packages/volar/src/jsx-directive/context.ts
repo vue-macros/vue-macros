@@ -1,3 +1,4 @@
+import { replaceSourceRange } from 'muggle-string'
 import { addCode, getText, isJsxExpression } from '../common'
 import {
   getOpeningElement,
@@ -8,6 +9,7 @@ import {
 
 export function transformCtx(
   node: JsxDirective['node'],
+  root: import('typescript').Block | undefined,
   index: number,
   options: TransformOptions,
 ): string {
@@ -65,10 +67,18 @@ function __VLS_getFunctionalComponentCtx<T, K, const S>(
 
   const ctxName = `__VLS_ctx_${refValue || index}`
   const tagName = getTagName(node, { ...options, withTypes: true })
-  addCode(
-    codes,
-    `const ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}), '${tagName}');\n`,
-  )
+  const result = `\nconst ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}), '${tagName}');\n`
+  if (root) {
+    replaceSourceRange(
+      codes,
+      options.source,
+      root.end - 1,
+      root.end - 1,
+      result,
+    )
+  } else {
+    addCode(codes, result)
+  }
 
   return ctxName
 }
