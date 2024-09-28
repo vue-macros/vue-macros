@@ -1,4 +1,4 @@
-# templateRef <PackageVersion name="@vue-macros/volar" />
+# defineGeneric <PackageVersion name="@vue-macros/volar" />
 
 <StabilityLevel level="stable" />
 

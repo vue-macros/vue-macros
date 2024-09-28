@@ -281,6 +281,10 @@ export function getLocaleConfig(lang: string) {
               text: 'scriptSFC',
               link: `/script-sfc`,
             },
+            {
+              text: 'jsxRef',
+              link: `/jsx-ref`,
+            },
           ],
         },
       ],
