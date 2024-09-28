@@ -31,8 +31,7 @@ export default () => <div>ok</div>
 
 ## Volar Configuration
 
-```jsonc {4,8}
-// tsconfig.json
+```jsonc {3,7} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

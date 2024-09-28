@@ -662,6 +662,54 @@ export { issue362 as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/issue-806.vue > isProduction = false 1`] = `
+"// issue-806.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "issue-806",
+  props: {
+    foo: { type: [Function, Object], required: false }
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+var issue806 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue806 as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/issue-806.vue > isProduction = true 1`] = `
+"// issue-806.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "issue-806",
+  props: {
+    foo: { type: Function }
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+var issue806 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue806 as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/json-resolve.vue > isProduction = false 1`] = `
 "// json-resolve.js
 import { defineComponent } from 'vue';

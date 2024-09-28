@@ -1,5 +1,6 @@
 import {
   isTSNamespace,
+  resolveTSProperties,
   resolveTSReferencedType,
   type TSNamespace,
   type TSResolvedType,
@@ -22,19 +23,29 @@ export async function inferRuntimeType(
       return ['Boolean']
     case 'TSObjectKeyword':
       return ['Object']
+    case 'TSInterfaceDeclaration':
     case 'TSTypeLiteral': {
       // TODO (nice to have) generate runtime property validation
+
+      const resolved = await resolveTSProperties({
+        type: node.type,
+        scope: node.scope,
+      })
       const types = new Set<string>()
-      for (const m of node.type.members) {
-        switch (m.type) {
-          case 'TSCallSignatureDeclaration':
-          case 'TSConstructSignatureDeclaration':
-            types.add('Function')
-            break
-          default:
-            types.add('Object')
-        }
+
+      if (
+        resolved.callSignatures.length ||
+        resolved.constructSignatures.length
+      ) {
+        types.add('Function')
       }
+      if (
+        Object.keys(resolved.methods).length ||
+        Object.keys(resolved.properties).length
+      ) {
+        types.add('Object')
+      }
+
       return Array.from(types)
     }
     case 'TSFunctionType':
@@ -127,9 +138,6 @@ export async function inferRuntimeType(
 
     case 'TSSymbolKeyword':
       return ['Symbol']
-
-    case 'TSInterfaceDeclaration':
-      return ['Object']
   }
 
   // no runtime check

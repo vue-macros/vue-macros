@@ -11,6 +11,13 @@
 |    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
+## 前置条件
+
+要使用此功能，需要 [Reactivity Transform](./reactivity-transform.md)，
+但在 Vue Macros 中已经默认启用。
+
+`export let` 将编译为 `defineModel`，该功能在 Vue 3.4+ 中受支持。
+
 ## 用法
 
 使用导出语法来声明 `props`。
@@ -24,8 +31,7 @@ export const bar: number = 1 // 带有默认值
 
 ## Volar 配置
 
-```jsonc {4,6}
-// tsconfig.json
+```jsonc {3,5} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

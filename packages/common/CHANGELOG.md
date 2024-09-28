@@ -1,5 +1,19 @@
 # @vue-macros/common
 
+## 1.14.0
+### Minor Changes
+
+
+
+- [`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d) Thanks [@sxzz](https://github.com/sxzz)! - Fix missing `hackViteHMR`
+
+## 1.13.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
 ## 1.12.3
 ### Patch Changes
 

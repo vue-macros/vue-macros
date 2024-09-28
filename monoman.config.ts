@@ -44,6 +44,8 @@ export default defineConfig([
       const pkgRoot = path.resolve(filePath, '..')
       const pkgSrc = path.resolve(pkgRoot, 'src')
       const pkgName = getPkgName(filePath)
+
+      data.type = pkgName === 'volar' ? 'commonjs' : 'module'
       const isESM = data.type === 'module'
       const cjsPrefix = isESM ? 'c' : ''
       const esmPrefix = isESM ? '' : 'm'
@@ -51,7 +53,6 @@ export default defineConfig([
         file.endsWith('.d.ts'),
       )
 
-      data.type ||= 'commonjs'
       if (!data.private) {
         data.description =
           descriptions[pkgName] || `${pkgName} feature from Vue Macros.`

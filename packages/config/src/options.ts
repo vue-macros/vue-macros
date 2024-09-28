@@ -192,7 +192,7 @@ export interface FeatureOptionsMap {
   setupSFC: OptionsSetupSFC
   /**
    * @see {@link https://vue-macros.dev/features/short-bind.html}
-   * @default true
+   * @default vueVersion < 3.4
    */
   shortBind: OptionsShortBind
   /**
@@ -267,7 +267,7 @@ export function resolveOptions(
     setupComponent: resolveSubOptions('setupComponent'),
     setupJsdoc: resolveSubOptions('setupJsdoc'),
     setupSFC: resolveSubOptions('setupSFC', false),
-    shortBind: resolveSubOptions('shortBind'),
+    shortBind: resolveSubOptions('shortBind', 3.4),
     shortEmits: resolveSubOptions('shortEmits', 3.3),
     shortVmodel: resolveSubOptions('shortVmodel'),
   }
