@@ -12,7 +12,7 @@ const Comp1 = defineComponent({
 
 const comp = useRef()
 let comp1 = $(useRef())
-const comp2 = useRef()
+const comp2 = $(useRef())
 
 defineRender(
   <>
@@ -22,8 +22,8 @@ defineRender(
     <Comp1 ref={(e) => (comp1 = e)} />
     {expectTypeOf<[number | null | undefined]>([comp1?.foo])}
 
-    <a ref={comp2} />
-    {expectTypeOf<[HTMLAnchorElement | null | undefined]>([comp2.value])}
+    <a ref={$$(comp2)} />
+    {expectTypeOf<[HTMLAnchorElement | null | undefined]>([comp2])}
   </>,
 )
 </script>

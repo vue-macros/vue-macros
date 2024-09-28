@@ -103,5 +103,11 @@ function getRefValue(
         options,
       )
     )
+  } else if (
+    ts.isCallExpression(expression) &&
+    expression.arguments[0] &&
+    ts.isIdentifier(expression.arguments[0])
+  ) {
+    return getText(expression.arguments[0], options)
   }
 }
