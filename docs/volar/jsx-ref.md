@@ -35,10 +35,10 @@ export default defineNuxtConfig({
     presets: [
       {
         from: 'vue',
-        imports: [['shallowRef', 'useRef']]
-      }
-    ]
-  }
+        imports: [['shallowRef', 'useRef']],
+      },
+    ],
+  },
 })
 ```
 
