@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { expectTypeOf } from 'expect-type'
 import { useRef } from 'unplugin-vue-macros/runtime'
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import Comp from './comp.vue'
 
 const Comp1 = defineComponent({
@@ -9,8 +9,6 @@ const Comp1 = defineComponent({
     return { foo: 1 }
   },
 })
-
-const foo = ref(1)
 
 const comp = useRef()
 let comp1 = $(useRef())
@@ -21,7 +19,7 @@ defineRender(
     <Comp ref={comp} foo={1 as const} />
     {expectTypeOf<[1 | null | undefined]>([comp.value?.foo])}
 
-    <Comp1 ref={(e) => (comp1 = e)} foo={foo.value} />
+    <Comp1 ref={(e) => (comp1 = e)} />
     {expectTypeOf<[number | null | undefined]>([comp1?.foo])}
 
     <a ref={comp2} />
