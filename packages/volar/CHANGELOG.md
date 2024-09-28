@@ -1,5 +1,20 @@
 # @vue-macros/volar
 
+## 0.30.3
+### Patch Changes
+
+
+
+- [#825](https://github.com/vue-macros/vue-macros/pull/825) [`908156a`](https://github.com/vue-macros/vue-macros/commit/908156aeb4458d9296409d20071dba60b0aa2aca) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use object instead of any
+
+
+
+- [#827](https://github.com/vue-macros/vue-macros/pull/827) [`a558716`](https://github.com/vue-macros/vue-macros/commit/a558716ea879132263122905d361e3ab711efd62) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support reactivity transform for jsx-ref
+
+
+
+- [#828](https://github.com/vue-macros/vue-macros/pull/828) [`2816959`](https://github.com/vue-macros/vue-macros/commit/2816959147e2bec953565e5dc10b123c0536d71f) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support functional component for jsx-directive
+
 ## 0.30.2
 ### Patch Changes
 
