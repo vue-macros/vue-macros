@@ -10,8 +10,6 @@ const Comp1 = defineComponent({
   },
 })
 
-const foo = ref(1)
-
 const comp = useRef()
 let comp1 = $(useRef())
 const comp2 = useRef()
