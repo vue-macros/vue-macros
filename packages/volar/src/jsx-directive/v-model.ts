@@ -135,14 +135,20 @@ export function transformVModel(
     codes,
     source,
     getStart(attribute, options),
-    end + 1,
+    end,
     `{...{`,
     ...result,
     `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>>}`,
     ` {...{`,
     ...emits,
     `}}`,
-    // Fix `v-model:` without type hints
+  )
+  // Fix `v-model:` without type hints
+  replaceSourceRange(
+    codes,
+    source,
+    end,
+    end + 1,
     sfc[source]!.content.slice(end, end + 1),
   )
 }
