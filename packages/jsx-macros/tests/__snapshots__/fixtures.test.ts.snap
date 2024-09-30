@@ -3,14 +3,16 @@
 exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
 "
 import { defineComponent as __MACROS_defineComponent } from "vue";
+import { createDefaultPropsProxy as __MACROS_createDefaultPropsProxy } from "/vue-macros/jsx-macros/with-defaults";
 import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";
 import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";import { defineComponent } from 'vue'
 
 const Comp = __MACROS_defineComponent(
   (__MACROS_props) => {
-const props = __MACROS_createPropsRestProxy(__MACROS_props, ['bar']);
+const __MACROS_defaults_props = __MACROS_createDefaultPropsProxy(__MACROS_props, {'.bar': 'bar'});
+const props = __MACROS_createPropsRestProxy(__MACROS_defaults_props, ['bar']);
     const foo = __MACROS_useModel(props, 'foo')
-    return () => <div>{[foo.value, __MACROS_props.bar, props.baz]}</div>
+    return () => <div>{[foo.value, __MACROS_defaults_props.bar, props.baz]}</div>
   },
   { inheritAttrs: false , props: [ 'bar', 'baz', 'foo', 'onUpdate:foo' ]},
 )

@@ -25,7 +25,7 @@ function getMacro(
   | {
       expression: import('typescript').CallExpression
       initializer: import('typescript').Node
-      isReactivityTransform?: boolean
+      isRequired: boolean
     }
   | undefined {
   if (!node) return
@@ -37,42 +37,46 @@ function getMacro(
   }
 
   function getExpression(decl: import('typescript').Node) {
-    if (
-      ts.isVariableDeclaration(decl) &&
-      decl.initializer &&
-      ts.isCallExpression(decl.initializer) &&
-      ts.isIdentifier(decl.initializer.expression)
-    ) {
-      const isReactivityTransform =
-        decl.initializer.expression.escapedText === '$'
-      const expression = isReactivityTransform
-        ? decl.initializer.arguments[0]
-        : decl.initializer
-      if (isMacro(expression))
+    if (ts.isVariableDeclaration(decl) && decl.initializer) {
+      const initializer =
+        ts.isCallExpression(decl.initializer) &&
+        ts.isIdentifier(decl.initializer.expression) &&
+        decl.initializer.expression.escapedText === '$' &&
+        decl.initializer.arguments[0]
+          ? decl.initializer.arguments[0]
+          : decl.initializer
+      const expression = getMacroExpression(initializer)
+      if (expression) {
         return {
           expression,
-          isReactivityTransform,
           initializer: decl.initializer,
+          isRequired: ts.isNonNullExpression(initializer),
         }
-    } else if (ts.isExpressionStatement(decl) && isMacro(decl.expression)) {
-      return {
-        expression: decl.expression,
-        initializer: decl,
       }
+    } else if (ts.isExpressionStatement(decl)) {
+      const expression = getMacroExpression(decl.expression)
+      if (expression)
+        return {
+          expression,
+          initializer: decl.expression,
+          isRequired: ts.isNonNullExpression(decl.expression),
+        }
     }
   }
 
-  function isMacro(
-    node: import('typescript').Node,
-  ): node is import('typescript').CallExpression {
-    return !!(
+  function getMacroExpression(node: import('typescript').Node) {
+    if (ts.isNonNullExpression(node)) {
+      node = node.expression
+    }
+    return (
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&
       [
         ...vueCompilerOptions.macros.defineModel,
         ...vueCompilerOptions.macros.defineExpose,
         ...vueCompilerOptions.macros.defineSlots,
-      ].includes(node.expression.escapedText!)
+      ].includes(node.expression.escapedText!) &&
+      node
     )
   }
 }
@@ -125,7 +129,7 @@ function getRootMap(
     const macro = getMacro(node, ts, vueCompilerOptions)
     if (!macro) return
 
-    const { expression, isReactivityTransform, initializer } = macro
+    let { expression, initializer, isRequired } = macro
     if (!rootMap.has(root)) rootMap.set(root, {})
     const name = getText(expression.expression, options)
     if (vueCompilerOptions.macros.defineModel.includes(name)) {
@@ -139,20 +143,40 @@ function getRootMap(
         ts.isStringLiteralLike(expression.arguments[0])
           ? expression.arguments[1]
           : expression.arguments[0]
-      let required = false
       if (modelOptions && ts.isObjectLiteralExpression(modelOptions)) {
+        let hasRequired = false
         for (const prop of modelOptions.properties) {
           if (
             ts.isPropertyAssignment(prop) &&
             getText(prop.name, options) === 'required'
           ) {
-            required = prop.initializer.kind === ts.SyntaxKind.TrueKeyword
+            hasRequired = true
+            isRequired = prop.initializer.kind === ts.SyntaxKind.TrueKeyword
           }
         }
+
+        if (!hasRequired && isRequired) {
+          replaceSourceRange(
+            codes,
+            source,
+            modelOptions.end - 1,
+            modelOptions.end - 1,
+            `${expression.arguments.hasTrailingComma ? '' : ','} required: true`,
+          )
+        }
+      } else if (isRequired) {
+        replaceSourceRange(
+          codes,
+          source,
+          expression.arguments.end,
+          expression.arguments.end,
+          `${expression.arguments.hasTrailingComma ? '' : ','} { required: true }`,
+        )
       }
+
       const id = toValidAssetId(modelName, `${HELPER_PREFIX}model` as any)
       const typeString = `import("vue").UnwrapRef<typeof ${id}>`
-      const requiredString = required ? ':' : '?:'
+      const requiredString = isRequired ? ':' : '?:'
       ;(rootMap.get(root)!.defineModel ??= [])!.push(
         `${modelName}${requiredString} ${typeString}`,
         `'onUpdate:${modelName}'${requiredString} ($event: ${typeString}) => any`,
@@ -160,8 +184,8 @@ function getRootMap(
       replaceSourceRange(
         codes,
         source,
-        getStart(isReactivityTransform ? initializer : expression, options),
-        getStart(isReactivityTransform ? initializer : expression, options),
+        getStart(initializer, options),
+        getStart(initializer, options),
         `// @ts-ignore\n${id};\nlet ${id} =`,
       )
     } else if (vueCompilerOptions.macros.defineSlots.includes(name)) {

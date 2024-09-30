@@ -25,12 +25,15 @@ export type FunctionalNode =
   | FunctionExpression
   | ArrowFunctionExpression
 
-function isMacro(node?: Node | null): node is CallExpression {
-  return !!(
-    node &&
-    node.type === 'CallExpression' &&
+function getMacroExpression(node?: Node | null) {
+  if (node?.type === 'TSNonNullExpression') {
+    node = node.expression
+  }
+  return (
+    node?.type === 'CallExpression' &&
     node.callee.type === 'Identifier' &&
-    ['defineSlots', 'defineModel', 'defineExpose'].includes(node.callee.name)
+    ['defineSlots', 'defineModel', 'defineExpose'].includes(node.callee.name) &&
+    node
   )
 }
 
@@ -66,13 +69,15 @@ function getRootMap(s: MagicStringAST, id: string) {
         }
       }
 
-      const expression =
+      let expression =
         node.type === 'VariableDeclaration'
           ? node.declarations[0].init
           : node.type === 'ExpressionStatement'
             ? node.expression
             : undefined
-      if (!isMacro(expression)) return
+      const macroExpression = getMacroExpression(expression)
+      if (!macroExpression) return
+      expression = macroExpression
       if (!rootMap.has(root)) rootMap.set(root, {})
       const macroName = s.sliceNode(expression.callee)
       if (macroName) {

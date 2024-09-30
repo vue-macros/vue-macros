@@ -52,7 +52,7 @@ export function transformDefineComponent(
     } else {
       const props = restructure(s, root)
       for (const prop of props) {
-        if (prop.path === `${HELPER_PREFIX}props`) {
+        if (prop.path.endsWith('props')) {
           if (prop.isRest) {
             getWalkedIds(root, prop.name).forEach((id) => propsSet.add(id))
           } else {
@@ -65,7 +65,7 @@ export function transformDefineComponent(
 
   for (const prop of map.defineModel || []) {
     const name = camelize(
-      prop.arguments[0].type === 'StringLiteral'
+      prop.arguments[0]?.type === 'StringLiteral'
         ? prop.arguments[0].value
         : 'modelValue',
     )
