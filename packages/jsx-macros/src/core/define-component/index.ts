@@ -1,8 +1,4 @@
-import {
-  HELPER_PREFIX,
-  importHelperFn,
-  type MagicStringAST,
-} from '@vue-macros/common'
+import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
 import { camelize } from '@vue/shared'
 import type { FunctionalNode, RootMapValue } from '..'
