@@ -5,6 +5,7 @@ export default defineConfig({
   defineEmit: true,
   defineProp: true,
   exportRender: true,
+  jsxRef: true,
   scriptLang: true,
   setupSFC: true,
 })

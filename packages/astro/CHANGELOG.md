@@ -1,5 +1,11 @@
 # @vue-macros/astro
 
+## 0.6.3
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.12.3
+
 ## 0.6.2
 ### Patch Changes
 
