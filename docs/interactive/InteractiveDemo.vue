@@ -4,10 +4,8 @@ import pluginEstree from 'prettier/plugins/estree'
 import pluginHtml from 'prettier/plugins/html'
 import pluginTypeScript from 'prettier/plugins/typescript'
 import { format } from 'prettier/standalone'
-import {
-  createHighlighterCoreSync,
-  createJavaScriptRegexEngine,
-} from 'shiki/core'
+import { createHighlighterCoreSync } from 'shiki/core'
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
 import langTypeScript from 'shiki/langs/typescript.mjs'
 import langVue from 'shiki/langs/vue.mjs'
 import themeVitesseDark from 'shiki/themes/vitesse-dark.mjs'
