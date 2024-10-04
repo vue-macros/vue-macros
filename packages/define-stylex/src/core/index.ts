@@ -47,14 +47,8 @@ export function transformDirective(s?: MagicStringAST): NodeTransform {
       return
     }
 
-    node.props[i] = {
-      ...directiveVStyleX,
-      name: 'bind',
-      exp: {
-        ...directiveVStyleX.exp,
-        content: `${STYLEX_ATTRS}${prefix}${directiveVStyleX.exp.content}${postfix}`,
-      },
-    } // For volar
+    // For volar
+    node.props[i] = { ...directiveVStyleX, name: 'bind' }
 
     s?.overwrite(
       directiveVStyleX.loc.start.offset,

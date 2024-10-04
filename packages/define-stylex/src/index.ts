@@ -16,7 +16,7 @@ import { transformDefineStyleX } from './core'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
-export { transformDirective } from './core'
+export * from './api'
 
 function resolveOptions(
   options: Options,
