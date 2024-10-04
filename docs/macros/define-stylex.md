@@ -21,12 +21,11 @@ To use StyleX, you should install and configure StyleX first.
 pnpm add @stylexjs/stylex vite-plugin-stylex
 ```
 
-```ts {4,13}
-// vite.config.ts
+```ts [vite.config.ts] {4,13}
 import Vue from '@vitejs/plugin-vue'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { defineConfig } from 'vite'
-import styleX from 'vite-plugin-stylex'
+import StyleX from 'vite-plugin-stylex'
 
 export default defineConfig({
   plugins: [
@@ -35,17 +34,12 @@ export default defineConfig({
         vue: Vue(),
       },
     }),
-    styleX(), // Must be placed after VueMacros
+    StyleX(), // Must be placed after Vue Macros
   ],
 })
 ```
 
-```vue twoslash {9-10}
-<!--App.vue-->
-<template>
-  <div>some content</div>
-</template>
-
+```vue [App.vue] {2-3}
 <style>
 /* import StyleX stylesheet, according to https://github.com/HorusGoul/vite-plugin-stylex */
 @stylex stylesheet;
@@ -54,58 +48,73 @@ export default defineConfig({
 
 ## Basic Usage
 
-```vue twoslash
+```vue [App.vue] twoslash
 <script setup lang="ts">
 const styles = defineStyleX({
   red: { color: 'red' },
 })
+
+// ...
+// ---cut-start---
+declare const vStylex: any
+// ---cut-end---
 </script>
 
 <template>
-  <p v-stylex="styles.red">Red Text</p>
+  <p v-stylex="styles.red">Red</p>
 </template>
 ```
 
 :::details Compiled Code
 
-```vue twoslash
+```vue [App.vue] twoslash
 <script lang="ts">
-import {
-  create as _stylex_create,
-  attrs as stylex_attrs,
-} from '@stylexjs/stylex'
-
 const styles = _stylex_create({
   red: { color: 'red' },
 })
 </script>
 
+<script setup lang="ts">
+import {
+  attrs as _stylex_attrs,
+  create as _stylex_create,
+} from '@stylexjs/stylex'
+
+// ...
+</script>
+
 <template>
-  <p v-bind="_stylex_attrs(styles.red)">Red Text</p>
+  <p v-bind="_stylex_attrs(styles.red)">Red</p>
 </template>
 ```
 
 :::
 
+## Conditional Styles
+
 Optional and multiple rules are supported.
 
-```vue twoslash
+```vue [App.vue] twoslash
 <script setup lang="ts">
 defineProps<{ bold?: boolean }>()
+
 const styles = defineStyleX({
   red: { color: 'red' },
   bold: { fontWeight: 'bold' },
 })
+// ---cut-start---
+declare const vStylex: any
+// ---cut-end---
 </script>
 
 <template>
-  <p><span v-stylex="(styles.red, bold && styles.bold)">Red</span> Text</p>
+  <span v-stylex="(styles.red, bold && styles.bold)">Red</span>
 </template>
 ```
 
 :::details Compiled Code
 
-```vue twoslash
+```vue [App.vue] twoslash
 <script lang="ts">
 const styles = _stylex_create({
   red: { color: 'red' },
@@ -118,14 +127,12 @@ import {
   attrs as _stylex_attrs,
   create as _stylex_create,
 } from '@stylexjs/stylex'
+
 defineProps<{ bold?: boolean }>()
 </script>
 
 <template>
-  <p>
-    <span v-bind="_stylex_attrs(styles.red, bold && styles.bold)">Red</span>
-    Text
-  </p>
+  <span v-bind="_stylex_attrs(styles.red, bold && styles.bold)">Red</span>
 </template>
 ```
 
