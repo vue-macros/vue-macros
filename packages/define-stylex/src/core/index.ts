@@ -22,7 +22,7 @@ const STYLEX_ATTRS = '_stylex_attrs'
 
 export function transformDirective(s?: MagicStringAST): NodeTransform {
   return (node) => {
-    if (!(node.type === NodeTypes.ELEMENT)) return
+    if (!(node.type === (1 satisfies NodeTypes.ELEMENT))) return
     const i = node.props.findIndex(
       (item) =>
         item.type === NodeTypes.DIRECTIVE && item.rawName === 'v-stylex',
