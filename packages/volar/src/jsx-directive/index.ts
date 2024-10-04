@@ -40,14 +40,19 @@ export function transformJsxDirective(options: TransformOptions): void {
   const refNodes: JsxDirective[] = []
   const vSlots: JsxDirective[] = []
 
-  const ctxNodeSet = new Set<JsxDirective['node']>()
+  const ctxNodeMap = new Map<
+    JsxDirective['node'],
+    import('typescript').Block | undefined
+  >()
 
   function walkJsxDirective(
     node: import('typescript').Node,
     parent?: import('typescript').Node,
+    parents: import('typescript').Node[] = [],
   ) {
     const tagName = getTagName(node, options)
     const properties = getOpeningElement(node, options)
+    let ctxNode
     let vIfAttribute
     let vForAttribute
     let vSlotAttribute
@@ -67,19 +72,19 @@ export function transformJsxDirective(options: TransformOptions): void {
           node,
           attribute,
         })
-        ctxNodeSet.add(node)
+        ctxNode = node
       } else if (attributeName === 'v-on') {
         vOnNodes.push({ node, attribute })
-        ctxNodeSet.add(node)
+        ctxNode = node
       } else if (/^on[A-Z]\S*_\S+/.test(attributeName)) {
         vOnWithModifiers.push({ node, attribute })
       } else if (/^(?!v-|on[A-Z])\S+_\S+/.test(attributeName)) {
         vBindNodes.push({ node, attribute })
       } else if (attributeName === 'ref') {
         refNodes.push({ node, attribute })
-        ctxNodeSet.add(node)
+        ctxNode = node
       } else if (attributeName === 'v-slots') {
-        ctxNodeSet.add(node)
+        ctxNode = node
         vSlots.push({ node, attribute })
       }
     }
@@ -95,7 +100,8 @@ export function transformJsxDirective(options: TransformOptions): void {
         ts.isJsxText(child) ? getText(child, options).trim() : true,
       ).length === 1
     ) {
-      ctxNodeSet.add(parent)
+      ctxNode = node
+
       vSlots.push({
         node: parent,
         attribute: {
@@ -130,7 +136,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       const slotNode = tagName === 'template' ? parent : node
       if (!slotNode) return
 
-      ctxNodeSet.add(slotNode)
+      ctxNode = slotNode
 
       const attributeMap =
         vSlotMap.get(slotNode)?.attributeMap ||
@@ -174,19 +180,26 @@ export function transformJsxDirective(options: TransformOptions): void {
       }
     }
 
+    if (ctxNode) {
+      ctxNodeMap.set(ctxNode, parents.find(ts.isBlock))
+    }
+
     ts.forEachChild(node, (child) => {
+      parents.unshift(node)
       walkJsxDirective(
         child,
         ts.isJsxElement(node) || ts.isJsxFragment(node) ? node : undefined,
+        parents,
       )
+      parents.shift()
     })
   }
   ts.forEachChild(sfc[source]!.ast, walkJsxDirective)
 
   const ctxMap = new Map(
-    Array.from(ctxNodeSet).map((node, index) => [
+    Array.from(ctxNodeMap).map(([node, root], index) => [
       node,
-      transformCtx(node, index, options),
+      transformCtx(node, root, index, options),
     ]),
   )
 

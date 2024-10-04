@@ -285,6 +285,10 @@ export function getLocaleConfig(lang: string) {
               text: 'scriptSFC',
               link: `/script-sfc`,
             },
+            {
+              text: 'jsxRef',
+              link: `/jsx-ref`,
+            },
           ],
         },
       ],
@@ -308,7 +312,7 @@ export function getLocaleConfig(lang: string) {
     footer: {
       message: t('Made with ❤️'),
       copyright:
-        'MIT License © 2022-PRESENT <a href="https://github.com/sxzz">三咲智子 Kevin Deng</a>',
+        'MIT License © 2022-PRESENT<br /><a href="https://github.com/sxzz">三咲智子 Kevin Deng</a> & Vue Macros Contributors',
     },
     editLink: {
       pattern: `${githubLink}/edit/main/docs/:path`,
