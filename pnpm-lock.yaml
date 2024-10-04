@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@stylexjs/stylex':
+      specifier: ^0.7.5
+      version: 0.7.5
     '@vue/compiler-core':
       specifier: ^3.5.11
       version: 3.5.11
@@ -203,6 +206,9 @@ importers:
       '@shikijs/vitepress-twoslash':
         specifier: ^1.22.0
         version: 1.22.0(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.24.0)(webpack-sources@3.2.3))(typescript@5.6.2)
+      '@stylexjs/stylex':
+        specifier: 'catalog:'
+        version: 0.7.5
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.0.1
         version: 4.0.1(vite@5.4.8(@types/node@22.7.5)(less@4.2.0)(terser@5.34.1))(vue@3.5.11(typescript@5.6.2))
