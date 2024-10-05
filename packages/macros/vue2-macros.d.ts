@@ -12,6 +12,7 @@ export * from '@vue-macros/define-prop/macros'
 export * from '@vue-macros/define-props/vue2-macros'
 export * from '@vue-macros/define-render/vue2-macros'
 export * from '@vue-macros/define-slots/macros'
+export * from '@vue-macros/define-stylex/macros'
 export * from '@vue-macros/reactivity-transform/vue2-macros'
 export * from '@vue-macros/short-emits/macros'
 export { definePropsRefs }

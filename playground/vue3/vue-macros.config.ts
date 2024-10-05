@@ -7,6 +7,7 @@ export default defineConfig({
   defineOptions: true,
   defineProp: true,
   defineSlots: true,
+  defineStyleX: true,
   exportExpose: {
     include: [/export-expose.*\.vue$/],
   },

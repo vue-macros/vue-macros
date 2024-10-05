@@ -5,6 +5,7 @@ export default defineConfig({
   defineProp: {
     edition: 'johnsonEdition',
   },
+  defineStyleX: true,
   exportExpose: {
     include: ['**/export-expose/**'],
   },
@@ -15,8 +16,8 @@ export default defineConfig({
     include: ['**/export-render/**', '**.setup.tsx'],
   },
   namedTemplate: false,
-  scriptLang: true,
 
+  scriptLang: true,
   setupBlock: true,
   setupSFC: true,
   shortVmodel: {
