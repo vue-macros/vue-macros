@@ -30,7 +30,7 @@ jobs:
       - name: Install
         run: pnpm i
 
-      - name: Lint
+      - name: ESLint
         run: pnpm run lint
 
       - name: Format Check
@@ -38,6 +38,9 @@ jobs:
 
       - name: Monorepo Check
         run: pnpm run mono:check
+
+      - name: CSpell Check
+        run: pnpm run cspell:check
 
   test:
     strategy:
