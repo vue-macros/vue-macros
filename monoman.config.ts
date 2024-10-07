@@ -226,7 +226,7 @@ Please refer to [README.md](${githubLink}#readme)\n`
       /shiki/,
       /babel/,
       /esbuild/,
-      /vite/,
+      /vite(?!-plugin-vue-inspector)/,
       /unocss/,
       /rolldown/,
     ],
