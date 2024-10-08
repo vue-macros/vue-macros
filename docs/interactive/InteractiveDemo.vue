@@ -6,6 +6,7 @@ import pluginTypeScript from 'prettier/plugins/typescript'
 import { format } from 'prettier/standalone'
 import { createHighlighterCoreSync } from 'shiki/core'
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
+import langTsx from 'shiki/langs/tsx.mjs'
 import langTypeScript from 'shiki/langs/typescript.mjs'
 import langVue from 'shiki/langs/vue.mjs'
 import themeVitesseDark from 'shiki/themes/vitesse-dark.mjs'
@@ -29,7 +30,7 @@ const { isDark } = useData()
 
 const shiki = createHighlighterCoreSync({
   themes: [themeVitesseLight, themeVitesseDark],
-  langs: [langTypeScript, langVue],
+  langs: [langTypeScript, langTsx, langVue],
   engine: createJavaScriptRegexEngine(),
 })
 
