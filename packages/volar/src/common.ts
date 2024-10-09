@@ -70,7 +70,7 @@ export function addCode(codes: Code[], ...args: Code[]): void {
   const index = codes.findIndex((code) =>
     code.includes('__VLS_setup = (async () => {'),
   )
-  codes.splice(index > -1 ? index + 1 : codes.length, 0, ...args)
+  codes.splice(index !== -1 ? index + 1 : codes.length, 0, ...args)
 }
 
 export type VueMacrosPlugin<K extends FeatureName> = (
