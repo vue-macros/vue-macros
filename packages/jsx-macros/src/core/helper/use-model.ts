@@ -1,7 +1,13 @@
-// Copy from: https://github.com/vuejs/core/blob/main/packages/runtime-core/src/helpers/useModel.ts
+// Modified from: https://github.com/vuejs/core/blob/main/packages/runtime-core/src/helpers/useModel.ts
 
-import { camelize, hasChanged, hyphenate } from '@vue/shared'
-import { customRef, watchSyncEffect, type ModelRef } from 'vue'
+import { camelize, customRef, watchSyncEffect, type ModelRef } from 'vue'
+
+const hasChanged = (value: any, oldValue: any): boolean =>
+  !Object.is(value, oldValue)
+
+const hyphenateRE = /\B([A-Z])/g
+const hyphenate: (str: string) => string = (str: string) =>
+  str.replaceAll(hyphenateRE, '-$1').toLowerCase()
 
 type DefineModelOptions<T = Record<string, any>> = {
   default?: any

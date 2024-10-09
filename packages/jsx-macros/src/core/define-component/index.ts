@@ -1,6 +1,6 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
-import { camelize } from '@vue/shared'
+import { camelize } from 'vue'
 import type { FunctionalNode, RootMapValue } from '..'
 import { restructure } from './restructure'
 
