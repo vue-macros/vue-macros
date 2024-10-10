@@ -27,7 +27,7 @@ function defaultPropsProxy(props: any, defaultProps: any): any {
       const value =
         target[prop] === undefined ? defaultProps?.[prop] : target?.[prop]
       if (typeof value === 'object' && value !== null) {
-        return defaultPropsProxy(value, defaultProps[prop])
+        return defaultPropsProxy(value, defaultProps?.[prop])
       }
       return value
     },
