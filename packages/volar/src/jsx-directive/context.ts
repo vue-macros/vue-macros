@@ -28,10 +28,10 @@ function __VLS_getFunctionalComponentCtx<T, K, const S>(
   ? { expose: (exposed: (typeof __VLS_nativeElements)[S]) => any }
   : '__ctx' extends keyof __VLS_PickNotAny<K, {}>
     ? K extends { __ctx?: infer Ctx }
-      ? Ctx
+      ? { slots: Ctx['props']['vSlots'] } & Ctx
       : never
     : T extends (props: infer P, ctx: infer Ctx) => any
-      ? { props: P; slots: P['vSlots']; expose: P['vExpose'] } & Ctx
+      ? { props: P; slots: P['vSlots'] } & Ctx
       : {};\n`)
   }
 

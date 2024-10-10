@@ -369,6 +369,9 @@ importers:
       '@vue-macros/jsx-directive':
         specifier: workspace:*
         version: link:../jsx-directive
+      '@vue-macros/jsx-macros':
+        specifier: workspace:*
+        version: link:../jsx-macros
       '@vue-macros/named-template':
         specifier: workspace:*
         version: link:../named-template
@@ -622,6 +625,25 @@ importers:
         specifier: 'catalog:'
         version: 3.5.11(typescript@5.6.2)
 
+  packages/jsx-macros:
+    dependencies:
+      '@vue-macros/common':
+        specifier: workspace:*
+        version: link:../common
+      '@vue/compiler-core':
+        specifier: 'catalog:'
+        version: 3.5.11
+      '@vue/shared':
+        specifier: 'catalog:'
+        version: 3.5.11
+      unplugin:
+        specifier: 'catalog:'
+        version: 1.14.1(webpack-sources@3.2.3)
+    devDependencies:
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.11(typescript@5.6.2)
+
   packages/macros:
     dependencies:
       '@vue-macros/better-define':
@@ -678,6 +700,9 @@ importers:
       '@vue-macros/jsx-directive':
         specifier: workspace:*
         version: link:../jsx-directive
+      '@vue-macros/jsx-macros':
+        specifier: workspace:*
+        version: link:../jsx-macros
       '@vue-macros/named-template':
         specifier: workspace:*
         version: link:../named-template
@@ -918,6 +943,9 @@ importers:
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
+      '@vue/compiler-dom':
+        specifier: 'catalog:'
+        version: 3.5.11
       '@vue/language-core':
         specifier: 'catalog:'
         version: 2.1.6(typescript@5.6.2)
@@ -925,9 +953,6 @@ importers:
         specifier: ^0.4.1
         version: 0.4.1
     devDependencies:
-      '@vue/compiler-dom':
-        specifier: 'catalog:'
-        version: 3.5.11
       typescript:
         specifier: 'catalog:'
         version: 5.6.2
