@@ -21,20 +21,18 @@ function resolveDefaultProps(paths: Record<string, any>): any {
   return result
 }
 
-function defaultPropsProxy(props: any, defaultProps: any): any {
-  return new Proxy(props, {
-    get(target, prop) {
-      const value =
-        target[prop] === undefined ? defaultProps?.[prop] : target?.[prop]
-      if (typeof value === 'object' && value !== null) {
-        return defaultPropsProxy(value, defaultProps?.[prop])
-      }
-      return value
-    },
-  })
-}
+export function createDefaultPropsProxy(props: any, defaults: any): any {
+  const defaultProps = resolveDefaultProps(defaults)
+  const result: Record<string, any> = {}
 
-export function createDefaultPropsProxy(props: any, defaultProps: any): any {
-  const resolvedDefaultProps = resolveDefaultProps(defaultProps)
-  return defaultPropsProxy(props, resolvedDefaultProps)
+  for (const key of [
+    ...new Set([...Object.keys(props), ...Object.keys(defaultProps)]),
+  ]) {
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      get: () => (props[key] === undefined ? defaultProps[key] : props[key]),
+    })
+  }
+
+  return result
 }
