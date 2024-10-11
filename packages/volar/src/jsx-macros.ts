@@ -178,7 +178,7 @@ function getRootMap(
       const typeString = `import("vue").UnwrapRef<typeof ${id}>`
       const requiredString = isRequired ? ':' : '?:'
       ;(rootMap.get(root)!.defineModel ??= [])!.push(
-        `${modelName}${requiredString} ${typeString}`,
+        `'${modelName}'${requiredString} ${typeString}`,
         `'onUpdate:${modelName}'${requiredString} ($event: ${typeString}) => any`,
       )
       replaceSourceRange(
