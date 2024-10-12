@@ -39,7 +39,7 @@ function getMacroExpression(node?: Node | null) {
 
 export type RootMapValue = {
   defineComponent?: CallExpression
-  defineModel?: CallExpression[]
+  defineModel?: { expression: CallExpression; modelName: string }[]
   defineSlots?: CallExpression
   defineExpose?: CallExpression
 }
@@ -69,7 +69,7 @@ function getRootMap(s: MagicStringAST, id: string) {
         }
       }
 
-      let expression =
+      const expression =
         node.type === 'VariableDeclaration'
           ? node.declarations[0].init
           : node.type === 'ExpressionStatement'
@@ -77,14 +77,26 @@ function getRootMap(s: MagicStringAST, id: string) {
             : undefined
       const macroExpression = getMacroExpression(expression)
       if (!macroExpression) return
-      expression = macroExpression
       if (!rootMap.has(root)) rootMap.set(root, {})
-      const macroName = s.sliceNode(expression.callee)
+      const macroName = s.sliceNode(macroExpression.callee)
       if (macroName) {
-        if (macroName === 'defineModel')
-          (rootMap.get(root)!.defineModel ??= []).push(expression)
-        else if (macroName === 'defineSlots' || macroName === 'defineExpose')
-          rootMap.get(root)![macroName] = expression
+        if (macroName === 'defineModel') {
+          const modelName =
+            node.type === 'VariableDeclaration' &&
+            node.declarations[0]?.type === 'VariableDeclarator' &&
+            node.declarations[0].id.type === 'Identifier'
+              ? node.declarations[0].id.name
+              : 'modelValue'
+          ;(rootMap.get(root)!.defineModel ??= []).push({
+            expression: macroExpression,
+            modelName,
+          })
+        } else if (
+          macroName === 'defineSlots' ||
+          macroName === 'defineExpose'
+        ) {
+          rootMap.get(root)![macroName] = macroExpression
+        }
       }
     },
     leave() {
@@ -140,8 +152,8 @@ export function transformJsxMacros(
       transformDefineComponent(root, propsName, map, s, options.lib)
     }
     if (map.defineModel?.length) {
-      map.defineModel.forEach((node) => {
-        transformDefineModel(node, propsName, s)
+      map.defineModel.forEach(({ expression, modelName }) => {
+        transformDefineModel(expression, modelName, propsName, s)
       })
     }
     if (map.defineSlots) {

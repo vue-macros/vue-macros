@@ -1,9 +1,13 @@
 export const Comp = ({ bar }: { bar: string }) => {
-  const foo = defineModel('foo', { default: bar })
-  return <div>{foo.value}</div>
+  const foo = defineModel({ default: bar })!
+  return <div>{foo}</div>
 }
 
-export default function () {
-  const foo = defineModel('foo')
-  return <div>{foo}</div>
+export default function ({}) {
+  const modelValue = defineModel<string>()!
+  return (
+    <Comp v-model:foo={modelValue.value} bar="bar">
+      {modelValue.value}
+    </Comp>
+  )
 }

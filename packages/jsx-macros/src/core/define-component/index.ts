@@ -59,11 +59,11 @@ export function transformDefineComponent(
     }
   }
 
-  for (const prop of map.defineModel || []) {
+  for (const { expression, modelName } of map.defineModel || []) {
     const name = camelize(
-      prop.arguments[0]?.type === 'StringLiteral'
-        ? prop.arguments[0].value
-        : 'modelValue',
+      expression.arguments[0]?.type === 'StringLiteral'
+        ? expression.arguments[0].value
+        : modelName,
     )
     propsSet.add(`'${name}'`)
     propsSet.add(`'onUpdate:${name}'`)

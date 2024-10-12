@@ -23,6 +23,7 @@ function getMacro(
   vueCompilerOptions: VueCompilerOptions,
 ):
   | {
+      name?: string
       expression: import('typescript').CallExpression
       initializer: import('typescript').Node
       isRequired: boolean
@@ -48,6 +49,7 @@ function getMacro(
       const expression = getMacroExpression(initializer)
       if (expression) {
         return {
+          name: ts.isIdentifier(decl.name) ? decl.name.text : undefined,
           expression,
           initializer: decl.initializer,
           isRequired: ts.isNonNullExpression(initializer),
@@ -129,15 +131,15 @@ function getRootMap(
     const macro = getMacro(node, ts, vueCompilerOptions)
     if (!macro) return
 
-    let { expression, initializer, isRequired } = macro
+    let { name, expression, initializer, isRequired } = macro
     if (!rootMap.has(root)) rootMap.set(root, {})
-    const name = getText(expression.expression, options)
-    if (vueCompilerOptions.macros.defineModel.includes(name)) {
+    const macroName = getText(expression.expression, options)
+    if (vueCompilerOptions.macros.defineModel.includes(macroName)) {
       const modelName =
         expression.arguments[0] &&
         ts.isStringLiteralLike(expression.arguments[0])
           ? expression.arguments[0].text
-          : 'modelValue'
+          : name || 'modelValue'
       const modelOptions =
         expression.arguments[0] &&
         ts.isStringLiteralLike(expression.arguments[0])
@@ -170,16 +172,15 @@ function getRootMap(
           source,
           expression.arguments.end,
           expression.arguments.end,
-          `${expression.arguments.hasTrailingComma ? '' : ','} { required: true }`,
+          `${!expression.arguments.hasTrailingComma && expression.arguments.length ? ',' : ''} { required: true }`,
         )
       }
 
       const id = toValidAssetId(modelName, `${HELPER_PREFIX}model` as any)
       const typeString = `import("vue").UnwrapRef<typeof ${id}>`
-      const requiredString = isRequired ? ':' : '?:'
       ;(rootMap.get(root)!.defineModel ??= [])!.push(
-        `'${modelName}'${requiredString} ${typeString}`,
-        `'onUpdate:${modelName}'${requiredString} ($event: ${typeString}) => any`,
+        `'${modelName}'${isRequired ? ':' : '?:'} ${typeString}`,
+        `'onUpdate:${modelName}'?: ($event: ${typeString}) => any`,
       )
       replaceSourceRange(
         codes,
@@ -188,7 +189,7 @@ function getRootMap(
         getStart(initializer, options),
         `// @ts-ignore\n${id};\nlet ${id} =`,
       )
-    } else if (vueCompilerOptions.macros.defineSlots.includes(name)) {
+    } else if (vueCompilerOptions.macros.defineSlots.includes(macroName)) {
       replaceSourceRange(
         codes,
         source,
@@ -198,7 +199,7 @@ function getRootMap(
       )
       rootMap.get(root)!.defineSlots =
         `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
-    } else if (vueCompilerOptions.macros.defineExpose.includes(name)) {
+    } else if (vueCompilerOptions.macros.defineExpose.includes(macroName)) {
       replaceSourceRange(
         codes,
         source,
@@ -225,31 +226,26 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     )
     if (asyncModifier)
       replaceSourceRange(codes, source, asyncModifier.pos, asyncModifier.end)
-    const result = `({}) as __VLS_MaybeReturnType<Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['render']> & { __ctx: Awaited<ReturnType<typeof ${
+    const result = `({}) as __VLS_MaybeReturnType<Awaited<ReturnType<typeof ${
+      HELPER_PREFIX
+    }setup>>['render']> & { __ctx: Awaited<ReturnType<typeof ${
       HELPER_PREFIX
     }setup>> }`
 
     const propsType = root.parameters[0]?.type
       ? String(getText(root.parameters[0].type, options))
       : '{}'
-    const params = `${HELPER_PREFIX}props: Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['props'] & ${propsType}, ${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`
+    replaceSourceRange(
+      codes,
+      source,
+      getStart(root.parameters, options),
+      getStart(root.parameters, options),
+      `${HELPER_PREFIX}props: Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['props'] & ${propsType},`,
+      `${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`,
+    )
     if (ts.isArrowFunction(root)) {
-      replaceSourceRange(
-        codes,
-        source,
-        getStart(root.parameters, options),
-        getStart(root.parameters, options),
-        params,
-      )
       replaceSourceRange(codes, source, root.end, root.end, `)) => `, result)
     } else {
-      replaceSourceRange(
-        codes,
-        source,
-        root.parameters.pos,
-        root.parameters.pos,
-        params,
-      )
       replaceSourceRange(
         codes,
         source,
@@ -260,31 +256,35 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
       replaceSourceRange(
         codes,
         source,
-        root.body.end - 1,
-        root.body.end - 1,
-        `})){ return `,
+        root.end,
+        root.end,
+        `)){ return `,
         result,
+        '}',
       )
     }
 
     ts.forEachChild(root.body, (node) => {
       if (ts.isReturnStatement(node) && node.expression) {
-        const defaultProps =
+        const defaultProps = []
+        const elements =
           root.parameters[0] &&
           !root.parameters[0].type &&
           ts.isObjectBindingPattern(root.parameters[0].name)
             ? root.parameters[0].name.elements
-                .map((element) => {
-                  const isRequired = element.initializer
-                    ? ts.isNonNullExpression(element.initializer)
-                    : false
-                  return ts.isIdentifier(element.name)
-                    ? `${element.name.text}${isRequired ? ':' : '?:'} typeof ${element.name.text}`
-                    : ''
-                })
-                .filter(Boolean)
-                .join(', ')
-            : ''
+            : []
+        for (const element of elements) {
+          if (ts.isIdentifier(element.name))
+            defaultProps.push(
+              `${element.name.text}${
+                element.initializer &&
+                ts.isNonNullExpression(element.initializer)
+                  ? ':'
+                  : '?:'
+              } typeof ${element.name.text}`,
+            )
+        }
+
         replaceSourceRange(
           codes,
           source,
@@ -292,7 +292,7 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
           getStart(node.expression, options),
           `return {\nprops: {} as `,
           options.vueVersion ? `import('vue').PublicProps & ` : '',
-          `{${defaultProps}} & `,
+          `{${defaultProps.join(', ')}} & `,
           map.defineModel?.length ? `{ ${map.defineModel?.join(', ')} }` : '{}',
           map.defineSlots ? ` & ${map.defineSlots}` : '',
           map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
