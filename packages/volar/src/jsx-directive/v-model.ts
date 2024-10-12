@@ -178,9 +178,9 @@ type __VLS_PropsToEmits<T> = T extends object
           : never]: T[K]
       }
     : never
-type __VLS_GetModels<P, E = __VLS_PropsToEmits<P>> = E extends object
+type __VLS_GetModels<P, E = __VLS_PropsToEmits<P>> = P extends object
   ? {
-      [K in keyof E as K extends keyof P
+      [K in keyof P as K extends keyof E
         ? K
         : never]: K extends keyof P ? P[K] : never
     }
