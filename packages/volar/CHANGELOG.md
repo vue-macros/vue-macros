@@ -1,5 +1,16 @@
 # @vue-macros/volar
 
+## 0.30.4
+### Patch Changes
+
+
+
+- [#838](https://github.com/vue-macros/vue-macros/pull/838) [`75b1b4d`](https://github.com/vue-macros/vue-macros/commit/75b1b4dd8f3d2af3e62490a4344d032ec4555d2a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use props instead of emits for inferred required type in v-model
+
+
+
+- [#831](https://github.com/vue-macros/vue-macros/pull/831) [`8c002a7`](https://github.com/vue-macros/vue-macros/commit/8c002a77bb7403238a118c032d6aa6c63359e717) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-model and v-slot co-usage for jsx-directive
+
 ## 0.30.3
 ### Patch Changes
 
