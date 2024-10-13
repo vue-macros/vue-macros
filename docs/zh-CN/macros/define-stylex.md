@@ -2,7 +2,7 @@
 
 <StabilityLevel level="experimental" />
 
-Define and consume [StyleX](https://stylexjs.com/) styles in `<script setup>`.
+在 `<script setup>` 定义与使用 [StyleX](https://stylexjs.com/) 的 Atomic CSS-in-JS.
 
 |      Features      |     Supported      |
 | :----------------: | :----------------: |
@@ -11,9 +11,9 @@ Define and consume [StyleX](https://stylexjs.com/) styles in `<script setup>`.
 | TypeScript / Volar | :white_check_mark: |
 |       Vue 2        | :white_check_mark: |
 
-## Setup
+## 配置
 
-To use StyleX, you should install and configure StyleX first. The steps could change, you may want to check the [official documentation](https://stylexjs.com/) and the [documentation of vite-plugin-stylex](https://github.com/HorusGoul/vite-plugin-stylex) for the latest information.
+在使用这个宏之前，你需要先引入与配置 StyleX。步骤可能会有所变化，你可能需要查看 [StyleX 官方文档](https://stylexjs.com/) 以及 [vite-plugin-stylex](https://github.com/HorusGoul/vite-plugin-stylex) 的文档，以获取最新信息。
 
 ### Vite
 
@@ -34,19 +34,19 @@ export default defineConfig({
         vue: Vue(),
       },
     }),
-    StyleX(), // Must be placed after Vue Macros
+    StyleX(), // 必须放在 Vue Macros 插件后
   ],
 })
 ```
 
 ```vue [App.vue] {2-3}
 <style>
-/* import StyleX stylesheet, according to https://github.com/HorusGoul/vite-plugin-stylex */
+/* 引入 StyleX 样式表, 参考： https://github.com/HorusGoul/vite-plugin-stylex */
 @stylex stylesheet;
 </style>
 ```
 
-## Basic Usage
+## 基本用法
 
 ```vue [App.vue] twoslash
 <script setup lang="ts">
@@ -65,7 +65,7 @@ declare const vStylex: any
 </template>
 ```
 
-:::details Compiled Code (with some simplifications)
+:::details 编译结果（有所简化）
 
 ```vue [App.vue] twoslash
 <script lang="ts">
@@ -90,9 +90,9 @@ import {
 
 :::
 
-## Conditional Styles
+## 条件样式
 
-Optional and multiple rules are supported.
+你可以应用多个样式，也可以根据条件应用样式。
 
 ```vue [App.vue] twoslash
 <script setup lang="ts">
@@ -112,7 +112,7 @@ declare const vStylex: any
 </template>
 ```
 
-:::details Compiled Code (with some simplifications)
+:::details 编译结果（有所简化）
 
 ```vue [App.vue] twoslash
 <script lang="ts">
