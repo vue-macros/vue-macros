@@ -20,7 +20,7 @@ import type { Node } from '@babel/types'
 const STYLEX_CREATE = '_stylex_create'
 const STYLEX_ATTRS = '_stylex_attrs'
 
-export function transformDirective(s?: MagicStringAST): NodeTransform {
+function transformDirective(s: MagicStringAST): NodeTransform {
   return (node) => {
     if (!(node.type === (1 satisfies NodeTypes.ELEMENT))) return
     const i = node.props.findIndex(
@@ -49,9 +49,6 @@ export function transformDirective(s?: MagicStringAST): NodeTransform {
       )
       return
     }
-
-    // For volar
-    node.props[i] = { ...directiveVStyleX, name: 'bind' }
 
     s?.overwrite(
       directiveVStyleX.loc.start.offset,
