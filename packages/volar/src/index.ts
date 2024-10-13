@@ -8,7 +8,6 @@ import defineProp from './define-prop'
 import defineProps from './define-props'
 import definePropsRefs from './define-props-refs'
 import defineSlots from './define-slots'
-import defineStyleX from './define-stylex'
 import exportExpose from './export-expose'
 import exportProps from './export-props'
 import exportRender from './export-render'
@@ -30,7 +29,6 @@ const plugins = {
   shortBind,
   shortVmodel,
   defineSlots,
-  defineStyleX,
   jsxDirective,
   booleanProp,
   exportRender,
