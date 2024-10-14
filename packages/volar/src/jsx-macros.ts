@@ -23,7 +23,6 @@ function getMacro(
   vueCompilerOptions: VueCompilerOptions,
 ):
   | {
-      name?: string
       expression: import('typescript').CallExpression
       initializer: import('typescript').Node
       isRequired: boolean
@@ -49,7 +48,6 @@ function getMacro(
       const expression = getMacroExpression(initializer)
       if (expression) {
         return {
-          name: ts.isIdentifier(decl.name) ? decl.name.escapedText! : undefined,
           expression,
           initializer: decl.initializer,
           isRequired: ts.isNonNullExpression(initializer),
@@ -131,7 +129,8 @@ function getRootMap(
     const macro = getMacro(node, ts, vueCompilerOptions)
     if (!macro) return
 
-    let { name, expression, initializer, isRequired } = macro
+    const { expression, initializer } = macro
+    let isRequired = macro.isRequired
     if (!rootMap.has(root)) rootMap.set(root, {})
     const macroName = getText(expression.expression, options)
     if (vueCompilerOptions.macros.defineModel.includes(macroName)) {
@@ -139,7 +138,7 @@ function getRootMap(
         expression.arguments[0] &&
         ts.isStringLiteralLike(expression.arguments[0])
           ? expression.arguments[0].text
-          : name || 'modelValue'
+          : 'modelValue'
       const modelOptions =
         expression.arguments[0] &&
         ts.isStringLiteralLike(expression.arguments[0])

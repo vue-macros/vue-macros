@@ -1,6 +1,6 @@
 export const Comp = ({ bar }: { bar: string }) => {
-  const foo = defineModel({ default: bar })!
-  return <div>{foo}</div>
+  const foo = defineModel('foo', { default: bar })!
+  return <div>{foo.value}</div>
 }
 
 export default function () {

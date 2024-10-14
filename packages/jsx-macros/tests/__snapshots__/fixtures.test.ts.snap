@@ -47,8 +47,8 @@ import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export d
 exports[`fixtures > ./fixtures/define-model.tsx 1`] = `
 "
 import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props }: { bar: string }) => {
-  const foo = __MACROS_useModel(__MACROS_props, 'foo',{ default: bar })!
-  return <div>{foo}</div>
+  const foo = __MACROS_useModel(__MACROS_props, 'foo', { default: bar })!
+  return <div>{foo.value}</div>
 }
 
 export default function (__MACROS_props) {

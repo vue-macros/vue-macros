@@ -56,7 +56,7 @@ export function transformDefineComponent(
       }
     }
   }
-  for (const { expression, modelName, isRequired } of map.defineModel || []) {
+  for (const { expression, isRequired } of map.defineModel || []) {
     const modelOptions =
       expression.arguments[0]?.type === 'ObjectExpression'
         ? expression.arguments[0]
@@ -77,7 +77,7 @@ export function transformDefineComponent(
     const propName =
       expression.arguments[0]?.type === 'StringLiteral'
         ? expression.arguments[0].value
-        : modelName
+        : 'modelValue'
     props[`'${propName}'`] = Object.keys(options).length
       ? `{ ${Object.entries(options)
           .map(([key, value]) => `${key}: ${value}`)

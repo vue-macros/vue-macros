@@ -41,7 +41,6 @@ export type RootMapValue = {
   defineComponent?: CallExpression
   defineModel?: {
     expression: CallExpression
-    modelName: string
     isRequired: boolean
   }[]
   defineSlots?: CallExpression
@@ -85,15 +84,8 @@ function getRootMap(s: MagicStringAST, id: string) {
       const macroName = s.sliceNode(macroExpression.callee)
       if (macroName) {
         if (macroName === 'defineModel') {
-          const modelName =
-            node.type === 'VariableDeclaration' &&
-            node.declarations[0]?.type === 'VariableDeclarator' &&
-            node.declarations[0].id.type === 'Identifier'
-              ? node.declarations[0].id.name
-              : 'modelValue'
           ;(rootMap.get(root)!.defineModel ??= []).push({
             expression: macroExpression,
-            modelName,
             isRequired: expression?.type === 'TSNonNullExpression',
           })
         } else if (
@@ -162,8 +154,8 @@ export function transformJsxMacros(
       transformDefineComponent(root, propsName, map, s, options.lib)
     }
     if (map.defineModel?.length) {
-      map.defineModel.forEach(({ expression, modelName }) => {
-        transformDefineModel(expression, modelName, propsName, s)
+      map.defineModel.forEach(({ expression }) => {
+        transformDefineModel(expression, propsName, s)
       })
     }
     if (map.defineSlots) {
