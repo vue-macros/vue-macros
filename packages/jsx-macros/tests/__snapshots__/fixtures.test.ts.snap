@@ -9,18 +9,26 @@ import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model"
 
 const Comp = __MACROS_defineComponent(
   (__MACROS_props) => {
-const __MACROS_defaults_props = __MACROS_createDefaultPropsProxy(__MACROS_props, {'.bar': 'bar'});
+const __MACROS_defaults_props = __MACROS_createDefaultPropsProxy(__MACROS_props, {'.bar': 'bar'!});
 const props = __MACROS_createPropsRestProxy(__MACROS_defaults_props, ['bar']);
-    const foo = __MACROS_useModel(props, 'foo')
+    const foo = __MACROS_useModel(props, 'foo', {
+      validator: (value) => {
+        return value === 'foo'
+      },
+      required: false,
+      type: String,
+    })
     return () => <div>{[foo.value, __MACROS_defaults_props.bar, props.baz]}</div>
   },
-  { inheritAttrs: false , props: [ 'bar', 'baz', 'foo', 'onUpdate:foo' ]},
+  { inheritAttrs: false , props: { bar: { required: true }, baz: null, foo: { validator: (value) => {
+        return value === 'foo'
+      }, required: false, type: String }, 'onUpdate:foo': null }},
 )
 
 const Comp1 = __MACROS_defineComponent((props: { bar: 'bar' }) => {
   const foo = __MACROS_useModel(props, 'foo')
   return () => <div>{[foo.value, props['bar']]}</div>
-}, { props: [ bar, 'foo', 'onUpdate:foo' ] })
+}, { props: { bar: null, foo: null, 'onUpdate:foo': null } })
 "
 `;
 

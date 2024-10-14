@@ -14,13 +14,13 @@ function getWalkedIds(root: FunctionalNode, propsName: string) {
         (parent?.type === 'MemberExpression' ||
           parent?.type === 'OptionalMemberExpression')
       ) {
-        walkedIds.add(
+        const prop =
           parent.property.type === 'Identifier'
-            ? `'${parent.property.name}'`
+            ? parent.property.name
             : parent.property.type === 'StringLiteral'
               ? parent.property.value
-              : '',
-        )
+              : ''
+        if (prop) walkedIds.add(prop)
       }
     },
     false,
@@ -41,39 +41,61 @@ export function transformDefineComponent(
     importHelperFn(s, 0, 'defineComponent', 'vue'),
   )
 
-  let propsSet = new Set<string>()
+  const props: Record<string, string | null> = {}
   if (root.params[0]) {
     if (root.params[0].type === 'Identifier') {
-      propsSet = getWalkedIds(root, propsName)
+      getWalkedIds(root, propsName).forEach((id) => (props[id] = null))
     } else {
-      const props = restructure(s, root)
-      for (const prop of props) {
+      for (const prop of restructure(s, root)) {
         if (prop.path.endsWith('props')) {
           if (prop.isRest) {
-            getWalkedIds(root, prop.name).forEach((id) => propsSet.add(id))
+            getWalkedIds(root, prop.name).forEach((id) => (props[id] = null))
           } else {
-            propsSet.add(`'${prop.name}'`)
+            props[prop.name] = prop.isRequired ? '{ required: true }' : null
           }
         }
       }
     }
   }
 
-  for (const { expression, modelName } of map.defineModel || []) {
+  for (const { expression, modelName, isRequired } of map.defineModel || []) {
     const name = camelize(
       expression.arguments[0]?.type === 'StringLiteral'
         ? expression.arguments[0].value
         : modelName,
     )
-    propsSet.add(`'${name}'`)
-    propsSet.add(`'onUpdate:${name}'`)
+    const modelOptions =
+      expression.arguments[0]?.type === 'ObjectExpression'
+        ? expression.arguments[0]
+        : expression.arguments[1]?.type === 'ObjectExpression'
+          ? expression.arguments[1]
+          : undefined
+    const options: any = {}
+    if (isRequired) options.required = true
+    for (const prop of modelOptions?.properties || []) {
+      if (
+        prop.type === 'ObjectProperty' &&
+        prop.key.type === 'Identifier' &&
+        ['validator', 'type', 'required'].includes(prop.key.name)
+      ) {
+        options[prop.key.name] = s.sliceNode(prop.value)
+      }
+    }
+    props[name] = Object.keys(options).length
+      ? `{ ${Object.entries(options)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join(', ')} }`
+      : null
+    props[`'onUpdate:${name}'`] = null
   }
 
-  const result = Array.from(propsSet).filter(Boolean).join(', ')
-  if (result) {
+  const propsString = Object.entries(props)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(', ')
+  if (propsString) {
     const argument = map.defineComponent.arguments[1]
     if (!argument) {
-      s.appendRight(root.end!, `, { props: [ ${result} ] }`)
+      s.appendRight(root.end!, `, { props: { ${propsString} } }`)
     } else if (
       argument.type === 'ObjectExpression' &&
       !argument.properties?.find(
@@ -89,11 +111,12 @@ export function transformDefineComponent(
           !argument.properties.length || argument.extra?.trailingComma
             ? ''
             : ','
-        } props: [ ${result} ]`,
+        } props: { ${propsString} }`,
       )
     }
   }
 
+  // Auto add `() => ` for return statement
   if (lib === 'vue') {
     if (root.body.type === 'BlockStatement') {
       const returnStatement = root.body.body.find(

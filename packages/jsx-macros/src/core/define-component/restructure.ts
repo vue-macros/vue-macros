@@ -14,6 +14,7 @@ type Prop = {
   value: string
   defaultValue?: string
   isRest?: boolean
+  isRequired?: boolean
 }
 
 function getProps(
@@ -62,6 +63,7 @@ function getProps(
           name: prop.value.left.name,
           value: `.${prop.key.name}`,
           defaultValue: s.slice(prop.value.right.start!, prop.value.right.end!),
+          isRequired: prop.value.right.type === 'TSNonNullExpression',
         })
       } else if (!getProps(prop.value, `${path}.${prop.key.name}`, s, props)) {
         // { foo: bar }

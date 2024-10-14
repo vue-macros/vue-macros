@@ -1,8 +1,14 @@
 import { defineComponent } from 'vue'
 
 const Comp = defineComponent(
-  ({ bar = 'bar', ...props }: { bar: 'bar'; baz: 'baz' }) => {
-    const foo = defineModel('foo')
+  ({ bar = 'bar'!, ...props }: { bar: 'bar'; baz: 'baz' }) => {
+    const foo = defineModel('foo', {
+      validator: (value) => {
+        return value === 'foo'
+      },
+      required: false,
+      type: String,
+    })
     return <div>{[foo.value, bar, props.baz]}</div>
   },
   { inheritAttrs: false },

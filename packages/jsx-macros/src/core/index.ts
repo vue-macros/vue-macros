@@ -39,7 +39,11 @@ function getMacroExpression(node?: Node | null) {
 
 export type RootMapValue = {
   defineComponent?: CallExpression
-  defineModel?: { expression: CallExpression; modelName: string }[]
+  defineModel?: {
+    expression: CallExpression
+    modelName: string
+    isRequired: boolean
+  }[]
   defineSlots?: CallExpression
   defineExpose?: CallExpression
 }
@@ -90,6 +94,7 @@ function getRootMap(s: MagicStringAST, id: string) {
           ;(rootMap.get(root)!.defineModel ??= []).push({
             expression: macroExpression,
             modelName,
+            isRequired: expression?.type === 'TSNonNullExpression',
           })
         } else if (
           macroName === 'defineSlots' ||
