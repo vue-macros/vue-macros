@@ -150,10 +150,10 @@ export function restructure(
       }
     }
     for (const [path, values] of Object.entries(defaultValues)) {
-      const createDefaultPropsProxy = importHelperFn(
+      const createPropsDefaultProxy = importHelperFn(
         s,
         0,
-        'createDefaultPropsProxy',
+        'createPropsDefaultProxy',
         withDefaultsFrom,
       )
       const resolvedPath = path.replace(
@@ -168,7 +168,7 @@ export function restructure(
       prependFunctionalNode(
         node,
         s,
-        `\nconst ${path} = ${createDefaultPropsProxy}(${resolvedPath}, {${resolvedValues}})`,
+        `\nconst ${path} = ${createPropsDefaultProxy}(${resolvedPath}, {${resolvedValues}})`,
       )
     }
 

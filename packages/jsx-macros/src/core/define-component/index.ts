@@ -1,6 +1,5 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
-import { camelize } from '@vue/shared'
 import type { FunctionalNode, RootMapValue } from '..'
 import { restructure } from './restructure'
 
@@ -57,13 +56,7 @@ export function transformDefineComponent(
       }
     }
   }
-
   for (const { expression, modelName, isRequired } of map.defineModel || []) {
-    const name = camelize(
-      expression.arguments[0]?.type === 'StringLiteral'
-        ? expression.arguments[0].value
-        : modelName,
-    )
     const modelOptions =
       expression.arguments[0]?.type === 'ObjectExpression'
         ? expression.arguments[0]
@@ -81,12 +74,16 @@ export function transformDefineComponent(
         options[prop.key.name] = s.sliceNode(prop.value)
       }
     }
-    props[name] = Object.keys(options).length
+    const propName =
+      expression.arguments[0]?.type === 'StringLiteral'
+        ? expression.arguments[0].value
+        : modelName
+    props[`'${propName}'`] = Object.keys(options).length
       ? `{ ${Object.entries(options)
           .map(([key, value]) => `${key}: ${value}`)
           .join(', ')} }`
       : null
-    props[`'onUpdate:${name}'`] = null
+    props[`'onUpdate:${propName}'`] = null
   }
 
   const propsString = Object.entries(props)

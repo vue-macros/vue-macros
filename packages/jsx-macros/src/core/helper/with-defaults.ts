@@ -21,7 +21,7 @@ function resolveDefaultProps(paths: Record<string, any>): any {
   return result
 }
 
-export function createDefaultPropsProxy(props: any, defaults: any): any {
+export function createPropsDefaultProxy(props: any, defaults: any): any {
   const defaultProps = resolveDefaultProps(defaults)
   const result: Record<string, any> = {}
 

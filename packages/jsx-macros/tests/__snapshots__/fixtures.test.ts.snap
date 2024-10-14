@@ -3,13 +3,13 @@
 exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
 "
 import { defineComponent as __MACROS_defineComponent } from "vue";
-import { createDefaultPropsProxy as __MACROS_createDefaultPropsProxy } from "/vue-macros/jsx-macros/with-defaults";
+import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-macros/with-defaults";
 import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";
 import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";import { defineComponent } from 'vue'
 
 const Comp = __MACROS_defineComponent(
   (__MACROS_props) => {
-const __MACROS_defaults_props = __MACROS_createDefaultPropsProxy(__MACROS_props, {'.bar': 'bar'!});
+const __MACROS_defaults_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});
 const props = __MACROS_createPropsRestProxy(__MACROS_defaults_props, ['bar']);
     const foo = __MACROS_useModel(props, 'foo', {
       validator: (value) => {
@@ -20,7 +20,7 @@ const props = __MACROS_createPropsRestProxy(__MACROS_defaults_props, ['bar']);
     })
     return () => <div>{[foo.value, __MACROS_defaults_props.bar, props.baz]}</div>
   },
-  { inheritAttrs: false , props: { bar: { required: true }, baz: null, foo: { validator: (value) => {
+  { inheritAttrs: false , props: { bar: { required: true }, baz: null, 'foo': { validator: (value) => {
         return value === 'foo'
       }, required: false, type: String }, 'onUpdate:foo': null }},
 )
@@ -28,7 +28,7 @@ const props = __MACROS_createPropsRestProxy(__MACROS_defaults_props, ['bar']);
 const Comp1 = __MACROS_defineComponent((props: { bar: 'bar' }) => {
   const foo = __MACROS_useModel(props, 'foo')
   return () => <div>{[foo.value, props['bar']]}</div>
-}, { props: { bar: null, foo: null, 'onUpdate:foo': null } })
+}, { props: { bar: null, 'foo': null, 'onUpdate:foo': null } })
 "
 `;
 
