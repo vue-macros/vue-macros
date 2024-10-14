@@ -108,9 +108,9 @@ export function transformDefineComponent(
       s.appendLeft(
         argument.end! - 1,
         `${
-          !argument.properties.length || argument.extra?.trailingComma
-            ? ''
-            : ','
+          !argument.extra?.trailingComma && argument.properties.length
+            ? ','
+            : ''
         } props: { ${propsString} }`,
       )
     }

@@ -3,7 +3,7 @@ export const Comp = ({ bar }: { bar: string }) => {
   return <div>{foo}</div>
 }
 
-export default function ({}) {
+export default function () {
   const modelValue = defineModel<string>()!
   return (
     <Comp v-model:foo={modelValue.value} bar="bar">

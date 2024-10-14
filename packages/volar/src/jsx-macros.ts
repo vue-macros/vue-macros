@@ -49,7 +49,7 @@ function getMacro(
       const expression = getMacroExpression(initializer)
       if (expression) {
         return {
-          name: ts.isIdentifier(decl.name) ? decl.name.text : undefined,
+          name: ts.isIdentifier(decl.name) ? decl.name.escapedText! : undefined,
           expression,
           initializer: decl.initializer,
           isRequired: ts.isNonNullExpression(initializer),
@@ -276,12 +276,12 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
         for (const element of elements) {
           if (ts.isIdentifier(element.name))
             defaultProps.push(
-              `${element.name.text}${
+              `${element.name.escapedText}${
                 element.initializer &&
                 ts.isNonNullExpression(element.initializer)
                   ? ':'
                   : '?:'
-              } typeof ${element.name.text}`,
+              } typeof ${element.name.escapedText}`,
             )
         }
 

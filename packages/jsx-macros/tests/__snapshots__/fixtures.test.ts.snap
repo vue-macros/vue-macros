@@ -51,7 +51,7 @@ import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model"
   return <div>{foo}</div>
 }
 
-export default function ({}) {
+export default function (__MACROS_props) {
   const modelValue = __MACROS_useModel<string>(__MACROS_props, 'modelValue',)!
   return (
     <Comp v-model:foo={modelValue.value} bar="bar">

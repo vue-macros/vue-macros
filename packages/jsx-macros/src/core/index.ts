@@ -140,12 +140,17 @@ export function transformJsxMacros(
           lastProp.argument.type === 'Identifier'
         ) {
           propsName = lastProp.argument.name
-        } else if (lastProp) {
+        } else {
           s.appendRight(
             root.params[0].extra?.trailingComma
               ? (root.params[0].extra?.trailingComma as number) + 1
-              : lastProp.end!,
-            `${root.params[0].extra?.trailingComma ? '' : ','} ...${HELPER_PREFIX}props`,
+              : lastProp?.end || root.params[0].end! - 1,
+            `${
+              !root.params[0].extra?.trailingComma &&
+              root.params[0].properties.length
+                ? ','
+                : ''
+            } ...${HELPER_PREFIX}props`,
           )
         }
       }
