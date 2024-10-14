@@ -1,5 +1,46 @@
 # unplugin-vue-macros
 
+## 2.13.0
+### Minor Changes
+
+
+
+- [#823](https://github.com/vue-macros/vue-macros/pull/823) [`0f146d0`](https://github.com/vue-macros/vue-macros/commit/0f146d06feafeb2ee1126a1003dc12e6c3d18f59) Thanks [@BeiyanYunyi](https://github.com/BeiyanYunyi)! - Added `defineStyleX` macro and `v-stylex` directive.
+
+
+### Patch Changes
+
+- Updated dependencies [[`0f146d0`](https://github.com/vue-macros/vue-macros/commit/0f146d06feafeb2ee1126a1003dc12e6c3d18f59), [`bba0ed4`](https://github.com/vue-macros/vue-macros/commit/bba0ed42d4ce084b8ec8e0674a49cd75d994a1e3)]:
+  - @vue-macros/define-stylex@0.2.0
+  - @vue-macros/common@1.15.0
+  - @vue-macros/config@0.5.0
+  - @vue-macros/better-define@1.9.2
+  - @vue-macros/boolean-prop@0.5.2
+  - @vue-macros/chain-call@0.4.2
+  - @vue-macros/define-emit@0.4.2
+  - @vue-macros/define-models@1.3.2
+  - unplugin-vue-define-options@1.5.2
+  - @vue-macros/define-prop@0.5.2
+  - @vue-macros/define-props@4.0.2
+  - @vue-macros/define-props-refs@1.3.2
+  - @vue-macros/define-render@1.6.2
+  - @vue-macros/define-slots@1.2.2
+  - @vue-macros/export-expose@0.3.2
+  - @vue-macros/export-props@0.6.2
+  - @vue-macros/export-render@0.3.2
+  - @vue-macros/hoist-static@1.6.2
+  - @vue-macros/jsx-directive@0.9.2
+  - @vue-macros/named-template@0.5.2
+  - @vue-macros/reactivity-transform@1.1.2
+  - @vue-macros/script-lang@0.2.2
+  - @vue-macros/setup-block@0.4.2
+  - @vue-macros/setup-component@0.18.2
+  - @vue-macros/setup-sfc@0.18.2
+  - @vue-macros/short-bind@1.1.2
+  - @vue-macros/short-emits@1.6.2
+  - @vue-macros/short-vmodel@1.5.2
+  - @vue-macros/volar@0.30.5
+
 ## 2.12.4
 ### Patch Changes
 
