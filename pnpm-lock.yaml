@@ -82,6 +82,9 @@ importers:
       '@vue-macros/test-utils':
         specifier: workspace:*
         version: link:packages/test-utils
+      change-case:
+        specifier: ^5.4.4
+        version: 5.4.4
       cspell:
         specifier: ^8.15.2
         version: 8.15.2
@@ -193,16 +196,16 @@ importers:
         version: 2.2.260
       '@nolebase/vitepress-plugin-enhanced-mark':
         specifier: ^2.6.1
-        version: 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+        version: 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: ^2.6.1
-        version: 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+        version: 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: ^2.6.1
-        version: 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+        version: 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
       '@nolebase/vitepress-plugin-highlight-targeted-heading':
         specifier: ^2.6.1
-        version: 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+        version: 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
       '@shikijs/vitepress-twoslash':
         specifier: ^1.22.0
         version: 1.22.0(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.24.0)(webpack-sources@3.2.3))(typescript@5.6.2)
@@ -223,7 +226,7 @@ importers:
         version: 7.4.6(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.24.0)(webpack-sources@3.2.3))(rollup@4.24.0)(vite@5.4.9(@types/node@22.7.5)(less@4.2.0)(terser@5.34.1))(vue@3.5.12(typescript@5.6.2))
       vitepress:
         specifier: ^1.4.1
-        version: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+        version: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
       vitepress-plugin-group-icons:
         specifier: ^1.2.4
         version: 1.2.4
@@ -3292,6 +3295,9 @@ packages:
   chalk@5.3.0:
     resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
+  change-case@5.4.4:
+    resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
 
   character-entities-html4@2.1.0:
     resolution: {integrity: sha512-1v7fgQRj6hnSwFpq1Eu0ynr/CDEw0rXo2B61qXrLNdHZmPKgb7fqS1a2JwF0rISo9q77jDI8VMEHoApn8qDoZA==}
@@ -7573,11 +7579,11 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nolebase/ui@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
+  '@nolebase/ui@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
     dependencies:
       '@iconify-json/octicon': 1.2.1
       less: 4.2.0
-      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
       vue: 3.5.12(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -7608,10 +7614,10 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-enhanced-mark@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
+  '@nolebase/vitepress-plugin-enhanced-mark@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
     dependencies:
       less: 4.2.0
-      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -7641,13 +7647,13 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-enhanced-readabilities@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
+  '@nolebase/vitepress-plugin-enhanced-readabilities@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
     dependencies:
       '@iconify-json/carbon': 1.2.3
       '@iconify-json/icon-park-outline': 1.2.1
-      '@nolebase/ui': 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+      '@nolebase/ui': 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
       less: 4.2.0
-      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -7677,10 +7683,10 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-git-changelog@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
+  '@nolebase/vitepress-plugin-git-changelog@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
     dependencies:
       '@iconify-json/octicon': 1.2.1
-      '@nolebase/ui': 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+      '@nolebase/ui': 2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
       colorette: 2.0.20
       date-fns: 4.1.0
       defu: 6.1.4
@@ -7690,7 +7696,7 @@ snapshots:
       gray-matter: 4.0.3
       less: 4.2.0
       uncrypto: 0.1.3
-      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -7720,10 +7726,10 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
+  '@nolebase/vitepress-plugin-highlight-targeted-heading@2.6.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)':
     dependencies:
       less: 4.2.0
-      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
+      vitepress: 1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -8926,12 +8932,13 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@11.1.0(focus-trap@7.6.0)(vue@3.5.12(typescript@5.6.2))':
+  '@vueuse/integrations@11.1.0(change-case@5.4.4)(focus-trap@7.6.0)(vue@3.5.12(typescript@5.6.2))':
     dependencies:
       '@vueuse/core': 11.1.0(vue@3.5.12(typescript@5.6.2))
       '@vueuse/shared': 11.1.0(vue@3.5.12(typescript@5.6.2))
       vue-demi: 0.14.10(vue@3.5.12(typescript@5.6.2))
     optionalDependencies:
+      change-case: 5.4.4
       focus-trap: 7.6.0
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -9325,6 +9332,8 @@ snapshots:
       supports-color: 7.2.0
 
   chalk@5.3.0: {}
+
+  change-case@5.4.4: {}
 
   character-entities-html4@2.1.0: {}
 
@@ -12691,7 +12700,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vitepress@1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2):
+  vitepress@1.4.1(@algolia/client-search@4.24.0)(@types/node@22.7.5)(change-case@5.4.4)(less@4.2.0)(postcss@8.4.47)(terser@5.34.1)(typescript@5.6.2):
     dependencies:
       '@docsearch/css': 3.6.2
       '@docsearch/js': 3.6.2(@algolia/client-search@4.24.0)
@@ -12703,7 +12712,7 @@ snapshots:
       '@vue/devtools-api': 7.4.6
       '@vue/shared': 3.5.12
       '@vueuse/core': 11.1.0(vue@3.5.12(typescript@5.6.2))
-      '@vueuse/integrations': 11.1.0(focus-trap@7.6.0)(vue@3.5.12(typescript@5.6.2))
+      '@vueuse/integrations': 11.1.0(change-case@5.4.4)(focus-trap@7.6.0)(vue@3.5.12(typescript@5.6.2))
       focus-trap: 7.6.0
       mark.js: 8.11.1
       minisearch: 7.1.0

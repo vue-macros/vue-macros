@@ -1,5 +1,6 @@
 import { access, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { camelCase } from 'change-case'
 import fg from 'fast-glob'
 import { importx } from 'importx'
 import {
@@ -11,14 +12,16 @@ import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
 import type { Options } from 'tsup'
 
+/// keep-sorted
 const descriptions: Record<string, string> = {
   'define-options': 'Add defineOptions macro for Vue <script setup>.',
-  macros: 'Explore more macros and syntax sugar to Vue.',
-  volar: 'Volar plugin for Vue Macros.',
-  devtools: 'Devtools plugin for Vue Macros.',
+  'test-utils': 'Test utilities for Vue Macros.',
   api: 'General API for Vue Macros.',
   astro: 'Astro integration of Vue Macros.',
   config: 'Config API for Vue Macros.',
+  devtools: 'Devtools plugin for Vue Macros.',
+  macros: 'Explore more macros and syntax sugar to Vue.',
+  volar: 'Volar plugin for Vue Macros.',
 }
 
 function exists(filePath: string) {
@@ -55,7 +58,8 @@ export default defineConfig([
 
       if (!data.private) {
         data.description =
-          descriptions[pkgName] || `${pkgName} feature from Vue Macros.`
+          descriptions[pkgName] ||
+          `${camelCase(pkgName)} feature from Vue Macros.`
         data.keywords = [
           'vue-macros',
           'macros',
