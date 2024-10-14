@@ -1,8 +1,8 @@
 {
-  "name": "unplugin-vue-macros",
-  "version": "2.12.4",
+  "name": "@vue-macros/define-stylex",
+  "version": "0.1.0",
   "packageManager": "pnpm@9.12.1",
-  "description": "Explore more macros and syntax sugar to Vue.",
+  "description": "define-stylex feature from Vue Macros.",
   "type": "module",
   "keywords": [
     "vue-macros",
@@ -11,7 +11,7 @@
     "sfc",
     "setup",
     "script-setup",
-    "macros",
+    "define-stylex",
     "unplugin"
   ],
   "license": "MIT",
@@ -22,9 +22,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vue-macros/vue-macros.git",
-    "directory": "packages/macros"
+    "directory": "packages/define-stylex"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "BeiyanYunyi <admin@penclub.club>",
   "files": [
     "*.d.ts",
     "dist"
@@ -37,6 +37,11 @@
       "dev": "./src/index.ts",
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
+    },
+    "./api": {
+      "dev": "./src/api.ts",
+      "require": "./dist/api.cjs",
+      "import": "./dist/api.js"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
@@ -58,20 +63,10 @@
       "require": "./dist/rspack.cjs",
       "import": "./dist/rspack.js"
     },
-    "./runtime": {
-      "dev": "./src/runtime.ts",
-      "require": "./dist/runtime.cjs",
-      "import": "./dist/runtime.js"
-    },
     "./vite": {
       "dev": "./src/vite.ts",
       "require": "./dist/vite.cjs",
       "import": "./dist/vite.js"
-    },
-    "./volar": {
-      "dev": "./src/volar.ts",
-      "require": "./dist/volar.cjs",
-      "import": "./dist/volar.js"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
@@ -98,6 +93,10 @@
         "require": "./dist/index.cjs",
         "import": "./dist/index.js"
       },
+      "./api": {
+        "require": "./dist/api.cjs",
+        "import": "./dist/api.js"
+      },
       "./esbuild": {
         "require": "./dist/esbuild.cjs",
         "import": "./dist/esbuild.js"
@@ -114,17 +113,9 @@
         "require": "./dist/rspack.cjs",
         "import": "./dist/rspack.js"
       },
-      "./runtime": {
-        "require": "./dist/runtime.cjs",
-        "import": "./dist/runtime.js"
-      },
       "./vite": {
         "require": "./dist/vite.cjs",
         "import": "./dist/vite.js"
-      },
-      "./volar": {
-        "require": "./dist/volar.cjs",
-        "import": "./dist/volar.js"
       },
       "./webpack": {
         "require": "./dist/webpack.cjs",
@@ -140,45 +131,13 @@
     "build": "tsup",
     "dev": "DEV=true tsup"
   },
-  "peerDependencies": {
-    "vue": "^2.7.0 || ^3.2.25"
-  },
   "dependencies": {
-    "@vue-macros/better-define": "workspace:*",
-    "@vue-macros/boolean-prop": "workspace:*",
-    "@vue-macros/chain-call": "workspace:*",
     "@vue-macros/common": "workspace:*",
-    "@vue-macros/config": "workspace:*",
-    "@vue-macros/define-emit": "workspace:*",
-    "@vue-macros/define-models": "workspace:*",
-    "@vue-macros/define-prop": "workspace:*",
-    "@vue-macros/define-props": "workspace:*",
-    "@vue-macros/define-props-refs": "workspace:*",
-    "@vue-macros/define-render": "workspace:*",
-    "@vue-macros/define-slots": "workspace:*",
-    "@vue-macros/define-stylex": "workspace:*",
-    "@vue-macros/devtools": "workspace:*",
-    "@vue-macros/export-expose": "workspace:*",
-    "@vue-macros/export-props": "workspace:*",
-    "@vue-macros/export-render": "workspace:*",
-    "@vue-macros/hoist-static": "workspace:*",
-    "@vue-macros/jsx-directive": "workspace:*",
-    "@vue-macros/named-template": "workspace:*",
-    "@vue-macros/reactivity-transform": "workspace:*",
-    "@vue-macros/script-lang": "workspace:*",
-    "@vue-macros/setup-block": "workspace:*",
-    "@vue-macros/setup-component": "workspace:*",
-    "@vue-macros/setup-sfc": "workspace:*",
-    "@vue-macros/short-bind": "workspace:*",
-    "@vue-macros/short-emits": "workspace:*",
-    "@vue-macros/short-vmodel": "workspace:*",
-    "@vue-macros/volar": "workspace:*",
-    "unplugin": "catalog:",
-    "unplugin-combine": "^1.0.3",
-    "unplugin-vue-define-options": "workspace:*"
+    "@vue/compiler-dom": "catalog:",
+    "unplugin": "catalog:"
   },
   "devDependencies": {
-    "vue": "catalog:"
+    "@stylexjs/stylex": "^0.7.5"
   },
   "engines": {
     "node": ">=16.14.0"

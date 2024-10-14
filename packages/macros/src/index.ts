@@ -29,6 +29,7 @@ import VueDefineProps from '@vue-macros/define-props'
 import VueDefinePropsRefs from '@vue-macros/define-props-refs'
 import VueDefineRender from '@vue-macros/define-render'
 import VueDefineSlots from '@vue-macros/define-slots'
+import VueDefineStyleX from '@vue-macros/define-stylex'
 import { Devtools } from '@vue-macros/devtools'
 import VueExportExpose from '@vue-macros/export-expose'
 import VueExportProps from '@vue-macros/export-props'
@@ -93,6 +94,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
       resolvePlugin(VueDefineProp, framework, options.defineProp),
 
       resolvePlugin(VueDefineSlots, framework, options.defineSlots),
+      resolvePlugin(VueDefineStyleX, framework, options.defineStyleX),
       resolvePlugin(VueExportRender, framework, options.exportRender),
       resolvePlugin(VueExportExpose, framework, options.exportExpose),
       resolvePlugin(
