@@ -54,12 +54,14 @@ export function parseSFC(code: string, id: string): SFC {
       if (!descriptor.scriptSetup) return
       return babelParse(descriptor.scriptSetup.content, lang, {
         plugins: [['importAttributes', { deprecatedAssertSyntax: true }]],
+        cache: true,
       })
     },
     getScriptAst() {
       if (!descriptor.script) return
       return babelParse(descriptor.script.content, lang, {
         plugins: [['importAttributes', { deprecatedAssertSyntax: true }]],
+        cache: true,
       })
     },
   } satisfies Partial<SFC>)
