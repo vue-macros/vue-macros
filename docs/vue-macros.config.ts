@@ -4,6 +4,7 @@ export default defineConfig({
   booleanProp: true,
   defineEmit: true,
   defineProp: true,
+  defineStyleX: true,
   exportRender: true,
   jsxRef: true,
   scriptLang: true,

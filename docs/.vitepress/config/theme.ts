@@ -177,6 +177,10 @@ export function getLocaleConfig(lang: string) {
               text: 'chainCall',
               link: `/chain-call`,
             },
+            {
+              text: 'defineStyleX',
+              link: `/define-stylex`,
+            },
           ],
         },
       ],

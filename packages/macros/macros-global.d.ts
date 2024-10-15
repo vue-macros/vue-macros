@@ -5,6 +5,7 @@
 /// <reference types="@vue-macros/define-props-refs/macros-global" />
 /// <reference types="@vue-macros/define-render/macros-global" />
 /// <reference types="@vue-macros/define-slots/macros-global" />
+/// <reference types="@vue-macros/define-stylex/macros-global" />
 /// <reference types="@vue-macros/reactivity-transform/macros-global" />
 /// <reference types="@vue-macros/setup-component/macros-global" />
 /// <reference types="@vue-macros/short-emits/macros-global" />
