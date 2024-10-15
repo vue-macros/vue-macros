@@ -11,7 +11,7 @@ const Comp = __MACROS_defineComponent(
   (__MACROS_props) => {
 const __MACROS_defaults_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});
 const props = __MACROS_createPropsRestProxy(__MACROS_defaults_props, ['bar']);
-    const foo = __MACROS_useModel(props, 'foo', {
+    const foo = __MACROS_useModel(__MACROS_props, 'foo', {
       validator: (value) => {
         return value === 'foo'
       },
