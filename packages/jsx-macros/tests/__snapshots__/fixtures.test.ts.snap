@@ -5,7 +5,8 @@ exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
 import { defineComponent as __MACROS_defineComponent } from "vue";
 import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-macros/with-defaults";
 import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";import { defineComponent } from 'vue'
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";
+import { withAsyncContext as __MACROS_withAsyncContext } from "vue";import { defineComponent, nextTick } from 'vue'
 
 const Comp = __MACROS_defineComponent(
   (__MACROS_props) => {
@@ -29,6 +30,25 @@ const Comp1 = __MACROS_defineComponent((props: { bar: 'bar' }) => {
   const foo = __MACROS_useModel(props, 'foo')
   return () => <div>{[foo.value, props['bar']]}</div>
 }, { props: { bar: null, 'foo': null, 'onUpdate:foo': null } })
+
+const Comp2 = __MACROS_defineComponent(async (__MACROS_props) => {
+let __temp, __restore
+
+  ;(
+  ([__temp,__restore] = __MACROS_withAsyncContext(() => nextTick())),
+  await __temp,
+  __restore()
+)
+  let foo = (
+  ([__temp,__restore] = __MACROS_withAsyncContext(() => new Promise((resolve) => {
+    setTimeout(() => resolve('foo'), 1000)
+  }))),
+  __temp = await __temp,
+  __restore(),
+  __temp
+)
+  return () => <div>{foo}</div>
+})
 "
 `;
 

@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, nextTick } from 'vue'
 
 const Comp = defineComponent(
   ({ bar = 'bar'!, ...props }: { bar: 'bar'; baz: 'baz' }) => {
@@ -17,4 +17,12 @@ const Comp = defineComponent(
 const Comp1 = defineComponent((props: { bar: 'bar' }) => {
   const foo = defineModel('foo')
   return <div>{[foo.value, props['bar']]}</div>
+})
+
+const Comp2 = defineComponent(async () => {
+  await nextTick()
+  let foo = await new Promise((resolve) => {
+    setTimeout(() => resolve('foo'), 1000)
+  })
+  return <div>{foo}</div>
 })

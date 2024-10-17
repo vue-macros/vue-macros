@@ -1,6 +1,7 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
 import type { FunctionalNode, RootMapValue } from '..'
+import { transformAwait } from './await'
 import { restructure } from './restructure'
 
 function getWalkedIds(root: FunctionalNode, propsName: string) {
@@ -25,6 +26,39 @@ function getWalkedIds(root: FunctionalNode, propsName: string) {
     false,
   )
   return walkedIds
+}
+
+// Auto add `() => ` for return statement
+function transformReturn(root: FunctionalNode, s: MagicStringAST, lib: string) {
+  if (lib === 'vue') {
+    if (root.body.type === 'BlockStatement') {
+      const returnStatement = root.body.body.find(
+        (node) => node.type === 'ReturnStatement',
+      )
+      if (
+        returnStatement &&
+        returnStatement.argument &&
+        !(
+          returnStatement.argument?.type === 'ArrowFunctionExpression' ||
+          returnStatement.argument?.type === 'FunctionExpression'
+        )
+      ) {
+        s.appendRight(
+          returnStatement.argument.extra?.parenthesized
+            ? (returnStatement.argument.extra.parenStart as number)
+            : returnStatement.argument.start!,
+          '() => ',
+        )
+      }
+    } else {
+      s.appendRight(
+        root.body.extra?.parenthesized
+          ? (root.body.extra.parenStart as number)
+          : root.body.start!,
+        '() => ',
+      )
+    }
+  }
 }
 
 export function transformDefineComponent(
@@ -113,34 +147,6 @@ export function transformDefineComponent(
     }
   }
 
-  // Auto add `() => ` for return statement
-  if (lib === 'vue') {
-    if (root.body.type === 'BlockStatement') {
-      const returnStatement = root.body.body.find(
-        (node) => node.type === 'ReturnStatement',
-      )
-      if (
-        returnStatement &&
-        returnStatement.argument &&
-        !(
-          returnStatement.argument?.type === 'ArrowFunctionExpression' ||
-          returnStatement.argument?.type === 'FunctionExpression'
-        )
-      ) {
-        s.appendRight(
-          returnStatement.argument.extra?.parenthesized
-            ? (returnStatement.argument.extra.parenStart as number)
-            : returnStatement.argument.start!,
-          '() => ',
-        )
-      }
-    } else {
-      s.appendRight(
-        root.body.extra?.parenthesized
-          ? (root.body.extra.parenStart as number)
-          : root.body.start!,
-        '() => ',
-      )
-    }
-  }
+  transformAwait(root, s)
+  transformReturn(root, s, lib)
 }
