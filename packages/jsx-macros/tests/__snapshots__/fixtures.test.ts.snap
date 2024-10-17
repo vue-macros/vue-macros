@@ -9,8 +9,8 @@ import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model"
 
 const Comp = __MACROS_defineComponent(
   (__MACROS_props) => {
-const __MACROS_defaults_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});
-const props = __MACROS_createPropsRestProxy(__MACROS_defaults_props, ['bar']);
+const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});
+const props = __MACROS_createPropsRestProxy(__MACROS_default_props, ['bar']);
     const foo = __MACROS_useModel(__MACROS_props, 'foo', {
       validator: (value) => {
         return value === 'foo'
@@ -18,7 +18,7 @@ const props = __MACROS_createPropsRestProxy(__MACROS_defaults_props, ['bar']);
       required: false,
       type: String,
     })
-    return () => <div>{[foo.value, __MACROS_defaults_props.bar, props.baz]}</div>
+    return () => <div>{[foo.value, __MACROS_default_props.bar, props.baz]}</div>
   },
   { inheritAttrs: false , props: { bar: { required: true }, baz: null, 'foo': { validator: (value) => {
         return value === 'foo'

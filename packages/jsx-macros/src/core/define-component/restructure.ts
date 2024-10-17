@@ -130,7 +130,7 @@ export function restructure(
         ...(hasDefaultValue
           ? props.map((i) => ({
               ...i,
-              path: i.path.replace(HELPER_PREFIX, `${HELPER_PREFIX}defaults_`),
+              path: i.path.replace(HELPER_PREFIX, `${HELPER_PREFIX}default_`),
             }))
           : props),
       )
@@ -157,7 +157,7 @@ export function restructure(
         withDefaultsFrom,
       )
       const resolvedPath = path.replace(
-        `${HELPER_PREFIX}defaults_`,
+        `${HELPER_PREFIX}default_`,
         HELPER_PREFIX,
       )
       const resolvedValues = values
