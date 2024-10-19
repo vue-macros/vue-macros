@@ -75,6 +75,7 @@ function getMacro(
         ...vueCompilerOptions.macros.defineModel,
         ...vueCompilerOptions.macros.defineExpose,
         ...vueCompilerOptions.macros.defineSlots,
+        'defineStyle',
       ].includes(node.expression.escapedText!) &&
       node
     )
@@ -307,21 +308,6 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
       }
     })
   }
-
-  if (
-    rootMap.size &&
-    !codes.toString().includes(`declare function defineSlots`)
-  ) {
-    codes.push(
-      `
-const { defineModel } = await import('vue')
-declare function defineSlots<T extends Record<string, any>>(slots?: T): T;
-declare function defineExpose<Exposed extends Record<string, any> = Record<string, any>>(exposed?: Exposed): Exposed;
-declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs'> & { props?: import('vue').ComponentObjectPropsOptions }): T
-declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
-`,
-    )
-  }
 }
 
 const plugin: VueMacrosPlugin<'jsxMacros'> = (ctx, options = {}) => {
@@ -347,6 +333,24 @@ const plugin: VueMacrosPlugin<'jsxMacros'> = (ctx, options = {}) => {
         }
         const rootMap = getRootMap(options, ctx.vueCompilerOptions)
         if (rootMap.size) transformJsxMacros(rootMap, options)
+
+        if (
+          (fileName.endsWith('.tsx') || rootMap.size) &&
+          !embeddedFile.content
+            .toString()
+            .includes(`declare function defineSlots`)
+        ) {
+          embeddedFile.content.push(
+            `
+const { defineModel } = await import('vue')
+declare function defineSlots<T extends Record<string, any>>(slots?: T): T;
+declare function defineExpose<Exposed extends Record<string, any> = Record<string, any>>(exposed?: Exposed): Exposed;
+declare function defineStyle(styles: string, options?: { lang?: 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'postcss' | (string & {}), scoped?: boolean  });
+declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs'> & { props?: import('vue').ComponentObjectPropsOptions }): T
+declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
+      `,
+          )
+        }
       }
     },
   }

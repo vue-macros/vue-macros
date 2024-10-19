@@ -1,4 +1,4 @@
-import { watch } from 'vue'
+import { ref, watch } from 'vue'
 
 export const Comp = defineComponent(function <const T>({ foo }: { foo: T }) {
   const slots = defineSlots({
@@ -28,8 +28,17 @@ export const Comp = defineComponent(function <const T>({ foo }: { foo: T }) {
     foo,
   })
 
+  const color = ref('green')
+  defineStyle(`
+    .foo {
+      color: ${color.value};
+    }
+  `)
+
   return (
-    <div>
+    <div class="foo">
+      color: <input v-model={color.value} />
+      <div />
       <input v-model={modelValue.value}></input>
       <slots.default bar={modelValue.value}></slots.default>
     </div>

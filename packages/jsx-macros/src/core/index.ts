@@ -12,6 +12,7 @@ import { transformDefineComponent } from './define-component'
 import { transformDefineExpose } from './define-expose'
 import { transformDefineModel } from './define-model'
 import { transformDefineSlots } from './define-slots'
+import { transformDefineStyle } from './define-style'
 import type {
   ArrowFunctionExpression,
   CallExpression,
@@ -25,14 +26,25 @@ export type FunctionalNode =
   | FunctionExpression
   | ArrowFunctionExpression
 
-function getMacroExpression(node?: Node | null) {
+export function isFunctionalNode(node?: Node | null): node is FunctionalNode {
+  return !!(
+    node &&
+    (node.type === 'ArrowFunctionExpression' ||
+      node.type === 'FunctionDeclaration' ||
+      node.type === 'FunctionExpression')
+  )
+}
+
+export function getMacroExpression(node?: Node | null): CallExpression | false {
   if (node?.type === 'TSNonNullExpression') {
     node = node.expression
   }
   return (
     node?.type === 'CallExpression' &&
     node.callee.type === 'Identifier' &&
-    ['defineSlots', 'defineModel', 'defineExpose'].includes(node.callee.name) &&
+    ['defineSlots', 'defineModel', 'defineExpose', 'defineStyle'].includes(
+      node.callee.name,
+    ) &&
     node
   )
 }
@@ -45,6 +57,7 @@ export type RootMapValue = {
   }[]
   defineSlots?: CallExpression
   defineExpose?: CallExpression
+  defineStyle?: CallExpression[]
 }
 
 function getRootMap(s: MagicStringAST, id: string) {
@@ -54,12 +67,7 @@ function getRootMap(s: MagicStringAST, id: string) {
     enter(node, parent) {
       parents.unshift(parent)
       const root =
-        parents[1] &&
-        (parents[1].type === 'ArrowFunctionExpression' ||
-          parents[1].type === 'FunctionDeclaration' ||
-          parents[1].type === 'FunctionExpression')
-          ? parents[1]
-          : undefined
+        parents[1] && isFunctionalNode(parents[1]) ? parents[1] : undefined
       if (!root) return
 
       if (
@@ -88,6 +96,8 @@ function getRootMap(s: MagicStringAST, id: string) {
             expression: macroExpression,
             isRequired: expression?.type === 'TSNonNullExpression',
           })
+        } else if (macroName === 'defineStyle') {
+          ;(rootMap.get(root)![macroName] ??= []).push(macroExpression)
         } else if (
           macroName === 'defineSlots' ||
           macroName === 'defineExpose'
@@ -119,6 +129,7 @@ export function transformJsxMacros(
 ): CodeTransform | undefined {
   const s = new MagicStringAST(code)
   const rootMap = getRootMap(s, id)
+  let defineStyleIndex = 0
 
   for (const [root, map] of rootMap) {
     let propsName = `${HELPER_PREFIX}props`
@@ -158,6 +169,11 @@ export function transformJsxMacros(
     }
     if (map.defineExpose) {
       transformDefineExpose(map.defineExpose, root, s, options.lib)
+    }
+    if (map.defineStyle?.length) {
+      map.defineStyle.forEach((node) => {
+        transformDefineStyle(node, root, defineStyleIndex++, s, options)
+      })
     }
   }
 
