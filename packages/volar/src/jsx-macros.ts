@@ -345,8 +345,8 @@ const plugin: VueMacrosPlugin<'jsxMacros'> = (ctx, options = {}) => {
 const { defineModel } = await import('vue')
 declare function defineSlots<T extends Record<string, any>>(slots?: T): T;
 declare function defineExpose<Exposed extends Record<string, any> = Record<string, any>>(exposed?: Exposed): Exposed;
-type __VLS_DefineStyle = (style: string, options?: { scoped: boolean }) => void;
-declare const defineStyle: { (style: string): void; scss: __VLS_DefineStyle; sass: __VLS_DefineStyle; stylus: __VLS_DefineStyle; less: __VLS_DefineStyle; postcss: __VLS_DefineStyle };
+type __VLS_DefineStyle = (style: string, options?: { scoped?: boolean }) => void;
+declare const defineStyle: { (style: string, options?: { scoped?: boolean }): void; scss: __VLS_DefineStyle; sass: __VLS_DefineStyle; stylus: __VLS_DefineStyle; less: __VLS_DefineStyle; postcss: __VLS_DefineStyle };
 declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs'> & { props?: import('vue').ComponentObjectPropsOptions }): T
 declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
       `,
