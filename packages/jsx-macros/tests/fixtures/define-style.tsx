@@ -12,7 +12,7 @@ export const Comp = () => {
 
 export default defineComponent(() => {
   const color = ref('red')
-  defineStyle(
+  defineStyle.scss(
     `
     .bar {
       color: ${color.value};
@@ -29,3 +29,9 @@ export default defineComponent(() => {
     </>
   )
 })
+
+defineStyle.scss(`
+  .bar {
+    color: red;
+  }
+`)

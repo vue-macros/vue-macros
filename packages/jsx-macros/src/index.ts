@@ -28,22 +28,11 @@ import { transformStyle } from './core/style'
 
 export type Options = BaseOptions & {
   lib?: 'vue' | 'vue/vapor' | 'react' | 'preact'
-  defineStyle?: {
-    lang?:
-      | 'css'
-      | 'postcss'
-      | 'scss'
-      | 'sass'
-      | 'less'
-      | 'stylus'
-      | (string & {})
-    scoped?: boolean
-  }
 }
 export type OptionsResolved = MarkRequired<
   Options,
-  'include' | 'version' | 'lib' | 'defineStyle'
-> & { importMap: Map<string, string> }
+  'include' | 'version' | 'lib'
+>
 
 function resolveOptions(
   options: Options,
@@ -52,14 +41,10 @@ function resolveOptions(
   const version = options.version || detectVueVersion()
   const lib = options.lib || 'vue'
   const include = getFilterPattern([FilterFileType.SRC_FILE], framework)
-  const defineStyle = options.defineStyle || {}
-  defineStyle.lang ??= 'css'
   return {
     include,
     exclude: [REGEX_SETUP_SFC],
     ...options,
-    importMap: new Map(),
-    defineStyle,
     version,
     lib,
   }
@@ -71,6 +56,7 @@ const plugin: UnpluginInstance<Options | undefined, true> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
     const filter = createFilter(options)
+    const importMap = new Map()
 
     return [
       {
@@ -92,8 +78,8 @@ const plugin: UnpluginInstance<Options | undefined, true> = createUnplugin(
 
         transformInclude: filter,
         transform(code, id) {
-          if (options.importMap.get(id)) return
-          return transformJsxMacros(code, id, options)
+          if (importMap.get(id)) return
+          return transformJsxMacros(code, id, importMap, options)
         },
       },
       {
@@ -106,11 +92,10 @@ const plugin: UnpluginInstance<Options | undefined, true> = createUnplugin(
         },
         load(_id) {
           const id = normalizePath(_id)
-          if (options.importMap.get(id)) return options.importMap.get(id)
+          if (importMap.get(id)) return importMap.get(id)
         },
         transform(code: string, id: string) {
-          if (options.importMap.get(id))
-            return transformStyle(code, id, options)
+          if (importMap.get(id)) return transformStyle(code, id, options)
         },
       },
     ]

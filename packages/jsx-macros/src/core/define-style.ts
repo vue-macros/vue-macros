@@ -1,16 +1,16 @@
 import { walkAST, type MagicStringAST } from '@vue-macros/common'
 import hash from 'hash-sum'
-import type { OptionsResolved } from '..'
 import { helperPrefix } from './helper'
 import { isFunctionalNode, type FunctionalNode } from '.'
 import type { CallExpression, Node } from '@babel/types'
 
 export function transformDefineStyle(
   node: CallExpression,
-  root: FunctionalNode,
+  lang: string,
+  root: FunctionalNode | undefined,
   defineStyleIndex: number,
   s: MagicStringAST,
-  options: OptionsResolved,
+  importMap: Map<string, string>,
 ): void {
   if (node.arguments[0]?.type !== 'TemplateLiteral') return
 
@@ -24,7 +24,7 @@ export function transformDefineStyle(
     vars.set(cssVarId, cssVar)
   })
 
-  let returnExpression = getReturnStatement(root)
+  let returnExpression = root && getReturnStatement(root)
   if (isFunctionalNode(returnExpression)) {
     returnExpression = getReturnStatement(returnExpression)
   }
@@ -48,19 +48,16 @@ export function transformDefineStyle(
     }
   }
 
-  let lang = options.defineStyle.lang
-  let scoped = false
+  let scoped = !!root
   if (node.arguments[1]?.type === 'ObjectExpression') {
     for (const prop of node.arguments[1].properties) {
-      if (prop.type === 'ObjectProperty' && prop.key.type === 'Identifier') {
-        if (prop.key.name === 'lang' && prop.value.type === 'StringLiteral') {
-          lang = prop.value.value
-        } else if (
-          prop.key.name === 'scoped' &&
-          prop.value.type === 'BooleanLiteral'
-        ) {
-          scoped = prop.value.value
-        }
+      if (
+        prop.type === 'ObjectProperty' &&
+        prop.key.type === 'Identifier' &&
+        prop.key.name === 'scoped' &&
+        prop.value.type === 'BooleanLiteral'
+      ) {
+        scoped = prop.value.value
       }
     }
   }
@@ -80,7 +77,7 @@ export function transformDefineStyle(
 
   css = s.sliceNode(node.arguments[0]).slice(1, -1)
   const importId = `${helperPrefix}/define-style?index=${defineStyleIndex}&scopeId=${scopeId}&scoped=${scoped}&lang.${lang}`
-  options.importMap.set(importId, css)
+  importMap.set(importId, css)
   s.appendLeft(0, `import "${importId}";`)
   s.removeNode(node)
 }

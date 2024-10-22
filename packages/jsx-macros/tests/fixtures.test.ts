@@ -9,12 +9,10 @@ describe('fixtures', async () => {
       as: 'raw',
     }),
     (args, id, code) =>
-      transformJsxMacros(code, id, {
+      transformJsxMacros(code, id, new Map(), {
         lib: 'vue',
         include: ['*.tsx'],
         version: 3.5,
-        defineStyle: { lang: 'scss' },
-        importMap: new Map(),
       })?.code,
   )
 })
@@ -26,12 +24,10 @@ describe('react fixtures', async () => {
       as: 'raw',
     }),
     (args, id, code) =>
-      transformJsxMacros(code, id, {
+      transformJsxMacros(code, id, new Map(), {
         lib: 'react',
         include: ['*.tsx'],
         version: 18,
-        defineStyle: { lang: 'scss' },
-        importMap: new Map(),
       })?.code,
   )
 })

@@ -101,13 +101,13 @@ export default function (__MACROS_props) {
 `;
 
 exports[`fixtures > ./fixtures/define-style.tsx 1`] = `
-"import "/vue-macros/jsx-macros/define-style?index=0&scopeId=4e9d5cd0&scoped=false&lang.scss";
-import { defineComponent as __MACROS_defineComponent } from "vue";import "/vue-macros/jsx-macros/define-style?index=1&scopeId=102189c6&scoped=true&lang.scss";import { defineComponent, ref } from 'vue'
+"import "/vue-macros/jsx-macros/define-style?index=0&scopeId=4e9d5cd0&scoped=true&lang.css";import "/vue-macros/jsx-macros/define-style?index=1&scopeId=102189c6&scoped=true&lang.scss";
+import { defineComponent as __MACROS_defineComponent } from "vue";import "/vue-macros/jsx-macros/define-style?index=2&scopeId=63a7910c&scoped=false&lang.scss";import { defineComponent, ref } from 'vue'
 
 export const Comp = (__MACROS_props) => {
   const color = ref('red')
   
-  return <div {...{style:{'--4e9d5cd0-color-value': color.value}}} class="foo">foo</div>
+  return <div {...{style:{'--4e9d5cd0-color-value': color.value}}} data-v-4e9d5cd0="" class="foo">foo</div>
 }
 
 export default __MACROS_defineComponent((__MACROS_props) => {
@@ -122,6 +122,8 @@ export default __MACROS_defineComponent((__MACROS_props) => {
     </>
   )
 })
+
+
 "
 `;
 

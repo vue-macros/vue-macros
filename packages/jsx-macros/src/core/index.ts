@@ -35,18 +35,29 @@ export function isFunctionalNode(node?: Node | null): node is FunctionalNode {
   )
 }
 
-export function getMacroExpression(node?: Node | null): CallExpression | false {
+export function getMacroExpression(
+  node: Node | null | undefined,
+): CallExpression | undefined {
   if (node?.type === 'TSNonNullExpression') {
     node = node.expression
   }
-  return (
-    node?.type === 'CallExpression' &&
-    node.callee.type === 'Identifier' &&
-    ['defineSlots', 'defineModel', 'defineExpose', 'defineStyle'].includes(
-      node.callee.name,
-    ) &&
-    node
-  )
+
+  if (node?.type === 'CallExpression') {
+    if (
+      node.callee.type === 'MemberExpression' &&
+      node.callee.object.type === 'Identifier' &&
+      node.callee.object.name === 'defineStyle'
+    ) {
+      return node
+    } else if (
+      node.callee.type === 'Identifier' &&
+      ['defineSlots', 'defineModel', 'defineExpose', 'defineStyle'].includes(
+        node.callee.name!,
+      )
+    ) {
+      return node
+    }
+  }
 }
 
 export type RootMapValue = {
@@ -57,18 +68,20 @@ export type RootMapValue = {
   }[]
   defineSlots?: CallExpression
   defineExpose?: CallExpression
-  defineStyle?: CallExpression[]
+  defineStyle?: {
+    expression: CallExpression
+    lang: string
+  }[]
 }
 
 function getRootMap(s: MagicStringAST, id: string) {
   const parents: (Node | undefined | null)[] = []
-  const rootMap = new Map<FunctionalNode, RootMapValue>()
+  const rootMap = new Map<FunctionalNode | undefined, RootMapValue>()
   walkAST<Node>(babelParse(s.original, getLang(id)), {
     enter(node, parent) {
       parents.unshift(parent)
       const root =
         parents[1] && isFunctionalNode(parents[1]) ? parents[1] : undefined
-      if (!root) return
 
       if (
         parents[2]?.type === 'CallExpression' &&
@@ -96,8 +109,12 @@ function getRootMap(s: MagicStringAST, id: string) {
             expression: macroExpression,
             isRequired: expression?.type === 'TSNonNullExpression',
           })
-        } else if (macroName === 'defineStyle') {
-          ;(rootMap.get(root)![macroName] ??= []).push(macroExpression)
+        } else if (macroName.startsWith('defineStyle')) {
+          const [, lang = 'css'] = macroName.split('.')
+          ;(rootMap.get(root)!.defineStyle ??= []).push({
+            expression: macroExpression,
+            lang,
+          })
         } else if (
           macroName === 'defineSlots' ||
           macroName === 'defineExpose'
@@ -125,6 +142,7 @@ export function getParamsStart(node: FunctionalNode, code: string): number {
 export function transformJsxMacros(
   code: string,
   id: string,
+  importMap: Map<string, string>,
   options: OptionsResolved,
 ): CodeTransform | undefined {
   const s = new MagicStringAST(code)
@@ -132,6 +150,21 @@ export function transformJsxMacros(
   let defineStyleIndex = 0
 
   for (const [root, map] of rootMap) {
+    if (map.defineStyle?.length) {
+      map.defineStyle.forEach(({ expression, lang }) => {
+        transformDefineStyle(
+          expression,
+          lang,
+          root,
+          defineStyleIndex++,
+          s,
+          importMap,
+        )
+      })
+    }
+
+    if (root === undefined) continue
+
     let propsName = `${HELPER_PREFIX}props`
     if (root.params[0]) {
       if (root.params[0].type === 'Identifier') {
@@ -169,11 +202,6 @@ export function transformJsxMacros(
     }
     if (map.defineExpose) {
       transformDefineExpose(map.defineExpose, root, s, options.lib)
-    }
-    if (map.defineStyle?.length) {
-      map.defineStyle.forEach((node) => {
-        transformDefineStyle(node, root, defineStyleIndex++, s, options)
-      })
     }
   }
 
