@@ -9,39 +9,6 @@ import { isFunctionType } from '@vue/compiler-core'
 import type { FunctionalNode } from '..'
 import type { AwaitExpression, Node, Statement } from '@babel/types'
 
-function processAwait(
-  s: MagicStringAST,
-  node: AwaitExpression,
-  needSemi: boolean,
-  isStatement: boolean,
-): void {
-  const argumentStart =
-    node.argument.extra && node.argument.extra.parenthesized
-      ? (node.argument.extra.parenStart as number)
-      : node.argument.start!
-
-  const argumentStr = s.slice(argumentStart, node.argument.end!)
-
-  const containsNestedAwait = /\bawait\b/.test(argumentStr)
-
-  s.overwrite(
-    node.start!,
-    argumentStart,
-    `${needSemi ? `;` : ``}(\n  ([__temp,__restore] = ${importHelperFn(
-      s,
-      0,
-      `withAsyncContext`,
-      'vue',
-    )}(${containsNestedAwait ? `async ` : ``}() => `,
-  )
-  s.appendLeft(
-    node.end!,
-    `)),\n  ${isStatement ? `` : `__temp = `}await __temp,\n  __restore()${
-      isStatement ? `` : `,\n  __temp`
-    }\n)`,
-  )
-}
-
 export function transformAwait(root: FunctionalNode, s: MagicStringAST): void {
   if (root.body.type !== 'BlockStatement') return
   let hasAwait = false
@@ -91,4 +58,37 @@ export function transformAwait(root: FunctionalNode, s: MagicStringAST): void {
   if (hasAwait) {
     s.prependLeft(root.body.start! + 1, `\nlet __temp, __restore\n`)
   }
+}
+
+function processAwait(
+  s: MagicStringAST,
+  node: AwaitExpression,
+  needSemi: boolean,
+  isStatement: boolean,
+): void {
+  const argumentStart =
+    node.argument.extra && node.argument.extra.parenthesized
+      ? (node.argument.extra.parenStart as number)
+      : node.argument.start!
+
+  const argumentStr = s.slice(argumentStart, node.argument.end!)
+
+  const containsNestedAwait = /\bawait\b/.test(argumentStr)
+
+  s.overwrite(
+    node.start!,
+    argumentStart,
+    `${needSemi ? `;` : ``}(\n  ([__temp,__restore] = ${importHelperFn(
+      s,
+      0,
+      `withAsyncContext`,
+      'vue',
+    )}(${containsNestedAwait ? `async ` : ``}() => `,
+  )
+  s.appendLeft(
+    node.end!,
+    `)),\n  ${isStatement ? `` : `__temp = `}await __temp,\n  __restore()${
+      isStatement ? `` : `,\n  __temp`
+    }\n)`,
+  )
 }

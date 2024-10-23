@@ -17,102 +17,6 @@ type Prop = {
   isRequired?: boolean
 }
 
-function getProps(
-  node: Node,
-  path: string = '',
-  s: MagicString,
-  props: Prop[] = [],
-) {
-  const properties =
-    node.type === 'ObjectPattern'
-      ? node.properties
-      : node.type === 'ArrayPattern'
-        ? node.elements
-        : []
-  if (!properties.length) return
-
-  const propNames: string[] = []
-  properties.forEach((prop, index) => {
-    if (prop?.type === 'Identifier') {
-      // { foo }
-      props.push({ name: prop.name, path, value: `[${index}]` })
-      propNames.push(`'${prop.name}'`)
-    } else if (
-      prop?.type === 'AssignmentPattern' &&
-      prop.left.type === 'Identifier'
-    ) {
-      // [foo = 'foo']
-      props.push({
-        path,
-        name: prop.left.name,
-        value: `.${prop.left.name}`,
-        defaultValue: s.slice(prop.right.start!, prop.right.end!),
-      })
-      propNames.push(`'${prop.left.name}'`)
-    } else if (
-      prop?.type === 'ObjectProperty' &&
-      prop.key.type === 'Identifier'
-    ) {
-      if (
-        prop.value.type === 'AssignmentPattern' &&
-        prop.value.left.type === 'Identifier'
-      ) {
-        // { foo: bar = 'foo' }
-        props.push({
-          path,
-          name: prop.value.left.name,
-          value: `.${prop.key.name}`,
-          defaultValue: s.slice(prop.value.right.start!, prop.value.right.end!),
-          isRequired: prop.value.right.type === 'TSNonNullExpression',
-        })
-      } else if (!getProps(prop.value, `${path}.${prop.key.name}`, s, props)) {
-        // { foo: bar }
-        props.push({
-          path,
-          name:
-            prop.value.type === 'Identifier' ? prop.value.name : prop.key.name,
-          value: `.${prop.key.name}`,
-        })
-      }
-      propNames.push(`'${prop.key.name}'`)
-    } else if (
-      prop?.type === 'RestElement' &&
-      prop.argument.type === 'Identifier' &&
-      !prop.argument.name.startsWith(`${HELPER_PREFIX}props`)
-    ) {
-      // { ...rest }
-      props.push({
-        path,
-        name: prop.argument.name,
-        value: propNames.join(', '),
-        isRest: true,
-      })
-    } else if (prop) {
-      getProps(prop, `${path}[${index}]`, s, props)
-    }
-  })
-  return props.length ? props : undefined
-}
-
-export function prependFunctionalNode(
-  node: FunctionalNode,
-  s: MagicString,
-  result: string,
-): void {
-  const isBlockStatement = node.body.type === 'BlockStatement'
-  const start = node.body.extra?.parenthesized
-    ? (node.body.extra.parenStart as number)
-    : node.body.start!
-  s.appendRight(
-    start + (isBlockStatement ? 1 : 0),
-    `${result};${!isBlockStatement ? 'return ' : ''}`,
-  )
-  if (!isBlockStatement) {
-    s.appendLeft(start, '{')
-    s.appendRight(node.end!, '}')
-  }
-}
-
 export function restructure(
   s: MagicString,
   node: FunctionalNode,
@@ -214,4 +118,100 @@ export function restructure(
   }
 
   return propList
+}
+
+function getProps(
+  node: Node,
+  path: string = '',
+  s: MagicString,
+  props: Prop[] = [],
+) {
+  const properties =
+    node.type === 'ObjectPattern'
+      ? node.properties
+      : node.type === 'ArrayPattern'
+        ? node.elements
+        : []
+  if (!properties.length) return
+
+  const propNames: string[] = []
+  properties.forEach((prop, index) => {
+    if (prop?.type === 'Identifier') {
+      // { foo }
+      props.push({ name: prop.name, path, value: `[${index}]` })
+      propNames.push(`'${prop.name}'`)
+    } else if (
+      prop?.type === 'AssignmentPattern' &&
+      prop.left.type === 'Identifier'
+    ) {
+      // [foo = 'foo']
+      props.push({
+        path,
+        name: prop.left.name,
+        value: `.${prop.left.name}`,
+        defaultValue: s.slice(prop.right.start!, prop.right.end!),
+      })
+      propNames.push(`'${prop.left.name}'`)
+    } else if (
+      prop?.type === 'ObjectProperty' &&
+      prop.key.type === 'Identifier'
+    ) {
+      if (
+        prop.value.type === 'AssignmentPattern' &&
+        prop.value.left.type === 'Identifier'
+      ) {
+        // { foo: bar = 'foo' }
+        props.push({
+          path,
+          name: prop.value.left.name,
+          value: `.${prop.key.name}`,
+          defaultValue: s.slice(prop.value.right.start!, prop.value.right.end!),
+          isRequired: prop.value.right.type === 'TSNonNullExpression',
+        })
+      } else if (!getProps(prop.value, `${path}.${prop.key.name}`, s, props)) {
+        // { foo: bar }
+        props.push({
+          path,
+          name:
+            prop.value.type === 'Identifier' ? prop.value.name : prop.key.name,
+          value: `.${prop.key.name}`,
+        })
+      }
+      propNames.push(`'${prop.key.name}'`)
+    } else if (
+      prop?.type === 'RestElement' &&
+      prop.argument.type === 'Identifier' &&
+      !prop.argument.name.startsWith(`${HELPER_PREFIX}props`)
+    ) {
+      // { ...rest }
+      props.push({
+        path,
+        name: prop.argument.name,
+        value: propNames.join(', '),
+        isRest: true,
+      })
+    } else if (prop) {
+      getProps(prop, `${path}[${index}]`, s, props)
+    }
+  })
+  return props.length ? props : undefined
+}
+
+export function prependFunctionalNode(
+  node: FunctionalNode,
+  s: MagicString,
+  result: string,
+): void {
+  const isBlockStatement = node.body.type === 'BlockStatement'
+  const start = node.body.extra?.parenthesized
+    ? (node.body.extra.parenStart as number)
+    : node.body.start!
+  s.appendRight(
+    start + (isBlockStatement ? 1 : 0),
+    `${result};${!isBlockStatement ? 'return ' : ''}`,
+  )
+  if (!isBlockStatement) {
+    s.appendLeft(start, '{')
+    s.appendRight(node.end!, '}')
+  }
 }

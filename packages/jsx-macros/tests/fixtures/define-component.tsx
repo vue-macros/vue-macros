@@ -11,7 +11,7 @@ const Comp = defineComponent(
     })
     return <div>{[foo.value, bar, attrs.baz]}</div>
   },
-  { inheritAttrs: false },
+  { name: 'Comp' },
 )
 
 const Comp1 = defineComponent((props: { bar: 'bar' }) => {
