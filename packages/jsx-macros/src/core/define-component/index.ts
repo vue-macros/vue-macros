@@ -79,17 +79,30 @@ export function transformDefineComponent(
     if (root.params[0].type === 'Identifier') {
       getWalkedIds(root, propsName).forEach((id) => (props[id] = null))
     } else {
-      for (const prop of restructure(s, root)) {
-        if (prop.path.endsWith('props')) {
-          if (prop.isRest) {
-            getWalkedIds(root, prop.name).forEach((id) => (props[id] = null))
-          } else {
-            props[prop.name] = prop.isRequired ? '{ required: true }' : null
+      const restructuredProps = restructure(s, root, {
+        generateRestProps: (restPropsName, index, list) => {
+          if (index === list.length - 1) {
+            const getCurrentInstance = importHelperFn(
+              s,
+              0,
+              'getCurrentInstance',
+              'vue',
+            )
+            return [
+              `${getCurrentInstance}().inheritAttrs=false`,
+              `const ${restPropsName} = ${getCurrentInstance}().setupContext.attrs`,
+            ].join(';')
           }
+        },
+      })
+      for (const prop of restructuredProps) {
+        if (prop.path.endsWith('props') && !prop.isRest) {
+          props[prop.name] = prop.isRequired ? '{ required: true }' : null
         }
       }
     }
   }
+
   for (const { expression, isRequired } of map.defineModel || []) {
     const modelOptions =
       expression.arguments[0]?.type === 'ObjectExpression'

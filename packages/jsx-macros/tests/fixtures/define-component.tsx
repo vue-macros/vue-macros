@@ -1,7 +1,7 @@
 import { defineComponent, nextTick } from 'vue'
 
 const Comp = defineComponent(
-  ({ bar = 'bar'!, ...props }: { bar: 'bar'; baz: 'baz' }) => {
+  ({ bar = 'bar'!, ...attrs }: { bar: 'bar'; baz: 'baz' }) => {
     const foo = defineModel('foo', {
       validator: (value) => {
         return value === 'foo'
@@ -9,7 +9,7 @@ const Comp = defineComponent(
       required: false,
       type: String,
     })
-    return <div>{[foo.value, bar, props.baz]}</div>
+    return <div>{[foo.value, bar, attrs.baz]}</div>
   },
   { inheritAttrs: false },
 )

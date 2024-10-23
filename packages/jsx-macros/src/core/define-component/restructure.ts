@@ -116,7 +116,14 @@ export function prependFunctionalNode(
 export function restructure(
   s: MagicString,
   node: FunctionalNode,
-  withDefaultsFrom: string = withDefaultsHelperId,
+  options?: {
+    withDefaultsFrom?: string
+    generateRestProps?: (
+      restPropsName: string,
+      index: number,
+      list: Prop[],
+    ) => string | undefined
+  },
 ): Prop[] {
   let index = 0
   const propList: Prop[] = []
@@ -154,7 +161,7 @@ export function restructure(
         s,
         0,
         'createPropsDefaultProxy',
-        withDefaultsFrom,
+        options?.withDefaultsFrom || withDefaultsHelperId,
       )
       const resolvedPath = path.replace(
         `${HELPER_PREFIX}default_`,
@@ -172,17 +179,17 @@ export function restructure(
       )
     }
 
-    for (const prop of rests) {
-      const createPropsRestProxy = importHelperFn(
-        s,
-        0,
-        'createPropsRestProxy',
-        'vue',
-      )
+    for (const [index, rest] of rests.entries()) {
       prependFunctionalNode(
         node,
         s,
-        `\nconst ${prop.name} = ${createPropsRestProxy}(${prop.path}, [${prop.value}])`,
+        options?.generateRestProps?.(rest.name, index, rests) ??
+          `\nconst ${rest.name} = ${importHelperFn(
+            s,
+            0,
+            'createPropsRestProxy',
+            'vue',
+          )}(${rest.path}, [${rest.value}])`,
       )
     }
 
