@@ -285,9 +285,10 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
             )
         }
 
-        const isFunctionReturn =
-          ts.isArrowFunction(node.expression) ||
-          ts.isFunctionExpression(node.expression)
+        const shouldWrapByCall =
+          (ts.isArrowFunction(node.expression) ||
+            ts.isFunctionExpression(node.expression)) &&
+          map.defineComponent
         replaceSourceRange(
           codes,
           source,
@@ -300,14 +301,14 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
           map.defineSlots ? ` & ${map.defineSlots}` : '',
           map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
           `,\nrender: `,
-          isFunctionReturn ? '(' : '',
+          shouldWrapByCall ? '(' : '',
         )
         replaceSourceRange(
           codes,
           source,
           node.expression.end,
           node.expression.end,
-          isFunctionReturn ? ')()' : '',
+          shouldWrapByCall ? ')()' : '',
           `\n}`,
         )
       }
