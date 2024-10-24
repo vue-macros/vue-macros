@@ -35,7 +35,7 @@ export const Comp = defineComponent(function <const T>({ foo }: { foo: T }) {
     }
   `)
 
-  return (
+  return () => (
     <div class="foo">
       color: <input v-model={color.value} />
       <div />

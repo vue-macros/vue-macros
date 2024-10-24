@@ -91,7 +91,7 @@ export function transformJsxMacros(
     }
 
     if (map.defineComponent) {
-      transformDefineComponent(root, propsName, map, s, options.lib)
+      transformDefineComponent(root, propsName, map, s)
     }
     if (map.defineModel?.length) {
       map.defineModel.forEach(({ expression }) => {

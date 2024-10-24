@@ -9,14 +9,14 @@ const Comp = defineComponent(
       required: false,
       type: String,
     })
-    return <div>{[foo.value, bar, attrs.baz]}</div>
+    return () => <div>{[foo.value, bar, attrs.baz]}</div>
   },
   { name: 'Comp' },
 )
 
 const Comp1 = defineComponent((props: { bar: 'bar' }) => {
   const foo = defineModel('foo')
-  return <div>{[foo.value, props['bar']]}</div>
+  return () => <div>{[foo.value, props['bar']]}</div>
 })
 
 const Comp2 = defineComponent(async () => {
@@ -24,5 +24,5 @@ const Comp2 = defineComponent(async () => {
   let foo = await new Promise((resolve) => {
     setTimeout(() => resolve('foo'), 1000)
   })
-  return <div>{foo}</div>
+  return () => <div>{foo}</div>
 })

@@ -10,7 +10,6 @@ export function transformDefineComponent(
   propsName: string,
   map: RootMapValue,
   s: MagicStringAST,
-  lib: string,
 ): void {
   if (!map.defineComponent) return
   s.overwriteNode(
@@ -90,7 +89,6 @@ export function transformDefineComponent(
   }
 
   transformAwait(root, s)
-  transformReturn(root, s, lib)
 }
 
 function prependObjectExpression(
@@ -133,37 +131,4 @@ function getWalkedIds(root: FunctionalNode, propsName: string) {
     false,
   )
   return walkedIds
-}
-
-// Auto add `() => ` for return statement
-function transformReturn(root: FunctionalNode, s: MagicStringAST, lib: string) {
-  if (lib === 'vue') {
-    if (root.body.type === 'BlockStatement') {
-      const returnStatement = root.body.body.find(
-        (node) => node.type === 'ReturnStatement',
-      )
-      if (
-        returnStatement &&
-        returnStatement.argument &&
-        !(
-          returnStatement.argument?.type === 'ArrowFunctionExpression' ||
-          returnStatement.argument?.type === 'FunctionExpression'
-        )
-      ) {
-        s.appendRight(
-          returnStatement.argument.extra?.parenthesized
-            ? (returnStatement.argument.extra.parenStart as number)
-            : returnStatement.argument.start!,
-          '() => ',
-        )
-      }
-    } else {
-      s.appendRight(
-        root.body.extra?.parenthesized
-          ? (root.body.extra.parenStart as number)
-          : root.body.start!,
-        '() => ',
-      )
-    }
-  }
 }
