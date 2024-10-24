@@ -226,9 +226,9 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     )
     if (asyncModifier)
       replaceSourceRange(codes, source, asyncModifier.pos, asyncModifier.end)
-    const result = `({}) as __VLS_MaybeReturnType<Awaited<ReturnType<typeof ${
+    const result = `({}) as ${map.defineComponent ? '__VLS_MaybeReturnType<' : ''}Awaited<ReturnType<typeof ${
       HELPER_PREFIX
-    }setup>>['render']> & { __ctx: Awaited<ReturnType<typeof ${
+    }setup>>['render']${map.defineComponent ? '>' : ''} & { __ctx: Awaited<ReturnType<typeof ${
       HELPER_PREFIX
     }setup>> }`
 
