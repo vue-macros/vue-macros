@@ -224,11 +224,11 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
     const asyncModifier = root.modifiers?.find(
       (modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword,
     )
-    if (asyncModifier)
+    if (asyncModifier && map.defineComponent)
       replaceSourceRange(codes, source, asyncModifier.pos, asyncModifier.end)
-    const result = `({}) as ${map.defineComponent ? '__VLS_MaybeReturnType<' : ''}Awaited<ReturnType<typeof ${
+    const result = `({}) as Awaited<ReturnType<typeof ${
       HELPER_PREFIX
-    }setup>>['render']${map.defineComponent ? '>' : ''} & { __ctx: Awaited<ReturnType<typeof ${
+    }setup>>['render'] & { __ctx: Awaited<ReturnType<typeof ${
       HELPER_PREFIX
     }setup>> }`
 
@@ -285,6 +285,9 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
             )
         }
 
+        const isFunctionReturn =
+          ts.isArrowFunction(node.expression) ||
+          ts.isFunctionExpression(node.expression)
         replaceSourceRange(
           codes,
           source,
@@ -297,12 +300,14 @@ function transformJsxMacros(rootMap: RootMap, options: TransformOptions): void {
           map.defineSlots ? ` & ${map.defineSlots}` : '',
           map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
           `,\nrender: `,
+          isFunctionReturn ? '(' : '',
         )
         replaceSourceRange(
           codes,
           source,
           node.expression.end,
           node.expression.end,
+          isFunctionReturn ? ')()' : '',
           `\n}`,
         )
       }
@@ -347,8 +352,7 @@ declare function defineSlots<T extends Record<string, any>>(slots?: Partial<T>):
 declare function defineExpose<Exposed extends Record<string, any> = Record<string, any>>(exposed?: Exposed): Exposed;
 type __VLS_DefineStyle = (style: string, options?: { scoped?: boolean }) => void;
 declare const defineStyle: { (style: string, options?: { scoped?: boolean }): void; scss: __VLS_DefineStyle; sass: __VLS_DefineStyle; stylus: __VLS_DefineStyle; less: __VLS_DefineStyle; postcss: __VLS_DefineStyle };
-declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs' | 'components'> & { props?: import('vue').ComponentObjectPropsOptions }): T
-declare type __VLS_MaybeReturnType<T> = T extends (...args: any) => any ? ReturnType<T> : T;
+declare function ${HELPER_PREFIX}defineComponent<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs' | 'components'> & { props?: import('vue').ComponentObjectPropsOptions }): T;
       `,
           )
         }
