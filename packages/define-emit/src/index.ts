@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { RollupResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
+import { OxcResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
 import {
   createFilter,
   detectVueVersion,
@@ -46,7 +46,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
     const filter = createFilter(options)
-    const { resolve, handleHotUpdate } = RollupResolve()
+    const { resolve, handleHotUpdate } = OxcResolve()
 
     return {
       name,
