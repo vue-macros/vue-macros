@@ -1,5 +1,12 @@
 # @vue-macros/api
 
+## 0.12.0
+### Minor Changes
+
+
+
+- [`a6b7279`](https://github.com/vue-macros/vue-macros/commit/a6b72796fb5c1ffcef8b04fb1808edfec80b79a3) Thanks [@sxzz](https://github.com/sxzz)! - use `oxc-resolver`
+
 ## 0.11.2
 ### Patch Changes
 
