@@ -98,39 +98,6 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
   return (resolved || resolvedOptions.get(root)!)[key]
 }
 
-export function getImportNames(
-  ts: typeof import('typescript'),
-  sfc: Sfc,
-): string[] {
-  const names: string[] = []
-  const sourceFile = sfc.scriptSetup!.ast
-  ts.forEachChild(sourceFile, (node) => {
-    if (
-      ts.isImportDeclaration(node) &&
-      node.attributes?.elements.some(
-        (el) =>
-          getText(el.name, { ts, sfc, source: 'scriptSetup' }) === 'type' &&
-          ts.isStringLiteral(el.value) &&
-          getText(el.value, { ts, sfc, source: 'scriptSetup' }) === 'macro',
-      )
-    ) {
-      const name = node.importClause?.name?.escapedText
-      if (name) names.push(name)
-
-      if (node.importClause?.namedBindings) {
-        const bindings = node.importClause.namedBindings
-        if (ts.isNamespaceImport(bindings)) {
-          names.push(bindings.name.escapedText!)
-        } else {
-          for (const el of bindings.elements) names.push(el.name.escapedText!)
-        }
-      }
-    }
-  })
-
-  return names
-}
-
 export interface VolarContext {
   sfc: Sfc
   ts: typeof import('typescript')
