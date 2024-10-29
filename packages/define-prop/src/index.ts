@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { OxcResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
+import { resolveDtsHMR } from '@vue-macros/api'
 import {
   createFilter,
   detectVueVersion,
@@ -17,7 +17,6 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformDefineProp, type Edition } from './core'
 import { helperCode, helperId } from './core/helper'
-import type { PluginContext } from 'rollup'
 
 export interface Options extends BaseOptions {
   edition?: Edition
@@ -52,17 +51,10 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
     const filter = createFilter(options)
-    const { resolve, handleHotUpdate } = OxcResolve()
 
     return {
       name,
       enforce: 'pre',
-
-      buildStart() {
-        if (framework === 'rollup' || framework === 'vite') {
-          setResolveTSFileIdImpl(resolve(this as PluginContext))
-        }
-      },
 
       resolveId(id) {
         if (id === normalizePath(helperId)) return id
@@ -91,7 +83,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
           options.isProduction ??= config.isProduction
         },
 
-        handleHotUpdate,
+        handleHotUpdate: resolveDtsHMR,
       },
     }
   },
