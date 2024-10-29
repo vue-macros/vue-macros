@@ -1,5 +1,18 @@
 # @vue-macros/better-define
 
+## 1.11.0
+### Minor Changes
+
+
+
+- [`c1d57a6`](https://github.com/vue-macros/vue-macros/commit/c1d57a6ddc17ed8c783eaf18d370c6c9fee3eab7) Thanks [@sxzz](https://github.com/sxzz)! - DTS resolver for all bundlers
+
+
+### Patch Changes
+
+- Updated dependencies [[`c1d57a6`](https://github.com/vue-macros/vue-macros/commit/c1d57a6ddc17ed8c783eaf18d370c6c9fee3eab7)]:
+  - @vue-macros/api@0.13.0
+
 ## 1.10.0
 ### Minor Changes
 
