@@ -420,9 +420,6 @@ importers:
 
   packages/define-emit:
     dependencies:
-      '@vue-macros/api':
-        specifier: workspace:*
-        version: link:../api
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common

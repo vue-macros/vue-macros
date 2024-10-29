@@ -1,5 +1,4 @@
 import process from 'node:process'
-import { OxcResolve, setResolveTSFileIdImpl } from '@vue-macros/api'
 import {
   createFilter,
   detectVueVersion,
@@ -15,7 +14,6 @@ import {
 } from 'unplugin'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformDefineEmit } from './core'
-import type { PluginContext } from 'rollup'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<
@@ -46,17 +44,10 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
     const filter = createFilter(options)
-    const { resolve, handleHotUpdate } = OxcResolve()
 
     return {
       name,
       enforce: 'pre',
-
-      buildStart() {
-        if (framework === 'rollup' || framework === 'vite') {
-          setResolveTSFileIdImpl(resolve(this as PluginContext))
-        }
-      },
 
       transformInclude: filter,
       transform: transformDefineEmit,
@@ -65,8 +56,6 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
         configResolved(config) {
           options.isProduction ??= config.isProduction
         },
-
-        handleHotUpdate,
       },
     }
   },
