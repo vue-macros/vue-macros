@@ -1,23 +1,11 @@
-import { FileKind, type VueLanguagePlugin } from '@vue/language-core'
-import { getImportNames, rewriteImports } from './common'
+import type { VueLanguagePlugin } from '@vue/language-core'
 
-const plugin: VueLanguagePlugin = ({
-  modules: { typescript: ts },
-  vueCompilerOptions,
-}) => {
-  vueCompilerOptions.macros.defineProps.push('simpleProps')
-  vueCompilerOptions.macros.defineEmits.push('simpleEmits')
+const plugin: VueLanguagePlugin = ({ vueCompilerOptions }) => {
+  vueCompilerOptions.macros.defineProps.push('simpleProps', 'simpleEmits')
 
   return {
     name: 'vue-macros-simple-define',
-    version: 1,
-
-    resolveEmbeddedFile(fileName, sfc, embeddedFile) {
-      if (embeddedFile.kind !== FileKind.TypeScriptHostFile) return
-      if (!sfc.scriptSetupAst) return
-
-      rewriteImports(embeddedFile, getImportNames(ts, sfc))
-    },
+    version: 2.1,
   }
 }
 

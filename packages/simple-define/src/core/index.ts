@@ -1,15 +1,16 @@
 import {
   DEFINE_EMITS,
   DEFINE_PROPS,
-  HELPER_PREFIX,
-  MagicString,
-  WITH_DEFAULTS,
   generateTransform,
+  HELPER_PREFIX,
   importHelperFn,
   isCallOf,
+  MagicStringAST,
   parseSFC,
   removeMacroImport,
-  walkASTSetup,
+  walkAST,
+  WITH_DEFAULTS,
+  type CodeTransform,
 } from '@vue-macros/common'
 import { useDefaultsId } from './helper'
 import type * as t from '@babel/types'
@@ -17,36 +18,34 @@ import type * as t from '@babel/types'
 const SIMPLE_PROPS = 'simpleProps'
 const SIMPLE_EMITS = 'simpleEmits'
 
-export async function transformSimpleDefine(code: string, id: string) {
+export function transformSimpleDefine(
+  code: string,
+  id: string,
+): CodeTransform | undefined {
   if (!code.includes(SIMPLE_PROPS) && !code.includes(SIMPLE_EMITS)) return
 
   const { scriptSetup, getSetupAst } = parseSFC(code, id)
   if (!scriptSetup) return
 
-  const s = new MagicString(code)
+  const s = new MagicStringAST(code)
   const offset = scriptSetup.loc.start.offset
   const setupAst = getSetupAst()!
 
-  await walkASTSetup(setupAst, (setup) => {
-    setup.onEnter((node) => {
-      removeMacroImport(node, s, offset)
-    })
+  walkAST(setupAst, {
+    enter(node, parent) {
+      if (removeMacroImport(node, s, offset)) return
 
-    setup.onEnter(
-      (node): node is t.CallExpression => isCallOf(node, WITH_DEFAULTS),
-      (node, parent) => processWithDefaults(node, parent)
-    )
+      if (isCallOf(node, WITH_DEFAULTS)) {
+        return processWithDefaults(node, parent!)
+      }
+      if (isCallOf(node, SIMPLE_PROPS) && !isCallOf(parent, WITH_DEFAULTS)) {
+        return processSimpleProps(node)
+      }
 
-    setup.onEnter(
-      (node, parent): node is t.CallExpression =>
-        isCallOf(node, SIMPLE_PROPS) && !isCallOf(parent, WITH_DEFAULTS),
-      (node) => processSimpleProps(node)
-    )
-
-    setup.onEnter(
-      (node): node is t.CallExpression => isCallOf(node, SIMPLE_EMITS),
-      (node) => processSimpleEmits(node)
-    )
+      if (isCallOf(node, SIMPLE_EMITS)) {
+        return processSimpleEmits(node)
+      }
+    },
   })
 
   return generateTransform(s, id)
@@ -64,13 +63,10 @@ export async function transformSimpleDefine(code: string, id: string) {
     }
   }
 
-  function processWithDefaults(
-    node: t.CallExpression,
-    parent: t.ParentMaps['CallExpression']
-  ) {
+  function processWithDefaults(node: t.CallExpression, parent: t.Node) {
     if (!isCallOf(node.arguments[0], SIMPLE_PROPS))
       throw new SyntaxError(
-        `${WITH_DEFAULTS} must have a ${SIMPLE_PROPS} call as its first argument.`
+        `${WITH_DEFAULTS} must have a ${SIMPLE_PROPS} call as its first argument.`,
       )
 
     const defaults = s.sliceNode(node.arguments[1], { offset })
@@ -90,8 +86,8 @@ export async function transformSimpleDefine(code: string, id: string) {
           offset,
           'useDefaults',
           useDefaultsId,
-          true
-        )}(${HELPER_PREFIX}props, ${defaults})`
+          true,
+        )}(${HELPER_PREFIX}props, ${defaults})`,
       )
     }
 

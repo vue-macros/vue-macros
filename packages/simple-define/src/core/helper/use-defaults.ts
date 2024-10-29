@@ -1,6 +1,9 @@
 import { reactiveComputed } from '@vueuse/core'
 
-export default (props: Record<string, any>, defaults: Record<string, any>) => {
+export default (
+  props: Record<string, any>,
+  defaults: Record<string, any>,
+): Record<string, any> => {
   return reactiveComputed(() => {
     const result: Record<string, any> = {}
     for (const key of [

@@ -11,7 +11,7 @@ const props = withDefaults(
     foo: 'bar',
     obj: () => ({ foo: 'bar' }),
     fn: () => () => 123,
-  }
+  },
 )
 
 const foo = toRef(() => props.foo)

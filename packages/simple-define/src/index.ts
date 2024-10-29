@@ -1,13 +1,13 @@
-import { createUnplugin } from 'unplugin'
 import {
-  type BaseOptions,
-  type MarkRequired,
+  createFilter,
+  detectVueVersion,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
-  createFilter,
-  detectVueVersion,
+  type BaseOptions,
+  type MarkRequired,
 } from '@vue-macros/common'
+import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { transformSimpleDefine } from './core'
 import { useDefaultsCode, useDefaultsId } from './core/helper'
 
@@ -26,7 +26,7 @@ function resolveOptions(options: Options): OptionsResolved {
 
 const name = 'unplugin-vue-simple-define'
 
-export default createUnplugin<Options | undefined, false>(
+const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}) => {
     const options = resolveOptions(userOptions)
     const filter = createFilter(options)
@@ -51,5 +51,7 @@ export default createUnplugin<Options | undefined, false>(
         return transformSimpleDefine(code, id)
       },
     }
-  }
+  },
 )
+
+export default plugin
