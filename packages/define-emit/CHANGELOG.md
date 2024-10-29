@@ -1,5 +1,12 @@
 # @vue-macros/define-emit
 
+## 0.5.1
+### Patch Changes
+
+
+
+- [`74dadb1`](https://github.com/vue-macros/vue-macros/commit/74dadb176bfd4270e0621ec28e8ca0e5cb5155dd) Thanks [@sxzz](https://github.com/sxzz)! - Remove dts resolver
+
 ## 0.5.0
 ### Minor Changes
 

@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 2.13.3
+### Patch Changes
+
+- Updated dependencies [[`74dadb1`](https://github.com/vue-macros/vue-macros/commit/74dadb176bfd4270e0621ec28e8ca0e5cb5155dd), [`c1d57a6`](https://github.com/vue-macros/vue-macros/commit/c1d57a6ddc17ed8c783eaf18d370c6c9fee3eab7)]:
+  - @vue-macros/define-emit@0.5.1
+  - @vue-macros/better-define@1.11.0
+  - @vue-macros/define-prop@0.6.1
+  - @vue-macros/config@0.5.0
+
 ## 2.13.2
 ### Patch Changes
 
