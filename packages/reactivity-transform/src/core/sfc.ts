@@ -3,9 +3,12 @@ import {
   generateTransform,
   importHelperFn,
   isCallOf,
+  isFunctionType,
+  isLiteralType,
   MagicStringAST,
   parseSFC,
   resolveObjectKey,
+  unwrapTSNode,
   type CodeTransform,
 } from '@vue-macros/common'
 import { helperId } from './helper'
@@ -100,7 +103,20 @@ export function transformVueSFC(
           propsDestructuredBindings![propKey] = {
             local,
           }
-          defaultStr += `${propKey}: ${s.sliceNode(right, { offset })},`
+
+          let defaultValue = s.sliceNode(right, { offset })
+          const rightNode = unwrapTSNode(right)
+          // Not very accurate, but should work in most cases
+          // Bad design of Vue...
+          const withFactory =
+            !isLiteralType(rightNode) &&
+            !isFunctionType(rightNode) &&
+            rightNode.type !== 'Identifier'
+          if (withFactory) {
+            defaultValue = `() => (${defaultValue})`
+          }
+
+          defaultStr += `${propKey}: ${defaultValue},`
         } else if (prop.value.type === 'Identifier') {
           // simple destructure
           local = prop.value.name

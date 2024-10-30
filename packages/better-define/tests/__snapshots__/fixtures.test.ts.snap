@@ -926,6 +926,58 @@ export { playground as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/radix-vue.vue > isProduction = false 1`] = `
+"// radix-vue.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "radix-vue",
+  props: {
+    asChild: { type: Boolean, required: false },
+    as: { type: [String, Object, Function], required: false },
+    foo: { type: String, required: false }
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+var radixVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { radixVue as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/radix-vue.vue > isProduction = true 1`] = `
+"// radix-vue.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "radix-vue",
+  props: {
+    asChild: { type: Boolean },
+    as: { type: Function },
+    foo: null
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+var radixVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { radixVue as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/resolve-failed.vue > isProduction = false 1`] = `
 "// resolve-failed.js
 import { defineComponent } from 'vue';

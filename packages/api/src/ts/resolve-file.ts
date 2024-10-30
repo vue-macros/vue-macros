@@ -1,43 +1,80 @@
-import { lstatSync } from 'node:fs'
 import path from 'node:path'
+import { tsFileCache } from './scope'
+import type { ResolverFactory } from 'oxc-resolver'
+import type { ModuleNode, Plugin } from 'vite'
 
-export type ResolveTSFileIdImpl = (
-  id: string,
-  importer: string,
-) => Promise<string | undefined> | string | undefined
+let typesResolver: ResolverFactory
 
-export const resolveTSFileId: ResolveTSFileIdImpl = (id, importer) => {
-  return resolveTSFileIdImpl(id, importer)
-}
+const referencedFiles = new Map<string /* file */, Set<string /* importer */>>()
 
-/**
- * @limitation don't node_modules and JavaScript file
- */
-export const resolveTSFileIdNode: ResolveTSFileIdImpl = (
-  id: string,
-  importer: string,
-) => {
-  return (
-    tryResolve(id, importer) ||
-    tryResolve(`${id}.ts`, importer) ||
-    tryResolve(`${id}.d.ts`, importer) ||
-    tryResolve(`${id}/index`, importer) ||
-    tryResolve(`${id}/index.ts`, importer) ||
-    tryResolve(`${id}/index.d.ts`, importer)
-  )
-}
-function tryResolve(id: string, importer: string) {
-  const filePath = path.resolve(importer, '..', id)
-  try {
-    const stat = lstatSync(filePath)
-    if (stat.isFile()) return filePath
-  } catch {
-    return
+function collectReferencedFile(importer: string, file: string) {
+  if (!importer) return
+  if (!referencedFiles.has(file)) {
+    referencedFiles.set(file, new Set([importer]))
+  } else {
+    referencedFiles.get(file)!.add(importer)
   }
 }
 
-let resolveTSFileIdImpl: ResolveTSFileIdImpl = resolveTSFileIdNode
+const resolveCache = new Map<
+  string /* importer */,
+  Map<string /* id */, string /* result */>
+>()
 
-export function setResolveTSFileIdImpl(impl: ResolveTSFileIdImpl): void {
-  resolveTSFileIdImpl = impl
+export async function resolveDts(
+  id: string,
+  importer: string,
+): Promise<string | undefined> {
+  const cached = resolveCache.get(importer)?.get(id)
+  if (cached) return cached
+
+  if (!typesResolver) {
+    const { ResolverFactory } = await import('oxc-resolver')
+    typesResolver = new ResolverFactory({
+      mainFields: ['types'],
+      conditionNames: ['types', 'import'],
+      extensions: ['.d.ts', '.ts'],
+    })
+  }
+
+  const { error, path: resolved } = await typesResolver.async(
+    path.dirname(importer),
+    id,
+  )
+  if (error || !resolved) return
+
+  collectReferencedFile(importer, resolved)
+  if (resolveCache.has(importer)) {
+    resolveCache.get(importer)!.set(id, resolved)
+  } else {
+    resolveCache.set(importer, new Map([[id, resolved]]))
+  }
+  return resolved
+}
+
+export const resolveDtsHMR: NonNullable<Plugin['handleHotUpdate']> = ({
+  file,
+  server,
+  modules,
+}) => {
+  const cache = new Map<string, Set<ModuleNode>>()
+  if (tsFileCache[file]) delete tsFileCache[file]
+
+  const affected = getAffectedModules(file)
+  return [...modules, ...affected]
+
+  function getAffectedModules(file: string): Set<ModuleNode> {
+    if (cache.has(file)) return cache.get(file)!
+    if (!referencedFiles.has(file)) return new Set([])
+
+    const modules = new Set<ModuleNode>([])
+    cache.set(file, modules)
+    for (const importer of referencedFiles.get(file)!) {
+      const mods = server.moduleGraph.getModulesByFile(importer)
+      if (mods) mods.forEach((m) => modules.add(m))
+
+      getAffectedModules(importer).forEach((m) => modules.add(m))
+    }
+    return modules
+  }
 }

@@ -1,5 +1,28 @@
 # @vue-macros/define-prop
 
+## 0.6.1
+### Patch Changes
+
+
+
+- [`c1d57a6`](https://github.com/vue-macros/vue-macros/commit/c1d57a6ddc17ed8c783eaf18d370c6c9fee3eab7) Thanks [@sxzz](https://github.com/sxzz)! - DTS resolver for all bundlers
+
+- Updated dependencies [[`c1d57a6`](https://github.com/vue-macros/vue-macros/commit/c1d57a6ddc17ed8c783eaf18d370c6c9fee3eab7)]:
+  - @vue-macros/api@0.13.0
+
+## 0.6.0
+### Minor Changes
+
+
+
+- [`a6b7279`](https://github.com/vue-macros/vue-macros/commit/a6b72796fb5c1ffcef8b04fb1808edfec80b79a3) Thanks [@sxzz](https://github.com/sxzz)! - use `oxc-resolver`
+
+
+### Patch Changes
+
+- Updated dependencies [[`a6b7279`](https://github.com/vue-macros/vue-macros/commit/a6b72796fb5c1ffcef8b04fb1808edfec80b79a3)]:
+  - @vue-macros/api@0.12.0
+
 ## 0.5.2
 ### Patch Changes
 

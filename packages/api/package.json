@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/api",
-  "version": "0.11.2",
+  "version": "0.13.0",
   "packageManager": "pnpm@9.12.3",
   "description": "General API for Vue Macros.",
   "type": "module",
@@ -55,7 +55,7 @@
   "dependencies": {
     "@babel/types": "^7.26.0",
     "@vue-macros/common": "workspace:*",
-    "resolve.exports": "^2.0.2"
+    "oxc-resolver": "^2.0.0"
   },
   "engines": {
     "node": ">=16.14.0"

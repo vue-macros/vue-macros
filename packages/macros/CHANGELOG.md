@@ -1,5 +1,32 @@
 # unplugin-vue-macros
 
+## 2.13.3
+### Patch Changes
+
+- Updated dependencies [[`74dadb1`](https://github.com/vue-macros/vue-macros/commit/74dadb176bfd4270e0621ec28e8ca0e5cb5155dd), [`c1d57a6`](https://github.com/vue-macros/vue-macros/commit/c1d57a6ddc17ed8c783eaf18d370c6c9fee3eab7)]:
+  - @vue-macros/define-emit@0.5.1
+  - @vue-macros/better-define@1.11.0
+  - @vue-macros/define-prop@0.6.1
+  - @vue-macros/config@0.5.0
+
+## 2.13.2
+### Patch Changes
+
+- Updated dependencies [[`af3e33d`](https://github.com/vue-macros/vue-macros/commit/af3e33dd87eb8fe0a065f2e3289dd5ce0ea1111d)]:
+  - @vue-macros/reactivity-transform@1.1.3
+  - @vue-macros/config@0.5.0
+  - @vue-macros/define-props@4.0.3
+
+## 2.13.1
+### Patch Changes
+
+- Updated dependencies [[`a6b7279`](https://github.com/vue-macros/vue-macros/commit/a6b72796fb5c1ffcef8b04fb1808edfec80b79a3)]:
+  - @vue-macros/better-define@1.10.0
+  - @vue-macros/define-emit@0.5.0
+  - @vue-macros/define-prop@0.6.0
+  - @vue-macros/config@0.5.0
+  - @vue-macros/define-models@1.3.2
+
 ## 2.13.0
 ### Minor Changes
 

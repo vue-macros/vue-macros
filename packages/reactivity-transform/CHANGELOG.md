@@ -1,5 +1,12 @@
 # @vue-macros/reactivity-transform
 
+## 1.1.3
+### Patch Changes
+
+
+
+- [`af3e33d`](https://github.com/vue-macros/vue-macros/commit/af3e33dd87eb8fe0a065f2e3289dd5ce0ea1111d) Thanks [@sxzz](https://github.com/sxzz)! - auto wrap factory for default value of `defineProps`
+
 ## 1.1.2
 ### Patch Changes
 

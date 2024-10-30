@@ -1,5 +1,5 @@
 import { isTSDeclaration } from './is'
-import { resolveTSFileId } from './resolve-file'
+import { resolveDts } from './resolve-file'
 import {
   resolveTSReferencedType,
   type TSResolvedType,
@@ -45,7 +45,7 @@ export async function resolveTSNamespace(scope: TSScope): Promise<void> {
         type: stmt.declaration,
       })
     } else if (stmt.type === 'ExportAllDeclaration') {
-      const resolved = await resolveTSFileId(stmt.source.value, file.filePath)
+      const resolved = await resolveDts(stmt.source.value, file.filePath)
       if (!resolved) continue
 
       const sourceScope = await getTSFile(resolved)
@@ -56,7 +56,7 @@ export async function resolveTSNamespace(scope: TSScope): Promise<void> {
       let sourceExports: TSNamespace
 
       if (stmt.source) {
-        const resolved = await resolveTSFileId(stmt.source.value, file.filePath)
+        const resolved = await resolveDts(stmt.source.value, file.filePath)
         if (!resolved) continue
 
         const scope = await getTSFile(resolved)
@@ -112,7 +112,7 @@ export async function resolveTSNamespace(scope: TSScope): Promise<void> {
         type: stmt,
       })
     } else if (stmt.type === 'ImportDeclaration') {
-      const resolved = await resolveTSFileId(stmt.source.value, file.filePath)
+      const resolved = await resolveDts(stmt.source.value, file.filePath)
       if (!resolved) continue
 
       const importScope = await getTSFile(resolved)

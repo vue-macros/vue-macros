@@ -217,11 +217,12 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       console.log("hello");
     } },
     obj: { type: Object, required: true, default: () => ({ foo: "bar" }) },
-    arr: { type: Array, required: true, default: () => ["foo", "bar"] }
+    arr: { type: Array, required: true, default: () => ["foo", "bar"] },
+    unknown: { type: null, required: true, default: unknownValue }
   },
   setup(__props, { expose: __expose }) {
     __expose();
-    console.log(__props.fn, __props.obj, __props.arr);
+    console.log(__props.fn, __props.obj, __props.arr, __props.unknown);
     const __returned__ = {};
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;
