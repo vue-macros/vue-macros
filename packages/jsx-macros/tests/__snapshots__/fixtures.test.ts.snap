@@ -20,15 +20,15 @@ const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, 
     })
     return () => <div>{[foo.value, __MACROS_default_props.bar, attrs.baz]}</div>
   },
-  {props: { bar: { required: true }, 'foo': { validator: (value) => {
+  {props: { 'bar': { required: true }, 'foo': { validator: (value) => {
         return value === 'foo'
       }, required: false, type: String }, 'onUpdate:foo': null },inheritAttrs: false, name: 'Comp' },
 )
 
 const Comp1 = __MACROS_defineComponent((props: { bar: 'bar' }) => {
   const foo = __MACROS_useModel(props, 'foo')
-  return () => <div>{[foo.value, props['bar']]}</div>
-}, { props: { bar: null, 'foo': null, 'onUpdate:foo': null } })
+  return () => <div>{[foo.value, props['bar'], props['onUpdate:bar']]}</div>
+}, { props: { 'bar': null, 'onUpdate:bar': null, 'foo': null, 'onUpdate:foo': null } })
 
 const Comp2 = __MACROS_defineComponent(async (__MACROS_props) => {
 let __temp, __restore
