@@ -62,16 +62,16 @@ export function transformDefineComponent(
       expression.arguments[0]?.type === 'StringLiteral'
         ? expression.arguments[0].value
         : 'modelValue'
-    props[`'${propName}'`] = Object.keys(options).length
+    props[propName] = Object.keys(options).length
       ? `{ ${Object.entries(options)
           .map(([key, value]) => `${key}: ${value}`)
           .join(', ')} }`
       : null
-    props[`'onUpdate:${propName}'`] = null
+    props[`onUpdate:${propName}`] = null
   }
 
   const propsString = Object.entries(props)
-    .map(([key, value]) => `${key}: ${value}`)
+    .map(([key, value]) => `'${key}': ${value}`)
     .join(', ')
   if (propsString) {
     const argument = map.defineComponent.arguments[1]
