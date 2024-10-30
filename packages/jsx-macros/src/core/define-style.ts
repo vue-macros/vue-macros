@@ -1,26 +1,26 @@
 import { walkAST, type MagicStringAST } from '@vue-macros/common'
 import hash from 'hash-sum'
 import { helperPrefix } from './helper'
-import { isFunctionalNode, type FunctionalNode } from '.'
-import type { CallExpression, Node } from '@babel/types'
+import { isFunctionalNode, type DefineStyle, type FunctionalNode } from '.'
+import type { Node } from '@babel/types'
 
 export function transformDefineStyle(
-  node: CallExpression,
-  lang: string,
+  defineStyle: DefineStyle,
+  index: number,
   root: FunctionalNode | undefined,
-  defineStyleIndex: number,
   s: MagicStringAST,
   importMap: Map<string, string>,
 ): void {
-  if (node.arguments[0]?.type !== 'TemplateLiteral') return
+  const { expression, lang, isDeclaration } = defineStyle
+  if (expression.arguments[0]?.type !== 'TemplateLiteral') return
 
-  let css = s.sliceNode(node.arguments[0]).slice(1, -1)
+  let css = s.sliceNode(expression.arguments[0]).slice(1, -1)
   const scopeId = hash(css)
   const vars = new Map<string, string>()
-  node.arguments[0].expressions.forEach((expression) => {
-    const cssVar = s.sliceNode(expression)
+  expression.arguments[0].expressions.forEach((exp) => {
+    const cssVar = s.sliceNode(exp)
     const cssVarId = toCssVarId(cssVar, `--${scopeId}-`)
-    s.overwrite(expression.start! - 2, expression.end! + 1, `var(${cssVarId})`)
+    s.overwrite(exp.start! - 2, exp.end! + 1, `var(${cssVarId})`)
     vars.set(cssVarId, cssVar)
   })
 
@@ -48,9 +48,9 @@ export function transformDefineStyle(
     }
   }
 
-  let scoped = !!root
-  if (node.arguments[1]?.type === 'ObjectExpression') {
-    for (const prop of node.arguments[1].properties) {
+  let scoped = isDeclaration ? false : !!root
+  if (expression.arguments[1]?.type === 'ObjectExpression') {
+    for (const prop of expression.arguments[1].properties) {
       if (
         prop.type === 'ObjectProperty' &&
         prop.key.type === 'Identifier' &&
@@ -75,11 +75,17 @@ export function transformDefineStyle(
     })
   }
 
-  css = s.sliceNode(node.arguments[0]).slice(1, -1)
-  const importId = `${helperPrefix}/define-style?index=${defineStyleIndex}&scopeId=${scopeId}&scoped=${scoped}&lang.${lang}`
+  css = s.sliceNode(expression.arguments[0]).slice(1, -1)
+  const module = isDeclaration ? 'module.' : ''
+  const importId = `${helperPrefix}/define-style?index=${index}&scopeId=${scopeId}&scoped=${scoped}&lang.${module}${lang}`
   importMap.set(importId, css)
-  s.appendLeft(0, `import "${importId}";`)
-  s.removeNode(node)
+  s.appendLeft(
+    0,
+    isDeclaration
+      ? `import style${index} from "${importId}"`
+      : `import "${importId}";`,
+  )
+  s.overwriteNode(expression, isDeclaration ? `style${index}` : '')
 }
 
 function getReturnStatement(root: FunctionalNode) {

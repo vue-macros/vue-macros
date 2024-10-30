@@ -12,17 +12,17 @@ export const Comp = () => {
 
 export default defineComponent(() => {
   const color = ref('red')
-  defineStyle.scss(
-    `
+  const styles = defineStyle.scss(`
     .bar {
       color: ${color.value};
+      .barBaz {
+        background: red;
+      }
     }
-  `,
-    { scoped: true },
-  )
+  `)
   return () => (
     <>
-      <div class="bar">foo</div>
+      <div class={styles.bar}>foo</div>
       <div class="bar">
         <span>bar</span>
       </div>

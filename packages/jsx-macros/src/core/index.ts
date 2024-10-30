@@ -26,6 +26,12 @@ export type FunctionalNode =
   | FunctionExpression
   | ArrowFunctionExpression
 
+export type DefineStyle = {
+  expression: CallExpression
+  isDeclaration: boolean
+  lang: string
+}
+
 export type RootMapValue = {
   defineComponent?: CallExpression
   defineModel?: {
@@ -34,10 +40,7 @@ export type RootMapValue = {
   }[]
   defineSlots?: CallExpression
   defineExpose?: CallExpression
-  defineStyle?: {
-    expression: CallExpression
-    lang: string
-  }[]
+  defineStyle?: DefineStyle[]
 }
 
 export function transformJsxMacros(
@@ -48,21 +51,11 @@ export function transformJsxMacros(
 ): CodeTransform | undefined {
   const s = new MagicStringAST(code)
   const rootMap = getRootMap(s, id)
-  let defineStyleIndex = 0
 
   for (const [root, map] of rootMap) {
-    if (map.defineStyle?.length) {
-      map.defineStyle.forEach(({ expression, lang }) => {
-        transformDefineStyle(
-          expression,
-          lang,
-          root,
-          defineStyleIndex++,
-          s,
-          importMap,
-        )
-      })
-    }
+    map.defineStyle?.forEach((defineStyle, index) => {
+      transformDefineStyle(defineStyle, index, root, s, importMap)
+    })
 
     if (root === undefined) continue
 
@@ -148,6 +141,7 @@ function getRootMap(s: MagicStringAST, id: string) {
           const [, lang = 'css'] = macroName.split('.')
           ;(rootMap.get(root)!.defineStyle ??= []).push({
             expression: macroExpression,
+            isDeclaration: node.type === 'VariableDeclaration',
             lang,
           })
         } else if (

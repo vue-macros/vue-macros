@@ -107,7 +107,7 @@ export interface VolarContext {
 export function getStart(
   node:
     | import('typescript').Node
-    | import('typescript').SignatureDeclarationBase['parameters'],
+    | import('typescript').NodeArray<import('typescript').Node>,
   { ts, sfc, source = 'scriptSetup' }: VolarContext,
 ): number {
   return (ts as any).getTokenPosOfNode(node, sfc[source]!.ast)
