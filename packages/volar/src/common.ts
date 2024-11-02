@@ -106,15 +106,10 @@ export interface VolarContext {
 }
 
 export function getStart(
-<<<<<<< Updated upstream
-  node: import('typescript').Node,
-  { ts, sfc, source = 'scriptSetup' }: VolarContext,
-=======
   node:
     | import('typescript').Node
     | import('typescript').NodeArray<import('typescript').Node>,
   { ts, ast, sfc, source = 'scriptSetup' }: VolarContext,
->>>>>>> Stashed changes
 ): number {
   ast = ast || sfc?.[source]?.ast
   return (ts as any).getTokenPosOfNode(node, ast)
