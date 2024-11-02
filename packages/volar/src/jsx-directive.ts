@@ -14,12 +14,13 @@ const plugin: VueMacrosPlugin<'jsxDirective'> = (ctx, options = {}) => {
       if (!filter(fileName) || !['jsx', 'tsx'].includes(embeddedFile.lang))
         return
 
-      for (const source of ['script', 'scriptSetup'] as const) {
-        if (!sfc[source]?.ast) continue
+      for (const source of ['script', 'scriptSetup', undefined] as const) {
+        const ast = sfc[source as 'script']?.ast
+        if (!ast) continue
 
         transformJsxDirective({
           codes: embeddedFile.content,
-          sfc,
+          ast,
           ts: ctx.modules.typescript,
           source,
           vueVersion: ctx.vueCompilerOptions.target,

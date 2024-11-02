@@ -17,7 +17,7 @@ function transformRef({
   nodes: RefNode[]
   codes: Code[]
   ts: typeof import('typescript')
-  source: 'script' | 'scriptSetup'
+  source: 'script' | 'scriptSetup' | undefined
 }) {
   for (const { name, initializer } of nodes) {
     if (ts.isCallExpression(initializer)) {
@@ -87,9 +87,10 @@ const plugin: VueMacrosPlugin<'jsxRef'> = (ctx, options = {}) => {
       const ts = ctx.modules.typescript
       const alias = options.alias || ['useRef']
 
-      for (const source of ['script', 'scriptSetup'] as const) {
-        if (!sfc[source]) continue
-        const nodes = getRefNodes(ts, sfc[source].ast, alias)
+      for (const source of ['script', 'scriptSetup', undefined] as const) {
+        const ast = sfc[source as 'script']?.ast
+        if (!ast) continue
+        const nodes = getRefNodes(ts, ast, alias)
         if (nodes.length) {
           transformRef({
             nodes,

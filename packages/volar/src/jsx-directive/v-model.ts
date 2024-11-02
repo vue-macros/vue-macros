@@ -8,7 +8,7 @@ export function transformVModel(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ): void {
-  const { codes, ts, source, sfc } = options
+  const { codes, ts, source, ast } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
@@ -144,13 +144,7 @@ export function transformVModel(
     `}}`,
   )
   // Fix `v-model:` without type hints
-  replaceSourceRange(
-    codes,
-    source,
-    end,
-    end + 1,
-    sfc[source]!.content.slice(end, end + 1),
-  )
+  replaceSourceRange(codes, source, end, end + 1, ast.text.slice(end, end + 1))
 }
 
 function getModelsType(codes: Code[]) {

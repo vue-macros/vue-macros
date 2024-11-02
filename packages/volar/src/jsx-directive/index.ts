@@ -7,7 +7,7 @@ import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
 import { transformVOn, transformVOnWithModifiers } from './v-on'
 import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
-import type { Code, Sfc } from '@vue/language-core'
+import type { Code } from '@vue/language-core'
 import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 
 export type JsxDirective = {
@@ -18,14 +18,14 @@ export type JsxDirective = {
 
 export type TransformOptions = {
   codes: Code[]
-  sfc: Sfc
+  ast: import('typescript').SourceFile
   ts: typeof import('typescript')
-  source: 'script' | 'scriptSetup'
+  source: 'script' | 'scriptSetup' | undefined
   vueVersion?: number
 }
 
 export function transformJsxDirective(options: TransformOptions): void {
-  const { sfc, ts, source } = options
+  const { ast, ts } = options
 
   const vIfMap = new Map<
     JsxDirective['node'] | null | undefined,
@@ -194,7 +194,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       parents.shift()
     })
   }
-  ts.forEachChild(sfc[source]!.ast, walkJsxDirective)
+  ts.forEachChild(ast, walkJsxDirective)
 
   const ctxMap = new Map(
     Array.from(ctxNodeMap).map(([node, root], index) => [

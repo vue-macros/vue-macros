@@ -7,7 +7,7 @@ export function resolveVFor(
   attribute: JsxDirective['attribute'],
   options: TransformOptions,
 ): Code[] {
-  const { ts, sfc, source } = options
+  const { ts, ast, source } = options
   const result: Code[] = []
 
   if (
@@ -38,14 +38,14 @@ export function resolveVFor(
       result.push(
         '__VLS_getVForSourceType(',
         [
-          sfc[source]!.content.slice(getStart(list, options), list.end),
+          ast.text.slice(getStart(list, options), list.end),
           source,
           getStart(list, options),
           allCodeFeatures,
         ],
         ').map(([',
         [
-          String(sfc[source]?.content.slice(getStart(item, options), item.end)),
+          String(ast.text.slice(getStart(item, options), item.end)),
           source,
           getStart(item, options),
           allCodeFeatures,
@@ -53,9 +53,7 @@ export function resolveVFor(
         ', ',
         index
           ? [
-              String(
-                sfc[source]?.content.slice(getStart(index, options), index.end),
-              ),
+              String(ast.text.slice(getStart(index, options), index.end)),
               source,
               getStart(index, options),
               allCodeFeatures,
@@ -68,7 +66,7 @@ export function resolveVFor(
               ', ',
               [
                 String(
-                  sfc[source]?.content.slice(
+                  ast?.text.slice(
                     getStart(objectIndex, options),
                     objectIndex.end,
                   ),
