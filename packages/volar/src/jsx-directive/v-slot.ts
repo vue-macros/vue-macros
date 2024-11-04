@@ -113,7 +113,7 @@ export function transformVSlot(
             return isSlotTemplate && ts.isJsxSelfClosingElement(child)
               ? ''
               : ([
-                  ast!.text.slice(node.pos, node.end),
+                  ast.text.slice(node.pos, node.end),
                   source,
                   node.pos,
                   allCodeFeatures,
