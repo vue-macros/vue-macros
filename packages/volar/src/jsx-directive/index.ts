@@ -1,5 +1,5 @@
 import { getText, isJsxExpression } from '../common'
-import { transformCtx } from './context'
+import { resolveCtxMap, type CtxMap } from './context'
 import { transformRef } from './ref'
 import { transformVBind } from './v-bind'
 import { transformVFor } from './v-for'
@@ -39,10 +39,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   const refNodes: JsxDirective[] = []
   const vSlots: JsxDirective[] = []
 
-  const ctxNodeMap = new Map<
-    JsxDirective['node'],
-    import('typescript').Block | undefined
-  >()
+  const ctxNodeMap: CtxMap = new Map()
 
   function walkJsxDirective(
     node: import('typescript').Node,
@@ -195,17 +192,12 @@ export function transformJsxDirective(options: TransformOptions): void {
   }
   ts.forEachChild(ast, walkJsxDirective)
 
-  const ctxMap = new Map(
-    Array.from(ctxNodeMap).map(([node, root], index) => [
-      node,
-      transformCtx(node, root, index, options),
-    ]),
-  )
+  const ctxMap = resolveCtxMap(ctxNodeMap, options)
 
   transformVSlot(vSlotMap, ctxMap, options)
   transformVFor(vForNodes, options)
   vIfMap.forEach((nodes) => transformVIf(nodes, options))
-  vModelMap.forEach((nodes) => transformVModel(nodes, ctxMap, options))
+  transformVModel(vModelMap, ctxMap, options)
   transformVOn(vOnNodes, ctxMap, options)
   transformVOnWithModifiers(vOnWithModifiers, options)
   transformVBind(vBindNodes, options)

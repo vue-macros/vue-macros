@@ -76,27 +76,30 @@ function getRefNodes(
   return result
 }
 
-export default createPlugin(({ options = {}, ts }) => {
-  if (!options) return []
-  const filter = createFilter({
-    ...options,
-    include: options.include || REGEX_JSX,
-  })
-  const alias = options.alias || ['useRef']
+const plugin: PluginReturn<OptionsResolved['jsxRef'] | undefined> =
+  createPlugin(({ options = {}, ts }) => {
+    if (!options) return []
+    const filter = createFilter({
+      ...options,
+      include: options.include || REGEX_JSX,
+    })
+    const alias = options.alias || ['useRef']
 
-  return {
-    name: 'vue-macros-jsx-ref',
-    resolveVirtualCode({ ast, codes, fileName, source, languageId }) {
-      if (!filter(fileName) && !['jsx', 'tsx'].includes(languageId)) return
-      const nodes = getRefNodes(ts, ast, alias)
-      if (nodes.length) {
-        transformRef({
-          nodes,
-          codes,
-          ts,
-          source,
-        })
-      }
-    },
-  }
-}) as PluginReturn<OptionsResolved['jsxRef'] | undefined>
+    return {
+      name: 'vue-macros-jsx-ref',
+      resolveVirtualCode({ ast, codes, fileName, source, languageId }) {
+        if (!filter(fileName) && !['jsx', 'tsx'].includes(languageId)) return
+        const nodes = getRefNodes(ts, ast, alias)
+        if (nodes.length) {
+          transformRef({
+            nodes,
+            codes,
+            ts,
+            source,
+          })
+        }
+      },
+    }
+  })
+
+export default plugin
