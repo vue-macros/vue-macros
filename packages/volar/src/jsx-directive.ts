@@ -1,32 +1,26 @@
 import { createFilter } from '@vue-macros/common'
+import { createPlugin, type PluginReturn } from 'ts-macro'
+import { REGEX_JSX } from './common'
 import { transformJsxDirective } from './jsx-directive/index'
-import type { VueMacrosPlugin } from './common'
+import type { OptionsResolved } from '@vue-macros/config'
 
-const plugin: VueMacrosPlugin<'jsxDirective'> = (ctx, options = {}) => {
+export default createPlugin(({ options = {}, ts }) => {
   if (!options) return []
-
-  const filter = createFilter(options)
+  const filter = createFilter({
+    ...options,
+    include: options.include || REGEX_JSX,
+  })
 
   return {
     name: 'vue-macros-jsx-directive',
-    version: 2.1,
-    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
-      if (!filter(fileName) || !['jsx', 'tsx'].includes(embeddedFile.lang))
-        return
-
-      for (const source of ['script', 'scriptSetup', undefined] as const) {
-        const ast = sfc[source as 'script']?.ast
-        if (!ast) continue
-
-        transformJsxDirective({
-          codes: embeddedFile.content,
-          ast,
-          ts: ctx.modules.typescript,
-          source,
-          vueVersion: ctx.vueCompilerOptions.target,
-        })
-      }
+    resolveVirtualCode({ ast, codes, fileName, source, languageId }) {
+      if (!filter(fileName) && !['jsx', 'tsx'].includes(languageId)) return
+      transformJsxDirective({
+        codes,
+        ast,
+        ts,
+        source,
+      })
     },
   }
-}
-export default plugin
+}) as PluginReturn<OptionsResolved['jsxDirective'] | undefined>

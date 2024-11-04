@@ -20,8 +20,7 @@ export type TransformOptions = {
   codes: Code[]
   ast: import('typescript').SourceFile
   ts: typeof import('typescript')
-  source: 'script' | 'scriptSetup' | undefined
-  vueVersion?: number
+  source?: 'script' | 'scriptSetup'
 }
 
 export function transformJsxDirective(options: TransformOptions): void {

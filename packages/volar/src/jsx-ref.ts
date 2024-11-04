@@ -1,6 +1,8 @@
 import { createFilter } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
-import type { VueMacrosPlugin } from './common'
+import { createPlugin, type PluginReturn } from 'ts-macro'
+import { REGEX_JSX } from './common'
+import type { OptionsResolved } from '@vue-macros/config'
 import type { Code } from '@vue/language-core'
 
 type RefNode = {
@@ -74,33 +76,27 @@ function getRefNodes(
   return result
 }
 
-const plugin: VueMacrosPlugin<'jsxRef'> = (ctx, options = {}) => {
+export default createPlugin(({ options = {}, ts }) => {
   if (!options) return []
-
-  const filter = createFilter(options)
+  const filter = createFilter({
+    ...options,
+    include: options.include || REGEX_JSX,
+  })
+  const alias = options.alias || ['useRef']
 
   return {
     name: 'vue-macros-jsx-ref',
-    version: 2.1,
-    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
-      if (!filter(fileName)) return
-      const ts = ctx.modules.typescript
-      const alias = options.alias || ['useRef']
-
-      for (const source of ['script', 'scriptSetup', undefined] as const) {
-        const ast = sfc[source as 'script']?.ast
-        if (!ast) continue
-        const nodes = getRefNodes(ts, ast, alias)
-        if (nodes.length) {
-          transformRef({
-            nodes,
-            codes: embeddedFile.content,
-            ts,
-            source,
-          })
-        }
+    resolveVirtualCode({ ast, codes, fileName, source, languageId }) {
+      if (!filter(fileName) && !['jsx', 'tsx'].includes(languageId)) return
+      const nodes = getRefNodes(ts, ast, alias)
+      if (nodes.length) {
+        transformRef({
+          nodes,
+          codes,
+          ts,
+          source,
+        })
       }
     },
   }
-}
-export default plugin
+}) as PluginReturn<OptionsResolved['jsxRef'] | undefined>
