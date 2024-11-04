@@ -50,7 +50,8 @@ const plugin: VueLanguagePlugin = (ctx) =>
   Object.entries(plugins).flatMap(([name, plugin]) => {
     const options = getVolarOptions(ctx, name as keyof typeof plugins)
     if (!options) return []
-    return plugin(ctx, options)
+    // @ts-expect-error compatible with ts-macro
+    return plugin({ ...ctx, options }, options) as any
   })
 
 export default plugin
