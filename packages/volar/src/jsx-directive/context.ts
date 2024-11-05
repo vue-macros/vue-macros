@@ -20,17 +20,17 @@ export function resolveCtxMap(
     options.codes.push(`
 type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
 type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
-type __VLS_Element = __VLS_PickNotAny<import('vue/jsx-runtime').JSX.Element, __VLS_Element>;
+type __VLS_Element = globalThis.JSX.Element;
 function __VLS_asFunctionalComponent<T, K = T extends new (...args: any) => any ? InstanceType<T> : unknown>(t: T, instance?: K):
-    T extends new (...args: any) => any
-    ? (props: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>, ctx?: any) => __VLS_Element & { __ctx?: {
-      attrs?: any,
-      slots?: K extends { $slots: infer Slots } ? Slots : any,
-      emit?: K extends { $emit: infer Emit } ? Emit : any
-    } & { props?: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>; expose?(exposed: K): void; } }
-    : T extends () => any ? (props: {}, ctx?: any) => ReturnType<T>
-    : T extends (...args: any) => any ? T
-    : (_: {} & Record<string, unknown>, ctx?: any) => { __ctx?: { attrs?: any, expose?: any, slots?: any, emit?: any, props?: {} & Record<string, unknown> } };
+  T extends new (...args: any) => any
+  ? (props: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>, ctx?: any) => __VLS_Element & { __ctx?: {
+    attrs?: any,
+    slots?: K extends { $scopedSlots: infer Slots } ? Slots : K extends { $slots: infer Slots } ? Slots : any,
+    emit?: K extends { $emit: infer Emit } ? Emit : any
+  } & { props?: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>; expose?(exposed: K): void; } }
+  : T extends () => any ? (props: {}, ctx?: any) => ReturnType<T>
+  : T extends (...args: any) => any ? T
+  : (_: {} & Record<string, unknown>, ctx?: any) => { __ctx?: { attrs?: any, expose?: any, slots?: any, emit?: any, props?: {} & Record<string, unknown> } };
 const __VLS_nativeElements = {
   ...{} as SVGElementTagNameMap,
   ...{} as HTMLElementTagNameMap,

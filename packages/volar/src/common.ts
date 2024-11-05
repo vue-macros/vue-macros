@@ -9,7 +9,6 @@ import { replace, replaceAll } from 'muggle-string'
 import type { SFCScriptBlock } from '@vue-macros/common'
 import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 
-export const REGEX_JSX: RegExp = /\.[jt]sx$/
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
 
