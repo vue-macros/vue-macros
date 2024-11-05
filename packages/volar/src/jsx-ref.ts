@@ -1,7 +1,6 @@
 import { createFilter } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
 import { createPlugin, type PluginReturn } from 'ts-macro'
-import { REGEX_JSX } from './common'
 import type { OptionsResolved } from '@vue-macros/config'
 import type { Code } from '@vue/language-core'
 
@@ -79,16 +78,13 @@ function getRefNodes(
 const plugin: PluginReturn<OptionsResolved['jsxRef'] | undefined> =
   createPlugin(({ options = {}, ts }) => {
     if (!options) return []
-    const filter = createFilter({
-      ...options,
-      include: options.include || REGEX_JSX,
-    })
+    const filter = createFilter(options)
     const alias = options.alias || ['useRef']
 
     return {
       name: 'vue-macros-jsx-ref',
       resolveVirtualCode({ ast, codes, fileName, source, languageId }) {
-        if (!filter(fileName) && !['jsx', 'tsx'].includes(languageId)) return
+        if (!filter(fileName) || !['jsx', 'tsx'].includes(languageId)) return
         const nodes = getRefNodes(ts, ast, alias)
         if (nodes.length) {
           transformRef({

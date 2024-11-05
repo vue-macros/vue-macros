@@ -121,9 +121,15 @@ export function transformVModel(
           source,
           start,
           attribute.name.end,
-          `{...{'onUpdate:${modelValue}': () => {} }} `,
           modelValue.slice(0, 3),
           [modelValue.slice(3), source, start, allCodeFeatures],
+        )
+        replaceSourceRange(
+          codes,
+          source,
+          attribute.end,
+          attribute.end,
+          ` {...{'onUpdate:${modelValue}': () => {} }}`,
         )
       }
     }
