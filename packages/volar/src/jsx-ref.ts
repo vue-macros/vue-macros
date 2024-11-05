@@ -76,7 +76,7 @@ function getRefNodes(
 }
 
 const plugin: PluginReturn<OptionsResolved['jsxRef'] | undefined> =
-  createPlugin(({ options = {}, ts }) => {
+  createPlugin(({ ts }, options = {}) => {
     if (!options) return []
     const filter = createFilter(options)
     const alias = options.alias || ['useRef']

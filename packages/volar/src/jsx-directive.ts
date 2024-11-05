@@ -4,7 +4,7 @@ import { transformJsxDirective } from './jsx-directive/index'
 import type { OptionsResolved } from '@vue-macros/config'
 
 const plugin: PluginReturn<OptionsResolved['jsxDirective'] | undefined> =
-  createPlugin(({ options = {}, ts }) => {
+  createPlugin(({ ts }, options = {}) => {
     if (!options) return []
     const filter = createFilter(options)
 

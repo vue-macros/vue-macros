@@ -987,8 +987,8 @@ importers:
         specifier: ^0.4.1
         version: 0.4.1
       ts-macro:
-        specifier: ^0.0.3
-        version: 0.0.3(@volar/language-service@2.4.8)
+        specifier: ^0.0.4
+        version: 0.0.4(@volar/language-service@2.4.8)(typescript@5.6.3)
     devDependencies:
       typescript:
         specifier: 'catalog:'
@@ -2703,8 +2703,8 @@ packages:
     peerDependencies:
       vue: ^2.7.0 || ^3.0.0
 
-  '@ts-macro/language-server@0.0.3':
-    resolution: {integrity: sha512-F5tPW7fHnYMDDze8Km7T7LDSl1J0fd+TDGU0FLIfYYBpbgyoGs1vmreAoPPa0JBAy7NxQ391Ny9Rx4zv+noKYQ==}
+  '@ts-macro/language-server@0.0.4':
+    resolution: {integrity: sha512-Y7aJFE/p/XyWViPxU0zIsiwLhExkOr6zEujimLeqPqY+b32vEttOQkEfiNYxCY6cUC8U5/wQmq/wePgrWO5/Vw==}
     hasBin: true
 
   '@tybys/wasm-util@0.9.0':
@@ -5993,8 +5993,8 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  ts-macro@0.0.3:
-    resolution: {integrity: sha512-cBVqNDfaix04u1c72HjK32j1LfTPvO2axNCNthhYhTlrr+ImYBk/qb2hzfm8nSffulMkhxy20/8NRJ0vaL91Lg==}
+  ts-macro@0.0.4:
+    resolution: {integrity: sha512-1A26REuo5iybl8ChEEcmahLo0rrzx5iXWz4hMGxaGYn0gimYRW2Wjz0wqJVAwjBoencg56WhOR/uRcdE752/+A==}
 
   tsconfck@3.1.4:
     resolution: {integrity: sha512-kdqWFGVJqe+KGYvlSO9NIaWn9jT1Ny4oKVzAJsKii5eoE9snzTJzL4+MMVOMn+fikWGFmKEylcXL710V/kIPJQ==}
@@ -8578,15 +8578,16 @@ snapshots:
       '@tanstack/virtual-core': 3.10.8
       vue: 3.5.12(typescript@5.6.3)
 
-  '@ts-macro/language-server@0.0.3(@volar/language-service@2.4.8)':
+  '@ts-macro/language-server@0.0.4(@volar/language-service@2.4.8)(typescript@5.6.3)':
     dependencies:
       '@volar/language-server': 2.4.8
-      ts-macro: 0.0.3(@volar/language-service@2.4.8)
+      ts-macro: 0.0.4(@volar/language-service@2.4.8)(typescript@5.6.3)
       volar-service-css: 0.0.62(@volar/language-service@2.4.8)
       volar-service-emmet: 0.0.62(@volar/language-service@2.4.8)
       volar-service-typescript: 0.0.62(@volar/language-service@2.4.8)
     transitivePeerDependencies:
       - '@volar/language-service'
+      - typescript
 
   '@tybys/wasm-util@0.9.0':
     dependencies:
@@ -12634,16 +12635,18 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-macro@0.0.3(@volar/language-service@2.4.8):
+  ts-macro@0.0.4(@volar/language-service@2.4.8)(typescript@5.6.3):
     dependencies:
-      '@ts-macro/language-server': 0.0.3(@volar/language-service@2.4.8)
+      '@ts-macro/language-server': 0.0.4(@volar/language-service@2.4.8)(typescript@5.6.3)
       '@volar/language-core': 2.4.8
       '@volar/typescript': 2.4.8
+      '@vue/language-core': 2.1.10(typescript@5.6.3)
       jiti: 2.3.3
       muggle-string: 0.4.1
       vscode-uri: 3.0.8
     transitivePeerDependencies:
       - '@volar/language-service'
+      - typescript
 
   tsconfck@3.1.4(typescript@5.6.3):
     optionalDependencies:
