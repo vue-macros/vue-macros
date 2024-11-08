@@ -130,7 +130,11 @@ function getRootMap(s: MagicStringAST, id: string, options: OptionsResolved) {
       const macroExpression = getMacroExpression(expression)
       if (!macroExpression) return
       if (!rootMap.has(root)) rootMap.set(root, {})
-      const macroName = s.sliceNode(macroExpression.callee)
+      const macroName = s.sliceNode(
+        macroExpression.callee.type === 'MemberExpression'
+          ? macroExpression.callee.object
+          : macroExpression.callee,
+      )
       if (macroName) {
         if (options.macros.defineModel?.includes(macroName)) {
           ;(rootMap.get(root)!.defineModel ??= []).push({
@@ -138,7 +142,11 @@ function getRootMap(s: MagicStringAST, id: string, options: OptionsResolved) {
             isRequired: expression?.type === 'TSNonNullExpression',
           })
         } else if (options.macros.defineStyle?.includes(macroName)) {
-          const [, lang = 'css'] = macroName.split('.')
+          const lang =
+            macroExpression.callee.type === 'MemberExpression' &&
+            macroExpression.callee.property.type === 'Identifier'
+              ? macroExpression.callee.property.name
+              : 'css'
           ;(rootMap.get(root)!.defineStyle ??= []).push({
             expression: macroExpression,
             isDeclaration: node.type === 'VariableDeclaration',

@@ -13,6 +13,12 @@ describe('fixtures', async () => {
         lib: 'vue',
         include: ['*.tsx'],
         version: 3.5,
+        macros: {
+          defineModel: ['defineModel'],
+          defineSlots: ['defineSlots'],
+          defineExpose: ['defineExpose'],
+          defineStyle: ['defineStyle'],
+        },
       })?.code,
   )
 })
@@ -28,6 +34,12 @@ describe('react fixtures', async () => {
         lib: 'react',
         include: ['*.tsx'],
         version: 18,
+        macros: {
+          defineModel: ['defineModel'],
+          defineSlots: ['defineSlots'],
+          defineExpose: ['defineExpose'],
+          defineStyle: ['defineStyle'],
+        },
       })?.code,
   )
 })

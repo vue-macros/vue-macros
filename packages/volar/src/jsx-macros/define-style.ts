@@ -15,7 +15,7 @@ export function transformDefineStyle(
       isCssModules &&
       expression?.arguments[0] &&
       !expression.typeArguments &&
-      ts.isTemplateExpression(expression.arguments[0])
+      ts.isTemplateLiteral(expression.arguments[0])
     ) {
       replaceSourceRange(
         codes,
