@@ -28,10 +28,16 @@ import { transformStyle } from './core/style'
 
 export type Options = BaseOptions & {
   lib?: 'vue' | 'vue/vapor' | 'react' | 'preact'
+  macros?: {
+    defineModel?: string[]
+    defineExpose?: string[]
+    defineSlots?: string[]
+    defineStyle?: string[]
+  }
 }
 export type OptionsResolved = MarkRequired<
   Options,
-  'include' | 'version' | 'lib'
+  'include' | 'version' | 'lib' | 'macros'
 >
 
 function resolveOptions(
@@ -47,6 +53,12 @@ function resolveOptions(
     ...options,
     version,
     lib,
+    macros: {
+      defineModel: options.macros?.defineModel ?? ['defineModel'],
+      defineSlots: options.macros?.defineSlots ?? ['defineSlots'],
+      defineExpose: options.macros?.defineExpose ?? ['defineExpose'],
+      defineStyle: options.macros?.defineStyle ?? ['defineStyle'],
+    },
   }
 }
 

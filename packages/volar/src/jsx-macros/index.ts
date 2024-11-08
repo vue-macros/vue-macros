@@ -1,30 +1,51 @@
-import { HELPER_PREFIX } from '@vue-macros/common'
+import {
+  HELPER_PREFIX,
+  type MarkRequired,
+  type Overwrite,
+} from '@vue-macros/common'
 import { toValidAssetId } from '@vue/compiler-dom'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText } from '../common'
-import type { TransformOptions } from '../jsx-directive/index'
-import type { VueCompilerOptions } from '@vue/language-core'
+import type { OptionsResolved } from '@vue-macros/config'
+import type { TsmVirtualCode } from 'ts-macro'
 
 export { transformJsxMacros } from './transform'
 export { globalTypes } from './global-types'
 
+type UserOptions = MarkRequired<
+  Exclude<OptionsResolved['jsxMacros'], false>,
+  'lib' | 'macros'
+>
+export type TransformOptions = Overwrite<
+  TsmVirtualCode,
+  {
+    ts: typeof import('typescript')
+    lib: UserOptions['lib']
+    macros: UserOptions['macros']
+  }
+>
+
+export type JsxMacros = {
+  defineModel?: string[]
+  defineSlots?: string
+  defineExpose?: string
+  defineStyle?: {
+    expression: import('typescript').CallExpression
+    isCssModules: boolean
+  }[]
+  defineComponent?: true
+}
 export type RootMap = Map<
   | import('typescript').ArrowFunction
   | import('typescript').FunctionExpression
   | import('typescript').FunctionDeclaration,
-  {
-    defineModel?: string[]
-    defineSlots?: string
-    defineExpose?: string
-    defineStyle?: import('typescript').CallExpression[]
-    defineComponent?: true
-  }
+  JsxMacros
 >
 
 function getMacro(
   node: import('typescript').Node | undefined,
   ts: typeof import('typescript'),
-  vueCompilerOptions: VueCompilerOptions,
+  options: TransformOptions,
 ):
   | {
       expression: import('typescript').CallExpression
@@ -79,21 +100,18 @@ function getMacro(
     return (
       ts.isIdentifier(expression.expression) &&
       [
-        ...vueCompilerOptions.macros.defineModel,
-        ...vueCompilerOptions.macros.defineExpose,
-        ...vueCompilerOptions.macros.defineSlots,
-        'defineStyle',
+        ...(options.macros.defineModel ?? []),
+        ...(options.macros.defineExpose ?? []),
+        ...(options.macros.defineSlots ?? []),
+        ...(options.macros.defineStyle ?? []),
       ].includes(expression.expression.escapedText!) &&
       node
     )
   }
 }
 
-export function getRootMap(
-  options: TransformOptions,
-  vueCompilerOptions: VueCompilerOptions,
-): RootMap {
-  const { ts, sfc, source, codes } = options
+export function getRootMap(options: TransformOptions): RootMap {
+  const { ts, ast, source, codes } = options
   const rootMap: RootMap = new Map()
 
   function walk(
@@ -134,14 +152,14 @@ export function getRootMap(
       }
     }
 
-    const macro = getMacro(node, ts, vueCompilerOptions)
+    const macro = getMacro(node, ts, options)
     if (!macro) return
 
     const { expression, initializer } = macro
     let isRequired = macro.isRequired
     if (!rootMap.has(root)) rootMap.set(root, {})
     const macroName = getText(expression.expression, options)
-    if (vueCompilerOptions.macros.defineModel.includes(macroName)) {
+    if (options.macros.defineModel?.includes(macroName)) {
       const modelName =
         expression.arguments[0] &&
         ts.isStringLiteralLike(expression.arguments[0])
@@ -184,7 +202,7 @@ export function getRootMap(
       }
 
       const id = toValidAssetId(modelName, `${HELPER_PREFIX}model` as any)
-      const typeString = `import("vue").UnwrapRef<typeof ${id}>`
+      const typeString = `import('vue').UnwrapRef<typeof ${id}>`
       ;(rootMap.get(root)!.defineModel ??= [])!.push(
         `'${modelName}'${isRequired ? ':' : '?:'} ${typeString}`,
         `'onUpdate:${modelName}'?: ($event: ${typeString}) => any`,
@@ -196,7 +214,7 @@ export function getRootMap(
         getStart(initializer, options),
         `// @ts-ignore\n${id};\nlet ${id} =`,
       )
-    } else if (vueCompilerOptions.macros.defineSlots.includes(macroName)) {
+    } else if (options.macros.defineSlots?.includes(macroName)) {
       replaceSourceRange(
         codes,
         source,
@@ -206,7 +224,7 @@ export function getRootMap(
       )
       rootMap.get(root)!.defineSlots =
         `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
-    } else if (vueCompilerOptions.macros.defineExpose.includes(macroName)) {
+    } else if (options.macros.defineExpose?.includes(macroName)) {
       replaceSourceRange(
         codes,
         source,
@@ -216,14 +234,14 @@ export function getRootMap(
       )
       rootMap.get(root)!.defineExpose =
         `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
-    } else if (
-      macroName.startsWith('defineStyle') &&
-      ts.isVariableStatement(node)
-    ) {
-      ;(rootMap.get(root)!.defineStyle ??= [])!.push(expression)
+    } else if (macroName.startsWith('defineStyle')) {
+      ;(rootMap.get(root)!.defineStyle ??= [])!.push({
+        expression,
+        isCssModules: !!ts.isVariableStatement(node),
+      })
     }
   }
 
-  ts.forEachChild(sfc[source]!.ast, (node) => walk(node, []))
+  ts.forEachChild(ast, (node) => walk(node, []))
   return rootMap
 }

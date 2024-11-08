@@ -2,15 +2,17 @@ import { generateCssClassProperty } from '@vue/language-core/lib/codegen/script/
 import { parseCssClassNames } from '@vue/language-core/lib/utils/parseCssClassNames'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText } from '../common'
-import type { TransformOptions } from '../jsx-directive/index'
+import type { JsxMacros, TransformOptions } from '.'
 
 export function transformDefineStyle(
-  defineStyle: import('typescript').CallExpression[] | undefined,
+  defineStyles: JsxMacros['defineStyle'],
   options: TransformOptions,
 ): void {
+  if (!defineStyles?.length) return
   const { ts, source, codes } = options
-  defineStyle?.forEach((expression, index) => {
+  defineStyles.forEach(({ expression, isCssModules }, index) => {
     if (
+      isCssModules &&
       expression?.arguments[0] &&
       !expression.typeArguments &&
       ts.isTemplateExpression(expression.arguments[0])
@@ -29,6 +31,8 @@ export function transformDefineStyle(
         '>',
       )
     }
+
+    addEmbeddedCode(expression, index, options)
   })
 }
 
@@ -42,4 +46,46 @@ function* getCssClassesType(css: string, offset: number, index: number) {
       false,
     )
   }
+}
+
+function addEmbeddedCode(
+  expression: import('typescript').CallExpression,
+  index: number,
+  options: TransformOptions,
+) {
+  const { ts } = options
+  const languageId =
+    ts.isPropertyAccessExpression(expression.expression) &&
+    ts.isIdentifier(expression.expression.name)
+      ? expression.expression.name.text
+      : 'css'
+  const style = expression.arguments[0]
+  const styleText = getText(style, options)
+    .slice(1, -1)
+    .replaceAll(/\$\{.*\}/g, (str) => '_'.repeat(str.length))
+  options.embeddedCodes.push({
+    id: `style_${index}`,
+    languageId,
+    snapshot: {
+      getText: (start, end) => styleText.slice(start, end),
+      getLength: () => styleText.length,
+      getChangeRange: () => undefined,
+    },
+    mappings: [
+      {
+        sourceOffsets: [getStart(style, options)! + 1],
+        generatedOffsets: [0],
+        lengths: [styleText.length],
+        data: {
+          completion: true,
+          format: true,
+          navigation: true,
+          semantic: true,
+          structure: true,
+          verification: true,
+        },
+      },
+    ],
+    embeddedCodes: [],
+  })
 }

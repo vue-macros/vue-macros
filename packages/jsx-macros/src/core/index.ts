@@ -50,7 +50,7 @@ export function transformJsxMacros(
   options: OptionsResolved,
 ): CodeTransform | undefined {
   const s = new MagicStringAST(code)
-  const rootMap = getRootMap(s, id)
+  const rootMap = getRootMap(s, id, options)
 
   for (const [root, map] of rootMap) {
     map.defineStyle?.forEach((defineStyle, index) => {
@@ -102,7 +102,7 @@ export function transformJsxMacros(
   return generateTransform(s, id)
 }
 
-function getRootMap(s: MagicStringAST, id: string) {
+function getRootMap(s: MagicStringAST, id: string, options: OptionsResolved) {
   const parents: (Node | undefined | null)[] = []
   const rootMap = new Map<FunctionalNode | undefined, RootMapValue>()
   walkAST<Node>(babelParse(s.original, getLang(id)), {
@@ -132,23 +132,22 @@ function getRootMap(s: MagicStringAST, id: string) {
       if (!rootMap.has(root)) rootMap.set(root, {})
       const macroName = s.sliceNode(macroExpression.callee)
       if (macroName) {
-        if (macroName === 'defineModel') {
+        if (options.macros.defineModel?.includes(macroName)) {
           ;(rootMap.get(root)!.defineModel ??= []).push({
             expression: macroExpression,
             isRequired: expression?.type === 'TSNonNullExpression',
           })
-        } else if (macroName.startsWith('defineStyle')) {
+        } else if (options.macros.defineStyle?.includes(macroName)) {
           const [, lang = 'css'] = macroName.split('.')
           ;(rootMap.get(root)!.defineStyle ??= []).push({
             expression: macroExpression,
             isDeclaration: node.type === 'VariableDeclaration',
             lang,
           })
-        } else if (
-          macroName === 'defineSlots' ||
-          macroName === 'defineExpose'
-        ) {
-          rootMap.get(root)![macroName] = macroExpression
+        } else if (options.macros.defineSlots?.includes(macroName)) {
+          rootMap.get(root)!.defineSlots = macroExpression
+        } else if (options.macros.defineExpose?.includes(macroName)) {
+          rootMap.get(root)!.defineExpose = macroExpression
         }
       }
     },

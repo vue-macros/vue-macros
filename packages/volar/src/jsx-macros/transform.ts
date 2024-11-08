@@ -1,9 +1,8 @@
 import { HELPER_PREFIX } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText } from '../common'
-import type { TransformOptions } from '../jsx-directive/index'
 import { transformDefineStyle } from './define-style'
-import type { RootMap } from '.'
+import type { RootMap, TransformOptions } from '.'
 
 export function transformJsxMacros(
   rootMap: RootMap,
@@ -89,9 +88,8 @@ export function transformJsxMacros(
           getStart(node, options),
           getStart(node.expression, options),
           `return {\nprops: {} as `,
-          options.vueVersion ? `import('vue').PublicProps & ` : '',
-          `{${defaultProps.join(', ')}} & `,
-          map.defineModel?.length ? `{ ${map.defineModel?.join(', ')} }` : '{}',
+          `{ ${defaultProps.join(', ')} } & `,
+          `{ ${map.defineModel?.join(', ') ?? ''} }`,
           map.defineSlots ? ` & ${map.defineSlots}` : '',
           map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
           `,\nrender: `,

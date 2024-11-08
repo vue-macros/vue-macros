@@ -1,39 +1,43 @@
 import { createFilter } from '@vue-macros/common'
+import { createPlugin, type PluginReturn } from 'ts-macro'
 import { getRootMap, globalTypes, transformJsxMacros } from './jsx-macros/index'
-import type { VueMacrosPlugin } from './common'
+import type { OptionsResolved } from '@vue-macros/config'
 
-const plugin: VueMacrosPlugin<'jsxMacros'> = (ctx, options = {}) => {
-  if (!options) return []
+const plugin: PluginReturn<OptionsResolved['jsxMacros'] | undefined> =
+  createPlugin(({ ts }, userOptions = {}) => {
+    if (!userOptions) return []
 
-  const filter = createFilter(options)
-  const { version: vueVersion } = options
+    const filter = createFilter(userOptions)
+    const lib = userOptions.lib ?? 'vue'
+    const macros = {
+      defineModel: userOptions.macros?.defineModel ?? ['defineModel'],
+      defineExpose: userOptions.macros?.defineExpose ?? ['defineExpose'],
+      defineSlots: userOptions.macros?.defineSlots ?? ['defineSlots'],
+      defineStyle: userOptions.macros?.defineStyle ?? ['defineStyle'],
+    }
 
-  return {
-    name: 'vue-macros-jsx-macros',
-    version: 2.1,
-    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
-      if (!filter(fileName) || embeddedFile.lang !== 'tsx') return
+    return {
+      name: 'vue-macros-jsx-macros',
+      resolveVirtualCode(virtualCode) {
+        const { fileName, languageId, codes } = virtualCode
+        if (!filter(fileName) || !['jsx', 'tsx'].includes(languageId)) return
 
-      for (const source of ['script', 'scriptSetup'] as const) {
-        if (!sfc[source]) continue
         const options = {
-          sfc,
-          source,
-          ts: ctx.modules.typescript,
-          codes: embeddedFile.content,
-          vueVersion,
+          ...virtualCode,
+          ts,
+          lib,
+          macros,
         }
-        const rootMap = getRootMap(options, ctx.vueCompilerOptions)
+        const rootMap = getRootMap(options)
         if (rootMap.size) transformJsxMacros(rootMap, options)
 
         if (
           (fileName.endsWith('.tsx') || rootMap.size) &&
-          !embeddedFile.content.toString().includes(globalTypes)
+          !codes.toString().includes(globalTypes)
         ) {
-          embeddedFile.content.push(globalTypes)
+          codes.push(globalTypes)
         }
-      }
-    },
-  }
-}
+      },
+    }
+  })
 export default plugin
