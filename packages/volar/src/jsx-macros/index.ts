@@ -223,7 +223,7 @@ export function getRootMap(options: TransformOptions): RootMap {
         `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
       )
       rootMap.get(root)!.defineSlots =
-        `{ vSlots?: typeof ${HELPER_PREFIX}slots }`
+        `{ vSlots?: Partial<typeof ${HELPER_PREFIX}slots> }`
     } else if (options.macros.defineExpose?.includes(macroName)) {
       replaceSourceRange(
         codes,
