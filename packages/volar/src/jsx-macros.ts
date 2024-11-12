@@ -19,8 +19,8 @@ const plugin: PluginReturn<OptionsResolved['jsxMacros'] | undefined> =
     return {
       name: 'vue-macros-jsx-macros',
       resolveVirtualCode(virtualCode) {
-        const { fileName, languageId, codes } = virtualCode
-        if (!filter(fileName) || !['jsx', 'tsx'].includes(languageId)) return
+        const { filePath, languageId, codes } = virtualCode
+        if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
 
         const options = {
           ...virtualCode,
@@ -32,7 +32,7 @@ const plugin: PluginReturn<OptionsResolved['jsxMacros'] | undefined> =
         if (rootMap.size) transformJsxMacros(rootMap, options)
 
         if (
-          (fileName.endsWith('.tsx') || rootMap.size) &&
+          (filePath.endsWith('.tsx') || rootMap.size) &&
           !codes.toString().includes(globalTypes)
         ) {
           codes.push(globalTypes)
