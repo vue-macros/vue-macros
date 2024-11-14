@@ -204,7 +204,7 @@ export function getRootMap(options: TransformOptions): RootMap {
       const id = toValidAssetId(modelName, `${HELPER_PREFIX}model` as any)
       const typeString = `import('vue').UnwrapRef<typeof ${id}>`
       ;(rootMap.get(root)!.defineModel ??= [])!.push(
-        `'${modelName}'${isRequired ? ':' : '?:'} ${typeString}`,
+        `${modelName.includes('-') ? `'${modelName}'` : modelName}${isRequired ? ':' : '?:'} ${typeString}`,
         `'onUpdate:${modelName}'?: ($event: ${typeString}) => any`,
       )
       replaceSourceRange(
