@@ -233,7 +233,9 @@ export function getRootMap(options: TransformOptions): RootMap {
         `// @ts-ignore\n${HELPER_PREFIX}expose;\nconst ${HELPER_PREFIX}expose =`,
       )
       rootMap.get(root)!.defineExpose =
-        `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
+        options.lib === 'vue'
+          ? `(exposed: import('vue').ShallowUnwrapRef<typeof ${HELPER_PREFIX}expose>) => {}`
+          : `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
     } else if (macroName.startsWith('defineStyle')) {
       ;(rootMap.get(root)!.defineStyle ??= [])!.push({
         expression,
