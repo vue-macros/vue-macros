@@ -75,7 +75,10 @@ export function transformDefineStyle(
     })
   }
 
-  css = s.sliceNode(expression.arguments[0]).slice(1, -1)
+  css = s
+    .sliceNode(expression.arguments[0])
+    .slice(1, -1)
+    .replaceAll(/\/\/(.*)(?=\n)/g, '/*$1*/')
   const module = isDeclaration ? 'module.' : ''
   const importId = `${helperPrefix}/define-style?index=${index}&scopeId=${scopeId}&scoped=${scoped}&lang.${module}${lang}`
   importMap.set(importId, css)
