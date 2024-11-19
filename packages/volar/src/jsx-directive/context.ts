@@ -143,7 +143,10 @@ function getRefValue(
     return (
       left &&
       getText(
-        ts.isPropertyAccessExpression(left) ? left.expression : left,
+        ts.isPropertyAccessExpression(left) ||
+          ts.isElementAccessExpression(left)
+          ? left.expression
+          : left,
         options,
       )
     )
