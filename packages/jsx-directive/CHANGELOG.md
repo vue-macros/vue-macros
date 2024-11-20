@@ -1,5 +1,12 @@
 # @vue-macros/jsx-directive
 
+## 0.9.3
+### Patch Changes
+
+
+
+- [#858](https://github.com/vue-macros/vue-macros/pull/858) [`d32bd42`](https://github.com/vue-macros/vue-macros/commit/d32bd4287589cb9c6d6b779b3dc3109a24bd7723) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support prefix option for jsx-directive
+
 ## 0.9.2
 ### Patch Changes
 

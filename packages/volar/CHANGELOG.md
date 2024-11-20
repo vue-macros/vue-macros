@@ -1,5 +1,19 @@
 # @vue-macros/volar
 
+## 0.30.6
+### Patch Changes
+
+
+
+- [#855](https://github.com/vue-macros/vue-macros/pull/855) [`392ce4d`](https://github.com/vue-macros/vue-macros/commit/392ce4d5f704a8f9ba4c932d552e335808225e61) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support elementAccessExpression for jsx-directive/ref
+
+
+
+- [#858](https://github.com/vue-macros/vue-macros/pull/858) [`d32bd42`](https://github.com/vue-macros/vue-macros/commit/d32bd4287589cb9c6d6b779b3dc3109a24bd7723) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support prefix option for jsx-directive
+
+- Updated dependencies []:
+  - @vue-macros/config@0.5.0
+
 ## 0.30.5
 ### Patch Changes
 
