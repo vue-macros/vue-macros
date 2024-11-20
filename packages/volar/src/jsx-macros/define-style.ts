@@ -1,5 +1,5 @@
-import { generateCssClassProperty } from '@vue/language-core/lib/codegen/script/template'
-import { parseCssClassNames } from '@vue/language-core/lib/utils/parseCssClassNames'
+import { generateCssClassProperty } from '@vue/language-core/lib/codegen/script/template.js'
+import { parseCssClassNames } from '@vue/language-core/lib/utils/parseCssClassNames.js'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText } from '../common'
 import type { JsxMacros, TransformOptions } from '.'
