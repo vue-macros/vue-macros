@@ -1,3 +1,4 @@
+import { replaceSourceRange } from 'muggle-string'
 import { getText, isJsxExpression } from '../common'
 import { transformCtx } from './context'
 import { transformRef } from './ref'
@@ -5,7 +6,7 @@ import { transformVBind } from './v-bind'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
-import { transformVOn, transformVOnWithModifiers } from './v-on'
+import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
 import type { Code, Sfc } from '@vue/language-core'
 import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
@@ -22,10 +23,17 @@ export type TransformOptions = {
   ts: typeof import('typescript')
   source: 'script' | 'scriptSetup'
   vueVersion?: number
+  prefix: string
 }
 
 export function transformJsxDirective(options: TransformOptions): void {
-  const { sfc, ts, source } = options
+  const { sfc, ts, source, prefix, codes } = options
+
+  const resolvedPrefix = prefix.replaceAll('$', String.raw`\$`)
+  const slotRegex = new RegExp(`^${resolvedPrefix}slot(?=:|$)`)
+  const modelRegex = new RegExp(`^${resolvedPrefix}model(?=[:_]|$)`)
+  const bindRegex = new RegExp(`^(?!${resolvedPrefix}|on[A-Z])\\S+_\\S+`)
+  const onWithModifiersRegex = /^on[A-Z]\S*_\S+/
 
   const vIfMap = new Map<
     JsxDirective['node'] | null | undefined,
@@ -35,7 +43,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   const vSlotMap: VSlotMap = new Map()
   const vModelMap = new Map<JsxDirective['node'], JsxDirective[]>()
   const vOnNodes: JsxDirective[] = []
-  const vOnWithModifiers: JsxDirective[] = []
+  const onWithModifiers: JsxDirective[] = []
   const vBindNodes: JsxDirective[] = []
   const refNodes: JsxDirective[] = []
   const vSlots: JsxDirective[] = []
@@ -60,32 +68,42 @@ export function transformJsxDirective(options: TransformOptions): void {
       if (!ts.isJsxAttribute(attribute)) continue
       const attributeName = getText(attribute.name, options)
 
-      if (['v-if', 'v-else-if', 'v-else'].includes(attributeName)) {
+      if (
+        [`${prefix}if`, `${prefix}else-if`, `${prefix}else`].includes(
+          attributeName,
+        )
+      ) {
         vIfAttribute = attribute
-      } else if (attributeName === 'v-for') {
+      } else if (attributeName === `${prefix}for`) {
         vForAttribute = attribute
-      } else if (/^v-slot(?=:|$)/.test(attributeName)) {
+      } else if (slotRegex.test(attributeName)) {
         vSlotAttribute = attribute
-      } else if (/^v-model(?=[:_]|$)/.test(attributeName)) {
+      } else if (modelRegex.test(attributeName)) {
         vModelMap.has(node) || vModelMap.set(node, [])
         vModelMap.get(node)!.push({
           node,
           attribute,
         })
         ctxNode = node
-      } else if (attributeName === 'v-on') {
+      } else if (attributeName === `${prefix}on`) {
         vOnNodes.push({ node, attribute })
         ctxNode = node
-      } else if (/^on[A-Z]\S*_\S+/.test(attributeName)) {
-        vOnWithModifiers.push({ node, attribute })
-      } else if (/^(?!v-|on[A-Z])\S+_\S+/.test(attributeName)) {
+      } else if (onWithModifiersRegex.test(attributeName)) {
+        onWithModifiers.push({ node, attribute })
+      } else if (bindRegex.test(attributeName)) {
         vBindNodes.push({ node, attribute })
       } else if (attributeName === 'ref') {
         refNodes.push({ node, attribute })
         ctxNode = node
-      } else if (attributeName === 'v-slots') {
+      } else if (attributeName === `${prefix}slots`) {
         ctxNode = node
         vSlots.push({ node, attribute })
+      } else if (
+        [`${prefix}html`, `${prefix}memo`, `${prefix}once`].includes(
+          attributeName,
+        )
+      ) {
+        replaceSourceRange(codes, source, attribute.pos, attribute.end)
       }
     }
 
@@ -208,7 +226,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   vIfMap.forEach((nodes) => transformVIf(nodes, options))
   vModelMap.forEach((nodes) => transformVModel(nodes, ctxMap, options))
   transformVOn(vOnNodes, ctxMap, options)
-  transformVOnWithModifiers(vOnWithModifiers, options)
+  transformOnWithModifiers(onWithModifiers, options)
   transformVBind(vBindNodes, options)
   transformRef(refNodes, ctxMap, options)
   transformVSlots(vSlots, ctxMap, options)
