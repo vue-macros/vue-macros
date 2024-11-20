@@ -23,6 +23,7 @@ const plugin: VueMacrosPlugin<'jsxDirective'> = (ctx, options = {}) => {
           ts: ctx.modules.typescript,
           source,
           vueVersion: ctx.vueCompilerOptions.target,
+          prefix: options.prefix ?? 'v-',
         })
       }
     },

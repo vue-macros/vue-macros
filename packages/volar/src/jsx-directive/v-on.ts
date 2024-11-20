@@ -6,11 +6,19 @@ import type { JsxDirective, TransformOptions } from './index'
 export function transformVOn(
   nodes: JsxDirective[],
   ctxMap: Map<JsxDirective['node'], string>,
-  { codes, source }: TransformOptions,
+  options: TransformOptions,
 ): void {
   if (nodes.length === 0) return
+  const { codes, source } = options
 
   for (const { node, attribute } of nodes) {
+    replaceSourceRange(
+      codes,
+      source,
+      getStart(attribute, options),
+      attribute.name.end + 2,
+      '{...',
+    )
     replaceSourceRange(
       codes,
       source,
@@ -21,7 +29,7 @@ export function transformVOn(
   }
 }
 
-export function transformVOnWithModifiers(
+export function transformOnWithModifiers(
   nodes: JsxDirective[],
   options: TransformOptions,
 ): void {

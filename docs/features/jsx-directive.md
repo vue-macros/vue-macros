@@ -16,6 +16,17 @@ Vue built-in directives for JSX.
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
+## Options
+
+```ts
+interface Options {
+  /**
+   * @default 'v-'
+   */
+  prefix?: string
+}
+```
+
 ## Usage
 
 ### `v-if`, `v-else-if`, `v-else`

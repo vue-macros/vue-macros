@@ -25,7 +25,7 @@ export function transformVSlot(
   options: TransformOptions,
 ): void {
   if (nodeMap.size === 0) return
-  const { codes, ts, sfc, source } = options
+  const { codes, ts, sfc, source, prefix } = options
 
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
     const result: Code[] = [' vSlots={{']
@@ -39,11 +39,11 @@ export function transformVSlot(
           vIfAttribute &&
           (vIfAttributeName = getText(vIfAttribute.name, options))
         ) {
-          if ('v-if' === vIfAttributeName) {
+          if (`${prefix}if` === vIfAttributeName) {
             result.push('...')
           }
           if (
-            ['v-if', 'v-else-if'].includes(vIfAttributeName) &&
+            [`${prefix}if`, `${prefix}else-if`].includes(vIfAttributeName) &&
             isJsxExpression(vIfAttribute.initializer) &&
             vIfAttribute.initializer.expression
           ) {
@@ -57,7 +57,7 @@ export function transformVSlot(
               ],
               ') ? {',
             )
-          } else if ('v-else' === vIfAttributeName) {
+          } else if (`${prefix}else` === vIfAttributeName) {
             result.push('{')
           }
         }
@@ -127,17 +127,17 @@ export function transformVSlot(
         }
 
         if (vIfAttribute && vIfAttributeName) {
-          if (['v-if', 'v-else-if'].includes(vIfAttributeName)) {
+          if ([`${prefix}if`, `${prefix}else-if`].includes(vIfAttributeName)) {
             const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
             const nextAttribute = attributes[nextIndex]?.[1].vIfAttribute
             result.push(
               '}',
               nextAttribute &&
-                getText(nextAttribute.name, options).startsWith('v-else')
+                getText(nextAttribute.name, options).startsWith(`${prefix}else`)
                 ? ' : '
                 : ' : null,',
             )
-          } else if ('v-else' === vIfAttributeName) {
+          } else if (`${prefix}else` === vIfAttributeName) {
             result.push('},')
           }
         }

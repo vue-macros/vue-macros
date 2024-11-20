@@ -7,17 +7,19 @@ export function transformVIf(
   nodes: JsxDirective[],
   options: TransformOptions,
 ): void {
-  const { codes, ts, source } = options
+  const { codes, ts, source, prefix } = options
 
   nodes.forEach(({ node, attribute, parent }, index) => {
     if (!ts.isIdentifier(attribute.name)) return
 
     if (
-      ['v-if', 'v-else-if'].includes(getText(attribute.name, options)) &&
+      [`${prefix}if`, `${prefix}else-if`].includes(
+        getText(attribute.name, options),
+      ) &&
       isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression
     ) {
-      const hasScope = parent && attribute.name.escapedText === 'v-if'
+      const hasScope = parent && attribute.name.escapedText === `${prefix}if`
       replaceSourceRange(
         codes,
         source,
@@ -36,7 +38,7 @@ export function transformVIf(
       const nextAttribute = nodes[index + 1]?.attribute
       const nextNodeHasElse =
         nextAttribute && ts.isIdentifier(nextAttribute.name)
-          ? String(nextAttribute.name.escapedText).startsWith('v-else')
+          ? String(nextAttribute.name.escapedText).startsWith(`${prefix}else`)
           : false
       replaceSourceRange(
         codes,
@@ -45,7 +47,7 @@ export function transformVIf(
         node.end,
         nextNodeHasElse ? ' : ' : ` : null${parent ? '}' : ''}`,
       )
-    } else if (attribute.name.escapedText === 'v-else') {
+    } else if (attribute.name.escapedText === `${prefix}else`) {
       replaceSourceRange(codes, source, node.end, node.end, parent ? '}' : '')
     }
 
