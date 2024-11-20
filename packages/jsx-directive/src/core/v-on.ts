@@ -32,10 +32,11 @@ export function transformVOn(
   })
 }
 
-export function transformVOnWithModifiers(
+export function transformOnWithModifiers(
   nodes: JsxDirective[],
   s: MagicStringAST,
   version: number,
+  prefix: string,
 ): void {
   nodes.forEach(({ attribute }) => {
     const attributeName = attribute.name.name.toString()
@@ -43,7 +44,7 @@ export function transformVOnWithModifiers(
       s.overwrite(
         attribute.name.start!,
         attribute.name.start! + 3,
-        `v-on:${attributeName[2].toLowerCase()}`,
+        `${prefix}on:${attributeName[2].toLowerCase()}`,
       )
 
       if (!attribute.value) s.appendRight(attribute.name.end!, '={() => {}}')

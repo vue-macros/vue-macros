@@ -16,6 +16,17 @@
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
+## 选项
+
+```ts
+interface Options {
+  /**
+   * @default 'v-'
+   */
+  prefix?: string
+}
+```
+
 ## 用法
 
 ### `v-if`, `v-else-if`, `v-else`

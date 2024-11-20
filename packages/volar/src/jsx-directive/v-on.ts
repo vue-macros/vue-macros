@@ -6,11 +6,19 @@ import type { JsxDirective, TransformOptions } from './index'
 export function transformVOn(
   nodes: JsxDirective[],
   ctxMap: Map<JsxDirective['node'], string>,
-  { codes, source }: TransformOptions,
+  options: TransformOptions,
 ): void {
-  if (!nodes.length) return
+  if (nodes.length === 0) return
+  const { codes, source } = options
 
   for (const { node, attribute } of nodes) {
+    replaceSourceRange(
+      codes,
+      source,
+      getStart(attribute, options),
+      attribute.name.end + 2,
+      '{...',
+    )
     replaceSourceRange(
       codes,
       source,
@@ -46,7 +54,7 @@ type __VLS_NormalizeEmits<T> = __VLS_PrettifyGlobal<
 type __VLS_PrettifyGlobal<T> = { [K in keyof T]: T[K]; } & {};\n`)
 }
 
-export function transformVOnWithModifiers(
+export function transformOnWithModifiers(
   nodes: JsxDirective[],
   options: TransformOptions,
 ): void {

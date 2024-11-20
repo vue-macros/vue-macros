@@ -64,7 +64,7 @@ export function transformCtx(
   index: number,
   options: TransformOptions,
 ): string {
-  const { ts, codes } = options
+  const { ts, codes, prefix } = options
 
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
@@ -85,9 +85,11 @@ export function transformCtx(
       continue
     }
 
-    if (name.startsWith('v-model')) {
+    if (name.startsWith(`${prefix}model`)) {
       name = name.split('_')[0].split(':')[1] || 'modelValue'
-    } else if (name.startsWith('v-')) {
+    } else if (name.includes('_')) {
+      name = name.split('_')[0]
+    } else if (prefix && name.startsWith(prefix)) {
       continue
     }
 
