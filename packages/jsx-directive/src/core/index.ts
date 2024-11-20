@@ -29,7 +29,7 @@ export function transformJsxDirective(
   code: string,
   id: string,
   version: number,
-  prefix: string,
+  prefix = 'v-',
 ): CodeTransform | undefined {
   const lang = getLang(id)
   if (!['jsx', 'tsx'].includes(lang)) return

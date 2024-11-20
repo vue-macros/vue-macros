@@ -17,7 +17,7 @@ import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformJsxDirective } from './core'
 
 export type Options = BaseOptions & { prefix?: string }
-export type OptionsResolved = MarkRequired<Options, 'version' | 'prefix'>
+export type OptionsResolved = MarkRequired<Options, 'version'>
 
 function resolveOptions(
   options: Options,
@@ -25,13 +25,11 @@ function resolveOptions(
 ): OptionsResolved {
   const version = options.version || detectVueVersion(undefined, 0)
   const include = getFilterPattern([FilterFileType.SRC_FILE], framework)
-  const prefix = options.prefix ?? 'v-'
   return {
     include,
     exclude: [REGEX_NODE_MODULES, REGEX_SETUP_SFC],
     ...options,
     version,
-    prefix,
   }
 }
 
