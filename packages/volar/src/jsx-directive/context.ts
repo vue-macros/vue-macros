@@ -43,10 +43,10 @@ function __VLS_getFunctionalComponentCtx<T, K, const S>(
   ? { expose: (exposed: (typeof __VLS_nativeElements)[S]) => any }
   : '__ctx' extends keyof __VLS_PickNotAny<K, {}>
     ? K extends { __ctx?: infer Ctx }
-      ? { slots: Ctx['props']['vSlots'] } & Ctx
+      ? Ctx['props']['vSlots'] } & Ctx
       : never
     : T extends (props: infer P, ctx: infer Ctx) => any
-      ? { props: P; slots: P['vSlots'] } & Ctx
+      ? { props: P; slots: P['vSlots']; } & Ctx
       : {};\n`)
   }
 
@@ -64,7 +64,7 @@ export function transformCtx(
   index: number,
   options: TransformOptions,
 ): string {
-  const { ts, codes } = options
+  const { ts, codes, prefix } = options
 
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
@@ -85,9 +85,11 @@ export function transformCtx(
       continue
     }
 
-    if (name.startsWith('v-model')) {
+    if (name.startsWith(`${prefix}model`)) {
       name = name.split('_')[0].split(':')[1] || 'modelValue'
-    } else if (name.startsWith('v-')) {
+    } else if (name.includes('_')) {
+      name = name.split('_')[0]
+    } else if (prefix && name.startsWith(prefix)) {
       continue
     }
 
@@ -143,7 +145,10 @@ function getRefValue(
     return (
       left &&
       getText(
-        ts.isPropertyAccessExpression(left) ? left.expression : left,
+        ts.isPropertyAccessExpression(left) ||
+          ts.isElementAccessExpression(left)
+          ? left.expression
+          : left,
         options,
       )
     )

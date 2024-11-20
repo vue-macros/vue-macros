@@ -22,7 +22,7 @@ function transform(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, source, ast } = options
+  const { codes, ts, source, ast, prefix } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
@@ -33,6 +33,7 @@ function transform(
 
   const result: Code[] = []
   const emits: string[] = []
+  const offset = `${prefix}model`.length + 1
   for (const { attribute, node } of nodes) {
     const modelValue = ['input', 'select', 'textarea'].includes(
       getTagName(node, options),
@@ -46,10 +47,10 @@ function transform(
 
     const name = getText(attribute.name, options)
     const start = getStart(attribute.name, options)
-    if (name.startsWith('v-model:') || isArrayExpression) {
+    if (name.startsWith(`${prefix}model:`) || isArrayExpression) {
       let isDynamic = false
       const attributeName = name
-        .slice(8)
+        .slice(offset)
         .split(/\s/)[0]
         .split('_')[0]
         .replace(/^\$(.*)\$/, (_, $1) => {
@@ -105,7 +106,8 @@ function transform(
               index ? code.at(0)?.toUpperCase() + code.slice(1) : code,
               source,
               start +
-                (isDynamic ? 9 : 8) +
+                offset +
+                (isDynamic ? 1 : 0) +
                 (index && codes[index - 1].length + 1),
               allCodeFeatures,
             ]) as Code[]),
@@ -148,7 +150,9 @@ function transform(
 
   if (!firstNamespacedNode) return
   const { attribute, attributeName, node } = firstNamespacedNode
-  const end = attributeName ? attribute.end : getStart(attribute, options) + 8
+  const end = attributeName
+    ? attribute.end
+    : getStart(attribute, options) + offset
   replaceSourceRange(
     codes,
     source,

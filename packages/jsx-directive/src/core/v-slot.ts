@@ -22,6 +22,7 @@ export function transformVSlot(
   nodeMap: VSlotMap,
   s: MagicStringAST,
   version: number,
+  prefix: string,
 ): void {
   Array.from(nodeMap)
     .reverse()
@@ -33,15 +34,17 @@ export function transformVSlot(
           if (!attribute) return
 
           if (vIfAttribute) {
-            if ('v-if' === vIfAttribute.name.name) {
+            if (`${prefix}if` === vIfAttribute.name.name) {
               result.push('...')
             }
             if (
-              ['v-if', 'v-else-if'].includes(String(vIfAttribute.name.name)) &&
+              [`${prefix}if`, `${prefix}else-if`].includes(
+                String(vIfAttribute.name.name),
+              ) &&
               vIfAttribute.value?.type === 'JSXExpressionContainer'
             ) {
               result.push(`(${s.sliceNode(vIfAttribute.value.expression)}) ? {`)
-            } else if ('v-else' === vIfAttribute.name.name) {
+            } else if (`${prefix}else` === vIfAttribute.name.name) {
               result.push('{')
             }
           }
@@ -96,18 +99,20 @@ export function transformVSlot(
 
           if (vIfAttribute) {
             if (
-              ['v-if', 'v-else-if'].includes(String(vIfAttribute.name.name))
+              [`${prefix}if`, `${prefix}else-if`].includes(
+                String(vIfAttribute.name.name),
+              )
             ) {
               const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
               result.push(
                 '}',
                 String(
                   attributes[nextIndex]?.[1].vIfAttribute?.name.name,
-                ).startsWith('v-else')
+                ).startsWith(`${prefix}else`)
                   ? ' : '
                   : ' : null,',
               )
-            } else if ('v-else' === vIfAttribute.name.name) {
+            } else if (`${prefix}else` === vIfAttribute.name.name) {
               result.push('},')
             }
           }

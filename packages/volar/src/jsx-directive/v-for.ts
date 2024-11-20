@@ -117,24 +117,24 @@ export function transformVFor(
   })
 
   codes.push(`
-function __VLS_getVForSourceType(source: number): [number, number, number][];
-function __VLS_getVForSourceType(source: string): [string, number, number][];
-function __VLS_getVForSourceType<T extends any[]>(source: T): [
+declare function __VLS_getVForSourceType(source: number): [number, number, number][];
+declare function __VLS_getVForSourceType(source: string): [string, number, number][];
+declare function __VLS_getVForSourceType<T extends any[]>(source: T): [
   item: T[number],
   key: number,
   index: number,
 ][];
-function __VLS_getVForSourceType<T extends { [Symbol.iterator](): Iterator<any> }>(source: T): [
+declare function __VLS_getVForSourceType<T extends { [Symbol.iterator](): Iterator<any> }>(source: T): [
   item: T extends { [Symbol.iterator](): Iterator<infer T1> } ? T1 : never, 
   key: number,
   index: undefined,
 ][];
-function __VLS_getVForSourceType<T extends number | { [Symbol.iterator](): Iterator<any> }>(source: T): [
+declare function __VLS_getVForSourceType<T extends number | { [Symbol.iterator](): Iterator<any> }>(source: T): [
   item: number | (Exclude<T, number> extends { [Symbol.iterator](): Iterator<infer T1> } ? T1 : never), 
   key: number,
   index: undefined,
 ][];
-function __VLS_getVForSourceType<T>(source: T): [
+declare function __VLS_getVForSourceType<T>(source: T): [
   item: T[keyof T],
   key: keyof T,
   index: number,

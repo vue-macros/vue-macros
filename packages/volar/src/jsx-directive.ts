@@ -17,6 +17,7 @@ const plugin: PluginReturn<OptionsResolved['jsxDirective'] | undefined> =
           ast,
           ts,
           source,
+          prefix: options.prefix ?? 'v-',
         })
       },
     }

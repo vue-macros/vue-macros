@@ -16,7 +16,7 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformJsxDirective } from './core'
 
-export type Options = BaseOptions
+export type Options = BaseOptions & { prefix?: string }
 export type OptionsResolved = MarkRequired<Options, 'version'>
 
 function resolveOptions(
@@ -46,7 +46,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
 
       transformInclude: filter,
       transform(code, id) {
-        return transformJsxDirective(code, id, options.version)
+        return transformJsxDirective(code, id, options.version, options.prefix)
       },
     }
   },

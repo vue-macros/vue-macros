@@ -11,7 +11,7 @@ import { transformVHtml } from './v-html'
 import { transformVIf } from './v-if'
 import { transformVMemo } from './v-memo'
 import { transformVModel } from './v-model'
-import { transformVOn, transformVOnWithModifiers } from './v-on'
+import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
@@ -23,10 +23,13 @@ export type JsxDirective = {
   vMemoAttribute?: JSXAttribute
 }
 
+const onWithModifiersRegex = /^on[A-Z]\S*_\S+/
+
 export function transformJsxDirective(
   code: string,
   id: string,
   version: number,
+  prefix = 'v-',
 ): CodeTransform | undefined {
   const lang = getLang(id)
   if (!['jsx', 'tsx'].includes(lang)) return
@@ -40,7 +43,7 @@ export function transformJsxDirective(
   const vHtmlNodes: JsxDirective[] = []
   const vSlotMap: VSlotMap = new Map()
   const vOnNodes: JsxDirective[] = []
-  const vOnWithModifiers: JsxDirective[] = []
+  const onWithModifiers: JsxDirective[] = []
   walkAST<Node>(babelParse(code, lang), {
     enter(node, parent) {
       if (node.type !== 'JSXElement') return
@@ -54,14 +57,20 @@ export function transformJsxDirective(
         if (attribute.type !== 'JSXAttribute') continue
 
         if (
-          ['v-if', 'v-else-if', 'v-else'].includes(String(attribute.name.name))
+          [`${prefix}if`, `${prefix}else-if`, `${prefix}else`].includes(
+            String(attribute.name.name),
+          )
         ) {
           vIfAttribute = attribute
-        } else if (attribute.name.name === 'v-for') {
+        } else if (attribute.name.name === `${prefix}for`) {
           vForAttribute = attribute
-        } else if (['v-memo', 'v-once'].includes(String(attribute.name.name))) {
+        } else if (
+          [`${prefix}memo`, `${prefix}once`].includes(
+            String(attribute.name.name),
+          )
+        ) {
           vMemoAttribute = attribute
-        } else if (attribute.name.name === 'v-html') {
+        } else if (attribute.name.name === `${prefix}html`) {
           vHtmlNodes.push({
             node,
             attribute,
@@ -70,22 +79,22 @@ export function transformJsxDirective(
           (attribute.name.type === 'JSXNamespacedName'
             ? attribute.name.namespace
             : attribute.name
-          ).name === 'v-slot'
+          ).name === `${prefix}slot`
         ) {
           vSlotAttribute = attribute
-        } else if (attribute.name.name === 'v-on') {
+        } else if (attribute.name.name === `${prefix}on`) {
           vOnNodes.push({
             node,
             attribute,
           })
-        } else if (/^on[A-Z]\S*_\S+/.test(String(attribute.name.name))) {
-          vOnWithModifiers.push({
+        } else if (onWithModifiersRegex.test(String(attribute.name.name))) {
+          onWithModifiers.push({
             node,
             attribute,
           })
         } else if (
           attribute.name.type === 'JSXNamespacedName' &&
-          attribute.name.namespace.name === 'v-model'
+          attribute.name.namespace.name === `${prefix}model`
         ) {
           transformVModel(attribute, s, version)
         }
@@ -170,13 +179,13 @@ export function transformJsxDirective(
     },
   })
 
-  vIfMap.forEach((nodes) => transformVIf(nodes, s, version))
+  vIfMap.forEach((nodes) => transformVIf(nodes, s, version, prefix))
   transformVFor(vForNodes, s, version)
   if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, version)
   transformVHtml(vHtmlNodes, s, version)
   transformVOn(vOnNodes, s, version)
-  transformVOnWithModifiers(vOnWithModifiers, s, version)
-  transformVSlot(vSlotMap, s, version)
+  transformOnWithModifiers(onWithModifiers, s, version, prefix)
+  transformVSlot(vSlotMap, s, version, prefix)
 
   return generateTransform(s, id)
 }

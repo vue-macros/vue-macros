@@ -5,17 +5,20 @@ export function transformVIf(
   nodes: JsxDirective[],
   s: MagicStringAST,
   version: number,
+  prefix: string,
 ): void {
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(
       String(parent?.type),
     )
 
-    if (['v-if', 'v-else-if'].includes(String(attribute.name.name))) {
+    if (
+      [`${prefix}if`, `${prefix}else-if`].includes(String(attribute.name.name))
+    ) {
       if (attribute.value)
         s.appendLeft(
           node.start!,
-          `${attribute.name.name === 'v-if' && hasScope ? '{' : ' '}(${s.slice(
+          `${attribute.name.name === `${prefix}if` && hasScope ? '{' : ' '}(${s.slice(
             attribute.value.start! + 1,
             attribute.value.end! - 1,
           )}) ? `,
@@ -23,11 +26,13 @@ export function transformVIf(
 
       s.appendRight(
         node.end!,
-        String(nodes[index + 1]?.attribute.name.name).startsWith('v-else')
+        String(nodes[index + 1]?.attribute.name.name).startsWith(
+          `${prefix}else`,
+        )
           ? ' :'
           : ` : null${hasScope ? '}' : ''}`,
       )
-    } else if (attribute.name.name === 'v-else') {
+    } else if (attribute.name.name === `${prefix}else`) {
       s.appendRight(node.end!, hasScope ? '}' : '')
     }
 
