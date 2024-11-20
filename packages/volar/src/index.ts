@@ -48,7 +48,7 @@ const plugin: VueLanguagePlugin = (ctx) =>
   Object.entries(plugins).flatMap(([name, plugin]) => {
     const options = getVolarOptions(ctx, name as keyof typeof plugins)
     if (!options) return []
-    return plugin(ctx, options as any)
+    return plugin(ctx, options as any) as ReturnType<VueLanguagePlugin>
   })
 
 export default plugin

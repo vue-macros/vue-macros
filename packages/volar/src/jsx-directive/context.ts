@@ -7,19 +7,34 @@ import {
   type TransformOptions,
 } from './index'
 
-export function transformCtx(
-  node: JsxDirective['node'],
-  root: import('typescript').Block | undefined,
-  index: number,
+export type CtxMap = Map<
+  JsxDirective['node'],
+  import('typescript').Block | undefined
+>
+
+export function resolveCtxMap(
+  ctxNodeMap: CtxMap,
   options: TransformOptions,
-): string {
-  const { ts, codes, prefix } = options
-
-  const openingElement = getOpeningElement(node, options)
-  if (!openingElement) return ''
-
-  if (!codes.toString().includes('function __VLS_getFunctionalComponentCtx')) {
-    codes.push(`
+): Map<import('typescript').Node, string> {
+  if (ctxNodeMap.size) {
+    options.codes.push(`
+type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
+type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
+type __VLS_Element = globalThis.JSX.Element;
+function __VLS_asFunctionalComponent<T, K = T extends new (...args: any) => any ? InstanceType<T> : unknown>(t: T, instance?: K):
+  T extends new (...args: any) => any
+  ? (props: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>, ctx?: any) => __VLS_Element & { __ctx?: {
+    attrs?: any,
+    slots?: K extends { $scopedSlots: infer Slots } ? Slots : K extends { $slots: infer Slots } ? Slots : any,
+    emit?: K extends { $emit: infer Emit } ? Emit : any
+  } & { props?: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>; expose?(exposed: K): void; } }
+  : T extends () => any ? (props: {}, ctx?: any) => ReturnType<T>
+  : T extends (...args: any) => any ? T
+  : (_: {} & Record<string, unknown>, ctx?: any) => { __ctx?: { attrs?: any, expose?: any, slots?: any, emit?: any, props?: {} & Record<string, unknown> } };
+const __VLS_nativeElements = {
+  ...{} as SVGElementTagNameMap,
+  ...{} as HTMLElementTagNameMap,
+};
 function __VLS_getFunctionalComponentCtx<T, K, const S>(
   comp: T,
   compInstance: K,
@@ -34,6 +49,25 @@ function __VLS_getFunctionalComponentCtx<T, K, const S>(
       ? { props: P; slots: P['vSlots']; expose: P['vExpose'] } & Ctx
       : {};\n`)
   }
+
+  return new Map(
+    Array.from(ctxNodeMap).map(([node, root], index) => [
+      node,
+      transformCtx(node, root, index, options),
+    ]),
+  )
+}
+
+export function transformCtx(
+  node: JsxDirective['node'],
+  root: import('typescript').Block | undefined,
+  index: number,
+  options: TransformOptions,
+): string {
+  const { ts, codes, prefix } = options
+
+  const openingElement = getOpeningElement(node, options)
+  if (!openingElement) return ''
 
   let props = ''
   let refValue

@@ -99,24 +99,29 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
 }
 
 export interface VolarContext {
-  sfc: Sfc
   ts: typeof import('typescript')
+  ast?: import('typescript').SourceFile
+  sfc?: Sfc
   source?: 'script' | 'scriptSetup'
 }
 
 export function getStart(
-  node: import('typescript').Node,
-  { ts, sfc, source = 'scriptSetup' }: VolarContext,
+  node:
+    | import('typescript').Node
+    | import('typescript').NodeArray<import('typescript').Node>,
+  { ts, ast, sfc, source = 'scriptSetup' }: VolarContext,
 ): number {
-  return (ts as any).getTokenPosOfNode(node, sfc[source]!.ast)
+  ast = ast || sfc?.[source]?.ast
+  return (ts as any).getTokenPosOfNode(node, ast)
 }
 
 export function getText(
   node: import('typescript').Node,
   context: VolarContext,
 ): string {
-  const { sfc, source = 'scriptSetup' } = context
-  return sfc[source]!.content.slice(getStart(node, context), node.end)
+  let { sfc, ast, source = 'scriptSetup' } = context
+  ast = ast || sfc?.[source]?.ast
+  return ast!.text.slice(getStart(node, context), node.end)
 }
 
 export function isJsxExpression(

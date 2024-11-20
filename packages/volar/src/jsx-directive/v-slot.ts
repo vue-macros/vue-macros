@@ -25,7 +25,7 @@ export function transformVSlot(
   options: TransformOptions,
 ): void {
   if (nodeMap.size === 0) return
-  const { codes, ts, sfc, source, prefix } = options
+  const { codes, ts, ast, source, prefix } = options
 
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
     const result: Code[] = [' vSlots={{']
@@ -113,7 +113,7 @@ export function transformVSlot(
             return isSlotTemplate && ts.isJsxSelfClosingElement(child)
               ? ''
               : ([
-                  sfc[source]!.content.slice(node.pos, node.end),
+                  ast.text.slice(node.pos, node.end),
                   source,
                   node.pos,
                   allCodeFeatures,
@@ -165,7 +165,7 @@ export function transformVSlot(
         source,
         vSlotAttribute.end,
         vSlotAttribute.end + 1,
-        sfc[source]!.content.slice(vSlotAttribute.end, vSlotAttribute.end + 1),
+        ast.text.slice(vSlotAttribute.end, vSlotAttribute.end + 1),
       )
     } else if (ts.isJsxElement(node)) {
       replaceSourceRange(

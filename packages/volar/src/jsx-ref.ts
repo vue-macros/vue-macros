@@ -1,6 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
-import type { VueMacrosPlugin } from './common'
+import { createPlugin, type PluginReturn } from 'ts-macro'
+import type { OptionsResolved } from '@vue-macros/config'
 import type { Code } from '@vue/language-core'
 
 type RefNode = {
@@ -17,7 +18,7 @@ function transformRef({
   nodes: RefNode[]
   codes: Code[]
   ts: typeof import('typescript')
-  source: 'script' | 'scriptSetup'
+  source: 'script' | 'scriptSetup' | undefined
 }) {
   for (const { name, initializer } of nodes) {
     if (ts.isCallExpression(initializer)) {
@@ -51,7 +52,7 @@ function getRefNodes(
   const result: RefNode[] = []
   function walk(node: import('typescript').Node) {
     if (ts.isVariableStatement(node)) {
-      return ts.forEachChild(node.declarationList, (decl) => {
+      ts.forEachChild(node.declarationList, (decl) => {
         if (
           ts.isVariableDeclaration(decl) &&
           ts.isIdentifier(decl.name) &&
@@ -74,32 +75,27 @@ function getRefNodes(
   return result
 }
 
-const plugin: VueMacrosPlugin<'jsxRef'> = (ctx, options = {}) => {
-  if (!options) return []
+const plugin: PluginReturn<OptionsResolved['jsxRef'] | undefined> =
+  createPlugin(({ ts }, options = {}) => {
+    if (!options) return []
+    const filter = createFilter(options)
+    const alias = options.alias || ['useRef']
 
-  const filter = createFilter(options)
-
-  return {
-    name: 'vue-macros-jsx-ref',
-    version: 2.1,
-    resolveEmbeddedCode(fileName, sfc, embeddedFile) {
-      if (!filter(fileName)) return
-      const ts = ctx.modules.typescript
-      const alias = options.alias || ['useRef']
-
-      for (const source of ['script', 'scriptSetup'] as const) {
-        if (!sfc[source]) continue
-        const nodes = getRefNodes(ts, sfc[source].ast, alias)
+    return {
+      name: 'vue-macros-jsx-ref',
+      resolveVirtualCode({ filePath, ast, codes, source, languageId }) {
+        if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
+        const nodes = getRefNodes(ts, ast, alias)
         if (nodes.length) {
           transformRef({
             nodes,
-            codes: embeddedFile.content,
+            codes,
             ts,
             source,
           })
         }
-      }
-    },
-  }
-}
+      },
+    }
+  })
+
 export default plugin

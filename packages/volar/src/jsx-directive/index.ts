@@ -1,6 +1,6 @@
 import { replaceSourceRange } from 'muggle-string'
 import { getText, isJsxExpression } from '../common'
-import { transformCtx } from './context'
+import { resolveCtxMap, type CtxMap } from './context'
 import { transformRef } from './ref'
 import { transformVBind } from './v-bind'
 import { transformVFor } from './v-for'
@@ -8,7 +8,7 @@ import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
-import type { Code, Sfc } from '@vue/language-core'
+import type { Code } from '@vue/language-core'
 import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 
 export type JsxDirective = {
@@ -19,15 +19,14 @@ export type JsxDirective = {
 
 export type TransformOptions = {
   codes: Code[]
-  sfc: Sfc
+  ast: import('typescript').SourceFile
   ts: typeof import('typescript')
-  source: 'script' | 'scriptSetup'
-  vueVersion?: number
+  source: 'script' | 'scriptSetup' | undefined
   prefix: string
 }
 
 export function transformJsxDirective(options: TransformOptions): void {
-  const { sfc, ts, source, prefix, codes } = options
+  const { ast, ts, source, prefix, codes } = options
 
   const resolvedPrefix = prefix.replaceAll('$', String.raw`\$`)
   const slotRegex = new RegExp(`^${resolvedPrefix}slot(?=:|$)`)
@@ -48,10 +47,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   const refNodes: JsxDirective[] = []
   const vSlots: JsxDirective[] = []
 
-  const ctxNodeMap = new Map<
-    JsxDirective['node'],
-    import('typescript').Block | undefined
-  >()
+  const ctxNodeMap: CtxMap = new Map()
 
   function walkJsxDirective(
     node: import('typescript').Node,
@@ -212,19 +208,14 @@ export function transformJsxDirective(options: TransformOptions): void {
       parents.shift()
     })
   }
-  ts.forEachChild(sfc[source]!.ast, walkJsxDirective)
+  ts.forEachChild(ast, walkJsxDirective)
 
-  const ctxMap = new Map(
-    Array.from(ctxNodeMap).map(([node, root], index) => [
-      node,
-      transformCtx(node, root, index, options),
-    ]),
-  )
+  const ctxMap = resolveCtxMap(ctxNodeMap, options)
 
   transformVSlot(vSlotMap, ctxMap, options)
   transformVFor(vForNodes, options)
   vIfMap.forEach((nodes) => transformVIf(nodes, options))
-  vModelMap.forEach((nodes) => transformVModel(nodes, ctxMap, options))
+  transformVModel(vModelMap, ctxMap, options)
   transformVOn(vOnNodes, ctxMap, options)
   transformOnWithModifiers(onWithModifiers, options)
   transformVBind(vBindNodes, options)

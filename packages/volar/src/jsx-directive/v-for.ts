@@ -7,7 +7,7 @@ export function resolveVFor(
   attribute: JsxDirective['attribute'],
   options: TransformOptions,
 ): Code[] {
-  const { ts, sfc, source } = options
+  const { ts, ast, source } = options
   const result: Code[] = []
 
   if (
@@ -38,14 +38,14 @@ export function resolveVFor(
       result.push(
         '__VLS_getVForSourceType(',
         [
-          sfc[source]!.content.slice(getStart(list, options), list.end),
+          ast.text.slice(getStart(list, options), list.end),
           source,
           getStart(list, options),
           allCodeFeatures,
         ],
         ').map(([',
         [
-          String(sfc[source]?.content.slice(getStart(item, options), item.end)),
+          String(ast.text.slice(getStart(item, options), item.end)),
           source,
           getStart(item, options),
           allCodeFeatures,
@@ -53,9 +53,7 @@ export function resolveVFor(
         ', ',
         index
           ? [
-              String(
-                sfc[source]?.content.slice(getStart(index, options), index.end),
-              ),
+              String(ast.text.slice(getStart(index, options), index.end)),
               source,
               getStart(index, options),
               allCodeFeatures,
@@ -68,7 +66,7 @@ export function resolveVFor(
               ', ',
               [
                 String(
-                  sfc[source]?.content.slice(
+                  ast?.text.slice(
                     getStart(objectIndex, options),
                     objectIndex.end,
                   ),
@@ -91,6 +89,7 @@ export function transformVFor(
   nodes: JsxDirective[],
   options: TransformOptions,
 ): void {
+  if (!nodes.length) return
   const { codes, source } = options
 
   nodes.forEach(({ attribute, node, parent }) => {
@@ -116,4 +115,28 @@ export function transformVFor(
       attribute.end,
     )
   })
+
+  codes.push(`
+declare function __VLS_getVForSourceType(source: number): [number, number, number][];
+declare function __VLS_getVForSourceType(source: string): [string, number, number][];
+declare function __VLS_getVForSourceType<T extends any[]>(source: T): [
+  item: T[number],
+  key: number,
+  index: number,
+][];
+declare function __VLS_getVForSourceType<T extends { [Symbol.iterator](): Iterator<any> }>(source: T): [
+  item: T extends { [Symbol.iterator](): Iterator<infer T1> } ? T1 : never, 
+  key: number,
+  index: undefined,
+][];
+declare function __VLS_getVForSourceType<T extends number | { [Symbol.iterator](): Iterator<any> }>(source: T): [
+  item: number | (Exclude<T, number> extends { [Symbol.iterator](): Iterator<infer T1> } ? T1 : never), 
+  key: number,
+  index: undefined,
+][];
+declare function __VLS_getVForSourceType<T>(source: T): [
+  item: T[keyof T],
+  key: keyof T,
+  index: number,
+][];\n`)
 }

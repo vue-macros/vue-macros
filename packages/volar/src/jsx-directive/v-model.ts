@@ -4,11 +4,25 @@ import { getStart, getText, isJsxExpression } from '../common'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'
 
 export function transformVModel(
-  nodes: JsxDirective[],
+  nodeMap: Map<JsxDirective['node'], JsxDirective[]>,
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ): void {
-  const { codes, ts, source, sfc, prefix } = options
+  if (!nodeMap.size) return
+
+  for (const [, nodes] of nodeMap) {
+    transform(nodes, ctxMap, options)
+  }
+
+  getModelsType(options.codes)
+}
+
+function transform(
+  nodes: JsxDirective[],
+  ctxMap: Map<JsxDirective['node'], string>,
+  options: TransformOptions,
+) {
+  const { codes, ts, source, ast, prefix } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
@@ -121,17 +135,21 @@ export function transformVModel(
         source,
         start,
         attribute.name.end,
-        `{...{'onUpdate:${modelValue}': () => {} }} `,
         modelValue.slice(0, 3),
         [modelValue.slice(3), source, start, allCodeFeatures],
+      )
+      replaceSourceRange(
+        codes,
+        source,
+        attribute.end,
+        attribute.end,
+        ` {...{'onUpdate:${modelValue}': () => {} }}`,
       )
     }
   }
 
   if (!firstNamespacedNode) return
   const { attribute, attributeName, node } = firstNamespacedNode
-  getModelsType(codes)
-
   const end = attributeName
     ? attribute.end
     : getStart(attribute, options) + offset
@@ -148,18 +166,10 @@ export function transformVModel(
     `}}`,
   )
   // Fix `v-model:` without type hints
-  replaceSourceRange(
-    codes,
-    source,
-    end,
-    end + 1,
-    sfc[source]!.content.slice(end, end + 1),
-  )
+  replaceSourceRange(codes, source, end, end + 1, ast.text.slice(end, end + 1))
 }
 
 function getModelsType(codes: Code[]) {
-  if (codes.toString().includes('type __VLS_GetModels')) return
-
   codes.push(`
 type __VLS_NormalizeProps<T> = T extends object
   ? {
