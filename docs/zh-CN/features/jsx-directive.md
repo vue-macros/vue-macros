@@ -17,12 +17,13 @@
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
 ## 选项
+
 ```ts
 interface Options {
   /**
    * @default 'v-'
    */
-  prefix?: string,
+  prefix?: string
 }
 ```
 

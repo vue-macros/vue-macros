@@ -17,12 +17,13 @@ Vue built-in directives for JSX.
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
 ## Options
+
 ```ts
 interface Options {
   /**
    * @default 'v-'
    */
-  prefix?: string,
+  prefix?: string
 }
 ```
 
