@@ -88,10 +88,13 @@ export function transformJsxMacros(
           getStart(node, options),
           getStart(node.expression, options),
           `return {\nprops: {} as `,
-          `{ ${defaultProps.join(', ')} } & `,
-          `{ ${map.defineModel?.join(', ') ?? ''} }`,
-          map.defineSlots ? ` & ${map.defineSlots}` : '',
-          map.defineExpose ? `,\nexpose: ${map.defineExpose}` : '',
+          defaultProps.length ? `{ ${defaultProps.join(', ')} } & ` : '',
+          `{ vSlots?: ${map.defineSlots ?? '{}'}, ${map.defineModel?.join(', ') ?? ''} }`,
+          `,\nexpose: (exposed: ${
+            options.lib === 'vue'
+              ? `import('vue').ShallowUnwrapRef`
+              : 'NonNullable'
+          }<${map.defineExpose ?? '{}'}>) => {}`,
           `,\nrender: `,
           shouldWrapByCall ? '(' : '',
         )

@@ -222,8 +222,7 @@ export function getRootMap(options: TransformOptions): RootMap {
         getStart(expression, options),
         `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
       )
-      rootMap.get(root)!.defineSlots =
-        `{ vSlots?: Partial<typeof ${HELPER_PREFIX}slots> }`
+      rootMap.get(root)!.defineSlots = `Partial<typeof ${HELPER_PREFIX}slots>`
     } else if (options.macros.defineExpose?.includes(macroName)) {
       replaceSourceRange(
         codes,
@@ -232,10 +231,7 @@ export function getRootMap(options: TransformOptions): RootMap {
         getStart(expression, options),
         `// @ts-ignore\n${HELPER_PREFIX}expose;\nconst ${HELPER_PREFIX}expose =`,
       )
-      rootMap.get(root)!.defineExpose =
-        options.lib === 'vue'
-          ? `(exposed: import('vue').ShallowUnwrapRef<typeof ${HELPER_PREFIX}expose>) => {}`
-          : `(exposed: typeof ${HELPER_PREFIX}expose) => {}`
+      rootMap.get(root)!.defineExpose = `typeof ${HELPER_PREFIX}expose`
     } else if (macroName.startsWith('defineStyle')) {
       ;(rootMap.get(root)!.defineStyle ??= [])!.push({
         expression,
