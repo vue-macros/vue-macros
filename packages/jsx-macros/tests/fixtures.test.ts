@@ -13,12 +13,11 @@ describe('fixtures', async () => {
         lib: 'vue',
         include: ['*.tsx'],
         version: 3.5,
-        macros: {
-          defineModel: ['defineModel'],
-          defineSlots: ['defineSlots'],
-          defineExpose: ['defineExpose'],
-          defineStyle: ['defineStyle'],
-        },
+        defineModel: { alias: ['defineModel'] },
+        defineSlots: { alias: ['defineSlots'] },
+        defineStyle: { alias: ['defineStyle'] },
+        defineExpose: { alias: ['defineExpose'] },
+        defineComponent: { alias: ['defineComponent'] },
       })?.code,
   )
 })
@@ -34,12 +33,11 @@ describe('react fixtures', async () => {
         lib: 'react',
         include: ['*.tsx'],
         version: 18,
-        macros: {
-          defineModel: ['defineModel'],
-          defineSlots: ['defineSlots'],
-          defineExpose: ['defineExpose'],
-          defineStyle: ['defineStyle'],
-        },
+        defineModel: { alias: ['defineModel'] },
+        defineSlots: { alias: ['defineSlots'] },
+        defineStyle: { alias: ['defineStyle'] },
+        defineExpose: { alias: ['defineExpose'] },
+        defineComponent: { alias: ['defineComponent'] },
       })?.code,
   )
 })
