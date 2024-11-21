@@ -1,6 +1,7 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
 import type { FunctionalNode, RootMapValue } from '..'
+import type { OptionsResolved } from '../..'
 import { transformAwait } from './await'
 import { restructure } from './restructure'
 import type { ObjectExpression } from '@babel/types'
@@ -10,11 +11,19 @@ export function transformDefineComponent(
   propsName: string,
   map: RootMapValue,
   s: MagicStringAST,
+  options: OptionsResolved,
 ): void {
   if (!map.defineComponent) return
   s.overwriteNode(
     map.defineComponent.callee,
-    importHelperFn(s, 0, 'defineComponent', 'vue'),
+    importHelperFn(
+      s,
+      0,
+      `defineComponent`,
+      'vue',
+      false,
+      options.defineComponent.alias[0],
+    ),
   )
 
   let hasRestProp = false

@@ -1,43 +1,61 @@
 import { createFilter } from '@vue-macros/common'
 import { createPlugin, type PluginReturn } from 'ts-macro'
-import { getRootMap, globalTypes, transformJsxMacros } from './jsx-macros/index'
+import {
+  getGlobalTypes,
+  getRootMap,
+  transformJsxMacros,
+} from './jsx-macros/index'
 import type { OptionsResolved } from '@vue-macros/config'
 
 const plugin: PluginReturn<OptionsResolved['jsxMacros'] | undefined> =
-  createPlugin(({ ts }, userOptions = {}) => {
-    if (!userOptions) return []
+  createPlugin(
+    (
+      { ts, vueCompilerOptions },
+      userOptions = vueCompilerOptions?.vueMacros?.jsxMacros === true
+        ? {}
+        : (vueCompilerOptions?.vueMacros?.jsxMacros ?? {}),
+    ) => {
+      if (!userOptions) return []
 
-    const filter = createFilter(userOptions)
-    const lib = userOptions.lib ?? 'vue'
-    const macros = {
-      defineModel: userOptions.macros?.defineModel ?? ['defineModel'],
-      defineExpose: userOptions.macros?.defineExpose ?? ['defineExpose'],
-      defineSlots: userOptions.macros?.defineSlots ?? ['defineSlots'],
-      defineStyle: userOptions.macros?.defineStyle ?? ['defineStyle'],
-    }
+      const filter = createFilter(userOptions)
+      const lib = userOptions.lib ?? 'vue'
+      const macros = {
+        defineComponent: {
+          alias: userOptions.defineComponent?.alias ?? ['defineComponent'],
+        },
+        defineModel: {
+          alias: userOptions.defineModel?.alias ?? ['defineModel'],
+        },
+        defineExpose: {
+          alias: userOptions.defineExpose?.alias ?? ['defineExpose'],
+        },
+        defineSlots: {
+          alias: userOptions.defineSlots?.alias ?? ['defineSlots'],
+        },
+        defineStyle: {
+          alias: userOptions.defineStyle?.alias ?? ['defineStyle'],
+        },
+      }
 
-    return {
-      name: 'vue-macros-jsx-macros',
-      resolveVirtualCode(virtualCode) {
-        const { filePath, languageId, codes } = virtualCode
-        if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
+      return {
+        name: 'vue-macros-jsx-macros',
+        resolveVirtualCode(virtualCode) {
+          const { filePath, languageId, codes } = virtualCode
+          if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
 
-        const options = {
-          ...virtualCode,
-          ts,
-          lib,
-          macros,
-        }
-        const rootMap = getRootMap(options)
-        if (rootMap.size) transformJsxMacros(rootMap, options)
-
-        if (
-          (filePath.endsWith('.tsx') || rootMap.size) &&
-          !codes.toString().includes(globalTypes)
-        ) {
-          codes.push(globalTypes)
-        }
-      },
-    }
-  })
+          const options = {
+            ...virtualCode,
+            ts,
+            lib,
+            ...macros,
+          }
+          const rootMap = getRootMap(options)
+          if (rootMap.size) {
+            transformJsxMacros(rootMap, options)
+            codes.push(getGlobalTypes(options))
+          }
+        },
+      }
+    },
+  )
 export default plugin

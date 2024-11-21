@@ -10,18 +10,27 @@ import type { OptionsResolved } from '@vue-macros/config'
 import type { TsmVirtualCode } from 'ts-macro'
 
 export { transformJsxMacros } from './transform'
-export { globalTypes } from './global-types'
+export { getGlobalTypes } from './global-types'
 
 type UserOptions = MarkRequired<
   Exclude<OptionsResolved['jsxMacros'], false>,
-  'lib' | 'macros'
+  | 'lib'
+  | 'defineModel'
+  | 'defineSlots'
+  | 'defineStyle'
+  | 'defineExpose'
+  | 'defineComponent'
 >
 export type TransformOptions = Overwrite<
   TsmVirtualCode,
   {
     ts: typeof import('typescript')
     lib: UserOptions['lib']
-    macros: UserOptions['macros']
+    defineModel: UserOptions['defineModel']
+    defineSlots: UserOptions['defineSlots']
+    defineStyle: UserOptions['defineStyle']
+    defineExpose: UserOptions['defineExpose']
+    defineComponent: UserOptions['defineComponent']
   }
 >
 
@@ -100,10 +109,11 @@ function getMacro(
     return (
       ts.isIdentifier(expression.expression) &&
       [
-        ...(options.macros.defineModel ?? []),
-        ...(options.macros.defineExpose ?? []),
-        ...(options.macros.defineSlots ?? []),
-        ...(options.macros.defineStyle ?? []),
+        ...(options.defineModel.alias ?? ['defineModel']),
+        ...(options.defineSlots.alias ?? ['defineSlots']),
+        ...(options.defineStyle.alias ?? ['defineStyle']),
+        ...(options.defineExpose.alias ?? ['defineExpose']),
+        ...(options.defineComponent.alias ?? ['defineComponent']),
       ].includes(expression.expression.escapedText!) &&
       node
     )
@@ -137,7 +147,9 @@ export function getRootMap(options: TransformOptions): RootMap {
       parents[2] &&
       ts.isCallExpression(parents[2]) &&
       !parents[2].typeArguments &&
-      getText(parents[2].expression, options) === 'defineComponent'
+      options.defineComponent.alias.includes(
+        getText(parents[2].expression, options),
+      )
     ) {
       if (!rootMap.has(root)) rootMap.set(root, {})
       if (!rootMap.get(root)!.defineComponent) {
@@ -159,7 +171,7 @@ export function getRootMap(options: TransformOptions): RootMap {
     let isRequired = macro.isRequired
     if (!rootMap.has(root)) rootMap.set(root, {})
     const macroName = getText(expression.expression, options)
-    if (options.macros.defineModel?.includes(macroName)) {
+    if (options.defineModel.alias.includes(macroName)) {
       const modelName =
         expression.arguments[0] &&
         ts.isStringLiteralLike(expression.arguments[0])
@@ -214,7 +226,7 @@ export function getRootMap(options: TransformOptions): RootMap {
         getStart(initializer, options),
         `// @ts-ignore\n${id};\nlet ${id} =`,
       )
-    } else if (options.macros.defineSlots?.includes(macroName)) {
+    } else if (options.defineSlots.alias.includes(macroName)) {
       replaceSourceRange(
         codes,
         source,
@@ -223,7 +235,7 @@ export function getRootMap(options: TransformOptions): RootMap {
         `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
       )
       rootMap.get(root)!.defineSlots = `Partial<typeof ${HELPER_PREFIX}slots>`
-    } else if (options.macros.defineExpose?.includes(macroName)) {
+    } else if (options.defineExpose.alias.includes(macroName)) {
       replaceSourceRange(
         codes,
         source,

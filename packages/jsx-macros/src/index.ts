@@ -28,16 +28,22 @@ import { transformStyle } from './core/style'
 
 export type Options = BaseOptions & {
   lib?: 'vue' | 'vue/vapor' | 'react' | 'preact'
-  macros?: {
-    defineModel?: string[]
-    defineExpose?: string[]
-    defineSlots?: string[]
-    defineStyle?: string[]
-  }
+  defineComponent?: { alias: string[] }
+  defineModel?: { alias: string[] }
+  defineExpose?: { alias: string[] }
+  defineSlots?: { alias: string[] }
+  defineStyle?: { alias: string[] }
 }
 export type OptionsResolved = MarkRequired<
   Options,
-  'include' | 'version' | 'lib' | 'macros'
+  | 'include'
+  | 'version'
+  | 'lib'
+  | 'defineComponent'
+  | 'defineModel'
+  | 'defineExpose'
+  | 'defineSlots'
+  | 'defineStyle'
 >
 
 function resolveOptions(
@@ -53,12 +59,13 @@ function resolveOptions(
     ...options,
     version,
     lib,
-    macros: {
-      defineModel: options.macros?.defineModel ?? ['defineModel'],
-      defineSlots: options.macros?.defineSlots ?? ['defineSlots'],
-      defineExpose: options.macros?.defineExpose ?? ['defineExpose'],
-      defineStyle: options.macros?.defineStyle ?? ['defineStyle'],
+    defineComponent: {
+      alias: options?.defineComponent?.alias ?? ['defineComponent'],
     },
+    defineModel: { alias: options?.defineModel?.alias ?? ['defineModel'] },
+    defineSlots: { alias: options?.defineSlots?.alias ?? ['defineSlots'] },
+    defineExpose: { alias: options?.defineExpose?.alias ?? ['defineExpose'] },
+    defineStyle: { alias: options?.defineStyle?.alias ?? ['defineStyle'] },
   }
 }
 
@@ -88,17 +95,16 @@ const plugin: UnpluginInstance<Options | undefined, true> = createUnplugin(
           else if (id === withDefaultsHelperId) return withDefaultsCode
         },
 
-        transformInclude: filter,
-        transform(code, id) {
+        transformInclude(id) {
           if (importMap.get(id)) return
+          return filter(id)
+        },
+        transform(code, id) {
           return transformJsxMacros(code, id, importMap, options)
         },
       },
       {
         name: 'unplugin-define-style',
-        transformInclude: createFilter({
-          include: [new RegExp(`^${helperPrefix}/define-style`)],
-        }),
         loadInclude(id) {
           return normalizePath(id).startsWith(helperPrefix)
         },
@@ -106,8 +112,9 @@ const plugin: UnpluginInstance<Options | undefined, true> = createUnplugin(
           const id = normalizePath(_id)
           if (importMap.get(id)) return importMap.get(id)
         },
+        transformInclude: (id) => importMap.get(id),
         transform(code: string, id: string) {
-          if (importMap.get(id)) return transformStyle(code, id, options)
+          return transformStyle(code, id, options)
         },
       },
     ]
