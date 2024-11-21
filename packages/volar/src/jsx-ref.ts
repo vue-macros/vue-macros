@@ -76,26 +76,33 @@ function getRefNodes(
 }
 
 const plugin: PluginReturn<OptionsResolved['jsxRef'] | undefined> =
-  createPlugin(({ ts }, options = {}) => {
-    if (!options) return []
-    const filter = createFilter(options)
-    const alias = options.alias || ['useRef']
+  createPlugin(
+    (
+      { ts, vueCompilerOptions },
+      options = vueCompilerOptions?.vueMacros?.jsxRef === true
+        ? {}
+        : (vueCompilerOptions?.vueMacros?.jsxRef ?? {}),
+    ) => {
+      if (!options) return []
+      const filter = createFilter(options)
+      const alias = options.alias || ['useRef']
 
-    return {
-      name: 'vue-macros-jsx-ref',
-      resolveVirtualCode({ filePath, ast, codes, source, languageId }) {
-        if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
-        const nodes = getRefNodes(ts, ast, alias)
-        if (nodes.length) {
-          transformRef({
-            nodes,
-            codes,
-            ts,
-            source,
-          })
-        }
-      },
-    }
-  })
+      return {
+        name: 'vue-macros-jsx-ref',
+        resolveVirtualCode({ filePath, ast, codes, source, languageId }) {
+          if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
+          const nodes = getRefNodes(ts, ast, alias)
+          if (nodes.length) {
+            transformRef({
+              nodes,
+              codes,
+              ts,
+              source,
+            })
+          }
+        },
+      }
+    },
+  )
 
 export default plugin
