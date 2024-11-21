@@ -48,6 +48,8 @@ const plugin: VueLanguagePlugin = (ctx) =>
   Object.entries(plugins).flatMap(([name, plugin]) => {
     const options = getVolarOptions(ctx, name as keyof typeof plugins)
     if (!options) return []
+    ;(ctx.vueCompilerOptions.vueMacros ??= {})[name as keyof typeof plugins] ??=
+      options as any
     return plugin(ctx, options as any) as ReturnType<VueLanguagePlugin>
   })
 
