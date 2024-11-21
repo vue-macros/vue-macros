@@ -641,6 +641,25 @@ importers:
         specifier: 'catalog:'
         version: 1.15.0(webpack-sources@3.2.3)
 
+  packages/jsx:
+    dependencies:
+      '@vue-macros/config':
+        specifier: workspace:*
+        version: link:../config
+      '@vue-macros/jsx-directive':
+        specifier: workspace:*
+        version: link:../jsx-directive
+      '@vue-macros/volar':
+        specifier: workspace:*
+        version: link:../volar
+      unplugin-combine:
+        specifier: ^1.0.3
+        version: 1.0.3(@rspack/core@1.1.1(@swc/helpers@0.5.15))(esbuild@0.24.0)(rolldown@0.14.0)(rollup@4.27.2)(vite@5.4.11(@types/node@22.9.0)(less@4.2.0)(terser@5.36.0))(webpack@5.96.1(esbuild@0.24.0))
+    devDependencies:
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.13(typescript@5.6.3)
+
   packages/jsx-directive:
     dependencies:
       '@vue-macros/common':

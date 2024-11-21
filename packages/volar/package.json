@@ -102,6 +102,11 @@
       "require": "./dist/export-render.js",
       "import": "./dist/export-render.mjs"
     },
+    "./jsx": {
+      "dev": "./src/jsx.ts",
+      "require": "./dist/jsx.js",
+      "import": "./dist/jsx.mjs"
+    },
     "./jsx-directive": {
       "dev": "./src/jsx-directive.ts",
       "require": "./dist/jsx-directive.js",
@@ -223,6 +228,10 @@
       "./export-render": {
         "require": "./dist/export-render.js",
         "import": "./dist/export-render.mjs"
+      },
+      "./jsx": {
+        "require": "./dist/jsx.js",
+        "import": "./dist/jsx.mjs"
       },
       "./jsx-directive": {
         "require": "./dist/jsx-directive.js",
