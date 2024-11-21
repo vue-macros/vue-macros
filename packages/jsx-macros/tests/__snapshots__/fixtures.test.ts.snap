@@ -5,13 +5,13 @@ exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
 import { defineComponent as __MACROS_defineComponent } from "vue";
 import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-macros/with-defaults";
 import { useAttrs as __MACROS_useAttrs } from "vue";
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";
+import { useModel as __MACROS_defineModel } from "/vue-macros/jsx-macros/use-model";
 import { withAsyncContext as __MACROS_withAsyncContext } from "vue";import { defineComponent, nextTick } from 'vue'
 
 const Comp = __MACROS_defineComponent(
   (__MACROS_props) => {
 const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});const attrs = __MACROS_useAttrs();
-    const foo = __MACROS_useModel(__MACROS_props, 'foo', {
+    const foo = __MACROS_defineModel(__MACROS_props, 'foo', {
       validator: (value) => {
         return value === 'foo'
       },
@@ -26,7 +26,7 @@ const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, 
 )
 
 const Comp1 = __MACROS_defineComponent((props: { bar: 'bar'; 'onUpdate:bar': any }) => {
-  const foo = __MACROS_useModel(props, 'foo')
+  const foo = __MACROS_defineModel(props, 'foo')
   return () => <div>{[foo.value, props['bar'], props['onUpdate:bar']]}</div>
 }, { props: { 'bar': null, 'onUpdate:bar': null, 'foo': null, 'onUpdate:foo': null } })
 
@@ -65,13 +65,13 @@ import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export d
 
 exports[`fixtures > ./fixtures/define-model.tsx 1`] = `
 "
-import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props }: { bar: string }) => {
-  const foo = __MACROS_useModel(__MACROS_props, 'foo', { default: bar })!
+import { useModel as __MACROS_defineModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props }: { bar: string }) => {
+  const foo = __MACROS_defineModel(__MACROS_props, 'foo', { default: bar })!
   return <div>{foo.value}</div>
 }
 
 export default function (__MACROS_props) {
-  const modelValue = __MACROS_useModel<string>(__MACROS_props, 'modelValue',)!
+  const modelValue = __MACROS_defineModel<string>(__MACROS_props, 'modelValue',)!
   return (
     <Comp v-model:foo={modelValue.value} bar="bar">
       {modelValue.value}
@@ -87,14 +87,14 @@ import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export c
   const slots = Object.assign<{
     default: () => any
   }>({}, __MACROS_getCurrentInstance()?.slots)
-  return <div>{slots.default()}</div>
+  return <div>{slots.default?.()}</div>
 }
 
 export default function (__MACROS_props) {
   const slots = Object.assign({
     default: () => <div>default</div>,
   },__MACROS_getCurrentInstance()?.slots)
-  return <div>{slots.default()}</div>
+  return <div>{slots.default?.()}</div>
 }
 "
 `;
