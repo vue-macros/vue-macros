@@ -1,5 +1,6 @@
 import { resolveOptions, type Options } from '@vue-macros/config'
 import VueJsxDirective from '@vue-macros/jsx-directive'
+import VueJsxMacros from '@vue-macros/jsx-macros'
 
 import {
   createCombinePlugin,
@@ -21,6 +22,9 @@ const plugin: UnpluginCombineInstance<JSXOptions | undefined> =
     const plugins = [
       options.jsxDirective
         ? VueJsxDirective[framework](options.jsxDirective)
+        : undefined,
+      options.jsxMacros
+        ? VueJsxMacros[framework](options.jsxMacros)
         : undefined,
     ].filter((plugin) => !!plugin)
 
