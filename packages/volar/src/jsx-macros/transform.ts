@@ -32,6 +32,7 @@ export function transformJsxMacros(
       getStart(root.parameters, options),
       getStart(root.parameters, options),
       `${HELPER_PREFIX}props: Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['props'] & ${propsType},`,
+      `${HELPER_PREFIX}placeholder?: {},`,
       `${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`,
     )
     if (ts.isArrowFunction(root)) {
@@ -59,7 +60,7 @@ export function transformJsxMacros(
 
     ts.forEachChild(root.body, (node) => {
       if (ts.isReturnStatement(node) && node.expression) {
-        const defaultProps = []
+        const props = [...(map.defineModel ?? [])]
         const elements =
           root.parameters[0] &&
           !root.parameters[0].type &&
@@ -68,7 +69,7 @@ export function transformJsxMacros(
             : []
         for (const element of elements) {
           if (ts.isIdentifier(element.name))
-            defaultProps.push(
+            props.push(
               `${element.name.escapedText}${
                 element.initializer &&
                 ts.isNonNullExpression(element.initializer)
@@ -87,9 +88,8 @@ export function transformJsxMacros(
           source,
           getStart(node, options),
           getStart(node.expression, options),
-          `return {\nprops: {} as `,
-          defaultProps.length ? `{ ${defaultProps.join(', ')} } & ` : '',
-          `{ vSlots?: ${map.defineSlots ?? '{}'}, ${map.defineModel?.join(', ') ?? ''} }`,
+          `return {\nprops: {} as { ${props.join(', ')} }`,
+          `,\nslots: {} as ${map.defineSlots ?? '{}'}`,
           `,\nexpose: (exposed: ${
             options.lib === 'vue'
               ? `import('vue').ShallowUnwrapRef`
