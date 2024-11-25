@@ -15,6 +15,7 @@ export type JSXOptions = Pick<Options, 'jsxDirective' | 'jsxMacros' | 'jsxRef'>
 const name = generatePluginName()
 const plugin: UnpluginCombineInstance<JSXOptions | undefined> =
   createCombinePlugin<JSXOptions | undefined>((userOptions = {}, meta) => {
+    userOptions.jsxMacros ??= true
     const options = resolveOptions(userOptions)
 
     const framework = meta.framework!
