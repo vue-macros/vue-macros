@@ -1,11 +1,11 @@
 /* eslint perfectionist/sort-imports: ["error", {
   customGroups: {
     "value": {
-      "vue-macros": ["@vue-macros/**", "unplugin-vue-define-options"]
+      "vue-macros": ["@vue-macros/.*", "unplugin-vue-define-options"]
     },
   },
   groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'vue-macros'],
-  internalPattern: ['#**'],
+  internalPattern: ['#.*'],
   newlinesBetween: 'ignore',
 }] */
 /* eslint perfectionist/sort-interfaces: ["error", { ignorePattern: ["OptionsCommon"] }] */
