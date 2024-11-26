@@ -8,5 +8,5 @@ const count = ref(0)
 
 <template>
   <div>Count: {{ count }}</div>
-  <Child @increment="count++" @decrement="(count -= $event)" />
+  <Child @increment="count++" @decrement="count -= $event" />
 </template>
