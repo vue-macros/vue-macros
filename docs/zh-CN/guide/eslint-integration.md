@@ -23,7 +23,7 @@ npm i -D @vue-macros/eslint-config
 ### Flat 风格配置
 
 ```js [eslint.config.js]
-import vueMacros from '@vue-macros/eslint-config'
+import vueMacros from '@vue-macros/eslint-config/flat'
 export default [
   vueMacros,
   // ...其他配置
