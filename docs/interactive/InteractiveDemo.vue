@@ -126,7 +126,7 @@ onServerPrefetch(() => formatCode())
             >
               <button
                 :class="['custom-button', { active: state[key] === value }]"
-                @click="(state[key] as any) = value as any"
+                @click="((state[key] as any) = value as any)"
               >
                 {{ value }}
               </button>
