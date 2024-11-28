@@ -6,8 +6,8 @@ import {
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
-import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { generatePluginName } from '#macros' with { type: 'macro' }
+import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { transformSetupBlock } from './core'
 
 export interface Options extends BaseOptions {
