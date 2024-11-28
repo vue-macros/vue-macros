@@ -40,14 +40,14 @@
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.10",
     "@rspack/core": "^1.1.4",
-    "@sxzz/eslint-config": "^4.5.0",
+    "@sxzz/eslint-config": "^4.5.1",
     "@sxzz/prettier-config": "^2.0.2",
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.10.1",
     "@vitest/coverage-v8": "^2.1.6",
     "@vitest/ui": "^2.1.6",
     "@vue-macros/test-utils": "workspace:*",
     "change-case": "^5.4.4",
-    "cspell": "^8.16.0",
+    "cspell": "^8.16.1",
     "esbuild": "^0.24.0",
     "eslint": "^9.15.0",
     "expect-type": "^1.1.0",
@@ -69,7 +69,7 @@
     "typescript": "catalog:",
     "unocss": "^0.64.1",
     "unplugin": "catalog:",
-    "unplugin-isolated-decl": "^0.8.3",
+    "unplugin-isolated-decl": "^0.9.0",
     "unplugin-macros": "^0.13.6",
     "unplugin-raw": "^0.2.3",
     "unplugin-unused": "^0.2.3",
@@ -100,7 +100,8 @@
       "esbuild": "^0.24.0",
       "is-core-module": "npm:@no-shims/is-core-module",
       "smartwrap": "npm:@no-shims/smartwrap",
-      "vite": "^6.0.0"
+      "vite": "catalog:",
+      "vite-plugin-inspect": "^0.10.1"
     }
   },
   "prettier": "@sxzz/prettier-config"
