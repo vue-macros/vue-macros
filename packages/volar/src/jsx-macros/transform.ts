@@ -31,12 +31,20 @@ export function transformJsxMacros(
       source,
       getStart(root.parameters, options),
       getStart(root.parameters, options),
+      ts.isArrowFunction(root) && root.parameters.pos === root.pos ? '(' : '',
       `${HELPER_PREFIX}props: Awaited<ReturnType<typeof ${HELPER_PREFIX}setup>>['props'] & ${propsType},`,
       `${HELPER_PREFIX}placeholder?: {},`,
       `${HELPER_PREFIX}setup = (${asyncModifier ? 'async' : ''}(`,
     )
     if (ts.isArrowFunction(root)) {
-      replaceSourceRange(codes, source, root.end, root.end, `)) => `, result)
+      replaceSourceRange(
+        codes,
+        source,
+        root.end,
+        root.end,
+        `))${root.pos === root.parameters.pos ? ')' : ''} => `,
+        result,
+      )
     } else {
       replaceSourceRange(
         codes,
