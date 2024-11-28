@@ -9,12 +9,12 @@ import {
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
-import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformDefineProp, type Edition } from './core'
 import { helperCode, helperId } from './core/helper'
 

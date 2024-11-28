@@ -2,11 +2,11 @@ import { resolveOptions, type Options } from '@vue-macros/config'
 import VueJsxDirective from '@vue-macros/jsx-directive'
 import VueJsxMacros from '@vue-macros/jsx-macros'
 
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createCombinePlugin,
   type UnpluginCombineInstance,
 } from 'unplugin-combine'
-import { generatePluginName } from '#macros' with { type: 'macro' }
 
 export { defineConfig, resolveOptions, type Options } from '@vue-macros/config'
 

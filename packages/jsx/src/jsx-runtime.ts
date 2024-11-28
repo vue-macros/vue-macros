@@ -10,7 +10,7 @@ function jsx(type: any, props: any, key: any): ReturnType<typeof h> {
   return h(type, props, children)
 }
 
-export { Fragment, jsx, jsx as jsxs, jsx as jsxDEV }
+export { Fragment, jsx, jsx as jsxDEV, jsx as jsxs }
 
 type VNode = import('vue').VNode
 type ReservedProps = import('vue').ReservedProps

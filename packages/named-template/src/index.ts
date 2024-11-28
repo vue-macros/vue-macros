@@ -5,8 +5,8 @@ import {
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
-import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { generatePluginName } from '#macros' with { type: 'macro' }
+import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,

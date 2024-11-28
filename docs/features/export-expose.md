@@ -104,7 +104,7 @@ export { foo, type Foo }
 // #endregion export-file
 // ---cut---
 // @noErrors
-export { foo, foo as bar, type Foo } from './types'
+export { foo as bar, foo, type Foo } from './types'
 </script>
 ```
 
