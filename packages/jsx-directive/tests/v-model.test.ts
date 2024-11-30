@@ -5,9 +5,10 @@ import { transformJsxDirective } from '../src/api'
 describe('jsx-vue-directive', () => {
   describe('v-model', async () => {
     await testFixtures(
-      import.meta.glob('./fixtures/v-model/*.{vue,jsx,tsx}', {
+      import.meta.glob<string>('./fixtures/v-model/*.{vue,jsx,tsx}', {
         eager: true,
-        as: 'raw',
+        query: '?raw',
+        import: 'default',
       }),
       (_, id, code) => transformJsxDirective(code, id, 3)?.code,
     )

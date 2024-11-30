@@ -4,9 +4,10 @@ import { transformExportProps } from '../src/core'
 
 describe('fixtures', async () => {
   await testFixtures(
-    import.meta.glob('./fixtures/*.{vue,js,ts}', {
+    import.meta.glob<string>('./fixtures/*.{vue,js,ts}', {
       eager: true,
-      as: 'raw',
+      query: '?raw',
+      import: 'default',
     }),
     (args, id, code) => transformExportProps(code, id)?.code,
   )
