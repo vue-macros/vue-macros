@@ -1,6 +1,7 @@
 import { replaceSourceRange } from 'muggle-string'
 import { getText, isJsxExpression } from '../common'
 import { resolveCtxMap, type CtxMap } from './context'
+import { transformCustomDirective } from './custom-directive'
 import { transformRef } from './ref'
 import { transformVBind } from './v-bind'
 import { transformVFor } from './v-for'
@@ -46,6 +47,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   const vBindNodes: JsxDirective[] = []
   const refNodes: JsxDirective[] = []
   const vSlots: JsxDirective[] = []
+  const customDirectives: JsxDirective['attribute'][] = []
 
   const ctxNodeMap: CtxMap = new Map()
 
@@ -100,6 +102,8 @@ export function transformJsxDirective(options: TransformOptions): void {
         )
       ) {
         replaceSourceRange(codes, source, attribute.pos, attribute.end)
+      } else if (attributeName.startsWith('v-')) {
+        customDirectives.push(attribute)
       }
     }
 
@@ -221,6 +225,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   transformVBind(vBindNodes, options)
   transformRef(refNodes, ctxMap, options)
   transformVSlots(vSlots, ctxMap, options)
+  transformCustomDirective(customDirectives, options)
 }
 
 export function getOpeningElement(
