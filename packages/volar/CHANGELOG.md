@@ -1,5 +1,16 @@
 # @vue-macros/volar
 
+## 0.30.7
+### Patch Changes
+
+
+
+- [#851](https://github.com/vue-macros/vue-macros/pull/851) [`d210a14`](https://github.com/vue-macros/vue-macros/commit/d210a1491506adf6345db356671f983dc78a8bd7) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - compatible with ts-macro
+
+
+
+- [#867](https://github.com/vue-macros/vue-macros/pull/867) [`7f1281a`](https://github.com/vue-macros/vue-macros/commit/7f1281ac21982b97b0ea779a5329917c3077e8d9) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support custom-directive
+
 ## 0.30.6
 ### Patch Changes
 
