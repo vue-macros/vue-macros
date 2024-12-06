@@ -45,6 +45,7 @@ import VueSetupSFC from '@vue-macros/setup-sfc'
 import VueShortBind from '@vue-macros/short-bind'
 import VueShortEmits from '@vue-macros/short-emits'
 import VueShortVmodel from '@vue-macros/short-vmodel'
+import VueSimpleDefine from '@vue-macros/simple-define'
 import VueDefineOptions from 'unplugin-vue-define-options'
 
 export { defineConfig, resolveOptions, type Options } from '@vue-macros/config'
@@ -89,6 +90,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
 
       // convert to runtime props & emits
       resolvePlugin(VueBetterDefine, framework, options.betterDefine),
+      resolvePlugin(VueSimpleDefine, framework, options.simpleDefine),
 
       // runtime props
       resolvePlugin(VueDefineProp, framework, options.defineProp),

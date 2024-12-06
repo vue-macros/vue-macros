@@ -142,6 +142,11 @@
       "require": "./dist/short-vmodel.js",
       "import": "./dist/short-vmodel.mjs"
     },
+    "./simple-define": {
+      "dev": "./src/simple-define.ts",
+      "require": "./dist/simple-define.js",
+      "import": "./dist/simple-define.mjs"
+    },
     "./template-ref": {
       "dev": "./src/template-ref.ts",
       "require": "./dist/template-ref.js",
@@ -250,6 +255,10 @@
       "./short-vmodel": {
         "require": "./dist/short-vmodel.js",
         "import": "./dist/short-vmodel.mjs"
+      },
+      "./simple-define": {
+        "require": "./dist/simple-define.js",
+        "import": "./dist/simple-define.mjs"
       },
       "./template-ref": {
         "require": "./dist/template-ref.js",
