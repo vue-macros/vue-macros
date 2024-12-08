@@ -65,7 +65,13 @@ export function transformJsxMacros(
         propsName = root.params[0].name
       } else if (root.params[0].type === 'ObjectPattern') {
         const lastProp = root.params[0].properties.at(-1)
-        if (lastProp?.type !== 'RestElement') {
+        if (
+          !map.defineComponent &&
+          lastProp?.type === 'RestElement' &&
+          lastProp.argument.type === 'Identifier'
+        ) {
+          propsName = lastProp.argument.name
+        } else {
           s.appendRight(
             root.params[0].extra?.trailingComma
               ? (root.params[0].extra?.trailingComma as number) + 1
@@ -95,7 +101,14 @@ export function transformJsxMacros(
       transformDefineSlots(map.defineSlots, propsName, s, options.lib)
     }
     if (map.defineExpose) {
-      transformDefineExpose(map.defineExpose, root, s, options.lib)
+      transformDefineExpose(
+        map.defineExpose,
+        propsName,
+        root,
+        s,
+        options.lib,
+        options.version,
+      )
     }
   }
 

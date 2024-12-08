@@ -9,31 +9,63 @@ import type { CallExpression, Node } from '@babel/types'
 
 export function transformReactDefineExpose(
   node: CallExpression,
+  propsName: string,
   root: FunctionalNode,
   s: MagicStringAST,
   lib: string,
+  version: number,
 ): void {
-  if (root.type === 'FunctionDeclaration' && root.id) {
-    s.prependLeft(root.start!, `const ${s.sliceNode(root.id)} = `)
-  }
-  s.appendLeft(
-    root.start!,
-    `${importHelperFn(s, 0, 'forwardRef', lib === 'preact' ? 'preact/compat' : lib)}(`,
+  const useImperativeHandle = importHelperFn(
+    s,
+    0,
+    'useImperativeHandle',
+    lib === 'preact' ? 'preact/hooks' : lib,
   )
+  const isReact19 = lib === 'react' && version >= 19
+  let refName = ''
+  if (isReact19) {
+    if (root.params[0]?.type === 'ObjectPattern') {
+      for (const prop of root.params[0].properties) {
+        if (
+          prop.type === 'ObjectProperty' &&
+          prop.key.type === 'Identifier' &&
+          prop.key.name === 'ref'
+        ) {
+          refName =
+            prop.value.type === 'Identifier' ? prop.value.name : prop.key.name
+          break
+        }
+      }
+    } else {
+      refName = `${propsName}.ref`
+    }
+  } else {
+    const forwardRef = importHelperFn(
+      s,
+      0,
+      'forwardRef',
+      lib === 'preact' ? 'preact/compat' : lib,
+    )
+    if (root.type === 'FunctionDeclaration' && root.id) {
+      s.appendLeft(root.start!, `const ${root.id.name} = `)
+    }
+    s.appendLeft(root.start!, `${forwardRef}(`)
 
-  const refName = root.params[1]
-    ? s.sliceNode(root.params[1])
-    : `${HELPER_PREFIX}ref`
-  if (!root.params[0]) {
-    s.appendRight(getParamsStart(root, s.original), `, ${refName}`)
-  } else if (!root.params[1]) {
-    s.appendLeft(root.params[0].end!, `, ${refName}`)
+    refName = root.params[1]
+      ? s.sliceNode(root.params[1])
+      : `${HELPER_PREFIX}ref`
+    if (!root.params[0]) {
+      s.appendRight(getParamsStart(root, s.original), `, ${refName}`)
+    } else if (!root.params[1]) {
+      s.appendLeft(root.params[0].end!, `, ${refName}`)
+    }
+    s.appendRight(root.end!, `)`)
   }
 
   s.overwrite(
     node.start!,
     node.arguments[0].start!,
-    `${importHelperFn(s, 0, 'useImperativeHandle', lib === 'preact' ? 'preact/hooks' : lib)}(${refName}, () =>(`,
+    `${useImperativeHandle}(${refName}, () =>(`,
   )
   const result = new Set()
   walkIdentifiers(
@@ -68,6 +100,4 @@ export function transformReactDefineExpose(
     node.arguments[0].end!,
     `), ${`[${result.size ? [...result] : ''}]`}`,
   )
-
-  s.appendRight(root.end!, `)`)
 }
