@@ -32,7 +32,7 @@ console.log(foo.value, bar.value)
 
 ```vue twoslash {2-3,8}
 <script setup lang="ts">
-import { withDefaults } from 'unplugin-vue-macros/macros'
+import { withDefaults } from 'unplugin-vue-macros/macros' with { type: 'macro' }
 
 const { foo } = withDefaults(
   definePropsRefs<{
