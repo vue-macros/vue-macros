@@ -1,5 +1,11 @@
 # unplugin-vue-macros
 
+## 2.13.5
+### Patch Changes
+
+- Updated dependencies [[`d210a14`](https://github.com/vue-macros/vue-macros/commit/d210a1491506adf6345db356671f983dc78a8bd7), [`7f1281a`](https://github.com/vue-macros/vue-macros/commit/7f1281ac21982b97b0ea779a5329917c3077e8d9)]:
+  - @vue-macros/volar@0.30.7
+
 ## 2.13.4
 ### Patch Changes
 

@@ -85,7 +85,7 @@ export function transformDefineStyle(
   s.appendLeft(
     0,
     isDeclaration
-      ? `import style${index} from "${importId}"`
+      ? `import style${index} from "${importId}";`
       : `import "${importId}";`,
   )
   s.overwriteNode(expression, isDeclaration ? `style${index}` : '')

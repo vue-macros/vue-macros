@@ -28,9 +28,10 @@ describe('fixtures', async () => {
     },
   )
   await testFixtures(
-    import.meta.glob('./fixtures/definePropsRefs.vue', {
+    import.meta.glob<string>('./fixtures/definePropsRefs.vue', {
       eager: true,
-      as: 'raw',
+      query: '?raw',
+      import: 'default',
     }),
     (_, id, code) => transformChainCall(code, id)?.code,
   )

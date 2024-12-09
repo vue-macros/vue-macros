@@ -2,13 +2,12 @@
 
 exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
 "
-import { defineComponent as __MACROS_defineComponent } from "vue";
 import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-macros/with-defaults";
 import { useAttrs as __MACROS_useAttrs } from "vue";
 import { useModel as __MACROS_defineModel } from "/vue-macros/jsx-macros/use-model";
 import { withAsyncContext as __MACROS_withAsyncContext } from "vue";import { defineComponent, nextTick } from 'vue'
 
-const Comp = __MACROS_defineComponent(
+const Comp = defineComponent(
   (__MACROS_props) => {
 const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});const attrs = __MACROS_useAttrs();
     const foo = __MACROS_defineModel(__MACROS_props, 'foo', {
@@ -25,12 +24,12 @@ const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, 
       }, required: false, type: String }, 'onUpdate:foo': null },inheritAttrs: false, name: 'Comp' },
 )
 
-const Comp1 = __MACROS_defineComponent((props: { bar: 'bar'; 'onUpdate:bar': any }) => {
+const Comp1 = defineComponent((props: { bar: 'bar'; 'onUpdate:bar': any }) => {
   const foo = __MACROS_defineModel(props, 'foo')
   return () => <div>{[foo.value, props['bar'], props['onUpdate:bar']]}</div>
 }, { props: { 'bar': null, 'onUpdate:bar': null, 'foo': null, 'onUpdate:foo': null } })
 
-const Comp2 = __MACROS_defineComponent(async (__MACROS_props) => {
+const Comp2 = defineComponent(async (__MACROS_props) => {
 let __temp, __restore
 
   ;(
@@ -54,7 +53,21 @@ let __temp, __restore
 exports[`fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
 import { useExpose as __MACROS_useExpose } from "/vue-macros/jsx-macros/use-expose";
-import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export default function (__MACROS_props) {
+import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export function Comp(__MACROS_props) {
+  __MACROS_useExpose(__MACROS_getCurrentInstance(), {
+    foo: 1,
+  })
+  return <div />
+}
+
+export const Comp1 = function (_props: any) {
+  __MACROS_useExpose(__MACROS_getCurrentInstance(), {
+    foo: 1,
+  })
+  return <div />
+}
+
+export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
     foo: 1,
   })
@@ -100,8 +113,7 @@ export default function (__MACROS_props) {
 `;
 
 exports[`fixtures > ./fixtures/define-style.tsx 1`] = `
-"import "/vue-macros/jsx-macros/define-style?index=0&scopeId=4e9d5cd0&scoped=true&lang.css";import style0 from "/vue-macros/jsx-macros/define-style?index=0&scopeId=426a859d&scoped=false&lang.module.scss"
-import { defineComponent as __MACROS_defineComponent } from "vue";import "/vue-macros/jsx-macros/define-style?index=0&scopeId=63a7910c&scoped=false&lang.scss";import { defineComponent, ref } from 'vue'
+"import "/vue-macros/jsx-macros/define-style?index=0&scopeId=4e9d5cd0&scoped=true&lang.css";import style0 from "/vue-macros/jsx-macros/define-style?index=0&scopeId=426a859d&scoped=false&lang.module.scss";import "/vue-macros/jsx-macros/define-style?index=0&scopeId=63a7910c&scoped=false&lang.scss";import { defineComponent, ref } from 'vue'
 
 export const Comp = (__MACROS_props) => {
   const color = ref('red')
@@ -109,7 +121,7 @@ export const Comp = (__MACROS_props) => {
   return <div {...{style:{'--4e9d5cd0-color-value': color.value}}} data-v-4e9d5cd0="" class="foo">foo</div>
 }
 
-export default __MACROS_defineComponent((__MACROS_props) => {
+export default defineComponent((__MACROS_props) => {
   const color = ref('red')
   const styles = style0
   return () => (
@@ -128,12 +140,51 @@ export default __MACROS_defineComponent((__MACROS_props) => {
 
 exports[`react fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
-import { forwardRef as __MACROS_forwardRef } from "react";
-import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";export default __MACROS_forwardRef(function (__MACROS_props, __MACROS_ref) {
+import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";
+import { forwardRef as __MACROS_forwardRef } from "react";export const Comp = __MACROS_forwardRef(function Comp(__MACROS_props, __MACROS_ref) {
   __MACROS_useImperativeHandle(__MACROS_ref, () =>({
     foo: 1,
   }), [])
   return <div />
 })
+
+export const Comp1 = __MACROS_forwardRef(function (_props: any, __MACROS_ref) {
+  __MACROS_useImperativeHandle(__MACROS_ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+})
+
+export const Comp2 = __MACROS_forwardRef(({ ref: _ref, ...__MACROS_props }: any, __MACROS_ref) => {
+  __MACROS_useImperativeHandle(__MACROS_ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+})
+"
+`;
+
+exports[`react19 fixtures > ./fixtures/define-expose.tsx 1`] = `
+"
+import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";export function Comp(__MACROS_props) {
+  __MACROS_useImperativeHandle(__MACROS_props.ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+}
+
+export const Comp1 = function (_props: any) {
+  __MACROS_useImperativeHandle(_props.ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+}
+
+export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
+  __MACROS_useImperativeHandle(_ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+}
 "
 `;
