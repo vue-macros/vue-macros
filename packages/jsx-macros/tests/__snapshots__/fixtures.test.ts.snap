@@ -53,21 +53,21 @@ let __temp, __restore
 exports[`fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
 import { useExpose as __MACROS_useExpose } from "/vue-macros/jsx-macros/use-expose";
-import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export function Comp (__MACROS_props) {
+import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export function Comp(__MACROS_props) {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
     foo: 1,
   })
   return <div />
 }
 
-export const Comp1 = function(_props: any){
+export const Comp1 = function (_props: any) {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
     foo: 1,
   })
   return <div />
 }
 
-export const Comp2 = ({ref: _ref, ...__MACROS_props}: any)=>{
+export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
     foo: 1,
   })
@@ -141,21 +141,21 @@ export default defineComponent((__MACROS_props) => {
 exports[`react fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
 import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";
-import { forwardRef as __MACROS_forwardRef } from "react";export const Comp = __MACROS_forwardRef(function Comp (__MACROS_props, __MACROS_ref) {
+import { forwardRef as __MACROS_forwardRef } from "react";export const Comp = __MACROS_forwardRef(function Comp(__MACROS_props, __MACROS_ref) {
   __MACROS_useImperativeHandle(__MACROS_ref, () =>({
     foo: 1,
   }), [])
   return <div />
 })
 
-export const Comp1 = __MACROS_forwardRef(function(_props: any, __MACROS_ref){
+export const Comp1 = __MACROS_forwardRef(function (_props: any, __MACROS_ref) {
   __MACROS_useImperativeHandle(__MACROS_ref, () =>({
     foo: 1,
   }), [])
   return <div />
 })
 
-export const Comp2 = __MACROS_forwardRef(({ref: _ref, ...__MACROS_props}: any, __MACROS_ref)=>{
+export const Comp2 = __MACROS_forwardRef(({ ref: _ref, ...__MACROS_props }: any, __MACROS_ref) => {
   __MACROS_useImperativeHandle(__MACROS_ref, () =>({
     foo: 1,
   }), [])
@@ -166,21 +166,21 @@ export const Comp2 = __MACROS_forwardRef(({ref: _ref, ...__MACROS_props}: any, _
 
 exports[`react19 fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
-import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";export function Comp (__MACROS_props) {
+import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";export function Comp(__MACROS_props) {
   __MACROS_useImperativeHandle(__MACROS_props.ref, () =>({
     foo: 1,
   }), [])
   return <div />
 }
 
-export const Comp1 = function(_props: any){
+export const Comp1 = function (_props: any) {
   __MACROS_useImperativeHandle(_props.ref, () =>({
     foo: 1,
   }), [])
   return <div />
 }
 
-export const Comp2 = ({ref: _ref, ...__MACROS_props}: any)=>{
+export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
   __MACROS_useImperativeHandle(_ref, () =>({
     foo: 1,
   }), [])
