@@ -35,6 +35,7 @@ export const zhCN = {
   en: 'zh-CN',
 
   'Loading...': '加载中…',
+  Example: '示例',
   'Interactive Example': '交互式示例',
 }
 
