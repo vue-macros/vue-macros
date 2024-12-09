@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > tests/fixtures/basic.vue 1`] = `
+"import { defineComponent, toDisplayString } from 'vue';
+import __MACROS_useDefaults from '/vue-macros/simple-define/use-defaults';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  props: [\\"msg\\", \\"foo\\"],
+  emits: [\\"update\\"],
+  setup(__props, { emit }) {
+    const __MACROS_props = __props;
+    const props = __MACROS_useDefaults(__MACROS_props, {
+      msg: \\"foo\\",
+      foo: void 0
+    });
+    expectTypeOf(props);
+    emit(\\"update\\", \\"hello world\\");
+    return (_ctx, _cache) => {
+      return toDisplayString(__props.msg) + \\" \\" + toDisplayString(__props.foo);
+    };
+  }
+});
+
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/no-key.vue 1`] = `
+"import { defineComponent, useAttrs } from 'vue';
+import { expectTypeOf } from 'expect-type';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"no-key\\",
+  setup(__props) {
+    const props = useAttrs();
+    expectTypeOf(props);
+    return () => {
+    };
+  }
+});
+
+var noKey = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { noKey as default };
+"
+`;
