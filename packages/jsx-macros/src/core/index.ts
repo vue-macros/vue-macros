@@ -19,6 +19,7 @@ import type {
   FunctionDeclaration,
   FunctionExpression,
   Node,
+  Program,
 } from '@babel/types'
 
 export type FunctionalNode =
@@ -50,7 +51,8 @@ export function transformJsxMacros(
   options: OptionsResolved,
 ): CodeTransform | undefined {
   const s = new MagicStringAST(code)
-  const rootMap = getRootMap(s, id, options)
+  const ast = babelParse(s.original, getLang(id))
+  const rootMap = getRootMap(ast, s, options)
 
   for (const [root, map] of rootMap) {
     map.defineStyle?.forEach((defineStyle, index) => {
@@ -90,7 +92,14 @@ export function transformJsxMacros(
     }
 
     if (map.defineComponent) {
-      transformDefineComponent(root, propsName, map, s, options)
+      transformDefineComponent(
+        root,
+        propsName,
+        map,
+        s,
+        ast,
+        options.defineComponent.alias[0],
+      )
     }
     if (map.defineModel?.length) {
       map.defineModel.forEach(({ expression }) => {
@@ -115,10 +124,10 @@ export function transformJsxMacros(
   return generateTransform(s, id)
 }
 
-function getRootMap(s: MagicStringAST, id: string, options: OptionsResolved) {
+function getRootMap(ast: Program, s: MagicStringAST, options: OptionsResolved) {
   const parents: (Node | undefined | null)[] = []
   const rootMap = new Map<FunctionalNode | undefined, RootMapValue>()
-  walkAST<Node>(babelParse(s.original, getLang(id)), {
+  walkAST<Node>(ast, {
     enter(node, parent) {
       parents.unshift(parent)
       const root =

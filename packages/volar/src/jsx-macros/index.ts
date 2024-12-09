@@ -109,11 +109,11 @@ function getMacro(
     return (
       ts.isIdentifier(expression.expression) &&
       [
-        ...(options.defineModel.alias ?? ['defineModel']),
-        ...(options.defineSlots.alias ?? ['defineSlots']),
-        ...(options.defineStyle.alias ?? ['defineStyle']),
-        ...(options.defineExpose.alias ?? ['defineExpose']),
-        ...(options.defineComponent.alias ?? ['defineComponent']),
+        ...options.defineModel.alias,
+        ...options.defineSlots.alias,
+        ...options.defineStyle.alias,
+        ...options.defineExpose.alias,
+        ...options.defineComponent.alias,
       ].includes(expression.expression.escapedText!) &&
       node
     )
