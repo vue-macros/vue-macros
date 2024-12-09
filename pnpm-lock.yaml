@@ -193,9 +193,12 @@ importers:
         specifier: ^1.24.0
         version: 1.24.0
     devDependencies:
-      '@iconify/json':
-        specifier: ^2.2.279
-        version: 2.2.279
+      '@iconify-json/logos':
+        specifier: ^1.2.3
+        version: 1.2.3
+      '@iconify-json/ri':
+        specifier: ^1.2.3
+        version: 1.2.3
       '@nolebase/vitepress-plugin-enhanced-mark':
         specifier: ^2.11.1
         version: 2.11.1(@algolia/client-search@5.15.0)(@types/node@22.10.1)(change-case@5.4.4)(jiti@2.4.1)(postcss@8.4.49)(terser@5.36.0)(tsx@4.19.2)(typescript@5.6.3)(yaml@2.6.1)
@@ -1945,14 +1948,14 @@ packages:
   '@iconify-json/octicon@1.2.1':
     resolution: {integrity: sha512-4w7yMipQtp6s6aCHrSVlVXsf0OCBQ8CRmUTkMQUBexR42SXl4z5GnaUyaOMVoZttfgaBNnj0mlMB5T1cmRDgTg==}
 
+  '@iconify-json/ri@1.2.3':
+    resolution: {integrity: sha512-UVKofd5xkSevGd5K01pvO4NWsu+2C9spu+GxnMZUYymUiaWmpCAxtd22MFSpm6MGf0MP4GCwhDCo1Q8L8oZ9wg==}
+
   '@iconify-json/simple-icons@1.2.13':
     resolution: {integrity: sha512-rRQjMoIt/kPfaD+fnBC9YZQpso3hkn8xPeadl+YWhscJ5SVUCdB9oTeR9VIpt+/5Yi8vEkh2UOWFPq4lz3ee2A==}
 
   '@iconify-json/vscode-icons@1.2.3':
     resolution: {integrity: sha512-0mhgdamMkdO2up0DbiJSjTXkfnyPJTYYzvh4POSVvcYNl1A48PIUWkhYmxKGSCk/xn3czAOJaGjjMeXrM/HjEQ==}
-
-  '@iconify/json@2.2.279':
-    resolution: {integrity: sha512-9HJWOos32Qik+Mg0fTgP/FgoCpswQPAsFAJtGQv7PN3KQ3Dwta5DDfpEj/QSwdNB9xJ/gI+aFhSlULgeah7eFA==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -7486,6 +7489,10 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
+  '@iconify-json/ri@1.2.3':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify-json/simple-icons@1.2.13':
     dependencies:
       '@iconify/types': 2.0.0
@@ -7493,11 +7500,6 @@ snapshots:
   '@iconify-json/vscode-icons@1.2.3':
     dependencies:
       '@iconify/types': 2.0.0
-
-  '@iconify/json@2.2.279':
-    dependencies:
-      '@iconify/types': 2.0.0
-      pathe: 1.1.2
 
   '@iconify/types@2.0.0': {}
 
