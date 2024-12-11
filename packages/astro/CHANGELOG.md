@@ -1,5 +1,15 @@
 # @vue-macros/astro
 
+## 0.6.11
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+- Updated dependencies [[`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703)]:
+  - unplugin-vue-macros@2.13.6
+
 ## 0.6.10
 ### Patch Changes
 
