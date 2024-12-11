@@ -28,8 +28,8 @@ catalogs:
       specifier: ^5.6.3
       version: 5.6.3
     unplugin:
-      specifier: ^2.0.0-beta.1
-      version: 2.0.0-beta.1
+      specifier: ^1.16.0
+      version: 1.16.0
     vite-plugin-stylex:
       specifier: ^0.13.0
       version: 0.13.0
@@ -149,7 +149,7 @@ importers:
         version: 0.65.1(rollup@4.28.1)(vite@6.0.2(@types/node@22.10.1)(jiti@2.4.1)(less@4.2.1)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.6.3))
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
       unplugin-isolated-decl:
         specifier: ^0.9.4
         version: 0.9.4(oxc-transform@0.39.0)(rollup@4.28.1)(typescript@5.6.3)
@@ -274,7 +274,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
 
   packages/boolean-prop:
     dependencies:
@@ -296,7 +296,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
 
   packages/common:
     dependencies:
@@ -427,7 +427,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -443,7 +443,7 @@ importers:
         version: 0.6.2
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       '@vueuse/core':
         specifier: ^12.0.0
@@ -462,7 +462,7 @@ importers:
         version: 0.6.2
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -478,7 +478,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -491,7 +491,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       '@vue-macros/reactivity-transform':
         specifier: workspace:*
@@ -507,7 +507,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -520,7 +520,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -533,7 +533,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -549,7 +549,7 @@ importers:
         version: 3.5.13
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       '@stylexjs/stylex':
         specifier: ^0.9.3
@@ -599,7 +599,7 @@ importers:
         version: 3.5.13
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -612,7 +612,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -625,7 +625,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -638,7 +638,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
 
   packages/jsx-directive:
     dependencies:
@@ -647,7 +647,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.6.3)
@@ -743,7 +743,7 @@ importers:
         version: link:../volar
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
       unplugin-combine:
         specifier: ^1.0.3
         version: 1.0.3(@rspack/core@1.1.5(@swc/helpers@0.5.15))(esbuild@0.24.0)(rolldown@0.15.0(@babel/runtime@7.26.0))(rollup@4.28.1)(vite@6.0.2(@types/node@22.10.1)(jiti@2.4.1)(less@4.2.1)(terser@5.36.0)(tsx@4.19.2)(yaml@2.6.1))(webpack@5.97.1(esbuild@0.24.0))
@@ -765,7 +765,7 @@ importers:
         version: 3.5.13
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -812,7 +812,7 @@ importers:
         version: 0.30.14
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
 
   packages/script-lang:
     dependencies:
@@ -821,7 +821,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -837,7 +837,7 @@ importers:
         version: 3.5.13
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
 
   packages/setup-component:
     dependencies:
@@ -846,7 +846,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -859,7 +859,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
     devDependencies:
       vue:
         specifier: 'catalog:'
@@ -885,7 +885,7 @@ importers:
         version: link:../common
       unplugin:
         specifier: 'catalog:'
-        version: 2.0.0-beta.1
+        version: 1.16.0
 
   packages/short-vmodel:
     dependencies:
@@ -6129,10 +6129,6 @@ packages:
 
   unplugin@2.0.0:
     resolution: {integrity: sha512-26eihuX14zPtiW6gzz8B112Buhi9CaWH/5ezO67pzBhKoz3MfHyc2lz/QOMOyEd/DWk+OnS0zCiYixnm8Q3dqA==}
-    engines: {node: '>=18.12.0'}
-
-  unplugin@2.0.0-beta.1:
-    resolution: {integrity: sha512-2qzQo5LN2DmUZXkWDHvGKLF5BP0WN+KthD6aPnPJ8plRBIjv4lh5O07eYcSxgO2znNw9s4MNhEO1sB+JDllDbQ==}
     engines: {node: '>=18.12.0'}
 
   untyped@1.5.1:
@@ -12765,11 +12761,6 @@ snapshots:
       webpack-virtual-modules: 0.6.2
 
   unplugin@2.0.0:
-    dependencies:
-      acorn: 8.14.0
-      webpack-virtual-modules: 0.6.2
-
-  unplugin@2.0.0-beta.1:
     dependencies:
       acorn: 8.14.0
       webpack-virtual-modules: 0.6.2
