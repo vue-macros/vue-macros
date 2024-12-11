@@ -1,0 +1,190 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
+"
+import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-macros/with-defaults";
+import { useAttrs as __MACROS_useAttrs } from "vue";
+import { useModel as __MACROS_defineModel } from "/vue-macros/jsx-macros/use-model";
+import { withAsyncContext as __MACROS_withAsyncContext } from "vue";import { defineComponent, nextTick } from 'vue'
+
+const Comp = defineComponent(
+  (__MACROS_props) => {
+const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});const attrs = __MACROS_useAttrs();
+    const foo = __MACROS_defineModel(__MACROS_props, 'foo', {
+      validator: (value) => {
+        return value === 'foo'
+      },
+      required: false,
+      type: String,
+    })
+    return () => <div>{[foo.value, __MACROS_default_props.bar, attrs.baz]}</div>
+  },
+  {props: { 'bar': { required: true }, 'foo': { validator: (value) => {
+        return value === 'foo'
+      }, required: false, type: String }, 'onUpdate:foo': null },inheritAttrs: false, name: 'Comp' },
+)
+
+const Comp1 = defineComponent((props: { bar: 'bar'; 'onUpdate:bar': any }) => {
+  const foo = __MACROS_defineModel(props, 'foo')
+  return () => <div>{[foo.value, props['bar'], props['onUpdate:bar']]}</div>
+}, { props: { 'bar': null, 'onUpdate:bar': null, 'foo': null, 'onUpdate:foo': null } })
+
+const Comp2 = defineComponent(async (__MACROS_props) => {
+let __temp, __restore
+
+  ;(
+  ([__temp,__restore] = __MACROS_withAsyncContext(() => nextTick())),
+  await __temp,
+  __restore()
+)
+  let foo = (
+  ([__temp,__restore] = __MACROS_withAsyncContext(() => new Promise((resolve) => {
+    setTimeout(() => resolve('foo'), 1000)
+  }))),
+  __temp = await __temp,
+  __restore(),
+  __temp
+)
+  return () => <div>{foo}</div>
+})
+"
+`;
+
+exports[`fixtures > ./fixtures/define-expose.tsx 1`] = `
+"
+import { useExpose as __MACROS_useExpose } from "/vue-macros/jsx-macros/use-expose";
+import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export function Comp(__MACROS_props) {
+  __MACROS_useExpose(__MACROS_getCurrentInstance(), {
+    foo: 1,
+  })
+  return <div />
+}
+
+export const Comp1 = function (_props: any) {
+  __MACROS_useExpose(__MACROS_getCurrentInstance(), {
+    foo: 1,
+  })
+  return <div />
+}
+
+export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
+  __MACROS_useExpose(__MACROS_getCurrentInstance(), {
+    foo: 1,
+  })
+  return <div />
+}
+"
+`;
+
+exports[`fixtures > ./fixtures/define-model.tsx 1`] = `
+"
+import { useModel as __MACROS_defineModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props }: { bar: string }) => {
+  const foo = __MACROS_defineModel(__MACROS_props, 'foo', { default: bar })!
+  return <div>{foo.value}</div>
+}
+
+export default function (__MACROS_props) {
+  const modelValue = __MACROS_defineModel<string>(__MACROS_props, 'modelValue',)!
+  return (
+    <Comp v-model:foo={modelValue.value} bar="bar">
+      {modelValue.value}
+    </Comp>
+  )
+}
+"
+`;
+
+exports[`fixtures > ./fixtures/define-slots.tsx 1`] = `
+"
+import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export const Comp = (__MACROS_props) => {
+  const slots = Object.assign<{
+    default: () => any
+  }>({}, __MACROS_getCurrentInstance()?.slots)
+  return <div>{slots.default?.()}</div>
+}
+
+export default function (__MACROS_props) {
+  const slots = Object.assign({
+    default: () => <div>default</div>,
+  },__MACROS_getCurrentInstance()?.slots)
+  return <div>{slots.default?.()}</div>
+}
+"
+`;
+
+exports[`fixtures > ./fixtures/define-style.tsx 1`] = `
+"import "/vue-macros/jsx-macros/define-style?index=0&scopeId=4e9d5cd0&scoped=true&lang.css";import style0 from "/vue-macros/jsx-macros/define-style?index=0&scopeId=426a859d&scoped=false&lang.module.scss";import "/vue-macros/jsx-macros/define-style?index=0&scopeId=63a7910c&scoped=false&lang.scss";import { defineComponent, ref } from 'vue'
+
+export const Comp = (__MACROS_props) => {
+  const color = ref('red')
+  
+  return <div {...{style:{'--4e9d5cd0-color-value': color.value}}} data-v-4e9d5cd0="" class="foo">foo</div>
+}
+
+export default defineComponent((__MACROS_props) => {
+  const color = ref('red')
+  const styles = style0
+  return () => (
+    <>
+      <div {...{style:{'--426a859d-color-value': color.value}}} class={styles.bar}>foo</div>
+      <div {...{style:{'--426a859d-color-value': color.value}}} class="bar">
+        <span>bar</span>
+      </div>
+    </>
+  )
+})
+
+
+"
+`;
+
+exports[`react fixtures > ./fixtures/define-expose.tsx 1`] = `
+"
+import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";
+import { forwardRef as __MACROS_forwardRef } from "react";export const Comp = __MACROS_forwardRef(function Comp(__MACROS_props, __MACROS_ref) {
+  __MACROS_useImperativeHandle(__MACROS_ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+})
+
+export const Comp1 = __MACROS_forwardRef(function (_props: any, __MACROS_ref) {
+  __MACROS_useImperativeHandle(__MACROS_ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+})
+
+export const Comp2 = __MACROS_forwardRef(({ ref: _ref, ...__MACROS_props }: any, __MACROS_ref) => {
+  __MACROS_useImperativeHandle(__MACROS_ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+})
+"
+`;
+
+exports[`react19 fixtures > ./fixtures/define-expose.tsx 1`] = `
+"
+import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";export function Comp(__MACROS_props) {
+  __MACROS_useImperativeHandle(__MACROS_props.ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+}
+
+export const Comp1 = function (_props: any) {
+  __MACROS_useImperativeHandle(_props.ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+}
+
+export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
+  __MACROS_useImperativeHandle(_ref, () =>({
+    foo: 1,
+  }), [])
+  return <div />
+}
+"
+`;
