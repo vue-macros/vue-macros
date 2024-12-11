@@ -1,8 +1,9 @@
+<!-- eslint-disable prefer-const -->
 <script setup lang="tsx">
 import Child from './child.vue'
 
-const foo = $ref(1)
-const bar = $ref('')
+let foo = $ref(1)
+let bar = $ref('')
 // eslint-disable-next-line unused-imports/no-unused-vars
 const baz = $ref('title')
 defineRender(() => (
