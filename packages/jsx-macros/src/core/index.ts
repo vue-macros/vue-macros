@@ -134,6 +134,7 @@ function getRootMap(ast: Program, s: MagicStringAST, options: OptionsResolved) {
         parents[1] && isFunctionalNode(parents[1]) ? parents[1] : undefined
 
       if (
+        root &&
         parents[2]?.type === 'CallExpression' &&
         options.defineComponent.alias.includes(s.sliceNode(parents[2].callee))
       ) {

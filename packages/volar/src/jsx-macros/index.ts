@@ -144,6 +144,7 @@ export function getRootMap(options: TransformOptions): RootMap {
         : undefined
 
     if (
+      root &&
       parents[2] &&
       ts.isCallExpression(parents[2]) &&
       !parents[2].typeArguments &&
