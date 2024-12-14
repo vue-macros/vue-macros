@@ -73,6 +73,7 @@ vue-macros init
 - [Vite + Vue 3](https://github.com/vue-macros/vite)
 - [Vite + Vue 2](https://github.com/vue-macros/vue-macros/tree/main/playground/vue2)
 - [Nuxt 3 + Vue 3](https://github.com/vue-macros/nuxt)
+- [Rsbuild + Vue 3](https://github.com/vue-macros/vue3-rsbuild)
 - [Vue CLI + Vue 2](https://github.com/vue-macros/vue2-vue-cli)
 - [Rspack + Vue 2](https://github.com/vue-macros/vue2-rspack)
 

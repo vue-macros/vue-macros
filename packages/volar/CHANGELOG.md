@@ -1,5 +1,19 @@
 # @vue-macros/volar
 
+## 0.30.8
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+- Updated dependencies [[`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703)]:
+  - @vue-macros/boolean-prop@0.5.3
+  - @vue-macros/common@1.15.1
+  - @vue-macros/config@0.5.1
+  - @vue-macros/short-bind@1.1.3
+  - @vue-macros/short-vmodel@1.5.3
+
 ## 0.30.7
 ### Patch Changes
 
