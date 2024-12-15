@@ -2,14 +2,13 @@ import { defineComponent, nextTick } from 'vue'
 
 const Comp = defineComponent(
   ({ bar = 'bar'!, ...attrs }: { bar: 'bar'; baz: 'baz' }) => {
-    const foo = defineModel('foo', {
+    const foo = $(defineModel('foo', {
       validator: (value) => {
         return value === 'foo'
       },
-      required: false,
       type: String,
-    })
-    return () => <div>{[foo.value, bar, attrs.baz]}</div>
+    })!)
+    return () => <div>{[foo, bar, attrs.baz]}</div>
   },
   { name: 'Comp' },
 )

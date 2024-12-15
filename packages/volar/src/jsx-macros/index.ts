@@ -210,7 +210,7 @@ export function getRootMap(options: TransformOptions): RootMap {
             source,
             modelOptions.end - 1,
             modelOptions.end - 1,
-            `${expression.arguments.hasTrailingComma ? '' : ','} required: true`,
+            `${!modelOptions.properties.hasTrailingComma && modelOptions.properties.length ? ',' : ''} required: true`,
           )
         }
       } else if (isRequired) {
