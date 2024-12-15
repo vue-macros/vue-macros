@@ -92,14 +92,7 @@ export function transformJsxMacros(
     }
 
     if (map.defineComponent) {
-      transformDefineComponent(
-        root,
-        propsName,
-        map,
-        s,
-        ast,
-        options.defineComponent.alias[0],
-      )
+      transformDefineComponent(root, propsName, map, s, ast, options)
     }
     if (map.defineModel?.length) {
       map.defineModel.forEach(({ expression }) => {
@@ -130,8 +123,7 @@ function getRootMap(ast: Program, s: MagicStringAST, options: OptionsResolved) {
   walkAST<Node>(ast, {
     enter(node, parent) {
       parents.unshift(parent)
-      const root =
-        parents[1] && isFunctionalNode(parents[1]) ? parents[1] : undefined
+      const root = isFunctionalNode(parents[1]) ? parents[1] : undefined
 
       if (
         root &&

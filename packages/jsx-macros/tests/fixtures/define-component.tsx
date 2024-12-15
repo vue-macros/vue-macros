@@ -10,14 +10,14 @@ const Comp = defineComponent(
         type: String,
       })!,
     )
-    return () => <div>{[foo, bar, attrs.baz]}</div>
+    return <div>{[foo, bar, attrs.baz]}</div>
   },
   { name: 'Comp' },
 )
 
 const Comp1 = defineComponent((props: { bar: 'bar'; 'onUpdate:bar': any }) => {
   const foo = defineModel('foo')
-  return () => <div>{[foo.value, props['bar'], props['onUpdate:bar']]}</div>
+  return <div>{[foo.value, props['bar'], props['onUpdate:bar']]}</div>
 })
 
 const Comp2 = defineComponent(async () => {
