@@ -10,17 +10,19 @@ import { withAsyncContext as __MACROS_withAsyncContext } from "vue";import { def
 const Comp = defineComponent(
   (__MACROS_props) => {
 const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});const attrs = __MACROS_useAttrs();
-    const foo = $(__MACROS_useModel(__MACROS_props, 'foo', {
-      validator: (value) => {
-        return value === 'foo'
-      },
-      type: String,
-    })!)
+    const foo = $(
+      __MACROS_useModel(__MACROS_props, 'foo', {
+        validator: (value) => {
+          return value === 'foo'
+        },
+        type: String,
+      })!,
+    )
     return () => <div>{[foo, __MACROS_default_props.bar, attrs.baz]}</div>
   },
   {props: { 'bar': { required: true }, 'foo': { required: true, validator: (value) => {
-        return value === 'foo'
-      }, type: String }, 'onUpdate:foo': null },inheritAttrs: false, name: 'Comp' },
+          return value === 'foo'
+        }, type: String }, 'onUpdate:foo': null },inheritAttrs: false, name: 'Comp' },
 )
 
 const Comp1 = defineComponent((props: { bar: 'bar'; 'onUpdate:bar': any }) => {
