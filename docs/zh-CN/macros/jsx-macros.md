@@ -26,8 +26,8 @@ interface Options {
 ## defineComponent
 
 - 支持直接返回 `JSX`.
-- 自动收集使用过的 props 到 defineComponent 的 props 选项中。
 - 支持在 `await` 表达式后使用 `getCurrentInstance()`。
+- 自动收集使用过的 props 到 defineComponent 的 props 选项中。
 
 ```vue twoslash
 <script lang="tsx">
@@ -52,7 +52,7 @@ const Comp = defineComponent(
 
 export default () => (
   <Suspense>
-    <Comp foo="" bar="" />
+    <Comp foo="foo" bar="bar" />
   </Suspense>
 )
 </script>
@@ -106,6 +106,7 @@ export default () => <Comp<string> foo={1} bar="bar" />
 ::: details 编译后代码
 
 ```tsx
+import { defineComponent } from 'vue'
 import { createPropsDefaultProxy } from '/vue-macros/jsx-macros/with-defaults'
 defineComponent(
   (_props) => {
@@ -127,7 +128,7 @@ defineComponent(
 
 - 不支持使用连字符的 model 名称。
 - 当表达式以 `!` 结尾时，将被推断为必需的 model。
-- 修改后的 model 可以同步读取，无需 `await nextTick()`。相关问题：https://github.com/vuejs/core/issues/11080
+- 修改后的 model 可以同步读取，无需 `await nextTick()`。[相关问题](https://github.com/vuejs/core/issues/11080)
 
 ```vue twoslash
 <script lang="tsx">
@@ -162,30 +163,6 @@ function Comp(_props: {
 ```
 
 :::
-
-## defineExpose
-
-就像在 Vue SFC 中一样。
-
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
-import { shallowRef as useRef } from 'vue'
-
-const Comp = <T,>({ foo = undefined as T }) => {
-  defineExpose({
-    foo,
-  })
-  return <div />
-}
-
-export default () => {
-  const compRef = useRef()
-  console.log(compRef.value!.foo === 1)
-  return <Comp ref={compRef} foo={1 as const} />
-}
-</script>
-```
 
 ## defineSlots
 
@@ -236,6 +213,119 @@ export default () => (
 )
 </script>
 ```
+
+## defineExpose
+
+就像在 Vue SFC 中一样。
+
+```vue twoslash
+<script lang="tsx">
+// @errors: 2307
+import { shallowRef as useRef } from 'vue'
+
+const Comp = <T,>({ foo = undefined as T }) => {
+  defineExpose({
+    foo,
+  })
+  return <div />
+}
+
+export default () => {
+  const compRef = useRef()
+  console.log(compRef.value!.foo === 1)
+  return <Comp ref={compRef} foo={1 as const} />
+}
+</script>
+```
+
+::: details 编译后代码
+
+::: code-group
+
+```tsx [vue]
+import { getCurrentInstance, shallowRef as useRef } from 'vue'
+import { useExpose } from '/vue-macros/jsx-macros/use-expose'
+
+const Comp = ({ foo }) => {
+  useExpose(getCurrentInstance(), {
+    foo,
+  })
+  return <div />
+}
+```
+
+```tsx [react]
+/**
+ * vite.config.ts
+ *
+ * jsxMacros({
+ *   lib: 'react'
+ * })
+ */
+import { forwardRef, useImperativeHandle } from 'react'
+import { useExpose } from '/vue-macros/jsx-macros/use-expose'
+
+const Comp = forwardRef(({ foo }, _ref) => {
+  useImperativeHandle(
+    _ref,
+    () => ({
+      foo,
+    }),
+    [foo],
+  )
+  return <div />
+})
+```
+
+```tsx [react19]
+/**
+ * vite.config.ts
+ *
+ * jsxMacros({
+ *   lib: 'react',
+ *   version: 19
+ * })
+ */
+import { forwardRef, useImperativeHandle } from 'react'
+import { useExpose } from '/vue-macros/jsx-macros/use-expose'
+
+const Comp = ({ foo, ..._props }) => {
+  useImperativeHandle(
+    _props.ref,
+    () => ({
+      foo,
+    }),
+    [foo],
+  )
+  return <div />
+}
+```
+
+```tsx [preact]
+/**
+ * vite.config.ts
+ *
+ * jsxMacros({
+ *   lib: 'preact'
+ * })
+ */
+import { forwardRef } from 'preact/compat'
+import { useImperativeHandle } from 'preact/hooks'
+import { useExpose } from '/vue-macros/jsx-macros/use-expose'
+
+const Comp = forwardRef(({ foo }, _ref) => {
+  useImperativeHandle(
+    _ref,
+    () => ({
+      foo,
+    }),
+    [foo],
+  )
+  return <div />
+})
+```
+
+:::
 
 ## defineStyle
 
@@ -302,7 +392,7 @@ export default () => {
 </script>
 ```
 
-## Volar Configuration
+## Volar 配置
 
 ```json {5} [tsconfig.json]
 {

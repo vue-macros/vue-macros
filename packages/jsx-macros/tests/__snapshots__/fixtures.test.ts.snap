@@ -61,16 +61,16 @@ import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export f
   return <div />
 }
 
-export const Comp1 = function (_props: any) {
+export const Comp1 = function (props: any) {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
-    foo: 1,
+    foo: props.foo,
   })
   return <div />
 }
 
-export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
+export const Comp2 = ({ foo, ...__MACROS_props }: any) => {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
-    foo: 1,
+    foo,
   })
   return <div />
 }
@@ -149,17 +149,17 @@ import { forwardRef as __MACROS_forwardRef } from "react";export const Comp = __
   return <div />
 })
 
-export const Comp1 = __MACROS_forwardRef(function (_props: any, __MACROS_ref) {
+export const Comp1 = __MACROS_forwardRef(function (props: any, __MACROS_ref) {
   __MACROS_useImperativeHandle(__MACROS_ref, () =>({
-    foo: 1,
-  }), [])
+    foo: props.foo,
+  }), [props.foo])
   return <div />
 })
 
-export const Comp2 = __MACROS_forwardRef(({ ref: _ref, ...__MACROS_props }: any, __MACROS_ref) => {
+export const Comp2 = __MACROS_forwardRef(({ foo, ...__MACROS_props }: any, __MACROS_ref) => {
   __MACROS_useImperativeHandle(__MACROS_ref, () =>({
-    foo: 1,
-  }), [])
+    foo,
+  }), [foo])
   return <div />
 })
 "
@@ -174,17 +174,17 @@ import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";expo
   return <div />
 }
 
-export const Comp1 = function (_props: any) {
-  __MACROS_useImperativeHandle(_props.ref, () =>({
-    foo: 1,
-  }), [])
+export const Comp1 = function (props: any) {
+  __MACROS_useImperativeHandle(props.ref, () =>({
+    foo: props.foo,
+  }), [props.foo])
   return <div />
 }
 
-export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
-  __MACROS_useImperativeHandle(_ref, () =>({
-    foo: 1,
-  }), [])
+export const Comp2 = ({ foo, ...__MACROS_props }: any) => {
+  __MACROS_useImperativeHandle(, () =>({
+    foo,
+  }), [foo])
   return <div />
 }
 "
