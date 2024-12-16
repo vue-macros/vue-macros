@@ -26,8 +26,8 @@ interface Options {
 ## defineComponent
 
 - Support directly returns JSX.
-- Automatically collects used props to the props option.
 - Support using `getCurrentInstance()` after an `await` expression.
+- Automatically collects used props to the defineComponent's props option.
 
 ```vue twoslash
 <script lang="tsx">
@@ -82,8 +82,8 @@ defineComponent(
 :::
 
 - The destructured props will be automatically restructured.
-- If a rest prop is defined, it will be converted to `attrs`, and the `inheritAttrs` option will default to `false`.
 - If the prop's default value ends with `!`, the prop will be inferred as required.
+- If a rest prop is defined, it will be converted to `useAttrs()`, and the `inheritAttrs` option will default to `false`.
 
 ```vue twoslash
 <script lang="tsx">
@@ -98,7 +98,7 @@ const Comp = defineComponent(
   },
 )
 
-export default () => <Comp<string> foo={1} bar={''} />
+export default () => <Comp<string> foo={1} bar="bar" />
 </script>
 ```
 
@@ -245,8 +245,8 @@ declare function defineStyle(
 ): void
 ```
 
-- Support defining multiple style macros in a file.
 - Support CSS-variable and JS-variable binding.
+- Support defining multiple style macros in a file.
 - Support CSS pre-processors: `css`, `scss`, `sass`, `less`, `stylus`, `postcss`.
 
 ```ts

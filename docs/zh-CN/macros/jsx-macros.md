@@ -26,7 +26,7 @@ interface Options {
 ## defineComponent
 
 - 支持直接返回 `JSX`.
-- 自动收集使用过的 prop 到 defineComponent 的 props 选项中。
+- 自动收集使用过的 props 到 defineComponent 的 props 选项中。
 - 支持在 `await` 表达式后使用 `getCurrentInstance()`。
 
 ```vue twoslash
@@ -83,8 +83,8 @@ defineComponent(
 :::
 
 - 解构的 props 将自动重构。
-- 如果定义了 rest prop，它将被转换为 `useAttrs()`，并且 `inheritAttrs` 选项默认为 `false`。
 - 如果 prop 的默认值以 `!` 结尾，该 prop 将被推断为必传的。
+- 如果定义了 rest prop，它将被转换为 `useAttrs()`，并且 `inheritAttrs` 选项默认为 `false`。
 
 ```vue twoslash
 <script lang="tsx">
@@ -99,7 +99,7 @@ const Comp = defineComponent(
   },
 )
 
-export default () => <Comp<string> foo={1} bar={''} />
+export default () => <Comp<string> foo={1} bar="bar" />
 </script>
 ```
 
@@ -246,8 +246,8 @@ declare function defineStyle(
 ): void
 ```
 
-- 支持在一个文件中定义多个 style 宏。
 - 支持 CSS 变量和 JS 变量绑定。
+- 支持在一个文件中定义多个 style 宏。
 - 支持 CSS 预处理器：`css`、`scss`、`sass`、`less`、`stylus`、`postcss`。
 
 ```ts
