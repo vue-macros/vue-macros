@@ -41,7 +41,7 @@ function transform(
   if (directiveName.includes(':')) {
     ;[directiveName, arg] = directiveName.split(':')
   }
-  const start = attribute.getStart(ast)
+  const start = getStart(attribute, options)
   const offset = start + directiveName.length + 2
   replaceSourceRange(
     codes,
