@@ -1,5 +1,15 @@
 # @vue-macros/short-vmodel
 
+## 1.5.3
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+- Updated dependencies [[`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703)]:
+  - @vue-macros/common@1.15.1
+
 ## 1.5.2
 ### Patch Changes
 
