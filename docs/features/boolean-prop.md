@@ -13,15 +13,17 @@ Convert `<Comp !checked />` to `<Comp :checked="false" />`.
 |    Vue 2     |        :x:         |
 | Volar Plugin | :white_check_mark: |
 
-## Options
+## Configuration
 
 ```ts
-interface Options {
-  /**
-   * @default '!'
-   */
-  negativePrefix?: string
-}
+VueMacros({
+  booleanProp: {
+    /**
+     * @default '!'
+     */
+    negativePrefix: '!',
+  },
+})
 ```
 
 ## Usage

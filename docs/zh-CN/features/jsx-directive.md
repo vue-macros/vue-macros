@@ -16,15 +16,17 @@
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
-## 选项
+## 配置
 
 ```ts
-interface Options {
-  /**
-   * @default 'v-'
-   */
-  prefix?: string
-}
+VueMacros({
+  jsxDirective: {
+    /**
+     * @default 'v-'
+     */
+    prefix: 'v-',
+  },
+})
 ```
 
 ## 用法

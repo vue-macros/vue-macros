@@ -16,15 +16,17 @@ Vue built-in directives for JSX.
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
-## Options
+## Configuration
 
 ```ts
-interface Options {
-  /**
-   * @default 'v-'
-   */
-  prefix?: string
-}
+VueMacros({
+  jsxDirective: {
+    /**
+     * @default 'v-'
+     */
+    prefix: 'v-',
+  },
+})
 ```
 
 ## Usage

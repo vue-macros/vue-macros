@@ -15,15 +15,18 @@ Convert `<script setup>` to `<script setup lang="ts">`.
 |    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
-## Options
+## Configuration
 
 ```ts
-interface Options {
-  /**
-   * @default 'ts'
-   */
-  defaultLang?: 'ts' | 'tsx' | 'jsx' | string
-}
+VueMacros({
+  scriptLang: {
+    /**
+     * 'ts' | 'tsx' | 'jsx' | string
+     * @default 'ts'
+     */
+    defaultLang: 'ts',
+  },
+})
 ```
 
 ## Usage

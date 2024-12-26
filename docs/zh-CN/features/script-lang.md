@@ -15,15 +15,18 @@
 |    Vue 2     | :white_check_mark: |
 | Volar Plugin | :white_check_mark: |
 
-## Options
+## 配置
 
 ```ts
-interface Options {
-  /**
-   * @default 'ts'
-   */
-  defaultLang?: 'ts' | 'tsx' | 'jsx' | string
-}
+VueMacros({
+  defineModels: {
+    /**
+     * 'ts' | 'tsx' | 'jsx' | string
+     * @default 'ts'
+     */
+    defaultLang: 'ts',
+  },
+})
 ```
 
 ## Usage

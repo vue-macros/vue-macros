@@ -21,9 +21,10 @@
 VueMacros({
   shortVmodel: {
     /**
+     * '::' | '$' | '*'
      * @default '$'
      */
-    prefix: '$', // '::' | '$' | '*'
+    prefix: '$',
   },
 })
 ```

@@ -21,9 +21,10 @@ If you have any questions about this feature, you can comment on [RFC Discussion
 VueMacros({
   shortVmodel: {
     /**
+     * '::' | '$' | '*'
      * @default '$'
      */
-    prefix: '$', // '::' | '$' | '*'
+    prefix: '$',
   },
 })
 ```

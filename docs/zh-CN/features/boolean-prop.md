@@ -13,15 +13,17 @@
 |    Vue 2     |        :x:         |
 | Volar Plugin | :white_check_mark: |
 
-## 选项
+## 配置
 
 ```ts
-interface Options {
-  /**
-   * @default '!'
-   */
-  negativePrefix?: string
-}
+VueMacros({
+  booleanProp: {
+    /**
+     * @default '!'
+     */
+    negativePrefix: '!',
+  },
+})
 ```
 
 ## 基本用法
