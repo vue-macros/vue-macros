@@ -1,4 +1,4 @@
-import { RollupVue, testFixtures } from '@vue-macros/test-utils'
+import { testFixtures } from '@vue-macros/test-utils'
 import { describe } from 'vitest'
 import { transformJsxDirective } from '../src/api'
 
