@@ -15,15 +15,17 @@ If you have any questions about this feature, you can comment on [RFC Discussion
 |    Vue 2     |        :x:         |
 | Volar Plugin | :white_check_mark: |
 
-## Options
+## Configuration
 
 ```ts
-interface Options {
-  /**
-   * @default '$'
-   */
-  prefix?: '::' | '$' | '*'
-}
+VueMacros({
+  shortVmodel: {
+    /**
+     * @default '$'
+     */
+    prefix: '$', // '::' | '$' | '*'
+  },
+})
 ```
 
 ## Usage

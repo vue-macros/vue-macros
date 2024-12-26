@@ -15,15 +15,17 @@
 |    Vue 2     |        :x:         |
 | Volar Plugin | :white_check_mark: |
 
-## 选项
+## 配置
 
 ```ts
-interface Options {
-  /**
-   * @default '$'
-   */
-  prefix?: '::' | '$' | '*'
-}
+VueMacros({
+  shortVmodel: {
+    /**
+     * @default '$'
+     */
+    prefix: '$', // '::' | '$' | '*'
+  },
+})
 ```
 
 ## 用法
