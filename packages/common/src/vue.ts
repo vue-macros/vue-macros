@@ -108,7 +108,7 @@ export function removeMacroImport(
   node: Node,
   s: MagicStringAST,
   offset: number,
-) {
+): true | undefined {
   if (
     node.type === 'ImportDeclaration' &&
     node.attributes?.some(
