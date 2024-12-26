@@ -4,28 +4,29 @@ exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
 "
 import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-macros/with-defaults";
 import { useAttrs as __MACROS_useAttrs } from "vue";
-import { useModel as __MACROS_defineModel } from "/vue-macros/jsx-macros/use-model";
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";
 import { withAsyncContext as __MACROS_withAsyncContext } from "vue";import { defineComponent, nextTick } from 'vue'
 
 const Comp = defineComponent(
   (__MACROS_props) => {
 const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 'bar'!});const attrs = __MACROS_useAttrs();
-    const foo = __MACROS_defineModel(__MACROS_props, 'foo', {
-      validator: (value) => {
-        return value === 'foo'
-      },
-      required: false,
-      type: String,
-    })
-    return () => <div>{[foo.value, __MACROS_default_props.bar, attrs.baz]}</div>
+    const foo = $(
+      __MACROS_useModel(__MACROS_props, 'foo', {
+        validator: (value) => {
+          return value === 'foo'
+        },
+        type: String,
+      })!,
+    )
+    return () => <div>{[foo, __MACROS_default_props.bar, attrs.baz]}</div>
   },
-  {props: { 'bar': { required: true }, 'foo': { validator: (value) => {
-        return value === 'foo'
-      }, required: false, type: String }, 'onUpdate:foo': null },inheritAttrs: false, name: 'Comp' },
+  {props: { 'bar': { required: true }, 'foo': { required: true, validator: (value) => {
+          return value === 'foo'
+        }, type: String }, 'onUpdate:foo': null },inheritAttrs: false, name: 'Comp' },
 )
 
 const Comp1 = defineComponent((props: { bar: 'bar'; 'onUpdate:bar': any }) => {
-  const foo = __MACROS_defineModel(props, 'foo')
+  const foo = __MACROS_useModel(props, 'foo')
   return () => <div>{[foo.value, props['bar'], props['onUpdate:bar']]}</div>
 }, { props: { 'bar': null, 'onUpdate:bar': null, 'foo': null, 'onUpdate:foo': null } })
 
@@ -60,16 +61,16 @@ import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export f
   return <div />
 }
 
-export const Comp1 = function (_props: any) {
+export const Comp1 = function (props: any) {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
-    foo: 1,
+    foo: props.foo,
   })
   return <div />
 }
 
-export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
+export const Comp2 = ({ foo, ...__MACROS_props }: any) => {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
-    foo: 1,
+    foo,
   })
   return <div />
 }
@@ -78,16 +79,16 @@ export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
 
 exports[`fixtures > ./fixtures/define-model.tsx 1`] = `
 "
-import { useModel as __MACROS_defineModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props }: { bar: string }) => {
-  const foo = __MACROS_defineModel(__MACROS_props, 'foo', { default: bar })!
+import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";export const Comp = ({ bar, ...__MACROS_props }: { bar: string }) => {
+  const foo = __MACROS_useModel(__MACROS_props, 'foo', { default: bar })
   return <div>{foo.value}</div>
 }
 
 export default function (__MACROS_props) {
-  const modelValue = __MACROS_defineModel<string>(__MACROS_props, 'modelValue',)!
+  const modelValue = $(__MACROS_useModel<string>(__MACROS_props, 'modelValue',)!)
   return (
-    <Comp v-model:foo={modelValue.value} bar="bar">
-      {modelValue.value}
+    <Comp v-model:foo={modelValue} bar="bar">
+      {modelValue}
     </Comp>
   )
 }
@@ -148,17 +149,17 @@ import { forwardRef as __MACROS_forwardRef } from "react";export const Comp = __
   return <div />
 })
 
-export const Comp1 = __MACROS_forwardRef(function (_props: any, __MACROS_ref) {
+export const Comp1 = __MACROS_forwardRef(function (props: any, __MACROS_ref) {
   __MACROS_useImperativeHandle(__MACROS_ref, () =>({
-    foo: 1,
-  }), [])
+    foo: props.foo,
+  }), [props.foo])
   return <div />
 })
 
-export const Comp2 = __MACROS_forwardRef(({ ref: _ref, ...__MACROS_props }: any, __MACROS_ref) => {
+export const Comp2 = __MACROS_forwardRef(({ foo, ...__MACROS_props }: any, __MACROS_ref) => {
   __MACROS_useImperativeHandle(__MACROS_ref, () =>({
-    foo: 1,
-  }), [])
+    foo,
+  }), [foo])
   return <div />
 })
 "
@@ -173,17 +174,17 @@ import { useImperativeHandle as __MACROS_useImperativeHandle } from "react";expo
   return <div />
 }
 
-export const Comp1 = function (_props: any) {
-  __MACROS_useImperativeHandle(_props.ref, () =>({
-    foo: 1,
-  }), [])
+export const Comp1 = function (props: any) {
+  __MACROS_useImperativeHandle(props.ref, () =>({
+    foo: props.foo,
+  }), [props.foo])
   return <div />
 }
 
-export const Comp2 = ({ ref: _ref, ...__MACROS_props }: any) => {
-  __MACROS_useImperativeHandle(_ref, () =>({
-    foo: 1,
-  }), [])
+export const Comp2 = ({ foo, ...__MACROS_props }: any) => {
+  __MACROS_useImperativeHandle(, () =>({
+    foo,
+  }), [foo])
   return <div />
 }
 "

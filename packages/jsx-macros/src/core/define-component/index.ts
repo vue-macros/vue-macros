@@ -2,8 +2,10 @@ import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
 import { importHelper } from '../common'
 import type { FunctionalNode, RootMapValue } from '..'
+import type { OptionsResolved } from '../..'
 import { transformAwait } from './await'
 import { restructure } from './restructure'
+import { transformReturn } from './return'
 import type { ObjectExpression, Program } from '@babel/types'
 
 export function transformDefineComponent(
@@ -12,10 +14,10 @@ export function transformDefineComponent(
   map: RootMapValue,
   s: MagicStringAST,
   ast: Program,
-  alias: string,
+  options: OptionsResolved,
 ): void {
   if (!map.defineComponent) return
-  importHelper({ s, ast, local: alias })
+  importHelper({ s, ast, local: options.defineComponent.alias[0] })
 
   let hasRestProp = false
   const props: Record<string, string | null> = {}
@@ -89,6 +91,7 @@ export function transformDefineComponent(
   }
 
   transformAwait(root, s)
+  transformReturn(root, s, options.lib)
 }
 
 function prependObjectExpression(

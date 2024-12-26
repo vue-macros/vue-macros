@@ -47,7 +47,8 @@ export type JsxMacros = {
 export type RootMap = Map<
   | import('typescript').ArrowFunction
   | import('typescript').FunctionExpression
-  | import('typescript').FunctionDeclaration,
+  | import('typescript').FunctionDeclaration
+  | undefined,
   JsxMacros
 >
 
@@ -141,9 +142,9 @@ export function getRootMap(options: TransformOptions): RootMap {
         ts.isFunctionDeclaration(parents[1]))
         ? parents[1]
         : undefined
-    if (!root) return
 
     if (
+      root &&
       parents[2] &&
       ts.isCallExpression(parents[2]) &&
       !parents[2].typeArguments &&
@@ -171,6 +172,15 @@ export function getRootMap(options: TransformOptions): RootMap {
     let isRequired = macro.isRequired
     if (!rootMap.has(root)) rootMap.set(root, {})
     const macroName = getText(expression.expression, options)
+    if (macroName.startsWith('defineStyle')) {
+      ;(rootMap.get(root)!.defineStyle ??= [])!.push({
+        expression,
+        isCssModules: !!ts.isVariableStatement(node),
+      })
+    }
+
+    if (!root) return
+
     if (options.defineModel.alias.includes(macroName)) {
       const modelName =
         expression.arguments[0] &&
@@ -200,7 +210,7 @@ export function getRootMap(options: TransformOptions): RootMap {
             source,
             modelOptions.end - 1,
             modelOptions.end - 1,
-            `${expression.arguments.hasTrailingComma ? '' : ','} required: true`,
+            `${!modelOptions.properties.hasTrailingComma && modelOptions.properties.length ? ',' : ''} required: true`,
           )
         }
       } else if (isRequired) {
@@ -232,7 +242,7 @@ export function getRootMap(options: TransformOptions): RootMap {
         source,
         getStart(expression, options),
         getStart(expression, options),
-        `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots =`,
+        `// @ts-ignore\n${HELPER_PREFIX}slots;\nconst ${HELPER_PREFIX}slots = `,
       )
       rootMap.get(root)!.defineSlots = `Partial<typeof ${HELPER_PREFIX}slots>`
     } else if (options.defineExpose.alias.includes(macroName)) {
@@ -241,14 +251,9 @@ export function getRootMap(options: TransformOptions): RootMap {
         source,
         getStart(expression, options),
         getStart(expression, options),
-        `// @ts-ignore\n${HELPER_PREFIX}expose;\nconst ${HELPER_PREFIX}expose =`,
+        `// @ts-ignore\n${HELPER_PREFIX}exposed;\nconst ${HELPER_PREFIX}exposed = `,
       )
-      rootMap.get(root)!.defineExpose = `typeof ${HELPER_PREFIX}expose`
-    } else if (macroName.startsWith('defineStyle')) {
-      ;(rootMap.get(root)!.defineStyle ??= [])!.push({
-        expression,
-        isCssModules: !!ts.isVariableStatement(node),
-      })
+      rootMap.get(root)!.defineExpose = `typeof ${HELPER_PREFIX}exposed`
     }
   }
 

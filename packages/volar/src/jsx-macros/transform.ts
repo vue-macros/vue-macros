@@ -11,7 +11,10 @@ export function transformJsxMacros(
   const { ts, source, codes } = options
 
   for (const [root, map] of rootMap) {
-    if (!root.body) continue
+    transformDefineStyle(map.defineStyle, options)
+
+    if (!root?.body) continue
+
     const asyncModifier = root.modifiers?.find(
       (modifier) => modifier.kind === ts.SyntaxKind.AsyncKeyword,
     )
@@ -63,8 +66,6 @@ export function transformJsxMacros(
         '}',
       )
     }
-
-    transformDefineStyle(map.defineStyle, options)
 
     ts.forEachChild(root.body, (node) => {
       if (ts.isReturnStatement(node) && node.expression) {

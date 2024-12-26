@@ -1,3 +1,4 @@
+import { HELPER_PREFIX } from '@vue-macros/common'
 import { generateCssClassProperty } from '@vue/language-core/lib/codegen/script/template.js'
 import { parseCssClassNames } from '@vue/language-core/lib/utils/parseCssClassNames.js'
 import { replaceSourceRange } from 'muggle-string'
@@ -22,13 +23,13 @@ export function transformDefineStyle(
         source,
         expression.arguments.pos - 1,
         expression.arguments.pos - 1,
-        '<{}',
-        ...getCssClassesType(
+        `<${HELPER_PREFIX}PrettifyLocal<{}`,
+        ...generateCssClassesType(
           getText(expression.arguments[0], options).slice(1, -1),
           getStart(expression.arguments[0], options) + 1,
           index,
         ),
-        '>',
+        '>>',
       )
     }
 
@@ -36,7 +37,7 @@ export function transformDefineStyle(
   })
 }
 
-function* getCssClassesType(css: string, offset: number, index: number) {
+function* generateCssClassesType(css: string, offset: number, index: number) {
   for (const className of [...parseCssClassNames(css)]) {
     yield* generateCssClassProperty(
       index,

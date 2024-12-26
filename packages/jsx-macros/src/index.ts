@@ -4,6 +4,7 @@ import {
   FilterFileType,
   getFilterPattern,
   normalizePath,
+  REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
   type BaseOptions,
   type MarkRequired,
@@ -55,7 +56,7 @@ function resolveOptions(
   const include = getFilterPattern([FilterFileType.SRC_FILE], framework)
   return {
     include,
-    exclude: [REGEX_SETUP_SFC],
+    exclude: [REGEX_SETUP_SFC, REGEX_NODE_MODULES],
     ...options,
     version,
     lib,

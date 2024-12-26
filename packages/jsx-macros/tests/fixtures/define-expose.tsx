@@ -5,16 +5,16 @@ export function Comp() {
   return <div />
 }
 
-export const Comp1 = function (_props: any) {
+export const Comp1 = function (props: any) {
   defineExpose({
-    foo: 1,
+    foo: props.foo,
   })
   return <div />
 }
 
-export const Comp2 = ({ ref: _ref }: any) => {
+export const Comp2 = ({ foo }: any) => {
   defineExpose({
-    foo: 1,
+    foo,
   })
   return <div />
 }

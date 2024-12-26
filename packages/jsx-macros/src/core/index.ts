@@ -92,18 +92,11 @@ export function transformJsxMacros(
     }
 
     if (map.defineComponent) {
-      transformDefineComponent(
-        root,
-        propsName,
-        map,
-        s,
-        ast,
-        options.defineComponent.alias[0],
-      )
+      transformDefineComponent(root, propsName, map, s, ast, options)
     }
     if (map.defineModel?.length) {
       map.defineModel.forEach(({ expression }) => {
-        transformDefineModel(expression, propsName, s, options)
+        transformDefineModel(expression, propsName, s)
       })
     }
     if (map.defineSlots) {
@@ -130,10 +123,10 @@ function getRootMap(ast: Program, s: MagicStringAST, options: OptionsResolved) {
   walkAST<Node>(ast, {
     enter(node, parent) {
       parents.unshift(parent)
-      const root =
-        parents[1] && isFunctionalNode(parents[1]) ? parents[1] : undefined
+      const root = isFunctionalNode(parents[1]) ? parents[1] : undefined
 
       if (
+        root &&
         parents[2]?.type === 'CallExpression' &&
         options.defineComponent.alias.includes(s.sliceNode(parents[2].callee))
       ) {
@@ -145,10 +138,14 @@ function getRootMap(ast: Program, s: MagicStringAST, options: OptionsResolved) {
 
       const expression =
         node.type === 'VariableDeclaration'
-          ? node.declarations[0].init
+          ? node.declarations[0].init?.type === 'CallExpression' &&
+            s.sliceNode(node.declarations[0].init.callee) === '$'
+            ? node.declarations[0].init.arguments[0]
+            : node.declarations[0].init
           : node.type === 'ExpressionStatement'
             ? node.expression
             : undefined
+      if (!expression) return
       const macroExpression = getMacroExpression(expression, options)
       if (!macroExpression) return
       if (!rootMap.has(root)) rootMap.set(root, {})
@@ -161,7 +158,7 @@ function getRootMap(ast: Program, s: MagicStringAST, options: OptionsResolved) {
         if (options.defineModel.alias.includes(macroName)) {
           ;(rootMap.get(root)!.defineModel ??= []).push({
             expression: macroExpression,
-            isRequired: expression?.type === 'TSNonNullExpression',
+            isRequired: expression.type === 'TSNonNullExpression',
           })
         } else if (options.defineStyle.alias.includes(macroName)) {
           const lang =
@@ -198,14 +195,14 @@ export function isFunctionalNode(node?: Node | null): node is FunctionalNode {
 }
 
 export function getMacroExpression(
-  node: Node | null | undefined,
+  node: Node,
   options: OptionsResolved,
 ): CallExpression | undefined {
-  if (node?.type === 'TSNonNullExpression') {
+  if (node.type === 'TSNonNullExpression') {
     node = node.expression
   }
 
-  if (node?.type === 'CallExpression') {
+  if (node.type === 'CallExpression') {
     if (
       node.callee.type === 'MemberExpression' &&
       node.callee.object.type === 'Identifier' &&
