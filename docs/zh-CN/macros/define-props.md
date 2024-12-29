@@ -15,7 +15,7 @@
 
 ::: warning
 
-在开始之前，你必须先开启 [响应性语法糖](https://cn.vuejs.org/guide/extras/reactivity-transform.html)
+在开始之前，你必须先开启 [响应性语法糖](../features/reactivity-transform.md)
 
 :::
 
