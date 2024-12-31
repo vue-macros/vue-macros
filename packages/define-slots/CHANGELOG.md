@@ -1,5 +1,12 @@
 # @vue-macros/define-slots
 
+## 1.2.4
+### Patch Changes
+
+
+
+- [#883](https://github.com/vue-macros/vue-macros/pull/883) [`f13a887`](https://github.com/vue-macros/vue-macros/commit/f13a887317635131b6636b3e0347193194e5c053) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - return generic to support Vue 3.2
+
 ## 1.2.3
 ### Patch Changes
 

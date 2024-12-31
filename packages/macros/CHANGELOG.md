@@ -1,5 +1,13 @@
 # unplugin-vue-macros
 
+## 2.13.7
+### Patch Changes
+
+- Updated dependencies [[`e0d8000`](https://github.com/vue-macros/vue-macros/commit/e0d80002efb8b52825cdb46782d594b034cc1355), [`f13a887`](https://github.com/vue-macros/vue-macros/commit/f13a887317635131b6636b3e0347193194e5c053)]:
+  - @vue-macros/volar@0.30.9
+  - @vue-macros/define-slots@1.2.4
+  - @vue-macros/config@0.5.1
+
 ## 2.13.6
 ### Patch Changes
 
