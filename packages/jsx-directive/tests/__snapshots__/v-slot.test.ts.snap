@@ -1,11 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/child.setup.tsx 1`] = `undefined`;
+exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/child.vue 1`] = `undefined`;
 
-exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/index.setup.tsx 1`] = `
-"
-import { unref as __MACROS_unref } from "vue";import { expectTypeOf } from 'expect-type'
-import Child from './child.setup'
+exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/index.vue 1`] = `
+"<script setup lang="tsx">
+import { unref as __MACROS_unref } from "vue";
+import { expectTypeOf } from 'expect-type'
+import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
 
 const Comp: FunctionalComponent<
@@ -60,16 +61,18 @@ defineRender(() => (
     </span>}}></Child>
   </div>
 ))
+</script>
 "
 `;
 
-exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/child.setup.tsx 1`] = `undefined`;
+exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/child.vue 1`] = `undefined`;
 
-exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/index.setup.tsx 1`] = `
-"
+exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/index.vue 1`] = `
+"<script setup lang="tsx">
 import { renderList as __MACROS_renderList } from "vue";
-import { unref as __MACROS_unref } from "vue";import { expectTypeOf } from 'expect-type'
-import Child from './child.setup'
+import { unref as __MACROS_unref } from "vue";
+import { expectTypeOf } from 'expect-type'
+import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
 
 const Comp: FunctionalComponent<
@@ -124,5 +127,6 @@ defineRender(() => (
     </>}}></Child>
   </div>
 ))
+</script>
 "
 `;

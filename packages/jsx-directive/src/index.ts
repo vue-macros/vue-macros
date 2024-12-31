@@ -24,7 +24,10 @@ function resolveOptions(
   framework: UnpluginContextMeta['framework'],
 ): OptionsResolved {
   const version = options.version || detectVueVersion(undefined, 0)
-  const include = getFilterPattern([FilterFileType.SRC_FILE], framework)
+  const include = getFilterPattern(
+    [FilterFileType.VUE_SFC, FilterFileType.SRC_FILE],
+    framework,
+  )
   return {
     include,
     exclude: [REGEX_NODE_MODULES, REGEX_SETUP_SFC],

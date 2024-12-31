@@ -1,16 +1,18 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > v-model > ./fixtures/v-model/index.setup.tsx 1`] = `
-"
-import { unref as __MACROS_unref } from "vue";import { ref } from 'vue'
+exports[`jsx-vue-directive > v-model > ./fixtures/v-model/index.vue 1`] = `
+"<script setup lang="tsx">
+import { unref as __MACROS_unref } from "vue";
+import { ref } from 'vue'
 
 let foo = ref('')
 const value = ref('value')
-export default (
+defineRender(() => (
   <div>
     <input {...{[__MACROS_unref(value)]: foo, ["onUpdate:" + __MACROS_unref(value)]: $event => foo = $event, [__MACROS_unref(value) + "Modifiers"]: { trim: true, number: true }}} />
     {foo}
   </div>
-)
+))
+</script>
 "
 `;

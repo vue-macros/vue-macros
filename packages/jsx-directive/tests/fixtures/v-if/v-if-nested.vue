@@ -1,8 +1,9 @@
+<script setup lang="tsx">
 const { foo = 0 } = defineProps<{
   foo: number
 }>()
 
-export default (
+defineRender(() => (
   <>
     <div v-if={foo === 0}>
       <div v-if={foo === 0}>0-0</div>
@@ -10,4 +11,5 @@ export default (
       <div v-else>0-2</div>
     </div>
   </>
-)
+))
+</script>

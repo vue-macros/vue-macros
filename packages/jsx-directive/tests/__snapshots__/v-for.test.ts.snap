@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > vue 2.7 v-for > ./fixtures/v-for/index.setup.tsx 1`] = `
-"const map = new Map([
+exports[`jsx-vue-directive > vue 2.7 v-for > ./fixtures/v-for/index.vue 1`] = `
+"<script setup lang="tsx">
+const map = new Map([
   [1, '2'],
   [3, '4'],
 ])
@@ -9,7 +10,7 @@ const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
 let selected = 0
 
-export default (
+defineRender(() => (
   <>
     {Array.from(4, (i) => <div key={i}>
       <div>{i}</div>
@@ -37,13 +38,15 @@ export default (
       </div>
     </div>)}
   </>
-)
+))
+</script>
 "
 `;
 
-exports[`jsx-vue-directive > vue 3 v-for > ./fixtures/v-for/index.setup.tsx 1`] = `
-"
-import { renderList as __MACROS_renderList } from "vue";const map = new Map([
+exports[`jsx-vue-directive > vue 3 v-for > ./fixtures/v-for/index.vue 1`] = `
+"<script setup lang="tsx">
+import { renderList as __MACROS_renderList } from "vue";
+const map = new Map([
   [1, '2'],
   [3, '4'],
 ])
@@ -51,7 +54,7 @@ const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
 let selected = 0
 
-export default (
+defineRender(() => (
   <>
     {__MACROS_renderList(4, (i) => <div key={i}>
       <div>{i}</div>
@@ -79,6 +82,7 @@ export default (
       </div>
     </div>)}
   </>
-)
+))
+</script>
 "
 `;

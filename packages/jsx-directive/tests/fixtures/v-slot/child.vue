@@ -1,4 +1,4 @@
-type T = DefineGeneric
+<script setup lang="tsx" generic="T">
 defineProps<{
   baz?: T
 }>()
@@ -11,9 +11,10 @@ const slots = defineSlots<{
   'bot-tom': (props: { foo: 1 }) => any
 }>()
 
-export default (
+defineRender(() => (
   <span>
     <slots.default />
     <slots.bottom foo={1} />
   </span>
-)
+))
+</script>

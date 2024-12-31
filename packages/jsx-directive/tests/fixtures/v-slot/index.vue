@@ -1,5 +1,6 @@
+<script setup lang="tsx">
 import { expectTypeOf } from 'expect-type'
-import Child from './child.setup'
+import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
 
 const Comp: FunctionalComponent<
@@ -54,3 +55,4 @@ defineRender(() => (
     </Child>
   </div>
 ))
+</script>
