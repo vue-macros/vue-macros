@@ -29,7 +29,7 @@ export function transformDefinePropsRefs(
 
   walkAST<Node>(setupAst, {
     enter(node) {
-      removeMacroImport(node, s, offset)
+      if (removeMacroImport(node, s, offset)) return
 
       if (
         isCallOf(node, WITH_DEFAULTS) &&
