@@ -48,7 +48,7 @@
     "@vue-macros/test-utils": "workspace:*",
     "change-case": "^5.4.4",
     "cspell": "^8.17.1",
-    "esbuild": "^0.24.2",
+    "esbuild": "catalog:",
     "eslint": "^9.17.0",
     "expect-type": "^1.1.0",
     "fast-glob": "^3.3.3",
@@ -97,8 +97,8 @@
       ]
     },
     "overrides": {
-      "@vue/language-core": "^2.2.0",
-      "esbuild": "^0.24.2",
+      "@vue/language-core": "catalog:",
+      "esbuild": "catalog:",
       "is-core-module": "npm:@no-shims/is-core-module",
       "smartwrap": "npm:@no-shims/smartwrap",
       "vite": "catalog:"
