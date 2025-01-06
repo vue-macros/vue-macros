@@ -61,7 +61,7 @@
     "publint": "^0.2.12",
     "radix-vue": "^1.9.12",
     "rimraf": "^6.0.1",
-    "rolldown": "^0.15.1",
+    "rolldown": "^1.0.0-beta.1",
     "rollup": "^4.29.2",
     "rollup-plugin-dts": "^6.1.1",
     "tsup": "^8.3.5",
@@ -97,11 +97,11 @@
       ]
     },
     "overrides": {
+      "@vue/language-core": "^2.2.0",
       "esbuild": "^0.24.2",
       "is-core-module": "npm:@no-shims/is-core-module",
       "smartwrap": "npm:@no-shims/smartwrap",
-      "vite": "catalog:",
-      "vite-plugin-inspect": "^0.10.6"
+      "vite": "catalog:"
     }
   },
   "prettier": "@sxzz/prettier-config"

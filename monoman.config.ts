@@ -230,7 +230,7 @@ Please refer to [README.md](${githubLink}#readme)\n`
       /shiki/,
       /babel/,
       /esbuild/,
-      /vite(?!-plugin-vue-inspector)/,
+      /vite(?!-plugin-(vue-inspector|inspect))/,
       /unocss/,
       /rolldown/,
     ],
