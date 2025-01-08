@@ -102,6 +102,9 @@
       "is-core-module": "npm:@no-shims/is-core-module",
       "smartwrap": "npm:@no-shims/smartwrap",
       "vite": "catalog:"
+    },
+    "patchedDependencies": {
+      "@nolebase/ui": "patches/@nolebase__ui.patch"
     }
   },
   "prettier": "@sxzz/prettier-config"
