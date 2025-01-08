@@ -226,7 +226,7 @@ Please refer to [README.md](${githubLink}#readme)\n`
       'typescript',
       'vue-tsc',
       /twoslash/,
-      /^@vue\/(?!compiler-sfc)/,
+      /^@vue\/(?!compiler-sfc|devtools)/,
       /shiki/,
       /babel/,
       /esbuild/,
