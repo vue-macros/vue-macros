@@ -1,5 +1,15 @@
 # @vue-macros/volar
 
+## 0.30.9
+### Patch Changes
+
+
+
+- [#880](https://github.com/vue-macros/vue-macros/pull/880) [`e0d8000`](https://github.com/vue-macros/vue-macros/commit/e0d80002efb8b52825cdb46782d594b034cc1355) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use getStart instead of node.getStart to prevent vue-tsc error
+
+- Updated dependencies []:
+  - @vue-macros/config@0.5.1
+
 ## 0.30.8
 ### Patch Changes
 
