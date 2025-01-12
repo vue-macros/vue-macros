@@ -168,7 +168,9 @@ function getDefineProp(
         edition === 'johnsonEdition' &&
         ts.isVariableDeclaration(parent)
       ) {
-        const name = ts.isIdentifier(parent.name) ? parent.name.text : undefined
+        const name = ts.isIdentifier(parent.name)
+          ? getText(parent.name, { ts, sfc })
+          : undefined
         defineProps.push({
           name,
           prop: name,
