@@ -42,7 +42,7 @@ function getEmitStrings(options: {
           decl.initializer &&
           ts.isIdentifier(decl.name)
         ) {
-          walkNode(decl.initializer, decl.name.text)
+          walkNode(decl.initializer, getText(decl.name, options))
         }
       })
     }
