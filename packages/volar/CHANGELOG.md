@@ -1,5 +1,16 @@
 # @vue-macros/volar
 
+## 0.30.10
+### Patch Changes
+
+
+
+- [`692a47a`](https://github.com/vue-macros/vue-macros/commit/692a47a145e44ae3824998b2516d13a4ed6e9522) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - get identifier name correctly for define-prop #885
+
+
+
+- [#887](https://github.com/vue-macros/vue-macros/pull/887) [`60631f7`](https://github.com/vue-macros/vue-macros/commit/60631f7aecff818c962ef4f79dd16497aa2e721f) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - get identifier name correctly
+
 ## 0.30.9
 ### Patch Changes
 
