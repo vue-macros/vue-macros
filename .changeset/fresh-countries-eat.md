@@ -2,5 +2,5 @@
 "@vue-macros/volar": patch
 ---
 
-get identifier name correctly for define-prop
+get identifier name correctly for define-prop #885
   
