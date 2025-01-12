@@ -5,7 +5,7 @@
 
 
 
-- [`39f1ad2`](https://github.com/vue-macros/vue-macros/commit/39f1ad2762e76cb72efdb369671d02f2152ce0fa) Thanks [@Soya-xy](https://github.com/Soya-xy)! - get identifier name correctly for define-prop
+- [#885](https://github.com/vue-macros/vue-macros/pull/885) [`39f1ad2`](https://github.com/vue-macros/vue-macros/commit/39f1ad2762e76cb72efdb369671d02f2152ce0fa) Thanks [@Soya-xy](https://github.com/Soya-xy)! - get identifier name correctly for define-prop
 
 
 
