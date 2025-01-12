@@ -117,11 +117,11 @@ function getDefineProp(
           node.arguments[0] && ts.isStringLiteral(node.arguments[0])
             ? node.arguments[0].text
             : ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)
-              ? parent.name.text
+              ? getText(parent.name, { ts, sfc })
               : undefined
         const prop =
           ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)
-            ? parent.name.text
+            ? getText(parent.name, { ts, sfc })
             : undefined
         const optionArg =
           node.arguments[0] && ts.isObjectLiteralExpression(node.arguments[0])
@@ -140,14 +140,14 @@ function getDefineProp(
               ts.isIdentifier(property.name)
             ) {
               if (
-                property.name.text === 'required' &&
+                getText(property.name, { ts, sfc }) === 'required' &&
                 property.initializer.kind === ts.SyntaxKind.TrueKeyword
               )
                 required = true
 
               if (
                 ts.isIdentifier(property.name) &&
-                property.name.text === 'default'
+                getText(property.name, { ts, sfc }) === 'default'
               )
                 defaultValue = getText(property.initializer, { ts, sfc })
             }
