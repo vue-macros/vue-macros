@@ -19,7 +19,7 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:ecosystem": "run-p test typecheck",
-    "lint": "eslint --max-warnings 0 --cache --flag unstable_ts_config .",
+    "lint": "eslint --max-warnings 0 --cache .",
     "cspell:check": "cspell \"**\" --no-progress",
     "format": "prettier --write --cache .",
     "format:check": "prettier --check --cache .",
