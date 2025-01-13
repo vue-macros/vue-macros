@@ -1,23 +1,42 @@
-# eslint yml/sort-keys: 'error'
+# eslint yml/sort-keys: ['error', { pathPattern: "^catalog$", order: { type: asc }, allowLineSeparatedGroups: true }]
 
 catalog:
+  '@babel/parser': &babel ^7.26.5
+  '@babel/types': *babel
+
+  '@vue/language-core': &volar 2.1.10
+  vue-tsc: *volar
+
+  vitest: &vitest ^3.0.0-beta.4
+  '@vitest/coverage-v8': *vitest
+  '@vitest/ui': *vitest
+
+  vue: &vue ^3.5.13
+  '@vue/compiler-core': *vue
+  '@vue/compiler-dom': *vue
+  '@vue/compiler-sfc': *vue
+  '@vue/reactivity': *vue
+  '@vue/runtime-core': *vue
+  '@vue/runtime-dom': *vue
+  '@vue/shared': *vue
+
+  shiki: &shiki ^1.26.2
+  '@shikijs/vitepress-twoslash': *shiki
+
   '@stylexjs/stylex': ^0.10.0
-  '@vue/compiler-core': ^3.5.13
-  '@vue/compiler-dom': ^3.5.13
-  '@vue/compiler-sfc': ^3.5.13
-  '@vue/language-core': 2.1.10
-  '@vue/reactivity': ^3.5.13
-  '@vue/runtime-core': ^3.5.13
-  '@vue/runtime-dom': ^3.5.13
-  '@vue/shared': ^3.5.13
+  '@vitejs/plugin-vue': ^5.2.1
+  '@vueuse/core': ^12.4.0
+  ast-walker-scope: ^0.6.2
   esbuild: ^0.24.2
+  magic-string: ^0.30.17
+  prettier: ^3.4.2
   rollup: ^4.30.1
-  typescript: ^5.7.2
+  typescript: ^5.7.3
   unplugin: ^1.16.1
+  unplugin-vue: ^5.2.1
   vite: ^6.0.7
   vite-plugin-stylex: ^0.13.0
-  vue: ^3.5.13
-  vue-tsc: 2.2.0
+
 packages:
   - packages/*
   - playground/*
