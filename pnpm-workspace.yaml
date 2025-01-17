@@ -7,9 +7,12 @@ catalog:
   '@vue/language-core': &volar 2.1.10
   vue-tsc: *volar
 
-  vitest: &vitest ^3.0.0-beta.4
+  vitest: &vitest ^3.0.2
   '@vitest/coverage-v8': *vitest
   '@vitest/ui': *vitest
+
+  unocss: &unocss ^65.4.2
+  '@unocss/reset': *unocss
 
   vue: &vue ^3.5.13
   '@vue/compiler-core': *vue
@@ -20,7 +23,7 @@ catalog:
   '@vue/runtime-dom': *vue
   '@vue/shared': *vue
 
-  shiki: &shiki ^1.26.2
+  shiki: &shiki ^1.27.2
   '@shikijs/vitepress-twoslash': *shiki
 
   '@stylexjs/stylex': ^0.10.0
