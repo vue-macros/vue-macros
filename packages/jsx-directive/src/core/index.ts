@@ -34,26 +34,27 @@ export function transformJsxDirective(
   prefix = 'v-',
 ): CodeTransform | undefined {
   const lang = getLang(id)
-  const asts: { ast: Program; offset: number }[] = []
+
+  const programs: [program: Program, offset: number][] = []
   if (lang === 'vue' || REGEX_SETUP_SFC.test(id)) {
     const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
       code,
       id,
     )
     if (script) {
-      asts.push({ ast: getScriptAst()!, offset: script.loc.start.offset })
+      programs.push([getScriptAst()!, script.loc.start.offset])
     }
     if (scriptSetup) {
-      asts.push({ ast: getSetupAst()!, offset: scriptSetup.loc.start.offset })
+      programs.push([getSetupAst()!, scriptSetup.loc.start.offset])
     }
   } else if (['jsx', 'tsx'].includes(lang)) {
-    asts.push({ ast: babelParse(code, lang), offset: 0 })
+    programs.push([babelParse(code, lang), 0])
   } else {
     return
   }
 
   const s = new MagicStringAST(code)
-  for (const { ast, offset } of asts) {
+  for (const [ast, offset] of programs) {
     s.offset = offset
     transform(s, ast, version, prefix)
   }
@@ -62,7 +63,7 @@ export function transformJsxDirective(
 
 function transform(
   s: MagicStringAST,
-  ast: Program,
+  program: Program,
   version: number,
   prefix = 'v-',
 ) {
@@ -75,7 +76,7 @@ function transform(
   const vSlotMap: VSlotMap = new Map()
   const vOnNodes: JsxDirective[] = []
   const onWithModifiers: JsxDirective[] = []
-  walkAST<Node>(ast, {
+  walkAST<Node>(program, {
     enter(node, parent) {
       if (node.type !== 'JSXElement') return
       const tagName = s.sliceNode(node.openingElement.name)

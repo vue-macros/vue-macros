@@ -1,7 +1,7 @@
 ---
-"@vue-macros/jsx-directive": patch
+"@vue-macros/jsx-directive": minor
 "unplugin-vue-macros": patch
 ---
 
-support vue-sfc for jsx-directive
+support Vue SFC for jsx-directive
   
