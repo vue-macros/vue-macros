@@ -8,7 +8,7 @@ const t = useTranslate()
 const members = computed(() => [
   {
     avatar: 'https://github.com/sxzz.png',
-    name: '三咲智子 Kevin Deng',
+    name: t('Kevin Deng'),
     title: t('Author'),
     links: [
       { icon: 'github', link: 'https://github.com/sxzz' },

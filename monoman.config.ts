@@ -230,13 +230,13 @@ Please refer to [README.md](${githubLink}#readme)\n`
       /shiki/,
       /babel/,
       /esbuild/,
-      /vite(?!-plugin-vue-inspector)/,
+      /vite(?!-plugin-(vue-inspector|inspect))/,
       /unocss/,
       /rolldown/,
     ],
   }),
   ...noDuplicatedPnpmLockfile({
-    deps: ['vue', 'lru-cache', 'minimatch', 'debug'],
+    deps: ['vue', '@vue/compiler-sfc', 'lru-cache', 'minimatch', 'debug'],
     allowMajor: true,
   }),
 ])

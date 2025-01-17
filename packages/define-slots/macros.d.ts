@@ -1,1 +1,1 @@
-export declare const defineSlots: <T>() => void
+export declare const defineSlots: <T>() => T
