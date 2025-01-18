@@ -97,6 +97,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
       resolvePlugin(VueDefineStyleX, framework, options.defineStyleX),
       resolvePlugin(VueExportRender, framework, options.exportRender),
       resolvePlugin(VueExportExpose, framework, options.exportExpose),
+      resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
       resolvePlugin(
         VueReactivityTransform,
         framework,
@@ -131,7 +132,6 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
         : []),
 
       options.plugins.vue,
-      resolvePlugin(VueJsxDirective, framework, options.jsxDirective),
       options.plugins.vueJsx,
       resolvePlugin(VueDefineRender, framework, options.defineRender),
       setupComponentPlugins?.[1],
