@@ -17,11 +17,8 @@ import { loadConfig } from './config'
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
 import type { Options as OptionsBooleanProp } from '@vue-macros/boolean-prop'
 import type { Options as OptionsChainCall } from '@vue-macros/chain-call'
-import {
-  detectVueVersion,
-  type BaseOptions,
-  type FilterOptions,
-} from '@vue-macros/common'
+import type { BaseOptions, FilterOptions } from '@vue-macros/common'
+import { detectVueVersion } from '@vue-macros/common/dep'
 import type { Options as OptionsDefineEmit } from '@vue-macros/define-emit'
 import type { Options as OptionsDefineModels } from '@vue-macros/define-models'
 import type { Options as OptionsDefineProp } from '@vue-macros/define-prop'

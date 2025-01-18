@@ -36,6 +36,11 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
+    "./dep": {
+      "dev": "./src/dep.ts",
+      "require": "./dist/dep.cjs",
+      "import": "./dist/dep.js"
+    },
     "./*": "./*"
   },
   "publishConfig": {
@@ -44,6 +49,10 @@
       ".": {
         "require": "./dist/index.cjs",
         "import": "./dist/index.js"
+      },
+      "./dep": {
+        "require": "./dist/dep.cjs",
+        "import": "./dist/dep.js"
       },
       "./*": "./*"
     }
@@ -62,11 +71,11 @@
   },
   "dependencies": {
     "@babel/types": "catalog:",
-    "@rollup/pluginutils": "^5.1.4",
     "@vue/compiler-sfc": "catalog:",
     "ast-kit": "^1.3.2",
     "local-pkg": "^1.0.0",
-    "magic-string-ast": "^0.7.0"
+    "magic-string-ast": "^0.7.0",
+    "rollup-utils": "^0.0.1"
   },
   "devDependencies": {
     "@babel/parser": "catalog:",

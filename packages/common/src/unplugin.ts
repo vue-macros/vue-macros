@@ -1,8 +1,9 @@
+import { generateTransform, type CodeTransform } from 'magic-string-ast'
 import {
   createFilter as createRollupFilter,
+  normalizePath,
   type FilterPattern,
-} from '@rollup/pluginutils'
-import { generateTransform, type CodeTransform } from 'magic-string-ast'
+} from 'rollup-utils'
 import {
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
@@ -28,10 +29,7 @@ export function createFilter(
   return createRollupFilter(options.include, options.exclude)
 }
 
-export {
-  createFilter as createRollupFilter,
-  normalizePath,
-} from '@rollup/pluginutils'
+export { createRollupFilter, normalizePath }
 
 export interface VuePluginApi {
   options: ResolvedOptions

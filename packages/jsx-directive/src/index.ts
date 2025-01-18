@@ -1,6 +1,5 @@
 import {
   createFilter,
-  detectVueVersion,
   FilterFileType,
   getFilterPattern,
   REGEX_NODE_MODULES,
@@ -8,6 +7,7 @@ import {
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
+import { detectVueVersion } from '@vue-macros/common/dep'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,

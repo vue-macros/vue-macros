@@ -1,11 +1,11 @@
 import {
   createFilter,
-  detectVueVersion,
   hackViteHMR,
   REGEX_VUE_SFC,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
+import { detectVueVersion } from '@vue-macros/common/dep'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { transformScriptLang } from './core'
