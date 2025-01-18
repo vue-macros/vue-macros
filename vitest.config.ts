@@ -10,6 +10,9 @@ export default defineConfig({
     },
     conditions: ['dev'],
   },
+  define: {
+    TSUP_FORMAT: "'esm'",
+  },
   environments: {
     ssr: {
       resolve: { conditions: ['dev'] },
