@@ -1,5 +1,19 @@
 # @vue-macros/common
 
+## 1.16.0
+### Minor Changes
+
+
+
+- [`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce) Thanks [@sxzz](https://github.com/sxzz)! - support `detectVueVersion` on browsers
+
+
+### Patch Changes
+
+
+
+- [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65) Thanks [@sxzz](https://github.com/sxzz)! - remove `@babel/types` dependency
+
 ## 1.15.1
 ### Patch Changes
 

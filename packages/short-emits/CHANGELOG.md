@@ -1,5 +1,11 @@
 # @vue-macros/short-emits
 
+## 1.6.4
+### Patch Changes
+
+- Updated dependencies [[`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce), [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65)]:
+  - @vue-macros/common@1.16.0
+
 ## 1.6.3
 ### Patch Changes
 

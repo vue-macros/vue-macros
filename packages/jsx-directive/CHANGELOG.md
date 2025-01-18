@@ -1,5 +1,18 @@
 # @vue-macros/jsx-directive
 
+## 0.10.0
+### Minor Changes
+
+
+
+- [#872](https://github.com/vue-macros/vue-macros/pull/872) [`cf931b5`](https://github.com/vue-macros/vue-macros/commit/cf931b57d121568c6cfbd67e644564c707bc299b) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support Vue SFC for jsx-directive
+
+
+### Patch Changes
+
+- Updated dependencies [[`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce), [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65)]:
+  - @vue-macros/common@1.16.0
+
 ## 0.9.4
 ### Patch Changes
 
