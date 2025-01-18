@@ -16,8 +16,8 @@ catalogs:
       specifier: ^1.27.2
       version: 1.27.2
     '@stylexjs/stylex':
-      specifier: ^0.10.0
-      version: 0.10.0
+      specifier: ^0.10.1
+      version: 0.10.1
     '@unocss/reset':
       specifier: ^65.4.2
       version: 65.4.2
@@ -48,9 +48,6 @@ catalogs:
     magic-string:
       specifier: ^0.30.17
       version: 0.30.17
-    prettier:
-      specifier: ^3.4.2
-      version: 3.4.2
     rollup:
       specifier: ^4.30.1
       version: 4.30.1
@@ -156,8 +153,8 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
       oxc-transform:
-        specifier: ^0.46.0
-        version: 0.46.0
+        specifier: ^0.47.0
+        version: 0.47.0
       pkg-types:
         specifier: ^1.3.1
         version: 1.3.1
@@ -199,7 +196,7 @@ importers:
         version: 1.16.1
       unplugin-isolated-decl:
         specifier: ^0.10.5
-        version: 0.10.5(oxc-transform@0.46.0)(rollup@4.30.1)(typescript@5.7.3)
+        version: 0.10.5(oxc-transform@0.47.0)(rollup@4.30.1)(typescript@5.7.3)
       unplugin-macros:
         specifier: ^0.14.0
         version: 0.14.0(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(rollup@4.30.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
@@ -234,7 +231,7 @@ importers:
   docs:
     dependencies:
       prettier:
-        specifier: 'catalog:'
+        specifier: ^3.4.2
         version: 3.4.2
       shiki:
         specifier: 'catalog:'
@@ -263,7 +260,7 @@ importers:
         version: 1.27.2(@nuxt/kit@3.15.2(magicast@0.3.5)(rollup@4.30.1))(typescript@5.7.3)
       '@stylexjs/stylex':
         specifier: 'catalog:'
-        version: 0.10.0
+        version: 0.10.1
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.1.1
         version: 4.1.1(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
@@ -382,8 +379,8 @@ importers:
         specifier: ^0.2.9
         version: 0.2.9
       unconfig:
-        specifier: ^0.6.0
-        version: 0.6.0
+        specifier: ^0.6.1
+        version: 0.6.1
     devDependencies:
       '@vue-macros/better-define':
         specifier: workspace:*
@@ -599,8 +596,8 @@ importers:
         version: 1.16.1
     devDependencies:
       '@stylexjs/stylex':
-        specifier: ^0.10.0
-        version: 0.10.0
+        specifier: 'catalog:'
+        version: 0.10.1
 
   packages/devtools:
     dependencies:
@@ -792,8 +789,8 @@ importers:
         specifier: 'catalog:'
         version: 1.16.1
       unplugin-combine:
-        specifier: ^1.1.0
-        version: 1.1.0(@rspack/core@1.1.8(@swc/helpers@0.5.15))(esbuild@0.24.2)(rolldown@1.0.0-beta.1(@babel/runtime@7.26.0))(rollup@4.30.1)(unplugin@1.16.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.97.1(esbuild@0.24.2))
+        specifier: ^1.1.1
+        version: 1.1.1(@rspack/core@1.1.8(@swc/helpers@0.5.15))(esbuild@0.24.2)(rolldown@1.0.0-beta.1(@babel/runtime@7.26.0))(rollup@4.30.1)(unplugin@1.16.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.97.1(esbuild@0.24.2))
       unplugin-vue-define-options:
         specifier: workspace:*
         version: link:../define-options
@@ -1055,8 +1052,8 @@ importers:
         specifier: ^16.0.0
         version: 16.0.0(rollup@4.30.1)
       '@stylexjs/stylex':
-        specifier: ^0.10.0
-        version: 0.10.0
+        specifier: 'catalog:'
+        version: 0.10.1
       '@vitejs/plugin-vue2':
         specifier: ^2.3.3
         version: 2.3.3(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(vue@2.7.16)
@@ -1101,7 +1098,7 @@ importers:
         version: 10.0.6(@nuxt/kit@3.15.2(magicast@0.3.5)(rollup@4.30.1))(rollup@4.30.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       vite-plugin-stylex:
         specifier: 'catalog:'
-        version: 0.13.0(@stylexjs/stylex@0.10.0)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+        version: 0.13.0(@stylexjs/stylex@0.10.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       vue-tsc:
         specifier: 'catalog:'
         version: 2.1.10(typescript@5.7.3)
@@ -1125,8 +1122,8 @@ importers:
         specifier: ^16.0.0
         version: 16.0.0(rollup@4.30.1)
       '@stylexjs/stylex':
-        specifier: ^0.10.0
-        version: 0.10.0
+        specifier: 'catalog:'
+        version: 0.10.1
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
         version: 5.2.1(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
@@ -1171,7 +1168,7 @@ importers:
         version: 10.0.6(@nuxt/kit@3.15.2(magicast@0.3.5)(rollup@4.30.1))(rollup@4.30.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       vite-plugin-stylex:
         specifier: 'catalog:'
-        version: 0.13.0(@stylexjs/stylex@0.10.0)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+        version: 0.13.0(@stylexjs/stylex@0.10.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       vue-tsc:
         specifier: 'catalog:'
         version: 2.1.10(typescript@5.7.3)
@@ -2348,43 +2345,43 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oxc-transform/binding-darwin-arm64@0.46.0':
-    resolution: {integrity: sha512-znAzwhkpUYhdqdPqIJNX43cvjigvl9IHllYlLYb9TQQk33+zQfhRI1Rh7hnpHuL4qG8vRo3A5JkgRS0Cf65QXQ==}
+  '@oxc-transform/binding-darwin-arm64@0.47.0':
+    resolution: {integrity: sha512-RetUn1u7C/NPBIISCMi5qGj6uBbedt5I+fzHcPt3/quR3HsxY9rCJXE6OR4Thliad2vYFSOl6Bzu4wu/zATx2w==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxc-transform/binding-darwin-x64@0.46.0':
-    resolution: {integrity: sha512-8cgIMoKnpa7AmV+Ggk9ka34PCNTldT8PZhVZqvJnwL1x02KrmJ6oLF1fRpBPZkAwwwoFP1WICEp2vXdn8EMMTQ==}
+  '@oxc-transform/binding-darwin-x64@0.47.0':
+    resolution: {integrity: sha512-rvR1Bb+jKyqg0Gxxrs9OD7gKrmViBAHDKWKydVIJZ1g6sv2bqQxGmbAvmPLcXVMinqOdbu7Qpk51hbuU7rah5w==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxc-transform/binding-linux-arm64-gnu@0.46.0':
-    resolution: {integrity: sha512-+qjSoFtemGX9ZUBOKFMUhxeSBk3SLO+ApTyBnQC7f2PS2r9D7nuiTFHAY3QTwh1OTOGdBGkk+sd51CGrfI/e7Q==}
+  '@oxc-transform/binding-linux-arm64-gnu@0.47.0':
+    resolution: {integrity: sha512-Z0tFWTWQdtLoQDOc3rN3ae7sGLssaalTuV+pT+VcU6n995lX8c8cRUTJC73F1rQVFZy6Oxzg4g5uMgoAsfbCew==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxc-transform/binding-linux-arm64-musl@0.46.0':
-    resolution: {integrity: sha512-wsZ4M3jeSotpS4olQzQ/YdMoJm67JK1EckGdVBlxsiUe68qNhpdTQvQMvFvEgfiASDEn8x4kqgSePCTmjeOg0g==}
+  '@oxc-transform/binding-linux-arm64-musl@0.47.0':
+    resolution: {integrity: sha512-g59eI7TwhL764Ls6oGomN3B1COOHi39X1fqfswIxl3EwCpPijWFc98EKUapdaZD8/7ID+x0QZpjvmexpSqPxLg==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxc-transform/binding-linux-x64-gnu@0.46.0':
-    resolution: {integrity: sha512-oOVVi8An+zvcOLhO3+buLeljpE5fb0R1Zi8DlQW92SI4rxFhSTYNY13z9NvDJtWIC0uRpSmLe666/UZsT8fiDw==}
+  '@oxc-transform/binding-linux-x64-gnu@0.47.0':
+    resolution: {integrity: sha512-TTCjgpP1SEIkAWjRBwUBGyBzGZoXfdBcTpGrYVi8kHzZhgfLB8KoFpASCuNTnvRyWll6lCTWM7W0QjgclXSczQ==}
     cpu: [x64]
     os: [linux]
 
-  '@oxc-transform/binding-linux-x64-musl@0.46.0':
-    resolution: {integrity: sha512-vC9EUZNVIked1QXuNAUrDg01GhNcG7MvNzpqVXjDJLmH436G2pblKrz5PUNa6DGwt707XPm31G1uxMkPDIX5Cg==}
+  '@oxc-transform/binding-linux-x64-musl@0.47.0':
+    resolution: {integrity: sha512-CuaK7pE7m8bRSa9vor9lEnMwOgRcVqpq9ymQqCVd3AdVt7bzOKe6Ud7BwRtBGKtwRzUUl8PS3RXsuyPCL6BBWA==}
     cpu: [x64]
     os: [linux]
 
-  '@oxc-transform/binding-win32-arm64-msvc@0.46.0':
-    resolution: {integrity: sha512-C2F/6LQed35yuH5KpV/XIVZoka5XhgdPuezlOi7ortTr7zXS1O0yyQDwS8KAwfEtloK6U9sf0Eusv2nRze1h4Q==}
+  '@oxc-transform/binding-win32-arm64-msvc@0.47.0':
+    resolution: {integrity: sha512-2JY+PZcy53FvGx6258Z4jdwdbwFVNgET6n/Q6w3XaehWFgdW2b2ru09y1QUP+j0mLDuzKTtGKLorZV+gCyJQNQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxc-transform/binding-win32-x64-msvc@0.46.0':
-    resolution: {integrity: sha512-qcFJarJ09fq2xhSJlrYh9v0bLdrG7Hw0//uAuwPPuAoggKyYA8U1K8L4rET4cs261fM4BqqxbecHTKHxl0FzLw==}
+  '@oxc-transform/binding-win32-x64-msvc@0.47.0':
+    resolution: {integrity: sha512-Nrwxv+y4ljfesIQhJ/GV1IPP6nPRvLRsqHUVu8pRCvacDnNH92ShPYPfOZGRZmy03QQk8u2rtwye4FsNLoGImg==}
     cpu: [x64]
     os: [win32]
 
@@ -2702,8 +2699,8 @@ packages:
   '@stylexjs/shared@0.9.3':
     resolution: {integrity: sha512-0gtKFjZxAvDdUdoZTuvukovboD3K12BxkswKHHBRvzfcrM0rQXGMXoHS1gLRMQJ9kllJaa/I3sclbeWKyELm6Q==}
 
-  '@stylexjs/stylex@0.10.0':
-    resolution: {integrity: sha512-nO3STzHZDSb92RADfXsNDsjspd0De84TdpkBVbC914ppMLw5hz6B35puJZ8swjEbqUZC8xYncpd3yWot+gVLeA==}
+  '@stylexjs/stylex@0.10.1':
+    resolution: {integrity: sha512-J2LUqD9Z1Vg9rBpvAcluBR7aXP0RbI4FDcjoJoNwPQT1NGiBa0VaoDim7mLQYvivOV0gWbeBnW23Pi6ylhxaMQ==}
 
   '@stylexjs/stylex@0.9.3':
     resolution: {integrity: sha512-q3kYZ5bMXlVyF6Wh8b8Uwl701aSu8aEhim0AlQTaAXKMt0J6nTCWOjSwq6GNR74Ez4pcm2Ha4NDqhkYhKYGBcQ==}
@@ -5181,8 +5178,8 @@ packages:
   oxc-resolver@3.0.3:
     resolution: {integrity: sha512-fU5lhDCb9fCv/CP2YJiBEcuC+ZhTdOBzyacoUvPlZxA4NpF6JPVbgeYD9rthQIjfWlAwi5qfxQj2dyqxLoJ9HA==}
 
-  oxc-transform@0.46.0:
-    resolution: {integrity: sha512-aK0+25Myo9ohyPbAne49oNmwYkJ6/4rwpHA9k5HIb8UEUlSFFY7LaoYZ3/BNGspbHAKfv34Lu8rMH3GYmFJWpQ==}
+  oxc-transform@0.47.0:
+    resolution: {integrity: sha512-qkKXksYdUTKWC6lzY/IcimP9qfxX8swPH34aBKOsBRbJjr7tuS84XVa3gdkTs3gpRXqKkUp+2Bwose9PXtobCA==}
 
   p-filter@2.1.0:
     resolution: {integrity: sha512-ZBxxZ5sL2HghephhpGAQdoskxplTwr7ICaehZwLIlfL6acuVgZPm8yBNuRAFBGEqtD/hmUeq9eqLg2ys9Xr/yw==}
@@ -6042,8 +6039,8 @@ packages:
   ultrahtml@1.5.3:
     resolution: {integrity: sha512-GykOvZwgDWZlTQMtp5jrD4BVL+gNn2NVlVafjcFUJ7taY20tqYdwdoWBFy6GBJsNTZe1GkGPkSl5knQAjtgceg==}
 
-  unconfig@0.6.0:
-    resolution: {integrity: sha512-4C67J0nIF2QwSXty2kW3zZx1pMZ3iXabylvJWWgHybWVUcMf9pxwsngoQt0gC+AVstRywFqrRBp3qOXJayhpOw==}
+  unconfig@0.6.1:
+    resolution: {integrity: sha512-cVU+/sPloZqOyJEAfNwnQSFCzFrZm85vcVkryH7lnlB/PiTycUkAjt5Ds79cfIshGOZ+M5v3PBDnKgpmlE5DtA==}
 
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
@@ -6118,8 +6115,8 @@ packages:
       vite:
         optional: true
 
-  unplugin-combine@1.1.0:
-    resolution: {integrity: sha512-GNx3It1kNzflXEOXhiFJZgqCwBwHOHk5pTNS91Ed3JOMQxPI/cPYGDNWOFaTL7j/LcRNpDavPWYNdbXJ4LSNmA==}
+  unplugin-combine@1.1.1:
+    resolution: {integrity: sha512-CFDE1ACLtHMPSTYrgFOWX5IdtzMtR8gKS9gS63PAb6BdDDuNB3nXSdQlQqGrvglx9F6r5COZWmCcbrHxIM6g1g==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
       '@rspack/core': '*'
@@ -8197,28 +8194,28 @@ snapshots:
   '@oxc-resolver/binding-win32-x64-msvc@3.0.3':
     optional: true
 
-  '@oxc-transform/binding-darwin-arm64@0.46.0':
+  '@oxc-transform/binding-darwin-arm64@0.47.0':
     optional: true
 
-  '@oxc-transform/binding-darwin-x64@0.46.0':
+  '@oxc-transform/binding-darwin-x64@0.47.0':
     optional: true
 
-  '@oxc-transform/binding-linux-arm64-gnu@0.46.0':
+  '@oxc-transform/binding-linux-arm64-gnu@0.47.0':
     optional: true
 
-  '@oxc-transform/binding-linux-arm64-musl@0.46.0':
+  '@oxc-transform/binding-linux-arm64-musl@0.47.0':
     optional: true
 
-  '@oxc-transform/binding-linux-x64-gnu@0.46.0':
+  '@oxc-transform/binding-linux-x64-gnu@0.47.0':
     optional: true
 
-  '@oxc-transform/binding-linux-x64-musl@0.46.0':
+  '@oxc-transform/binding-linux-x64-musl@0.47.0':
     optional: true
 
-  '@oxc-transform/binding-win32-arm64-msvc@0.46.0':
+  '@oxc-transform/binding-win32-arm64-msvc@0.47.0':
     optional: true
 
-  '@oxc-transform/binding-win32-x64-msvc@0.46.0':
+  '@oxc-transform/binding-win32-x64-msvc@0.47.0':
     optional: true
 
   '@pkgjs/parseargs@0.11.0':
@@ -8497,7 +8494,7 @@ snapshots:
     dependencies:
       postcss-value-parser: 4.2.0
 
-  '@stylexjs/stylex@0.10.0':
+  '@stylexjs/stylex@0.10.1':
     dependencies:
       css-mediaquery: 0.1.2
       invariant: 2.2.4
@@ -8765,7 +8762,7 @@ snapshots:
   '@unocss/config@65.4.2':
     dependencies:
       '@unocss/core': 65.4.2
-      unconfig: 0.6.0
+      unconfig: 0.6.1
     transitivePeerDependencies:
       - supports-color
 
@@ -11550,7 +11547,7 @@ snapshots:
       consola: 3.4.0
       fast-glob: 3.3.3
       js-yaml: '@zkochan/js-yaml@0.0.7'
-      unconfig: 0.6.0
+      unconfig: 0.6.1
     transitivePeerDependencies:
       - supports-color
 
@@ -11718,16 +11715,16 @@ snapshots:
       '@oxc-resolver/binding-win32-arm64-msvc': 3.0.3
       '@oxc-resolver/binding-win32-x64-msvc': 3.0.3
 
-  oxc-transform@0.46.0:
+  oxc-transform@0.47.0:
     optionalDependencies:
-      '@oxc-transform/binding-darwin-arm64': 0.46.0
-      '@oxc-transform/binding-darwin-x64': 0.46.0
-      '@oxc-transform/binding-linux-arm64-gnu': 0.46.0
-      '@oxc-transform/binding-linux-arm64-musl': 0.46.0
-      '@oxc-transform/binding-linux-x64-gnu': 0.46.0
-      '@oxc-transform/binding-linux-x64-musl': 0.46.0
-      '@oxc-transform/binding-win32-arm64-msvc': 0.46.0
-      '@oxc-transform/binding-win32-x64-msvc': 0.46.0
+      '@oxc-transform/binding-darwin-arm64': 0.47.0
+      '@oxc-transform/binding-darwin-x64': 0.47.0
+      '@oxc-transform/binding-linux-arm64-gnu': 0.47.0
+      '@oxc-transform/binding-linux-arm64-musl': 0.47.0
+      '@oxc-transform/binding-linux-x64-gnu': 0.47.0
+      '@oxc-transform/binding-linux-x64-musl': 0.47.0
+      '@oxc-transform/binding-win32-arm64-msvc': 0.47.0
+      '@oxc-transform/binding-win32-x64-msvc': 0.47.0
 
   p-filter@2.1.0:
     dependencies:
@@ -12649,9 +12646,9 @@ snapshots:
 
   ultrahtml@1.5.3: {}
 
-  unconfig@0.6.0:
+  unconfig@0.6.1:
     dependencies:
-      '@antfu/utils': 0.7.10
+      '@antfu/utils': 8.1.0
       defu: 6.1.4
       importx: 0.5.1
     transitivePeerDependencies:
@@ -12807,9 +12804,7 @@ snapshots:
       - supports-color
       - vue
 
-  unplugin-combine@1.1.0(@rspack/core@1.1.8(@swc/helpers@0.5.15))(esbuild@0.24.2)(rolldown@1.0.0-beta.1(@babel/runtime@7.26.0))(rollup@4.30.1)(unplugin@1.16.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.97.1(esbuild@0.24.2)):
-    dependencies:
-      '@antfu/utils': 0.7.10
+  unplugin-combine@1.1.1(@rspack/core@1.1.8(@swc/helpers@0.5.15))(esbuild@0.24.2)(rolldown@1.0.0-beta.1(@babel/runtime@7.26.0))(rollup@4.30.1)(unplugin@1.16.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(webpack@5.97.1(esbuild@0.24.2)):
     optionalDependencies:
       '@rspack/core': 1.1.8(@swc/helpers@0.5.15)
       esbuild: 0.24.2
@@ -12819,7 +12814,7 @@ snapshots:
       vite: 6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
       webpack: 5.97.1(esbuild@0.24.2)
 
-  unplugin-isolated-decl@0.10.5(oxc-transform@0.46.0)(rollup@4.30.1)(typescript@5.7.3):
+  unplugin-isolated-decl@0.10.5(oxc-transform@0.47.0)(rollup@4.30.1)(typescript@5.7.3):
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.30.1)
       debug: 4.4.0
@@ -12827,7 +12822,7 @@ snapshots:
       oxc-parser: 0.45.0
       unplugin: 2.1.2
     optionalDependencies:
-      oxc-transform: 0.46.0
+      oxc-transform: 0.47.0
       typescript: 5.7.3
     transitivePeerDependencies:
       - rollup
@@ -13042,14 +13037,14 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-stylex@0.13.0(@stylexjs/stylex@0.10.0)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)):
+  vite-plugin-stylex@0.13.0(@stylexjs/stylex@0.10.1)(vite@6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-syntax-flow': 7.26.0(@babel/core@7.26.0)
       '@babel/plugin-syntax-jsx': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-syntax-typescript': 7.25.9(@babel/core@7.26.0)
       '@stylexjs/babel-plugin': 0.9.3
-      '@stylexjs/stylex': 0.10.0
+      '@stylexjs/stylex': 0.10.1
       compare-versions: 6.1.1
       vite: 6.0.7(@types/node@22.10.7)(jiti@2.4.2)(less@4.2.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
     transitivePeerDependencies:
