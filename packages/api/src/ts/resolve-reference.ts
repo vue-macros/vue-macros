@@ -1,11 +1,3 @@
-import {
-  isTSType,
-  type Identifier,
-  type Node,
-  type TSParenthesizedType,
-  type TSType,
-  type TSTypeAliasDeclaration,
-} from '@babel/types'
 import { resolveIdentifier } from '@vue-macros/common'
 import { isTSDeclaration, type TSDeclaration } from './is'
 import {
@@ -15,6 +7,13 @@ import {
 } from './namespace'
 import { resolveTSIndexedAccessType } from './resolve'
 import { resolveTSScope, type TSScope } from './scope'
+import type {
+  Identifier,
+  Node,
+  TSParenthesizedType,
+  TSType,
+  TSTypeAliasDeclaration,
+} from '@babel/types'
 
 export interface TSResolvedType<
   T =
@@ -30,7 +29,11 @@ type TSReferencedType = TSType | Identifier | TSDeclaration
 export function isSupportedForTSReferencedType(
   node: Node,
 ): node is TSReferencedType {
-  return isTSType(node) || node.type === 'Identifier' || isTSDeclaration(node)
+  return (
+    node.type.startsWith('TS') ||
+    node.type === 'Identifier' ||
+    isTSDeclaration(node)
+  )
 }
 
 /**
