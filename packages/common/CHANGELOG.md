@@ -1,5 +1,12 @@
 # @vue-macros/common
 
+## 1.16.1
+### Patch Changes
+
+
+
+- [`d608125`](https://github.com/vue-macros/vue-macros/commit/d60812504fed4ade2e5565a7d275cc36b6691247) Thanks [@sxzz](https://github.com/sxzz)! - don't import node module if no `process` global variable
+
 ## 1.16.0
 ### Minor Changes
 
