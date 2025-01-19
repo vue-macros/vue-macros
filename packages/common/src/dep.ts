@@ -3,9 +3,9 @@
 let _require: NodeRequire | undefined
 if (TSUP_FORMAT === 'cjs') {
   _require = require
-} else if (typeof process !== 'undefined') {
-  if (globalThis.process?.getBuiltinModule) {
-    const module = globalThis.process.getBuiltinModule('module')
+} else if (typeof process !== 'undefined' && process.version) {
+  if (process.getBuiltinModule) {
+    const module = process.getBuiltinModule('module')
     _require = module.createRequire(import.meta.url)
   } else {
     import('node:module').then(
@@ -17,11 +17,11 @@ if (TSUP_FORMAT === 'cjs') {
   }
 }
 
-export function detectVueVersion(root?: string, defaultVersion = 3): number {
+export function detectVueVersion(root?: string, defaultVersion = 3.5): number {
   // cannot detect version
   if (!_require) {
-    console.warn('Cannot detect Vue version. Default to Vue 3.5')
-    return 3.5
+    console.warn(`Cannot detect Vue version. Default to Vue ${defaultVersion}`)
+    return defaultVersion
   }
 
   const { resolve } = _require('node:path') as typeof import('path')
