@@ -35,20 +35,7 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
-    "./flat": {
-      "dev": "./src/flat.ts",
-      "require": "./dist/flat.cjs",
-      "import": "./dist/flat.js"
-    },
     "./*": "./*"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./*"
-      ]
-    }
   },
   "publishConfig": {
     "access": "public",
@@ -56,10 +43,6 @@
       ".": {
         "require": "./dist/index.cjs",
         "import": "./dist/index.js"
-      },
-      "./flat": {
-        "require": "./dist/flat.cjs",
-        "import": "./dist/flat.js"
       },
       "./*": "./*"
     }
@@ -69,7 +52,7 @@
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
-    "eslint": ">=8.0.0"
+    "eslint": ">=9.0.0"
   },
   "devDependencies": {
     "eslint": "^9.18.0"
