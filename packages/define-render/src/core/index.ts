@@ -15,7 +15,7 @@ import type * as t from '@babel/types'
 export function transformDefineRender(
   code: string,
   id: string,
-  options: OptionsResolved,
+  options?: Pick<OptionsResolved, 'vapor'>,
 ): CodeTransform | undefined {
   if (!code.includes(DEFINE_RENDER)) return
 
@@ -56,7 +56,7 @@ export function transformDefineRender(
 
     const index = returnStmt ? returnStmt.start! : parent.end! - 1
     const shouldAddFn =
-      !options.vapor && !isFunctionType(arg) && arg.type !== 'Identifier'
+      !options?.vapor && !isFunctionType(arg) && arg.type !== 'Identifier'
     s.appendLeft(index, `return ${shouldAddFn ? '() => (' : ''}`)
     s.moveNode(arg, index)
     if (shouldAddFn) s.appendRight(index, `)`)
