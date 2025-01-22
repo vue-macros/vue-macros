@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 2.13.11
+### Patch Changes
+
+- Updated dependencies [[`ef92b8a`](https://github.com/vue-macros/vue-macros/commit/ef92b8ae671a2f94f05964d1d7f0a686d49cf456), [`bd30f54`](https://github.com/vue-macros/vue-macros/commit/bd30f54dd4a78be2264184229858f2945864a064), [`25b7b86`](https://github.com/vue-macros/vue-macros/commit/25b7b86443b15eef4763192631e4ef069c9a04cb)]:
+  - @vue-macros/define-render@1.6.6
+  - @vue-macros/hoist-static@1.7.0
+  - @vue-macros/volar@0.30.13
+  - @vue-macros/config@0.5.3
+
 ## 2.13.10
 ### Patch Changes
 
