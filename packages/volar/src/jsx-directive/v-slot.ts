@@ -1,5 +1,5 @@
-import { allCodeFeatures, type Code } from '@vue/language-core'
 import { replaceSourceRange } from 'muggle-string'
+import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import { resolveVFor } from './v-for'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'

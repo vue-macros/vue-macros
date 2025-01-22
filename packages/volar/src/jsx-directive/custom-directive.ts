@@ -1,5 +1,5 @@
-import { allCodeFeatures, type Code } from '@vue/language-core'
 import { replaceSourceRange } from 'muggle-string'
+import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, getText } from '../common'
 import type { TransformOptions } from '.'
 
