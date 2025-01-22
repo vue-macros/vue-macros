@@ -9,7 +9,7 @@ import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
-import type { Code } from '@vue/language-core'
+import type { Code } from 'ts-macro'
 import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 
 export type JsxDirective = {
