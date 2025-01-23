@@ -14,3 +14,5 @@ declare module 'make-synchronized' {
   }
   export function makeSynchronized<T>(module: URL): AwaitModule<T>
 }
+
+declare const TSUP_FORMAT: 'cjs' | 'esm'

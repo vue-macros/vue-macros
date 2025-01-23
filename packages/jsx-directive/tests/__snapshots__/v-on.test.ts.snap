@@ -1,8 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/child.setup.tsx 1`] = `
-"type T = DefineGeneric
-
+exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/child.vue 1`] = `
+"<script setup lang="tsx" generic="T">
 const { bar } = defineProps<{
   bar: T
 }>()
@@ -17,20 +16,22 @@ const emit = defineEmits<{
   click: []
 }>()
 
-export default (
+defineRender(() => (
   <form v-on:submit_prevent={() => {}} onClick={() => emit('log', bar)}>
     <slots.default />
   </form>
-)
+))
+</script>
 "
 `;
 
-exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/index.setup.tsx 1`] = `
-"import { expectTypeOf } from 'expect-type'
-import Child from './child.setup'
+exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/index.vue 1`] = `
+"<script setup lang="tsx">
+import { expectTypeOf } from 'expect-type'
+import Child from './child.vue'
 
 let bar = $ref('')
-export default (
+defineRender(() => (
   <fieldset>
     <legend>v-on</legend>
 
@@ -48,14 +49,14 @@ export default (
       {bar}
     </Child>
   </fieldset>
-)
+))
+</script>
 "
 `;
 
-exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/child.setup.tsx 1`] = `
-"
-import { withModifiers as __MACROS_withModifiers } from "vue";type T = DefineGeneric
-
+exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/child.vue 1`] = `
+"<script setup lang="tsx" generic="T">
+import { withModifiers as __MACROS_withModifiers } from "vue";
 const { bar } = defineProps<{
   bar: T
 }>()
@@ -70,22 +71,24 @@ const emit = defineEmits<{
   click: []
 }>()
 
-export default (
+defineRender(() => (
   <form onSubmit={__MACROS_withModifiers(() => {}, ['prevent'])} onClick={() => emit('log', bar)}>
     <slots.default />
   </form>
-)
+))
+</script>
 "
 `;
 
-exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/index.setup.tsx 1`] = `
-"
+exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/index.vue 1`] = `
+"<script setup lang="tsx">
 import { withModifiers as __MACROS_withModifiers } from "vue";
-import { withKeys as __MACROS_withKeys } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});import { expectTypeOf } from 'expect-type'
-import Child from './child.setup'
+import { withKeys as __MACROS_withKeys } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});
+import { expectTypeOf } from 'expect-type'
+import Child from './child.vue'
 
 let bar = $ref('')
-export default (
+defineRender(() => (
   <fieldset>
     <legend>v-on</legend>
 
@@ -103,6 +106,7 @@ export default (
       {bar}
     </Child>
   </fieldset>
-)
+))
+</script>
 "
 `;

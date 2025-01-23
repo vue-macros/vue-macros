@@ -3,6 +3,8 @@ import {
   generateTransform,
   getLang,
   MagicStringAST,
+  parseSFC,
+  REGEX_SETUP_SFC,
   walkAST,
   type CodeTransform,
 } from '@vue-macros/common'
@@ -13,7 +15,7 @@ import { transformVMemo } from './v-memo'
 import { transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, type VSlotMap } from './v-slot'
-import type { JSXAttribute, JSXElement, Node } from '@babel/types'
+import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
 export type JsxDirective = {
   node: JSXElement
@@ -32,9 +34,39 @@ export function transformJsxDirective(
   prefix = 'v-',
 ): CodeTransform | undefined {
   const lang = getLang(id)
-  if (!['jsx', 'tsx'].includes(lang)) return
+
+  const programs: [program: Program, offset: number][] = []
+  if (lang === 'vue' || REGEX_SETUP_SFC.test(id)) {
+    const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
+      code,
+      id,
+    )
+    if (script) {
+      programs.push([getScriptAst()!, script.loc.start.offset])
+    }
+    if (scriptSetup) {
+      programs.push([getSetupAst()!, scriptSetup.loc.start.offset])
+    }
+  } else if (['jsx', 'tsx'].includes(lang)) {
+    programs.push([babelParse(code, lang), 0])
+  } else {
+    return
+  }
 
   const s = new MagicStringAST(code)
+  for (const [ast, offset] of programs) {
+    s.offset = offset
+    transform(s, ast, version, prefix)
+  }
+  return generateTransform(s, id)
+}
+
+function transform(
+  s: MagicStringAST,
+  program: Program,
+  version: number,
+  prefix = 'v-',
+) {
   const vIfMap = new Map<Node | null | undefined, JsxDirective[]>()
   const vForNodes: JsxDirective[] = []
   const vMemoNodes: (JsxDirective & {
@@ -44,7 +76,7 @@ export function transformJsxDirective(
   const vSlotMap: VSlotMap = new Map()
   const vOnNodes: JsxDirective[] = []
   const onWithModifiers: JsxDirective[] = []
-  walkAST<Node>(babelParse(code, lang), {
+  walkAST<Node>(program, {
     enter(node, parent) {
       if (node.type !== 'JSXElement') return
       const tagName = s.sliceNode(node.openingElement.name)
@@ -186,8 +218,6 @@ export function transformJsxDirective(
   transformVOn(vOnNodes, s, version)
   transformOnWithModifiers(onWithModifiers, s, version, prefix)
   transformVSlot(vSlotMap, s, version, prefix)
-
-  return generateTransform(s, id)
 }
 
 export function isVue2(version: number): boolean {

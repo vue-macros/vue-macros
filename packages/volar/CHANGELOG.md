@@ -1,5 +1,36 @@
 # @vue-macros/volar
 
+## 0.30.12
+### Patch Changes
+
+- Updated dependencies [[`d608125`](https://github.com/vue-macros/vue-macros/commit/d60812504fed4ade2e5565a7d275cc36b6691247)]:
+  - @vue-macros/common@1.16.1
+  - @vue-macros/boolean-prop@0.5.5
+  - @vue-macros/config@0.5.3
+  - @vue-macros/short-bind@1.1.5
+  - @vue-macros/short-vmodel@1.5.5
+
+## 0.30.11
+### Patch Changes
+
+- Updated dependencies [[`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce), [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65)]:
+  - @vue-macros/common@1.16.0
+  - @vue-macros/boolean-prop@0.5.4
+  - @vue-macros/config@0.5.2
+  - @vue-macros/short-bind@1.1.4
+  - @vue-macros/short-vmodel@1.5.4
+
+## 0.30.10
+### Patch Changes
+
+
+
+- [#885](https://github.com/vue-macros/vue-macros/pull/885) [`39f1ad2`](https://github.com/vue-macros/vue-macros/commit/39f1ad2762e76cb72efdb369671d02f2152ce0fa) Thanks [@Soya-xy](https://github.com/Soya-xy)! - get identifier name correctly for define-prop
+
+
+
+- [#887](https://github.com/vue-macros/vue-macros/pull/887) [`60631f7`](https://github.com/vue-macros/vue-macros/commit/60631f7aecff818c962ef4f79dd16497aa2e721f) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - get identifier name correctly
+
 ## 0.30.9
 ### Patch Changes
 

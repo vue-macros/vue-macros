@@ -1,7 +1,9 @@
+<script setup lang="tsx">
 let selected = $ref(0)
 
-export default (
+defineRender(() => (
   <div v-once onClick={() => selected++}>
     {selected}
   </div>
-)
+))
+</script>

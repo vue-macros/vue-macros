@@ -1,13 +1,14 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > v-memo > ./fixtures/v-memo/v-memo.setup.tsx 1`] = `
-"
+exports[`jsx-vue-directive > v-memo > ./fixtures/v-memo/v-memo.vue 1`] = `
+"<script setup lang="tsx">
 import { renderList as __MACROS_renderList } from "vue";
-import { withMemo as __MACROS_withMemo } from "vue";const __MACROS_cache = [];__MACROS_cache[0] = [];// @ts-nocheck
+import { withMemo as __MACROS_withMemo } from "vue";const __MACROS_cache = [];__MACROS_cache[0] = [];
+// @ts-nocheck
 const list = [1, 2, 3]
 let selected = $ref(0)
 
-export default (
+defineRender(() => (
   <>
     {__MACROS_renderList(list, (i, index) => __MACROS_withMemo([selected === i], () => <div key={index}>
       <div>
@@ -15,18 +16,21 @@ export default (
       </div>
     </div>, __MACROS_cache[0], 0 + index + 1))}
   </>
-)
+))
+</script>
 "
 `;
 
-exports[`jsx-vue-directive > v-memo > ./fixtures/v-memo/v-once.setup.tsx 1`] = `
-"
-import { withMemo as __MACROS_withMemo } from "vue";const __MACROS_cache = [];let selected = $ref(0)
+exports[`jsx-vue-directive > v-memo > ./fixtures/v-memo/v-once.vue 1`] = `
+"<script setup lang="tsx">
+import { withMemo as __MACROS_withMemo } from "vue";const __MACROS_cache = [];
+let selected = $ref(0)
 
-export default (
+defineRender(() => (
   __MACROS_withMemo([], () => <div onClick={() => selected++}>
     {selected}
   </div>, __MACROS_cache, 0)
-)
+))
+</script>
 "
 `;
