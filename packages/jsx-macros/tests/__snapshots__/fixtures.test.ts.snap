@@ -22,13 +22,13 @@ const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, 
   },
   {props: { 'bar': { required: true }, 'foo': { required: true, validator: (value) => {
           return value === 'foo'
-        }, type: String }, 'onUpdate:foo': null },inheritAttrs: false, name: 'Comp' },
+        }, type: String }, 'onUpdate:foo': null, 'fooModifiers': null },inheritAttrs: false, name: 'Comp' },
 )
 
 const Comp1 = defineComponent((props: { bar: 'bar'; 'onUpdate:bar': any }) => {
   const foo = __MACROS_useModel(props, 'foo')
   return () => <div>{[foo.value, props['bar'], props['onUpdate:bar']]}</div>
-}, { props: { 'bar': null, 'onUpdate:bar': null, 'foo': null, 'onUpdate:foo': null } })
+}, { props: { 'bar': null, 'onUpdate:bar': null, 'foo': null, 'onUpdate:foo': null, 'fooModifiers': null } })
 
 const Comp2 = defineComponent(async (__MACROS_props) => {
 let __temp, __restore

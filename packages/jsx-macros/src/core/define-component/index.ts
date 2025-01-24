@@ -70,6 +70,7 @@ export function transformDefineComponent(
           .join(', ')} }`
       : null
     props[`onUpdate:${propName}`] = null
+    props[`${propName === 'modelValue' ? 'model' : propName}Modifiers`] = null
   }
 
   const propsString = Object.entries(props)
