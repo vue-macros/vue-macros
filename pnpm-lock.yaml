@@ -88,7 +88,7 @@ overrides:
 
 patchedDependencies:
   '@nolebase/ui':
-    hash: e70da0ab1831d8bee2c77d8e85de30d32941cd0b01b1cb9d20d3b5d9f2cfcfd8
+    hash: nxir2t733332i4ydsdrc3oikym
     path: patches/@nolebase__ui.patch
 
 importers:
@@ -712,14 +712,14 @@ importers:
         version: 2.0.0
       unplugin:
         specifier: 'catalog:'
-        version: 1.16.0
+        version: 1.16.1
     devDependencies:
       '@types/hash-sum':
         specifier: ^1.0.2
         version: 1.0.2
       vue:
         specifier: 'catalog:'
-        version: 3.5.13(typescript@5.6.3)
+        version: 3.5.13(typescript@5.7.3)
 
   packages/macros:
     dependencies:
@@ -4403,6 +4403,9 @@ packages:
     resolution: {integrity: sha512-Pq0h+hvsVm6dDEa8x82GnLSYHOzNDt7f0ddFa3FqcQlgzEiptPqL+XrOJNavjOzSYiYWIrgeVYYgGlLmnxwilQ==}
     engines: {node: '>=8'}
 
+  hash-sum@2.0.0:
+    resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
+
   hast-util-from-html@2.0.3:
     resolution: {integrity: sha512-CUSRHXyKjzHov8yKsQjGOElXy/3EKpyX56ELnkHH34vDVw1N1XSQ1ZcAvTyAPtGqLTuKP/uxM+aLkSPqF/EtMw==}
 
@@ -7864,7 +7867,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.18.0
 
-  '@nolebase/ui@2.12.0(patch_hash=e70da0ab1831d8bee2c77d8e85de30d32941cd0b01b1cb9d20d3b5d9f2cfcfd8)(@algolia/client-search@5.19.0)(@types/node@22.10.7)(change-case@5.4.4)(jiti@2.4.2)(postcss@8.5.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)':
+  '@nolebase/ui@2.12.0(patch_hash=nxir2t733332i4ydsdrc3oikym)(@algolia/client-search@5.19.0)(@types/node@22.10.7)(change-case@5.4.4)(jiti@2.4.2)(postcss@8.5.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
       '@iconify-json/octicon': 1.2.2
       less: 4.2.1
@@ -7942,7 +7945,7 @@ snapshots:
     dependencies:
       '@iconify-json/carbon': 1.2.5
       '@iconify-json/icon-park-outline': 1.2.2
-      '@nolebase/ui': 2.12.0(patch_hash=e70da0ab1831d8bee2c77d8e85de30d32941cd0b01b1cb9d20d3b5d9f2cfcfd8)(@algolia/client-search@5.19.0)(@types/node@22.10.7)(change-case@5.4.4)(jiti@2.4.2)(postcss@8.5.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      '@nolebase/ui': 2.12.0(patch_hash=nxir2t733332i4ydsdrc3oikym)(@algolia/client-search@5.19.0)(@types/node@22.10.7)(change-case@5.4.4)(jiti@2.4.2)(postcss@8.5.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
       less: 4.2.1
       vitepress: 1.5.0(@algolia/client-search@5.19.0)(@types/node@22.10.7)(change-case@5.4.4)(jiti@2.4.2)(less@4.2.1)(postcss@8.5.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
     transitivePeerDependencies:
@@ -7980,7 +7983,7 @@ snapshots:
   '@nolebase/vitepress-plugin-git-changelog@2.12.0(@algolia/client-search@5.19.0)(@types/node@22.10.7)(change-case@5.4.4)(jiti@2.4.2)(postcss@8.5.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
       '@iconify-json/octicon': 1.2.2
-      '@nolebase/ui': 2.12.0(patch_hash=e70da0ab1831d8bee2c77d8e85de30d32941cd0b01b1cb9d20d3b5d9f2cfcfd8)(@algolia/client-search@5.19.0)(@types/node@22.10.7)(change-case@5.4.4)(jiti@2.4.2)(postcss@8.5.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      '@nolebase/ui': 2.12.0(patch_hash=nxir2t733332i4ydsdrc3oikym)(@algolia/client-search@5.19.0)(@types/node@22.10.7)(change-case@5.4.4)(jiti@2.4.2)(postcss@8.5.1)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
       colorette: 2.0.20
       date-fns: 4.1.0
       defu: 6.1.4
@@ -10749,6 +10752,8 @@ snapshots:
   has-flag@4.0.0: {}
 
   has-own-prop@2.0.0: {}
+
+  hash-sum@2.0.0: {}
 
   hast-util-from-html@2.0.3:
     dependencies:
