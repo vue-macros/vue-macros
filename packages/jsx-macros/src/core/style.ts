@@ -1,12 +1,12 @@
 import { compileStyleAsync } from 'vue/compiler-sfc'
-import type { OptionsResolved } from '..'
+import type { OptionsResolved } from '../api'
 
 export async function transformStyle(
   code: string,
   id: string,
   options: OptionsResolved,
 ): Promise<string> {
-  const query = new URLSearchParams(id.split('?')[1]) as any
+  const query = new URLSearchParams(id.split('?')[1])
   const result = await compileStyleAsync({
     filename: id,
     id: `data-v-${query.get('scopeId')}`,

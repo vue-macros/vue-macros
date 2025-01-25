@@ -7,7 +7,7 @@ import {
   walkAST,
   type CodeTransform,
 } from '@vue-macros/common'
-import type { OptionsResolved } from '..'
+import type { OptionsResolved } from '../api'
 import { transformDefineComponent } from './define-component'
 import { transformDefineExpose } from './define-expose'
 import { transformDefineModel } from './define-model'
@@ -54,9 +54,10 @@ export function transformJsxMacros(
   const ast = babelParse(s.original, getLang(id))
   const rootMap = getRootMap(ast, s, options)
 
+  let defineStyleIndex = 0
   for (const [root, map] of rootMap) {
-    map.defineStyle?.forEach((defineStyle, index) => {
-      transformDefineStyle(defineStyle, index, root, s, importMap)
+    map.defineStyle?.forEach((defineStyle) => {
+      transformDefineStyle(defineStyle, defineStyleIndex++, root, s, importMap)
     })
 
     if (root === undefined) continue

@@ -347,8 +347,8 @@ defineStyle.stylus(`...`)
 ```
 
 - 支持 scoped 模式。
-  - 如果在文件的顶层定义，scoped 选项为 `false`。
-  - 如果在函数内定义且不是 `CSS module`，scoped 选项默认为 `true`。
+  - 如果在文件的顶层定义，scoped 选项默认为 `false`。
+  - 如果在函数内定义，scoped 选项默认为 `true`。
 
 ```tsx
 function Comp({ color = 'red' }) {
