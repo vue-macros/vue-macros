@@ -1,20 +1,28 @@
 # eslint yml/sort-keys: ['error', { pathPattern: "^catalog$", order: { type: asc }, allowLineSeparatedGroups: true }]
 
+defines:
+  - &babel ^7.26.7
+  - &nolebase ^2.12.1
+  - &shiki ^2.1.0
+  - &unocss ^65.4.3
+  - &vitest ^3.0.4
+  - &volar 2.1.10
+  - &vue ^3.5.13
+
 catalog:
-  '@babel/parser': &babel ^7.26.5
+  '@babel/parser': *babel
   '@babel/types': *babel
 
-  '@vue/language-core': &volar 2.1.10
+  '@vue/language-core': *volar
   vue-tsc: *volar
 
-  vitest: &vitest ^3.0.2
   '@vitest/coverage-v8': *vitest
   '@vitest/ui': *vitest
+  vitest: *vitest
 
-  unocss: &unocss ^65.4.2
   '@unocss/reset': *unocss
+  unocss: *unocss
 
-  vue: &vue ^3.5.13
   '@vue/compiler-core': *vue
   '@vue/compiler-dom': *vue
   '@vue/compiler-sfc': *vue
@@ -22,23 +30,30 @@ catalog:
   '@vue/runtime-core': *vue
   '@vue/runtime-dom': *vue
   '@vue/shared': *vue
+  vue: *vue
 
-  shiki: &shiki ^1.27.2
   '@shikijs/vitepress-twoslash': *shiki
+  shiki: *shiki
+
+  '@nolebase/vitepress-plugin-enhanced-mark': *nolebase
+  '@nolebase/vitepress-plugin-enhanced-readabilities': *nolebase
+  '@nolebase/vitepress-plugin-git-changelog': *nolebase
+  '@nolebase/vitepress-plugin-highlight-targeted-heading': *nolebase
 
   '@stylexjs/stylex': ^0.10.1
   '@vitejs/plugin-vue': ^5.2.1
-  '@vueuse/core': ^12.4.0
+  '@vueuse/core': ^12.5.0
   ast-walker-scope: ^0.6.2
   esbuild: ^0.24.2
   magic-string: ^0.30.17
   prettier: ^3.4.2
-  rollup: ^4.30.1
+  rollup: ^4.32.0
   typescript: ^5.7.3
   unplugin: ^1.16.1
   unplugin-vue: ^5.2.1
-  vite: ^6.0.7
+  vite: ^6.0.11
   vite-plugin-stylex: ^0.13.0
+  vitepress: ^2.0.0-alpha.2
 
 packages:
   - packages/*
