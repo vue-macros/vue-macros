@@ -27,7 +27,7 @@ function transformRef({
         source,
         initializer.expression.end,
         initializer.expression.end,
-        `<Parameters<NonNullable<typeof __VLS_ctx_${name.text}['expose']>>[0] | null>`,
+        `<Parameters<NonNullable<typeof __VLS_ctx_${name.escapedText}['expose']>>[0] | null>`,
       )
     }
   }

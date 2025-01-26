@@ -19,11 +19,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   plugins: [
-    Vue({
-      script: {
-        babelParserPlugins: ['importAttributes'],
-      },
-    }),
+    Vue(),
     UnoCSS(),
     Macros({
       viteConfig: {

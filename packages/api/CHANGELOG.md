@@ -1,5 +1,21 @@
 # @vue-macros/api
 
+## 0.13.3
+### Patch Changes
+
+- Updated dependencies [[`d608125`](https://github.com/vue-macros/vue-macros/commit/d60812504fed4ade2e5565a7d275cc36b6691247)]:
+  - @vue-macros/common@1.16.1
+
+## 0.13.2
+### Patch Changes
+
+
+
+- [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65) Thanks [@sxzz](https://github.com/sxzz)! - remove `@babel/types` dependency
+
+- Updated dependencies [[`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce), [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65)]:
+  - @vue-macros/common@1.16.0
+
 ## 0.13.1
 ### Patch Changes
 

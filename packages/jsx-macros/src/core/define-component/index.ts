@@ -2,7 +2,7 @@ import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
 import { importHelper } from '../common'
 import type { FunctionalNode, RootMapValue } from '..'
-import type { OptionsResolved } from '../..'
+import type { OptionsResolved } from '../../api'
 import { transformAwait } from './await'
 import { restructure } from './restructure'
 import { transformReturn } from './return'
@@ -70,6 +70,7 @@ export function transformDefineComponent(
           .join(', ')} }`
       : null
     props[`onUpdate:${propName}`] = null
+    props[`${propName === 'modelValue' ? 'model' : propName}Modifiers`] = null
   }
 
   const propsString = Object.entries(props)

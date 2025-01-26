@@ -346,8 +346,8 @@ defineStyle.stylus(`...`)
 ```
 
 - Support scoped mode.
-  - If defined at the top level of the file, the scoped option is `false`.
-  - If defined within a function and not a `CSS module`, the scoped option defaults to `true`.
+  - If defined at the top level of the file, the scoped option defaults to `false`.
+  - If defined within a function, the scoped option defaults to `true`.
 
 ```tsx
 function Comp({ color = 'red' }) {

@@ -48,7 +48,7 @@ export function transformDefineStyle(
     }
   }
 
-  let scoped = isDeclaration ? false : !!root
+  let scoped = !!root
   if (expression.arguments[1]?.type === 'ObjectExpression') {
     for (const prop of expression.arguments[1].properties) {
       if (
@@ -80,7 +80,7 @@ export function transformDefineStyle(
     .slice(1, -1)
     .replaceAll(/\/\/(.*)(?=\n)/g, '/*$1*/')
   const module = isDeclaration ? 'module.' : ''
-  const importId = `${helperPrefix}/define-style?index=${index}&scopeId=${scopeId}&scoped=${scoped}&lang.${module}${lang}`
+  const importId = `${helperPrefix}/define-style/${index}?scopeId=${scopeId}&scoped=${scoped}&lang.${module}${lang}`
   importMap.set(importId, css)
   s.appendLeft(
     0,

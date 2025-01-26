@@ -2,5 +2,6 @@ import { config } from '../../tsup.config.js'
 
 export default config({
   onlyIndex: true,
-  platform: 'node',
+  shims: true,
+  external: ['node:module'],
 })

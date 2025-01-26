@@ -20,9 +20,9 @@ export function transformJsxMacros(
     )
     if (asyncModifier && map.defineComponent)
       replaceSourceRange(codes, source, asyncModifier.pos, asyncModifier.end)
-    const result = `({}) as Awaited<ReturnType<typeof ${
+    const result = `({}) as __VLS_PickNotAny<Awaited<ReturnType<typeof ${
       HELPER_PREFIX
-    }setup>>['render'] & { __ctx: Awaited<ReturnType<typeof ${
+    }setup>>['render'], {}> & { __ctx: Awaited<ReturnType<typeof ${
       HELPER_PREFIX
     }setup>> }`
 

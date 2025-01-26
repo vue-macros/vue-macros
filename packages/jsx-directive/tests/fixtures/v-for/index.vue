@@ -1,3 +1,4 @@
+<script setup lang="tsx">
 const map = new Map([
   [1, '2'],
   [3, '4'],
@@ -6,7 +7,7 @@ const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
 let selected = 0
 
-export default (
+defineRender(() => (
   <>
     <div v-for={i in 4} key={i}>
       <div>{i}</div>
@@ -34,4 +35,5 @@ export default (
       </div>
     </div>
   </>
-)
+))
+</script>

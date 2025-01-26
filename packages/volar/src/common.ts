@@ -12,7 +12,11 @@ import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
 
-export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
+export function addProps(
+  codes: Code[],
+  decl: Code[],
+  vueLibName: string,
+): true | undefined {
   if (
     !decl.length ||
     codes.toString().includes('{} as __VLS_TypePropsToOption<')
@@ -37,7 +41,11 @@ export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
   return true
 }
 
-export function addEmits(codes: Code[], decl: Code[], vueLibName: string) {
+export function addEmits(
+  codes: Code[],
+  decl: Code[],
+  vueLibName: string,
+): true | undefined {
   if (!decl.length || codes.toString().includes('{} as __VLS_NormalizeEmits<'))
     return
 

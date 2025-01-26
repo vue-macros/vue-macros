@@ -1,0 +1,1 @@
+export { transformHoistStatic } from './core'

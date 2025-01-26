@@ -15,7 +15,7 @@ See also [Vue issue](https://github.com/vuejs/core/issues/6876), [Reactivity Tra
 
 ::: warning
 
-[Reactivity Transform](https://vuejs.org/guide/extras/reactivity-transform.html) is required. You should enable it first.
+[Reactivity Transform](../features/reactivity-transform.md) is required. You should enable it first.
 
 :::
 

@@ -20,6 +20,9 @@ const Comp: FunctionalComponent<
 
 const childRef = shallowRef<InstanceType<typeof Child>>()
 
+// https://github.com/vue-macros/vue-macros/issues/869
+const foo = $ref('foo')
+
 defineRender(() => (
   <fieldset>
     <legend>v-slot</legend>
