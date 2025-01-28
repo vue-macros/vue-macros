@@ -3,17 +3,19 @@ import {
   importHelperFn,
   type MagicStringAST,
 } from '@vue-macros/common'
+import type { OptionsResolved } from '../api'
 import { isVue2, type JsxDirective } from '.'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
+  node: JsxDirective['node'],
   {
     s,
+    lib,
     version,
     vMemoAttribute,
-  }: {
+  }: OptionsResolved & {
     s: MagicStringAST
-    version: number
     vMemoAttribute?: JsxDirective['attribute']
   },
 ): string {
@@ -40,6 +42,10 @@ export function resolveVFor(
         index ??= `${HELPER_PREFIX}index`
       }
 
+      const params = `(${item}${
+        index ? `, ${index}` : ''
+      }${objectIndex ? `, ${objectIndex}` : ''})`
+
       const renderList = isVue2(version)
         ? 'Array.from'
         : importHelperFn(
@@ -49,9 +55,26 @@ export function resolveVFor(
             version ? 'vue' : '@vue-macros/jsx-directive/helpers',
           )
 
-      return `${renderList}(${list}, (${item}${
-        index ? `, ${index}` : ''
-      }${objectIndex ? `, ${objectIndex}` : ''}) => `
+      if (lib === 'vue/vapor') {
+        const key = node.openingElement.attributes.find(
+          (i) => i.type === 'JSXAttribute' && i.name.name === 'key',
+        )
+        if (
+          key &&
+          key.type === 'JSXAttribute' &&
+          key.value?.type === 'JSXExpressionContainer' &&
+          key.value.expression
+        ) {
+          s.appendRight(
+            node.end!,
+            `, ${params} => (${s.sliceNode(key.value.expression)})`,
+          )
+          s.remove(key.start! - 1, key.end!)
+        }
+        return `${importHelperFn(s, 0, 'createFor', lib)}(() => ${list}, ${params} => `
+      } else {
+        return `${renderList}(${list}, ${params} => `
+      }
     }
   }
 
@@ -61,7 +84,7 @@ export function resolveVFor(
 export function transformVFor(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  version: number,
+  options: OptionsResolved,
 ): void {
   if (nodes.length === 0) return
 
@@ -71,7 +94,7 @@ export function transformVFor(
     )
     s.appendLeft(
       node.start!,
-      `${hasScope ? '{' : ''}${resolveVFor(attribute, { s, version, vMemoAttribute })}`,
+      `${hasScope ? '{' : ''}${resolveVFor(attribute, node, { ...options, s, vMemoAttribute })}`,
     )
 
     const isTemplate =
@@ -79,7 +102,7 @@ export function transformVFor(
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      const content = isVue2(version) ? 'span' : ''
+      const content = isVue2(options.version) ? 'span' : ''
       s.overwriteNode(node.openingElement.name, content)
       s.overwriteNode(node.closingElement.name, content)
     }
