@@ -15,6 +15,8 @@ export * from '@vue-macros/define-slots/macros'
 export * from '@vue-macros/define-stylex/macros'
 export * from '@vue-macros/reactivity-transform/vue2-macros'
 export * from '@vue-macros/short-emits/macros'
+export * from '@vue-macros/simple-define/macros'
+
 export { definePropsRefs }
 
 interface WithDefaultsMap {

@@ -476,6 +476,9 @@ importers:
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
+      '@vue-macros/simple-define':
+        specifier: workspace:*
+        version: link:../simple-define
       unplugin-vue-define-options:
         specifier: workspace:*
         version: link:../define-options
@@ -798,6 +801,9 @@ importers:
       '@vue-macros/short-vmodel':
         specifier: workspace:*
         version: link:../short-vmodel
+      '@vue-macros/simple-define':
+        specifier: workspace:*
+        version: link:../simple-define
       '@vue-macros/volar':
         specifier: workspace:*
         version: link:../volar
@@ -959,6 +965,22 @@ importers:
       '@vue/compiler-sfc':
         specifier: 'catalog:'
         version: 3.5.13
+
+  packages/simple-define:
+    dependencies:
+      '@vue-macros/common':
+        specifier: workspace:~
+        version: link:../common
+      unplugin:
+        specifier: 'catalog:'
+        version: 1.14.1(webpack-sources@3.2.3)
+    devDependencies:
+      '@vueuse/core':
+        specifier: ^11.1.0
+        version: 11.1.0(vue@3.5.12(typescript@5.6.3))
+      rollup:
+        specifier: ^4.24.2
+        version: 4.24.2
 
   packages/test-utils:
     dependencies:
