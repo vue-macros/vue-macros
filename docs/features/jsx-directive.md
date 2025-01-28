@@ -24,6 +24,10 @@ interface Options {
    * @default 'v-'
    */
   prefix?: string
+  /**
+   * @default 'vue'
+   */
+  lib?: 'vue' | 'vue/vapor' | string
 }
 ```
 

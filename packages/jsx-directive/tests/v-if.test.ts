@@ -10,7 +10,12 @@ describe('jsx-vue-directive', () => {
         query: '?raw',
         import: 'default',
       }),
-      (_, id, code) => transformJsxDirective(code, id, 2.7)?.code,
+      (_, id, code) =>
+        transformJsxDirective(code, id, {
+          version: 3,
+          lib: 'vue',
+          prefix: 'v-',
+        })?.code,
     )
   })
 })

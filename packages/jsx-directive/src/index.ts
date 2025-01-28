@@ -16,8 +16,14 @@ import {
 } from 'unplugin'
 import { transformJsxDirective } from './core'
 
-export type Options = BaseOptions & { prefix?: string }
-export type OptionsResolved = MarkRequired<Options, 'version'>
+export type Options = BaseOptions & {
+  prefix?: string
+  lib?: 'vue' | 'vue/vapor' | (string & {})
+}
+export type OptionsResolved = MarkRequired<
+  Options,
+  'version' | 'prefix' | 'lib'
+>
 
 function resolveOptions(
   options: Options,
@@ -32,6 +38,8 @@ function resolveOptions(
     include,
     exclude: [REGEX_NODE_MODULES, REGEX_SETUP_SFC],
     ...options,
+    prefix: options.prefix ?? 'v-',
+    lib: options.lib ?? 'vue',
     version,
   }
 }
@@ -49,7 +57,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
 
       transformInclude: filter,
       transform(code, id) {
-        return transformJsxDirective(code, id, options.version, options.prefix)
+        return transformJsxDirective(code, id, options)
       },
     }
   },

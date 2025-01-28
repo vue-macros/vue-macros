@@ -86,3 +86,48 @@ defineRender(() => (
 </script>
 "
 `;
+
+exports[`jsx-vue-directive > vue/vapor v-for > ./fixtures/v-for/index.vue 1`] = `
+"<script setup lang="tsx">
+import { renderList as __MACROS_renderList } from "vue";
+import { createFor as __MACROS_createFor } from "vue/vapor";
+const map = new Map([
+  [1, '2'],
+  [3, '4'],
+])
+const set = new Set(['1', '2', '3'])
+const object = { id: 1, name: 'admin' }
+let selected = 0
+
+defineRender(() => (
+  <>
+    {__MACROS_createFor(() => 4, (i) => <div>
+      <div>{i}</div>
+    </div>, (i) => (i))}
+
+    {__MACROS_createFor(() => object, (value, key, index) => <div>
+      {key}: {value}
+    </div>, (value, key, index) => (index))}
+
+    {__MACROS_createFor(() => [1, 2, 3][Symbol.iterator](), (i, index) => <div>
+      <div>{i}</div>
+    </div>, (i, index) => (index))}
+
+    {__MACROS_createFor(() => [1, 2, 3], (i, __MACROS_index) => <div v-memo={[selected === i]}>
+      <div>{i}</div>
+    </div>, (i, __MACROS_index) => (i))}
+
+    {(set) ? __MACROS_createFor(() => set, (i) => <div>
+      <div>{i}</div>
+    </div>, (i) => (i)) : null}
+
+    {__MACROS_createFor(() => map, ([key, value], index) => <div>
+      <div>
+        {key}: {value}
+      </div>
+    </div>, ([key, value], index) => (index))}
+  </>
+))
+</script>
+"
+`;
