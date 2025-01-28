@@ -8,7 +8,7 @@ import {
   walkAST,
   type CodeTransform,
 } from '@vue-macros/common'
-import type { OptionsResolved } from '../api'
+import type { OptionsResolved } from '..'
 import { transformVFor } from './v-for'
 import { transformVHtml } from './v-html'
 import { transformVIf } from './v-if'

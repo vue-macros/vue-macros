@@ -1,5 +1,5 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
-import type { OptionsResolved } from '../api'
+import type { OptionsResolved } from '..'
 import { resolveVFor } from './v-for'
 import { isVue2 } from '.'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'

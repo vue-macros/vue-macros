@@ -3,7 +3,7 @@ import {
   importHelperFn,
   type MagicStringAST,
 } from '@vue-macros/common'
-import type { OptionsResolved } from '../api'
+import type { OptionsResolved } from '..'
 import { isVue2, type JsxDirective } from '.'
 
 export function resolveVFor(
