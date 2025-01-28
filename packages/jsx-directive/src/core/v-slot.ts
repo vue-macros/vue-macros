@@ -53,7 +53,7 @@ export function transformVSlot(
           if (vForAttribute) {
             result.push(
               '...Object.fromEntries(',
-              resolveVFor(vForAttribute, node, { ...options, s, version }),
+              resolveVFor(vForAttribute, node, s, options),
               '([',
             )
           }

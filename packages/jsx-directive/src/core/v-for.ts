@@ -9,15 +9,9 @@ import { isVue2, type JsxDirective } from '.'
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
   node: JsxDirective['node'],
-  {
-    s,
-    lib,
-    version,
-    vMemoAttribute,
-  }: OptionsResolved & {
-    s: MagicStringAST
-    vMemoAttribute?: JsxDirective['attribute']
-  },
+  s: MagicStringAST,
+  { lib, version }: OptionsResolved,
+  vMemoAttribute?: JsxDirective['attribute'],
 ): string {
   if (attribute.value) {
     let item, index, objectIndex, list
@@ -93,7 +87,7 @@ export function transformVFor(
     )
     s.appendLeft(
       node.start!,
-      `${hasScope ? '{' : ''}${resolveVFor(attribute, node, { ...options, s, vMemoAttribute })}`,
+      `${hasScope ? '{' : ''}${resolveVFor(attribute, node, s, options, vMemoAttribute)}`,
     )
 
     const isTemplate =
