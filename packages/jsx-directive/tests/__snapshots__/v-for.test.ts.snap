@@ -103,29 +103,29 @@ defineRender(() => (
   <>
     {__MACROS_createFor(() => 4, (i) => <div>
       <div>{i}</div>
-    </div>)}, (i) => (i)
+    </div>, (i) => (i))}
 
     {__MACROS_createFor(() => object, (value, key, index) => <div>
       {key}: {value}
-    </div>)}, (value, key, index) => (index)
+    </div>, (value, key, index) => (index))}
 
     {__MACROS_createFor(() => [1, 2, 3][Symbol.iterator](), (i, index) => <div>
       <div>{i}</div>
-    </div>)}, (i, index) => (index)
+    </div>, (i, index) => (index))}
 
     {__MACROS_createFor(() => [1, 2, 3], (i, __MACROS_index) => <div v-memo={[selected === i]}>
       <div>{i}</div>
-    </div>)}, (i, __MACROS_index) => (i)
+    </div>, (i, __MACROS_index) => (i))}
 
     {(set) ? __MACROS_createFor(() => set, (i) => <div>
       <div>{i}</div>
-    </div>) : null}, (i) => (i)
+    </div>, (i) => (i)) : null}
 
     {__MACROS_createFor(() => map, ([key, value], index) => <div>
       <div>
         {key}: {value}
       </div>
-    </div>)}, ([key, value], index) => (index)
+    </div>, ([key, value], index) => (index))}
   </>
 ))
 </script>

@@ -60,12 +60,11 @@ export function resolveVFor(
           (i) => i.type === 'JSXAttribute' && i.name.name === 'key',
         )
         if (
-          key &&
-          key.type === 'JSXAttribute' &&
+          key?.type === 'JSXAttribute' &&
           key.value?.type === 'JSXExpressionContainer' &&
           key.value.expression
         ) {
-          s.appendRight(
+          s.appendLeft(
             node.end!,
             `, ${params} => (${s.sliceNode(key.value.expression)})`,
           )
