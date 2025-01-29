@@ -18,6 +18,8 @@ import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
+export * from './restructure'
+
 export type JsxDirective = {
   node: JSXElement
   attribute: JSXAttribute
@@ -143,7 +145,7 @@ function transform(
         }
 
         if (vForAttribute) {
-          vForNodes.push({
+          vForNodes.unshift({
             node,
             attribute: vForAttribute,
             parent: vIfAttribute ? undefined : parent,

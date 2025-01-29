@@ -30,7 +30,8 @@ defineRender(() => (
     </div>
 
     <div v-for={([key, value], index) in map} key={index}>
-      <div>
+      {key}
+      <div v-for={key in 3}>
         {key}: {value}
       </div>
     </div>
