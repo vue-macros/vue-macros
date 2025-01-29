@@ -49,7 +49,7 @@ export function restructure(
   const propList: Prop[] = []
   for (const param of node.params) {
     const path = `${HELPER_PREFIX}props${index++ || ''}`
-    const props = getProps(param, path, s)
+    const props = getProps(param, path, s, [], options)
     if (props) {
       const hasDefaultValue = props.some((i) => i.defaultValue)
       s.overwrite(param.start!, param.end!, path)
@@ -89,10 +89,7 @@ export function restructure(
       )
       const resolvedValues = values
         .map(
-          (i) =>
-            `'${i.path.replace(path, '')}${i.value}${
-              options?.unwrapRef ? '.value' : ''
-            }': ${i.defaultValue}`,
+          (i) => `'${i.path.replace(path, '')}${i.value}': ${i.defaultValue}`,
         )
         .join(', ')
       prependFunctionalNode(
@@ -128,7 +125,7 @@ export function restructure(
               parent?.type === 'ObjectProperty' && parent.shorthand
                 ? `${id.name}: `
                 : ''
-            }${prop.path}${prop.value}${options?.unwrapRef ? '.value' : ''}`,
+            }${prop.path}${prop.value}`,
           )
         }
       },
@@ -144,6 +141,7 @@ function getProps(
   path: string = '',
   s: MagicString,
   props: Prop[] = [],
+  options?: Options,
 ) {
   const properties =
     node.type === 'ObjectPattern'
@@ -155,9 +153,10 @@ function getProps(
 
   const propNames: string[] = []
   properties.forEach((prop, index) => {
+    const value = `[${index}]${options?.unwrapRef ? '.value' : ''}`
     if (prop?.type === 'Identifier') {
       // { foo }
-      props.push({ name: prop.name, path, value: `[${index}]` })
+      props.push({ name: prop.name, path, value })
       propNames.push(`'${prop.name}'`)
     } else if (
       prop?.type === 'AssignmentPattern' &&
@@ -167,7 +166,7 @@ function getProps(
       props.push({
         path,
         name: prop.left.name,
-        value: `[${index}]`,
+        value,
         defaultValue: s.slice(prop.right.start!, prop.right.end!),
       })
       propNames.push(`'${prop.left.name}'`)
@@ -187,7 +186,9 @@ function getProps(
           defaultValue: s.slice(prop.value.right.start!, prop.value.right.end!),
           isRequired: prop.value.right.type === 'TSNonNullExpression',
         })
-      } else if (!getProps(prop.value, `${path}.${prop.key.name}`, s, props)) {
+      } else if (
+        !getProps(prop.value, `${path}.${prop.key.name}`, s, props, options)
+      ) {
         // { foo: bar }
         props.push({
           path,
@@ -210,7 +211,7 @@ function getProps(
         isRest: true,
       })
     } else if (prop) {
-      getProps(prop, `${path}[${index}]`, s, props)
+      getProps(prop, `${path}${value}`, s, props, options)
     }
   })
   return props.length ? props : undefined

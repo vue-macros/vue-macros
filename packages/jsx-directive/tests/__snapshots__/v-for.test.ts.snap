@@ -123,9 +123,9 @@ defineRender(() => (
     </div>, ([i]) => (i)) : null}
 
     {__MACROS_createFor(() => map, (__MACROS_props) => <div>
-      {__MACROS_props[0][0].value}
+      {__MACROS_props[0].value[0].value}
       {__MACROS_createFor(() => 3, (__MACROS_props) => <div>
-        {__MACROS_props[0].value}: {__MACROS_props[0][1].value}
+        {__MACROS_props[0].value}: {__MACROS_props[0].value[1].value}
       </div>)}
     </div>, ([[key, value], index]) => (index))}
   </>
