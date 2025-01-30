@@ -20,12 +20,12 @@ export default function (options?: Options): AstroIntegration {
   return {
     name: '@vue-macros/astro',
     hooks: {
-      'astro:config:setup': ({ config }) => {
+      'astro:config:setup': async ({ config }) => {
         const resolvedOptions = resolveOptions(options || {})
         const vue = findPluginAndRemove('vite:vue', config.vite.plugins)
         const vueJsx = findPluginAndRemove('vite:vue-jsx', config.vite.plugins)
 
-        const vueMacrosPlugins = VueMacros({
+        const vueMacrosPlugins = await VueMacros({
           ...resolvedOptions,
           plugins: {
             vue,
