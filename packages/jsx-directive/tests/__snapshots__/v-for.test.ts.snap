@@ -33,9 +33,10 @@ defineRender(() => (
     </div>) : null}
 
     {Array.from(map, ([key, value], index) => <div key={index}>
-      <div>
+      {key}
+      {Array.from(3, (key) => <div>
         {key}: {value}
-      </div>
+      </div>)}
     </div>)}
   </>
 ))
@@ -77,9 +78,10 @@ defineRender(() => (
     </div>) : null}
 
     {__MACROS_renderList(map, ([key, value], index) => <div key={index}>
-      <div>
+      {key}
+      {__MACROS_renderList(3, (key) => <div>
         {key}: {value}
-      </div>
+      </div>)}
     </div>)}
   </>
 ))
@@ -89,7 +91,6 @@ defineRender(() => (
 
 exports[`jsx-vue-directive > vue/vapor v-for > ./fixtures/v-for/index.vue 1`] = `
 "<script setup lang="tsx">
-import { renderList as __MACROS_renderList } from "vue";
 import { createFor as __MACROS_createFor } from "vue/vapor";
 const map = new Map([
   [1, '2'],
@@ -101,31 +102,32 @@ let selected = 0
 
 defineRender(() => (
   <>
-    {__MACROS_createFor(() => 4, (i) => <div>
-      <div>{i}</div>
-    </div>, (i) => (i))}
+    {__MACROS_createFor(() => 4, (__MACROS_props) => <div>
+      <div>{__MACROS_props[0].value}</div>
+    </div>, ([i]) => (i))}
 
-    {__MACROS_createFor(() => object, (value, key, index) => <div>
-      {key}: {value}
-    </div>, (value, key, index) => (index))}
+    {__MACROS_createFor(() => object, (__MACROS_props) => <div>
+      {__MACROS_props[1].value}: {__MACROS_props[0].value}
+    </div>, ([value, key, index]) => (index))}
 
-    {__MACROS_createFor(() => [1, 2, 3][Symbol.iterator](), (i, index) => <div>
-      <div>{i}</div>
-    </div>, (i, index) => (index))}
+    {__MACROS_createFor(() => [1, 2, 3][Symbol.iterator](), (__MACROS_props) => <div>
+      <div>{__MACROS_props[0].value}</div>
+    </div>, ([i, index]) => (index))}
 
-    {__MACROS_createFor(() => [1, 2, 3], (i, __MACROS_index) => <div v-memo={[selected === i]}>
-      <div>{i}</div>
-    </div>, (i, __MACROS_index) => (i))}
+    {__MACROS_createFor(() => [1, 2, 3], (__MACROS_props) => <div v-memo={[selected === __MACROS_props[0].value]}>
+      <div>{__MACROS_props[0].value}</div>
+    </div>, ([i, __MACROS_index]) => (i))}
 
-    {(set) ? __MACROS_createFor(() => set, (i) => <div>
-      <div>{i}</div>
-    </div>, (i) => (i)) : null}
+    {(set) ? __MACROS_createFor(() => set, (__MACROS_props) => <div>
+      <div>{__MACROS_props[0].value}</div>
+    </div>, ([i]) => (i)) : null}
 
-    {__MACROS_createFor(() => map, ([key, value], index) => <div>
-      <div>
-        {key}: {value}
-      </div>
-    </div>, ([key, value], index) => (index))}
+    {__MACROS_createFor(() => map, (__MACROS_props) => <div>
+      {__MACROS_props[0].value[0].value}
+      {__MACROS_createFor(() => 3, (__MACROS_props) => <div>
+        {__MACROS_props[0].value}: {__MACROS_props[0].value[1].value}
+      </div>)}
+    </div>, ([[key, value], index]) => (index))}
   </>
 ))
 </script>

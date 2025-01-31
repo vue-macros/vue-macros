@@ -4,6 +4,7 @@ import {
   type MagicStringAST,
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
+import { transformRestructure } from './restructure'
 import { isVue2, type JsxDirective } from '.'
 
 export function resolveVFor(
@@ -36,20 +37,10 @@ export function resolveVFor(
         index ??= `${HELPER_PREFIX}index`
       }
 
-      const params = `(${item}${
-        index ? `, ${index}` : ''
-      }${objectIndex ? `, ${objectIndex}` : ''})`
-
-      const renderList = isVue2(version)
-        ? 'Array.from'
-        : importHelperFn(
-            s,
-            0,
-            'renderList',
-            version ? 'vue' : '@vue-macros/jsx-directive/helpers',
-          )
-
       if (lib === 'vue/vapor') {
+        const params = `([${item}${
+          index ? `, ${index}` : ''
+        }${objectIndex ? `, ${objectIndex}` : ''}])`
         const key = node.openingElement.attributes.find(
           (i) => i.type === 'JSXAttribute' && i.name.name === 'key',
         )
@@ -58,14 +49,26 @@ export function resolveVFor(
           key.value?.type === 'JSXExpressionContainer' &&
           key.value.expression
         ) {
-          s.appendLeft(
+          s.prependRight(
             node.end!,
             `, ${params} => (${s.sliceNode(key.value.expression)})`,
           )
           s.remove(key.start! - 1, key.end!)
         }
-        return `${importHelperFn(s, 0, 'createFor', lib)}(() => ${list}, ${params} => `
+        s.appendRight(node.start!, `${params} => `)
+        return `${importHelperFn(s, 0, 'createFor', lib)}(() => ${list}, `
       } else {
+        const params = `(${item}${
+          index ? `, ${index}` : ''
+        }${objectIndex ? `, ${objectIndex}` : ''})`
+        const renderList = isVue2(version)
+          ? 'Array.from'
+          : importHelperFn(
+              s,
+              0,
+              'renderList',
+              version ? 'vue' : '@vue-macros/jsx-directive/helpers',
+            )
         return `${renderList}(${list}, ${params} => `
       }
     }
@@ -85,10 +88,19 @@ export function transformVFor(
     const hasScope = ['JSXElement', 'JSXFragment'].includes(
       String(parent?.type),
     )
+    s.prependRight(node.end!, `)${hasScope ? '}' : ''}`)
     s.appendLeft(
       node.start!,
       `${hasScope ? '{' : ''}${resolveVFor(attribute, node, s, options, vMemoAttribute)}`,
     )
+    s.remove(attribute.start! - 1, attribute.end!)
+
+    if (options.lib === 'vue/vapor') {
+      s.overwriteNode(
+        node,
+        transformRestructure(s.sliceNode(node), { unwrapRef: true }),
+      )
+    }
 
     const isTemplate =
       node.type === 'JSXElement' &&
@@ -99,8 +111,5 @@ export function transformVFor(
       s.overwriteNode(node.openingElement.name, content)
       s.overwriteNode(node.closingElement.name, content)
     }
-
-    s.prependRight(node.end!, `)${hasScope ? '}' : ''}`)
-    s.remove(attribute.start! - 1, attribute.end!)
   })
 }
