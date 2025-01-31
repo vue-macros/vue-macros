@@ -1,5 +1,18 @@
 # @vue-macros/nuxt
 
+## 1.13.0
+### Minor Changes
+
+
+
+- [`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3) Thanks [@sxzz](https://github.com/sxzz)! - support load config asynchronously
+
+
+### Patch Changes
+
+- Updated dependencies [[`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3)]:
+  - unplugin-vue-macros@2.14.0
+
 ## 1.12.16
 ### Patch Changes
 

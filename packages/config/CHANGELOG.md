@@ -1,5 +1,12 @@
 # @vue-macros/config
 
+## 0.6.0
+### Minor Changes
+
+
+
+- [`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3) Thanks [@sxzz](https://github.com/sxzz)! - support load config asynchronously
+
 ## 0.5.3
 ### Patch Changes
 
