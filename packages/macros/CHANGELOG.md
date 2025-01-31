@@ -1,5 +1,20 @@
 # unplugin-vue-macros
 
+## 2.14.0
+### Minor Changes
+
+
+
+- [`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3) Thanks [@sxzz](https://github.com/sxzz)! - support load config asynchronously
+
+
+### Patch Changes
+
+- Updated dependencies [[`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3), [`c5508bf`](https://github.com/vue-macros/vue-macros/commit/c5508bfce0b1fd6da8eb35f16be1a40eeb194323), [`b2725ee`](https://github.com/vue-macros/vue-macros/commit/b2725eee008e95eb8c9871c06ae69e86e3c72d2e)]:
+  - @vue-macros/config@0.6.0
+  - @vue-macros/jsx-directive@0.10.2
+  - @vue-macros/volar@0.30.14
+
 ## 2.13.11
 ### Patch Changes
 
