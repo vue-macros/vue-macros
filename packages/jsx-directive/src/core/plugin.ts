@@ -9,7 +9,7 @@ import {
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { transformJsxDirective } from './core'
+import { transformJsxDirective } from '.'
 import type { UnpluginContextMeta, UnpluginFactory } from 'unplugin'
 
 export type Options = BaseOptions & {
@@ -42,7 +42,7 @@ function resolveOptions(
 
 const name = generatePluginName()
 
-const plugin: UnpluginFactory<Options | undefined, false> = (
+export const plugin: UnpluginFactory<Options | undefined, false> = (
   userOptions = {},
   { framework } = { framework: 'vite' },
 ) => {
@@ -59,5 +59,3 @@ const plugin: UnpluginFactory<Options | undefined, false> = (
     },
   }
 }
-// eslint-disable-next-line import/no-default-export
-export default plugin

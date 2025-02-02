@@ -1,9 +1,8 @@
 import { createUnplugin, type UnpluginInstance } from 'unplugin'
-import plugin, { type Options, type OptionsResolved } from './plugin'
+import { plugin, type Options, type OptionsResolved } from './core/plugin'
 
 export type { Options, OptionsResolved }
 
-export default createUnplugin(plugin) as UnpluginInstance<
-  Options | undefined,
-  false
->
+const unplugin: UnpluginInstance<Options | undefined, false> =
+  createUnplugin(plugin)
+export default unplugin

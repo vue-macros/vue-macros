@@ -55,10 +55,10 @@
       "require": "./dist/helpers.cjs",
       "import": "./dist/helpers.js"
     },
-    "./plugin": {
-      "dev": "./src/plugin.ts",
-      "require": "./dist/plugin.cjs",
-      "import": "./dist/plugin.js"
+    "./raw": {
+      "dev": "./src/raw.ts",
+      "require": "./dist/raw.cjs",
+      "import": "./dist/raw.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
@@ -114,9 +114,9 @@
         "require": "./dist/helpers.cjs",
         "import": "./dist/helpers.js"
       },
-      "./plugin": {
-        "require": "./dist/plugin.cjs",
-        "import": "./dist/plugin.js"
+      "./raw": {
+        "require": "./dist/raw.cjs",
+        "import": "./dist/raw.js"
       },
       "./rolldown": {
         "require": "./dist/rolldown.cjs",
