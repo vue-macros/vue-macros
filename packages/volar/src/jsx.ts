@@ -19,7 +19,7 @@ type JSXOptions = {
 const plugin: PluginReturn<JSXOptions | undefined> = createPlugin(
   (ctx, userOptions) =>
     Object.entries(jsxPlugins).flatMap(([name, plugin]) => {
-      const options = userOptions?.[name as keyof JSXOptions] ?? {}
+      const options = userOptions?.[name as keyof JSXOptions] ?? ({} as any)
       if (!options) return []
       return plugin(options === true ? {} : options)(ctx)
     }),
