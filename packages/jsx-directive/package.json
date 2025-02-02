@@ -45,11 +45,6 @@
       "require": "./dist/api.cjs",
       "import": "./dist/api.js"
     },
-    "./plugin": {
-      "dev": "./src/plugin.ts",
-      "require": "./dist/plugin.cjs",
-      "import": "./dist/plugin.js"
-    },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
       "require": "./dist/esbuild.cjs",
@@ -59,6 +54,11 @@
       "dev": "./src/helpers.ts",
       "require": "./dist/helpers.cjs",
       "import": "./dist/helpers.js"
+    },
+    "./plugin": {
+      "dev": "./src/plugin.ts",
+      "require": "./dist/plugin.cjs",
+      "import": "./dist/plugin.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
@@ -106,10 +106,6 @@
         "require": "./dist/api.cjs",
         "import": "./dist/api.js"
       },
-      "./plugin": {
-        "require": "./dist/plugin.cjs",
-        "import": "./dist/plugin.js"
-      },
       "./esbuild": {
         "require": "./dist/esbuild.cjs",
         "import": "./dist/esbuild.js"
@@ -117,6 +113,10 @@
       "./helpers": {
         "require": "./dist/helpers.cjs",
         "import": "./dist/helpers.js"
+      },
+      "./plugin": {
+        "require": "./dist/plugin.cjs",
+        "import": "./dist/plugin.js"
       },
       "./rolldown": {
         "require": "./dist/rolldown.cjs",
