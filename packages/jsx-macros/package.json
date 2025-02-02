@@ -50,11 +50,6 @@
       "require": "./dist/esbuild.cjs",
       "import": "./dist/esbuild.js"
     },
-    "./helpers": {
-      "dev": "./src/helpers.ts",
-      "require": "./dist/helpers.cjs",
-      "import": "./dist/helpers.js"
-    },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
       "require": "./dist/rolldown.cjs",
@@ -104,10 +99,6 @@
       "./esbuild": {
         "require": "./dist/esbuild.cjs",
         "import": "./dist/esbuild.js"
-      },
-      "./helpers": {
-        "require": "./dist/helpers.cjs",
-        "import": "./dist/helpers.js"
       },
       "./rolldown": {
         "require": "./dist/rolldown.cjs",
