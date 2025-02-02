@@ -17,7 +17,7 @@ exports[`transform > reconstruct arrowFunctionExpression 1`] = `
 
 exports[`transform > reconstruct default-prop 1`] = `
 "
-import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "@vue-macros/jsx-directive/helpers";
+import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-directive/with-defaults";
 import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";function App(__MACROS_props, __MACROS_props1){
 const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.foo': 'bar'});
 const __MACROS_default_props1 = __MACROS_createPropsDefaultProxy(__MACROS_props1, {'[0]': 'foo'});
@@ -28,7 +28,7 @@ const rest = __MACROS_createPropsRestProxy(__MACROS_default_props, ['foo', 'baz'
 
 exports[`transform > reconstruct rest-prop 1`] = `
 "
-import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "@vue-macros/jsx-directive/helpers";
+import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-directive/with-defaults";
 import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";function App(__MACROS_props){
 const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'.bar': 1});
 const rest = __MACROS_createPropsRestProxy(__MACROS_default_props, ['foo', 'bar']);
@@ -38,7 +38,7 @@ const rest = __MACROS_createPropsRestProxy(__MACROS_default_props, ['foo', 'bar'
 
 exports[`transform > unwrap ref 1`] = `
 "
-import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "@vue-macros/jsx-directive/helpers";
+import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-directive/with-defaults";
 import { createPropsRestProxy as __MACROS_createPropsRestProxy } from "vue";function App(__MACROS_props){
 const __MACROS_default_props = __MACROS_createPropsDefaultProxy(__MACROS_props, {'[1].value': 1});
 const rest = __MACROS_createPropsRestProxy(__MACROS_default_props, ['foo', 'bar']);
