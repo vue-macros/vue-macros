@@ -24,7 +24,10 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/jsx-macros"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "zhiyuanzmj",
+  "contributors": [
+    "三咲智子 <sxzz@sxzz.moe>"
+  ],
   "files": [
     "dist"
   ],
@@ -46,6 +49,11 @@
       "dev": "./src/esbuild.ts",
       "require": "./dist/esbuild.cjs",
       "import": "./dist/esbuild.js"
+    },
+    "./helpers": {
+      "dev": "./src/helpers.ts",
+      "require": "./dist/helpers.cjs",
+      "import": "./dist/helpers.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
@@ -97,6 +105,10 @@
         "require": "./dist/esbuild.cjs",
         "import": "./dist/esbuild.js"
       },
+      "./helpers": {
+        "require": "./dist/helpers.cjs",
+        "import": "./dist/helpers.js"
+      },
       "./rolldown": {
         "require": "./dist/rolldown.cjs",
         "import": "./dist/rolldown.js"
@@ -129,6 +141,7 @@
   },
   "dependencies": {
     "@vue-macros/common": "workspace:*",
+    "@vue-macros/jsx-directive": "workspace:*",
     "@vue/compiler-core": "catalog:",
     "hash-sum": "^2.0.0",
     "unplugin": "catalog:"

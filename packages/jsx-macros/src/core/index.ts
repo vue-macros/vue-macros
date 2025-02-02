@@ -7,7 +7,7 @@ import {
   walkAST,
   type CodeTransform,
 } from '@vue-macros/common'
-import type { OptionsResolved } from '../api'
+import type { OptionsResolved } from '..'
 import { transformDefineComponent } from './define-component'
 import { transformDefineExpose } from './define-expose'
 import { transformDefineModel } from './define-model'

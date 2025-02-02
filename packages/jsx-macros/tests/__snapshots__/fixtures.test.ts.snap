@@ -2,7 +2,7 @@
 
 exports[`fixtures > ./fixtures/define-component.tsx 1`] = `
 "
-import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "/vue-macros/jsx-macros/with-defaults";
+import { createPropsDefaultProxy as __MACROS_createPropsDefaultProxy } from "@vue-macros/jsx-macros/helpers";
 import { useAttrs as __MACROS_useAttrs } from "vue";
 import { useModel as __MACROS_useModel } from "/vue-macros/jsx-macros/use-model";
 import { withAsyncContext as __MACROS_withAsyncContext } from "vue";import { defineComponent, nextTick } from 'vue'
@@ -53,7 +53,7 @@ let __temp, __restore
 
 exports[`fixtures > ./fixtures/define-expose.tsx 1`] = `
 "
-import { useExpose as __MACROS_useExpose } from "/vue-macros/jsx-macros/use-expose";
+import { useExpose as __MACROS_useExpose } from "@vue-macros/jsx-macros/helpers";
 import { getCurrentInstance as __MACROS_getCurrentInstance } from "vue";export function Comp(__MACROS_props) {
   __MACROS_useExpose(__MACROS_getCurrentInstance(), {
     foo: 1,
