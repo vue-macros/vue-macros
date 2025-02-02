@@ -9,6 +9,7 @@ import {
   type CodeTransform,
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
+import * as helper from './helper'
 import { transformVFor } from './v-for'
 import { transformVHtml } from './v-html'
 import { transformVIf } from './v-if'
@@ -19,6 +20,7 @@ import { transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
 export * from './restructure'
+export const withDefaultsHelperCode: string = helper.withDefaultsHelperCode
 
 export type JsxDirective = {
   node: JSXElement

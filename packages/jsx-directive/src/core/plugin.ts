@@ -3,12 +3,18 @@ import {
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
+  normalizePath,
   REGEX_NODE_MODULES,
   REGEX_SETUP_SFC,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
+import {
+  helperPrefix,
+  withDefaultsHelperCode,
+  withDefaultsHelperId,
+} from './helper'
 import { transformJsxDirective } from '.'
 import type { UnpluginContextMeta, UnpluginFactory } from 'unplugin'
 
@@ -52,6 +58,17 @@ export const plugin: UnpluginFactory<Options | undefined, false> = (
   return {
     name,
     enforce: 'pre',
+
+    resolveId(id) {
+      if (normalizePath(id).startsWith(helperPrefix)) return id
+    },
+    loadInclude(id) {
+      return normalizePath(id).startsWith(helperPrefix)
+    },
+    load(_id) {
+      const id = normalizePath(_id)
+      if (id === withDefaultsHelperId) return withDefaultsHelperCode
+    },
 
     transformInclude: filter,
     transform(code, id) {
