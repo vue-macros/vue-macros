@@ -50,6 +50,11 @@
       "require": "./dist/esbuild.cjs",
       "import": "./dist/esbuild.js"
     },
+    "./raw": {
+      "dev": "./src/raw.ts",
+      "require": "./dist/raw.cjs",
+      "import": "./dist/raw.js"
+    },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
       "require": "./dist/rolldown.cjs",
@@ -99,6 +104,10 @@
       "./esbuild": {
         "require": "./dist/esbuild.cjs",
         "import": "./dist/esbuild.js"
+      },
+      "./raw": {
+        "require": "./dist/raw.cjs",
+        "import": "./dist/raw.js"
       },
       "./rolldown": {
         "require": "./dist/rolldown.cjs",
