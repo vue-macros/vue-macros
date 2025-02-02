@@ -36,6 +36,9 @@ catalogs:
     '@vitejs/plugin-vue':
       specifier: ^5.2.1
       version: 5.2.1
+    '@vitejs/plugin-vue-jsx':
+      specifier: ^4.1.1
+      version: 4.1.1
     '@vitest/coverage-v8':
       specifier: ^3.0.4
       version: 3.0.4
@@ -63,9 +66,15 @@ catalogs:
     ast-walker-scope:
       specifier: ^0.6.2
       version: 0.6.2
+    eslint:
+      specifier: ^9.19.0
+      version: 9.19.0
     magic-string:
       specifier: ^0.30.17
       version: 0.30.17
+    prettier:
+      specifier: ^3.4.2
+      version: 3.4.2
     rollup:
       specifier: ^4.32.0
       version: 4.32.0
@@ -154,7 +163,7 @@ importers:
         specifier: ^0.24.2
         version: 0.24.2
       eslint:
-        specifier: ^9.19.0
+        specifier: 'catalog:'
         version: 9.19.0(jiti@2.4.2)
       expect-type:
         specifier: ^1.1.0
@@ -178,7 +187,7 @@ importers:
         specifier: ^1.3.1
         version: 1.3.1
       prettier:
-        specifier: ^3.4.2
+        specifier: 'catalog:'
         version: 3.4.2
       publint:
         specifier: ^0.3.2
@@ -250,7 +259,7 @@ importers:
   docs:
     dependencies:
       prettier:
-        specifier: ^3.4.2
+        specifier: 'catalog:'
         version: 3.4.2
       shiki:
         specifier: ^2.1.0
@@ -281,7 +290,7 @@ importers:
         specifier: 'catalog:'
         version: 0.10.1
       '@vitejs/plugin-vue-jsx':
-        specifier: ^4.1.1
+        specifier: 'catalog:'
         version: 4.1.1(vite@6.0.11(@types/node@22.10.10)(jiti@2.4.2)(less@4.2.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       '@vueuse/core':
         specifier: 'catalog:'
@@ -646,7 +655,7 @@ importers:
   packages/eslint-config:
     devDependencies:
       eslint:
-        specifier: ^9.19.0
+        specifier: 'catalog:'
         version: 9.19.0(jiti@2.4.2)
 
   packages/export-expose:
@@ -975,7 +984,7 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(esbuild@0.24.2)(rolldown@1.0.0-beta.3(@babel/runtime@7.26.7)(typescript@5.7.3))(rollup@4.32.0)(vitest@3.0.4)
       '@vitejs/plugin-vue-jsx':
-        specifier: ^4.1.1
+        specifier: 'catalog:'
         version: 4.1.1(vite@6.0.11(@types/node@22.10.10)(jiti@2.4.2)(less@4.2.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       '@vitejs/plugin-vue2':
         specifier: ^2.3.3
@@ -1147,7 +1156,7 @@ importers:
         specifier: 'catalog:'
         version: 5.2.1(vite@6.0.11(@types/node@22.10.10)(jiti@2.4.2)(less@4.2.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       '@vitejs/plugin-vue-jsx':
-        specifier: ^4.1.1
+        specifier: 'catalog:'
         version: 4.1.1(vite@6.0.11(@types/node@22.10.10)(jiti@2.4.2)(less@4.2.2)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       esbuild:
         specifier: ^0.24.2
