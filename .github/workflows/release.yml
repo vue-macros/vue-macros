@@ -8,6 +8,9 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+env:
+  COREPACK_INTEGRITY_KEYS: '0'
+
 jobs:
   release:
     name: Release
@@ -28,7 +31,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v4.0.0
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -37,7 +41,7 @@ jobs:
           cache: pnpm
 
       - name: Install Dependencies
-        run: pnpm i --frozen-lockfile
+        run: pnpm i
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets

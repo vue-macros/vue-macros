@@ -12,6 +12,9 @@ on:
 
   workflow_dispatch:
 
+env:
+  COREPACK_INTEGRITY_KEYS: '0'
+
 jobs:
   lint:
     runs-on: ubuntu-latest
