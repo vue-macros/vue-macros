@@ -1,5 +1,16 @@
 # @vue-macros/jsx-directive
 
+## 0.10.3
+### Patch Changes
+
+
+
+- [#906](https://github.com/vue-macros/vue-macros/pull/906) [`f091389`](https://github.com/vue-macros/vue-macros/commit/f091389c247e253933fd38c17d840e6fc3900c91) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - expose raw to support browser environments
+
+
+
+- [#908](https://github.com/vue-macros/vue-macros/pull/908) [`b00a0c8`](https://github.com/vue-macros/vue-macros/commit/b00a0c8d147f63589ab5e2c106a4a653b860cf01) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add with-defaults helper to the load hook
+
 ## 0.10.2
 ### Patch Changes
 
