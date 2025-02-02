@@ -1,5 +1,16 @@
 # @vue-macros/jsx-directive
 
+## 0.10.2
+### Patch Changes
+
+
+
+- [#902](https://github.com/vue-macros/vue-macros/pull/902) [`c5508bf`](https://github.com/vue-macros/vue-macros/commit/c5508bfce0b1fd6da8eb35f16be1a40eeb194323) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add lib option to support vue/vapor
+
+
+
+- [#904](https://github.com/vue-macros/vue-macros/pull/904) [`b2725ee`](https://github.com/vue-macros/vue-macros/commit/b2725eee008e95eb8c9871c06ae69e86e3c72d2e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support restructure v-for and v-slot for vue/vapor
+
 ## 0.10.1
 ### Patch Changes
 

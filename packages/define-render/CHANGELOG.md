@@ -1,5 +1,12 @@
 # @vue-macros/define-render
 
+## 1.6.6
+### Patch Changes
+
+
+
+- [`ef92b8a`](https://github.com/vue-macros/vue-macros/commit/ef92b8ae671a2f94f05964d1d7f0a686d49cf456) Thanks [@sxzz](https://github.com/sxzz)! - shrink options
+
 ## 1.6.5
 ### Patch Changes
 

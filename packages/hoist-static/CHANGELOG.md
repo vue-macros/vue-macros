@@ -1,5 +1,12 @@
 # @vue-macros/hoist-static
 
+## 1.7.0
+### Minor Changes
+
+
+
+- [`bd30f54`](https://github.com/vue-macros/vue-macros/commit/bd30f54dd4a78be2264184229858f2945864a064) Thanks [@sxzz](https://github.com/sxzz)! - Expose `api` entry
+
 ## 1.6.5
 ### Patch Changes
 

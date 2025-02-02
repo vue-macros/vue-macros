@@ -1,8 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
-import { createPlugin, type PluginReturn } from 'ts-macro'
+import { createPlugin, type Code, type PluginReturn } from 'ts-macro'
 import type { OptionsResolved } from '@vue-macros/config'
-import type { Code } from '@vue/language-core'
 
 type RefNode = {
   name: import('typescript').Identifier
