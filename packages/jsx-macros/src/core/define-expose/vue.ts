@@ -1,4 +1,5 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
+import { useExposeHelperId } from '../helper'
 import type { CallExpression } from '@babel/types'
 
 export function transformVueDefineExpose(
@@ -8,7 +9,7 @@ export function transformVueDefineExpose(
 ): void {
   s.overwriteNode(
     node.callee,
-    importHelperFn(s, 0, 'useExpose', '@vue-macros/jsx-macros/helpers'),
+    importHelperFn(s, 0, 'useExpose', useExposeHelperId),
   )
   s.appendRight(
     node.arguments[0]?.start || node.end! - 1,

@@ -10,7 +10,15 @@ import {
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { helperPrefix, useModelHelperCode, useModelHelperId } from './helper'
+import {
+  helperPrefix,
+  useExposeHelperCode,
+  useExposeHelperId,
+  useModelHelperCode,
+  useModelHelperId,
+  withDefaultsHelperCode,
+  withDefaultsHelperId,
+} from './helper'
 import { transformStyle } from './style'
 import { transformJsxMacros } from '.'
 import type { UnpluginContextMeta, UnpluginFactory } from 'unplugin'
@@ -81,7 +89,9 @@ export const plugin: UnpluginFactory<Options | undefined> = (
     },
     load(_id) {
       const id = normalizePath(_id)
-      if (id === useModelHelperId) return useModelHelperCode
+      if (id === useExposeHelperId) return useExposeHelperCode
+      else if (id === useModelHelperId) return useModelHelperCode
+      else if (id === withDefaultsHelperId) return withDefaultsHelperCode
       else if (importMap.get(id)) return importMap.get(id)
     },
 
