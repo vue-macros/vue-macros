@@ -19,6 +19,7 @@ import { transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
 export * from './restructure'
+export * from './helper'
 
 export type JsxDirective = {
   node: JSXElement

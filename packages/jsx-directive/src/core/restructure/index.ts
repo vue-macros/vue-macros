@@ -7,14 +7,13 @@ import {
   type MagicString,
 } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
+import { withDefaultsHelperId } from '../helper'
 import type {
   ArrowFunctionExpression,
   FunctionDeclaration,
   FunctionExpression,
   Node,
 } from '@babel/types'
-
-export * from './helper'
 
 type FunctionalNode =
   | FunctionDeclaration
@@ -81,7 +80,7 @@ export function restructure(
         s,
         0,
         'createPropsDefaultProxy',
-        options?.withDefaultsFrom || '@vue-macros/jsx-directive/helpers',
+        options?.withDefaultsFrom || withDefaultsHelperId,
       )
       const resolvedPath = path.replace(
         `${HELPER_PREFIX}default_`,
