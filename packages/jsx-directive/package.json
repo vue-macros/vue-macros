@@ -45,6 +45,11 @@
       "require": "./dist/api.cjs",
       "import": "./dist/api.js"
     },
+    "./plugin": {
+      "dev": "./src/plugin.ts",
+      "require": "./dist/plugin.cjs",
+      "import": "./dist/plugin.js"
+    },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
       "require": "./dist/esbuild.cjs",
@@ -100,6 +105,10 @@
       "./api": {
         "require": "./dist/api.cjs",
         "import": "./dist/api.js"
+      },
+      "./plugin": {
+        "require": "./dist/plugin.cjs",
+        "import": "./dist/plugin.js"
       },
       "./esbuild": {
         "require": "./dist/esbuild.cjs",
