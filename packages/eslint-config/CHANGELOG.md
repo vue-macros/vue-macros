@@ -1,5 +1,12 @@
 # @vue-macros/eslint-config
 
+## 0.8.0
+### Minor Changes
+
+
+
+- [`759375a`](https://github.com/vue-macros/vue-macros/commit/759375ae6a3a8871e0dbafcd64c35c2e3b99ce42) Thanks [@sxzz](https://github.com/sxzz)! - drop legacy ESLint config
+
 ## 0.7.1
 ### Patch Changes
 

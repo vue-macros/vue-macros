@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/jsx-directive",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "packageManager": "pnpm@10.0.0",
   "description": "jsxDirective feature from Vue Macros.",
   "type": "module",
@@ -54,6 +54,11 @@
       "dev": "./src/helpers.ts",
       "require": "./dist/helpers.cjs",
       "import": "./dist/helpers.js"
+    },
+    "./raw": {
+      "dev": "./src/raw.ts",
+      "require": "./dist/raw.cjs",
+      "import": "./dist/raw.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
@@ -109,6 +114,10 @@
         "require": "./dist/helpers.cjs",
         "import": "./dist/helpers.js"
       },
+      "./raw": {
+        "require": "./dist/raw.cjs",
+        "import": "./dist/raw.js"
+      },
       "./rolldown": {
         "require": "./dist/rolldown.cjs",
         "import": "./dist/rolldown.js"
@@ -138,6 +147,7 @@
   },
   "dependencies": {
     "@vue-macros/common": "workspace:*",
+    "@vue/compiler-core": "catalog:",
     "unplugin": "catalog:",
     "vue": "catalog:"
   },

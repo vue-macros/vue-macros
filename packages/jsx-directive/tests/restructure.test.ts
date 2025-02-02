@@ -1,25 +1,5 @@
-import { babelParse, walkAST } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
-import { MagicString } from 'vue/compiler-sfc'
-import { restructure } from '../src/api'
-import type { Node } from '@babel/types'
-
-export function transformRestructure(code: string) {
-  const s = new MagicString(code)
-  const ast = babelParse(code, 'tsx')
-  walkAST<Node>(ast, {
-    enter(node) {
-      if (
-        node.type === 'FunctionExpression' ||
-        node.type === 'ArrowFunctionExpression' ||
-        node.type === 'FunctionDeclaration'
-      ) {
-        restructure(s, node)
-      }
-    },
-  })
-  return s.toString()
-}
+import { transformRestructure } from '../src/api'
 
 describe('transform', () => {
   test('reconstruct', () => {
@@ -57,6 +37,16 @@ describe('transform', () => {
       `function App({foo, bar = 1, ...rest}){
         return <>{[foo, bar, rest]}</>
       }`,
+    )!
+    expect(code).toMatchSnapshot()
+  })
+
+  test('unwrap ref', () => {
+    const code = transformRestructure(
+      `function App([foo, bar = 1, ...rest]){
+      return <>{[foo, bar, rest]}</>
+      }`,
+      { unwrapRef: true },
     )!
     expect(code).toMatchSnapshot()
   })

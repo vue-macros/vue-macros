@@ -1,4 +1,6 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
+import type { OptionsResolved } from '..'
+import { transformRestructure } from './restructure'
 import { resolveVFor } from './v-for'
 import { isVue2 } from '.'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
@@ -21,9 +23,9 @@ export type VSlotMap = Map<
 export function transformVSlot(
   nodeMap: VSlotMap,
   s: MagicStringAST,
-  version: number,
-  prefix: string,
+  options: OptionsResolved,
 ): void {
+  const { version, prefix } = options
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
@@ -52,7 +54,7 @@ export function transformVSlot(
           if (vForAttribute) {
             result.push(
               '...Object.fromEntries(',
-              resolveVFor(vForAttribute, { s, version }),
+              resolveVFor(vForAttribute, node, s, { ...options, lib: 'vue' }),
               '([',
             )
           }
@@ -71,6 +73,9 @@ export function transformVSlot(
               ? `[${importHelperFn(s, 0, 'unref', version ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
               : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
+          )
+
+          let slotFn = [
             '(',
             attribute.value && attribute.value.type === 'JSXExpressionContainer'
               ? s.sliceNode(attribute.value.expression)
@@ -90,8 +95,14 @@ export function transformVSlot(
                 return str
               })
               .join('') || ' ',
-            isVue2(version) ? '</span>,' : '</>,',
-          )
+            isVue2(version) ? '</span>' : '</>',
+          ].join('')
+
+          if (options.lib === 'vue/vapor') {
+            slotFn = transformRestructure(slotFn)
+          }
+
+          result.push(slotFn, ',')
 
           if (vForAttribute) {
             result.push(']))),')

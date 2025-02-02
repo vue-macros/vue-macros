@@ -8,6 +8,8 @@ import {
   walkAST,
   type CodeTransform,
 } from '@vue-macros/common'
+import type { OptionsResolved } from '..'
+import * as helper from './helper'
 import { transformVFor } from './v-for'
 import { transformVHtml } from './v-html'
 import { transformVIf } from './v-if'
@@ -16,6 +18,9 @@ import { transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
+
+export * from './restructure'
+export const withDefaultsHelperCode: string = helper.withDefaultsHelperCode
 
 export type JsxDirective = {
   node: JSXElement
@@ -30,8 +35,7 @@ const onWithModifiersRegex = /^on[A-Z]\S*_\S+/
 export function transformJsxDirective(
   code: string,
   id: string,
-  version: number,
-  prefix = 'v-',
+  options: OptionsResolved,
 ): CodeTransform | undefined {
   const lang = getLang(id)
 
@@ -56,7 +60,7 @@ export function transformJsxDirective(
   const s = new MagicStringAST(code)
   for (const [ast, offset] of programs) {
     s.offset = offset
-    transform(s, ast, version, prefix)
+    transform(s, ast, options)
   }
   return generateTransform(s, id)
 }
@@ -64,9 +68,9 @@ export function transformJsxDirective(
 function transform(
   s: MagicStringAST,
   program: Program,
-  version: number,
-  prefix = 'v-',
+  options: OptionsResolved,
 ) {
+  const { prefix, version } = options
   const vIfMap = new Map<Node | null | undefined, JsxDirective[]>()
   const vForNodes: JsxDirective[] = []
   const vMemoNodes: (JsxDirective & {
@@ -143,7 +147,7 @@ function transform(
         }
 
         if (vForAttribute) {
-          vForNodes.push({
+          vForNodes.unshift({
             node,
             attribute: vForAttribute,
             parent: vIfAttribute ? undefined : parent,
@@ -212,12 +216,12 @@ function transform(
   })
 
   vIfMap.forEach((nodes) => transformVIf(nodes, s, version, prefix))
-  transformVFor(vForNodes, s, version)
+  transformVFor(vForNodes, s, options)
   if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, version)
   transformVHtml(vHtmlNodes, s, version)
   transformVOn(vOnNodes, s, version)
   transformOnWithModifiers(onWithModifiers, s, version, prefix)
-  transformVSlot(vSlotMap, s, version, prefix)
+  transformVSlot(vSlotMap, s, options)
 }
 
 export function isVue2(version: number): boolean {

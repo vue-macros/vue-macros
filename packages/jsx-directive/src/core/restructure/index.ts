@@ -1,12 +1,24 @@
 import {
+  babelParse,
   HELPER_PREFIX,
   importHelperFn,
+  MagicStringAST,
+  walkAST,
   type MagicString,
 } from '@vue-macros/common'
 import { walkIdentifiers } from '@vue/compiler-core'
 import { withDefaultsHelperId } from '../helper'
-import type { FunctionalNode } from '..'
-import type { Node } from '@babel/types'
+import type {
+  ArrowFunctionExpression,
+  FunctionDeclaration,
+  FunctionExpression,
+  Node,
+} from '@babel/types'
+
+type FunctionalNode =
+  | FunctionDeclaration
+  | FunctionExpression
+  | ArrowFunctionExpression
 
 type Prop = {
   path: string
@@ -17,23 +29,26 @@ type Prop = {
   isRequired?: boolean
 }
 
+type Options = {
+  withDefaultsFrom?: string
+  generateRestProps?: (
+    restPropsName: string,
+    index: number,
+    list: Prop[],
+  ) => string | undefined
+  unwrapRef?: boolean
+}
+
 export function restructure(
   s: MagicString,
   node: FunctionalNode,
-  options?: {
-    withDefaultsFrom?: string
-    generateRestProps?: (
-      restPropsName: string,
-      index: number,
-      list: Prop[],
-    ) => string | undefined
-  },
+  options?: Options,
 ): Prop[] {
   let index = 0
   const propList: Prop[] = []
   for (const param of node.params) {
     const path = `${HELPER_PREFIX}props${index++ || ''}`
-    const props = getProps(param, path, s)
+    const props = getProps(param, path, s, [], options)
     if (props) {
       const hasDefaultValue = props.some((i) => i.defaultValue)
       s.overwrite(param.start!, param.end!, path)
@@ -125,6 +140,7 @@ function getProps(
   path: string = '',
   s: MagicString,
   props: Prop[] = [],
+  options?: Options,
 ) {
   const properties =
     node.type === 'ObjectPattern'
@@ -136,9 +152,10 @@ function getProps(
 
   const propNames: string[] = []
   properties.forEach((prop, index) => {
+    const value = `[${index}]${options?.unwrapRef ? '.value' : ''}`
     if (prop?.type === 'Identifier') {
       // { foo }
-      props.push({ name: prop.name, path, value: `[${index}]` })
+      props.push({ name: prop.name, path, value })
       propNames.push(`'${prop.name}'`)
     } else if (
       prop?.type === 'AssignmentPattern' &&
@@ -148,7 +165,7 @@ function getProps(
       props.push({
         path,
         name: prop.left.name,
-        value: `.${prop.left.name}`,
+        value,
         defaultValue: s.slice(prop.right.start!, prop.right.end!),
       })
       propNames.push(`'${prop.left.name}'`)
@@ -168,7 +185,9 @@ function getProps(
           defaultValue: s.slice(prop.value.right.start!, prop.value.right.end!),
           isRequired: prop.value.right.type === 'TSNonNullExpression',
         })
-      } else if (!getProps(prop.value, `${path}.${prop.key.name}`, s, props)) {
+      } else if (
+        !getProps(prop.value, `${path}.${prop.key.name}`, s, props, options)
+      ) {
         // { foo: bar }
         props.push({
           path,
@@ -191,13 +210,13 @@ function getProps(
         isRest: true,
       })
     } else if (prop) {
-      getProps(prop, `${path}[${index}]`, s, props)
+      getProps(prop, `${path}${value}`, s, props, options)
     }
   })
   return props.length ? props : undefined
 }
 
-export function prependFunctionalNode(
+function prependFunctionalNode(
   node: FunctionalNode,
   s: MagicString,
   result: string,
@@ -214,4 +233,24 @@ export function prependFunctionalNode(
     s.appendLeft(start, '{')
     s.appendRight(node.end!, '}')
   }
+}
+
+export const transformRestructure = (
+  code: string,
+  options?: Options,
+): string => {
+  const s = new MagicStringAST(code)
+  const ast = babelParse(code, 'tsx')
+  walkAST<Node>(ast, {
+    enter(node) {
+      if (
+        node.type === 'FunctionExpression' ||
+        node.type === 'ArrowFunctionExpression' ||
+        node.type === 'FunctionDeclaration'
+      ) {
+        restructure(s, node, options)
+      }
+    },
+  })
+  return s.toString()
 }

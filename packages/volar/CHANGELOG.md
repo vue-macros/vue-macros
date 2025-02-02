@@ -1,5 +1,21 @@
 # @vue-macros/volar
 
+## 0.30.14
+### Patch Changes
+
+- Updated dependencies [[`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3)]:
+  - @vue-macros/config@0.6.0
+
+## 0.30.13
+### Patch Changes
+
+
+
+- [#899](https://github.com/vue-macros/vue-macros/pull/899) [`25b7b86`](https://github.com/vue-macros/vue-macros/commit/25b7b86443b15eef4763192631e4ef069c9a04cb) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use ts-macro instead of @vue/language-core for jsx-plugins
+
+- Updated dependencies []:
+  - @vue-macros/config@0.5.3
+
 ## 0.30.12
 ### Patch Changes
 

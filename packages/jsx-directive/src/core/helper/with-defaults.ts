@@ -1,5 +1,5 @@
 function resolveDefaultProps(paths: Record<string, any>): any {
-  const result: any = {}
+  const result: Record<string, any> = {}
 
   for (const path of Object.keys(paths)) {
     const segments = path.split(/[?.[\]]/).filter(Boolean)
@@ -21,7 +21,10 @@ function resolveDefaultProps(paths: Record<string, any>): any {
   return result
 }
 
-export function createPropsDefaultProxy(props: any, defaults: any): any {
+export function createPropsDefaultProxy(
+  props: Record<string, any>,
+  defaults: Record<string, any>,
+): Record<string, any> {
   const defaultProps = resolveDefaultProps(defaults)
   const result: Record<string, any> = {}
 

@@ -13,6 +13,7 @@
 
 import process from 'node:process'
 import { loadConfig } from './config'
+import { loadConfigAsync } from './config-worker'
 
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
 import type { Options as OptionsBooleanProp } from '@vue-macros/boolean-prop'
@@ -233,8 +234,9 @@ export type OptionsResolved = Required<OptionsCommon> & {
 export function resolveOptions(
   options?: Options,
   cwd: string = process.cwd(),
+  config?: Omit<Options, 'plugins'>,
 ): OptionsResolved {
-  const config = loadConfig(cwd)
+  config ||= loadConfig(cwd)
 
   let { isProduction, nuxtContext, plugins, root, version, ...subOptions } = {
     ...config,
@@ -300,4 +302,12 @@ export function resolveOptions(
       ...(options === true ? {} : options),
     }
   }
+}
+
+export async function resolveOptionsAsync(
+  options?: Options,
+  cwd: string = process.cwd(),
+): Promise<OptionsResolved> {
+  const config = await loadConfigAsync(cwd)
+  return resolveOptions(options, cwd, config)
 }
