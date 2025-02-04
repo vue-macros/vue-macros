@@ -45,7 +45,7 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/boolean-prop.vue 1`] = `
 "// boolean-prop.js
-import { resolveComponent, openBlock, createElementBlock, Fragment, createCommentVNode, createVNode } from 'vue';
+import { resolveComponent, createElementBlock, openBlock, Fragment, createCommentVNode, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const _sfc_main = {};
@@ -154,7 +154,7 @@ export { hoistStatic as default };
 
 exports[`fixtures > tests/fixtures/hoist-static-scope.vue 1`] = `
 "// hoist-static-scope.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const [name] = (

@@ -120,7 +120,7 @@ export { builtIn as default };
 
 exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = false 1`] = `
 "// defaults-dynamic.js
-import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
+import { defineComponent, mergeDefaults, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -149,7 +149,7 @@ export { defaultsDynamic as default };
 
 exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = true 1`] = `
 "// defaults-dynamic.js
-import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
+import { defineComponent, mergeDefaults, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -178,7 +178,7 @@ export { defaultsDynamic as default };
 
 exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = false 1`] = `
 "// defaults-static.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -214,7 +214,7 @@ export { defaultsStatic as default };
 
 exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = true 1`] = `
 "// defaults-static.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -586,7 +586,7 @@ export { issue351 as default };
 
 exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = false 1`] = `
 "// issue-362.js
-import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+import { defineComponent, createElementBlock, openBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -625,7 +625,7 @@ export { issue362 as default };
 
 exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = true 1`] = `
 "// issue-362.js
-import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+import { defineComponent, createElementBlock, openBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1036,7 +1036,7 @@ export { resolveFailed as default };
 
 exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = false 1`] = `
 "// short-emits.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -1064,7 +1064,7 @@ export { shortEmits as default };
 
 exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = true 1`] = `
 "// short-emits.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({

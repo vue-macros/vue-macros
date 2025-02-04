@@ -2,7 +2,7 @@
 
 exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 "// basic.js
-import { defineComponent, openBlock, createElementBlock, Fragment, createElementVNode, toDisplayString, createTextVNode, createBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock, Fragment, createElementVNode, toDisplayString, createTextVNode, createBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const foo = "foo";
@@ -59,7 +59,7 @@ export { basic as default };
 
 exports[`fixtures > tests/fixtures/dash-name.vue 1`] = `
 "// dash-name.js
-import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode, createBlock, Fragment } from 'vue';
+import { defineComponent, createElementBlock, openBlock, renderSlot, createTextVNode, createBlock, Fragment } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -104,7 +104,7 @@ export { dashName as default };
 
 exports[`fixtures > tests/fixtures/multi.vue 1`] = `
 "// multi.js
-import { defineComponent, openBlock, createElementBlock, createTextVNode, Fragment, createBlock, createCommentVNode, createElementVNode } from 'vue';
+import { defineComponent, createElementBlock, openBlock, createTextVNode, Fragment, createBlock, createCommentVNode, createElementVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const pager = "top";

@@ -336,7 +336,7 @@ export { runtimeDefault as default };
 
 exports[`fixtures > tests/fixtures/vue3/script-and-setup.vue 1`] = `
 "// script-and-setup.js
-import { ref, defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+import { ref, defineComponent, createElementBlock, openBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 let foo = ref("msg");

@@ -2,7 +2,7 @@
 
 exports[`fixtures > tests/fixtures/basic.vue > isProduction = false 1`] = `
 "// basic.js
-import { defineComponent, h, openBlock, createElementBlock } from 'vue';
+import { defineComponent, h, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -86,7 +86,7 @@ export { _sfc_main as default };
 
 exports[`fixtures > tests/fixtures/tsx.vue > isProduction = false 1`] = `
 "// tsx.js
-import { defineComponent, createVNode, createTextVNode, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createVNode, createTextVNode, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
