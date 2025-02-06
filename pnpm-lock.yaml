@@ -134,9 +134,6 @@ importers:
       '@types/node':
         specifier: ^22.13.1
         version: 22.13.1
-      '@types/picomatch':
-        specifier: ^3.0.2
-        version: 3.0.2
       '@unocss/eslint-plugin':
         specifier: ^65.4.3
         version: 65.4.3(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3)
@@ -377,12 +374,9 @@ importers:
       magic-string-ast:
         specifier: ^0.7.0
         version: 0.7.0
-      pathe:
-        specifier: ^2.0.2
-        version: 2.0.2
-      picomatch:
-        specifier: ^4.0.2
-        version: 4.0.2
+      unplugin-utils:
+        specifier: ^0.2.3
+        version: 0.2.3
     devDependencies:
       '@babel/parser':
         specifier: 'catalog:'
@@ -2710,9 +2704,6 @@ packages:
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
-
-  '@types/picomatch@3.0.2':
-    resolution: {integrity: sha512-n0i8TD3UDB7paoMMxA3Y65vUncFJXjcUf7lQY7YyKGl6031FNjfsLs6pdLFCy2GNFxItPJG8GvvpbZc2skH7WA==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -7966,8 +7957,6 @@ snapshots:
       undici-types: 6.20.0
 
   '@types/normalize-package-data@2.4.4': {}
-
-  '@types/picomatch@3.0.2': {}
 
   '@types/resolve@1.20.2': {}
 
