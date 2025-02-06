@@ -7,7 +7,7 @@
   },
   "include": ["**/fixtures/**/*", "packages/macros/macros-global.d.ts"],
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
     "vueMacros": {
       "setupSFC": true,
       "shortVmodel": {

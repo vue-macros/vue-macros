@@ -118,7 +118,7 @@ emit('update:count', count + 1)
 {
   "vueCompilerOptions": {
     "target": 3, // 或 2.7 用于 Vue 2
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
     "vueMacros": {
       "defineModels": {
         // 仅在 target 是 2.7 时有效
