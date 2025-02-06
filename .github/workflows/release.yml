@@ -2,55 +2,45 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
-      - beta
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
-env:
-  COREPACK_INTEGRITY_KEYS: '0'
+    tags:
+      - 'v*'
+  workflow_dispatch: {}
 
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
-      actions: write
-      pull-requests: write
-      statuses: write
       contents: write
-      issues: write
-      security-events: write
-      pages: read
+      id-token: write
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.0.0
 
-      - name: Setup Node.js
+      - name: Set node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
           cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npx changelogithub
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Dependencies
         run: pnpm i
 
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          commit: 'chore: bump versions'
-          title: 'chore: bump versions'
-          publish: pnpm run publish
+      - name: Build
+        run: pnpm build
+
+      - name: Publish to NPM
+        run: pnpm -r publish --access public --no-git-checks
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
