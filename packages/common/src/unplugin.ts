@@ -1,4 +1,3 @@
-import { generateTransform, type CodeTransform } from 'magic-string-ast'
 import {
   createFilter as createRollupFilter,
   type FilterPattern,
@@ -11,11 +10,9 @@ import {
   REGEX_VUE_SUB_SETUP,
 } from './constants'
 import type { ResolvedOptions } from '@vitejs/plugin-vue'
+import type { CodeTransform } from 'magic-string-ast'
 import type { Plugin } from 'rollup'
 import type { HmrContext, Plugin as VitePlugin } from 'vite'
-
-/** @deprecated use `generateTransform` instead */
-export const getTransformResult: typeof generateTransform = generateTransform
 
 export interface FilterOptions {
   include?: FilterPattern
