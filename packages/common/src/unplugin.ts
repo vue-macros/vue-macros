@@ -1,12 +1,15 @@
 import { generateTransform, type CodeTransform } from 'magic-string-ast'
 import {
+  createFilter as createRollupFilter,
+  type FilterPattern,
+} from 'unplugin-utils'
+import {
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
   REGEX_VUE_SFC,
   REGEX_VUE_SUB,
   REGEX_VUE_SUB_SETUP,
 } from './constants'
-import { createRollupFilter, type FilterPattern } from './filter'
 import type { ResolvedOptions } from '@vitejs/plugin-vue'
 import type { Plugin } from 'rollup'
 import type { HmrContext, Plugin as VitePlugin } from 'vite'
