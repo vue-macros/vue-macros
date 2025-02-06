@@ -2,7 +2,6 @@ import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
 import { transformRestructure } from './restructure'
 import { resolveVFor } from './v-for'
-import { isVue2 } from '.'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
 export type VSlotMap = Map<
@@ -25,11 +24,11 @@ export function transformVSlot(
   s: MagicStringAST,
   options: OptionsResolved,
 ): void {
-  const { version, prefix, lib } = options
+  const { prefix, lib } = options
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
-      const result = [` ${isVue2(version) ? 'scopedSlots' : 'vSlots'}={{`]
+      const result = [` vSlots={{`]
       const attributes = Array.from(attributeMap)
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -81,7 +80,7 @@ export function transformVSlot(
               ? s.sliceNode(attribute.value.expression)
               : '',
             ') => ',
-            isVue2(version) ? '<span>' : '<>',
+            '<>',
             children
               .map((child) => {
                 const str = s.sliceNode(
@@ -95,7 +94,7 @@ export function transformVSlot(
                 return str
               })
               .join('') || ' ',
-            isVue2(version) ? '</span>' : '</>',
+            '</>',
           ].join('')
 
           if (options.lib === 'vue/vapor') {
@@ -131,7 +130,7 @@ export function transformVSlot(
       )
 
       if (attributeMap.has(null)) {
-        result.push(`default: () => ${isVue2(version) ? '<span>' : '<>'}`)
+        result.push(`default: () => <>`)
       } else {
         result.push('}}')
       }
@@ -146,9 +145,7 @@ export function transformVSlot(
         )
         s.appendLeft(
           node.closingElement!.start!,
-          attributeMap.has(null)
-            ? `${isVue2(version) ? '</span>' : '</>'}}}>`
-            : '>',
+          attributeMap.has(null) ? `</>}}>` : '>',
         )
       }
     })

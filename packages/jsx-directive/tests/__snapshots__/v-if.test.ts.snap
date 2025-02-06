@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else.vue 1`] = `
+exports[`v-if > ./fixtures/v-if/v-else.vue 1`] = `
 "<script setup lang="tsx">
 const { foo = 2 } = defineProps<{
   foo: number
@@ -17,7 +17,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-else-if.vue 1`] = `
+exports[`v-if > ./fixtures/v-if/v-else-if.vue 1`] = `
 "<script setup lang="tsx">
 const { foo = 0 } = defineProps<{
   foo: number
@@ -34,7 +34,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if.vue 1`] = `
+exports[`v-if > ./fixtures/v-if/v-if.vue 1`] = `
 "<script setup lang="tsx">
 import { expectTypeOf } from 'expect-type'
 const { foo } = defineProps<{
@@ -53,7 +53,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > v-if > ./fixtures/v-if/v-if-nested.vue 1`] = `
+exports[`v-if > ./fixtures/v-if/v-if-nested.vue 1`] = `
 "<script setup lang="tsx">
 const { foo = 0 } = defineProps<{
   foo: number

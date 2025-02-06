@@ -1,60 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/child.vue 1`] = `
-"<script setup lang="tsx" generic="T">
-const { bar } = defineProps<{
-  bar: T
-}>()
-
-const slots = defineSlots<{
-  default: () => any
-  bottom: (props: { foo: 1 }) => any
-}>()
-
-const emit = defineEmits<{
-  log: [foo: T]
-  click: []
-}>()
-
-defineRender(() => (
-  <form v-on:submit_prevent={() => {}} onClick={() => emit('log', bar)}>
-    <slots.default />
-  </form>
-))
-</script>
-"
-`;
-
-exports[`jsx-vue-directive > vue 2.7 v-on > ./fixtures/v-on/index.vue 1`] = `
-"<script setup lang="tsx">
-import { expectTypeOf } from 'expect-type'
-import Child from './child.vue'
-
-let bar = $ref('')
-defineRender(() => (
-  <fieldset>
-    <legend>v-on</legend>
-
-    <Child
-      bar={bar}
-      on={{ log: (e) => expectTypeOf<string>(e) }}
-      v-on:click_capture_stop={() => console.log('stopped')}
-    >
-      <input
-        value={bar}
-        v-on:input_prevent={(event: any) => (bar = event.target.value)}
-        v-on:keydown_down={() => {}}
-        v-on:keydown_up={() => {}}
-      />
-      {bar}
-    </Child>
-  </fieldset>
-))
-</script>
-"
-`;
-
-exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/child.vue 1`] = `
+exports[`v-on > ./fixtures/v-on/child.vue 1`] = `
 "<script setup lang="tsx" generic="T">
 import { withModifiers as __MACROS_withModifiers } from "vue";
 const { bar } = defineProps<{
@@ -80,7 +26,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > vue 3 v-on > ./fixtures/v-on/index.vue 1`] = `
+exports[`v-on > ./fixtures/v-on/index.vue 1`] = `
 "<script setup lang="tsx">
 import { withModifiers as __MACROS_withModifiers } from "vue";
 import { withKeys as __MACROS_withKeys } from "vue";const __MACROS_transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});
