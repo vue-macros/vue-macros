@@ -38,6 +38,7 @@ function getPkgName(filePath: string) {
 }
 
 let packageManager: string | undefined
+let version: string | undefined
 
 export default defineConfig([
   {
@@ -57,6 +58,7 @@ export default defineConfig([
       )
 
       if (!data.private) {
+        data.version = version ||= data.version
         data.description =
           descriptions[pkgName] ||
           `${camelCase(pkgName)} feature from Vue Macros.`
