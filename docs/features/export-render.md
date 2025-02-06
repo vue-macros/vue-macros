@@ -34,7 +34,7 @@ export default () => <div>ok</div>
 ```jsonc {3,7} [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
     "vueMacros": {
       "exportRender": true,
     },

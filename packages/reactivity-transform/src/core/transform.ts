@@ -36,7 +36,7 @@ const ESCAPE_SYMBOL = '$$'
 const IMPORT_SOURCES = [
   'vue/macros',
   '@vue-macros/reactivity-transform/macros',
-  'unplugin-vue-macros/macros',
+  'vue-macros/macros',
 ]
 const shorthands = ['ref', 'computed', 'shallowRef', 'toRef', 'customRef']
 const transformCheckRE =

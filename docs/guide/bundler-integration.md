@@ -1,4 +1,4 @@
-# Bundler Integration <PackageVersion name="unplugin-vue-macros" />
+# Bundler Integration <PackageVersion name="vue-macros" />
 
 ## Installation
 
@@ -11,15 +11,15 @@ Vite and Rollup are fully supported, while other bundlers have limited support.
 ::: code-group
 
 ```bash [npm]
-npm i -D unplugin-vue-macros
+npm i -D vue-macros
 ```
 
 ```bash [yarn]
-yarn add -D unplugin-vue-macros
+yarn add -D vue-macros
 ```
 
 ```bash [pnpm]
-pnpm add -D unplugin-vue-macros
+pnpm add -D vue-macros
 ```
 
 :::
@@ -29,7 +29,7 @@ pnpm add -D unplugin-vue-macros
 ```ts [Vite]
 // vite.config.ts
 import Vue from '@vitejs/plugin-vue'
-import VueMacros from 'unplugin-vue-macros/vite'
+import VueMacros from 'vue-macros/vite'
 // import VueJsx from '@vitejs/plugin-vue-jsx'
 // import VueRouter from 'unplugin-vue-router/vite'
 
@@ -50,9 +50,9 @@ export default defineConfig({
 ```
 
 ```ts [Rollup]
-// rollup.config.js
-import VueMacros from 'unplugin-vue-macros/rollup'
 import Vue from 'unplugin-vue/rollup'
+// rollup.config.js
+import VueMacros from 'vue-macros/rollup'
 // import VueRouter from 'unplugin-vue-router/rollup'
 
 export default {
@@ -78,7 +78,7 @@ import { build } from 'esbuild'
 
 build({
   plugins: [
-    require('unplugin-vue-macros/esbuild')({
+    require('vue-macros/esbuild')({
       plugins: {
         vue: require('unplugin-vue/esbuild')(),
         // vueJsx: VueJsx(), // if needed
@@ -97,7 +97,7 @@ build({
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-macros/webpack')({
+    require('vue-macros/webpack')({
       // overrides plugin options
     }),
   ],
@@ -109,7 +109,7 @@ module.exports = {
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-macros/rspack')({
+    require('vue-macros/rspack')({
       // overrides plugin options
     }),
   ],
@@ -123,7 +123,7 @@ module.exports = {
   tools: {
     rspack: {
       plugins: [
-        require('unplugin-vue-macros/rspack')({
+        require('vue-macros/rspack')({
           // overrides plugin options
         }),
       ],
@@ -135,7 +135,7 @@ module.exports = {
 ```js [Vue CLI]
 // vue.config.js
 const { defineConfig } = require('@vue/cli-service')
-const VueMacros = require('unplugin-vue-macros/webpack')
+const VueMacros = require('vue-macros/webpack')
 
 module.exports = defineConfig({
   // ...
@@ -158,7 +158,7 @@ module.exports = defineConfig({
 See the [Configurations](./configurations.md) for more details.
 
 ```ts twoslash [vue-macros.config.ts]
-import { defineConfig } from 'unplugin-vue-macros'
+import { defineConfig } from 'vue-macros'
 export default defineConfig({
   // options
 })
@@ -171,7 +171,7 @@ export default defineConfig({
 {
   "compilerOptions": {
     // ...
-    "types": ["unplugin-vue-macros/macros-global" /* ... */]
+    "types": ["vue-macros/macros-global" /* ... */]
   }
 }
 ```
@@ -183,7 +183,7 @@ For detailed configuration, please refer to the description of the specific macr
 ```jsonc [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
   },
 }
 ```
@@ -194,7 +194,7 @@ For detailed configuration, please refer to the description of the specific macr
 at the same time unless providing a scope.
 
 ```ts twoslash [vue-macros.config.ts]
-import { defineConfig } from 'unplugin-vue-macros'
+import { defineConfig } from 'vue-macros'
 export default defineConfig({
   exportExpose: {
     include: ['**/export-expose/**'],

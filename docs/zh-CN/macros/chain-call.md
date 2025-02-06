@@ -15,7 +15,7 @@
 ::: tip
 
 - `chainCall` 不支持 `definePropsRefs`。
-- 你需要从 `unplugin-vue-macros/macros` 中导入此宏以获取更好的类型检查。
+- 你需要从 `vue-macros/macros` 中导入此宏以获取更好的类型检查。
 
 :::
 
@@ -66,11 +66,11 @@ const { foo } = defineProps<{ foo: string }>().withDefaults({
 
 ## TypeScript
 
-为了更好的类型支持，你需要使用特定的语法从 `unplugin-vue-macros/macros` 中导入此宏。
+为了更好的类型支持，你需要使用特定的语法从 `vue-macros/macros` 中导入此宏。
 
 ```vue twoslash
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros' with { type: 'macro' }
+import { defineProps } from 'vue-macros/macros' with { type: 'macro' }
 
 defineProps<{
   /* ... */
