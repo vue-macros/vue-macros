@@ -15,7 +15,7 @@ Extends `defineProps`, support call `withDefaults` as a chain.
 ::: tip
 
 - `chainCall` does not support `definePropsRefs`
-- To fully support TypeScript, you need to import this macro from `unplugin-vue-macros/macros`.
+- To fully support TypeScript, you need to import this macro from `vue-macros/macros`.
 
 :::
 
@@ -66,11 +66,11 @@ const { foo } = defineProps<{ foo: string }>().withDefaults({
 
 ## TypeScript
 
-To fully support TypeScript, you need to import this macro from `unplugin-vue-macros/macros` with specific syntax.
+To fully support TypeScript, you need to import this macro from `vue-macros/macros` with specific syntax.
 
 ```vue twoslash
 <script setup lang="ts">
-import { defineProps } from 'unplugin-vue-macros/macros' with { type: 'macro' }
+import { defineProps } from 'vue-macros/macros' with { type: 'macro' }
 
 defineProps<{
   /* ... */

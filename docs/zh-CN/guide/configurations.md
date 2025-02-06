@@ -25,7 +25,7 @@
 ```ts twoslash [vue-macros.config.ts(js|ts|json)]
 // vue-macros.config.[js,ts,json]
 
-import { defineConfig } from 'unplugin-vue-macros'
+import { defineConfig } from 'vue-macros'
 export default defineConfig({
   root: '/your-project-path',
 

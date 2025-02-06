@@ -1,9 +1,9 @@
 import process from 'node:process'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import ts from 'typescript'
-import VueMacrosPlugin from 'unplugin-vue-macros/volar'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
+import VueMacrosPlugin from 'vue-macros/volar'
 import { docsLink } from '../../../macros'
 import { getLocaleConfig } from './theme'
 
@@ -60,7 +60,7 @@ export default defineConfig({
                 compilerOptions: {
                   jsx: ts.JsxEmit.Preserve,
                   jsxFactory: 'vue',
-                  types: ['unplugin-vue-macros/macros-global', 'vue/jsx'],
+                  types: ['vue-macros/macros-global', 'vue/jsx'],
                 },
                 vueCompilerOptions: {
                   plugins: [VueMacrosPlugin],

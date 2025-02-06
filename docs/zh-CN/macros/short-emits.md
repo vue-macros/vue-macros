@@ -16,7 +16,7 @@
 
 ```vue twoslash
 <script setup lang="ts">
-import { defineEmits } from 'unplugin-vue-macros/macros'
+import { defineEmits } from 'vue-macros/macros'
 
 const emits = defineEmits<{
   // 元组
