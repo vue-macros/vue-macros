@@ -1,52 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > vue 2.7 v-for > ./fixtures/v-for/index.vue 1`] = `
-"<script setup lang="tsx">
-const map = new Map([
-  [1, '2'],
-  [3, '4'],
-])
-const set = new Set(['1', '2', '3'])
-const object = { id: 1, name: 'admin' }
-let selected = 0
-
-const Comp = <>{Array.from(4, (i) => <div>{i}</div>)}</>
-
-defineRender(() => (
-  <>
-    {Array.from(4, (i) => <div key={i}>
-      <div>{i}</div>
-    </div>)}
-
-    {Array.from(object, (value, key, index) => <div key={index}>
-      {key}: {value}
-    </div>)}
-
-    {Array.from([1, 2, 3][Symbol.iterator](), (i, index) => <div key={index}>
-      <div>{i}</div>
-    </div>)}
-
-    {Array.from([1, 2, 3], (i, __MACROS_index) => <div v-memo={[selected === i]} key={i}>
-      <div>{i}</div>
-    </div>)}
-
-    {(set) ? Array.from(set, (i) => <div key={i}>
-      <div>{i}</div>
-    </div>) : null}
-
-    {Array.from(map, ([key, value], index) => <div key={index}>
-      {key}
-      {Array.from(3, (key) => <div>
-        {key}: {value}
-      </div>)}
-    </div>)}
-  </>
-))
-</script>
-"
-`;
-
-exports[`jsx-vue-directive > vue 3 v-for > ./fixtures/v-for/index.vue 1`] = `
+exports[`v-for > vue > ./fixtures/v-for/index.vue 1`] = `
 "<script setup lang="tsx">
 import { renderList as __MACROS_renderList } from "vue";
 const map = new Map([
@@ -93,7 +47,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > vue/vapor v-for > ./fixtures/v-for/index.vue 1`] = `
+exports[`v-for > vue/vapor > ./fixtures/v-for/index.vue 1`] = `
 "<script setup lang="tsx">
 import { createFor as __MACROS_createFor } from "vue";
 const map = new Map([
