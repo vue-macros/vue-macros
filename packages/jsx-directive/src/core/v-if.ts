@@ -18,7 +18,9 @@ export function transformVIf(
       if (attribute.value)
         s.appendLeft(
           node.start!,
-          `${attribute.name.name === `${prefix}if` && hasScope ? '{' : ' '}(${s.slice(
+          `${hasScope ? '' : '<>{'}${
+            attribute.name.name === `${prefix}if` && hasScope ? '{' : ''
+          }(${s.slice(
             attribute.value.start! + 1,
             attribute.value.end! - 1,
           )}) ? `,
@@ -30,7 +32,7 @@ export function transformVIf(
           `${prefix}else`,
         )
           ? ' :'
-          : ` : null${hasScope ? '}' : ''}`,
+          : ` : null${hasScope ? '}' : '}</>'}`,
       )
     } else if (attribute.name.name === `${prefix}else`) {
       s.appendRight(node.end!, hasScope ? '}' : '')
