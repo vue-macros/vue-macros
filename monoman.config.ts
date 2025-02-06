@@ -81,7 +81,7 @@ export default defineConfig([
         directory: `packages/${pkgName}`,
       }
       // data.author = '三咲智子 Kevin Deng <sxzz@sxzz.moe>'
-      data.engines = { node: '>=16.14.0' }
+      data.engines = { node: '>=20.18.0' }
 
       data.files = ['dist']
       if (hasRootDts) data.files.push('*.d.ts')
@@ -201,7 +201,6 @@ Please refer to [README.md](${githubLink}#readme)\n`
       'docs/package.json',
       'playground/*/package.json',
     ],
-    exclude: ['playground/vue2/package.json'],
   }),
   ...noDuplicatedDeps({
     include: [
