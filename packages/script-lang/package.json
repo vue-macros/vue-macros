@@ -31,49 +31,41 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./api": {
       "dev": "./src/api.ts",
-      "require": "./dist/api.cjs",
-      "import": "./dist/api.js"
+      "default": "./dist/api.js"
     },
     "./esbuild": {
       "dev": "./src/esbuild.ts",
-      "require": "./dist/esbuild.cjs",
-      "import": "./dist/esbuild.js"
+      "default": "./dist/esbuild.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
-      "require": "./dist/rolldown.cjs",
-      "import": "./dist/rolldown.js"
+      "default": "./dist/rolldown.js"
     },
     "./rollup": {
       "dev": "./src/rollup.ts",
-      "require": "./dist/rollup.cjs",
-      "import": "./dist/rollup.js"
+      "default": "./dist/rollup.js"
     },
     "./rspack": {
       "dev": "./src/rspack.ts",
-      "require": "./dist/rspack.cjs",
-      "import": "./dist/rspack.js"
+      "default": "./dist/rspack.js"
     },
     "./vite": {
       "dev": "./src/vite.ts",
-      "require": "./dist/vite.cjs",
-      "import": "./dist/vite.js"
+      "default": "./dist/vite.js"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
-      "require": "./dist/webpack.cjs",
-      "import": "./dist/webpack.js"
+      "default": "./dist/webpack.js"
     },
     "./*": "./*"
   },
@@ -88,38 +80,14 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": {
-        "require": "./dist/index.cjs",
-        "import": "./dist/index.js"
-      },
-      "./api": {
-        "require": "./dist/api.cjs",
-        "import": "./dist/api.js"
-      },
-      "./esbuild": {
-        "require": "./dist/esbuild.cjs",
-        "import": "./dist/esbuild.js"
-      },
-      "./rolldown": {
-        "require": "./dist/rolldown.cjs",
-        "import": "./dist/rolldown.js"
-      },
-      "./rollup": {
-        "require": "./dist/rollup.cjs",
-        "import": "./dist/rollup.js"
-      },
-      "./rspack": {
-        "require": "./dist/rspack.cjs",
-        "import": "./dist/rspack.js"
-      },
-      "./vite": {
-        "require": "./dist/vite.cjs",
-        "import": "./dist/vite.js"
-      },
-      "./webpack": {
-        "require": "./dist/webpack.cjs",
-        "import": "./dist/webpack.js"
-      },
+      ".": "./dist/index.js",
+      "./api": "./dist/api.js",
+      "./esbuild": "./dist/esbuild.js",
+      "./rolldown": "./dist/rolldown.js",
+      "./rollup": "./dist/rollup.js",
+      "./rspack": "./dist/rspack.js",
+      "./vite": "./dist/vite.js",
+      "./webpack": "./dist/webpack.js",
       "./*": "./*"
     }
   },
