@@ -1,4 +1,4 @@
-# 构建工具集成 <PackageVersion name="unplugin-vue-macros" />
+# 构建工具集成 <PackageVersion name="vue-macros" />
 
 ## 安装
 
@@ -11,15 +11,15 @@
 ::: code-group
 
 ```bash [npm]
-npm i -D unplugin-vue-macros
+npm i -D vue-macros
 ```
 
 ```bash [yarn]
-yarn add -D unplugin-vue-macros
+yarn add -D vue-macros
 ```
 
 ```bash [pnpm]
-pnpm add -D unplugin-vue-macros
+pnpm add -D vue-macros
 ```
 
 :::
@@ -29,7 +29,7 @@ pnpm add -D unplugin-vue-macros
 ```ts [Vite]
 // vite.config.ts
 import Vue from '@vitejs/plugin-vue'
-import VueMacros from 'unplugin-vue-macros/vite'
+import VueMacros from 'vue-macros/vite'
 // import VueJsx from '@vitejs/plugin-vue-jsx'
 // import VueRouter from 'unplugin-vue-router/vite'
 
@@ -50,9 +50,9 @@ export default defineConfig({
 ```
 
 ```ts [Rollup]
-// rollup.config.js
-import VueMacros from 'unplugin-vue-macros/rollup'
 import Vue from 'unplugin-vue/rollup'
+// rollup.config.js
+import VueMacros from 'vue-macros/rollup'
 // import VueRouter from 'unplugin-vue-router/rollup'
 
 export default {
@@ -78,7 +78,7 @@ import { build } from 'esbuild'
 
 build({
   plugins: [
-    require('unplugin-vue-macros/esbuild')({
+    require('vue-macros/esbuild')({
       plugins: {
         vue: require('unplugin-vue/esbuild')(),
         // vueJsx: VueJsx(), // 如有需要
@@ -97,7 +97,7 @@ build({
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-macros/webpack')({
+    require('vue-macros/webpack')({
       // 覆盖插件选项
     }),
   ],
@@ -109,7 +109,7 @@ module.exports = {
 module.exports = {
   /* ... */
   plugins: [
-    require('unplugin-vue-macros/rspack')({
+    require('vue-macros/rspack')({
       // 覆盖插件选项
     }),
   ],
@@ -123,7 +123,7 @@ module.exports = {
   tools: {
     rspack: {
       plugins: [
-        require('unplugin-vue-macros/rspack')({
+        require('vue-macros/rspack')({
           // 覆盖插件选项
         }),
       ],
@@ -135,7 +135,7 @@ module.exports = {
 ```js [Vue CLI]
 // vue.config.js
 const { defineConfig } = require('@vue/cli-service')
-const VueMacros = require('unplugin-vue-macros/webpack')
+const VueMacros = require('vue-macros/webpack')
 
 module.exports = defineConfig({
   // ...
@@ -158,7 +158,7 @@ module.exports = defineConfig({
 详情请参阅 [配置](./configurations.md)。
 
 ```ts twoslash [vue-macros.config.ts]
-import { defineConfig } from 'unplugin-vue-macros'
+import { defineConfig } from 'vue-macros'
 export default defineConfig({
   // 选项
 })
@@ -171,7 +171,7 @@ export default defineConfig({
 {
   "compilerOptions": {
     // ...
-    "types": ["unplugin-vue-macros/macros-global" /* ... */]
+    "types": ["vue-macros/macros-global" /* ... */]
   }
 }
 ```
@@ -183,7 +183,7 @@ export default defineConfig({
 ```jsonc [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
   },
 }
 ```
@@ -193,7 +193,7 @@ export default defineConfig({
 `exportExpose`、`exportProps` 和 `exportRender` 插件不能同时使用，除非提供作用域。
 
 ```ts twoslash [vue-macros.config.ts]
-import { defineConfig } from 'unplugin-vue-macros'
+import { defineConfig } from 'vue-macros'
 export default defineConfig({
   exportExpose: {
     include: ['**/export-expose/**'],

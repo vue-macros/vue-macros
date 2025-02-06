@@ -78,7 +78,7 @@ export default <div />
 ```jsonc {3} [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
   },
 }
 ```

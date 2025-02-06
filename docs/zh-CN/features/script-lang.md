@@ -41,7 +41,7 @@ defineProps<{
 ```jsonc {3,5-7} [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
     "vueMacros": {
       "scriptLang": {
         "defaultLang": "ts",

@@ -7,8 +7,8 @@ import NodeResolve from '@rollup/plugin-node-resolve'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'rollup'
 import Oxc from 'unplugin-oxc/rollup'
-import VueMacros from 'unplugin-vue-macros/rollup'
 import Vue from 'unplugin-vue/rollup'
+import VueMacros from 'vue-macros/rollup'
 
 export default defineConfig({
   input: ['./src/main.ts'],
