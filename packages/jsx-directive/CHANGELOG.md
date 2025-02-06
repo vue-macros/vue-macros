@@ -1,5 +1,20 @@
 # @vue-macros/jsx-directive
 
+## 0.10.4
+### Patch Changes
+
+
+
+- [#913](https://github.com/vue-macros/vue-macros/pull/913) [`046992a`](https://github.com/vue-macros/vue-macros/commit/046992a76c0407434ab1c1dbf0bc2b5c1fc0b3fd) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use lib instead of version for helper imports
+
+
+
+- [#912](https://github.com/vue-macros/vue-macros/pull/912) [`ee2b156`](https://github.com/vue-macros/vue-macros/commit/ee2b1561374ecb304c0f89a084660a007a189771) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - wrap root JSX elements with Fragment for v-if and v-for
+
+
+
+- [#910](https://github.com/vue-macros/vue-macros/pull/910) [`1fd6236`](https://github.com/vue-macros/vue-macros/commit/1fd6236bcb83d2003437421286615d4635ba150e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use compiler-sfc instead of compiler-core to expose walkIdentifiers
+
 ## 0.10.3
 ### Patch Changes
 
