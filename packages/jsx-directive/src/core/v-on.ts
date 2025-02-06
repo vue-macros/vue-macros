@@ -3,12 +3,13 @@ import {
   importHelperFn,
   type MagicStringAST,
 } from '@vue-macros/common'
+import type { OptionsResolved } from './plugin'
 import { isVue2, type JsxDirective } from '.'
 
 export function transformVOn(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  version: number,
+  { version }: OptionsResolved,
 ): void {
   if (nodes.length > 0 && !isVue2(version))
     s.prependRight(
@@ -35,8 +36,7 @@ export function transformVOn(
 export function transformOnWithModifiers(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  version: number,
-  prefix: string,
+  { lib, version, prefix }: OptionsResolved,
 ): void {
   nodes.forEach(({ attribute }) => {
     const attributeName = attribute.name.name.toString()
@@ -56,7 +56,7 @@ export function transformOnWithModifiers(
       s,
       0,
       isKeyboardEvent(name) ? 'withKeys' : 'withModifiers',
-      version ? 'vue' : '@vue-macros/jsx-directive/helpers',
+      lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers',
     )
 
     modifiers = modifiers.filter((modifier) => {

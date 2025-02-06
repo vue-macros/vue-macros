@@ -131,7 +131,7 @@ function transform(
           attribute.name.type === 'JSXNamespacedName' &&
           attribute.name.namespace.name === `${prefix}model`
         ) {
-          transformVModel(attribute, s, version)
+          transformVModel(attribute, s, options)
         }
       }
 
@@ -215,12 +215,12 @@ function transform(
     },
   })
 
-  vIfMap.forEach((nodes) => transformVIf(nodes, s, version, prefix))
+  vIfMap.forEach((nodes) => transformVIf(nodes, s, options))
   transformVFor(vForNodes, s, options)
-  if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, version)
-  transformVHtml(vHtmlNodes, s, version)
-  transformVOn(vOnNodes, s, version)
-  transformOnWithModifiers(onWithModifiers, s, version, prefix)
+  if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, options)
+  transformVHtml(vHtmlNodes, s, options)
+  transformVOn(vOnNodes, s, options)
+  transformOnWithModifiers(onWithModifiers, s, options)
   transformVSlot(vSlotMap, s, options)
 }
 
