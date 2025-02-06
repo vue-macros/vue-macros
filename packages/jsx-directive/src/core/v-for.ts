@@ -67,7 +67,9 @@ export function resolveVFor(
               s,
               0,
               'renderList',
-              version ? 'vue' : '@vue-macros/jsx-directive/helpers',
+              lib.startsWith('vue')
+                ? 'vue'
+                : '@vue-macros/jsx-directive/helpers',
             )
         return `${renderList}(${list}, ${params} => `
       }

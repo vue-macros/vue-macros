@@ -1,10 +1,11 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
+import type { OptionsResolved } from './plugin'
 import type { JSXAttribute } from '@babel/types'
 
 export function transformVModel(
   attribute: JSXAttribute,
   s: MagicStringAST,
-  version: number,
+  { lib }: OptionsResolved,
 ): void {
   if (
     attribute.name.type === 'JSXNamespacedName' &&
@@ -15,7 +16,7 @@ export function transformVModel(
 
     let [, argument, modifiers] = matched
     const value = s.sliceNode(attribute.value.expression)
-    argument = `${importHelperFn(s, 0, 'unref', version ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${argument})`
+    argument = `${importHelperFn(s, 0, 'unref', lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${argument})`
     modifiers = modifiers
       ? `, [${argument} + "Modifiers"]: { ${modifiers
           .split('_')

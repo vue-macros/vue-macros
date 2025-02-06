@@ -1,11 +1,11 @@
+import type { OptionsResolved } from '..'
 import { isVue2, type JsxDirective } from '.'
 import type { MagicStringAST } from '@vue-macros/common'
 
 export function transformVIf(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  version: number,
-  prefix: string,
+  { version, prefix }: OptionsResolved,
 ): void {
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(

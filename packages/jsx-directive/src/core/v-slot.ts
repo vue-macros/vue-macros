@@ -25,7 +25,7 @@ export function transformVSlot(
   s: MagicStringAST,
   options: OptionsResolved,
 ): void {
-  const { version, prefix } = options
+  const { version, prefix, lib } = options
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
@@ -70,7 +70,7 @@ export function transformVSlot(
           })
           result.push(
             isDynamic
-              ? `[${importHelperFn(s, 0, 'unref', version ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
+              ? `[${importHelperFn(s, 0, 'unref', lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
               : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
           )
