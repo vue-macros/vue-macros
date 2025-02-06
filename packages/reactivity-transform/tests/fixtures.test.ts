@@ -2,7 +2,6 @@ import { resolve } from 'node:path'
 import {
   rollupBuild,
   RollupVue,
-  RollupVue2,
   testFixtures,
   UnpluginOxc,
 } from '@vue-macros/test-utils'
@@ -15,9 +14,7 @@ describe('fixtures', async () => {
     async (args, id) =>
       rollupBuild(id, [
         VueReactivityTransform(),
-        id.includes('vue2')
-          ? RollupVue2({ compiler: (await import('vue2/compiler-sfc')) as any })
-          : RollupVue({ compiler: await import('vue/compiler-sfc') }),
+        RollupVue({ compiler: await import('vue/compiler-sfc') }),
         UnpluginOxc.rollup(),
       ]),
     {
