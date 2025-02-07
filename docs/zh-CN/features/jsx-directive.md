@@ -16,6 +16,21 @@
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
+## 选项
+
+```ts
+interface Options {
+  /**
+   * @default 'v-'
+   */
+  prefix?: string
+  /**
+   * @default 'vue'
+   */
+  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact' | 'solid' | string
+}
+```
+
 ## 用法
 
 ### `v-if`, `v-else-if`, `v-else`
@@ -213,8 +228,7 @@ export default () => (
 
 ## Volar 配置
 
-```jsonc {4}
-// tsconfig.json
+```jsonc {3} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

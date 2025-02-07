@@ -11,6 +11,7 @@ import DefinePropsRefs from './examples/define-props-refs/index.vue'
 import DefineProps from './examples/define-props/index.vue'
 import DefineRender from './examples/define-render/index.vue'
 import DefineSlots from './examples/define-slots/parent.vue'
+import DefineStyleX from './examples/define-stylex/index.vue'
 import ExportExpose from './examples/export-expose/index.vue'
 import ExportProps from './examples/export-props/index.vue'
 import ExportRender from './examples/export-render/index.vue'
@@ -82,6 +83,11 @@ import ShortVmodel from './examples/short-vmodel/parent.vue'
     <fieldset>
       <legend>defineSlots</legend>
       <DefineSlots />
+    </fieldset>
+
+    <fieldset>
+      <legend>defineStyleX</legend>
+      <DefineStyleX />
     </fieldset>
 
     <fieldset>
@@ -162,6 +168,7 @@ import ShortVmodel from './examples/short-vmodel/parent.vue'
 </template>
 
 <style>
+@stylex stylesheet;
 legend {
   font-family: monospace;
   font-size: 16px;

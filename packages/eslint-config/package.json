@@ -1,8 +1,8 @@
 {
   "name": "@vue-macros/eslint-config",
-  "version": "0.6.0",
-  "packageManager": "pnpm@9.7.1",
-  "description": "eslint-config feature from Vue Macros.",
+  "version": "0.8.0",
+  "packageManager": "pnpm@10.2.1",
+  "description": "eslintConfig feature from Vue Macros.",
   "type": "module",
   "keywords": [
     "vue-macros",
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/eslint-config"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "files": [
     "dist"
   ],
@@ -35,20 +35,7 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
-    "./flat": {
-      "dev": "./src/flat.ts",
-      "require": "./dist/flat.cjs",
-      "import": "./dist/flat.js"
-    },
     "./*": "./*"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./*"
-      ]
-    }
   },
   "publishConfig": {
     "access": "public",
@@ -56,10 +43,6 @@
       ".": {
         "require": "./dist/index.cjs",
         "import": "./dist/index.js"
-      },
-      "./flat": {
-        "require": "./dist/flat.cjs",
-        "import": "./dist/flat.js"
       },
       "./*": "./*"
     }
@@ -69,10 +52,10 @@
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
-    "eslint": ">=8.0.0"
+    "eslint": ">=9.0.0"
   },
   "devDependencies": {
-    "eslint": "^9.9.0"
+    "eslint": "catalog:"
   },
   "engines": {
     "node": ">=16.14.0"

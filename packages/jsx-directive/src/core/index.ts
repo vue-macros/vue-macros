@@ -3,45 +3,83 @@ import {
   generateTransform,
   getLang,
   MagicStringAST,
+  parseSFC,
+  REGEX_SETUP_SFC,
   walkAST,
   type CodeTransform,
 } from '@vue-macros/common'
+import type { OptionsResolved } from '..'
+import * as helper from './helper'
 import { transformVFor } from './v-for'
 import { transformVHtml } from './v-html'
 import { transformVIf } from './v-if'
 import { transformVMemo } from './v-memo'
 import { transformVModel } from './v-model'
-import { transformVOn, transformVOnWithModifiers } from './v-on'
+import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, type VSlotMap } from './v-slot'
-import type { JSXAttribute, JSXElement, Node } from '@babel/types'
+import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
+
+export * from './restructure'
+export const withDefaultsHelperCode: string = helper.withDefaultsHelperCode
 
 export type JsxDirective = {
   node: JSXElement
   attribute: JSXAttribute
   parent?: Node | null
+  vIfAttribute?: JSXAttribute
   vForAttribute?: JSXAttribute
   vMemoAttribute?: JSXAttribute
 }
 
+const onWithModifiersRegex = /^on[A-Z]\S*_\S+/
+
 export function transformJsxDirective(
   code: string,
   id: string,
-  version: number,
+  options: OptionsResolved,
 ): CodeTransform | undefined {
   const lang = getLang(id)
-  if (!['jsx', 'tsx'].includes(lang)) return
+
+  const programs: [program: Program, offset: number][] = []
+  if (lang === 'vue' || REGEX_SETUP_SFC.test(id)) {
+    const { scriptSetup, getSetupAst, script, getScriptAst } = parseSFC(
+      code,
+      id,
+    )
+    if (script) {
+      programs.push([getScriptAst()!, script.loc.start.offset])
+    }
+    if (scriptSetup) {
+      programs.push([getSetupAst()!, scriptSetup.loc.start.offset])
+    }
+  } else if (['jsx', 'tsx'].includes(lang)) {
+    programs.push([babelParse(code, lang), 0])
+  } else {
+    return
+  }
 
   const s = new MagicStringAST(code)
+  for (const [ast, offset] of programs) {
+    s.offset = offset
+    transform(s, ast, options)
+  }
+  return generateTransform(s, id)
+}
+
+function transform(
+  s: MagicStringAST,
+  program: Program,
+  options: OptionsResolved,
+) {
+  const { prefix, version } = options
   const vIfMap = new Map<Node | null | undefined, JsxDirective[]>()
   const vForNodes: JsxDirective[] = []
-  const vMemoNodes: (JsxDirective & {
-    vForAttribute?: JSXAttribute
-  })[] = []
+  const vMemoNodes: JsxDirective[] = []
   const vHtmlNodes: JsxDirective[] = []
   const vSlotMap: VSlotMap = new Map()
   const vOnNodes: JsxDirective[] = []
-  const vOnWithModifiers: JsxDirective[] = []
-  walkAST<Node>(babelParse(code, lang), {
+  const onWithModifiers: JsxDirective[] = []
+  walkAST<Node>(program, {
     enter(node, parent) {
       if (node.type !== 'JSXElement') return
       const tagName = s.sliceNode(node.openingElement.name)
@@ -54,14 +92,20 @@ export function transformJsxDirective(
         if (attribute.type !== 'JSXAttribute') continue
 
         if (
-          ['v-if', 'v-else-if', 'v-else'].includes(`${attribute.name.name}`)
+          [`${prefix}if`, `${prefix}else-if`, `${prefix}else`].includes(
+            String(attribute.name.name),
+          )
         ) {
           vIfAttribute = attribute
-        } else if (attribute.name.name === 'v-for') {
+        } else if (attribute.name.name === `${prefix}for`) {
           vForAttribute = attribute
-        } else if (['v-memo', 'v-once'].includes(`${attribute.name.name}`)) {
+        } else if (
+          [`${prefix}memo`, `${prefix}once`].includes(
+            String(attribute.name.name),
+          )
+        ) {
           vMemoAttribute = attribute
-        } else if (attribute.name.name === 'v-html') {
+        } else if (attribute.name.name === `${prefix}html`) {
           vHtmlNodes.push({
             node,
             attribute,
@@ -70,24 +114,24 @@ export function transformJsxDirective(
           (attribute.name.type === 'JSXNamespacedName'
             ? attribute.name.namespace
             : attribute.name
-          ).name === 'v-slot'
+          ).name === `${prefix}slot`
         ) {
           vSlotAttribute = attribute
-        } else if (attribute.name.name === 'v-on') {
+        } else if (attribute.name.name === `${prefix}on`) {
           vOnNodes.push({
             node,
             attribute,
           })
-        } else if (/^on[A-Z]\S*_\S+/.test(`${attribute.name.name}`)) {
-          vOnWithModifiers.push({
+        } else if (onWithModifiersRegex.test(String(attribute.name.name))) {
+          onWithModifiers.push({
             node,
             attribute,
           })
         } else if (
           attribute.name.type === 'JSXNamespacedName' &&
-          attribute.name.namespace.name === 'v-model'
+          attribute.name.namespace.name === `${prefix}model`
         ) {
-          transformVModel(attribute, s, version)
+          transformVModel(attribute, s, options)
         }
       }
 
@@ -102,10 +146,11 @@ export function transformJsxDirective(
         }
 
         if (vForAttribute) {
-          vForNodes.push({
+          vForNodes.unshift({
             node,
             attribute: vForAttribute,
-            parent: vIfAttribute ? undefined : parent,
+            vIfAttribute,
+            parent,
             vMemoAttribute,
           })
         }
@@ -170,15 +215,13 @@ export function transformJsxDirective(
     },
   })
 
-  vIfMap.forEach((nodes) => transformVIf(nodes, s, version))
-  transformVFor(vForNodes, s, version)
-  if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, version)
-  transformVHtml(vHtmlNodes, s, version)
-  transformVOn(vOnNodes, s, version)
-  transformVOnWithModifiers(vOnWithModifiers, s, version)
-  transformVSlot(vSlotMap, s, version)
-
-  return generateTransform(s, id)
+  vIfMap.forEach((nodes) => transformVIf(nodes, s, options))
+  transformVFor(vForNodes, s, options)
+  if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, options)
+  transformVHtml(vHtmlNodes, s, options)
+  transformVOn(vOnNodes, s, options)
+  transformOnWithModifiers(onWithModifiers, s, options)
+  transformVSlot(vSlotMap, s, options)
 }
 
 export function isVue2(version: number): boolean {

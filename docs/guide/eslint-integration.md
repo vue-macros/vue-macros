@@ -22,9 +22,8 @@ npm i -D @vue-macros/eslint-config
 
 ### Flat Configuration
 
-```js
-// eslint.config.js
-import vueMacros from '@vue-macros/eslint-config'
+```js [eslint.config.js]
+import vueMacros from '@vue-macros/eslint-config/flat'
 export default [
   vueMacros,
   // ...your other configurations
@@ -33,8 +32,7 @@ export default [
 
 ### Legacy Configuration
 
-```jsonc
-// .eslintrc
+```jsonc [.eslintrc]
 {
   "extends": [
     "@vue-macros/eslint-config",

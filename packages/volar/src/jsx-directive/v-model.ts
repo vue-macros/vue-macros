@@ -1,18 +1,39 @@
-import { allCodeFeatures, type Code } from '@vue/language-core'
 import { replaceSourceRange } from 'muggle-string'
+import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'
 
 export function transformVModel(
-  nodes: JsxDirective[],
+  nodeMap: Map<JsxDirective['node'], JsxDirective[]>,
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ): void {
-  const { codes, ts, source, sfc } = options
+  if (!nodeMap.size) return
+
+  for (const [, nodes] of nodeMap) {
+    transform(nodes, ctxMap, options)
+  }
+
+  getModelsType(options.codes)
+}
+
+function transform(
+  nodes: JsxDirective[],
+  ctxMap: Map<JsxDirective['node'], string>,
+  options: TransformOptions,
+) {
+  const { codes, ts, source, ast, prefix } = options
   let firstNamespacedNode:
-    | { attribute: JsxDirective['attribute']; node: JsxDirective['node'] }
+    | {
+        attribute: JsxDirective['attribute']
+        node: JsxDirective['node']
+        attributeName: string
+      }
     | undefined
+
   const result: Code[] = []
+  const emits: string[] = []
+  const offset = `${prefix}model`.length + 1
   for (const { attribute, node } of nodes) {
     const modelValue = ['input', 'select', 'textarea'].includes(
       getTagName(node, options),
@@ -26,17 +47,21 @@ export function transformVModel(
 
     const name = getText(attribute.name, options)
     const start = getStart(attribute.name, options)
-    if (name.startsWith('v-model:') || isArrayExpression) {
+    if (name.startsWith(`${prefix}model:`) || isArrayExpression) {
       let isDynamic = false
       const attributeName = name
-        .slice(8)
+        .slice(offset)
         .split(/\s/)[0]
         .split('_')[0]
         .replace(/^\$(.*)\$/, (_, $1) => {
           isDynamic = true
           return $1
         })
-      firstNamespacedNode ??= { attribute, node }
+      firstNamespacedNode ??= {
+        attribute,
+        attributeName,
+        node,
+      }
       if (firstNamespacedNode.attribute !== attribute) {
         replaceSourceRange(
           codes,
@@ -81,7 +106,8 @@ export function transformVModel(
               index ? code.at(0)?.toUpperCase() + code.slice(1) : code,
               source,
               start +
-                (isDynamic ? 9 : 8) +
+                offset +
+                (isDynamic ? 1 : 0) +
                 (index && codes[index - 1].length + 1),
               allCodeFeatures,
             ]) as Code[]),
@@ -101,6 +127,8 @@ export function transformVModel(
             allCodeFeatures,
           ])
       }
+
+      emits.push(`'onUpdate:${attributeName}': () => {}, `)
     } else {
       replaceSourceRange(
         codes,
@@ -110,29 +138,38 @@ export function transformVModel(
         modelValue.slice(0, 3),
         [modelValue.slice(3), source, start, allCodeFeatures],
       )
+      replaceSourceRange(
+        codes,
+        source,
+        attribute.end,
+        attribute.end,
+        ` {...{'onUpdate:${modelValue}': () => {} }}`,
+      )
     }
   }
 
   if (!firstNamespacedNode) return
-  const { attribute, node } = firstNamespacedNode
-  getModelsType(codes)
-
+  const { attribute, attributeName, node } = firstNamespacedNode
+  const end = attributeName
+    ? attribute.end
+    : getStart(attribute, options) + offset
   replaceSourceRange(
     codes,
     source,
     getStart(attribute, options),
-    attribute.end + 1,
+    end,
     `{...{`,
     ...result,
-    `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>, __VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>>}`,
-    // Fix `v-model:` without type hints
-    sfc[source]!.content.slice(attribute.end, attribute.end + 1),
+    `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>>}`,
+    ` {...{`,
+    ...emits,
+    `}}`,
   )
+  // Fix `v-model:` without type hints
+  replaceSourceRange(codes, source, end, end + 1, ast.text.slice(end, end + 1))
 }
 
 function getModelsType(codes: Code[]) {
-  if (codes.toString().includes('type __VLS_GetModels')) return
-
   codes.push(`
 type __VLS_NormalizeProps<T> = T extends object
   ? {
@@ -140,28 +177,24 @@ type __VLS_NormalizeProps<T> = T extends object
         ? never
         : K extends keyof import('vue').VNodeProps | 'class' | 'style'
           ? never
-          : K extends \`on\${infer F}\${infer _}\`
-            ? F extends Uppercase<F>
-              ? never
-              : K
-            : K]: T[K]
+          : K]: T[K]
     }
   : never;
 type __VLS_CamelCase<S extends string> = S extends \`\${infer F}-\${infer RF}\${infer R}\`
   ? \`\${F}\${Uppercase<RF>}\${__VLS_CamelCase<R>}\`
   : S;
-type __VLS_EmitsToProps<T> = T extends object
+type __VLS_PropsToEmits<T> = T extends object
+    ? {
+        [K in keyof T as K extends \`onUpdate:\${infer R}\`
+          ? R extends 'modelValue'
+            ? never
+            : __VLS_CamelCase<R>
+          : never]: T[K]
+      }
+    : never
+type __VLS_GetModels<P, E = __VLS_PropsToEmits<P>> = P extends object
   ? {
-      [K in keyof T as K extends \`update:\${infer R}\`
-        ? R extends 'modelValue'
-          ? never
-          : __VLS_CamelCase<R>
-        : never]: T[K]
-    }
-  : never;
-type __VLS_GetModels<P, E> = E extends object
-  ? {
-      [K in keyof __VLS_EmitsToProps<E> as K extends keyof P
+      [K in keyof P as K extends keyof E
         ? K
         : never]: K extends keyof P ? P[K] : never
     }

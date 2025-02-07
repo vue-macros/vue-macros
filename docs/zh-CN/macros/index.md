@@ -25,3 +25,4 @@
 - [setupComponent](./setup-component.md)
 - [setupSFC](./setup-sfc.md)
 - [chainCall](./chain-call.md)
+- [defineStyleX](./define-stylex.md)

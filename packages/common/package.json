@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/common",
-  "version": "1.12.2",
-  "packageManager": "pnpm@9.7.1",
+  "version": "1.16.1",
+  "packageManager": "pnpm@10.2.1",
   "description": "common feature from Vue Macros.",
   "type": "module",
   "keywords": [
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/common"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "files": [
     "dist"
   ],
@@ -61,16 +61,16 @@
     }
   },
   "dependencies": {
-    "@babel/types": "^7.25.2",
-    "@rollup/pluginutils": "^5.1.0",
     "@vue/compiler-sfc": "catalog:",
-    "ast-kit": "^1.1.0",
-    "local-pkg": "^0.5.0",
-    "magic-string-ast": "^0.6.2"
+    "ast-kit": "^1.4.0",
+    "local-pkg": "^1.0.0",
+    "magic-string-ast": "^0.7.0",
+    "pathe": "^2.0.2",
+    "picomatch": "^4.0.2"
   },
   "devDependencies": {
-    "@babel/parser": "^7.25.3",
-    "@vitejs/plugin-vue": "^5.1.2"
+    "@babel/parser": "catalog:",
+    "@vitejs/plugin-vue": "catalog:"
   },
   "engines": {
     "node": ">=16.14.0"

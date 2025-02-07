@@ -5,33 +5,34 @@
   "type": "module",
   "scripts": {
     "dev": "node vite.js",
-    "build": "run-p \"build:*\"",
+    "build": "pnpm run /^build:/",
     "build:vite": "node vite.js build",
     "build:rollup": "rollup -c rollup.config.js",
     "preview": "node vite.js preview",
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@vueuse/core": "^11.0.0",
+    "@vueuse/core": "catalog:",
     "vue": "^2.7.16"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@vitejs/plugin-vue2": "^2.3.1",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@stylexjs/stylex": "catalog:",
+    "@vitejs/plugin-vue2": "^2.3.3",
     "@vitejs/plugin-vue2-jsx": "^1.1.1",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
-    "esbuild": "^0.23.1",
-    "npm-run-all2": "^6.2.2",
-    "rollup": "^4.21.0",
-    "rollup-plugin-esbuild": "^6.1.1",
-    "type-fest": "^4.25.0",
+    "esbuild": "catalog:",
+    "rollup": "catalog:",
+    "rollup-plugin-esbuild": "^6.2.0",
+    "type-fest": "^4.33.0",
     "typescript": "catalog:",
-    "unocss": "^0.62.2",
+    "unocss": "catalog:",
     "unplugin-vue-macros": "workspace:*",
     "vite": "catalog:",
-    "vite-hyper-config": "^0.2.1",
-    "vite-plugin-inspect": "^0.8.5",
+    "vite-hyper-config": "^0.6.0",
+    "vite-plugin-inspect": "^10.1.0",
+    "vite-plugin-stylex": "catalog:",
     "vue-tsc": "catalog:"
   }
 }

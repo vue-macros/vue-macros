@@ -2,7 +2,7 @@ import { TransformError } from '@vue-macros/common'
 import { err, ok, safeTry, type Result } from 'neverthrow'
 import type { ErrorUnknownNode } from '../error'
 import { isTSDeclaration } from './is'
-import { resolveTSFileId } from './resolve-file'
+import { resolveDts } from './resolve-file'
 import {
   resolveTSReferencedType,
   type TSResolvedType,
@@ -53,7 +53,7 @@ export function resolveTSNamespace(
           })
         ).safeUnwrap()
       } else if (stmt.type === 'ExportAllDeclaration') {
-        const resolved = await resolveTSFileId(stmt.source.value, file.filePath)
+        const resolved = await resolveDts(stmt.source.value, file.filePath)
         if (!resolved) continue
 
         const sourceScope = await getTSFile(resolved)
@@ -65,10 +65,7 @@ export function resolveTSNamespace(
         let sourceExports: TSNamespace
 
         if (stmt.source) {
-          const resolved = await resolveTSFileId(
-            stmt.source.value,
-            file.filePath,
-          )
+          const resolved = await resolveDts(stmt.source.value, file.filePath)
           if (!resolved) continue
 
           const scope = await getTSFile(resolved)
@@ -133,7 +130,7 @@ export function resolveTSNamespace(
           })
         ).safeUnwrap()
       } else if (stmt.type === 'ImportDeclaration') {
-        const resolved = await resolveTSFileId(stmt.source.value, file.filePath)
+        const resolved = await resolveDts(stmt.source.value, file.filePath)
         if (!resolved) continue
 
         const importScope = await getTSFile(resolved)

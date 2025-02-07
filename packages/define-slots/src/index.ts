@@ -6,12 +6,12 @@ import {
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
-import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformDefineSlots } from './core'
 
 export type Options = BaseOptions

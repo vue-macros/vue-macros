@@ -2,6 +2,12 @@
 
 ## 安装
 
+::: tip
+
+完全支持 Vite 和 Rollup，其他构建工具支持有限。
+
+:::
+
 ::: code-group
 
 ```bash [npm]
@@ -110,6 +116,22 @@ module.exports = {
 }
 ```
 
+```js [Rsbuild]
+// rsbuild.config.js
+module.exports = {
+  // ...
+  tools: {
+    rspack: {
+      plugins: [
+        require('unplugin-vue-macros/rspack')({
+          // 覆盖插件选项
+        }),
+      ],
+    },
+  },
+}
+```
+
 ```js [Vue CLI]
 // vue.config.js
 const { defineConfig } = require('@vue/cli-service')
@@ -131,19 +153,11 @@ module.exports = defineConfig({
 
 :::
 
-::: tip
-
-完全支持 Vite 和 Rollup，其他构建工具支持有限。
-
-:::
-
 ## 配置
 
 详情请参阅 [配置](./configurations.md)。
 
-```ts twoslash
-// vue-macros.config.ts
-
+```ts twoslash [vue-macros.config.ts]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   // 选项
@@ -180,8 +194,7 @@ export default defineConfig({
 
 详细配置请参阅具体宏的描述。
 
-```jsonc
-// tsconfig.json
+```jsonc [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],
@@ -193,9 +206,7 @@ export default defineConfig({
 
 `exportExpose`、`exportProps` 和 `exportRender` 插件不能同时使用，除非提供作用域。
 
-```ts twoslash
-// vue-macros.config.ts
-
+```ts twoslash [vue-macros.config.ts]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   exportExpose: {

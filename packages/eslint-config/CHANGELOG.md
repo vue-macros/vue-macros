@@ -1,5 +1,26 @@
 # @vue-macros/eslint-config
 
+## 0.8.0
+### Minor Changes
+
+
+
+- [`759375a`](https://github.com/vue-macros/vue-macros/commit/759375ae6a3a8871e0dbafcd64c35c2e3b99ce42) Thanks [@sxzz](https://github.com/sxzz)! - drop legacy ESLint config
+
+## 0.7.1
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+## 0.7.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
 ## 0.6.0
 ### Minor Changes
 

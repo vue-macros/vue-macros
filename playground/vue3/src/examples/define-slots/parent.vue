@@ -3,8 +3,8 @@ import { expectTypeOf } from 'expect-type'
 import { Assert } from '../../assert'
 import Child, { type DefaultScope, type TitleScope } from './child.vue'
 
-declare const expectTitleScope: TitleScope
-declare const expectDefaultScope: DefaultScope
+let expectTitleScope: TitleScope
+let expectDefaultScope: DefaultScope
 </script>
 
 <template>

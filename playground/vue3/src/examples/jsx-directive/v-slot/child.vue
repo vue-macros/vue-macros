@@ -6,8 +6,8 @@ const slots = defineSlots<{
 
 defineRender(() => (
   <span>
-    <slots.default foo="begin" />
-    <slots.bottom {...{ foo: 1 }} />
+    <slots.default v-if={slots.default} foo="begin" />
+    <slots.bottom v-if={slots.bottom} {...{ foo: 1 }} />
   </span>
 ))
 </script>

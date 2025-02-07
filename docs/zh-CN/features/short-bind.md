@@ -2,9 +2,11 @@
 
 <StabilityLevel level="stable" />
 
-绑定相同数据名称的 `prop` 的语法糖。
-
 `:value` -> `:value="value"`
+
+同名简写绑定 prop 。如果 prop 与要绑定的 JavaScript 值同名，则可以进一步缩短语法以省略 prop 值。
+
+对于 Vue >= 3.4，此功能将默认关闭。
 
 |   Features   |     Supported      |
 | :----------: | :----------------: |
@@ -43,8 +45,7 @@ const value = 'foo'
 
 ## Volar 配置
 
-```jsonc {4}
-// tsconfig.json
+```jsonc {3} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

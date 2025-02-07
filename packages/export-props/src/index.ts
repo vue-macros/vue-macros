@@ -3,15 +3,16 @@ import {
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
+  hackViteHMR,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
+import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
-import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformExportProps } from './core'
 
 export type Options = BaseOptions
@@ -45,6 +46,11 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       enforce: 'pre',
       transformInclude: filter,
       transform: transformExportProps,
+      vite: {
+        handleHotUpdate(ctx) {
+          hackViteHMR(ctx, filter, transformExportProps)
+        },
+      },
     }
   },
 )

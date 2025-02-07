@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/astro",
-  "version": "0.5.6",
-  "packageManager": "pnpm@9.7.1",
+  "version": "0.7.2",
+  "packageManager": "pnpm@10.2.1",
   "description": "Astro integration of Vue Macros.",
   "type": "module",
   "keywords": [
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/astro"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "contributors": [
     "alexzhang1030 <alexzhang1030@foxmail.com>"
   ],
@@ -62,8 +62,8 @@
     "unplugin-vue-macros": "workspace:*"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.2",
-    "astro": "^4.14.2"
+    "@vitejs/plugin-vue": "catalog:",
+    "astro": "^5.2.5"
   },
   "engines": {
     "node": ">=16.14.0"

@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/api",
-  "version": "0.10.4",
-  "packageManager": "pnpm@9.7.1",
+  "version": "0.13.3",
+  "packageManager": "pnpm@10.2.1",
   "description": "General API for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/api"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "files": [
     "dist"
   ],
@@ -53,10 +53,9 @@
     "dev": "DEV=true tsup"
   },
   "dependencies": {
-    "@babel/types": "^7.25.2",
     "@vue-macros/common": "workspace:*",
     "neverthrow": "^7.0.1",
-    "resolve.exports": "^2.0.2"
+    "oxc-resolver": "^4.0.0"
   },
   "engines": {
     "node": ">=16.14.0"

@@ -1,19 +1,27 @@
 import { access, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { camelCase } from 'change-case'
 import fg from 'fast-glob'
-import { dedupeDeps, defineConfig } from 'monoman'
+import { importx } from 'importx'
+import {
+  defineConfig,
+  noDuplicatedDeps,
+  noDuplicatedPnpmLockfile,
+} from 'monoman'
 import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
 import type { Options } from 'tsup'
 
+/// keep-sorted
 const descriptions: Record<string, string> = {
   'define-options': 'Add defineOptions macro for Vue <script setup>.',
-  macros: 'Explore more macros and syntax sugar to Vue.',
-  volar: 'Volar plugin for Vue Macros.',
-  devtools: 'Devtools plugin for Vue Macros.',
+  'test-utils': 'Test utilities for Vue Macros.',
   api: 'General API for Vue Macros.',
   astro: 'Astro integration of Vue Macros.',
   config: 'Config API for Vue Macros.',
+  devtools: 'Devtools plugin for Vue Macros.',
+  macros: 'Explore more macros and syntax sugar to Vue.',
+  volar: 'Volar plugin for Vue Macros.',
 }
 
 function exists(filePath: string) {
@@ -39,6 +47,8 @@ export default defineConfig([
       const pkgRoot = path.resolve(filePath, '..')
       const pkgSrc = path.resolve(pkgRoot, 'src')
       const pkgName = getPkgName(filePath)
+
+      data.type = pkgName === 'volar' ? 'commonjs' : 'module'
       const isESM = data.type === 'module'
       const cjsPrefix = isESM ? 'c' : ''
       const esmPrefix = isESM ? '' : 'm'
@@ -46,10 +56,10 @@ export default defineConfig([
         file.endsWith('.d.ts'),
       )
 
-      data.type ||= 'commonjs'
       if (!data.private) {
         data.description =
-          descriptions[pkgName] || `${pkgName} feature from Vue Macros.`
+          descriptions[pkgName] ||
+          `${camelCase(pkgName)} feature from Vue Macros.`
         data.keywords = [
           'vue-macros',
           'macros',
@@ -68,7 +78,7 @@ export default defineConfig([
         url: `git+${githubLink}.git`,
         directory: `packages/${pkgName}`,
       }
-      // data.author = '三咲智子 <sxzz@sxzz.moe>'
+      // data.author = '三咲智子 Kevin Deng <sxzz@sxzz.moe>'
       data.engines = { node: '>=16.14.0' }
 
       data.files = ['dist']
@@ -107,7 +117,12 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && (await exists(tsupFile))) {
-        const tsupConfig: Options = (await import(tsupFile)).default
+        const tsupConfig: Options = (
+          await importx(tsupFile, {
+            parentURL: import.meta.url,
+            loader: 'bundle-require',
+          })
+        ).default
         const format = tsupConfig.format || []
         const hasCJS = format.includes('cjs')
         const hasESM = format.includes('esm')
@@ -177,15 +192,16 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 Please refer to [README.md](${githubLink}#readme)\n`
     },
   },
-  ...dedupeDeps({
+  ...noDuplicatedDeps({
     include: [
       'package.json',
       'packages/*/package.json',
+      'docs/package.json',
       'playground/*/package.json',
     ],
     exclude: ['playground/vue2/package.json'],
   }),
-  ...dedupeDeps({
+  ...noDuplicatedDeps({
     include: [
       'package.json',
       'packages/*/package.json',
@@ -206,6 +222,24 @@ Please refer to [README.md](${githubLink}#readme)\n`
       return data
     },
   },
+  ...noDuplicatedPnpmLockfile({
+    deps: [
+      'typescript',
+      'vue-tsc',
+      /twoslash/,
+      /^@vue\/(?!compiler-sfc|devtools)/,
+      /shiki/,
+      /babel/,
+      /esbuild/,
+      /vite(?!-plugin-(vue-inspector|inspect))/,
+      /unocss/,
+      /rolldown/,
+    ],
+  }),
+  ...noDuplicatedPnpmLockfile({
+    deps: ['vue', '@vue/compiler-sfc', 'lru-cache', 'minimatch', 'debug'],
+    allowMajor: true,
+  }),
 ])
 
 function stripCurrentDir(filePath: string) {

@@ -1,4 +1,4 @@
-# templateRef <PackageVersion name="@vue-macros/volar" />
+# defineGeneric <PackageVersion name="@vue-macros/volar" />
 
 <StabilityLevel level="stable" />
 
@@ -37,8 +37,7 @@ defineProps<{
 
 ## Volar 配置
 
-```jsonc {4}
-// tsconfig.json
+```jsonc {3} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

@@ -26,6 +26,6 @@ features:
     title: Type Safe
     details: Full TypeScript and Volar support.
   - icon: ⚡️
-    title: Multiple bundlers are supported
-    details: Supports Vite, Nuxt, Webpack, Vue CLI, Rollup 3, esbuild and more, powered by unplugin.
+    title: Most bundlers are supported
+    details: Supports almost all bundlers powered by unplugin.
 ---

@@ -18,7 +18,7 @@ const Comp = defineComponent({
 })
 let comp!: InstanceType<typeof Comp>
 // @ts-expect-error
-console.log(comp?.foo)
+if (!comp?.foo) new Error('foo is not defined')
 
 const vm = getCurrentInstance()!
 </script>

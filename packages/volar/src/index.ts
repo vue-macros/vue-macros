@@ -12,13 +12,13 @@ import exportExpose from './export-expose'
 import exportProps from './export-props'
 import exportRender from './export-render'
 import jsxDirective from './jsx-directive'
+import jsxRef from './jsx-ref'
 import scriptLang from './script-lang'
 import scriptSFC from './script-sfc'
 import setupJsdoc from './setup-jsdoc'
 import setupSFC from './setup-sfc'
 import shortBind from './short-bind'
 import shortVmodel from './short-vmodel'
-import templateRef from './template-ref'
 import type { VueLanguagePlugin } from '@vue/language-core'
 
 const plugins = {
@@ -41,14 +41,16 @@ const plugins = {
   setupSFC,
   scriptSFC,
   scriptLang,
-  templateRef,
+  jsxRef,
 }
 
 const plugin: VueLanguagePlugin = (ctx) =>
   Object.entries(plugins).flatMap(([name, plugin]) => {
     const options = getVolarOptions(ctx, name as keyof typeof plugins)
     if (!options) return []
-    return plugin(ctx, options)
+    ;(ctx.vueCompilerOptions.vueMacros ??= {})[name as keyof typeof plugins] ??=
+      options as any
+    return plugin(ctx, options as any) as ReturnType<VueLanguagePlugin>
   })
 
 export default plugin

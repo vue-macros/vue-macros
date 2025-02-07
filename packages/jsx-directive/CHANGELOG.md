@@ -1,5 +1,120 @@
 # @vue-macros/jsx-directive
 
+## 0.10.4
+### Patch Changes
+
+
+
+- [#913](https://github.com/vue-macros/vue-macros/pull/913) [`046992a`](https://github.com/vue-macros/vue-macros/commit/046992a76c0407434ab1c1dbf0bc2b5c1fc0b3fd) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use lib instead of version for helper imports
+
+
+
+- [#912](https://github.com/vue-macros/vue-macros/pull/912) [`ee2b156`](https://github.com/vue-macros/vue-macros/commit/ee2b1561374ecb304c0f89a084660a007a189771) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - wrap root JSX elements with Fragment for v-if and v-for
+
+
+
+- [#910](https://github.com/vue-macros/vue-macros/pull/910) [`1fd6236`](https://github.com/vue-macros/vue-macros/commit/1fd6236bcb83d2003437421286615d4635ba150e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use compiler-sfc instead of compiler-core to expose walkIdentifiers
+
+## 0.10.3
+### Patch Changes
+
+
+
+- [#906](https://github.com/vue-macros/vue-macros/pull/906) [`f091389`](https://github.com/vue-macros/vue-macros/commit/f091389c247e253933fd38c17d840e6fc3900c91) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - expose raw to support browser environments
+
+
+
+- [#908](https://github.com/vue-macros/vue-macros/pull/908) [`b00a0c8`](https://github.com/vue-macros/vue-macros/commit/b00a0c8d147f63589ab5e2c106a4a653b860cf01) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add with-defaults helper to the load hook
+
+## 0.10.2
+### Patch Changes
+
+
+
+- [#902](https://github.com/vue-macros/vue-macros/pull/902) [`c5508bf`](https://github.com/vue-macros/vue-macros/commit/c5508bfce0b1fd6da8eb35f16be1a40eeb194323) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add lib option to support vue/vapor
+
+
+
+- [#904](https://github.com/vue-macros/vue-macros/pull/904) [`b2725ee`](https://github.com/vue-macros/vue-macros/commit/b2725eee008e95eb8c9871c06ae69e86e3c72d2e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support restructure v-for and v-slot for vue/vapor
+
+## 0.10.1
+### Patch Changes
+
+- Updated dependencies [[`d608125`](https://github.com/vue-macros/vue-macros/commit/d60812504fed4ade2e5565a7d275cc36b6691247)]:
+  - @vue-macros/common@1.16.1
+
+## 0.10.0
+### Minor Changes
+
+
+
+- [#872](https://github.com/vue-macros/vue-macros/pull/872) [`cf931b5`](https://github.com/vue-macros/vue-macros/commit/cf931b57d121568c6cfbd67e644564c707bc299b) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support Vue SFC for jsx-directive
+
+
+### Patch Changes
+
+- Updated dependencies [[`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce), [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65)]:
+  - @vue-macros/common@1.16.0
+
+## 0.9.4
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+- Updated dependencies [[`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703)]:
+  - @vue-macros/common@1.15.1
+
+## 0.9.3
+### Patch Changes
+
+
+
+- [#858](https://github.com/vue-macros/vue-macros/pull/858) [`d32bd42`](https://github.com/vue-macros/vue-macros/commit/d32bd4287589cb9c6d6b779b3dc3109a24bd7723) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support prefix option for jsx-directive
+
+## 0.9.2
+### Patch Changes
+
+- Updated dependencies [[`0f146d0`](https://github.com/vue-macros/vue-macros/commit/0f146d06feafeb2ee1126a1003dc12e6c3d18f59), [`bba0ed4`](https://github.com/vue-macros/vue-macros/commit/bba0ed42d4ce084b8ec8e0674a49cd75d994a1e3)]:
+  - @vue-macros/common@1.15.0
+
+## 0.9.1
+### Patch Changes
+
+
+
+- [`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d) Thanks [@sxzz](https://github.com/sxzz)! - Fix missing `hackViteHMR`
+
+- Updated dependencies [[`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d)]:
+  - @vue-macros/common@1.14.0
+
+## 0.9.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+
+### Patch Changes
+
+- Updated dependencies [[`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279)]:
+  - @vue-macros/common@1.13.0
+
+## 0.8.21
+### Patch Changes
+
+- Updated dependencies [[`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db)]:
+  - @vue-macros/common@1.12.3
+
+## 0.8.20
+### Patch Changes
+
+
+
+- [#786](https://github.com/vue-macros/vue-macros/pull/786) [`85d2402`](https://github.com/vue-macros/vue-macros/commit/85d2402112b8abed02b5f062f853dd2cc6fb0394) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - set enforce to pre
+
 ## 0.8.19
 ### Patch Changes
 

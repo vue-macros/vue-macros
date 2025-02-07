@@ -39,7 +39,7 @@ export async function getTSFile(filePath: string): Promise<TSFile> {
     filePath,
     content,
     ast: REGEX_SUPPORTED_EXT.test(filePath)
-      ? babelParse(code, lang).body
+      ? babelParse(code, lang, { cache: true }).body
       : undefined,
   })
 }

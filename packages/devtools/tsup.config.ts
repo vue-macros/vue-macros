@@ -1,8 +1,8 @@
-import { defineConfig } from 'tsup'
-import cfg from '../../tsup.config.js'
+import { config } from '../../tsup.config.js'
 
-export default defineConfig({
-  ...cfg,
+export default config({
   shims: true,
   treeshake: true,
+  ignoreDeps: ['vue'],
+  platform: 'node',
 })

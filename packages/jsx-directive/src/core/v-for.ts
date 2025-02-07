@@ -3,19 +3,16 @@ import {
   importHelperFn,
   type MagicStringAST,
 } from '@vue-macros/common'
+import type { OptionsResolved } from '..'
+import { transformRestructure } from './restructure'
 import { isVue2, type JsxDirective } from '.'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
-  {
-    s,
-    version,
-    vMemoAttribute,
-  }: {
-    s: MagicStringAST
-    version: number
-    vMemoAttribute?: JsxDirective['attribute']
-  },
+  node: JsxDirective['node'],
+  s: MagicStringAST,
+  { lib, version }: OptionsResolved,
+  vMemoAttribute?: JsxDirective['attribute'],
 ): string {
   if (attribute.value) {
     let item, index, objectIndex, list
@@ -40,18 +37,42 @@ export function resolveVFor(
         index ??= `${HELPER_PREFIX}index`
       }
 
-      const renderList = isVue2(version)
-        ? 'Array.from'
-        : importHelperFn(
-            s,
-            0,
-            'renderList',
-            version ? 'vue' : '@vue-macros/jsx-directive/helpers',
+      if (lib === 'vue/vapor') {
+        const params = `([${item}${
+          index ? `, ${index}` : ''
+        }${objectIndex ? `, ${objectIndex}` : ''}])`
+        const key = node.openingElement.attributes.find(
+          (i) => i.type === 'JSXAttribute' && i.name.name === 'key',
+        )
+        if (
+          key?.type === 'JSXAttribute' &&
+          key.value?.type === 'JSXExpressionContainer' &&
+          key.value.expression
+        ) {
+          s.prependRight(
+            node.end!,
+            `, ${params} => (${s.sliceNode(key.value.expression)})`,
           )
-
-      return `${renderList}(${list}, (${item}${
-        index ? `, ${index}` : ''
-      }${objectIndex ? `, ${objectIndex}` : ''}) => `
+          s.remove(key.start! - 1, key.end!)
+        }
+        s.appendRight(node.start!, `${params} => `)
+        return `${importHelperFn(s, 0, 'createFor', lib)}(() => ${list}, `
+      } else {
+        const params = `(${item}${
+          index ? `, ${index}` : ''
+        }${objectIndex ? `, ${objectIndex}` : ''})`
+        const renderList = isVue2(version)
+          ? 'Array.from'
+          : importHelperFn(
+              s,
+              0,
+              'renderList',
+              lib.startsWith('vue')
+                ? 'vue'
+                : '@vue-macros/jsx-directive/helpers',
+            )
+        return `${renderList}(${list}, ${params} => `
+      }
     }
   }
 
@@ -61,28 +82,39 @@ export function resolveVFor(
 export function transformVFor(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  version: number,
+  options: OptionsResolved,
 ): void {
   if (nodes.length === 0) return
 
-  nodes.forEach(({ node, attribute, parent, vMemoAttribute }) => {
-    const hasScope = ['JSXElement', 'JSXFragment'].includes(`${parent?.type}`)
+  nodes.forEach(({ node, attribute, parent, vIfAttribute, vMemoAttribute }) => {
+    const hasScope = ['JSXElement', 'JSXFragment'].includes(
+      String(parent?.type),
+    )
+    s.prependRight(
+      node.end!,
+      `)${hasScope ? (vIfAttribute ? '' : '}') : '}</>'}`,
+    )
     s.appendLeft(
       node.start!,
-      `${hasScope ? '{' : ''}${resolveVFor(attribute, { s, version, vMemoAttribute })}`,
+      `${hasScope ? (vIfAttribute ? '' : '{') : '<>{'}${resolveVFor(attribute, node, s, options, vMemoAttribute)}`,
     )
+    s.remove(attribute.start! - 1, attribute.end!)
+
+    if (options.lib === 'vue/vapor') {
+      s.overwriteNode(
+        node,
+        transformRestructure(s.sliceNode(node), { unwrapRef: true }),
+      )
+    }
 
     const isTemplate =
       node.type === 'JSXElement' &&
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      const content = isVue2(version) ? 'span' : ''
+      const content = isVue2(options.version) ? 'span' : ''
       s.overwriteNode(node.openingElement.name, content)
       s.overwriteNode(node.closingElement.name, content)
     }
-
-    s.prependRight(node.end!, `)${hasScope ? '}' : ''}`)
-    s.remove(attribute.start! - 1, attribute.end!)
   })
 }

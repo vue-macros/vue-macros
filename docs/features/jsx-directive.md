@@ -16,6 +16,21 @@ Vue built-in directives for JSX.
 |  `v-once`   | :white_check_mark: |        :x:         |         /          |
 |  `v-memo`   | :white_check_mark: |        :x:         |         /          |
 
+## Options
+
+```ts
+interface Options {
+  /**
+   * @default 'v-'
+   */
+  prefix?: string
+  /**
+   * @default 'vue'
+   */
+  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact' | 'solid' | string
+}
+```
+
 ## Usage
 
 ### `v-if`, `v-else-if`, `v-else`
@@ -213,8 +228,7 @@ Modifiers are special postfixes denoted by a `_`, which indicate that a directiv
 
 ## Volar Configuration
 
-```jsonc {4}
-// tsconfig.json
+```jsonc {3} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

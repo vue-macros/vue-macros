@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest'
 import { analyzeSFC, DefinitionKind } from '../src/vue'
 import { hideAstLocation, snapshot } from './_util'
 
-async function complie(code: string) {
+async function compile(code: string) {
   const str = `<script setup lang="ts">\n${code}</script>`
   const s = new MagicStringAST(str)
   const sfc = parseSFC(str, 'test.vue')
@@ -16,7 +16,7 @@ async function complie(code: string) {
 describe('analyzeSFC', () => {
   describe('defineProps', () => {
     test('definitions should be correct', async () => {
-      const { props } = await complie(`defineProps<{
+      const { props } = await compile(`defineProps<{
         foo: string
         bar(): void
         baz: string | number
@@ -62,7 +62,7 @@ describe('analyzeSFC', () => {
     })
 
     test('should resolve referenced type', async () => {
-      const { props } = await complie(
+      const { props } = await compile(
         `type Foo = string
         defineProps<{ foo: Foo }>()`,
       )
@@ -85,7 +85,7 @@ describe('analyzeSFC', () => {
     })
 
     test('should resolve interface extends', async () => {
-      const { props } = await complie(
+      const { props } = await compile(
         `interface Base {
           base: boolean
           foo: number
@@ -113,7 +113,7 @@ describe('analyzeSFC', () => {
     })
 
     test('should resolve intersection', async () => {
-      const { props } = await complie(
+      const { props } = await compile(
         `interface Base {
           base: boolean
           foo: number
@@ -141,7 +141,7 @@ describe('analyzeSFC', () => {
     })
 
     test('addProp should work', async () => {
-      const { props, s } = await complie(`defineProps<{
+      const { props, s } = await compile(`defineProps<{
         foo: string
       }>()`)
       expect(props!.addProp('newProp', 'number | string')).toBe(true)
@@ -179,7 +179,7 @@ describe('analyzeSFC', () => {
     })
 
     test('addProp should work in intersection', async () => {
-      const { props, s } = await complie(`
+      const { props, s } = await compile(`
       type Foo = { foo: string }
       type Bar = { bar: number }
       defineProps<Foo & Bar>()`)
@@ -192,7 +192,7 @@ describe('analyzeSFC', () => {
 
     describe('removeProp should work', () => {
       test('remove property prop', async () => {
-        const { props, s } = await complie(`defineProps<{
+        const { props, s } = await compile(`defineProps<{
           foo: string
           bar: number
         }>()`)
@@ -206,7 +206,7 @@ describe('analyzeSFC', () => {
       })
 
       test('remove method prop', async () => {
-        const { props, s } = await complie(`defineProps<{
+        const { props, s } = await compile(`defineProps<{
           foo(): void
           bar: number
         }>()`)
@@ -219,7 +219,7 @@ describe('analyzeSFC', () => {
       })
 
       test('remove props added by API', async () => {
-        const { props, s } = await complie(`defineProps<{
+        const { props, s } = await compile(`defineProps<{
           foo: string
         }>()`)
 
@@ -237,7 +237,7 @@ describe('analyzeSFC', () => {
 
     describe('setProp should work', () => {
       test('set property prop', async () => {
-        const { props, s } = await complie(`defineProps<{
+        const { props, s } = await compile(`defineProps<{
           foo: string
         }>()`)
 
@@ -250,7 +250,7 @@ describe('analyzeSFC', () => {
       })
 
       test('set method prop', async () => {
-        const { props, s } = await complie(`defineProps<{
+        const { props, s } = await compile(`defineProps<{
           onClick(): void; onClick(param: string): string
         }>()`)
 
@@ -267,7 +267,7 @@ describe('analyzeSFC', () => {
       })
 
       test('set props added by API', async () => {
-        const { props, s } = await complie(`defineProps<{}>()`)
+        const { props, s } = await compile(`defineProps<{}>()`)
 
         expect(props!.addProp('foo', 'number | string')).toBe(true)
         expect(props!.setProp('foo', 'string')).toBe(true)
@@ -292,7 +292,7 @@ describe('analyzeSFC', () => {
     })
 
     test('getRuntimeProps', async () => {
-      const { props } = await complie(`
+      const { props } = await compile(`
       type AliasString1 = string
       type AliasString2 = AliasString1
 
@@ -339,7 +339,7 @@ describe('analyzeSFC', () => {
   })
 
   test('defineProps w/ withDefaults (static)', async () => {
-    const { props } = await complie(`withDefaults(defineProps<{
+    const { props } = await compile(`withDefaults(defineProps<{
       foo: string
       bar?(): void
       baz: string | number
@@ -401,7 +401,7 @@ describe('analyzeSFC', () => {
   })
 
   test('defineProps w/ withDefaults (dynamic)', async () => {
-    const { props } = await complie(`withDefaults(defineProps<{
+    const { props } = await compile(`withDefaults(defineProps<{
       foo: string
       bar?: number
     }>(), {
@@ -415,7 +415,7 @@ describe('analyzeSFC', () => {
 
   describe('defineEmits', () => {
     test('definitions should be correct', async () => {
-      const { emits } = await complie(`defineEmits<{
+      const { emits } = await compile(`defineEmits<{
        (evt: 'click'): void
        (evt: 'click', param: string): void
        (evt: 'change', param: string): void
@@ -445,7 +445,7 @@ describe('analyzeSFC', () => {
     })
 
     test('should resolve referenced type', async () => {
-      const { emits } = await complie(
+      const { emits } = await compile(
         `type Foo = 'foo'
         defineEmits<{ (evt: Foo): void }>()`,
       )
@@ -459,7 +459,7 @@ describe('analyzeSFC', () => {
     })
 
     test('should resolve interface extends', async () => {
-      const { emits } = await complie(
+      const { emits } = await compile(
         `interface Base {
           (evt: 'foo'): void
         }
@@ -483,7 +483,7 @@ describe('analyzeSFC', () => {
     })
 
     test('should resolve intersection', async () => {
-      const { emits } = await complie(
+      const { emits } = await compile(
         `interface Base {
           (evt: 'foo'): void
         }
@@ -507,7 +507,7 @@ describe('analyzeSFC', () => {
     })
 
     test('addEmit should work', async () => {
-      const { emits, s } = await complie(`defineEmits<{
+      const { emits, s } = await compile(`defineEmits<{
         (evt: 'click'): void
       }>()`)
       emits!.addEmit('change', `(evt: 'change'): void`)
@@ -537,7 +537,7 @@ describe('analyzeSFC', () => {
     })
 
     test('addEmit should work in intersection', async () => {
-      const { emits, s } = await complie(`defineEmits<{
+      const { emits, s } = await compile(`defineEmits<{
         (evt: 'click'): void
       } & { (evt: 'change'): void }>()`)
       emits!.addEmit('update', `(evt: 'update'): void`)
@@ -569,7 +569,7 @@ describe('analyzeSFC', () => {
   })
 
   test('no define macro', async () => {
-    const result = await complie(`console.log('test')`)
+    const result = await compile(`console.log('test')`)
     expect(result.props).toBeUndefined()
     expect(result.emits).toBeUndefined()
   })

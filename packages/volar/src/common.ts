@@ -1,3 +1,5 @@
+import path from 'node:path'
+import process from 'node:process'
 import {
   resolveOptions,
   type FeatureName,
@@ -10,8 +12,16 @@ import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
 
-export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
-  if (!decl.length) return
+export function addProps(
+  codes: Code[],
+  decl: Code[],
+  vueLibName: string,
+): true | undefined {
+  if (
+    !decl.length ||
+    codes.toString().includes('{} as __VLS_TypePropsToOption<')
+  )
+    return
 
   replace(
     codes,
@@ -19,12 +29,10 @@ export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
     `{\n${decl.join(',\n')}\n} & `,
   )
 
-  if (codes.includes('__VLS_TypePropsToOption<')) return
-
   replaceAll(
     codes,
     REGEX_DEFINE_COMPONENT,
-    '  props: ({} as __VLS_TypePropsToOption<__VLS_PublicProps>),\n',
+    'props: {} as __VLS_TypePropsToOption<__VLS_PublicProps>,\n',
   )
   codes.push(
     `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
@@ -33,28 +41,35 @@ export function addProps(codes: Code[], decl: Code[], vueLibName: string) {
   return true
 }
 
-export function addEmits(codes: Code[], decl: Code[], vueLibName: string) {
-  if (!decl.length) return
+export function addEmits(
+  codes: Code[],
+  decl: Code[],
+  vueLibName: string,
+): true | undefined {
+  if (!decl.length || codes.toString().includes('{} as __VLS_NormalizeEmits<'))
+    return
 
-  const index = codes.findIndex((code) =>
-    code.toString().startsWith('type __VLS_ModelEmitsType = '),
+  let index = codes.findIndex((code) =>
+    code.toString().startsWith('const __VLS_modelEmitsType = '),
   )
-  if (codes[index + 1] === '{}') {
-    codes[index + 1] =
-      ` typeof __VLS_modelEmitsType; const __VLS_modelEmitsType = (await import('${vueLibName}')).defineEmits<{\n${decl.join(',\n')}\n}>()`
+  if (index < 0) {
+    index = codes.findIndex((code) =>
+      code.toString().includes('type __VLS_PublicProps = '),
+    )
+    codes.splice(
+      index,
+      0,
+      `const __VLS_modelEmitsType = (await import('${vueLibName}')).defineEmits<{\n${decl.join(',\n')}\n}>();\n`,
+      `type __VLS_ModelEmitsType = typeof __VLS_modelEmitsType;\n`,
+    )
   } else {
     codes.splice(index + 4, 0, `${decl.join(',\n')}\n`)
   }
 
-  if (
-    codes.some((code) => code.includes('emits: ({} as __VLS_NormalizeEmits<'))
-  )
-    return
-
   replaceAll(
     codes,
     REGEX_DEFINE_COMPONENT,
-    'emits: ({} as __VLS_NormalizeEmits<__VLS_ModelEmitsType>),\n',
+    'emits: {} as __VLS_NormalizeEmits<__VLS_ModelEmitsType>,\n',
   )
   return true
 }
@@ -63,7 +78,7 @@ export function addCode(codes: Code[], ...args: Code[]): void {
   const index = codes.findIndex((code) =>
     code.includes('__VLS_setup = (async () => {'),
   )
-  codes.splice(index > -1 ? index + 1 : codes.length, 0, ...args)
+  codes.splice(index !== -1 ? index + 1 : codes.length, 0, ...args)
 }
 
 export type VueMacrosPlugin<K extends FeatureName> = (
@@ -79,8 +94,9 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
   context: PluginContext,
   key: K,
 ): OptionsResolved[K] {
-  const root = context.compilerOptions.pathsBasePath as string
-
+  const configPath = context.compilerOptions.configFilePath
+  const root =
+    typeof configPath === 'string' ? path.dirname(configPath) : process.cwd()
   let resolved: OptionsResolved | undefined
   if (!resolvedOptions.has(root)) {
     resolved = resolveOptions(context.vueCompilerOptions.vueMacros, root)
@@ -90,58 +106,30 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
   return (resolved || resolvedOptions.get(root)!)[key]
 }
 
-export function getImportNames(
-  ts: typeof import('typescript'),
-  sfc: Sfc,
-): string[] {
-  const names: string[] = []
-  const sourceFile = sfc.scriptSetup!.ast
-  ts.forEachChild(sourceFile, (node) => {
-    if (
-      ts.isImportDeclaration(node) &&
-      node.attributes?.elements.some(
-        (el) =>
-          getText(el.name, { ts, sfc, source: 'scriptSetup' }) === 'type' &&
-          ts.isStringLiteral(el.value) &&
-          getText(el.value, { ts, sfc, source: 'scriptSetup' }) === 'macro',
-      )
-    ) {
-      const name = node.importClause?.name?.escapedText
-      if (name) names.push(name)
-
-      if (node.importClause?.namedBindings) {
-        const bindings = node.importClause.namedBindings
-        if (ts.isNamespaceImport(bindings)) {
-          names.push(bindings.name.escapedText!)
-        } else {
-          for (const el of bindings.elements) names.push(el.name.escapedText!)
-        }
-      }
-    }
-  })
-
-  return names
-}
-
 export interface VolarContext {
-  sfc: Sfc
   ts: typeof import('typescript')
+  ast?: import('typescript').SourceFile
+  sfc?: Sfc
   source?: 'script' | 'scriptSetup'
 }
 
 export function getStart(
-  node: import('typescript').Node,
-  { ts, sfc, source = 'scriptSetup' }: VolarContext,
+  node:
+    | import('typescript').Node
+    | import('typescript').NodeArray<import('typescript').Node>,
+  { ts, ast, sfc, source = 'scriptSetup' }: VolarContext,
 ): number {
-  return (ts as any).getTokenPosOfNode(node, sfc[source]!.ast)
+  ast = ast || sfc?.[source]?.ast
+  return (ts as any).getTokenPosOfNode(node, ast)
 }
 
 export function getText(
   node: import('typescript').Node,
   context: VolarContext,
 ): string {
-  const { sfc, source = 'scriptSetup' } = context
-  return sfc[source]!.content.slice(getStart(node, context), node.end)
+  let { sfc, ast, source = 'scriptSetup' } = context
+  ast = ast || sfc?.[source]?.ast
+  return ast!.text.slice(getStart(node, context), node.end)
 }
 
 export function isJsxExpression(

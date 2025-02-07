@@ -130,11 +130,6 @@ export function handleTSEmitsDefinition({
     })
   })
 
-  function parseSignature(signature: string): TSCallSignatureDeclaration {
-    return (babelParse(`interface T {${signature}}`, 'ts').body[0] as any).body
-      .body[0]
-  }
-
   function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
     return safeTry(async function* () {
       const resolved = yield* (
@@ -212,16 +207,21 @@ export function handleTSEmitsDefinition({
       })
     })
   }
+}
 
-  function buildDefinition<T extends Node>({
-    type,
+function parseSignature(signature: string): TSCallSignatureDeclaration {
+  return (babelParse(`interface T {${signature}}`, 'ts').body[0] as any).body
+    .body[0]
+}
+
+function buildDefinition<T extends Node>({
+  type,
+  scope,
+}: TSResolvedType<T>): ASTDefinition<T> {
+  return {
+    code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
+    ast: type,
     scope,
-  }: TSResolvedType<T>): ASTDefinition<T> {
-    return {
-      code: resolveTSScope(scope).file.content.slice(type.start!, type.end!),
-      ast: type,
-      scope,
-    }
   }
 }
 

@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "dist/lib.tsbuildinfo",
     "customConditions": ["dev"],
     "types": ["node"],
     "allowJs": false,
@@ -10,11 +12,9 @@
   "include": ["packages", "macros"],
   "exclude": [
     "packages/devtools/src/client",
-    "**/tsup.config.ts",
-    "**/vite.config.mts",
+    "**/*.config.*",
     "**/dist",
     "**/tests",
-    "**/vue2-macros*.d.ts",
-    "**/unocss.config.*"
+    "**/vue2-macros*.d.ts"
   ]
 }

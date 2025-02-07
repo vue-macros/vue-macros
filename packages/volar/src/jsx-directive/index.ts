@@ -1,13 +1,15 @@
+import { replaceSourceRange } from 'muggle-string'
 import { getText, isJsxExpression } from '../common'
-import { transformCtx } from './context'
+import { resolveCtxMap, type CtxMap } from './context'
+import { transformCustomDirective } from './custom-directive'
 import { transformRef } from './ref'
 import { transformVBind } from './v-bind'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { transformVModel } from './v-model'
-import { transformVOn, transformVOnWithModifiers } from './v-on'
+import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
-import type { Code, Sfc } from '@vue/language-core'
+import type { Code } from 'ts-macro'
 import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 
 export type JsxDirective = {
@@ -18,14 +20,20 @@ export type JsxDirective = {
 
 export type TransformOptions = {
   codes: Code[]
-  sfc: Sfc
+  ast: import('typescript').SourceFile
   ts: typeof import('typescript')
-  source: 'script' | 'scriptSetup'
-  vueVersion?: number
+  source: 'script' | 'scriptSetup' | undefined
+  prefix: string
 }
 
 export function transformJsxDirective(options: TransformOptions): void {
-  const { sfc, ts, source } = options
+  const { ast, ts, source, prefix, codes } = options
+
+  const resolvedPrefix = prefix.replaceAll('$', String.raw`\$`)
+  const slotRegex = new RegExp(`^${resolvedPrefix}slot(?=:|$)`)
+  const modelRegex = new RegExp(`^${resolvedPrefix}model(?=[:_]|$)`)
+  const bindRegex = new RegExp(`^(?!${resolvedPrefix}|on[A-Z])\\S+_\\S+`)
+  const onWithModifiersRegex = /^on[A-Z]\S*_\S+/
 
   const vIfMap = new Map<
     JsxDirective['node'] | null | undefined,
@@ -35,19 +43,22 @@ export function transformJsxDirective(options: TransformOptions): void {
   const vSlotMap: VSlotMap = new Map()
   const vModelMap = new Map<JsxDirective['node'], JsxDirective[]>()
   const vOnNodes: JsxDirective[] = []
-  const vOnWithModifiers: JsxDirective[] = []
+  const onWithModifiers: JsxDirective[] = []
   const vBindNodes: JsxDirective[] = []
   const refNodes: JsxDirective[] = []
   const vSlots: JsxDirective[] = []
+  const customDirectives: JsxDirective['attribute'][] = []
 
-  const ctxNodeSet = new Set<JsxDirective['node']>()
+  const ctxNodeMap: CtxMap = new Map()
 
   function walkJsxDirective(
     node: import('typescript').Node,
     parent?: import('typescript').Node,
+    parents: import('typescript').Node[] = [],
   ) {
     const tagName = getTagName(node, options)
     const properties = getOpeningElement(node, options)
+    let ctxNode
     let vIfAttribute
     let vForAttribute
     let vSlotAttribute
@@ -55,31 +66,44 @@ export function transformJsxDirective(options: TransformOptions): void {
       if (!ts.isJsxAttribute(attribute)) continue
       const attributeName = getText(attribute.name, options)
 
-      if (['v-if', 'v-else-if', 'v-else'].includes(attributeName)) {
+      if (
+        [`${prefix}if`, `${prefix}else-if`, `${prefix}else`].includes(
+          attributeName,
+        )
+      ) {
         vIfAttribute = attribute
-      } else if (attributeName === 'v-for') {
+      } else if (attributeName === `${prefix}for`) {
         vForAttribute = attribute
-      } else if (/^v-slot(?=:|$)/.test(attributeName)) {
+      } else if (slotRegex.test(attributeName)) {
         vSlotAttribute = attribute
-      } else if (/^v-model(?=[:_]|$)/.test(attributeName)) {
+      } else if (modelRegex.test(attributeName)) {
         vModelMap.has(node) || vModelMap.set(node, [])
         vModelMap.get(node)!.push({
           node,
           attribute,
         })
-        ctxNodeSet.add(node)
-      } else if (attributeName === 'v-on') {
+        ctxNode = node
+      } else if (attributeName === `${prefix}on`) {
         vOnNodes.push({ node, attribute })
-        ctxNodeSet.add(node)
-      } else if (/^on[A-Z]\S*_\S+/.test(attributeName)) {
-        vOnWithModifiers.push({ node, attribute })
-      } else if (/^(?!v-|on[A-Z])\S+[_|-]\S+/.test(attributeName)) {
+        ctxNode = node
+      } else if (onWithModifiersRegex.test(attributeName)) {
+        onWithModifiers.push({ node, attribute })
+      } else if (bindRegex.test(attributeName)) {
         vBindNodes.push({ node, attribute })
       } else if (attributeName === 'ref') {
         refNodes.push({ node, attribute })
-      } else if (attributeName === 'v-slots') {
-        ctxNodeSet.add(node)
+        ctxNode = node
+      } else if (attributeName === `${prefix}slots`) {
+        ctxNode = node
         vSlots.push({ node, attribute })
+      } else if (
+        [`${prefix}html`, `${prefix}memo`, `${prefix}once`].includes(
+          attributeName,
+        )
+      ) {
+        replaceSourceRange(codes, source, attribute.pos, attribute.end)
+      } else if (attributeName.startsWith('v-')) {
+        customDirectives.push(attribute)
       }
     }
 
@@ -94,7 +118,8 @@ export function transformJsxDirective(options: TransformOptions): void {
         ts.isJsxText(child) ? getText(child, options).trim() : true,
       ).length === 1
     ) {
-      ctxNodeSet.add(parent)
+      ctxNode = node
+
       vSlots.push({
         node: parent,
         attribute: {
@@ -129,7 +154,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       const slotNode = tagName === 'template' ? parent : node
       if (!slotNode) return
 
-      ctxNodeSet.add(slotNode)
+      ctxNode = slotNode
 
       const attributeMap =
         vSlotMap.get(slotNode)?.attributeMap ||
@@ -173,31 +198,34 @@ export function transformJsxDirective(options: TransformOptions): void {
       }
     }
 
+    if (ctxNode) {
+      ctxNodeMap.set(ctxNode, parents.find(ts.isBlock))
+    }
+
     ts.forEachChild(node, (child) => {
+      parents.unshift(node)
       walkJsxDirective(
         child,
         ts.isJsxElement(node) || ts.isJsxFragment(node) ? node : undefined,
+        parents,
       )
+      parents.shift()
     })
   }
-  ts.forEachChild(sfc[source]!.ast, walkJsxDirective)
+  ts.forEachChild(ast, walkJsxDirective)
 
-  const ctxMap = new Map(
-    Array.from(ctxNodeSet).map((node, index) => [
-      node,
-      transformCtx(node, index, options),
-    ]),
-  )
+  const ctxMap = resolveCtxMap(ctxNodeMap, options)
 
   transformVSlot(vSlotMap, ctxMap, options)
   transformVFor(vForNodes, options)
   vIfMap.forEach((nodes) => transformVIf(nodes, options))
-  vModelMap.forEach((nodes) => transformVModel(nodes, ctxMap, options))
+  transformVModel(vModelMap, ctxMap, options)
   transformVOn(vOnNodes, ctxMap, options)
-  transformVOnWithModifiers(vOnWithModifiers, options)
+  transformOnWithModifiers(onWithModifiers, options)
   transformVBind(vBindNodes, options)
   transformRef(refNodes, ctxMap, options)
   transformVSlots(vSlots, ctxMap, options)
+  transformCustomDirective(customDirectives, options)
 }
 
 export function getOpeningElement(

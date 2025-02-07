@@ -91,7 +91,12 @@ export function resolveTSProperties({
   | TSIntersectionType
   | TSMappedType
   | TSFunctionType
->): Promise<Result<TSProperties, TransformError<ErrorUnknownNode>>> {
+>): Promise<
+  Result<
+    TSProperties,
+    TransformError<`unknown node: ${string}` | ErrorUnknownNode>
+  >
+> {
   return safeTry(async function* () {
     switch (type.type) {
       case 'TSInterfaceBody':

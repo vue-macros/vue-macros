@@ -1,5 +1,244 @@
 # @vue-macros/volar
 
+## 0.30.14
+### Patch Changes
+
+- Updated dependencies [[`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3)]:
+  - @vue-macros/config@0.6.0
+
+## 0.30.13
+### Patch Changes
+
+
+
+- [#899](https://github.com/vue-macros/vue-macros/pull/899) [`25b7b86`](https://github.com/vue-macros/vue-macros/commit/25b7b86443b15eef4763192631e4ef069c9a04cb) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use ts-macro instead of @vue/language-core for jsx-plugins
+
+- Updated dependencies []:
+  - @vue-macros/config@0.5.3
+
+## 0.30.12
+### Patch Changes
+
+- Updated dependencies [[`d608125`](https://github.com/vue-macros/vue-macros/commit/d60812504fed4ade2e5565a7d275cc36b6691247)]:
+  - @vue-macros/common@1.16.1
+  - @vue-macros/boolean-prop@0.5.5
+  - @vue-macros/config@0.5.3
+  - @vue-macros/short-bind@1.1.5
+  - @vue-macros/short-vmodel@1.5.5
+
+## 0.30.11
+### Patch Changes
+
+- Updated dependencies [[`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce), [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65)]:
+  - @vue-macros/common@1.16.0
+  - @vue-macros/boolean-prop@0.5.4
+  - @vue-macros/config@0.5.2
+  - @vue-macros/short-bind@1.1.4
+  - @vue-macros/short-vmodel@1.5.4
+
+## 0.30.10
+### Patch Changes
+
+
+
+- [#885](https://github.com/vue-macros/vue-macros/pull/885) [`39f1ad2`](https://github.com/vue-macros/vue-macros/commit/39f1ad2762e76cb72efdb369671d02f2152ce0fa) Thanks [@Soya-xy](https://github.com/Soya-xy)! - get identifier name correctly for define-prop
+
+
+
+- [#887](https://github.com/vue-macros/vue-macros/pull/887) [`60631f7`](https://github.com/vue-macros/vue-macros/commit/60631f7aecff818c962ef4f79dd16497aa2e721f) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - get identifier name correctly
+
+## 0.30.9
+### Patch Changes
+
+
+
+- [#880](https://github.com/vue-macros/vue-macros/pull/880) [`e0d8000`](https://github.com/vue-macros/vue-macros/commit/e0d80002efb8b52825cdb46782d594b034cc1355) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use getStart instead of node.getStart to prevent vue-tsc error
+
+- Updated dependencies []:
+  - @vue-macros/config@0.5.1
+
+## 0.30.8
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+- Updated dependencies [[`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703)]:
+  - @vue-macros/boolean-prop@0.5.3
+  - @vue-macros/common@1.15.1
+  - @vue-macros/config@0.5.1
+  - @vue-macros/short-bind@1.1.3
+  - @vue-macros/short-vmodel@1.5.3
+
+## 0.30.7
+### Patch Changes
+
+
+
+- [#851](https://github.com/vue-macros/vue-macros/pull/851) [`d210a14`](https://github.com/vue-macros/vue-macros/commit/d210a1491506adf6345db356671f983dc78a8bd7) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - compatible with ts-macro
+
+
+
+- [#867](https://github.com/vue-macros/vue-macros/pull/867) [`7f1281a`](https://github.com/vue-macros/vue-macros/commit/7f1281ac21982b97b0ea779a5329917c3077e8d9) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support custom-directive
+
+## 0.30.6
+### Patch Changes
+
+
+
+- [#855](https://github.com/vue-macros/vue-macros/pull/855) [`392ce4d`](https://github.com/vue-macros/vue-macros/commit/392ce4d5f704a8f9ba4c932d552e335808225e61) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support elementAccessExpression for jsx-directive/ref
+
+
+
+- [#858](https://github.com/vue-macros/vue-macros/pull/858) [`d32bd42`](https://github.com/vue-macros/vue-macros/commit/d32bd4287589cb9c6d6b779b3dc3109a24bd7723) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support prefix option for jsx-directive
+
+- Updated dependencies []:
+  - @vue-macros/config@0.5.0
+
+## 0.30.5
+### Patch Changes
+
+- Updated dependencies [[`0f146d0`](https://github.com/vue-macros/vue-macros/commit/0f146d06feafeb2ee1126a1003dc12e6c3d18f59), [`bba0ed4`](https://github.com/vue-macros/vue-macros/commit/bba0ed42d4ce084b8ec8e0674a49cd75d994a1e3)]:
+  - @vue-macros/common@1.15.0
+  - @vue-macros/config@0.5.0
+  - @vue-macros/boolean-prop@0.5.2
+  - @vue-macros/short-bind@1.1.2
+  - @vue-macros/short-vmodel@1.5.2
+
+## 0.30.4
+### Patch Changes
+
+
+
+- [#838](https://github.com/vue-macros/vue-macros/pull/838) [`75b1b4d`](https://github.com/vue-macros/vue-macros/commit/75b1b4dd8f3d2af3e62490a4344d032ec4555d2a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use props instead of emits for inferred required type in v-model
+
+
+
+- [#831](https://github.com/vue-macros/vue-macros/pull/831) [`8c002a7`](https://github.com/vue-macros/vue-macros/commit/8c002a77bb7403238a118c032d6aa6c63359e717) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - v-model and v-slot co-usage for jsx-directive
+
+## 0.30.3
+### Patch Changes
+
+
+
+- [#825](https://github.com/vue-macros/vue-macros/pull/825) [`908156a`](https://github.com/vue-macros/vue-macros/commit/908156aeb4458d9296409d20071dba60b0aa2aca) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use object instead of any
+
+
+
+- [#827](https://github.com/vue-macros/vue-macros/pull/827) [`a558716`](https://github.com/vue-macros/vue-macros/commit/a558716ea879132263122905d361e3ab711efd62) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support reactivity transform for jsx-ref
+
+
+
+- [#828](https://github.com/vue-macros/vue-macros/pull/828) [`2816959`](https://github.com/vue-macros/vue-macros/commit/2816959147e2bec953565e5dc10b123c0536d71f) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support functional component for jsx-directive
+
+## 0.30.2
+### Patch Changes
+
+- Updated dependencies [[`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d)]:
+  - @vue-macros/common@1.14.0
+  - @vue-macros/boolean-prop@0.5.1
+  - @vue-macros/config@0.4.2
+  - @vue-macros/short-bind@1.1.1
+  - @vue-macros/short-vmodel@1.5.1
+
+## 0.30.1
+### Patch Changes
+
+- Updated dependencies [[`abe85fe`](https://github.com/vue-macros/vue-macros/commit/abe85fe1e7928cbc817c02af32fff09d09c335de)]:
+  - @vue-macros/config@0.4.1
+
+## 0.30.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+
+### Patch Changes
+
+- Updated dependencies [[`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279)]:
+  - @vue-macros/boolean-prop@0.5.0
+  - @vue-macros/short-vmodel@1.5.0
+  - @vue-macros/short-bind@1.1.0
+  - @vue-macros/common@1.13.0
+  - @vue-macros/config@0.4.0
+
+## 0.29.1
+### Patch Changes
+
+
+
+- [`02672e8`](https://github.com/vue-macros/vue-macros/commit/02672e8350b1e80f32a06b594c11c29122f497f4) Thanks [@sxzz](https://github.com/sxzz)! - fallback to cwd for root path
+
+## 0.29.0
+### Minor Changes
+
+
+
+- [#790](https://github.com/vue-macros/vue-macros/pull/790) [`5d92073`](https://github.com/vue-macros/vue-macros/commit/5d92073515661f6976f83e1ac68dd9b18c2d0b8a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce jsx-ref
+
+
+### Patch Changes
+
+
+
+- [#803](https://github.com/vue-macros/vue-macros/pull/803) [`8a50141`](https://github.com/vue-macros/vue-macros/commit/8a50141fd8571513e3d4e8e3f8b3685112e98ad8) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use configFilePath instead of pathsBasePath
+
+
+
+- [#801](https://github.com/vue-macros/vue-macros/pull/801) [`06aed12`](https://github.com/vue-macros/vue-macros/commit/06aed122614673e48ab3596155dc61b68484fcfd) Thanks [@blake-newman](https://github.com/blake-newman)! - prevent convert kebab-case prop to camel-case prop for jsx-directive
+
+- Updated dependencies [[`5d92073`](https://github.com/vue-macros/vue-macros/commit/5d92073515661f6976f83e1ac68dd9b18c2d0b8a)]:
+  - @vue-macros/config@0.3.2
+
+## 0.28.2
+### Patch Changes
+
+
+
+- [`b61d2f9`](https://github.com/vue-macros/vue-macros/commit/b61d2f98fd53c442d15a06cc1b2bffe787f4a113) Thanks [@sxzz](https://github.com/sxzz)! - pin `vue-tsc` peer dep
+
+
+
+- [#798](https://github.com/vue-macros/vue-macros/pull/798) [`af5328e`](https://github.com/vue-macros/vue-macros/commit/af5328e60d413e78e5ba047a000bed4e242cb416) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - remove duplicate __VLS_PropOptions type
+
+- Updated dependencies [[`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db)]:
+  - @vue-macros/common@1.12.3
+  - @vue-macros/config@0.3.1
+  - @vue-macros/boolean-prop@0.4.5
+  - @vue-macros/short-bind@1.0.4
+  - @vue-macros/short-vmodel@1.4.10
+
+## 0.28.1
+### Patch Changes
+
+
+
+- [#795](https://github.com/vue-macros/vue-macros/pull/795) [`df77942`](https://github.com/vue-macros/vue-macros/commit/df77942938f99350a8f4440cdab9948249520548) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support Volar v2.1
+
+## 0.28.0
+### Minor Changes
+
+
+
+- [`0290218`](https://github.com/vue-macros/vue-macros/commit/029021889366be2afeea8f2992c91af7ad890628) Thanks [@sxzz](https://github.com/sxzz)! - Drop `templateRef` plugin
+
+
+### Patch Changes
+
+
+
+- [#785](https://github.com/vue-macros/vue-macros/pull/785) [`f475dbc`](https://github.com/vue-macros/vue-macros/commit/f475dbca96403193a4263933e253661bf49ac6c7) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add event-prop for v-model
+
+
+
+- [`fc3d9c1`](https://github.com/vue-macros/vue-macros/commit/fc3d9c18496d4385fbcbe6085fb06384bf2e100e) Thanks [@sxzz](https://github.com/sxzz)! - Remove unused dependencies
+
+- Updated dependencies [[`a3c156d`](https://github.com/vue-macros/vue-macros/commit/a3c156d6771b6fca01ebc3d804fc6309de16598f), [`0290218`](https://github.com/vue-macros/vue-macros/commit/029021889366be2afeea8f2992c91af7ad890628)]:
+  - @vue-macros/config@0.3.0
+
 ## 0.27.4
 ### Patch Changes
 

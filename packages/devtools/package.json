@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/devtools",
-  "version": "0.3.2",
-  "packageManager": "pnpm@9.7.1",
+  "version": "0.4.1",
+  "packageManager": "pnpm@10.2.1",
   "description": "Devtools plugin for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/devtools"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "files": [
     "dist"
   ],
@@ -54,7 +54,7 @@
     "client:dev": "vite ./src/client"
   },
   "peerDependencies": {
-    "vite": "^4.0.0 || ^5.0.0-0"
+    "vite": "^4.0.0 || ^5.0.0-0 || ^6.0.0"
   },
   "peerDependenciesMeta": {
     "vite": {
@@ -62,16 +62,16 @@
     }
   },
   "dependencies": {
-    "sirv": "^2.0.4",
+    "sirv": "^3.0.0",
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@unocss/reset": "^0.62.2",
-    "@vitejs/plugin-vue": "^5.1.2",
+    "@unocss/reset": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
     "get-port": "^7.1.0",
-    "unocss": "^0.62.2",
+    "unocss": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-inspect": "^0.8.5"
+    "vite-plugin-inspect": "^10.1.0"
   },
   "engines": {
     "node": ">=16.14.0"

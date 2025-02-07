@@ -16,14 +16,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     union: { type: [String, Number], required: true }
   },
   emits: ["click", "change"],
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return renderSlot(_ctx.$slots, "default");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return renderSlot(_ctx.$slots, "default");
+}
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { basic as default };
 "
@@ -45,14 +49,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     union: null
   },
   emits: ["click", "change"],
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return renderSlot(_ctx.$slots, "default");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return renderSlot(_ctx.$slots, "default");
+}
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { basic as default };
 "
@@ -70,9 +78,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     required: { type: Boolean, required: true },
     readonly: { type: String, required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -94,9 +104,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     required: { type: Boolean },
     readonly: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -108,7 +120,7 @@ export { builtIn as default };
 
 exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = false 1`] = `
 "// defaults-dynamic.js
-import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
+import { defineComponent, mergeDefaults, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -118,14 +130,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }, {
     ["foo"]: "foo"
   }),
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var defaultsDynamic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div");
+}
+var defaultsDynamic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { defaultsDynamic as default };
 "
@@ -133,7 +149,7 @@ export { defaultsDynamic as default };
 
 exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = true 1`] = `
 "// defaults-dynamic.js
-import { defineComponent, mergeDefaults, openBlock, createElementBlock } from 'vue';
+import { defineComponent, mergeDefaults, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -143,14 +159,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   }, {
     ["foo"]: "foo"
   }),
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var defaultsDynamic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div");
+}
+var defaultsDynamic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { defaultsDynamic as default };
 "
@@ -158,7 +178,7 @@ export { defaultsDynamic as default };
 
 exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = false 1`] = `
 "// defaults-static.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -175,14 +195,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     } },
     quux: { required: false, default: abc }
   },
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var defaultsStatic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div");
+}
+var defaultsStatic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { defaultsStatic as default };
 "
@@ -190,7 +214,7 @@ export { defaultsStatic as default };
 
 exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = true 1`] = `
 "// defaults-static.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -207,14 +231,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     } },
     quux: { default: abc }
   },
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var defaultsStatic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div");
+}
+var defaultsStatic = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { defaultsStatic as default };
 "
@@ -269,10 +297,12 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     fn: { type: Function, required: true, default: () => {
     } }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
-    return () => {
-    };
+    const __returned__ = { props };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -293,10 +323,12 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     fn: { type: Function, default: () => {
     } }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
-    return () => {
-    };
+    const __returned__ = { props };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -325,14 +357,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     setupBase_2: { type: String, required: true }
   },
   emits: ["click", "change"],
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return renderSlot(_ctx.$slots, "default");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return renderSlot(_ctx.$slots, "default");
+}
+var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { importFromVue as default };
 "
@@ -357,14 +393,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     setupBase_2: null
   },
   emits: ["click", "change"],
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return renderSlot(_ctx.$slots, "default");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return renderSlot(_ctx.$slots, "default");
+}
+var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { importFromVue as default };
 "
@@ -385,14 +425,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     arr: { type: Array, required: true },
     union: { type: [String, Number], required: true }
   },
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return renderSlot(_ctx.$slots, "default");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var intersection = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return renderSlot(_ctx.$slots, "default");
+}
+var intersection = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { intersection as default };
 "
@@ -413,14 +457,18 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     arr: null,
     union: null
   },
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return renderSlot(_ctx.$slots, "default");
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var intersection = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return renderSlot(_ctx.$slots, "default");
+}
+var intersection = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { intersection as default };
 "
@@ -436,15 +484,19 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     menu: { type: [Object, Array], required: false, default: () => ({ txt: "1-1" }) }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
-    return (_ctx, _cache) => {
-      return toDisplayString(props.menu);
-    };
+    const __returned__ = { props };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var issue260 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return toDisplayString($setup.props.menu);
+}
+var issue260 = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { issue260 as default };
 "
@@ -460,15 +512,19 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     menu: { default: () => ({ txt: "1-1" }) }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
-    return (_ctx, _cache) => {
-      return toDisplayString(props.menu);
-    };
+    const __returned__ = { props };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var issue260 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return toDisplayString($setup.props.menu);
+}
+var issue260 = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { issue260 as default };
 "
@@ -482,9 +538,11 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "issue-328",
   emits: ["foo"],
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -502,9 +560,11 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "issue-328",
   emits: ["foo"],
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -524,9 +584,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     modelValue: { type: [String, Boolean], required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -546,9 +608,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     modelValue: { type: [String, Boolean] }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -560,7 +624,7 @@ export { issue351 as default };
 
 exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = false 1`] = `
 "// issue-362.js
-import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+import { defineComponent, createElementBlock, openBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -568,26 +632,30 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     trigger: { required: true }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const Trigger = {
       click: "click",
       focus: "focus",
       hover: "hover"
     };
     const props = __props;
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock(
-        "button",
-        null,
-        toDisplayString(__props.trigger),
-        1
-        /* TEXT */
-      );
-    };
+    const __returned__ = { Trigger, props };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var issue362 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock(
+    "button",
+    null,
+    toDisplayString($props.trigger),
+    1
+    /* TEXT */
+  );
+}
+var issue362 = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { issue362 as default };
 "
@@ -595,7 +663,7 @@ export { issue362 as default };
 
 exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = true 1`] = `
 "// issue-362.js
-import { defineComponent, openBlock, createElementBlock, toDisplayString } from 'vue';
+import { defineComponent, createElementBlock, openBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
@@ -603,28 +671,80 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     trigger: null
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const Trigger = {
       click: "click",
       focus: "focus",
       hover: "hover"
     };
     const props = __props;
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock(
-        "button",
-        null,
-        toDisplayString(__props.trigger),
-        1
-        /* TEXT */
-      );
-    };
+    const __returned__ = { Trigger, props };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var issue362 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock(
+    "button",
+    null,
+    toDisplayString($props.trigger),
+    1
+    /* TEXT */
+  );
+}
+var issue362 = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { issue362 as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/issue-806.vue > isProduction = false 1`] = `
+"// issue-806.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "issue-806",
+  props: {
+    foo: { type: [Function, Object], required: false }
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+var issue806 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue806 as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/issue-806.vue > isProduction = true 1`] = `
+"// issue-806.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "issue-806",
+  props: {
+    foo: { type: Function }
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+var issue806 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { issue806 as default };
 "
 `;
 
@@ -633,16 +753,25 @@ exports[`fixtures > tests/fixtures/json-resolve.vue > isProduction = false 1`] =
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
+var foo = "bar";
+var pkg = {
+	foo: foo
+};
+
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "json-resolve",
   props: {
     foo: { type: String, required: true },
     bar: { type: Object, required: false }
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
-    return () => {
-    };
+    const __returned__ = { props, get pkg() {
+      return pkg;
+    } };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -657,16 +786,25 @@ exports[`fixtures > tests/fixtures/json-resolve.vue > isProduction = true 1`] = 
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
+var foo = "bar";
+var pkg = {
+	foo: foo
+};
+
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "json-resolve",
   props: {
     foo: null,
     bar: null
   },
-  setup(__props) {
+  setup(__props, { expose: __expose }) {
+    __expose();
     const props = __props;
-    return () => {
-    };
+    const __returned__ = { props, get pkg() {
+      return pkg;
+    } };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -688,9 +826,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     y: { type: Number, required: true },
     z: { type: String, required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -712,9 +852,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     y: null,
     z: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -735,9 +877,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     onClick: { type: Function, required: false },
     onSubmit: { type: Function, required: false }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -758,9 +902,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     onClick: { type: Function },
     onSubmit: { type: Function }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -780,9 +926,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     foo: { required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -802,15 +950,69 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     foo: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
 var playground = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { playground as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/radix-vue.vue > isProduction = false 1`] = `
+"// radix-vue.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "radix-vue",
+  props: {
+    asChild: { type: Boolean, required: false },
+    as: { type: [String, Object, Function], required: false },
+    foo: { type: String, required: false }
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+var radixVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { radixVue as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/radix-vue.vue > isProduction = true 1`] = `
+"// radix-vue.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "radix-vue",
+  props: {
+    asChild: { type: Boolean },
+    as: { type: Function },
+    foo: null
+  },
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
+  }
+});
+
+var radixVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { radixVue as default };
 "
 `;
 
@@ -828,9 +1030,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     fun: { type: Function, skipCheck: true, required: true },
     boolAndFun: { type: [Boolean, Function], skipCheck: true, required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -854,9 +1058,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     fun: { type: Function },
     boolAndFun: { type: [Boolean, Function] }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -868,23 +1074,27 @@ export { resolveFailed as default };
 
 exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = false 1`] = `
 "// short-emits.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "short-emits",
   emits: ["click"],
-  setup(__props, { emit: __emit }) {
+  setup(__props, { expose: __expose, emit: __emit }) {
+    __expose();
     const emit = __emit;
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("button", {
-        onClick: _cache[0] || (_cache[0] = ($event) => emit("click"))
-      }, "click");
-    };
+    const __returned__ = { emit };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var shortEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("button", {
+    onClick: _cache[0] || (_cache[0] = ($event) => $setup.emit("click"))
+  }, "click");
+}
+var shortEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { shortEmits as default };
 "
@@ -892,23 +1102,27 @@ export { shortEmits as default };
 
 exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = true 1`] = `
 "// short-emits.js
-import { defineComponent, openBlock, createElementBlock } from 'vue';
+import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "short-emits",
   emits: ["click"],
-  setup(__props, { emit: __emit }) {
+  setup(__props, { expose: __expose, emit: __emit }) {
+    __expose();
     const emit = __emit;
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("button", {
-        onClick: _cache[0] || (_cache[0] = ($event) => emit("click"))
-      }, "click");
-    };
+    const __returned__ = { emit };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
-var shortEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("button", {
+    onClick: _cache[0] || (_cache[0] = ($event) => $setup.emit("click"))
+  }, "click");
+}
+var shortEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], __FILE__]);
 
 export { shortEmits as default };
 "
@@ -924,9 +1138,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     "key-name": { type: String, required: false }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -946,9 +1162,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     "key-name": null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -976,9 +1194,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     "TbarSyZ1strstatic_value'": { type: String, required: true },
     extra: { type: String, required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1006,9 +1226,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     "TbarSyZ1strstatic_value'": null,
     extra: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1038,9 +1260,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     methodBar: { type: Function, required: true },
     methodOpt: { type: Function, skipCheck: true, required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1070,9 +1294,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     methodBar: { type: Function },
     methodOpt: { type: Function }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1093,9 +1319,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     foo: { type: String, required: true },
     bar: { type: String, required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1116,9 +1344,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     foo: null,
     bar: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1138,9 +1368,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     foo: { required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1160,9 +1392,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     foo: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1185,9 +1419,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     optional: { type: Boolean, required: false },
     bar: { type: Number, required: false }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1210,9 +1446,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     optional: { type: Boolean },
     bar: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1230,10 +1468,12 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "union-emits",
   emits: ["some", "emit", "another"],
-  setup(__props, { emit: __emit }) {
+  setup(__props, { expose: __expose, emit: __emit }) {
+    __expose();
     const emit = __emit;
-    return () => {
-    };
+    const __returned__ = { emit };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1251,10 +1491,12 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "union-emits",
   emits: ["some", "emit", "another"],
-  setup(__props, { emit: __emit }) {
+  setup(__props, { expose: __expose, emit: __emit }) {
+    __expose();
     const emit = __emit;
-    return () => {
-    };
+    const __returned__ = { emit };
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1276,9 +1518,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     bar: { type: [String, Number], required: true },
     optional: { type: Boolean, required: false }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1300,9 +1544,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     bar: null,
     optional: { type: Boolean }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1322,9 +1568,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     foo: { required: true }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1344,9 +1592,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     foo: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1369,9 +1619,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     appearance: { type: String, required: true },
     note: { type: String, required: false }
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 
@@ -1394,9 +1646,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     appearance: null,
     note: null
   },
-  setup(__props) {
-    return () => {
-    };
+  setup(__props, { expose: __expose }) {
+    __expose();
+    const __returned__ = {};
+    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
+    return __returned__;
   }
 });
 

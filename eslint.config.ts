@@ -1,6 +1,6 @@
 // @ts-check
 import { sxzz } from '@sxzz/eslint-config'
-import vueMacros from './packages/eslint-config/src/flat.ts'
+import vueMacros from './packages/eslint-config/src/index.ts'
 
 export default sxzz([
   vueMacros,
@@ -37,6 +37,7 @@ export default sxzz([
       '**/helper/*',
       'playground/vue3/**',
       'packages/{volar,eslint-config}/**',
+      '**/raw.ts',
     ],
     rules: {
       'import/no-default-export': 'off',

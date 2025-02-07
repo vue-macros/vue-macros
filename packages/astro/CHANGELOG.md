@@ -1,5 +1,187 @@
 # @vue-macros/astro
 
+## 0.7.2
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.14.2
+
+## 0.7.1
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.14.1
+
+## 0.7.0
+### Minor Changes
+
+
+
+- [`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3) Thanks [@sxzz](https://github.com/sxzz)! - support load config asynchronously
+
+
+### Patch Changes
+
+- Updated dependencies [[`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3)]:
+  - unplugin-vue-macros@2.14.0
+
+## 0.6.16
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.11
+
+## 0.6.15
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.10
+
+## 0.6.14
+### Patch Changes
+
+- Updated dependencies [[`cf931b5`](https://github.com/vue-macros/vue-macros/commit/cf931b57d121568c6cfbd67e644564c707bc299b)]:
+  - unplugin-vue-macros@2.13.9
+
+## 0.6.13
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.8
+
+## 0.6.12
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.7
+
+## 0.6.11
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+- Updated dependencies [[`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703)]:
+  - unplugin-vue-macros@2.13.6
+
+## 0.6.10
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.5
+
+## 0.6.9
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.4
+
+## 0.6.8
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.3
+
+## 0.6.7
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.2
+
+## 0.6.6
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.13.1
+
+## 0.6.5
+### Patch Changes
+
+- Updated dependencies [[`0f146d0`](https://github.com/vue-macros/vue-macros/commit/0f146d06feafeb2ee1126a1003dc12e6c3d18f59)]:
+  - unplugin-vue-macros@2.13.0
+
+## 0.6.4
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.12.4
+
+## 0.6.3
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.12.3
+
+## 0.6.2
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.12.2
+
+## 0.6.1
+### Patch Changes
+
+- Updated dependencies [[`abe85fe`](https://github.com/vue-macros/vue-macros/commit/abe85fe1e7928cbc817c02af32fff09d09c335de)]:
+  - unplugin-vue-macros@2.12.1
+
+## 0.6.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+
+### Patch Changes
+
+
+
+- [`b10241b`](https://github.com/vue-macros/vue-macros/commit/b10241bf4a07ef1419226c651f34dc3963b1e14f) Thanks [@sxzz](https://github.com/sxzz)! - compatibility of other plugins
+
+- Updated dependencies [[`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279)]:
+  - unplugin-vue-macros@2.12.0
+
+## 0.5.12
+### Patch Changes
+
+- Updated dependencies [[`cfafa9e`](https://github.com/vue-macros/vue-macros/commit/cfafa9eb266e3b3f802b1c652dbcc10861b2daa7)]:
+  - unplugin-vue-macros@2.11.12
+
+## 0.5.11
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.11.11
+
+## 0.5.10
+### Patch Changes
+
+- Updated dependencies [[`5d92073`](https://github.com/vue-macros/vue-macros/commit/5d92073515661f6976f83e1ac68dd9b18c2d0b8a)]:
+  - unplugin-vue-macros@2.11.10
+
+## 0.5.9
+### Patch Changes
+
+
+
+- [`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db) Thanks [@sxzz](https://github.com/sxzz)! - improve single file bundle
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.11.9
+
+## 0.5.8
+### Patch Changes
+
+- Updated dependencies []:
+  - unplugin-vue-macros@2.11.8
+
+## 0.5.7
+### Patch Changes
+
+- Updated dependencies [[`fc3d9c1`](https://github.com/vue-macros/vue-macros/commit/fc3d9c18496d4385fbcbe6085fb06384bf2e100e)]:
+  - unplugin-vue-macros@2.11.7
+
 ## 0.5.6
 ### Patch Changes
 

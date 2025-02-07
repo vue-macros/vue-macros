@@ -2,6 +2,12 @@
 
 ## Installation
 
+::: tip
+
+Vite and Rollup are fully supported, while other bundlers have limited support.
+
+:::
+
 ::: code-group
 
 ```bash [npm]
@@ -110,6 +116,22 @@ module.exports = {
 }
 ```
 
+```js [Rsbuild]
+// rsbuild.config.js
+module.exports = {
+  // ...
+  tools: {
+    rspack: {
+      plugins: [
+        require('unplugin-vue-macros/rspack')({
+          // overrides plugin options
+        }),
+      ],
+    },
+  },
+}
+```
+
 ```js [Vue CLI]
 // vue.config.js
 const { defineConfig } = require('@vue/cli-service')
@@ -131,19 +153,11 @@ module.exports = defineConfig({
 
 :::
 
-::: tip
-
-Vite and Rollup are fully supported, while other bundlers have limited support.
-
-:::
-
 ## Configuration
 
 See the [Configurations](./configurations.md) for more details.
 
-```ts twoslash
-// vue-macros.config.ts
-
+```ts twoslash [vue-macros.config.ts]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   // options
@@ -180,8 +194,7 @@ export default defineConfig({
 
 For detailed configuration, please refer to the description of the specific macro.
 
-```jsonc
-// tsconfig.json
+```jsonc [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],
@@ -194,9 +207,7 @@ For detailed configuration, please refer to the description of the specific macr
 `exportExpose`, `exportProps`, and `exportRender` plugins cannot be used
 at the same time unless providing a scope.
 
-```ts twoslash
-// vue-macros.config.ts
-
+```ts twoslash [vue-macros.config.ts]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   exportExpose: {

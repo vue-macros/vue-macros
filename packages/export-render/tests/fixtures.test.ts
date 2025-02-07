@@ -4,9 +4,10 @@ import { transformExportRender } from '../src/core'
 
 describe('fixtures', async () => {
   await testFixtures(
-    import.meta.glob('./fixtures/**/*.vue', {
+    import.meta.glob<string>('./fixtures/**/*.vue', {
       eager: true,
-      as: 'raw',
+      query: '?raw',
+      import: 'default',
     }),
     (args, id, code) => transformExportRender(code, id)?.code,
   )

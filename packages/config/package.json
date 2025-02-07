@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/config",
-  "version": "0.2.4",
-  "packageManager": "pnpm@9.7.1",
+  "version": "0.6.0",
+  "packageManager": "pnpm@10.2.1",
   "description": "Config API for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/config"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "files": [
     "dist"
   ],
@@ -99,7 +99,7 @@
   "dependencies": {
     "@vue-macros/common": "workspace:*",
     "make-synchronized": "^0.2.9",
-    "unconfig": "^0.5.5"
+    "unconfig": "^0.6.1"
   },
   "devDependencies": {
     "@vue-macros/better-define": "workspace:*",
@@ -113,6 +113,7 @@
     "@vue-macros/define-props-refs": "workspace:*",
     "@vue-macros/define-render": "workspace:*",
     "@vue-macros/define-slots": "workspace:*",
+    "@vue-macros/define-stylex": "workspace:*",
     "@vue-macros/devtools": "workspace:^",
     "@vue-macros/export-expose": "workspace:*",
     "@vue-macros/export-props": "workspace:*",

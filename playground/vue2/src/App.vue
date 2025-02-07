@@ -19,6 +19,7 @@ import JsxDirective from './examples/jsx-directive/index.vue'
 import DefineProp from './examples/define-prop/index.vue'
 import DefineEmit from './examples/define-emit/index.vue'
 import ScriptLang from './examples/script-lang/index.vue'
+import DefineStyleX from './examples/define-stylex/index.vue'
 </script>
 
 <template>
@@ -112,6 +113,11 @@ import ScriptLang from './examples/script-lang/index.vue'
     <fieldset>
       <legend>scriptLang</legend>
       <ScriptLang />
+    </fieldset>
+
+    <fieldset>
+      <legend>defineStyleX</legend>
+      <DefineStyleX />
     </fieldset>
   </div>
 </template>

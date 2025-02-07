@@ -1,5 +1,5 @@
-import { allCodeFeatures } from '@vue/language-core'
 import { replaceSourceRange } from 'muggle-string'
+import { allCodeFeatures } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
@@ -32,7 +32,7 @@ export function transformRef(
           getStart(attribute.initializer.expression, options),
           allCodeFeatures,
         ],
-        `} satisfies { ref: (e: Parameters<typeof ${ctxMap.get(node)}.expose>[0]) => any }) as any}`,
+        `} satisfies { ref: (e: Parameters<typeof ${ctxMap.get(node)}.expose>[0]) => any }) as {}}`,
       )
     }
   }

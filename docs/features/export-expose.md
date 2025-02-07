@@ -104,7 +104,7 @@ export { foo, type Foo }
 // #endregion export-file
 // ---cut---
 // @noErrors
-export { foo, foo as bar, type Foo } from './types'
+export { foo as bar, foo, type Foo } from './types'
 </script>
 ```
 
@@ -217,8 +217,7 @@ export default a
 
 ## Volar Configuration
 
-```jsonc {4,6}
-// tsconfig.json
+```jsonc {3,5} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["unplugin-vue-macros/volar"],

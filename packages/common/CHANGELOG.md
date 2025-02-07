@@ -1,5 +1,68 @@
 # @vue-macros/common
 
+## 1.16.1
+### Patch Changes
+
+
+
+- [`d608125`](https://github.com/vue-macros/vue-macros/commit/d60812504fed4ade2e5565a7d275cc36b6691247) Thanks [@sxzz](https://github.com/sxzz)! - don't import node module if no `process` global variable
+
+## 1.16.0
+### Minor Changes
+
+
+
+- [`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce) Thanks [@sxzz](https://github.com/sxzz)! - support `detectVueVersion` on browsers
+
+
+### Patch Changes
+
+
+
+- [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65) Thanks [@sxzz](https://github.com/sxzz)! - remove `@babel/types` dependency
+
+## 1.15.1
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+## 1.15.0
+### Minor Changes
+
+
+
+- [#823](https://github.com/vue-macros/vue-macros/pull/823) [`0f146d0`](https://github.com/vue-macros/vue-macros/commit/0f146d06feafeb2ee1126a1003dc12e6c3d18f59) Thanks [@BeiyanYunyi](https://github.com/BeiyanYunyi)! - Added `defineStyleX` macro and `v-stylex` directive.
+
+
+### Patch Changes
+
+
+
+- [`bba0ed4`](https://github.com/vue-macros/vue-macros/commit/bba0ed42d4ce084b8ec8e0674a49cd75d994a1e3) Thanks [@sxzz](https://github.com/sxzz)! - Enable parse cache
+
+## 1.14.0
+### Minor Changes
+
+
+
+- [`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d) Thanks [@sxzz](https://github.com/sxzz)! - Fix missing `hackViteHMR`
+
+## 1.13.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+## 1.12.3
+### Patch Changes
+
+
+
+- [`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db) Thanks [@sxzz](https://github.com/sxzz)! - improve single file bundle
+
 ## 1.12.2
 ### Patch Changes
 

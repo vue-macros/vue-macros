@@ -25,8 +25,7 @@ export default ({ foo }: { foo: number }) => (
 
 ## Volar 配置
 
-```jsonc {4,6}
-// tsconfig.json
+```jsonc {3,5} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["@vue-macros/volar"],

@@ -234,7 +234,7 @@ type Foo = AliasString`,
           "FooAlias": {
             "type": "TSLiteralType...",
           },
-          "Inferface": {
+          "Interface": {
             "type": "TSInterfaceDeclaration...",
           },
           "Num": {
@@ -260,7 +260,7 @@ type Foo = AliasString`,
           (
             await resolveTSProperties({
               scope: file,
-              type: exports.Inferface?.type as any,
+              type: exports.Interface?.type as any,
             })
           )._unsafeUnwrap(),
         ),

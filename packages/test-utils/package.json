@@ -1,8 +1,8 @@
 {
   "name": "@vue-macros/test-utils",
-  "version": "1.6.0",
-  "packageManager": "pnpm@9.7.1",
-  "description": "test-utils feature from Vue Macros.",
+  "version": "1.7.1",
+  "packageManager": "pnpm@10.2.1",
+  "description": "Test utilities for Vue Macros.",
   "type": "module",
   "keywords": [
     "vue-macros",
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/test-utils"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "files": [
     "dist"
   ],
@@ -51,26 +51,15 @@
     "build": "tsup",
     "dev": "DEV=true tsup --watch"
   },
-  "peerDependencies": {
-    "vitest": ">=0.29.0"
-  },
-  "peerDependenciesMeta": {
-    "vitest": {
-      "optional": true
-    }
-  },
   "dependencies": {
     "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/pluginutils": "^5.1.0",
-    "@sxzz/test-utils": "^0.2.1",
-    "@vitejs/plugin-vue-jsx": "^4.0.1",
-    "@vitejs/plugin-vue2": "^2.3.1",
-    "esbuild": "^0.23.1",
-    "fast-glob": "^3.3.2",
-    "rollup": "^4.21.0",
-    "rollup-plugin-esbuild": "^6.1.1",
-    "unplugin-vue": "^5.0.5"
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@sxzz/test-utils": "^0.5.1",
+    "@vitejs/plugin-vue-jsx": "catalog:",
+    "@vitejs/plugin-vue2": "^2.3.3",
+    "rollup": "catalog:",
+    "rollup-plugin-esbuild": "^6.2.0",
+    "unplugin-vue": "catalog:"
   },
   "devDependencies": {
     "vite": "catalog:",

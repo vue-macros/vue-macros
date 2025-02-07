@@ -1,5 +1,104 @@
 # @vue-macros/config
 
+## 0.6.0
+### Minor Changes
+
+
+
+- [`4fb6553`](https://github.com/vue-macros/vue-macros/commit/4fb655335da623a5102b999c6916bc5411e85ad3) Thanks [@sxzz](https://github.com/sxzz)! - support load config asynchronously
+
+## 0.5.3
+### Patch Changes
+
+- Updated dependencies [[`d608125`](https://github.com/vue-macros/vue-macros/commit/d60812504fed4ade2e5565a7d275cc36b6691247)]:
+  - @vue-macros/common@1.16.1
+
+## 0.5.2
+### Patch Changes
+
+- Updated dependencies [[`3c91fd1`](https://github.com/vue-macros/vue-macros/commit/3c91fd1ca28ce63b2e20eeadbaf1704734c128ce), [`6a67a64`](https://github.com/vue-macros/vue-macros/commit/6a67a64fd2cf97ae6ae440da79c880b591586b65)]:
+  - @vue-macros/common@1.16.0
+
+## 0.5.1
+### Patch Changes
+
+
+
+- [`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703) Thanks [@sxzz](https://github.com/sxzz)! - Downgrade `unplugin` to v1
+
+- Updated dependencies [[`8c92b90`](https://github.com/vue-macros/vue-macros/commit/8c92b90a7938643b57f31f4b6ba6122184f3f703)]:
+  - @vue-macros/common@1.15.1
+
+## 0.5.0
+### Minor Changes
+
+
+
+- [#823](https://github.com/vue-macros/vue-macros/pull/823) [`0f146d0`](https://github.com/vue-macros/vue-macros/commit/0f146d06feafeb2ee1126a1003dc12e6c3d18f59) Thanks [@BeiyanYunyi](https://github.com/BeiyanYunyi)! - Added `defineStyleX` macro and `v-stylex` directive.
+
+
+### Patch Changes
+
+- Updated dependencies [[`0f146d0`](https://github.com/vue-macros/vue-macros/commit/0f146d06feafeb2ee1126a1003dc12e6c3d18f59), [`bba0ed4`](https://github.com/vue-macros/vue-macros/commit/bba0ed42d4ce084b8ec8e0674a49cd75d994a1e3)]:
+  - @vue-macros/common@1.15.0
+
+## 0.4.2
+### Patch Changes
+
+- Updated dependencies [[`5d96085`](https://github.com/vue-macros/vue-macros/commit/5d960852f121b1783385cf31be85faf50205da7d)]:
+  - @vue-macros/common@1.14.0
+
+## 0.4.1
+### Patch Changes
+
+
+
+- [`abe85fe`](https://github.com/vue-macros/vue-macros/commit/abe85fe1e7928cbc817c02af32fff09d09c335de) Thanks [@sxzz](https://github.com/sxzz)! - Disable `shortBind` by default when Vue >= 3.4
+
+## 0.4.0
+### Minor Changes
+
+
+
+- [`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279) Thanks [@sxzz](https://github.com/sxzz)! - Switch to ESM packages
+
+
+### Patch Changes
+
+- Updated dependencies [[`2b8760c`](https://github.com/vue-macros/vue-macros/commit/2b8760c7d57f317aef45805320dc976fc81fb279)]:
+  - @vue-macros/common@1.13.0
+
+## 0.3.2
+### Patch Changes
+
+
+
+- [#790](https://github.com/vue-macros/vue-macros/pull/790) [`5d92073`](https://github.com/vue-macros/vue-macros/commit/5d92073515661f6976f83e1ac68dd9b18c2d0b8a) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - introduce jsx-ref
+
+## 0.3.1
+### Patch Changes
+
+
+
+- [`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db) Thanks [@sxzz](https://github.com/sxzz)! - improve single file bundle
+
+- Updated dependencies [[`9a61a50`](https://github.com/vue-macros/vue-macros/commit/9a61a507869684c361b430b8aabb3741382369db)]:
+  - @vue-macros/common@1.12.3
+
+## 0.3.0
+### Minor Changes
+
+
+
+- [`0290218`](https://github.com/vue-macros/vue-macros/commit/029021889366be2afeea8f2992c91af7ad890628) Thanks [@sxzz](https://github.com/sxzz)! - Drop `templateRef` plugin
+
+
+### Patch Changes
+
+
+
+- [`a3c156d`](https://github.com/vue-macros/vue-macros/commit/a3c156d6771b6fca01ebc3d804fc6309de16598f) Thanks [@sxzz](https://github.com/sxzz)! - Add JSDoc
+
 ## 0.2.4
 ### Patch Changes
 

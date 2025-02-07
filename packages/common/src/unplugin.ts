@@ -1,8 +1,4 @@
-import {
-  createFilter as createRollupFilter,
-  type FilterPattern,
-} from '@rollup/pluginutils'
-import { generateTransform } from 'magic-string-ast'
+import { generateTransform, type CodeTransform } from 'magic-string-ast'
 import {
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
@@ -10,9 +6,10 @@ import {
   REGEX_VUE_SUB,
   REGEX_VUE_SUB_SETUP,
 } from './constants'
+import { createRollupFilter, type FilterPattern } from './filter'
 import type { ResolvedOptions } from '@vitejs/plugin-vue'
 import type { Plugin } from 'rollup'
-import type { Plugin as VitePlugin } from 'vite'
+import type { HmrContext, Plugin as VitePlugin } from 'vite'
 
 /** @deprecated use `generateTransform` instead */
 export const getTransformResult: typeof generateTransform = generateTransform
@@ -27,11 +24,6 @@ export function createFilter(
 ): (id: string | unknown) => boolean {
   return createRollupFilter(options.include, options.exclude)
 }
-
-export {
-  createFilter as createRollupFilter,
-  normalizePath,
-} from '@rollup/pluginutils'
 
 export interface VuePluginApi {
   options: ResolvedOptions
@@ -96,4 +88,22 @@ export function getFilterPattern(
     filter.push(REGEX_SRC_FILE)
   }
   return filter
+}
+
+export function hackViteHMR(
+  ctx: HmrContext,
+  filter: (id: string | unknown) => boolean,
+  callback: (
+    code: string,
+    id: string,
+  ) => CodeTransform | undefined | Promise<CodeTransform | undefined>,
+): void {
+  if (!filter(ctx.file)) return
+
+  const { read } = ctx
+  ctx.read = async () => {
+    const code = await read()
+    const result = await callback(code, ctx.file)
+    return result?.code || code
+  }
 }

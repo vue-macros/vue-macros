@@ -1,12 +1,13 @@
 import {
   createFilter,
   detectVueVersion,
+  hackViteHMR,
   REGEX_VUE_SFC,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
-import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { generatePluginName } from '#macros' with { type: 'macro' }
+import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { transformScriptLang } from './core'
 
 export interface Options extends BaseOptions {
@@ -46,14 +47,9 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
 
       vite: {
         handleHotUpdate(ctx) {
-          if (!filter(ctx.file)) return
-
-          const { read } = ctx
-          ctx.read = async () => {
-            const content = await read()
-            const s = transformScriptLang(content, ctx.file, options)
-            return s?.code || content
-          }
+          hackViteHMR(ctx, filter, (code, id) =>
+            transformScriptLang(code, id, options),
+          )
         },
       },
     }

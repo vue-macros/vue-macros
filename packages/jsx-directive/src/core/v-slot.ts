@@ -1,4 +1,6 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
+import type { OptionsResolved } from '..'
+import { transformRestructure } from './restructure'
 import { resolveVFor } from './v-for'
 import { isVue2 } from '.'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
@@ -21,8 +23,9 @@ export type VSlotMap = Map<
 export function transformVSlot(
   nodeMap: VSlotMap,
   s: MagicStringAST,
-  version: number,
+  options: OptionsResolved,
 ): void {
+  const { version, prefix, lib } = options
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
@@ -33,15 +36,17 @@ export function transformVSlot(
           if (!attribute) return
 
           if (vIfAttribute) {
-            if ('v-if' === vIfAttribute.name.name) {
+            if (`${prefix}if` === vIfAttribute.name.name) {
               result.push('...')
             }
             if (
-              ['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`) &&
+              [`${prefix}if`, `${prefix}else-if`].includes(
+                String(vIfAttribute.name.name),
+              ) &&
               vIfAttribute.value?.type === 'JSXExpressionContainer'
             ) {
               result.push(`(${s.sliceNode(vIfAttribute.value.expression)}) ? {`)
-            } else if ('v-else' === vIfAttribute.name.name) {
+            } else if (`${prefix}else` === vIfAttribute.name.name) {
               result.push('{')
             }
           }
@@ -49,7 +54,7 @@ export function transformVSlot(
           if (vForAttribute) {
             result.push(
               '...Object.fromEntries(',
-              resolveVFor(vForAttribute, { s, version }),
+              resolveVFor(vForAttribute, node, s, { ...options, lib: 'vue' }),
               '([',
             )
           }
@@ -65,9 +70,12 @@ export function transformVSlot(
           })
           result.push(
             isDynamic
-              ? `[${importHelperFn(s, 0, 'unref', version ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
+              ? `[${importHelperFn(s, 0, 'unref', lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
               : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
+          )
+
+          let slotFn = [
             '(',
             attribute.value && attribute.value.type === 'JSXExpressionContainer'
               ? s.sliceNode(attribute.value.expression)
@@ -87,25 +95,35 @@ export function transformVSlot(
                 return str
               })
               .join('') || ' ',
-            isVue2(version) ? '</span>,' : '</>,',
-          )
+            isVue2(version) ? '</span>' : '</>',
+          ].join('')
+
+          if (options.lib === 'vue/vapor') {
+            slotFn = transformRestructure(slotFn)
+          }
+
+          result.push(slotFn, ',')
 
           if (vForAttribute) {
             result.push(']))),')
           }
 
           if (vIfAttribute) {
-            if (['v-if', 'v-else-if'].includes(`${vIfAttribute.name.name}`)) {
+            if (
+              [`${prefix}if`, `${prefix}else-if`].includes(
+                String(vIfAttribute.name.name),
+              )
+            ) {
               const nextIndex = index + (attributes[index + 1]?.[0] ? 1 : 2)
               result.push(
                 '}',
-                `${attributes[nextIndex]?.[1].vIfAttribute?.name.name}`.startsWith(
-                  'v-else',
-                )
+                String(
+                  attributes[nextIndex]?.[1].vIfAttribute?.name.name,
+                ).startsWith(`${prefix}else`)
                   ? ' : '
                   : ' : null,',
               )
-            } else if ('v-else' === vIfAttribute.name.name) {
+            } else if (`${prefix}else` === vIfAttribute.name.name) {
               result.push('},')
             }
           }

@@ -12,6 +12,7 @@ All features are enabled by default except the following.
 - `setupSFC`
 - `booleanProp`
 - `shortBind`
+- `defineStyleX`
 
 #### Disabled by Default when Vue >= 3.3
 
@@ -22,9 +23,7 @@ All features are enabled by default except the following.
 
 You can re-enable them by setting the option to `true`.
 
-```ts twoslash
-// vue-macros.config.[js,ts,json]
-
+```ts twoslash [vue-macros.config.(ts,js,json)]
 import { defineConfig } from 'unplugin-vue-macros'
 export default defineConfig({
   root: '/your-project-path',

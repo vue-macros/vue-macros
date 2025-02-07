@@ -1,6 +1,7 @@
 import { ok, safeTry, type Result } from 'neverthrow'
 import {
   isTSNamespace,
+  resolveTSProperties,
   resolveTSReferencedType,
   type TSNamespace,
   type TSResolvedType,
@@ -13,7 +14,9 @@ export const UNKNOWN_TYPE = 'Unknown'
 
 export function inferRuntimeType(
   node: TSResolvedType | TSNamespace,
-): Promise<Result<string[], TransformError<ErrorUnknownNode>>> {
+): Promise<
+  Result<string[], TransformError<ErrorUnknownNode | `unknown node: ${string}`>>
+> {
   return safeTry(async function* () {
     if (isTSNamespace(node)) return ok(['Object'])
 
@@ -26,19 +29,32 @@ export function inferRuntimeType(
         return ok(['Boolean'])
       case 'TSObjectKeyword':
         return ok(['Object'])
+      case 'TSInterfaceDeclaration':
       case 'TSTypeLiteral': {
         // TODO (nice to have) generate runtime property validation
+
+        const resolved = yield* (
+          await resolveTSProperties({
+            type: node.type,
+            scope: node.scope,
+          })
+        ).safeUnwrap()
+
         const types = new Set<string>()
-        for (const m of node.type.members) {
-          switch (m.type) {
-            case 'TSCallSignatureDeclaration':
-            case 'TSConstructSignatureDeclaration':
-              types.add('Function')
-              break
-            default:
-              types.add('Object')
-          }
+
+        if (
+          resolved.callSignatures.length ||
+          resolved.constructSignatures.length
+        ) {
+          types.add('Function')
         }
+        if (
+          Object.keys(resolved.methods).length ||
+          Object.keys(resolved.properties).length
+        ) {
+          types.add('Object')
+        }
+
         return ok(Array.from(types))
       }
       case 'TSFunctionType':
@@ -136,9 +152,6 @@ export function inferRuntimeType(
 
       case 'TSSymbolKeyword':
         return ok(['Symbol'])
-
-      case 'TSInterfaceDeclaration':
-        return ok(['Object'])
     }
 
     // no runtime check
