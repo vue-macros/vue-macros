@@ -20,7 +20,6 @@ import {
   type TSResolvedType,
   type TSScope,
 } from '../ts'
-import { extractError } from '../utils'
 import type { ErrorResolveTS, ErrorUnknownNode } from '../error'
 import { DefinitionKind, type ASTDefinition } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
