@@ -27,9 +27,9 @@ export function transformBetterDefine(
     if (!sfc.scriptSetup) return ok(undefined)
 
     const offset = sfc.scriptSetup.loc.start.offset
-    const result = yield* (await analyzeSFC(s, sfc)).safeUnwrap()
+    const result = yield* await analyzeSFC(s, sfc)
     if (result.props) {
-      yield* (await processProps(result.props)).safeUnwrap()
+      yield* await processProps(result.props)
     }
     if (result.emits) {
       processEmits(result.emits)
@@ -39,9 +39,7 @@ export function transformBetterDefine(
 
     function processProps(props: TSProps) {
       return safeTry(async function* () {
-        const runtimeDefs = yield* (
-          await props.getRuntimeDefinitions()
-        ).safeUnwrap()
+        const runtimeDefs = yield* await props.getRuntimeDefinitions()
 
         const runtimeDecls = `{\n  ${Object.entries(runtimeDefs)
           .map(([key, { type, required, default: defaultDecl }]) => {

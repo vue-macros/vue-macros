@@ -60,12 +60,10 @@ export function handleTSEmitsDefinition({
   declId?: LVal
 }): ResultAsync<TSEmits, TransformError<ErrorResolveTS | ErrorUnknownNode>> {
   return safeTry(async function* () {
-    const { definitions, definitionsAst } = yield* (
-      await resolveDefinitions({
-        type: typeDeclRaw,
-        scope: file,
-      })
-    ).safeUnwrap()
+    const { definitions, definitionsAst } = yield* await resolveDefinitions({
+      type: typeDeclRaw,
+      scope: file,
+    })
 
     const addEmit: TSEmits['addEmit'] = (name, signature) => {
       const key = resolveString(name)
@@ -130,9 +128,7 @@ export function handleTSEmitsDefinition({
 
   function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
     return safeTry(async function* () {
-      const resolved = yield* (
-        await resolveTSReferencedType(typeDeclRaw)
-      ).safeUnwrap()
+      const resolved = yield* await resolveTSReferencedType(typeDeclRaw)
       if (!resolved || isTSNamespace(resolved))
         return err(new TransformError('Cannot resolve TS definition.'))
 
@@ -149,12 +145,10 @@ export function handleTSEmitsDefinition({
           ),
         )
 
-      const properties = yield* (
-        await resolveTSProperties({
-          scope,
-          type: definitionsAst,
-        })
-      ).safeUnwrap()
+      const properties = yield* await resolveTSProperties({
+        scope,
+        type: definitionsAst,
+      })
 
       const definitions: TSEmits['definitions'] = Object.create(null)
       for (const signature of properties.callSignatures) {
@@ -166,12 +160,10 @@ export function handleTSEmitsDefinition({
         )
           continue
 
-        const evtType = yield* (
-          await resolveTSReferencedType({
-            type: evtArg.typeAnnotation.typeAnnotation,
-            scope: signature.scope,
-          })
-        ).safeUnwrap()
+        const evtType = yield* await resolveTSReferencedType({
+          type: evtArg.typeAnnotation.typeAnnotation,
+          scope: signature.scope,
+        })
 
         if (isTSNamespace(evtType) || !evtType?.type) continue
 

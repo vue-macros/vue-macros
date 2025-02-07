@@ -88,8 +88,10 @@ export function resolveTSNamespace(
           } else {
             return err(
               new TransformError(
-                // @ts-expect-error unknown type
-                `Unknown export type: ${specifier.type as string}`,
+                `Unknown export type: ${
+                  // @ts-expect-error unknown type
+                  specifier.type as string
+                }`,
               ),
             )
           }
@@ -150,8 +152,10 @@ export function resolveTSNamespace(
           } else {
             return err(
               new TransformError(
-                // @ts-expect-error unknown type
-                `Unknown import type: ${specifier.type as string}`,
+                `Unknown import type: ${
+                  // @ts-expect-error unknown type
+                  specifier.type as string
+                }`,
               ),
             )
           }

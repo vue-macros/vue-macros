@@ -68,18 +68,14 @@ export function analyzeSFC(
           statement: node,
           defineProps: node.expression,
         })
-        yield* (
-          await processWithDefaults({
-            statement: node,
-            withDefaults: node.expression,
-          })
-        ).safeUnwrap()
-        yield* (
-          await processDefineEmits({
-            statement: node,
-            defineEmits: node.expression,
-          })
-        ).safeUnwrap()
+        yield* await processWithDefaults({
+          statement: node,
+          withDefaults: node.expression,
+        })
+        yield* await processDefineEmits({
+          statement: node,
+          defineEmits: node.expression,
+        })
       } else if (node.type === 'VariableDeclaration' && !node.declare) {
         for (const decl of node.declarations) {
           if (!decl.init) continue
@@ -130,23 +126,21 @@ export function analyzeSFC(
 
         const typeDeclRaw = defineProps.typeParameters?.params[0]
         if (typeDeclRaw) {
-          props = yield* (
-            await handleTSPropsDefinition({
-              s,
-              file,
-              sfc,
-              offset,
+          props = yield* await handleTSPropsDefinition({
+            s,
+            file,
+            sfc,
+            offset,
 
-              definePropsAst: defineProps,
-              typeDeclRaw,
+            definePropsAst: defineProps,
+            typeDeclRaw,
 
-              withDefaultsAst,
-              defaultsDeclRaw,
+            withDefaultsAst,
+            defaultsDeclRaw,
 
-              statement,
-              declId,
-            })
-          ).safeUnwrap()
+            statement,
+            declId,
+          })
         } else {
           // TODO: runtime
           return ok(false)
@@ -204,20 +198,18 @@ export function analyzeSFC(
 
         const typeDeclRaw = defineEmits.typeParameters?.params[0]
         if (typeDeclRaw) {
-          emits = yield* (
-            await handleTSEmitsDefinition({
-              s,
-              file,
-              sfc,
-              offset,
+          emits = yield* await handleTSEmitsDefinition({
+            s,
+            file,
+            sfc,
+            offset,
 
-              defineEmitsAst: defineEmits,
-              typeDeclRaw,
+            defineEmitsAst: defineEmits,
+            typeDeclRaw,
 
-              statement,
-              declId,
-            })
-          ).safeUnwrap()
+            statement,
+            declId,
+          })
         } else {
           // TODO: runtime
           return ok(false)

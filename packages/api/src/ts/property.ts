@@ -112,9 +112,7 @@ export function resolveTSProperties({
                   : ok(undefined),
               ),
             ),
-          )
-            .map((res) => res.filter(filterValidExtends))
-            .safeUnwrap()
+          ).map((res) => res.filter(filterValidExtends))
 
           if (resolvedExtends.length > 0) {
             const ext = (yield* Result.combine(
@@ -123,9 +121,7 @@ export function resolveTSProperties({
                   resolveTSProperties(resolved),
                 ),
               ),
-            ).safeUnwrap()).reduceRight((acc, curr) =>
-              mergeTSProperties(acc, curr),
-            )
+            )).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
             properties = mergeTSProperties(ext, properties)
           }
         }
@@ -139,16 +135,14 @@ export function resolveTSProperties({
           properties: Object.create(null),
         }
         for (const subType of type.types) {
-          const resolved = yield* (
-            await resolveTSReferencedType({
-              scope,
-              type: subType,
-            })
-          ).safeUnwrap()
+          const resolved = yield* await resolveTSReferencedType({
+            scope,
+            type: subType,
+          })
           if (!filterValidExtends(resolved)) continue
           properties = mergeTSProperties(
             properties,
-            yield* (await resolveTSProperties(resolved)).safeUnwrap(),
+            yield* await resolveTSProperties(resolved),
           )
         }
         return ok(properties)
@@ -162,24 +156,20 @@ export function resolveTSProperties({
         }
         if (!type.typeParameter.constraint) return ok(properties)
 
-        const constraint = yield* (
-          await resolveTSReferencedType({
-            type: type.typeParameter.constraint,
-            scope,
-          })
-        ).safeUnwrap()
+        const constraint = yield* await resolveTSReferencedType({
+          type: type.typeParameter.constraint,
+          scope,
+        })
         if (!constraint || isTSNamespace(constraint)) return ok(properties)
 
         const types = resolveMaybeTSUnion(constraint.type)
         for (const subType of types) {
           if (subType.type !== 'TSLiteralType') continue
 
-          const literal = yield* (
-            await resolveTSLiteralType({
-              type: subType,
-              scope: constraint.scope,
-            })
-          ).safeUnwrap()
+          const literal = yield* await resolveTSLiteralType({
+            type: subType,
+            scope: constraint.scope,
+          })
           if (!literal) continue
 
           const keys = resolveMaybeTSUnion(literal).map((literal) =>

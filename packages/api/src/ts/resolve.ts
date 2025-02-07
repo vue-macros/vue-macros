@@ -69,21 +69,17 @@ export async function resolveTSTemplateLiteral({
       for (const type of subTypes) {
         if (!isSupportedForTSReferencedType(type)) continue
 
-        const resolved = yield* (
-          await resolveTSReferencedType({
-            type,
-            scope,
-          })
-        ).safeUnwrap()
+        const resolved = yield* await resolveTSReferencedType({
+          type,
+          scope,
+        })
         if (!resolved || isTSNamespace(resolved)) continue
 
         const types = resolveMaybeTSUnion(resolved.type)
         for (const type of types) {
           if (type.type !== 'TSLiteralType') continue
 
-          const literal = yield* (
-            await resolveTSLiteralType({ type, scope })
-          ).safeUnwrap()
+          const literal = yield* await resolveTSLiteralType({ type, scope })
           if (!literal) continue
 
           const subKeys = resolveMaybeTSUnion(literal).map((literal) =>
@@ -92,9 +88,7 @@ export async function resolveTSTemplateLiteral({
           for (const key of subKeys) {
             const newPrefix = prefix + quasi.value.cooked + String(key)
             keys.push(
-              ...(yield* (
-                await resolveKeys(newPrefix, restQuasis, restExpr)
-              ).safeUnwrap()),
+              ...(yield* await resolveKeys(newPrefix, restQuasis, restExpr)),
             )
           }
         }
@@ -199,9 +193,10 @@ export function resolveTSIndexedAccessType(
   TransformError<ErrorUnknownNode>
 > {
   return safeTry(async function* () {
-    const object = yield* (
-      await resolveTSReferencedType({ type: type.objectType, scope }, stacks)
-    ).safeUnwrap()
+    const object = yield* await resolveTSReferencedType(
+      { type: type.objectType, scope },
+      stacks,
+    )
     if (!object || isTSNamespace(object)) return ok(undefined)
 
     const objectType = object.type
@@ -235,12 +230,10 @@ export function resolveTSIndexedAccessType(
     )
       return ok(undefined)
 
-    const properties = yield* (
-      await resolveTSProperties({
-        type: objectType,
-        scope: object.scope,
-      })
-    ).safeUnwrap()
+    const properties = yield* await resolveTSProperties({
+      type: objectType,
+      scope: object.scope,
+    })
 
     const indexTypes = resolveMaybeTSUnion(type.indexType)
     const indexes: TSType[] = []
@@ -250,23 +243,19 @@ export function resolveTSIndexedAccessType(
       let keys: string[]
 
       if (index.type === 'TSLiteralType') {
-        const literal = yield* (
-          await resolveTSLiteralType({
-            type: index,
-            scope: object.scope,
-          })
-        ).safeUnwrap()
+        const literal = yield* await resolveTSLiteralType({
+          type: index,
+          scope: object.scope,
+        })
         if (!literal) continue
         keys = resolveMaybeTSUnion(literal).map((literal) =>
           String(resolveLiteral(literal)),
         )
       } else if (index.type === 'TSTypeOperator') {
-        const keysStrings = yield* (
-          await resolveTSTypeOperator({
-            type: index,
-            scope: object.scope,
-          })
-        ).safeUnwrap()
+        const keysStrings = yield* await resolveTSTypeOperator({
+          type: index,
+          scope: object.scope,
+        })
         if (!keysStrings) continue
         keys = resolveMaybeTSUnion(keysStrings).map((literal) =>
           String(resolveLiteral(literal)),
@@ -310,25 +299,21 @@ export function resolveTSTypeOperator(
   return safeTry(async function* () {
     if (type.operator !== 'keyof') return ok(undefined)
 
-    const resolved = yield* (
-      await resolveTSReferencedType(
-        {
-          type: type.typeAnnotation,
-          scope,
-        },
-        stacks,
-      )
-    ).safeUnwrap()
+    const resolved = yield* await resolveTSReferencedType(
+      {
+        type: type.typeAnnotation,
+        scope,
+      },
+      stacks,
+    )
     if (!resolved || isTSNamespace(resolved)) return ok(undefined)
     const { type: resolvedType, scope: resolvedScope } = resolved
     if (!checkForTSProperties(resolvedType)) return ok(undefined)
 
-    const properties = yield* (
-      await resolveTSProperties({
-        type: resolvedType,
-        scope: resolvedScope,
-      })
-    ).safeUnwrap()
+    const properties = yield* await resolveTSProperties({
+      type: resolvedType,
+      scope: resolvedScope,
+    })
 
     return ok(
       getTSPropertiesKeys(properties).map((k) => createStringLiteral(k)),

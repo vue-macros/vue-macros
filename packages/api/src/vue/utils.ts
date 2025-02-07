@@ -31,12 +31,10 @@ export function inferRuntimeType(
       case 'TSTypeLiteral': {
         // TODO (nice to have) generate runtime property validation
 
-        const resolved = yield* (
-          await resolveTSProperties({
-            type: node.type,
-            scope: node.scope,
-          })
-        ).safeUnwrap()
+        const resolved = yield* await resolveTSProperties({
+          type: node.type,
+          scope: node.scope,
+        })
 
         const types = new Set<string>()
 
@@ -101,12 +99,10 @@ export function inferRuntimeType(
                 node.type.typeParameters &&
                 node.type.typeParameters.params[1]
               ) {
-                const t = yield* (
-                  await resolveTSReferencedType({
-                    scope: node.scope,
-                    type: node.type.typeParameters.params[1],
-                  })
-                ).safeUnwrap()
+                const t = yield* await resolveTSReferencedType({
+                  scope: node.scope,
+                  type: node.type.typeParameters.params[1],
+                })
                 if (t) return inferRuntimeType(t)
               }
               break
@@ -115,12 +111,10 @@ export function inferRuntimeType(
                 node.type.typeParameters &&
                 node.type.typeParameters.params[0]
               ) {
-                const t = yield* (
-                  await resolveTSReferencedType({
-                    scope: node.scope,
-                    type: node.type.typeParameters.params[0],
-                  })
-                ).safeUnwrap()
+                const t = yield* await resolveTSReferencedType({
+                  scope: node.scope,
+                  type: node.type.typeParameters.params[0],
+                })
                 if (t) return inferRuntimeType(t)
               }
               break
@@ -131,15 +125,13 @@ export function inferRuntimeType(
       case 'TSUnionType': {
         const types: string[] = []
         for (const subType of node.type.types) {
-          const resolved = yield* (
-            await resolveTSReferencedType({
-              scope: node.scope,
-              type: subType,
-            })
-          ).safeUnwrap()
+          const resolved = yield* await resolveTSReferencedType({
+            scope: node.scope,
+            type: subType,
+          })
           types.push(
             ...(resolved && !isTSNamespace(resolved)
-              ? yield* (await inferRuntimeType(resolved)).safeUnwrap()
+              ? yield* await inferRuntimeType(resolved)
               : ['null']),
           )
         }

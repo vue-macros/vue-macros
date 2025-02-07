@@ -448,7 +448,7 @@ export function handleTSPropsDefinition({
 
       for (const [key, value] of Object.entries(properties.properties)) {
         const referenced = value.value
-          ? yield* (await resolveTSReferencedType(value.value)).safeUnwrap()
+          ? yield* await resolveTSReferencedType(value.value)
           : undefined
         definitions[key] = {
           type: 'property',
@@ -479,8 +479,7 @@ export function handleTSPropsDefinition({
         | TSResolvedType<TSType>
         | TSNamespace
         | undefined =
-        (yield* (await resolveTSReferencedType(typeDeclRaw)).safeUnwrap()) ||
-        typeDeclRaw
+        (yield* await resolveTSReferencedType(typeDeclRaw)) || typeDeclRaw
 
       let builtInTypesHandler: BuiltInTypesHandler[string] | undefined
 
@@ -499,12 +498,10 @@ export function handleTSPropsDefinition({
         }
 
         if (type)
-          resolved = yield* (
-            await resolveTSReferencedType({
-              type,
-              scope: resolved.scope,
-            })
-          ).safeUnwrap()
+          resolved = yield* await resolveTSReferencedType({
+            type,
+            scope: resolved.scope,
+          })
       }
 
       if (!resolved || isTSNamespace(resolved)) {
@@ -538,18 +535,16 @@ export function handleTSPropsDefinition({
         }
       }
 
-      let properties = yield* (
-        await resolveTSProperties({
-          scope,
-          type: definitionsAst,
-        })
-      ).safeUnwrap()
+      let properties = yield* await resolveTSProperties({
+        scope,
+        type: definitionsAst,
+      })
 
       if (builtInTypesHandler?.handleTSProperties)
         properties = builtInTypesHandler.handleTSProperties(properties)
 
       return ok({
-        definitions: yield* (await resolveNormal(properties)).safeUnwrap(),
+        definitions: yield* await resolveNormal(properties),
         definitionsAst: buildDefinition({ scope, type: definitionsAst }),
       })
     })
