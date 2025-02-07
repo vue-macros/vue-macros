@@ -105,10 +105,7 @@ export function resolveTSProperties({
             await Promise.all(
               type.extends.map((node) =>
                 node.expression.type === 'Identifier'
-                  ? resolveTSReferencedType({
-                      scope,
-                      type: node.expression,
-                    })
+                  ? resolveTSReferencedType({ scope, type: node.expression })
                   : ok(undefined),
               ),
             ),
