@@ -117,6 +117,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
       data.publishConfig ||= {}
       data.publishConfig.access = 'public'
+      data.publishConfig.tag = 'next'
 
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && (await exists(tsupFile))) {
