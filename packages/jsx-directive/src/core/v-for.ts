@@ -5,13 +5,13 @@ import {
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
 import { transformRestructure } from './restructure'
-import { isVue2, type JsxDirective } from '.'
+import type { JsxDirective } from '.'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
   node: JsxDirective['node'],
   s: MagicStringAST,
-  { lib, version }: OptionsResolved,
+  { lib }: OptionsResolved,
   vMemoAttribute?: JsxDirective['attribute'],
 ): string {
   if (attribute.value) {
@@ -61,16 +61,12 @@ export function resolveVFor(
         const params = `(${item}${
           index ? `, ${index}` : ''
         }${objectIndex ? `, ${objectIndex}` : ''})`
-        const renderList = isVue2(version)
-          ? 'Array.from'
-          : importHelperFn(
-              s,
-              0,
-              'renderList',
-              lib.startsWith('vue')
-                ? 'vue'
-                : '@vue-macros/jsx-directive/helpers',
-            )
+        const renderList = importHelperFn(
+          s,
+          0,
+          'renderList',
+          lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers',
+        )
         return `${renderList}(${list}, ${params} => `
       }
     }
@@ -112,9 +108,8 @@ export function transformVFor(
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      const content = isVue2(options.version) ? 'span' : ''
-      s.overwriteNode(node.openingElement.name, content)
-      s.overwriteNode(node.closingElement.name, content)
+      s.overwriteNode(node.openingElement.name, '')
+      s.overwriteNode(node.closingElement.name, '')
     }
   })
 }

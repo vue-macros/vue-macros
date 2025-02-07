@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 import fg from 'fast-glob'
 import { rollup } from 'rollup'
 import dts from 'rollup-plugin-dts'
-import { defineConfig, type Options } from 'tsup'
+import { defineConfig, type Format, type Options } from 'tsup'
 import { createUnplugin } from 'unplugin'
 import { IsolatedDecl } from 'unplugin-isolated-decl'
 import Macros from 'unplugin-macros'
@@ -26,6 +26,8 @@ export function config({
   splitting = !onlyIndex,
   platform = 'neutral',
   external = [],
+  cjs = false,
+  esm = true,
 }: {
   ignoreDeps?: UnusedOptions['ignore']
   shims?: boolean
@@ -34,13 +36,19 @@ export function config({
   onlyIndex?: boolean
   platform?: Options['platform']
   external?: string[]
+  cjs?: boolean
+  esm?: boolean
 } = {}): Options {
   const entry = onlyIndex ? ['./src/index.ts'] : ['./src/*.ts', '!./**.d.ts']
 
+  const format: Format[] = []
+  if (cjs) format.push('cjs')
+  if (esm) format.push('esm')
+
   return {
     entry,
-    format: ['cjs', 'esm'],
-    target: 'node16.14',
+    format,
+    target: 'node20.18',
     splitting,
     cjsInterop: true,
     watch: !!process.env.DEV,

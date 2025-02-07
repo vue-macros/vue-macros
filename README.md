@@ -7,8 +7,8 @@
 <p align="center">Explore more macros and syntax sugar to Vue.</p>
 
 <p align="center">
-  <a href="https://npmjs.com/package/unplugin-vue-macros">
-    <img src="https://img.shields.io/npm/v/unplugin-vue-macros.svg" alt="NPM version">
+  <a href="https://npmjs.com/package/vue-macros">
+    <img src="https://img.shields.io/npm/v/vue-macros.svg" alt="NPM version">
   </a>
 </p>
 
@@ -27,7 +27,7 @@
 ## Installation
 
 ```bash
-npm i -D unplugin-vue-macros
+npm i -D vue-macros
 ```
 
 ## Usage

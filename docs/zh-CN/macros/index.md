@@ -2,7 +2,7 @@
 
 以下是所有可用宏的列表。
 
-在开始之前，请确保 `unplugin-vue-macros` 设置正确。如果你还没有设置，请先阅读 [入门](../guide/getting-started.md)
+在开始之前，请确保 `vue-macros` 设置正确。如果你还没有设置，请先阅读 [入门](../guide/getting-started.md)
 
 ## 被 Vue 3.3 官方支持
 

@@ -34,7 +34,7 @@ export const bar: number = 1 // 带有默认值
 ```jsonc {3,5} [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
   },
   "vueMacros": {
     "exportProps": true,

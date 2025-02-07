@@ -1,5 +1,5 @@
-import { resolveOptions, type Options } from 'unplugin-vue-macros'
-import VueMacros from 'unplugin-vue-macros/vite'
+import { resolveOptions, type Options } from 'vue-macros'
+import VueMacros from 'vue-macros/vite'
 import type { AstroIntegration, ViteUserConfig } from 'astro'
 import type { Plugin } from 'vite'
 

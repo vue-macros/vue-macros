@@ -32,7 +32,7 @@ console.log(foo.value, bar.value)
 
 ```vue twoslash {2-3,8}
 <script setup lang="ts">
-import { withDefaults } from 'unplugin-vue-macros/macros' with { type: 'macro' }
+import { withDefaults } from 'vue-macros/macros' with { type: 'macro' }
 
 const { foo } = withDefaults(
   definePropsRefs<{
@@ -51,7 +51,7 @@ console.log(foo.value)
 ```jsonc {3} [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
   },
 }
 ```

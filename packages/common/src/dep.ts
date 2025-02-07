@@ -3,18 +3,9 @@
 let _require: NodeRequire | undefined
 if (TSUP_FORMAT === 'cjs') {
   _require = require
-} else if (typeof process !== 'undefined' && process.version) {
-  if (process.getBuiltinModule) {
-    const module = process.getBuiltinModule('module')
-    _require = module.createRequire(import.meta.url)
-  } else {
-    import('node:module').then(
-      ({ default: { createRequire } }) => {
-        _require = createRequire(import.meta.url)
-      },
-      () => {},
-    )
-  }
+} else if (typeof process !== 'undefined' && process.getBuiltinModule) {
+  const module = process.getBuiltinModule('module')
+  _require = module.createRequire(import.meta.url)
 }
 
 export function detectVueVersion(root?: string, defaultVersion = 3.5): number {

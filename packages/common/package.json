@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/common",
-  "version": "1.16.1",
+  "version": "3.0.0-alpha.0",
   "packageManager": "pnpm@10.2.1",
   "description": "common feature from Vue Macros.",
   "type": "module",
@@ -46,7 +46,8 @@
         "import": "./dist/index.js"
       },
       "./*": "./*"
-    }
+    },
+    "tag": "next"
   },
   "scripts": {
     "build": "tsup",
@@ -65,14 +66,13 @@
     "ast-kit": "^1.4.0",
     "local-pkg": "^1.0.0",
     "magic-string-ast": "^0.7.0",
-    "pathe": "^2.0.2",
-    "picomatch": "^4.0.2"
+    "unplugin-utils": "^0.2.3"
   },
   "devDependencies": {
     "@babel/parser": "catalog:",
     "@vitejs/plugin-vue": "catalog:"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=20.18.0"
   }
 }
