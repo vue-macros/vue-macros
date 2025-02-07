@@ -25,7 +25,7 @@
     "mono": "monoman",
     "mono:check": "monoman --check",
     "publint": "tsx publint.ts",
-    "publish": "pnpm build && bumpp -r",
+    "release": "bumpp -r",
     "typecheck": "pnpm run /^typecheck:/",
     "typecheck:lib": "vue-tsc --noEmit -p tsconfig.lib.json",
     "typecheck:test": "vue-tsc --noEmit -p tsconfig.test.json",
