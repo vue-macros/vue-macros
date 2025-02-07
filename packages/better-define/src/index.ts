@@ -54,7 +54,10 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       transform(code, id) {
         return transformBetterDefine(code, id, options.isProduction).match(
           (res) => res,
-          (error) => console.warn(error),
+          (error) => {
+            this.warn(`${name} ${error}`)
+            console.warn(error)
+          },
         )
       },
 

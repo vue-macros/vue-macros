@@ -87,9 +87,7 @@ export function transformBetterDefine(
       s.overwriteNode(
         emits.defineEmitsAst,
         `${DEFINE_EMITS}(${runtimeDecls})`,
-        {
-          offset,
-        },
+        { offset },
       )
     }
   })
