@@ -8,7 +8,14 @@ import {
   type MagicStringAST,
   type SFC,
 } from '@vue-macros/common'
-import { err, ok, safeTry, type Result, type ResultAsync } from 'neverthrow'
+import {
+  err,
+  errAsync,
+  ok,
+  okAsync,
+  safeTry,
+  type ResultAsync,
+} from 'neverthrow'
 import type {
   Error,
   ErrorResolveTS,
@@ -68,11 +75,11 @@ export function analyzeSFC(
           statement: node,
           defineProps: node.expression,
         })
-        yield* await processWithDefaults({
+        yield* processWithDefaults({
           statement: node,
           withDefaults: node.expression,
         })
-        yield* await processDefineEmits({
+        yield* processDefineEmits({
           statement: node,
           defineEmits: node.expression,
         })
@@ -126,7 +133,7 @@ export function analyzeSFC(
 
         const typeDeclRaw = defineProps.typeParameters?.params[0]
         if (typeDeclRaw) {
-          props = yield* await handleTSPropsDefinition({
+          props = yield* handleTSPropsDefinition({
             s,
             file,
             sfc,
@@ -150,8 +157,7 @@ export function analyzeSFC(
       })
     }
 
-    // eslint-disable-next-line require-await
-    async function processWithDefaults({
+    function processWithDefaults({
       withDefaults,
       declId,
       statement: stmt,
@@ -159,16 +165,14 @@ export function analyzeSFC(
       withDefaults: Node
       declId?: LVal
       statement: DefinePropsStatement
-    }): Promise<
-      Result<
-        boolean,
-        TransformError<ErrorWithDefaults | ErrorResolveTS | ErrorUnknownNode>
-      >
+    }): ResultAsync<
+      boolean,
+      TransformError<ErrorWithDefaults | ErrorResolveTS | ErrorUnknownNode>
     > {
-      if (!isCallOf(withDefaults, WITH_DEFAULTS)) return ok(false)
+      if (!isCallOf(withDefaults, WITH_DEFAULTS)) return okAsync(false)
 
       if (!isCallOf(withDefaults.arguments[0], DEFINE_PROPS)) {
-        return err(
+        return errAsync(
           new TransformError(
             `${WITH_DEFAULTS}: first argument must be a ${DEFINE_PROPS} call.`,
           ),
@@ -198,7 +202,7 @@ export function analyzeSFC(
 
         const typeDeclRaw = defineEmits.typeParameters?.params[0]
         if (typeDeclRaw) {
-          emits = yield* await handleTSEmitsDefinition({
+          emits = yield* handleTSEmitsDefinition({
             s,
             file,
             sfc,

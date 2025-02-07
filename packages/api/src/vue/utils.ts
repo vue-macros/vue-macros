@@ -31,7 +31,7 @@ export function inferRuntimeType(
       case 'TSTypeLiteral': {
         // TODO (nice to have) generate runtime property validation
 
-        const resolved = yield* await resolveTSProperties({
+        const resolved = yield* resolveTSProperties({
           type: node.type,
           scope: node.scope,
         })
@@ -99,7 +99,7 @@ export function inferRuntimeType(
                 node.type.typeParameters &&
                 node.type.typeParameters.params[1]
               ) {
-                const t = yield* await resolveTSReferencedType({
+                const t = yield* resolveTSReferencedType({
                   scope: node.scope,
                   type: node.type.typeParameters.params[1],
                 })
@@ -111,7 +111,7 @@ export function inferRuntimeType(
                 node.type.typeParameters &&
                 node.type.typeParameters.params[0]
               ) {
-                const t = yield* await resolveTSReferencedType({
+                const t = yield* resolveTSReferencedType({
                   scope: node.scope,
                   type: node.type.typeParameters.params[0],
                 })
@@ -125,13 +125,13 @@ export function inferRuntimeType(
       case 'TSUnionType': {
         const types: string[] = []
         for (const subType of node.type.types) {
-          const resolved = yield* await resolveTSReferencedType({
+          const resolved = yield* resolveTSReferencedType({
             scope: node.scope,
             type: subType,
           })
           types.push(
             ...(resolved && !isTSNamespace(resolved)
-              ? yield* await inferRuntimeType(resolved)
+              ? yield* inferRuntimeType(resolved)
               : ['null']),
           )
         }

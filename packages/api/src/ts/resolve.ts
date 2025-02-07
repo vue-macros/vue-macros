@@ -5,7 +5,7 @@ import {
   resolveObjectKey,
   type TransformError,
 } from '@vue-macros/common'
-import { ok, safeTry, type Result, type ResultAsync } from 'neverthrow'
+import { ok, okAsync, safeTry, type Result, type ResultAsync } from 'neverthrow'
 import type { ErrorUnknownNode } from '../error'
 import { isTSNamespace } from './namespace'
 import {
@@ -40,16 +40,16 @@ import type {
   TSUnionType,
 } from '@babel/types'
 
-export async function resolveTSTemplateLiteral({
+export function resolveTSTemplateLiteral({
   type,
   scope,
-}: TSResolvedType<TemplateLiteral>): Promise<
-  Result<StringLiteral[], TransformError<ErrorUnknownNode>>
+}: TSResolvedType<TemplateLiteral>): ResultAsync<
+  StringLiteral[],
+  TransformError<ErrorUnknownNode>
 > {
-  const types = (await resolveKeys('', type.quasis, type.expressions)).map(
-    (keys) => keys.map((k) => createStringLiteral(k)),
+  return resolveKeys('', type.quasis, type.expressions).map((keys) =>
+    keys.map((k) => createStringLiteral(k)),
   )
-  return types
 
   function resolveKeys(
     prefix: string,
@@ -69,7 +69,7 @@ export async function resolveTSTemplateLiteral({
       for (const type of subTypes) {
         if (!isSupportedForTSReferencedType(type)) continue
 
-        const resolved = yield* await resolveTSReferencedType({
+        const resolved = yield* resolveTSReferencedType({
           type,
           scope,
         })
@@ -79,7 +79,7 @@ export async function resolveTSTemplateLiteral({
         for (const type of types) {
           if (type.type !== 'TSLiteralType') continue
 
-          const literal = yield* await resolveTSLiteralType({ type, scope })
+          const literal = yield* resolveTSLiteralType({ type, scope })
           if (!literal) continue
 
           const subKeys = resolveMaybeTSUnion(literal).map((literal) =>
@@ -87,9 +87,7 @@ export async function resolveTSTemplateLiteral({
           )
           for (const key of subKeys) {
             const newPrefix = prefix + quasi.value.cooked + String(key)
-            keys.push(
-              ...(yield* await resolveKeys(newPrefix, restQuasis, restExpr)),
-            )
+            keys.push(...(yield* resolveKeys(newPrefix, restQuasis, restExpr)))
           }
         }
       }
@@ -98,26 +96,23 @@ export async function resolveTSTemplateLiteral({
   }
 }
 
-export async function resolveTSLiteralType({
+export function resolveTSLiteralType({
   type,
   scope,
-}: TSResolvedType<TSLiteralType>): Promise<
-  Result<
-    | StringLiteral[]
-    | NumericLiteral
-    | StringLiteral
-    | BooleanLiteral
-    | BigIntLiteral
-    | undefined,
-    TransformError<ErrorUnknownNode>
-  >
+}: TSResolvedType<TSLiteralType>): ResultAsync<
+  | StringLiteral[]
+  | NumericLiteral
+  | StringLiteral
+  | BooleanLiteral
+  | BigIntLiteral
+  | undefined,
+  TransformError<ErrorUnknownNode>
 > {
-  if (type.literal.type === 'UnaryExpression') return ok(undefined)
+  if (type.literal.type === 'UnaryExpression') return okAsync(undefined)
   if (type.literal.type === 'TemplateLiteral') {
-    const types = await resolveTSTemplateLiteral({ type: type.literal, scope })
-    return types
+    return resolveTSTemplateLiteral({ type: type.literal, scope })
   }
-  return ok(type.literal)
+  return okAsync(type.literal)
 }
 
 /**
@@ -193,7 +188,7 @@ export function resolveTSIndexedAccessType(
   TransformError<ErrorUnknownNode>
 > {
   return safeTry(async function* () {
-    const object = yield* await resolveTSReferencedType(
+    const object = yield* resolveTSReferencedType(
       { type: type.objectType, scope },
       stacks,
     )
@@ -230,7 +225,7 @@ export function resolveTSIndexedAccessType(
     )
       return ok(undefined)
 
-    const properties = yield* await resolveTSProperties({
+    const properties = yield* resolveTSProperties({
       type: objectType,
       scope: object.scope,
     })
@@ -243,7 +238,7 @@ export function resolveTSIndexedAccessType(
       let keys: string[]
 
       if (index.type === 'TSLiteralType') {
-        const literal = yield* await resolveTSLiteralType({
+        const literal = yield* resolveTSLiteralType({
           type: index,
           scope: object.scope,
         })
@@ -252,7 +247,7 @@ export function resolveTSIndexedAccessType(
           String(resolveLiteral(literal)),
         )
       } else if (index.type === 'TSTypeOperator') {
-        const keysStrings = yield* await resolveTSTypeOperator({
+        const keysStrings = yield* resolveTSTypeOperator({
           type: index,
           scope: object.scope,
         })
@@ -299,7 +294,7 @@ export function resolveTSTypeOperator(
   return safeTry(async function* () {
     if (type.operator !== 'keyof') return ok(undefined)
 
-    const resolved = yield* await resolveTSReferencedType(
+    const resolved = yield* resolveTSReferencedType(
       {
         type: type.typeAnnotation,
         scope,
@@ -310,7 +305,7 @@ export function resolveTSTypeOperator(
     const { type: resolvedType, scope: resolvedScope } = resolved
     if (!checkForTSProperties(resolvedType)) return ok(undefined)
 
-    const properties = yield* await resolveTSProperties({
+    const properties = yield* resolveTSProperties({
       type: resolvedType,
       scope: resolvedScope,
     })

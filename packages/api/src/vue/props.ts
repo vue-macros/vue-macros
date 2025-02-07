@@ -112,7 +112,7 @@ export function handleTSPropsDefinition({
   declId?: LVal
 }): ResultAsync<TSProps, TransformError<ErrorResolveTS | ErrorUnknownNode>> {
   return safeTry(async function* () {
-    const { definitions, definitionsAst } = yield* await resolveDefinitions({
+    const { definitions, definitionsAst } = yield* resolveDefinitions({
       type: typeDeclRaw,
       scope: file,
     })
@@ -245,7 +245,7 @@ export function handleTSPropsDefinition({
               const optional = def.optional
 
               prop = {
-                type: yield* await inferRuntimeType({
+                type: yield* inferRuntimeType({
                   scope: resolvedType.scope || file,
                   type: resolvedType.ast,
                 }),
@@ -298,139 +298,139 @@ export function handleTSPropsDefinition({
     })
   })
 
-  async function resolveUnion(
+  function resolveUnion(
     definitionsAst: TSUnionType,
     scope: TSScope,
-  ): Promise<
-    Result<
-      {
-        definitions: TSProps['definitions']
-        definitionsAst: TSProps['definitionsAst']
-      },
-      TransformError<ErrorResolveTS | ErrorUnknownNode>
-    >
+  ): ResultAsync<
+    {
+      definitions: TSProps['definitions']
+      definitionsAst: TSProps['definitionsAst']
+    },
+    TransformError<ErrorResolveTS | ErrorUnknownNode>
   > {
-    const unionDefs: TSProps['definitions'][] = []
-    const keys = new Set<string>()
-    for (const type of definitionsAst.types) {
-      const defs = (await resolveDefinitions({ type, scope })).map(
-        ({ definitions }) => definitions,
-      )
-      if (defs.isErr()) return extractError(defs)
-      Object.keys(defs.value).forEach((key) => keys.add(key))
-      unionDefs.push(defs.value)
-    }
+    return safeTry(async function* () {
+      const unionDefs: TSProps['definitions'][] = []
+      const keys = new Set<string>()
+      for (const type of definitionsAst.types) {
+        const defs = yield* (await resolveDefinitions({ type, scope })).map(
+          ({ definitions }) => definitions,
+        )
+        Object.keys(defs).forEach((key) => keys.add(key))
+        unionDefs.push(defs)
+      }
 
-    const results: TSProps['definitions'] = Object.create(null)
-    for (const key of keys) {
-      let optional = false
-      let result: TSPropsMethod | TSPropsProperty | undefined
+      const results: TSProps['definitions'] = Object.create(null)
+      for (const key of keys) {
+        let optional = false
+        let result: TSPropsMethod | TSPropsProperty | undefined
 
-      for (const defMap of unionDefs) {
-        const def = defMap[key]
-        if (!def) {
-          optional = true
-          continue
-        }
-        optional ||= def.optional
-
-        if (!result) {
-          result = def
-          continue
-        }
-
-        if (result.type === 'method' && def.type === 'method') {
-          result.methods.push(...def.methods)
-        } else if (result.type === 'property' && def.type === 'property') {
-          if (!def.value) {
+        for (const defMap of unionDefs) {
+          const def = defMap[key]
+          if (!def) {
+            optional = true
             continue
-          } else if (!result.value) {
+          }
+          optional ||= def.optional
+
+          if (!result) {
             result = def
             continue
           }
 
-          if (
-            def.value.ast.type === 'TSImportType' ||
-            def.value.ast.type === 'TSDeclareFunction' ||
-            def.value.ast.type === 'TSEnumDeclaration' ||
-            def.value.ast.type === 'TSInterfaceDeclaration' ||
-            def.value.ast.type === 'TSModuleDeclaration' ||
-            result.value.ast.type === 'TSImportType' ||
-            result.value.ast.type === 'TSDeclareFunction' ||
-            result.value.ast.type === 'TSEnumDeclaration' ||
-            result.value.ast.type === 'TSInterfaceDeclaration' ||
-            result.value.ast.type === 'TSModuleDeclaration'
-          ) {
-            // no way!
-            continue
-          }
-
-          if (result.value.ast.type === 'TSUnionType') {
-            result.value.ast.types.push(def.value.ast)
-          } else {
-            // overwrite original to union type
-            result = {
-              type: 'property',
-              value: buildDefinition({
-                scope,
-                type: {
-                  type: 'TSUnionType',
-                  types: [result.value.ast, def.value.ast],
-                } satisfies TSUnionType,
-              }),
-              signature: null as any,
-              optional,
-              addByAPI: false,
+          if (result.type === 'method' && def.type === 'method') {
+            result.methods.push(...def.methods)
+          } else if (result.type === 'property' && def.type === 'property') {
+            if (!def.value) {
+              continue
+            } else if (!result.value) {
+              result = def
+              continue
             }
+
+            if (
+              def.value.ast.type === 'TSImportType' ||
+              def.value.ast.type === 'TSDeclareFunction' ||
+              def.value.ast.type === 'TSEnumDeclaration' ||
+              def.value.ast.type === 'TSInterfaceDeclaration' ||
+              def.value.ast.type === 'TSModuleDeclaration' ||
+              result.value.ast.type === 'TSImportType' ||
+              result.value.ast.type === 'TSDeclareFunction' ||
+              result.value.ast.type === 'TSEnumDeclaration' ||
+              result.value.ast.type === 'TSInterfaceDeclaration' ||
+              result.value.ast.type === 'TSModuleDeclaration'
+            ) {
+              // no way!
+              continue
+            }
+
+            if (result.value.ast.type === 'TSUnionType') {
+              result.value.ast.types.push(def.value.ast)
+            } else {
+              // overwrite original to union type
+              result = {
+                type: 'property',
+                value: buildDefinition({
+                  scope,
+                  type: {
+                    type: 'TSUnionType',
+                    types: [result.value.ast, def.value.ast],
+                  } satisfies TSUnionType,
+                }),
+                signature: null as any,
+                optional,
+                addByAPI: false,
+              }
+            }
+          } else {
+            return err(
+              new TransformError(
+                `Cannot resolve TS definition. Union type contains different types of results.`,
+              ),
+            )
           }
-        } else {
-          return err(
-            new TransformError(
-              `Cannot resolve TS definition. Union type contains different types of results.`,
-            ),
-          )
+        }
+
+        if (result) {
+          results[key] = { ...result, optional }
         }
       }
 
-      if (result) {
-        results[key] = { ...result, optional }
-      }
-    }
-
-    return ok({
-      definitions: results,
-      definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      return ok({
+        definitions: results,
+        definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      })
     })
   }
 
-  async function resolveIntersection(
+  function resolveIntersection(
     definitionsAst: TSIntersectionType,
     scope: TSScope,
   ) {
-    const results: TSProps['definitions'] = Object.create(null)
-    for (const type of definitionsAst.types) {
-      const defMap = (await resolveDefinitions({ type, scope })).map(
-        ({ definitions }) => definitions,
-      )
-      if (defMap.isErr()) return extractError(defMap)
-      for (const [key, def] of Object.entries(defMap.value)) {
-        const result = results[key]
-        if (!result) {
-          results[key] = def
-          continue
-        }
+    return safeTry(async function* () {
+      const results: TSProps['definitions'] = Object.create(null)
+      for (const type of definitionsAst.types) {
+        const defMap = yield* resolveDefinitions({ type, scope }).map(
+          ({ definitions }) => definitions,
+        )
+        for (const [key, def] of Object.entries(defMap)) {
+          const result = results[key]
+          if (!result) {
+            results[key] = def
+            continue
+          }
 
-        if (result.type === 'method' && def.type === 'method') {
-          result.methods.push(...def.methods)
-        } else {
-          results[key] = def
+          if (result.type === 'method' && def.type === 'method') {
+            result.methods.push(...def.methods)
+          } else {
+            results[key] = def
+          }
         }
       }
-    }
 
-    return ok({
-      definitions: results,
-      definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      return ok({
+        definitions: results,
+        definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      })
     })
   }
 
@@ -448,7 +448,7 @@ export function handleTSPropsDefinition({
 
       for (const [key, value] of Object.entries(properties.properties)) {
         const referenced = value.value
-          ? yield* await resolveTSReferencedType(value.value)
+          ? yield* resolveTSReferencedType(value.value)
           : undefined
         definitions[key] = {
           type: 'property',
@@ -479,7 +479,7 @@ export function handleTSPropsDefinition({
         | TSResolvedType<TSType>
         | TSNamespace
         | undefined =
-        (yield* await resolveTSReferencedType(typeDeclRaw)) || typeDeclRaw
+        (yield* resolveTSReferencedType(typeDeclRaw)) || typeDeclRaw
 
       let builtInTypesHandler: BuiltInTypesHandler[string] | undefined
 
@@ -498,7 +498,7 @@ export function handleTSPropsDefinition({
         }
 
         if (type)
-          resolved = yield* await resolveTSReferencedType({
+          resolved = yield* resolveTSReferencedType({
             type,
             scope: resolved.scope,
           })
@@ -510,7 +510,7 @@ export function handleTSPropsDefinition({
 
       const { type: definitionsAst, scope } = resolved
       if (definitionsAst.type === 'TSIntersectionType') {
-        return await resolveIntersection(definitionsAst, scope)
+        return resolveIntersection(definitionsAst, scope)
       } else if (definitionsAst.type === 'TSUnionType') {
         return resolveUnion(definitionsAst, scope)
       } else if (
@@ -535,7 +535,7 @@ export function handleTSPropsDefinition({
         }
       }
 
-      let properties = yield* await resolveTSProperties({
+      let properties = yield* resolveTSProperties({
         scope,
         type: definitionsAst,
       })
@@ -544,7 +544,7 @@ export function handleTSPropsDefinition({
         properties = builtInTypesHandler.handleTSProperties(properties)
 
       return ok({
-        definitions: yield* await resolveNormal(properties),
+        definitions: yield* resolveNormal(properties),
         definitionsAst: buildDefinition({ scope, type: definitionsAst }),
       })
     })

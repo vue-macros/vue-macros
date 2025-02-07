@@ -46,7 +46,7 @@ export function resolveTSNamespace(
         stmt.type === 'ExportDefaultDeclaration' &&
         isTSDeclaration(stmt.declaration)
       ) {
-        exports.default = yield* await resolveTSReferencedType({
+        exports.default = yield* resolveTSReferencedType({
           scope,
           type: stmt.declaration,
         })
@@ -55,8 +55,7 @@ export function resolveTSNamespace(
         if (!resolved) continue
 
         const sourceScope = await getTSFile(resolved)
-        const result = await resolveTSNamespace(sourceScope)
-        if (result.isErr()) return result
+        yield* resolveTSNamespace(sourceScope)
 
         Object.assign(exports, sourceScope.exports!)
       } else if (stmt.type === 'ExportNamedDeclaration') {
@@ -67,8 +66,7 @@ export function resolveTSNamespace(
           if (!resolved) continue
 
           const scope = await getTSFile(resolved)
-          const result = await resolveTSNamespace(scope)
-          if (result.isErr()) return result
+          yield* resolveTSNamespace(scope)
           sourceExports = scope.exports!
         } else {
           sourceExports = declarations
@@ -110,7 +108,7 @@ export function resolveTSNamespace(
           if (decl.id?.type === 'Identifier') {
             const exportedName = decl.id.name
             declarations[exportedName] = exports[exportedName] =
-              yield* await resolveTSReferencedType({
+              yield* resolveTSReferencedType({
                 scope,
                 type: decl,
               })
@@ -122,7 +120,7 @@ export function resolveTSNamespace(
       else if (isTSDeclaration(stmt)) {
         if (stmt.id?.type !== 'Identifier') continue
 
-        declarations[stmt.id.name] = yield* await resolveTSReferencedType({
+        declarations[stmt.id.name] = yield* resolveTSReferencedType({
           scope,
           type: stmt,
         })
@@ -131,8 +129,7 @@ export function resolveTSNamespace(
         if (!resolved) continue
 
         const importScope = await getTSFile(resolved)
-        const result = await resolveTSNamespace(importScope)
-        if (result.isErr()) return result
+        yield* resolveTSNamespace(importScope)
         const exports = importScope.exports!
 
         for (const specifier of stmt.specifiers) {

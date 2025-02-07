@@ -218,7 +218,7 @@ type Foo = AliasString`,
   describe('resolveTSFileExports', () => {
     test('basic', async () => {
       const file = await getTSFile(path.resolve(fixtures, 'basic/index.ts'))
-      await resolveTSNamespace(file)
+      ;(await resolveTSNamespace(file))._unsafeUnwrap()
       const exports = file.exports!
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
@@ -306,7 +306,7 @@ type Foo = AliasString`,
       const file = await getTSFile(
         path.resolve(fixtures, 'circular-referencing/foo.ts'),
       )
-      await resolveTSNamespace(file)
+      ;(await resolveTSNamespace(file))._unsafeUnwrap()
       const exports = file.exports!
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {
@@ -328,7 +328,7 @@ type Foo = AliasString`,
 
     test('namespace', async () => {
       const file = await getTSFile(path.resolve(fixtures, 'namespace/index.ts'))
-      await resolveTSNamespace(file)
+      ;(await resolveTSNamespace(file))._unsafeUnwrap()
       const exports = file.exports!
       expect(hideAstLocation(exports)).toMatchInlineSnapshot(`
         {

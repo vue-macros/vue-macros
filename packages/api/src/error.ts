@@ -14,5 +14,5 @@ export type ErrorUnknownNode =
 export type Error = TransformError<
   ErrorVueSFC | ErrorResolveTS | ErrorWithDefaults | ErrorUnknownNode
 >
-export type Result<T> = import('neverthrow').Result<T, Error>
+
 export type ResultAsync<T> = import('neverthrow').ResultAsync<T, Error>

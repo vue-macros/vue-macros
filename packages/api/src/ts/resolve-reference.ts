@@ -1,5 +1,5 @@
 import { resolveIdentifier, type TransformError } from '@vue-macros/common'
-import { ok, type Result } from 'neverthrow'
+import { ok, safeTry, type ResultAsync } from 'neverthrow'
 import type { ErrorUnknownNode } from '../error'
 import { isTSDeclaration, type TSDeclaration } from './is'
 import {
@@ -45,63 +45,63 @@ export function isSupportedForTSReferencedType(
  *
  * @limitation don't support non-TS declaration (e.g. class, function...)
  */
-export async function resolveTSReferencedType(
+export function resolveTSReferencedType(
   ref: TSResolvedType<TSReferencedType>,
   stacks: TSResolvedType<any>[] = [],
-): Promise<
-  Result<
-    TSResolvedType | TSNamespace | undefined,
-    TransformError<ErrorUnknownNode>
-  >
+): ResultAsync<
+  TSResolvedType | TSNamespace | undefined,
+  TransformError<ErrorUnknownNode>
 > {
-  const { scope, type } = ref
-  if (stacks.some((stack) => stack.scope === scope && stack.type === type)) {
-    return ok(ref as any)
-  }
-  stacks.push(ref)
+  return safeTry(async function* () {
+    const { scope, type } = ref
+    if (stacks.some((stack) => stack.scope === scope && stack.type === type)) {
+      return ok(ref as any)
+    }
+    stacks.push(ref)
 
-  switch (type.type) {
-    case 'TSTypeAliasDeclaration':
-    case 'TSParenthesizedType':
-      return resolveTSReferencedType(
-        { scope, type: type.typeAnnotation },
-        stacks,
-      )
-    case 'TSIndexedAccessType':
-      return resolveTSIndexedAccessType({ type, scope }, stacks)
+    switch (type.type) {
+      case 'TSTypeAliasDeclaration':
+      case 'TSParenthesizedType':
+        return resolveTSReferencedType(
+          { scope, type: type.typeAnnotation },
+          stacks,
+        )
+      case 'TSIndexedAccessType':
+        return resolveTSIndexedAccessType({ type, scope }, stacks)
 
-    case 'TSModuleDeclaration': {
-      if (type.body.type === 'TSModuleBlock') {
-        const newScope: TSScope = {
-          kind: 'module',
-          ast: type.body,
-          scope,
+      case 'TSModuleDeclaration': {
+        if (type.body.type === 'TSModuleBlock') {
+          const newScope: TSScope = {
+            kind: 'module',
+            ast: type.body,
+            scope,
+          }
+          yield* resolveTSNamespace(newScope)
+          return ok(newScope.exports)
         }
-        await resolveTSNamespace(newScope)
-        return ok(newScope.exports)
+        return ok(undefined)
       }
-      return ok(undefined)
     }
-  }
 
-  if (type.type !== 'Identifier' && type.type !== 'TSTypeReference')
-    return ok({ scope, type })
+    if (type.type !== 'Identifier' && type.type !== 'TSTypeReference')
+      return ok({ scope, type })
 
-  await resolveTSNamespace(scope)
-  const refNames = resolveIdentifier(
-    type.type === 'TSTypeReference' ? type.typeName : type,
-  )
+    yield* resolveTSNamespace(scope)
+    const refNames = resolveIdentifier(
+      type.type === 'TSTypeReference' ? type.typeName : type,
+    )
 
-  let resolved: TSResolvedType | TSNamespace | undefined =
-    resolveTSScope(scope).declarations!
+    let resolved: TSResolvedType | TSNamespace | undefined =
+      resolveTSScope(scope).declarations!
 
-  for (const name of refNames) {
-    if (isTSNamespace(resolved) && resolved[name]) {
-      resolved = resolved[name]
-    } else if (type.type === 'TSTypeReference') {
-      return ok({ type, scope })
+    for (const name of refNames) {
+      if (isTSNamespace(resolved) && resolved[name]) {
+        resolved = resolved[name]
+      } else if (type.type === 'TSTypeReference') {
+        return ok({ type, scope })
+      }
     }
-  }
 
-  return ok(resolved)
+    return ok(resolved)
+  })
 }

@@ -60,7 +60,7 @@ export function handleTSEmitsDefinition({
   declId?: LVal
 }): ResultAsync<TSEmits, TransformError<ErrorResolveTS | ErrorUnknownNode>> {
   return safeTry(async function* () {
-    const { definitions, definitionsAst } = yield* await resolveDefinitions({
+    const { definitions, definitionsAst } = yield* resolveDefinitions({
       type: typeDeclRaw,
       scope: file,
     })
@@ -128,7 +128,7 @@ export function handleTSEmitsDefinition({
 
   function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>) {
     return safeTry(async function* () {
-      const resolved = yield* await resolveTSReferencedType(typeDeclRaw)
+      const resolved = yield* resolveTSReferencedType(typeDeclRaw)
       if (!resolved || isTSNamespace(resolved))
         return err(new TransformError('Cannot resolve TS definition.'))
 
@@ -145,7 +145,7 @@ export function handleTSEmitsDefinition({
           ),
         )
 
-      const properties = yield* await resolveTSProperties({
+      const properties = yield* resolveTSProperties({
         scope,
         type: definitionsAst,
       })
@@ -160,7 +160,7 @@ export function handleTSEmitsDefinition({
         )
           continue
 
-        const evtType = yield* await resolveTSReferencedType({
+        const evtType = yield* resolveTSReferencedType({
           type: evtArg.typeAnnotation.typeAnnotation,
           scope: signature.scope,
         })

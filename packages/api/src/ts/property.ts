@@ -135,14 +135,14 @@ export function resolveTSProperties({
           properties: Object.create(null),
         }
         for (const subType of type.types) {
-          const resolved = yield* await resolveTSReferencedType({
+          const resolved = yield* resolveTSReferencedType({
             scope,
             type: subType,
           })
           if (!filterValidExtends(resolved)) continue
           properties = mergeTSProperties(
             properties,
-            yield* await resolveTSProperties(resolved),
+            yield* resolveTSProperties(resolved),
           )
         }
         return ok(properties)
@@ -156,7 +156,7 @@ export function resolveTSProperties({
         }
         if (!type.typeParameter.constraint) return ok(properties)
 
-        const constraint = yield* await resolveTSReferencedType({
+        const constraint = yield* resolveTSReferencedType({
           type: type.typeParameter.constraint,
           scope,
         })
@@ -166,7 +166,7 @@ export function resolveTSProperties({
         for (const subType of types) {
           if (subType.type !== 'TSLiteralType') continue
 
-          const literal = yield* await resolveTSLiteralType({
+          const literal = yield* resolveTSLiteralType({
             type: subType,
             scope: constraint.scope,
           })
