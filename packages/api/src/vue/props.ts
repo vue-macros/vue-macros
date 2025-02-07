@@ -311,7 +311,7 @@ export function handleTSPropsDefinition({
       const unionDefs: TSProps['definitions'][] = []
       const keys = new Set<string>()
       for (const type of definitionsAst.types) {
-        const defs = yield* (await resolveDefinitions({ type, scope })).map(
+        const defs = yield* resolveDefinitions({ type, scope }).map(
           ({ definitions }) => definitions,
         )
         Object.keys(defs).forEach((key) => keys.add(key))

@@ -71,7 +71,7 @@ export function analyzeSFC(
 
     for (const node of body) {
       if (node.type === 'ExpressionStatement') {
-        await processDefineProps({
+        yield* processDefineProps({
           statement: node,
           defineProps: node.expression,
         })
@@ -86,17 +86,17 @@ export function analyzeSFC(
       } else if (node.type === 'VariableDeclaration' && !node.declare) {
         for (const decl of node.declarations) {
           if (!decl.init) continue
-          await processDefineProps({
+          yield* processDefineProps({
             statement: node,
             defineProps: decl.init,
             declId: decl.id,
           })
-          await processWithDefaults({
+          yield* processWithDefaults({
             statement: node,
             withDefaults: decl.init,
             declId: decl.id,
           })
-          await processDefineEmits({
+          yield* processDefineEmits({
             statement: node,
             defineEmits: decl.init,
             declId: decl.id,
