@@ -5,7 +5,7 @@ import {
   resolveObjectKey,
   type TransformError,
 } from '@vue-macros/common'
-import { ok, safeTry, type Result } from 'neverthrow'
+import { ok, safeTry, type Result, type ResultAsync } from 'neverthrow'
 import type { ErrorUnknownNode } from '../error'
 import { isTSNamespace } from './namespace'
 import {
@@ -55,7 +55,7 @@ export async function resolveTSTemplateLiteral({
     prefix: string,
     quasis: TemplateElement[],
     expressions: Array<Expression | TSType>,
-  ): Promise<Result<string[], TransformError<ErrorUnknownNode>>> {
+  ): ResultAsync<string[], TransformError<ErrorUnknownNode>> {
     return safeTry(async function* () {
       if (expressions.length === 0) {
         return ok([prefix + (quasis[0]?.value.cooked ?? '')])
@@ -194,11 +194,9 @@ export function resolveTypeElements(
 export function resolveTSIndexedAccessType(
   { scope, type }: TSResolvedType<TSIndexedAccessType>,
   stacks: TSResolvedType<any>[] = [],
-): Promise<
-  Result<
-    { type: TSUnionType; scope: TSScope } | undefined,
-    TransformError<ErrorUnknownNode>
-  >
+): ResultAsync<
+  { type: TSUnionType; scope: TSScope } | undefined,
+  TransformError<ErrorUnknownNode>
 > {
   return safeTry(async function* () {
     const object = yield* (
@@ -308,9 +306,7 @@ export function resolveTSIndexedAccessType(
 export function resolveTSTypeOperator(
   { scope, type }: TSResolvedType<TSTypeOperator>,
   stacks: TSResolvedType<any>[] = [],
-): Promise<
-  Result<StringLiteral[] | undefined, TransformError<ErrorUnknownNode>>
-> {
+): ResultAsync<StringLiteral[] | undefined, TransformError<ErrorUnknownNode>> {
   return safeTry(async function* () {
     if (type.operator !== 'keyof') return ok(undefined)
 

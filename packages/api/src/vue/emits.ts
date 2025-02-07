@@ -7,7 +7,7 @@ import {
   type MagicStringAST,
   type SFC,
 } from '@vue-macros/common'
-import { err, ok, safeTry, type Result } from 'neverthrow'
+import { err, ok, safeTry, type ResultAsync } from 'neverthrow'
 import {
   isTSNamespace,
   resolveTSProperties,
@@ -58,9 +58,7 @@ export function handleTSEmitsDefinition({
 
   statement: DefineEmitsStatement
   declId?: LVal
-}): Promise<
-  Result<TSEmits, TransformError<ErrorResolveTS | ErrorUnknownNode>>
-> {
+}): ResultAsync<TSEmits, TransformError<ErrorResolveTS | ErrorUnknownNode>> {
   return safeTry(async function* () {
     const { definitions, definitionsAst } = yield* (
       await resolveDefinitions({

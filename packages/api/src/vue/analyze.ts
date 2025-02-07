@@ -8,7 +8,7 @@ import {
   type MagicStringAST,
   type SFC,
 } from '@vue-macros/common'
-import { err, ok, safeTry, type Result } from 'neverthrow'
+import { err, ok, safeTry, type Result, type ResultAsync } from 'neverthrow'
 import type {
   Error,
   ErrorResolveTS,
@@ -37,7 +37,7 @@ export interface AnalyzeResult {
 export function analyzeSFC(
   s: MagicStringAST,
   sfc: SFC,
-): Promise<Result<AnalyzeResult, Error>> {
+): ResultAsync<AnalyzeResult, Error> {
   return safeTry(async function* () {
     if (!sfc.scriptSetup)
       return err(
@@ -121,8 +121,9 @@ export function analyzeSFC(
 
       withDefaultsAst?: CallExpression
       defaultsDeclRaw?: DefaultsASTRaw
-    }): Promise<
-      Result<boolean, TransformError<ErrorResolveTS | ErrorUnknownNode>>
+    }): ResultAsync<
+      boolean,
+      TransformError<ErrorResolveTS | ErrorUnknownNode>
     > {
       return safeTry(async function* () {
         if (!isCallOf(defineProps, DEFINE_PROPS) || props) return ok(false)

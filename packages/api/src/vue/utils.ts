@@ -1,4 +1,4 @@
-import { ok, safeTry, type Result } from 'neverthrow'
+import { ok, safeTry, type ResultAsync } from 'neverthrow'
 import {
   isTSNamespace,
   resolveTSProperties,
@@ -14,9 +14,7 @@ export const UNKNOWN_TYPE = 'Unknown'
 
 export function inferRuntimeType(
   node: TSResolvedType | TSNamespace,
-): Promise<
-  Result<string[], TransformError<ErrorUnknownNode | `unknown node: ${string}`>>
-> {
+): ResultAsync<string[], TransformError<ErrorUnknownNode>> {
   return safeTry(async function* () {
     if (isTSNamespace(node)) return ok(['Object'])
 

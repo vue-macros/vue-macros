@@ -72,6 +72,9 @@ catalogs:
     magic-string:
       specifier: ^0.30.17
       version: 0.30.17
+    neverthrow:
+      specifier: ^8.1.1
+      version: 8.1.1
     prettier:
       specifier: ^3.4.2
       version: 3.4.2
@@ -319,8 +322,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       neverthrow:
-        specifier: ^7.0.1
-        version: 7.0.1
+        specifier: 'catalog:'
+        version: 8.1.1
       oxc-resolver:
         specifier: ^4.0.0
         version: 4.0.0
@@ -347,8 +350,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       neverthrow:
-        specifier: ^7.0.1
-        version: 7.0.1
+        specifier: 'catalog:'
+        version: 8.1.1
       unplugin:
         specifier: 'catalog:'
         version: 1.16.1
@@ -5112,8 +5115,8 @@ packages:
     resolution: {integrity: sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==}
     engines: {node: '>= 10'}
 
-  neverthrow@7.0.1:
-    resolution: {integrity: sha512-NY1sD1wZn6dwwzV9/5KZ4wRIpH4xC7ARy3fGmnEi2Pi8CHDTWlp+WSF+if8cudrwuCWGrk2y2BE/dnGh070iuA==}
+  neverthrow@8.1.1:
+    resolution: {integrity: sha512-DpbZ/UDI0B+TxJB1JysXSfi1++3YK2xLBqQLTlRN0b4zxlZ2MoiB+dKKV8dMRzt1fAFjRKDknXOVJgpl+a4Amw==}
     engines: {node: '>=18'}
 
   nlcst-to-string@4.0.0:
@@ -11426,7 +11429,9 @@ snapshots:
 
   neotraverse@0.6.18: {}
 
-  neverthrow@7.0.1: {}
+  neverthrow@8.1.1:
+    optionalDependencies:
+      '@rollup/rollup-linux-x64-gnu': 4.34.4
 
   nlcst-to-string@4.0.0:
     dependencies:

@@ -1,8 +1,7 @@
 import {
   analyzeSFC,
   genRuntimePropDefinition,
-  type Error,
-  type Result,
+  type ResultAsync,
   type TSEmits,
   type TSProps,
 } from '@vue-macros/api'
@@ -21,7 +20,7 @@ export function transformBetterDefine(
   code: string,
   id: string,
   isProduction = false,
-): Promise<Result<CodeTransform | undefined>> {
+): ResultAsync<CodeTransform | undefined> {
   return safeTry(async function* () {
     const s = new MagicStringAST(code)
     const sfc = parseSFC(code, id)

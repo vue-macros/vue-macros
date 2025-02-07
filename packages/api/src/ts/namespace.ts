@@ -1,5 +1,5 @@
 import { TransformError } from '@vue-macros/common'
-import { err, ok, safeTry, type Result } from 'neverthrow'
+import { err, ok, safeTry, type Result, type ResultAsync } from 'neverthrow'
 import type { ErrorUnknownNode } from '../error'
 import { isTSDeclaration } from './is'
 import { resolveDts } from './resolve-file'
@@ -25,7 +25,7 @@ export function isTSNamespace(val: unknown): val is TSNamespace {
  */
 export function resolveTSNamespace(
   scope: TSScope,
-): Promise<Result<void, TransformError<ErrorUnknownNode>>> {
+): ResultAsync<void, TransformError<ErrorUnknownNode>> {
   return safeTry(async function* () {
     if (scope.exports) return ok(undefined)
 
@@ -46,12 +46,10 @@ export function resolveTSNamespace(
         stmt.type === 'ExportDefaultDeclaration' &&
         isTSDeclaration(stmt.declaration)
       ) {
-        exports.default = yield* (
-          await resolveTSReferencedType({
-            scope,
-            type: stmt.declaration,
-          })
-        ).safeUnwrap()
+        exports.default = yield* await resolveTSReferencedType({
+          scope,
+          type: stmt.declaration,
+        })
       } else if (stmt.type === 'ExportAllDeclaration') {
         const resolved = await resolveDts(stmt.source.value, file.filePath)
         if (!resolved) continue
@@ -109,12 +107,11 @@ export function resolveTSNamespace(
 
           if (decl.id?.type === 'Identifier') {
             const exportedName = decl.id.name
-            declarations[exportedName] = exports[exportedName] = yield* (
-              await resolveTSReferencedType({
+            declarations[exportedName] = exports[exportedName] =
+              yield* await resolveTSReferencedType({
                 scope,
                 type: decl,
               })
-            ).safeUnwrap()
           }
         }
       }
@@ -123,12 +120,10 @@ export function resolveTSNamespace(
       else if (isTSDeclaration(stmt)) {
         if (stmt.id?.type !== 'Identifier') continue
 
-        declarations[stmt.id.name] = yield* (
-          await resolveTSReferencedType({
-            scope,
-            type: stmt,
-          })
-        ).safeUnwrap()
+        declarations[stmt.id.name] = yield* await resolveTSReferencedType({
+          scope,
+          type: stmt,
+        })
       } else if (stmt.type === 'ImportDeclaration') {
         const resolved = await resolveDts(stmt.source.value, file.filePath)
         if (!resolved) continue

@@ -8,7 +8,7 @@ import {
   type MagicStringAST,
   type SFC,
 } from '@vue-macros/common'
-import { err, ok, safeTry, type Result } from 'neverthrow'
+import { err, ok, safeTry, type Result, type ResultAsync } from 'neverthrow'
 import {
   isTSNamespace,
   resolveTSProperties,
@@ -110,16 +110,12 @@ export function handleTSPropsDefinition({
 
   statement: DefinePropsStatement
   declId?: LVal
-}): Promise<
-  Result<TSProps, TransformError<ErrorResolveTS | ErrorUnknownNode>>
-> {
+}): ResultAsync<TSProps, TransformError<ErrorResolveTS | ErrorUnknownNode>> {
   return safeTry(async function* () {
-    const { definitions, definitionsAst } = yield* (
-      await resolveDefinitions({
-        type: typeDeclRaw,
-        scope: file,
-      })
-    ).safeUnwrap()
+    const { definitions, definitionsAst } = yield* await resolveDefinitions({
+      type: typeDeclRaw,
+      scope: file,
+    })
     const { defaults, defaultsAst } = resolveDefaults(defaultsDeclRaw)
 
     const addProp: TSProps['addProp'] = (name, value, optional) => {
@@ -249,12 +245,10 @@ export function handleTSPropsDefinition({
               const optional = def.optional
 
               prop = {
-                type: yield* (
-                  await inferRuntimeType({
-                    scope: resolvedType.scope || file,
-                    type: resolvedType.ast,
-                  })
-                ).safeUnwrap(),
+                type: yield* await inferRuntimeType({
+                  scope: resolvedType.scope || file,
+                  type: resolvedType.ast,
+                }),
                 required: !optional,
               }
             } else {
@@ -472,14 +466,12 @@ export function handleTSPropsDefinition({
     })
   }
 
-  function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>): Promise<
-    Result<
-      {
-        definitions: TSProps['definitions']
-        definitionsAst: TSProps['definitionsAst']
-      },
-      TransformError<ErrorResolveTS | ErrorUnknownNode>
-    >
+  function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>): ResultAsync<
+    {
+      definitions: TSProps['definitions']
+      definitionsAst: TSProps['definitionsAst']
+    },
+    TransformError<ErrorResolveTS | ErrorUnknownNode>
   > {
     return safeTry(async function* () {
       let resolved:
@@ -737,10 +729,8 @@ export interface TSProps extends PropsBase {
   /**
    * get runtime definitions.
    */
-  getRuntimeDefinitions: () => Promise<
-    Result<
-      Record<string, RuntimePropDefinition>,
-      TransformError<ErrorUnknownNode>
-    >
+  getRuntimeDefinitions: () => ResultAsync<
+    Record<string, RuntimePropDefinition>,
+    TransformError<ErrorUnknownNode>
   >
 }
