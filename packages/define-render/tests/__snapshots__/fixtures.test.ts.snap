@@ -5,14 +5,17 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = false 1`] = `
 import { defineComponent, h, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return () => h("div");
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "basic",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return () => h("div");
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -28,11 +31,11 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = true 1`] = `
 "// basic.js
 import { defineComponent, h } from 'vue';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  setup(__props) {
-    return () => h("div");
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "basic",
+	setup(__props) {
+		return () => h("div");
+	}
 });
 
 export { _sfc_main as default };
@@ -44,22 +47,18 @@ exports[`fixtures > tests/fixtures/id.vue > isProduction = false 1`] = `
 import { defineComponent, createVNode, createTextVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "id",
-  setup(__props, {
-    expose: __expose
-  }) {
-    __expose();
-    const renderFn = () => createVNode("div", null, [createTextVNode("Hello")]);
-    const __returned__ = {
-      renderFn
-    };
-    Object.defineProperty(__returned__, "__isScriptSetup", {
-      enumerable: false,
-      value: true
-    });
-    return renderFn;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "id",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const renderFn = () => createVNode("div", null, [createTextVNode("Hello")]);
+		const __returned__ = { renderFn };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return renderFn;
+	}
 });
 
 var id = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -72,12 +71,12 @@ exports[`fixtures > tests/fixtures/id.vue > isProduction = true 1`] = `
 "// id.js
 import { defineComponent, createVNode, createTextVNode } from 'vue';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "id",
-  setup(__props) {
-    const renderFn = () => createVNode("div", null, [createTextVNode("Hello")]);
-    return renderFn;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "id",
+	setup(__props) {
+		const renderFn = () => createVNode("div", null, [createTextVNode("Hello")]);
+		return renderFn;
+	}
 });
 
 export { _sfc_main as default };
@@ -89,19 +88,17 @@ exports[`fixtures > tests/fixtures/tsx.vue > isProduction = false 1`] = `
 import { defineComponent, createVNode, createTextVNode, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "tsx",
-  setup(__props, {
-    expose: __expose
-  }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", {
-      enumerable: false,
-      value: true
-    });
-    return () => createVNode("div", null, [createTextVNode("Hello")]);
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "tsx",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return () => createVNode("div", null, [createTextVNode("Hello")]);
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -117,11 +114,11 @@ exports[`fixtures > tests/fixtures/tsx.vue > isProduction = true 1`] = `
 "// tsx.js
 import { defineComponent, createVNode, createTextVNode } from 'vue';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "tsx",
-  setup(__props) {
-    return () => createVNode("div", null, [createTextVNode("Hello")]);
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "tsx",
+	setup(__props) {
+		return () => createVNode("div", null, [createTextVNode("Hello")]);
+	}
 });
 
 export { _sfc_main as default };
@@ -133,19 +130,17 @@ exports[`fixtures > tests/fixtures/without-fn.vue > isProduction = false 1`] = `
 import { defineComponent, createVNode, createTextVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "without-fn",
-  setup(__props, {
-    expose: __expose
-  }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", {
-      enumerable: false,
-      value: true
-    });
-    return () => createVNode("div", null, [createTextVNode("Hello")]);
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "without-fn",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return () => createVNode("div", null, [createTextVNode("Hello")]);
+	}
 });
 
 var withoutFn = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -158,11 +153,11 @@ exports[`fixtures > tests/fixtures/without-fn.vue > isProduction = true 1`] = `
 "// without-fn.js
 import { defineComponent, createVNode, createTextVNode } from 'vue';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "without-fn",
-  setup(__props) {
-    return () => createVNode("div", null, [createTextVNode("Hello")]);
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "without-fn",
+	setup(__props) {
+		return () => createVNode("div", null, [createTextVNode("Hello")]);
+	}
 });
 
 export { _sfc_main as default };

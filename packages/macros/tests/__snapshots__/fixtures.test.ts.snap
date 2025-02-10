@@ -7,34 +7,49 @@ import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const name = "Foo";
-const __default__ = defineComponent({
-  name
-});
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  ...__default__,
-  props: {
-    title: { type: String, required: true },
-    modelValue: { type: String, required: true }
-  },
-  emits: ["change", "update:modelValue"],
-  setup(__props, { expose: __expose, emit: __emit }) {
-    __expose();
-    const emit = __emit;
-    let { modelValue } = __MACROS_useVModel("modelValue");
-    const handleClick = () => {
-      emit("change");
-      modelValue.value = "hello, " + __props.title;
-    };
-    const __returned__ = { name, emit, get modelValue() {
-      return modelValue;
-    }, set modelValue(v) {
-      modelValue = v;
-    }, handleClick, __MACROS_defineComponent: defineComponent, get __MACROS_useVModel() {
-      return __MACROS_useVModel;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+const __default__ = defineComponent({ name });
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	...__default__,
+	props: {
+		title: {
+			type: String,
+			required: true
+		},
+		modelValue: {
+			type: String,
+			required: true
+		}
+	},
+	emits: ["change", "update:modelValue"],
+	setup(__props, { expose: __expose, emit: __emit }) {
+		__expose();
+		const emit = __emit;
+		let { modelValue } = __MACROS_useVModel("modelValue");
+		const handleClick = () => {
+			emit("change");
+			modelValue.value = "hello, " + __props.title;
+		};
+		const __returned__ = {
+			name,
+			emit,
+			get modelValue() {
+				return modelValue;
+			},
+			set modelValue(v) {
+				modelValue = v;
+			},
+			handleClick,
+			__MACROS_defineComponent: defineComponent,
+			get __MACROS_useVModel() {
+				return __MACROS_useVModel;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -70,17 +85,22 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const msg = "Hello";
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "case-233",
-  props: {
-    msg: { type: String, required: true, default: msg }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = { msg };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "case-233",
+	props: { msg: {
+		type: String,
+		required: true,
+		default: msg
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = { msg };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var case233 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -94,21 +114,29 @@ exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
 import { defineComponent, toRefs } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "define-props-refs",
-  props: {
-    foo: { type: String, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __MACROS_props = __props;
-    const { foo } = toRefs(__MACROS_props);
-    console.log(foo.value);
-    foo.value = "hello";
-    const __returned__ = { __MACROS_props, foo, __MACROS_toRefs: toRefs };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "define-props-refs",
+	props: { foo: {
+		type: String,
+		required: true
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __MACROS_props = __props;
+		const { foo } = toRefs(__MACROS_props);
+		console.log(foo.value);
+		foo.value = "hello";
+		const __returned__ = {
+			__MACROS_props,
+			foo,
+			__MACROS_toRefs: toRefs
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var definePropsRefs = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -157,22 +185,23 @@ exports[`fixtures > tests/fixtures/hoist-static-scope.vue 1`] = `
 import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-const [name] = (
-  /* hoist-static*/
-  ["VarCompName"]
-);
-const __default__ = defineComponent({
-  name
-});
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  ...__default__,
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const test = (name2) => name2;
-    const __returned__ = { name, test };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+const [name] = ["VarCompName"];
+const __default__ = defineComponent({ name });
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	...__default__,
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const test = (name) => name;
+		const __returned__ = {
+			name,
+			test
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -191,27 +220,48 @@ import __MACROS_normalizePropsOrEmits from '/vue-macros/define-prop/helper';
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "mixed-define-props",
-  props: { ...__MACROS_normalizePropsOrEmits({
-    foo: { type: String, required: false },
-    baz: { type: String, required: true }
-  }), ...__MACROS_normalizePropsOrEmits(["bar"]) },
-  emits: ["update:baz"],
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __MACROS_props = __props;
-    const { foo } = toRefs(__MACROS_props);
-    const bar = toRef(__props, "bar");
-    const { baz } = __MACROS_useVModel("baz");
-    const __returned__ = { __MACROS_props, foo, bar, baz, __MACROS_toRef: toRef, get __MACROS_normalizePropsOrEmits() {
-      return __MACROS_normalizePropsOrEmits;
-    }, get __MACROS_useVModel() {
-      return __MACROS_useVModel;
-    }, __MACROS_toRefs: toRefs };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "mixed-define-props",
+	props: {
+		...__MACROS_normalizePropsOrEmits({
+			foo: {
+				type: String,
+				required: false
+			},
+			baz: {
+				type: String,
+				required: true
+			}
+		}),
+		...__MACROS_normalizePropsOrEmits(["bar"])
+	},
+	emits: ["update:baz"],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __MACROS_props = __props;
+		const { foo } = toRefs(__MACROS_props);
+		const bar = toRef(__props, "bar");
+		const { baz } = __MACROS_useVModel("baz");
+		const __returned__ = {
+			__MACROS_props,
+			foo,
+			bar,
+			baz,
+			__MACROS_toRef: toRef,
+			get __MACROS_normalizePropsOrEmits() {
+				return __MACROS_normalizePropsOrEmits;
+			},
+			get __MACROS_useVModel() {
+				return __MACROS_useVModel;
+			},
+			__MACROS_toRefs: toRefs
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var mixedDefineProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -225,20 +275,18 @@ exports[`fixtures > tests/fixtures/short-emits.setup.tsx 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "short-emits.setup",
-  emits: ["update:modelValue"],
-  setup(__props, {
-    expose: __expose
-  }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", {
-      enumerable: false,
-      value: true
-    });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "short-emits.setup",
+	emits: ["update:modelValue"],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var shortEmits_setup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -254,42 +302,72 @@ import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const __default__ = defineComponent({
-  name: "Foo",
-  model: {
-    prop: "value",
-    event: "changeInput"
-  }
+	name: "Foo",
+	model: {
+		prop: "value",
+		event: "changeInput"
+	}
 });
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  ...__default__,
-  props: {
-    title: { type: String, required: true },
-    value: { type: String, required: true }
-  },
-  emits: ["change", "input", "changeInput"],
-  setup(__props, { expose: __expose, emit: __emit }) {
-    __expose();
-    const emit = __emit;
-    let { modelValue, value } = __MACROS_useVModel(["modelValue", "value", "input"], ["value", void 0, "changeInput"]);
-    const handleClick = () => {
-      emit("change");
-      modelValue.value = "hello, " + __props.title;
-      value.value = "Word," + __props.title;
-    };
-    const __returned__ = { emit, get modelValue() {
-      return modelValue;
-    }, set modelValue(v) {
-      modelValue = v;
-    }, get value() {
-      return value;
-    }, set value(v) {
-      value = v;
-    }, handleClick, __MACROS_defineComponent: defineComponent, get __MACROS_useVModel() {
-      return __MACROS_useVModel;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	...__default__,
+	props: {
+		title: {
+			type: String,
+			required: true
+		},
+		value: {
+			type: String,
+			required: true
+		}
+	},
+	emits: [
+		"change",
+		"input",
+		"changeInput"
+	],
+	setup(__props, { expose: __expose, emit: __emit }) {
+		__expose();
+		const emit = __emit;
+		let { modelValue, value } = __MACROS_useVModel([
+			"modelValue",
+			"value",
+			"input"
+		], [
+			"value",
+			undefined,
+			"changeInput"
+		]);
+		const handleClick = () => {
+			emit("change");
+			modelValue.value = "hello, " + __props.title;
+			value.value = "Word," + __props.title;
+		};
+		const __returned__ = {
+			emit,
+			get modelValue() {
+				return modelValue;
+			},
+			set modelValue(v) {
+				modelValue = v;
+			},
+			get value() {
+				return value;
+			},
+			set value(v) {
+				value = v;
+			},
+			handleClick,
+			__MACROS_defineComponent: defineComponent,
+			get __MACROS_useVModel() {
+				return __MACROS_useVModel;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var vue2Model = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);

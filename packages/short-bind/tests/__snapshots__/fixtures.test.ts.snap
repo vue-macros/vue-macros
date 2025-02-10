@@ -5,16 +5,22 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 import { defineComponent, ref, createElementBlock, openBlock, Fragment, createElementVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const value = ref("");
-    const modelValue = ref("");
-    const __returned__ = { value, modelValue };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "basic",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const value = ref("");
+		const modelValue = ref("");
+		const __returned__ = {
+			value,
+			modelValue
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 const _hoisted_1 = ["value"];

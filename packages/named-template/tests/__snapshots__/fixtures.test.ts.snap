@@ -6,14 +6,17 @@ import { defineComponent, createElementBlock, openBlock, Fragment, createElement
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const foo = "foo";
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = { foo };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "basic",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = { foo };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function render$1(_ctx, _cache, $props, $setup, $data, $options) {
@@ -32,22 +35,19 @@ render: (...args) => {
 
 function render(...args) {
  let [_ctx, _cache, $props, $setup, $data, $options] = args;
-  return openBlock(), createElementBlock(
-    Fragment,
-    null,
-    [
-      _cache[0] || (_cache[0] = createElementVNode(
-        "span",
-        null,
-        "hello",
-        -1
-        /* HOISTED */
-      )),
-      (openBlock(), createBlock(Fragment, null, [block0.render(...args)]))
-    ],
-    64
-    /* STABLE_FRAGMENT */
-  );
+	return openBlock(), createElementBlock(
+		Fragment,
+		null,
+		[_cache[0] || (_cache[0] = createElementVNode(
+			"span",
+			null,
+			"hello",
+			-1
+			/* HOISTED */
+)), (openBlock(), createBlock(Fragment, null, [block0.render(...args)]))],
+		64
+		/* STABLE_FRAGMENT */
+);
 }
 
 if (typeof block0 === "function") block0(_sfc_main);
@@ -62,14 +62,17 @@ exports[`fixtures > tests/fixtures/dash-name.vue 1`] = `
 import { defineComponent, createElementBlock, openBlock, renderSlot, createTextVNode, createBlock, Fragment } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "dash-name",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "dash-name",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 const _hoisted_1$1 = { class: "btn-content" };
@@ -90,9 +93,7 @@ render: (...args) => {
 const _hoisted_1 = { class: "a-btn" };
 function render(...args) {
  let [_ctx, _cache, $props, $setup, $data, $options] = args;
-  return openBlock(), createElementBlock("div", _hoisted_1, [
-    (openBlock(), createBlock(Fragment, null, [block0.render(...args)]))
-  ]);
+	return openBlock(), createElementBlock("div", _hoisted_1, [(openBlock(), createBlock(Fragment, null, [block0.render(...args)]))]);
 }
 
 if (typeof block0 === "function") block0(_sfc_main);
@@ -108,14 +109,17 @@ import { defineComponent, createElementBlock, openBlock, createTextVNode, Fragme
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const pager = "top";
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "multi",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = { pager };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "multi",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = { pager };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function render$1(_ctx, _cache, $props, $setup, $data, $options) {
@@ -131,23 +135,23 @@ render: (...args) => {
 
 function render(...args) {
  let [_ctx, _cache, $props, $setup, $data, $options] = args;
-  return openBlock(), createElementBlock(
-    Fragment,
-    null,
-    [
-      $setup.pager === "top" ? (openBlock(), createBlock(Fragment, { key: 0 }, [block0.render(...args)])) : createCommentVNode("v-if", true),
-      _cache[0] || (_cache[0] = createElementVNode(
-        "span",
-        null,
-        "Here is data table",
-        -1
-        /* HOISTED */
-      )),
-      $setup.pager === "bottom" ? (openBlock(), createBlock(Fragment, { key: 1 }, [block0.render(...args)])) : createCommentVNode("v-if", true)
-    ],
-    64
-    /* STABLE_FRAGMENT */
-  );
+	return openBlock(), createElementBlock(
+		Fragment,
+		null,
+		[
+			$setup.pager === "top" ? (openBlock(), createBlock(Fragment, { key: 0 }, [block0.render(...args)])) : createCommentVNode("v-if", true),
+			_cache[0] || (_cache[0] = createElementVNode(
+				"span",
+				null,
+				"Here is data table",
+				-1
+				/* HOISTED */
+)),
+			$setup.pager === "bottom" ? (openBlock(), createBlock(Fragment, { key: 1 }, [block0.render(...args)])) : createCommentVNode("v-if", true)
+		],
+		64
+		/* STABLE_FRAGMENT */
+);
 }
 
 if (typeof block0 === "function") block0(_sfc_main);

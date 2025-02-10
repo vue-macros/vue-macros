@@ -16,13 +16,17 @@ exports[`fixtures > tests/fixtures/vue2/basic.vue 1`] = `
 import { defineComponent, ref } from 'vue';
 import __normalizer from '[NULL]plugin-vue2:normalizer';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  setup(__props) {
-    let foo = ref("msg");
-    foo.value = "world";
-    return { __sfc: true, foo, _ref: ref };
-  }
+var _sfc_main = /*#__PURE__*/ defineComponent({
+	__name: "basic",
+	setup(__props) {
+		let foo = ref("msg");
+		foo.value = "world";
+		return {
+			__sfc: true,
+			foo,
+			_ref: ref
+		};
+	}
 });
 
 const _sfc_render = null;
@@ -50,18 +54,33 @@ import { defineComponent } from 'vue';
 import { createPropsRestProxy } from '/vue-macros/reactivity-transform/helper';
 import __normalizer from '[NULL]plugin-vue2:normalizer';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "destructure-props",
-  props: {
-    foo: { type: String, required: true, default: "foo" },
-    bar: { type: Number, required: true, default: 10 },
-    baz: { type: Boolean, required: true }
-  },
-  setup(__props) {
-    const props = createPropsRestProxy(__props, ["foo", "bar"]);
-    console.log(__props.foo, __props.bar, props);
-    return { __sfc: true, props, createPropsRestProxy };
-  }
+var _sfc_main = /*#__PURE__*/ defineComponent({
+	__name: "destructure-props",
+	props: {
+		foo: {
+			type: String,
+			required: true,
+			default: "foo"
+		},
+		bar: {
+			type: Number,
+			required: true,
+			default: 10
+		},
+		baz: {
+			type: Boolean,
+			required: true
+		}
+	},
+	setup(__props) {
+		const props = createPropsRestProxy(__props, ["foo", "bar"]);
+		console.log(__props.foo, __props.bar, props);
+		return {
+			__sfc: true,
+			props,
+			createPropsRestProxy
+		};
+	}
 });
 
 const _sfc_render = null;
@@ -90,12 +109,15 @@ import __normalizer from '[NULL]plugin-vue2:normalizer';
 
 let foo = ref("msg");
 foo.value = "world";
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "script-and-setup",
-  setup(__props) {
-    foo.value = "foo";
-    return { __sfc: true, foo };
-  }
+var _sfc_main = /*#__PURE__*/ defineComponent({
+	__name: "script-and-setup",
+	setup(__props) {
+		foo.value = "foo";
+		return {
+			__sfc: true,
+			foo
+		};
+	}
 });
 
 var _sfc_render = function render() {
@@ -183,20 +205,27 @@ exports[`fixtures > tests/fixtures/vue3/basic.vue 1`] = `
 import { defineComponent, ref } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    let foo = ref("msg");
-    foo.value = "world";
-    const __returned__ = { get foo() {
-      return foo;
-    }, set foo(v) {
-      foo = v;
-    }, _ref: ref };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "basic",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		let foo = ref("msg");
+		foo.value = "world";
+		const __returned__ = {
+			get foo() {
+				return foo;
+			},
+			set foo(v) {
+				foo = v;
+			},
+			_ref: ref
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -210,23 +239,42 @@ exports[`fixtures > tests/fixtures/vue3/default-value.vue 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "default-value",
-  props: {
-    fn: { type: Function, required: true, default: () => {
-      console.log("hello");
-    } },
-    obj: { type: Object, required: true, default: () => ({ foo: "bar" }) },
-    arr: { type: Array, required: true, default: () => ["foo", "bar"] },
-    unknown: { type: null, required: true, default: unknownValue }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    console.log(__props.fn, __props.obj, __props.arr, __props.unknown);
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "default-value",
+	props: {
+		fn: {
+			type: Function,
+			required: true,
+			default: () => {
+				console.log("hello");
+			}
+		},
+		obj: {
+			type: Object,
+			required: true,
+			default: () => ({ foo: "bar" })
+		},
+		arr: {
+			type: Array,
+			required: true,
+			default: () => ["foo", "bar"]
+		},
+		unknown: {
+			type: null,
+			required: true,
+			default: unknownValue
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		console.log(__props.fn, __props.obj, __props.arr, __props.unknown);
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var defaultValue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -241,23 +289,40 @@ import { defineComponent } from 'vue';
 import { createPropsRestProxy } from '/vue-macros/reactivity-transform/helper';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "destructure-props",
-  props: {
-    foo: { type: String, required: true, default: "foo" },
-    bar: { type: Number, required: true, default: 10 },
-    baz: { type: Boolean, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = createPropsRestProxy(__props, ["foo", "bar"]);
-    console.log(__props.foo, __props.bar, props);
-    const __returned__ = { props, get createPropsRestProxy() {
-      return createPropsRestProxy;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "destructure-props",
+	props: {
+		foo: {
+			type: String,
+			required: true,
+			default: "foo"
+		},
+		bar: {
+			type: Number,
+			required: true,
+			default: 10
+		},
+		baz: {
+			type: Boolean,
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = createPropsRestProxy(__props, ["foo", "bar"]);
+		console.log(__props.foo, __props.bar, props);
+		const __returned__ = {
+			props,
+			get createPropsRestProxy() {
+				return createPropsRestProxy;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var destructureProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -271,25 +336,32 @@ exports[`fixtures > tests/fixtures/vue3/issue-608.vue 1`] = `
 import { defineComponent, ref, isRef } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-608",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    let ref$1 = ref("value");
-    console.log(isRef(ref$1.value));
-    try {
-    } catch {
-      const ref2 = "";
-    }
-    console.log(isRef(ref$1.value));
-    const __returned__ = { get ref() {
-      return ref$1;
-    }, set ref(v) {
-      ref$1 = v;
-    }, _ref: ref, isRef };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "issue-608",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		let ref$1 = ref("value");
+		console.log(isRef(ref$1.value));
+		try {} catch {
+			const ref = "";
+		}
+		console.log(isRef(ref$1.value));
+		const __returned__ = {
+			get ref() {
+				return ref$1;
+			},
+			set ref(v) {
+				ref$1 = v;
+			},
+			_ref: ref,
+			isRef
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var issue608 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -304,8 +376,7 @@ import { ref } from 'vue';
 
 let foo = ref("msg");
 foo.value = "world";
-class LogEntry {
-}
+class LogEntry {}
 
 export { LogEntry };
 "
@@ -316,16 +387,19 @@ exports[`fixtures > tests/fixtures/vue3/runtime-default.vue 1`] = `
 import { defineComponent, mergeDefaults } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "runtime-default",
-  props: mergeDefaults(["foo"], { foo: "str" }),
-  setup(__props, { expose: __expose }) {
-    __expose();
-    console.log(__props.foo);
-    const __returned__ = { __MACROS_mergeDefaults: mergeDefaults };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "runtime-default",
+	props: mergeDefaults(["foo"], { foo: "str" }),
+	setup(__props, { expose: __expose }) {
+		__expose();
+		console.log(__props.foo);
+		const __returned__ = { __MACROS_mergeDefaults: mergeDefaults };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var runtimeDefault = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -341,19 +415,25 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 let foo = ref("msg");
 foo.value = "world";
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "script-and-setup",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    foo.value = "foo";
-    const __returned__ = { get foo() {
-      return foo;
-    }, set foo(v) {
-      foo = v;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "script-and-setup",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		foo.value = "foo";
+		const __returned__ = {
+			get foo() {
+				return foo;
+			},
+			set foo(v) {
+				foo = v;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -376,17 +456,25 @@ exports[`fixtures > tests/fixtures/vue3/trailing-comma.vue 1`] = `
 import { defineComponent, ref } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "trailing-comma",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const foo = ref("msg");
-    const bar = foo.value;
-    const baz = bar;
-    const __returned__ = { foo, bar, baz, _ref: ref };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "trailing-comma",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const foo = ref("msg");
+		const bar = foo.value;
+		const baz = bar;
+		const __returned__ = {
+			foo,
+			bar,
+			baz,
+			_ref: ref
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var trailingComma = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
