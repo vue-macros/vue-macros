@@ -1,5 +1,12 @@
 # @vue-macros/test-utils
 
+## 2.0.0
+### Major Changes
+
+
+
+- [`f63e008`](https://github.com/vue-macros/vue-macros/commit/f63e008f960470817375b6949e21021ea42c7bb7) Thanks [@sxzz](https://github.com/sxzz)! - replace `rollup-plugin-esbuild` with `unplugin-oxc`
+
 ## 1.7.1
 ### Patch Changes
 
