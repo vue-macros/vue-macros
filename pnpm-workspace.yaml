@@ -1,5 +1,3 @@
-# eslint yml/sort-keys: ['error', { pathPattern: "^catalog$", order: { type: asc }, allowLineSeparatedGroups: true }]
-
 defines:
   - &babel ^7.26.7
   - &nolebase ^2.13.0
@@ -51,7 +49,7 @@ catalog:
   prettier: ^3.4.2
   rollup: ^4.34.4
   typescript: ^5.7.3
-  unplugin: ^1.16.1
+  unplugin: ^2.2.0
   unplugin-oxc: 'https://pkg.pr.new/unplugin/unplugin-oxc@a403eed'
   unplugin-vue: ^6.0.0
   vite: ^6.1.0
