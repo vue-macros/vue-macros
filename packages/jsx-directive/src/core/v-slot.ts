@@ -98,7 +98,7 @@ export function transformVSlot(
             isVue2(version) ? '</span>' : '</>',
           ].join('')
 
-          if (options.lib === 'vue/vapor') {
+          if (options.lib === 'vapor') {
             slotFn = transformRestructure(slotFn)
           }
 

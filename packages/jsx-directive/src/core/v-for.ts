@@ -37,7 +37,7 @@ export function resolveVFor(
         index ??= `${HELPER_PREFIX}index`
       }
 
-      if (lib === 'vue/vapor') {
+      if (lib === 'vapor') {
         const params = `([${item}${
           index ? `, ${index}` : ''
         }${objectIndex ? `, ${objectIndex}` : ''}])`
@@ -56,7 +56,7 @@ export function resolveVFor(
           s.remove(key.start! - 1, key.end!)
         }
         s.appendRight(node.start!, `${params} => `)
-        return `${importHelperFn(s, 0, 'createFor', lib)}(() => ${list}, `
+        return `${importHelperFn(s, 0, 'createFor', 'vue')}(() => ${list}, `
       } else {
         const params = `(${item}${
           index ? `, ${index}` : ''
@@ -100,7 +100,7 @@ export function transformVFor(
     )
     s.remove(attribute.start! - 1, attribute.end!)
 
-    if (options.lib === 'vue/vapor') {
+    if (options.lib === 'vapor') {
       s.overwriteNode(
         node,
         transformRestructure(s.sliceNode(node), { unwrapRef: true }),
