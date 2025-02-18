@@ -37,7 +37,7 @@ export function resolveVFor(
         index ??= `${HELPER_PREFIX}index`
       }
 
-      if (lib === 'vapor') {
+      if (lib === 'vue/vapor') {
         const params = `([${item}${
           index ? `, ${index}` : ''
         }${objectIndex ? `, ${objectIndex}` : ''}])`
@@ -100,7 +100,7 @@ export function transformVFor(
     )
     s.remove(attribute.start! - 1, attribute.end!)
 
-    if (options.lib === 'vapor') {
+    if (options.lib === 'vue/vapor') {
       s.overwriteNode(
         node,
         transformRestructure(s.sliceNode(node), { unwrapRef: true }),

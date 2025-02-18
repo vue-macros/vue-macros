@@ -35,7 +35,7 @@ describe('jsx-vue-directive', () => {
     )
   })
 
-  describe('vapor v-for', async () => {
+  describe('vue/vapor v-for', async () => {
     await testFixtures(
       import.meta.glob<string>('./fixtures/v-for/*.{vue,jsx,tsx}', {
         eager: true,
@@ -45,7 +45,7 @@ describe('jsx-vue-directive', () => {
       (_, id, code) =>
         transformJsxDirective(code, id, {
           version: 3,
-          lib: 'vapor',
+          lib: 'vue/vapor',
           prefix: 'v-',
         })?.code,
     )
