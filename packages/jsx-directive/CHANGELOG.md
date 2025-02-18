@@ -1,5 +1,12 @@
 # @vue-macros/jsx-directive
 
+## 0.10.5
+### Patch Changes
+
+
+
+- [#917](https://github.com/vue-macros/vue-macros/pull/917) [`de367c8`](https://github.com/vue-macros/vue-macros/commit/de367c880439edaabf3891a5cca9244f31343806) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use vue instead of vue/vapor for imports
+
 ## 0.10.4
 ### Patch Changes
 
