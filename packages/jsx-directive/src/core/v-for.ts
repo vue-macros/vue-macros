@@ -56,7 +56,7 @@ export function resolveVFor(
           s.remove(key.start! - 1, key.end!)
         }
         s.appendRight(node.start!, `${params} => `)
-        return `${importHelperFn(s, 0, 'createFor', lib)}(() => ${list}, `
+        return `${importHelperFn(s, 0, 'createFor', 'vue')}(() => ${list}, `
       } else {
         const params = `(${item}${
           index ? `, ${index}` : ''
