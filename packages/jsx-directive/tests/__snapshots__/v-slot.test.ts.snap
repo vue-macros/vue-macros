@@ -1,69 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/index.vue 1`] = `
-"<script setup lang="tsx">
-import { unref as __MACROS_unref } from "vue";
-import { expectTypeOf } from 'expect-type'
-import Child from './child.vue'
-import type { FunctionalComponent } from 'vue'
-
-const Comp: FunctionalComponent<
-  {},
-  {},
-  {
-    default: (scope: { foo: string }) => any
-  }
-> = (props, { slots }) => {
-  return (
-    <Child scopedSlots={{...Object.fromEntries(Array.from(slots, (Slot, slotName) => ([[__MACROS_unref(slotName)], (scope) => <span>
-        <Slot {...scope} />
-      </span>,]))),}}
-      
-    ></Child>
-  )
-}
-
-let baz = $ref('')
-let show = $ref<boolean | undefined>()
-defineRender(() => (
-  <div>
-    <Child  scopedSlots={{'bottom': ({ foo }) => <span>
-      {foo}
-      <Child  scopedSlots={{'default': () => <span>default</span>,}}></Child>
-    </span>,}}></Child>
-
-    <Comp  scopedSlots={{'default': () => <span>default</span>,}}></Comp>
-    <Child  scopedSlots={{'bottom': ({ foo }) => <span>{foo}</span>,}}></Child>
-
-    <Child baz={baz}  scopedSlots={{'title': ({ foo }) => <span>
-      {expectTypeOf<string>(foo)}
-    </span>,}}></Child>
-
-    <Child scopedSlots={{...(show) ? {'bottom': ({ foo }) => <span>
-        {foo}
-      </span>,} : null,}}
-      
-    ></Child>
-
-    <Child<number> scopedSlots={{...(show) ? {'title': ({ foo }) => <span>
-        {expectTypeOf<number>(foo)}
-        {show}
-      </span>,} : (show === false) ? {'center': ({ foo }) => <span>
-        {foo}
-      </span>,} : {'bottom': () => <span> </span>,},'bot-tom': () => <span>bot-tom</span>,default: () => <span>
-      default
-      
-      
-      
-      
-    </span>}}></Child>
-  </div>
-))
-</script>
-"
-`;
-
-exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/index.vue 1`] = `
+exports[`v-slot > vue > ./fixtures/v-slot/index.vue 1`] = `
 "<script setup lang="tsx">
 import { renderList as __MACROS_renderList } from "vue";
 import { unref as __MACROS_unref } from "vue";
@@ -127,7 +64,7 @@ defineRender(() => (
 "
 `;
 
-exports[`jsx-vue-directive > vue/vapor v-slot > ./fixtures/v-slot/index.vue 1`] = `
+exports[`v-slot > vue/vapor > ./fixtures/v-slot/index.vue 1`] = `
 "<script setup lang="tsx">
 import { renderList as __MACROS_renderList } from "vue";
 import { unref as __MACROS_unref } from "vue";

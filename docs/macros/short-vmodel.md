@@ -67,7 +67,7 @@ interface Options {
 ```jsonc {3,5-7} [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
     "vueMacros": {
       "shortVmodel": {
         "prefix": "$",

@@ -1,4 +1,7 @@
-import { generateTransform, type CodeTransform } from 'magic-string-ast'
+import {
+  createFilter as createRollupFilter,
+  type FilterPattern,
+} from 'unplugin-utils'
 import {
   REGEX_SETUP_SFC,
   REGEX_SRC_FILE,
@@ -6,13 +9,10 @@ import {
   REGEX_VUE_SUB,
   REGEX_VUE_SUB_SETUP,
 } from './constants'
-import { createRollupFilter, type FilterPattern } from './filter'
 import type { ResolvedOptions } from '@vitejs/plugin-vue'
+import type { CodeTransform } from 'magic-string-ast'
 import type { Plugin } from 'rollup'
 import type { HmrContext, Plugin as VitePlugin } from 'vite'
-
-/** @deprecated use `generateTransform` instead */
-export const getTransformResult: typeof generateTransform = generateTransform
 
 export interface FilterOptions {
   include?: FilterPattern
@@ -30,23 +30,16 @@ export interface VuePluginApi {
   version: string
 }
 
-const VUE3_PLUGINS = ['vite:vue', 'unplugin-vue']
-const VUE2_PLUGINS = ['vite:vue2', 'unplugin-vue2']
+const VUE_PLUGINS = ['vite:vue', 'unplugin-vue']
 
 export function getVuePluginApi(
   plugins: Readonly<(Plugin | VitePlugin)[]> | undefined,
 ): VuePluginApi | null {
-  const vuePlugin = (plugins || []).find((p) =>
-    [...VUE3_PLUGINS, ...VUE2_PLUGINS].includes(p.name),
-  )
+  const vuePlugin = (plugins || []).find((p) => VUE_PLUGINS.includes(p.name))
   if (!vuePlugin)
     throw new Error(
       'Cannot find Vue plugin (@vitejs/plugin-vue or unplugin-vue). Please make sure to add it before using Vue Macros.',
     )
-
-  if (VUE2_PLUGINS.includes(vuePlugin.name)) {
-    return null
-  }
 
   const api = vuePlugin.api as VuePluginApi
   if (!api?.version) {

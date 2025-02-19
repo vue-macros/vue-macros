@@ -38,6 +38,7 @@ function getPkgName(filePath: string) {
 }
 
 let packageManager: string | undefined
+let version: string | undefined
 
 export default defineConfig([
   {
@@ -57,6 +58,7 @@ export default defineConfig([
       )
 
       if (!data.private) {
+        data.version = version ||= data.version
         data.description =
           descriptions[pkgName] ||
           `${camelCase(pkgName)} feature from Vue Macros.`
@@ -79,10 +81,11 @@ export default defineConfig([
         directory: `packages/${pkgName}`,
       }
       // data.author = '三咲智子 Kevin Deng <sxzz@sxzz.moe>'
-      data.engines = { node: '>=16.14.0' }
+      data.engines = { node: '>=20.18.0' }
 
       data.files = ['dist']
       if (hasRootDts) data.files.push('*.d.ts')
+      if (pkgName === 'macros') data.files.push('volar.cjs')
       data.files.sort()
 
       if (
@@ -114,6 +117,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
       data.publishConfig ||= {}
       data.publishConfig.access = 'public'
+      data.publishConfig.tag = 'next'
 
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && (await exists(tsupFile))) {
@@ -134,13 +138,18 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
           })
         ).map((file) => path.basename(path.relative(pkgSrc, file), '.ts'))
 
-        data.exports = buildExports(true)
-        data.publishConfig.exports = buildExports()
+        if (pkgName === 'macros') {
+          entries.push('volar')
+        }
 
-        const mainExport = data.exports['.']
+        data.exports = buildExports(true)
+        const exports = (data.publishConfig.exports = buildExports())
+
+        const mainExport = exports['.']
         if (mainExport) {
-          data.main = stripCurrentDir((mainExport as any).require)
-          data.module = stripCurrentDir((mainExport as any).import)
+          data.main = stripCurrentDir(mainExport.require || mainExport)
+          if (hasESM)
+            data.module = stripCurrentDir(mainExport.import || mainExport)
         }
 
         const onlyIndex = entries.length === 1 && entries[0] === 'index'
@@ -159,15 +168,25 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
               entries
                 .map((entry) => {
                   const key = entry === 'index' ? '.' : `./${entry}`
-                  const exports: Record<string, any> = withDev
-                    ? {
-                        dev: `./src/${entry}.ts`,
-                      }
-                    : {}
-                  if (hasCJS) exports.require = `./dist/${entry}.${cjsPrefix}js`
-                  if (hasESM) exports.import = `./dist/${entry}.${esmPrefix}js`
 
-                  return [key, exports] as const
+                  const map: Record<string, any> = {}
+                  if (withDev) map.dev = `./src/${entry}.ts`
+                  if (entry === 'volar') {
+                    map.types = `./volar.d.ts`
+                    map.default = `./volar.cjs`
+                  } else {
+                    if (hasCJS)
+                      map[hasESM ? 'require' : 'default'] =
+                        `./dist/${entry}.${cjsPrefix}js`
+                    if (hasESM)
+                      map[hasCJS ? 'import' : 'default'] =
+                        `./dist/${entry}.${esmPrefix}js`
+                  }
+
+                  if (Object.keys(map).length === 1) {
+                    return [key, Object.values(map)[0]]
+                  }
+                  return [key, map] as const
                 })
                 .sort(([a], [b]) => a.localeCompare(b)),
             ),
@@ -199,7 +218,6 @@ Please refer to [README.md](${githubLink}#readme)\n`
       'docs/package.json',
       'playground/*/package.json',
     ],
-    exclude: ['playground/vue2/package.json'],
   }),
   ...noDuplicatedDeps({
     include: [

@@ -1,6 +1,6 @@
 {
-  "name": "monorepo-unplugin-vue-macros",
-  "version": "0.0.0",
+  "name": "monorepo-vue-macros",
+  "version": "3.0.0-alpha.0",
   "private": true,
   "packageManager": "pnpm@10.4.1",
   "description": "Monorepo for Vue Macros.",
@@ -14,7 +14,6 @@
     "docs:preview": "pnpm run -C ./docs preview",
     "docs:build": "pnpm run -C ./docs build",
     "play": "pnpm run play:vue3",
-    "play:vue2": "pnpm run -C ./playground/vue2 dev",
     "play:vue3": "pnpm run -C ./playground/vue3 dev",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -26,28 +25,25 @@
     "mono": "monoman",
     "mono:check": "monoman --check",
     "publint": "tsx publint.ts",
-    "publish": "pnpm build && changeset publish",
+    "release": "bumpp -r",
     "typecheck": "pnpm run /^typecheck:/",
     "typecheck:lib": "vue-tsc --noEmit -p tsconfig.lib.json",
     "typecheck:test": "vue-tsc --noEmit -p tsconfig.test.json",
     "typecheck:docs": "vue-tsc --noEmit -p ./docs/tsconfig.json",
     "typecheck:fixture": "vue-tsc --noEmit -p tsconfig.fixture.json",
-    "typecheck:playground:vue3": "pnpm run -C ./playground/vue3 typecheck",
-    "typecheck:playground:vue2": "pnpm run -C ./playground/vue2 typecheck"
+    "typecheck:playground": "pnpm run -C ./playground/vue3 typecheck"
   },
   "devDependencies": {
     "@babel/types": "catalog:",
-    "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.28.0",
     "@rspack/core": "^1.2.3",
     "@sxzz/eslint-config": "^5.1.1",
     "@sxzz/prettier-config": "^2.2.0",
     "@types/node": "^22.13.4",
-    "@types/picomatch": "^3.0.2",
     "@unocss/eslint-plugin": "^66.0.0",
     "@vitest/coverage-v8": "catalog:",
     "@vitest/ui": "catalog:",
     "@vue-macros/test-utils": "workspace:*",
+    "bumpp": "^10.0.2",
     "change-case": "^5.4.4",
     "cspell": "^8.17.3",
     "esbuild": "catalog:",
@@ -75,16 +71,15 @@
     "unplugin-macros": "^0.16.0",
     "unplugin-raw": "^0.4.2",
     "unplugin-unused": "^0.4.1",
-    "unplugin-vue-macros": "workspace:*",
     "vite": "catalog:",
     "vitest": "catalog:",
     "vue": "catalog:",
+    "vue-macros": "workspace:*",
     "vue-tsc": "catalog:",
-    "vue2": "npm:vue@^2.7.16",
     "webpack": "^5.98.0"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=20.18.0"
   },
   "pnpm": {
     "peerDependencyRules": {
