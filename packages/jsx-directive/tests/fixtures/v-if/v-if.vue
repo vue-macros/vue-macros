@@ -4,6 +4,8 @@ const { foo } = defineProps<{
   foo: number
 }>()
 
+const Comp = <div v-if={foo}></div>
+
 defineRender(() => (
   <>
     <div v-if={foo === 0}>{expectTypeOf<0>(foo)}</div>

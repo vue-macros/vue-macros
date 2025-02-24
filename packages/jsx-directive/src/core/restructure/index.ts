@@ -6,7 +6,7 @@ import {
   walkAST,
   type MagicString,
 } from '@vue-macros/common'
-import { walkIdentifiers } from '@vue/compiler-core'
+import { walkIdentifiers } from '@vue/compiler-sfc'
 import { withDefaultsHelperId } from '../helper'
 import type {
   ArrowFunctionExpression,

@@ -10,6 +10,8 @@ const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
 let selected = 0
 
+const Comp = <>{Array.from(4, (i) => <div>{i}</div>)}</>
+
 defineRender(() => (
   <>
     {Array.from(4, (i) => <div key={i}>
@@ -55,6 +57,8 @@ const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
 let selected = 0
 
+const Comp = <>{__MACROS_renderList(4, (i) => <div>{i}</div>)}</>
+
 defineRender(() => (
   <>
     {__MACROS_renderList(4, (i) => <div key={i}>
@@ -99,6 +103,8 @@ const map = new Map([
 const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
 let selected = 0
+
+const Comp = <>{__MACROS_createFor(() => 4, (__MACROS_props) => <div>{__MACROS_props[0].value}</div>)}</>
 
 defineRender(() => (
   <>

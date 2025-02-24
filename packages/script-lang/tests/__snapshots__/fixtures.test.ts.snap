@@ -6,17 +6,21 @@ import { defineComponent, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const bar = 1;
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  props: {
-    foo: { type: String, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = { bar };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "basic",
+	props: { foo: {
+		type: String,
+		required: true
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = { bar };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -33,16 +37,14 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = true 1`] = `
 import { defineComponent, toDisplayString } from 'vue';
 
 const bar = 1;
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  props: {
-    foo: {}
-  },
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return toDisplayString(_ctx.foo);
-    };
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "basic",
+	props: { foo: {} },
+	setup(__props) {
+		return (_ctx, _cache) => {
+			return toDisplayString(_ctx.foo);
+		};
+	}
 });
 
 export { bar, _sfc_main as default };

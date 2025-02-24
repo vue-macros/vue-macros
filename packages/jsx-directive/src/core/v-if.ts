@@ -1,11 +1,11 @@
+import type { OptionsResolved } from '..'
 import { isVue2, type JsxDirective } from '.'
 import type { MagicStringAST } from '@vue-macros/common'
 
 export function transformVIf(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  version: number,
-  prefix: string,
+  { version, prefix }: OptionsResolved,
 ): void {
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(
@@ -18,7 +18,9 @@ export function transformVIf(
       if (attribute.value)
         s.appendLeft(
           node.start!,
-          `${attribute.name.name === `${prefix}if` && hasScope ? '{' : ' '}(${s.slice(
+          `${hasScope ? '' : '<>{'}${
+            attribute.name.name === `${prefix}if` && hasScope ? '{' : ''
+          }(${s.slice(
             attribute.value.start! + 1,
             attribute.value.end! - 1,
           )}) ? `,
@@ -30,7 +32,7 @@ export function transformVIf(
           `${prefix}else`,
         )
           ? ' :'
-          : ` : null${hasScope ? '}' : ''}`,
+          : ` : null${hasScope ? '}' : '}</>'}`,
       )
     } else if (attribute.name.name === `${prefix}else`) {
       s.appendRight(node.end!, hasScope ? '}' : '')

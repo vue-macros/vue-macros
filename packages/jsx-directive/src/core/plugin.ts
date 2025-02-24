@@ -20,7 +20,7 @@ import type { UnpluginContextMeta, UnpluginFactory } from 'unplugin'
 
 export type Options = BaseOptions & {
   prefix?: string
-  lib?: 'vue' | 'vue/vapor' | (string & {})
+  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact' | 'solid' | (string & {})
 }
 export type OptionsResolved = MarkRequired<
   Options,
@@ -31,7 +31,7 @@ function resolveOptions(
   options: Options,
   framework: UnpluginContextMeta['framework'],
 ): OptionsResolved {
-  const version = options.version || detectVueVersion(undefined, 0)
+  const version = options.version || detectVueVersion()
   const include = getFilterPattern(
     [FilterFileType.VUE_SFC, FilterFileType.SRC_FILE],
     framework,

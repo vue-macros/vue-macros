@@ -1,9 +1,9 @@
 import { resolve } from 'node:path'
 import {
   rollupBuild,
-  RollupEsbuildPlugin,
   RollupVue,
   testFixtures,
+  UnpluginOxc,
 } from '@vue-macros/test-utils'
 import { describe } from 'vitest'
 import ShortVmodel from '../src/rollup'
@@ -15,9 +15,7 @@ describe('fixtures', async () => {
       rollupBuild(id, [
         ShortVmodel({ prefix: '::' }),
         RollupVue(),
-        RollupEsbuildPlugin({
-          target: 'esnext',
-        }),
+        UnpluginOxc.rollup(),
       ]),
     {
       cwd: resolve(__dirname, '..'),

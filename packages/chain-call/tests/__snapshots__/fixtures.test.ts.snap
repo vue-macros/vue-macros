@@ -6,23 +6,41 @@ import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  props: {
-    foo: { type: String, required: false, default: "111" },
-    bar: { type: Number, required: false, default: 111 },
-    baz: { type: Boolean, required: false, default: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    expectTypeOf(props).toEqualTypeOf();
-    const __returned__ = { props, get expectTypeOf() {
-      return expectTypeOf;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "basic",
+	props: {
+		foo: {
+			type: String,
+			required: false,
+			default: "111"
+		},
+		bar: {
+			type: Number,
+			required: false,
+			default: 111
+		},
+		baz: {
+			type: Boolean,
+			required: false,
+			default: false
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		expectTypeOf(props).toEqualTypeOf();
+		const __returned__ = {
+			props,
+			get expectTypeOf() {
+				return expectTypeOf;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -37,19 +55,24 @@ import { defineComponent, toDisplayString } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "declare",
-  props: {
-    bar: { type: Boolean, required: false, default: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    expectTypeOf(props).toEqualTypeOf();
-    const __returned__ = { props };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "declare",
+	props: { bar: {
+		type: Boolean,
+		required: false,
+		default: true
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		expectTypeOf(props).toEqualTypeOf();
+		const __returned__ = { props };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -67,18 +90,24 @@ import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "empty",
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    expectTypeOf().toEqualTypeOf();
-    const __returned__ = { props, get expectTypeOf() {
-      return expectTypeOf;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "empty",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		expectTypeOf().toEqualTypeOf();
+		const __returned__ = {
+			props,
+			get expectTypeOf() {
+				return expectTypeOf;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var empty = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -93,21 +122,28 @@ import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "empty-defaults",
-  props: {
-    foo: { type: String, required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    expectTypeOf().toEqualTypeOf();
-    const __returned__ = { props, get expectTypeOf() {
-      return expectTypeOf;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "empty-defaults",
+	props: { foo: {
+		type: String,
+		required: false
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		expectTypeOf().toEqualTypeOf();
+		const __returned__ = {
+			props,
+			get expectTypeOf() {
+				return expectTypeOf;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var emptyDefaults = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -121,17 +157,22 @@ exports[`fixtures > tests/fixtures/tsx.vue 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "tsx",
-  props: {
-    foo: { type: String, required: false, default: "111" }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+var _sfc_main = /*@__PURE__*/ defineComponent({
+	__name: "tsx",
+	props: { foo: {
+		type: String,
+		required: false,
+		default: "111"
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var tsx = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
