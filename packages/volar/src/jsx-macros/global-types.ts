@@ -11,5 +11,7 @@ declare function ${options.defineExpose.alias[0]}<Exposed extends Record<string,
 declare const ${options.defineStyle.alias[0]}: { <T>(...args: ${HELPER_PREFIX}StyleArgs): T; scss: <T>(...args: ${HELPER_PREFIX}StyleArgs)=> T; sass: <T>(...args: ${HELPER_PREFIX}StyleArgs)=> T; stylus: <T>(...args: ${HELPER_PREFIX}StyleArgs)=> T; less: <T>(...args: ${HELPER_PREFIX}StyleArgs)=> T; postcss: <T>(...args: ${HELPER_PREFIX}StyleArgs)=> T };
 type ${HELPER_PREFIX}StyleArgs = [style: string, options?: { scoped?: boolean }];
 type ${HELPER_PREFIX}PrettifyLocal<T> = { [K in keyof T]: T[K]; } & {};
+type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
+type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
 `
 }
