@@ -1,5 +1,12 @@
 # unplugin-vue-macros
 
+## 2.14.3
+### Patch Changes
+
+- Updated dependencies [[`de367c8`](https://github.com/vue-macros/vue-macros/commit/de367c880439edaabf3891a5cca9244f31343806)]:
+  - @vue-macros/jsx-directive@0.10.5
+  - @vue-macros/config@0.6.0
+
 ## 2.14.2
 ### Patch Changes
 
