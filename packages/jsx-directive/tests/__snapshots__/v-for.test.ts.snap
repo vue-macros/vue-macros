@@ -104,33 +104,33 @@ const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
 let selected = 0
 
-const Comp = <>{__MACROS_createFor(() => 4, (__MACROS_props) => <div>{__MACROS_props[0].value}</div>)}</>
+const Comp = <>{__MACROS_createFor(() => 4, (...__MACROS_props) => <div>{__MACROS_props[0].value}</div>)}</>
 
 defineRender(() => (
   <>
-    {__MACROS_createFor(() => 4, (__MACROS_props) => <div>
+    {__MACROS_createFor(() => 4, (...__MACROS_props) => <div>
       <div>{__MACROS_props[0].value}</div>
     </div>, ([i]) => (i))}
 
-    {__MACROS_createFor(() => object, (__MACROS_props) => <div>
+    {__MACROS_createFor(() => object, (...__MACROS_props) => <div>
       {__MACROS_props[1].value}: {__MACROS_props[0].value}
     </div>, ([value, key, index]) => (index))}
 
-    {__MACROS_createFor(() => [1, 2, 3][Symbol.iterator](), (__MACROS_props) => <div>
+    {__MACROS_createFor(() => [1, 2, 3][Symbol.iterator](), (...__MACROS_props) => <div>
       <div>{__MACROS_props[0].value}</div>
     </div>, ([i, index]) => (index))}
 
-    {__MACROS_createFor(() => [1, 2, 3], (__MACROS_props) => <div v-memo={[selected === __MACROS_props[0].value]}>
+    {__MACROS_createFor(() => [1, 2, 3], (...__MACROS_props) => <div v-memo={[selected === __MACROS_props[0].value]}>
       <div>{__MACROS_props[0].value}</div>
     </div>, ([i, __MACROS_index]) => (i))}
 
-    {(set) ? __MACROS_createFor(() => set, (__MACROS_props) => <div>
+    {(set) ? __MACROS_createFor(() => set, (...__MACROS_props) => <div>
       <div>{__MACROS_props[0].value}</div>
     </div>, ([i]) => (i)) : null}
 
-    {__MACROS_createFor(() => map, (__MACROS_props) => <div>
+    {__MACROS_createFor(() => map, (...__MACROS_props) => <div>
       {__MACROS_props[0].value[0].value}
-      {__MACROS_createFor(() => 3, (__MACROS_props) => <div>
+      {__MACROS_createFor(() => 3, (...__MACROS_props) => <div>
         {__MACROS_props[0].value}: {__MACROS_props[0].value[1].value}
       </div>)}
     </div>, ([[key, value], index]) => (index))}
