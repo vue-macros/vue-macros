@@ -16,7 +16,7 @@ export function useModel(
   options: DefineModelOptions = {},
 ): any {
   const res = customRef((track, trigger) => {
-    let localValue: any = options?.default
+    let localValue: any = options && options.default
     let prevEmittedValue: any
 
     watchSyncEffect(() => {
