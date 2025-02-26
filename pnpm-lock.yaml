@@ -412,8 +412,8 @@ importers:
         specifier: ^0.2.9
         version: 0.2.9
       unconfig:
-        specifier: ^7.0.0
-        version: 7.0.0
+        specifier: ^7.1.0
+        version: 7.1.0
     devDependencies:
       '@vue-macros/better-define':
         specifier: workspace:*
@@ -6127,6 +6127,9 @@ packages:
   unconfig@7.0.0:
     resolution: {integrity: sha512-G5CJSoG6ZTxgzCJblEfgpdRK2tos9+UdD2WtecDUVfImzQ0hFjwpH5RVvGMhP4pRpC9ML7NrC4qBsBl0Ttj35A==}
 
+  unconfig@7.1.0:
+    resolution: {integrity: sha512-4rNuVn7UJXvRCPFk4CT/VfoCEh9VTtohLAmPzMkSKjAnesnsSDsIKt0kso8sSeZji2Js31iOWQhY6R8pFP6UVQ==}
+
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
 
@@ -11491,7 +11494,7 @@ snapshots:
       fast-glob: 3.3.3
       js-yaml: '@zkochan/js-yaml@0.0.7'
       pnpm-multi-versions: 0.4.1
-      unconfig: 7.0.0
+      unconfig: 7.1.0
 
   mri@1.2.0: {}
 
@@ -12402,7 +12405,7 @@ snapshots:
       package-manager-detector: 0.2.9
       pathe: 2.0.3
       tinyexec: 0.3.2
-      unconfig: 7.0.0
+      unconfig: 7.1.0
       yaml: 2.7.0
       yargs: 17.7.2
 
@@ -12581,6 +12584,12 @@ snapshots:
   ultrahtml@1.5.3: {}
 
   unconfig@7.0.0:
+    dependencies:
+      '@antfu/utils': 8.1.1
+      defu: 6.1.4
+      jiti: 2.4.2
+
+  unconfig@7.1.0:
     dependencies:
       '@antfu/utils': 8.1.1
       defu: 6.1.4
