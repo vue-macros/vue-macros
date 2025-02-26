@@ -1,7 +1,7 @@
 {
   "name": "@vue-macros/devtools",
   "version": "0.4.1",
-  "packageManager": "pnpm@10.2.1",
+  "packageManager": "pnpm@10.4.1",
   "description": "Devtools plugin for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -62,7 +62,7 @@
     }
   },
   "dependencies": {
-    "sirv": "^3.0.0",
+    "sirv": "^3.0.1",
     "vue": "catalog:"
   },
   "devDependencies": {
@@ -71,7 +71,7 @@
     "get-port": "^7.1.0",
     "unocss": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-inspect": "^10.1.0"
+    "vite-plugin-inspect": "^10.2.1"
   },
   "engines": {
     "node": ">=16.14.0"
