@@ -57,7 +57,12 @@ function resolveOptions(
     version,
     lib,
     defineComponent: {
-      alias: options?.defineComponent?.alias ?? ['defineComponent'],
+      alias:
+        options?.defineComponent?.alias ??
+        [
+          'defineComponent',
+          lib === 'vue/vapor' ? 'defineVaporComponent' : '',
+        ].filter(Boolean),
     },
     defineModel: { alias: options?.defineModel?.alias ?? ['defineModel'] },
     defineSlots: { alias: options?.defineSlots?.alias ?? ['defineSlots'] },

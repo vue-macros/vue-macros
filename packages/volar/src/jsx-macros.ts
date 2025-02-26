@@ -21,7 +21,12 @@ const plugin: PluginReturn<OptionsResolved['jsxMacros'] | undefined> =
       const lib = userOptions.lib ?? 'vue'
       const macros = {
         defineComponent: {
-          alias: userOptions.defineComponent?.alias ?? ['defineComponent'],
+          alias:
+            userOptions.defineComponent?.alias ??
+            [
+              'defineComponent',
+              lib === 'vue/vapor' ? 'defineVaporComponent' : '',
+            ].filter(Boolean),
         },
         defineModel: {
           alias: userOptions.defineModel?.alias ?? ['defineModel'],

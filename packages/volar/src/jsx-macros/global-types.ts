@@ -2,9 +2,13 @@ import { HELPER_PREFIX } from '@vue-macros/common'
 import type { TransformOptions } from '.'
 
 export function getGlobalTypes(options: TransformOptions): string {
+  const defineComponent = options.defineComponent.alias.map(
+    (alias) =>
+      `declare function ${HELPER_PREFIX}${alias}<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs' | 'components' | 'directives'> & { props?: import('vue').ComponentObjectPropsOptions }): T;\n`,
+  )
   return `
 const { defineModel${options.defineModel.alias[0] !== 'defineModel' ? `: ${options.defineModel.alias[0]}` : ''} } = await import('vue')
-declare function ${HELPER_PREFIX}${options.defineComponent.alias[0]}<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs' | 'components' | 'directives'> & { props?: import('vue').ComponentObjectPropsOptions }): T;
+${defineComponent}
 declare function ${options.defineSlots.alias[0]}<T extends Record<string, any>>(): Partial<T>;
 declare function ${options.defineSlots.alias[0]}<T extends Record<string, any>>(slots: T): T;
 declare function ${options.defineExpose.alias[0]}<Exposed extends Record<string, any> = Record<string, any>>(exposed?: Exposed): Exposed;
