@@ -1,5 +1,12 @@
 # @vue-macros/config
 
+## 0.6.1
+### Patch Changes
+
+
+
+- [`181dbbe`](https://github.com/vue-macros/vue-macros/commit/181dbbed316be7bdd4f57bc5875de928ce643509) Thanks [@sxzz](https://github.com/sxzz)! - fix load unconfig
+
 ## 0.6.0
 ### Minor Changes
 
