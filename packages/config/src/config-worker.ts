@@ -7,7 +7,6 @@ export async function loadConfigAsync(cwd: string): Promise<Options> {
       {
         files: 'vue-macros.config',
         extensions: ['mts', 'cts', 'ts', 'mjs', 'cjs', 'js', 'json', ''],
-        loader: 'jiti',
       },
       {
         files: 'package.json',
