@@ -16,7 +16,7 @@ export function transformDefineExpose(
   version: number,
 ): void {
   if (lib.includes('vue')) {
-    transformVueDefineExpose(node, s)
+    transformVueDefineExpose(node, s, lib)
   } else if (lib.includes('react')) {
     transformReactDefineExpose(node, propsName, root, s, lib, version)
   }
