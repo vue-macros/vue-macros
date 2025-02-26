@@ -43,14 +43,12 @@ function transformDefineModels(options: {
 function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
   function getCallArg(node: import('typescript').Node) {
     if (
-      !(
-        ts.isCallExpression(node) &&
-        ts.isIdentifier(node.expression) &&
-        [DEFINE_MODELS, DEFINE_MODELS_DOLLAR].includes(
-          node.expression.escapedText!,
-        ) &&
-        node.typeArguments?.length === 1
-      )
+      !ts.isCallExpression(node) ||
+      !ts.isIdentifier(node.expression) ||
+      ![DEFINE_MODELS, DEFINE_MODELS_DOLLAR].includes(
+        node.expression.escapedText!,
+      ) ||
+      node.typeArguments?.length !== 1
     )
       return undefined
     return node.typeArguments[0]

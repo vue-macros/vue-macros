@@ -20,11 +20,9 @@ function transformDefineOptions({
 function getArg(ts: typeof import('typescript'), sfc: Sfc) {
   function getCallArg(node: import('typescript').Node) {
     if (
-      !(
-        ts.isCallExpression(node) &&
-        ts.isIdentifier(node.expression) &&
-        node.expression.escapedText === DEFINE_OPTIONS
-      )
+      !ts.isCallExpression(node) ||
+      !ts.isIdentifier(node.expression) ||
+      node.expression.escapedText !== DEFINE_OPTIONS
     )
       return undefined
     return node.arguments[0]

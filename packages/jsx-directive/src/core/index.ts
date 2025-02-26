@@ -135,7 +135,7 @@ function transform(
         }
       }
 
-      if (!(vSlotAttribute && tagName === 'template')) {
+      if (!vSlotAttribute || tagName !== 'template') {
         if (vIfAttribute) {
           vIfMap.get(parent) || vIfMap.set(parent, [])
           vIfMap.get(parent)!.push({
