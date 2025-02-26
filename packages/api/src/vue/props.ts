@@ -333,11 +333,13 @@ export async function handleTSPropsDefinition({
             def.value.ast.type === 'TSEnumDeclaration' ||
             def.value.ast.type === 'TSInterfaceDeclaration' ||
             def.value.ast.type === 'TSModuleDeclaration' ||
+            def.value.ast.type === 'TSImportEqualsDeclaration' ||
             result.value.ast.type === 'TSImportType' ||
             result.value.ast.type === 'TSDeclareFunction' ||
             result.value.ast.type === 'TSEnumDeclaration' ||
             result.value.ast.type === 'TSInterfaceDeclaration' ||
-            result.value.ast.type === 'TSModuleDeclaration'
+            result.value.ast.type === 'TSModuleDeclaration' ||
+            result.value.ast.type === 'TSImportEqualsDeclaration'
           ) {
             // no way!
             continue
