@@ -103,7 +103,7 @@ export function transformVFor(
     if (options.lib === 'vue/vapor') {
       s.overwriteNode(
         node,
-        transformRestructure(s.sliceNode(node), { unwrapRef: true }),
+        `(...${transformRestructure(s.sliceNode(node), { unwrapRef: true }).slice(1)}`,
       )
     }
 
