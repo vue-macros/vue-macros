@@ -1,5 +1,12 @@
 # @vue-macros/jsx-directive
 
+## 0.10.6
+### Patch Changes
+
+
+
+- [#921](https://github.com/vue-macros/vue-macros/pull/921) [`c2dcf69`](https://github.com/vue-macros/vue-macros/commit/c2dcf699204a9ea337fbec643f718d0a5afd93e5) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support restructure v-for for vapor mode
+
 ## 0.10.5
 ### Patch Changes
 
