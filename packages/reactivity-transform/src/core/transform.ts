@@ -688,7 +688,7 @@ export function transformAST(
         const binding = rootScope[node.name]
         if (
           // if inside $$(), skip unless this is a destructured prop binding
-          !(escapeScope && (!binding || !binding.isProp)) &&
+          (!escapeScope || (binding && binding.isProp)) &&
           isReferencedIdentifier(node, parent!, parentStack) &&
           !excludedIds.has(node)
         ) {

@@ -131,7 +131,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       } as any)
     }
 
-    if (!(vSlotAttribute && tagName === 'template')) {
+    if (!vSlotAttribute || tagName !== 'template') {
       if (vIfAttribute) {
         vIfMap.has(parent) || vIfMap.set(parent, [])
         vIfMap.get(parent)!.push({
