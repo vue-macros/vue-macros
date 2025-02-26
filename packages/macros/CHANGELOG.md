@@ -1,5 +1,14 @@
 # unplugin-vue-macros
 
+## 2.14.5
+### Patch Changes
+
+- Updated dependencies [[`181dbbe`](https://github.com/vue-macros/vue-macros/commit/181dbbed316be7bdd4f57bc5875de928ce643509)]:
+  - @vue-macros/config@0.6.1
+  - @vue-macros/volar@0.30.15
+  - @vue-macros/better-define@1.11.4
+  - @vue-macros/define-prop@0.6.5
+
 ## 2.14.4
 ### Patch Changes
 
