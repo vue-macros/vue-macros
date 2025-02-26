@@ -1,6 +1,7 @@
 import {
   babelParse,
   isStaticObjectKey,
+  isTypeOf,
   resolveIdentifier,
   resolveObjectExpression,
   resolveString,
@@ -327,17 +328,17 @@ export async function handleTSPropsDefinition({
             continue
           }
 
+          const excludeTypes = [
+            'TSImportType',
+            'TSDeclareFunction',
+            'TSEnumDeclaration',
+            'TSInterfaceDeclaration',
+            'TSModuleDeclaration',
+            'TSImportEqualsDeclaration',
+          ] as const
           if (
-            def.value.ast.type === 'TSImportType' ||
-            def.value.ast.type === 'TSDeclareFunction' ||
-            def.value.ast.type === 'TSEnumDeclaration' ||
-            def.value.ast.type === 'TSInterfaceDeclaration' ||
-            def.value.ast.type === 'TSModuleDeclaration' ||
-            result.value.ast.type === 'TSImportType' ||
-            result.value.ast.type === 'TSDeclareFunction' ||
-            result.value.ast.type === 'TSEnumDeclaration' ||
-            result.value.ast.type === 'TSInterfaceDeclaration' ||
-            result.value.ast.type === 'TSModuleDeclaration'
+            isTypeOf(def.value.ast, excludeTypes) ||
+            isTypeOf(result.value.ast, excludeTypes)
           ) {
             // no way!
             continue
