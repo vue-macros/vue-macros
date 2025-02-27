@@ -2,11 +2,11 @@
 
 exports[`fixtures > tests/fixtures/index.tsx 1`] = `
 "// index.js
-import { createVNode } from 'vue';
+import { createVNode, Fragment } from 'vue';
 
 var index = () => {
   let foo = 1;
-  return foo === 1 ? createVNode("div", null, [foo]) : null;
+  return createVNode(Fragment, null, [foo === 1 ? createVNode("div", null, [foo]) : null]);
 };
 
 export { index as default };
