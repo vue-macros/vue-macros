@@ -102,11 +102,6 @@
       "require": "./dist/export-render.js",
       "import": "./dist/export-render.mjs"
     },
-    "./jsx": {
-      "dev": "./src/jsx.ts",
-      "require": "./dist/jsx.js",
-      "import": "./dist/jsx.mjs"
-    },
     "./jsx-directive": {
       "dev": "./src/jsx-directive.ts",
       "require": "./dist/jsx-directive.js",
@@ -229,10 +224,6 @@
         "require": "./dist/export-render.js",
         "import": "./dist/export-render.mjs"
       },
-      "./jsx": {
-        "require": "./dist/jsx.js",
-        "import": "./dist/jsx.mjs"
-      },
       "./jsx-directive": {
         "require": "./dist/jsx-directive.js",
         "import": "./dist/jsx-directive.mjs"
@@ -300,7 +291,7 @@
     "@vue/compiler-dom": "catalog:",
     "@vue/language-core": "catalog:",
     "muggle-string": "^0.4.1",
-    "ts-macro": "^0.1.17"
+    "ts-macro": "catalog:"
   },
   "devDependencies": {
     "typescript": "catalog:",

@@ -46,6 +46,11 @@
       "require": "./dist/jsx-runtime.cjs",
       "import": "./dist/jsx-runtime.js"
     },
+    "./raw": {
+      "dev": "./src/raw.ts",
+      "require": "./dist/raw.cjs",
+      "import": "./dist/raw.js"
+    },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
       "require": "./dist/rolldown.cjs",
@@ -106,6 +111,10 @@
         "require": "./dist/jsx-runtime.cjs",
         "import": "./dist/jsx-runtime.js"
       },
+      "./raw": {
+        "require": "./dist/raw.cjs",
+        "import": "./dist/raw.js"
+      },
       "./rolldown": {
         "require": "./dist/rolldown.cjs",
         "import": "./dist/rolldown.js"
@@ -149,6 +158,7 @@
     "@vue-macros/jsx-directive": "workspace:*",
     "@vue-macros/jsx-macros": "workspace:*",
     "@vue-macros/volar": "workspace:*",
+    "ts-macro": "catalog:",
     "unplugin-combine": "^1.2.0"
   },
   "devDependencies": {
