@@ -10,7 +10,7 @@ export function getGlobalTypes(options: TransformOptions): string {
     .join('')
   const defineSlots = options.defineSlots.alias
     .flatMap((alias) => [
-      `declare function ${alias}<T extends ((props?: any) => any)>(setup: T, options?: Pick<import('vue').ComponentOptions, 'name' | 'inheritAttrs' | 'components' | 'directives'> & { props?: import('vue').ComponentObjectPropsOptions }): T;\n`,
+      `declare function ${alias}<T extends Record<string, any>>(): Partial<T>;`,
       `declare function ${alias}<T extends Record<string, any>>(slots: T): T;\n`,
     ])
     .join('')
