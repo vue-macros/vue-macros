@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - next
       - vue-ecosystem-ci
 
   pull_request:
@@ -11,6 +12,9 @@ on:
       - main
 
   workflow_dispatch:
+
+env:
+  COREPACK_INTEGRITY_KEYS: '0'
 
 jobs:
   lint:

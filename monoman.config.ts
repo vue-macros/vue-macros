@@ -78,7 +78,7 @@ export default defineConfig([
         url: `git+${githubLink}.git`,
         directory: `packages/${pkgName}`,
       }
-      // data.author = '三咲智子 <sxzz@sxzz.moe>'
+      // data.author = '三咲智子 Kevin Deng <sxzz@sxzz.moe>'
       data.engines = { node: '>=16.14.0' }
 
       data.files = ['dist']

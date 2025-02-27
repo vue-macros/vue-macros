@@ -34,9 +34,8 @@ export * from './utils'
 export function transformTemplateIs(s: MagicStringAST): NodeTransform {
   return (node) => {
     if (
-      !(
-        node.type === (1 satisfies NodeTypes.ELEMENT) && node.tag === 'template'
-      )
+      node.type !== (1 satisfies NodeTypes.ELEMENT) ||
+      node.tag !== 'template'
     )
       return
 

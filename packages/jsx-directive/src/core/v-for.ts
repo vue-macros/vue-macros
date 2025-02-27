@@ -56,7 +56,7 @@ export function resolveVFor(
           s.remove(key.start! - 1, key.end!)
         }
         s.appendRight(node.start!, `${params} => `)
-        return `${importHelperFn(s, 0, 'createFor', lib)}(() => ${list}, `
+        return `${importHelperFn(s, 0, 'createFor', 'vue')}(() => ${list}, `
       } else {
         const params = `(${item}${
           index ? `, ${index}` : ''
@@ -67,7 +67,9 @@ export function resolveVFor(
               s,
               0,
               'renderList',
-              version ? 'vue' : '@vue-macros/jsx-directive/helpers',
+              lib.startsWith('vue')
+                ? 'vue'
+                : '@vue-macros/jsx-directive/helpers',
             )
         return `${renderList}(${list}, ${params} => `
       }
@@ -84,21 +86,24 @@ export function transformVFor(
 ): void {
   if (nodes.length === 0) return
 
-  nodes.forEach(({ node, attribute, parent, vMemoAttribute }) => {
+  nodes.forEach(({ node, attribute, parent, vIfAttribute, vMemoAttribute }) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(
       String(parent?.type),
     )
-    s.prependRight(node.end!, `)${hasScope ? '}' : ''}`)
+    s.prependRight(
+      node.end!,
+      `)${hasScope ? (vIfAttribute ? '' : '}') : '}</>'}`,
+    )
     s.appendLeft(
       node.start!,
-      `${hasScope ? '{' : ''}${resolveVFor(attribute, node, s, options, vMemoAttribute)}`,
+      `${hasScope ? (vIfAttribute ? '' : '{') : '<>{'}${resolveVFor(attribute, node, s, options, vMemoAttribute)}`,
     )
     s.remove(attribute.start! - 1, attribute.end!)
 
     if (options.lib === 'vue/vapor') {
       s.overwriteNode(
         node,
-        transformRestructure(s.sliceNode(node), { unwrapRef: true }),
+        `(...${transformRestructure(s.sliceNode(node), { unwrapRef: true }).slice(1)}`,
       )
     }
 

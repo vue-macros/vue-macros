@@ -35,12 +35,10 @@ function transform({
 function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
   function getCallArg(node: import('typescript').Node) {
     if (
-      !(
-        ts.isCallExpression(node) &&
-        ts.isIdentifier(node.expression) &&
-        node.expression.escapedText === DEFINE_SLOTS &&
-        node.typeArguments?.length === 1
-      )
+      !ts.isCallExpression(node) ||
+      !ts.isIdentifier(node.expression) ||
+      node.expression.escapedText !== DEFINE_SLOTS ||
+      node.typeArguments?.length !== 1
     )
       return undefined
     return node.typeArguments[0]

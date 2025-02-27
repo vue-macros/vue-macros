@@ -26,6 +26,7 @@ export type JsxDirective = {
   node: JSXElement
   attribute: JSXAttribute
   parent?: Node | null
+  vIfAttribute?: JSXAttribute
   vForAttribute?: JSXAttribute
   vMemoAttribute?: JSXAttribute
 }
@@ -73,9 +74,7 @@ function transform(
   const { prefix, version } = options
   const vIfMap = new Map<Node | null | undefined, JsxDirective[]>()
   const vForNodes: JsxDirective[] = []
-  const vMemoNodes: (JsxDirective & {
-    vForAttribute?: JSXAttribute
-  })[] = []
+  const vMemoNodes: JsxDirective[] = []
   const vHtmlNodes: JsxDirective[] = []
   const vSlotMap: VSlotMap = new Map()
   const vOnNodes: JsxDirective[] = []
@@ -132,11 +131,11 @@ function transform(
           attribute.name.type === 'JSXNamespacedName' &&
           attribute.name.namespace.name === `${prefix}model`
         ) {
-          transformVModel(attribute, s, version)
+          transformVModel(attribute, s, options)
         }
       }
 
-      if (!(vSlotAttribute && tagName === 'template')) {
+      if (!vSlotAttribute || tagName !== 'template') {
         if (vIfAttribute) {
           vIfMap.get(parent) || vIfMap.set(parent, [])
           vIfMap.get(parent)!.push({
@@ -150,7 +149,8 @@ function transform(
           vForNodes.unshift({
             node,
             attribute: vForAttribute,
-            parent: vIfAttribute ? undefined : parent,
+            vIfAttribute,
+            parent,
             vMemoAttribute,
           })
         }
@@ -215,12 +215,12 @@ function transform(
     },
   })
 
-  vIfMap.forEach((nodes) => transformVIf(nodes, s, version, prefix))
+  vIfMap.forEach((nodes) => transformVIf(nodes, s, options))
   transformVFor(vForNodes, s, options)
-  if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, version)
-  transformVHtml(vHtmlNodes, s, version)
-  transformVOn(vOnNodes, s, version)
-  transformOnWithModifiers(onWithModifiers, s, version, prefix)
+  if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, options)
+  transformVHtml(vHtmlNodes, s, options)
+  transformVOn(vOnNodes, s, options)
+  transformOnWithModifiers(onWithModifiers, s, options)
   transformVSlot(vSlotMap, s, options)
 }
 

@@ -1,9 +1,9 @@
 import { resolve } from 'node:path'
 import {
   rollupBuild,
-  RollupEsbuildPlugin,
   RollupToStringPlugin,
   testFixtures,
+  UnpluginOxc,
 } from '@vue-macros/test-utils'
 import { describe } from 'vitest'
 import VueDefineProp from '../src/rollup'
@@ -20,9 +20,7 @@ describe('fixtures', async () => {
             : 'johnsonEdition',
         }),
         RollupToStringPlugin(),
-        RollupEsbuildPlugin({
-          target: 'esnext',
-        }),
+        UnpluginOxc.rollup(),
       ]),
     {
       cwd: resolve(__dirname, '..'),

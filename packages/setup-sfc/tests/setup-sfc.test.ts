@@ -2,10 +2,10 @@ import { resolve } from 'node:path'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
 import {
   rollupBuild,
-  RollupEsbuildPlugin,
   RollupVue,
   RollupVueJsx,
   testFixtures,
+  UnpluginOxc,
 } from '@vue-macros/test-utils'
 import { describe, expect, test } from 'vitest'
 import VueSetupSFC from '../src/rollup'
@@ -32,9 +32,7 @@ describe('setup-component', () => {
             include: [REGEX_SETUP_SFC],
           }),
           RollupVueJsx(),
-          RollupEsbuildPlugin({
-            target: 'esnext',
-          }),
+          UnpluginOxc.rollup(),
         ]),
       {
         cwd: resolve(__dirname, '..'),

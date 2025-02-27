@@ -1,5 +1,45 @@
 # @vue-macros/jsx-directive
 
+## 0.10.6
+### Patch Changes
+
+
+
+- [#921](https://github.com/vue-macros/vue-macros/pull/921) [`c2dcf69`](https://github.com/vue-macros/vue-macros/commit/c2dcf699204a9ea337fbec643f718d0a5afd93e5) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - support restructure v-for for vapor mode
+
+## 0.10.5
+### Patch Changes
+
+
+
+- [#917](https://github.com/vue-macros/vue-macros/pull/917) [`de367c8`](https://github.com/vue-macros/vue-macros/commit/de367c880439edaabf3891a5cca9244f31343806) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use vue instead of vue/vapor for imports
+
+## 0.10.4
+### Patch Changes
+
+
+
+- [#913](https://github.com/vue-macros/vue-macros/pull/913) [`046992a`](https://github.com/vue-macros/vue-macros/commit/046992a76c0407434ab1c1dbf0bc2b5c1fc0b3fd) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use lib instead of version for helper imports
+
+
+
+- [#912](https://github.com/vue-macros/vue-macros/pull/912) [`ee2b156`](https://github.com/vue-macros/vue-macros/commit/ee2b1561374ecb304c0f89a084660a007a189771) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - wrap root JSX elements with Fragment for v-if and v-for
+
+
+
+- [#910](https://github.com/vue-macros/vue-macros/pull/910) [`1fd6236`](https://github.com/vue-macros/vue-macros/commit/1fd6236bcb83d2003437421286615d4635ba150e) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - use compiler-sfc instead of compiler-core to expose walkIdentifiers
+
+## 0.10.3
+### Patch Changes
+
+
+
+- [#906](https://github.com/vue-macros/vue-macros/pull/906) [`f091389`](https://github.com/vue-macros/vue-macros/commit/f091389c247e253933fd38c17d840e6fc3900c91) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - expose raw to support browser environments
+
+
+
+- [#908](https://github.com/vue-macros/vue-macros/pull/908) [`b00a0c8`](https://github.com/vue-macros/vue-macros/commit/b00a0c8d147f63589ab5e2c106a4a653b860cf01) Thanks [@zhiyuanzmj](https://github.com/zhiyuanzmj)! - add with-defaults helper to the load hook
+
 ## 0.10.2
 ### Patch Changes
 

@@ -26,6 +26,22 @@ describe('fixtures', async () => {
   )
 })
 
+describe('vue/vapor fixtures', async () => {
+  await testFixtures(
+    import.meta.glob('./fixtures/**/*.tsx', {
+      eager: true,
+      as: 'raw',
+    }),
+    (args, id, code) =>
+      transformJsxMacros(code, id, new Map(), {
+        lib: 'vue/vapor',
+        include: ['*.tsx'],
+        version: 3.5,
+        ...options,
+      })?.code,
+  )
+})
+
 describe('react fixtures', async () => {
   await testFixtures(
     import.meta.glob('./fixtures/**/define-expose.tsx', {

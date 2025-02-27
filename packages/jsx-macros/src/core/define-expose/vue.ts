@@ -13,6 +13,8 @@ export function transformVueDefineExpose(
   )
   s.appendRight(
     node.arguments[0]?.start || node.end! - 1,
-    `${importHelperFn(s, 0, 'getCurrentInstance', lib)}(), `,
+    lib.includes('vapor')
+      ? `${importHelperFn(s, 0, 'currentInstance', 'vue')}, `
+      : `${importHelperFn(s, 0, 'getCurrentInstance', 'vue')}(), `,
   )
 }

@@ -38,11 +38,9 @@ export function transformShortVmodel({
 export function processDirective(node: NodeElement): void {
   for (const [i, prop] of node.props.entries()) {
     if (
-      !(
-        prop.type === (7 satisfies NodeTypes.DIRECTIVE) &&
-        prop.arg?.type === (4 satisfies NodeTypes.SIMPLE_EXPRESSION) &&
-        prop.arg.content.startsWith(':')
-      )
+      prop.type !== (7 satisfies NodeTypes.DIRECTIVE) ||
+      prop.arg?.type !== (4 satisfies NodeTypes.SIMPLE_EXPRESSION) ||
+      !prop.arg.content.startsWith(':')
     )
       continue
 
@@ -68,11 +66,9 @@ export function processAttribute(
 ): void {
   for (const [i, prop] of node.props.entries()) {
     if (
-      !(
-        prop.type === (6 satisfies NodeTypes.ATTRIBUTE) &&
-        prop.name.startsWith(prefix) &&
-        prop.value
-      )
+      prop.type !== (6 satisfies NodeTypes.ATTRIBUTE) ||
+      !prop.name.startsWith(prefix) ||
+      !prop.value
     )
       continue
 
