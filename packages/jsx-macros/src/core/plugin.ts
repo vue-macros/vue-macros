@@ -24,7 +24,7 @@ import { transformJsxMacros } from '.'
 import type { UnpluginContextMeta, UnpluginFactory } from 'unplugin'
 
 export type Options = BaseOptions & {
-  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact'
+  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact' | 'solid' | (string & {})
   defineComponent?: { alias: string[] }
   defineModel?: { alias: string[] }
   defineExpose?: { alias: string[] }

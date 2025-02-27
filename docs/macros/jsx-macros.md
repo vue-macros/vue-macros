@@ -19,7 +19,7 @@ interface Options {
   /**
    * @default 'vue'
    */
-  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact'
+  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact' | 'solid' | string
 }
 ```
 
