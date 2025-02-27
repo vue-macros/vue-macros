@@ -1,7 +1,7 @@
-import { loadConfig } from 'unconfig'
 import type { Options } from './options'
 
 export async function loadConfigAsync(cwd: string): Promise<Options> {
+  const { loadConfig } = await import('unconfig')
   const { config } = await loadConfig<Options>({
     sources: [
       {
