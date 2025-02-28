@@ -725,9 +725,9 @@ importers:
 
   packages/jsx:
     dependencies:
-      '@vue-macros/config':
+      '@vue-macros/common':
         specifier: workspace:*
-        version: link:../config
+        version: link:../common
       '@vue-macros/jsx-directive':
         specifier: workspace:*
         version: link:../jsx-directive
