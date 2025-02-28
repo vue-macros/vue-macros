@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vitepress dev",
+    "dev": "TWOSLASH=1 vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress preview"
   },
