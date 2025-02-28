@@ -21,12 +21,12 @@ export function resolveJSXOptions(
   const resolveOptions: ResolvedJSXOptions = {}
   if (options.directive !== false)
     resolveOptions.directive =
-      options.directive === true ? {} : (resolveOptions.directive ?? {})
+      options.directive === true ? {} : (options.directive ?? {})
   if (options.macros !== false)
     resolveOptions.macros =
-      options.macros === true ? {} : (resolveOptions.macros ?? {})
+      options.macros === true ? {} : (options.macros ?? {})
   if (options.ref !== false)
-    resolveOptions.ref = options.ref === true ? {} : (resolveOptions.ref ?? {})
+    resolveOptions.ref = options.ref === true ? {} : (options.ref ?? {})
 
   if (options.lib) {
     resolveOptions.directive && (resolveOptions.directive.lib ??= options.lib)
