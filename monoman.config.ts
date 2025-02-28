@@ -37,7 +37,6 @@ function getPkgName(filePath: string) {
   return pkgName
 }
 
-let packageManager: string | undefined
 let version: string | undefined
 
 export default defineConfig([
@@ -227,19 +226,6 @@ Please refer to [README.md](${githubLink}#readme)\n`
     ],
     ignores: ['vue'],
   }),
-  {
-    include: ['package.json', 'packages/*/package.json'],
-    type: 'json',
-    contents(data: Record<string, any>) {
-      if (!packageManager) {
-        packageManager = data.packageManager
-      } else {
-        data.packageManager = packageManager
-      }
-
-      return data
-    },
-  },
   ...noDuplicatedPnpmLockfile({
     deps: [
       'typescript',
