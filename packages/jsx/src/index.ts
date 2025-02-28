@@ -6,19 +6,20 @@ import {
   createCombinePlugin,
   type UnpluginCombineInstance,
 } from 'unplugin-combine'
-import { resolveJSXOptions, type JSXOptions } from './options'
+import { resolveJSXOptions, type JSXOptions } from './core/options'
+
+const jsxPlugins = [
+  ['directive', jsxDirective],
+  ['macros', jsxMacros],
+] as const
 
 const name = generatePluginName()
 const plugin: UnpluginCombineInstance<JSXOptions | undefined> =
   createCombinePlugin<JSXOptions | undefined>((userOptions = {}, meta) => {
     const options = resolveJSXOptions(userOptions)
-    const framework = meta.framework!
-    const plugins = [
-      options.directive
-        ? jsxDirective[framework](options.directive)
-        : undefined,
-      options.macros ? jsxMacros[framework](options.macros) : undefined,
-    ].filter((plugin) => !!plugin)
+    const plugins = jsxPlugins.flatMap(([name, plugin]) =>
+      options[name] ? plugin[meta.framework!](options[name]) : [],
+    )
 
     return {
       name,
