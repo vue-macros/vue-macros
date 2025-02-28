@@ -1,7 +1,6 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { restructure } from '@vue-macros/jsx-directive/api'
 import { walkIdentifiers } from '@vue/compiler-core'
-import { importHelper } from '../common'
 import { withDefaultsHelperId } from '../helper'
 import type { FunctionalNode, RootMapValue } from '..'
 import type { OptionsResolved } from '../..'
@@ -18,7 +17,14 @@ export function transformDefineComponent(
   options: OptionsResolved,
 ): void {
   if (!map.defineComponent) return
-  importHelper({ s, ast, local: options.defineComponent.alias[0] })
+
+  const defineComponentName = s.sliceNode(map.defineComponent.callee)
+  if (
+    defineComponentName &&
+    !['defineComponent', 'defineVaporComponent'].includes(defineComponentName)
+  ) {
+    importHelperFn(s, 0, 'defineComponent', 'vue', false, defineComponentName)
+  }
 
   let hasRestProp = false
   const props: Record<string, string | null> = {}
