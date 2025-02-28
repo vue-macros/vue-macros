@@ -1,5 +1,11 @@
 # @vue-macros/volar
 
+## 0.30.15
+### Patch Changes
+
+- Updated dependencies [[`181dbbe`](https://github.com/vue-macros/vue-macros/commit/181dbbed316be7bdd4f57bc5875de928ce643509)]:
+  - @vue-macros/config@0.6.1
+
 ## 0.30.14
 ### Patch Changes
 

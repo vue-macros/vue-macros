@@ -1,5 +1,12 @@
 # @vue-macros/api
 
+## 0.13.4
+### Patch Changes
+
+
+
+- [`b9e6c4c`](https://github.com/vue-macros/vue-macros/commit/b9e6c4cb75c01adb49cd6f3e595673152e7d0150) Thanks [@sxzz](https://github.com/sxzz)! - exclude `TSImportEqualsDeclaration` for union types
+
 ## 0.13.3
 ### Patch Changes
 
