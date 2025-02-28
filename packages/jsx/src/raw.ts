@@ -1,5 +1,5 @@
-import VueJsxDirective from '@vue-macros/jsx-directive/raw'
-import VueJsxMacros from '@vue-macros/jsx-macros/raw'
+import jsxDirective from '@vue-macros/jsx-directive/raw'
+import jsxMacros from '@vue-macros/jsx-macros/raw'
 
 import { resolveJSXOptions, type JSXOptions } from './options'
 import type { UnpluginFactory } from 'unplugin'
@@ -13,10 +13,8 @@ const plugin: UnpluginFactory<JSXOptions | undefined, true> = (
   const options = resolveJSXOptions(userOptions)
 
   return [
-    options.jsxDirective
-      ? VueJsxDirective(options.jsxDirective, meta)
-      : undefined,
-    options.jsxMacros ? VueJsxMacros(options.jsxMacros, meta) : undefined,
+    options.directive ? jsxDirective(options.directive, meta) : undefined,
+    options.macros ? jsxMacros(options.macros, meta) : undefined,
   ]
     .flatMap((plugin) => plugin)
     .filter((plugin) => !!plugin)
