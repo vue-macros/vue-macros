@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 export const Comp = defineComponent(function <const T>({ foo }: { foo: T }) {
   const slots = defineSlots({

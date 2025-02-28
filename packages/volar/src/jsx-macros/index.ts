@@ -6,6 +6,7 @@ import {
 import { toValidAssetId } from '@vue/compiler-dom'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText } from '../common'
+import { transformDefineComponent } from './define-component'
 import type { OptionsResolved } from '@vue-macros/config'
 import type { TsmVirtualCode } from 'ts-macro'
 
@@ -155,13 +156,7 @@ export function getRootMap(options: TransformOptions): RootMap {
       if (!rootMap.has(root)) rootMap.set(root, {})
       if (!rootMap.get(root)!.defineComponent) {
         rootMap.get(root)!.defineComponent = true
-        replaceSourceRange(
-          codes,
-          source,
-          getStart(parents[2], options),
-          getStart(parents[2], options),
-          HELPER_PREFIX,
-        )
+        transformDefineComponent(parents[2], options)
       }
     }
 
