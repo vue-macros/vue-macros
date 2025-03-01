@@ -57,6 +57,9 @@ catalogs:
     '@vue/compiler-sfc':
       specifier: ^3.5.13
       version: 3.5.13
+    '@vue/language-core':
+      specifier: 2.2.4
+      version: 2.2.4
     '@vue/shared':
       specifier: ^3.5.13
       version: 3.5.13
@@ -119,7 +122,6 @@ overrides:
   '@shikijs/core': ^3.1.0
   '@shikijs/transformers': ^3.1.0
   '@shikijs/types': ^3.1.0
-  '@vue/language-core': 2.2.4
   is-core-module: npm:@no-shims/is-core-module
   shiki: ^3.1.0
   smartwrap: npm:@no-shims/smartwrap
@@ -861,7 +863,7 @@ importers:
         specifier: ^3.15.4
         version: 3.15.4
       '@vue/language-core':
-        specifier: 2.2.4
+        specifier: 'catalog:'
         version: 2.2.4(typescript@5.7.3)
 
   packages/reactivity-transform:
@@ -1020,7 +1022,7 @@ importers:
         specifier: workspace:*
         version: link:../short-vmodel
       '@vue/language-core':
-        specifier: 2.2.4
+        specifier: 'catalog:'
         version: 2.2.4(typescript@5.7.3)
       muggle-string:
         specifier: ^0.4.1
