@@ -48,6 +48,7 @@ const propName = defineProp<T>()
 
 ```vue twoslash
 <!-- @experimentalDefinePropProposal "kevinEdition" -->
+
 <script setup lang="ts">
 // Declare prop
 const count = defineProp('count')
