@@ -95,7 +95,7 @@ disabled.value
 
 ### With Reactivity Transform
 
-```vue
+```vue twoslash
 <!-- @experimentalDefinePropProposal "kevinEdition" -->
 
 <script setup lang="ts">
