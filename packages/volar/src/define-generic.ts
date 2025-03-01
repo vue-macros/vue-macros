@@ -91,3 +91,4 @@ const plugin: VueMacrosPlugin<'defineGeneric'> = (ctx, options = {}) => {
 }
 
 export default plugin
+export { plugin as 'module.exports' }

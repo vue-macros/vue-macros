@@ -26,34 +26,29 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./api": {
       "dev": "./src/api.ts",
-      "require": "./dist/api.cjs",
-      "import": "./dist/api.js"
+      "default": "./dist/api.js"
     },
     "./rolldown": {
       "dev": "./src/rolldown.ts",
-      "require": "./dist/rolldown.cjs",
-      "import": "./dist/rolldown.js"
+      "default": "./dist/rolldown.js"
     },
     "./rollup": {
       "dev": "./src/rollup.ts",
-      "require": "./dist/rollup.cjs",
-      "import": "./dist/rollup.js"
+      "default": "./dist/rollup.js"
     },
     "./vite": {
       "dev": "./src/vite.ts",
-      "require": "./dist/vite.cjs",
-      "import": "./dist/vite.js"
+      "default": "./dist/vite.js"
     },
     "./*": "./*"
   },
@@ -68,26 +63,11 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": {
-        "require": "./dist/index.cjs",
-        "import": "./dist/index.js"
-      },
-      "./api": {
-        "require": "./dist/api.cjs",
-        "import": "./dist/api.js"
-      },
-      "./rolldown": {
-        "require": "./dist/rolldown.cjs",
-        "import": "./dist/rolldown.js"
-      },
-      "./rollup": {
-        "require": "./dist/rollup.cjs",
-        "import": "./dist/rollup.js"
-      },
-      "./vite": {
-        "require": "./dist/vite.cjs",
-        "import": "./dist/vite.js"
-      },
+      ".": "./dist/index.js",
+      "./api": "./dist/api.js",
+      "./rolldown": "./dist/rolldown.js",
+      "./rollup": "./dist/rollup.js",
+      "./vite": "./dist/vite.js",
       "./*": "./*"
     },
     "tag": "next"

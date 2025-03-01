@@ -1,4 +1,4 @@
-import { copyFile, readFile, rm, writeFile } from 'node:fs/promises'
+import { rm } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
@@ -15,9 +15,6 @@ import { Unused, type Options as UnusedOptions } from 'unplugin-unused'
 const filename = fileURLToPath(import.meta.url)
 const macros = path.resolve(filename, '../macros')
 
-const pkg = JSON.parse(await readFile('./package.json', 'utf8'))
-const isESM = pkg.type === 'module'
-
 export function config({
   ignoreDeps = { peerDependencies: ['vue'] },
   shims,
@@ -28,6 +25,7 @@ export function config({
   external = [],
   cjs = false,
   esm = true,
+  onSuccess,
 }: {
   ignoreDeps?: UnusedOptions['ignore']
   shims?: boolean
@@ -38,6 +36,7 @@ export function config({
   external?: string[]
   cjs?: boolean
   esm?: boolean
+  onSuccess?: (entries: string[]) => void | Promise<void>
 } = {}): Options {
   const entry = onlyIndex ? ['./src/index.ts'] : ['./src/*.ts', '!./**.d.ts']
 
@@ -134,21 +133,9 @@ export function config({
         },
       })
 
-      for (const file of entryFiles) {
-        const mainFormat = file.replace('src', 'dist').replace(/\.ts$/, '.d.ts')
-        const alterFormat = mainFormat.replace(/\.ts$/, isESM ? '.cts' : '.mts')
-        await copyFile(mainFormat, alterFormat)
-
-        const cjsFormat = isESM ? alterFormat : mainFormat
-
-        const cjsExport = (await readFile(cjsFormat, 'utf8')).replace(
-          /(?<=(?:[;}]|^)\s*export\s*)\{\s*([\w$]+)\s*as\s+default\s*\}/,
-          `= $1`,
-        )
-        await writeFile(cjsFormat, cjsExport, 'utf8')
-      }
-
       await rm(path.resolve(process.cwd(), 'dist/temp'), { recursive: true })
+
+      await onSuccess?.(entryFiles)
     },
   }
 }

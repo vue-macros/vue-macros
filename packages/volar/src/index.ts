@@ -54,3 +54,4 @@ const plugin: VueLanguagePlugin = (ctx) =>
   })
 
 export default plugin
+export { plugin as 'module.exports' }

@@ -48,10 +48,7 @@ export default defineConfig([
       const pkgSrc = path.resolve(pkgRoot, 'src')
       const pkgName = getPkgName(filePath)
 
-      data.type = pkgName === 'volar' ? 'commonjs' : 'module'
-      const isESM = data.type === 'module'
-      const cjsPrefix = isESM ? 'c' : ''
-      const esmPrefix = isESM ? '' : 'm'
+      data.type = 'module'
       const hasRootDts = (await readdir(pkgRoot)).some((file) =>
         file.endsWith('.d.ts'),
       )
@@ -126,9 +123,6 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
             loader: 'bundle-require',
           })
         ).default
-        const format = tsupConfig.format || []
-        const hasCJS = format.includes('cjs')
-        const hasESM = format.includes('esm')
 
         const entries = (
           await fg(tsupConfig.entry as string[], {
@@ -147,8 +141,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
         const mainExport = exports['.']
         if (mainExport) {
           data.main = stripCurrentDir(mainExport.require || mainExport)
-          if (hasESM)
-            data.module = stripCurrentDir(mainExport.import || mainExport)
+          data.module = stripCurrentDir(mainExport.import || mainExport)
         }
 
         const onlyIndex = entries.length === 1 && entries[0] === 'index'
@@ -174,12 +167,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
                     map.types = `./volar.d.ts`
                     map.default = `./volar.cjs`
                   } else {
-                    if (hasCJS)
-                      map[hasESM ? 'require' : 'default'] =
-                        `./dist/${entry}.${cjsPrefix}js`
-                    if (hasESM)
-                      map[hasCJS ? 'import' : 'default'] =
-                        `./dist/${entry}.${esmPrefix}js`
+                    map.default = `./dist/${entry}.js`
                   }
 
                   if (Object.keys(map).length === 1) {

@@ -69,3 +69,4 @@ const plugin: VueMacrosPlugin<'setupJsdoc'> = (ctx, options = {}) => {
   }
 }
 export default plugin
+export { plugin as 'module.exports' }

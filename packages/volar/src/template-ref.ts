@@ -3,3 +3,4 @@ import type { VueLanguagePlugin } from '@vue/language-core'
 
 const plugin: VueLanguagePlugin = () => []
 export default plugin
+export { plugin as 'module.exports' }

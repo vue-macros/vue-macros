@@ -26,34 +26,29 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./config": {
       "dev": "./src/config.ts",
-      "require": "./dist/config.cjs",
-      "import": "./dist/config.js"
+      "default": "./dist/config.js"
     },
     "./config-worker": {
       "dev": "./src/config-worker.ts",
-      "require": "./dist/config-worker.cjs",
-      "import": "./dist/config-worker.js"
+      "default": "./dist/config-worker.js"
     },
     "./define": {
       "dev": "./src/define.ts",
-      "require": "./dist/define.cjs",
-      "import": "./dist/define.js"
+      "default": "./dist/define.js"
     },
     "./options": {
       "dev": "./src/options.ts",
-      "require": "./dist/options.cjs",
-      "import": "./dist/options.js"
+      "default": "./dist/options.js"
     },
     "./*": "./*"
   },
@@ -68,26 +63,11 @@
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": {
-        "require": "./dist/index.cjs",
-        "import": "./dist/index.js"
-      },
-      "./config": {
-        "require": "./dist/config.cjs",
-        "import": "./dist/config.js"
-      },
-      "./config-worker": {
-        "require": "./dist/config-worker.cjs",
-        "import": "./dist/config-worker.js"
-      },
-      "./define": {
-        "require": "./dist/define.cjs",
-        "import": "./dist/define.js"
-      },
-      "./options": {
-        "require": "./dist/options.cjs",
-        "import": "./dist/options.js"
-      },
+      ".": "./dist/index.js",
+      "./config": "./dist/config.js",
+      "./config-worker": "./dist/config-worker.js",
+      "./define": "./dist/define.js",
+      "./options": "./dist/options.js",
       "./*": "./*"
     },
     "tag": "next"
