@@ -47,9 +47,9 @@ const propName = defineProp<T>()
 ### Basic Usage
 
 ```vue twoslash
-<script setup>
-// @experimentalDefinePropProposal=kevinEdition
-// ---cut---
+<!-- @experimentalDefinePropProposal "kevinEdition" -->
+
+<script setup lang="ts">
 // Declare prop
 const count = defineProp('count')
 
@@ -64,9 +64,9 @@ console.log(count.value)
 ### With Options
 
 ```vue twoslash
+<!-- @experimentalDefinePropProposal "kevinEdition" -->
+
 <script setup lang="ts">
-// @experimentalDefinePropProposal=kevinEdition
-// ---cut---
 // Declare prop with options
 const count = defineProp('count', {
   type: Number,
@@ -80,9 +80,9 @@ const count = defineProp('count', {
 ### TypeScript
 
 ```vue twoslash
+<!-- @experimentalDefinePropProposal "kevinEdition" -->
+
 <script setup lang="ts">
-// @experimentalDefinePropProposal=kevinEdition
-// ---cut---
 // Declare prop of type number and infer prop name from variable name
 const count = defineProp<number>()
 count.value
@@ -95,12 +95,14 @@ disabled.value
 
 ### With Reactivity Transform
 
-```ts
+```vue twoslash
+<!-- @experimentalDefinePropProposal "kevinEdition" -->
+
+<script setup lang="ts">
 const foo = $defineProp<string>('foo')
-//    ^? type: string | undefined
 
 const bar = $(defineProp('bar', { default: 'bar' }))
-//    ^? type: string
+</script>
 ```
 
 ## Johnson's Edition
@@ -118,9 +120,9 @@ const propName = defineProp<T>(defaultValue, required, rest)
 ### Basic Usage
 
 ```vue twoslash
-<script setup>
-// @experimentalDefinePropProposal=johnsonEdition
-// ---cut---
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
+<script setup lang="ts">
 // declare prop `count` with default value `0`
 const count = defineProp(0)
 
@@ -135,9 +137,9 @@ console.log(count.value, disabled.value)
 ### With Options
 
 ```vue twoslash
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
 <script setup lang="ts">
-// @experimentalDefinePropProposal=johnsonEdition
-// ---cut---
 // Declare prop with options
 const count = defineProp(0, false, {
   type: Number,
@@ -149,9 +151,9 @@ const count = defineProp(0, false, {
 ### TypeScript
 
 ```vue twoslash
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
 <script setup lang="ts">
-// @experimentalDefinePropProposal=johnsonEdition
-// ---cut---
 const count = defineProp<number>()
 count.value
 
@@ -163,13 +165,13 @@ disabled.value
 
 ### With Reactivity Transform
 
-```vue
+```vue twoslash
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
 <script setup lang="ts">
 const foo = $defineProp<number>()
-//    ^? type: number | undefined
 
 const bar = $(defineProp(0, true))
-//    ^? type: number
 </script>
 ```
 

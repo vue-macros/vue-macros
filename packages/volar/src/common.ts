@@ -17,10 +17,8 @@ export function addProps(
   decl: Code[],
   vueLibName: string,
 ): true | undefined {
-  if (
-    !decl.length ||
-    codes.toString().includes('{} as __VLS_TypePropsToOption<')
-  )
+  const codeString = codes.toString()
+  if (!decl.length || codeString.includes('{} as __VLS_TypePropsToOption<'))
     return
 
   replace(
@@ -34,10 +32,12 @@ export function addProps(
     REGEX_DEFINE_COMPONENT,
     'props: {} as __VLS_TypePropsToOption<__VLS_PublicProps>,\n',
   )
-  codes.push(
-    `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
-    `type __VLS_TypePropsToOption<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`,
-  )
+  if (!codeString.includes('type __VLS_NonUndefinedable')) {
+    codes.push(
+      `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
+      `type __VLS_TypePropsToOption<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`,
+    )
+  }
   return true
 }
 

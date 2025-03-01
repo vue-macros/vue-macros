@@ -33,9 +33,9 @@ const propName = defineProp<T>()
 ### 基本用法
 
 ```vue twoslash
-<script setup>
-// @experimentalDefinePropProposal=kevinEdition
-// ---cut---
+<!-- @experimentalDefinePropProposal "kevinEdition" -->
+
+<script setup lang="ts">
 // 声明 prop
 const count = defineProp('count')
 
@@ -50,9 +50,9 @@ console.log(count.value)
 ### 选项
 
 ```vue twoslash
+<!-- @experimentalDefinePropProposal "kevinEdition" -->
+
 <script setup lang="ts">
-// @experimentalDefinePropProposal=kevinEdition
-// ---cut---
 // 使用选项声明 prop
 const count = defineProp('count', {
   type: Number,
@@ -66,9 +66,9 @@ const count = defineProp('count', {
 ### TypeScript
 
 ```vue twoslash
+<!-- @experimentalDefinePropProposal "kevinEdition" -->
+
 <script setup lang="ts">
-// @experimentalDefinePropProposal=kevinEdition
-// ---cut---
 // 使用类型为 number 的 prop 声明，并从变量名中推断 prop 的名称
 const count = defineProp<number>()
 count.value
@@ -81,11 +81,14 @@ disabled.value
 
 ### 响应性语法糖
 
-```ts
+```vue twoslash
+<!-- @experimentalDefinePropProposal "kevinEdition" -->
+
+<script setup lang="ts">
 const foo = $defineProp<string>('foo')
-//    ^? type: string | undefined
+
 const bar = $(defineProp('bar', { default: 'bar' }))
-//    ^? type: string
+</script>
 ```
 
 ## Johnson 的版本
@@ -103,9 +106,9 @@ const propName = defineProp<T>(defaultValue, required, rest)
 ### 基本用法
 
 ```vue twoslash
-<script setup>
-// @experimentalDefinePropProposal=johnsonEdition
-// ---cut---
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
+<script setup lang="ts">
 // 声明带有默认值 `0` 的 prop `count`
 const count = defineProp(0)
 
@@ -120,9 +123,9 @@ console.log(count.value, disabled.value)
 ### 选项
 
 ```vue twoslash
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
 <script setup lang="ts">
-// @experimentalDefinePropProposal=johnsonEdition
-// ---cut---
 // 使用选项声明属性
 const count = defineProp(0, false, {
   type: Number,
@@ -134,9 +137,9 @@ const count = defineProp(0, false, {
 ### TypeScript
 
 ```vue twoslash
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
 <script setup lang="ts">
-// @experimentalDefinePropProposal=johnsonEdition
-// ---cut---
 const count = defineProp<number>()
 count.value
 
@@ -148,13 +151,13 @@ disabled.value
 
 ### 响应性语法糖
 
-```vue
+```vue twoslash
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
 <script setup lang="ts">
 const foo = $defineProp<number>()
-//    ^? type: number | undefined
 
 const bar = $(defineProp(0, true))
-//    ^? type: number
 </script>
 ```
 

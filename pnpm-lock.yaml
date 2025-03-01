@@ -57,6 +57,9 @@ catalogs:
     '@vue/compiler-sfc':
       specifier: ^3.5.13
       version: 3.5.13
+    '@vue/language-core':
+      specifier: 2.2.4
+      version: 2.2.4
     '@vue/shared':
       specifier: ^3.5.13
       version: 3.5.13
@@ -112,14 +115,13 @@ catalogs:
       specifier: ^3.5.13
       version: 3.5.13
     vue-tsc:
-      specifier: 2.1.10
-      version: 2.1.10
+      specifier: 2.2.4
+      version: 2.2.4
 
 overrides:
   '@shikijs/core': ^3.1.0
   '@shikijs/transformers': ^3.1.0
   '@shikijs/types': ^3.1.0
-  '@vue/language-core': 2.1.10
   is-core-module: npm:@no-shims/is-core-module
   shiki: ^3.1.0
   smartwrap: npm:@no-shims/smartwrap
@@ -253,7 +255,7 @@ importers:
         version: link:packages/macros
       vue-tsc:
         specifier: 'catalog:'
-        version: 2.1.10(typescript@5.7.3)
+        version: 2.2.4(typescript@5.7.3)
       webpack:
         specifier: ^5.98.0
         version: 5.98.0(esbuild@0.25.0)
@@ -861,8 +863,8 @@ importers:
         specifier: ^3.15.4
         version: 3.15.4
       '@vue/language-core':
-        specifier: 2.1.10
-        version: 2.1.10(typescript@5.7.3)
+        specifier: 'catalog:'
+        version: 2.2.4(typescript@5.7.3)
 
   packages/reactivity-transform:
     dependencies:
@@ -1020,8 +1022,8 @@ importers:
         specifier: workspace:*
         version: link:../short-vmodel
       '@vue/language-core':
-        specifier: 2.1.10
-        version: 2.1.10(typescript@5.7.3)
+        specifier: 'catalog:'
+        version: 2.2.4(typescript@5.7.3)
       muggle-string:
         specifier: ^0.4.1
         version: 0.4.1
@@ -1037,7 +1039,7 @@ importers:
         version: 5.7.3
       vue-tsc:
         specifier: 'catalog:'
-        version: 2.1.10(typescript@5.7.3)
+        version: 2.2.4(typescript@5.7.3)
 
   playground/astro:
     dependencies:
@@ -1125,7 +1127,7 @@ importers:
         version: link:../../packages/macros
       vue-tsc:
         specifier: 'catalog:'
-        version: 2.1.10(typescript@5.7.3)
+        version: 2.2.4(typescript@5.7.3)
 
 packages:
 
@@ -3056,8 +3058,8 @@ packages:
   '@vue/devtools-shared@7.7.2':
     resolution: {integrity: sha512-uBFxnp8gwW2vD6FrJB8JZLUzVb6PNRG0B0jBnHsOH8uKyva2qINY8PTF5Te4QlTbMDqU5K6qtJDr6cNsKWhbOA==}
 
-  '@vue/language-core@2.1.10':
-    resolution: {integrity: sha512-DAI289d0K3AB5TUG3xDp9OuQ71CnrujQwJrQnfuZDwo6eGNf0UoRlPuaVNO+Zrn65PC3j0oB2i7mNmVPggeGeQ==}
+  '@vue/language-core@2.2.4':
+    resolution: {integrity: sha512-eGGdw7eWUwdIn9Fy/irJ7uavCGfgemuHQABgJ/hU1UgZFnbTg9VWeXvHQdhY+2SPQZWJqWXvRWIg67t4iWEa+Q==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -3223,8 +3225,8 @@ packages:
     resolution: {integrity: sha512-iNC6BGvipaalFfDfDnXUje8GUlW5asj0cTMsZJwO/0rhsyLx1L7GZFAY8wW+eQ6AM4Yge2p5GSE5hrBlfSD90Q==}
     engines: {node: '>= 14.0.0'}
 
-  alien-signals@0.2.2:
-    resolution: {integrity: sha512-cZIRkbERILsBOXTQmMrxc9hgpxglstn69zm+F1ARf4aPAzdAFYd6sBq87ErO0Fj3DV94tglcyHG5kQz9nDC/8A==}
+  alien-signals@1.0.4:
+    resolution: {integrity: sha512-DJqqQD3XcsaQcQ1s+iE2jDUZmmQpXwHiR6fCAim/w87luaW+vmLY8fMlrdkmRwzaFXhkxf3rqPCR59tKVv1MDw==}
 
   ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
@@ -6224,8 +6226,8 @@ packages:
     peerDependencies:
       vue: ^3.0.0
 
-  vue-tsc@2.1.10:
-    resolution: {integrity: sha512-RBNSfaaRHcN5uqVqJSZh++Gy/YUzryuv9u1aFWhsammDJXNtUiJMNoJ747lZcQ68wUQFx6E73y4FY3D8E7FGMA==}
+  vue-tsc@2.2.4:
+    resolution: {integrity: sha512-3EVHlxtpMXcb5bCaK7QDFTbEkMusDfVk0HVRrkv5hEb+Clpu9a96lKUXJAeD/akRlkoA4H8MCHgBDN19S6FnzA==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
@@ -8570,13 +8572,13 @@ snapshots:
     dependencies:
       rfdc: 1.4.1
 
-  '@vue/language-core@2.1.10(typescript@5.7.3)':
+  '@vue/language-core@2.2.4(typescript@5.7.3)':
     dependencies:
       '@volar/language-core': 2.4.11
       '@vue/compiler-dom': 3.5.13
       '@vue/compiler-vue2': 2.7.16
       '@vue/shared': 3.5.13
-      alien-signals: 0.2.2
+      alien-signals: 1.0.4
       minimatch: 9.0.5
       muggle-string: 0.4.1
       path-browserify: 1.0.1
@@ -8783,7 +8785,7 @@ snapshots:
       '@algolia/requester-fetch': 5.20.3
       '@algolia/requester-node-http': 5.20.3
 
-  alien-signals@0.2.2: {}
+  alien-signals@1.0.4: {}
 
   ansi-align@3.0.1:
     dependencies:
@@ -11762,7 +11764,7 @@ snapshots:
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.34.8)
       '@volar/language-core': 2.4.11
-      '@vue/language-core': 2.1.10(typescript@5.7.3)
+      '@vue/language-core': 2.2.4(typescript@5.7.3)
       muggle-string: 0.4.1
     transitivePeerDependencies:
       - rollup
@@ -11812,7 +11814,7 @@ snapshots:
 
   twoslash-vue@0.3.1(typescript@5.7.3):
     dependencies:
-      '@vue/language-core': 2.1.10(typescript@5.7.3)
+      '@vue/language-core': 2.2.4(typescript@5.7.3)
       twoslash: 0.3.1(typescript@5.7.3)
       twoslash-protocol: 0.3.1
       typescript: 5.7.3
@@ -12417,11 +12419,10 @@ snapshots:
     dependencies:
       vue: 3.5.13(typescript@5.7.3)
 
-  vue-tsc@2.1.10(typescript@5.7.3):
+  vue-tsc@2.2.4(typescript@5.7.3):
     dependencies:
       '@volar/typescript': 2.4.11
-      '@vue/language-core': 2.1.10(typescript@5.7.3)
-      semver: 7.7.1
+      '@vue/language-core': 2.2.4(typescript@5.7.3)
       typescript: 5.7.3
 
   vue@3.5.13(typescript@5.7.3):
