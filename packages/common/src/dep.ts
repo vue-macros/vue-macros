@@ -1,6 +1,6 @@
 /* eslint-disable node/prefer-global/process */
 
-let _require: NodeRequire | undefined
+let _require: NodeJS.Require | undefined
 if (TSUP_FORMAT === 'cjs') {
   _require = require
 } else if (typeof process !== 'undefined' && process.getBuiltinModule) {

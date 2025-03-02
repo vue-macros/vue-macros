@@ -2,7 +2,7 @@ import { access, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { camelCase } from 'change-case'
 import fg from 'fast-glob'
-import { importx } from 'importx'
+import { createJiti } from 'jiti'
 import {
   defineConfig,
   noDuplicatedDeps,
@@ -11,6 +11,8 @@ import {
 import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
 import type { Options } from 'tsup'
+
+const jiti = createJiti(import.meta.url)
 
 /// keep-sorted
 const descriptions: Record<string, string> = {
@@ -118,12 +120,8 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && (await exists(tsupFile))) {
         const tsupConfig: Options = (
-          await importx(tsupFile, {
-            parentURL: import.meta.url,
-            loader: 'bundle-require',
-          })
+          await jiti.import<{ default: Options }>(tsupFile)
         ).default
-
         const entries = (
           await fg(tsupConfig.entry as string[], {
             cwd: pkgRoot,
@@ -216,10 +214,12 @@ Please refer to [README.md](${githubLink}#readme)\n`
   }),
   ...noDuplicatedPnpmLockfile({
     deps: [
+      'vue',
+      '@vue/compiler-sfc',
       'typescript',
       'vue-tsc',
       /twoslash/,
-      /^@vue\/(?!compiler-sfc|devtools)/,
+      /^@vue\//,
       /shiki/,
       /babel/,
       /esbuild/,
@@ -229,7 +229,7 @@ Please refer to [README.md](${githubLink}#readme)\n`
     ],
   }),
   ...noDuplicatedPnpmLockfile({
-    deps: ['vue', '@vue/compiler-sfc', 'lru-cache', 'minimatch', 'debug'],
+    deps: ['lru-cache', 'minimatch', 'debug'],
     allowMajor: true,
   }),
 ])
