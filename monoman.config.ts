@@ -214,18 +214,16 @@ Please refer to [README.md](${githubLink}#readme)\n`
   }),
   ...noDuplicatedPnpmLockfile({
     deps: [
-      'vue',
-      '@vue/compiler-sfc',
       'typescript',
-      'vue-tsc',
+      /vue\b(?!\/devtools)/,
       /twoslash/,
-      /^@vue\//,
       /shiki/,
       /babel/,
       /esbuild/,
       /vite(?!-(plugin-(vue-inspector|inspect)|hot-client))/,
       /unocss/,
       /rolldown/,
+      /oxc(?!-project\/types)/,
     ],
   }),
   ...noDuplicatedPnpmLockfile({

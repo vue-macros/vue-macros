@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '../../packages/nuxt/src/index.ts',
   ],
+
   macros: {
     setupBlock: true,
 
@@ -27,4 +28,6 @@ export default defineNuxtConfig({
       include: [/export-render.*\.vue$/],
     },
   },
+
+  compatibilityDate: '2025-03-03',
 })
