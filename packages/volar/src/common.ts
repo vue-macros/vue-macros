@@ -99,7 +99,7 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
     typeof configPath === 'string' ? path.dirname(configPath) : process.cwd()
   let resolved: OptionsResolved | undefined
   if (!resolvedOptions.has(root)) {
-    resolved = resolveOptions(context.vueCompilerOptions.vueMacros, root)
+    resolved = resolveOptions.sync(context.vueCompilerOptions.vueMacros, root)
     resolvedOptions.set(root, resolved)
   }
 

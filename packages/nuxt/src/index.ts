@@ -1,6 +1,6 @@
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
-import { resolveOptionsAsync, type Options } from 'vue-macros'
+import { resolveOptions, type Options } from 'vue-macros'
 import VueMacros from 'vue-macros/vite'
 import { githubRepo } from '../../../macros' with { type: 'macro' }
 import type {} from '@nuxt/devtools'
@@ -16,7 +16,7 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
   defaults: {},
   async setup(options) {
     const nuxt = useNuxt()
-    const resolvedOptions = await resolveOptionsAsync(options)
+    const resolvedOptions = await resolveOptions(options)
 
     nuxt.options.typescript.tsConfig ||= {}
     // @ts-expect-error

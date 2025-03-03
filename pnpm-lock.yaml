@@ -236,6 +236,9 @@ importers:
       unplugin-macros:
         specifier: ^0.16.0
         version: 0.16.0(@types/node@22.13.8)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
+      unplugin-quansync:
+        specifier: ^0.3.3
+        version: 0.3.3(quansync@0.2.8)
       unplugin-raw:
         specifier: ^0.4.3
         version: 0.4.3
@@ -402,12 +405,12 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
-      make-synchronized:
-        specifier: ^0.2.9
-        version: 0.2.9
+      quansync:
+        specifier: ^0.2.8
+        version: 0.2.8
       unconfig:
-        specifier: ^7.1.0
-        version: 7.1.0
+        specifier: ^7.2.0
+        version: 7.2.0
     devDependencies:
       '@vue-macros/better-define':
         specifier: workspace:*
@@ -1242,6 +1245,9 @@ packages:
 
   '@antfu/utils@8.1.1':
     resolution: {integrity: sha512-Mex9nXf9vR6AhcXmMrlz/HVgYYZpVGJ6YlPgwl7UnaFpnshXs6EK/oa5Gpf3CzENMjkvEx2tQtntGnb7UtSTOQ==}
+
+  '@antfu/utils@9.1.0':
+    resolution: {integrity: sha512-R+3bzxNN0ZscQg3ZVG7suqBTFP2dbdaCjKe5KY6hqNZimdyZ32KemotJPmoqQhKH28CqdgyXQGkWZlCGsGQmJw==}
 
   '@astrojs/compiler@2.10.4':
     resolution: {integrity: sha512-86B3QGagP99MvSNwuJGiYSBHnh8nLvm2Q1IFI15wIUJJsPeQTO3eb2uwBmrqRsXykeR/mBzH8XCgz5AAt1BJrQ==}
@@ -2521,6 +2527,10 @@ packages:
   '@publint/pack@0.1.1':
     resolution: {integrity: sha512-TvCl79Y8v18ZhFGd5mjO1kYPovSBq3+4LVCi5Nfl1JI8fS8i8kXbgQFGwBJRXczim8GlW8c2LMBKTtExYXOy/A==}
     engines: {node: '>=18'}
+
+  '@quansync/fs@0.1.1':
+    resolution: {integrity: sha512-sx8J1O/+j2lqs8MvsEz6rs/6UAUpCb4fu7C6EqtMqzbS3CmqLkTDTOMK+DrWukvyUuHzl8DhMjfNJzQDTqfGJg==}
+    engines: {node: '>=20.18.0'}
 
   '@redocly/ajv@8.11.2':
     resolution: {integrity: sha512-io1JpnwtIcvojV7QKDUSIuMN/ikdOUd1ReEnUnMKGfDVridQZ31J0MmIuqwuRjWDZfmvr+Q0MqCcfHM2gTivOg==}
@@ -5326,9 +5336,6 @@ packages:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
 
-  make-synchronized@0.2.9:
-    resolution: {integrity: sha512-4wczOs8SLuEdpEvp3vGo83wh8rjJ78UsIk7DIX5fxdfmfMJGog4bQzxfvOwq7Q3yCHLC4jp1urPHIxRS/A93gA==}
-
   mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
 
@@ -6209,8 +6216,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  quansync@0.2.7:
-    resolution: {integrity: sha512-KZDFlN9/Si3CgKHZsIfLBsrjWKFjqu9KA0zDGJEQoQzPm5HWNDEFc2mkLeYUBBOwEJtxNBSMaNLE/GlvArIEfQ==}
+  quansync@0.2.8:
+    resolution: {integrity: sha512-4+saucphJMazjt7iOM27mbFCk+D9dd/zmgMDCzRZ8MEoBfYp7lAvoN38et/phRQF6wOPMy/OROBGgoWeSKyluA==}
 
   quasar@2.18.0:
     resolution: {integrity: sha512-poaTNL9afzxieIE1D6G8AQB9gGCHhmQsCQTMCwkcd/FFZBQqqhKREWzgO7rEo6REDyPHLKBuBJ9QxLAahE55YA==}
@@ -6938,8 +6945,8 @@ packages:
   unconfig@7.0.0:
     resolution: {integrity: sha512-G5CJSoG6ZTxgzCJblEfgpdRK2tos9+UdD2WtecDUVfImzQ0hFjwpH5RVvGMhP4pRpC9ML7NrC4qBsBl0Ttj35A==}
 
-  unconfig@7.1.0:
-    resolution: {integrity: sha512-4rNuVn7UJXvRCPFk4CT/VfoCEh9VTtohLAmPzMkSKjAnesnsSDsIKt0kso8sSeZji2Js31iOWQhY6R8pFP6UVQ==}
+  unconfig@7.2.0:
+    resolution: {integrity: sha512-Hna2jDIvpPigTaIZgMudIUrWChW5piai73RYJVC4aOnn6XJGX4p0TQJbzowqw3+1rNZBfS7eFaEjna36imYC8A==}
 
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
@@ -7068,6 +7075,12 @@ packages:
     engines: {node: '>=18.12.0'}
     peerDependencies:
       unloader: '*'
+
+  unplugin-quansync@0.3.3:
+    resolution: {integrity: sha512-bsO/xUbR7PAh6yb5CcCwLROsTUxUKLGIm1klXsMbtvV0NOVpOJTOB526KRnoLcx5ZmGLd5Y9kl2Sxz+0GUN3yA==}
+    engines: {node: '>=18.12.0'}
+    peerDependencies:
+      quansync: '>=0.2.2'
 
   unplugin-raw@0.4.3:
     resolution: {integrity: sha512-kP1rdxQM7+Mdzocpsg0ozCNulC1pWbqPDKqOm4oLRR1ij3CnAEyUxyqLeFDRzFG5tndPqFU1frxEHYHKFXPucw==}
@@ -7791,6 +7804,8 @@ snapshots:
   '@antfu/utils@0.7.10': {}
 
   '@antfu/utils@8.1.1': {}
+
+  '@antfu/utils@9.1.0': {}
 
   '@astrojs/compiler@2.10.4': {}
 
@@ -9251,6 +9266,10 @@ snapshots:
   '@polka/url@1.0.0-next.28': {}
 
   '@publint/pack@0.1.1': {}
+
+  '@quansync/fs@0.1.1':
+    dependencies:
+      quansync: 0.2.8
 
   '@redocly/ajv@8.11.2':
     dependencies:
@@ -12502,7 +12521,7 @@ snapshots:
     dependencies:
       mlly: 1.7.4
       pkg-types: 1.3.1
-      quansync: 0.2.7
+      quansync: 0.2.8
 
   locate-path@5.0.0:
     dependencies:
@@ -12565,8 +12584,6 @@ snapshots:
   make-dir@4.0.0:
     dependencies:
       semver: 7.7.1
-
-  make-synchronized@0.2.9: {}
 
   mark.js@8.11.1: {}
 
@@ -12971,7 +12988,7 @@ snapshots:
       fast-glob: 3.3.3
       js-yaml: '@zkochan/js-yaml@0.0.7'
       pnpm-multi-versions: 0.4.1
-      unconfig: 7.1.0
+      unconfig: 7.2.0
 
   mri@1.2.0: {}
 
@@ -13450,7 +13467,7 @@ snapshots:
 
   package-manager-detector@0.2.11:
     dependencies:
-      quansync: 0.2.7
+      quansync: 0.2.8
 
   packrup@0.1.2: {}
 
@@ -13800,7 +13817,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  quansync@0.2.7: {}
+  quansync@0.2.8: {}
 
   quasar@2.18.0: {}
 
@@ -14475,7 +14492,7 @@ snapshots:
       package-manager-detector: 0.2.11
       pathe: 2.0.3
       tinyexec: 0.3.2
-      unconfig: 7.1.0
+      unconfig: 7.2.0
       yaml: 2.7.0
       yargs: 17.7.2
 
@@ -14669,11 +14686,13 @@ snapshots:
       defu: 6.1.4
       jiti: 2.4.2
 
-  unconfig@7.1.0:
+  unconfig@7.2.0:
     dependencies:
-      '@antfu/utils': 8.1.1
+      '@antfu/utils': 9.1.0
+      '@quansync/fs': 0.1.1
       defu: 6.1.4
       jiti: 2.4.2
+      quansync: 0.2.8
 
   uncrypto@0.1.3: {}
 
@@ -14873,6 +14892,14 @@ snapshots:
       oxc-minify: 0.53.0
       oxc-resolver: 4.2.0
       oxc-transform: 0.53.0
+      unplugin: 2.2.0
+      unplugin-utils: 0.2.4
+
+  unplugin-quansync@0.3.3(quansync@0.2.8):
+    dependencies:
+      ast-kit: 1.4.0
+      magic-string-ast: 0.7.0
+      quansync: 0.2.8
       unplugin: 2.2.0
       unplugin-utils: 0.2.4
 

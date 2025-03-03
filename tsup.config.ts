@@ -9,6 +9,7 @@ import { defineConfig, type Format, type Options } from 'tsup'
 import { createUnplugin } from 'unplugin'
 import { IsolatedDecl } from 'unplugin-isolated-decl'
 import Macros from 'unplugin-macros'
+import { Quansync } from 'unplugin-quansync'
 import Raw from 'unplugin-raw'
 import { Unused, type Options as UnusedOptions } from 'unplugin-unused'
 
@@ -66,6 +67,7 @@ export function config({
     esbuildPlugins: [
       createUnplugin<undefined, true>((opt, meta) => {
         return [
+          Quansync.raw({}, meta),
           Unused.raw(
             {
               level: 'error',

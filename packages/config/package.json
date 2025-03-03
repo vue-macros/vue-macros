@@ -38,10 +38,6 @@
       "dev": "./src/config.ts",
       "default": "./dist/config.js"
     },
-    "./config-worker": {
-      "dev": "./src/config-worker.ts",
-      "default": "./dist/config-worker.js"
-    },
     "./define": {
       "dev": "./src/define.ts",
       "default": "./dist/define.js"
@@ -65,7 +61,6 @@
     "exports": {
       ".": "./dist/index.js",
       "./config": "./dist/config.js",
-      "./config-worker": "./dist/config-worker.js",
       "./define": "./dist/define.js",
       "./options": "./dist/options.js",
       "./*": "./*"
@@ -78,8 +73,8 @@
   },
   "dependencies": {
     "@vue-macros/common": "workspace:*",
-    "make-synchronized": "^0.2.9",
-    "unconfig": "^7.1.0"
+    "quansync": "^0.2.8",
+    "unconfig": "^7.2.0"
   },
   "devDependencies": {
     "@vue-macros/better-define": "workspace:*",
