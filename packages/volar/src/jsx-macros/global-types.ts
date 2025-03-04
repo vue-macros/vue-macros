@@ -34,13 +34,15 @@ export function getGlobalTypes(options: TransformOptions): string {
     .filter(Boolean)
     .join(', ')
   return `
-const { ${defineModel}, ${defineComponent} } = await import('vue')
+declare const { ${defineModel}, ${defineComponent} }: typeof import('vue')
 ${defineSlots}
 ${defineExpose}
 ${defineStyle}
 type ${HELPER_PREFIX}StyleArgs = [style: string, options?: { scoped?: boolean }];
 type ${HELPER_PREFIX}PrettifyLocal<T> = { [K in keyof T]: T[K]; } & {};
+// @ts-ignore
 type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
+// @ts-ignore
 type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
 `
 }

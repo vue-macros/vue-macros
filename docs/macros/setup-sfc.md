@@ -22,7 +22,7 @@ If you're using `setupSFC`, then `defineRender` cannot be disabled.
 ```ts {7-14} [Vite]
 // vite.config.ts
 import Vue from '@vitejs/plugin-vue'
-import VueMacros from 'unplugin-vue-macros/vite'
+import VueMacros from 'vue-macros/vite'
 
 export default defineConfig({
   plugins: [
@@ -39,8 +39,8 @@ export default defineConfig({
 ```
 
 ```ts {6-13} [Rollup]
-import VueMacros from 'unplugin-vue-macros/rollup'
 import Vue from 'unplugin-vue/rollup'
+import VueMacros from 'vue-macros/rollup'
 
 export default defineConfig({
   plugins: [
@@ -90,7 +90,7 @@ export default () => (
 ```jsonc {3,5} [tsconfig.json]
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
     "vueMacros": {
       "setupSFC": true,
     },

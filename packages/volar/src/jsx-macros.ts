@@ -57,7 +57,7 @@ const plugin: PluginReturn<OptionsResolved['jsxMacros'] | undefined> =
           const rootMap = getRootMap(options)
           if (rootMap.size) {
             transformJsxMacros(rootMap, options)
-            codes.unshift(getGlobalTypes(options))
+            codes.push(getGlobalTypes(options))
           }
         },
       }

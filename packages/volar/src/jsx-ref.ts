@@ -105,3 +105,4 @@ const plugin: PluginReturn<OptionsResolved['jsxRef'] | undefined> =
   )
 
 export default plugin
+export { plugin as 'module.exports' }

@@ -1,11 +1,11 @@
 import type { OptionsResolved } from '..'
-import { isVue2, type JsxDirective } from '.'
+import type { JsxDirective } from '.'
 import type { MagicStringAST } from '@vue-macros/common'
 
 export function transformVIf(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  { version, prefix }: OptionsResolved,
+  { prefix }: OptionsResolved,
 ): void {
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(
@@ -43,9 +43,8 @@ export function transformVIf(
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      const content = isVue2(version) ? 'span' : ''
-      s.overwriteNode(node.openingElement.name, content)
-      s.overwriteNode(node.closingElement.name, content)
+      s.overwriteNode(node.openingElement.name, '')
+      s.overwriteNode(node.closingElement.name, '')
     }
 
     s.remove(attribute.start! - 1, attribute.end!)

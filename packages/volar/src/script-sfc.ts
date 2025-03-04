@@ -29,3 +29,4 @@ const plugin: VueMacrosPlugin<'scriptSFC'> = (_, options = {}) => {
 }
 
 export default plugin
+export { plugin as 'module.exports' }

@@ -39,7 +39,7 @@ export function parseSFC(code: string, id: string): SFC {
     (scriptLang || 'js') !== (scriptSetupLang || 'js')
   ) {
     throw new Error(
-      `[unplugin-vue-macros] <script> and <script setup> must have the same language type.`,
+      `[vue-macros] <script> and <script setup> must have the same language type.`,
     )
   }
 

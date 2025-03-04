@@ -18,7 +18,9 @@ export function resolveCtxMap(
 ): Map<import('typescript').Node, string> {
   if (ctxNodeMap.size) {
     options.codes.push(`
+// @ts-ignore
 type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
+// @ts-ignore
 type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
 type __VLS_Element = globalThis.JSX.Element;
 declare function __VLS_asFunctionalComponent<T, K = T extends new (...args: any) => any ? InstanceType<T> : unknown>(t: T, instance?: K):

@@ -20,3 +20,4 @@ const plugin: VueMacrosPlugin<'shortVmodel'> = (_, volarOptions = {}) => {
 }
 
 export default plugin
+export { plugin as 'module.exports' }

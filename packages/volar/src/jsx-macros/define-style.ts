@@ -1,5 +1,5 @@
 import { HELPER_PREFIX } from '@vue-macros/common'
-import { generateCssClassProperty } from '@vue/language-core/lib/codegen/script/template.js'
+import { generateClassProperty } from '@vue/language-core/lib/codegen/style/classProperty.js'
 import { parseCssClassNames } from '@vue/language-core/lib/utils/parseCssClassNames.js'
 import { replaceSourceRange } from 'muggle-string'
 import { getStart, getText } from '../common'
@@ -39,12 +39,11 @@ export function transformDefineStyle(
 
 function* generateCssClassesType(css: string, offset: number, index: number) {
   for (const className of [...parseCssClassNames(css)]) {
-    yield* generateCssClassProperty(
+    yield* generateClassProperty(
       index,
       className.text,
       className.offset + offset,
       'string',
-      false,
     )
   }
 }

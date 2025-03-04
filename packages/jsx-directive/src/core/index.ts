@@ -218,12 +218,8 @@ function transform(
   vIfMap.forEach((nodes) => transformVIf(nodes, s, options))
   transformVFor(vForNodes, s, options)
   if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, options)
-  transformVHtml(vHtmlNodes, s, options)
-  transformVOn(vOnNodes, s, options)
+  transformVHtml(vHtmlNodes, s)
+  transformVOn(vOnNodes, s)
   transformOnWithModifiers(onWithModifiers, s, options)
   transformVSlot(vSlotMap, s, options)
-}
-
-export function isVue2(version: number): boolean {
-  return version >= 2 && version < 3
 }

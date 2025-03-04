@@ -251,3 +251,4 @@ const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
   }
 }
 export default plugin
+export { plugin as 'module.exports' }

@@ -1,6 +1,6 @@
 import { expectTypeOf } from 'expect-type'
-import { useRef } from 'unplugin-vue-macros/runtime'
 import { defineComponent, ref } from 'vue'
+import { useRef } from 'vue-macros/runtime'
 import { Comp } from './comp'
 
 export default defineComponent(() => {

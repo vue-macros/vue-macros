@@ -1,6 +1,6 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import { restructure } from '@vue-macros/jsx-directive/api'
-import { walkIdentifiers } from '@vue/compiler-core'
+import { walkIdentifiers } from '@vue/compiler-dom'
 import { withDefaultsHelperId } from '../helper'
 import type { FunctionalNode, RootMapValue } from '..'
 import type { OptionsResolved } from '../..'

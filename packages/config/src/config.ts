@@ -1,15 +1,24 @@
-import { makeSynchronized } from 'make-synchronized'
+import { quansync, type QuansyncFn } from 'quansync/macro'
+import { loadConfig as _loadConfig } from 'unconfig'
 import type { Options } from './options'
 
-export function loadConfig(cwd: string): Omit<Options, 'plugins'> {
-  const url = import.meta.url
-  const isDist = url.endsWith('.js')
-  const filename = 'config-worker.js'
-  const workerPath = new URL(
-    isDist ? `./${filename}` : `../dist/${filename}`,
-    url,
-  )
-  const { loadConfigAsync } =
-    makeSynchronized<typeof import('./config-worker')>(workerPath)
-  return loadConfigAsync(cwd)
-}
+export const loadConfig: QuansyncFn<Options, [cwd: string]> = quansync(
+  async (cwd: string) => {
+    const { config } = await _loadConfig<Options>({
+      sources: [
+        {
+          files: 'vue-macros.config',
+          extensions: ['mts', 'cts', 'ts', 'mjs', 'cjs', 'js', 'json', ''],
+        },
+        {
+          files: 'package.json',
+          extensions: [],
+          rewrite: (config: any) => config?.vueMacros,
+        },
+      ],
+      defaults: {},
+      cwd,
+    })
+    return config
+  },
+)

@@ -23,9 +23,9 @@ pnpm add @stylexjs/stylex vite-plugin-stylex
 
 ```ts [vite.config.ts] {4,13}
 import Vue from '@vitejs/plugin-vue'
-import VueMacros from 'unplugin-vue-macros/vite'
 import { defineConfig } from 'vite'
 import StyleX from 'vite-plugin-stylex'
+import VueMacros from 'vue-macros/vite'
 
 export default defineConfig({
   plugins: [

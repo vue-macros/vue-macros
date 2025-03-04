@@ -64,3 +64,4 @@ const plugin: VueMacrosPlugin<'defineOptions'> = (ctx, options = {}) => {
   }
 }
 export default plugin
+export { plugin as 'module.exports' }

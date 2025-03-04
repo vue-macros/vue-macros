@@ -1,7 +1,6 @@
 {
   "name": "@vue-macros/devtools",
-  "version": "0.4.1",
-  "packageManager": "pnpm@10.4.1",
+  "version": "3.0.0-beta.2",
   "description": "Devtools plugin for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -27,26 +26,23 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": {
-        "require": "./dist/index.cjs",
-        "import": "./dist/index.js"
-      },
+      ".": "./dist/index.js",
       "./*": "./*"
-    }
+    },
+    "tag": "next"
   },
   "scripts": {
     "build": "tsup && vite build ./src/client",
@@ -71,9 +67,9 @@
     "get-port": "^7.1.0",
     "unocss": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-inspect": "^10.2.1"
+    "vite-plugin-inspect": "^11.0.0"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=20.18.0"
   }
 }

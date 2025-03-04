@@ -29,10 +29,8 @@ interface Options {
 - 支持在 `await` 表达式后使用 `getCurrentInstance()`。
 - 自动收集使用过的 props 到 defineComponent 的 props 选项中。
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
-import { getCurrentInstance, nextTick, Suspense } from 'vue'
+```tsx
+import { defineComponent, getCurrentInstance, nextTick, Suspense } from 'vue'
 
 const Comp = defineComponent(
   async (props: {
@@ -55,7 +53,6 @@ export default () => (
     <Comp foo="foo" bar="bar" />
   </Suspense>
 )
-</script>
 ```
 
 ::: details 编译后代码
@@ -86,9 +83,9 @@ defineComponent(
 - 如果 prop 的默认值以 `!` 结尾，该 prop 将被推断为必传的。
 - 如果定义了 rest prop，它将被转换为 `useAttrs()`，并且 `inheritAttrs` 选项默认为 `false`。
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307 2322
+```tsx
+import { defineComponent } from 'vue'
+
 const Comp = defineComponent(
   <T,>({ foo = undefined as T, bar = ''!, ...attrs }) => {
     return (
@@ -100,7 +97,6 @@ const Comp = defineComponent(
 )
 
 export default () => <Comp<string> foo={1} bar="bar" />
-</script>
 ```
 
 ::: details 编译后代码
@@ -130,9 +126,7 @@ defineComponent(
 - 当表达式以 `!` 结尾时，将被推断为必需的 model。
 - 修改后的 model 可以同步读取，无需 `await nextTick()`。[相关问题](https://github.com/vuejs/core/issues/11080)
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307 2322
+```tsx
 import { ref } from 'vue'
 
 function Comp() {
@@ -144,7 +138,6 @@ export default () => {
   const foo = ref(1)
   return <Comp v-model={foo.value} />
 }
-</script>
 ```
 
 ::: details 编译后代码
@@ -179,9 +172,7 @@ slots.default?.()
 
 - 支持默认插槽（推荐）。
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
+```tsx
 function Comp<const T>() {
   const slots = defineSlots({
     title: (props: { bar?: T }) => <div>title slot: {props.bar}</div>,
@@ -196,31 +187,19 @@ function Comp<const T>() {
   )
 }
 
-// ---cut-start---
-// prettier-ignore
-// ---cut-end---
 export default () => (
   <Comp<1>>
-    <template v-slot:title={{ bar }}>
-      //                      ^?
-      {bar}
-    </template>
-    <template v-slot={{ foo }}>
-      //                ^?
-      {foo}
-    </template>
+    <template v-slot:title={{ bar }}>{bar}</template>
+    <template v-slot={{ foo }}>{foo}</template>
   </Comp>
 )
-</script>
 ```
 
 ## defineExpose
 
 就像在 Vue SFC 中一样。
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
+```tsx
 import { shallowRef as useRef } from 'vue'
 
 const Comp = <T,>({ foo = undefined as T }) => {
@@ -235,7 +214,6 @@ export default () => {
   console.log(compRef.value!.foo === 1)
   return <Comp ref={compRef} foo={1 as const} />
 }
-</script>
 ```
 
 ::: details 编译后代码
@@ -373,9 +351,7 @@ defineStyle(`
 
 - 支持 `css modules`, 如果宏是赋值表达式。
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
+```tsx
 export default () => {
   const styles = defineStyle.scss(`
     .foo {
@@ -387,9 +363,7 @@ export default () => {
   `)
 
   return <div class={styles.bar} />
-  //                  ^?
 }
-</script>
 ```
 
 ## Volar 配置

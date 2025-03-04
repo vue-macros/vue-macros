@@ -1,6 +1,7 @@
 import path from 'node:path'
 import process from 'node:process'
 import Macros from 'unplugin-macros/vite'
+import Quansync from 'unplugin-quansync/vite'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -10,9 +11,6 @@ export default defineConfig({
     },
     conditions: ['dev'],
   },
-  define: {
-    TSUP_FORMAT: "'esm'",
-  },
   environments: {
     ssr: {
       resolve: { conditions: ['dev'] },
@@ -20,7 +18,6 @@ export default defineConfig({
   },
   test: {
     reporters: process.env.GITHUB_ACTIONS ? ['dot', 'github-actions'] : ['dot'],
-    setupFiles: ['./vitest-setup.ts'],
   },
-  plugins: [Macros()],
+  plugins: [Macros(), Quansync()],
 })

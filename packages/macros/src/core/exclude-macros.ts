@@ -6,7 +6,7 @@ export function excludeDepOptimize(): Plugin {
     config() {
       return {
         optimizeDeps: {
-          exclude: ['unplugin-vue-macros/macros'],
+          exclude: ['vue-macros/macros'],
         },
       }
     },
