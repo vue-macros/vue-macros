@@ -5,7 +5,7 @@ import {
   walkAST,
   type MagicStringAST,
 } from '@vue-macros/common'
-import { isFunctionType } from '@vue/compiler-core'
+import { isFunctionType } from '@vue/compiler-dom'
 import type { FunctionalNode } from '..'
 import type { AwaitExpression, Node, Statement } from '@babel/types'
 
