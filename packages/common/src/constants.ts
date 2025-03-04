@@ -27,10 +27,10 @@ export const REGEX_SETUP_SFC_SUB: RegExp =
 export const REGEX_VUE_SFC: RegExp = /\.vue$/
 
 /** webpack only */
-export const REGEX_VUE_SUB: RegExp = /\.vue\?vue&type=script/
+export const REGEX_VUE_SUB: RegExp = /\.vue(\.[tj]sx?)?\?vue&type=script/
 /** webpack only */
 export const REGEX_VUE_SUB_SETUP: RegExp =
-  /\.vue\?vue&type=script\b.+\bsetup=true/
+  /\.vue(\.[tj]sx?)?\?vue&type=script\b.+\bsetup=true/
 
 export const REGEX_NODE_MODULES: RegExp = /node_modules/
 export const REGEX_SUPPORTED_EXT: RegExp = /\.([cm]?[jt]sx?|vue)$/
