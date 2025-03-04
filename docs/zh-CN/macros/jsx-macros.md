@@ -189,12 +189,8 @@ function Comp<const T>() {
 
 export default () => (
   <Comp<1>>
-    <template v-slot:title={{ bar }}>
-      {bar}
-    </template>
-    <template v-slot={{ foo }}>
-      {foo}
-    </template>
+    <template v-slot:title={{ bar }}>{bar}</template>
+    <template v-slot={{ foo }}>{foo}</template>
   </Comp>
 )
 ```
