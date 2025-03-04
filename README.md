@@ -20,7 +20,7 @@
 - ⚡️ Supports most bundlers powered by [unplugin](https://github.com/unjs/unplugin).
   - Vite, Nuxt
   - Webpack, Rspack, Vue CLI
-  - Rollup 3
+  - Rollup
   - esbuild
   - and more...
 
