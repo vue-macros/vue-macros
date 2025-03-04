@@ -29,10 +29,8 @@ interface Options {
 - Support using `getCurrentInstance()` after an `await` expression.
 - Automatically collects used props to the defineComponent's props option.
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
-import { getCurrentInstance, nextTick, Suspense } from 'vue'
+```tsx
+import { defineComponent, getCurrentInstance, nextTick, Suspense } from 'vue'
 
 const Comp = defineComponent(
   async (props: {
@@ -55,13 +53,12 @@ export default () => (
     <Comp foo="foo" bar="bar" />
   </Suspense>
 )
-</script>
 ```
 
 ::: details Compiled Code
 
 ```tsx
-import { getCurrentInstance, withAsyncContext } from 'vue'
+import { defineComponent, getCurrentInstance, withAsyncContext } from 'vue'
 defineComponent(
   async (props) => {
     let __temp, __restore
@@ -85,9 +82,9 @@ defineComponent(
 - If the prop's default value ends with `!`, the prop will be inferred as required.
 - If a rest prop is defined, it will be converted to `useAttrs()`, and the `inheritAttrs` option will default to `false`.
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307 2322
+```tsx
+import { defineComponent } from 'vue'
+
 const Comp = defineComponent(
   <T,>({ foo = undefined as T, bar = ''!, ...attrs }) => {
     return (
@@ -99,7 +96,6 @@ const Comp = defineComponent(
 )
 
 export default () => <Comp<string> foo={1} bar="bar" />
-</script>
 ```
 
 ::: details Compiled Code
@@ -129,9 +125,7 @@ defineComponent(
 - Will be inferred as a required prop when the expression ends with `!`.
 - The modified model's value can be read synchronously, without needing to `await nextTick()`. [Related issue](https://github.com/vuejs/core/issues/11080)
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307 2322
+```tsx
 import { ref } from 'vue'
 
 function Comp() {
@@ -143,7 +137,6 @@ export default () => {
   const foo = ref(1)
   return <Comp v-model={foo.value} />
 }
-</script>
 ```
 
 ::: details Compiled Code
@@ -178,9 +171,7 @@ slots.default?.()
 
 - Support default slots (Recommended).
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
+```tsx
 function Comp<const T>() {
   const slots = defineSlots({
     title: (props: { bar?: T }) => <div>title slot: {props.bar}</div>,
@@ -195,31 +186,23 @@ function Comp<const T>() {
   )
 }
 
-// ---cut-start---
-// prettier-ignore
-// ---cut-end---
 export default () => (
   <Comp<1>>
     <template v-slot:title={{ bar }}>
-      //                      ^?
       {bar}
     </template>
     <template v-slot={{ foo }}>
-      //                ^?
       {foo}
     </template>
   </Comp>
 )
-</script>
 ```
 
 ## defineExpose
 
 Just like in Vue SFC.
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
+```tsx
 import { shallowRef as useRef } from 'vue'
 
 const Comp = <T,>({ foo = undefined as T }) => {
@@ -234,7 +217,6 @@ export default () => {
   console.log(compRef.value!.foo === 1)
   return <Comp ref={compRef} foo={1 as const} />
 }
-</script>
 ```
 
 ::: details Compiled Code
@@ -372,9 +354,7 @@ defineStyle(`
 
 - Support `css modules`, if the macro is an assignment expression.
 
-```vue twoslash
-<script lang="tsx">
-// @errors: 2307
+```tsx
 export default () => {
   const styles = defineStyle.scss(`
     .foo {
@@ -384,11 +364,8 @@ export default () => {
       }
     }
   `)
-
   return <div class={styles.bar} />
-  //                  ^?
 }
-</script>
 ```
 
 ## Volar Configuration
