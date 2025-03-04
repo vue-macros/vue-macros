@@ -39,6 +39,8 @@ export const zhCN = {
   'Loading...': '加载中…',
   Example: '示例',
   'Interactive Example': '交互式示例',
+
+  'Migration to v3': '迁移至 v3',
 }
 
 export const translateMap: Record<string, Record<string, string>> = {
