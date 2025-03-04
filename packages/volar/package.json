@@ -106,9 +106,9 @@
       "default": "./dist/loader/jsx-directive.cjs"
     },
     "./jsx-macros": {
-      "dev": "./src/jsx-macros.ts",
-      "require": "./dist/jsx-macros.js",
-      "import": "./dist/jsx-macros.mjs"
+      "types": "./dist/jsx-macros.d.ts",
+      "module-sync": "./dist/jsx-macros.js",
+      "default": "./dist/loader/jsx-macros.cjs"
     },
     "./jsx-ref": {
       "types": "./dist/jsx-ref.d.ts",
