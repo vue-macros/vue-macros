@@ -4,25 +4,16 @@ import {
   type MagicStringAST,
 } from '@vue-macros/common'
 import type { OptionsResolved } from './plugin'
-import { isVue2, type JsxDirective } from '.'
+import type { JsxDirective } from '.'
 
-export function transformVOn(
-  nodes: JsxDirective[],
-  s: MagicStringAST,
-  { version }: OptionsResolved,
-): void {
-  if (nodes.length > 0 && !isVue2(version))
+export function transformVOn(nodes: JsxDirective[], s: MagicStringAST): void {
+  if (nodes.length > 0)
     s.prependRight(
       0,
       `const ${HELPER_PREFIX}transformVOn = (obj) => Object.entries(obj).reduce((res, [key, value]) => (res['on' + key[0].toUpperCase() + key.slice(1)] = value, res), {});`,
     )
 
   nodes.forEach(({ attribute }) => {
-    if (isVue2(version)) {
-      s.remove(attribute.start!, attribute.start! + 2)
-      return
-    }
-
     s.overwriteNode(
       attribute,
       `{...${HELPER_PREFIX}transformVOn(${s.slice(
@@ -36,20 +27,10 @@ export function transformVOn(
 export function transformOnWithModifiers(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  { lib, version, prefix }: OptionsResolved,
+  { lib }: OptionsResolved,
 ): void {
   nodes.forEach(({ attribute }) => {
     const attributeName = attribute.name.name.toString()
-    if (isVue2(version)) {
-      s.overwrite(
-        attribute.name.start!,
-        attribute.name.start! + 3,
-        `${prefix}on:${attributeName[2].toLowerCase()}`,
-      )
-
-      if (!attribute.value) s.appendRight(attribute.name.end!, '={() => {}}')
-      return
-    }
 
     let [name, ...modifiers] = attributeName.split('_')
     const withModifiersOrKeys = importHelperFn(

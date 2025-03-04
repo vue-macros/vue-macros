@@ -7,7 +7,7 @@
 ::: warning
 
 此功能自 Volar (`vue-tsc`) v2.1.0 起已得到官方支持。
-您可以移除此插件并使用 Volar 中的内置支持。
+Vue Macros 不再提供此功能作为插件。
 
 :::
 

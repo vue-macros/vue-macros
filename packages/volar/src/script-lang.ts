@@ -32,3 +32,4 @@ const plugin: VueMacrosPlugin<'scriptLang'> = (_, options = {}) => {
 }
 
 export default plugin
+export { plugin as 'module.exports' }

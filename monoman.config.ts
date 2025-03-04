@@ -2,7 +2,7 @@ import { access, readdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { camelCase } from 'change-case'
 import fg from 'fast-glob'
-import { importx } from 'importx'
+import { createJiti } from 'jiti'
 import {
   defineConfig,
   noDuplicatedDeps,
@@ -11,6 +11,8 @@ import {
 import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
 import type { Options } from 'tsup'
+
+const jiti = createJiti(import.meta.url)
 
 /// keep-sorted
 const descriptions: Record<string, string> = {
@@ -37,7 +39,7 @@ function getPkgName(filePath: string) {
   return pkgName
 }
 
-let packageManager: string | undefined
+let version: string | undefined
 
 export default defineConfig([
   {
@@ -48,15 +50,13 @@ export default defineConfig([
       const pkgSrc = path.resolve(pkgRoot, 'src')
       const pkgName = getPkgName(filePath)
 
-      data.type = pkgName === 'volar' ? 'commonjs' : 'module'
-      const isESM = data.type === 'module'
-      const cjsPrefix = isESM ? 'c' : ''
-      const esmPrefix = isESM ? '' : 'm'
+      data.type = 'module'
       const hasRootDts = (await readdir(pkgRoot)).some((file) =>
         file.endsWith('.d.ts'),
       )
 
       if (!data.private) {
+        data.version = version ||= data.version
         data.description =
           descriptions[pkgName] ||
           `${camelCase(pkgName)} feature from Vue Macros.`
@@ -79,10 +79,11 @@ export default defineConfig([
         directory: `packages/${pkgName}`,
       }
       // data.author = '三咲智子 Kevin Deng <sxzz@sxzz.moe>'
-      data.engines = { node: '>=16.14.0' }
+      data.engines = { node: '>=20.18.0' }
 
       data.files = ['dist']
       if (hasRootDts) data.files.push('*.d.ts')
+      if (pkgName === 'macros') data.files.push('volar.cjs')
       data.files.sort()
 
       if (
@@ -114,19 +115,13 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
       data.publishConfig ||= {}
       data.publishConfig.access = 'public'
+      data.publishConfig.tag = 'next'
 
       const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
       if (!data.meta?.skipExports && (await exists(tsupFile))) {
         const tsupConfig: Options = (
-          await importx(tsupFile, {
-            parentURL: import.meta.url,
-            loader: 'bundle-require',
-          })
+          await jiti.import<{ default: Options }>(tsupFile)
         ).default
-        const format = tsupConfig.format || []
-        const hasCJS = format.includes('cjs')
-        const hasESM = format.includes('esm')
-
         const entries = (
           await fg(tsupConfig.entry as string[], {
             cwd: pkgRoot,
@@ -134,13 +129,17 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
           })
         ).map((file) => path.basename(path.relative(pkgSrc, file), '.ts'))
 
-        data.exports = buildExports(true)
-        data.publishConfig.exports = buildExports()
+        if (pkgName === 'macros') {
+          entries.push('volar')
+        }
 
-        const mainExport = data.exports['.']
+        data.exports = buildExports(true)
+        const exports = (data.publishConfig.exports = buildExports())
+
+        const mainExport = exports['.']
         if (mainExport) {
-          data.main = stripCurrentDir((mainExport as any).require)
-          data.module = stripCurrentDir((mainExport as any).import)
+          data.main = stripCurrentDir(mainExport.require || mainExport)
+          data.module = stripCurrentDir(mainExport.import || mainExport)
         }
 
         const onlyIndex = entries.length === 1 && entries[0] === 'index'
@@ -159,15 +158,20 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
               entries
                 .map((entry) => {
                   const key = entry === 'index' ? '.' : `./${entry}`
-                  const exports: Record<string, any> = withDev
-                    ? {
-                        dev: `./src/${entry}.ts`,
-                      }
-                    : {}
-                  if (hasCJS) exports.require = `./dist/${entry}.${cjsPrefix}js`
-                  if (hasESM) exports.import = `./dist/${entry}.${esmPrefix}js`
 
-                  return [key, exports] as const
+                  const map: Record<string, any> = {}
+                  if (withDev) map.dev = `./src/${entry}.ts`
+                  if (entry === 'volar') {
+                    map.types = `./volar.d.ts`
+                    map.default = `./volar.cjs`
+                  } else {
+                    map.default = `./dist/${entry}.js`
+                  }
+
+                  if (Object.keys(map).length === 1) {
+                    return [key, Object.values(map)[0]]
+                  }
+                  return [key, map] as const
                 })
                 .sort(([a], [b]) => a.localeCompare(b)),
             ),
@@ -199,7 +203,6 @@ Please refer to [README.md](${githubLink}#readme)\n`
       'docs/package.json',
       'playground/*/package.json',
     ],
-    exclude: ['playground/vue2/package.json'],
   }),
   ...noDuplicatedDeps({
     include: [
@@ -209,35 +212,22 @@ Please refer to [README.md](${githubLink}#readme)\n`
     ],
     ignores: ['vue'],
   }),
-  {
-    include: ['package.json', 'packages/*/package.json'],
-    type: 'json',
-    contents(data: Record<string, any>) {
-      if (!packageManager) {
-        packageManager = data.packageManager
-      } else {
-        data.packageManager = packageManager
-      }
-
-      return data
-    },
-  },
   ...noDuplicatedPnpmLockfile({
     deps: [
       'typescript',
-      'vue-tsc',
+      /vue\b(?!\/devtools)/,
       /twoslash/,
-      /^@vue\/(?!compiler-sfc|devtools)/,
       /shiki/,
       /babel/,
       /esbuild/,
-      /vite(?!-plugin-(vue-inspector|inspect))/,
+      /vite(?!-(plugin-(vue-inspector|inspect)|hot-client))/,
       /unocss/,
       /rolldown/,
+      /oxc(?!-project\/types)/,
     ],
   }),
   ...noDuplicatedPnpmLockfile({
-    deps: ['vue', '@vue/compiler-sfc', 'lru-cache', 'minimatch', 'debug'],
+    deps: ['lru-cache', 'minimatch', 'debug'],
     allowMajor: true,
   }),
 ])

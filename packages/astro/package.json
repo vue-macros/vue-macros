@@ -1,7 +1,6 @@
 {
   "name": "@vue-macros/astro",
-  "version": "0.7.4",
-  "packageManager": "pnpm@10.4.1",
+  "version": "3.0.0-beta.2",
   "description": "Astro integration of Vue Macros.",
   "type": "module",
   "keywords": [
@@ -30,26 +29,23 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": {
-        "require": "./dist/index.cjs",
-        "import": "./dist/index.js"
-      },
+      ".": "./dist/index.js",
       "./*": "./*"
-    }
+    },
+    "tag": "next"
   },
   "scripts": {
     "build": "tsup",
@@ -59,13 +55,13 @@
     "astro": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "dependencies": {
-    "unplugin-vue-macros": "workspace:*"
+    "vue-macros": "workspace:*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "catalog:",
-    "astro": "^5.3.0"
+    "astro": "^5.4.1"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=20.18.0"
   }
 }

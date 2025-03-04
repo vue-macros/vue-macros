@@ -8,7 +8,7 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const name = "Foo";
 const __default__ = defineComponent({ name });
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	...__default__,
 	props: {
 		title: {
@@ -85,7 +85,7 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const msg = "Hello";
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "case-233",
 	props: { msg: {
 		type: String,
@@ -114,7 +114,7 @@ exports[`fixtures > tests/fixtures/define-props-refs.vue 1`] = `
 import { defineComponent, toRefs } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "define-props-refs",
 	props: { foo: {
 		type: String,
@@ -145,7 +145,7 @@ export { definePropsRefs as default };
 "
 `;
 
-exports[`fixtures > tests/fixtures/error-diff-lang.vue 1`] = `[Error: [unplugin-vue-macros] <script> and <script setup> must have the same language type.]`;
+exports[`fixtures > tests/fixtures/error-diff-lang.vue 1`] = `[Error: [vue-macros] <script> and <script setup> must have the same language type.]`;
 
 exports[`fixtures > tests/fixtures/hoist-static.vue 1`] = `
 "// hoist-static.js
@@ -187,7 +187,7 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 const [name] = ["VarCompName"];
 const __default__ = defineComponent({ name });
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	...__default__,
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -220,7 +220,7 @@ import __MACROS_normalizePropsOrEmits from '/vue-macros/define-prop/helper';
 import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "mixed-define-props",
 	props: {
 		...__MACROS_normalizePropsOrEmits({
@@ -275,7 +275,7 @@ exports[`fixtures > tests/fixtures/short-emits.setup.tsx 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "short-emits.setup",
 	emits: ["update:modelValue"],
 	setup(__props, { expose: __expose }) {
@@ -292,86 +292,5 @@ var _sfc_main = /*@__PURE__*/ defineComponent({
 var shortEmits_setup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { shortEmits_setup as default };
-"
-`;
-
-exports[`fixtures > tests/fixtures/vue2-model.vue 1`] = `
-"// vue2-model.js
-import { defineComponent } from 'vue';
-import __MACROS_useVModel from '/vue-macros/define-models/use-vmodel';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
-
-const __default__ = defineComponent({
-	name: "Foo",
-	model: {
-		prop: "value",
-		event: "changeInput"
-	}
-});
-var _sfc_main = /*@__PURE__*/ defineComponent({
-	...__default__,
-	props: {
-		title: {
-			type: String,
-			required: true
-		},
-		value: {
-			type: String,
-			required: true
-		}
-	},
-	emits: [
-		"change",
-		"input",
-		"changeInput"
-	],
-	setup(__props, { expose: __expose, emit: __emit }) {
-		__expose();
-		const emit = __emit;
-		let { modelValue, value } = __MACROS_useVModel([
-			"modelValue",
-			"value",
-			"input"
-		], [
-			"value",
-			undefined,
-			"changeInput"
-		]);
-		const handleClick = () => {
-			emit("change");
-			modelValue.value = "hello, " + __props.title;
-			value.value = "Word," + __props.title;
-		};
-		const __returned__ = {
-			emit,
-			get modelValue() {
-				return modelValue;
-			},
-			set modelValue(v) {
-				modelValue = v;
-			},
-			get value() {
-				return value;
-			},
-			set value(v) {
-				value = v;
-			},
-			handleClick,
-			__MACROS_defineComponent: defineComponent,
-			get __MACROS_useVModel() {
-				return __MACROS_useVModel;
-			}
-		};
-		Object.defineProperty(__returned__, "__isScriptSetup", {
-			enumerable: false,
-			value: true
-		});
-		return __returned__;
-	}
-});
-
-var vue2Model = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
-
-export { vue2Model as default };
 "
 `;

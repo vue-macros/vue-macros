@@ -6,7 +6,7 @@ import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "basic",
 	props: {
 		foo: {
@@ -55,7 +55,7 @@ import { defineComponent, toDisplayString } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "declare",
 	props: { bar: {
 		type: Boolean,
@@ -90,7 +90,7 @@ import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "empty",
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -122,7 +122,7 @@ import { defineComponent } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "empty-defaults",
 	props: { foo: {
 		type: String,
@@ -157,7 +157,7 @@ exports[`fixtures > tests/fixtures/tsx.vue 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "tsx",
 	props: { foo: {
 		type: String,

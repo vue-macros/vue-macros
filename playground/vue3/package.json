@@ -1,6 +1,5 @@
 {
   "name": "playground-vue3",
-  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +12,7 @@
   },
   "dependencies": {
     "@vueuse/core": "catalog:",
-    "quasar": "^2.17.7",
+    "quasar": "^2.18.0",
     "vue": "catalog:"
   },
   "devDependencies": {
@@ -24,16 +23,16 @@
     "@vitejs/plugin-vue-jsx": "catalog:",
     "esbuild": "catalog:",
     "rollup": "catalog:",
-    "type-fest": "^4.35.0",
+    "type-fest": "^4.36.0",
     "typescript": "catalog:",
     "unocss": "catalog:",
     "unplugin-oxc": "catalog:",
     "unplugin-vue": "catalog:",
-    "unplugin-vue-macros": "workspace:*",
     "vite": "catalog:",
     "vite-hyper-config": "^0.6.0",
-    "vite-plugin-inspect": "^10.2.1",
+    "vite-plugin-inspect": "^11.0.0",
     "vite-plugin-stylex": "catalog:",
+    "vue-macros": "workspace:*",
     "vue-tsc": "catalog:"
   }
 }

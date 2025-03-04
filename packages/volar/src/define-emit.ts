@@ -78,3 +78,4 @@ const plugin: VueMacrosPlugin<'defineEmit'> = (ctx, options = {}) => {
   }
 }
 export default plugin
+export { plugin as 'module.exports' }

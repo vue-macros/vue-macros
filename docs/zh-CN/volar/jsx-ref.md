@@ -60,7 +60,7 @@ export const Comp = defineComponent({
 })
 // #endregion comp
 // ---cut---
-import { useRef } from 'unplugin-vue-macros/runtime'
+import { useRef } from 'vue-macros/runtime'
 // 或者 import { shallowRef as useRef } from 'vue'
 // @noErrors
 import { Comp } from './Comp.ts'
@@ -88,7 +88,7 @@ export default defineComponent(() => {
 ```jsonc [tsconfig.json] {3,6}
 {
   "vueCompilerOptions": {
-    "plugins": ["unplugin-vue-macros/volar"],
+    "plugins": ["vue-macros/volar"],
     "vueMacros": {
       "jsxRef": {
         "alias": ["useRef"],

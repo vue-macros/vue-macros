@@ -1,28 +1,35 @@
 import { readdir } from 'node:fs/promises'
-import path from 'node:path'
 import process from 'node:process'
 import { publint } from 'publint'
 import { formatMessage } from 'publint/utils'
 
 const pkgs = (await readdir('packages', { withFileTypes: true }))
   .filter((pkg) => pkg.isDirectory())
-  .map((pkg) => path.join('packages', pkg.name))
+  .map((pkg) => pkg.name)
 
 await Promise.all(
-  pkgs.map(async (pkg) => {
-    const pkgJson = await import(`./${pkg}/package.json`).then(
+  pkgs.map(async (pkgName) => {
+    const pkgDir = `./packages/${pkgName}`
+    const pkgJson = await import(`${pkgDir}/package.json`).then(
       (mod) => mod.default,
     )
-    const { messages } = await publint({
-      pkgDir: pkg,
+    let { messages } = await publint({
+      pkgDir,
       strict: true,
     })
+    if (pkgName === 'volar') {
+      messages = messages.filter(
+        (msg) => msg.code !== 'EXPORTS_TYPES_INVALID_FORMAT',
+      )
+    }
 
     if (!messages.length) return
 
     console.error(`${pkgJson.name}:`)
-    messages.forEach((msg) => console.error(formatMessage(msg, pkgJson)))
-    process.exit(1)
+    messages.forEach((msg) =>
+      console.error(`[${msg.code}]`, formatMessage(msg, pkgJson)),
+    )
+    process.exitCode = 1
   }),
 )
 

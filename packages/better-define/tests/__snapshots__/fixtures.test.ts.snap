@@ -5,7 +5,7 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = false 1`] = `
 import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "basic",
 	props: {
 		base: {
@@ -59,7 +59,7 @@ exports[`fixtures > tests/fixtures/basic.vue > isProduction = true 1`] = `
 import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "basic",
 	props: {
 		base: null,
@@ -95,7 +95,7 @@ exports[`fixtures > tests/fixtures/built-in.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "built-in",
 	props: {
 		optional: {
@@ -133,7 +133,7 @@ exports[`fixtures > tests/fixtures/built-in.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "built-in",
 	props: {
 		optional: null,
@@ -162,7 +162,7 @@ exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = false 1
 import { defineComponent, mergeDefaults, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "defaults-dynamic",
 	props: mergeDefaults({ foo: {
 		type: String,
@@ -193,7 +193,7 @@ exports[`fixtures > tests/fixtures/defaults-dynamic.vue > isProduction = true 1`
 import { defineComponent, mergeDefaults, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "defaults-dynamic",
 	props: mergeDefaults({ foo: null }, { ["f" + "oo"]: "foo" }),
 	setup(__props, { expose: __expose }) {
@@ -221,7 +221,7 @@ exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = false 1`
 import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "defaults-static",
 	props: {
 		foo: {
@@ -278,7 +278,7 @@ exports[`fixtures > tests/fixtures/defaults-static.vue > isProduction = true 1`]
 import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "defaults-static",
 	props: {
 		foo: { default: "foo" },
@@ -319,7 +319,7 @@ exports[`fixtures > tests/fixtures/fn-default.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "fn-default",
 	props: { fn: {
 		type: Function,
@@ -349,7 +349,7 @@ exports[`fixtures > tests/fixtures/fn-default.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "fn-default",
 	props: { fn: {
 		type: Function,
@@ -378,7 +378,7 @@ exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction = false 1`
 import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "import-from-vue",
 	props: {
 		setupBase: {
@@ -444,7 +444,7 @@ exports[`fixtures > tests/fixtures/import-from-vue.vue > isProduction = true 1`]
 import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "import-from-vue",
 	props: {
 		setupBase: null,
@@ -483,7 +483,7 @@ exports[`fixtures > tests/fixtures/intersection.vue > isProduction = false 1`] =
 import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "intersection",
 	props: {
 		base: {
@@ -536,7 +536,7 @@ exports[`fixtures > tests/fixtures/intersection.vue > isProduction = true 1`] = 
 import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "intersection",
 	props: {
 		base: null,
@@ -571,7 +571,7 @@ exports[`fixtures > tests/fixtures/issue-260.vue > isProduction = false 1`] = `
 import { defineComponent, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-260",
 	props: { menu: {
 		type: [Object, Array],
@@ -604,7 +604,7 @@ exports[`fixtures > tests/fixtures/issue-260.vue > isProduction = true 1`] = `
 import { defineComponent, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-260",
 	props: { menu: { default: () => ({ txt: "1-1" }) } },
 	setup(__props, { expose: __expose }) {
@@ -633,7 +633,7 @@ exports[`fixtures > tests/fixtures/issue-328.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-328",
 	emits: ["foo"],
 	setup(__props, { expose: __expose }) {
@@ -658,7 +658,7 @@ exports[`fixtures > tests/fixtures/issue-328.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-328",
 	emits: ["foo"],
 	setup(__props, { expose: __expose }) {
@@ -683,7 +683,7 @@ exports[`fixtures > tests/fixtures/issue-351.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-351",
 	props: { modelValue: {
 		type: [String, Boolean],
@@ -711,7 +711,7 @@ exports[`fixtures > tests/fixtures/issue-351.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-351",
 	props: { modelValue: { type: [String, Boolean] } },
 	setup(__props, { expose: __expose }) {
@@ -736,7 +736,7 @@ exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = false 1`] = `
 import { defineComponent, createElementBlock, openBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-362",
 	props: { trigger: { required: true } },
 	setup(__props, { expose: __expose }) {
@@ -779,7 +779,7 @@ exports[`fixtures > tests/fixtures/issue-362.vue > isProduction = true 1`] = `
 import { defineComponent, createElementBlock, openBlock, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-362",
 	props: { trigger: null },
 	setup(__props, { expose: __expose }) {
@@ -822,7 +822,7 @@ exports[`fixtures > tests/fixtures/issue-806.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-806",
 	props: { foo: {
 		type: [Function, Object],
@@ -850,7 +850,7 @@ exports[`fixtures > tests/fixtures/issue-806.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-806",
 	props: { foo: { type: Function } },
 	setup(__props, { expose: __expose }) {
@@ -880,7 +880,7 @@ var pkg = {
 	foo: foo
 };
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "json-resolve",
 	props: {
 		foo: {
@@ -925,7 +925,7 @@ var pkg = {
 	foo: foo
 };
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "json-resolve",
 	props: {
 		foo: null,
@@ -959,7 +959,7 @@ exports[`fixtures > tests/fixtures/namespace.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "namespace",
 	props: {
 		x: {
@@ -997,7 +997,7 @@ exports[`fixtures > tests/fixtures/namespace.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "namespace",
 	props: {
 		x: { type: Boolean },
@@ -1026,7 +1026,7 @@ exports[`fixtures > tests/fixtures/optional-method.vue > isProduction = false 1`
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "optional-method",
 	props: {
 		onClick: {
@@ -1060,7 +1060,7 @@ exports[`fixtures > tests/fixtures/optional-method.vue > isProduction = true 1`]
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "optional-method",
 	props: {
 		onClick: { type: Function },
@@ -1088,7 +1088,7 @@ exports[`fixtures > tests/fixtures/playground.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "playground",
 	props: { foo: { required: true } },
 	setup(__props, { expose: __expose }) {
@@ -1113,7 +1113,7 @@ exports[`fixtures > tests/fixtures/playground.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "playground",
 	props: { foo: null },
 	setup(__props, { expose: __expose }) {
@@ -1138,7 +1138,7 @@ exports[`fixtures > tests/fixtures/radix-vue.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "radix-vue",
 	props: {
 		asChild: {
@@ -1180,7 +1180,7 @@ exports[`fixtures > tests/fixtures/radix-vue.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "radix-vue",
 	props: {
 		asChild: { type: Boolean },
@@ -1209,7 +1209,7 @@ exports[`fixtures > tests/fixtures/resolve-failed.vue > isProduction = false 1`]
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "resolve-failed",
 	props: {
 		foo: { required: true },
@@ -1255,7 +1255,7 @@ exports[`fixtures > tests/fixtures/resolve-failed.vue > isProduction = true 1`] 
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "resolve-failed",
 	props: {
 		foo: null,
@@ -1286,7 +1286,7 @@ exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = false 1`] = 
 import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "short-emits",
 	emits: ["click"],
 	setup(__props, { expose: __expose, emit: __emit }) {
@@ -1317,7 +1317,7 @@ exports[`fixtures > tests/fixtures/short-emits.vue > isProduction = true 1`] = `
 import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "short-emits",
 	emits: ["click"],
 	setup(__props, { expose: __expose, emit: __emit }) {
@@ -1348,7 +1348,7 @@ exports[`fixtures > tests/fixtures/special-key.vue > isProduction = false 1`] = 
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "special-key",
 	props: { "key-name": {
 		type: String,
@@ -1376,7 +1376,7 @@ exports[`fixtures > tests/fixtures/special-key.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "special-key",
 	props: { "key-name": null },
 	setup(__props, { expose: __expose }) {
@@ -1401,7 +1401,7 @@ exports[`fixtures > tests/fixtures/template-keys.vue > isProduction = false 1`] 
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "template-keys",
 	props: {
 		"TfooSxZ0strstatic_value'": {
@@ -1463,7 +1463,7 @@ exports[`fixtures > tests/fixtures/template-keys.vue > isProduction = true 1`] =
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "template-keys",
 	props: {
 		"TfooSxZ0strstatic_value'": null,
@@ -1498,7 +1498,7 @@ exports[`fixtures > tests/fixtures/ts-indexed-access-type.vue > isProduction = f
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "ts-indexed-access-type",
 	props: {
 		foo: {
@@ -1557,7 +1557,7 @@ exports[`fixtures > tests/fixtures/ts-indexed-access-type.vue > isProduction = t
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "ts-indexed-access-type",
 	props: {
 		foo: null,
@@ -1594,7 +1594,7 @@ exports[`fixtures > tests/fixtures/ts-utility-types.vue > isProduction = false 1
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "ts-utility-types",
 	props: {
 		foo: {
@@ -1628,7 +1628,7 @@ exports[`fixtures > tests/fixtures/ts-utility-types.vue > isProduction = true 1`
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "ts-utility-types",
 	props: {
 		foo: null,
@@ -1656,7 +1656,7 @@ exports[`fixtures > tests/fixtures/undefined.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "undefined",
 	props: { foo: { required: true } },
 	setup(__props, { expose: __expose }) {
@@ -1681,7 +1681,7 @@ exports[`fixtures > tests/fixtures/undefined.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "undefined",
 	props: { foo: null },
 	setup(__props, { expose: __expose }) {
@@ -1706,7 +1706,7 @@ exports[`fixtures > tests/fixtures/union.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "union",
 	props: {
 		type: {
@@ -1748,7 +1748,7 @@ exports[`fixtures > tests/fixtures/union.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "union",
 	props: {
 		type: null,
@@ -1778,7 +1778,7 @@ exports[`fixtures > tests/fixtures/union-emits.vue > isProduction = false 1`] = 
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "union-emits",
 	emits: [
 		"some",
@@ -1808,7 +1808,7 @@ exports[`fixtures > tests/fixtures/union-emits.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "union-emits",
 	emits: [
 		"some",
@@ -1838,7 +1838,7 @@ exports[`fixtures > tests/fixtures/union-props.vue > isProduction = false 1`] = 
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "union-props",
 	props: {
 		foo: {
@@ -1876,7 +1876,7 @@ exports[`fixtures > tests/fixtures/union-props.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "union-props",
 	props: {
 		foo: null,
@@ -1905,7 +1905,7 @@ exports[`fixtures > tests/fixtures/unresolved.vue > isProduction = false 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "unresolved",
 	props: { foo: { required: true } },
 	setup(__props, { expose: __expose }) {
@@ -1930,7 +1930,7 @@ exports[`fixtures > tests/fixtures/unresolved.vue > isProduction = true 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "unresolved",
 	props: { foo: null },
 	setup(__props, { expose: __expose }) {
@@ -1955,7 +1955,7 @@ exports[`fixtures > tests/fixtures/vue-core-7553.vue > isProduction = false 1`] 
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "vue-core-7553",
 	props: {
 		size: {
@@ -1997,7 +1997,7 @@ exports[`fixtures > tests/fixtures/vue-core-7553.vue > isProduction = true 1`] =
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "vue-core-7553",
 	props: {
 		size: null,
