@@ -6,7 +6,7 @@ import { defineComponent, ref, createVNode, createTextVNode, VNode } from 'vue';
 import { expectTypeOf } from 'expect-type';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 	__name: "SetupFC.tsx-setup-component-0",
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -50,7 +50,7 @@ exports[`fixtures > tests/fixtures/async.tsx 1`] = `
 import { defineComponent, withAsyncContext } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 	__name: "async.tsx-setup-component-0",
 	props: { foo: {
 		type: String,
@@ -84,7 +84,7 @@ exports[`fixtures > tests/fixtures/basic.ts 1`] = `
 import { defineComponent, h } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 	...{ name: "App" },
 	__name: "basic.ts-setup-component-0",
 	props: { foo: {
@@ -121,7 +121,7 @@ exports[`fixtures > tests/fixtures/context.tsx 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main$1 = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
+var _sfc_main$1 = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 	__name: "context.tsx-setup-component-1",
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -146,7 +146,7 @@ var _sfc_main$1 = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
 var __MACROS_setupComponent_1 = (ctx) => /* @__PURE__ */ _export_sfc(_sfc_main$1(ctx), [__FILE__]);
 
 const bar$1 = "BAR";
-var _sfc_main = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 	__name: "context.tsx-setup-component-0",
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -199,7 +199,7 @@ exports[`fixtures > tests/fixtures/render.tsx 1`] = `
 import { defineComponent, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 	__name: "render.tsx-setup-component-0",
 	props: { foo: {
 		type: String,
@@ -231,7 +231,7 @@ exports[`fixtures > tests/fixtures/return-render.tsx 1`] = `
 import { defineComponent, computed, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 	__name: "return-render.tsx-setup-component-0",
 	props: { foo: {
 		type: String,
@@ -268,7 +268,7 @@ exports[`fixtures > tests/fixtures/type-annotation.ts 1`] = `
 import { defineComponent, h } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = (__MACROS_ctx) => /*@__PURE__*/ defineComponent({
+var _sfc_main = (__MACROS_ctx) => /* @__PURE__ */ defineComponent({
 	...{ name: "App" },
 	__name: "type-annotation.ts-setup-component-0",
 	props: { foo: {

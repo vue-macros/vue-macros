@@ -62,7 +62,7 @@ exports[`fixtures > tests/fixtures/basic.vue 1`] = `
 import { defineComponent, ref } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "basic",
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -96,7 +96,7 @@ exports[`fixtures > tests/fixtures/default-value.vue 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "default-value",
 	props: {
 		fn: {
@@ -146,7 +146,7 @@ import { defineComponent } from 'vue';
 import { createPropsRestProxy } from '/vue-macros/reactivity-transform/helper';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "destructure-props",
 	props: {
 		foo: {
@@ -193,7 +193,7 @@ exports[`fixtures > tests/fixtures/issue-608.vue 1`] = `
 import { defineComponent, ref, isRef } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "issue-608",
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -244,7 +244,7 @@ exports[`fixtures > tests/fixtures/runtime-default.vue 1`] = `
 import { defineComponent, mergeDefaults } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "runtime-default",
 	props: mergeDefaults(["foo"], { foo: "str" }),
 	setup(__props, { expose: __expose }) {
@@ -272,7 +272,7 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 let foo = ref("msg");
 foo.value = "world";
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "script-and-setup",
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -313,7 +313,7 @@ exports[`fixtures > tests/fixtures/trailing-comma.vue 1`] = `
 import { defineComponent, ref } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-var _sfc_main = /*@__PURE__*/ defineComponent({
+var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "trailing-comma",
 	setup(__props, { expose: __expose }) {
 		__expose();
