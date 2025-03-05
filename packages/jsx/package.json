@@ -23,11 +23,12 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/jsx"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "zhiyuanzmj",
+  "contributors": [
+    "三咲智子 <sxzz@sxzz.moe>"
+  ],
   "files": [
-    "*.d.ts",
-    "dist",
-    "volar.cjs"
+    "dist"
   ],
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -75,17 +76,13 @@
     },
     "./volar": {
       "dev": "./src/volar.ts",
-      "types": "./volar.d.ts",
-      "default": "./volar.cjs"
+      "default": "./dist/volar.js"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
       "default": "./dist/webpack.js"
     },
-    "./*": [
-      "./*",
-      "./*.d.ts"
-    ]
+    "./*": "./*"
   },
   "typesVersions": {
     "*": {
@@ -108,15 +105,9 @@
       "./rspack": "./dist/rspack.js",
       "./runtime": "./dist/runtime.js",
       "./vite": "./dist/vite.js",
-      "./volar": {
-        "types": "./volar.d.ts",
-        "default": "./volar.cjs"
-      },
+      "./volar": "./dist/volar.js",
       "./webpack": "./dist/webpack.js",
-      "./*": [
-        "./*",
-        "./*.d.ts"
-      ]
+      "./*": "./*"
     },
     "tag": "next"
   },
