@@ -83,7 +83,7 @@ export default defineConfig([
 
       data.files = ['dist']
       if (hasRootDts) data.files.push('*.d.ts')
-      if (pkgName === 'macros') data.files.push('volar.cjs')
+      if (['macros', 'jsx'].includes(pkgName)) data.files.push('volar.cjs')
       data.files.sort()
 
       if (

@@ -1,8 +1,8 @@
-import jsxDirective from '@vue-macros/volar/jsx-directive'
-import jsxMacros from '@vue-macros/volar/jsx-macros'
-import jsxRef from '@vue-macros/volar/jsx-ref'
+import { resolveJSXOptions, type JSXOptions } from '@vue-macros/jsx/options'
 import { createPlugin, type PluginReturn } from 'ts-macro'
-import { resolveJSXOptions, type JSXOptions } from './options'
+import jsxDirective from './jsx-directive'
+import jsxMacros from './jsx-macros'
+import jsxRef from './jsx-ref'
 
 const jsxPlugins = [
   ['directive', jsxDirective],
@@ -20,3 +20,4 @@ const plugin: PluginReturn<JSXOptions | undefined> = createPlugin(
 )
 
 export default plugin
+export { plugin as 'module.exports' }

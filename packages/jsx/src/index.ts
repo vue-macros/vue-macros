@@ -6,7 +6,7 @@ import {
   createCombinePlugin,
   type UnpluginCombineInstance,
 } from 'unplugin-combine'
-import { resolveJSXOptions, type JSXOptions } from './core/options'
+import { resolveJSXOptions, type JSXOptions } from './options'
 
 const jsxPlugins = [
   ['directive', jsxDirective],

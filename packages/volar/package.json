@@ -115,6 +115,11 @@
       "module-sync": "./dist/jsx-ref.js",
       "default": "./dist/loader/jsx-ref.cjs"
     },
+    "./jsx": {
+      "types": "./dist/jsx.d.ts",
+      "module-sync": "./dist/jsx.js",
+      "default": "./dist/loader/jsx.cjs"
+    },
     "./script-lang": {
       "types": "./dist/script-lang.d.ts",
       "module-sync": "./dist/script-lang.js",
@@ -177,6 +182,7 @@
     "@vue-macros/boolean-prop": "workspace:*",
     "@vue-macros/common": "workspace:*",
     "@vue-macros/config": "workspace:*",
+    "@vue-macros/jsx": "workspace:*",
     "@vue-macros/short-bind": "workspace:*",
     "@vue-macros/short-vmodel": "workspace:*",
     "@vue/compiler-dom": "catalog:",

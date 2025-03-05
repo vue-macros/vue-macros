@@ -1,7 +1,7 @@
 import jsxDirective from '@vue-macros/jsx-directive/raw'
 import jsxMacros from '@vue-macros/jsx-macros/raw'
 
-import { resolveJSXOptions, type JSXOptions } from './core/options'
+import { resolveJSXOptions, type JSXOptions } from './options'
 import type { UnpluginFactory } from 'unplugin'
 
 const jsxPlugins = [
