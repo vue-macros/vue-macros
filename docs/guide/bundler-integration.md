@@ -50,8 +50,8 @@ export default defineConfig({
 ```
 
 ```ts [Rollup]
+// rollup.config.js (Requires Rollup 3+)
 import Vue from 'unplugin-vue/rollup'
-// rollup.config.js
 import VueMacros from 'vue-macros/rollup'
 // import VueRouter from 'unplugin-vue-router/rollup'
 
@@ -93,7 +93,7 @@ build({
 ```
 
 ```js [Webpack]
-// webpack.config.js
+// webpack.config.js (Requires Webpack 5+)
 module.exports = {
   /* ... */
   plugins: [
@@ -133,7 +133,7 @@ module.exports = {
 ```
 
 ```js [Vue CLI]
-// vue.config.js
+// vue.config.js (Requires Vue CLI 5+)
 const { defineConfig } = require('@vue/cli-service')
 const VueMacros = require('vue-macros/webpack')
 

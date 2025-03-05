@@ -96,6 +96,10 @@ export function getLocaleConfig(lang: string) {
           link: `/guide/configurations`,
         },
         {
+          text: t('Migration to v3'),
+          link: `/guide/migration-v3`,
+        },
+        {
           text: t('Interactive Example'),
           link: `/interactive`,
         },
