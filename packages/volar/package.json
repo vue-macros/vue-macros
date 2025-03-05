@@ -27,117 +27,137 @@
     "*.d.ts",
     "dist"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "module-sync": "./dist/index.js",
+      "import": "./dist/index.js",
       "default": "./dist/loader/index.cjs"
     },
     "./boolean-prop": {
       "types": "./dist/boolean-prop.d.ts",
       "module-sync": "./dist/boolean-prop.js",
+      "import": "./dist/boolean-prop.js",
       "default": "./dist/loader/boolean-prop.cjs"
     },
     "./common": {
       "types": "./dist/common.d.ts",
       "module-sync": "./dist/common.js",
+      "import": "./dist/common.js",
       "default": "./dist/loader/common.cjs"
     },
     "./define-emit": {
       "types": "./dist/define-emit.d.ts",
       "module-sync": "./dist/define-emit.js",
+      "import": "./dist/define-emit.js",
       "default": "./dist/loader/define-emit.cjs"
     },
     "./define-generic": {
       "types": "./dist/define-generic.d.ts",
       "module-sync": "./dist/define-generic.js",
+      "import": "./dist/define-generic.js",
       "default": "./dist/loader/define-generic.cjs"
     },
     "./define-models": {
       "types": "./dist/define-models.d.ts",
       "module-sync": "./dist/define-models.js",
+      "import": "./dist/define-models.js",
       "default": "./dist/loader/define-models.cjs"
     },
     "./define-options": {
       "types": "./dist/define-options.d.ts",
       "module-sync": "./dist/define-options.js",
+      "import": "./dist/define-options.js",
       "default": "./dist/loader/define-options.cjs"
     },
     "./define-prop": {
       "types": "./dist/define-prop.d.ts",
       "module-sync": "./dist/define-prop.js",
+      "import": "./dist/define-prop.js",
       "default": "./dist/loader/define-prop.cjs"
     },
     "./define-props": {
       "types": "./dist/define-props.d.ts",
       "module-sync": "./dist/define-props.js",
+      "import": "./dist/define-props.js",
       "default": "./dist/loader/define-props.cjs"
     },
     "./define-props-refs": {
       "types": "./dist/define-props-refs.d.ts",
       "module-sync": "./dist/define-props-refs.js",
+      "import": "./dist/define-props-refs.js",
       "default": "./dist/loader/define-props-refs.cjs"
     },
     "./define-slots": {
       "types": "./dist/define-slots.d.ts",
       "module-sync": "./dist/define-slots.js",
+      "import": "./dist/define-slots.js",
       "default": "./dist/loader/define-slots.cjs"
     },
     "./export-expose": {
       "types": "./dist/export-expose.d.ts",
       "module-sync": "./dist/export-expose.js",
+      "import": "./dist/export-expose.js",
       "default": "./dist/loader/export-expose.cjs"
     },
     "./export-props": {
       "types": "./dist/export-props.d.ts",
       "module-sync": "./dist/export-props.js",
+      "import": "./dist/export-props.js",
       "default": "./dist/loader/export-props.cjs"
     },
     "./export-render": {
       "types": "./dist/export-render.d.ts",
       "module-sync": "./dist/export-render.js",
+      "import": "./dist/export-render.js",
       "default": "./dist/loader/export-render.cjs"
     },
     "./jsx-directive": {
       "types": "./dist/jsx-directive.d.ts",
       "module-sync": "./dist/jsx-directive.js",
+      "import": "./dist/jsx-directive.js",
       "default": "./dist/loader/jsx-directive.cjs"
     },
     "./jsx-ref": {
       "types": "./dist/jsx-ref.d.ts",
       "module-sync": "./dist/jsx-ref.js",
+      "import": "./dist/jsx-ref.js",
       "default": "./dist/loader/jsx-ref.cjs"
     },
     "./script-lang": {
       "types": "./dist/script-lang.d.ts",
       "module-sync": "./dist/script-lang.js",
+      "import": "./dist/script-lang.js",
       "default": "./dist/loader/script-lang.cjs"
     },
     "./script-sfc": {
       "types": "./dist/script-sfc.d.ts",
       "module-sync": "./dist/script-sfc.js",
+      "import": "./dist/script-sfc.js",
       "default": "./dist/loader/script-sfc.cjs"
     },
     "./setup-jsdoc": {
       "types": "./dist/setup-jsdoc.d.ts",
       "module-sync": "./dist/setup-jsdoc.js",
+      "import": "./dist/setup-jsdoc.js",
       "default": "./dist/loader/setup-jsdoc.cjs"
     },
     "./setup-sfc": {
       "types": "./dist/setup-sfc.d.ts",
       "module-sync": "./dist/setup-sfc.js",
+      "import": "./dist/setup-sfc.js",
       "default": "./dist/loader/setup-sfc.cjs"
     },
     "./short-bind": {
       "types": "./dist/short-bind.d.ts",
       "module-sync": "./dist/short-bind.js",
+      "import": "./dist/short-bind.js",
       "default": "./dist/loader/short-bind.cjs"
     },
     "./short-vmodel": {
       "types": "./dist/short-vmodel.d.ts",
       "module-sync": "./dist/short-vmodel.js",
+      "import": "./dist/short-vmodel.js",
       "default": "./dist/loader/short-vmodel.cjs"
     },
     "./*": [
