@@ -20,7 +20,7 @@ import type { UnpluginContextMeta, UnpluginFactory } from 'unplugin'
 
 export type Options = BaseOptions & {
   prefix?: string
-  lib?: 'vue' | 'vue/vapor' | 'react' | 'preact' | 'solid' | (string & {})
+  lib?: 'vue' | 'react' | 'preact' | 'solid' | (string & {})
 }
 export type OptionsResolved = MarkRequired<
   Options,
