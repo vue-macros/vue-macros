@@ -79,6 +79,7 @@ export default defineConfig([
         directory: `packages/${pkgName}`,
       }
       // data.author = '三咲智子 Kevin Deng <sxzz@sxzz.moe>'
+      data.funding = 'https://github.com/sponsors/vue-macros'
       data.engines = { node: '>=20.18.0' }
 
       data.files = ['dist']
