@@ -65,7 +65,7 @@ export function transformVSlot(
               : 'default'
           attributeName = attributeName.replace(/\$(.*)\$/, (_, $1) => {
             isDynamic = true
-            return $1
+            return $1.replaceAll('_', '.')
           })
           result.push(
             isDynamic
