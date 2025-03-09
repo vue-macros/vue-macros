@@ -131,7 +131,7 @@ function transform(
           attribute.name.type === 'JSXNamespacedName' &&
           attribute.name.namespace.name === `${prefix}model`
         ) {
-          transformVModel(attribute, s, options)
+          transformVModel(attribute, s)
         }
       }
 

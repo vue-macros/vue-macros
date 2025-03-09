@@ -2,14 +2,13 @@
 
 exports[`v-model > ./fixtures/v-model/index.vue 1`] = `
 "<script setup lang="tsx">
-import { unref as __MACROS_unref } from "vue";
 import { ref } from 'vue'
 
 let foo = ref('')
 const value = ref('value')
 defineRender(() => (
   <div>
-    <input {...{[__MACROS_unref(value)]: foo, ["onUpdate:" + __MACROS_unref(value)]: $event => foo = $event, [__MACROS_unref(value) + "Modifiers"]: { trim: true, number: true }}} />
+    <input {...{[value.value]: foo, ["onUpdate:" + value.value]: $event => foo = $event, [value.value + "Modifiers"]: { trim: true, number: true }}} />
     {foo}
   </div>
 ))

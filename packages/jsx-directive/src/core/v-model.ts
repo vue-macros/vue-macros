@@ -1,22 +1,21 @@
-import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
-import type { OptionsResolved } from './plugin'
 import type { JSXAttribute } from '@babel/types'
+import type { MagicStringAST } from '@vue-macros/common'
 
+const dynamicModelRE = /^\$(.*)\$(?:_(.*))?/
 export function transformVModel(
   attribute: JSXAttribute,
   s: MagicStringAST,
-  { lib }: OptionsResolved,
 ): void {
   if (
     attribute.name.type === 'JSXNamespacedName' &&
     attribute.value?.type === 'JSXExpressionContainer'
   ) {
-    const matched = attribute.name.name.name.match(/^\$(.*)\$(?:_(.*))?/)
+    const matched = attribute.name.name.name.match(dynamicModelRE)
     if (!matched) return
 
     let [, argument, modifiers] = matched
+    argument = argument.replaceAll('_', '.')
     const value = s.sliceNode(attribute.value.expression)
-    argument = `${importHelperFn(s, 0, 'unref', lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${argument})`
     modifiers = modifiers
       ? `, [${argument} + "Modifiers"]: { ${modifiers
           .split('_')
