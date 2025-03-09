@@ -1,11 +1,12 @@
 {
   "name": "monorepo-vue-macros",
-  "version": "3.0.0-beta.2",
+  "version": "3.0.0-beta.3",
   "private": true,
   "packageManager": "pnpm@10.5.2",
   "description": "Monorepo for Vue Macros.",
   "type": "module",
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
+  "funding": "https://github.com/sponsors/vue-macros",
   "scripts": {
     "build": "pnpm run --filter=\"./packages/*\" --parallel build",
     "dev": "pnpm run --filter=\"./packages/*\" --parallel dev",

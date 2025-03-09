@@ -13,16 +13,10 @@ await Promise.all(
     const pkgJson = await import(`${pkgDir}/package.json`).then(
       (mod) => mod.default,
     )
-    let { messages } = await publint({
+    const { messages } = await publint({
       pkgDir,
       strict: true,
     })
-    if (pkgName === 'volar') {
-      messages = messages.filter(
-        (msg) => msg.code !== 'EXPORTS_TYPES_INVALID_FORMAT',
-      )
-    }
-
     if (!messages.length) return
 
     console.error(`${pkgJson.name}:`)
