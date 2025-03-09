@@ -1,6 +1,5 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
-import { transformRestructure } from './restructure'
 import { resolveVFor } from './v-for'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
@@ -53,7 +52,7 @@ export function transformVSlot(
           if (vForAttribute) {
             result.push(
               '...Object.fromEntries(',
-              resolveVFor(vForAttribute, node, s, { ...options, lib: 'vue' }),
+              resolveVFor(vForAttribute, s, { ...options, lib: 'vue' }),
               '([',
             )
           }
@@ -74,7 +73,7 @@ export function transformVSlot(
             vForAttribute ? ', ' : ': ',
           )
 
-          let slotFn = [
+          const slotFn = [
             '(',
             attribute.value && attribute.value.type === 'JSXExpressionContainer'
               ? s.sliceNode(attribute.value.expression)
@@ -96,10 +95,6 @@ export function transformVSlot(
               .join('') || ' ',
             '</>',
           ].join('')
-
-          if (options.lib === 'vue/vapor') {
-            slotFn = transformRestructure(slotFn)
-          }
 
           result.push(slotFn, ',')
 

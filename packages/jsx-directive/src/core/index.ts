@@ -19,7 +19,6 @@ import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
-export * from './restructure'
 export const withDefaultsHelperCode: string = helper.withDefaultsHelperCode
 
 export type JsxDirective = {
