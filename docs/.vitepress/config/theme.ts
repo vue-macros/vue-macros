@@ -185,6 +185,10 @@ export function getLocaleConfig(lang: string) {
               text: 'defineStyleX',
               link: `/define-stylex`,
             },
+            {
+              text: 'jsxMacros',
+              link: `/jsx-macros`,
+            },
           ],
         },
       ],

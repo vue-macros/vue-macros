@@ -26,3 +26,4 @@ Please make sure `vue-macros` is set up correctly. If you haven't yet, read [Get
 - [setupSFC](./setup-sfc.md)
 - [chainCall](./chain-call.md)
 - [defineStyleX](./define-stylex.md)
+- [jsxMacros](./jsx-macros.md)
