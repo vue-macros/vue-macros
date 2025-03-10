@@ -205,7 +205,7 @@ catalogs:
       specifier: ^0.1.29
       version: 0.1.29
     tsdown:
-      specifier: ^0.11.4
+      specifier: ^0.11.5
       version: 0.11.5
     tsx:
       specifier: ^4.19.4
@@ -390,7 +390,7 @@ importers:
         version: 19.1.0
       tsdown:
         specifier: 'catalog:'
-        version: 0.11.5(publint@0.3.12)(typescript@5.8.3)(unplugin-unused@0.5.0)(vue-tsc@2.2.10(typescript@5.8.3))
+        version: 0.11.5(oxc-resolver@9.0.2)(publint@0.3.12)(typescript@5.8.3)(unplugin-unused@0.5.0)(vue-tsc@2.2.10(typescript@5.8.3))
       tsx:
         specifier: 'catalog:'
         version: 4.19.4
@@ -11818,7 +11818,9 @@ snapshots:
 
   dset@3.1.4: {}
 
-  dts-resolver@2.0.1: {}
+  dts-resolver@2.0.1(oxc-resolver@9.0.2):
+    optionalDependencies:
+      oxc-resolver: 9.0.2
 
   dunder-proto@1.0.1:
     dependencies:
@@ -14559,14 +14561,14 @@ snapshots:
       glob: 11.0.2
       package-json-from-dist: 1.0.1
 
-  rolldown-plugin-dts@0.12.0(rolldown@1.0.0-beta.8-commit.2a5c6a6)(typescript@5.8.3)(vue-tsc@2.2.10(typescript@5.8.3)):
+  rolldown-plugin-dts@0.12.0(oxc-resolver@9.0.2)(rolldown@1.0.0-beta.8-commit.2a5c6a6)(typescript@5.8.3)(vue-tsc@2.2.10(typescript@5.8.3)):
     dependencies:
       '@babel/generator': 7.27.1
       '@babel/parser': 7.27.2
       '@babel/types': 7.27.1
       ast-kit: 2.0.0
       debug: 4.4.0
-      dts-resolver: 2.0.1
+      dts-resolver: 2.0.1(oxc-resolver@9.0.2)
       get-tsconfig: 4.10.0
       rolldown: 1.0.0-beta.8-commit.2a5c6a6
     optionalDependencies:
@@ -15121,7 +15123,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.3
 
-  tsdown@0.11.5(publint@0.3.12)(typescript@5.8.3)(unplugin-unused@0.5.0)(vue-tsc@2.2.10(typescript@5.8.3)):
+  tsdown@0.11.5(oxc-resolver@9.0.2)(publint@0.3.12)(typescript@5.8.3)(unplugin-unused@0.5.0)(vue-tsc@2.2.10(typescript@5.8.3)):
     dependencies:
       ansis: 4.0.0
       cac: 6.7.14
@@ -15131,8 +15133,8 @@ snapshots:
       empathic: 1.1.0
       hookable: 5.5.3
       rolldown: 1.0.0-beta.8-commit.2a5c6a6
-      rolldown-plugin-dts: 0.12.0(rolldown@1.0.0-beta.8-commit.2a5c6a6)(typescript@5.8.3)(vue-tsc@2.2.10(typescript@5.8.3))
-      semver: 7.7.1
+      rolldown-plugin-dts: 0.12.0(oxc-resolver@9.0.2)(rolldown@1.0.0-beta.8-commit.2a5c6a6)(typescript@5.8.3)(vue-tsc@2.2.10(typescript@5.8.3))
+      semver: 7.7.2
       tinyexec: 1.0.1
       tinyglobby: 0.2.13
       unconfig: 7.3.2
