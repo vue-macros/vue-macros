@@ -45,8 +45,8 @@
     "tag": "next"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "DEV=true tsup --watch"
+    "build": "tsdown",
+    "dev": "DEV=true tsdown"
   },
   "dependencies": {
     "@rollup/plugin-json": "catalog:",
