@@ -5,10 +5,7 @@ import vueMacros from './packages/eslint-config/src/index.ts'
 export default sxzz({
   pnpm: true,
 })
-  .removeRules(
-    'vue/valid-define-options',
-    '@typescript-eslint/no-dynamic-delete',
-  )
+  .removeRules('vue/valid-define-options')
   .append([
     vueMacros,
     {
