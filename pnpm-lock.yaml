@@ -12,6 +12,12 @@ catalogs:
     '@babel/types':
       specifier: ^7.26.9
       version: 7.26.9
+    '@iconify-json/logos':
+      specifier: ^1.2.4
+      version: 1.2.4
+    '@iconify-json/ri':
+      specifier: ^1.2.5
+      version: 1.2.5
     '@nolebase/vitepress-plugin-enhanced-mark':
       specifier: ^2.15.1
       version: 2.15.1
@@ -24,12 +30,45 @@ catalogs:
     '@nolebase/vitepress-plugin-highlight-targeted-heading':
       specifier: ^2.15.1
       version: 2.15.1
+    '@nuxt/devtools':
+      specifier: ^2.2.1
+      version: 2.2.1
+    '@nuxt/kit':
+      specifier: ^3.16.0
+      version: 3.16.0
+    '@nuxt/schema':
+      specifier: ^3.16.0
+      version: 3.16.0
+    '@rollup/plugin-commonjs':
+      specifier: ^28.0.3
+      version: 28.0.3
+    '@rollup/plugin-json':
+      specifier: ^6.1.0
+      version: 6.1.0
+    '@rollup/plugin-node-resolve':
+      specifier: ^16.0.0
+      version: 16.0.0
+    '@rspack/core':
+      specifier: ^1.2.7
+      version: 1.2.7
     '@shikijs/vitepress-twoslash':
       specifier: ^3.1.0
       version: 3.1.0
     '@stylexjs/stylex':
       specifier: ^0.11.1
       version: 0.11.1
+    '@sxzz/eslint-config':
+      specifier: ^6.0.2
+      version: 6.0.2
+    '@sxzz/prettier-config':
+      specifier: ^2.2.1
+      version: 2.2.1
+    '@sxzz/test-utils':
+      specifier: ^0.5.2
+      version: 0.5.2
+    '@types/node':
+      specifier: ^22.13.10
+      version: 22.13.10
     '@unocss/eslint-plugin':
       specifier: ^66.1.0-beta.3
       version: 66.1.0-beta.3
@@ -66,21 +105,108 @@ catalogs:
     '@vueuse/core':
       specifier: ^13.0.0
       version: 13.0.0
+    ast-kit:
+      specifier: ^1.4.2
+      version: 1.4.2
     ast-walker-scope:
       specifier: ^0.7.1
       version: 0.7.1
+    astro:
+      specifier: ^5.4.2
+      version: 5.4.2
+    bumpp:
+      specifier: ^10.0.3
+      version: 10.0.3
+    change-case:
+      specifier: ^5.4.4
+      version: 5.4.4
+    cspell:
+      specifier: ^8.17.5
+      version: 8.17.5
     eslint:
       specifier: ^9.22.0
       version: 9.22.0
+    expect-type:
+      specifier: ^1.2.0
+      version: 1.2.0
+    fast-glob:
+      specifier: ^3.3.3
+      version: 3.3.3
+    get-port:
+      specifier: ^7.1.0
+      version: 7.1.0
+    jiti:
+      specifier: ^2.4.2
+      version: 2.4.2
+    local-pkg:
+      specifier: ^1.1.1
+      version: 1.1.1
     magic-string:
       specifier: ^0.30.17
       version: 0.30.17
+    magic-string-ast:
+      specifier: ^0.8.0
+      version: 0.8.0
+    monoman:
+      specifier: ^0.6.7
+      version: 0.6.7
+    muggle-string:
+      specifier: ^0.4.1
+      version: 0.4.1
+    oxc-resolver:
+      specifier: ^5.0.0
+      version: 5.0.0
+    oxc-transform:
+      specifier: ^0.56.5
+      version: 0.56.5
+    pkg-types:
+      specifier: ^2.1.0
+      version: 2.1.0
     prettier:
       specifier: ^3.5.3
       version: 3.5.3
+    publint:
+      specifier: ^0.3.9
+      version: 0.3.9
+    quansync:
+      specifier: ^0.2.8
+      version: 0.2.8
+    quasar:
+      specifier: ^2.18.1
+      version: 2.18.1
+    radix-vue:
+      specifier: ^1.9.17
+      version: 1.9.17
+    rimraf:
+      specifier: ^6.0.1
+      version: 6.0.1
+    rolldown:
+      specifier: ^1.0.0-beta.3
+      version: 1.0.0-beta.3
     rollup:
       specifier: ^4.35.0
       version: 4.35.0
+    rollup-plugin-dts:
+      specifier: ^6.1.1
+      version: 6.1.1
+    sirv:
+      specifier: ^3.0.1
+      version: 3.0.1
+    taze:
+      specifier: ^19.0.1
+      version: 19.0.1
+    ts-macro:
+      specifier: ^0.1.21
+      version: 0.1.21
+    tsup:
+      specifier: ^8.4.0
+      version: 8.4.0
+    tsx:
+      specifier: ^4.19.3
+      version: 4.19.3
+    type-fest:
+      specifier: ^4.37.0
+      version: 4.37.0
     typescript:
       specifier: ^5.8.2
       version: 5.8.2
@@ -90,21 +216,54 @@ catalogs:
     unplugin:
       specifier: ^2.2.0
       version: 2.2.0
+    unplugin-combine:
+      specifier: ^1.2.1
+      version: 1.2.1
+    unplugin-isolated-decl:
+      specifier: ^0.13.2
+      version: 0.13.2
+    unplugin-macros:
+      specifier: ^0.16.2
+      version: 0.16.2
     unplugin-oxc:
       specifier: ^0.2.7
       version: 0.2.7
+    unplugin-quansync:
+      specifier: ^0.3.5
+      version: 0.3.5
+    unplugin-raw:
+      specifier: ^0.4.4
+      version: 0.4.4
+    unplugin-unused:
+      specifier: ^0.4.3
+      version: 0.4.3
+    unplugin-utils:
+      specifier: ^0.2.4
+      version: 0.2.4
     unplugin-vue:
       specifier: ^6.0.1
       version: 6.0.1
     vite:
       specifier: ^6.2.1
       version: 6.2.1
+    vite-hyper-config:
+      specifier: ^0.6.1
+      version: 0.6.1
+    vite-plugin-inspect:
+      specifier: ^11.0.0
+      version: 11.0.0
     vite-plugin-stylex:
       specifier: ^0.13.0
       version: 0.13.0
+    vite-plugin-vue-devtools:
+      specifier: ^7.7.2
+      version: 7.7.2
     vitepress:
       specifier: ^2.0.0-alpha.2
       version: 2.0.0-alpha.2
+    vitepress-plugin-group-icons:
+      specifier: ^1.3.6
+      version: 1.3.6
     vitest:
       specifier: ^3.0.8
       version: 3.0.8
@@ -114,6 +273,9 @@ catalogs:
     vue-tsc:
       specifier: 2.2.8
       version: 2.2.8
+    webpack:
+      specifier: ^5.98.0
+      version: 5.98.0
 
 overrides:
   '@shikijs/core': ^3.1.0
@@ -134,16 +296,16 @@ importers:
         specifier: 'catalog:'
         version: 7.26.9
       '@rspack/core':
-        specifier: ^1.2.7
+        specifier: 'catalog:'
         version: 1.2.7(@swc/helpers@0.5.15)
       '@sxzz/eslint-config':
-        specifier: ^6.0.1
-        version: 6.0.1(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.26.0(@typescript-eslint/parser@8.26.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(@unocss/eslint-plugin@66.1.0-beta.3(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
+        specifier: 'catalog:'
+        version: 6.0.2(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.26.0(@typescript-eslint/parser@8.26.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(@unocss/eslint-plugin@66.1.0-beta.3(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)
       '@sxzz/prettier-config':
-        specifier: ^2.2.1
+        specifier: 'catalog:'
         version: 2.2.1
       '@types/node':
-        specifier: ^22.13.10
+        specifier: 'catalog:'
         version: 22.13.10
       '@unocss/eslint-plugin':
         specifier: 'catalog:'
@@ -158,13 +320,13 @@ importers:
         specifier: workspace:*
         version: link:packages/test-utils
       bumpp:
-        specifier: ^10.0.3
+        specifier: 'catalog:'
         version: 10.0.3(magicast@0.3.5)
       change-case:
-        specifier: ^5.4.4
+        specifier: 'catalog:'
         version: 5.4.4
       cspell:
-        specifier: ^8.17.5
+        specifier: 'catalog:'
         version: 8.17.5
       esbuild:
         specifier: ^0.25.1
@@ -173,52 +335,52 @@ importers:
         specifier: 'catalog:'
         version: 9.22.0(jiti@2.4.2)
       expect-type:
-        specifier: ^1.2.0
+        specifier: 'catalog:'
         version: 1.2.0
       fast-glob:
-        specifier: ^3.3.3
+        specifier: 'catalog:'
         version: 3.3.3
       jiti:
-        specifier: ^2.4.2
+        specifier: 'catalog:'
         version: 2.4.2
       monoman:
-        specifier: ^0.6.7
+        specifier: 'catalog:'
         version: 0.6.7
       oxc-transform:
-        specifier: ^0.56.5
+        specifier: 'catalog:'
         version: 0.56.5
       pkg-types:
-        specifier: ^2.1.0
+        specifier: 'catalog:'
         version: 2.1.0
       prettier:
         specifier: 'catalog:'
         version: 3.5.3
       publint:
-        specifier: ^0.3.9
+        specifier: 'catalog:'
         version: 0.3.9
       radix-vue:
-        specifier: ^1.9.17
+        specifier: 'catalog:'
         version: 1.9.17(vue@3.5.13(typescript@5.8.2))
       rimraf:
-        specifier: ^6.0.1
+        specifier: 'catalog:'
         version: 6.0.1
       rolldown:
-        specifier: ^1.0.0-beta.3
+        specifier: 'catalog:'
         version: 1.0.0-beta.3(typescript@5.8.2)
       rollup:
         specifier: 'catalog:'
         version: 4.35.0
       rollup-plugin-dts:
-        specifier: ^6.1.1
+        specifier: 'catalog:'
         version: 6.1.1(rollup@4.35.0)(typescript@5.8.2)
       taze:
-        specifier: ^19.0.1
+        specifier: 'catalog:'
         version: 19.0.1
       tsup:
-        specifier: ^8.4.0
+        specifier: 'catalog:'
         version: 8.4.0(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
       tsx:
-        specifier: ^4.19.3
+        specifier: 'catalog:'
         version: 4.19.3
       typescript:
         specifier: 'catalog:'
@@ -230,19 +392,19 @@ importers:
         specifier: 'catalog:'
         version: 2.2.0
       unplugin-isolated-decl:
-        specifier: ^0.13.2
+        specifier: 'catalog:'
         version: 0.13.2(typescript@5.8.2)
       unplugin-macros:
-        specifier: ^0.16.2
+        specifier: 'catalog:'
         version: 0.16.2(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
       unplugin-quansync:
-        specifier: ^0.3.5
+        specifier: 'catalog:'
         version: 0.3.5(quansync@0.2.8)
       unplugin-raw:
-        specifier: ^0.4.4
+        specifier: 'catalog:'
         version: 0.4.4
       unplugin-unused:
-        specifier: ^0.4.3
+        specifier: 'catalog:'
         version: 0.4.3
       vite:
         specifier: 'catalog:'
@@ -260,7 +422,7 @@ importers:
         specifier: 'catalog:'
         version: 2.2.8(typescript@5.8.2)
       webpack:
-        specifier: ^5.98.0
+        specifier: 'catalog:'
         version: 5.98.0(esbuild@0.25.1)
 
   docs:
@@ -273,10 +435,10 @@ importers:
         version: 3.1.0
     devDependencies:
       '@iconify-json/logos':
-        specifier: ^1.2.4
+        specifier: 'catalog:'
         version: 1.2.4
       '@iconify-json/ri':
-        specifier: ^1.2.5
+        specifier: 'catalog:'
         version: 1.2.5
       '@nolebase/vitepress-plugin-enhanced-mark':
         specifier: 'catalog:'
@@ -303,13 +465,13 @@ importers:
         specifier: 'catalog:'
         version: 13.0.0(vue@3.5.13(typescript@5.8.2))
       vite-plugin-vue-devtools:
-        specifier: ^7.7.2
+        specifier: 'catalog:'
         version: 7.7.2(@nuxt/kit@3.16.0(magicast@0.3.5))(rollup@4.35.0)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
       vitepress:
         specifier: 'catalog:'
         version: 2.0.0-alpha.2(@algolia/client-search@5.20.4)(@types/node@22.13.10)(change-case@5.4.4)(fuse.js@7.1.0)(jiti@2.4.2)(less@4.2.2)(postcss@8.5.3)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
       vitepress-plugin-group-icons:
-        specifier: ^1.3.6
+        specifier: 'catalog:'
         version: 1.3.6
       vue:
         specifier: 'catalog:'
@@ -324,7 +486,7 @@ importers:
         specifier: workspace:*
         version: link:../common
       oxc-resolver:
-        specifier: ^5.0.0
+        specifier: 'catalog:'
         version: 5.0.0
 
   packages/astro:
@@ -337,7 +499,7 @@ importers:
         specifier: 'catalog:'
         version: 5.2.1(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
       astro:
-        specifier: ^5.4.2
+        specifier: 'catalog:'
         version: 5.4.2(@types/node@22.13.10)(db0@0.3.1)(ioredis@5.6.0)(jiti@2.4.2)(less@4.2.2)(rollup@4.35.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
 
   packages/better-define:
@@ -380,16 +542,16 @@ importers:
         specifier: 'catalog:'
         version: 3.5.13
       ast-kit:
-        specifier: ^1.4.2
+        specifier: 'catalog:'
         version: 1.4.2
       local-pkg:
-        specifier: ^1.1.1
+        specifier: 'catalog:'
         version: 1.1.1
       magic-string-ast:
-        specifier: ^0.8.0
+        specifier: 'catalog:'
         version: 0.8.0
       unplugin-utils:
-        specifier: ^0.2.4
+        specifier: 'catalog:'
         version: 0.2.4
     devDependencies:
       '@babel/parser':
@@ -405,7 +567,7 @@ importers:
         specifier: workspace:*
         version: link:../common
       quansync:
-        specifier: ^0.2.8
+        specifier: 'catalog:'
         version: 0.2.8
       unconfig:
         specifier: ^7.3.1
@@ -631,7 +793,7 @@ importers:
   packages/devtools:
     dependencies:
       sirv:
-        specifier: ^3.0.1
+        specifier: 'catalog:'
         version: 3.0.1
       vue:
         specifier: 'catalog:'
@@ -644,7 +806,7 @@ importers:
         specifier: 'catalog:'
         version: 5.2.1(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
       get-port:
-        specifier: ^7.1.0
+        specifier: 'catalog:'
         version: 7.1.0
       unocss:
         specifier: 'catalog:'
@@ -653,7 +815,7 @@ importers:
         specifier: 'catalog:'
         version: 6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
       vite-plugin-inspect:
-        specifier: ^11.0.0
+        specifier: 'catalog:'
         version: 11.0.0(@nuxt/kit@3.16.0(magicast@0.3.5))(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
 
   packages/eslint-config:
@@ -818,7 +980,7 @@ importers:
         specifier: 'catalog:'
         version: 2.2.0
       unplugin-combine:
-        specifier: ^1.2.1
+        specifier: 'catalog:'
         version: 1.2.1(@rspack/core@1.2.7(@swc/helpers@0.5.15))(esbuild@0.25.1)(rolldown@1.0.0-beta.3(typescript@5.8.2))(rollup@4.35.0)(unplugin@2.2.0)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(webpack@5.98.0(esbuild@0.25.1))
       unplugin-vue-define-options:
         specifier: workspace:*
@@ -847,7 +1009,7 @@ importers:
   packages/nuxt:
     dependencies:
       '@nuxt/kit':
-        specifier: ^3.16.0
+        specifier: 'catalog:'
         version: 3.16.0(magicast@0.3.5)
       '@vue-macros/common':
         specifier: workspace:*
@@ -857,10 +1019,10 @@ importers:
         version: link:../macros
     devDependencies:
       '@nuxt/devtools':
-        specifier: ^2.2.1
+        specifier: 'catalog:'
         version: 2.2.1(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
       '@nuxt/schema':
-        specifier: ^3.16.0
+        specifier: 'catalog:'
         version: 3.16.0
       '@vue/language-core':
         specifier: 2.2.8
@@ -976,13 +1138,13 @@ importers:
   packages/test-utils:
     dependencies:
       '@rollup/plugin-json':
-        specifier: ^6.1.0
+        specifier: 'catalog:'
         version: 6.1.0(rollup@4.35.0)
       '@rollup/plugin-node-resolve':
-        specifier: ^16.0.0
+        specifier: 'catalog:'
         version: 16.0.0(rollup@4.35.0)
       '@sxzz/test-utils':
-        specifier: ^0.5.2
+        specifier: 'catalog:'
         version: 0.5.2(esbuild@0.25.1)(rolldown@1.0.0-beta.3(typescript@5.8.2))(rollup@4.35.0)(vitest@3.0.8)
       '@vitejs/plugin-vue-jsx':
         specifier: 'catalog:'
@@ -1025,13 +1187,13 @@ importers:
         specifier: 2.2.8
         version: 2.2.8(typescript@5.8.2)
       jiti:
-        specifier: ^2.4.2
+        specifier: 'catalog:'
         version: 2.4.2
       muggle-string:
-        specifier: ^0.4.1
+        specifier: 'catalog:'
         version: 0.4.1
       ts-macro:
-        specifier: ^0.1.21
+        specifier: 'catalog:'
         version: 0.1.21(rollup@4.35.0)(typescript@5.8.2)
     devDependencies:
       '@vue/compiler-dom':
@@ -1056,7 +1218,7 @@ importers:
         specifier: 'catalog:'
         version: 13.0.0(vue@3.5.13(typescript@5.8.2))
       astro:
-        specifier: ^5.4.2
+        specifier: 'catalog:'
         version: 5.4.2(@types/node@22.13.10)(db0@0.3.1)(ioredis@5.6.0)(jiti@2.4.2)(less@4.2.2)(rollup@4.35.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(yaml@2.7.0)
       vue:
         specifier: 'catalog:'
@@ -1072,7 +1234,7 @@ importers:
         version: 13.0.0(vue@3.5.13(typescript@5.8.2))
     devDependencies:
       '@nuxt/devtools':
-        specifier: ^2.2.1
+        specifier: 'catalog:'
         version: 2.2.1(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
       '@unocss/nuxt':
         specifier: 'catalog:'
@@ -1081,7 +1243,7 @@ importers:
         specifier: ^3.16.0
         version: 3.16.0(@parcel/watcher@2.5.1)(@types/node@22.13.10)(db0@0.3.1)(eslint@9.22.0(jiti@2.4.2))(ioredis@5.6.0)(less@4.2.2)(magicast@0.3.5)(optionator@0.9.4)(rolldown@1.0.0-beta.3(typescript@5.8.2))(rollup@4.35.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.2)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue-tsc@2.2.8(typescript@5.8.2))(yaml@2.7.0)
       quasar:
-        specifier: ^2.18.1
+        specifier: 'catalog:'
         version: 2.18.1
 
   playground/vue3:
@@ -1090,17 +1252,17 @@ importers:
         specifier: 'catalog:'
         version: 13.0.0(vue@3.5.13(typescript@5.8.2))
       quasar:
-        specifier: ^2.18.1
+        specifier: 'catalog:'
         version: 2.18.1
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.8.2)
     devDependencies:
       '@rollup/plugin-commonjs':
-        specifier: ^28.0.3
+        specifier: 'catalog:'
         version: 28.0.3(rollup@4.35.0)
       '@rollup/plugin-node-resolve':
-        specifier: ^16.0.0
+        specifier: 'catalog:'
         version: 16.0.0(rollup@4.35.0)
       '@stylexjs/stylex':
         specifier: 'catalog:'
@@ -1118,7 +1280,7 @@ importers:
         specifier: 'catalog:'
         version: 4.35.0
       type-fest:
-        specifier: ^4.37.0
+        specifier: 'catalog:'
         version: 4.37.0
       typescript:
         specifier: 'catalog:'
@@ -1136,10 +1298,10 @@ importers:
         specifier: 'catalog:'
         version: 6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
       vite-hyper-config:
-        specifier: ^0.6.1
+        specifier: 'catalog:'
         version: 0.6.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)
       vite-plugin-inspect:
-        specifier: ^11.0.0
+        specifier: 'catalog:'
         version: 11.0.0(@nuxt/kit@3.16.0(magicast@0.3.5))(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
       vite-plugin-stylex:
         specifier: 'catalog:'
@@ -2950,8 +3112,8 @@ packages:
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
-  '@sxzz/eslint-config@6.0.1':
-    resolution: {integrity: sha512-hSWuB5mAubwCu9gUSxId3OZaTLXsNcpwDM4dVcjIUAVwqw0Oak8Rdwvc9VLa300amHBtQ1mIBu6IGaOdLcOkhw==}
+  '@sxzz/eslint-config@6.0.2':
+    resolution: {integrity: sha512-4EXRuh6freRzmE23TzL1gZBxeY4diS+cxLaDq/XQbe2YGEOU8oaCGkbJpPpsfH+kvTz6VaBn7U9m2tPefxpHWQ==}
     engines: {node: ^18.18.0 || >=20.0.0}
     peerDependencies:
       '@unocss/eslint-plugin': '>=65.0.0'
@@ -9563,7 +9725,7 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@sxzz/eslint-config@6.0.1(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.26.0(@typescript-eslint/parser@8.26.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(@unocss/eslint-plugin@66.1.0-beta.3(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)':
+  '@sxzz/eslint-config@6.0.2(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.26.0(@typescript-eslint/parser@8.26.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(@unocss/eslint-plugin@66.1.0-beta.3(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.22.0(jiti@2.4.2))(typescript@5.8.2)':
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 4.4.1(eslint@9.22.0(jiti@2.4.2))
       '@eslint/js': 9.22.0
