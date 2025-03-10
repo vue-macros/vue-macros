@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/volar",
-  "version": "3.0.0-beta.3",
+  "version": "3.0.0-beta.4",
   "description": "Volar plugin for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -122,6 +122,7 @@
     "./jsx-macros": {
       "types": "./dist/jsx-macros.d.ts",
       "module-sync": "./dist/jsx-macros.js",
+      "import": "./dist/jsx-macros.js",
       "default": "./dist/loader/jsx-macros.cjs"
     },
     "./jsx-ref": {
@@ -204,7 +205,7 @@
     "@vue/language-core": "catalog:",
     "jiti": "^2.4.2",
     "muggle-string": "^0.4.1",
-    "ts-macro": "^0.1.17"
+    "ts-macro": "^0.1.19"
   },
   "devDependencies": {
     "typescript": "catalog:",

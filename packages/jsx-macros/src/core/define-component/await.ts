@@ -5,9 +5,13 @@ import {
   walkAST,
   type MagicStringAST,
 } from '@vue-macros/common'
-import { isFunctionType } from '@vue/compiler-dom'
 import type { FunctionalNode } from '..'
-import type { AwaitExpression, Node, Statement } from '@babel/types'
+import type { AwaitExpression, Function, Node, Statement } from '@babel/types'
+
+// Copied from @vue/compiler-core
+export const isFunctionType = (node: Node): node is Function => {
+  return /Function(?:Expression|Declaration)$|Method$/.test(node.type)
+}
 
 export function transformAwait(root: FunctionalNode, s: MagicStringAST): void {
   if (root.body.type !== 'BlockStatement') return

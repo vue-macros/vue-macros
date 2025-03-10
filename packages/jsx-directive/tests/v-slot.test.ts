@@ -18,20 +18,4 @@ describe('v-slot', () => {
         })?.code,
     )
   })
-
-  describe('vue/vapor', async () => {
-    await testFixtures(
-      import.meta.glob<string>('./fixtures/v-slot/index.vue', {
-        eager: true,
-        query: '?raw',
-        import: 'default',
-      }),
-      (_, id, code) =>
-        transformJsxDirective(code, id, {
-          version: 3,
-          lib: 'vue/vapor',
-          prefix: 'v-',
-        })?.code,
-    )
-  })
 })
