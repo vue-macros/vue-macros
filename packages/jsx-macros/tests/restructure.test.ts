@@ -1,5 +1,23 @@
+import { babelParse, MagicStringAST, walkAST } from '@vue-macros/common'
 import { describe, expect, test } from 'vitest'
-import { transformRestructure } from '../src/api'
+import { restructure } from '../src/api'
+
+const transformRestructure = (code: string): string => {
+  const s = new MagicStringAST(code)
+  const ast = babelParse(code, 'tsx')
+  walkAST(ast, {
+    enter(node) {
+      if (
+        node.type === 'FunctionExpression' ||
+        node.type === 'ArrowFunctionExpression' ||
+        node.type === 'FunctionDeclaration'
+      ) {
+        restructure(s, node)
+      }
+    },
+  })
+  return s.toString()
+}
 
 describe('transform', () => {
   test('reconstruct', () => {
@@ -37,16 +55,6 @@ describe('transform', () => {
       `function App({foo, bar = 1, ...rest}){
         return <>{[foo, bar, rest]}</>
       }`,
-    )!
-    expect(code).toMatchSnapshot()
-  })
-
-  test('unwrap ref', () => {
-    const code = transformRestructure(
-      `function App([foo, bar = 1, ...rest]){
-      return <>{[foo, bar, rest]}</>
-      }`,
-      { unwrapRef: true },
     )!
     expect(code).toMatchSnapshot()
   })

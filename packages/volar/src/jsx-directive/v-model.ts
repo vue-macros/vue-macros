@@ -52,11 +52,11 @@ function transform(
       const attributeName = name
         .slice(offset)
         .split(/\s/)[0]
-        .split('_')[0]
         .replace(/^\$(.*)\$/, (_, $1) => {
           isDynamic = true
-          return $1
+          return $1.replaceAll('_', '.')
         })
+        .split('_')[0]
       firstNamespacedNode ??= {
         attribute,
         attributeName,

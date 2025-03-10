@@ -22,6 +22,8 @@ import type {
   Program,
 } from '@babel/types'
 
+export { restructure } from './restructure'
+
 export type FunctionalNode =
   | FunctionDeclaration
   | FunctionExpression

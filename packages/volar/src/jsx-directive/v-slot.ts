@@ -72,7 +72,7 @@ export function transformVSlot(
           .split(/\s/)[0]
           .replace(/\$(.*)\$/, (_, $1) => {
             isDynamic = true
-            return $1
+            return $1.replaceAll('_', '.')
           })
         const isNamespace = attributeName.startsWith(':')
         attributeName = attributeName.slice(1)

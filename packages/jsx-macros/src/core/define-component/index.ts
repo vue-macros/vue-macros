@@ -1,7 +1,6 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
-import { restructure } from '@vue-macros/jsx-directive/api'
-import { walkIdentifiers } from '@vue/compiler-dom'
-import { withDefaultsHelperId } from '../helper'
+import { walkIdentifiers } from '@vue/compiler-sfc'
+import { restructure } from '../restructure'
 import type { FunctionalNode, RootMapValue } from '..'
 import type { OptionsResolved } from '../..'
 import { transformAwait } from './await'
@@ -33,7 +32,6 @@ export function transformDefineComponent(
       getWalkedIds(root, propsName).forEach((id) => (props[id] = null))
     } else {
       const restructuredProps = restructure(s, root, {
-        withDefaultsFrom: withDefaultsHelperId,
         generateRestProps: (restPropsName, index, list) => {
           if (index === list.length - 1) {
             hasRestProp = true

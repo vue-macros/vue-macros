@@ -64,3 +64,4 @@ const plugin: PluginReturn<OptionsResolved['jsxMacros'] | undefined> =
     },
   )
 export default plugin
+export { plugin as 'module.exports' }

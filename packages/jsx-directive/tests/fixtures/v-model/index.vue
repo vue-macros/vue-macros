@@ -5,7 +5,7 @@ let foo = ref('')
 const value = ref('value')
 defineRender(() => (
   <div>
-    <input v-model:$value$_trim_number={foo} />
+    <input v-model:$value_value$_trim_number={foo} />
     {foo}
   </div>
 ))

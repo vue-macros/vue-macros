@@ -9,4 +9,4 @@ export const useModelHelperId: '/vue-macros/jsx-macros/use-model' = `${helperPre
 export { default as useModelHelperCode } from './use-model?raw'
 
 export const withDefaultsHelperId: '/vue-macros/jsx-macros/with-defaults' = `${helperPrefix}/with-defaults`
-export { withDefaultsHelperCode } from '@vue-macros/jsx-directive/api'
+export { default as withDefaultsHelperCode } from './with-defaults?raw'
