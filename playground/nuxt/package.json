@@ -5,7 +5,8 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "clean": "rimraf .nuxt .output"
   },
   "dependencies": {
     "@vueuse/core": "catalog:"

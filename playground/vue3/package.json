@@ -8,7 +8,8 @@
     "build:vite": "node vite.js build",
     "build:rollup": "rollup -c rollup.config.js",
     "preview": "node vite.js preview",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "clean": "rimraf dist .vite-inspect"
   },
   "dependencies": {
     "@vueuse/core": "catalog:",

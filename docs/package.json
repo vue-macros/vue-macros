@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "preview": "vitepress preview"
+    "preview": "vitepress preview",
+    "clean": "rimraf dist .vitepress/cache .vitepress/dist"
   },
   "dependencies": {
     "prettier": "catalog:",

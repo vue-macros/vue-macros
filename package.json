@@ -10,7 +10,7 @@
   "scripts": {
     "build": "pnpm run --filter=\"./packages/*\" --parallel build",
     "dev": "pnpm run --filter=\"./packages/*\" --parallel dev",
-    "clean": "rimraf packages/*/dist",
+    "clean": "rimraf dist coverage \"packages/*/dist\" && pnpm run -r --parallel clean",
     "docs:dev": "pnpm run -C ./docs dev",
     "docs:preview": "pnpm run -C ./docs preview",
     "docs:build": "pnpm run -C ./docs build",
