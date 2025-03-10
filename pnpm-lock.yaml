@@ -199,8 +199,8 @@ catalogs:
       specifier: ^0.1.23
       version: 0.1.23
     tsdown:
-      specifier: https://pkg.pr.new/tsdown@bd1d99c
-      version: 0.6.5
+      specifier: ^0.6.8
+      version: 0.6.8
     tsx:
       specifier: ^4.19.3
       version: 4.19.3
@@ -379,7 +379,7 @@ importers:
         version: 19.0.2
       tsdown:
         specifier: 'catalog:'
-        version: https://pkg.pr.new/tsdown@bd1d99c(publint@0.3.9)(typescript@5.8.2)(unplugin-unused@0.4.3)
+        version: 0.6.8(publint@0.3.9)(typescript@5.8.2)(unplugin-unused@0.4.3)
       tsx:
         specifier: 'catalog:'
         version: 4.19.3
@@ -6924,9 +6924,8 @@ packages:
       typescript:
         optional: true
 
-  tsdown@https://pkg.pr.new/tsdown@bd1d99c:
-    resolution: {tarball: https://pkg.pr.new/tsdown@bd1d99c}
-    version: 0.6.5
+  tsdown@0.6.8:
+    resolution: {integrity: sha512-MX7vYqAHYE0HQGbb2cr/aYpM3t3fvoHmRtC63vT5lkEoyknsJ7ISZsjKt5FMPy48x5R61qXeD43iKXdXdEFQUQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
@@ -14401,7 +14400,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.2
 
-  tsdown@https://pkg.pr.new/tsdown@bd1d99c(publint@0.3.9)(typescript@5.8.2)(unplugin-unused@0.4.3):
+  tsdown@0.6.8(publint@0.3.9)(typescript@5.8.2)(unplugin-unused@0.4.3):
     dependencies:
       ansis: 3.17.0
       cac: 6.7.14
