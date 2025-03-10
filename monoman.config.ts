@@ -10,7 +10,7 @@ import {
 } from 'monoman'
 import { docsLink, githubLink } from './macros/repo'
 import type { PackageJson } from 'pkg-types'
-import type { Options } from 'tsup'
+import type { Options } from 'tsdown'
 
 const jiti = createJiti(import.meta.url)
 
@@ -117,13 +117,13 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
       data.publishConfig.access = 'public'
       data.publishConfig.tag = 'next'
 
-      const tsupFile = path.resolve(pkgRoot, 'tsup.config.ts')
-      if (!data.meta?.skipExports && (await exists(tsupFile))) {
-        const tsupConfig: Options = (
-          await jiti.import<{ default: Options }>(tsupFile)
+      const tsdownFile = path.resolve(pkgRoot, 'tsdown.config.ts')
+      if (!data.meta?.skipExports && (await exists(tsdownFile))) {
+        const tsdownConfig: Options = (
+          await jiti.import<{ default: Options }>(tsdownFile)
         ).default
         const entries = (
-          await fg(tsupConfig.entry as string[], {
+          await fg(tsdownConfig.entry as string[], {
             cwd: pkgRoot,
             absolute: true,
           })
