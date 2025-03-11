@@ -68,7 +68,15 @@ export function transformVSlot(
           })
           result.push(
             isDynamic
-              ? `[${importHelperFn(s, 0, 'unref', lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
+              ? `[${importHelperFn(
+                  s,
+                  0,
+                  'unref',
+                  undefined,
+                  lib.startsWith('vue')
+                    ? 'vue'
+                    : '@vue-macros/jsx-directive/helpers',
+                )}(${attributeName})]`
               : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
           )

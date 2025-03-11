@@ -152,17 +152,16 @@ export const HELPER_PREFIX = '__MACROS_'
 export function importHelperFn(
   s: MagicString,
   offset: number,
-  local: string,
+  imported: string,
+  local: string = imported,
   from = 'vue',
-  isDefault = false,
 ) {
-  const imported = isDefault ? 'default' : local
   const cacheKey = `${from}@${imported}`
   if (!importedMap.get(s)?.has(cacheKey)) {
     s.appendLeft(
       offset,
       `\nimport ${
-        isDefault
+        imported === 'default'
           ? HELPER_PREFIX + local
           : `{ ${imported} as ${HELPER_PREFIX + local} }`
       } from ${JSON.stringify(from)};`,

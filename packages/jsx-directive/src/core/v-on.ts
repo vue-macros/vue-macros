@@ -37,6 +37,7 @@ export function transformOnWithModifiers(
       s,
       0,
       isKeyboardEvent(name) ? 'withKeys' : 'withModifiers',
+      undefined,
       lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers',
     )
 
