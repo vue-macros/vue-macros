@@ -85,13 +85,15 @@ export function transformCtx(
       continue
     }
 
-    if (name.startsWith(`${prefix}model`)) {
-      name = name.split('_')[0].split(':')[1] || 'modelValue'
+    const prefixModel = `${prefix}model`
+    if (name.startsWith(prefixModel)) {
+      name = name.split('$')[0].split('_')[0].split(':')[1] ?? 'modelValue'
     } else if (name.includes('_')) {
       name = name.split('_')[0]
     } else if (prefix && name.startsWith(prefix)) {
       continue
     }
+    if (!name) continue
 
     const value = prop.initializer
       ? isJsxExpression(prop.initializer) && prop.initializer.expression
