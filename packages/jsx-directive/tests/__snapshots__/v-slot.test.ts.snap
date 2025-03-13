@@ -16,7 +16,7 @@ const Comp: FunctionalComponent<
   }
 > = (props, { slots }) => {
   return (
-    <Child vSlots={{...Object.fromEntries(__MACROS_renderList(slots, (Slot, slotName) => ([[__MACROS_unref(slotName)], (scope) => <>
+    <Child v-slots={{...Object.fromEntries(__MACROS_renderList(slots, (Slot, slotName) => ([[__MACROS_unref(slotName)], (scope) => <>
         <Slot {...scope} />
       </>,]))),}}
       
@@ -28,25 +28,25 @@ let baz = $ref('')
 let show = $ref<boolean | undefined>()
 defineRender(() => (
   <div>
-    <Child  vSlots={{'bottom': ({ foo }) => <>
+    <Child  v-slots={{'bottom': ({ foo }) => <>
       {foo}
-      <Child  vSlots={{'default': () => <>default</>,}}></Child>
+      <Child  v-slots={{'default': () => <>default</>,}}></Child>
     </>,}}></Child>
 
-    <Comp  vSlots={{'default': () => <>default</>,}}></Comp>
-    <Child  vSlots={{'bottom': ({ foo }) => <>{foo}</>,}}></Child>
+    <Comp  v-slots={{'default': () => <>default</>,}}></Comp>
+    <Child  v-slots={{'bottom': ({ foo }) => <>{foo}</>,}}></Child>
 
-    <Child baz={baz}  vSlots={{'title': ({ foo }) => <>
+    <Child baz={baz}  v-slots={{'title': ({ foo }) => <>
       {expectTypeOf<string>(foo)}
     </>,}}></Child>
 
-    <Child vSlots={{...(show) ? {'bottom': ({ foo }) => <>
+    <Child v-slots={{...(show) ? {'bottom': ({ foo }) => <>
         {foo}
       </>,} : null,}}
       
     ></Child>
 
-    <Child<number> vSlots={{...(show) ? {'title': ({ foo }) => <>
+    <Child<number> v-slots={{...(show) ? {'title': ({ foo }) => <>
         {expectTypeOf<number>(foo)}
         {show}
       </>,} : (show === false) ? {'center': ({ foo }) => <>
