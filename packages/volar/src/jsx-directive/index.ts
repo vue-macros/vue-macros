@@ -51,6 +51,8 @@ export function transformJsxDirective(options: TransformOptions): void {
 
   const ctxNodeMap: CtxMap = new Map()
 
+  let hasVForAttribute = false
+
   function walkJsxDirective(
     node: import('typescript').Node,
     parent?: import('typescript').Node,
@@ -74,6 +76,7 @@ export function transformJsxDirective(options: TransformOptions): void {
         vIfAttribute = attribute
       } else if (attributeName === `${prefix}for`) {
         vForAttribute = attribute
+        hasVForAttribute = true
       } else if (slotRegex.test(attributeName)) {
         vSlotAttribute = attribute
       } else if (modelRegex.test(attributeName)) {
@@ -217,7 +220,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   const ctxMap = resolveCtxMap(ctxNodeMap, options)
 
   transformVSlot(vSlotMap, ctxMap, options)
-  transformVFor(vForNodes, options)
+  transformVFor(vForNodes, options, hasVForAttribute)
   vIfMap.forEach((nodes) => transformVIf(nodes, options))
   transformVModel(vModelMap, ctxMap, options)
   transformVOn(vOnNodes, ctxMap, options)
