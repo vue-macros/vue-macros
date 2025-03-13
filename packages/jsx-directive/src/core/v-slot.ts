@@ -27,7 +27,7 @@ export function transformVSlot(
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
-      const result = [` vSlots={{`]
+      const result = [` v-slots={{`]
       const attributes = Array.from(attributeMap)
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
