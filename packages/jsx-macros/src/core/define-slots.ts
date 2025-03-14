@@ -15,7 +15,7 @@ export function transformDefineSlots(
     `Object.assign`,
   )
   const slots = lib.includes('vue')
-    ? `${importHelperFn(s, 0, 'useSlots', 'vue')}()`
+    ? `${importHelperFn(s, 0, 'useSlots')}()`
     : `${propsName}.vSlots`
   s.appendLeft(node.end! - 1, `${node.arguments[0] ? ',' : '{}, '}${slots}`)
 }

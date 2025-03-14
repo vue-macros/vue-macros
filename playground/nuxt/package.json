@@ -5,15 +5,16 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "clean": "rimraf .nuxt .output"
   },
   "dependencies": {
     "@vueuse/core": "catalog:"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^2.2.1",
+    "@nuxt/devtools": "catalog:",
     "@unocss/nuxt": "catalog:",
     "nuxt": "^3.16.0",
-    "quasar": "^2.18.1"
+    "quasar": "catalog:"
   }
 }

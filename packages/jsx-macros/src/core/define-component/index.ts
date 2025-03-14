@@ -22,7 +22,7 @@ export function transformDefineComponent(
     defineComponentName &&
     !['defineComponent', 'defineVaporComponent'].includes(defineComponentName)
   ) {
-    importHelperFn(s, 0, 'defineComponent', 'vue', false, defineComponentName)
+    importHelperFn(s, 0, 'defineComponent', defineComponentName)
   }
 
   let hasRestProp = false
@@ -35,7 +35,7 @@ export function transformDefineComponent(
         generateRestProps: (restPropsName, index, list) => {
           if (index === list.length - 1) {
             hasRestProp = true
-            const useAttrs = importHelperFn(s, 0, 'useAttrs', 'vue')
+            const useAttrs = importHelperFn(s, 0, 'useAttrs')
             return `const ${restPropsName} = ${useAttrs}()`
           }
         },

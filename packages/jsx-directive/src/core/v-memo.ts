@@ -16,6 +16,7 @@ export function transformVMemo(
     s,
     0,
     'withMemo',
+    undefined,
     lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers',
   )
   s.prependRight(0, `const ${HELPER_PREFIX}cache = [];`)

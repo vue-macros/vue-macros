@@ -286,9 +286,9 @@ export function transformDefineModels(
     const text = `${importHelperFn(
       s,
       setupOffset,
+      'default',
       'useVModel',
       useVmodelHelperId,
-      true,
     )}(${Object.entries(map)
       .map(([name, { options }]) => {
         const prop = getPropKey(name, true)
@@ -325,9 +325,9 @@ export function transformDefineModels(
       const content = `${importHelperFn(
         s,
         setupOffset,
+        'default',
         'emitHelper',
         emitHelperId,
-        true,
       )}(${emitsIdentifier}, '${getEventKey(String(eventName))}', ${value}${
         original ? `, ${id.name}` : ''
       })`

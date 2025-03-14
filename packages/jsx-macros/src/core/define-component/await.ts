@@ -86,7 +86,6 @@ function processAwait(
       s,
       0,
       `withAsyncContext`,
-      'vue',
     )}(${containsNestedAwait ? `async ` : ``}() => `,
   )
   s.appendLeft(

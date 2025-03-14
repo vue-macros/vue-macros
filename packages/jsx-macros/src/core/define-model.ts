@@ -9,7 +9,7 @@ export function transformDefineModel(
 ): void {
   s.overwriteNode(
     node.callee,
-    importHelperFn(s, 0, 'useModel', useModelHelperId),
+    importHelperFn(s, 0, 'useModel', undefined, useModelHelperId),
   )
   s.appendRight(
     node.arguments[0]?.start || node.end! - 1,
