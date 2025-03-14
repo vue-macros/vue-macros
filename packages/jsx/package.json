@@ -1,0 +1,137 @@
+{
+  "name": "@vue-macros/jsx",
+  "version": "3.0.0-beta.4",
+  "packageManager": "pnpm@10.4.1",
+  "description": "jsx feature from Vue Macros.",
+  "type": "module",
+  "keywords": [
+    "vue-macros",
+    "macros",
+    "vue",
+    "sfc",
+    "setup",
+    "script-setup",
+    "jsx"
+  ],
+  "license": "MIT",
+  "homepage": "https://vue-macros.dev",
+  "bugs": {
+    "url": "https://github.com/vue-macros/vue-macros/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vue-macros/vue-macros.git",
+    "directory": "packages/jsx"
+  },
+  "author": "zhiyuanzmj",
+  "contributors": [
+    "三咲智子 <sxzz@sxzz.moe>"
+  ],
+  "funding": "https://github.com/sponsors/vue-macros",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "dev": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./esbuild": {
+      "dev": "./src/esbuild.ts",
+      "default": "./dist/esbuild.js"
+    },
+    "./jsx-runtime": {
+      "dev": "./src/jsx-runtime.ts",
+      "default": "./dist/jsx-runtime.js"
+    },
+    "./options": {
+      "dev": "./src/options.ts",
+      "default": "./dist/options.js"
+    },
+    "./raw": {
+      "dev": "./src/raw.ts",
+      "default": "./dist/raw.js"
+    },
+    "./rolldown": {
+      "dev": "./src/rolldown.ts",
+      "default": "./dist/rolldown.js"
+    },
+    "./rollup": {
+      "dev": "./src/rollup.ts",
+      "default": "./dist/rollup.js"
+    },
+    "./rspack": {
+      "dev": "./src/rspack.ts",
+      "default": "./dist/rspack.js"
+    },
+    "./runtime": {
+      "dev": "./src/runtime.ts",
+      "default": "./dist/runtime.js"
+    },
+    "./vite": {
+      "dev": "./src/vite.ts",
+      "default": "./dist/vite.js"
+    },
+    "./volar": {
+      "dev": "./src/volar.ts",
+      "default": "./dist/volar.js"
+    },
+    "./webpack": {
+      "dev": "./src/webpack.ts",
+      "default": "./dist/webpack.js"
+    },
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./esbuild": "./dist/esbuild.js",
+      "./jsx-runtime": "./dist/jsx-runtime.js",
+      "./options": "./dist/options.js",
+      "./raw": "./dist/raw.js",
+      "./rolldown": "./dist/rolldown.js",
+      "./rollup": "./dist/rollup.js",
+      "./rspack": "./dist/rspack.js",
+      "./runtime": "./dist/runtime.js",
+      "./vite": "./dist/vite.js",
+      "./volar": "./dist/volar.js",
+      "./webpack": "./dist/webpack.js",
+      "./*": "./*"
+    },
+    "tag": "next"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "DEV=true tsup"
+  },
+  "peerDependencies": {
+    "vue": "^2.7.0 || ^3.2.25"
+  },
+  "dependencies": {
+    "@vue-macros/common": "workspace:*",
+    "@vue-macros/jsx-directive": "workspace:*",
+    "@vue-macros/jsx-macros": "workspace:*",
+    "@vue-macros/volar": "workspace:*",
+    "ts-macro": "catalog:",
+    "unplugin-combine": "catalog:"
+  },
+  "devDependencies": {
+    "csstype": "catalog:",
+    "vue": "catalog:"
+  },
+  "engines": {
+    "node": ">=20.18.0"
+  }
+}

@@ -15,8 +15,11 @@ defines:
 catalog:
   '@babel/parser': *babel
   '@babel/types': *babel
+  '@types/hash-sum': ^1.0.2
 
   '@vue/language-core': *volar
+  csstype: ^3.1.3
+  hash-sum: ^2.0.0
   vue-tsc: *volar
 
   '@vitest/coverage-v8': *vitest
