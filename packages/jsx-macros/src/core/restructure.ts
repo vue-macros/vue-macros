@@ -67,6 +67,7 @@ export function restructure(
         s,
         0,
         'createPropsDefaultProxy',
+        undefined,
         options.withDefaultsFrom ?? withDefaultsHelperId,
       )
       const resolvedPath = path.replace(
@@ -94,7 +95,6 @@ export function restructure(
             s,
             0,
             'createPropsRestProxy',
-            'vue',
           )}(${rest.path}, [${rest.value}])`,
       )
     }

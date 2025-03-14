@@ -19,6 +19,7 @@ export function transformReactDefineExpose(
     s,
     0,
     'useImperativeHandle',
+    undefined,
     lib === 'preact' ? 'preact/hooks' : lib,
   )
   const isReact19 = lib === 'react' && version >= 19
@@ -44,6 +45,7 @@ export function transformReactDefineExpose(
       s,
       0,
       'forwardRef',
+      undefined,
       lib === 'preact' ? 'preact/compat' : lib,
     )
     if (root.type === 'FunctionDeclaration' && root.id) {
