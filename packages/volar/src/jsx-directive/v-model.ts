@@ -35,11 +35,10 @@ function transform(
   const emits: string[] = []
   const offset = `${prefix}model`.length + 1
   for (const { attribute, node } of nodes) {
-    const modelValue = ['input', 'select', 'textarea'].includes(
+    const isNativeTag = ['input', 'select', 'textarea'].includes(
       getTagName(node, options),
     )
-      ? 'value'
-      : 'modelValue'
+    const modelValue = isNativeTag ? 'value' : 'modelValue'
     const isArrayExpression =
       isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression &&
@@ -138,13 +137,15 @@ function transform(
         modelValue.slice(0, 3),
         [modelValue.slice(3), source, start, allCodeFeatures],
       )
-      replaceSourceRange(
-        codes,
-        source,
-        attribute.end,
-        attribute.end,
-        ` {...{'onUpdate:${modelValue}': () => {} }}`,
-      )
+      if (!isNativeTag) {
+        replaceSourceRange(
+          codes,
+          source,
+          attribute.end,
+          attribute.end,
+          ` {...{'onUpdate:${modelValue}': () => {} }}`,
+        )
+      }
     }
   }
 
