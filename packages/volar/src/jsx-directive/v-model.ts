@@ -134,8 +134,12 @@ function transform(
         source,
         start,
         attribute.name.end,
-        modelValue.slice(0, 3),
-        [modelValue.slice(3), source, start, allCodeFeatures],
+        ...((isNativeTag
+          ? [[modelValue, source, start + 2, allCodeFeatures]]
+          : [
+              modelValue.slice(0, 3),
+              [modelValue.slice(3), source, start, allCodeFeatures],
+            ]) as Code[]),
       )
       if (!isNativeTag) {
         replaceSourceRange(
