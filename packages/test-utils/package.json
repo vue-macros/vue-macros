@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/test-utils",
-  "version": "3.0.0-beta.4",
+  "version": "3.0.0-beta.5",
   "description": "Test utilities for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -49,9 +49,9 @@
     "dev": "DEV=true tsup --watch"
   },
   "dependencies": {
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "@sxzz/test-utils": "^0.5.1",
+    "@rollup/plugin-json": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@sxzz/test-utils": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
     "rollup": "catalog:",
     "unplugin-oxc": "catalog:",

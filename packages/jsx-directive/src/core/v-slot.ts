@@ -27,7 +27,7 @@ export function transformVSlot(
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
-      const result = [` vSlots={{`]
+      const result = [` v-slots={{`]
       const attributes = Array.from(attributeMap)
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -68,7 +68,15 @@ export function transformVSlot(
           })
           result.push(
             isDynamic
-              ? `[${importHelperFn(s, 0, 'unref', lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
+              ? `[${importHelperFn(
+                  s,
+                  0,
+                  'unref',
+                  undefined,
+                  lib.startsWith('vue')
+                    ? 'vue'
+                    : '@vue-macros/jsx-directive/helpers',
+                )}(${attributeName})]`
               : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
           )

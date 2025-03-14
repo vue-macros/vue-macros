@@ -19,9 +19,7 @@ export function resolveCtxMap(
   if (ctxNodeMap.size) {
     options.codes.push(`
 // @ts-ignore
-type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
-// @ts-ignore
-type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
+type __VLS_IsAny<T> = 0 extends 1 & T ? true : false; type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
 type __VLS_Element = globalThis.JSX.Element;
 declare function __VLS_asFunctionalComponent<T, K = T extends new (...args: any) => any ? InstanceType<T> : unknown>(t: T, instance?: K):
   T extends new (...args: any) => any
@@ -87,13 +85,15 @@ export function transformCtx(
       continue
     }
 
-    if (name.startsWith(`${prefix}model`)) {
-      name = name.split('_')[0].split(':')[1] || 'modelValue'
+    const prefixModel = `${prefix}model`
+    if (name.startsWith(prefixModel)) {
+      name = name.split('$')[0].split('_')[0].split(':')[1] ?? 'modelValue'
     } else if (name.includes('_')) {
       name = name.split('_')[0]
     } else if (prefix && name.startsWith(prefix)) {
       continue
     }
+    if (!name) continue
 
     const value = prop.initializer
       ? isJsxExpression(prop.initializer) && prop.initializer.expression

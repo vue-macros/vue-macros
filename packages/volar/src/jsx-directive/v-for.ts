@@ -88,8 +88,9 @@ export function resolveVFor(
 export function transformVFor(
   nodes: JsxDirective[],
   options: TransformOptions,
+  hasVForAttribute: boolean,
 ): void {
-  if (!nodes.length) return
+  if (!nodes.length && !hasVForAttribute) return
   const { codes, source } = options
 
   nodes.forEach(({ attribute, node, parent }) => {
