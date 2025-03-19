@@ -159,14 +159,6 @@ export function transformVSlot(
         vSlotAttribute.end,
         ...result,
       )
-      // Fix `v-slot:` without type hints
-      replaceSourceRange(
-        codes,
-        source,
-        vSlotAttribute.end,
-        vSlotAttribute.end + 1,
-        ast.text.slice(vSlotAttribute.end, vSlotAttribute.end + 1),
-      )
     } else if (ts.isJsxElement(node)) {
       replaceSourceRange(
         codes,
