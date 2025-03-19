@@ -214,8 +214,6 @@ function transform(
     ...emitsResult,
     `}}`,
   )
-  // Fix `v-model:` without type hints
-  replaceSourceRange(codes, source, end, end + 1, ast.text.slice(end, end + 1))
 }
 
 function getModelsType(codes: Code[]) {
