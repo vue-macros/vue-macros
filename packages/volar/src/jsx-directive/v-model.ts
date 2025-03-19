@@ -32,7 +32,8 @@ function transform(
     | undefined
 
   const result: Code[] = []
-  const emits: string[] = []
+  const emitsResult: Code[] = []
+  const modifiersResult: Code[] = []
   const offset = `${prefix}model`.length + 1
   for (const { attribute, node } of nodes) {
     const isNativeTag = ['input', 'select', 'textarea'].includes(
@@ -48,14 +49,14 @@ function transform(
     const start = getStart(attribute.name, options)
     if (name.startsWith(`${prefix}model:`) || isArrayExpression) {
       let isDynamic = false
-      const attributeName = name
+      const [attributeName, ...modifiers] = name
         .slice(offset)
         .split(/\s/)[0]
         .replace(/^\$(.*)\$/, (_, $1) => {
           isDynamic = true
           return $1.replaceAll('_', '.')
         })
-        .split('_')[0]
+        .split('_')
       firstNamespacedNode ??= {
         attribute,
         attributeName,
@@ -113,27 +114,49 @@ function transform(
           isDynamic ? '}`]' : '',
         )
 
-        if (
-          attribute.initializer &&
-          isJsxExpression(attribute.initializer) &&
-          attribute.initializer.expression &&
-          attributeName
-        )
-          result.push(':', [
-            getText(attribute.initializer.expression, options),
-            source,
-            getStart(attribute.initializer.expression, options),
-            allCodeFeatures,
-          ])
+        if (attributeName) {
+          if (
+            isJsxExpression(attribute?.initializer) &&
+            attribute.initializer.expression
+          ) {
+            result.push(':', [
+              getText(attribute.initializer.expression, options),
+              source,
+              getStart(attribute.initializer.expression, options),
+              allCodeFeatures,
+            ])
+          }
+
+          if (!isDynamic) {
+            modifiersResult.push(
+              ` {...{`,
+              ...(modifiers.flatMap((modify, index) => [
+                modify ? '' : `'`,
+                [
+                  modify,
+                  source,
+                  start +
+                    offset +
+                    attributeName.length +
+                    1 +
+                    (index
+                      ? modifiers.slice(0, index).join('').length + index
+                      : 0),
+                  allCodeFeatures,
+                ],
+                modify ? ': true, ' : `'`,
+              ]) as Code[]),
+              `} satisfies typeof ${ctxMap.get(node)}.props.${attributeName}Modifiers}`,
+            )
+          }
+        }
       }
 
-      emits.push(`'onUpdate:${attributeName}': () => {}, `)
+      emitsResult.push(`'onUpdate:${attributeName}': () => {}, `)
     } else {
-      replaceSourceRange(
-        codes,
-        source,
-        start,
-        attribute.name.end,
+      const [, ...modifiers] = name.split('_')
+      const result = []
+      result.push(
         ...((isNativeTag
           ? [[modelValue, source, start + 2, allCodeFeatures]]
           : [
@@ -141,15 +164,35 @@ function transform(
               [modelValue.slice(3), source, start, allCodeFeatures],
             ]) as Code[]),
       )
-      if (!isNativeTag) {
-        replaceSourceRange(
-          codes,
-          source,
-          attribute.end,
-          attribute.end,
-          ` {...{'onUpdate:${modelValue}': () => {} }}`,
+
+      if (modifiers.length) {
+        result.unshift(
+          `{...{`,
+          ...(modifiers.flatMap((modify, index) => [
+            modify ? '' : `'`,
+            [
+              modify,
+              source,
+              start +
+                offset +
+                (index ? modifiers.slice(0, index).join('').length + index : 0),
+              allCodeFeatures,
+            ],
+            modify ? ': true, ' : `'`,
+          ]) as Code[]),
+          `} satisfies `,
+          isNativeTag
+            ? '{ trim?: true, number?: true, lazy?: true}'
+            : `typeof ${ctxMap.get(node)}.props.modelModifiers`,
+          `} `,
         )
       }
+
+      if (!isNativeTag) {
+        result.unshift(`{...{'onUpdate:${modelValue}': () => {} }} `)
+      }
+
+      replaceSourceRange(codes, source, start, attribute.name.end, ...result)
     }
   }
 
@@ -166,8 +209,9 @@ function transform(
     `{...{`,
     ...result,
     `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>>}`,
+    ...modifiersResult,
     ` {...{`,
-    ...emits,
+    ...emitsResult,
     `}}`,
   )
   // Fix `v-model:` without type hints

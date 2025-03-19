@@ -179,7 +179,8 @@
     "tag": "next"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "vue-tsc": "catalog:"

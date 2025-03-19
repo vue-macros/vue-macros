@@ -3,16 +3,14 @@ defineProps<{
   bar: string
 }>()
 
-const { title } = defineModels<{
-  modelValue: number
-  title?: string
-}>()
+defineModel<number>()
+const value = defineModel<string, 'stringify' | 'number'>('value')
 
 const slots = defineSlots()
 
 defineRender(() => (
   <>
-    <input v-model={title.value} />
+    <input v-model_trim={value.value} />
     <slots.default></slots.default>
   </>
 ))
