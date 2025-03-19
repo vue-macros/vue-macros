@@ -22,7 +22,7 @@ function transform(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, source, ast, prefix } = options
+  const { codes, ts, source, prefix } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
