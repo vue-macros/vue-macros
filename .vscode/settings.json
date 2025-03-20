@@ -1,15 +1,4 @@
 {
-  "cSpell.words": [
-    "attributify",
-    "esbuild",
-    "sxzz",
-    "tsup",
-    "unocss",
-    "unplugin",
-    "vitest",
-    "vmodel",
-    "vueuse"
-  ],
   "explorer.fileNesting.patterns": {
     "index.ts": "rollup.ts, vite.ts, webpack.ts, esbuild.ts, rspack.ts, rolldown.ts",
     "macros.d.ts": "macros*.d.ts"
@@ -21,11 +10,9 @@
   ],
   "exportall.config.semis": false,
   "search.exclude": {
-    "**/CHANGELOG.md": true,
     "**/coverage": true,
     "**/dist": true,
     "**/node_modules": true,
     "docs/.vitepress/cache": true
-  },
-  "unocss.root": ["./", "./playground/vue3", "./packages/devtools/src/client"]
+  }
 }
