@@ -21,7 +21,7 @@ import { resolvePlugin } from './core/plugin'
 import VueBetterDefine from '@vue-macros/better-define'
 import VueBooleanProp from '@vue-macros/boolean-prop'
 import VueChainCall from '@vue-macros/chain-call'
-import { resolveOptionsAsync, type Options } from '@vue-macros/config'
+import { resolveOptions, type Options } from '@vue-macros/config'
 import VueDefineEmit from '@vue-macros/define-emit'
 import VueDefineModels from '@vue-macros/define-models'
 import VueDefineProp from '@vue-macros/define-prop'
@@ -47,12 +47,7 @@ import VueShortEmits from '@vue-macros/short-emits'
 import VueShortVmodel from '@vue-macros/short-vmodel'
 import VueDefineOptions from 'unplugin-vue-define-options'
 
-export {
-  defineConfig,
-  resolveOptions,
-  resolveOptionsAsync,
-  type Options,
-} from '@vue-macros/config'
+export { defineConfig, resolveOptions, type Options } from '@vue-macros/config'
 
 const name = generatePluginName()
 const plugin: UnpluginCombineInstance<Options | undefined> =
@@ -60,7 +55,7 @@ const plugin: UnpluginCombineInstance<Options | undefined> =
     return {
       name,
       plugins: (async () => {
-        const options = await resolveOptionsAsync(userOptions)
+        const options = await resolveOptions(userOptions)
 
         const framework = meta.framework!
         const setupComponentPlugins = resolvePlugin(

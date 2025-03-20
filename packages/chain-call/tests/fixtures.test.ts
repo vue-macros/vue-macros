@@ -1,10 +1,10 @@
 import { resolve } from 'node:path'
 import {
   rollupBuild,
-  RollupEsbuildPlugin,
   RollupRemoveVueFilePathPlugin,
   RollupVue,
   testFixtures,
+  UnpluginOxc,
 } from '@vue-macros/test-utils'
 import { describe } from 'vitest'
 import { transformChainCall } from '../src/core'
@@ -18,9 +18,7 @@ describe('fixtures', async () => {
         VueChainCall(),
         RollupVue(),
         RollupRemoveVueFilePathPlugin(),
-        RollupEsbuildPlugin({
-          target: 'esnext',
-        }),
+        UnpluginOxc.rollup(),
       ]),
     {
       cwd: resolve(__dirname, '..'),

@@ -12,8 +12,8 @@
 /* eslint perfectionist/sort-objects: ["error", { partitionByNewLine: true }] */
 
 import process from 'node:process'
+import { quansync, type QuansyncFn } from 'quansync/macro'
 import { loadConfig } from './config'
-import { loadConfigAsync } from './config-worker'
 
 import type { Options as OptionsBetterDefine } from '@vue-macros/better-define'
 import type { Options as OptionsBooleanProp } from '@vue-macros/boolean-prop'
@@ -225,12 +225,11 @@ export type OptionsResolved = Required<OptionsCommon> & {
   [K in keyof FeatureOptionsMap]: false | FeatureOptionsMap[K]
 }
 
-export function resolveOptions(
-  options?: Options,
-  cwd: string = process.cwd(),
-  config?: Omit<Options, 'plugins'>,
-): OptionsResolved {
-  config ||= loadConfig(cwd)
+export const resolveOptions: QuansyncFn<
+  OptionsResolved,
+  [options?: Options | undefined, cwd?: string | undefined]
+> = quansync(async (options?: Options, cwd: string = process.cwd()) => {
+  const config = await loadConfig(cwd)
 
   let { isProduction, nuxtContext, plugins, root, version, ...subOptions } = {
     ...config,
@@ -295,12 +294,4 @@ export function resolveOptions(
       ...(options === true ? {} : options),
     }
   }
-}
-
-export async function resolveOptionsAsync(
-  options?: Options,
-  cwd: string = process.cwd(),
-): Promise<OptionsResolved> {
-  const config = await loadConfigAsync(cwd)
-  return resolveOptions(options, cwd, config)
-}
+})

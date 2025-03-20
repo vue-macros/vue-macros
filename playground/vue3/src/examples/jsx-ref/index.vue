@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { expectTypeOf } from 'expect-type'
-import { useRef } from 'unplugin-vue-macros/runtime'
 import { defineComponent } from 'vue'
+import { useRef } from 'vue-macros/runtime'
 import Comp from './comp.vue'
 
 const Comp1 = defineComponent({

@@ -1,5 +1,6 @@
 import { replaceSourceRange } from 'muggle-string'
 import { addCode, getText, isJsxExpression } from '../common'
+import { isNativeFormElement } from './v-model'
 import {
   getOpeningElement,
   getTagName,
@@ -18,10 +19,10 @@ export function resolveCtxMap(
 ): Map<import('typescript').Node, string> {
   if (ctxNodeMap.size) {
     options.codes.push(`
-type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
-type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
+// @ts-ignore
+type __VLS_IsAny<T> = 0 extends 1 & T ? true : false; type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
 type __VLS_Element = globalThis.JSX.Element;
-function __VLS_asFunctionalComponent<T, K = T extends new (...args: any) => any ? InstanceType<T> : unknown>(t: T, instance?: K):
+declare function __VLS_asFunctionalComponent<T, K = T extends new (...args: any) => any ? InstanceType<T> : unknown>(t: T, instance?: K):
   T extends new (...args: any) => any
   ? (props: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>, ctx?: any) => __VLS_Element & { __ctx?: {
     attrs?: any,
@@ -35,7 +36,7 @@ const __VLS_nativeElements = {
   ...{} as SVGElementTagNameMap,
   ...{} as HTMLElementTagNameMap,
 };
-function __VLS_getFunctionalComponentCtx<T, K, const S>(
+declare function __VLS_getFunctionalComponentCtx<T, K, const S>(
   comp: T,
   compInstance: K,
   s: S,
@@ -46,7 +47,7 @@ function __VLS_getFunctionalComponentCtx<T, K, const S>(
       ? Ctx
       : never
     : T extends (props: infer P, ctx: infer Ctx) => any
-      ? { props: P; slots: P['vSlots']; expose: P['vExpose'] } & Ctx
+      ? { props: P } & Ctx
       : {};\n`)
   }
 
@@ -85,13 +86,15 @@ export function transformCtx(
       continue
     }
 
-    if (name.startsWith(`${prefix}model`)) {
-      name = name.split('_')[0].split(':')[1] || 'modelValue'
+    const prefixModel = `${prefix}model`
+    if (name.startsWith(prefixModel)) {
+      name = name.split('$')[0].split('_')[0].split(':')[1] ?? 'modelValue'
     } else if (name.includes('_')) {
       name = name.split('_')[0]
     } else if (prefix && name.startsWith(prefix)) {
       continue
     }
+    if (!name) continue
 
     const value = prop.initializer
       ? isJsxExpression(prop.initializer) && prop.initializer.expression
@@ -102,7 +105,18 @@ export function transformCtx(
   }
 
   const ctxName = `__VLS_ctx_${refValue || index}`
-  const tagName = getTagName(node, { ...options, withTypes: true })
+  let tagName = getTagName(node, options)
+  if (isNativeFormElement(tagName)) {
+    tagName = `{}`
+  } else {
+    let types = ''
+    if (openingElement.typeArguments?.length) {
+      types = `<${openingElement.typeArguments
+        .map((argument) => getText(argument, options))
+        .join(', ')}>`
+      tagName += types
+    }
+  }
   const result = `\nconst ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}), '${tagName}');\n`
   if (root) {
     replaceSourceRange(

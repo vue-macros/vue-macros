@@ -28,7 +28,7 @@ export function transformVSlot(
   const { codes, ts, ast, source, prefix } = options
 
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
-    const result: Code[] = [' vSlots={{']
+    const result: Code[] = [' v-slots={{']
     const attributes = Array.from(attributeMap)
     attributes.forEach(
       ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -72,7 +72,7 @@ export function transformVSlot(
           .split(/\s/)[0]
           .replace(/\$(.*)\$/, (_, $1) => {
             isDynamic = true
-            return $1
+            return $1.replaceAll('_', '.')
           })
         const isNamespace = attributeName.startsWith(':')
         attributeName = attributeName.slice(1)
@@ -123,7 +123,7 @@ export function transformVSlot(
         )
 
         if (vForAttribute) {
-          result.push('})),')
+          result.push('})) as any,')
         }
 
         if (vIfAttribute && vIfAttributeName) {
@@ -158,14 +158,6 @@ export function transformVSlot(
         getStart(vSlotAttribute, options),
         vSlotAttribute.end,
         ...result,
-      )
-      // Fix `v-slot:` without type hints
-      replaceSourceRange(
-        codes,
-        source,
-        vSlotAttribute.end,
-        vSlotAttribute.end + 1,
-        ast.text.slice(vSlotAttribute.end, vSlotAttribute.end + 1),
       )
     } else if (ts.isJsxElement(node)) {
       replaceSourceRange(

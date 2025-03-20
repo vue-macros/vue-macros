@@ -6,7 +6,7 @@ import { transformRef } from './ref'
 import { transformVBind } from './v-bind'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
-import { transformVModel } from './v-model'
+import { isNativeFormElement, transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
 import type { Code } from 'ts-macro'
@@ -51,6 +51,8 @@ export function transformJsxDirective(options: TransformOptions): void {
 
   const ctxNodeMap: CtxMap = new Map()
 
+  let hasVForAttribute = false
+
   function walkJsxDirective(
     node: import('typescript').Node,
     parent?: import('typescript').Node,
@@ -74,6 +76,7 @@ export function transformJsxDirective(options: TransformOptions): void {
         vIfAttribute = attribute
       } else if (attributeName === `${prefix}for`) {
         vForAttribute = attribute
+        hasVForAttribute = true
       } else if (slotRegex.test(attributeName)) {
         vSlotAttribute = attribute
       } else if (modelRegex.test(attributeName)) {
@@ -82,7 +85,9 @@ export function transformJsxDirective(options: TransformOptions): void {
           node,
           attribute,
         })
-        ctxNode = node
+        if (!isNativeFormElement(tagName)) {
+          ctxNode = node
+        }
       } else if (attributeName === `${prefix}on`) {
         vOnNodes.push({ node, attribute })
         ctxNode = node
@@ -131,7 +136,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       } as any)
     }
 
-    if (!(vSlotAttribute && tagName === 'template')) {
+    if (!vSlotAttribute || tagName !== 'template') {
       if (vIfAttribute) {
         vIfMap.has(parent) || vIfMap.set(parent, [])
         vIfMap.get(parent)!.push({
@@ -217,7 +222,7 @@ export function transformJsxDirective(options: TransformOptions): void {
   const ctxMap = resolveCtxMap(ctxNodeMap, options)
 
   transformVSlot(vSlotMap, ctxMap, options)
-  transformVFor(vForNodes, options)
+  transformVFor(vForNodes, options, hasVForAttribute)
   vIfMap.forEach((nodes) => transformVIf(nodes, options))
   transformVModel(vModelMap, ctxMap, options)
   transformVOn(vOnNodes, ctxMap, options)
@@ -243,17 +248,10 @@ export function getOpeningElement(
 
 export function getTagName(
   node: JsxDirective['node'],
-  options: TransformOptions & { withTypes?: boolean },
+  options: TransformOptions,
 ): string {
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
 
-  let types = ''
-  if (options.withTypes && openingElement.typeArguments?.length) {
-    types = `<${openingElement.typeArguments
-      .map((argument) => getText(argument, options))
-      .join(', ')}>`
-  }
-
-  return getText(openingElement.tagName, options) + types
+  return getText(openingElement.tagName, options)
 }

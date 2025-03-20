@@ -1,8 +1,6 @@
 import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
-import { transformRestructure } from './restructure'
 import { resolveVFor } from './v-for'
-import { isVue2 } from '.'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 
 export type VSlotMap = Map<
@@ -25,11 +23,11 @@ export function transformVSlot(
   s: MagicStringAST,
   options: OptionsResolved,
 ): void {
-  const { version, prefix, lib } = options
+  const { prefix, lib } = options
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
-      const result = [` ${isVue2(version) ? 'scopedSlots' : 'vSlots'}={{`]
+      const result = [` v-slots={{`]
       const attributes = Array.from(attributeMap)
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
@@ -54,7 +52,7 @@ export function transformVSlot(
           if (vForAttribute) {
             result.push(
               '...Object.fromEntries(',
-              resolveVFor(vForAttribute, node, s, { ...options, lib: 'vue' }),
+              resolveVFor(vForAttribute, s, { ...options, lib: 'vue' }),
               '([',
             )
           }
@@ -66,22 +64,30 @@ export function transformVSlot(
               : 'default'
           attributeName = attributeName.replace(/\$(.*)\$/, (_, $1) => {
             isDynamic = true
-            return $1
+            return $1.replaceAll('_', '.')
           })
           result.push(
             isDynamic
-              ? `[${importHelperFn(s, 0, 'unref', lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers')}(${attributeName})]`
+              ? `[${importHelperFn(
+                  s,
+                  0,
+                  'unref',
+                  undefined,
+                  lib.startsWith('vue')
+                    ? 'vue'
+                    : '@vue-macros/jsx-directive/helpers',
+                )}(${attributeName})]`
               : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
           )
 
-          let slotFn = [
+          const slotFn = [
             '(',
             attribute.value && attribute.value.type === 'JSXExpressionContainer'
               ? s.sliceNode(attribute.value.expression)
               : '',
             ') => ',
-            isVue2(version) ? '<span>' : '<>',
+            '<>',
             children
               .map((child) => {
                 const str = s.sliceNode(
@@ -95,12 +101,8 @@ export function transformVSlot(
                 return str
               })
               .join('') || ' ',
-            isVue2(version) ? '</span>' : '</>',
+            '</>',
           ].join('')
-
-          if (options.lib === 'vue/vapor') {
-            slotFn = transformRestructure(slotFn)
-          }
 
           result.push(slotFn, ',')
 
@@ -131,7 +133,7 @@ export function transformVSlot(
       )
 
       if (attributeMap.has(null)) {
-        result.push(`default: () => ${isVue2(version) ? '<span>' : '<>'}`)
+        result.push(`default: () => <>`)
       } else {
         result.push('}}')
       }
@@ -146,9 +148,7 @@ export function transformVSlot(
         )
         s.appendLeft(
           node.closingElement!.start!,
-          attributeMap.has(null)
-            ? `${isVue2(version) ? '</span>' : '</>'}}}>`
-            : '>',
+          attributeMap.has(null) ? `</>}}>` : '>',
         )
       }
     })

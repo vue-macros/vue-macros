@@ -127,10 +127,10 @@ Every reactivity API that returns refs will have a `$`-prefixed macro equivalent
 - [`customRef`](https://vuejs.org/api/reactivity-advanced#customref) -> `$customRef`
 - [`toRef`](https://vuejs.org/api/reactivity-utilities#toref) -> `$toRef`
 
-These macros are globally available and do not need to be imported when Reactivity Transform is enabled, but you can optionally import them from `unplugin-vue-macros/macros` or `@vue-macros/reactivity-transform/macros-global` if you want to be more explicit:
+These macros are globally available and do not need to be imported when Reactivity Transform is enabled, but you can optionally import them from `vue-macros/macros` or `@vue-macros/reactivity-transform/macros-global` if you want to be more explicit:
 
 ```js twoslash
-import { $ref } from 'unplugin-vue-macros/macros'
+import { $ref } from 'vue-macros/macros'
 // for standalone version:
 // import { $ref } from '@vue-macros/reactivity-transform/macros-global'
 
@@ -386,10 +386,10 @@ This also means the macros can work in any files where valid JS / TS are allowed
 Since the macros are available globally, their types need to be explicitly referenced (e.g. in a `env.d.ts` file):
 
 ```ts [env.d.ts]
-/// <reference types="unplugin-vue-macros/macros-global" />
+/// <reference types="vue-macros/macros-global" />
 
 // or for standalone version:
 /// <reference types="@vue-macros/reactivity-transform/macros-global" />
 ```
 
-When explicitly importing the macros from `unplugin-vue-macros/macros` or `@vue-macros/reactivity-transform/macros-global`, the type will work without declaring the globals.
+When explicitly importing the macros from `vue-macros/macros` or `@vue-macros/reactivity-transform/macros-global`, the type will work without declaring the globals.

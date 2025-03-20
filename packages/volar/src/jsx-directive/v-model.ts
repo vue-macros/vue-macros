@@ -3,6 +3,10 @@ import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'
 
+export const isNativeFormElement = (tag: string): boolean => {
+  return ['input', 'select', 'textarea'].includes(tag)
+}
+
 export function transformVModel(
   nodeMap: Map<JsxDirective['node'], JsxDirective[]>,
   ctxMap: Map<JsxDirective['node'], string>,
@@ -22,7 +26,7 @@ function transform(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, source, ast, prefix } = options
+  const { codes, ts, source, prefix } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
@@ -32,14 +36,12 @@ function transform(
     | undefined
 
   const result: Code[] = []
-  const emits: string[] = []
+  const emitsResult: Code[] = []
+  const modifiersResult: Code[] = []
   const offset = `${prefix}model`.length + 1
   for (const { attribute, node } of nodes) {
-    const modelValue = ['input', 'select', 'textarea'].includes(
-      getTagName(node, options),
-    )
-      ? 'value'
-      : 'modelValue'
+    const isNative = isNativeFormElement(getTagName(node, options))
+    const modelValue = isNative ? 'value' : 'modelValue'
     const isArrayExpression =
       isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression &&
@@ -49,14 +51,14 @@ function transform(
     const start = getStart(attribute.name, options)
     if (name.startsWith(`${prefix}model:`) || isArrayExpression) {
       let isDynamic = false
-      const attributeName = name
+      const [attributeName, ...modifiers] = name
         .slice(offset)
         .split(/\s/)[0]
-        .split('_')[0]
         .replace(/^\$(.*)\$/, (_, $1) => {
           isDynamic = true
-          return $1
+          return $1.replaceAll('_', '.')
         })
+        .split('_')
       firstNamespacedNode ??= {
         attribute,
         attributeName,
@@ -114,37 +116,85 @@ function transform(
           isDynamic ? '}`]' : '',
         )
 
-        if (
-          attribute.initializer &&
-          isJsxExpression(attribute.initializer) &&
-          attribute.initializer.expression &&
-          attributeName
-        )
-          result.push(':', [
-            getText(attribute.initializer.expression, options),
-            source,
-            getStart(attribute.initializer.expression, options),
-            allCodeFeatures,
-          ])
+        if (attributeName) {
+          if (
+            isJsxExpression(attribute?.initializer) &&
+            attribute.initializer.expression
+          ) {
+            result.push(':', [
+              getText(attribute.initializer.expression, options),
+              source,
+              getStart(attribute.initializer.expression, options),
+              allCodeFeatures,
+            ])
+          }
+
+          if (!isDynamic && modifiers.length) {
+            modifiersResult.push(
+              ` {...{`,
+              ...(modifiers.flatMap((modify, index) => [
+                modify ? '' : `'`,
+                [
+                  modify,
+                  source,
+                  start +
+                    offset +
+                    attributeName.length +
+                    1 +
+                    (index
+                      ? modifiers.slice(0, index).join('').length + index
+                      : 0),
+                  allCodeFeatures,
+                ],
+                modify ? ': true, ' : `'`,
+              ]) as Code[]),
+              `} satisfies typeof ${ctxMap.get(node)}.props.${attributeName}Modifiers}`,
+            )
+          }
+        }
       }
 
-      emits.push(`'onUpdate:${attributeName}': () => {}, `)
+      emitsResult.push(`'onUpdate:${attributeName}': () => {}, `)
     } else {
-      replaceSourceRange(
-        codes,
-        source,
-        start,
-        attribute.name.end,
-        modelValue.slice(0, 3),
-        [modelValue.slice(3), source, start, allCodeFeatures],
+      const [, ...modifiers] = name.split('_')
+      const result = []
+      result.push(
+        ...((isNative
+          ? [[modelValue, source, start + 2, allCodeFeatures]]
+          : [
+              modelValue.slice(0, 3),
+              [modelValue.slice(3), source, start, allCodeFeatures],
+            ]) as Code[]),
       )
-      replaceSourceRange(
-        codes,
-        source,
-        attribute.end,
-        attribute.end,
-        ` {...{'onUpdate:${modelValue}': () => {} }}`,
-      )
+
+      if (modifiers.length) {
+        result.unshift(
+          `{...{`,
+          ...(modifiers.flatMap((modify, index) => [
+            modify ? '' : `'`,
+            [
+              modify,
+              source,
+              start +
+                offset +
+                (index ? modifiers.slice(0, index).join('').length + index : 0),
+              allCodeFeatures,
+            ],
+            modify ? ': true, ' : `'`,
+          ]) as Code[]),
+          `} satisfies `,
+          isNative
+            ? '{ trim?: true, number?: true, lazy?: true}'
+            : `typeof ${ctxMap.get(node)}.props.modelValueModifiers`,
+          `} `,
+        )
+      }
+
+      if (!isNative) {
+        result.unshift(`{...{'onUpdate:${modelValue}': () => {} }} `)
+      }
+
+      replaceSourceRange(codes, source, start, attribute.name.end, ...result)
     }
   }
 
@@ -161,12 +211,11 @@ function transform(
     `{...{`,
     ...result,
     `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>>}`,
+    ...modifiersResult,
     ` {...{`,
-    ...emits,
+    ...emitsResult,
     `}}`,
   )
-  // Fix `v-model:` without type hints
-  replaceSourceRange(codes, source, end, end + 1, ast.text.slice(end, end + 1))
 }
 
 function getModelsType(codes: Code[]) {

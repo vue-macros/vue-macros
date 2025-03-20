@@ -1,11 +1,10 @@
 import { defineNuxtModule, useNuxt } from '@nuxt/kit'
 import { REGEX_SETUP_SFC } from '@vue-macros/common'
-import { resolveOptionsAsync, type Options } from 'unplugin-vue-macros'
-import VueMacros from 'unplugin-vue-macros/vite'
+import { resolveOptions, type Options } from 'vue-macros'
+import VueMacros from 'vue-macros/vite'
 import { githubRepo } from '../../../macros' with { type: 'macro' }
 import type {} from '@nuxt/devtools'
 import type { NuxtModule, ViteConfig } from '@nuxt/schema'
-import type { RawVueCompilerOptions } from '@vue/language-core'
 import type { Plugin } from 'vite'
 
 const module: NuxtModule<Options> = defineNuxtModule<Options>({
@@ -16,16 +15,13 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
   defaults: {},
   async setup(options) {
     const nuxt = useNuxt()
-    const resolvedOptions = await resolveOptionsAsync(options)
+    const resolvedOptions = await resolveOptions(options)
 
     nuxt.options.typescript.tsConfig ||= {}
-    // @ts-expect-error
-    nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {}
-    const vueCompilerOptions = nuxt.options.typescript.tsConfig
-      .vueCompilerOptions as unknown as RawVueCompilerOptions
-
+    const vueCompilerOptions =
+      (nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {})
     vueCompilerOptions.plugins ||= []
-    vueCompilerOptions.plugins.push('unplugin-vue-macros/volar')
+    vueCompilerOptions.plugins.push('vue-macros/volar')
 
     nuxt.hook(
       'vite:configResolved',
@@ -59,7 +55,7 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
     )
 
     nuxt.hook('prepare:types', (opts) => {
-      opts.references.push({ types: 'unplugin-vue-macros/macros-global' })
+      opts.references.push({ types: 'vue-macros/macros-global' })
     })
 
     nuxt.hook('devtools:customTabs', (tabs) => {

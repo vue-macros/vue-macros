@@ -1,7 +1,6 @@
 {
   "name": "@vue-macros/test-utils",
-  "version": "1.7.1",
-  "packageManager": "pnpm@10.2.1",
+  "version": "3.0.0-beta.6",
   "description": "Test utilities for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -24,41 +23,38 @@
     "directory": "packages/test-utils"
   },
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
+  "funding": "https://github.com/sponsors/vue-macros",
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": {
-        "require": "./dist/index.cjs",
-        "import": "./dist/index.js"
-      },
+      ".": "./dist/index.js",
       "./*": "./*"
-    }
+    },
+    "tag": "next"
   },
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup --watch"
   },
   "dependencies": {
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "@sxzz/test-utils": "^0.5.1",
+    "@rollup/plugin-json": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@sxzz/test-utils": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
-    "@vitejs/plugin-vue2": "^2.3.3",
     "rollup": "catalog:",
-    "rollup-plugin-esbuild": "^6.2.0",
+    "unplugin-oxc": "catalog:",
     "unplugin-vue": "catalog:"
   },
   "devDependencies": {
@@ -66,6 +62,6 @@
     "vue": "catalog:"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=20.18.0"
   }
 }

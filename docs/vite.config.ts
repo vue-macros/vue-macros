@@ -18,7 +18,7 @@ export default defineConfig({
     Unocss(),
     Devtools(),
     GitChangelog({
-      repoURL: () => githubLink,
+      repoURL: githubLink,
       mapAuthors: [
         {
           name: 'Kevin Deng',

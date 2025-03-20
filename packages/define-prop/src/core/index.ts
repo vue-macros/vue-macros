@@ -94,9 +94,9 @@ export async function transformDefineProp(
     const normalizePropsOrEmits = importHelperFn(
       s,
       offset,
+      'default',
       'normalizePropsOrEmits',
       helperId,
-      true,
     )
     s.overwriteNode(
       definePropsCall.arguments[0],

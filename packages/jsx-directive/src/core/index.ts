@@ -19,7 +19,6 @@ import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
-export * from './restructure'
 export const withDefaultsHelperCode: string = helper.withDefaultsHelperCode
 
 export type JsxDirective = {
@@ -131,11 +130,11 @@ function transform(
           attribute.name.type === 'JSXNamespacedName' &&
           attribute.name.namespace.name === `${prefix}model`
         ) {
-          transformVModel(attribute, s, options)
+          transformVModel(attribute, s)
         }
       }
 
-      if (!(vSlotAttribute && tagName === 'template')) {
+      if (!vSlotAttribute || tagName !== 'template') {
         if (vIfAttribute) {
           vIfMap.get(parent) || vIfMap.set(parent, [])
           vIfMap.get(parent)!.push({
@@ -218,12 +217,8 @@ function transform(
   vIfMap.forEach((nodes) => transformVIf(nodes, s, options))
   transformVFor(vForNodes, s, options)
   if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, options)
-  transformVHtml(vHtmlNodes, s, options)
-  transformVOn(vOnNodes, s, options)
+  transformVHtml(vHtmlNodes, s)
+  transformVOn(vOnNodes, s)
   transformOnWithModifiers(onWithModifiers, s, options)
   transformVSlot(vSlotMap, s, options)
-}
-
-export function isVue2(version: number): boolean {
-  return version >= 2 && version < 3
 }

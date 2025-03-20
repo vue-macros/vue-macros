@@ -6,22 +6,43 @@ import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  props: {
-    base: { type: String, required: true },
-    str: { type: String, required: true },
-    num: { type: Number, required: true },
-    map: { type: Map, required: true },
-    arr: { type: Array, required: true },
-    union: { type: [String, Number], required: true }
-  },
-  emits: ["click", "change"],
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "basic",
+	props: {
+		base: {
+			type: String,
+			required: true
+		},
+		str: {
+			type: String,
+			required: true
+		},
+		num: {
+			type: Number,
+			required: true
+		},
+		map: {
+			type: Map,
+			required: true
+		},
+		arr: {
+			type: Array,
+			required: true
+		},
+		union: {
+			type: [String, Number],
+			required: true
+		}
+	},
+	emits: ["click", "change"],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -39,22 +60,25 @@ import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic",
-  props: {
-    base: null,
-    str: null,
-    num: null,
-    map: null,
-    arr: null,
-    union: null
-  },
-  emits: ["click", "change"],
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "basic",
+	props: {
+		base: null,
+		str: null,
+		num: null,
+		map: null,
+		arr: null,
+		union: null
+	},
+	emits: ["click", "change"],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -72,18 +96,30 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "built-in",
-  props: {
-    optional: { type: Number, required: false },
-    required: { type: Boolean, required: true },
-    readonly: { type: String, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "built-in",
+	props: {
+		optional: {
+			type: Number,
+			required: false
+		},
+		required: {
+			type: Boolean,
+			required: true
+		},
+		readonly: {
+			type: String,
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var builtIn = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -98,18 +134,21 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "built-in",
-  props: {
-    optional: null,
-    required: { type: Boolean },
-    readonly: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "built-in",
+	props: {
+		optional: null,
+		required: { type: Boolean },
+		readonly: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var builtIn = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -124,18 +163,20 @@ import { defineComponent, mergeDefaults, createElementBlock, openBlock } from 'v
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "defaults-dynamic",
-  props: mergeDefaults({
-    foo: { type: String, required: false }
-  }, {
-    ["foo"]: "foo"
-  }),
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "defaults-dynamic",
+	props: mergeDefaults({ foo: {
+		type: String,
+		required: false
+	} }, { ["f" + "oo"]: "foo" }),
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -153,18 +194,17 @@ import { defineComponent, mergeDefaults, createElementBlock, openBlock } from 'v
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "defaults-dynamic",
-  props: mergeDefaults({
-    foo: null
-  }, {
-    ["foo"]: "foo"
-  }),
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "defaults-dynamic",
+	props: mergeDefaults({ foo: null }, { ["f" + "oo"]: "foo" }),
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -182,25 +222,46 @@ import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "defaults-static",
-  props: {
-    foo: { type: String, required: false, default: "foo" },
-    bar: { type: Number, required: false, get default() {
-      return 10;
-    } },
-    baz: { type: Promise, required: false, async default() {
-      return 10;
-    } },
-    qux: { type: Function, required: false, default: () => {
-    } },
-    quux: { required: false, default: abc }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "defaults-static",
+	props: {
+		foo: {
+			type: String,
+			required: false,
+			default: "foo"
+		},
+		bar: {
+			type: Number,
+			required: false,
+			get default() {
+				return 10;
+			}
+		},
+		baz: {
+			type: Promise,
+			required: false,
+			async default() {
+				return 10;
+			}
+		},
+		qux: {
+			type: Function,
+			required: false,
+			default: () => {}
+		},
+		quux: {
+			required: false,
+			default: abc
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -218,25 +279,30 @@ import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "defaults-static",
-  props: {
-    foo: { default: "foo" },
-    bar: { get default() {
-      return 10;
-    } },
-    baz: { async default() {
-      return 10;
-    } },
-    qux: { type: Function, default: () => {
-    } },
-    quux: { default: abc }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "defaults-static",
+	props: {
+		foo: { default: "foo" },
+		bar: { get default() {
+			return 10;
+		} },
+		baz: { async default() {
+			return 10;
+		} },
+		qux: {
+			type: Function,
+			default: () => {}
+		},
+		quux: { default: abc }
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -296,18 +362,22 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "fn-default",
-  props: {
-    fn: { type: Function, required: true, default: () => {
-    } }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    const __returned__ = { props };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "fn-default",
+	props: { fn: {
+		type: Function,
+		required: true,
+		default: () => {}
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		const __returned__ = { props };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var fnDefault = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -322,18 +392,21 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "fn-default",
-  props: {
-    fn: { type: Function, default: () => {
-    } }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    const __returned__ = { props };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "fn-default",
+	props: { fn: {
+		type: Function,
+		default: () => {}
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		const __returned__ = { props };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var fnDefault = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -348,25 +421,55 @@ import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "import-from-vue",
-  props: {
-    setupBase: { type: String, required: true },
-    num: { type: Number, required: true },
-    bool: { type: Boolean, required: true },
-    map: { type: Map, required: true },
-    arr: { type: Array, required: true },
-    union: { type: [String, Number], required: true },
-    normalBase: { type: String, required: true },
-    str: { type: String, required: true },
-    setupBase_2: { type: String, required: true }
-  },
-  emits: ["click", "change"],
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "import-from-vue",
+	props: {
+		setupBase: {
+			type: String,
+			required: true
+		},
+		num: {
+			type: Number,
+			required: true
+		},
+		bool: {
+			type: Boolean,
+			required: true
+		},
+		map: {
+			type: Map,
+			required: true
+		},
+		arr: {
+			type: Array,
+			required: true
+		},
+		union: {
+			type: [String, Number],
+			required: true
+		},
+		normalBase: {
+			type: String,
+			required: true
+		},
+		str: {
+			type: String,
+			required: true
+		},
+		setupBase_2: {
+			type: String,
+			required: true
+		}
+	},
+	emits: ["click", "change"],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -384,25 +487,28 @@ import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "import-from-vue",
-  props: {
-    setupBase: null,
-    num: null,
-    bool: { type: Boolean },
-    map: null,
-    arr: null,
-    union: null,
-    normalBase: null,
-    str: null,
-    setupBase_2: null
-  },
-  emits: ["click", "change"],
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "import-from-vue",
+	props: {
+		setupBase: null,
+		num: null,
+		bool: { type: Boolean },
+		map: null,
+		arr: null,
+		union: null,
+		normalBase: null,
+		str: null,
+		setupBase_2: null
+	},
+	emits: ["click", "change"],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -420,21 +526,42 @@ import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "intersection",
-  props: {
-    base: { type: String, required: true },
-    str: { type: String, required: true },
-    num: { type: Number, required: true },
-    map: { type: Map, required: true },
-    arr: { type: Array, required: true },
-    union: { type: [String, Number], required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "intersection",
+	props: {
+		base: {
+			type: String,
+			required: true
+		},
+		str: {
+			type: String,
+			required: true
+		},
+		num: {
+			type: Number,
+			required: true
+		},
+		map: {
+			type: Map,
+			required: true
+		},
+		arr: {
+			type: Array,
+			required: true
+		},
+		union: {
+			type: [String, Number],
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -452,21 +579,24 @@ import { defineComponent, renderSlot } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "intersection",
-  props: {
-    base: null,
-    str: null,
-    num: null,
-    map: null,
-    arr: null,
-    union: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "intersection",
+	props: {
+		base: null,
+		str: null,
+		num: null,
+		map: null,
+		arr: null,
+		union: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -484,17 +614,22 @@ import { defineComponent, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-260",
-  props: {
-    menu: { type: [Object, Array], required: false, default: () => ({ txt: "1-1" }) }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    const __returned__ = { props };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-260",
+	props: { menu: {
+		type: [Object, Array],
+		required: false,
+		default: () => ({ txt: "1-1" })
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		const __returned__ = { props };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -512,17 +647,18 @@ import { defineComponent, toDisplayString } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-260",
-  props: {
-    menu: { default: () => ({ txt: "1-1" }) }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    const __returned__ = { props };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-260",
+	props: { menu: { default: () => ({ txt: "1-1" }) } },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		const __returned__ = { props };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -540,14 +676,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-328",
-  emits: ["foo"],
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-328",
+	emits: ["foo"],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var issue328 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -562,14 +701,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-328",
-  emits: ["foo"],
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-328",
+	emits: ["foo"],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var issue328 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -584,16 +726,20 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-351",
-  props: {
-    modelValue: { type: [String, Boolean], required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-351",
+	props: { modelValue: {
+		type: [String, Boolean],
+		required: true
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var issue351 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -608,16 +754,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-351",
-  props: {
-    modelValue: { type: [String, Boolean] }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-351",
+	props: { modelValue: { type: [String, Boolean] } },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var issue351 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -632,22 +779,26 @@ import { defineComponent, createElementBlock, openBlock, toDisplayString } from 
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-362",
-  props: {
-    trigger: { required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const Trigger = {
-      click: "click",
-      focus: "focus",
-      hover: "hover"
-    };
-    const props = __props;
-    const __returned__ = { Trigger, props };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-362",
+	props: { trigger: { required: true } },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const Trigger = {
+			click: "click",
+			focus: "focus",
+			hover: "hover"
+		};
+		const props = __props;
+		const __returned__ = {
+			Trigger,
+			props
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -671,22 +822,26 @@ import { defineComponent, createElementBlock, openBlock, toDisplayString } from 
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-362",
-  props: {
-    trigger: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const Trigger = {
-      click: "click",
-      focus: "focus",
-      hover: "hover"
-    };
-    const props = __props;
-    const __returned__ = { Trigger, props };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-362",
+	props: { trigger: null },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const Trigger = {
+			click: "click",
+			focus: "focus",
+			hover: "hover"
+		};
+		const props = __props;
+		const __returned__ = {
+			Trigger,
+			props
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -710,16 +865,20 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-806",
-  props: {
-    foo: { type: [Function, Object], required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-806",
+	props: { foo: {
+		type: [Function, Object],
+		required: false
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var issue806 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -734,16 +893,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "issue-806",
-  props: {
-    foo: { type: Function }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "issue-806",
+	props: { foo: { type: Function } },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var issue806 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -763,20 +923,32 @@ var pkg = {
 };
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "json-resolve",
-  props: {
-    foo: { type: String, required: true },
-    bar: { type: Object, required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    const __returned__ = { props, get pkg() {
-      return pkg;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "json-resolve",
+	props: {
+		foo: {
+			type: String,
+			required: true
+		},
+		bar: {
+			type: Object,
+			required: false
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		const __returned__ = {
+			props,
+			get pkg() {
+				return pkg;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var jsonResolve = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -796,20 +968,26 @@ var pkg = {
 };
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "json-resolve",
-  props: {
-    foo: null,
-    bar: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const props = __props;
-    const __returned__ = { props, get pkg() {
-      return pkg;
-    } };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "json-resolve",
+	props: {
+		foo: null,
+		bar: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const props = __props;
+		const __returned__ = {
+			props,
+			get pkg() {
+				return pkg;
+			}
+		};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var jsonResolve = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -824,18 +1002,30 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "namespace",
-  props: {
-    x: { type: Boolean, required: true },
-    y: { type: Number, required: true },
-    z: { type: String, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "namespace",
+	props: {
+		x: {
+			type: Boolean,
+			required: true
+		},
+		y: {
+			type: Number,
+			required: true
+		},
+		z: {
+			type: String,
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var namespace = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -850,18 +1040,21 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "namespace",
-  props: {
-    x: { type: Boolean },
-    y: null,
-    z: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "namespace",
+	props: {
+		x: { type: Boolean },
+		y: null,
+		z: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var namespace = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -876,17 +1069,26 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "optional-method",
-  props: {
-    onClick: { type: Function, required: false },
-    onSubmit: { type: Function, required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "optional-method",
+	props: {
+		onClick: {
+			type: Function,
+			required: false
+		},
+		onSubmit: {
+			type: Function,
+			required: false
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var optionalMethod = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -901,17 +1103,20 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "optional-method",
-  props: {
-    onClick: { type: Function },
-    onSubmit: { type: Function }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "optional-method",
+	props: {
+		onClick: { type: Function },
+		onSubmit: { type: Function }
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var optionalMethod = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -926,16 +1131,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "playground",
-  props: {
-    foo: { required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "playground",
+	props: { foo: { required: true } },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var playground = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -950,16 +1156,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "playground",
-  props: {
-    foo: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "playground",
+	props: { foo: null },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var playground = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -974,18 +1181,34 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "radix-vue",
-  props: {
-    asChild: { type: Boolean, required: false },
-    as: { type: [String, Object, Function], required: false },
-    foo: { type: String, required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "radix-vue",
+	props: {
+		asChild: {
+			type: Boolean,
+			required: false
+		},
+		as: {
+			type: [
+				String,
+				Object,
+				Function
+			],
+			required: false
+		},
+		foo: {
+			type: String,
+			required: false
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var radixVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1000,18 +1223,21 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "radix-vue",
-  props: {
-    asChild: { type: Boolean },
-    as: { type: Function },
-    foo: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "radix-vue",
+	props: {
+		asChild: { type: Boolean },
+		as: { type: Function },
+		foo: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var radixVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1026,20 +1252,38 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "resolve-failed",
-  props: {
-    foo: { required: true },
-    bar: { type: Object, required: true },
-    bool: { type: Boolean, skipCheck: true, required: true },
-    fun: { type: Function, skipCheck: true, required: true },
-    boolAndFun: { type: [Boolean, Function], skipCheck: true, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "resolve-failed",
+	props: {
+		foo: { required: true },
+		bar: {
+			type: Object,
+			required: true
+		},
+		bool: {
+			type: Boolean,
+			skipCheck: true,
+			required: true
+		},
+		fun: {
+			type: Function,
+			skipCheck: true,
+			required: true
+		},
+		boolAndFun: {
+			type: [Boolean, Function],
+			skipCheck: true,
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var resolveFailed = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1054,20 +1298,23 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "resolve-failed",
-  props: {
-    foo: null,
-    bar: null,
-    bool: { type: Boolean },
-    fun: { type: Function },
-    boolAndFun: { type: [Boolean, Function] }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "resolve-failed",
+	props: {
+		foo: null,
+		bar: null,
+		bool: { type: Boolean },
+		fun: { type: Function },
+		boolAndFun: { type: [Boolean, Function] }
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var resolveFailed = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1082,15 +1329,18 @@ import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "short-emits",
-  emits: ["click"],
-  setup(__props, { expose: __expose, emit: __emit }) {
-    __expose();
-    const emit = __emit;
-    const __returned__ = { emit };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "short-emits",
+	emits: ["click"],
+	setup(__props, { expose: __expose, emit: __emit }) {
+		__expose();
+		const emit = __emit;
+		const __returned__ = { emit };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -1110,15 +1360,18 @@ import { defineComponent, createElementBlock, openBlock } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "short-emits",
-  emits: ["click"],
-  setup(__props, { expose: __expose, emit: __emit }) {
-    __expose();
-    const emit = __emit;
-    const __returned__ = { emit };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "short-emits",
+	emits: ["click"],
+	setup(__props, { expose: __expose, emit: __emit }) {
+		__expose();
+		const emit = __emit;
+		const __returned__ = { emit };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -1138,16 +1391,20 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "special-key",
-  props: {
-    "key-name": { type: String, required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "special-key",
+	props: { "key-name": {
+		type: String,
+		required: false
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var specialKey = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1162,16 +1419,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "special-key",
-  props: {
-    "key-name": null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "special-key",
+	props: { "key-name": null },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var specialKey = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1186,24 +1444,54 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "template-keys",
-  props: {
-    "TfooSxZ0strstatic_value'": { type: String, required: true },
-    "TfooSxZ1strstatic_value'": { type: String, required: true },
-    "TfooSyZ0strstatic_value'": { type: String, required: true },
-    "TfooSyZ1strstatic_value'": { type: String, required: true },
-    "TbarSxZ0strstatic_value'": { type: String, required: true },
-    "TbarSxZ1strstatic_value'": { type: String, required: true },
-    "TbarSyZ0strstatic_value'": { type: String, required: true },
-    "TbarSyZ1strstatic_value'": { type: String, required: true },
-    extra: { type: String, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "template-keys",
+	props: {
+		"TfooSxZ0strstatic_value'": {
+			type: String,
+			required: true
+		},
+		"TfooSxZ1strstatic_value'": {
+			type: String,
+			required: true
+		},
+		"TfooSyZ0strstatic_value'": {
+			type: String,
+			required: true
+		},
+		"TfooSyZ1strstatic_value'": {
+			type: String,
+			required: true
+		},
+		"TbarSxZ0strstatic_value'": {
+			type: String,
+			required: true
+		},
+		"TbarSxZ1strstatic_value'": {
+			type: String,
+			required: true
+		},
+		"TbarSyZ0strstatic_value'": {
+			type: String,
+			required: true
+		},
+		"TbarSyZ1strstatic_value'": {
+			type: String,
+			required: true
+		},
+		extra: {
+			type: String,
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var templateKeys = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1218,24 +1506,27 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "template-keys",
-  props: {
-    "TfooSxZ0strstatic_value'": null,
-    "TfooSxZ1strstatic_value'": null,
-    "TfooSyZ0strstatic_value'": null,
-    "TfooSyZ1strstatic_value'": null,
-    "TbarSxZ0strstatic_value'": null,
-    "TbarSxZ1strstatic_value'": null,
-    "TbarSyZ0strstatic_value'": null,
-    "TbarSyZ1strstatic_value'": null,
-    extra: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "template-keys",
+	props: {
+		"TfooSxZ0strstatic_value'": null,
+		"TfooSxZ1strstatic_value'": null,
+		"TfooSyZ0strstatic_value'": null,
+		"TfooSyZ1strstatic_value'": null,
+		"TbarSxZ0strstatic_value'": null,
+		"TbarSxZ1strstatic_value'": null,
+		"TbarSyZ0strstatic_value'": null,
+		"TbarSyZ1strstatic_value'": null,
+		extra: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var templateKeys = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1250,26 +1541,51 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "ts-indexed-access-type",
-  props: {
-    foo: { type: String, required: true },
-    bar: { required: true },
-    baz: { required: true },
-    qux: { required: true },
-    all: { required: true },
-    arr: { type: [String, Number], required: true },
-    arr2: { type: [String, Number], required: true },
-    tuple: { type: [String, Boolean], required: true },
-    methodFoo: { type: Function, required: true },
-    methodBar: { type: Function, required: true },
-    methodOpt: { type: Function, skipCheck: true, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "ts-indexed-access-type",
+	props: {
+		foo: {
+			type: String,
+			required: true
+		},
+		bar: { required: true },
+		baz: { required: true },
+		qux: { required: true },
+		all: { required: true },
+		arr: {
+			type: [String, Number],
+			required: true
+		},
+		arr2: {
+			type: [String, Number],
+			required: true
+		},
+		tuple: {
+			type: [String, Boolean],
+			required: true
+		},
+		methodFoo: {
+			type: Function,
+			required: true
+		},
+		methodBar: {
+			type: Function,
+			required: true
+		},
+		methodOpt: {
+			type: Function,
+			skipCheck: true,
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var tsIndexedAccessType = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1284,26 +1600,29 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "ts-indexed-access-type",
-  props: {
-    foo: null,
-    bar: null,
-    baz: null,
-    qux: null,
-    all: null,
-    arr: null,
-    arr2: null,
-    tuple: { type: [String, Boolean] },
-    methodFoo: { type: Function },
-    methodBar: { type: Function },
-    methodOpt: { type: Function }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "ts-indexed-access-type",
+	props: {
+		foo: null,
+		bar: null,
+		baz: null,
+		qux: null,
+		all: null,
+		arr: null,
+		arr2: null,
+		tuple: { type: [String, Boolean] },
+		methodFoo: { type: Function },
+		methodBar: { type: Function },
+		methodOpt: { type: Function }
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var tsIndexedAccessType = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1318,17 +1637,26 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "ts-utility-types",
-  props: {
-    foo: { type: String, required: true },
-    bar: { type: String, required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "ts-utility-types",
+	props: {
+		foo: {
+			type: String,
+			required: true
+		},
+		bar: {
+			type: String,
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var tsUtilityTypes = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1343,17 +1671,20 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "ts-utility-types",
-  props: {
-    foo: null,
-    bar: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "ts-utility-types",
+	props: {
+		foo: null,
+		bar: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var tsUtilityTypes = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1368,16 +1699,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "undefined",
-  props: {
-    foo: { required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "undefined",
+	props: { foo: { required: true } },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var _undefined = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1392,16 +1724,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "undefined",
-  props: {
-    foo: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "undefined",
+	props: { foo: null },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var _undefined = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1416,19 +1749,34 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "union",
-  props: {
-    type: { type: String, required: true },
-    foo: { type: String, required: false },
-    optional: { type: Boolean, required: false },
-    bar: { type: Number, required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "union",
+	props: {
+		type: {
+			type: String,
+			required: true
+		},
+		foo: {
+			type: String,
+			required: false
+		},
+		optional: {
+			type: Boolean,
+			required: false
+		},
+		bar: {
+			type: Number,
+			required: false
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var union = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1443,19 +1791,22 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "union",
-  props: {
-    type: null,
-    foo: null,
-    optional: { type: Boolean },
-    bar: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "union",
+	props: {
+		type: null,
+		foo: null,
+		optional: { type: Boolean },
+		bar: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var union = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1470,15 +1821,22 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "union-emits",
-  emits: ["some", "emit", "another"],
-  setup(__props, { expose: __expose, emit: __emit }) {
-    __expose();
-    const emit = __emit;
-    const __returned__ = { emit };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "union-emits",
+	emits: [
+		"some",
+		"emit",
+		"another"
+	],
+	setup(__props, { expose: __expose, emit: __emit }) {
+		__expose();
+		const emit = __emit;
+		const __returned__ = { emit };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var unionEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1493,15 +1851,22 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "union-emits",
-  emits: ["some", "emit", "another"],
-  setup(__props, { expose: __expose, emit: __emit }) {
-    __expose();
-    const emit = __emit;
-    const __returned__ = { emit };
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "union-emits",
+	emits: [
+		"some",
+		"emit",
+		"another"
+	],
+	setup(__props, { expose: __expose, emit: __emit }) {
+		__expose();
+		const emit = __emit;
+		const __returned__ = { emit };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var unionEmits = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1516,18 +1881,30 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "union-props",
-  props: {
-    foo: { type: [String, Number], required: true },
-    bar: { type: [String, Number], required: true },
-    optional: { type: Boolean, required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "union-props",
+	props: {
+		foo: {
+			type: [String, Number],
+			required: true
+		},
+		bar: {
+			type: [String, Number],
+			required: true
+		},
+		optional: {
+			type: Boolean,
+			required: false
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var unionProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1542,18 +1919,21 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "union-props",
-  props: {
-    foo: null,
-    bar: null,
-    optional: { type: Boolean }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "union-props",
+	props: {
+		foo: null,
+		bar: null,
+		optional: { type: Boolean }
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var unionProps = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1568,16 +1948,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "unresolved",
-  props: {
-    foo: { required: true }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "unresolved",
+	props: { foo: { required: true } },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var unresolved = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1592,16 +1973,17 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "unresolved",
-  props: {
-    foo: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "unresolved",
+	props: { foo: null },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var unresolved = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1616,19 +1998,34 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "vue-core-7553",
-  props: {
-    size: { type: String, required: false },
-    color: { type: [String, Number], required: true },
-    appearance: { type: String, required: true },
-    note: { type: String, required: false }
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "vue-core-7553",
+	props: {
+		size: {
+			type: String,
+			required: false
+		},
+		color: {
+			type: [String, Number],
+			required: true
+		},
+		appearance: {
+			type: String,
+			required: true
+		},
+		note: {
+			type: String,
+			required: false
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var vueCore7553 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -1643,19 +2040,22 @@ import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "vue-core-7553",
-  props: {
-    size: null,
-    color: null,
-    appearance: null,
-    note: null
-  },
-  setup(__props, { expose: __expose }) {
-    __expose();
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
-    return __returned__;
-  }
+	__name: "vue-core-7553",
+	props: {
+		size: null,
+		color: null,
+		appearance: null,
+		note: null
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var vueCore7553 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);

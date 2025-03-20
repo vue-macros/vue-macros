@@ -1,69 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx-vue-directive > vue 2.7 v-slot > ./fixtures/v-slot/index.vue 1`] = `
-"<script setup lang="tsx">
-import { unref as __MACROS_unref } from "vue";
-import { expectTypeOf } from 'expect-type'
-import Child from './child.vue'
-import type { FunctionalComponent } from 'vue'
-
-const Comp: FunctionalComponent<
-  {},
-  {},
-  {
-    default: (scope: { foo: string }) => any
-  }
-> = (props, { slots }) => {
-  return (
-    <Child scopedSlots={{...Object.fromEntries(Array.from(slots, (Slot, slotName) => ([[__MACROS_unref(slotName)], (scope) => <span>
-        <Slot {...scope} />
-      </span>,]))),}}
-      
-    ></Child>
-  )
-}
-
-let baz = $ref('')
-let show = $ref<boolean | undefined>()
-defineRender(() => (
-  <div>
-    <Child  scopedSlots={{'bottom': ({ foo }) => <span>
-      {foo}
-      <Child  scopedSlots={{'default': () => <span>default</span>,}}></Child>
-    </span>,}}></Child>
-
-    <Comp  scopedSlots={{'default': () => <span>default</span>,}}></Comp>
-    <Child  scopedSlots={{'bottom': ({ foo }) => <span>{foo}</span>,}}></Child>
-
-    <Child baz={baz}  scopedSlots={{'title': ({ foo }) => <span>
-      {expectTypeOf<string>(foo)}
-    </span>,}}></Child>
-
-    <Child scopedSlots={{...(show) ? {'bottom': ({ foo }) => <span>
-        {foo}
-      </span>,} : null,}}
-      
-    ></Child>
-
-    <Child<number> scopedSlots={{...(show) ? {'title': ({ foo }) => <span>
-        {expectTypeOf<number>(foo)}
-        {show}
-      </span>,} : (show === false) ? {'center': ({ foo }) => <span>
-        {foo}
-      </span>,} : {'bottom': () => <span> </span>,},'bot-tom': () => <span>bot-tom</span>,default: () => <span>
-      default
-      
-      
-      
-      
-    </span>}}></Child>
-  </div>
-))
-</script>
-"
-`;
-
-exports[`jsx-vue-directive > vue 3 v-slot > ./fixtures/v-slot/index.vue 1`] = `
+exports[`v-slot > vue > ./fixtures/v-slot/index.vue 1`] = `
 "<script setup lang="tsx">
 import { renderList as __MACROS_renderList } from "vue";
 import { unref as __MACROS_unref } from "vue";
@@ -79,7 +16,7 @@ const Comp: FunctionalComponent<
   }
 > = (props, { slots }) => {
   return (
-    <Child vSlots={{...Object.fromEntries(__MACROS_renderList(slots, (Slot, slotName) => ([[__MACROS_unref(slotName)], (scope) => <>
+    <Child v-slots={{...Object.fromEntries(__MACROS_renderList(slots, (Slot, slotName) => ([[__MACROS_unref(slotName)], (scope) => <>
         <Slot {...scope} />
       </>,]))),}}
       
@@ -91,93 +28,29 @@ let baz = $ref('')
 let show = $ref<boolean | undefined>()
 defineRender(() => (
   <div>
-    <Child  vSlots={{'bottom': ({ foo }) => <>
+    <Child  v-slots={{'bottom': ({ foo }) => <>
       {foo}
-      <Child  vSlots={{'default': () => <>default</>,}}></Child>
+      <Child  v-slots={{'default': () => <>default</>,}}></Child>
     </>,}}></Child>
 
-    <Comp  vSlots={{'default': () => <>default</>,}}></Comp>
-    <Child  vSlots={{'bottom': ({ foo }) => <>{foo}</>,}}></Child>
+    <Comp  v-slots={{'default': () => <>default</>,}}></Comp>
+    <Child  v-slots={{'bottom': ({ foo }) => <>{foo}</>,}}></Child>
 
-    <Child baz={baz}  vSlots={{'title': ({ foo }) => <>
+    <Child baz={baz}  v-slots={{'title': ({ foo }) => <>
       {expectTypeOf<string>(foo)}
     </>,}}></Child>
 
-    <Child vSlots={{...(show) ? {'bottom': ({ foo }) => <>
+    <Child v-slots={{...(show) ? {'bottom': ({ foo }) => <>
         {foo}
       </>,} : null,}}
       
     ></Child>
 
-    <Child<number> vSlots={{...(show) ? {'title': ({ foo }) => <>
+    <Child<number> v-slots={{...(show) ? {'title': ({ foo }) => <>
         {expectTypeOf<number>(foo)}
         {show}
       </>,} : (show === false) ? {'center': ({ foo }) => <>
         {foo}
-      </>,} : {'bottom': () => <> </>,},'bot-tom': () => <>bot-tom</>,default: () => <>
-      default
-      
-      
-      
-      
-    </>}}></Child>
-  </div>
-))
-</script>
-"
-`;
-
-exports[`jsx-vue-directive > vue/vapor v-slot > ./fixtures/v-slot/index.vue 1`] = `
-"<script setup lang="tsx">
-import { renderList as __MACROS_renderList } from "vue";
-import { unref as __MACROS_unref } from "vue";
-import { expectTypeOf } from 'expect-type'
-import Child from './child.vue'
-import type { FunctionalComponent } from 'vue'
-
-const Comp: FunctionalComponent<
-  {},
-  {},
-  {
-    default: (scope: { foo: string }) => any
-  }
-> = (props, { slots }) => {
-  return (
-    <Child vSlots={{...Object.fromEntries(__MACROS_renderList(slots, (Slot, slotName) => ([[__MACROS_unref(slotName)], (scope) => <>
-        <Slot {...scope} />
-      </>,]))),}}
-      
-    ></Child>
-  )
-}
-
-let baz = $ref('')
-let show = $ref<boolean | undefined>()
-defineRender(() => (
-  <div>
-    <Child  vSlots={{'bottom': (__MACROS_props) => <>
-      {__MACROS_props.foo}
-      <Child  vSlots={{'default': () => <>default</>,}}></Child>
-    </>,}}></Child>
-
-    <Comp  vSlots={{'default': () => <>default</>,}}></Comp>
-    <Child  vSlots={{'bottom': (__MACROS_props) => <>{__MACROS_props.foo}</>,}}></Child>
-
-    <Child baz={baz}  vSlots={{'title': (__MACROS_props) => <>
-      {expectTypeOf<string>(__MACROS_props.foo)}
-    </>,}}></Child>
-
-    <Child vSlots={{...(show) ? {'bottom': (__MACROS_props) => <>
-        {__MACROS_props.foo}
-      </>,} : null,}}
-      
-    ></Child>
-
-    <Child<number> vSlots={{...(show) ? {'title': (__MACROS_props) => <>
-        {expectTypeOf<number>(__MACROS_props.foo)}
-        {show}
-      </>,} : (show === false) ? {'center': (__MACROS_props) => <>
-        {__MACROS_props.foo}
       </>,} : {'bottom': () => <> </>,},'bot-tom': () => <>bot-tom</>,default: () => <>
       default
       

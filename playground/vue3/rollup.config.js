@@ -6,9 +6,9 @@ import CommonJS from '@rollup/plugin-commonjs'
 import NodeResolve from '@rollup/plugin-node-resolve'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig } from 'rollup'
-import Esbuild from 'rollup-plugin-esbuild'
-import VueMacros from 'unplugin-vue-macros/rollup'
+import Oxc from 'unplugin-oxc/rollup'
 import Vue from 'unplugin-vue/rollup'
+import VueMacros from 'vue-macros/rollup'
 
 export default defineConfig({
   input: ['./src/main.ts'],
@@ -26,9 +26,7 @@ export default defineConfig({
     }),
     NodeResolve(),
     CommonJS(),
-    Esbuild({
-      target: 'esnext',
-    }),
+    Oxc(),
   ],
   external: (id) => {
     if (id === 'vue') return true

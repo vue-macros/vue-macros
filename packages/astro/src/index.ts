@@ -1,5 +1,5 @@
-import { resolveOptions, type Options } from 'unplugin-vue-macros'
-import VueMacros from 'unplugin-vue-macros/vite'
+import { resolveOptions, type Options } from 'vue-macros'
+import VueMacros from 'vue-macros/vite'
 import type { AstroIntegration, ViteUserConfig } from 'astro'
 import type { Plugin } from 'vite'
 
@@ -21,7 +21,7 @@ export default function (options?: Options): AstroIntegration {
     name: '@vue-macros/astro',
     hooks: {
       'astro:config:setup': async ({ config }) => {
-        const resolvedOptions = resolveOptions(options || {})
+        const resolvedOptions = await resolveOptions(options || {})
         const vue = findPluginAndRemove('vite:vue', config.vite.plugins)
         const vueJsx = findPluginAndRemove('vite:vue-jsx', config.vite.plugins)
 

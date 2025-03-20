@@ -1,34 +1,34 @@
 /* eslint-disable node/prefer-global/process */
 
-let _require: NodeRequire | undefined
-if (TSUP_FORMAT === 'cjs') {
-  _require = require
-} else if (typeof process !== 'undefined' && process.version) {
-  if (process.getBuiltinModule) {
-    const module = process.getBuiltinModule('module')
-    _require = module.createRequire(import.meta.url)
-  } else {
-    import('node:module').then(
-      ({ default: { createRequire } }) => {
-        _require = createRequire(import.meta.url)
-      },
-      () => {},
-    )
-  }
+let require: NodeJS.Require | undefined
+
+function getRequire() {
+  if (require) return require
+
+  try {
+    // @ts-expect-error check api
+    if (globalThis.process?.getBuiltinModule) {
+      const module = process.getBuiltinModule('module')
+      // unenv has implemented `getBuiltinModule` but has yet to support `module.createRequire`
+      if (module?.createRequire) {
+        return (require = module.createRequire(import.meta.url))
+      }
+    }
+  } catch {}
 }
 
 export function detectVueVersion(root?: string, defaultVersion = 3.5): number {
+  const require = getRequire()
   // cannot detect version
-  if (!_require) {
+  if (!require) {
     console.warn(`Cannot detect Vue version. Default to Vue ${defaultVersion}`)
     return defaultVersion
   }
 
-  const { resolve } = _require('node:path') as typeof import('path')
-  const { statSync } = _require('node:fs') as typeof import('fs')
-  const { getPackageInfoSync } = _require(
-    'local-pkg',
-  ) as typeof import('local-pkg')
+  const { resolve } = require('node:path') as typeof import('path')
+  const { statSync } = require('node:fs') as typeof import('fs')
+  const { getPackageInfoSync } =
+    require('local-pkg') as typeof import('local-pkg')
 
   root ||= process.cwd()
 

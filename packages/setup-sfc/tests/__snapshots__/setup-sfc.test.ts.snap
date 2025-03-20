@@ -6,27 +6,23 @@ import { defineComponent, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "basic.setup",
-  props: {
-    foo: {
-      type: String,
-      required: true
-    }
-  },
-  setup(__props, {
-    expose: __expose
-  }) {
-    __expose();
-    defineRender(() => {
-      return createVNode("div", null, null);
-    });
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", {
-      enumerable: false,
-      value: true
-    });
-    return __returned__;
-  }
+	__name: "basic.setup",
+	props: { foo: {
+		type: String,
+		required: true
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		defineRender(() => {
+			return createVNode("div", null, null);
+		});
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var basic_setup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -41,24 +37,20 @@ import { defineComponent, createVNode } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  ...{
-    name: "App"
-  },
-  __name: "with-define-options.setup",
-  setup(__props, {
-    expose: __expose
-  }) {
-    __expose();
-    defineRender(() => {
-      return createVNode("div", null, null);
-    });
-    const __returned__ = {};
-    Object.defineProperty(__returned__, "__isScriptSetup", {
-      enumerable: false,
-      value: true
-    });
-    return __returned__;
-  }
+	...{ name: "App" },
+	__name: "with-define-options.setup",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		defineRender(() => {
+			return createVNode("div", null, null);
+		});
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var withDefineOptions_setup = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);

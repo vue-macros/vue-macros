@@ -8,7 +8,7 @@ and `useTemplateRef` <small>(Vue 3.5+)</small>.
 ::: warning
 
 This feature is officially supported since Volar (`vue-tsc`) v2.1.0.
-You can remove this plugin and use the built-in support in Volar.
+Vue Macros is no longer offering this feature as a plugin.
 
 :::
 

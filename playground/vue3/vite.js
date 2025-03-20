@@ -19,7 +19,6 @@ startVite(undefined, {
   },
   define: {
     'import.meta.DEV': 'true',
-    TSUP_FORMAT: "'esm'",
   },
   plugins: [Macros(), Raw()],
 })

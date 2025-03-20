@@ -1,7 +1,6 @@
 {
   "name": "playground-astro",
   "type": "module",
-  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -9,14 +8,15 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "clean": "rimraf dist .astro",
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@astrojs/vue": "^5.0.6",
+    "@astrojs/vue": "^5.0.7",
     "@vue-macros/astro": "workspace:*",
     "@vueuse/core": "catalog:",
-    "astro": "^5.2.5",
-    "unplugin-vue-macros": "workspace:*",
-    "vue": "catalog:"
+    "astro": "catalog:",
+    "vue": "catalog:",
+    "vue-macros": "workspace:*"
   }
 }

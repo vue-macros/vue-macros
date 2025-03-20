@@ -1,7 +1,6 @@
 {
   "name": "@vue-macros/nuxt",
-  "version": "1.13.2",
-  "packageManager": "pnpm@10.2.1",
+  "version": "3.0.0-beta.6",
   "description": "nuxt feature from Vue Macros.",
   "type": "module",
   "keywords": [
@@ -24,29 +23,27 @@
     "directory": "packages/nuxt"
   },
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
+  "funding": "https://github.com/sponsors/vue-macros",
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
-      ".": {
-        "require": "./dist/index.cjs",
-        "import": "./dist/index.js"
-      },
+      ".": "./dist/index.js",
       "./*": "./*"
-    }
+    },
+    "tag": "next"
   },
   "scripts": {
     "build": "tsup",
@@ -56,16 +53,16 @@
     "nuxt": "^3.0.0"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.15.4",
+    "@nuxt/kit": "catalog:",
     "@vue-macros/common": "workspace:*",
-    "unplugin-vue-macros": "workspace:*"
+    "vue-macros": "workspace:*"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^2.0.0",
-    "@nuxt/schema": "^3.15.4",
+    "@nuxt/devtools": "catalog:",
+    "@nuxt/schema": "catalog:",
     "@vue/language-core": "catalog:"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=20.18.0"
   }
 }

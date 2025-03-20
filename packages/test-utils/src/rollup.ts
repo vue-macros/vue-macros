@@ -7,9 +7,8 @@ import ViteVueJsx, {
 } from '@vitejs/plugin-vue-jsx'
 import type { InputPluginOption, Plugin } from 'rollup'
 
-export { default as RollupEsbuildPlugin } from 'rollup-plugin-esbuild'
+export { Oxc as UnpluginOxc } from 'unplugin-oxc'
 export { default as RollupVue } from 'unplugin-vue/rollup'
-export { default as RollupVue2 } from '@vitejs/plugin-vue2'
 export const RollupVueJsx = ViteVueJsx as (options?: VueJsxOptions) => Plugin
 
 export { default as RollupJson } from '@rollup/plugin-json'
