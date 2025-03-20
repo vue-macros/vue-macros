@@ -3,6 +3,10 @@ import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'
 
+export const isNativeFormElement = (tag: string): boolean => {
+  return ['input', 'select', 'textarea'].includes(tag)
+}
+
 export function transformVModel(
   nodeMap: Map<JsxDirective['node'], JsxDirective[]>,
   ctxMap: Map<JsxDirective['node'], string>,
@@ -36,10 +40,8 @@ function transform(
   const modifiersResult: Code[] = []
   const offset = `${prefix}model`.length + 1
   for (const { attribute, node } of nodes) {
-    const isNativeTag = ['input', 'select', 'textarea'].includes(
-      getTagName(node, options),
-    )
-    const modelValue = isNativeTag ? 'value' : 'modelValue'
+    const isNative = isNativeFormElement(getTagName(node, options))
+    const modelValue = isNative ? 'value' : 'modelValue'
     const isArrayExpression =
       isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression &&
@@ -157,7 +159,7 @@ function transform(
       const [, ...modifiers] = name.split('_')
       const result = []
       result.push(
-        ...((isNativeTag
+        ...((isNative
           ? [[modelValue, source, start + 2, allCodeFeatures]]
           : [
               modelValue.slice(0, 3),
@@ -181,14 +183,14 @@ function transform(
             modify ? ': true, ' : `'`,
           ]) as Code[]),
           `} satisfies `,
-          isNativeTag
+          isNative
             ? '{ trim?: true, number?: true, lazy?: true}'
             : `typeof ${ctxMap.get(node)}.props.modelValueModifiers`,
           `} `,
         )
       }
 
-      if (!isNativeTag) {
+      if (!isNative) {
         result.unshift(`{...{'onUpdate:${modelValue}': () => {} }} `)
       }
 

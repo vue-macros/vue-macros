@@ -6,7 +6,7 @@ import { transformRef } from './ref'
 import { transformVBind } from './v-bind'
 import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
-import { transformVModel } from './v-model'
+import { isNativeFormElement, transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
 import type { Code } from 'ts-macro'
@@ -85,7 +85,9 @@ export function transformJsxDirective(options: TransformOptions): void {
           node,
           attribute,
         })
-        ctxNode = node
+        if (!isNativeFormElement(tagName)) {
+          ctxNode = node
+        }
       } else if (attributeName === `${prefix}on`) {
         vOnNodes.push({ node, attribute })
         ctxNode = node
@@ -246,17 +248,10 @@ export function getOpeningElement(
 
 export function getTagName(
   node: JsxDirective['node'],
-  options: TransformOptions & { withTypes?: boolean },
+  options: TransformOptions,
 ): string {
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
 
-  let types = ''
-  if (options.withTypes && openingElement.typeArguments?.length) {
-    types = `<${openingElement.typeArguments
-      .map((argument) => getText(argument, options))
-      .join(', ')}>`
-  }
-
-  return getText(openingElement.tagName, options) + types
+  return getText(openingElement.tagName, options)
 }

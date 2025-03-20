@@ -1,5 +1,6 @@
 import { replaceSourceRange } from 'muggle-string'
 import { addCode, getText, isJsxExpression } from '../common'
+import { isNativeFormElement } from './v-model'
 import {
   getOpeningElement,
   getTagName,
@@ -104,7 +105,18 @@ export function transformCtx(
   }
 
   const ctxName = `__VLS_ctx_${refValue || index}`
-  const tagName = getTagName(node, { ...options, withTypes: true })
+  let tagName = getTagName(node, options)
+  if (isNativeFormElement(tagName)) {
+    tagName = `{}`
+  } else {
+    let types = ''
+    if (openingElement.typeArguments?.length) {
+      types = `<${openingElement.typeArguments
+        .map((argument) => getText(argument, options))
+        .join(', ')}>`
+      tagName += types
+    }
+  }
   const result = `\nconst ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}), '${tagName}');\n`
   if (root) {
     replaceSourceRange(
