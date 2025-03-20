@@ -127,7 +127,7 @@ function transform(
             ])
           }
 
-          if (!isDynamic) {
+          if (!isDynamic && modifiers.length) {
             modifiersResult.push(
               ` {...{`,
               ...(modifiers.flatMap((modify, index) => [
