@@ -1,4 +1,6 @@
-import { resolveLiteral } from '@vue-macros/common'
+import { resolveLiteral, TransformError } from '@vue-macros/common'
+import { err, ok, Result, safeTry, type ResultAsync } from 'neverthrow'
+import type { ErrorUnknownNode } from '../error'
 import { isTSNamespace, type TSNamespace } from './namespace'
 import {
   resolveMaybeTSUnion,
@@ -79,7 +81,7 @@ export function checkForTSProperties(
  *
  * @limitation don't support index signature
  */
-export async function resolveTSProperties({
+export function resolveTSProperties({
   type,
   scope,
 }: TSResolvedType<
@@ -89,116 +91,119 @@ export async function resolveTSProperties({
   | TSIntersectionType
   | TSMappedType
   | TSFunctionType
->): Promise<TSProperties> {
-  switch (type.type) {
-    case 'TSInterfaceBody':
-      return resolveTypeElements(scope, type.body)
-    case 'TSTypeLiteral':
-      return resolveTypeElements(scope, type.members)
-    case 'TSInterfaceDeclaration': {
-      let properties = resolveTypeElements(scope, type.body.body)
-      if (type.extends) {
-        const resolvedExtends = (
-          await Promise.all(
-            type.extends.map((node) =>
-              node.expression.type === 'Identifier'
-                ? resolveTSReferencedType({
-                    scope,
-                    type: node.expression,
-                  })
-                : undefined,
-            ),
-          )
-        ).filter(filterValidExtends)
-
-        if (resolvedExtends.length > 0) {
-          const ext = (
+>): ResultAsync<TSProperties, TransformError<ErrorUnknownNode>> {
+  return safeTry(async function* () {
+    switch (type.type) {
+      case 'TSInterfaceBody':
+        return ok(resolveTypeElements(scope, type.body))
+      case 'TSTypeLiteral':
+        return ok(resolveTypeElements(scope, type.members))
+      case 'TSInterfaceDeclaration': {
+        let properties = resolveTypeElements(scope, type.body.body)
+        if (type.extends) {
+          const resolvedExtends = yield* Result.combine(
             await Promise.all(
-              resolvedExtends.map((resolved) => resolveTSProperties(resolved)),
-            )
-          ).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
-          properties = mergeTSProperties(ext, properties)
-        }
-      }
-      return properties
-    }
-    case 'TSIntersectionType': {
-      let properties: TSProperties = {
-        callSignatures: [],
-        constructSignatures: [],
-        methods: Object.create(null),
-        properties: Object.create(null),
-      }
-      for (const subType of type.types) {
-        const resolved = await resolveTSReferencedType({
-          scope,
-          type: subType,
-        })
-        if (!filterValidExtends(resolved)) continue
-        properties = mergeTSProperties(
-          properties,
-          await resolveTSProperties(resolved),
-        )
-      }
-      return properties
-    }
-    case 'TSMappedType': {
-      const properties: TSProperties = {
-        callSignatures: [],
-        constructSignatures: [],
-        methods: Object.create(null),
-        properties: Object.create(null),
-      }
-      if (!type.typeParameter.constraint) return properties
+              type.extends.map((node) =>
+                node.expression.type === 'Identifier'
+                  ? resolveTSReferencedType({ scope, type: node.expression })
+                  : ok(),
+              ),
+            ),
+          ).map((res) => res.filter(filterValidExtends))
 
-      const constraint = await resolveTSReferencedType({
-        type: type.typeParameter.constraint,
-        scope,
-      })
-      if (!constraint || isTSNamespace(constraint)) return properties
-
-      const types = resolveMaybeTSUnion(constraint.type)
-      for (const subType of types) {
-        if (subType.type !== 'TSLiteralType') continue
-
-        const literal = await resolveTSLiteralType({
-          type: subType,
-          scope: constraint.scope,
-        })
-        if (!literal) continue
-
-        const keys = resolveMaybeTSUnion(literal).map((literal) =>
-          String(resolveLiteral(literal)),
-        )
-        for (const key of keys) {
-          properties.properties[String(key)] = {
-            value: type.typeAnnotation
-              ? { scope, type: type.typeAnnotation }
-              : null,
-            optional: type.optional === '+' || type.optional === true,
-            signature: { type, scope },
+          if (resolvedExtends.length > 0) {
+            const ext = (yield* Result.combine(
+              await Promise.all(
+                resolvedExtends.map((resolved) =>
+                  resolveTSProperties(resolved),
+                ),
+              ),
+            )).reduceRight((acc, curr) => mergeTSProperties(acc, curr))
+            properties = mergeTSProperties(ext, properties)
           }
         }
+        return ok(properties)
       }
+      case 'TSIntersectionType': {
+        let properties: TSProperties = {
+          callSignatures: [],
+          constructSignatures: [],
+          methods: Object.create(null),
+          properties: Object.create(null),
+        }
+        for (const subType of type.types) {
+          const resolved = yield* resolveTSReferencedType({
+            scope,
+            type: subType,
+          })
+          if (!filterValidExtends(resolved)) continue
+          properties = mergeTSProperties(
+            properties,
+            yield* resolveTSProperties(resolved),
+          )
+        }
+        return ok(properties)
+      }
+      case 'TSMappedType': {
+        const properties: TSProperties = {
+          callSignatures: [],
+          constructSignatures: [],
+          methods: Object.create(null),
+          properties: Object.create(null),
+        }
+        if (!type.typeParameter.constraint) return ok(properties)
 
-      return properties
-    }
-    case 'TSFunctionType': {
-      const properties: TSProperties = {
-        callSignatures: [{ type, scope }],
-        constructSignatures: [],
-        methods: Object.create(null),
-        properties: Object.create(null),
+        const constraint = yield* resolveTSReferencedType({
+          type: type.typeParameter.constraint,
+          scope,
+        })
+        if (!constraint || isTSNamespace(constraint)) return ok(properties)
+
+        const types = resolveMaybeTSUnion(constraint.type)
+        for (const subType of types) {
+          if (subType.type !== 'TSLiteralType') continue
+
+          const literal = yield* resolveTSLiteralType({
+            type: subType,
+            scope: constraint.scope,
+          })
+          if (!literal) continue
+
+          const keys = resolveMaybeTSUnion(literal).map((literal) =>
+            String(resolveLiteral(literal)),
+          )
+          for (const key of keys) {
+            properties.properties[String(key)] = {
+              value: type.typeAnnotation
+                ? { scope, type: type.typeAnnotation }
+                : null,
+              optional: type.optional === '+' || type.optional === true,
+              signature: { type, scope },
+            }
+          }
+        }
+
+        return ok(properties)
       }
-      return properties
+      case 'TSFunctionType': {
+        const properties: TSProperties = {
+          callSignatures: [{ type, scope }],
+          constructSignatures: [],
+          methods: Object.create(null),
+          properties: Object.create(null),
+        }
+        return ok(properties)
+      }
+      default:
+        return err(
+          // @ts-expect-error type is never
+          new TransformError(`Unknown node: ${type?.type as string}`),
+        )
     }
-    default:
-      // @ts-expect-error type is never
-      throw new Error(`unknown node: ${type?.type}`)
-  }
+  })
 
   function filterValidExtends(
-    node: TSResolvedType | TSNamespace | undefined,
+    node: TSResolvedType | TSNamespace | void,
   ): node is TSResolvedType<
     TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType
   > {

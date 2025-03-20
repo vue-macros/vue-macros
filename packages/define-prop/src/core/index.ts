@@ -114,8 +114,8 @@ export async function transformDefineProp(
 
   return generateTransform(s, id)
 
-  async function resolveTSType(type: t.TSType) {
-    const resolved = await resolveTSReferencedType({
+  function resolveTSType(type: t.TSType): Promise<string[] | undefined> {
+    return resolveTSReferencedType({
       scope: {
         kind: 'file',
         filePath: id,
@@ -124,6 +124,10 @@ export async function transformDefineProp(
       },
       type,
     })
-    return resolved && inferRuntimeType(resolved)
+      .map(
+        (resolved) =>
+          resolved && inferRuntimeType(resolved).unwrapOr(undefined),
+      )
+      .unwrapOr(undefined)
   }
 }

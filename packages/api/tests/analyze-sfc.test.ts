@@ -7,7 +7,10 @@ async function compile(code: string) {
   const str = `<script setup lang="ts">\n${code}</script>`
   const s = new MagicStringAST(str)
   const sfc = parseSFC(str, 'test.vue')
-  return { ...(await analyzeSFC(s, sfc)), s }
+  return {
+    ...(await analyzeSFC(s, sfc))._unsafeUnwrap({ withStackTrace: true }),
+    s,
+  }
 }
 
 describe('analyzeSFC', () => {
@@ -304,7 +307,7 @@ describe('analyzeSFC', () => {
         onClick(param: string): any
       }>()`)
 
-      expect(await props!.getRuntimeDefinitions()).toEqual({
+      expect((await props!.getRuntimeDefinitions())._unsafeUnwrap()).toEqual({
         bar: {
           type: ['String'],
           required: true,
@@ -357,7 +360,7 @@ describe('analyzeSFC', () => {
       'fred',
       'unknown',
     ])
-    const defaults = await props!.getRuntimeDefinitions()
+    const defaults = (await props!.getRuntimeDefinitions())._unsafeUnwrap()
     for (const k of Object.keys(defaults)) {
       if (defaults[k].default) {
         defaults[k].default = defaults[k].default!() as any
@@ -404,7 +407,7 @@ describe('analyzeSFC', () => {
     }>(), {
       ['b' + 'ar']: 'bar'
     })`)
-    const defaults = await props!.getRuntimeDefinitions()
+    const defaults = (await props!.getRuntimeDefinitions())._unsafeUnwrap()
     expect(defaults.bar.default).toBeUndefined()
     expect(props!.defaults).toBeUndefined()
   })

@@ -314,6 +314,54 @@ export { defaultsStatic as default };
 "
 `;
 
+exports[`fixtures > tests/fixtures/err.vue > isProduction = false 1`] = `
+"// err.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+	__name: "err",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
+});
+
+var err = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { err as default };
+"
+`;
+
+exports[`fixtures > tests/fixtures/err.vue > isProduction = true 1`] = `
+"// err.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+	__name: "err",
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
+});
+
+var err = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { err as default };
+"
+`;
+
 exports[`fixtures > tests/fixtures/fn-default.vue > isProduction = false 1`] = `
 "// fn-default.js
 import { defineComponent } from 'vue';

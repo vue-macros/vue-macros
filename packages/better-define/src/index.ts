@@ -51,13 +51,14 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       enforce: 'pre',
 
       transformInclude: filter,
-      async transform(code, id) {
-        try {
-          return await transformBetterDefine(code, id, options.isProduction)
-        } catch (error: unknown) {
-          this.warn(`${name} ${error}`)
-          console.warn(error)
-        }
+      transform(code, id) {
+        return transformBetterDefine(code, id, options.isProduction).match(
+          (res) => res,
+          (error) => {
+            this.warn(`${name} ${error}`)
+            console.warn(error)
+          },
+        )
       },
 
       vite: {

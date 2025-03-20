@@ -153,6 +153,9 @@ catalogs:
     muggle-string:
       specifier: ^0.4.1
       version: 0.4.1
+    neverthrow:
+      specifier: ^8.2.0
+      version: 8.2.0
     nuxt:
       specifier: ^3.16.1
       version: 3.16.1
@@ -489,6 +492,9 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
+      neverthrow:
+        specifier: 'catalog:'
+        version: 8.2.0
       oxc-resolver:
         specifier: 'catalog:'
         version: 5.0.1
@@ -514,6 +520,9 @@ importers:
       '@vue-macros/common':
         specifier: workspace:*
         version: link:../common
+      neverthrow:
+        specifier: 'catalog:'
+        version: 8.2.0
       unplugin:
         specifier: 'catalog:'
         version: 2.2.1
@@ -5807,6 +5816,10 @@ packages:
   neotraverse@0.6.18:
     resolution: {integrity: sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==}
     engines: {node: '>= 10'}
+
+  neverthrow@8.2.0:
+    resolution: {integrity: sha512-kOCT/1MCPAxY5iUV3wytNFUMUolzuwd/VF/1KCx7kf6CutrOsTie+84zTGTpgQycjvfLdBBdvBvFLqFD2c0wkQ==}
+    engines: {node: '>=18'}
 
   nitropack@2.11.7:
     resolution: {integrity: sha512-ghqLa3Q4X9qaQiUyspWxxoU1fY2nwfSJqhOH+COqyCp7Vgj4oM1EM1L0YNSQUF16T2tAoOWg8woXGq0EH5Y6wQ==}
@@ -12978,6 +12991,10 @@ snapshots:
   neo-async@2.6.2: {}
 
   neotraverse@0.6.18: {}
+
+  neverthrow@8.2.0:
+    optionalDependencies:
+      '@rollup/rollup-linux-x64-gnu': 4.36.0
 
   nitropack@2.11.7(rolldown@1.0.0-beta.6(typescript@5.8.2))(typescript@5.8.2):
     dependencies:

@@ -5,9 +5,11 @@ import {
   resolveIdentifier,
   resolveObjectExpression,
   resolveString,
+  TransformError,
   type MagicStringAST,
   type SFC,
 } from '@vue-macros/common'
+import { err, ok, safeTry, type ResultAsync } from 'neverthrow'
 import {
   isTSNamespace,
   resolveTSProperties,
@@ -19,6 +21,7 @@ import {
   type TSResolvedType,
   type TSScope,
 } from '../ts'
+import type { ErrorResolveTS, ErrorUnknownNode } from '../error'
 import { DefinitionKind, type ASTDefinition } from './types'
 import { attachNodeLoc, inferRuntimeType } from './utils'
 import type {
@@ -80,7 +83,7 @@ const builtInTypesHandlers: BuiltInTypesHandler = {
   // TODO: pick, omit
 }
 
-export async function handleTSPropsDefinition({
+export function handleTSPropsDefinition({
   s,
   file,
   offset,
@@ -107,413 +110,444 @@ export async function handleTSPropsDefinition({
 
   statement: DefinePropsStatement
   declId?: LVal
-}): Promise<TSProps> {
-  const { definitions, definitionsAst } = await resolveDefinitions({
-    type: typeDeclRaw,
-    scope: file,
-  })
-  const { defaults, defaultsAst } = resolveDefaults(defaultsDeclRaw)
+}): ResultAsync<TSProps, TransformError<ErrorResolveTS | ErrorUnknownNode>> {
+  return safeTry(async function* () {
+    const { definitions, definitionsAst } = yield* resolveDefinitions({
+      type: typeDeclRaw,
+      scope: file,
+    })
+    const { defaults, defaultsAst } = resolveDefaults(defaultsDeclRaw)
 
-  const addProp: TSProps['addProp'] = (name, value, optional) => {
-    const { key, signature, valueAst, signatureAst } = buildNewProp(
-      name,
-      value,
-      optional,
-    )
-    if (definitions[key]) return false
-
-    if (definitionsAst.scope === file) {
-      if (definitionsAst.ast.type === 'TSIntersectionType') {
-        s.appendLeft(definitionsAst.ast.end! + offset, ` & { ${signature} }`)
-      } else {
-        s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
-      }
-    }
-
-    definitions[key] = {
-      type: 'property',
-      value: {
-        code: value,
-        ast: valueAst,
-        scope: undefined,
-      },
-      optional: !!optional,
-      signature: {
-        code: signature,
-        ast: signatureAst,
-        scope: undefined,
-      },
-      addByAPI: true,
-    }
-    return true
-  }
-
-  const setProp: TSProps['setProp'] = (name, value, optional) => {
-    const { key, signature, signatureAst, valueAst } = buildNewProp(
-      name,
-      value,
-      optional,
-    )
-
-    const def = definitions[key]
-    if (!definitions[key]) return false
-
-    switch (def.type) {
-      case 'method': {
-        attachNodeLoc(def.methods[0].ast, signatureAst)
-
-        if (def.methods[0].scope === file)
-          s.overwriteNode(def.methods[0].ast, signature, { offset })
-
-        def.methods.slice(1).forEach((method) => {
-          if (method.scope === file) {
-            s.removeNode(method.ast, { offset })
-          }
-        })
-        break
-      }
-      case 'property': {
-        attachNodeLoc(def.signature.ast, signatureAst)
-
-        if (def.signature.scope === file && !def.addByAPI) {
-          s.overwriteNode(def.signature.ast, signature, { offset })
-        }
-        break
-      }
-    }
-
-    definitions[key] = {
-      type: 'property',
-      value: {
-        code: value,
-        ast: valueAst,
-        scope: undefined as any,
-      },
-      optional: !!optional,
-      signature: {
-        code: signature,
-        ast: signatureAst,
-        scope: undefined as any,
-      },
-      addByAPI: def.type === 'property' && def.addByAPI,
-    }
-    return true
-  }
-
-  const removeProp: TSProps['removeProp'] = (name) => {
-    const key = resolveString(name)
-    if (!definitions[key]) return false
-
-    const def = definitions[key]
-    switch (def.type) {
-      case 'property': {
-        if (def.signature.scope === file && !def.addByAPI) {
-          s.removeNode(def.signature.ast, { offset })
-        }
-        break
-      }
-      case 'method':
-        def.methods.forEach((method) => {
-          if (method.scope === file) s.removeNode(method.ast, { offset })
-        })
-        break
-    }
-
-    delete definitions[key]
-
-    return true
-  }
-
-  const getRuntimeDefinitions: TSProps['getRuntimeDefinitions'] = async () => {
-    const props: Record<string, RuntimePropDefinition> = Object.create(null)
-
-    for (const [propName, def] of Object.entries(definitions)) {
-      let prop: RuntimePropDefinition
-      if (def.type === 'method') {
-        prop = {
-          type: ['Function'],
-          required: !def.optional,
-        }
-      } else {
-        const resolvedType = def.value
-        if (resolvedType) {
-          const optional = def.optional
-
-          prop = {
-            type: await inferRuntimeType({
-              scope: resolvedType.scope || file,
-              type: resolvedType.ast,
-            }),
-            required: !optional,
-          }
-        } else {
-          prop = { type: ['null'], required: false }
-        }
-      }
-      const defaultValue = defaults?.[propName]
-      if (defaultValue) {
-        prop.default = (key = 'default') => {
-          switch (defaultValue.type) {
-            case 'ObjectMethod':
-              return `${
-                defaultValue.kind !== 'method' ? `${defaultValue.kind} ` : ''
-              }${defaultValue.async ? `async ` : ''}${key}(${s.sliceNode(
-                defaultValue.params,
-                { offset },
-              )}) ${s.sliceNode(defaultValue.body, { offset })}`
-            case 'ObjectProperty':
-              return `${key}: ${s.sliceNode(defaultValue.value, { offset })}`
-          }
-        }
-      }
-      props[propName] = prop
-    }
-    return props
-  }
-
-  return {
-    kind: DefinitionKind.TS,
-    definitions,
-    defaults,
-    declId,
-    addProp,
-    setProp,
-    removeProp,
-    getRuntimeDefinitions,
-
-    // AST
-    definitionsAst,
-    defaultsAst,
-    statementAst: statement,
-    definePropsAst,
-    withDefaultsAst,
-  }
-
-  async function resolveUnion(definitionsAst: TSUnionType, scope: TSScope) {
-    const unionDefs: TSProps['definitions'][] = []
-    const keys = new Set<string>()
-    for (const type of definitionsAst.types) {
-      const defs = await resolveDefinitions({ type, scope }).then(
-        ({ definitions }) => definitions,
+    const addProp: TSProps['addProp'] = (name, value, optional) => {
+      const { key, signature, valueAst, signatureAst } = buildNewProp(
+        name,
+        value,
+        optional,
       )
-      Object.keys(defs).forEach((key) => keys.add(key))
-      unionDefs.push(defs)
+      if (definitions[key]) return false
+
+      if (definitionsAst.scope === file) {
+        if (definitionsAst.ast.type === 'TSIntersectionType') {
+          s.appendLeft(definitionsAst.ast.end! + offset, ` & { ${signature} }`)
+        } else {
+          s.appendLeft(definitionsAst.ast.end! + offset - 1, `  ${signature}\n`)
+        }
+      }
+
+      definitions[key] = {
+        type: 'property',
+        value: {
+          code: value,
+          ast: valueAst,
+          scope: undefined,
+        },
+        optional: !!optional,
+        signature: {
+          code: signature,
+          ast: signatureAst,
+          scope: undefined,
+        },
+        addByAPI: true,
+      }
+      return true
     }
 
-    const results: TSProps['definitions'] = Object.create(null)
-    for (const key of keys) {
-      let optional = false
-      let result: TSPropsMethod | TSPropsProperty | undefined
+    const setProp: TSProps['setProp'] = (name, value, optional) => {
+      const { key, signature, signatureAst, valueAst } = buildNewProp(
+        name,
+        value,
+        optional,
+      )
 
-      for (const defMap of unionDefs) {
-        const def = defMap[key]
-        if (!def) {
-          optional = true
-          continue
+      const def = definitions[key]
+      if (!definitions[key]) return false
+
+      switch (def.type) {
+        case 'method': {
+          attachNodeLoc(def.methods[0].ast, signatureAst)
+
+          if (def.methods[0].scope === file)
+            s.overwriteNode(def.methods[0].ast, signature, { offset })
+
+          def.methods.slice(1).forEach((method) => {
+            if (method.scope === file) {
+              s.removeNode(method.ast, { offset })
+            }
+          })
+          break
         }
-        optional ||= def.optional
+        case 'property': {
+          attachNodeLoc(def.signature.ast, signatureAst)
 
-        if (!result) {
-          result = def
-          continue
+          if (def.signature.scope === file && !def.addByAPI) {
+            s.overwriteNode(def.signature.ast, signature, { offset })
+          }
+          break
         }
+      }
 
-        if (result.type === 'method' && def.type === 'method') {
-          result.methods.push(...def.methods)
-        } else if (result.type === 'property' && def.type === 'property') {
-          if (!def.value) {
+      definitions[key] = {
+        type: 'property',
+        value: {
+          code: value,
+          ast: valueAst,
+          scope: undefined as any,
+        },
+        optional: !!optional,
+        signature: {
+          code: signature,
+          ast: signatureAst,
+          scope: undefined as any,
+        },
+        addByAPI: def.type === 'property' && def.addByAPI,
+      }
+      return true
+    }
+
+    const removeProp: TSProps['removeProp'] = (name) => {
+      const key = resolveString(name)
+      if (!definitions[key]) return false
+
+      const def = definitions[key]
+      switch (def.type) {
+        case 'property': {
+          if (def.signature.scope === file && !def.addByAPI) {
+            s.removeNode(def.signature.ast, { offset })
+          }
+          break
+        }
+        case 'method':
+          def.methods.forEach((method) => {
+            if (method.scope === file) s.removeNode(method.ast, { offset })
+          })
+          break
+      }
+
+      delete definitions[key]
+
+      return true
+    }
+
+    const getRuntimeDefinitions: TSProps['getRuntimeDefinitions'] = () => {
+      return safeTry(async function* () {
+        const props: Record<string, RuntimePropDefinition> = Object.create(null)
+
+        for (const [propName, def] of Object.entries(definitions)) {
+          let prop: RuntimePropDefinition
+          if (def.type === 'method') {
+            prop = {
+              type: ['Function'],
+              required: !def.optional,
+            }
+          } else {
+            const resolvedType = def.value
+            if (resolvedType) {
+              const optional = def.optional
+
+              prop = {
+                type: yield* inferRuntimeType({
+                  scope: resolvedType.scope || file,
+                  type: resolvedType.ast,
+                }),
+                required: !optional,
+              }
+            } else {
+              prop = { type: ['null'], required: false }
+            }
+          }
+          const defaultValue = defaults?.[propName]
+          if (defaultValue) {
+            prop.default = (key = 'default') => {
+              switch (defaultValue.type) {
+                case 'ObjectMethod':
+                  return `${
+                    defaultValue.kind !== 'method'
+                      ? `${defaultValue.kind} `
+                      : ''
+                  }${defaultValue.async ? `async ` : ''}${key}(${s.sliceNode(
+                    defaultValue.params,
+                    { offset },
+                  )}) ${s.sliceNode(defaultValue.body, { offset })}`
+                case 'ObjectProperty':
+                  return `${key}: ${s.sliceNode(defaultValue.value, { offset })}`
+              }
+            }
+          }
+          props[propName] = prop
+        }
+        return ok(props)
+      })
+    }
+
+    return ok<TSProps>({
+      kind: DefinitionKind.TS,
+      definitions,
+      defaults,
+      declId,
+      addProp,
+      setProp,
+      removeProp,
+      getRuntimeDefinitions,
+
+      // AST
+      definitionsAst,
+      defaultsAst,
+      statementAst: statement,
+      definePropsAst,
+      withDefaultsAst,
+    })
+  })
+
+  function resolveUnion(
+    definitionsAst: TSUnionType,
+    scope: TSScope,
+  ): ResultAsync<
+    {
+      definitions: TSProps['definitions']
+      definitionsAst: TSProps['definitionsAst']
+    },
+    TransformError<ErrorResolveTS | ErrorUnknownNode>
+  > {
+    return safeTry(async function* () {
+      const unionDefs: TSProps['definitions'][] = []
+      const keys = new Set<string>()
+      for (const type of definitionsAst.types) {
+        const defs = yield* resolveDefinitions({ type, scope }).map(
+          ({ definitions }) => definitions,
+        )
+        Object.keys(defs).forEach((key) => keys.add(key))
+        unionDefs.push(defs)
+      }
+
+      const results: TSProps['definitions'] = Object.create(null)
+      for (const key of keys) {
+        let optional = false
+        let result: TSPropsMethod | TSPropsProperty | undefined
+
+        for (const defMap of unionDefs) {
+          const def = defMap[key]
+          if (!def) {
+            optional = true
             continue
-          } else if (!result.value) {
+          }
+          optional ||= def.optional
+
+          if (!result) {
             result = def
             continue
           }
 
-          const excludeTypes = [
-            'TSImportType',
-            'TSDeclareFunction',
-            'TSEnumDeclaration',
-            'TSInterfaceDeclaration',
-            'TSModuleDeclaration',
-            'TSImportEqualsDeclaration',
-          ] as const
-          if (
-            isTypeOf(def.value.ast, excludeTypes) ||
-            isTypeOf(result.value.ast, excludeTypes)
-          ) {
-            // no way!
+          if (result.type === 'method' && def.type === 'method') {
+            result.methods.push(...def.methods)
+          } else if (result.type === 'property' && def.type === 'property') {
+            if (!def.value) {
+              continue
+            } else if (!result.value) {
+              result = def
+              continue
+            }
+
+            const excludeTypes = [
+              'TSImportType',
+              'TSDeclareFunction',
+              'TSEnumDeclaration',
+              'TSInterfaceDeclaration',
+              'TSModuleDeclaration',
+              'TSImportEqualsDeclaration',
+            ] as const
+            if (
+              isTypeOf(def.value.ast, excludeTypes) ||
+              isTypeOf(result.value.ast, excludeTypes)
+            ) {
+              // no way!
+              continue
+            }
+
+            if (result.value.ast.type === 'TSUnionType') {
+              result.value.ast.types.push(def.value.ast)
+            } else {
+              // overwrite original to union type
+              result = {
+                type: 'property',
+                value: buildDefinition({
+                  scope,
+                  type: {
+                    type: 'TSUnionType',
+                    types: [result.value.ast, def.value.ast],
+                  } satisfies TSUnionType,
+                }),
+                signature: null as any,
+                optional,
+                addByAPI: false,
+              }
+            }
+          } else {
+            return err(
+              new TransformError(
+                `Cannot resolve TS definition. Union type contains different types of results.`,
+              ),
+            )
+          }
+        }
+
+        if (result) {
+          results[key] = { ...result, optional }
+        }
+      }
+
+      return ok({
+        definitions: results,
+        definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      })
+    })
+  }
+
+  function resolveIntersection(
+    definitionsAst: TSIntersectionType,
+    scope: TSScope,
+  ) {
+    return safeTry(async function* () {
+      const results: TSProps['definitions'] = Object.create(null)
+      for (const type of definitionsAst.types) {
+        const defMap = yield* resolveDefinitions({ type, scope }).map(
+          ({ definitions }) => definitions,
+        )
+        for (const [key, def] of Object.entries(defMap)) {
+          const result = results[key]
+          if (!result) {
+            results[key] = def
             continue
           }
 
-          if (result.value.ast.type === 'TSUnionType') {
-            result.value.ast.types.push(def.value.ast)
+          if (result.type === 'method' && def.type === 'method') {
+            result.methods.push(...def.methods)
           } else {
-            // overwrite original to union type
-            result = {
-              type: 'property',
-              value: buildDefinition({
-                scope,
-                type: {
-                  type: 'TSUnionType',
-                  types: [result.value.ast, def.value.ast],
-                } satisfies TSUnionType,
-              }),
-              signature: null as any,
-              optional,
-              addByAPI: false,
-            }
+            results[key] = def
           }
+        }
+      }
+
+      return ok({
+        definitions: results,
+        definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      })
+    })
+  }
+
+  function resolveNormal(properties: TSProperties) {
+    return safeTry(async function* () {
+      const definitions: TSProps['definitions'] = Object.create(null)
+      for (const [key, sign] of Object.entries(properties.methods)) {
+        const methods = sign.map((sign) => buildDefinition(sign))
+        definitions[key] = {
+          type: 'method',
+          methods,
+          optional: sign.some((sign) => !!sign.type.optional),
+        }
+      }
+
+      for (const [key, value] of Object.entries(properties.properties)) {
+        const referenced = value.value
+          ? yield* resolveTSReferencedType(value.value)
+          : undefined
+        definitions[key] = {
+          type: 'property',
+          addByAPI: false,
+          value:
+            referenced && !isTSNamespace(referenced)
+              ? buildDefinition(referenced)
+              : undefined,
+          optional: value.optional,
+          signature: buildDefinition(value.signature),
+        }
+      }
+
+      return ok(definitions)
+    })
+  }
+
+  function resolveDefinitions(typeDeclRaw: TSResolvedType<TSType>): ResultAsync<
+    {
+      definitions: TSProps['definitions']
+      definitionsAst: TSProps['definitionsAst']
+    },
+    TransformError<ErrorResolveTS | ErrorUnknownNode>
+  > {
+    return safeTry(async function* () {
+      let resolved:
+        | TSResolvedType
+        | TSResolvedType<TSType>
+        | TSNamespace
+        | undefined =
+        (yield* resolveTSReferencedType(typeDeclRaw)) || typeDeclRaw
+
+      let builtInTypesHandler: BuiltInTypesHandler[string] | undefined
+
+      if (
+        resolved &&
+        !isTSNamespace(resolved) &&
+        resolved.type.type === 'TSTypeReference' &&
+        resolved.type.typeName.type === 'Identifier'
+      ) {
+        const typeName = resolved.type.typeName.name
+
+        let type: TSType | undefined
+        if (typeName in builtInTypesHandlers) {
+          builtInTypesHandler = builtInTypesHandlers[typeName]
+          type = builtInTypesHandler.handleType(resolved.type)
+        }
+
+        if (type)
+          resolved = yield* resolveTSReferencedType({
+            type,
+            scope: resolved.scope,
+          })
+      }
+
+      if (!resolved || isTSNamespace(resolved)) {
+        return err(new TransformError('Cannot resolve TS definition.'))
+      }
+
+      const { type: definitionsAst, scope } = resolved
+      if (definitionsAst.type === 'TSIntersectionType') {
+        return resolveIntersection(definitionsAst, scope)
+      } else if (definitionsAst.type === 'TSUnionType') {
+        return resolveUnion(definitionsAst, scope)
+      } else if (
+        definitionsAst.type !== 'TSInterfaceDeclaration' &&
+        definitionsAst.type !== 'TSTypeLiteral' &&
+        definitionsAst.type !== 'TSMappedType'
+      ) {
+        if (definitionsAst.type === 'TSTypeReference') {
+          return err(
+            new TransformError(
+              `Cannot resolve TS type: ${resolveIdentifier(
+                definitionsAst.typeName,
+              ).join('.')}`,
+            ),
+          )
         } else {
-          throw new SyntaxError(
-            `Cannot resolve TS definition. Union type contains different types of results.`,
+          return err(
+            new TransformError(
+              `Cannot resolve TS definition: ${definitionsAst.type}`,
+            ),
           )
         }
       }
 
-      if (result) {
-        results[key] = { ...result, optional }
-      }
-    }
+      let properties = yield* resolveTSProperties({
+        scope,
+        type: definitionsAst,
+      })
 
-    return {
-      definitions: results,
-      definitionsAst: buildDefinition({ scope, type: definitionsAst }),
-    }
-  }
+      if (builtInTypesHandler?.handleTSProperties)
+        properties = builtInTypesHandler.handleTSProperties(properties)
 
-  async function resolveIntersection(
-    definitionsAst: TSIntersectionType,
-    scope: TSScope,
-  ) {
-    const results: TSProps['definitions'] = Object.create(null)
-    for (const type of definitionsAst.types) {
-      const defMap = await resolveDefinitions({ type, scope }).then(
-        ({ definitions }) => definitions,
-      )
-      for (const [key, def] of Object.entries(defMap)) {
-        const result = results[key]
-        if (!result) {
-          results[key] = def
-          continue
-        }
-
-        if (result.type === 'method' && def.type === 'method') {
-          result.methods.push(...def.methods)
-        } else {
-          results[key] = def
-        }
-      }
-    }
-
-    return {
-      definitions: results,
-      definitionsAst: buildDefinition({ scope, type: definitionsAst }),
-    }
-  }
-
-  async function resolveNormal(properties: TSProperties) {
-    const definitions: TSProps['definitions'] = Object.create(null)
-    for (const [key, sign] of Object.entries(properties.methods)) {
-      const methods = sign.map((sign) => buildDefinition(sign))
-      definitions[key] = {
-        type: 'method',
-        methods,
-        optional: sign.some((sign) => !!sign.type.optional),
-      }
-    }
-
-    for (const [key, value] of Object.entries(properties.properties)) {
-      const referenced = value.value
-        ? await resolveTSReferencedType(value.value)
-        : undefined
-      definitions[key] = {
-        type: 'property',
-        addByAPI: false,
-        value:
-          referenced && !isTSNamespace(referenced)
-            ? buildDefinition(referenced)
-            : undefined,
-        optional: value.optional,
-        signature: buildDefinition(value.signature),
-      }
-    }
-
-    return definitions
-  }
-
-  async function resolveDefinitions(
-    typeDeclRaw: TSResolvedType<TSType>,
-  ): Promise<{
-    definitions: TSProps['definitions']
-    definitionsAst: TSProps['definitionsAst']
-  }> {
-    let resolved:
-      | TSResolvedType
-      | TSResolvedType<TSType>
-      | TSNamespace
-      | undefined = (await resolveTSReferencedType(typeDeclRaw)) || typeDeclRaw
-
-    let builtInTypesHandler: BuiltInTypesHandler[string] | undefined
-
-    if (
-      resolved &&
-      !isTSNamespace(resolved) &&
-      resolved.type.type === 'TSTypeReference' &&
-      resolved.type.typeName.type === 'Identifier'
-    ) {
-      const typeName = resolved.type.typeName.name
-
-      let type: TSType | undefined
-      if (typeName in builtInTypesHandlers) {
-        builtInTypesHandler = builtInTypesHandlers[typeName]
-        type = builtInTypesHandler.handleType(resolved.type)
-      }
-
-      if (type)
-        resolved = await resolveTSReferencedType({
-          type,
-          scope: resolved.scope,
-        })
-    }
-
-    if (!resolved || isTSNamespace(resolved)) {
-      throw new SyntaxError(`Cannot resolve TS definition.`)
-    }
-
-    const { type: definitionsAst, scope } = resolved
-    if (definitionsAst.type === 'TSIntersectionType') {
-      return resolveIntersection(definitionsAst, scope)
-    } else if (definitionsAst.type === 'TSUnionType') {
-      return resolveUnion(definitionsAst, scope)
-    } else if (
-      definitionsAst.type !== 'TSInterfaceDeclaration' &&
-      definitionsAst.type !== 'TSTypeLiteral' &&
-      definitionsAst.type !== 'TSMappedType'
-    ) {
-      if (definitionsAst.type === 'TSTypeReference') {
-        throw new SyntaxError(
-          `Cannot resolve TS type: ${resolveIdentifier(
-            definitionsAst.typeName,
-          ).join('.')}`,
-        )
-      } else {
-        throw new SyntaxError(
-          `Cannot resolve TS definition: ${definitionsAst.type}`,
-        )
-      }
-    }
-
-    let properties = await resolveTSProperties({
-      scope,
-      type: definitionsAst,
+      return ok({
+        definitions: yield* resolveNormal(properties),
+        definitionsAst: buildDefinition({ scope, type: definitionsAst }),
+      })
     })
-
-    if (builtInTypesHandler?.handleTSProperties)
-      properties = builtInTypesHandler.handleTSProperties(properties)
-
-    return {
-      definitions: await resolveNormal(properties),
-      definitionsAst: buildDefinition({ scope, type: definitionsAst }),
-    }
   }
 
   function resolveDefaults(defaultsAst?: DefaultsASTRaw): {
@@ -690,5 +724,8 @@ export interface TSProps extends PropsBase {
   /**
    * get runtime definitions.
    */
-  getRuntimeDefinitions: () => Promise<Record<string, RuntimePropDefinition>>
+  getRuntimeDefinitions: () => ResultAsync<
+    Record<string, RuntimePropDefinition>,
+    TransformError<ErrorUnknownNode>
+  >
 }

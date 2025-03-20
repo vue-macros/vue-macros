@@ -9,6 +9,7 @@ export {
 export * from './ast'
 export * from './constants'
 export * from './dep'
+export * from './error'
 export * from './options'
 export * from './types'
 export * from './unplugin'
