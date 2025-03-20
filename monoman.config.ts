@@ -162,7 +162,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
                   const map: Record<string, any> = {}
                   if (withDev) map.dev = `./src/${entry}.ts`
-                  if (entry === 'volar') {
+                  if (entry === 'volar' && pkgName !== 'jsx') {
                     map.types = `./volar.d.ts`
                     map.default = `./volar.cjs`
                   } else {
