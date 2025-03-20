@@ -183,7 +183,7 @@ function transform(
           `} satisfies `,
           isNativeTag
             ? '{ trim?: true, number?: true, lazy?: true}'
-            : `typeof ${ctxMap.get(node)}.props.modelModifiers`,
+            : `typeof ${ctxMap.get(node)}.props.modelValueModifiers`,
           `} `,
         )
       }
