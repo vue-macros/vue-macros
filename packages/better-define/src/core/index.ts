@@ -20,11 +20,11 @@ export function transformBetterDefine(
   code: string,
   id: string,
   isProduction = false,
-): ResultAsync<CodeTransform | undefined> {
+): ResultAsync<CodeTransform | void> {
   return safeTry(async function* () {
     const s = new MagicStringAST(code)
     const sfc = parseSFC(code, id)
-    if (!sfc.scriptSetup) return ok(undefined)
+    if (!sfc.scriptSetup) return ok()
 
     const offset = sfc.scriptSetup.loc.start.offset
     const result = yield* analyzeSFC(s, sfc)
@@ -76,7 +76,7 @@ export function transformBetterDefine(
           offset,
         })
 
-        return ok(undefined)
+        return ok()
       })
     }
 

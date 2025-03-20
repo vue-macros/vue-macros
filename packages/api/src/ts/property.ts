@@ -106,7 +106,7 @@ export function resolveTSProperties({
               type.extends.map((node) =>
                 node.expression.type === 'Identifier'
                   ? resolveTSReferencedType({ scope, type: node.expression })
-                  : ok(undefined),
+                  : ok(),
               ),
             ),
           ).map((res) => res.filter(filterValidExtends))
@@ -203,7 +203,7 @@ export function resolveTSProperties({
   })
 
   function filterValidExtends(
-    node: TSResolvedType | TSNamespace | undefined,
+    node: TSResolvedType | TSNamespace | void,
   ): node is TSResolvedType<
     TSInterfaceDeclaration | TSTypeLiteral | TSIntersectionType
   > {

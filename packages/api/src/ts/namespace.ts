@@ -27,7 +27,7 @@ export function resolveTSNamespace(
   scope: TSScope,
 ): ResultAsync<void, TransformError<ErrorUnknownNode>> {
   return safeTry(async function* () {
-    if (scope.exports) return ok(undefined)
+    if (scope.exports) return ok()
 
     const exports: TSNamespace = {
       [namespaceSymbol]: true,
@@ -160,6 +160,6 @@ export function resolveTSNamespace(
         }
       }
     }
-    return ok(undefined)
+    return ok()
   })
 }

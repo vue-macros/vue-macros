@@ -79,7 +79,7 @@ export function resolveTSReferencedType(
           yield* resolveTSNamespace(newScope)
           return ok(newScope.exports)
         }
-        return ok(undefined)
+        return ok()
       }
     }
 

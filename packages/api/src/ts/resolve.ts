@@ -184,7 +184,7 @@ export function resolveTSIndexedAccessType(
   { scope, type }: TSResolvedType<TSIndexedAccessType>,
   stacks: TSResolvedType<any>[] = [],
 ): ResultAsync<
-  { type: TSUnionType; scope: TSScope } | undefined,
+  { type: TSUnionType; scope: TSScope } | void,
   TransformError<ErrorUnknownNode>
 > {
   return safeTry(async function* () {
@@ -192,7 +192,7 @@ export function resolveTSIndexedAccessType(
       { type: type.objectType, scope },
       stacks,
     )
-    if (!object || isTSNamespace(object)) return ok(undefined)
+    if (!object || isTSNamespace(object)) return ok()
 
     const objectType = object.type
     if (type.indexType.type === 'TSNumberKeyword') {
@@ -212,7 +212,7 @@ export function resolveTSIndexedAccessType(
       ) {
         types = objectType.typeParameters.params
       } else {
-        return ok(undefined)
+        return ok()
       }
 
       return ok({ type: createTSUnionType(types), scope })
@@ -223,7 +223,7 @@ export function resolveTSIndexedAccessType(
       objectType.type !== 'TSMappedType' &&
       objectType.type !== 'TSFunctionType'
     )
-      return ok(undefined)
+      return ok()
 
     const properties = yield* resolveTSProperties({
       type: objectType,
@@ -280,7 +280,7 @@ export function resolveTSIndexedAccessType(
       }
     }
 
-    if (indexes.length === 0) return ok(undefined)
+    if (indexes.length === 0) return ok()
     if (optional) indexes.push({ type: 'TSUndefinedKeyword' })
 
     return ok({ type: createTSUnionType(indexes), scope })
@@ -290,9 +290,9 @@ export function resolveTSIndexedAccessType(
 export function resolveTSTypeOperator(
   { scope, type }: TSResolvedType<TSTypeOperator>,
   stacks: TSResolvedType<any>[] = [],
-): ResultAsync<StringLiteral[] | undefined, TransformError<ErrorUnknownNode>> {
+): ResultAsync<StringLiteral[] | void, TransformError<ErrorUnknownNode>> {
   return safeTry(async function* () {
-    if (type.operator !== 'keyof') return ok(undefined)
+    if (type.operator !== 'keyof') return ok()
 
     const resolved = yield* resolveTSReferencedType(
       {
@@ -301,9 +301,9 @@ export function resolveTSTypeOperator(
       },
       stacks,
     )
-    if (!resolved || isTSNamespace(resolved)) return ok(undefined)
+    if (!resolved || isTSNamespace(resolved)) return ok()
     const { type: resolvedType, scope: resolvedScope } = resolved
-    if (!checkForTSProperties(resolvedType)) return ok(undefined)
+    if (!checkForTSProperties(resolvedType)) return ok()
 
     const properties = yield* resolveTSProperties({
       type: resolvedType,
