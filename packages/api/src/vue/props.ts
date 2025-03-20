@@ -9,7 +9,7 @@ import {
   type MagicStringAST,
   type SFC,
 } from '@vue-macros/common'
-import { err, ok, safeTry, type Result, type ResultAsync } from 'neverthrow'
+import { err, ok, safeTry, type ResultAsync } from 'neverthrow'
 import {
   isTSNamespace,
   resolveTSProperties,

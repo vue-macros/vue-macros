@@ -20,7 +20,6 @@ import type {
   Error,
   ErrorResolveTS,
   ErrorUnknownNode,
-  ErrorVueSFC,
   ErrorWithDefaults,
 } from '../error'
 import type { TSFile } from '../ts'

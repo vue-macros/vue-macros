@@ -5,7 +5,7 @@ import {
   resolveObjectKey,
   type TransformError,
 } from '@vue-macros/common'
-import { ok, okAsync, safeTry, type Result, type ResultAsync } from 'neverthrow'
+import { ok, okAsync, safeTry, type ResultAsync } from 'neverthrow'
 import type { ErrorUnknownNode } from '../error'
 import { isTSNamespace } from './namespace'
 import {

@@ -1,5 +1,5 @@
 import { TransformError } from '@vue-macros/common'
-import { err, ok, safeTry, type Result, type ResultAsync } from 'neverthrow'
+import { err, ok, safeTry, type ResultAsync } from 'neverthrow'
 import type { ErrorUnknownNode } from '../error'
 import { isTSDeclaration } from './is'
 import { resolveDts } from './resolve-file'
