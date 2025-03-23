@@ -10,10 +10,12 @@ import {
   groupIconVitePlugin,
   localIconLoader,
 } from 'vitepress-plugin-group-icons'
+import llmstxt from 'vitepress-plugin-llms'
 import { githubLink } from '../macros/repo'
 
 export default defineConfig({
   plugins: [
+    llmstxt(),
     VueJsx(),
     Unocss(),
     Devtools(),
