@@ -271,8 +271,8 @@ catalogs:
       specifier: ^1.3.8
       version: 1.3.8
     vitepress-plugin-llms:
-      specifier: ^0.0.8
-      version: 0.0.8
+      specifier: ^0.0.9
+      version: 0.0.9
     vitest:
       specifier: ^3.0.9
       version: 3.0.9
@@ -485,7 +485,7 @@ importers:
         version: 1.3.8
       vitepress-plugin-llms:
         specifier: 'catalog:'
-        version: 0.0.8
+        version: 0.0.9
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.8.2)
@@ -7526,8 +7526,8 @@ packages:
   vitepress-plugin-group-icons@1.3.8:
     resolution: {integrity: sha512-BIx1HgXEvbDeJX8NqVvthWHQqEW2slj1SkAWLMNoUR5IJq1dq6LmrURYCyznMJCB3/0g+YY89ifvQp3in1fX3g==}
 
-  vitepress-plugin-llms@0.0.8:
-    resolution: {integrity: sha512-xz4wb87TqAn75RbKwQs+w+63OToK7W57pmLKIEY849Izpzi/WvTI9T+rCDwabdhPFirI3LLT2P2nErsSrik0/A==}
+  vitepress-plugin-llms@0.0.9:
+    resolution: {integrity: sha512-d1bz0PC41PFVMyTDv4EvAS9/amDHbKzc0C5C+KJW+p19AG0luzSeQA0cfJ96lWvBdAEoSnsvsO8AXucyvVPyyQ==}
 
   vitepress@2.0.0-alpha.2:
     resolution: {integrity: sha512-w+1WCkd8ko8lDUh61OWo4dj5Y4VHYJvwmJ9/iOXoVlzxOfO5Hoio2H3OMOgNlCzq0E0rTp9UR5GPU120AnH2dg==}
@@ -15153,7 +15153,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vitepress-plugin-llms@0.0.8:
+  vitepress-plugin-llms@0.0.9:
     dependencies:
       gray-matter: 4.0.3
       markdown-title: 1.0.2
