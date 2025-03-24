@@ -3,7 +3,6 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import ts from 'typescript'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
-import llmstxt from 'vitepress-plugin-llms'
 import VueMacrosPlugin from 'vue-macros/volar'
 import { docsLink } from '../../../macros'
 import { getLocaleConfig } from './theme'
@@ -70,13 +69,6 @@ export default defineConfig({
             }),
           ]
         : []),
-    ],
-  },
-  vite: {
-    plugins: [
-      llmstxt({
-        ignoreFiles: ['interactive/**/*', 'zh-CN/**/*', 'index.md'],
-      }),
     ],
   },
 })
