@@ -15,7 +15,9 @@ import { githubLink } from '../macros/repo'
 
 export default defineConfig({
   plugins: [
-    llmstxt(),
+    llmstxt({
+      ignoreFiles: ['interactive/**/*', 'zh-CN/**/*', 'index.md'],
+    }),
     VueJsx(),
     Unocss(),
     Devtools(),
