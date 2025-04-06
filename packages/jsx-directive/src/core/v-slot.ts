@@ -1,7 +1,7 @@
-import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
 import { resolveVFor } from './v-for'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
+import type { MagicStringAST } from '@vue-macros/common'
 
 export type VSlotMap = Map<
   JSXElement,
@@ -23,17 +23,19 @@ export function transformVSlot(
   s: MagicStringAST,
   options: OptionsResolved,
 ): void {
-  const { prefix, lib } = options
+  const { prefix } = options
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
       const result = [` v-slots={{`]
       const attributes = Array.from(attributeMap)
+      let isStable = true
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
           if (!attribute) return
 
           if (vIfAttribute) {
+            isStable = false
             if (`${prefix}if` === vIfAttribute.name.name) {
               result.push('...')
             }
@@ -50,6 +52,7 @@ export function transformVSlot(
           }
 
           if (vForAttribute) {
+            isStable = false
             result.push(
               '...Object.fromEntries(',
               resolveVFor(vForAttribute, s, { ...options, lib: 'vue' }),
@@ -64,20 +67,11 @@ export function transformVSlot(
               : 'default'
           attributeName = attributeName.replace(/\$(.*)\$/, (_, $1) => {
             isDynamic = true
+            isStable = false
             return $1.replaceAll('_', '.')
           })
           result.push(
-            isDynamic
-              ? `[${importHelperFn(
-                  s,
-                  0,
-                  'unref',
-                  undefined,
-                  lib.startsWith('vue')
-                    ? 'vue'
-                    : '@vue-macros/jsx-directive/helpers',
-                )}(${attributeName})]`
-              : `'${attributeName}'`,
+            isDynamic ? `[${attributeName}]` : `'${attributeName}'`,
             vForAttribute ? ', ' : ': ',
           )
 
@@ -131,6 +125,10 @@ export function transformVSlot(
           }
         },
       )
+
+      if (isStable) {
+        result.push('$stable: true,')
+      }
 
       if (attributeMap.has(null)) {
         result.push(`default: () => <>`)
