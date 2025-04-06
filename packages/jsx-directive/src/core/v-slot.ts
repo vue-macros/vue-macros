@@ -1,7 +1,7 @@
-import { importHelperFn, type MagicStringAST } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
 import { resolveVFor } from './v-for'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
+import type { MagicStringAST } from '@vue-macros/common'
 
 export type VSlotMap = Map<
   JSXElement,
