@@ -23,13 +23,13 @@ export function transformVSlot(
   s: MagicStringAST,
   options: OptionsResolved,
 ): void {
-  const { prefix } = options
+  const { prefix, lib } = options
   Array.from(nodeMap)
     .reverse()
     .forEach(([node, { attributeMap, vSlotAttribute }]) => {
       const result = [` v-slots={{`]
       const attributes = Array.from(attributeMap)
-      let isStable = true
+      let isStable = lib === 'vue'
       attributes.forEach(
         ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
           if (!attribute) return
