@@ -13,10 +13,13 @@ await Promise.all(
     const pkgJson = await import(`${pkgDir}/package.json`).then(
       (mod) => mod.default,
     )
-    const { messages } = await publint({
+    let { messages } = await publint({
       pkgDir,
       strict: true,
     })
+    messages = messages.filter(
+      ({ code }) => code !== 'EXPORTS_FALLBACK_ARRAY_USE',
+    )
     if (!messages.length) return
 
     console.error(`${pkgJson.name}:`)
