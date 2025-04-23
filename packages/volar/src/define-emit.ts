@@ -73,7 +73,7 @@ const plugin: VueMacrosPlugin<'defineEmit'> = (ctx, options = {}) => {
       })
       if (!emitStrings.length) return
 
-      addEmits(embeddedFile.content, emitStrings, ctx.vueCompilerOptions.lib)
+      addEmits(embeddedFile.content, emitStrings, options.version || 3.5)
     },
   }
 }
