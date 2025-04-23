@@ -2,7 +2,7 @@
   "name": "monorepo-vue-macros",
   "version": "3.0.0-beta.8",
   "private": true,
-  "packageManager": "pnpm@10.7.1",
+  "packageManager": "pnpm@10.9.0",
   "description": "Monorepo for Vue Macros.",
   "type": "module",
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
@@ -84,6 +84,7 @@
     "node": ">=20.18.0"
   },
   "resolutions": {
+    "@netlify/functions": "-",
     "@shikijs/core": "catalog:",
     "@shikijs/transformers": "catalog:",
     "@shikijs/types": "catalog:",
