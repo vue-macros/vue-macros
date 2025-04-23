@@ -67,6 +67,7 @@ const plugin: VueMacrosPlugin<'defineModels'> = (ctx, options = {}) => {
   const filter = createFilter(options)
   const {
     modules: { typescript: ts },
+    vueCompilerOptions: { target },
   } = ctx
 
   return {
@@ -87,7 +88,7 @@ const plugin: VueMacrosPlugin<'defineModels'> = (ctx, options = {}) => {
         codes: embeddedFile.content,
         sfc,
         typeArg,
-        version: options.version || 3.5,
+        version: target,
         ts,
       })
     },

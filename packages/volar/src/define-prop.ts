@@ -18,12 +18,12 @@ interface DefineProp {
 function transformDefineProp({
   codes,
   defineProps,
-  vueLibName,
+  version,
   edition,
 }: {
   codes: Code[]
   defineProps: DefineProp[]
-  vueLibName: string
+  version: number
   edition: 'kevinEdition' | 'johnsonEdition'
 }) {
   addProps(
@@ -45,7 +45,7 @@ function transformDefineProp({
       result += type
       return result
     }),
-    vueLibName,
+    version,
   )
 
   if (edition === 'kevinEdition') {
@@ -68,7 +68,7 @@ type __VLS_Widen<T> = T extends number | string | boolean | symbol
   : T;
 type __VLS_PropOptions<T> = Omit<
   Omit<
-    Exclude<import('${vueLibName}').Prop<T>, import('${vueLibName}').PropType<T>>, 
+    Exclude<import('vue').Prop<T>, import('vue').PropType<T>>, 
     'default'
   >,
   'required'
@@ -222,7 +222,7 @@ const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
   const filter = createFilter(options)
   const {
     modules: { typescript: ts },
-    vueCompilerOptions: { experimentalDefinePropProposal, lib },
+    vueCompilerOptions: { experimentalDefinePropProposal, target },
   } = ctx
 
   return {
@@ -244,7 +244,7 @@ const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
       transformDefineProp({
         codes: embeddedFile.content,
         defineProps,
-        vueLibName: lib,
+        version: target,
         edition,
       })
     },
