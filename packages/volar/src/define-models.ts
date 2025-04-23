@@ -10,10 +10,10 @@ function transformDefineModels(options: {
   codes: Code[]
   sfc: Sfc
   typeArg: import('typescript').TypeNode
-  vueLibName: string
+  version: number
   ts: typeof import('typescript')
 }) {
-  const { codes, typeArg, vueLibName, ts } = options
+  const { codes, typeArg, version, ts } = options
 
   const propStrings: Code[] = []
   const emitStrings: Code[] = []
@@ -30,8 +30,8 @@ function transformDefineModels(options: {
     }
   }
 
-  addProps(codes, propStrings, vueLibName)
-  addEmits(codes, emitStrings, vueLibName)
+  addProps(codes, propStrings, version)
+  addEmits(codes, emitStrings, version)
 }
 
 function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
@@ -67,7 +67,7 @@ const plugin: VueMacrosPlugin<'defineModels'> = (ctx, options = {}) => {
   const filter = createFilter(options)
   const {
     modules: { typescript: ts },
-    vueCompilerOptions: { lib },
+    vueCompilerOptions: { target },
   } = ctx
 
   return {
@@ -88,7 +88,7 @@ const plugin: VueMacrosPlugin<'defineModels'> = (ctx, options = {}) => {
         codes: embeddedFile.content,
         sfc,
         typeArg,
-        vueLibName: lib,
+        version: target,
         ts,
       })
     },

@@ -13,6 +13,12 @@ const update = () => {
   title.value += '!'
   none.value += '!'
 }
+
+defineModel('model')
+
+defineEmits<{
+  change: [value: string]
+}>()
 </script>
 
 <template>
