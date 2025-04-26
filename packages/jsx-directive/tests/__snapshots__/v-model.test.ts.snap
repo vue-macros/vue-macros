@@ -9,6 +9,7 @@ const value = ref('value')
 defineRender(() => (
   <div>
     <input {...{[value.value]: foo, ["onUpdate:" + value.value]: $event => foo = $event, [value.value + "Modifiers"]: { trim: true, number: true }}} />
+    <input v-model={foo} type="checkbox" value="1"></input>
     {foo}
   </div>
 ))
