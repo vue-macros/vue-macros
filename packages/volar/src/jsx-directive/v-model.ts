@@ -1,7 +1,12 @@
 import { replaceSourceRange } from 'muggle-string'
 import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
-import { getTagName, type JsxDirective, type TransformOptions } from './index'
+import {
+  getOpeningElement,
+  getTagName,
+  type JsxDirective,
+  type TransformOptions,
+} from './index'
 
 export const isNativeFormElement = (tag: string): boolean => {
   return ['input', 'select', 'textarea'].includes(tag)
@@ -160,7 +165,9 @@ function transform(
       const result = []
       result.push(
         ...((isNative
-          ? [[modelValue, source, start + 2, allCodeFeatures]]
+          ? isRadioOrCheckbox(node, options)
+            ? 'v-model'
+            : [[modelValue, source, start + 2, allCodeFeatures]]
           : [
               modelValue.slice(0, 3),
               [modelValue.slice(3), source, start, allCodeFeatures],
@@ -215,6 +222,29 @@ function transform(
     ` {...{`,
     ...emitsResult,
     `}}`,
+  )
+}
+
+function isRadioOrCheckbox(
+  node: import('typescript').Node,
+  options: TransformOptions,
+) {
+  const { ts } = options
+  const openingElement = getOpeningElement(node, options)
+  if (!openingElement) return false
+  const tagName = getText(openingElement.tagName, options)
+  return (
+    tagName === 'input' &&
+    openingElement.attributes.properties.some((attr) => {
+      return (
+        ts.isJsxAttribute(attr) &&
+        getText(attr.name, options) === 'type' &&
+        attr.initializer &&
+        ts.isStringLiteral(attr.initializer) &&
+        (attr.initializer.text === 'radio' ||
+          attr.initializer.text === 'checkbox')
+      )
+    })
   )
 }
 
