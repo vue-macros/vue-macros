@@ -99,7 +99,13 @@ export function transformVFor(
       result.unshift('{')
     }
 
-    replaceSourceRange(codes, source, node.pos, node.pos, ...result)
+    replaceSourceRange(
+      codes,
+      source,
+      getStart(node, options),
+      getStart(node, options),
+      ...result,
+    )
 
     replaceSourceRange(
       codes,
