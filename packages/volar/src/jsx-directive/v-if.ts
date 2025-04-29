@@ -23,9 +23,9 @@ export function transformVIf(
       replaceSourceRange(
         codes,
         source,
-        node.pos,
-        node.pos,
-        `${hasScope ? '{' : ' '}(`,
+        getStart(node, options),
+        getStart(node, options),
+        `${hasScope ? '{' : ''}(`,
         [
           getText(attribute.initializer.expression, options),
           source,
