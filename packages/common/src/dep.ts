@@ -8,7 +8,7 @@ function getRequire() {
   try {
     // @ts-expect-error check api
     if (globalThis.process?.getBuiltinModule) {
-      const module = process.getBuiltinModule('module')
+      const module = process.getBuiltinModule('node:module')
       // unenv has implemented `getBuiltinModule` but has yet to support `module.createRequire`
       if (module?.createRequire) {
         return (require = module.createRequire(import.meta.url))
