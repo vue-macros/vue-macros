@@ -24,8 +24,6 @@ export function config({
   splitting = !onlyIndex,
   platform = 'neutral',
   external = [],
-  cjs = false,
-  esm = true,
   onSuccess,
 }: {
   ignoreDeps?: UnusedOptions['ignore']
@@ -35,22 +33,17 @@ export function config({
   onlyIndex?: boolean
   platform?: Options['platform']
   external?: string[]
-  cjs?: boolean
-  esm?: boolean
   onSuccess?: (entries: string[]) => void | Promise<void>
 } = {}): Options {
   const entry = onlyIndex ? ['./src/index.ts'] : ['./src/*.ts', '!./**.d.ts']
 
-  const format: Format[] = []
-  if (cjs) format.push('cjs')
-  if (esm) format.push('esm')
+  const format: Format[] = ['esm']
 
   return {
     entry,
     format,
     target: 'node20.18',
     splitting,
-    cjsInterop: true,
     watch: !!process.env.DEV,
     dts: false,
     tsconfig: '../../tsconfig.lib.json',

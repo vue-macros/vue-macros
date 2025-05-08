@@ -84,7 +84,6 @@ export default defineConfig([
 
       data.files = ['dist']
       if (hasRootDts) data.files.push('*.d.ts')
-      if (pkgName === 'macros') data.files.push('volar.cjs')
       data.files.sort()
 
       if (
@@ -130,10 +129,6 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
           })
         ).map((file) => path.basename(path.relative(pkgSrc, file), '.ts'))
 
-        if (pkgName === 'macros') {
-          entries.push('volar')
-        }
-
         data.exports = buildExports(true)
         const exports = (data.publishConfig.exports = buildExports())
 
@@ -162,12 +157,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
                   const map: Record<string, any> = {}
                   if (withDev) map.dev = `./src/${entry}.ts`
-                  if (entry === 'volar') {
-                    map.types = `./volar.d.ts`
-                    map.default = `./volar.cjs`
-                  } else {
-                    map.default = `./dist/${entry}.js`
-                  }
+                  map.default = `./dist/${entry}.js`
 
                   if (Object.keys(map).length === 1) {
                     return [key, Object.values(map)[0]]

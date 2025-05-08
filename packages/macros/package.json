@@ -27,8 +27,7 @@
   "funding": "https://github.com/sponsors/vue-macros",
   "files": [
     "*.d.ts",
-    "dist",
-    "volar.cjs"
+    "dist"
   ],
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -64,8 +63,7 @@
     },
     "./volar": {
       "dev": "./src/volar.ts",
-      "types": "./volar.d.ts",
-      "default": "./volar.cjs"
+      "default": "./dist/volar.js"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
@@ -94,10 +92,7 @@
       "./rspack": "./dist/rspack.js",
       "./runtime": "./dist/runtime.js",
       "./vite": "./dist/vite.js",
-      "./volar": {
-        "types": "./volar.d.ts",
-        "default": "./volar.cjs"
-      },
+      "./volar": "./dist/volar.js",
       "./webpack": "./dist/webpack.js",
       "./*": [
         "./*",
