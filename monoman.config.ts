@@ -214,7 +214,7 @@ Please refer to [README.md](${githubLink}#readme)\n`
       /vite(?!-(plugin-(vue-inspector|inspect)|hot-client))/,
       /unocss/,
       /rolldown/,
-      /oxc(?!-resolver|-project\/types)/,
+      /oxc(?!-project\/types)/,
     ],
   }),
   ...noDuplicatedPnpmLockfile({
