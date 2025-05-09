@@ -1,9 +1,6 @@
 name: Publish Any Commit
 on: [push, pull_request]
 
-env:
-  COREPACK_INTEGRITY_KEYS: '0'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,8 +12,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.1.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

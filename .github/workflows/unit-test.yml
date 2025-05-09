@@ -13,17 +13,14 @@ on:
 
   workflow_dispatch:
 
-env:
-  COREPACK_INTEGRITY_KEYS: '0'
-
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.1.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -58,8 +55,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.1.0
 
       - name: Set node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
