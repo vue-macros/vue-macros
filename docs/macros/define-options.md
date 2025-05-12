@@ -4,7 +4,7 @@
 
 Options API can be declared using the `defineOptions` in `<script setup>`, specifically to be able to set `name`, `props`, `emits`, and `render` inside of one function.
 
-For Vue >= 3.3, this feature will be turned off by default.
+This feature is enabled by default in Vue 3.3+.
 
 |  Features  |     Supported      |
 | :--------: | :----------------: |
