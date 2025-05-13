@@ -1,5 +1,5 @@
-import { config } from '../../tsdown.config.ts'
+import { defineBuildConfig } from '../../tsdown.config.ts'
 
-export default config({
+export default defineBuildConfig({
   platform: 'node',
 })
