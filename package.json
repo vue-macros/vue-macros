@@ -8,7 +8,7 @@
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "funding": "https://github.com/sponsors/vue-macros",
   "scripts": {
-    "build": "tsdown",
+    "build": "pnpm run --filter=\"./packages/*\" --parallel build && tsdown",
     "dev": "DEV=true tsdown",
     "clean": "rimraf -g dist coverage \"packages/*/dist\" && pnpm run -r --parallel clean",
     "docs:dev": "pnpm run -C ./docs dev",

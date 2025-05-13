@@ -46,8 +46,7 @@
     "tag": "next"
   },
   "scripts": {
-    "build": "tsdown && vite build ./src/client",
-    "dev": "DEV=true tsdown",
+    "build": "vite build ./src/client",
     "client:dev": "vite ./src/client"
   },
   "peerDependencies": {
