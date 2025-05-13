@@ -58,6 +58,7 @@ async function main() {
           level: 'error',
         },
         cwd,
+        outDir: path.resolve(cwd!, 'dist'),
         report: false,
 
         plugins: [
