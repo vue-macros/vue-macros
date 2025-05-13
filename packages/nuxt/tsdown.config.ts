@@ -1,6 +1,6 @@
-import { defineBuildConfig } from '../../tsdown.config.ts'
+import { defineConfig } from 'tsdown/config'
 
-export default defineBuildConfig({
+export default defineConfig({
   onlyIndex: true,
   ignoreDeps: ['nuxt'],
 })

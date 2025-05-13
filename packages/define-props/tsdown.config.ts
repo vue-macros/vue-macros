@@ -1,7 +1,9 @@
-import { defineBuildConfig } from '../../tsdown.config.ts'
+import { defineConfig } from 'tsdown/config'
 
-export default defineBuildConfig({
-  ignoreDeps: {
-    peerDependencies: ['vue', '@vue-macros/reactivity-transform'],
+export default defineConfig({
+  unused: {
+    ignore: {
+      peerDependencies: ['vue', '@vue-macros/reactivity-transform'],
+    },
   },
 })

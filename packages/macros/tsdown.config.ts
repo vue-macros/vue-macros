@@ -1,8 +1,10 @@
-import { defineBuildConfig } from '../../tsdown.config.ts'
+import { defineConfig } from 'tsdown/config'
 
-export default defineBuildConfig({
-  ignoreDeps: [
-    // Used in dts
-    '@vue-macros/common',
-  ],
+export default defineConfig({
+  unused: {
+    ignore: [
+      // Used in dts
+      '@vue-macros/common',
+    ],
+  },
 })

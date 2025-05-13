@@ -9,8 +9,8 @@ import {
   noDuplicatedPnpmLockfile,
 } from 'monoman'
 import { docsLink, githubLink } from './macros/repo'
-import type { BuildConfig } from './tsdown.config'
 import type { PackageJson } from 'pkg-types'
+import type { Options } from 'tsdown'
 
 const jiti = createJiti(import.meta.url)
 
@@ -120,12 +120,12 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
       const tsdownFile = path.resolve(pkgRoot, 'tsdown.config.ts')
       if (!data.meta?.skipExports && (await exists(tsdownFile))) {
         const tsdownConfig = (
-          await jiti.import<{ default: BuildConfig }>(tsdownFile)
+          await jiti.import<{ default: Options }>(tsdownFile)
         ).default
-        const entry = tsdownConfig?.onlyIndex
-          ? ['./src/index.ts']
-          : ['./src/*.ts', '!./**.d.ts']
-
+        const entry = (tsdownConfig.entry as string[] | undefined) || [
+          './src/*.ts',
+          '!./**.d.ts',
+        ]
         const entries = (
           await fg(entry, {
             cwd: pkgRoot,

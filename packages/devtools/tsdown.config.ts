@@ -1,6 +1,6 @@
-import { defineBuildConfig } from '../../tsdown.config.ts'
+import { defineConfig } from 'tsdown/config'
 
-export default defineBuildConfig({
-  ignoreDeps: ['vue'],
+export default defineConfig({
+  unused: { ignore: ['vue'] },
   platform: 'node',
 })

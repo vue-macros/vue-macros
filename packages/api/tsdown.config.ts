@@ -1,6 +1,6 @@
-import { defineBuildConfig } from '../../tsdown.config.ts'
+import { defineConfig } from 'tsdown/config'
 
-export default defineBuildConfig({
-  onlyIndex: true,
+export default defineConfig({
+  entry: ['./src/index.ts'],
   platform: 'node',
 })

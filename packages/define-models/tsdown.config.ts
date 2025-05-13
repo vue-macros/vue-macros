@@ -1,7 +1,7 @@
-import { defineBuildConfig } from '../../tsdown.config.ts'
+import { defineConfig } from 'tsdown/config'
 
-export default defineBuildConfig({
-  ignoreDeps: {
-    peerDependencies: ['@vueuse/core'],
+export default defineConfig({
+  unused: {
+    ignore: { peerDependencies: ['@vueuse/core'] },
   },
 })
