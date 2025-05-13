@@ -31,14 +31,7 @@ export function config({
     format: 'esm',
     target: 'node20.18',
     watch: !!process.env.DEV,
-    dts: {
-      exclude: [/node_modules/, `${macros}/**`],
-    },
-    bundleDts: {
-      compilerOptions: {
-        moduleResolution: 100 satisfies ModuleResolutionKind.Bundler,
-      },
-    },
+    dts: true,
     clean: true,
     define: {
       'import.meta.DEV': JSON.stringify(!!process.env.DEV),

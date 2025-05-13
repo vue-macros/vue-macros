@@ -1,4 +1,4 @@
-import { config } from '../../tsdown.config.js'
+import { config } from '../../tsdown.config.ts'
 
 export default config({
   ignoreDeps: ['vue-tsc'],

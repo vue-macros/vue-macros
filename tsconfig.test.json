@@ -4,7 +4,9 @@
     "tsBuildInfoFile": "dist/test.tsbuildinfo",
     "lib": ["ES2022", "DOM"],
     "types": ["node", "vite/client"],
-    "isolatedDeclarations": false
+    "allowImportingTsExtensions": true,
+    "isolatedDeclarations": false,
+    "noEmit": true
   },
   "include": [
     "packages/*/tests",
