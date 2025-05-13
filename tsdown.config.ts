@@ -46,7 +46,7 @@ async function main() {
         format: 'esm',
         target: 'node20.18',
         watch: !!process.env.DEV,
-        dts: true,
+        dts: { isolatedDeclarations: true },
         clean: true,
         define: {
           'import.meta.DEV': JSON.stringify(!!process.env.DEV),
