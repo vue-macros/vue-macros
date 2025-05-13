@@ -58,6 +58,7 @@ async function main() {
           level: 'error',
         },
         cwd,
+        report: false,
 
         plugins: [
           Quansync(),
