@@ -1,3 +1,4 @@
+import { readdir } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import { defineConfig } from 'tsdown/config'
@@ -21,6 +22,20 @@ export default defineConfig({
     level: 'error',
   },
   report: false,
+  exports: {
+    devExports: 'dev',
+    all: true,
+    async customExports(exports, { outDir }) {
+      const hasRootDts = (await readdir(path.dirname(outDir))).some((file) =>
+        file.endsWith('.d.ts'),
+      )
+      if (hasRootDts) {
+        exports['./*'] = ['./*', './*.d.ts']
+      }
+
+      return exports
+    },
+  },
   plugins: [
     Quansync(),
     Raw({

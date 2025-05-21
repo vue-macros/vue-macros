@@ -29,9 +29,9 @@
     "*.d.ts",
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
