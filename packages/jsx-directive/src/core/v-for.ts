@@ -78,8 +78,45 @@ export function transformVFor(
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      s.overwriteNode(node.openingElement.name, '')
-      s.overwriteNode(node.closingElement.name, '')
+      /**
+       * https://github.com/vuejs/babel-plugin-jsx/blob/main/packages/babel-plugin-jsx/src/utils.ts#L37
+       *
+       * Because the __MACROS_Fragment tag is a component in vue-jsx, the children will be treated as a slot,
+       * so we need to replace it with _Fragment99.
+       */
+      const fragment =
+        node.openingElement.attributes.length > 1
+          ? importFragmentHelperFn(s, 0, 'Fragment', '_Fragment99', options.lib)
+          : ''
+      s.overwriteNode(node.openingElement.name, fragment)
+      s.overwriteNode(node.closingElement.name, fragment)
     }
   })
+}
+
+const importedMap = new WeakMap<MagicStringAST, Set<string>>()
+function importFragmentHelperFn(
+  s: MagicStringAST,
+  offset: number,
+  imported: string,
+  local: string = imported,
+  from = 'vue',
+) {
+  const cacheKey = `${from}@${imported}`
+  const result = local === imported ? HELPER_PREFIX + local : local
+  if (!importedMap.get(s)?.has(cacheKey)) {
+    s.appendLeft(
+      offset,
+      `\nimport ${
+        imported === 'default' ? result : `{ ${imported} as ${result} }`
+      } from ${JSON.stringify(from)};`,
+    )
+    if (!importedMap.has(s)) {
+      importedMap.set(s, new Set([cacheKey]))
+    } else {
+      importedMap.get(s)!.add(cacheKey)
+    }
+  }
+
+  return result
 }
