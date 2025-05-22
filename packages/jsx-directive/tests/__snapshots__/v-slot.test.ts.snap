@@ -29,7 +29,7 @@ defineRender(() => (
   <div>
     <Child  v-slots={{'bottom': ({ foo }) => <>
       {foo}
-      <Child  v-slots={{'default': () => <>default</>,$stable: true,}}></Child>
+      <Child  v-slots={{[baz]: () => <>default</>,}}></Child>
     </>,$stable: true,}}></Child>
 
     <Comp  v-slots={{'default': () => <>default</>,$stable: true,}}></Comp>
