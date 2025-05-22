@@ -79,7 +79,7 @@ export function transformVFor(
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
       /**
-       * https://github.com/vuejs/babel-plugin-jsx/blob/main/packages/babel-plugin-jsx/src/utils.ts#L37
+       * https://github.com/vuejs/babel-plugin-jsx/blob/a72bc11ed8f2047a3a0edccdbf374c8e0eeaa69f/packages/babel-plugin-jsx/src/utils.ts#L37
        *
        * Because the __MACROS_Fragment tag is a component in vue-jsx, the children will be treated as a slot,
        * so we need to replace it with _Fragment99.
