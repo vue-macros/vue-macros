@@ -35,12 +35,17 @@
       "dev": "./src/index.ts",
       "default": "./dist/index.js"
     },
+    "./volar": {
+      "dev": "./src/volar.ts",
+      "default": "./dist/volar.js"
+    },
     "./*": "./*"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": "./dist/index.js",
+      "./volar": "./dist/volar.js",
       "./*": "./*"
     },
     "tag": "next"
