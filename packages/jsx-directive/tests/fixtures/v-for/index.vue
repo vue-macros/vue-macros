@@ -39,6 +39,10 @@ defineRender(() => (
         {key}: {value}
       </div>
     </div>
+
+    <template v-for={i in 4} key={i}>
+      <div>{i}</div>
+    </template>
   </>
 ))
 </script>
