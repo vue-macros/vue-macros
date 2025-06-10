@@ -2,7 +2,9 @@
 
 exports[`fixtures > tests/fixtures/johnson-edition/basic.vue 1`] = `
 "// basic.js
-var basic = \`<script setup lang="ts">
+var basic = \`<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
+<script setup lang="ts">
 const __MACROS_props = defineProps({
   qux: { type: String },
   foo: { type: String, default: 'foo' },
@@ -15,8 +17,7 @@ const __MACROS_props = defineProps({
 
 import { toRef as __MACROS_toRef } from "vue";
 import { expectTypeOf } from 'expect-type'
-import type { ComputedRef } from 'vue'
-import { defineProp } from '../../../macros-johnson'
+import { type ComputedRef } from 'vue'
 
 // defineProp()
 const qux = __MACROS_toRef(__props, "qux")
@@ -72,7 +73,6 @@ import { toRef as __MACROS_toRef } from "vue";
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
 import type { Qux } from '../types'
-import { defineProp } from '../../../macros'
 
 // defineProp(prop_name)
 const foo = __MACROS_toRef(__props, "foo")
