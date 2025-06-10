@@ -1,7 +1,8 @@
+<!-- @experimentalDefinePropProposal "johnsonEdition" -->
+
 <script setup lang="ts">
 import { expectTypeOf } from 'expect-type'
-import type { ComputedRef } from 'vue'
-import { defineProp } from '../../../macros-johnson'
+import { type ComputedRef } from 'vue'
 
 // defineProp()
 const qux = defineProp<string>()

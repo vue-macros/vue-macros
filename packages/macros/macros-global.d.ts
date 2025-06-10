@@ -1,4 +1,3 @@
-/// <reference types="@vue-macros/define-prop/macros-global" />
 /// <reference types="@vue-macros/define-emit/macros-global" />
 /// <reference types="@vue-macros/define-models/macros-global" />
 /// <reference types="unplugin-vue-define-options/macros-global" />
