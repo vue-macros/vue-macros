@@ -62,7 +62,7 @@ defineRender(() => (
       <template v-slot:fallback>
         <div>Loading...</div>
       </template>
-    </Suspense> 
+    </Suspense>
   </div>
 ))
 </script>
