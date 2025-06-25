@@ -26,7 +26,7 @@ export function transformVMemo(
       String(parent?.type),
     )
 
-    s.appendLeft(
+    s.appendRight(
       node.start!,
       `${hasScope ? '{' : ''}${withMemo}(${
         attribute.value
@@ -51,7 +51,7 @@ export function transformVMemo(
       index += ` + ${vForIndex} + 1`
     }
 
-    s.prependRight(node.end!, `, ${cache}, ${index})${hasScope ? '}' : ''}`)
+    s.prependLeft(node.end!, `, ${cache}, ${index})${hasScope ? '}' : ''}`)
 
     s.remove(attribute.start! - 1, attribute.end!)
   })
