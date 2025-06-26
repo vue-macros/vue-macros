@@ -158,7 +158,7 @@ console.log(x, y)
 Compiled output:
 
 ```js twoslash
-import { ref } from 'vue'
+import { ref, toRef } from 'vue'
 function useMouse() {
   return {
     x: ref(0),
