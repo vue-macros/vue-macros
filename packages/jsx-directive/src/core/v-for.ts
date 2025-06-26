@@ -5,13 +5,14 @@ import {
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
 import type { JsxDirective } from '.'
+import type { Node } from '@babel/types'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
   s: MagicStringAST,
   { lib }: OptionsResolved,
   vMemoAttribute?: JsxDirective['attribute'],
-): string {
+): (string | Node)[] {
   if (attribute.value) {
     let item, index, objectIndex, list
     if (
@@ -20,14 +21,14 @@ export function resolveVFor(
     ) {
       if (attribute.value.expression.left.type === 'SequenceExpression') {
         const expressions = attribute.value.expression.left.expressions
-        item = expressions[0] ? s.sliceNode(expressions[0]) : ''
-        index = expressions[1] ? s.sliceNode(expressions[1]) : ''
-        objectIndex = expressions[2] ? s.sliceNode(expressions[2]) : ''
+        item = expressions[0] ? expressions[0] : ''
+        index = expressions[1] ? expressions[1] : ''
+        objectIndex = expressions[2] ? expressions[2] : ''
       } else {
-        item = s.sliceNode(attribute.value.expression.left)
+        item = attribute.value.expression.left
       }
 
-      list = s.sliceNode(attribute.value.expression.right)
+      list = attribute.value.expression.right
     }
 
     if (item && list) {
@@ -35,9 +36,6 @@ export function resolveVFor(
         index ??= `${HELPER_PREFIX}index`
       }
 
-      const params = `(${item}${
-        index ? `, ${index}` : ''
-      }${objectIndex ? `, ${objectIndex}` : ''})`
       const renderList = importHelperFn(
         s,
         0,
@@ -45,11 +43,14 @@ export function resolveVFor(
         undefined,
         lib.startsWith('vue') ? 'vue' : '@vue-macros/jsx-directive/helpers',
       )
-      return `${renderList}(${list}, ${params} => `
+      const params = [item, index, objectIndex].flatMap((param, index) =>
+        param ? (index ? [', ', param] : param) : [],
+      )
+      return [renderList, '(', list, ', (', ...params, ') => ']
     }
   }
 
-  return ''
+  return []
 }
 
 export function transformVFor(
@@ -63,15 +64,18 @@ export function transformVFor(
     const hasScope = ['JSXElement', 'JSXFragment'].includes(
       String(parent?.type),
     )
-    s.prependRight(
+    s.replaceRange(
+      node.start!,
+      node.start!,
+      hasScope ? (vIfAttribute ? '' : '{') : '<>{',
+      ...resolveVFor(attribute, s, options, vMemoAttribute),
+    )
+    s.prependLeft(
       node.end!,
       `)${hasScope ? (vIfAttribute ? '' : '}') : '}</>'}`,
     )
-    s.appendLeft(
-      node.start!,
-      `${hasScope ? (vIfAttribute ? '' : '{') : '<>{'}${resolveVFor(attribute, s, options, vMemoAttribute)}`,
-    )
-    s.remove(attribute.start! - 1, attribute.end!)
+
+    s.replaceRange(attribute.start! - 1, attribute.end!)
 
     const isTemplate =
       node.type === 'JSXElement' &&

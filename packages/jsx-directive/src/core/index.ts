@@ -15,7 +15,7 @@ import { transformVIf } from './v-if'
 import { transformVMemo } from './v-memo'
 import { transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
-import { transformVSlot, type VSlotMap } from './v-slot'
+import { isSlotTemplate, transformVSlot, type VSlotMap } from './v-slot'
 import type { JSXAttribute, JSXElement, Node, Program } from '@babel/types'
 
 export type JsxDirective = {
@@ -194,8 +194,7 @@ function transform(
           if (attributeMap.get(null)) return
           for (const child of parent.children) {
             if (
-              (child.type === 'JSXElement' &&
-                s.sliceNode(child.openingElement.name) === 'template') ||
+              isSlotTemplate(child, options) ||
               (child.type === 'JSXText' && !s.sliceNode(child).trim())
             )
               continue
@@ -211,11 +210,11 @@ function transform(
     },
   })
 
+  transformVSlot(vSlotMap, s, options)
   vIfMap.forEach((nodes) => transformVIf(nodes, s, options))
   transformVFor(vForNodes, s, options)
   if (!version || version >= 3.2) transformVMemo(vMemoNodes, s, options)
   transformVHtml(vHtmlNodes, s)
   transformVOn(vOnNodes, s)
   transformOnWithModifiers(onWithModifiers, s, options)
-  transformVSlot(vSlotMap, s, options)
 }
