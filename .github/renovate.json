@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>sxzz/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["vue"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": ["typescript"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
+    },
+    {
+      "groupName": "volarjs",
+      "groupSlug": "volar-related",
+      "matchPackageNames": ["vue-tsc", "@vue/language-core", "@volar{/,}**"],
+      "rangeStrategy": "replace",
+      "matchDepTypes": ["peerDependencies", "devDependencies", "dependencies"]
+    }
+  ],
+  "ignoreDeps": []
+}
