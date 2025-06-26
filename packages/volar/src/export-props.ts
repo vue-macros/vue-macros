@@ -7,9 +7,9 @@ function transform(options: {
   codes: Code[]
   sfc: Sfc
   ts: typeof import('typescript')
-  vueLibName: string
+  version: number
 }) {
-  const { codes, sfc, ts, vueLibName } = options
+  const { codes, sfc, ts, version } = options
 
   const props: Record<string, boolean> = Object.create(null)
   let changed = false
@@ -40,7 +40,7 @@ function transform(options: {
       Object.entries(props).map(
         ([prop, optional]) => `${prop}${optional ? '?' : ''}: typeof ${prop}`,
       ),
-      vueLibName,
+      version,
     )
   }
 }
@@ -49,6 +49,9 @@ const plugin: VueMacrosPlugin<'exportProps'> = (ctx, options = {}) => {
   if (!options) return []
 
   const filter = createFilter(options)
+  const {
+    vueCompilerOptions: { target },
+  } = ctx
 
   return {
     name: 'vue-macros-export-props',
@@ -59,7 +62,7 @@ const plugin: VueMacrosPlugin<'exportProps'> = (ctx, options = {}) => {
       transform({
         codes: embeddedFile.content,
         sfc,
-        vueLibName: ctx.vueCompilerOptions.lib,
+        version: target,
         ts: ctx.modules.typescript,
       })
     },

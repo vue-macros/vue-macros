@@ -1,6 +1,6 @@
+import { isHTMLTag, isSVGTag } from '@vue/shared'
 import { replaceSourceRange } from 'muggle-string'
 import { addCode, getText, isJsxExpression } from '../common'
-import { isNativeFormElement } from './v-model'
 import {
   getOpeningElement,
   getTagName,
@@ -105,8 +105,9 @@ export function transformCtx(
   }
 
   const ctxName = `__VLS_ctx_${refValue || index}`
-  let tagName = getTagName(node, options)
-  if (isNativeFormElement(tagName)) {
+  let tagName = ''
+  const originTagName = (tagName = getTagName(node, options))
+  if (isHTMLTag(tagName) || isSVGTag(tagName) || tagName.includes('-')) {
     tagName = `{}`
   } else {
     let types = ''
@@ -117,7 +118,7 @@ export function transformCtx(
       tagName += types
     }
   }
-  const result = `\nconst ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}), '${tagName}');\n`
+  const result = `\nconst ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}), '${originTagName}');\n`
   if (root) {
     replaceSourceRange(
       codes,

@@ -20,5 +20,5 @@ export function resolvePlugin(
   options: FeatureOptions | false,
 ): Plugin | Plugin[] | undefined {
   if (!options) return
-  return unplugin[framework!](options)
+  return unplugin[framework](options)
 }

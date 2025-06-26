@@ -318,7 +318,9 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 	setup(__props, { expose: __expose }) {
 		__expose();
 		const foo = ref("msg");
+		// prettier-ignore
 		const bar = foo.value;
+		// prettier-ignore
 		const baz = bar;
 		const __returned__ = {
 			foo,

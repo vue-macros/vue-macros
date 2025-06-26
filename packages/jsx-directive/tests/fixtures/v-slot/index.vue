@@ -25,7 +25,7 @@ defineRender(() => (
   <div>
     <Child v-slot:bottom={{ foo }}>
       {foo}
-      <Child v-slot>default</Child>
+      <Child v-slot:$baz$>default</Child>
     </Child>
 
     <Comp v-slot>default</Comp>

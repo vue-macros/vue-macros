@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/api",
-  "version": "3.0.0-beta.7",
+  "version": "3.0.0-beta.14",
   "description": "General API for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -27,8 +27,8 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -45,10 +45,7 @@
     },
     "tag": "next"
   },
-  "scripts": {
-    "build": "tsup",
-    "dev": "DEV=true tsup"
-  },
+  "scripts": {},
   "dependencies": {
     "@vue-macros/common": "workspace:*",
     "neverthrow": "catalog:",

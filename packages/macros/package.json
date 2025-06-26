@@ -1,6 +1,6 @@
 {
   "name": "vue-macros",
-  "version": "3.0.0-beta.7",
+  "version": "3.0.0-beta.14",
   "description": "Explore more macros and syntax sugar to Vue.",
   "type": "module",
   "keywords": [
@@ -27,12 +27,11 @@
   "funding": "https://github.com/sponsors/vue-macros",
   "files": [
     "*.d.ts",
-    "dist",
-    "volar.cjs"
+    "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
@@ -64,8 +63,7 @@
     },
     "./volar": {
       "dev": "./src/volar.ts",
-      "types": "./volar.d.ts",
-      "default": "./volar.cjs"
+      "default": "./dist/volar.js"
     },
     "./webpack": {
       "dev": "./src/webpack.ts",
@@ -94,10 +92,7 @@
       "./rspack": "./dist/rspack.js",
       "./runtime": "./dist/runtime.js",
       "./vite": "./dist/vite.js",
-      "./volar": {
-        "types": "./volar.d.ts",
-        "default": "./volar.cjs"
-      },
+      "./volar": "./dist/volar.js",
       "./webpack": "./dist/webpack.js",
       "./*": [
         "./*",
@@ -106,10 +101,7 @@
     },
     "tag": "next"
   },
-  "scripts": {
-    "build": "tsup",
-    "dev": "DEV=true tsup"
-  },
+  "scripts": {},
   "peerDependencies": {
     "vue": "^2.7.0 || ^3.2.25"
   },

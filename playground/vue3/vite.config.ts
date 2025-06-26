@@ -26,6 +26,6 @@ export default defineConfig({
     Inspect({
       build: true,
     }),
-    styleX(),
+    styleX() as any,
   ],
 })

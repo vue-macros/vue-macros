@@ -15,11 +15,10 @@ export const REGEX_DEFINE_COMPONENT: RegExp =
 export function addProps(
   codes: Code[],
   decl: Code[],
-  vueLibName: string,
+  version: number,
 ): true | undefined {
   const codeString = codes.toString()
-  if (!decl.length || codeString.includes('{} as __VLS_TypePropsToOption<'))
-    return
+  if (!decl.length) return
 
   replace(
     codes,
@@ -27,50 +26,84 @@ export function addProps(
     `{\n${decl.join(',\n')}\n} & `,
   )
 
-  replaceAll(
-    codes,
-    REGEX_DEFINE_COMPONENT,
-    'props: {} as __VLS_TypePropsToOption<__VLS_PublicProps>,\n',
-  )
-  if (!codeString.includes('type __VLS_NonUndefinedable')) {
-    codes.push(
-      `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
-      `type __VLS_TypePropsToOption<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('${vueLibName}').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('${vueLibName}').PropType<T[K]>, required: true } };\n`,
+  if (
+    !codeString.includes(
+      version >= 3.5
+        ? '__typeProps: '
+        : 'props: ,{} as __VLS_TypePropsToOption',
     )
+  ) {
+    replaceAll(
+      codes,
+      REGEX_DEFINE_COMPONENT,
+      version >= 3.5
+        ? '__typeProps: {} as __VLS_PublicProps,\n'
+        : 'props: {} as __VLS_TypePropsToOption<__VLS_PublicProps>,\n',
+    )
+
+    if (version < 3.5 && !codeString.includes('type __VLS_NonUndefinedable')) {
+      codes.push(
+        `type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;\n`,
+        `type __VLS_TypePropsToOption<T> = { [K in keyof T]-?: {} extends Pick<T, K> ? { type: import('vue').PropType<__VLS_NonUndefinedable<T[K]>> } : { type: import('vue').PropType<T[K]>, required: true } };\n`,
+      )
+    }
   }
+
   return true
 }
 
 export function addEmits(
   codes: Code[],
   decl: Code[],
-  vueLibName: string,
+  version: number,
 ): true | undefined {
-  if (!decl.length || codes.toString().includes('{} as __VLS_NormalizeEmits<'))
-    return
+  const codeString = codes.toString()
+  if (!decl.length) return
 
-  let index = codes.findIndex((code) =>
-    code.toString().startsWith('const __VLS_modelEmitsType = '),
+  const index = codes.findIndex((code) =>
+    code.toString().startsWith('type __VLS_Emit = '),
   )
-  if (index < 0) {
-    index = codes.findIndex((code) =>
+  const result = decl.join(',\n')
+  const modelIndex = codes.findIndex((code) =>
+    code.toString().includes('type __VLS_ModelEmit = '),
+  )
+  if (modelIndex !== -1) {
+    codes.splice(modelIndex + 1, 0, ` ${result} , `)
+  }
+  if (index === -1) {
+    const propsIndex = codes.findIndex((code) =>
       code.toString().includes('type __VLS_PublicProps = '),
     )
     codes.splice(
-      index,
+      propsIndex,
       0,
-      `const __VLS_modelEmitsType = (await import('${vueLibName}')).defineEmits<{\n${decl.join(',\n')}\n}>();\n`,
-      `type __VLS_ModelEmitsType = typeof __VLS_modelEmitsType;\n`,
+      ...(version < 3.5
+        ? [
+            `const __VLS_emit = (await import('vue')).defineEmits<{\n${result}\n}>();\n`,
+            `type __VLS_Emit = typeof __VLS_emit;;\n`,
+          ]
+        : [`type __VLS_Emit = {\n${result}\n};\n`]),
     )
-  } else {
-    codes.splice(index + 4, 0, `${decl.join(',\n')}\n`)
+  } else if (modelIndex === -1) {
+    codes.splice(index + 2, 0, ` & {\n${result}}\n`)
   }
 
-  replaceAll(
-    codes,
-    REGEX_DEFINE_COMPONENT,
-    'emits: {} as __VLS_NormalizeEmits<__VLS_ModelEmitsType>,\n',
-  )
+  if (version >= 3.5) {
+    if (!codeString.includes('__typeEmits: {} as ')) {
+      replaceAll(
+        codes,
+        REGEX_DEFINE_COMPONENT,
+        '__typeEmits: {} as __VLS_Emit,\n',
+      )
+    }
+  } else if (!codeString.includes('{} as __VLS_NormalizeEmits<typeof __VLS')) {
+    replaceAll(
+      codes,
+      REGEX_DEFINE_COMPONENT,
+      'emits: {} as __VLS_NormalizeEmits<__VLS_Emit>,\n',
+    )
+  }
+
   return true
 }
 

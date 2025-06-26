@@ -7,7 +7,9 @@ const set = new Set(['1', '2', '3'])
 const object = { id: 1, name: 'admin' }
 let selected = 0
 
-const Comp = <div v-for={i in 4}>{i}</div>
+const Comp = () => {
+  return <div v-for={i in 4}>{i}</div>
+}
 
 defineRender(() => (
   <>

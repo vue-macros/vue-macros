@@ -44,10 +44,10 @@ function render(...args) {
 			"hello",
 			-1
 			/* HOISTED */
-)), (openBlock(), createBlock(Fragment, null, [block0.render(...args)]))],
+		)), (openBlock(), createBlock(Fragment, null, [block0.render(...args)]))],
 		64
 		/* STABLE_FRAGMENT */
-);
+	);
 }
 
 if (typeof block0 === "function") block0(_sfc_main);
@@ -66,6 +66,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "dash-name",
 	setup(__props, { expose: __expose }) {
 		__expose();
+		// https://github.com/vue-macros/vue-macros/issues/261
 		const __returned__ = {};
 		Object.defineProperty(__returned__, "__isScriptSetup", {
 			enumerable: false,
@@ -146,12 +147,12 @@ function render(...args) {
 				"Here is data table",
 				-1
 				/* HOISTED */
-)),
+			)),
 			$setup.pager === "bottom" ? (openBlock(), createBlock(Fragment, { key: 1 }, [block0.render(...args)])) : createCommentVNode("v-if", true)
 		],
 		64
 		/* STABLE_FRAGMENT */
-);
+	);
 }
 
 if (typeof block0 === "function") block0(_sfc_main);

@@ -4,13 +4,15 @@
     "tsBuildInfoFile": "dist/test.tsbuildinfo",
     "lib": ["ES2022", "DOM"],
     "types": ["node", "vite/client"],
-    "isolatedDeclarations": false
+    "allowImportingTsExtensions": true,
+    "isolatedDeclarations": false,
+    "noEmit": true
   },
   "include": [
     "packages/*/tests",
     "packages/*/src",
     "**/shim.d.ts",
-    "**/tsup.config.ts",
+    "**/tsdown.config.ts",
     "./vitest-setup.ts"
   ],
   "exclude": [

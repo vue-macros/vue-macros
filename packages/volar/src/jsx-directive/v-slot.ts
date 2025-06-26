@@ -91,17 +91,19 @@ export function transformVSlot(
               ]
             : 'default',
           `: (`,
-          (!isNamespace || attributeName) &&
-            isJsxExpression(attribute.initializer) &&
-            attribute.initializer.expression
-            ? ([
-                getText(attribute.initializer.expression, options),
-                source,
-                getStart(attribute.initializer.expression, options),
-                allCodeFeatures,
-              ] as Code)
-            : '',
-          isDynamic ? ': any' : '',
+          ...((!isNamespace || attributeName) &&
+          isJsxExpression(attribute.initializer) &&
+          attribute.initializer.expression
+            ? [
+                [
+                  getText(attribute.initializer.expression, options),
+                  source,
+                  getStart(attribute.initializer.expression, options),
+                  allCodeFeatures,
+                ] as Code,
+                isDynamic ? ': any' : '',
+              ]
+            : []),
           ') => <>',
           ...children.map((child) => {
             replaceSourceRange(codes, source, child.pos, child.end)

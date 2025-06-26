@@ -4,6 +4,7 @@ export default defineConfig({
   booleanProp: true,
   defineEmit: true,
   defineGeneric: true,
+  defineModels: true,
   defineOptions: true,
   defineProp: true,
   defineSlots: true,

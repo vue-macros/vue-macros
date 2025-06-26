@@ -21,7 +21,7 @@ export const Devtools = ({ nuxtContext }: Options = {}): Plugin => {
       if (import.meta.DEV) {
         const { createServer } = await import('vite')
         const subServer = await createServer({
-          root: resolve(__dirname, '../src/client'),
+          root: resolve(import.meta.dirname, '../src/client'),
           server: {
             hmr: {
               port: await getPort(),
@@ -33,7 +33,7 @@ export const Devtools = ({ nuxtContext }: Options = {}): Plugin => {
       } else {
         server.middlewares.use(
           DEV_SERVER_PATH,
-          sirv(resolve(__dirname, 'client'), {
+          sirv(resolve(import.meta.dirname, 'client'), {
             single: true,
             dev: true,
           }),

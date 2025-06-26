@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/eslint-config",
-  "version": "3.0.0-beta.7",
+  "version": "3.0.0-beta.14",
   "description": "eslintConfig feature from Vue Macros.",
   "type": "module",
   "keywords": [
@@ -27,8 +27,9 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
@@ -44,10 +45,7 @@
     },
     "tag": "next"
   },
-  "scripts": {
-    "build": "tsup",
-    "dev": "DEV=true tsup"
-  },
+  "scripts": {},
   "peerDependencies": {
     "eslint": ">=9.0.0"
   },

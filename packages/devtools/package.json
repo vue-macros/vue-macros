@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/devtools",
-  "version": "3.0.0-beta.7",
+  "version": "3.0.0-beta.14",
   "description": "Devtools plugin for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -27,9 +27,9 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "dev": "./src/index.ts",
@@ -46,8 +46,7 @@
     "tag": "next"
   },
   "scripts": {
-    "build": "tsup && vite build ./src/client",
-    "dev": "DEV=true tsup",
+    "build": "vite build ./src/client",
     "client:dev": "vite ./src/client"
   },
   "peerDependencies": {

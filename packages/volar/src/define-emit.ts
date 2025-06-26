@@ -55,6 +55,9 @@ const plugin: VueMacrosPlugin<'defineEmit'> = (ctx, options = {}) => {
   if (!options) return []
 
   const filter = createFilter(options)
+  const {
+    vueCompilerOptions: { target },
+  } = ctx
 
   return {
     name: 'vue-macros-define-emit',
@@ -73,7 +76,7 @@ const plugin: VueMacrosPlugin<'defineEmit'> = (ctx, options = {}) => {
       })
       if (!emitStrings.length) return
 
-      addEmits(embeddedFile.content, emitStrings, ctx.vueCompilerOptions.lib)
+      addEmits(embeddedFile.content, emitStrings, target)
     },
   }
 }
