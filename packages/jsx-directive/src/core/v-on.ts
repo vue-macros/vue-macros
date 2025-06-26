@@ -3,7 +3,6 @@ import {
   importHelperFn,
   type MagicStringAST,
 } from '@vue-macros/common'
-import { replaceRange } from './utils'
 import type { OptionsResolved } from './plugin'
 import type { JsxDirective } from '.'
 
@@ -16,8 +15,7 @@ export function transformVOn(nodes: JsxDirective[], s: MagicStringAST): void {
 
   nodes.forEach(({ attribute }) => {
     if (attribute.value?.type === 'JSXExpressionContainer') {
-      replaceRange(
-        s,
+      s.replaceRange(
         attribute.start!,
         attribute.end!,
         `{...${HELPER_PREFIX}transformVOn(`,
@@ -71,7 +69,7 @@ export function transformOnWithModifiers(
       )
     }
 
-    replaceRange(s, attribute.name.start! + name.length, attribute.name.end!)
+    s.replaceRange(attribute.name.start! + name.length, attribute.name.end!)
   })
 }
 

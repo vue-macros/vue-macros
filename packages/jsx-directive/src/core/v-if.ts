@@ -1,5 +1,4 @@
 import type { OptionsResolved } from '..'
-import { replaceRange } from './utils'
 import type { JsxDirective } from '.'
 import type { MagicStringAST } from '@vue-macros/common'
 
@@ -20,8 +19,7 @@ export function transformVIf(
       ) &&
       attribute.value?.type === 'JSXExpressionContainer'
     ) {
-      replaceRange(
-        s,
+      s.replaceRange(
         node.start!,
         node.start!,
         hasScope ? '' : '<>{',
@@ -31,8 +29,7 @@ export function transformVIf(
         ') ? ',
       )
 
-      replaceRange(
-        s,
+      s.replaceRange(
         node.end!,
         node.end!,
         String(nodes[index + 1]?.attribute.name.name).startsWith(
@@ -45,7 +42,7 @@ export function transformVIf(
       s.appendRight(node.end!, hasScope ? '}' : '')
     }
 
-    replaceRange(s, attribute.start! - 1, attribute.end!)
+    s.replaceRange(attribute.start! - 1, attribute.end!)
 
     const isTemplate =
       node.type === 'JSXElement' &&

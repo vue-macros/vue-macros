@@ -1,4 +1,3 @@
-import { replaceRange } from './utils'
 import type { JSXAttribute } from '@babel/types'
 import type { MagicStringAST } from '@vue-macros/common'
 
@@ -22,8 +21,7 @@ export function transformVModel(
           .map((key) => `${key}: true`)
           .join(', ')} }`
       : ''
-    replaceRange(
-      s,
+    s.replaceRange(
       attribute.start!,
       attribute.end!,
       `{...{[${argument}]: `,

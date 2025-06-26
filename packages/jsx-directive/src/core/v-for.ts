@@ -4,7 +4,6 @@ import {
   type MagicStringAST,
 } from '@vue-macros/common'
 import type { OptionsResolved } from '..'
-import { replaceRange } from './utils'
 import type { JsxDirective } from '.'
 import type { Node } from '@babel/types'
 
@@ -65,8 +64,7 @@ export function transformVFor(
     const hasScope = ['JSXElement', 'JSXFragment'].includes(
       String(parent?.type),
     )
-    replaceRange(
-      s,
+    s.replaceRange(
       node.start!,
       node.start!,
       hasScope ? (vIfAttribute ? '' : '{') : '<>{',
@@ -77,7 +75,7 @@ export function transformVFor(
       `)${hasScope ? (vIfAttribute ? '' : '}') : '}</>'}`,
     )
 
-    replaceRange(s, attribute.start! - 1, attribute.end!)
+    s.replaceRange(attribute.start! - 1, attribute.end!)
 
     const isTemplate =
       node.type === 'JSXElement' &&

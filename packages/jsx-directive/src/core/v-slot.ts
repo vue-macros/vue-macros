@@ -1,5 +1,4 @@
 import type { OptionsResolved } from '..'
-import { replaceRange } from './utils'
 import { resolveVFor } from './v-for'
 import type { JSXAttribute, JSXElement, Node } from '@babel/types'
 import type { MagicStringAST } from '@vue-macros/common'
@@ -144,10 +143,9 @@ export function transformVSlot(
     }
 
     if (vSlotAttribute) {
-      replaceRange(s, vSlotAttribute.start!, vSlotAttribute.end!, ...result)
+      s.replaceRange(vSlotAttribute.start!, vSlotAttribute.end!, ...result)
     } else if (node?.type === 'JSXElement') {
-      replaceRange(
-        s,
+      s.replaceRange(
         node.openingElement.end! - 1,
         node.openingElement.end!,
         ...result,
@@ -158,6 +156,6 @@ export function transformVSlot(
       )
     }
 
-    removeNodes.forEach((node) => replaceRange(s, node.start!, node.end!))
+    removeNodes.forEach((node) => s.replaceRange(node.start!, node.end!))
   })
 }
