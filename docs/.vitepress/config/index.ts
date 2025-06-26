@@ -49,6 +49,7 @@ export default defineConfig({
     hostname: docsLink,
   },
   markdown: {
+    languages: ['js', 'ts'],
     config(md) {
       md.use(groupIconMdPlugin)
     },
