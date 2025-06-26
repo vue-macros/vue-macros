@@ -148,8 +148,8 @@ catalogs:
       specifier: ^0.30.17
       version: 0.30.17
     magic-string-ast:
-      specifier: ^0.9.1
-      version: 0.9.1
+      specifier: ^1.0.0
+      version: 1.0.0
     monoman:
       specifier: ^0.7.1
       version: 0.7.1
@@ -569,7 +569,7 @@ importers:
         version: 1.1.1
       magic-string-ast:
         specifier: 'catalog:'
-        version: 0.9.1
+        version: 1.0.0
       unplugin-utils:
         specifier: 'catalog:'
         version: 0.2.4
@@ -3199,6 +3199,7 @@ packages:
 
   '@stylexjs/shared@0.9.3':
     resolution: {integrity: sha512-0gtKFjZxAvDdUdoZTuvukovboD3K12BxkswKHHBRvzfcrM0rQXGMXoHS1gLRMQJ9kllJaa/I3sclbeWKyELm6Q==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@stylexjs/stylex@0.12.0':
     resolution: {integrity: sha512-gvazVsoTNRTnXldvmV/IIa1bB6UStoWMmRpoH/O+/f05IWnq5xES5foWxaPKm0uZD1vQ2Ue5e820lwT5+YqnrQ==}
@@ -5620,6 +5621,10 @@ packages:
 
   magic-string-ast@0.9.1:
     resolution: {integrity: sha512-18dv2ZlSSgJ/jDWlZGKfnDJx56ilNlYq9F7NnwuWTErsmYmqJ2TWE4l1o2zlUHBYUGBy3tIhPCC1gxq8M5HkMA==}
+    engines: {node: '>=20.18.0'}
+
+  magic-string-ast@1.0.0:
+    resolution: {integrity: sha512-8rbuNizut2gW94kv7pqgt0dvk+AHLPVIm0iJtpSgQJ9dx21eWx5SBel8z3jp1xtC0j6/iyK3AWGhAR1H61s7LA==}
     engines: {node: '>=20.18.0'}
 
   magic-string@0.30.17:
@@ -12634,6 +12639,10 @@ snapshots:
       magic-string: 0.30.17
 
   magic-string-ast@0.9.1:
+    dependencies:
+      magic-string: 0.30.17
+
+  magic-string-ast@1.0.0:
     dependencies:
       magic-string: 0.30.17
 
