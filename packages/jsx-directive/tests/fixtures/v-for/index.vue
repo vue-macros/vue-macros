@@ -39,6 +39,11 @@ defineRender(() => (
         {key}: {value}
       </div>
     </div>
+
+    <div v-if={true}></div>
+    <template v-else v-for={(item, index) in 4}>
+      {index}
+    </template>
   </>
 ))
 </script>

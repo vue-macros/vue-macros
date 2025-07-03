@@ -1,8 +1,8 @@
 {
   "name": "monorepo-vue-macros",
-  "version": "3.0.0-beta.14",
+  "version": "3.0.0-beta.15",
   "private": true,
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@10.12.3",
   "description": "Monorepo for Vue Macros.",
   "type": "module",
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
@@ -89,11 +89,13 @@
     "@shikijs/transformers": "catalog:",
     "@shikijs/types": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
+    "@vitejs/plugin-vue-jsx": "catalog:",
     "@vue/language-core": "catalog:",
     "is-core-module": "npm:@no-shims/is-core-module",
     "oxc-parser": "catalog:",
     "shiki": "catalog:",
-    "smartwrap": "npm:@no-shims/smartwrap"
+    "smartwrap": "npm:@no-shims/smartwrap",
+    "vite": "catalog:"
   },
   "prettier": "@sxzz/prettier-config"
 }

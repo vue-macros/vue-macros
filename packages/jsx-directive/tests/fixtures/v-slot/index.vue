@@ -2,6 +2,7 @@
 import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
+import { Suspense } from 'vue'
 
 const Comp: FunctionalComponent<
   {},
@@ -38,6 +39,9 @@ defineRender(() => (
     <Child>
       <template v-if={show} v-slot:bottom={{ foo }}>
         {foo}
+        <Child v-if={show} v-slot:bottom={props}>
+          {props.foo + foo}
+        </Child>
       </template>
     </Child>
 
@@ -53,6 +57,12 @@ defineRender(() => (
       <template v-else v-slot:bottom />
       <template v-slot:bot-tom>bot-tom</template>
     </Child>
+
+    <Suspense v-if={show}>
+      <template v-slot:fallback>
+        <div>Loading...</div>
+      </template>
+    </Suspense>
   </div>
 ))
 </script>

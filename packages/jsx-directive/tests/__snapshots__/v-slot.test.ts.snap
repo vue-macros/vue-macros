@@ -6,6 +6,7 @@ import { renderList as __MACROS_renderList } from "vue";
 import { expectTypeOf } from 'expect-type'
 import Child from './child.vue'
 import type { FunctionalComponent } from 'vue'
+import { Suspense } from 'vue'
 
 const Comp: FunctionalComponent<
   {},
@@ -41,6 +42,9 @@ defineRender(() => (
 
     <Child v-slots={{...(show) ? {'bottom': ({ foo }) => <>
         {foo}
+        {(show) ? <Child  v-slots={{'bottom': (props) => <>
+          {props.foo + foo}
+        </>,$stable: true,}}></Child> : null}
       </>,} : null,}}
       
     ></Child>
@@ -50,13 +54,19 @@ defineRender(() => (
         {show}
       </>,} : (show === false) ? {'center': ({ foo }) => <>
         {foo}
-      </>,} : {'bottom': () => <> </>,},'bot-tom': () => <>bot-tom</>,default: () => <>
+      </>,} : {'bottom': () => <></>,},'bot-tom': () => <>bot-tom</>,default: () => <>
       default
       
       
       
       
     </>}}></Child>
+
+    {(show) ? <Suspense v-slots={{'fallback': () => <>
+        <div>Loading...</div>
+      </>,$stable: true,}}
+      
+    ></Suspense> : null}
   </div>
 ))
 </script>
