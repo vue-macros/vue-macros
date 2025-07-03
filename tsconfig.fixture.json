@@ -26,5 +26,9 @@
         "include": ["**/script-lang/**"]
       }
     }
-  }
+  },
+  "references": [
+    { "path": "./packages/define-prop/tests/fixtures/johnson-edition/tsconfig.json" }
+  ],
+  "exclude": ["./packages/define-prop/tests/fixtures/johnson-edition"]
 }
