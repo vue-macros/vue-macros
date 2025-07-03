@@ -168,7 +168,7 @@ const bar = $(defineProp(0, true))
     "vueMacros": {
       "defineProp": {
         // "kevinEdition" | "johnsonEdition"
-        "edition": "kevinEdition"
+        "edition": "kevinEdition",
       },
     },
   },
