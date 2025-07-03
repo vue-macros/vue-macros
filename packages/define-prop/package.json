@@ -26,7 +26,6 @@
   "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
   "funding": "https://github.com/sponsors/vue-macros",
   "files": [
-    "*.d.ts",
     "dist"
   ],
   "main": "./dist/index.js",
@@ -65,10 +64,7 @@
       "dev": "./src/webpack.ts",
       "default": "./dist/webpack.js"
     },
-    "./*": [
-      "./*",
-      "./*.d.ts"
-    ]
+    "./*": "./*"
   },
   "typesVersions": {
     "*": {
@@ -89,10 +85,7 @@
       "./rspack": "./dist/rspack.js",
       "./vite": "./dist/vite.js",
       "./webpack": "./dist/webpack.js",
-      "./*": [
-        "./*",
-        "./*.d.ts"
-      ]
+      "./*": "./*"
     },
     "tag": "next"
   },

@@ -24,7 +24,7 @@ function transformDefineProp({
   codes: Code[]
   defineProps: DefineProp[]
   version: number
-  edition: 'kevinEdition' | 'johnsonEdition'
+  edition: string
 }) {
   addProps(
     codes,
@@ -50,6 +50,17 @@ function transformDefineProp({
 
   if (edition === 'kevinEdition') {
     codes.push(`
+type __VLS_PropOptions<T> = Exclude<import('vue').Prop<T>, import('vue').PropType<T>>;
+declare function defineProp<T>(
+  name: string,
+  options: 
+    | ({ default: T } & __VLS_PropOptions<T>)
+    | ({ required: true } & __VLS_PropOptions<T>)
+): import('vue').ComputedRef<T>;
+declare function defineProp<T>(
+  name?: string,
+  options?: __VLS_PropOptions<T>
+): import('vue').ComputedRef<T | undefined>;
 declare function $defineProp<T>(
   name: string,
   options: 
@@ -73,6 +84,21 @@ type __VLS_PropOptions<T> = Omit<
   >,
   'required'
 >;
+declare function defineProp<T>(
+  value: T | (() => T) | undefined,
+  required: true,
+  options?: __VLS_PropOptions<T>
+): import('vue').ComputedRef<T>;
+declare function defineProp<T>(
+  value: T | (() => T),
+  required?: boolean,
+  options?: __VLS_PropOptions<T>
+): import('vue').ComputedRef<T>;
+declare function defineProp<T>(
+  value?: T | (() => T),
+  required?: boolean,
+  options?: __VLS_PropOptions<T>
+): | import('vue').ComputedRef<T | undefined>;
 declare function $defineProp<T>(
   value: T | (() => T) | undefined,
   required: true,
@@ -96,7 +122,7 @@ declare function $defineProp<T>(
 function getDefineProp(
   ts: typeof import('typescript'),
   sfc: Sfc,
-  edition: 'kevinEdition' | 'johnsonEdition',
+  edition: string,
 ) {
   const defineProps: DefineProp[] = []
   function visitNode(
@@ -222,7 +248,7 @@ const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
   const filter = createFilter(options)
   const {
     modules: { typescript: ts },
-    vueCompilerOptions: { experimentalDefinePropProposal, target },
+    vueCompilerOptions: { target },
   } = ctx
 
   return {
@@ -236,8 +262,7 @@ const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
       )
         return
 
-      const edition =
-        options.edition || experimentalDefinePropProposal || 'kevinEdition'
+      const edition = options.edition || 'kevinEdition'
       const defineProps = getDefineProp(ts, sfc, edition)
       if (defineProps.length === 0) return
 
