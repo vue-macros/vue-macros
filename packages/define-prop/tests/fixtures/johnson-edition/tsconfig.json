@@ -1,0 +1,10 @@
+{
+  "extends": "../../../../../tsconfig.fixture.json",
+  "vueCompilerOptions": {
+    "vueMacros": {
+      "defineProp": {
+        "edition": "johnsonEdition"
+      }
+    }
+  }
+}

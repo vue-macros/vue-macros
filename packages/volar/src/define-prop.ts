@@ -262,11 +262,7 @@ const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
       )
         return
 
-      const experimentalDefinePropProposal = sfc.content.match(
-        /<!-- @experimentalDefinePropProposal "(kevinEdition|johnsonEdition)" -->/,
-      )
-      const edition =
-        experimentalDefinePropProposal?.[1] || options.edition || 'kevinEdition'
+      const edition = options.edition || 'kevinEdition'
       const defineProps = getDefineProp(ts, sfc, edition)
       if (defineProps.length === 0) return
 
