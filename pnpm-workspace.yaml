@@ -4,14 +4,14 @@ packages:
   - docs
 
 defines:
-  - &babel ^7.27.5
-  - &nolebase ^2.17.2
+  - &babel ^7.28.0
+  - &nolebase ^2.18.0
   - &shiki ^3.7.0
   - &unocss ^66.3.2
   - &vitest ^3.2.4
   - &volar 3.0.1
   - &vue ^3.5.17
-  - &rolldown ^1.0.0-beta.20
+  - &rolldown ^1.0.0-beta.23
 
 catalog:
   '@babel/parser': *babel
@@ -49,30 +49,30 @@ catalog:
   '@astrojs/vue': ^5.1.0
   '@iconify-json/logos': ^1.2.4
   '@iconify-json/ri': ^1.2.5
-  '@nuxt/devtools': ^2.5.0
-  '@nuxt/kit': ^3.17.5
-  '@nuxt/schema': ^3.17.5
+  '@nuxt/devtools': ^2.6.2
+  '@nuxt/kit': ^3.17.6
+  '@nuxt/schema': ^3.17.6
   '@rolldown/pluginutils': *rolldown
   '@rollup/plugin-commonjs': ^28.0.6
   '@rollup/plugin-json': ^6.1.0
   '@rollup/plugin-node-resolve': ^16.0.1
-  '@rspack/core': ^1.4.0
+  '@rspack/core': ^1.4.3
   '@stylexjs/stylex': ^0.12.0
   '@sxzz/eslint-config': ^7.0.4
   '@sxzz/prettier-config': ^2.2.3
   '@sxzz/test-utils': ^0.5.6
-  '@types/node': ^24.0.4
+  '@types/node': ^24.0.10
   '@vitejs/plugin-vue': ^6.0.0
-  '@vitejs/plugin-vue-jsx': ^5.0.0
-  '@vueuse/core': ^13.4.0
-  ast-kit: ^2.1.0
+  '@vitejs/plugin-vue-jsx': ^5.0.1
+  '@vueuse/core': ^13.5.0
+  ast-kit: ^2.1.1
   ast-walker-scope: ^0.8.1
-  astro: ^5.10.1
+  astro: ^5.11.0
   bumpp: ^10.2.0
   change-case: ^5.4.4
   cspell: ^9.1.2
   esbuild: ^0.25.5
-  eslint: ^9.29.0
+  eslint: ^9.30.1
   expect-type: ^1.2.1
   fast-glob: ^3.3.3
   get-port: ^7.1.0
@@ -83,23 +83,23 @@ catalog:
   monoman: ^0.7.1
   muggle-string: ^0.4.1
   neverthrow: ^8.2.0
-  nuxt: ^3.17.5
-  oxc-parser: ^0.75.0
-  oxc-resolver: ^11.3.0
-  oxc-transform: ^0.75.0
-  pkg-types: ^2.1.0
-  prettier: ^3.6.1
+  nuxt: ^3.17.6
+  oxc-parser: ^0.75.1
+  oxc-resolver: ^11.4.0
+  oxc-transform: ^0.75.1
+  pkg-types: ^2.2.0
+  prettier: ^3.6.2
   publint: ^0.3.12
   quansync: ^0.2.10
   quasar: ^2.18.1
   radix-vue: ^1.9.17
   rimraf: ^6.0.1
   rolldown: *rolldown
-  rollup: ^4.44.1
+  rollup: ^4.44.2
   rollup-plugin-dts: ^6.2.1
   sirv: ^3.0.1
   taze: ^19.1.0
-  ts-macro: ^0.1.34
+  ts-macro: ^0.1.35
   tsdown: ^0.12.9
   tsx: ^4.20.3
   type-fest: ^4.41.0
@@ -114,14 +114,14 @@ catalog:
   unplugin-unused: ^0.5.1
   unplugin-utils: ^0.2.4
   unplugin-vue: ^6.2.0
-  vite: ^7.0.0
+  vite: ^7.0.2
   vite-hyper-config: ^0.7.0
-  vite-plugin-inspect: ^11.2.0
+  vite-plugin-inspect: ^11.3.0
   vite-plugin-stylex: ^0.13.0
   vite-plugin-vue-devtools: ^7.7.7
   vitepress: ^2.0.0-alpha.2
-  vitepress-plugin-group-icons: ^1.6.0
-  vitepress-plugin-llms: ^1.5.1
+  vitepress-plugin-group-icons: ^1.6.1
+  vitepress-plugin-llms: ^1.6.0
   webpack: ^5.99.9
 
 peerDependencyRules:
