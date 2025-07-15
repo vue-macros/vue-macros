@@ -5,9 +5,9 @@ import {
   type FeatureName,
   type OptionsResolved,
 } from '@vue-macros/config'
-import { replace, replaceAll } from 'muggle-string'
+import { replace, replaceAll, type Code } from 'ts-macro'
 import type { SFCScriptBlock } from '@vue-macros/common'
-import type { Code, Sfc, VueLanguagePlugin } from '@vue/language-core'
+import type { Sfc, VueLanguagePlugin } from '@vue/language-core'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g

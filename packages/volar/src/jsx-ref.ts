@@ -1,6 +1,5 @@
 import { createFilter } from '@vue-macros/common'
-import { replaceSourceRange } from 'muggle-string'
-import { createPlugin, type Code, type PluginReturn } from 'ts-macro'
+import { createPlugin, type Codes, type PluginReturn } from 'ts-macro'
 import type { OptionsResolved } from '@vue-macros/config'
 
 type RefNode = {
@@ -12,18 +11,15 @@ function transformRef({
   nodes,
   codes,
   ts,
-  source,
 }: {
   nodes: RefNode[]
-  codes: Code[]
+  codes: Codes
   ts: typeof import('typescript')
   source: 'script' | 'scriptSetup' | undefined
 }) {
   for (const { name, initializer } of nodes) {
     if (ts.isCallExpression(initializer)) {
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         initializer.expression.end,
         initializer.expression.end,
         `<Parameters<NonNullable<typeof __VLS_ctx_${name.escapedText}['expose']>>[0] | null>`,

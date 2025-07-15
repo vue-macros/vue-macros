@@ -1,5 +1,3 @@
-import { replaceSourceRange } from 'muggle-string'
-import { allCodeFeatures } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
@@ -8,7 +6,7 @@ export function transformRef(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ): void {
-  const { codes, source, ts } = options
+  const { codes, ts } = options
 
   for (const { node, attribute } of nodes) {
     if (
@@ -18,19 +16,15 @@ export function transformRef(
       (ts.isFunctionExpression(attribute.initializer.expression) ||
         ts.isArrowFunction(attribute.initializer.expression))
     ) {
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         getStart(attribute, options),
         attribute.end,
         '{...({ ',
-        ['ref', source, getStart(attribute.name, options), allCodeFeatures],
+        ['ref', getStart(attribute.name, options)],
         ': ',
         [
           getText(attribute.initializer.expression, options),
-          source,
           getStart(attribute.initializer.expression, options),
-          allCodeFeatures,
         ],
         `} satisfies { ref: (e: Parameters<typeof ${ctxMap.get(node)}.expose>[0]) => any }) as {}}`,
       )

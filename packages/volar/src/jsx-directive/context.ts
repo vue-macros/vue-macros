@@ -1,5 +1,4 @@
 import { isHTMLTag, isSVGTag } from '@vue/shared'
-import { replaceSourceRange } from 'muggle-string'
 import { addCode, getText, isJsxExpression } from '../common'
 import {
   getOpeningElement,
@@ -120,13 +119,7 @@ export function transformCtx(
   }
   const result = `\nconst ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}), '${originTagName}');\n`
   if (root) {
-    replaceSourceRange(
-      codes,
-      options.source,
-      root.end - 1,
-      root.end - 1,
-      result,
-    )
+    codes.replaceRange(root.end - 1, root.end - 1, result)
   } else {
     addCode(codes, result)
   }

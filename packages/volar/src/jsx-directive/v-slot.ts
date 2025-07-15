@@ -1,8 +1,7 @@
-import { replaceSourceRange } from 'muggle-string'
-import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import { resolveVFor } from './v-for'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'
+import type { Code } from 'ts-macro'
 
 export type VSlotMap = Map<
   JsxDirective['node'],
@@ -25,7 +24,7 @@ export function transformVSlot(
   options: TransformOptions,
 ): void {
   if (nodeMap.size === 0) return
-  const { codes, ts, ast, source, prefix } = options
+  const { codes, ts, ast, prefix } = options
 
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
     const result: Code[] = [' v-slots={{']
@@ -51,9 +50,7 @@ export function transformVSlot(
               '(',
               [
                 getText(vIfAttribute.initializer.expression, options),
-                source,
                 getStart(vIfAttribute.initializer.expression, options),
-                allCodeFeatures,
               ],
               ') ? {',
             )
@@ -85,9 +82,7 @@ export function transformVSlot(
                   : wrapByQuotes
                     ? `'${attributeName}'`
                     : attributeName,
-                source,
                 getStart(attribute.name, options) + (wrapByQuotes ? 6 : 7),
-                allCodeFeatures,
               ]
             : 'default',
           `: (`,
@@ -97,16 +92,14 @@ export function transformVSlot(
             ? [
                 [
                   getText(attribute.initializer.expression, options),
-                  source,
                   getStart(attribute.initializer.expression, options),
-                  allCodeFeatures,
                 ] as Code,
                 isDynamic ? ': any' : '',
               ]
             : []),
           ') => <>',
           ...children.map((child) => {
-            replaceSourceRange(codes, source, child.pos, child.end)
+            codes.replaceRange(child.pos, child.end)
 
             const isSlotTemplate =
               getTagName(child, options) === 'template' && !vSlotAttribute
@@ -114,12 +107,7 @@ export function transformVSlot(
               isSlotTemplate && ts.isJsxElement(child) ? child.children : child
             return isSlotTemplate && ts.isJsxSelfClosingElement(child)
               ? ''
-              : ([
-                  ast.text.slice(node.pos, node.end),
-                  source,
-                  node.pos,
-                  allCodeFeatures,
-                ] as Code)
+              : ([ast.text.slice(node.pos, node.end), node.pos] as Code)
           }),
           '</>,',
         )
@@ -154,24 +142,18 @@ export function transformVSlot(
     }
 
     if (vSlotAttribute) {
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         getStart(vSlotAttribute, options),
         vSlotAttribute.end,
         ...result,
       )
     } else if (ts.isJsxElement(node)) {
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         node.openingElement.end - 1,
         node.openingElement.end,
         ...result,
       )
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         node.closingElement.pos,
         node.closingElement.pos,
         attributeMap.has(null) ? `</>${slotType}>` : '>',
@@ -185,16 +167,14 @@ export function transformVSlots(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ): void {
-  const { codes, source } = options
+  const { codes } = options
 
   for (const {
     node,
     attribute: { initializer },
   } of nodes) {
     if (initializer && isJsxExpression(initializer) && initializer.expression) {
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         initializer.expression.end,
         initializer.expression.end,
         ` satisfies typeof ${ctxMap.get(node)}.slots`,
