@@ -1,5 +1,3 @@
-import { replaceSourceRange } from 'muggle-string'
-import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import {
   getOpeningElement,
@@ -7,6 +5,7 @@ import {
   type JsxDirective,
   type TransformOptions,
 } from './index'
+import type { Code } from 'ts-macro'
 
 export const isNativeFormElement = (tag: string): boolean => {
   return ['input', 'select', 'textarea'].includes(tag)
@@ -31,7 +30,7 @@ function transform(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, source, prefix } = options
+  const { codes, ts, prefix } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
@@ -70,12 +69,7 @@ function transform(
         node,
       }
       if (firstNamespacedNode.attribute !== attribute) {
-        replaceSourceRange(
-          codes,
-          source,
-          getStart(attribute, options),
-          attribute.end,
-        )
+        codes.replaceRange(getStart(attribute, options), attribute.end)
         result.push(',')
       }
 
@@ -85,12 +79,7 @@ function transform(
           isDynamic = !ts.isStringLiteral(elements[1])
           result.push(
             isDynamic ? '[`${' : '',
-            [
-              getText(elements[1], options),
-              source,
-              getStart(elements[1], options),
-              allCodeFeatures,
-            ],
+            [getText(elements[1], options), getStart(elements[1], options)],
             isDynamic ? '}`]' : '',
           )
         } else {
@@ -100,9 +89,7 @@ function transform(
         if (elements[0])
           result.push(':', [
             getText(elements[0], options),
-            source,
             getStart(elements[0], options),
-            allCodeFeatures,
           ])
       } else {
         result.push(
@@ -111,12 +98,10 @@ function transform(
             .split('-')
             .map((code, index, codes) => [
               index ? code.at(0)?.toUpperCase() + code.slice(1) : code,
-              source,
               start +
                 offset +
                 (isDynamic ? 1 : 0) +
                 (index && codes[index - 1].length + 1),
-              allCodeFeatures,
             ]) as Code[]),
           isDynamic ? '}`]' : '',
         )
@@ -128,9 +113,7 @@ function transform(
           ) {
             result.push(':', [
               getText(attribute.initializer.expression, options),
-              source,
               getStart(attribute.initializer.expression, options),
-              allCodeFeatures,
             ])
           }
 
@@ -141,7 +124,6 @@ function transform(
                 modify ? '' : `'`,
                 [
                   modify,
-                  source,
                   start +
                     offset +
                     attributeName.length +
@@ -149,7 +131,6 @@ function transform(
                     (index
                       ? modifiers.slice(0, index).join('').length + index
                       : 0),
-                  allCodeFeatures,
                 ],
                 modify ? ': true, ' : `'`,
               ]) as Code[]),
@@ -167,11 +148,8 @@ function transform(
         ...((isNative
           ? isRadioOrCheckbox(node, options)
             ? 'v-model'
-            : [[modelValue, source, start + 2, allCodeFeatures]]
-          : [
-              modelValue.slice(0, 3),
-              [modelValue.slice(3), source, start, allCodeFeatures],
-            ]) as Code[]),
+            : [[modelValue, start + 2]]
+          : [modelValue.slice(0, 3), [modelValue.slice(3), start]]) as Code[]),
       )
 
       if (modifiers.length) {
@@ -181,11 +159,9 @@ function transform(
             modify ? '' : `'`,
             [
               modify,
-              source,
               start +
                 offset +
                 (index ? modifiers.slice(0, index).join('').length + index : 0),
-              allCodeFeatures,
             ],
             modify ? ': true, ' : `'`,
           ]) as Code[]),
@@ -201,7 +177,7 @@ function transform(
         result.unshift(`{...{'onUpdate:${modelValue}': () => {} }} `)
       }
 
-      replaceSourceRange(codes, source, start, attribute.name.end, ...result)
+      codes.replaceRange(start, attribute.name.end, ...result)
     }
   }
 
@@ -210,9 +186,7 @@ function transform(
   const end = attributeName
     ? attribute.end
     : getStart(attribute, options) + offset
-  replaceSourceRange(
-    codes,
-    source,
+  codes.replaceRange(
     getStart(attribute, options),
     end,
     `{...{`,

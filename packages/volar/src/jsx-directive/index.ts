@@ -1,4 +1,3 @@
-import { replaceSourceRange } from 'muggle-string'
 import { getText, isJsxExpression } from '../common'
 import { resolveCtxMap, type CtxMap } from './context'
 import { transformCustomDirective } from './custom-directive'
@@ -9,7 +8,7 @@ import { transformVIf } from './v-if'
 import { isNativeFormElement, transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
 import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
-import type { Code } from 'ts-macro'
+import type { Codes } from 'ts-macro'
 import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 
 export type JsxDirective = {
@@ -19,15 +18,14 @@ export type JsxDirective = {
 }
 
 export type TransformOptions = {
-  codes: Code[]
+  codes: Codes
   ast: import('typescript').SourceFile
   ts: typeof import('typescript')
-  source: 'script' | 'scriptSetup' | undefined
   prefix: string
 }
 
 export function transformJsxDirective(options: TransformOptions): void {
-  const { ast, ts, source, prefix, codes } = options
+  const { ast, ts, prefix, codes } = options
 
   const resolvedPrefix = prefix.replaceAll('$', String.raw`\$`)
   const slotRegex = new RegExp(`^${resolvedPrefix}slot(?=:|$)`)
@@ -106,7 +104,7 @@ export function transformJsxDirective(options: TransformOptions): void {
           attributeName,
         )
       ) {
-        replaceSourceRange(codes, source, attribute.pos, attribute.end)
+        codes.replaceRange(attribute.pos, attribute.end)
       } else if (attributeName.startsWith('v-')) {
         customDirectives.push(attribute)
       }

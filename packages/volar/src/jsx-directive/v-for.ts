@@ -1,13 +1,12 @@
-import { replaceSourceRange } from 'muggle-string'
-import { allCodeFeatures, type Code } from 'ts-macro'
 import { getStart, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
+import type { Code } from 'ts-macro'
 
 export function resolveVFor(
   attribute: JsxDirective['attribute'],
   options: TransformOptions,
 ): Code[] {
-  const { ts, ast, source } = options
+  const { ts, ast } = options
   const result: Code[] = []
 
   if (
@@ -39,24 +38,18 @@ export function resolveVFor(
         '__VLS_getVForSourceType(',
         [
           ast.text.slice(getStart(list, options), list.end),
-          source,
           getStart(list, options),
-          allCodeFeatures,
         ],
         ').map(([',
         [
           String(ast.text.slice(getStart(item, options), item.end)),
-          source,
           getStart(item, options),
-          allCodeFeatures,
         ],
         ', ',
         index
           ? [
               String(ast.text.slice(getStart(index, options), index.end)),
-              source,
               getStart(index, options),
-              allCodeFeatures,
             ]
           : objectIndex
             ? 'undefined'
@@ -71,9 +64,7 @@ export function resolveVFor(
                     objectIndex.end,
                   ),
                 ),
-                source,
                 getStart(objectIndex, options),
-                allCodeFeatures,
               ] as Code,
             ]
           : ''),
@@ -91,7 +82,7 @@ export function transformVFor(
   hasVForAttribute: boolean,
 ): void {
   if (!nodes.length && !hasVForAttribute) return
-  const { codes, source } = options
+  const { codes } = options
 
   nodes.forEach(({ attribute, node, parent }) => {
     const result = resolveVFor(attribute, options)
@@ -99,28 +90,15 @@ export function transformVFor(
       result.unshift('{')
     }
 
-    replaceSourceRange(
-      codes,
-      source,
+    codes.replaceRange(
       getStart(node, options),
       getStart(node, options),
       ...result,
     )
 
-    replaceSourceRange(
-      codes,
-      source,
-      node.end - 1,
-      node.end,
-      `>)${parent ? '}' : ''}`,
-    )
+    codes.replaceRange(node.end - 1, node.end, `>)${parent ? '}' : ''}`)
 
-    replaceSourceRange(
-      codes,
-      source,
-      getStart(attribute, options),
-      attribute.end,
-    )
+    codes.replaceRange(getStart(attribute, options), attribute.end)
   })
 
   codes.push(`

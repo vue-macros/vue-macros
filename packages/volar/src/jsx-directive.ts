@@ -16,13 +16,12 @@ const plugin: PluginReturn<OptionsResolved['jsxDirective'] | undefined> =
 
       return {
         name: 'vue-macros-jsx-directive',
-        resolveVirtualCode({ filePath, ast, codes, source, languageId }) {
+        resolveVirtualCode({ filePath, ast, codes, languageId }) {
           if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
           transformJsxDirective({
             codes,
             ast,
             ts,
-            source,
             prefix: options.prefix ?? 'v-',
           })
         },

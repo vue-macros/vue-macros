@@ -1,5 +1,3 @@
-import { replaceSourceRange } from 'muggle-string'
-import { allCodeFeatures } from 'ts-macro'
 import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
@@ -9,19 +7,15 @@ export function transformVOn(
   options: TransformOptions,
 ): void {
   if (nodes.length === 0) return
-  const { codes, source } = options
+  const { codes } = options
 
   for (const { node, attribute } of nodes) {
-    replaceSourceRange(
-      codes,
-      source,
+    codes.replaceRange(
       getStart(attribute, options),
       attribute.name.end + 2,
       '{...',
     )
-    replaceSourceRange(
-      codes,
-      source,
+    codes.replaceRange(
       attribute.end - 1,
       attribute.end - 1,
       ` satisfies __VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>`,
@@ -58,35 +52,28 @@ export function transformOnWithModifiers(
   nodes: JsxDirective[],
   options: TransformOptions,
 ): void {
-  const { codes, source } = options
+  const { codes } = options
 
   for (const { attribute } of nodes) {
     const attributeName = getText(attribute.name, options).split('_')[0]
     const start = getStart(attribute.name, options)
     const end = attribute.name.end
 
-    replaceSourceRange(codes, source, start, end, '{...{', [
-      attributeName,
-      source,
-      start,
-      allCodeFeatures,
-    ])
+    codes.replaceRange(start, end, '{...{', [attributeName, start])
 
     if (!attribute.initializer) {
-      replaceSourceRange(codes, source, end, end, ': () => {}}}')
+      codes.replaceRange(end, end, ': () => {}}}')
     } else if (
       isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression
     ) {
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         end,
         getStart(attribute.initializer.expression, options),
         ': ',
       )
 
-      replaceSourceRange(codes, source, attribute.end, attribute.end, '}')
+      codes.replaceRange(attribute.end, attribute.end, '}')
     }
   }
 }
