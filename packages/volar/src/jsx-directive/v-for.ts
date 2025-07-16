@@ -102,6 +102,7 @@ export function transformVFor(
   })
 
   codes.push(`
+// @ts-ignore
 function __VLS_getVForSourceType<T extends number | string | any[] | Iterable<any>>(source: T): [
   item: T extends number ? number
     : T extends string ? string
@@ -110,6 +111,7 @@ function __VLS_getVForSourceType<T extends number | string | any[] | Iterable<an
     : any,
   index: number,
 ][];
+// @ts-ignore
 function __VLS_getVForSourceType<T>(source: T): [
   item: T[keyof T],
   key: keyof T,
