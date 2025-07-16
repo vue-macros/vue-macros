@@ -102,26 +102,18 @@ export function transformVFor(
   })
 
   codes.push(`
-declare function __VLS_getVForSourceType(source: number): [number, number, number][];
-declare function __VLS_getVForSourceType(source: string): [string, number, number][];
-declare function __VLS_getVForSourceType<T extends any[]>(source: T): [
-  item: T[number],
-  key: number,
+function __VLS_getVForSourceType<T extends number | string | any[] | Iterable<any>>(source: T): [
+  item: T extends number ? number
+    : T extends string ? string
+    : T extends any[] ? T[number]
+    : T extends Iterable<infer T1> ? T1
+    : any,
   index: number,
 ][];
-declare function __VLS_getVForSourceType<T extends { [Symbol.iterator](): Iterator<any> }>(source: T): [
-  item: T extends { [Symbol.iterator](): Iterator<infer T1> } ? T1 : never, 
-  key: number,
-  index: undefined,
-][];
-declare function __VLS_getVForSourceType<T extends number | { [Symbol.iterator](): Iterator<any> }>(source: T): [
-  item: number | (Exclude<T, number> extends { [Symbol.iterator](): Iterator<infer T1> } ? T1 : never), 
-  key: number,
-  index: undefined,
-][];
-declare function __VLS_getVForSourceType<T>(source: T): [
+function __VLS_getVForSourceType<T>(source: T): [
   item: T[keyof T],
   key: keyof T,
   index: number,
-][];\n`)
+][];
+`)
 }
