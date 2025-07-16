@@ -45,7 +45,7 @@ type __VLS_NormalizeEmits<T> = __VLS_PrettifyGlobal<
     }
   >
 >;
-type __VLS_PrettifyGlobal<T> = { [K in keyof T]: T[K]; } & {};\n`)
+type __VLS_PrettifyGlobal<T> = { [K in keyof T as K]: T[K]; } & {};\n`)
 }
 
 export function transformOnWithModifiers(
