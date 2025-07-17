@@ -1,4 +1,3 @@
-import { getStart, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 import type { Code } from 'ts-macro'
 
@@ -10,7 +9,8 @@ export function resolveVFor(
   const result: Code[] = []
 
   if (
-    isJsxExpression(attribute.initializer) &&
+    attribute.initializer &&
+    ts.isJsxExpression(attribute.initializer) &&
     attribute.initializer.expression &&
     ts.isBinaryExpression(attribute.initializer.expression)
   ) {
@@ -36,20 +36,17 @@ export function resolveVFor(
     if (item && list) {
       result.push(
         '__VLS_getVForSourceType(',
-        [
-          ast.text.slice(getStart(list, options), list.end),
-          getStart(list, options),
-        ],
+        [ast.text.slice(list.getStart(ast), list.end), list.getStart(ast)],
         ').map(([',
         [
-          String(ast.text.slice(getStart(item, options), item.end)),
-          getStart(item, options),
+          String(ast.text.slice(item.getStart(ast), item.end)),
+          item.getStart(ast),
         ],
         ', ',
         index
           ? [
-              String(ast.text.slice(getStart(index, options), index.end)),
-              getStart(index, options),
+              String(ast.text.slice(index.getStart(ast), index.end)),
+              index.getStart(ast),
             ]
           : objectIndex
             ? 'undefined'
@@ -59,12 +56,9 @@ export function resolveVFor(
               ', ',
               [
                 String(
-                  ast?.text.slice(
-                    getStart(objectIndex, options),
-                    objectIndex.end,
-                  ),
+                  ast?.text.slice(objectIndex.getStart(ast), objectIndex.end),
                 ),
-                getStart(objectIndex, options),
+                objectIndex.getStart(ast),
               ] as Code,
             ]
           : ''),
@@ -82,7 +76,7 @@ export function transformVFor(
   hasVForAttribute: boolean,
 ): void {
   if (!nodes.length && !hasVForAttribute) return
-  const { codes } = options
+  const { codes, ast } = options
 
   nodes.forEach(({ attribute, node, parent }) => {
     const result = resolveVFor(attribute, options)
@@ -90,15 +84,11 @@ export function transformVFor(
       result.unshift('{')
     }
 
-    codes.replaceRange(
-      getStart(node, options),
-      getStart(node, options),
-      ...result,
-    )
+    codes.replaceRange(node.getStart(ast), node.getStart(ast), ...result)
 
     codes.replaceRange(node.end - 1, node.end, `>)${parent ? '}' : ''}`)
 
-    codes.replaceRange(getStart(attribute, options), attribute.end)
+    codes.replaceRange(attribute.getStart(ast), attribute.end)
   })
 
   codes.push(`

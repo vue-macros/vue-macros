@@ -3,7 +3,8 @@ import {
   DEFINE_MODELS,
   DEFINE_MODELS_DOLLAR,
 } from '@vue-macros/common'
-import { addEmits, addProps, getText, type VueMacrosPlugin } from './common'
+import { getText } from 'ts-macro'
+import { addEmits, addProps, type VueMacrosPlugin } from './common'
 import type { Code, Sfc } from '@vue/language-core'
 
 function transformDefineModels(options: {
@@ -13,7 +14,8 @@ function transformDefineModels(options: {
   version: number
   ts: typeof import('typescript')
 }) {
-  const { codes, typeArg, version, ts } = options
+  const { codes, typeArg, version, ts, sfc } = options
+  const ast = sfc.scriptSetup!.ast
 
   const propStrings: Code[] = []
   const emitStrings: Code[] = []
@@ -21,8 +23,8 @@ function transformDefineModels(options: {
   if (ts.isTypeLiteralNode(typeArg) && typeArg.members) {
     for (const member of typeArg.members) {
       if (ts.isPropertySignature(member) && member.type) {
-        const type = getText(member.type, options)
-        const name = getText(member.name, options)
+        const type = getText(member.type, ast, ts)
+        const name = getText(member.name, ast, ts)
         emitStrings.push(`'update:${name}': [${name}: ${type}]`)
 
         propStrings.push(`${name}${member.questionToken ? '?' : ''}: ${type}`)

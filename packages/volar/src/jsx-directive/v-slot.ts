@@ -1,4 +1,3 @@
-import { getStart, getText, isJsxExpression } from '../common'
 import { resolveVFor } from './v-for'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'
 import type { Code } from 'ts-macro'
@@ -36,21 +35,22 @@ export function transformVSlot(
         let vIfAttributeName
         if (
           vIfAttribute &&
-          (vIfAttributeName = getText(vIfAttribute.name, options))
+          (vIfAttributeName = vIfAttribute.name.getText(ast))
         ) {
           if (`${prefix}if` === vIfAttributeName) {
             result.push('...')
           }
           if (
             [`${prefix}if`, `${prefix}else-if`].includes(vIfAttributeName) &&
-            isJsxExpression(vIfAttribute.initializer) &&
+            vIfAttribute.initializer &&
+            ts.isJsxExpression(vIfAttribute.initializer) &&
             vIfAttribute.initializer.expression
           ) {
             result.push(
               '(',
               [
-                getText(vIfAttribute.initializer.expression, options),
-                getStart(vIfAttribute.initializer.expression, options),
+                vIfAttribute.initializer.expression.getText(ast),
+                vIfAttribute.initializer.expression.getStart(ast),
               ],
               ') ? {',
             )
@@ -64,7 +64,8 @@ export function transformVSlot(
         }
 
         let isDynamic = false
-        let attributeName = getText(attribute.name, options)
+        let attributeName = attribute.name
+          .getText(ast)
           .slice(6)
           .split(/\s/)[0]
           .replace(/\$(.*)\$/, (_, $1) => {
@@ -82,17 +83,18 @@ export function transformVSlot(
                   : wrapByQuotes
                     ? `'${attributeName}'`
                     : attributeName,
-                getStart(attribute.name, options) + (wrapByQuotes ? 6 : 7),
+                attribute.name.getStart(ast) + (wrapByQuotes ? 6 : 7),
               ]
             : 'default',
           `: (`,
           ...((!isNamespace || attributeName) &&
-          isJsxExpression(attribute.initializer) &&
+          attribute.initializer &&
+          ts.isJsxExpression(attribute.initializer) &&
           attribute.initializer.expression
             ? [
                 [
-                  getText(attribute.initializer.expression, options),
-                  getStart(attribute.initializer.expression, options),
+                  attribute.initializer.expression.getText(ast),
+                  attribute.initializer.expression.getStart(ast),
                 ] as Code,
                 isDynamic ? ': any' : '',
               ]
@@ -123,7 +125,7 @@ export function transformVSlot(
             result.push(
               '}',
               nextAttribute &&
-                getText(nextAttribute.name, options).startsWith(`${prefix}else`)
+                nextAttribute.name.getText(ast).startsWith(`${prefix}else`)
                 ? ' : '
                 : ' : null,',
             )
@@ -143,7 +145,7 @@ export function transformVSlot(
 
     if (vSlotAttribute) {
       codes.replaceRange(
-        getStart(vSlotAttribute, options),
+        vSlotAttribute.getStart(ast),
         vSlotAttribute.end,
         ...result,
       )
@@ -167,13 +169,17 @@ export function transformVSlots(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ): void {
-  const { codes } = options
+  const { codes, ts } = options
 
   for (const {
     node,
     attribute: { initializer },
   } of nodes) {
-    if (initializer && isJsxExpression(initializer) && initializer.expression) {
+    if (
+      initializer &&
+      ts.isJsxExpression(initializer) &&
+      initializer.expression
+    ) {
       codes.replaceRange(
         initializer.expression.end,
         initializer.expression.end,

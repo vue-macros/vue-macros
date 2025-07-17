@@ -1,4 +1,3 @@
-import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVOn(
@@ -7,14 +6,10 @@ export function transformVOn(
   options: TransformOptions,
 ): void {
   if (nodes.length === 0) return
-  const { codes } = options
+  const { codes, ast } = options
 
   for (const { node, attribute } of nodes) {
-    codes.replaceRange(
-      getStart(attribute, options),
-      attribute.name.end + 2,
-      '{...',
-    )
+    codes.replaceRange(attribute.getStart(ast), attribute.name.end + 2, '{...')
     codes.replaceRange(
       attribute.end - 1,
       attribute.end - 1,
@@ -52,11 +47,11 @@ export function transformOnWithModifiers(
   nodes: JsxDirective[],
   options: TransformOptions,
 ): void {
-  const { codes } = options
+  const { codes, ast, ts } = options
 
   for (const { attribute } of nodes) {
-    const attributeName = getText(attribute.name, options).split('_')[0]
-    const start = getStart(attribute.name, options)
+    const attributeName = attribute.name.getText(ast).split('_')[0]
+    const start = attribute.name.getStart(ast)
     const end = attribute.name.end
 
     codes.replaceRange(start, end, '{...{', [attributeName, start])
@@ -64,12 +59,12 @@ export function transformOnWithModifiers(
     if (!attribute.initializer) {
       codes.replaceRange(end, end, ': () => {}}}')
     } else if (
-      isJsxExpression(attribute.initializer) &&
+      ts.isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression
     ) {
       codes.replaceRange(
         end,
-        getStart(attribute.initializer.expression, options),
+        attribute.initializer.expression.getStart(ast),
         ': ',
       )
 

@@ -22,7 +22,7 @@ function transformRef({
       codes.replaceRange(
         initializer.expression.end,
         initializer.expression.end,
-        `<Parameters<NonNullable<typeof __VLS_ctx_${name.escapedText}['expose']>>[0] | null>`,
+        `<Parameters<NonNullable<typeof __VLS_ctx_${name.text}['expose']>>[0] | null>`,
       )
     }
   }
@@ -40,7 +40,7 @@ function getRefNodes(
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&
       !node.typeArguments?.length &&
-      alias.includes(node.expression.escapedText!)
+      alias.includes(node.expression.text!)
     )
   }
 
@@ -56,7 +56,7 @@ function getRefNodes(
           ts.isIdentifier(decl.initializer.expression)
         ) {
           const initializer =
-            decl.initializer.expression.escapedText === '$'
+            decl.initializer.expression.text === '$'
               ? decl.initializer.arguments[0]
               : decl.initializer
           if (isRefCall(initializer))

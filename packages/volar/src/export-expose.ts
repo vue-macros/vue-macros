@@ -1,7 +1,8 @@
 import { createFilter } from '@vue-macros/common'
 import { allCodeFeatures, type Code, type Sfc } from '@vue/language-core'
 import { replace, replaceSourceRange } from 'muggle-string'
-import { addCode, getStart, getText, type VueMacrosPlugin } from './common'
+import { getStart, getText } from 'ts-macro'
+import { addCode, type VueMacrosPlugin } from './common'
 
 function transform(options: {
   codes: Code[]
@@ -9,11 +10,12 @@ function transform(options: {
   ts: typeof import('typescript')
 }) {
   const { codes, sfc, ts } = options
+  const ast = sfc.scriptSetup!.ast
 
   const exposed: Record<string, string> = Object.create(null)
   for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (ts.isExportDeclaration(stmt) && stmt.exportClause) {
-      const start = getStart(stmt, options)
+      const start = getStart(stmt, ast, ts)
       const end = stmt.end
 
       if (ts.isNamedExports(stmt.exportClause)) {
@@ -26,20 +28,20 @@ function transform(options: {
 
           exportMap.set(
             [
-              getText(propertyName, options),
+              getText(propertyName, ast, ts),
               'scriptSetup',
-              getStart(propertyName, options),
+              getStart(propertyName, ast, ts),
               allCodeFeatures,
             ],
             [
-              getText(name, options),
+              getText(name, ast, ts),
               'scriptSetup',
-              getStart(name, options),
+              getStart(name, ast, ts),
               allCodeFeatures,
             ],
           )
 
-          exposed[getText(name, options)] = getText(propertyName, options)
+          exposed[getText(name, ast, ts)] = getText(propertyName, ast, ts)
         })
 
         if (stmt.moduleSpecifier) {
@@ -72,7 +74,7 @@ function transform(options: {
           'scriptSetup',
           end,
           end,
-          `;[${getText(stmt.exportClause.name, options)}];`,
+          `;[${getText(stmt.exportClause.name, ast, ts)}];`,
         )
       }
     } else if (
@@ -91,29 +93,29 @@ function transform(options: {
           if (!decl.name) continue
 
           if (ts.isIdentifier(decl.name)) {
-            const name = getText(decl.name, options)
+            const name = getText(decl.name, ast, ts)
             exposed[name] = name
           } else if (ts.isObjectBindingPattern(decl.name)) {
             decl.name.elements.forEach((element) => {
               if (!ts.isIdentifier(element.name)) return
 
-              exposedValues.push(getText(element.name, options))
-              exposed[getText(element.name, options)] =
+              exposedValues.push(getText(element.name, ast, ts))
+              exposed[getText(element.name, ast, ts)] =
                 element.propertyName && ts.isIdentifier(element.propertyName)
-                  ? getText(element.propertyName, options)
-                  : getText(element.name, options)
+                  ? getText(element.propertyName, ast, ts)
+                  : getText(element.name, ast, ts)
             })
           }
         }
       } else if (stmt.name && ts.isIdentifier(stmt.name)) {
-        const name = getText(stmt.name, options)
+        const name = getText(stmt.name, ast, ts)
         exposed[name] = name
       }
 
       replaceSourceRange(
         codes,
         'scriptSetup',
-        getStart(exportModifier, options),
+        getStart(exportModifier, ast, ts),
         exportModifier.end,
         exposedValues.length > 0 ? `[${exposedValues}];` : '',
       )

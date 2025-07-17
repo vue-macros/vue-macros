@@ -1,5 +1,5 @@
 import { isHTMLTag, isSVGTag } from '@vue/shared'
-import { addCode, getText, isJsxExpression } from '../common'
+import { addCode } from '../common'
 import {
   getOpeningElement,
   getTagName,
@@ -64,7 +64,7 @@ export function transformCtx(
   index: number,
   options: TransformOptions,
 ): string {
-  const { ts, codes, prefix } = options
+  const { ts, ast, codes, prefix } = options
 
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
@@ -74,11 +74,11 @@ export function transformCtx(
   for (const prop of openingElement.attributes.properties) {
     if (!ts.isJsxAttribute(prop)) continue
 
-    let name = getText(prop.name, options)
+    let name = prop.name.getText(ast)
     if (
       name === 'ref' &&
       prop.initializer &&
-      isJsxExpression(prop.initializer) &&
+      ts.isJsxExpression(prop.initializer) &&
       prop.initializer.expression
     ) {
       refValue = getRefValue(prop.initializer.expression, options)
@@ -96,9 +96,9 @@ export function transformCtx(
     if (!name) continue
 
     const value = prop.initializer
-      ? isJsxExpression(prop.initializer) && prop.initializer.expression
-        ? getText(prop.initializer.expression, options)
-        : getText(prop.initializer, options)
+      ? ts.isJsxExpression(prop.initializer) && prop.initializer.expression
+        ? prop.initializer.expression.getText(ast)
+        : prop.initializer.getText(ast)
       : 'true'
     props += `'${name}': ${value},`
   }
@@ -112,7 +112,7 @@ export function transformCtx(
     let types = ''
     if (openingElement.typeArguments?.length) {
       types = `<${openingElement.typeArguments
-        .map((argument) => getText(argument, options))
+        .map((argument) => argument.getText(ast))
         .join(', ')}>`
       tagName += types
     }
@@ -131,10 +131,10 @@ function getRefValue(
   expression: import('typescript').Expression,
   options: TransformOptions,
 ) {
-  const { ts } = options
+  const { ts, ast } = options
 
   if (ts.isIdentifier(expression)) {
-    return getText(expression, options)
+    return expression.getText(ast)
   } else if (ts.isFunctionLike(expression)) {
     let left
     if (ts.isBinaryExpression(expression.body)) {
@@ -152,19 +152,16 @@ function getRefValue(
     })
     return (
       left &&
-      getText(
-        ts.isPropertyAccessExpression(left) ||
-          ts.isElementAccessExpression(left)
-          ? left.expression
-          : left,
-        options,
-      )
+      (ts.isPropertyAccessExpression(left) || ts.isElementAccessExpression(left)
+        ? left.expression
+        : left
+      ).getText(ast)
     )
   } else if (
     ts.isCallExpression(expression) &&
     expression.arguments[0] &&
     ts.isIdentifier(expression.arguments[0])
   ) {
-    return getText(expression.arguments[0], options)
+    return expression.arguments[0].getText(ast)
   }
 }

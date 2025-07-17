@@ -1,4 +1,3 @@
-import { getStart, getText, isJsxExpression } from '../common'
 import {
   getOpeningElement,
   getTagName,
@@ -30,7 +29,7 @@ function transform(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, prefix } = options
+  const { codes, ts, ast, prefix } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
@@ -47,12 +46,13 @@ function transform(
     const isNative = isNativeFormElement(getTagName(node, options))
     const modelValue = isNative ? 'value' : 'modelValue'
     const isArrayExpression =
-      isJsxExpression(attribute.initializer) &&
+      attribute.initializer &&
+      ts.isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression &&
       ts.isArrayLiteralExpression(attribute.initializer.expression)
 
-    const name = getText(attribute.name, options)
-    const start = getStart(attribute.name, options)
+    const name = attribute.name.getText(ast)
+    const start = attribute.name.getStart(ast)
     if (name.startsWith(`${prefix}model:`) || isArrayExpression) {
       let isDynamic = false
       const [attributeName, ...modifiers] = name
@@ -69,7 +69,7 @@ function transform(
         node,
       }
       if (firstNamespacedNode.attribute !== attribute) {
-        codes.replaceRange(getStart(attribute, options), attribute.end)
+        codes.replaceRange(attribute.getStart(ast), attribute.end)
         result.push(',')
       }
 
@@ -79,7 +79,7 @@ function transform(
           isDynamic = !ts.isStringLiteral(elements[1])
           result.push(
             isDynamic ? '[`${' : '',
-            [getText(elements[1], options), getStart(elements[1], options)],
+            [elements[1].getText(ast), elements[1].getStart(ast)],
             isDynamic ? '}`]' : '',
           )
         } else {
@@ -88,8 +88,8 @@ function transform(
 
         if (elements[0])
           result.push(':', [
-            getText(elements[0], options),
-            getStart(elements[0], options),
+            elements[0].getText(ast),
+            elements[0].getStart(ast),
           ])
       } else {
         result.push(
@@ -108,12 +108,13 @@ function transform(
 
         if (attributeName) {
           if (
-            isJsxExpression(attribute?.initializer) &&
+            attribute.initializer &&
+            ts.isJsxExpression(attribute.initializer) &&
             attribute.initializer.expression
           ) {
             result.push(':', [
-              getText(attribute.initializer.expression, options),
-              getStart(attribute.initializer.expression, options),
+              attribute.initializer.expression.getText(ast),
+              attribute.initializer.expression.getStart(ast),
             ])
           }
 
@@ -183,11 +184,9 @@ function transform(
 
   if (!firstNamespacedNode) return
   const { attribute, attributeName, node } = firstNamespacedNode
-  const end = attributeName
-    ? attribute.end
-    : getStart(attribute, options) + offset
+  const end = attributeName ? attribute.end : attribute.getStart(ast) + offset
   codes.replaceRange(
-    getStart(attribute, options),
+    attribute.getStart(ast),
     end,
     `{...{`,
     ...result,
@@ -203,16 +202,16 @@ function isRadioOrCheckbox(
   node: import('typescript').Node,
   options: TransformOptions,
 ) {
-  const { ts } = options
+  const { ts, ast } = options
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return false
-  const tagName = getText(openingElement.tagName, options)
+  const tagName = openingElement.tagName.getText(ast)
   return (
     tagName === 'input' &&
     openingElement.attributes.properties.some((attr) => {
       return (
         ts.isJsxAttribute(attr) &&
-        getText(attr.name, options) === 'type' &&
+        attr.name.getText(ast) === 'type' &&
         attr.initializer &&
         ts.isStringLiteral(attr.initializer) &&
         (attr.initializer.text === 'radio' ||
