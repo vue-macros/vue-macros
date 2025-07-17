@@ -17,7 +17,7 @@ export function transformVIf(
       ts.isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression
     ) {
-      const hasScope = parent && attribute.name.escapedText === `${prefix}if`
+      const hasScope = parent && attribute.name.text === `${prefix}if`
       codes.replaceRange(
         node.getStart(ast),
         node.getStart(ast),
@@ -32,14 +32,14 @@ export function transformVIf(
       const nextAttribute = nodes[index + 1]?.attribute
       const nextNodeHasElse =
         nextAttribute && ts.isIdentifier(nextAttribute.name)
-          ? String(nextAttribute.name.escapedText).startsWith(`${prefix}else`)
+          ? String(nextAttribute.name.text).startsWith(`${prefix}else`)
           : false
       codes.replaceRange(
         node.end,
         node.end,
         nextNodeHasElse ? ' : ' : ` : null${parent ? '}' : ''}`,
       )
-    } else if (attribute.name.escapedText === `${prefix}else`) {
+    } else if (attribute.name.text === `${prefix}else`) {
       codes.replaceRange(node.end, node.end, parent ? '}' : '')
     }
 
