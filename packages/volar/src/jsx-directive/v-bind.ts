@@ -1,4 +1,3 @@
-import { getStart, getText } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVBind(
@@ -7,11 +6,11 @@ export function transformVBind(
 ): void {
   if (nodes.length === 0) return
 
-  const { codes } = options
+  const { codes, ast } = options
 
   for (const { attribute } of nodes) {
-    const attributeName = getText(attribute.name, options)
-    const start = getStart(attribute.name, options)
+    const attributeName = attribute.name.getText(ast)
+    const start = attribute.name.getStart(ast)
     const end = attribute.name.end
 
     if (attributeName.includes('_')) {

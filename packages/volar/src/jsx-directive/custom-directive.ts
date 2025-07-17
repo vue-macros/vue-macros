@@ -1,5 +1,4 @@
 import { allCodeFeatures, type Code } from 'ts-macro'
-import { getStart, getText } from '../common'
 import type { TransformOptions } from '.'
 
 export function transformCustomDirective(
@@ -28,7 +27,7 @@ function transform(
 ) {
   const { codes, ts, ast } = options
 
-  const attributeName = getText(attribute.name, options)
+  const attributeName = attribute.name.getText(ast)
   let directiveName = attributeName.split(/\s/)[0].split('v-')[1]
   let modifiers: string[] = []
   if (directiveName.includes('_')) {
@@ -40,7 +39,7 @@ function transform(
   if (directiveName.includes(':')) {
     ;[directiveName, arg] = directiveName.split(':')
   }
-  const start = getStart(attribute, options)
+  const start = attribute.getStart(ast)
   const offset = start + directiveName.length + 2
   codes.replaceRange(
     start,
@@ -53,9 +52,9 @@ function transform(
     attribute.initializer
       ? [
           ts.isStringLiteral(attribute.initializer)
-            ? getText(attribute.initializer, options)
-            : getText(attribute.initializer, options).slice(1, -1),
-          getStart(attribute.initializer, options) +
+            ? attribute.initializer.getText(ast)
+            : attribute.initializer.getText(ast).slice(1, -1),
+          attribute.initializer.getStart(ast) +
             (ts.isStringLiteral(attribute.initializer) ? 0 : 1),
         ]
       : '{} as any',
@@ -75,7 +74,7 @@ function transform(
             modify ? '' : `'`,
             [
               modify,
-              getStart(attribute, options) +
+              attribute.getStart(ast) +
                 (attributeName.indexOf('_') + 1) +
                 (index ? modifiers.slice(0, index).join('').length + index : 0),
             ],

@@ -3,7 +3,8 @@ import {
   DEFINE_PROP,
   DEFINE_PROP_DOLLAR,
 } from '@vue-macros/common'
-import { addProps, getText, type VueMacrosPlugin } from './common'
+import { getText } from 'ts-macro'
+import { addProps, type VueMacrosPlugin } from './common'
 import type { Code, Sfc } from '@vue/language-core'
 
 interface DefineProp {
@@ -137,17 +138,17 @@ function getDefineProp(
     ) {
       if (edition === 'kevinEdition') {
         const type = node.typeArguments?.length
-          ? getText(node.typeArguments[0], { ts, sfc })
+          ? getText(node.typeArguments[0], ast, ts)
           : undefined
         const name =
           node.arguments[0] && ts.isStringLiteral(node.arguments[0])
             ? node.arguments[0].text
             : ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)
-              ? getText(parent.name, { ts, sfc })
+              ? getText(parent.name, ast, ts)
               : undefined
         const prop =
           ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)
-            ? getText(parent.name, { ts, sfc })
+            ? getText(parent.name, ast, ts)
             : undefined
         const optionArg =
           node.arguments[0] && ts.isObjectLiteralExpression(node.arguments[0])
@@ -166,16 +167,16 @@ function getDefineProp(
               ts.isIdentifier(property.name)
             ) {
               if (
-                getText(property.name, { ts, sfc }) === 'required' &&
+                getText(property.name, ast, ts) === 'required' &&
                 property.initializer.kind === ts.SyntaxKind.TrueKeyword
               )
                 required = true
 
               if (
                 ts.isIdentifier(property.name) &&
-                getText(property.name, { ts, sfc }) === 'default'
+                getText(property.name, ast, ts) === 'default'
               )
-                defaultValue = getText(property.initializer, { ts, sfc })
+                defaultValue = getText(property.initializer, ast, ts)
             }
           }
         }
@@ -195,17 +196,17 @@ function getDefineProp(
         ts.isVariableDeclaration(parent)
       ) {
         const name = ts.isIdentifier(parent.name)
-          ? getText(parent.name, { ts, sfc })
+          ? getText(parent.name, ast, ts)
           : undefined
         defineProps.push({
           name,
           prop: name,
           defaultValue:
             node.arguments.length > 0
-              ? getText(node.arguments[0], { ts, sfc })
+              ? getText(node.arguments[0], ast, ts)
               : undefined,
           type: node.typeArguments?.length
-            ? getText(node.typeArguments[0], { ts, sfc })
+            ? getText(node.typeArguments[0], ast, ts)
             : undefined,
           required:
             node.arguments.length >= 2 &&

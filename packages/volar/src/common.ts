@@ -7,7 +7,7 @@ import {
 } from '@vue-macros/config'
 import { replace, replaceAll, type Code } from 'ts-macro'
 import type { SFCScriptBlock } from '@vue-macros/common'
-import type { Sfc, VueLanguagePlugin } from '@vue/language-core'
+import type { VueLanguagePlugin } from '@vue/language-core'
 
 export const REGEX_DEFINE_COMPONENT: RegExp =
   /(?<=(?:__VLS_|\(await import\(\S+\)\)\.)defineComponent\(\{\n)/g
@@ -137,38 +137,6 @@ export function getVolarOptions<K extends keyof OptionsResolved>(
   }
 
   return (resolved || resolvedOptions.get(root)!)[key]
-}
-
-export interface VolarContext {
-  ts: typeof import('typescript')
-  ast?: import('typescript').SourceFile
-  sfc?: Sfc
-  source?: 'script' | 'scriptSetup'
-}
-
-export function getStart(
-  node:
-    | import('typescript').Node
-    | import('typescript').NodeArray<import('typescript').Node>,
-  { ts, ast, sfc, source = 'scriptSetup' }: VolarContext,
-): number {
-  ast = ast || sfc?.[source]?.ast
-  return (ts as any).getTokenPosOfNode(node, ast)
-}
-
-export function getText(
-  node: import('typescript').Node,
-  context: VolarContext,
-): string {
-  let { sfc, ast, source = 'scriptSetup' } = context
-  ast = ast || sfc?.[source]?.ast
-  return ast!.text.slice(getStart(node, context), node.end)
-}
-
-export function isJsxExpression(
-  node?: import('typescript').Node,
-): node is import('typescript').JsxExpression {
-  return node?.kind === 294
 }
 
 export function patchSFC(block: SFCScriptBlock | null, offset: number): void {

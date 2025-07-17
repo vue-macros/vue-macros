@@ -1,4 +1,3 @@
-import { getText, isJsxExpression } from '../common'
 import { resolveCtxMap, type CtxMap } from './context'
 import { transformCustomDirective } from './custom-directive'
 import { transformRef } from './ref'
@@ -64,7 +63,7 @@ export function transformJsxDirective(options: TransformOptions): void {
     let vSlotAttribute
     for (const attribute of properties?.attributes.properties || []) {
       if (!ts.isJsxAttribute(attribute)) continue
-      const attributeName = getText(attribute.name, options)
+      const attributeName = attribute.name.getText(ast)
 
       if (
         [`${prefix}if`, `${prefix}else-if`, `${prefix}else`].includes(
@@ -112,13 +111,13 @@ export function transformJsxDirective(options: TransformOptions): void {
 
     // Object Expression slots
     if (
-      isJsxExpression(node) &&
+      ts.isJsxExpression(node) &&
       node.expression &&
       ts.isObjectLiteralExpression(node.expression) &&
       parent &&
       ts.isJsxElement(parent) &&
       parent.children.filter((child) =>
-        ts.isJsxText(child) ? getText(child, options).trim() : true,
+        ts.isJsxText(child) ? child.getText(ast).trim() : true,
       ).length === 1
     ) {
       ctxNode = node
@@ -188,7 +187,7 @@ export function transformJsxDirective(options: TransformOptions): void {
         for (const child of parent.children) {
           if (
             getTagName(child, options) === 'template' ||
-            (ts.isJsxText(child) && !getText(child, options).trim())
+            (ts.isJsxText(child) && !child.getText(ast).trim())
           )
             continue
           const defaultNodes =
@@ -205,7 +204,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       ctxNodeMap.set(ctxNode, parents.find(ts.isBlock))
     }
 
-    ts.forEachChild(node, (child) => {
+    node.forEachChild((child) => {
       parents.unshift(node)
       walkJsxDirective(
         child,
@@ -215,7 +214,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       parents.shift()
     })
   }
-  ts.forEachChild(ast, walkJsxDirective)
+  ast.forEachChild(walkJsxDirective)
 
   const ctxMap = resolveCtxMap(ctxNodeMap, options)
 
@@ -251,5 +250,5 @@ export function getTagName(
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
 
-  return getText(openingElement.tagName, options)
+  return openingElement.tagName.getText(options.ast)
 }
