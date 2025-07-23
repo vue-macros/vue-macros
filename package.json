@@ -13,7 +13,7 @@
     "clean": "rimraf -g dist coverage \"packages/*/dist\" && pnpm run -r --parallel clean",
     "docs:dev": "pnpm run -C ./docs dev",
     "docs:preview": "pnpm run -C ./docs preview",
-    "docs:build": "pnpm run -C ./docs build",
+    "docs:build": "TWOSLASH=1 pnpm run -C ./docs build",
     "play": "pnpm run play:vue3",
     "play:vue3": "pnpm run -C ./playground/vue3 dev",
     "test": "vitest",
