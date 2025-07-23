@@ -7159,19 +7159,11 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  twoslash-protocol@0.3.2:
-    resolution: {integrity: sha512-lWIL1dGcMr7cywSLSn8ufCoeyPab3bIwPE6DmAlQYQSMjJUgzzRvSz/LsQ179eNJafRghYDlIgF2v7pmsjV3Ww==}
-
   twoslash-protocol@0.3.3:
     resolution: {integrity: sha512-26NXjXEj+2NgytwOjjhFtNpQI7Zgct6PTyLg6JO7fIbO7MIm+kx89IxvBustgBOSKxoWjNBN2LXjNHHMD7+k0g==}
 
   twoslash-vue@0.3.3:
     resolution: {integrity: sha512-CoIvzNK9QRJUUTTEzT0bFcf5kJc9wgBQHRcj5VcmhzFvcSdk/hevExeahcSHClpz1eE4EHJtma2+1wbK+GOjeg==}
-    peerDependencies:
-      typescript: ^5.5.0
-
-  twoslash@0.3.2:
-    resolution: {integrity: sha512-TB+ja888uMKhbng8HzpTHm+JfxIWbngIHPy4nKEt2N93MFjpqmkqn8ppnPhIKj4kDnrohEsiogMF7T1gMY06rw==}
     peerDependencies:
       typescript: ^5.5.0
 
@@ -9786,7 +9778,7 @@ snapshots:
     dependencies:
       '@shikijs/core': 3.7.0
       '@shikijs/types': 3.7.0
-      twoslash: 0.3.2(typescript@5.8.3)
+      twoslash: 0.3.3(typescript@5.8.3)
       typescript: 5.8.3
     transitivePeerDependencies:
       - supports-color
@@ -9804,7 +9796,7 @@ snapshots:
       mdast-util-gfm: 3.1.0
       mdast-util-to-hast: 13.2.0
       shiki: 3.7.0
-      twoslash: 0.3.2(typescript@5.8.3)
+      twoslash: 0.3.3(typescript@5.8.3)
       twoslash-vue: 0.3.3(typescript@5.8.3)
       vue: 3.5.17(typescript@5.8.3)
     transitivePeerDependencies:
@@ -14743,8 +14735,6 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  twoslash-protocol@0.3.2: {}
-
   twoslash-protocol@0.3.3: {}
 
   twoslash-vue@0.3.3(typescript@5.8.3):
@@ -14752,14 +14742,6 @@ snapshots:
       '@vue/language-core': 3.0.3(typescript@5.8.3)
       twoslash: 0.3.3(typescript@5.8.3)
       twoslash-protocol: 0.3.3
-      typescript: 5.8.3
-    transitivePeerDependencies:
-      - supports-color
-
-  twoslash@0.3.2(typescript@5.8.3):
-    dependencies:
-      '@typescript/vfs': 1.6.1(typescript@5.8.3)
-      twoslash-protocol: 0.3.2
       typescript: 5.8.3
     transitivePeerDependencies:
       - supports-color
