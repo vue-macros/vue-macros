@@ -3,7 +3,6 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import ts from 'typescript'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin } from 'vitepress-plugin-group-icons'
-import VueMacrosPlugin from 'vue-macros/volar'
 import { docsLink } from '../../../macros'
 import { getLocaleConfig } from './theme'
 
@@ -64,7 +63,7 @@ export default defineConfig({
                   types: ['vue-macros/macros-global', 'vue/jsx'],
                 },
                 vueCompilerOptions: {
-                  plugins: [VueMacrosPlugin],
+                  plugins: ['@vue-macros/volar'],
                 },
               },
             }),
