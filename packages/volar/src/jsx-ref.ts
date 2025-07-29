@@ -84,8 +84,8 @@ const plugin: PluginReturn<OptionsResolved['jsxRef'] | undefined> =
 
       return {
         name: 'vue-macros-jsx-ref',
-        resolveVirtualCode({ filePath, ast, codes, source, languageId }) {
-          if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
+        resolveVirtualCode({ filePath, ast, codes, source, lang }) {
+          if (!filter(filePath) || !['jsx', 'tsx'].includes(lang)) return
           const nodes = getRefNodes(ts, ast, alias)
           if (nodes.length) {
             transformRef({

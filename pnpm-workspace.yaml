@@ -119,7 +119,7 @@ catalog:
   rollup-plugin-dts: ^6.2.1
   sirv: ^3.0.1
   taze: ^19.1.0
-  ts-macro: ^0.3.0
+  ts-macro: ^0.3.1
   tsdown: ^0.13.0
   tsx: ^4.20.3
   type-fest: ^4.41.0
@@ -147,3 +147,38 @@ catalog:
 peerDependencyRules:
   ignoreMissing:
     - search-insights
+catalogs:
+  conflicts_ts-macro_:
+    ts-macro: ''
+  conflicts_ts-macro_/Users/zmj/Documents/tsm:
+    ts-macro: /Users/zmj/Documents/tsm
+  conflicts_ts-macro_l:
+    ts-macro: l
+  conflicts_ts-macro_li:
+    ts-macro: li
+  conflicts_ts-macro_lin:
+    ts-macro: lin
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_:
+    ts-macro: ''
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_c:
+    ts-macro: c
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_ca:
+    ts-macro: ca
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_cal:
+    ts-macro: cal
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_cala:
+    ts-macro: cala
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_calal:
+    ts-macro: calal
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_calalo:
+    ts-macro: calalo
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_calalog:
+    ts-macro: calalog
+  conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_calalog_:
+    ts-macro: 'calalog '
+  'conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_calalog:':
+    ts-macro: 'calalog:'
+  'conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_caalog:':
+    ts-macro: 'caalog:'
+  'conflicts_conflicts_ts-macro_/Users/zmj/Documents/tsm_cat_alog:':
+    ts-macro: 'cat alog:'
