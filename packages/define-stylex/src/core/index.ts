@@ -18,7 +18,7 @@ import {
 import type { Node } from '@babel/types'
 
 const STYLEX_CREATE = '_stylex_create'
-const STYLEX_ATTRS = '_stylex_attrs'
+const STYLEX_PROPS = '_stylex_props'
 
 function transformDirective(s: MagicStringAST): NodeTransform {
   return (node) => {
@@ -41,7 +41,7 @@ function transformDirective(s: MagicStringAST): NodeTransform {
     const prefix = hasColon ? '' : '('
     const postfix = hasColon ? '' : ')'
 
-    if (directiveVStyleX.exp.content.includes(STYLEX_ATTRS)) {
+    if (directiveVStyleX.exp.content.includes(STYLEX_PROPS)) {
       s?.overwrite(
         directiveVStyleX.loc.start.offset,
         directiveVStyleX.loc.end.offset,
@@ -53,7 +53,7 @@ function transformDirective(s: MagicStringAST): NodeTransform {
     s?.overwrite(
       directiveVStyleX.loc.start.offset,
       directiveVStyleX.loc.end.offset,
-      `v-bind="${STYLEX_ATTRS}${prefix}${directiveVStyleX.exp.content}${postfix}"`,
+      `v-bind="${STYLEX_PROPS}${prefix}${directiveVStyleX.exp.content}${postfix}"`,
     )
   }
 }
@@ -106,7 +106,7 @@ export function transformDefineStyleX(
 
   s.appendRight(
     setupOffset,
-    `\nimport { create as ${STYLEX_CREATE}, attrs as ${STYLEX_ATTRS} } from '@stylexjs/stylex'`,
+    `\nimport { create as ${STYLEX_CREATE}, props as ${STYLEX_PROPS} } from '@stylexjs/stylex'`,
   )
 
   return generateTransform(s, id)

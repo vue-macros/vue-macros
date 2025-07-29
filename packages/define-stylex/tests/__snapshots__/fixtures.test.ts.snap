@@ -5,12 +5,12 @@ exports[`fixtures > ./fixtures/basic.vue 1`] = `
 const styles = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
 </script>
 <script setup lang="ts">
-import { create as _stylex_create, attrs as _stylex_attrs } from '@stylexjs/stylex'
+import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
 
 </script>
 
 <template>
-  <p><span v-bind="_stylex_attrs(styles.redBold)">Red</span> Text</p>
+  <p><span v-bind="_stylex_props(styles.redBold)">Red</span> Text</p>
 </template>
 "
 `;
@@ -23,12 +23,12 @@ const styles = _stylex_create({
 })
 </script>
 <script setup lang="ts">
-import { create as _stylex_create, attrs as _stylex_attrs } from '@stylexjs/stylex'
+import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
 
 </script>
 
 <template>
-  <p><span v-bind="_stylex_attrs(styles.red, styles.bold)">Red</span> Text</p>
+  <p><span v-bind="_stylex_props(styles.red, styles.bold)">Red</span> Text</p>
 </template>
 "
 `;
@@ -41,13 +41,13 @@ const styles = _stylex_create({
 })
 </script>
 <script setup lang="ts">
-import { create as _stylex_create, attrs as _stylex_attrs } from '@stylexjs/stylex'
+import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
 defineProps<{ bold?: boolean }>()
 
 </script>
 
 <template>
-  <p><span v-bind="_stylex_attrs(styles.red, bold && styles.bold)">Red</span> Text</p>
+  <p><span v-bind="_stylex_props(styles.red, bold && styles.bold)">Red</span> Text</p>
 </template>
 "
 `;
