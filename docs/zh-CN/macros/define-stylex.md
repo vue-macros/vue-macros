@@ -76,15 +76,15 @@ const styles = _stylex_create({
 
 <script setup lang="ts">
 import {
-  attrs as _stylex_attrs,
   create as _stylex_create,
+  props as _stylex_props,
 } from '@stylexjs/stylex'
 
 // ...
 </script>
 
 <template>
-  <p v-bind="_stylex_attrs(styles.red)">Red</p>
+  <p v-bind="_stylex_props(styles.red)">Red</p>
 </template>
 ```
 
@@ -124,15 +124,15 @@ const styles = _stylex_create({
 
 <script setup lang="ts">
 import {
-  attrs as _stylex_attrs,
   create as _stylex_create,
+  props as _stylex_props,
 } from '@stylexjs/stylex'
 
 defineProps<{ bold?: boolean }>()
 </script>
 
 <template>
-  <span v-bind="_stylex_attrs(styles.red, bold && styles.bold)">Red</span>
+  <span v-bind="_stylex_props(styles.red, bold && styles.bold)">Red</span>
 </template>
 ```
 
