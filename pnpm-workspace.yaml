@@ -17,13 +17,10 @@ overrides:
   shiki: 'catalog:'
   smartwrap: 'npm:@no-shims/smartwrap'
   vite: 'catalog:'
-  vue: 'catalog:'
-  oxc-minify: 'catalog:'
-  oxc-transform: 'catalog:'
 
 defines:
   - &babel ^7.28.0
-  - &nolebase ^2.18.0
+  - &nolebase ^2.18.1
   - &shiki ^3.8.1
   - &unocss ^66.3.3
   - &vitest ^3.2.4
@@ -69,29 +66,29 @@ catalog:
   '@iconify-json/logos': ^1.2.5
   '@iconify-json/ri': ^1.2.5
   '@nuxt/devtools': ^2.6.2
-  '@nuxt/kit': ^4.0.1
-  '@nuxt/schema': ^4.0.1
+  '@nuxt/kit': ^4.0.2
+  '@nuxt/schema': ^4.0.2
   '@rolldown/pluginutils': *rolldown
   '@rollup/plugin-commonjs': ^28.0.6
   '@rollup/plugin-json': ^6.1.0
   '@rollup/plugin-node-resolve': ^16.0.1
   '@rspack/core': ^1.4.10
   '@stylexjs/stylex': ^0.14.3
-  '@sxzz/eslint-config': ^7.0.6
+  '@sxzz/eslint-config': ^7.1.0
   '@sxzz/prettier-config': ^2.2.3
   '@sxzz/test-utils': ^0.5.7
   '@types/node': ^24.1.0
-  '@vitejs/plugin-vue': ^6.0.0
+  '@vitejs/plugin-vue': ^6.0.1
   '@vitejs/plugin-vue-jsx': ^5.0.1
-  '@vueuse/core': ^13.5.0
+  '@vueuse/core': ^13.6.0
   ast-kit: ^2.1.1
   ast-walker-scope: ^0.8.1
-  astro: ^5.12.3
-  bumpp: ^10.2.0
+  astro: ^5.12.5
+  bumpp: ^10.2.1
   change-case: ^5.4.4
   cspell: ^9.2.0
   esbuild: ^0.25.8
-  eslint: ^9.31.0
+  eslint: ^9.32.0
   expect-type: ^1.2.2
   fast-glob: ^3.3.3
   get-port: ^7.1.0
@@ -102,8 +99,7 @@ catalog:
   monoman: ^0.7.1
   muggle-string: ^0.4.1
   neverthrow: ^8.2.0
-  nuxt: ^4.0.1
-  oxc-minify: *oxc
+  nuxt: ^4.0.2
   oxc-parser: *oxc
   oxc-resolver: ^11.6.0
   oxc-transform: *oxc
@@ -115,7 +111,7 @@ catalog:
   radix-vue: ^1.9.17
   rimraf: ^6.0.1
   rolldown: *rolldown
-  rollup: ^4.45.1
+  rollup: ^4.46.1
   rollup-plugin-dts: ^6.2.1
   sirv: ^3.0.1
   taze: ^19.1.0
@@ -136,13 +132,13 @@ catalog:
   unplugin-vue: ^7.0.0
   vite: ^7.0.6
   vite-hyper-config: ^0.7.0
-  vite-plugin-inspect: ^11.3.0
+  vite-plugin-inspect: ^11.3.2
   vite-plugin-stylex: ^0.13.0
-  vite-plugin-vue-devtools: ^7.7.7
+  vite-plugin-vue-devtools: ^8.0.0
   vitepress: ^2.0.0-alpha.2
   vitepress-plugin-group-icons: ^1.6.1
-  vitepress-plugin-llms: ^1.7.1
-  webpack: ^5.100.2
+  vitepress-plugin-llms: ^1.7.2
+  webpack: ^5.101.0
 
 peerDependencyRules:
   ignoreMissing:
