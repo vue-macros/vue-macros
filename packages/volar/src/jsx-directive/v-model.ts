@@ -150,7 +150,10 @@ function transform(
           ? isRadioOrCheckbox(node, options)
             ? 'v-model'
             : [[modelValue, start + 2]]
-          : [modelValue.slice(0, 3), [modelValue.slice(3), start]]) as Code[]),
+          : [
+              [modelValue.slice(0, 3), start],
+              [modelValue.slice(3), start],
+            ]) as Code[]),
       )
 
       if (modifiers.length) {
