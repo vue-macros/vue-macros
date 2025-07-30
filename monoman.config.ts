@@ -140,19 +140,19 @@ Please refer to [README.md](${githubLink}#readme)\n`
   ...noDuplicatedPnpmLockfile({
     deps: [
       'typescript',
-      /vue\b(?!\/devtools)/,
+      /vite(?!-(plugin-(vue-devtools|inspect)|hot-client))/,
+      /vue\b(?!([/-]devtools))/,
       /twoslash/,
       /shiki/,
       /babel/,
       /esbuild/,
-      /vite(?!-(plugin-(vue-inspector|inspect)|hot-client))/,
       /unocss/,
       /rolldown/,
       /oxc(?!-project\/types)/,
     ],
   }),
   ...noDuplicatedPnpmLockfile({
-    deps: ['lru-cache', 'minimatch', 'debug'],
+    deps: ['lru-cache', 'minimatch', 'debug', 'vite-plugin-vue-devtools'],
     allowMajor: true,
   }),
 ])
