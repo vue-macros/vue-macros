@@ -41,13 +41,11 @@ declare function __VLS_getFunctionalComponentCtx<T, K, const S>(
   s: S,
 ): S extends keyof typeof __VLS_nativeElements
   ? { expose: (exposed: (typeof __VLS_nativeElements)[S]) => any }
-  : '__ctx' extends keyof __VLS_PickNotAny<K, {}>
-    ? K extends { __ctx?: infer Ctx }
-      ? Ctx
-      : never
-    : T extends (props: infer P, ctx: infer Ctx) => any
-      ? { props: P } & Ctx
-      : {};\n`)
+    : T extends { setup: (props: infer P, ctx: infer Ctx) => any } ? { props: P } & Ctx :
+      '__ctx' extends keyof __VLS_PickNotAny<K, {}> 
+      ? K extends { __ctx?: infer Ctx } ? Ctx : never
+      : T extends (props: infer P, ctx: infer Ctx) => any ? { props: P } & Ctx
+        : {};\n`)
   }
 
   return new Map(
