@@ -21,13 +21,14 @@ overrides:
 defines:
   - &babel ^7.28.0
   - &nolebase ^2.18.1
-  - &shiki ^3.8.1
-  - &unocss ^66.3.3
+  - &shiki ^3.9.2
+  - &unocss ^66.4.1
   - &vitest ^3.2.4
-  - &vlt 3.0.4
+  - &vlt 3.0.5
   - &vue ^3.5.18
-  - &rolldown ^1.0.0-beta.29
-  - &oxc ^0.78.0
+  - &rolldown ^1.0.0-beta.31
+  - &oxc ^0.80.0
+  - &nuxt ^4.0.3
 
 catalog:
   '@babel/parser': *babel
@@ -66,25 +67,25 @@ catalog:
   '@iconify-json/logos': ^1.2.5
   '@iconify-json/ri': ^1.2.5
   '@nuxt/devtools': ^2.6.2
-  '@nuxt/kit': ^4.0.2
-  '@nuxt/schema': ^4.0.2
+  '@nuxt/kit': *nuxt
+  '@nuxt/schema': *nuxt
   '@rolldown/pluginutils': *rolldown
   '@rollup/plugin-commonjs': ^28.0.6
   '@rollup/plugin-json': ^6.1.0
   '@rollup/plugin-node-resolve': ^16.0.1
-  '@rspack/core': ^1.4.10
-  '@stylexjs/stylex': ^0.14.3
-  '@sxzz/eslint-config': ^7.1.1
+  '@rspack/core': ^1.4.11
+  '@stylexjs/stylex': ^0.15.2
+  '@sxzz/eslint-config': ^7.1.2
   '@sxzz/prettier-config': ^2.2.3
-  '@sxzz/test-utils': ^0.5.7
-  '@types/node': ^24.1.0
+  '@sxzz/test-utils': ^0.5.9
+  '@types/node': ^24.2.0
   '@vitejs/plugin-vue': ^6.0.1
   '@vitejs/plugin-vue-jsx': ^5.0.1
   '@vueuse/core': ^13.6.0
   ast-kit: ^2.1.1
   ast-walker-scope: ^0.8.1
-  astro: ^5.12.5
-  bumpp: ^10.2.1
+  astro: ^5.12.8
+  bumpp: ^10.2.2
   change-case: ^5.4.4
   cspell: ^9.2.0
   esbuild: ^0.25.8
@@ -99,9 +100,9 @@ catalog:
   monoman: ^0.7.1
   muggle-string: ^0.4.1
   neverthrow: ^8.2.0
-  nuxt: ^4.0.2
+  nuxt: *nuxt
   oxc-parser: *oxc
-  oxc-resolver: ^11.6.0
+  oxc-resolver: ^11.6.1
   oxc-transform: *oxc
   pkg-types: ^2.2.0
   prettier: ^3.6.2
@@ -111,27 +112,27 @@ catalog:
   radix-vue: ^1.9.17
   rimraf: ^6.0.1
   rolldown: *rolldown
-  rollup: ^4.46.1
+  rollup: ^4.46.2
   rollup-plugin-dts: ^6.2.1
   sirv: ^3.0.1
   taze: ^19.1.0
-  ts-macro: ^0.3.1
-  tsdown: ^0.13.0
+  ts-macro: ^0.3.2
+  tsdown: ^0.13.3
   tsx: ^4.20.3
   type-fest: ^4.41.0
-  typescript: ^5.8.3
+  typescript: ^5.9.2
   unconfig: ^7.3.2
   unplugin: ^2.3.5
-  unplugin-combine: ^2.0.0
+  unplugin-combine: ^2.1.0
   unplugin-macros: ^0.17.1
-  unplugin-oxc: ^0.4.8
+  unplugin-oxc: ^0.4.9
   unplugin-quansync: ^0.4.3
-  unplugin-raw: ^0.5.0
+  unplugin-raw: ^0.5.1
   unplugin-unused: ^0.5.1
   unplugin-utils: ^0.2.4
-  unplugin-vue: ^7.0.0
+  unplugin-vue: ^7.0.1
   vite: ^7.0.6
-  vite-hyper-config: ^0.7.0
+  vite-hyper-config: ^0.7.1
   vite-plugin-inspect: ^11.3.2
   vite-plugin-stylex: ^0.13.0
   vite-plugin-vue-devtools: ^8.0.0

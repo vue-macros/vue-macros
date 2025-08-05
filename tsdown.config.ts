@@ -12,7 +12,7 @@ export default defineConfig({
   format: 'esm',
   target: 'node20.18',
   watch: !!process.env.DEV,
-  dts: { isolatedDeclarations: true },
+  dts: { oxc: true },
   clean: true,
   define: {
     'import.meta.DEV': JSON.stringify(!!process.env.DEV),
