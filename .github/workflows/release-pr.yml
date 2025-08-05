@@ -2,30 +2,9 @@ name: Publish Any Commit
 on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  release:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
-
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build
-        run: pnpm build
-
-      - name: Publish
-        run: pnpm dlx pkg-pr-new@0.0 publish --compact --pnpm './packages/*'
+    uses: sxzz/workflows/.github/workflows/release-pr.yml@v1
+    with:
+      packages: "'./packages/*'"
+      compact: true
