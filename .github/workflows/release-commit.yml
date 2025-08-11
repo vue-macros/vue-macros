@@ -4,7 +4,7 @@ on: [push, pull_request]
 jobs:
   release:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
-    uses: sxzz/workflows/.github/workflows/release-pr.yml@v1
+    uses: sxzz/workflows/.github/workflows/release-commit.yml@v1
     with:
       packages: "'./packages/*'"
       compact: true
