@@ -15,7 +15,7 @@ import {
   type NodeTransform,
   type NodeTypes,
 } from '@vue/compiler-dom'
-import type { Node } from '@babel/types'
+import type { CallExpression, Node } from '@babel/types'
 
 const STYLEX_CREATE = '_stylex_create'
 const STYLEX_PROPS = '_stylex_props'
@@ -67,33 +67,36 @@ export function transformDefineStyleX(
   const { scriptSetup, getSetupAst, template } = sfc
   if (!scriptSetup || !template) return
 
-  let scriptOffset: number | undefined
   const setupOffset = scriptSetup.loc.start.offset
 
   const s = new MagicStringAST(code)
   const normalScript = addNormalScript(sfc, s)
-
-  function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
-    if (scriptOffset === undefined) scriptOffset = normalScript.start()
-
-    const text = `\n${prefix}${s.sliceNode(decl, { offset: setupOffset })}`
-    s.appendRight(scriptOffset, text)
-
-    s.removeNode(decl, { offset: setupOffset })
-  }
+  const scriptOffset = normalScript.start()
 
   const setupAST = getSetupAst()!
 
   walkAST<Node>(setupAST, {
     enter(node) {
       if (node.type !== 'VariableDeclaration') return
+      const shouldChange = node.declarations.some((decl) =>
+        isCallOf(decl.init, DEFINE_STYLEX),
+      )
+      if (!shouldChange) return
+
       node.declarations.forEach((decl) => {
-        if (!isCallOf(decl.init, DEFINE_STYLEX)) return
-        s.overwriteNode(decl.init.callee, STYLEX_CREATE, {
-          offset: setupOffset,
-        })
+        const isDefineStyleX = isCallOf(decl.init, DEFINE_STYLEX)
+        if (isDefineStyleX) {
+          s.overwriteNode((decl.init as CallExpression).callee, STYLEX_CREATE, {
+            offset: setupOffset,
+          })
+        }
+        const text = `\n${node.kind} ${s.sliceNode(decl, { offset: setupOffset })}`
+        s.appendRight(
+          isDefineStyleX ? scriptOffset : node.start! + setupOffset - 1,
+          text,
+        )
       })
-      moveToScript(node)
+      s.removeNode(node, { offset: setupOffset })
     },
   })
 
@@ -104,7 +107,7 @@ export function transformDefineStyleX(
   })
   traverseNode(template.ast!, ctx)
 
-  s.appendRight(
+  s.appendLeft(
     setupOffset,
     `\nimport { create as ${STYLEX_CREATE}, props as ${STYLEX_PROPS} } from '@stylexjs/stylex'`,
   )
