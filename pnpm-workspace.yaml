@@ -12,22 +12,25 @@ overrides:
   '@vitejs/plugin-vue': 'catalog:'
   '@vitejs/plugin-vue-jsx': 'catalog:'
   '@vue/language-core': 'catalog:'
-  is-core-module: 'npm:@no-shims/is-core-module'
+  is-core-module: npm:@no-shims/is-core-module
   oxc-parser: 'catalog:'
   shiki: 'catalog:'
-  smartwrap: 'npm:@no-shims/smartwrap'
+  smartwrap: npm:@no-shims/smartwrap
   vite: 'catalog:'
+  oxc-minify: 'catalog:'
+  oxc-transform: 'catalog:'
+  unplugin-vue-router>@vue-macros/common: latest
 
 defines:
-  - &babel ^7.28.0
-  - &nolebase ^2.18.1
-  - &shiki ^3.9.2
-  - &unocss ^66.4.1
+  - &babel ^7.28.2
+  - &nolebase ^2.18.2
+  - &shiki ^3.11.0
+  - &unocss ^66.4.2
   - &vitest ^3.2.4
   - &vlt 3.0.5
   - &vue ^3.5.18
-  - &rolldown ^1.0.0-beta.31
-  - &oxc ^0.80.0
+  - &rolldown ^1.0.0-beta.33
+  - &oxc ^0.82.2
   - &nuxt ^4.0.3
 
 catalog:
@@ -63,8 +66,13 @@ catalog:
   '@nolebase/vitepress-plugin-git-changelog': *nolebase
   '@nolebase/vitepress-plugin-highlight-targeted-heading': *nolebase
 
+  oxc-minify: *oxc
+  oxc-parser: *oxc
+  oxc-resolver: ^11.6.1
+  oxc-transform: *oxc
+
   '@astrojs/vue': ^5.1.0
-  '@iconify-json/logos': ^1.2.5
+  '@iconify-json/logos': ^1.2.9
   '@iconify-json/ri': ^1.2.5
   '@nuxt/devtools': ^2.6.2
   '@nuxt/kit': *nuxt
@@ -74,72 +82,69 @@ catalog:
   '@rollup/plugin-json': ^6.1.0
   '@rollup/plugin-node-resolve': ^16.0.1
   '@rspack/core': ^1.4.11
-  '@stylexjs/stylex': ^0.15.2
-  '@sxzz/eslint-config': ^7.1.2
-  '@sxzz/prettier-config': ^2.2.3
-  '@sxzz/test-utils': ^0.5.9
-  '@types/node': ^24.2.0
+  '@stylexjs/stylex': ^0.15.3
+  '@sxzz/eslint-config': ^7.1.4
+  '@sxzz/prettier-config': ^2.2.4
+  '@sxzz/test-utils': ^0.5.10
+  '@types/node': ^24.3.0
   '@vitejs/plugin-vue': ^6.0.1
   '@vitejs/plugin-vue-jsx': ^5.0.1
-  '@vueuse/core': ^13.6.0
-  ast-kit: ^2.1.1
-  ast-walker-scope: ^0.8.1
-  astro: ^5.12.8
-  bumpp: ^10.2.2
+  '@vueuse/core': ^13.7.0
+  ast-kit: ^2.1.2
+  ast-walker-scope: ^0.8.2
+  astro: ^5.13.2
+  bumpp: ^10.2.3
   change-case: ^5.4.4
   cspell: ^9.2.0
-  esbuild: ^0.25.8
-  eslint: ^9.32.0
+  esbuild: ^0.25.9
+  eslint: ^9.33.0
   expect-type: ^1.2.2
   fast-glob: ^3.3.3
   get-port: ^7.1.0
   jiti: ^2.5.1
-  local-pkg: ^1.1.1
+  local-pkg: ^1.1.2
   magic-string: ^0.30.17
-  magic-string-ast: ^1.0.0
-  monoman: ^0.7.1
+  magic-string-ast: ^1.0.2
+  monoman: ^0.7.2
   muggle-string: ^0.4.1
   neverthrow: ^8.2.0
   nuxt: *nuxt
-  oxc-parser: *oxc
-  oxc-resolver: ^11.6.1
-  oxc-transform: *oxc
-  pkg-types: ^2.2.0
+  pkg-types: ^2.3.0
   prettier: ^3.6.2
   publint: ^0.3.12
-  quansync: ^0.2.10
+  quansync: ^0.2.11
   quasar: ^2.18.2
   radix-vue: ^1.9.17
   rimraf: ^6.0.1
   rolldown: *rolldown
-  rollup: ^4.46.2
-  rollup-plugin-dts: ^6.2.1
+  rollup: ^4.46.4
+  rollup-plugin-dts: ^6.2.3
   sirv: ^3.0.1
-  taze: ^19.1.0
-  ts-macro: ^0.3.2
-  tsdown: ^0.13.3
-  tsx: ^4.20.3
+  taze: ^19.1.1
+  ts-macro: ^0.3.4
+  tsdown: ^0.14.1
+  tsx: ^4.20.4
   type-fest: ^4.41.0
   typescript: ^5.9.2
-  unconfig: ^7.3.2
-  unplugin: ^2.3.5
-  unplugin-combine: ^2.1.0
-  unplugin-macros: ^0.17.1
-  unplugin-oxc: ^0.4.9
-  unplugin-quansync: ^0.4.3
-  unplugin-raw: ^0.5.1
-  unplugin-unused: ^0.5.1
-  unplugin-utils: ^0.2.4
+  unconfig: ^7.3.3
+  unplugin: ^2.3.6
+  unplugin-combine: ^2.1.2
+  unplugin-macros: ^0.18.0
+  unplugin-oxc: ^0.5.1
+  unplugin-quansync: ^0.4.4
+  unplugin-raw: ^0.6.0
+  unplugin-unused: ^0.5.2
+  unplugin-utils: ^0.3.0
   unplugin-vue: ^7.0.1
-  vite: ^7.0.6
+  vite: ^7.1.3
   vite-hyper-config: ^0.7.1
   vite-plugin-inspect: ^11.3.2
   vite-plugin-stylex: ^0.13.0
   vite-plugin-vue-devtools: ^8.0.0
   vitepress: ^2.0.0-alpha.2
-  vitepress-plugin-group-icons: ^1.6.1
-  vitepress-plugin-llms: ^1.7.2
-  webpack: ^5.101.0
+  vitepress-plugin-group-icons: ^1.6.3
+  vitepress-plugin-llms: ^1.7.3
+  webpack: ^5.101.3
 
 peerDependencyRules:
   ignoreMissing:
