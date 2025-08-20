@@ -45,7 +45,10 @@ const a = 'a'
 </script>
 
 <template>
-  <p><span v-bind="_stylex_props(stylesa.redBold)">Red</span> <span v-bind="_stylex_props(stylesb.redBold)">{{ a }}</span></p>
+  <p>
+    <span v-bind="_stylex_props(stylesa.redBold)">Red</span>
+    <span v-bind="_stylex_props(stylesb.redBold)">{{ a }}</span>
+  </p>
 </template>
 "
 `;

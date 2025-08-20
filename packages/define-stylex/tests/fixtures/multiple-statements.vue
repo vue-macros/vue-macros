@@ -5,5 +5,8 @@ const stylesa = defineStyleX({ redBold: { color: 'red', fontWeight: 'bold' } }),
 </script>
 
 <template>
-  <p><span v-stylex="stylesa.redBold">Red</span> <span v-stylex="stylesb.redBold">{{ a }}</span></p>
+  <p>
+    <span v-stylex="stylesa.redBold">Red</span>
+    <span v-stylex="stylesb.redBold">{{ a }}</span>
+  </p>
 </template>
