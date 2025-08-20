@@ -1,13 +1,16 @@
 <script setup lang="ts">
-// case 1: separated declarations
+// separated declarations before
 const a = 'a'
-// case 2: multiple declarations
-const styles = defineStyleX({ redBold: { color: 'red', fontWeight: 'bold' } }),
-  b = 'b'
-// case 3: separated declarations after
-const c = 'c'
+// multiple declarations
+const b = 'b',
+  styles = defineStyleX({ redBold: { color: 'red', fontWeight: 'bold' } }),
+  c = 'c'
+// separated declarations after
+const d = 'd'
 </script>
 
 <template>
-  <p><span v-stylex="styles.redBold">Red</span> {{ a }} {{ b }} {{ c }}</p>
+  <p>
+    <span v-stylex="styles.redBold">Red</span> {{ a }} {{ b }} {{ c }} {{ d }}
+  </p>
 </template>

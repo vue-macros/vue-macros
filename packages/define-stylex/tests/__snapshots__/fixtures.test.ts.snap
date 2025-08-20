@@ -35,8 +35,8 @@ import { create as _stylex_create, props as _stylex_props } from '@stylexjs/styl
 
 exports[`fixtures > ./fixtures/multiple-statements.vue 1`] = `
 "<script lang="ts">
-const stylesa = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
-const stylesb = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
+const stylesA = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
+const stylesB = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
 </script>
 <script setup lang="ts">
 import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
@@ -46,8 +46,8 @@ const a = 'a'
 
 <template>
   <p>
-    <span v-bind="_stylex_props(stylesa.redBold)">Red</span>
-    <span v-bind="_stylex_props(stylesb.redBold)">{{ a }}</span>
+    <span v-bind="_stylex_props(stylesA.redBold)">Red</span>
+    <span v-bind="_stylex_props(stylesB.redBold)">{{ a }}</span>
   </p>
 </template>
 "
@@ -78,17 +78,20 @@ const styles = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
 </script>
 <script setup lang="ts">
 import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
-// case 1: separated declarations
+// separated declarations before
 const a = 'a'
-// case 2: multiple declarations
+// multiple declarations
 const b = 'b'
-
-// case 3: separated declarations after
 const c = 'c'
+
+// separated declarations after
+const d = 'd'
 </script>
 
 <template>
-  <p><span v-bind="_stylex_props(styles.redBold)">Red</span> {{ a }} {{ b }} {{ c }}</p>
+  <p>
+    <span v-bind="_stylex_props(styles.redBold)">Red</span> {{ a }} {{ b }} {{ c }} {{ d }}
+  </p>
 </template>
 "
 `;
