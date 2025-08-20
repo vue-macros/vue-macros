@@ -33,6 +33,26 @@ import { create as _stylex_create, props as _stylex_props } from '@stylexjs/styl
 "
 `;
 
+exports[`fixtures > ./fixtures/multiple-statements.vue 1`] = `
+"<script lang="ts">
+const stylesA = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
+const stylesB = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
+</script>
+<script setup lang="ts">
+import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
+const a = 'a'
+
+</script>
+
+<template>
+  <p>
+    <span v-bind="_stylex_props(stylesA.redBold)">Red</span>
+    <span v-bind="_stylex_props(stylesB.redBold)">{{ a }}</span>
+  </p>
+</template>
+"
+`;
+
 exports[`fixtures > ./fixtures/optional-rules.vue 1`] = `
 "<script lang="ts">
 const styles = _stylex_create({
@@ -48,6 +68,30 @@ defineProps<{ bold?: boolean }>()
 
 <template>
   <p><span v-bind="_stylex_props(styles.red, bold && styles.bold)">Red</span> Text</p>
+</template>
+"
+`;
+
+exports[`fixtures > ./fixtures/other-statements.vue 1`] = `
+"<script lang="ts">
+const styles = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
+</script>
+<script setup lang="ts">
+import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
+// separated declarations before
+const a = 'a'
+// multiple declarations
+const b = 'b'
+const c = 'c'
+
+// separated declarations after
+const d = 'd'
+</script>
+
+<template>
+  <p>
+    <span v-bind="_stylex_props(styles.redBold)">Red</span> {{ a }} {{ b }} {{ c }} {{ d }}
+  </p>
 </template>
 "
 `;
