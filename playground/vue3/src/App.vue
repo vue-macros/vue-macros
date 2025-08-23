@@ -168,7 +168,6 @@ import ShortVmodel from './examples/short-vmodel/parent.vue'
 </template>
 
 <style>
-@stylex stylesheet;
 legend {
   font-family: monospace;
   font-size: 16px;
