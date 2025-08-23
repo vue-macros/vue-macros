@@ -13,18 +13,18 @@ Define and consume [StyleX](https://stylexjs.com/) styles in `<script setup>`.
 
 ## Setup
 
-To use StyleX, you should install and configure StyleX first. The steps could change, you may want to check the [official documentation](https://stylexjs.com/) and the [documentation of vite-plugin-stylex](https://github.com/HorusGoul/vite-plugin-stylex) for the latest information.
+To use StyleX, you should install and configure StyleX first. The steps could change, you may want to check the [official documentation](https://stylexjs.com/) and the [documentation of stylex-extend](https://nonzzz.github.io/stylex-extend/integrations/vite) for the latest information.
 
 ### Vite
 
 ```sh
-pnpm add @stylexjs/stylex vite-plugin-stylex
+pnpm add @stylexjs/stylex @stylex-extend/core @stylex-extend/vite -D
 ```
 
-```ts [vite.config.ts] {4,13}
+```ts [vite.config.ts] {1,13}
+import { stylex } from '@stylex-extend/vite'
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
-import StyleX from 'vite-plugin-stylex'
 import VueMacros from 'vue-macros/vite'
 
 export default defineConfig({
@@ -34,16 +34,14 @@ export default defineConfig({
         vue: Vue(),
       },
     }),
-    StyleX(), // Must be placed after Vue Macros
+    stylex(), // Must be placed after Vue Macros
   ],
 })
 ```
 
-```vue [App.vue] {2-3}
-<style>
-/* import StyleX stylesheet, according to https://github.com/HorusGoul/vite-plugin-stylex */
-@stylex stylesheet;
-</style>
+```ts [main.ts] {2}
+// import StyleX stylesheet, according to https://nonzzz.github.io/stylex-extend/integrations/vite
+import 'virtual:stylex.css'
 ```
 
 ## Basic Usage
