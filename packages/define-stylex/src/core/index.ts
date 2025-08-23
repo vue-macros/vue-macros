@@ -2,7 +2,6 @@ import {
   addNormalScript,
   DEFINE_STYLEX,
   generateTransform,
-  HELPER_PREFIX,
   importHelperFn,
   isCallOf,
   MagicStringAST,
