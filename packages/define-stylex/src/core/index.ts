@@ -2,6 +2,8 @@ import {
   addNormalScript,
   DEFINE_STYLEX,
   generateTransform,
+  HELPER_PREFIX,
+  importHelperFn,
   isCallOf,
   MagicStringAST,
   parseSFC,
@@ -15,12 +17,20 @@ import {
   type NodeTransform,
   type NodeTypes,
 } from '@vue/compiler-dom'
+import { styleXAttrsId } from './helper'
 import type { CallExpression, Node } from '@babel/types'
 
 const STYLEX_CREATE = '_stylex_create'
 const STYLEX_PROPS = '_stylex_props'
+const STYLEX_ATTRS = '_stylex_attrs'
 
-function transformDirective(s: MagicStringAST): NodeTransform {
+const callStyleXAttrs = (s: MagicStringAST, setupOffset: number) =>
+  importHelperFn(s, setupOffset, 'default', STYLEX_ATTRS, styleXAttrsId)
+
+function transformDirective(
+  s: MagicStringAST,
+  setupOffset: number,
+): NodeTransform {
   return (node) => {
     if (!(node.type === (1 satisfies NodeTypes.ELEMENT))) return
     const i = node.props.findIndex(
@@ -45,7 +55,7 @@ function transformDirective(s: MagicStringAST): NodeTransform {
       s?.overwrite(
         directiveVStyleX.loc.start.offset,
         directiveVStyleX.loc.end.offset,
-        `v-bind="${directiveVStyleX.exp.content}"`,
+        `v-bind="${callStyleXAttrs(s, setupOffset)}(${directiveVStyleX.exp.content})"`,
       )
       return
     }
@@ -53,7 +63,7 @@ function transformDirective(s: MagicStringAST): NodeTransform {
     s?.overwrite(
       directiveVStyleX.loc.start.offset,
       directiveVStyleX.loc.end.offset,
-      `v-bind="${STYLEX_PROPS}${prefix}${directiveVStyleX.exp.content}${postfix}"`,
+      `v-bind="${callStyleXAttrs(s, setupOffset)}(${STYLEX_PROPS}${prefix}${directiveVStyleX.exp.content}${postfix})"`,
     )
   }
 }
@@ -103,7 +113,7 @@ export function transformDefineStyleX(
   if (scriptOffset !== undefined) normalScript.end()
 
   const ctx = createTransformContext(template.ast!, {
-    nodeTransforms: [transformDirective(s)],
+    nodeTransforms: [transformDirective(s, setupOffset)],
   })
   traverseNode(template.ast!, ctx)
 
