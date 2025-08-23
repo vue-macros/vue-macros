@@ -1,9 +1,9 @@
+import { stylex } from '@stylex-extend/vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
-import styleX from 'vite-plugin-stylex'
 import VueMacros from 'vue-macros/vite'
 
 export default defineConfig({
@@ -26,6 +26,6 @@ export default defineConfig({
     Inspect({
       build: true,
     }),
-    styleX() as any,
+    stylex(),
   ],
 })
