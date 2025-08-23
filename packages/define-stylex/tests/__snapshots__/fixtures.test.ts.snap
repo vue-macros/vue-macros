@@ -5,12 +5,13 @@ exports[`fixtures > ./fixtures/basic.vue 1`] = `
 const styles = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
 </script>
 <script setup lang="ts">
+import __MACROS__stylex_attrs from "/vue-macros/define-stylex/stylex-attrs";
 import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
 
 </script>
 
 <template>
-  <p><span v-bind="_stylex_props(styles.redBold)">Red</span> Text</p>
+  <p><span v-bind="__MACROS__stylex_attrs(_stylex_props(styles.redBold))">Red</span> Text</p>
 </template>
 "
 `;
@@ -23,12 +24,13 @@ const styles = _stylex_create({
 })
 </script>
 <script setup lang="ts">
+import __MACROS__stylex_attrs from "/vue-macros/define-stylex/stylex-attrs";
 import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
 
 </script>
 
 <template>
-  <p><span v-bind="_stylex_props(styles.red, styles.bold)">Red</span> Text</p>
+  <p><span v-bind="__MACROS__stylex_attrs(_stylex_props(styles.red, styles.bold))">Red</span> Text</p>
 </template>
 "
 `;
@@ -39,6 +41,7 @@ const stylesA = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } }
 const stylesB = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
 </script>
 <script setup lang="ts">
+import __MACROS__stylex_attrs from "/vue-macros/define-stylex/stylex-attrs";
 import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
 const a = 'a'
 
@@ -46,8 +49,8 @@ const a = 'a'
 
 <template>
   <p>
-    <span v-bind="_stylex_props(stylesA.redBold)">Red</span>
-    <span v-bind="_stylex_props(stylesB.redBold)">{{ a }}</span>
+    <span v-bind="__MACROS__stylex_attrs(_stylex_props(stylesA.redBold))">Red</span>
+    <span v-bind="__MACROS__stylex_attrs(_stylex_props(stylesB.redBold))">{{ a }}</span>
   </p>
 </template>
 "
@@ -61,13 +64,14 @@ const styles = _stylex_create({
 })
 </script>
 <script setup lang="ts">
+import __MACROS__stylex_attrs from "/vue-macros/define-stylex/stylex-attrs";
 import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
 defineProps<{ bold?: boolean }>()
 
 </script>
 
 <template>
-  <p><span v-bind="_stylex_props(styles.red, bold && styles.bold)">Red</span> Text</p>
+  <p><span v-bind="__MACROS__stylex_attrs(_stylex_props(styles.red, bold && styles.bold))">Red</span> Text</p>
 </template>
 "
 `;
@@ -77,6 +81,7 @@ exports[`fixtures > ./fixtures/other-statements.vue 1`] = `
 const styles = _stylex_create({ redBold: { color: 'red', fontWeight: 'bold' } })
 </script>
 <script setup lang="ts">
+import __MACROS__stylex_attrs from "/vue-macros/define-stylex/stylex-attrs";
 import { create as _stylex_create, props as _stylex_props } from '@stylexjs/stylex'
 // separated declarations before
 const a = 'a'
@@ -90,7 +95,7 @@ const d = 'd'
 
 <template>
   <p>
-    <span v-bind="_stylex_props(styles.redBold)">Red</span> {{ a }} {{ b }} {{ c }} {{ d }}
+    <span v-bind="__MACROS__stylex_attrs(_stylex_props(styles.redBold))">Red</span> {{ a }} {{ b }} {{ c }} {{ d }}
   </p>
 </template>
 "
