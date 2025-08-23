@@ -13,18 +13,18 @@
 
 ## 配置
 
-在使用这个宏之前，你需要先引入与配置 StyleX。步骤可能会有所变化，你可能需要查看 [StyleX 官方文档](https://stylexjs.com/) 以及 [vite-plugin-stylex](https://github.com/HorusGoul/vite-plugin-stylex) 的文档，以获取最新信息。
+在使用这个宏之前，你需要先引入与配置 StyleX。步骤可能会有所变化，你可能需要查看 [StyleX 官方文档](https://stylexjs.com/) 以及 [stylex-extend](https://nonzzz.github.io/stylex-extend/integrations/vite) 的文档，以获取最新信息。
 
 ### Vite
 
 ```sh
-pnpm add @stylexjs/stylex vite-plugin-stylex
+pnpm add @stylexjs/stylex @stylex-extend/core @stylex-extend/vite -D
 ```
 
-```ts [vite.config.ts] {4,13}
+```ts [vite.config.ts] {1,13}
+import { stylex } from '@stylex-extend/vite'
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
-import StyleX from 'vite-plugin-stylex'
 import VueMacros from 'vue-macros/vite'
 
 export default defineConfig({
@@ -34,16 +34,14 @@ export default defineConfig({
         vue: Vue(),
       },
     }),
-    StyleX(), // 必须放在 Vue Macros 插件后
+    stylex(), // 必须放在 Vue Macros 插件后
   ],
 })
 ```
 
-```vue [App.vue] {2-3}
-<style>
-/* 引入 StyleX 样式表, 参考： https://github.com/HorusGoul/vite-plugin-stylex */
-@stylex stylesheet;
-</style>
+```ts [main.ts] {2}
+// 引入 StyleX 样式表, 参考：https://nonzzz.github.io/stylex-extend/integrations/vite
+import 'virtual:stylex.css'
 ```
 
 ## 基本用法
