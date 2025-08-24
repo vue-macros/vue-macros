@@ -13,7 +13,7 @@
 
 ## 配置
 
-在使用这个宏之前，你需要先引入与配置 StyleX。步骤可能会有所变化，你可能需要查看 [StyleX 官方文档](https://stylexjs.com/) 以及 [stylex-extend](https://nonzzz.github.io/stylex-extend/integrations/vite) 的文档，以获取最新信息。
+在使用这个宏之前，你需要先引入与配置 StyleX。步骤可能会有所变化，你可能需要查看 [StyleX 官方文档](https://stylexjs.com/) 以及 [StyleX 的第三方插件列表](https://stylexjs.com/docs/learn/ecosystem/#third-party-bundler-integrations)，以获取最新信息。
 
 ### Vite
 
@@ -77,12 +77,14 @@ import {
   create as _stylex_create,
   props as _stylex_props,
 } from '@stylexjs/stylex'
+// 虚拟模块，提供运行时代码
+import stylex_attrs from '/vue-macros/define-stylex/stylex-attrs'
 
 // ...
 </script>
 
 <template>
-  <p v-bind="_stylex_props(styles.red)">Red</p>
+  <p v-bind="stylex_attrs(_stylex_props(styles.red))">Red</p>
 </template>
 ```
 
@@ -125,12 +127,15 @@ import {
   create as _stylex_create,
   props as _stylex_props,
 } from '@stylexjs/stylex'
+import stylex_attrs from '/vue-macros/define-stylex/stylex-attrs'
 
 defineProps<{ bold?: boolean }>()
 </script>
 
 <template>
-  <span v-bind="_stylex_props(styles.red, bold && styles.bold)">Red</span>
+  <span v-bind="stylex_attrs(_stylex_props(styles.red, bold && styles.bold))"
+    >Red</span
+  >
 </template>
 ```
 
