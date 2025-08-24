@@ -59,4 +59,4 @@ npm i -D vue-macros
 
 ## License
 
-[MIT](./LICENSE) License © 2022-PRESENT [三咲智子](https://github.com/sxzz)
+[MIT](./LICENSE) License © 2022-PRESENT [Kevin Deng](https://github.com/sxzz)
