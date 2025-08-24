@@ -13,7 +13,7 @@ Define and consume [StyleX](https://stylexjs.com/) styles in `<script setup>`.
 
 ## Setup
 
-To use StyleX, you should install and configure StyleX first. The steps could change, you may want to check the [official documentation](https://stylexjs.com/) and the [documentation of stylex-extend](https://nonzzz.github.io/stylex-extend/integrations/vite) for the latest information.
+To use StyleX, you should install and configure StyleX first. The steps could change, you may want to check the [official document](https://stylexjs.com/) and the [document of StyleX bundler integrations](https://stylexjs.com/docs/learn/ecosystem/#third-party-bundler-integrations) for the latest information.
 
 ### Vite
 
@@ -77,12 +77,14 @@ import {
   create as _stylex_create,
   props as _stylex_props,
 } from '@stylexjs/stylex'
+// virtual module to provide runtime code
+import stylex_attrs from '/vue-macros/define-stylex/stylex-attrs'
 
 // ...
 </script>
 
 <template>
-  <p v-bind="_stylex_props(styles.red)">Red</p>
+  <p v-bind="stylex_attrs(_stylex_props(styles.red))">Red</p>
 </template>
 ```
 
@@ -125,12 +127,15 @@ import {
   create as _stylex_create,
   props as _stylex_props,
 } from '@stylexjs/stylex'
+import stylex_attrs from '/vue-macros/define-stylex/stylex-attrs'
 
 defineProps<{ bold?: boolean }>()
 </script>
 
 <template>
-  <span v-bind="_stylex_props(styles.red, bold && styles.bold)">Red</span>
+  <span v-bind="stylex_attrs(_stylex_props(styles.red, bold && styles.bold))"
+    >Red</span
+  >
 </template>
 ```
 
