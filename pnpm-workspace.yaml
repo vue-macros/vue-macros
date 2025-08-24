@@ -28,9 +28,9 @@ defines:
   - &unocss ^66.4.2
   - &vitest ^3.2.4
   - &vlt 3.0.5
-  - &vue ^3.5.18
+  - &vue ^3.5.19
   - &rolldown ^1.0.0-beta.33
-  - &oxc ^0.82.2
+  - &oxc ^0.82.3
   - &nuxt ^4.0.3
 
 catalog:
@@ -68,13 +68,13 @@ catalog:
 
   oxc-minify: *oxc
   oxc-parser: *oxc
-  oxc-resolver: ^11.6.1
+  oxc-resolver: ^11.6.2
   oxc-transform: *oxc
 
   '@astrojs/vue': ^5.1.0
   '@iconify-json/logos': ^1.2.9
   '@iconify-json/ri': ^1.2.5
-  '@nuxt/devtools': ^2.6.2
+  '@nuxt/devtools': ^2.6.3
   '@nuxt/kit': *nuxt
   '@nuxt/schema': *nuxt
   '@rolldown/pluginutils': *rolldown
@@ -92,18 +92,18 @@ catalog:
   '@vueuse/core': ^13.7.0
   ast-kit: ^2.1.2
   ast-walker-scope: ^0.8.2
-  astro: ^5.13.2
+  astro: ^5.13.3
   bumpp: ^10.2.3
   change-case: ^5.4.4
   cspell: ^9.2.0
   esbuild: ^0.25.9
-  eslint: ^9.33.0
+  eslint: ^9.34.0
   expect-type: ^1.2.2
   fast-glob: ^3.3.3
   get-port: ^7.1.0
   jiti: ^2.5.1
   local-pkg: ^1.1.2
-  magic-string: ^0.30.17
+  magic-string: ^0.30.18
   magic-string-ast: ^1.0.2
   monoman: ^0.7.2
   muggle-string: ^0.4.1
@@ -117,17 +117,17 @@ catalog:
   radix-vue: ^1.9.17
   rimraf: ^6.0.1
   rolldown: *rolldown
-  rollup: ^4.46.4
+  rollup: ^4.48.0
   rollup-plugin-dts: ^6.2.3
   sirv: ^3.0.1
-  taze: ^19.1.1
+  taze: ^19.3.0
   ts-macro: ^0.3.4
   tsdown: ^0.14.1
   tsx: ^4.20.4
   type-fest: ^4.41.0
   typescript: ^5.9.2
   unconfig: ^7.3.3
-  unplugin: ^2.3.6
+  unplugin: ^2.3.8
   unplugin-combine: ^2.1.2
   unplugin-macros: ^0.18.0
   unplugin-oxc: ^0.5.1
