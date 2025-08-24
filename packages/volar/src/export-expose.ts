@@ -141,10 +141,10 @@ function transform(options: {
   } else {
     replace(
       codes,
-      /(?<=export\sdefault \(await import\(\S+\)\)\.defineComponent\(\{[\s\S]*setup\(\) \{\n)/,
-      `return {\n`,
+      /(?<=export\sdefault \(await import\(\S+\)\)\.defineComponent\(\{[\s\S])/,
+      `setup: () => ({\n`,
       ...exposedStrings,
-      `}\n`,
+      `})\n`,
     )
   }
 }
