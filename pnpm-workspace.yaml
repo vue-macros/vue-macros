@@ -24,13 +24,13 @@ overrides:
 defines:
   - &babel ^7.28.2
   - &nolebase ^2.18.2
-  - &shiki ^3.11.0
+  - &shiki ^3.12.0
   - &unocss ^66.4.2
   - &vitest ^3.2.4
   - &vlt 3.0.6
-  - &vue ^3.5.19
-  - &rolldown ^1.0.0-beta.33
-  - &oxc ^0.82.3
+  - &vue ^3.5.20
+  - &rolldown ^1.0.0-beta.34
+  - &oxc ^0.85.0
   - &nuxt ^4.0.3
 
 catalog:
@@ -68,7 +68,7 @@ catalog:
 
   oxc-minify: *oxc
   oxc-parser: *oxc
-  oxc-resolver: ^11.6.2
+  oxc-resolver: ^11.7.1
   oxc-transform: *oxc
 
   '@astrojs/vue': ^5.1.0
@@ -81,18 +81,18 @@ catalog:
   '@rollup/plugin-commonjs': ^28.0.6
   '@rollup/plugin-json': ^6.1.0
   '@rollup/plugin-node-resolve': ^16.0.1
-  '@rspack/core': ^1.4.11
+  '@rspack/core': ^1.5.1
   '@stylexjs/stylex': ^0.15.3
   '@sxzz/eslint-config': ^7.1.4
   '@sxzz/prettier-config': ^2.2.4
   '@sxzz/test-utils': ^0.5.10
   '@types/node': ^24.3.0
   '@vitejs/plugin-vue': ^6.0.1
-  '@vitejs/plugin-vue-jsx': ^5.0.1
-  '@vueuse/core': ^13.7.0
+  '@vitejs/plugin-vue-jsx': ^5.1.1
+  '@vueuse/core': ^13.8.0
   ast-kit: ^2.1.2
   ast-walker-scope: ^0.8.2
-  astro: ^5.13.3
+  astro: ^5.13.5
   bumpp: ^10.2.3
   change-case: ^5.4.4
   cspell: ^9.2.0
@@ -117,30 +117,30 @@ catalog:
   radix-vue: ^1.9.17
   rimraf: ^6.0.1
   rolldown: *rolldown
-  rollup: ^4.48.0
+  rollup: ^4.49.0
   rollup-plugin-dts: ^6.2.3
   sirv: ^3.0.1
   taze: ^19.3.0
   ts-macro: ^0.3.4
-  tsdown: ^0.14.1
-  tsx: ^4.20.4
+  tsdown: ^0.14.2
+  tsx: ^4.20.5
   type-fest: ^4.41.0
   typescript: ^5.9.2
   unconfig: ^7.3.3
-  unplugin: ^2.3.8
+  unplugin: ^2.3.9
   unplugin-combine: ^2.1.2
   unplugin-macros: ^0.18.0
   unplugin-oxc: ^0.5.1
   unplugin-quansync: ^0.4.4
-  unplugin-raw: ^0.6.0
+  unplugin-raw: ^0.6.1
   unplugin-unused: ^0.5.2
   unplugin-utils: ^0.3.0
   unplugin-vue: ^7.0.1
   vite: ^7.1.3
   vite-hyper-config: ^0.7.1
-  vite-plugin-inspect: ^11.3.2
+  vite-plugin-inspect: ^11.3.3
   vite-plugin-stylex: ^0.13.0
-  vite-plugin-vue-devtools: ^8.0.0
+  vite-plugin-vue-devtools: ^8.0.1
   vitepress: ^2.0.0-alpha.2
   vitepress-plugin-group-icons: ^1.6.3
   vitepress-plugin-llms: ^1.7.3
