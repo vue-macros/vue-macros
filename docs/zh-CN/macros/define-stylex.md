@@ -78,6 +78,9 @@ import {
   props as _stylex_props,
 } from '@stylexjs/stylex'
 // 虚拟模块，提供运行时代码
+// ---cut-start---
+// @ts-ignore
+// ---cut-end---
 import stylex_attrs from '/vue-macros/define-stylex/stylex-attrs'
 
 // ...
@@ -127,6 +130,9 @@ import {
   create as _stylex_create,
   props as _stylex_props,
 } from '@stylexjs/stylex'
+// ---cut-start---
+// @ts-ignore
+// ---cut-end---
 import stylex_attrs from '/vue-macros/define-stylex/stylex-attrs'
 
 defineProps<{ bold?: boolean }>()
