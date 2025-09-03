@@ -18,7 +18,6 @@ export function resolveCtxMap(
 ): Map<import('typescript').Node, string> {
   if (ctxNodeMap.size) {
     options.codes.push(`
-// @ts-ignore
 type __VLS_IsAny<T> = 0 extends 1 & T ? true : false; type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
 declare function __VLS_asFunctionalComponent<
   T,
