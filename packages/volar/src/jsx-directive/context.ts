@@ -18,19 +18,58 @@ export function resolveCtxMap(
 ): Map<import('typescript').Node, string> {
   if (ctxNodeMap.size) {
     options.codes.push(`
-// @ts-ignore
 type __VLS_IsAny<T> = 0 extends 1 & T ? true : false; type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
-type __VLS_Element = globalThis.JSX.Element;
-declare function __VLS_asFunctionalComponent<T, K = T extends new (...args: any) => any ? InstanceType<T> : unknown>(t: T, instance?: K):
-  T extends new (...args: any) => any
-  ? (props: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>, ctx?: any) => __VLS_Element & { __ctx?: {
-    attrs?: any,
-    slots?: K extends { $scopedSlots: infer Slots } ? Slots : K extends { $slots: infer Slots } ? Slots : any,
-    emit?: K extends { $emit: infer Emit } ? Emit : any
-  } & { props?: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>; expose?(exposed: K): void; } }
-  : T extends () => any ? (props: {}, ctx?: any) => ReturnType<T>
-  : T extends (...args: any) => any ? T
-  : (_: {} & Record<string, unknown>, ctx?: any) => { __ctx?: { attrs?: any, expose?: any, slots?: any, emit?: any, props?: {} & Record<string, unknown> } };
+declare function __VLS_asFunctionalComponent<
+  T,
+  K = T extends new (...args: any) => any ? InstanceType<T> : unknown,
+>(
+  t: T,
+  instance?: K,
+): T extends new (...args: any) => any
+  ? (
+      props: (K extends { $props: infer Props }
+        ? Props
+        : K extends { props: infer Props }
+          ? Props
+          : any),
+      ctx?: any,
+    ) => JSX.Element & {
+      __ctx: {
+        attrs?: Record<string, any>,
+        props: (K extends { $props: infer Props }
+          ? Props
+          : K extends { props: infer Props }
+            ? Props
+            : any),
+        slots?: K extends { $slots: infer Slots }
+          ? Slots
+          : K extends { slots: infer Slots }
+            ? Slots
+            : any
+        emit?: K extends { $emit: infer Emit }
+          ? Emit
+          : K extends { emit: infer Emit }
+            ? Emit
+            : any
+        expose?: (exposed: K extends { exposeProxy: infer Exposed }
+          ? keyof Exposed extends never
+            ? K
+            : Exposed
+          : K) => void
+      }
+    }
+  : T extends () => any
+    ? (props: {}, ctx?: any) => ReturnType<T>
+    : T extends (...args: any) => any
+      ? T
+      : (_: {}, ctx?: any) => {
+          __ctx: {
+            attrs?: any
+            expose?: any
+            slots?: any
+            emit?: any
+          } 
+        };
 const __VLS_nativeElements = {
   ...{} as SVGElementTagNameMap,
   ...{} as HTMLElementTagNameMap,
@@ -41,8 +80,7 @@ declare function __VLS_getFunctionalComponentCtx<T, K, const S>(
   s: S,
 ): S extends keyof typeof __VLS_nativeElements
   ? { expose: (exposed: (typeof __VLS_nativeElements)[S]) => any }
-    : T extends { setup: (props: infer P, ctx: infer Ctx) => any } ? { props: P } & Ctx :
-      '__ctx' extends keyof __VLS_PickNotAny<K, {}> 
+    : '__ctx' extends keyof __VLS_PickNotAny<K, {}> 
       ? K extends { __ctx?: infer Ctx } ? Ctx : never
       : T extends (props: infer P, ctx: infer Ctx) => any ? { props: P } & Ctx
         : {};\n`)
