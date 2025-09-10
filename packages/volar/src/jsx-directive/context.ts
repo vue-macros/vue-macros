@@ -55,7 +55,7 @@ declare function __VLS_asFunctionalComponent<
           ? keyof NonNullable<Exposed> extends never
             ? K
             : import('vue').ShallowUnwrapRef<Exposed>
-          : K,
+          : K
       }
     }
   : T extends () => any
