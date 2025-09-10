@@ -51,11 +51,11 @@ declare function __VLS_asFunctionalComponent<
           : K extends { emit: infer Emit }
             ? Emit
             : any
-        expose?: (exposed: K extends { exposeProxy: infer Exposed }
-          ? keyof Exposed extends never
+        exposed: K extends { exposed: infer Exposed }
+          ? keyof NonNullable<Exposed> extends never
             ? K
-            : Exposed
-          : K) => void
+            : import('vue').ShallowUnwrapRef<Exposed>
+          : K
       }
     }
   : T extends () => any
