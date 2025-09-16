@@ -68,7 +68,7 @@ export default defineConfig([
       }
       // data.author = 'Kevin Deng <sxzz@sxzz.moe>'
       data.funding = 'https://github.com/sponsors/vue-macros'
-      data.engines = { node: '>=20.18.0' }
+      data.engines = { node: '>=20.19.0' }
 
       data.files = ['dist']
       if (hasRootDts) data.files.push('*.d.ts')

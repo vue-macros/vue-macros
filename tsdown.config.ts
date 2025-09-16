@@ -10,7 +10,7 @@ export default defineConfig({
   workspace: 'packages/*',
   entry: ['./src/*.ts', '!./**.d.ts'],
   format: 'esm',
-  target: 'node20.18',
+  target: 'node20.19',
   watch: !!process.env.DEV,
   dts: { oxc: true },
   clean: true,
