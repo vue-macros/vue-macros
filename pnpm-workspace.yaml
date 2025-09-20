@@ -29,6 +29,7 @@ defines:
   - &rolldown ^1.0.0-beta.38
   - &oxc ^0.89.0
   - &nuxt ^4.1.2
+  - &stylex-extend ^0.7.1
 
 catalog:
   '@babel/parser': *babel
@@ -77,6 +78,8 @@ catalog:
   '@rollup/plugin-json': ^6.1.0
   '@rollup/plugin-node-resolve': ^16.0.1
   '@rspack/core': ^1.5.4
+  '@stylex-extend/core': *stylex-extend
+  '@stylex-extend/vite': *stylex-extend
   '@stylexjs/stylex': ^0.15.4
   '@sxzz/eslint-config': ^7.1.4
   '@sxzz/prettier-config': ^2.2.4
@@ -134,7 +137,6 @@ catalog:
   vite: ^7.1.5
   vite-hyper-config: ^0.7.1
   vite-plugin-inspect: ^11.3.3
-  vite-plugin-stylex: ^0.13.0
   vite-plugin-vue-devtools: ^8.0.2
   vitepress: ^2.0.0-alpha.12
   vitepress-plugin-group-icons: ^1.6.3
