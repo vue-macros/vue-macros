@@ -103,7 +103,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
       data.publishConfig ||= {}
       data.publishConfig.access = 'public'
-      data.publishConfig.tag = 'next'
+      // data.publishConfig.tag = 'next'
 
       return data
     },
