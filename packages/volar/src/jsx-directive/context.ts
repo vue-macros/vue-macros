@@ -26,7 +26,6 @@ declare function __VLS_asFunctionalComponent<
   K = T extends new (...args: any) => any ? InstanceType<T> : unknown,
 >(
   t: T,
-  instance?: K,
 ): T extends new (...args: any) => any
   ? (
       props: (K extends { $props: infer Props }
@@ -37,23 +36,23 @@ declare function __VLS_asFunctionalComponent<
       ctx?: any,
     ) => JSX.Element & {
       __ctx: {
-        attrs?: Record<string, any>,
+        attrs: Record<string, any>,
         props: (K extends { $props: infer Props }
           ? Props
           : K extends { props: infer Props }
             ? Props
             : any),
-        slots?: K extends { $slots: infer Slots }
+        slots: K extends { $slots: infer Slots }
           ? Slots
           : K extends { slots: infer Slots }
             ? Slots
             : any
-        emit?: K extends { $emit: infer Emit }
+        emit: K extends { $emit: infer Emit }
           ? Emit
           : K extends { emit: infer Emit }
             ? Emit
             : any
-        expose?: (
+        expose: (
           exposed: K extends { exposeProxy: infer Exposed }
             ? string extends keyof NonNullable<Exposed>
               ? K
