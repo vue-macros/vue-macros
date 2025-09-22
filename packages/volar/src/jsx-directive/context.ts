@@ -64,7 +64,8 @@ declare function __VLS_asFunctionalComponent<
   : T extends () => any
     ? (props: {}, ctx?: any) => ReturnType<T>
     : T extends (props: infer Props, ctx: infer Ctx) => infer JSXElement
-      ? Ctx extends { expose: (exposed: infer Exposed) => void }
+      ? JSXElement extends { __ctx?: any } ? T
+      : Ctx extends { expose: (exposed: infer Exposed) => void }
         ? (
             props: Props,
             ctx?: Ctx,
