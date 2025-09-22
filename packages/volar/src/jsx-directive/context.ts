@@ -20,7 +20,7 @@ export function resolveCtxMap(
     options.codes.push(`
 type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
 type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
-type __VLS_Prettify<T> = { [K in keyof T as K]: T[K] } & {};
+type __VLS_PrettifyGlobal<T> = { [K in keyof T as K]: T[K] } & {};
 declare function __VLS_asFunctionalComponent<
   T,
   K = T extends new (...args: any) => any ? InstanceType<T> : unknown,
@@ -91,7 +91,7 @@ declare function __VLS_getFunctionalComponentCtx<T, K, const S>(
             ? {
                 [K in keyof Ctx]: K extends 'expose'
                   ? (
-                      exposed: __VLS_Prettify<
+                      exposed: __VLS_PrettifyGlobal<
                         import('vue').ShallowUnwrapRef<Parameters<Ctx[K]>[0]>
                       >,
                     ) => void
