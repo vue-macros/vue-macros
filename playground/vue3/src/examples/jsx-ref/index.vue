@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { expectTypeOf } from 'expect-type'
-import { defineComponent } from 'vue'
+import { defineComponent, ref, type Ref } from 'vue'
 import { useRef } from 'vue-macros/runtime'
 import Comp from './comp.vue'
 
@@ -10,9 +10,20 @@ const Comp1 = defineComponent({
   },
 })
 
+const VaporComp = (
+  _: any,
+  { expose }: { expose: (exposed: { foo: Ref<number> }) => void },
+) => {
+  expose({
+    foo: ref(1),
+  })
+  return <div />
+}
+
 const comp = useRef()
 let comp1 = $(useRef())
 const comp2 = $(useRef())
+const vaporCompRef = useRef()
 
 defineRender(
   <>
@@ -24,6 +35,9 @@ defineRender(
 
     <a ref={$$(comp2)} />
     {expectTypeOf<[HTMLAnchorElement | null | undefined]>([comp2])}
+
+    <VaporComp ref={vaporCompRef} />
+    {expectTypeOf<number | null | undefined>(vaporCompRef.value?.foo)}
   </>,
 )
 </script>
