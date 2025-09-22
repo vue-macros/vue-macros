@@ -55,7 +55,7 @@ declare function __VLS_asFunctionalComponent<
             : any
         expose?: (
           exposed: K extends { exposeProxy: infer Exposed }
-            ? keyof NonNullable<Exposed> extends never
+            ? string extends keyof NonNullable<Exposed>
               ? K
               : Exposed
             : K,
@@ -64,8 +64,22 @@ declare function __VLS_asFunctionalComponent<
     }
   : T extends () => any
     ? (props: {}, ctx?: any) => ReturnType<T>
-    : T extends (...args: any) => any
-      ? T
+    : T extends (props: infer Props, ctx?: infer Ctx) => infer JSXElement
+      ? Ctx extends { expose: (exposed: infer Exposed) => void }
+        ? (
+            props: Props,
+            ctx?: Ctx,
+          ) => JSXElement & {
+            __ctx?: Omit<Ctx, 'expose'> & {
+              props: Props
+              expose: (
+                exposed: __VLS_PrettifyGlobal<
+                  import('vue').ShallowUnwrapRef<Exposed>
+                >,
+              ) => void
+            }
+          }
+        : T
       : (_: {}, ctx?: any) => {
           __ctx: {
             attrs?: any
@@ -86,18 +100,7 @@ declare function __VLS_getFunctionalComponentCtx<T, K, const S>(
   ? { expose: (exposed: (typeof __VLS_nativeElements)[S]) => any }
     : '__ctx' extends keyof __VLS_PickNotAny<K, {}> 
       ? K extends { __ctx?: infer Ctx } ? Ctx : never
-      : T extends (props: infer P, ctx: infer Ctx) => any 
-        ? { props: P } & (Ctx extends Record<string, any>
-            ? {
-                [K in keyof Ctx]: K extends 'expose'
-                  ? (
-                      exposed: __VLS_PrettifyGlobal<
-                        import('vue').ShallowUnwrapRef<Parameters<Ctx[K]>[0]>
-                      >,
-                    ) => void
-                  : Ctx[K]
-              }
-            : Ctx)
+      : T extends (props: infer P, ctx: infer Ctx) => any ? { props: P } & Ctx
         : {};\n`)
   }
 
