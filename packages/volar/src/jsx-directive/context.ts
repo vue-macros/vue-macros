@@ -18,13 +18,14 @@ export function resolveCtxMap(
 ): Map<import('typescript').Node, string> {
   if (ctxNodeMap.size) {
     options.codes.push(`
-type __VLS_IsAny<T> = 0 extends 1 & T ? true : false; type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
+type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
+type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
+type __VLS_PrettifyGlobal<T> = { [K in keyof T as K]: T[K] } & {};
 declare function __VLS_asFunctionalComponent<
   T,
   K = T extends new (...args: any) => any ? InstanceType<T> : unknown,
 >(
   t: T,
-  instance?: K,
 ): T extends new (...args: any) => any
   ? (
       props: (K extends { $props: infer Props }
@@ -35,27 +36,29 @@ declare function __VLS_asFunctionalComponent<
       ctx?: any,
     ) => JSX.Element & {
       __ctx: {
-        attrs?: Record<string, any>,
+        attrs: Record<string, any>,
         props: (K extends { $props: infer Props }
           ? Props
           : K extends { props: infer Props }
             ? Props
             : any),
-        slots?: K extends { $slots: infer Slots }
+        slots: K extends { $slots: infer Slots }
           ? Slots
           : K extends { slots: infer Slots }
             ? Slots
             : any
-        emit?: K extends { $emit: infer Emit }
+        emit: K extends { $emit: infer Emit }
           ? Emit
           : K extends { emit: infer Emit }
             ? Emit
             : any
-        exposed: K extends { exposed: infer Exposed }
-          ? keyof NonNullable<Exposed> extends never
-            ? K
-            : import('vue').ShallowUnwrapRef<Exposed>
-          : K
+        expose: (
+          exposed: K extends { exposeProxy: infer Exposed }
+            ? string extends keyof NonNullable<Exposed>
+              ? K
+              : Exposed
+            : K,
+        ) => void
       }
     }
   : T extends () => any
@@ -82,7 +85,15 @@ declare function __VLS_getFunctionalComponentCtx<T, K, const S>(
   ? { expose: (exposed: (typeof __VLS_nativeElements)[S]) => any }
     : '__ctx' extends keyof __VLS_PickNotAny<K, {}> 
       ? K extends { __ctx?: infer Ctx } ? Ctx : never
-      : T extends (props: infer P, ctx: infer Ctx) => any ? { props: P } & Ctx
+      : T extends (props: infer P, ctx: { expose: (exposed: infer Exposed) => void } & infer Ctx) => any 
+        ? Ctx & {
+            props: P,
+            expose: (
+              exposed: __VLS_PrettifyGlobal<
+                import('vue').ShallowUnwrapRef<Exposed>
+              >,
+            ) => void,
+          }
         : {};\n`)
   }
 

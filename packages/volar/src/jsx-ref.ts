@@ -22,7 +22,7 @@ function transformRef({
       codes.replaceRange(
         initializer.expression.end,
         initializer.expression.end,
-        `<Parameters<NonNullable<typeof __VLS_ctx_${name.text}['expose']>>[0] | null>`,
+        `<Parameters<typeof __VLS_ctx_${name.text}['expose']>[0] | null>`,
       )
     }
   }
