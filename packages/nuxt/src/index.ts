@@ -46,10 +46,10 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
           plugins: { vue, vueJsx },
           nuxtContext: { isClient },
         })
-        if (idx !== -1) {
-          config.plugins.splice(idx, 0, ...vueMacrosPlugins)
-        } else {
+        if (idx === -1) {
           config.plugins.push(...vueMacrosPlugins)
+        } else {
+          config.plugins.splice(idx, 0, ...vueMacrosPlugins)
         }
       },
     )

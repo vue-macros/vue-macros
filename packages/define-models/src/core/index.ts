@@ -355,8 +355,7 @@ export function transformDefineModels(
           if (!modelIdentifiers.has(id)) return
 
           let value = node.argument.name
-          if (node.operator === '++') value += ' + 1'
-          else value += ' - 1'
+          value += node.operator === '++' ? ' + 1' : ' - 1'
 
           overwrite(node, id, value, !node.prefix)
         }
@@ -454,13 +453,13 @@ export function transformDefineModels(
 }
 
 function stringifyValue(value: string | undefined) {
-  return value !== undefined ? JSON.stringify(value) : 'undefined'
+  return value === undefined ? 'undefined' : JSON.stringify(value)
 }
 
 function getPropKey(key: string, omitDefault = false) {
-  return !omitDefault ? key : undefined
+  return omitDefault ? undefined : key
 }
 
 function getEventKey(key: string, omitDefault = false) {
-  return !omitDefault ? `update:${key}` : undefined
+  return omitDefault ? undefined : `update:${key}`
 }

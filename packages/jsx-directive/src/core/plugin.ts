@@ -44,7 +44,7 @@ const name = generatePluginName()
 
 export const plugin: UnpluginFactory<Options | undefined, false> = (
   userOptions = {},
-  { framework } = { framework: 'vite' },
+  { framework = 'vite' },
 ) => {
   const options = resolveOptions(userOptions, framework)
   const filter = createFilter(options)

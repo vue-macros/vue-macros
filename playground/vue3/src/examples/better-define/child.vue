@@ -20,7 +20,7 @@ withDefaults(
     } & DtsDemo
   >(),
   {
-    ...{ union: 'defaultValue' },
+    union: 'defaultValue',
     ['non' + 'StaticValue']: 'defaultValue',
   },
 )

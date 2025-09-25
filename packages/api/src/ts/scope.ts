@@ -31,7 +31,7 @@ export type TSScope = TSFile | TSModule
 export const tsFileCache: Record<string, TSFile> = Object.create(null)
 export async function getTSFile(filePath: string): Promise<TSFile> {
   if (tsFileCache[filePath]) return tsFileCache[filePath]
-  const content = await readFile(filePath, 'utf-8')
+  const content = await readFile(filePath, 'utf8')
   const { code, lang } = getFileCodeAndLang(content, filePath)
 
   return (tsFileCache[filePath] = {

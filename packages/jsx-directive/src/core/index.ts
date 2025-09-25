@@ -170,7 +170,7 @@ function transform(
           vSlotMap
             .set(slotNode, {
               vSlotAttribute:
-                tagName !== 'template' ? vSlotAttribute : undefined,
+                tagName === 'template' ? undefined : vSlotAttribute,
               attributeMap: new Map(),
             })
             .get(slotNode)!.attributeMap

@@ -262,9 +262,9 @@ export function handleTSPropsDefinition({
               switch (defaultValue.type) {
                 case 'ObjectMethod':
                   return `${
-                    defaultValue.kind !== 'method'
-                      ? `${defaultValue.kind} `
-                      : ''
+                    defaultValue.kind === 'method'
+                      ? ''
+                      : `${defaultValue.kind} `
                   }${defaultValue.async ? `async ` : ''}${key}(${s.sliceNode(
                     defaultValue.params,
                     { offset },
@@ -519,21 +519,19 @@ export function handleTSPropsDefinition({
         definitionsAst.type !== 'TSTypeLiteral' &&
         definitionsAst.type !== 'TSMappedType'
       ) {
-        if (definitionsAst.type === 'TSTypeReference') {
-          return err(
-            new TransformError(
-              `Cannot resolve TS type: ${resolveIdentifier(
-                definitionsAst.typeName,
-              ).join('.')}`,
-            ),
-          )
-        } else {
-          return err(
-            new TransformError(
-              `Cannot resolve TS definition: ${definitionsAst.type}`,
-            ),
-          )
-        }
+        return definitionsAst.type === 'TSTypeReference'
+          ? err(
+              new TransformError(
+                `Cannot resolve TS type: ${resolveIdentifier(
+                  definitionsAst.typeName,
+                ).join('.')}`,
+              ),
+            )
+          : err(
+              new TransformError(
+                `Cannot resolve TS definition: ${definitionsAst.type}`,
+              ),
+            )
       }
 
       let properties = yield* resolveTSProperties({
