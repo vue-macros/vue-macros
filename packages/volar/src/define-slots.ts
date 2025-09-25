@@ -40,7 +40,7 @@ function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
       node.expression.escapedText !== DEFINE_SLOTS ||
       node.typeArguments?.length !== 1
     )
-      return undefined
+      return
     return node.typeArguments[0]
   }
 

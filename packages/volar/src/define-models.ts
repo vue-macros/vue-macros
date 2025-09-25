@@ -46,7 +46,7 @@ function getTypeArg(ts: typeof import('typescript'), sfc: Sfc) {
       ) ||
       node.typeArguments?.length !== 1
     )
-      return undefined
+      return
     return node.typeArguments[0]
   }
 

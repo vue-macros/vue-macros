@@ -33,12 +33,18 @@ import type {
 
 const CONVERT_SYMBOL = '$'
 const ESCAPE_SYMBOL = '$$'
-const IMPORT_SOURCES = [
+const IMPORT_SOURCES = new Set([
   'vue/macros',
   '@vue-macros/reactivity-transform/macros',
   'vue-macros/macros',
-]
-const shorthands = ['ref', 'computed', 'shallowRef', 'toRef', 'customRef']
+])
+const shorthands = new Set([
+  'ref',
+  'computed',
+  'shallowRef',
+  'toRef',
+  'customRef',
+])
 const transformCheckRE =
   /\W\$(?:\$|ref|computed|shallowRef|toRef|customRef)?\s*(?:[(<]|as)/
 
@@ -150,7 +156,7 @@ export function transformAST(
   for (const { local, imported, source, specifier } of Object.values(
     userImports,
   )) {
-    if (IMPORT_SOURCES.includes(source)) {
+    if (IMPORT_SOURCES.has(source)) {
       if (imported === ESCAPE_SYMBOL) {
         escapeSymbol = local
       } else if (imported === CONVERT_SYMBOL) {
@@ -200,7 +206,7 @@ export function transformAST(
   function walkImportDeclaration(node: ImportDeclaration) {
     const source = node.source.value
 
-    if (IMPORT_SOURCES.includes(source)) {
+    if (IMPORT_SOURCES.has(source)) {
       s.remove(node.start! + offset, node.end! + offset)
     }
 
@@ -227,7 +233,7 @@ export function transformAST(
     if (callee === convertSymbol) {
       return convertSymbol
     }
-    if (callee[0] === '$' && shorthands.includes(callee.slice(1))) {
+    if (callee[0] === '$' && shorthands.has(callee.slice(1))) {
       return callee
     }
     return false
@@ -251,7 +257,7 @@ export function transformAST(
   function registerBinding(id: Identifier, binding?: Binding) {
     excludedIds.add(id)
     if (currentScope) {
-      currentScope[id.name] = binding ? binding : false
+      currentScope[id.name] = binding || false
     } else {
       error(
         'registerBinding called without active scope, something is wrong.',
@@ -356,13 +362,24 @@ export function transformAST(
       // $
       // remove macro
       s.remove(call.callee.start! + offset, call.callee.end! + offset)
-      if (id.type === 'Identifier') {
-        // single variable
-        registerRefBinding(id, isConst)
-      } else if (id.type === 'ObjectPattern') {
-        processRefObjectPattern(id, init, isConst)
-      } else if (id.type === 'ArrayPattern') {
-        processRefArrayPattern(id, init, isConst)
+      switch (id.type) {
+        case 'Identifier': {
+          // single variable
+          registerRefBinding(id, isConst)
+
+          break
+        }
+        case 'ObjectPattern': {
+          processRefObjectPattern(id, init, isConst)
+
+          break
+        }
+        case 'ArrayPattern': {
+          processRefArrayPattern(id, init, isConst)
+
+          break
+        }
+        // No default
       }
 
       removeTrailingComma(s, call, offset)
@@ -414,37 +431,67 @@ export function transformAST(
           }
         } else {
           key = p.computed ? p.key : (p.key as Identifier).name
-          if (p.value.type === 'Identifier') {
-            // { foo: bar }
-            nameId = p.value
-          } else if (p.value.type === 'ObjectPattern') {
-            processRefObjectPattern(p.value, value, isConst, tempVar, [
-              ...path,
-              key,
-            ])
-          } else if (p.value.type === 'ArrayPattern') {
-            processRefArrayPattern(p.value, value, isConst, tempVar, [
-              ...path,
-              key,
-            ])
-          } else if (p.value.type === 'AssignmentPattern') {
-            if (p.value.left.type === 'Identifier') {
-              // { foo: bar = 1 }
-              nameId = p.value.left
-              defaultValue = p.value.right
-            } else if (p.value.left.type === 'ObjectPattern') {
-              processRefObjectPattern(p.value.left, value, isConst, tempVar, [
-                ...path,
-                [key, p.value.right],
-              ])
-            } else if (p.value.left.type === 'ArrayPattern') {
-              processRefArrayPattern(p.value.left, value, isConst, tempVar, [
-                ...path,
-                [key, p.value.right],
-              ])
-            } else {
-              // MemberExpression case is not possible here, ignore
+          switch (p.value.type) {
+            case 'Identifier': {
+              // { foo: bar }
+              nameId = p.value
+
+              break
             }
+            case 'ObjectPattern': {
+              processRefObjectPattern(p.value, value, isConst, tempVar, [
+                ...path,
+                key,
+              ])
+
+              break
+            }
+            case 'ArrayPattern': {
+              processRefArrayPattern(p.value, value, isConst, tempVar, [
+                ...path,
+                key,
+              ])
+
+              break
+            }
+            case 'AssignmentPattern': {
+              switch (p.value.left.type) {
+                case 'Identifier': {
+                  // { foo: bar = 1 }
+                  nameId = p.value.left
+                  defaultValue = p.value.right
+
+                  break
+                }
+                case 'ObjectPattern': {
+                  processRefObjectPattern(
+                    p.value.left,
+                    value,
+                    isConst,
+                    tempVar,
+                    [...path, [key, p.value.right]],
+                  )
+
+                  break
+                }
+                case 'ArrayPattern': {
+                  processRefArrayPattern(
+                    p.value.left,
+                    value,
+                    isConst,
+                    tempVar,
+                    [...path, [key, p.value.right]],
+                  )
+
+                  break
+                }
+                default: {
+                  // MemberExpression case is not possible here, ignore
+                }
+              }
+              break
+            }
+            // No default
           }
         }
       } else {
@@ -492,20 +539,37 @@ export function transformAST(
       const e = pattern.elements[i]
       if (!e) continue
       let defaultValue: Expression | undefined
-      if (e.type === 'Identifier') {
-        // [a] --> [__a]
-        nameId = e
-      } else if (e.type === 'AssignmentPattern') {
-        // [a = 1]
-        nameId = e.left as Identifier
-        defaultValue = e.right
-      } else if (e.type === 'RestElement') {
-        // [...a]
-        error(`reactivity destructure does not support rest elements.`, e)
-      } else if (e.type === 'ObjectPattern') {
-        processRefObjectPattern(e, value, isConst, tempVar, [...path, i])
-      } else if (e.type === 'ArrayPattern') {
-        processRefArrayPattern(e, value, isConst, tempVar, [...path, i])
+      switch (e.type) {
+        case 'Identifier': {
+          // [a] --> [__a]
+          nameId = e
+
+          break
+        }
+        case 'AssignmentPattern': {
+          // [a = 1]
+          nameId = e.left as Identifier
+          defaultValue = e.right
+
+          break
+        }
+        case 'RestElement': {
+          // [...a]
+          error(`reactivity destructure does not support rest elements.`, e)
+
+          break
+        }
+        case 'ObjectPattern': {
+          processRefObjectPattern(e, value, isConst, tempVar, [...path, i])
+
+          break
+        }
+        case 'ArrayPattern': {
+          processRefArrayPattern(e, value, isConst, tempVar, [...path, i])
+
+          break
+        }
+        // No default
       }
       if (nameId) {
         registerRefBinding(nameId, isConst)

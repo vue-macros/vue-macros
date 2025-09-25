@@ -3,7 +3,7 @@ import { expect } from 'vitest'
 export function hideAstLocation<T>(ast: T): T {
   return JSON.parse(
     JSON.stringify(ast, (key, value) => {
-      if (key === 'scope') return undefined
+      if (key === 'scope') return
 
       return key === 'ast' ||
         (typeof value === 'object' && 'type' in value && 'loc' in value)

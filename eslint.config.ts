@@ -39,6 +39,7 @@ export default sxzz({
       ],
       rules: {
         'import/no-default-export': 'off',
+        'unicorn/no-anonymous-default-export': 'off',
       },
     },
     {

@@ -48,12 +48,12 @@ export function transformDefineEmit(
           )
         }
         emitName = parent.id.name
-      } else if (name.type !== 'StringLiteral') {
+      } else if (name.type === 'StringLiteral') {
+        emitName = name.value
+      } else {
         throw new Error(
           `The first argument of ${DEFINE_EMIT} must be a string literal.`,
         )
-      } else {
-        emitName = name.value
       }
 
       emits.push({

@@ -23,8 +23,7 @@ export function transformSetupBlock(
     getTextMode: ({ tag, props }: ElementNode, parent) => {
       // all top level elements except <template> are parsed as raw text
       // containers
-      if (
-        (!parent && tag !== 'template') ||
+      return (!parent && tag !== 'template') ||
         // <template lang="xxx"> should also be treated as raw text
         (tag === 'template' &&
           props.some(
@@ -35,11 +34,8 @@ export function transformSetupBlock(
               p.value.content &&
               p.value.content !== 'html',
           ))
-      ) {
-        return 2
-      } else {
-        return 0
-      }
+        ? 2
+        : 0
     },
   })
   for (const child of node.children) {

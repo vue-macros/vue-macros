@@ -24,7 +24,7 @@ function getArg(ts: typeof import('typescript'), sfc: Sfc) {
       !ts.isIdentifier(node.expression) ||
       node.expression.escapedText !== DEFINE_OPTIONS
     )
-      return undefined
+      return
     return node.arguments[0]
   }
 

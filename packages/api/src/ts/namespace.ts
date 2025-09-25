@@ -74,24 +74,35 @@ export function resolveTSNamespace(
 
         for (const specifier of stmt.specifiers) {
           let exported: TSNamespace[string]
-          if (specifier.type === 'ExportDefaultSpecifier') {
-            // export x from 'xxx'
-            exported = sourceExports.default
-          } else if (specifier.type === 'ExportNamespaceSpecifier') {
-            // export * as x from 'xxx'
-            exported = sourceExports
-          } else if (specifier.type === 'ExportSpecifier') {
-            // export { x } from 'xxx'
-            exported = sourceExports![specifier.local.name]
-          } else {
-            return err(
-              new TransformError(
-                `Unknown export type: ${
-                  // @ts-expect-error unknown type
-                  specifier.type as string
-                }`,
-              ),
-            )
+          switch (specifier.type) {
+            case 'ExportDefaultSpecifier': {
+              // export x from 'xxx'
+              exported = sourceExports.default
+
+              break
+            }
+            case 'ExportNamespaceSpecifier': {
+              // export * as x from 'xxx'
+              exported = sourceExports
+
+              break
+            }
+            case 'ExportSpecifier': {
+              // export { x } from 'xxx'
+              exported = sourceExports![specifier.local.name]
+
+              break
+            }
+            default: {
+              return err(
+                new TransformError(
+                  `Unknown export type: ${
+                    // @ts-expect-error unknown type
+                    specifier.type as string
+                  }`,
+                ),
+              )
+            }
           }
 
           const name =
@@ -136,25 +147,36 @@ export function resolveTSNamespace(
           const local = specifier.local.name
 
           let imported: TSNamespace[string]
-          if (specifier.type === 'ImportDefaultSpecifier') {
-            imported = exports.default
-          } else if (specifier.type === 'ImportNamespaceSpecifier') {
-            imported = exports
-          } else if (specifier.type === 'ImportSpecifier') {
-            const name =
-              specifier.imported.type === 'Identifier'
-                ? specifier.imported.name
-                : specifier.imported.value
-            imported = exports[name]
-          } else {
-            return err(
-              new TransformError(
-                `Unknown import type: ${
-                  // @ts-expect-error unknown type
-                  specifier.type as string
-                }`,
-              ),
-            )
+          switch (specifier.type) {
+            case 'ImportDefaultSpecifier': {
+              imported = exports.default
+
+              break
+            }
+            case 'ImportNamespaceSpecifier': {
+              imported = exports
+
+              break
+            }
+            case 'ImportSpecifier': {
+              const name =
+                specifier.imported.type === 'Identifier'
+                  ? specifier.imported.name
+                  : specifier.imported.value
+              imported = exports[name]
+
+              break
+            }
+            default: {
+              return err(
+                new TransformError(
+                  `Unknown import type: ${
+                    // @ts-expect-error unknown type
+                    specifier.type as string
+                  }`,
+                ),
+              )
+            }
           }
           declarations[local] = imported
         }

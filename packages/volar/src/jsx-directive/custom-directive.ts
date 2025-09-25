@@ -59,13 +59,13 @@ function transform(
         ]
       : '{} as any',
     ',',
-    ...(arg !== undefined
-      ? ([
+    ...(arg === undefined
+      ? ['{} as any']
+      : ([
           [`'`, offset + 1, { verification: true }],
           [arg, offset + 1],
           [`'`, offset + arg.length, { verification: true }],
-        ] as Code[])
-      : ['{} as any']),
+        ] as Code[])),
     ',',
     ...(modifiers.length
       ? ([

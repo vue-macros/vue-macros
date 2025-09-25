@@ -9,10 +9,10 @@ const referencedFiles = new Map<string /* file */, Set<string /* importer */>>()
 
 function collectReferencedFile(importer: string, file: string) {
   if (!importer) return
-  if (!referencedFiles.has(file)) {
-    referencedFiles.set(file, new Set([importer]))
-  } else {
+  if (referencedFiles.has(file)) {
     referencedFiles.get(file)!.add(importer)
+  } else {
+    referencedFiles.set(file, new Set([importer]))
   }
 }
 

@@ -114,7 +114,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
     type: 'text',
     async contents(_, ctx) {
       const pkgPath = path.resolve(path.dirname(ctx.filePath), 'package.json')
-      const pkg = JSON.parse(await readFile(pkgPath, 'utf-8'))
+      const pkg = JSON.parse(await readFile(pkgPath, 'utf8'))
       const pkgName = pkg.name
 
       return `# ${pkgName} [![npm](https://img.shields.io/npm/v/${pkgName}.svg)](https://npmjs.com/package/${pkgName})\n

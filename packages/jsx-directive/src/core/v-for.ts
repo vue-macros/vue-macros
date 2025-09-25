@@ -21,9 +21,9 @@ export function resolveVFor(
     ) {
       if (attribute.value.expression.left.type === 'SequenceExpression') {
         const expressions = attribute.value.expression.left.expressions
-        item = expressions[0] ? expressions[0] : ''
-        index = expressions[1] ? expressions[1] : ''
-        objectIndex = expressions[2] ? expressions[2] : ''
+        item = expressions[0] || ''
+        index = expressions[1] || ''
+        objectIndex = expressions[2] || ''
       } else {
         item = attribute.value.expression.left
       }
