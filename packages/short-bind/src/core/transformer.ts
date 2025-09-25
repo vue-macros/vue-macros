@@ -4,7 +4,6 @@ import {
   type ConstantTypes,
   type NodeTransform,
   type NodeTypes,
-  type SimpleExpressionNode,
 } from '@vue/compiler-core'
 
 export interface Options {
@@ -27,11 +26,7 @@ export function transformShortBind(options: Options = {}): NodeTransform {
         (prop.type === (6 satisfies NodeTypes.ATTRIBUTE)
           ? !prop.value
           : prop.type === (7 satisfies NodeTypes.DIRECTIVE)
-            ? !prop.exp ||
-              // TODO: in vue v3.5.xx (see https://github.com/vuejs/core/pull/13438)
-              // the `prop.exp` always has a value, and if it'a a double bind, the value
-              // will starts with `:`, which still needs to be handled
-              (prop.exp as SimpleExpressionNode).content.startsWith(':')
+            ? !prop.exp
             : false)
       ) {
         const valueName = prop.loc.source
