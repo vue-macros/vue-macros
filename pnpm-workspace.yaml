@@ -27,7 +27,7 @@ defines:
   - &vlt 3.0.8
   - &vue ^3.5.22
   - &rolldown ^1.0.0-beta.40
-  - &oxc ^0.91.0
+  - &oxc ^0.92.0
   - &nuxt ^4.1.2
   - &stylex-extend ^0.7.1
 
@@ -64,7 +64,7 @@ catalog:
 
   oxc-minify: *oxc
   oxc-parser: *oxc
-  oxc-resolver: ^11.8.2
+  oxc-resolver: ^11.8.3
   oxc-transform: *oxc
 
   '@astrojs/vue': ^5.1.1
@@ -77,7 +77,7 @@ catalog:
   '@rollup/plugin-commonjs': ^28.0.6
   '@rollup/plugin-json': ^6.1.0
   '@rollup/plugin-node-resolve': ^16.0.1
-  '@rspack/core': ^1.5.6
+  '@rspack/core': ^1.5.7
   '@stylex-extend/core': *stylex-extend
   '@stylex-extend/vite': *stylex-extend
   '@stylexjs/stylex': ^0.15.4
@@ -90,7 +90,7 @@ catalog:
   '@vueuse/core': ^13.9.0
   ast-kit: ^2.1.2
   ast-walker-scope: ^0.8.2
-  astro: ^5.13.10
+  astro: ^5.13.11
   bumpp: ^10.2.3
   change-case: ^5.4.4
   cspell: ^9.2.1
