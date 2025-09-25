@@ -42,7 +42,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 	props: { foo: {} },
 	setup(__props) {
 		return (_ctx, _cache) => {
-			return toDisplayString(_ctx.foo);
+			return toDisplayString(__props.foo);
 		};
 	}
 });
