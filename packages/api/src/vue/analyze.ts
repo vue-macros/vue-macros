@@ -30,7 +30,7 @@ import {
   type DefinePropsStatement,
   type Props,
 } from './props'
-import type { CallExpression, LVal, Node } from '@babel/types'
+import type { CallExpression, LVal, Node, VoidPattern } from '@babel/types'
 
 export type { SFC } from '@vue-macros/common'
 export { parseSFC } from '@vue-macros/common'
@@ -118,7 +118,7 @@ export function analyzeSFC(
       defaultsDeclRaw,
     }: {
       defineProps: Node
-      declId?: LVal
+      declId?: VoidPattern | LVal
       statement: DefinePropsStatement
 
       withDefaultsAst?: CallExpression
@@ -162,7 +162,7 @@ export function analyzeSFC(
       statement: stmt,
     }: {
       withDefaults: Node
-      declId?: LVal
+      declId?: VoidPattern | LVal
       statement: DefinePropsStatement
     }): ResultAsync<
       boolean,
@@ -193,7 +193,7 @@ export function analyzeSFC(
       statement,
     }: {
       defineEmits: Node
-      declId?: LVal
+      declId?: VoidPattern | LVal
       statement: DefinePropsStatement
     }) {
       return safeTry(async function* () {

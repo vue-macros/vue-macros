@@ -43,6 +43,7 @@ import type {
   TSTypeReference,
   TSUnionType,
   VariableDeclaration,
+  VoidPattern,
 } from '@babel/types'
 
 type BuiltInTypesHandler = Record<
@@ -109,7 +110,7 @@ export function handleTSPropsDefinition({
   defaultsDeclRaw?: DefaultsASTRaw
 
   statement: DefinePropsStatement
-  declId?: LVal
+  declId?: VoidPattern | LVal
 }): ResultAsync<TSProps, TransformError<ErrorResolveTS | ErrorUnknownNode>> {
   return safeTry(async function* () {
     const { definitions, definitionsAst } = yield* resolveDefinitions({
@@ -602,7 +603,7 @@ export type DefinePropsStatement = VariableDeclaration | ExpressionStatement
 export type DefaultsASTRaw = CallExpression['arguments'][number]
 
 export interface PropsBase {
-  declId?: LVal
+  declId?: VoidPattern | LVal
   statementAst: DefinePropsStatement
   definePropsAst: CallExpression
   withDefaultsAst?: CallExpression

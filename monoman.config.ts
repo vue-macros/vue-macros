@@ -66,9 +66,9 @@ export default defineConfig([
         url: `git+${githubLink}.git`,
         directory: `packages/${pkgName}`,
       }
-      // data.author = '三咲智子 Kevin Deng <sxzz@sxzz.moe>'
+      // data.author = 'Kevin Deng <sxzz@sxzz.moe>'
       data.funding = 'https://github.com/sponsors/vue-macros'
-      data.engines = { node: '>=20.18.0' }
+      data.engines = { node: '>=20.19.0' }
 
       data.files = ['dist']
       if (hasRootDts) data.files.push('*.d.ts')
@@ -103,7 +103,7 @@ export default unplugin.${entry} as typeof unplugin.${entry}\n`,
 
       data.publishConfig ||= {}
       data.publishConfig.access = 'public'
-      data.publishConfig.tag = 'next'
+      // data.publishConfig.tag = 'next'
 
       return data
     },
@@ -140,19 +140,19 @@ Please refer to [README.md](${githubLink}#readme)\n`
   ...noDuplicatedPnpmLockfile({
     deps: [
       'typescript',
-      /vue\b(?!\/devtools)/,
+      /vite(?!-(plugin-(vue-devtools|inspect)|hot-client))/,
+      /vue\b(?!([/-]devtools))/,
       /twoslash/,
       /shiki/,
       /babel/,
       /esbuild/,
-      /vite(?!-(plugin-(vue-inspector|inspect)|hot-client))/,
       /unocss/,
       /rolldown/,
       /oxc(?!-project\/types)/,
     ],
   }),
   ...noDuplicatedPnpmLockfile({
-    deps: ['lru-cache', 'minimatch', 'debug'],
+    deps: ['lru-cache', 'minimatch', 'debug', 'vite-plugin-vue-devtools'],
     allowMajor: true,
   }),
 ])

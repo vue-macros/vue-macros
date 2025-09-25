@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/nuxt",
-  "version": "3.0.0-beta.14",
+  "version": "3.1.0",
   "description": "nuxt feature from Vue Macros.",
   "type": "module",
   "keywords": [
@@ -22,7 +22,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/nuxt"
   },
-  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
+  "author": "Kevin Deng <sxzz@sxzz.moe>",
   "funding": "https://github.com/sponsors/vue-macros",
   "files": [
     "dist"
@@ -47,8 +47,7 @@
       ".": "./dist/index.js",
       "./volar": "./dist/volar.js",
       "./*": "./*"
-    },
-    "tag": "next"
+    }
   },
   "scripts": {},
   "peerDependencies": {
@@ -65,6 +64,6 @@
     "@vue/language-core": "catalog:"
   },
   "engines": {
-    "node": ">=20.18.0"
+    "node": ">=20.19.0"
   }
 }

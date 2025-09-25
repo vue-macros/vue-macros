@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/define-prop",
-  "version": "3.0.0-beta.14",
+  "version": "3.1.0",
   "description": "defineProp feature from Vue Macros.",
   "type": "module",
   "keywords": [
@@ -23,10 +23,9 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/define-prop"
   },
-  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
+  "author": "Kevin Deng <sxzz@sxzz.moe>",
   "funding": "https://github.com/sponsors/vue-macros",
   "files": [
-    "*.d.ts",
     "dist"
   ],
   "main": "./dist/index.js",
@@ -65,10 +64,7 @@
       "dev": "./src/webpack.ts",
       "default": "./dist/webpack.js"
     },
-    "./*": [
-      "./*",
-      "./*.d.ts"
-    ]
+    "./*": "./*"
   },
   "typesVersions": {
     "*": {
@@ -89,12 +85,8 @@
       "./rspack": "./dist/rspack.js",
       "./vite": "./dist/vite.js",
       "./webpack": "./dist/webpack.js",
-      "./*": [
-        "./*",
-        "./*.d.ts"
-      ]
-    },
-    "tag": "next"
+      "./*": "./*"
+    }
   },
   "scripts": {},
   "peerDependencies": {
@@ -109,6 +101,6 @@
     "vue": "catalog:"
   },
   "engines": {
-    "node": ">=20.18.0"
+    "node": ">=20.19.0"
   }
 }

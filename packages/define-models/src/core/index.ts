@@ -25,6 +25,7 @@ import type {
   TSType,
   TSTypeLiteral,
   VariableDeclaration,
+  VoidPattern,
 } from '@babel/types'
 
 export function transformDefineModels(
@@ -51,7 +52,7 @@ export function transformDefineModels(
   const modelIdentifiers = new Set<Identifier>()
   let mode: 'reactivity-transform' | 'runtime' | undefined
 
-  function processDefinePropsOrEmits(node: Node, declId?: LVal) {
+  function processDefinePropsOrEmits(node: Node, declId?: VoidPattern | LVal) {
     if (isCallOf(node, WITH_DEFAULTS)) {
       node = node.arguments[0]
     }
@@ -99,7 +100,7 @@ export function transformDefineModels(
 
   function processDefineModels(
     node: Node,
-    declId?: LVal,
+    declId?: VoidPattern | LVal,
     kind?: VariableDeclaration['kind'],
   ) {
     if (isCallOf(node, DEFINE_MODELS)) mode = 'runtime'

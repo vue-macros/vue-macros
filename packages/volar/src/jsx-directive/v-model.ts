@@ -1,12 +1,10 @@
-import { replaceSourceRange } from 'muggle-string'
-import { allCodeFeatures, type Code } from 'ts-macro'
-import { getStart, getText, isJsxExpression } from '../common'
 import {
   getOpeningElement,
   getTagName,
   type JsxDirective,
   type TransformOptions,
 } from './index'
+import type { Code } from 'ts-macro'
 
 export const isNativeFormElement = (tag: string): boolean => {
   return ['input', 'select', 'textarea'].includes(tag)
@@ -31,7 +29,7 @@ function transform(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, source, prefix } = options
+  const { codes, ts, ast, prefix } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
@@ -48,12 +46,13 @@ function transform(
     const isNative = isNativeFormElement(getTagName(node, options))
     const modelValue = isNative ? 'value' : 'modelValue'
     const isArrayExpression =
-      isJsxExpression(attribute.initializer) &&
+      attribute.initializer &&
+      ts.isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression &&
       ts.isArrayLiteralExpression(attribute.initializer.expression)
 
-    const name = getText(attribute.name, options)
-    const start = getStart(attribute.name, options)
+    const name = attribute.name.getText(ast)
+    const start = attribute.name.getStart(ast)
     if (name.startsWith(`${prefix}model:`) || isArrayExpression) {
       let isDynamic = false
       const [attributeName, ...modifiers] = name
@@ -70,12 +69,7 @@ function transform(
         node,
       }
       if (firstNamespacedNode.attribute !== attribute) {
-        replaceSourceRange(
-          codes,
-          source,
-          getStart(attribute, options),
-          attribute.end,
-        )
+        codes.replaceRange(attribute.getStart(ast), attribute.end)
         result.push(',')
       }
 
@@ -85,12 +79,7 @@ function transform(
           isDynamic = !ts.isStringLiteral(elements[1])
           result.push(
             isDynamic ? '[`${' : '',
-            [
-              getText(elements[1], options),
-              source,
-              getStart(elements[1], options),
-              allCodeFeatures,
-            ],
+            [elements[1].getText(ast), elements[1].getStart(ast)],
             isDynamic ? '}`]' : '',
           )
         } else {
@@ -99,10 +88,8 @@ function transform(
 
         if (elements[0])
           result.push(':', [
-            getText(elements[0], options),
-            source,
-            getStart(elements[0], options),
-            allCodeFeatures,
+            elements[0].getText(ast),
+            elements[0].getStart(ast),
           ])
       } else {
         result.push(
@@ -111,26 +98,23 @@ function transform(
             .split('-')
             .map((code, index, codes) => [
               index ? code.at(0)?.toUpperCase() + code.slice(1) : code,
-              source,
               start +
                 offset +
                 (isDynamic ? 1 : 0) +
                 (index && codes[index - 1].length + 1),
-              allCodeFeatures,
             ]) as Code[]),
           isDynamic ? '}`]' : '',
         )
 
         if (attributeName) {
           if (
-            isJsxExpression(attribute?.initializer) &&
+            attribute.initializer &&
+            ts.isJsxExpression(attribute.initializer) &&
             attribute.initializer.expression
           ) {
             result.push(':', [
-              getText(attribute.initializer.expression, options),
-              source,
-              getStart(attribute.initializer.expression, options),
-              allCodeFeatures,
+              attribute.initializer.expression.getText(ast),
+              attribute.initializer.expression.getStart(ast),
             ])
           }
 
@@ -141,7 +125,6 @@ function transform(
                 modify ? '' : `'`,
                 [
                   modify,
-                  source,
                   start +
                     offset +
                     attributeName.length +
@@ -149,7 +132,6 @@ function transform(
                     (index
                       ? modifiers.slice(0, index).join('').length + index
                       : 0),
-                  allCodeFeatures,
                 ],
                 modify ? ': true, ' : `'`,
               ]) as Code[]),
@@ -167,10 +149,10 @@ function transform(
         ...((isNative
           ? isRadioOrCheckbox(node, options)
             ? 'v-model'
-            : [[modelValue, source, start + 2, allCodeFeatures]]
+            : [[modelValue, start + 2]]
           : [
-              modelValue.slice(0, 3),
-              [modelValue.slice(3), source, start, allCodeFeatures],
+              [modelValue.slice(0, 3), start],
+              [modelValue.slice(3), start],
             ]) as Code[]),
       )
 
@@ -181,11 +163,9 @@ function transform(
             modify ? '' : `'`,
             [
               modify,
-              source,
               start +
                 offset +
                 (index ? modifiers.slice(0, index).join('').length + index : 0),
-              allCodeFeatures,
             ],
             modify ? ': true, ' : `'`,
           ]) as Code[]),
@@ -201,19 +181,15 @@ function transform(
         result.unshift(`{...{'onUpdate:${modelValue}': () => {} }} `)
       }
 
-      replaceSourceRange(codes, source, start, attribute.name.end, ...result)
+      codes.replaceRange(start, attribute.name.end, ...result)
     }
   }
 
   if (!firstNamespacedNode) return
   const { attribute, attributeName, node } = firstNamespacedNode
-  const end = attributeName
-    ? attribute.end
-    : getStart(attribute, options) + offset
-  replaceSourceRange(
-    codes,
-    source,
-    getStart(attribute, options),
+  const end = attributeName ? attribute.end : attribute.getStart(ast) + offset
+  codes.replaceRange(
+    attribute.getStart(ast),
     end,
     `{...{`,
     ...result,
@@ -229,16 +205,16 @@ function isRadioOrCheckbox(
   node: import('typescript').Node,
   options: TransformOptions,
 ) {
-  const { ts } = options
+  const { ts, ast } = options
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return false
-  const tagName = getText(openingElement.tagName, options)
+  const tagName = openingElement.tagName.getText(ast)
   return (
     tagName === 'input' &&
     openingElement.attributes.properties.some((attr) => {
       return (
         ts.isJsxAttribute(attr) &&
-        getText(attr.name, options) === 'type' &&
+        attr.name.getText(ast) === 'type' &&
         attr.initializer &&
         ts.isStringLiteral(attr.initializer) &&
         (attr.initializer.text === 'radio' ||

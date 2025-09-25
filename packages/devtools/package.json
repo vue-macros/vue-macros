@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/devtools",
-  "version": "3.0.0-beta.14",
+  "version": "3.1.0",
   "description": "Devtools plugin for Vue Macros.",
   "type": "module",
   "keywords": [
@@ -22,7 +22,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/devtools"
   },
-  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
+  "author": "Kevin Deng <sxzz@sxzz.moe>",
   "funding": "https://github.com/sponsors/vue-macros",
   "files": [
     "dist"
@@ -42,15 +42,14 @@
     "exports": {
       ".": "./dist/index.js",
       "./*": "./*"
-    },
-    "tag": "next"
+    }
   },
   "scripts": {
     "build": "vite build ./src/client",
     "client:dev": "vite ./src/client"
   },
   "peerDependencies": {
-    "vite": "^4.0.0 || ^5.0.0-0 || ^6.0.0"
+    "vite": "^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0"
   },
   "peerDependenciesMeta": {
     "vite": {
@@ -70,6 +69,6 @@
     "vite-plugin-inspect": "catalog:"
   },
   "engines": {
-    "node": ">=20.18.0"
+    "node": ">=20.19.0"
   }
 }

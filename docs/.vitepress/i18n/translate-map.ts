@@ -24,7 +24,7 @@ export const zhCN = {
   'Experimental feature, use at your risk': '实验性功能，风险自负',
 
   Author: '作者',
-  'Kevin Deng': '三咲智子 Kevin Deng',
+  'Kevin Deng': 'Kevin Deng',
   'Team member': '团队成员',
   'Logo Designer': 'Logo 设计者',
   'Sponsored by': '赞助者',

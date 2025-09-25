@@ -1,5 +1,6 @@
 import { createFilter, DEFINE_EMIT } from '@vue-macros/common'
-import { addEmits, getText, type VueMacrosPlugin } from './common'
+import { getText } from 'ts-macro'
+import { addEmits, type VueMacrosPlugin } from './common'
 import type { Sfc } from '@vue/language-core'
 
 function getEmitStrings(options: {
@@ -7,6 +8,7 @@ function getEmitStrings(options: {
   sfc: Sfc
 }) {
   const { ts, sfc } = options
+  const ast = sfc.scriptSetup!.ast
 
   const emitStrings: string[] = []
   function walkNode(node: import('typescript').Node, defaultName = '') {
@@ -24,15 +26,14 @@ function getEmitStrings(options: {
       const type =
         node.typeArguments?.length === 1
           ? ts.isFunctionTypeNode(node.typeArguments[0])
-            ? `Parameters<${getText(node.typeArguments[0], options)}>`
-            : getText(node.typeArguments[0], options)
+            ? `Parameters<${getText(node.typeArguments[0], ast, ts)}>`
+            : getText(node.typeArguments[0], ast, ts)
           : '[]'
       emitStrings.push(`'${name}': ${type}`)
     }
   }
 
-  const sourceFile = sfc.scriptSetup!.ast
-  ts.forEachChild(sourceFile, (node) => {
+  ts.forEachChild(ast, (node) => {
     if (ts.isExpressionStatement(node)) {
       walkNode(node.expression)
     } else if (ts.isVariableStatement(node)) {
@@ -42,7 +43,7 @@ function getEmitStrings(options: {
           decl.initializer &&
           ts.isIdentifier(decl.name)
         ) {
-          walkNode(decl.initializer, getText(decl.name, options))
+          walkNode(decl.initializer, getText(decl.name, ast, ts))
         }
       })
     }

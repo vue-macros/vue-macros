@@ -3,9 +3,15 @@
   "compilerOptions": {
     "incremental": true,
     "tsBuildInfoFile": "dist/fixture.tsbuildinfo",
-    "lib": ["ES2022", "DOM"]
+    "lib": ["ES2023", "DOM"]
   },
+  "references": [
+    {
+      "path": "./packages/define-prop/tests/fixtures/johnson-edition/tsconfig.json"
+    }
+  ],
   "include": ["**/fixtures/**/*", "packages/macros/macros-global.d.ts"],
+  "exclude": ["./packages/define-prop/tests/fixtures/johnson-edition"],
   "vueCompilerOptions": {
     "plugins": ["vue-macros/volar"],
     "vueMacros": {

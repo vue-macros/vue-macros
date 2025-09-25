@@ -166,9 +166,9 @@ function useMouse() {
   }
 }
 // ---cut---
-const __temp = useMouse(),
-  x = toRef(__temp, 'x'),
-  y = toRef(__temp, 'y')
+const __temp = useMouse()
+const x = toRef(__temp, 'x')
+const y = toRef(__temp, 'y')
 
 console.log(x.value, y.value)
 ```

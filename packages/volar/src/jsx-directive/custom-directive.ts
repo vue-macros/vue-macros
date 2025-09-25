@@ -1,6 +1,4 @@
-import { replaceSourceRange } from 'muggle-string'
 import { allCodeFeatures, type Code } from 'ts-macro'
-import { getStart, getText } from '../common'
 import type { TransformOptions } from '.'
 
 export function transformCustomDirective(
@@ -27,9 +25,9 @@ function transform(
   attribute: import('typescript').JsxAttribute,
   options: TransformOptions,
 ) {
-  const { codes, source, ts, ast } = options
+  const { codes, ts, ast } = options
 
-  const attributeName = getText(attribute.name, options)
+  const attributeName = attribute.name.getText(ast)
   let directiveName = attributeName.split(/\s/)[0].split('v-')[1]
   let modifiers: string[] = []
   if (directiveName.includes('_')) {
@@ -41,46 +39,31 @@ function transform(
   if (directiveName.includes(':')) {
     ;[directiveName, arg] = directiveName.split(':')
   }
-  const start = getStart(attribute, options)
+  const start = attribute.getStart(ast)
   const offset = start + directiveName.length + 2
-  replaceSourceRange(
-    codes,
-    source,
+  codes.replaceRange(
     start,
     attribute.end,
-    [ast.text.slice(start, offset), source, start, { verification: true }],
+    [ast.text.slice(start, offset), start, { verification: true }],
     `={[`,
-    [`v`, source, start, { ...allCodeFeatures, verification: false }],
-    [
-      directiveName,
-      source,
-      start + 2,
-      { ...allCodeFeatures, verification: false },
-    ],
+    [`v`, start, { ...allCodeFeatures, verification: false }],
+    [directiveName, start + 2, { ...allCodeFeatures, verification: false }],
     `,`,
     attribute.initializer
       ? [
           ts.isStringLiteral(attribute.initializer)
-            ? getText(attribute.initializer, options)
-            : getText(attribute.initializer, options).slice(1, -1),
-          source,
-          getStart(attribute.initializer, options) +
+            ? attribute.initializer.getText(ast)
+            : attribute.initializer.getText(ast).slice(1, -1),
+          attribute.initializer.getStart(ast) +
             (ts.isStringLiteral(attribute.initializer) ? 0 : 1),
-          allCodeFeatures,
         ]
       : '{} as any',
     ',',
     ...(arg !== undefined
       ? ([
-          [`'`, source, offset + 1, { verification: true }],
-          [arg, source, offset + 1, allCodeFeatures],
-          [
-            `'`,
-            source,
-            offset + arg.length,
-            allCodeFeatures,
-            { verification: true },
-          ],
+          [`'`, offset + 1, { verification: true }],
+          [arg, offset + 1],
+          [`'`, offset + arg.length, { verification: true }],
         ] as Code[])
       : ['{} as any']),
     ',',
@@ -91,11 +74,9 @@ function transform(
             modify ? '' : `'`,
             [
               modify,
-              source,
-              getStart(attribute, options) +
+              attribute.getStart(ast) +
                 (attributeName.indexOf('_') + 1) +
                 (index ? modifiers.slice(0, index).join('').length + index : 0),
-              allCodeFeatures,
             ],
             modify ? ': true,' : `'`,
           ]),

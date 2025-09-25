@@ -25,8 +25,8 @@ Support these syntaxes:
 
 ```vue twoslash
 <script setup lang="ts">
-export const foo: string = 'foo',
-  bar = 10
+export const foo: string = 'foo'
+export const bar = 10
 export let baz: string | undefined
 export var qux = fn()
 // @errors: 2448 2454 2695
@@ -41,8 +41,8 @@ export class A {}
 
 ```vue twoslash
 <script setup lang="ts">
-const foo: string = 'foo',
-  bar = 10
+const foo: string = 'foo'
+const bar = 10
 let baz: string | undefined
 const qux = fn()
 const { a, b, c } = { a: 1, b: 2, c: 3 }
@@ -176,8 +176,8 @@ defineExpose({
 
 ```vue
 <script setup lang="ts">
-const foo = 1,
-  bar = 1
+const foo = 1
+const bar = 1
 
 export { foo } from './types'
 export * as bar from './types'
@@ -191,8 +191,8 @@ export * as bar from './types'
 import { foo as __MACROS_expose_0 } from './types'
 import * as __MACROS_expose_1 from './types'
 
-const foo = 1,
-  bar = 1
+const foo = 1
+const bar = 1
 defineExpose({
   foo: __MACROS_expose_0,
   bar: __MACROS_expose_1,

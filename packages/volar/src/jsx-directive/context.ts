@@ -1,6 +1,5 @@
 import { isHTMLTag, isSVGTag } from '@vue/shared'
-import { replaceSourceRange } from 'muggle-string'
-import { addCode, getText, isJsxExpression } from '../common'
+import { addCode } from '../common'
 import {
   getOpeningElement,
   getTagName,
@@ -19,19 +18,61 @@ export function resolveCtxMap(
 ): Map<import('typescript').Node, string> {
   if (ctxNodeMap.size) {
     options.codes.push(`
-// @ts-ignore
-type __VLS_IsAny<T> = 0 extends 1 & T ? true : false; type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
-type __VLS_Element = globalThis.JSX.Element;
-declare function __VLS_asFunctionalComponent<T, K = T extends new (...args: any) => any ? InstanceType<T> : unknown>(t: T, instance?: K):
-  T extends new (...args: any) => any
-  ? (props: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>, ctx?: any) => __VLS_Element & { __ctx?: {
-    attrs?: any,
-    slots?: K extends { $scopedSlots: infer Slots } ? Slots : K extends { $slots: infer Slots } ? Slots : any,
-    emit?: K extends { $emit: infer Emit } ? Emit : any
-  } & { props?: (K extends { $props: infer Props } ? Props : any) & Record<string, unknown>; expose?(exposed: K): void; } }
-  : T extends () => any ? (props: {}, ctx?: any) => ReturnType<T>
-  : T extends (...args: any) => any ? T
-  : (_: {} & Record<string, unknown>, ctx?: any) => { __ctx?: { attrs?: any, expose?: any, slots?: any, emit?: any, props?: {} & Record<string, unknown> } };
+type __VLS_IsAny<T> = 0 extends 1 & T ? true : false;
+type __VLS_PickNotAny<A, B> = __VLS_IsAny<A> extends true ? B : A;
+type __VLS_PrettifyGlobal<T> = { [K in keyof T as K]: T[K] } & {};
+declare function __VLS_asFunctionalComponent<
+  T,
+  K = T extends new (...args: any) => any ? InstanceType<T> : unknown,
+>(
+  t: T,
+): T extends new (...args: any) => any
+  ? (
+      props: (K extends { $props: infer Props }
+        ? Props
+        : K extends { props: infer Props }
+          ? Props
+          : any),
+      ctx?: any,
+    ) => JSX.Element & {
+      __ctx: {
+        attrs: Record<string, any>,
+        props: (K extends { $props: infer Props }
+          ? Props
+          : K extends { props: infer Props }
+            ? Props
+            : any),
+        slots: K extends { $slots: infer Slots }
+          ? Slots
+          : K extends { slots: infer Slots }
+            ? Slots
+            : any
+        emit: K extends { $emit: infer Emit }
+          ? Emit
+          : K extends { emit: infer Emit }
+            ? Emit
+            : any
+        expose: (
+          exposed: K extends { exposeProxy: infer Exposed }
+            ? string extends keyof NonNullable<Exposed>
+              ? K
+              : Exposed
+            : K,
+        ) => void
+      }
+    }
+  : T extends () => any
+    ? (props: {}, ctx?: any) => ReturnType<T>
+    : T extends (...args: any) => any
+      ? T
+      : (_: {}, ctx?: any) => {
+          __ctx: {
+            attrs?: any
+            expose?: any
+            slots?: any
+            emit?: any
+          } 
+        };
 const __VLS_nativeElements = {
   ...{} as SVGElementTagNameMap,
   ...{} as HTMLElementTagNameMap,
@@ -42,13 +83,18 @@ declare function __VLS_getFunctionalComponentCtx<T, K, const S>(
   s: S,
 ): S extends keyof typeof __VLS_nativeElements
   ? { expose: (exposed: (typeof __VLS_nativeElements)[S]) => any }
-  : '__ctx' extends keyof __VLS_PickNotAny<K, {}>
-    ? K extends { __ctx?: infer Ctx }
-      ? Ctx
-      : never
-    : T extends (props: infer P, ctx: infer Ctx) => any
-      ? { props: P } & Ctx
-      : {};\n`)
+    : '__ctx' extends keyof __VLS_PickNotAny<K, {}> 
+      ? K extends { __ctx?: infer Ctx } ? Ctx : never
+      : T extends (props: infer P, ctx: { expose: (exposed: infer Exposed) => void } & infer Ctx) => any 
+        ? Ctx & {
+            props: P,
+            expose: (
+              exposed: __VLS_PrettifyGlobal<
+                import('vue').ShallowUnwrapRef<Exposed>
+              >,
+            ) => void,
+          }
+        : {};\n`)
   }
 
   return new Map(
@@ -65,7 +111,7 @@ export function transformCtx(
   index: number,
   options: TransformOptions,
 ): string {
-  const { ts, codes, prefix } = options
+  const { ts, ast, codes, prefix } = options
 
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
@@ -75,11 +121,11 @@ export function transformCtx(
   for (const prop of openingElement.attributes.properties) {
     if (!ts.isJsxAttribute(prop)) continue
 
-    let name = getText(prop.name, options)
+    let name = prop.name.getText(ast)
     if (
       name === 'ref' &&
       prop.initializer &&
-      isJsxExpression(prop.initializer) &&
+      ts.isJsxExpression(prop.initializer) &&
       prop.initializer.expression
     ) {
       refValue = getRefValue(prop.initializer.expression, options)
@@ -97,9 +143,9 @@ export function transformCtx(
     if (!name) continue
 
     const value = prop.initializer
-      ? isJsxExpression(prop.initializer) && prop.initializer.expression
-        ? getText(prop.initializer.expression, options)
-        : getText(prop.initializer, options)
+      ? ts.isJsxExpression(prop.initializer) && prop.initializer.expression
+        ? prop.initializer.expression.getText(ast)
+        : prop.initializer.getText(ast)
       : 'true'
     props += `'${name}': ${value},`
   }
@@ -113,20 +159,14 @@ export function transformCtx(
     let types = ''
     if (openingElement.typeArguments?.length) {
       types = `<${openingElement.typeArguments
-        .map((argument) => getText(argument, options))
+        .map((argument) => argument.getText(ast))
         .join(', ')}>`
       tagName += types
     }
   }
   const result = `\nconst ${ctxName} = __VLS_getFunctionalComponentCtx(${tagName}, __VLS_asFunctionalComponent(${tagName})({${props}}), '${originTagName}');\n`
   if (root) {
-    replaceSourceRange(
-      codes,
-      options.source,
-      root.end - 1,
-      root.end - 1,
-      result,
-    )
+    codes.replaceRange(root.end - 1, root.end - 1, result)
   } else {
     addCode(codes, result)
   }
@@ -138,10 +178,10 @@ function getRefValue(
   expression: import('typescript').Expression,
   options: TransformOptions,
 ) {
-  const { ts } = options
+  const { ts, ast } = options
 
   if (ts.isIdentifier(expression)) {
-    return getText(expression, options)
+    return expression.getText(ast)
   } else if (ts.isFunctionLike(expression)) {
     let left
     if (ts.isBinaryExpression(expression.body)) {
@@ -159,19 +199,16 @@ function getRefValue(
     })
     return (
       left &&
-      getText(
-        ts.isPropertyAccessExpression(left) ||
-          ts.isElementAccessExpression(left)
-          ? left.expression
-          : left,
-        options,
-      )
+      (ts.isPropertyAccessExpression(left) || ts.isElementAccessExpression(left)
+        ? left.expression
+        : left
+      ).getText(ast)
     )
   } else if (
     ts.isCallExpression(expression) &&
     expression.arguments[0] &&
     ts.isIdentifier(expression.arguments[0])
   ) {
-    return getText(expression.arguments[0], options)
+    return expression.arguments[0].getText(ast)
   }
 }

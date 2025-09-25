@@ -275,7 +275,7 @@ export function transformAST(
   function findUpParent() {
     return parentStack
       .slice()
-      .reverse()
+      .toReversed()
       .find(({ type }) => !TS_NODE_TYPES.includes(type as any))
   }
 

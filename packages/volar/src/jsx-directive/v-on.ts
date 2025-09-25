@@ -1,6 +1,3 @@
-import { replaceSourceRange } from 'muggle-string'
-import { allCodeFeatures } from 'ts-macro'
-import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVOn(
@@ -9,19 +6,11 @@ export function transformVOn(
   options: TransformOptions,
 ): void {
   if (nodes.length === 0) return
-  const { codes, source } = options
+  const { codes, ast } = options
 
   for (const { node, attribute } of nodes) {
-    replaceSourceRange(
-      codes,
-      source,
-      getStart(attribute, options),
-      attribute.name.end + 2,
-      '{...',
-    )
-    replaceSourceRange(
-      codes,
-      source,
+    codes.replaceRange(attribute.getStart(ast), attribute.name.end + 2, '{...')
+    codes.replaceRange(
       attribute.end - 1,
       attribute.end - 1,
       ` satisfies __VLS_NormalizeEmits<typeof ${ctxMap.get(node)}.emit>`,
@@ -50,43 +39,35 @@ type __VLS_NormalizeEmits<T> = __VLS_PrettifyGlobal<
       [K in keyof T]: T[K] extends any[] ? { (...args: T[K]): void } : never
     }
   >
->;
-type __VLS_PrettifyGlobal<T> = { [K in keyof T]: T[K]; } & {};\n`)
+>;\n`)
 }
 
 export function transformOnWithModifiers(
   nodes: JsxDirective[],
   options: TransformOptions,
 ): void {
-  const { codes, source } = options
+  const { codes, ast, ts } = options
 
   for (const { attribute } of nodes) {
-    const attributeName = getText(attribute.name, options).split('_')[0]
-    const start = getStart(attribute.name, options)
+    const attributeName = attribute.name.getText(ast).split('_')[0]
+    const start = attribute.name.getStart(ast)
     const end = attribute.name.end
 
-    replaceSourceRange(codes, source, start, end, '{...{', [
-      attributeName,
-      source,
-      start,
-      allCodeFeatures,
-    ])
+    codes.replaceRange(start, end, '{...{', [attributeName, start])
 
     if (!attribute.initializer) {
-      replaceSourceRange(codes, source, end, end, ': () => {}}}')
+      codes.replaceRange(end, end, ': () => {}}}')
     } else if (
-      isJsxExpression(attribute.initializer) &&
+      ts.isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression
     ) {
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         end,
-        getStart(attribute.initializer.expression, options),
+        attribute.initializer.expression.getStart(ast),
         ': ',
       )
 
-      replaceSourceRange(codes, source, attribute.end, attribute.end, '}')
+      codes.replaceRange(attribute.end, attribute.end, '}')
     }
   }
 }

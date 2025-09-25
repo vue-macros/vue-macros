@@ -20,6 +20,7 @@ export function transformDefineRender(
   if (!code.includes(DEFINE_RENDER)) return
 
   const lang = getLang(id)
+  const vapor = options?.vapor || new URLSearchParams(id).get('vapor')
   const program = babelParse(code, lang === 'vue' ? 'js' : lang)
 
   const nodes: {
@@ -56,7 +57,7 @@ export function transformDefineRender(
 
     const index = returnStmt ? returnStmt.start! : parent.end! - 1
     const shouldAddFn =
-      !options?.vapor && !isFunctionType(arg) && arg.type !== 'Identifier'
+      !vapor && !isFunctionType(arg) && arg.type !== 'Identifier'
     s.appendLeft(index, `return ${shouldAddFn ? '() => (' : ''}`)
     s.moveNode(arg, index)
     if (shouldAddFn) s.appendRight(index, `)`)

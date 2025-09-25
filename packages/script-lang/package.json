@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/script-lang",
-  "version": "3.0.0-beta.14",
+  "version": "3.1.0",
   "description": "scriptLang feature from Vue Macros.",
   "type": "module",
   "keywords": [
@@ -25,7 +25,7 @@
   },
   "author": "zhiyuanzmj",
   "contributors": [
-    "三咲智子 Kevin Deng <sxzz@sxzz.moe>"
+    "Kevin Deng <sxzz@sxzz.moe>"
   ],
   "funding": "https://github.com/sponsors/vue-macros",
   "files": [
@@ -89,8 +89,7 @@
       "./vite": "./dist/vite.js",
       "./webpack": "./dist/webpack.js",
       "./*": "./*"
-    },
-    "tag": "next"
+    }
   },
   "scripts": {},
   "peerDependencies": {
@@ -104,6 +103,6 @@
     "vue": "catalog:"
   },
   "engines": {
-    "node": ">=20.18.0"
+    "node": ">=20.19.0"
   }
 }

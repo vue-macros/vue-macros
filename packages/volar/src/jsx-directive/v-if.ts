@@ -1,36 +1,30 @@
-import { replaceSourceRange } from 'muggle-string'
-import { allCodeFeatures } from 'ts-macro'
-import { getStart, getText, isJsxExpression } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVIf(
   nodes: JsxDirective[],
   options: TransformOptions,
 ): void {
-  const { codes, ts, source, prefix } = options
+  const { codes, ts, prefix, ast } = options
 
   nodes.forEach(({ node, attribute, parent }, index) => {
     if (!ts.isIdentifier(attribute.name)) return
 
     if (
       [`${prefix}if`, `${prefix}else-if`].includes(
-        getText(attribute.name, options),
+        attribute.name.getText(ast),
       ) &&
-      isJsxExpression(attribute.initializer) &&
+      attribute.initializer &&
+      ts.isJsxExpression(attribute.initializer) &&
       attribute.initializer.expression
     ) {
-      const hasScope = parent && attribute.name.escapedText === `${prefix}if`
-      replaceSourceRange(
-        codes,
-        source,
-        getStart(node, options),
-        getStart(node, options),
+      const hasScope = parent && attribute.name.text === `${prefix}if`
+      codes.replaceRange(
+        node.getStart(ast),
+        node.getStart(ast),
         `${hasScope ? '{' : ''}(`,
         [
-          getText(attribute.initializer.expression, options),
-          source,
-          getStart(attribute.initializer.expression, options),
-          allCodeFeatures,
+          attribute.initializer.expression.getText(ast),
+          attribute.initializer.expression.getStart(ast),
         ],
         ') ? ',
       )
@@ -38,24 +32,17 @@ export function transformVIf(
       const nextAttribute = nodes[index + 1]?.attribute
       const nextNodeHasElse =
         nextAttribute && ts.isIdentifier(nextAttribute.name)
-          ? String(nextAttribute.name.escapedText).startsWith(`${prefix}else`)
+          ? String(nextAttribute.name.text).startsWith(`${prefix}else`)
           : false
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         node.end,
         node.end,
         nextNodeHasElse ? ' : ' : ` : null${parent ? '}' : ''}`,
       )
-    } else if (attribute.name.escapedText === `${prefix}else`) {
-      replaceSourceRange(codes, source, node.end, node.end, parent ? '}' : '')
+    } else if (attribute.name.text === `${prefix}else`) {
+      codes.replaceRange(node.end, node.end, parent ? '}' : '')
     }
 
-    replaceSourceRange(
-      codes,
-      source,
-      getStart(attribute, options),
-      attribute.end,
-    )
+    codes.replaceRange(attribute.getStart(ast), attribute.end)
   })
 }

@@ -43,6 +43,11 @@ defineRender(() => (
         {key}: {value}
       </div>)}
     </div>)}
+
+    {(true) ? <div></div> :
+    __MACROS_renderList(4, (item, index) => <>
+      {index}
+    </>)}
   </>
 ))
 </script>

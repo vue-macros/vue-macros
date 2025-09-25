@@ -1,6 +1,6 @@
 {
   "name": "@vue-macros/short-vmodel",
-  "version": "3.0.0-beta.14",
+  "version": "3.1.0",
   "description": "shortVmodel feature from Vue Macros.",
   "type": "module",
   "keywords": [
@@ -22,7 +22,7 @@
     "url": "git+https://github.com/vue-macros/vue-macros.git",
     "directory": "packages/short-vmodel"
   },
-  "author": "三咲智子 Kevin Deng <sxzz@sxzz.moe>",
+  "author": "Kevin Deng <sxzz@sxzz.moe>",
   "funding": "https://github.com/sponsors/vue-macros",
   "files": [
     "dist"
@@ -70,8 +70,7 @@
       "./rollup": "./dist/rollup.js",
       "./vite": "./dist/vite.js",
       "./*": "./*"
-    },
-    "tag": "next"
+    }
   },
   "scripts": {},
   "dependencies": {
@@ -82,6 +81,6 @@
     "@vue/compiler-sfc": "catalog:"
   },
   "engines": {
-    "node": ">=20.18.0"
+    "node": ">=20.19.0"
   }
 }
