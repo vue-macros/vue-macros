@@ -10,11 +10,16 @@ import {
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { createUnplugin, type UnpluginInstance } from 'unplugin'
+import {
+  createUnplugin,
+  type FilterPattern,
+  type UnpluginInstance,
+} from 'unplugin'
 import {
   hotUpdateSetupComponent,
   loadSetupComponent,
   SETUP_COMPONENT_ID_REGEX,
+  SETUP_COMPONENT_SUB_MODULE,
   transformPost,
   transformSetupComponent,
   type SetupComponentContext,
@@ -72,20 +77,27 @@ const PrePlugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
         }
       },
 
-      loadInclude(id) {
-        return SETUP_COMPONENT_ID_REGEX.test(id)
+      load: {
+        filter: {
+          id: {
+            include: SETUP_COMPONENT_ID_REGEX,
+          },
+        },
+        handler(id) {
+          return loadSetupComponent(id, setupComponentContext, options.root)
+        },
       },
 
-      load(id) {
-        return loadSetupComponent(id, setupComponentContext, options.root)
-      },
-
-      transformInclude(id) {
-        return filter(id)
-      },
-
-      transform(code, id) {
-        return transformSetupComponent(code, id, setupComponentContext)
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler(code, id) {
+          return transformSetupComponent(code, id, setupComponentContext)
+        },
       },
 
       vite: {
@@ -109,18 +121,26 @@ const PostPlugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name: `${name}-post`,
       enforce: 'post',
 
-      transformInclude(id) {
-        return isSubModule(id)
-      },
-      transform(code, id) {
-        return transformPost(code, id)
+      transform: {
+        filter: {
+          id: {
+            include: SETUP_COMPONENT_ID_REGEX,
+          },
+        },
+        handler(code, id) {
+          return transformPost(code, id)
+        },
       },
 
       rollup: {
         transform: {
           order: 'post',
+          filter: {
+            id: {
+              include: SETUP_COMPONENT_SUB_MODULE,
+            },
+          },
           handler(code, id) {
-            if (!isSubModule(id)) return
             return transformPost(code, id)
           },
         },

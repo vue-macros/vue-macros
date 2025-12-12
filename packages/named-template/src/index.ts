@@ -10,8 +10,9 @@ import { createUnplugin, type UnpluginInstance } from 'unplugin'
 import { parseVueRequest, postTransform, preTransform } from './core'
 import {
   MAIN_TEMPLATE,
-  QUERY_NAMED_TEMPLATE,
+  QUERY_NAMED_TEMPLATE_REGEX,
   QUERY_TEMPLATE,
+  QUERY_TEMPLATE_REGEX,
 } from './core/constants'
 
 export type Options = BaseOptions
@@ -36,7 +37,6 @@ const name = generatePluginName()
 export const PrePlugin: UnpluginInstance<Options | undefined, false> =
   createUnplugin((userOptions = {}) => {
     const options = resolveOptions(userOptions)
-    const filter = createFilter(options)
 
     const templateContent: TemplateContent = Object.create(null)
 
@@ -44,29 +44,40 @@ export const PrePlugin: UnpluginInstance<Options | undefined, false> =
       name: `${name}-pre`,
       enforce: 'pre',
 
-      loadInclude(id) {
-        return id.includes(QUERY_TEMPLATE)
+      load: {
+        filter: {
+          id: {
+            include: QUERY_TEMPLATE_REGEX,
+          },
+        },
+        handler(id) {
+          const { filename, query } = parseVueRequest(id) as any
+          const content =
+            templateContent[filename]?.[
+              'mainTemplate' in query ? MAIN_TEMPLATE : query.name
+            ]
+          return content
+        },
       },
 
-      load(id) {
-        const { filename, query } = parseVueRequest(id) as any
-        const content =
-          templateContent[filename]?.[
-            'mainTemplate' in query ? MAIN_TEMPLATE : query.name
-          ]
-        return content
-      },
-
-      transformInclude(id) {
-        return filter(id) || id.includes(QUERY_NAMED_TEMPLATE)
-      },
-
-      transform(code, id) {
-        if (id.includes(QUERY_NAMED_TEMPLATE)) {
-          const { filename, query } = parseVueRequest(id)
-          const { name } = query as any
-          const request = `${filename}?vue&${QUERY_TEMPLATE}&name=${name}`
-          return `import { createTextVNode } from 'vue'
+      transform: {
+        filter: {
+          id: {
+            include: [
+              QUERY_NAMED_TEMPLATE_REGEX,
+              ...(Array.isArray(options.include)
+                ? options.include
+                : [options.include].filter(Boolean)),
+            ],
+            exclude: options.exclude as any,
+          },
+        },
+        handler(code, id) {
+          if (QUERY_NAMED_TEMPLATE_REGEX.test(id)) {
+            const { filename, query } = parseVueRequest(id)
+            const { name } = query as any
+            const request = `${filename}?vue&${QUERY_TEMPLATE}&name=${name}`
+            return `import { createTextVNode } from 'vue'
         import { render } from ${JSON.stringify(request)}
 export default {
 render: (...args) => {
@@ -74,9 +85,10 @@ render: (...args) => {
   return typeof r === 'string' ? createTextVNode(r) : r
 }
 }`
-        } else {
-          return preTransform(code, id, templateContent)
-        }
+          } else {
+            return preTransform(code, id, templateContent)
+          }
+        },
       },
     }
   })

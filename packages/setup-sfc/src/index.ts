@@ -6,7 +6,11 @@ import {
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { createUnplugin, type UnpluginInstance } from 'unplugin'
+import {
+  createUnplugin,
+  type FilterPattern,
+  type UnpluginInstance,
+} from 'unplugin'
 import { hotUpdateSetupSFC, transformSetupSFC } from './core'
 
 export type Options = BaseOptions
@@ -33,13 +37,23 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name,
       enforce: 'pre',
 
-      transformInclude: filter,
-      transform: transformSetupSFC,
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler: transformSetupSFC,
+      },
 
       vite: {
         config() {
+          // Vite 8 is powered by Rolldown, so `oxc` should be used instead of `esbuild`
+          const isRolldownPowered = 'rolldownVersion' in this.meta
+
           return {
-            esbuild: {
+            [isRolldownPowered ? 'oxc' : 'esbuild']: {
               exclude: options.include as any,
               include: options.exclude as any,
             },

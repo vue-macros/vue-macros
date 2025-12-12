@@ -11,6 +11,7 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
+  type FilterPattern,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
@@ -44,23 +45,28 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'pre',
 
-      transformInclude: filter,
-      transform(code, id) {
-        return transformBetterDefine(code, id, options.isProduction).match(
-          (res) => res,
-          (error) => {
-            this.warn(`${name} ${error}`)
-            console.warn(error)
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
           },
-        )
+        },
+        handler(code, id) {
+          return transformBetterDefine(code, id, options.isProduction).match(
+            (res) => res,
+            (error) => {
+              this.warn(`${name} ${error}`)
+              console.warn(error)
+            },
+          )
+        },
       },
-
       vite: {
         configResolved(config) {
           options.isProduction ??= config.isProduction

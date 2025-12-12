@@ -9,6 +9,7 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
+  type FilterPattern,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
@@ -46,7 +47,15 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name,
       enforce: 'pre',
       transformInclude: filter,
-      transform: transformDefinePropsRefs,
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },  
+        },
+        handler: transformDefinePropsRefs
+      },
     }
   },
 )

@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
@@ -7,7 +6,7 @@ import {
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { createUnplugin, type UnpluginInstance } from 'unplugin'
+import { createUnplugin, type UnpluginInstance, type FilterPattern } from 'unplugin'
 import { transformDefineRender } from './core'
 
 export type Options = BaseOptions & {
@@ -32,18 +31,20 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}) => {
     const options = resolveOptions(userOptions)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'post',
-
-      transformInclude(id) {
-        return filter(id)
-      },
-
-      transform(code, id) {
-        return transformDefineRender(code, id, options)
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler(code, id) {
+          return transformDefineRender(code, id, options)
+        },
       },
     }
   },
