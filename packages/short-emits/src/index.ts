@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -51,7 +50,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
           },
         },
         handler: transformShortEmits,
-      }
+      },
     }
   },
 )

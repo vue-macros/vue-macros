@@ -3,7 +3,6 @@ import {
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
-  normalizePath,
   REGEX_NODE_MODULES,
   type BaseOptions,
   type MarkRequired,
@@ -16,7 +15,7 @@ import {
   type UnpluginInstance,
 } from 'unplugin'
 import { shouldTransform, transform, transformVueSFC } from './core'
-import { HELPER_ID_REGEX, helperCode, helperId } from './core/helper'
+import { HELPER_ID_REGEX, helperCode } from './core/helper'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>

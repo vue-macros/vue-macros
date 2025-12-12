@@ -1,7 +1,6 @@
 import process from 'node:process'
 import { resolveDtsHMR } from '@vue-macros/api'
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,

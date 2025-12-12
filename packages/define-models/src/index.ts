@@ -61,7 +61,7 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
         },
         handler(id) {
           return id
-        }
+        },
       },
 
       load: {
