@@ -45,6 +45,14 @@ defineRender(() => (
 
       <div>default: end</div>
     </Child>
+
+    <Child>
+      {{
+        default: ({ foo }) => <div>{foo}</div>,
+      }}
+    </Child>
+
+    <Child>{({ foo }) => foo}</Child>
   </fieldset>
 ))
 </script>

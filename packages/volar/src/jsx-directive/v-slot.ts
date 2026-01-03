@@ -163,28 +163,3 @@ export function transformVSlot(
     }
   })
 }
-
-export function transformVSlots(
-  nodes: JsxDirective[],
-  ctxMap: Map<JsxDirective['node'], string>,
-  options: TransformOptions,
-): void {
-  const { codes, ts } = options
-
-  for (const {
-    node,
-    attribute: { initializer },
-  } of nodes) {
-    if (
-      initializer &&
-      ts.isJsxExpression(initializer) &&
-      initializer.expression
-    ) {
-      codes.replaceRange(
-        initializer.expression.end,
-        initializer.expression.end,
-        ` satisfies typeof ${ctxMap.get(node)}.slots`,
-      )
-    }
-  }
-}
