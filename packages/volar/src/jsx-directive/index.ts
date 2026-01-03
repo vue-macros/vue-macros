@@ -6,7 +6,8 @@ import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { isNativeFormElement, transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
-import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
+import { transformVSlot, type VSlotMap } from './v-slot'
+import { transformVSlots } from './v-slots'
 import type { Codes } from 'ts-macro'
 import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 
@@ -113,15 +114,18 @@ export function transformJsxDirective(options: TransformOptions): void {
     if (
       ts.isJsxExpression(node) &&
       node.expression &&
-      ts.isObjectLiteralExpression(node.expression) &&
+      (ts.isObjectLiteralExpression(node.expression) ||
+        ts.isArrowFunction(node.expression) ||
+        ts.isFunctionExpression(node.expression)) &&
       parent &&
       ts.isJsxElement(parent) &&
-      parent.children.filter((child) =>
-        ts.isJsxText(child) ? child.getText(ast).trim() : true,
-      ).length === 1
+      !parent.children.every(
+        (child) =>
+          child !== node &&
+          (ts.isJsxText(child) ? child.getText(ast).trim() : true),
+      )
     ) {
-      ctxNode = node
-
+      ctxNode = parent
       vSlots.push({
         node: parent,
         attribute: {
