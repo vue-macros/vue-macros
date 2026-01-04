@@ -7,7 +7,11 @@ import {
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
-import { createUnplugin, type UnpluginInstance } from 'unplugin'
+import {
+  createUnplugin,
+  type FilterPattern,
+  type UnpluginInstance,
+} from 'unplugin'
 import { transformScriptLang } from './core'
 
 export interface Options extends BaseOptions {
@@ -37,12 +41,16 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name,
       enforce: 'pre',
 
-      transformInclude(id) {
-        return filter(id)
-      },
-
-      transform(code, id) {
-        return transformScriptLang(code, id, options)
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler(code, id) {
+          return transformScriptLang(code, id, options)
+        },
       },
 
       vite: {

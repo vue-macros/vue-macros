@@ -10,6 +10,7 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
+  type FilterPattern,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
@@ -44,8 +45,15 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
     return {
       name,
       enforce: 'pre',
-      transformInclude: filter,
-      transform: transformExportProps,
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler: transformExportProps,
+      },
       vite: {
         handleHotUpdate(ctx) {
           hackViteHMR(ctx, filter, transformExportProps)

@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -10,7 +9,11 @@ import {
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import { transformJsxDirective } from '.'
-import type { UnpluginContextMeta, UnpluginFactory } from 'unplugin'
+import type {
+  FilterPattern,
+  UnpluginContextMeta,
+  UnpluginFactory,
+} from 'unplugin'
 
 export type Options = BaseOptions & {
   prefix?: string
@@ -47,15 +50,21 @@ export const plugin: UnpluginFactory<Options | undefined, false> = (
   { framework = 'vite' },
 ) => {
   const options = resolveOptions(userOptions, framework)
-  const filter = createFilter(options)
 
   return {
     name,
     enforce: 'pre',
 
-    transformInclude: filter,
-    transform(code, id) {
-      return transformJsxDirective(code, id, options)
+    transform: {
+      filter: {
+        id: {
+          include: options.include as FilterPattern,
+          exclude: options.exclude as FilterPattern,
+        },
+      },
+      handler(code, id) {
+        return transformJsxDirective(code, id, options)
+      },
     },
   }
 }
