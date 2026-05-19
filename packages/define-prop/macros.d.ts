@@ -1,10 +1,14 @@
 /**
  * Define a reactive prop for the component.
  *
- * @param name - The name of the prop (optional, defaults to variable name)
- * @param definition - The prop definition options (optional)
- * @returns A reactive reference to the prop value
+ * Kevin Edition:
+ *   defineProp(name?, definition?)
+ *
+ * Johnson Edition:
+ *   defineProp(value?, required?, rest?)
  */
+
+/** Kevin Edition: defineProp(name?, definition?) */
 export declare function defineProp<T = any>(
   name?: string,
   definition?: {
@@ -12,16 +16,17 @@ export declare function defineProp<T = any>(
     required?: boolean
     default?: T | (() => T)
     validator?: (value: T) => boolean
-  }
+  },
 ): T
 
-/**
- * Define a reactive prop with $ syntax for reactive transform.
- *
- * @param name - The name of the prop (optional, defaults to variable name)
- * @param definition - The prop definition options (optional)
- * @returns A reactive reference to the prop value
- */
+/** Johnson Edition: defineProp(value?, required?, rest?) */
+export declare function defineProp<T = any>(
+  value?: T,
+  required?: boolean,
+  rest?: Record<string, any>,
+): T
+
+/** Kevin Edition with $ (reactive transform) */
 export declare function $defineProp<T = any>(
   name?: string,
   definition?: {
@@ -29,5 +34,12 @@ export declare function $defineProp<T = any>(
     required?: boolean
     default?: T | (() => T)
     validator?: (value: T) => boolean
-  }
+  },
+): T
+
+/** Johnson Edition with $ (reactive transform) */
+export declare function $defineProp<T = any>(
+  value?: T,
+  required?: boolean,
+  rest?: Record<string, any>,
 ): T
