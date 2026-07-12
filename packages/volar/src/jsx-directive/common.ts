@@ -44,7 +44,7 @@ export function getDirectiveArgs(
       valueCode = [elements[0].getText(ast), elements[0].getStart(ast)]
     }
 
-    // modifies
+    // modifiers
     if (elements[1] && ts.isArrayLiteralExpression(elements[1])) {
       modifiersCode = [elements[1].getText(ast), elements[1].getStart(ast)]
     } else {
