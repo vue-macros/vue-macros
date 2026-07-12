@@ -79,9 +79,7 @@ export function transformVSlot(
             : argumentCode || 'default',
           isDynamic ? ']' : '',
           `: (`,
-          ...(valueCode
-            ? [valueCode, isDynamic ? ': Record<string, any>' : '']
-            : []),
+          ...(valueCode ? [valueCode, isDynamic ? ': any' : ''] : []),
           ') => <>',
           ...children.map((child) => {
             codes.replaceRange(child.pos, child.end)
