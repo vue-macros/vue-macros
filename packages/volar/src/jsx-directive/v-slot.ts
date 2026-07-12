@@ -29,7 +29,6 @@ export function transformVSlot(
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
     const result: Code[] = [' v-slots={{']
     const attributes = Array.from(attributeMap)
-    const slotType = `satisfies typeof ${ctxMap.get(node)}.slots`
     attributes.forEach(
       ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
         if (!attribute) return
@@ -80,7 +79,9 @@ export function transformVSlot(
             : argumentCode || 'default',
           isDynamic ? ']' : '',
           `: (`,
-          ...(valueCode ? [valueCode, isDynamic ? '' : ''] : []),
+          ...(valueCode
+            ? [valueCode, isDynamic ? ': Record<string, any>' : '']
+            : []),
           ') => <>',
           ...children.map((child) => {
             codes.replaceRange(child.pos, child.end)
@@ -97,7 +98,7 @@ export function transformVSlot(
         )
 
         if (vForAttribute) {
-          result.push(`}) ${slotType}),`)
+          result.push('})),')
         }
 
         if (vIfAttribute && vIfAttributeName) {
@@ -118,10 +119,11 @@ export function transformVSlot(
       },
     )
 
+    const slotType = `} satisfies typeof ${ctxMap.get(node)}.slots}`
     if (attributeMap.has(null)) {
       result.push('default: () => <>')
     } else {
-      result.push(`} ${slotType}}`)
+      result.push(slotType)
     }
 
     if (vSlotAttribute) {
@@ -139,7 +141,7 @@ export function transformVSlot(
       codes.replaceRange(
         node.closingElement.pos,
         node.closingElement.pos,
-        attributeMap.has(null) ? `</>} ${slotType}}>` : '>',
+        attributeMap.has(null) ? `</>${slotType}>` : '>',
       )
     }
   })
