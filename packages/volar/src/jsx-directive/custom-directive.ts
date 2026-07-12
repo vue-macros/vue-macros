@@ -1,4 +1,5 @@
 import { allCodeFeatures, type Code } from 'ts-macro'
+import { getDirectiveArgs } from './common'
 import type { TransformOptions } from '.'
 
 export function transformCustomDirective(
@@ -12,11 +13,11 @@ export function transformCustomDirective(
   options.codes.push(`
 type __VLS_ResolveDirective<T> = T extends import('vue').Directive<
   any,
-  infer V,
-  infer M extends string,
-  infer A extends string
+  infer Value,
+  infer Modifiers extends string,
+  infer Argument extends string
 >
-  ? [any, V, A, Record<M, true>]
+  ? Value | [Value] | [Value, Argument] | [Value, Array<Modifiers>] | [Value, Argument, Array<Modifiers>]
   : any;
 `)
 }
@@ -25,64 +26,76 @@ function transform(
   attribute: import('typescript').JsxAttribute,
   options: TransformOptions,
 ) {
-  const { codes, ts, ast } = options
+  const { codes, ast } = options
 
   const attributeName = attribute.name.getText(ast)
-  let directiveName = attributeName.split(/\s/)[0].split('v-')[1]
-  let modifiers: string[] = []
-  if (directiveName.includes('_')) {
-    ;[directiveName, ...modifiers] = directiveName.split('_')
-  }
-  if (directiveName)
-    directiveName = directiveName[0].toUpperCase() + directiveName.slice(1)
-  let arg
-  if (directiveName.includes(':')) {
-    ;[directiveName, arg] = directiveName.split(':')
-  }
+  const {
+    name,
+    modifiersCode,
+    argument,
+    modifiers,
+    argumentCode,
+    valueCode,
+    isDynamic,
+  } = getDirectiveArgs(attribute, options)
   const start = attribute.getStart(ast)
-  const offset = start + directiveName.length + 2
   codes.replaceRange(
     start,
     attribute.end,
-    [ast.text.slice(start, offset), start, { verification: true }],
+    [ast.text.slice(start, start + name.length), start, { verification: true }],
     `={[`,
-    [`v`, start, { ...allCodeFeatures, verification: false }],
-    [directiveName, start + 2, { ...allCodeFeatures, verification: false }],
-    `,`,
-    attribute.initializer
-      ? [
-          ts.isStringLiteral(attribute.initializer)
-            ? attribute.initializer.getText(ast)
-            : attribute.initializer.getText(ast).slice(1, -1),
-          attribute.initializer.getStart(ast) +
-            (ts.isStringLiteral(attribute.initializer) ? 0 : 1),
-        ]
-      : '{} as any',
+    valueCode || '{} as any',
     ',',
-    ...(arg === undefined
-      ? ['{} as any']
-      : ([
-          [`'`, offset + 1, { verification: true }],
-          [arg, offset + 1],
-          [`'`, offset + arg.length, { verification: true }],
-        ] as Code[])),
-    ',',
-    ...(modifiers.length
+    ...(argument
       ? ([
-          '{',
-          ...modifiers.flatMap((modify, index) => [
-            modify ? '' : `'`,
-            [
-              modify,
-              attribute.getStart(ast) +
-                (attributeName.indexOf('_') + 1) +
-                (index ? modifiers.slice(0, index).join('').length + index : 0),
-            ],
-            modify ? ': true,' : `'`,
-          ]),
-          '}',
+          ...(isDynamic && !argument.includes('-')
+            ? []
+            : [[`'`, start + name.length + 1, { verification: true }]]),
+          [argument, start + name.length + 1 + (isDynamic ? 1 : 0)],
+          ...(isDynamic && !argument.includes('-')
+            ? []
+            : [
+                [
+                  `'`,
+                  start + name.length + argument.length,
+                  { verification: true },
+                ],
+              ]),
         ] as Code[])
-      : ['{} as any']),
-    `] satisfies __VLS_ResolveDirective<typeof v${directiveName}>}`,
+      : argumentCode
+        ? [argumentCode]
+        : ['{} as any']),
+    ',',
+    ...(modifiersCode
+      ? [modifiersCode]
+      : modifiers.length
+        ? [
+            '[',
+            ...modifiers.flatMap(
+              (modify, index) =>
+                [
+                  `'`,
+                  [
+                    modify,
+                    start +
+                      (attributeName.indexOf('_') + 1) +
+                      (index
+                        ? modifiers.slice(0, index).join('').length + index
+                        : 0),
+                  ],
+                  `'`,
+                ] as Code[],
+            ),
+            ']',
+          ]
+        : ['{} as any']),
+    `] satisfies __VLS_ResolveDirective<typeof `,
+    [`v`, start, { ...allCodeFeatures, verification: false }],
+    [
+      name[2].toUpperCase() + name.slice(3),
+      start + 2,
+      { ...allCodeFeatures, verification: false },
+    ],
+    `>}`,
   )
 }

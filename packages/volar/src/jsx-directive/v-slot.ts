@@ -1,3 +1,4 @@
+import { getDirectiveArgs } from './common'
 import { resolveVFor } from './v-for'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'
 import type { Code } from 'ts-macro'
@@ -28,6 +29,7 @@ export function transformVSlot(
   nodeMap.forEach(({ attributeMap, vSlotAttribute }, node) => {
     const result: Code[] = [' v-slots={{']
     const attributes = Array.from(attributeMap)
+    const slotType = `satisfies typeof ${ctxMap.get(node)}.slots`
     attributes.forEach(
       ([attribute, { children, vIfAttribute, vForAttribute }], index) => {
         if (!attribute) return
@@ -63,42 +65,22 @@ export function transformVSlot(
           result.push('...', ...resolveVFor(vForAttribute, options), '({')
         }
 
-        let isDynamic = false
-        let attributeName = attribute.name
-          .getText(ast)
-          .slice(6)
-          .split(/\s/)[0]
-          .replace(/\$(.*)\$/, (_, $1) => {
-            isDynamic = true
-            return $1.replaceAll('_', '.')
-          })
-        const isNamespace = attributeName.startsWith(':')
-        attributeName = attributeName.slice(1)
-        const wrapByQuotes = !attributeName || attributeName.includes('-')
+        const { argument, argumentCode, valueCode, isDynamic } =
+          getDirectiveArgs(attribute, options)
+        const wrapByQuotes = !argument || argument.includes('-')
         result.push(
-          isNamespace
+          isDynamic ? '[' : '',
+          argument
             ? [
-                isDynamic
-                  ? `[${attributeName}]`
-                  : wrapByQuotes
-                    ? `'${attributeName}'`
-                    : attributeName,
-                attribute.name.getStart(ast) + (wrapByQuotes ? 6 : 7),
+                wrapByQuotes ? `'${argument}'` : argument,
+                attribute.name.getStart(ast) +
+                  (wrapByQuotes ? 6 : 7) +
+                  (isDynamic ? 1 : 0),
               ]
-            : 'default',
+            : argumentCode || 'default',
+          isDynamic ? ']' : '',
           `: (`,
-          ...((!isNamespace || attributeName) &&
-          attribute.initializer &&
-          ts.isJsxExpression(attribute.initializer) &&
-          attribute.initializer.expression
-            ? [
-                [
-                  attribute.initializer.expression.getText(ast),
-                  attribute.initializer.expression.getStart(ast),
-                ] as Code,
-                isDynamic ? ': any' : '',
-              ]
-            : []),
+          ...(valueCode ? [valueCode, isDynamic ? '' : ''] : []),
           ') => <>',
           ...children.map((child) => {
             codes.replaceRange(child.pos, child.end)
@@ -115,7 +97,7 @@ export function transformVSlot(
         )
 
         if (vForAttribute) {
-          result.push('})) as any,')
+          result.push(`}) ${slotType}),`)
         }
 
         if (vIfAttribute && vIfAttributeName) {
@@ -136,11 +118,10 @@ export function transformVSlot(
       },
     )
 
-    const slotType = `} satisfies typeof ${ctxMap.get(node)}.slots}`
     if (attributeMap.has(null)) {
       result.push('default: () => <>')
     } else {
-      result.push(slotType)
+      result.push(`} ${slotType}}`)
     }
 
     if (vSlotAttribute) {
@@ -158,7 +139,7 @@ export function transformVSlot(
       codes.replaceRange(
         node.closingElement.pos,
         node.closingElement.pos,
-        attributeMap.has(null) ? `</>${slotType}>` : '>',
+        attributeMap.has(null) ? `</>} ${slotType}}>` : '>',
       )
     }
   })

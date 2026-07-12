@@ -1,3 +1,4 @@
+import { getDirectiveArgs, getModifierPropName } from './common'
 import {
   getOpeningElement,
   getTagName,
@@ -29,121 +30,33 @@ function transform(
   ctxMap: Map<JsxDirective['node'], string>,
   options: TransformOptions,
 ) {
-  const { codes, ts, ast, prefix } = options
+  const { codes, ast } = options
   let firstNamespacedNode:
     | {
         attribute: JsxDirective['attribute']
         node: JsxDirective['node']
-        attributeName: string
       }
     | undefined
 
   const result: Code[] = []
   const emitsResult: Code[] = []
   const modifiersResult: Code[] = []
-  const offset = `${prefix}model`.length + 1
   for (const { attribute, node } of nodes) {
     const isNative = isNativeFormElement(getTagName(node, options))
     const modelValue = isNative ? 'value' : 'modelValue'
-    const isArrayExpression =
-      attribute.initializer &&
-      ts.isJsxExpression(attribute.initializer) &&
-      attribute.initializer.expression &&
-      ts.isArrayLiteralExpression(attribute.initializer.expression)
+    const {
+      name,
+      argument,
+      argumentCode,
+      isDynamic,
+      modifiers,
+      modifiersCode,
+      valueCode,
+    } = getDirectiveArgs(attribute, options)
+    if (!valueCode) return
 
-    const name = attribute.name.getText(ast)
     const start = attribute.name.getStart(ast)
-    if (name.startsWith(`${prefix}model:`) || isArrayExpression) {
-      let isDynamic = false
-      const [attributeName, ...modifiers] = name
-        .slice(offset)
-        .split(/\s/)[0]
-        .replace(/^\$(.*)\$/, (_, $1) => {
-          isDynamic = true
-          return $1.replaceAll('_', '.')
-        })
-        .split('_')
-      firstNamespacedNode ??= {
-        attribute,
-        attributeName,
-        node,
-      }
-      if (firstNamespacedNode.attribute !== attribute) {
-        codes.replaceRange(attribute.getStart(ast), attribute.end)
-        result.push(',')
-      }
-
-      if (isArrayExpression) {
-        const { elements } = attribute.initializer.expression
-        if (elements[1] && !ts.isArrayLiteralExpression(elements[1])) {
-          isDynamic = !ts.isStringLiteral(elements[1])
-          result.push(
-            isDynamic ? '[`${' : '',
-            [elements[1].getText(ast), elements[1].getStart(ast)],
-            isDynamic ? '}`]' : '',
-          )
-        } else {
-          result.push(modelValue)
-        }
-
-        if (elements[0])
-          result.push(':', [
-            elements[0].getText(ast),
-            elements[0].getStart(ast),
-          ])
-      } else {
-        result.push(
-          isDynamic ? '[`${' : '',
-          ...(attributeName
-            .split('-')
-            .map((code, index, codes) => [
-              index ? code.at(0)?.toUpperCase() + code.slice(1) : code,
-              start +
-                offset +
-                (isDynamic ? 1 : 0) +
-                (index && codes[index - 1].length + 1),
-            ]) as Code[]),
-          isDynamic ? '}`]' : '',
-        )
-
-        if (attributeName) {
-          if (
-            attribute.initializer &&
-            ts.isJsxExpression(attribute.initializer) &&
-            attribute.initializer.expression
-          ) {
-            result.push(':', [
-              attribute.initializer.expression.getText(ast),
-              attribute.initializer.expression.getStart(ast),
-            ])
-          }
-
-          if (!isDynamic && modifiers.length) {
-            modifiersResult.push(
-              ` {...{`,
-              ...(modifiers.flatMap((modify, index) => [
-                modify ? '' : `'`,
-                [
-                  modify,
-                  start +
-                    offset +
-                    attributeName.length +
-                    1 +
-                    (index
-                      ? modifiers.slice(0, index).join('').length + index
-                      : 0),
-                ],
-                modify ? ': true, ' : `'`,
-              ]) as Code[]),
-              `} satisfies typeof ${ctxMap.get(node)}.props.${attributeName}Modifiers}`,
-            )
-          }
-        }
-      }
-
-      emitsResult.push(`'onUpdate:${attributeName}': () => {}, `)
-    } else {
-      const [, ...modifiers] = name.split('_')
+    if (!argument && !argumentCode) {
       const result = []
       result.push(
         ...((isNative
@@ -156,24 +69,39 @@ function transform(
             ]) as Code[]),
       )
 
-      if (modifiers.length) {
+      if (modifiers.length || modifiersCode) {
         result.unshift(
-          `{...{`,
-          ...(modifiers.flatMap((modify, index) => [
-            modify ? '' : `'`,
-            [
-              modify,
-              start +
-                offset +
-                (index ? modifiers.slice(0, index).join('').length + index : 0),
-            ],
-            modify ? ': true, ' : `'`,
-          ]) as Code[]),
-          `} satisfies `,
+          `{...`,
+          ...(modifiersCode
+            ? [modifiersCode]
+            : modifiers.length
+              ? [
+                  '{',
+                  ...(modifiers.flatMap((modify, index) => [
+                    modify ? (modify.includes('-') ? '"' : '') : `'`,
+                    [
+                      modify,
+                      start +
+                        name.length +
+                        1 +
+                        (index
+                          ? modifiers.slice(0, index).join('').length + index
+                          : 0),
+                    ],
+                    modify ? `${modify.includes('-') ? '"' : ''}: true, ` : `'`,
+                  ]) as Code[]),
+                  '}',
+                ]
+              : []),
+          ` satisfies `,
           isNative
-            ? '{ trim?: true, number?: true, lazy?: true}'
-            : `typeof ${ctxMap.get(node)}.props.modelValueModifiers`,
-          `} `,
+            ? modifiersCode
+              ? `('trim' | 'number' | 'lazy')[]`
+              : `{ trim?: true, number?: true, lazy?: true }`
+            : modifiersCode
+              ? `(keyof NonNullable<typeof ${ctxMap.get(node)}.props.${getModifierPropName(argument || modelValue)}>)[]`
+              : `typeof ${ctxMap.get(node)}.props.${getModifierPropName(argument || modelValue)}`,
+          '} ',
         )
       }
 
@@ -181,24 +109,85 @@ function transform(
         result.unshift(`{...{'onUpdate:${modelValue}': () => {} }} `)
       }
 
-      codes.replaceRange(start, attribute.name.end, ...result)
+      codes.replaceRange(start, attribute.end, ...result, '={', valueCode, '}')
+    } else {
+      if (firstNamespacedNode) {
+        codes.replaceRange(attribute.getStart(ast), attribute.end)
+        result.push(',')
+      } else {
+        firstNamespacedNode = {
+          attribute,
+          node,
+        }
+      }
+
+      result.push(
+        isDynamic ? '[`${' : '',
+        ...(argument
+          ? ([
+              argument.includes('-') ? '"' : '',
+              [argument, start + name.length + 1 + (isDynamic ? 1 : 0)],
+              argument.includes('-') ? '"' : '',
+            ] as Code[])
+          : argumentCode
+            ? [argumentCode]
+            : [modelValue]),
+        isDynamic ? '}`]' : '',
+        ':',
+        valueCode,
+      )
+
+      if (modifiersCode) {
+        modifiersResult.push(
+          ` {...`,
+          modifiersCode,
+          isDynamic
+            ? ''
+            : ` satisfies (keyof NonNullable<typeof ${ctxMap.get(node)}.props.${getModifierPropName(argument || modelValue)}>)[]`,
+          '}',
+        )
+      } else if (modifiers.length) {
+        modifiersResult.push(
+          ` {...{`,
+          ...(modifiers.flatMap((modify, index) => [
+            modify ? (modify.includes('-') ? '"' : '') : `'`,
+            [
+              modify,
+              start +
+                name.length +
+                argument.length +
+                (isDynamic ? 2 : 0) +
+                2 +
+                (index ? modifiers.slice(0, index).join('').length + index : 0),
+            ],
+            modify ? `${modify.includes('-') ? '"' : ''}: true, ` : `'`,
+          ]) as Code[]),
+          '} satisfies ',
+          isDynamic
+            ? 'Record<string, boolean>'
+            : `typeof ${ctxMap.get(node)}.props.${getModifierPropName(argument || modelValue)}`,
+          '}',
+        )
+      }
+
+      emitsResult.push(`'onUpdate:${argument || modelValue}': () => {}, `)
     }
   }
 
-  if (!firstNamespacedNode) return
-  const { attribute, attributeName, node } = firstNamespacedNode
-  const end = attributeName ? attribute.end : attribute.getStart(ast) + offset
-  codes.replaceRange(
-    attribute.getStart(ast),
-    end,
-    `{...{`,
-    ...result,
-    `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>>}`,
-    ...modifiersResult,
-    ` {...{`,
-    ...emitsResult,
-    `}}`,
-  )
+  if (firstNamespacedNode) {
+    const { attribute, node } = firstNamespacedNode
+    codes.replaceRange(
+      attribute.getStart(ast),
+      attribute.end,
+      `{...{`,
+      ...result,
+      `} satisfies __VLS_GetModels<__VLS_NormalizeProps<typeof ${ctxMap.get(node)}.props>>}`,
+      ...modifiersResult,
+      ` {...{`,
+      ...emitsResult,
+      `}}`,
+    )
+  }
 }
 
 function isRadioOrCheckbox(
