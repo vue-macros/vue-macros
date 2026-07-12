@@ -175,7 +175,9 @@ function transform(
         )
       }
 
-      emitsResult.push(`'onUpdate:${argument || modelValue}': () => {}, `)
+      emitsResult.push(
+        `${isDynamic ? '[`' : `'`}onUpdate:${isDynamic ? '${' : ''}${argument || modelValue}${isDynamic ? '}`]' : `'`}: () => {}, `,
+      )
     }
   }
 
