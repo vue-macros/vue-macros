@@ -21,7 +21,7 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
     const vueCompilerOptions =
       (nuxt.options.typescript.tsConfig.vueCompilerOptions ||= {})
     vueCompilerOptions.plugins ||= []
-    vueCompilerOptions.plugins.push('vue-macros/volar')
+    vueCompilerOptions.plugins.push('@vue-macros/nuxt/volar')
 
     nuxt.hook(
       'vite:configResolved',
@@ -46,10 +46,10 @@ const module: NuxtModule<Options> = defineNuxtModule<Options>({
           plugins: { vue, vueJsx },
           nuxtContext: { isClient },
         })
-        if (idx !== -1) {
-          config.plugins.splice(idx, 0, ...vueMacrosPlugins)
-        } else {
+        if (idx === -1) {
           config.plugins.push(...vueMacrosPlugins)
+        } else {
+          config.plugins.splice(idx, 0, ...vueMacrosPlugins)
         }
       },
     )

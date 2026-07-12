@@ -22,19 +22,10 @@ export function getLocaleConfig(lang: string) {
     [
       'script',
       {
-        async: '',
-        src: 'https://www.googletagmanager.com/gtag/js?id=G-29NKGSL23C',
+        defer: '',
+        'data-domain': 'vue-macros.dev',
+        src: 'https://evt.sxzz.dev/js/script.js',
       },
-    ],
-    [
-      'script',
-      {},
-      `window.dataLayer = window.dataLayer || []
-        function gtag() {
-          dataLayer.push(arguments)
-        }
-        gtag('js', new Date())
-        gtag('config', 'G-29NKGSL23C')`,
     ],
   ]
 
@@ -317,7 +308,7 @@ export function getLocaleConfig(lang: string) {
     footer: {
       message: t('Made with ❤️'),
       copyright:
-        'MIT License © 2022-PRESENT<br /><a href="https://github.com/sxzz">三咲智子 Kevin Deng</a> & Vue Macros Contributors',
+        'MIT License © 2022-PRESENT<br /><a href="https://github.com/sxzz">Kevin Deng</a> & Vue Macros Contributors',
     },
     editLink: {
       pattern: `${githubLink}/edit/main/docs/:path`,
@@ -330,11 +321,21 @@ export function getLocaleConfig(lang: string) {
       outline: {
         label: '页面导航',
       },
-      lastUpdatedText: '最后更新于',
+      lastUpdated: {
+        text: '最后更新于',
+        formatOptions: {
+          forceLocale: true,
+          dateStyle: 'short',
+          timeStyle: 'short',
+        },
+      },
       darkModeSwitchLabel: '外观',
+      lightModeSwitchTitle: '切换到浅色模式',
+      darkModeSwitchTitle: '切换到深色模式',
       sidebarMenuLabel: '目录',
       returnToTopLabel: '返回顶部',
-      langMenuLabel: '选择语言',
+      langMenuLabel: '切换语言',
+      skipToContentLabel: '跳到正文',
       docFooter: {
         prev: '上一页',
         next: '下一页',

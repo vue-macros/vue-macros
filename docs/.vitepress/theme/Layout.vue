@@ -18,7 +18,7 @@ const { isDark } = useData()
 
 const enableTransitions = () =>
   'startViewTransition' in document &&
-  window.matchMedia('(prefers-reduced-motion: no-preference)').matches
+  globalThis.matchMedia('(prefers-reduced-motion: no-preference)').matches
 
 provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   if (!enableTransitions()) {
@@ -40,7 +40,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   }).ready
 
   document.documentElement.animate(
-    { clipPath: isDark.value ? clipPath.reverse() : clipPath },
+    { clipPath: isDark.value ? clipPath.toReversed() : clipPath },
     {
       duration: 300,
       easing: 'ease-in',

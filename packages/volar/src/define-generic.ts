@@ -1,6 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { replace, replaceSourceRange } from 'muggle-string'
-import { getText, type VueMacrosPlugin } from './common'
+import { getText } from 'ts-macro'
+import type { VueMacrosPlugin } from './common'
 import type { Code, Sfc } from '@vue/language-core'
 
 function getDefineGenerics(
@@ -9,8 +10,8 @@ function getDefineGenerics(
   codes: Code[],
 ) {
   const result: string[] = []
-  const sourceFile = sfc.scriptSetup!.ast
-  ts.forEachChild(sourceFile, (node) => {
+  const ast = sfc.scriptSetup!.ast
+  ts.forEachChild(ast, (node) => {
     if (
       ts.isTypeAliasDeclaration(node) &&
       ts.isTypeReferenceNode(node.type) &&
@@ -35,10 +36,10 @@ function getDefineGenerics(
       }
 
       const typeArgument = node.type.typeArguments?.[0]
-        ? ` extends ${getText(node.type.typeArguments[0], { ts, sfc })}`
+        ? ` extends ${getText(node.type.typeArguments[0], ast, ts)}`
         : ''
       const defaultType = node.type.typeArguments?.[1]
-        ? ` = ${getText(node.type.typeArguments[1], { ts, sfc })}`
+        ? ` = ${getText(node.type.typeArguments[1], ast, ts)}`
         : ''
       result.push(`${node.name.escapedText}${typeArgument}${defaultType}`)
     }

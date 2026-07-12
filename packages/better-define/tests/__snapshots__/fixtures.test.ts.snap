@@ -323,6 +323,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "err",
 	setup(__props, { expose: __expose }) {
 		__expose();
+		// @ts-expect-error
 		const __returned__ = {};
 		Object.defineProperty(__returned__, "__isScriptSetup", {
 			enumerable: false,
@@ -347,6 +348,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "err",
 	setup(__props, { expose: __expose }) {
 		__expose();
+		// @ts-expect-error
 		const __returned__ = {};
 		Object.defineProperty(__returned__, "__isScriptSetup", {
 			enumerable: false,

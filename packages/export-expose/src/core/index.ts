@@ -109,11 +109,7 @@ export function transformExportExpose(
   let codegen = ''
   for (const [exported, local] of Object.entries(exposed)) {
     codegen += `\n  `
-    if (exported === local) {
-      codegen += `${exported},`
-    } else {
-      codegen += `${exported}: ${local},`
-    }
+    codegen += exported === local ? `${exported},` : `${exported}: ${local},`
   }
   codegen = `defineExpose({${codegen}\n})`
 

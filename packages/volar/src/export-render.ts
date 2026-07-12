@@ -1,6 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
-import { getStart, type VueMacrosPlugin } from './common'
+import { getStart } from 'ts-macro'
+import type { VueMacrosPlugin } from './common'
 import type { Code, Sfc } from '@vue/language-core'
 
 function transform(options: {
@@ -9,6 +10,7 @@ function transform(options: {
   ts: typeof import('typescript')
 }) {
   const { codes, sfc, ts } = options
+  const ast = sfc.scriptSetup!.ast
 
   for (const stmt of sfc.scriptSetup!.ast.statements) {
     if (!ts.isExportAssignment(stmt)) continue
@@ -16,8 +18,8 @@ function transform(options: {
     replaceSourceRange(
       codes,
       'scriptSetup',
-      getStart(stmt, options),
-      getStart(stmt.expression, options),
+      getStart(stmt, ast, ts),
+      getStart(stmt.expression, ast, ts),
       'defineRender(',
     )
     replaceSourceRange(

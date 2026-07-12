@@ -166,10 +166,10 @@ export function importHelperFn(
           : `{ ${imported} as ${HELPER_PREFIX + local} }`
       } from ${JSON.stringify(from)};`,
     )
-    if (!importedMap.has(s)) {
-      importedMap.set(s, new Set([cacheKey]))
-    } else {
+    if (importedMap.has(s)) {
       importedMap.get(s)!.add(cacheKey)
+    } else {
+      importedMap.set(s, new Set([cacheKey]))
     }
   }
 

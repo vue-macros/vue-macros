@@ -47,8 +47,6 @@ const propName = defineProp<T>()
 ### Basic Usage
 
 ```vue twoslash
-<!-- @experimentalDefinePropProposal "kevinEdition" -->
-
 <script setup lang="ts">
 // Declare prop
 const count = defineProp('count')
@@ -64,8 +62,6 @@ console.log(count.value)
 ### With Options
 
 ```vue twoslash
-<!-- @experimentalDefinePropProposal "kevinEdition" -->
-
 <script setup lang="ts">
 // Declare prop with options
 const count = defineProp('count', {
@@ -80,8 +76,6 @@ const count = defineProp('count', {
 ### TypeScript
 
 ```vue twoslash
-<!-- @experimentalDefinePropProposal "kevinEdition" -->
-
 <script setup lang="ts">
 // Declare prop of type number and infer prop name from variable name
 const count = defineProp<number>()
@@ -96,8 +90,6 @@ disabled.value
 ### With Reactivity Transform
 
 ```vue twoslash
-<!-- @experimentalDefinePropProposal "kevinEdition" -->
-
 <script setup lang="ts">
 const foo = $defineProp<string>('foo')
 
@@ -119,9 +111,7 @@ const propName = defineProp<T>(defaultValue, required, rest)
 
 ### Basic Usage
 
-```vue twoslash
-<!-- @experimentalDefinePropProposal "johnsonEdition" -->
-
+```vue
 <script setup lang="ts">
 // declare prop `count` with default value `0`
 const count = defineProp(0)
@@ -136,9 +126,7 @@ console.log(count.value, disabled.value)
 
 ### With Options
 
-```vue twoslash
-<!-- @experimentalDefinePropProposal "johnsonEdition" -->
-
+```vue
 <script setup lang="ts">
 // Declare prop with options
 const count = defineProp(0, false, {
@@ -150,9 +138,7 @@ const count = defineProp(0, false, {
 
 ### TypeScript
 
-```vue twoslash
-<!-- @experimentalDefinePropProposal "johnsonEdition" -->
-
+```vue
 <script setup lang="ts">
 const count = defineProp<number>()
 count.value
@@ -165,9 +151,7 @@ disabled.value
 
 ### With Reactivity Transform
 
-```vue twoslash
-<!-- @experimentalDefinePropProposal "johnsonEdition" -->
-
+```vue
 <script setup lang="ts">
 const foo = $defineProp<number>()
 
@@ -177,15 +161,16 @@ const bar = $(defineProp(0, true))
 
 ### Volar Configuration
 
-```jsonc {3,5} [tsconfig.json]
+```jsonc {3,7} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["vue-macros/volar"],
     "vueMacros": {
-      "defineProp": true,
+      "defineProp": {
+        // "kevinEdition" | "johnsonEdition"
+        "edition": "kevinEdition",
+      },
     },
-    // "kevinEdition" | "johnsonEdition" | false
-    "experimentalDefinePropProposal": "kevinEdition",
   },
 }
 ```

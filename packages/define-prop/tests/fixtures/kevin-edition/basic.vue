@@ -2,7 +2,6 @@
 import { expectTypeOf } from 'expect-type'
 import type { ComputedRef } from 'vue'
 import type { Qux } from '../types'
-import { defineProp } from '../../../macros'
 
 // defineProp(prop_name)
 const foo = defineProp<string>('foo')

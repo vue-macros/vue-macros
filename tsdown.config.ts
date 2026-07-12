@@ -10,9 +10,9 @@ export default defineConfig({
   workspace: 'packages/*',
   entry: ['./src/*.ts', '!./**.d.ts'],
   format: 'esm',
-  target: 'node20.18',
+  target: 'node20.19',
   watch: !!process.env.DEV,
-  dts: { isolatedDeclarations: true },
+  dts: { oxc: true },
   clean: true,
   define: {
     'import.meta.DEV': JSON.stringify(!!process.env.DEV),

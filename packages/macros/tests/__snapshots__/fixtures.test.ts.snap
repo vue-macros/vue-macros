@@ -125,6 +125,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 		const __MACROS_props = __props;
 		const { foo } = toRefs(__MACROS_props);
 		console.log(foo.value);
+		// @ts-expect-error
 		foo.value = "hello";
 		const __returned__ = {
 			__MACROS_props,
@@ -191,6 +192,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 	...__default__,
 	setup(__props, { expose: __expose }) {
 		__expose();
+		// https://github.com/vue-macros/vue-macros/issues/37#issuecomment-1231677842
 		const test = (name) => name;
 		const __returned__ = {
 			name,

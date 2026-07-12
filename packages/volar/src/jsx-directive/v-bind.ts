@@ -1,5 +1,3 @@
-import { replaceSourceRange } from 'muggle-string'
-import { getStart, getText } from '../common'
 import type { JsxDirective, TransformOptions } from './index'
 
 export function transformVBind(
@@ -8,15 +6,15 @@ export function transformVBind(
 ): void {
   if (nodes.length === 0) return
 
-  const { codes, source } = options
+  const { codes, ast } = options
 
   for (const { attribute } of nodes) {
-    const attributeName = getText(attribute.name, options)
-    const start = getStart(attribute.name, options)
+    const attributeName = attribute.name.getText(ast)
+    const start = attribute.name.getStart(ast)
     const end = attribute.name.end
 
     if (attributeName.includes('_')) {
-      replaceSourceRange(codes, source, start + attributeName.indexOf('_'), end)
+      codes.replaceRange(start + attributeName.indexOf('_'), end)
     }
   }
 }

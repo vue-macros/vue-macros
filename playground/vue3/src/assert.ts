@@ -1,12 +1,8 @@
 import { h } from 'vue'
 
 export function Assert({ l, r }: { l: any; r: any }) {
-  let res: boolean
-  if (typeof l === 'object') {
-    res = JSON.stringify(l) === JSON.stringify(r)
-  } else {
-    res = l === r
-  }
+  const res =
+    typeof l === 'object' ? JSON.stringify(l) === JSON.stringify(r) : l === r
   return res ? Ok() : Fail()
 }
 

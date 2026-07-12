@@ -51,8 +51,8 @@ considering our [paid support plan](https://github.com/vue-macros/vue-macros/iss
 
 ## Node.js Compatibility Changes
 
-In v3, we have dropped support for Node.js versions below 20.18.
-This means the minimum Node.js version requirement for v3 is `20.18.0`.
+In v3, we have dropped support for Node.js versions below 20.19.
+This means the minimum Node.js version requirement for v3 is `20.19.0`.
 Additionally, we have removed CommonJS (CJS) outputs and now only provide ECMAScript modules (ESM).
 
 ## Dropping Webpack 4 Support

@@ -1,6 +1,7 @@
 import { createFilter } from '@vue-macros/common'
 import { replaceSourceRange } from 'muggle-string'
-import { addProps, getStart, type VueMacrosPlugin } from './common'
+import { getStart } from 'ts-macro'
+import { addProps, type VueMacrosPlugin } from './common'
 import type { Code, Sfc } from '@vue/language-core'
 
 function transform(options: {
@@ -10,6 +11,7 @@ function transform(options: {
   version: number
 }) {
   const { codes, sfc, ts, version } = options
+  const ast = sfc.scriptSetup!.ast
 
   const props: Record<string, boolean> = Object.create(null)
   let changed = false
@@ -23,7 +25,7 @@ function transform(options: {
     replaceSourceRange(
       codes,
       'scriptSetup',
-      getStart(exportModifier, options),
+      getStart(exportModifier, ast, ts),
       exportModifier.end,
     )
     changed = true

@@ -26,12 +26,12 @@ export const kevinEdition: Impl = ({ s, offset, resolveTSType }) => {
             `A variable must be used to receive the return value of ${DEFINE_PROP} when the first argument is not passed. (kevinEdition)`,
           )
         propName = parent.id.name
-      } else if (name.type !== 'StringLiteral') {
+      } else if (name.type === 'StringLiteral') {
+        propName = name.value
+      } else {
         throw new Error(
           `The first argument of ${DEFINE_PROP} must be a literal string. (kevinEdition)`,
         )
-      } else {
-        propName = name.value
       }
 
       props.push({

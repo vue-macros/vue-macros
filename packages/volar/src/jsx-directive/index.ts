@@ -1,5 +1,3 @@
-import { replaceSourceRange } from 'muggle-string'
-import { getText, isJsxExpression } from '../common'
 import { resolveCtxMap, type CtxMap } from './context'
 import { transformCustomDirective } from './custom-directive'
 import { transformRef } from './ref'
@@ -8,8 +6,9 @@ import { transformVFor } from './v-for'
 import { transformVIf } from './v-if'
 import { isNativeFormElement, transformVModel } from './v-model'
 import { transformOnWithModifiers, transformVOn } from './v-on'
-import { transformVSlot, transformVSlots, type VSlotMap } from './v-slot'
-import type { Code } from 'ts-macro'
+import { transformVSlot, type VSlotMap } from './v-slot'
+import { transformVSlots } from './v-slots'
+import type { Codes } from 'ts-macro'
 import type { JsxOpeningElement, JsxSelfClosingElement } from 'typescript'
 
 export type JsxDirective = {
@@ -19,15 +18,14 @@ export type JsxDirective = {
 }
 
 export type TransformOptions = {
-  codes: Code[]
+  codes: Codes
   ast: import('typescript').SourceFile
   ts: typeof import('typescript')
-  source: 'script' | 'scriptSetup' | undefined
   prefix: string
 }
 
 export function transformJsxDirective(options: TransformOptions): void {
-  const { ast, ts, source, prefix, codes } = options
+  const { ast, ts, prefix, codes } = options
 
   const resolvedPrefix = prefix.replaceAll('$', String.raw`\$`)
   const slotRegex = new RegExp(`^${resolvedPrefix}slot(?=:|$)`)
@@ -66,7 +64,7 @@ export function transformJsxDirective(options: TransformOptions): void {
     let vSlotAttribute
     for (const attribute of properties?.attributes.properties || []) {
       if (!ts.isJsxAttribute(attribute)) continue
-      const attributeName = getText(attribute.name, options)
+      const attributeName = attribute.name.getText(ast)
 
       if (
         [`${prefix}if`, `${prefix}else-if`, `${prefix}else`].includes(
@@ -106,7 +104,7 @@ export function transformJsxDirective(options: TransformOptions): void {
           attributeName,
         )
       ) {
-        replaceSourceRange(codes, source, attribute.pos, attribute.end)
+        codes.replaceRange(attribute.pos, attribute.end)
       } else if (attributeName.startsWith('v-')) {
         customDirectives.push(attribute)
       }
@@ -114,17 +112,20 @@ export function transformJsxDirective(options: TransformOptions): void {
 
     // Object Expression slots
     if (
-      isJsxExpression(node) &&
+      ts.isJsxExpression(node) &&
       node.expression &&
-      ts.isObjectLiteralExpression(node.expression) &&
+      (ts.isObjectLiteralExpression(node.expression) ||
+        ts.isArrowFunction(node.expression) ||
+        ts.isFunctionExpression(node.expression)) &&
       parent &&
       ts.isJsxElement(parent) &&
-      parent.children.filter((child) =>
-        ts.isJsxText(child) ? getText(child, options).trim() : true,
-      ).length === 1
+      !parent.children.every(
+        (child) =>
+          child !== node &&
+          (ts.isJsxText(child) ? child.getText(ast).trim() : true),
+      )
     ) {
-      ctxNode = node
-
+      ctxNode = parent
       vSlots.push({
         node: parent,
         attribute: {
@@ -190,7 +191,7 @@ export function transformJsxDirective(options: TransformOptions): void {
         for (const child of parent.children) {
           if (
             getTagName(child, options) === 'template' ||
-            (ts.isJsxText(child) && !getText(child, options).trim())
+            (ts.isJsxText(child) && !child.getText(ast).trim())
           )
             continue
           const defaultNodes =
@@ -207,7 +208,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       ctxNodeMap.set(ctxNode, parents.find(ts.isBlock))
     }
 
-    ts.forEachChild(node, (child) => {
+    node.forEachChild((child) => {
       parents.unshift(node)
       walkJsxDirective(
         child,
@@ -217,7 +218,7 @@ export function transformJsxDirective(options: TransformOptions): void {
       parents.shift()
     })
   }
-  ts.forEachChild(ast, walkJsxDirective)
+  ast.forEachChild(walkJsxDirective)
 
   const ctxMap = resolveCtxMap(ctxNodeMap, options)
 
@@ -253,5 +254,5 @@ export function getTagName(
   const openingElement = getOpeningElement(node, options)
   if (!openingElement) return ''
 
-  return getText(openingElement.tagName, options)
+  return openingElement.tagName.getText(options.ast)
 }

@@ -35,6 +35,7 @@ import type {
   TSTypeLiteral,
   UnaryExpression,
   VariableDeclaration,
+  VoidPattern,
 } from '@babel/types'
 
 export function handleTSEmitsDefinition({
@@ -57,7 +58,7 @@ export function handleTSEmitsDefinition({
   typeDeclRaw: TSType
 
   statement: DefineEmitsStatement
-  declId?: LVal
+  declId?: VoidPattern | LVal
 }): ResultAsync<TSEmits, TransformError<ErrorResolveTS | ErrorUnknownNode>> {
   return safeTry(async function* () {
     const { definitions, definitionsAst } = yield* resolveDefinitions({
@@ -220,7 +221,7 @@ export type Emits = TSEmits | undefined
 export type DefineEmitsStatement = VariableDeclaration | ExpressionStatement
 
 export interface EmitsBase {
-  declId?: LVal
+  declId?: VoidPattern | LVal
   statementAst: DefineEmitsStatement
   defineEmitsAst: CallExpression
 }

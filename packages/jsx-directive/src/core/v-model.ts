@@ -15,16 +15,20 @@ export function transformVModel(
 
     let [, argument, modifiers] = matched
     argument = argument.replaceAll('_', '.')
-    const value = s.sliceNode(attribute.value.expression)
     modifiers = modifiers
       ? `, [${argument} + "Modifiers"]: { ${modifiers
           .split('_')
           .map((key) => `${key}: true`)
           .join(', ')} }`
       : ''
-    s.overwriteNode(
-      attribute,
-      `{...{[${argument}]: ${value}, ["onUpdate:" + ${argument}]: $event => ${value} = $event${modifiers}}}`,
+    s.replaceRange(
+      attribute.start!,
+      attribute.end!,
+      `{...{[${argument}]: `,
+      attribute.value.expression,
+      `, ["onUpdate:" + ${argument}]: $event => `,
+      s.sliceNode(attribute.value.expression),
+      ` = $event${modifiers}}}`,
     )
   }
 }

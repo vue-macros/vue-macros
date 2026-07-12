@@ -1,6 +1,5 @@
 import { createFilter } from '@vue-macros/common'
-import { replaceSourceRange } from 'muggle-string'
-import { createPlugin, type Code, type PluginReturn } from 'ts-macro'
+import { createPlugin, type Codes, type PluginReturn } from 'ts-macro'
 import type { OptionsResolved } from '@vue-macros/config'
 
 type RefNode = {
@@ -12,21 +11,18 @@ function transformRef({
   nodes,
   codes,
   ts,
-  source,
 }: {
   nodes: RefNode[]
-  codes: Code[]
+  codes: Codes
   ts: typeof import('typescript')
   source: 'script' | 'scriptSetup' | undefined
 }) {
   for (const { name, initializer } of nodes) {
     if (ts.isCallExpression(initializer)) {
-      replaceSourceRange(
-        codes,
-        source,
+      codes.replaceRange(
         initializer.expression.end,
         initializer.expression.end,
-        `<Parameters<NonNullable<typeof __VLS_ctx_${name.escapedText}['expose']>>[0] | null>`,
+        `<Parameters<typeof __VLS_ctx_${name.text}['expose']>[0] | null>`,
       )
     }
   }
@@ -44,7 +40,7 @@ function getRefNodes(
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&
       !node.typeArguments?.length &&
-      alias.includes(node.expression.escapedText!)
+      alias.includes(node.expression.text!)
     )
   }
 
@@ -60,7 +56,7 @@ function getRefNodes(
           ts.isIdentifier(decl.initializer.expression)
         ) {
           const initializer =
-            decl.initializer.expression.escapedText === '$'
+            decl.initializer.expression.text === '$'
               ? decl.initializer.arguments[0]
               : decl.initializer
           if (isRefCall(initializer))
@@ -88,8 +84,8 @@ const plugin: PluginReturn<OptionsResolved['jsxRef'] | undefined> =
 
       return {
         name: 'vue-macros-jsx-ref',
-        resolveVirtualCode({ filePath, ast, codes, source, languageId }) {
-          if (!filter(filePath) || !['jsx', 'tsx'].includes(languageId)) return
+        resolveVirtualCode({ filePath, ast, codes, source, lang }) {
+          if (!filter(filePath) || !['jsx', 'tsx'].includes(lang)) return
           const nodes = getRefNodes(ts, ast, alias)
           if (nodes.length) {
             transformRef({

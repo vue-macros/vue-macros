@@ -33,8 +33,6 @@ const propName = defineProp<T>()
 ### 基本用法
 
 ```vue twoslash
-<!-- @experimentalDefinePropProposal "kevinEdition" -->
-
 <script setup lang="ts">
 // 声明 prop
 const count = defineProp('count')
@@ -50,8 +48,6 @@ console.log(count.value)
 ### 选项
 
 ```vue twoslash
-<!-- @experimentalDefinePropProposal "kevinEdition" -->
-
 <script setup lang="ts">
 // 使用选项声明 prop
 const count = defineProp('count', {
@@ -66,8 +62,6 @@ const count = defineProp('count', {
 ### TypeScript
 
 ```vue twoslash
-<!-- @experimentalDefinePropProposal "kevinEdition" -->
-
 <script setup lang="ts">
 // 使用类型为 number 的 prop 声明，并从变量名中推断 prop 的名称
 const count = defineProp<number>()
@@ -82,8 +76,6 @@ disabled.value
 ### 响应性语法糖
 
 ```vue twoslash
-<!-- @experimentalDefinePropProposal "kevinEdition" -->
-
 <script setup lang="ts">
 const foo = $defineProp<string>('foo')
 
@@ -105,9 +97,7 @@ const propName = defineProp<T>(defaultValue, required, rest)
 
 ### 基本用法
 
-```vue twoslash
-<!-- @experimentalDefinePropProposal "johnsonEdition" -->
-
+```vue
 <script setup lang="ts">
 // 声明带有默认值 `0` 的 prop `count`
 const count = defineProp(0)
@@ -122,9 +112,7 @@ console.log(count.value, disabled.value)
 
 ### 选项
 
-```vue twoslash
-<!-- @experimentalDefinePropProposal "johnsonEdition" -->
-
+```vue
 <script setup lang="ts">
 // 使用选项声明属性
 const count = defineProp(0, false, {
@@ -136,9 +124,7 @@ const count = defineProp(0, false, {
 
 ### TypeScript
 
-```vue twoslash
-<!-- @experimentalDefinePropProposal "johnsonEdition" -->
-
+```vue
 <script setup lang="ts">
 const count = defineProp<number>()
 count.value
@@ -151,9 +137,7 @@ disabled.value
 
 ### 响应性语法糖
 
-```vue twoslash
-<!-- @experimentalDefinePropProposal "johnsonEdition" -->
-
+```vue
 <script setup lang="ts">
 const foo = $defineProp<number>()
 
@@ -163,15 +147,16 @@ const bar = $(defineProp(0, true))
 
 ## Volar 配置
 
-```jsonc {3,5} [tsconfig.json]
+```jsonc {3,7} [tsconfig.json]
 {
   "vueCompilerOptions": {
     "plugins": ["vue-macros/volar"],
     "vueMacros": {
-      "defineProp": true,
+      "defineProp": {
+        // "kevinEdition" | "johnsonEdition"
+        "edition": "kevinEdition",
+      },
     },
-    // "kevinEdition" | "johnsonEdition" | false
-    "experimentalDefinePropProposal": "kevinEdition",
   },
 }
 ```

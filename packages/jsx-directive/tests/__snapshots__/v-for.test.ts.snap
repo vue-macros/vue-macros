@@ -48,6 +48,11 @@ defineRender(() => (
     {__MACROS_renderList(4, (i) => <_Fragment99 key={i}>
       <div>{i}</div>
     </_Fragment99>)}
+
+    {(true) ? <div></div> :
+    __MACROS_renderList(4, (item, index) => <_Fragment99>
+      {index}
+    </_Fragment99>)}
   </>
 ))
 </script>

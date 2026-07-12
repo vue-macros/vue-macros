@@ -2,6 +2,7 @@ import {
   addNormalScript,
   DEFINE_STYLEX,
   generateTransform,
+  importHelperFn,
   isCallOf,
   MagicStringAST,
   parseSFC,
@@ -15,12 +16,20 @@ import {
   type NodeTransform,
   type NodeTypes,
 } from '@vue/compiler-dom'
-import type { Node } from '@babel/types'
+import { styleXAttrsId } from './helper'
+import type { CallExpression, Node } from '@babel/types'
 
 const STYLEX_CREATE = '_stylex_create'
+const STYLEX_PROPS = '_stylex_props'
 const STYLEX_ATTRS = '_stylex_attrs'
 
-function transformDirective(s: MagicStringAST): NodeTransform {
+const callStyleXAttrs = (s: MagicStringAST, setupOffset: number) =>
+  importHelperFn(s, setupOffset, 'default', STYLEX_ATTRS, styleXAttrsId)
+
+function transformDirective(
+  s: MagicStringAST,
+  setupOffset: number,
+): NodeTransform {
   return (node) => {
     if (!(node.type === (1 satisfies NodeTypes.ELEMENT))) return
     const i = node.props.findIndex(
@@ -41,11 +50,11 @@ function transformDirective(s: MagicStringAST): NodeTransform {
     const prefix = hasColon ? '' : '('
     const postfix = hasColon ? '' : ')'
 
-    if (directiveVStyleX.exp.content.includes(STYLEX_ATTRS)) {
+    if (directiveVStyleX.exp.content.includes(STYLEX_PROPS)) {
       s?.overwrite(
         directiveVStyleX.loc.start.offset,
         directiveVStyleX.loc.end.offset,
-        `v-bind="${directiveVStyleX.exp.content}"`,
+        `v-bind="${callStyleXAttrs(s, setupOffset)}(${directiveVStyleX.exp.content})"`,
       )
       return
     }
@@ -53,7 +62,7 @@ function transformDirective(s: MagicStringAST): NodeTransform {
     s?.overwrite(
       directiveVStyleX.loc.start.offset,
       directiveVStyleX.loc.end.offset,
-      `v-bind="${STYLEX_ATTRS}${prefix}${directiveVStyleX.exp.content}${postfix}"`,
+      `v-bind="${callStyleXAttrs(s, setupOffset)}(${STYLEX_PROPS}${prefix}${directiveVStyleX.exp.content}${postfix})"`,
     )
   }
 }
@@ -67,46 +76,49 @@ export function transformDefineStyleX(
   const { scriptSetup, getSetupAst, template } = sfc
   if (!scriptSetup || !template) return
 
-  let scriptOffset: number | undefined
   const setupOffset = scriptSetup.loc.start.offset
 
   const s = new MagicStringAST(code)
   const normalScript = addNormalScript(sfc, s)
-
-  function moveToScript(decl: Node, prefix: 'const ' | '' = '') {
-    if (scriptOffset === undefined) scriptOffset = normalScript.start()
-
-    const text = `\n${prefix}${s.sliceNode(decl, { offset: setupOffset })}`
-    s.appendRight(scriptOffset, text)
-
-    s.removeNode(decl, { offset: setupOffset })
-  }
+  const scriptOffset = normalScript.start()
 
   const setupAST = getSetupAst()!
 
   walkAST<Node>(setupAST, {
     enter(node) {
       if (node.type !== 'VariableDeclaration') return
+      const shouldChange = node.declarations.some((decl) =>
+        isCallOf(decl.init, DEFINE_STYLEX),
+      )
+      if (!shouldChange) return
+
       node.declarations.forEach((decl) => {
-        if (!isCallOf(decl.init, DEFINE_STYLEX)) return
-        s.overwriteNode(decl.init.callee, STYLEX_CREATE, {
-          offset: setupOffset,
-        })
+        const isDefineStyleX = isCallOf(decl.init, DEFINE_STYLEX)
+        if (isDefineStyleX) {
+          s.overwriteNode((decl.init as CallExpression).callee, STYLEX_CREATE, {
+            offset: setupOffset,
+          })
+        }
+        const text = `\n${node.kind} ${s.sliceNode(decl, { offset: setupOffset })}`
+        s.appendRight(
+          isDefineStyleX ? scriptOffset : node.start! + setupOffset - 1,
+          text,
+        )
       })
-      moveToScript(node)
+      s.removeNode(node, { offset: setupOffset })
     },
   })
 
   if (scriptOffset !== undefined) normalScript.end()
 
   const ctx = createTransformContext(template.ast!, {
-    nodeTransforms: [transformDirective(s)],
+    nodeTransforms: [transformDirective(s, setupOffset)],
   })
   traverseNode(template.ast!, ctx)
 
-  s.appendRight(
+  s.appendLeft(
     setupOffset,
-    `\nimport { create as ${STYLEX_CREATE}, attrs as ${STYLEX_ATTRS} } from '@stylexjs/stylex'`,
+    `\nimport { create as ${STYLEX_CREATE}, props as ${STYLEX_PROPS} } from '@stylexjs/stylex'`,
   )
 
   return generateTransform(s, id)

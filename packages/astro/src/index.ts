@@ -16,7 +16,7 @@ function findPluginAndRemove(
   return plugin as any
 }
 
-export default function (options?: Options): AstroIntegration {
+function plugin(options?: Options): AstroIntegration {
   return {
     name: '@vue-macros/astro',
     hooks: {
@@ -38,3 +38,5 @@ export default function (options?: Options): AstroIntegration {
     },
   }
 }
+
+export default plugin

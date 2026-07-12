@@ -30,12 +30,12 @@ export interface VuePluginApi {
   version: string
 }
 
-const VUE_PLUGINS = ['vite:vue', 'unplugin-vue']
+const VUE_PLUGINS = new Set(['vite:vue', 'unplugin-vue'])
 
 export function getVuePluginApi(
   plugins: Readonly<(Plugin | VitePlugin)[]> | undefined,
 ): VuePluginApi | null {
-  const vuePlugin = (plugins || []).find((p) => VUE_PLUGINS.includes(p.name))
+  const vuePlugin = (plugins || []).find((p) => VUE_PLUGINS.has(p.name))
   if (!vuePlugin)
     throw new Error(
       'Cannot find Vue plugin (@vitejs/plugin-vue or unplugin-vue). Please make sure to add it before using Vue Macros.',

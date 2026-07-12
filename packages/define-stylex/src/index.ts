@@ -3,6 +3,7 @@ import {
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
+  normalizePath,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
@@ -13,6 +14,7 @@ import {
   type UnpluginInstance,
 } from 'unplugin'
 import { transformDefineStyleX } from './core'
+import { helperPrefix, styleXAttrsCode, styleXAttrsId } from './core/helper'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
@@ -46,6 +48,14 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       enforce: 'pre',
       transformInclude: filter,
       transform: transformDefineStyleX,
+      resolveId(id) {
+        if (normalizePath(id).startsWith(helperPrefix)) return id
+      },
+      loadInclude: (id) => normalizePath(id).startsWith(helperPrefix),
+      load(_id) {
+        const id = normalizePath(_id)
+        if (id === styleXAttrsId) return styleXAttrsCode
+      },
     }
   },
 )

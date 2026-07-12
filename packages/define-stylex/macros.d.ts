@@ -1,16 +1,12 @@
 export declare const defineStyleX: (typeof import('@stylexjs/stylex'))['create']
 
 type Styles =
-  | (
-      | null
-      | undefined
-      | import('@stylexjs/stylex/lib/StyleXTypes').CompiledStyles
-    )
+  | (null | undefined | import('@stylexjs/stylex').CompiledStyles)
   | boolean
   | Readonly<
       [
-        import('@stylexjs/stylex/lib/StyleXTypes').CompiledStyles,
-        import('@stylexjs/stylex/lib/StyleXTypes').InlineStyles,
+        import('@stylexjs/stylex').CompiledStyles,
+        import('@stylexjs/stylex').InlineStyles,
       ]
     >
 
@@ -18,10 +14,7 @@ declare module 'vue' {
   interface ComponentCustomProperties {
     vStylex: import('vue').Directive<
       any,
-      | ReadonlyArray<
-          import('@stylexjs/stylex/lib/StyleXTypes').StyleXArray<Styles>
-        >
-      | Styles
+      ReadonlyArray<import('@stylexjs/stylex').StyleXArray<Styles>> | Styles
     >
   }
 }

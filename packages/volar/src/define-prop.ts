@@ -3,7 +3,8 @@ import {
   DEFINE_PROP,
   DEFINE_PROP_DOLLAR,
 } from '@vue-macros/common'
-import { addProps, getText, type VueMacrosPlugin } from './common'
+import { getText } from 'ts-macro'
+import { addProps, type VueMacrosPlugin } from './common'
 import type { Code, Sfc } from '@vue/language-core'
 
 interface DefineProp {
@@ -24,7 +25,7 @@ function transformDefineProp({
   codes: Code[]
   defineProps: DefineProp[]
   version: number
-  edition: 'kevinEdition' | 'johnsonEdition'
+  edition: string
 }) {
   addProps(
     codes,
@@ -50,6 +51,17 @@ function transformDefineProp({
 
   if (edition === 'kevinEdition') {
     codes.push(`
+type __VLS_PropOptions<T> = Exclude<import('vue').Prop<T>, import('vue').PropType<T>>;
+declare function defineProp<T>(
+  name: string,
+  options: 
+    | ({ default: T } & __VLS_PropOptions<T>)
+    | ({ required: true } & __VLS_PropOptions<T>)
+): import('vue').ComputedRef<T>;
+declare function defineProp<T>(
+  name?: string,
+  options?: __VLS_PropOptions<T>
+): import('vue').ComputedRef<T | undefined>;
 declare function $defineProp<T>(
   name: string,
   options: 
@@ -73,6 +85,21 @@ type __VLS_PropOptions<T> = Omit<
   >,
   'required'
 >;
+declare function defineProp<T>(
+  value: T | (() => T) | undefined,
+  required: true,
+  options?: __VLS_PropOptions<T>
+): import('vue').ComputedRef<T>;
+declare function defineProp<T>(
+  value: T | (() => T),
+  required?: boolean,
+  options?: __VLS_PropOptions<T>
+): import('vue').ComputedRef<T>;
+declare function defineProp<T>(
+  value?: T | (() => T),
+  required?: boolean,
+  options?: __VLS_PropOptions<T>
+): | import('vue').ComputedRef<T | undefined>;
 declare function $defineProp<T>(
   value: T | (() => T) | undefined,
   required: true,
@@ -96,7 +123,7 @@ declare function $defineProp<T>(
 function getDefineProp(
   ts: typeof import('typescript'),
   sfc: Sfc,
-  edition: 'kevinEdition' | 'johnsonEdition',
+  edition: string,
 ) {
   const defineProps: DefineProp[] = []
   function visitNode(
@@ -111,17 +138,17 @@ function getDefineProp(
     ) {
       if (edition === 'kevinEdition') {
         const type = node.typeArguments?.length
-          ? getText(node.typeArguments[0], { ts, sfc })
+          ? getText(node.typeArguments[0], ast, ts)
           : undefined
         const name =
           node.arguments[0] && ts.isStringLiteral(node.arguments[0])
             ? node.arguments[0].text
             : ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)
-              ? getText(parent.name, { ts, sfc })
+              ? getText(parent.name, ast, ts)
               : undefined
         const prop =
           ts.isVariableDeclaration(parent) && ts.isIdentifier(parent.name)
-            ? getText(parent.name, { ts, sfc })
+            ? getText(parent.name, ast, ts)
             : undefined
         const optionArg =
           node.arguments[0] && ts.isObjectLiteralExpression(node.arguments[0])
@@ -140,16 +167,16 @@ function getDefineProp(
               ts.isIdentifier(property.name)
             ) {
               if (
-                getText(property.name, { ts, sfc }) === 'required' &&
+                getText(property.name, ast, ts) === 'required' &&
                 property.initializer.kind === ts.SyntaxKind.TrueKeyword
               )
                 required = true
 
               if (
                 ts.isIdentifier(property.name) &&
-                getText(property.name, { ts, sfc }) === 'default'
+                getText(property.name, ast, ts) === 'default'
               )
-                defaultValue = getText(property.initializer, { ts, sfc })
+                defaultValue = getText(property.initializer, ast, ts)
             }
           }
         }
@@ -169,17 +196,17 @@ function getDefineProp(
         ts.isVariableDeclaration(parent)
       ) {
         const name = ts.isIdentifier(parent.name)
-          ? getText(parent.name, { ts, sfc })
+          ? getText(parent.name, ast, ts)
           : undefined
         defineProps.push({
           name,
           prop: name,
           defaultValue:
             node.arguments.length > 0
-              ? getText(node.arguments[0], { ts, sfc })
+              ? getText(node.arguments[0], ast, ts)
               : undefined,
           type: node.typeArguments?.length
-            ? getText(node.typeArguments[0], { ts, sfc })
+            ? getText(node.typeArguments[0], ast, ts)
             : undefined,
           required:
             node.arguments.length >= 2 &&
@@ -222,7 +249,7 @@ const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
   const filter = createFilter(options)
   const {
     modules: { typescript: ts },
-    vueCompilerOptions: { experimentalDefinePropProposal, target },
+    vueCompilerOptions: { target },
   } = ctx
 
   return {
@@ -236,8 +263,7 @@ const plugin: VueMacrosPlugin<'defineProp'> = (ctx, options = {}) => {
       )
         return
 
-      const edition =
-        options.edition || experimentalDefinePropProposal || 'kevinEdition'
+      const edition = options.edition || 'kevinEdition'
       const defineProps = getDefineProp(ts, sfc, edition)
       if (defineProps.length === 0) return
 

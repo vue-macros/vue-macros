@@ -25,6 +25,7 @@ import type {
   TSType,
   TSTypeLiteral,
   VariableDeclaration,
+  VoidPattern,
 } from '@babel/types'
 
 export function transformDefineModels(
@@ -51,7 +52,7 @@ export function transformDefineModels(
   const modelIdentifiers = new Set<Identifier>()
   let mode: 'reactivity-transform' | 'runtime' | undefined
 
-  function processDefinePropsOrEmits(node: Node, declId?: LVal) {
+  function processDefinePropsOrEmits(node: Node, declId?: VoidPattern | LVal) {
     if (isCallOf(node, WITH_DEFAULTS)) {
       node = node.arguments[0]
     }
@@ -99,7 +100,7 @@ export function transformDefineModels(
 
   function processDefineModels(
     node: Node,
-    declId?: LVal,
+    declId?: VoidPattern | LVal,
     kind?: VariableDeclaration['kind'],
   ) {
     if (isCallOf(node, DEFINE_MODELS)) mode = 'runtime'
@@ -354,8 +355,7 @@ export function transformDefineModels(
           if (!modelIdentifiers.has(id)) return
 
           let value = node.argument.name
-          if (node.operator === '++') value += ' + 1'
-          else value += ' - 1'
+          value += node.operator === '++' ? ' + 1' : ' - 1'
 
           overwrite(node, id, value, !node.prefix)
         }
@@ -453,13 +453,13 @@ export function transformDefineModels(
 }
 
 function stringifyValue(value: string | undefined) {
-  return value !== undefined ? JSON.stringify(value) : 'undefined'
+  return value === undefined ? 'undefined' : JSON.stringify(value)
 }
 
 function getPropKey(key: string, omitDefault = false) {
-  return !omitDefault ? key : undefined
+  return omitDefault ? undefined : key
 }
 
 function getEventKey(key: string, omitDefault = false) {
-  return !omitDefault ? `update:${key}` : undefined
+  return omitDefault ? undefined : `update:${key}`
 }

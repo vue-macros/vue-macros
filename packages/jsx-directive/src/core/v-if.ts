@@ -5,28 +5,32 @@ import type { MagicStringAST } from '@vue-macros/common'
 export function transformVIf(
   nodes: JsxDirective[],
   s: MagicStringAST,
-  { prefix }: OptionsResolved,
+  options: OptionsResolved,
 ): void {
+  const { prefix } = options
   nodes.forEach(({ node, attribute, parent }, index) => {
     const hasScope = ['JSXElement', 'JSXFragment'].includes(
       String(parent?.type),
     )
 
     if (
-      [`${prefix}if`, `${prefix}else-if`].includes(String(attribute.name.name))
+      [`${prefix}if`, `${prefix}else-if`].includes(
+        String(attribute.name.name),
+      ) &&
+      attribute.value?.type === 'JSXExpressionContainer'
     ) {
-      if (attribute.value)
-        s.appendLeft(
-          node.start!,
-          `${hasScope ? '' : '<>{'}${
-            attribute.name.name === `${prefix}if` && hasScope ? '{' : ''
-          }(${s.slice(
-            attribute.value.start! + 1,
-            attribute.value.end! - 1,
-          )}) ? `,
-        )
+      s.replaceRange(
+        node.start!,
+        node.start!,
+        hasScope ? '' : '<>{',
+        attribute.name.name === `${prefix}if` && hasScope ? '{' : '',
+        '(',
+        attribute.value.expression,
+        ') ? ',
+      )
 
-      s.appendRight(
+      s.replaceRange(
+        node.end!,
         node.end!,
         String(nodes[index + 1]?.attribute.name.name).startsWith(
           `${prefix}else`,
@@ -38,6 +42,8 @@ export function transformVIf(
       s.appendRight(node.end!, hasScope ? '}' : '')
     }
 
+    s.replaceRange(attribute.start! - 1, attribute.end!)
+
     const isTemplate =
       node.type === 'JSXElement' &&
       node.openingElement.name.type === 'JSXIdentifier' &&
@@ -46,7 +52,5 @@ export function transformVIf(
       s.overwriteNode(node.openingElement.name, '')
       s.overwriteNode(node.closingElement.name, '')
     }
-
-    s.remove(attribute.start! - 1, attribute.end!)
   })
 }

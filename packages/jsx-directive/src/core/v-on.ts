@@ -14,13 +14,15 @@ export function transformVOn(nodes: JsxDirective[], s: MagicStringAST): void {
     )
 
   nodes.forEach(({ attribute }) => {
-    s.overwriteNode(
-      attribute,
-      `{...${HELPER_PREFIX}transformVOn(${s.slice(
-        attribute.value!.start! + 1,
-        attribute.value!.end! - 1,
-      )})}`,
-    )
+    if (attribute.value?.type === 'JSXExpressionContainer') {
+      s.replaceRange(
+        attribute.start!,
+        attribute.end!,
+        `{...${HELPER_PREFIX}transformVOn(`,
+        attribute.value.expression,
+        `)}`,
+      )
+    }
   })
 }
 
@@ -67,7 +69,7 @@ export function transformOnWithModifiers(
       )
     }
 
-    s.remove(attribute.name.start! + name.length, attribute.name.end!)
+    s.replaceRange(attribute.name.start! + name.length, attribute.name.end!)
   })
 }
 
