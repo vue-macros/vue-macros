@@ -3,7 +3,7 @@
 exports[`v-for > vue > ./fixtures/v-for/index.vue 1`] = `
 "<script setup lang="tsx">
 import { renderList as __MACROS_renderList } from "vue";
-import { Fragment as _Fragment99 } from "vue";
+import { Fragment as _Fragment9 } from "vue";
 const map = new Map([
   [1, '2'],
   [3, '4'],
@@ -45,14 +45,14 @@ defineRender(() => (
       </div>)}
     </div>)}
 
-    {__MACROS_renderList(4, (i) => <_Fragment99 key={i}>
+    {__MACROS_renderList(4, (i) => <_Fragment9 key={i}>
       <div>{i}</div>
-    </_Fragment99>)}
+    </_Fragment9>)}
 
     {(true) ? <div></div> :
-    __MACROS_renderList(4, (item, index) => <_Fragment99>
+    __MACROS_renderList(4, (item, index) => <_Fragment9>
       {index}
-    </_Fragment99>)}
+    </_Fragment9>)}
   </>
 ))
 </script>
