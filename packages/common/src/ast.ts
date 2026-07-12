@@ -157,7 +157,7 @@ export function importHelperFn(
   from = 'vue',
   prefix: string = HELPER_PREFIX,
 ) {
-  const cacheKey = `${from}@${imported}`
+  const cacheKey = `${from}@${imported}@${prefix}@${local}`
   if (!importedMap.get(s)?.has(cacheKey)) {
     s.appendLeft(
       offset,
