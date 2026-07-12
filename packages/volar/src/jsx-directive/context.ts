@@ -1,5 +1,6 @@
 import { isHTMLTag, isSVGTag } from '@vue/shared'
 import { addCode } from '../common'
+import { getDirectiveArgs } from './common'
 import {
   getOpeningElement,
   getTagName,
@@ -134,7 +135,10 @@ export function transformCtx(
 
     const prefixModel = `${prefix}model`
     if (name.startsWith(prefixModel)) {
-      name = name.split('$')[0].split('_')[0].split(':')[1] ?? 'modelValue'
+      const dir = getDirectiveArgs(prop, options)
+      if (dir.valueCode)
+        props += `${dir.isDynamic ? '[' : `'`}${dir.argument || 'modelValue'}${dir.isDynamic ? ']' : `'`}: ${dir.valueCode[0]},`
+      continue
     } else if (name.includes('_')) {
       name = name.split('_')[0]
     } else if (prefix && name.startsWith(prefix)) {

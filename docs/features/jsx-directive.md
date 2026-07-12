@@ -126,7 +126,7 @@ export default () => (
 
 ## Dynamic Arguments
 
-It is also possible to use a variable in a directive argument by wrapping it with a pair of `$`:
+It is also possible to use a variable in a directive argument by passing it as the second item of the array value:
 
 `v-model`
 
@@ -158,7 +158,7 @@ const model = defineModel<string>()
 
 export default () => (
   <Comp
-    v-model:$name$={model.value}
+    v-model={[model.value, name.value]}
     v-model:model={model.value}
     //       ^|
   />
@@ -203,8 +203,8 @@ const slots = defineSlots<{
 // ---cut-end---
 export default () => (
   <Comp>
-    <template v-for={(Slot, name) in slots} v-slot:$name$={scope}>
-      //                                             ^?
+    <template v-for={(Slot, name) in slots} v-slot={[scope, name]}>
+      //                                                     ^?
       <Slot {...scope} />
     </template>
   </Comp>

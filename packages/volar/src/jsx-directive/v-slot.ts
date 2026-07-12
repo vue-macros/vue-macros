@@ -1,3 +1,4 @@
+import { getDirectiveArgs } from './common'
 import { resolveVFor } from './v-for'
 import { getTagName, type JsxDirective, type TransformOptions } from './index'
 import type { Code } from 'ts-macro'
@@ -63,42 +64,25 @@ export function transformVSlot(
           result.push('...', ...resolveVFor(vForAttribute, options), '({')
         }
 
-        let isDynamic = false
-        let attributeName = attribute.name
-          .getText(ast)
-          .slice(6)
-          .split(/\s/)[0]
-          .replace(/\$(.*)\$/, (_, $1) => {
-            isDynamic = true
-            return $1.replaceAll('_', '.')
-          })
-        const isNamespace = attributeName.startsWith(':')
-        attributeName = attributeName.slice(1)
-        const wrapByQuotes = !attributeName || attributeName.includes('-')
+        const { name, argument, argumentCode, valueCode, isDynamic } =
+          getDirectiveArgs(attribute, options)
+        const offset = attribute.getStart(ast) + name.length
         result.push(
-          isNamespace
-            ? [
-                isDynamic
-                  ? `[${attributeName}]`
-                  : wrapByQuotes
-                    ? `'${attributeName}'`
-                    : attributeName,
-                attribute.name.getStart(ast) + (wrapByQuotes ? 6 : 7),
-              ]
-            : 'default',
+          isDynamic ? '[' : '',
+          ...(argument
+            ? ([
+                argument.includes('-')
+                  ? [`'`, offset + 1, { verification: true }]
+                  : '',
+                [argument, offset + 1 + (isDynamic ? 1 : 0)],
+                argument.includes('-')
+                  ? [`'`, offset + argument.length, { verification: true }]
+                  : '',
+              ] as Code[])
+            : [argumentCode || 'default']),
+          isDynamic ? ']' : '',
           `: (`,
-          ...((!isNamespace || attributeName) &&
-          attribute.initializer &&
-          ts.isJsxExpression(attribute.initializer) &&
-          attribute.initializer.expression
-            ? [
-                [
-                  attribute.initializer.expression.getText(ast),
-                  attribute.initializer.expression.getStart(ast),
-                ] as Code,
-                isDynamic ? ': any' : '',
-              ]
-            : []),
+          ...(valueCode ? [valueCode, isDynamic ? ': any' : ''] : []),
           ') => <>',
           ...children.map((child) => {
             codes.replaceRange(child.pos, child.end)
@@ -115,7 +99,7 @@ export function transformVSlot(
         )
 
         if (vForAttribute) {
-          result.push('})) as any,')
+          result.push('})),')
         }
 
         if (vIfAttribute && vIfAttributeName) {

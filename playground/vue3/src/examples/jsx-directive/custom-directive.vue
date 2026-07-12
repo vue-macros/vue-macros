@@ -23,5 +23,8 @@ const vPermission: Directive<
   el.style.display = 'none'
 }
 
-defineRender(() => <div v-permission:disable_modifier1_modifier2="admin" />)
+defineRender(() => [
+  <div v-permission:disable_modifier1_modifier2="admin" />,
+  <div v-permission={['admin', 'disable', ['modifier1', 'modifier2']]} />,
+])
 </script>

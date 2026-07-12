@@ -79,22 +79,42 @@ export function transformVSlot(
         }
 
         let isDynamic = false
-        let attributeName =
+        let valueExpression
+        let attributeName
+        if (
+          attribute.value &&
+          attribute.value.type === 'JSXExpressionContainer'
+        ) {
+          if (attribute.value.expression.type === 'ArrayExpression') {
+            const elements = attribute.value.expression.elements
+            if (elements[0] && elements[0].type !== 'SpreadElement') {
+              valueExpression = elements[0]
+            }
+            if (elements[1] && elements[1].type !== 'SpreadElement') {
+              isDynamic = elements[1].type !== 'StringLiteral'
+              attributeName = elements[1]
+            }
+          } else {
+            valueExpression = attribute.value.expression
+          }
+        }
+        attributeName =
           attribute.name.type === 'JSXNamespacedName'
-            ? attribute.name.name.name
-            : 'default'
-        attributeName = attributeName.replace(/\$(.*)\$/, (_, $1) => {
-          isDynamic = true
-          isStable = false
-          return $1.replaceAll('_', '.')
-        })
+            ? attribute.name.name.name.replace(/\$(.*)\$/, (_, $1) => {
+                isDynamic = true
+                isStable = false
+                return $1.replaceAll('_', '.')
+              })
+            : attributeName || 'default'
         result.push(
-          isDynamic ? `[${attributeName}]` : `'${attributeName}'`,
+          ...(isDynamic
+            ? vForAttribute
+              ? [attributeName]
+              : [`[`, attributeName, `]`]
+            : [`'`, attributeName, `'`]),
           vForAttribute ? ', ' : ': ',
           '(',
-          attribute.value && attribute.value.type === 'JSXExpressionContainer'
-            ? attribute.value.expression
-            : '',
+          valueExpression || '',
           ') => ',
           '<>',
           ...(children.flatMap((child) => {

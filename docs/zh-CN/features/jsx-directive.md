@@ -126,7 +126,7 @@ export default () => (
 
 ## 动态参数
 
-在指令参数上也可以使用一个变量，需要包含在一对 `$` 内：
+在指令参数上也可以使用一个变量，将其作为数组值的第二项传入：
 
 `v-model`
 
@@ -158,7 +158,7 @@ const model = defineModel<string>()
 
 export default () => (
   <Comp
-    v-model:$name$={model.value}
+    v-model={[model.value, name.value]}
     v-model:model={model.value}
     //       ^|
   />
@@ -203,8 +203,8 @@ const slots = defineSlots<{
 // ---cut-end---
 export default () => (
   <Comp>
-    <template v-for={(Slot, name) in slots} v-slot:$name$={scope}>
-      //                                             ^?
+    <template v-for={(Slot, name) in slots} v-slot={[scope, name]}>
+      //                                                     ^?
       <Slot {...scope} />
     </template>
   </Comp>

@@ -16,6 +16,9 @@ const Comp: FunctionalComponent<
       <template v-for={(Slot, slotName) in slots} v-slot:$slotName$={scope}>
         <Slot {...scope} />
       </template>
+      <template v-for={(Slot, slotName) in slots} v-slot={[scope, slotName]}>
+        <Slot {...scope} />
+      </template>
     </Child>
   )
 }

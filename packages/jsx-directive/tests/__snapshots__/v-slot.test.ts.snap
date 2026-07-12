@@ -16,9 +16,12 @@ const Comp: FunctionalComponent<
   }
 > = (props, { slots }) => {
   return (
-    <Child v-slots={{...Object.fromEntries(__MACROS_renderList(slots, (Slot, slotName) => ([[slotName], (scope) => <>
+    <Child v-slots={{...Object.fromEntries(__MACROS_renderList(slots, (Slot, slotName) => ([slotName, (scope) => <>
+        <Slot {...scope} />
+      </>,]))),...Object.fromEntries(__MACROS_renderList(slots, (Slot, slotName) => ([slotName, (scope) => <>
         <Slot {...scope} />
       </>,]))),}}
+      
       
     ></Child>
   )
