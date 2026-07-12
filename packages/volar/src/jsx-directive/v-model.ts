@@ -53,7 +53,7 @@ function transform(
       modifiersCode,
       valueCode,
     } = getDirectiveArgs(attribute, options)
-    if (!valueCode) return
+    if (!valueCode) continue
 
     const start = attribute.name.getStart(ast)
     if (!argument && !argumentCode) {
