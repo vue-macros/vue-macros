@@ -56,6 +56,7 @@ function transform(
     if (!valueCode) continue
 
     const start = attribute.name.getStart(ast)
+    const modifierProps = `__VLS_GetModifierProps<typeof ${ctxMap.get(node)}.props, '${getModifierPropName(argument || modelValue)}'>`
     if (!argument && !argumentCode) {
       const result = []
       result.push(
@@ -78,7 +79,7 @@ function transform(
               ? [
                   '{',
                   ...(modifiers.flatMap((modify, index) => [
-                    modify ? (modify.includes('-') ? '"' : '') : `'`,
+                    modify ? (modify.includes('-') ? `'` : '') : `'`,
                     [
                       modify,
                       start +
@@ -88,7 +89,7 @@ function transform(
                           ? modifiers.slice(0, index).join('').length + index
                           : 0),
                     ],
-                    modify ? `${modify.includes('-') ? '"' : ''}: true, ` : `'`,
+                    modify ? `${modify.includes('-') ? `'` : ''}: true, ` : `'`,
                   ]) as Code[]),
                   '}',
                 ]
@@ -99,8 +100,8 @@ function transform(
               ? `('trim' | 'number' | 'lazy')[]`
               : `{ trim?: true, number?: true, lazy?: true }`
             : modifiersCode
-              ? `(keyof NonNullable<typeof ${ctxMap.get(node)}.props.${getModifierPropName(argument || modelValue)}>)[]`
-              : `typeof ${ctxMap.get(node)}.props.${getModifierPropName(argument || modelValue)}`,
+              ? `(keyof ${modifierProps})[]`
+              : modifierProps,
           '} ',
         )
       }
@@ -122,17 +123,25 @@ function transform(
       }
 
       result.push(
-        isDynamic ? '[`${' : '',
+        isDynamic ? '[' : '',
         ...(argument
           ? ([
-              argument.includes('-') ? '"' : '',
+              argument.includes('-')
+                ? [`'`, start + name.length + 1, { verification: true }]
+                : '',
               [argument, start + name.length + 1 + (isDynamic ? 1 : 0)],
-              argument.includes('-') ? '"' : '',
+              argument.includes('-')
+                ? [
+                    `'`,
+                    start + name.length + argument.length,
+                    { verification: true },
+                  ]
+                : '',
             ] as Code[])
           : argumentCode
             ? [argumentCode]
             : [modelValue]),
-        isDynamic ? '}`]' : '',
+        isDynamic ? ']' : '',
         ':',
         valueCode,
       )
@@ -141,16 +150,14 @@ function transform(
         modifiersResult.push(
           ` {...`,
           modifiersCode,
-          isDynamic
-            ? ''
-            : ` satisfies (keyof NonNullable<typeof ${ctxMap.get(node)}.props.${getModifierPropName(argument || modelValue)}>)[]`,
+          isDynamic ? '' : ` satisfies (keyof ${modifierProps})[]`,
           '}',
         )
       } else if (modifiers.length) {
         modifiersResult.push(
           ` {...{`,
           ...(modifiers.flatMap((modify, index) => [
-            modify ? (modify.includes('-') ? '"' : '') : `'`,
+            modify ? (modify.includes('-') ? `'` : '') : `'`,
             [
               modify,
               start +
@@ -160,12 +167,10 @@ function transform(
                 2 +
                 (index ? modifiers.slice(0, index).join('').length + index : 0),
             ],
-            modify ? `${modify.includes('-') ? '"' : ''}: true, ` : `'`,
+            modify ? `${modify.includes('-') ? `'` : ''}: true, ` : `'`,
           ]) as Code[]),
           '} satisfies ',
-          isDynamic
-            ? 'Record<string, boolean>'
-            : `typeof ${ctxMap.get(node)}.props.${getModifierPropName(argument || modelValue)}`,
+          isDynamic ? 'Record<string, boolean>' : modifierProps,
           '}',
         )
       }
@@ -243,5 +248,8 @@ type __VLS_GetModels<P, E = __VLS_PropsToEmits<P>> = P extends object
         : never]: K extends keyof P ? P[K] : never
     }
   : {};
+type __VLS_GetModifierProps<T, K extends string> = K extends keyof T 
+  ? NonNullable<T[K]>
+  : Record<symbol, never>;
 `)
 }

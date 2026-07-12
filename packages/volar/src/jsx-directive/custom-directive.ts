@@ -17,7 +17,7 @@ type __VLS_ResolveDirective<T> = T extends import('vue').Directive<
   infer Modifiers extends string,
   infer Argument extends string
 >
-  ? Value | [Value] | [Value, Argument] | [Value, Array<Modifiers>] | [Value, Argument, Array<Modifiers>]
+  ? [Value, Argument, Array<Modifiers>]
   : any;
 `)
 }
@@ -28,7 +28,6 @@ function transform(
 ) {
   const { codes, ast } = options
 
-  const attributeName = attribute.name.getText(ast)
   const {
     name,
     modifiersCode,
@@ -71,21 +70,21 @@ function transform(
       : modifiers.length
         ? [
             '[',
-            ...modifiers.flatMap(
-              (modify, index) =>
-                [
-                  `'`,
-                  [
-                    modify,
-                    start +
-                      (attributeName.indexOf('_') + 1) +
-                      (index
-                        ? modifiers.slice(0, index).join('').length + index
-                        : 0),
-                  ],
-                  `'`,
-                ] as Code[],
-            ),
+            ...modifiers.flatMap((modify, index) => {
+              const offset =
+                start +
+                name.length +
+                (argument.length ? argument.length + 1 : 0) +
+                (isDynamic ? 2 : 0) +
+                1 +
+                (index ? modifiers.slice(0, index).join('').length + index : 0)
+              return [
+                [`'`, offset],
+                [modify, offset],
+                [`'`, offset + modify.length - 1],
+                ',',
+              ] as Code[]
+            }),
             ']',
           ]
         : ['{} as any']),

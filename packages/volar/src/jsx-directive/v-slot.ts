@@ -64,19 +64,22 @@ export function transformVSlot(
           result.push('...', ...resolveVFor(vForAttribute, options), '({')
         }
 
-        const { argument, argumentCode, valueCode, isDynamic } =
+        const { name, argument, argumentCode, valueCode, isDynamic } =
           getDirectiveArgs(attribute, options)
-        const wrapByQuotes = !argument || argument.includes('-')
+        const offset = attribute.getStart(ast) + name.length
         result.push(
           isDynamic ? '[' : '',
-          argument
-            ? [
-                wrapByQuotes ? `'${argument}'` : argument,
-                attribute.name.getStart(ast) +
-                  (wrapByQuotes ? 6 : 7) +
-                  (isDynamic ? 1 : 0),
-              ]
-            : argumentCode || 'default',
+          ...(argument
+            ? ([
+                argument.includes('-')
+                  ? [`'`, offset + 1, { verification: true }]
+                  : '',
+                [argument, offset + 1 + (isDynamic ? 1 : 0)],
+                argument.includes('-')
+                  ? [`'`, offset + argument.length, { verification: true }]
+                  : '',
+              ] as Code[])
+            : [argumentCode || 'default']),
           isDynamic ? ']' : '',
           `: (`,
           ...(valueCode ? [valueCode, isDynamic ? ': any' : ''] : []),
