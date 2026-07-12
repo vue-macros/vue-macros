@@ -82,8 +82,18 @@ export function transformVFor(
       node.openingElement.name.type === 'JSXIdentifier' &&
       node.openingElement.name.name === 'template'
     if (isTemplate && node.closingElement) {
-      s.overwriteNode(node.openingElement.name, '')
-      s.overwriteNode(node.closingElement.name, '')
+      /**
+       * https://github.com/vuejs/babel-plugin-jsx/blob/a72bc11ed8f2047a3a0edccdbf374c8e0eeaa69f/packages/babel-plugin-jsx/src/utils.ts#L37
+       *
+       * Because the __MACROS_Fragment tag is a component in vue-jsx, the children will be treated as a slot,
+       * so we need to replace it with _Fragment9.
+       */
+      const fragment =
+        node.openingElement.attributes.length > 1
+          ? importHelperFn(s, 0, 'Fragment', '_Fragment9', options.lib, '')
+          : ''
+      s.overwriteNode(node.openingElement.name, fragment)
+      s.overwriteNode(node.closingElement.name, fragment)
     }
   })
 }
