@@ -176,7 +176,7 @@ function transform(
       }
 
       emitsResult.push(
-        `${isDynamic ? '[`' : `'`}onUpdate:${isDynamic ? '${' : ''}${argument || modelValue}${isDynamic ? '}`]' : `'`}: () => {}, `,
+        `${isDynamic ? '[`' : `'`}onUpdate:${isDynamic ? '${' : ''}${argument || argumentCode?.[0] || modelValue}${isDynamic ? '}`]' : `'`}: () => {}, `,
       )
     }
   }

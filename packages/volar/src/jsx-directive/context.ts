@@ -137,7 +137,7 @@ export function transformCtx(
     if (name.startsWith(prefixModel)) {
       const dir = getDirectiveArgs(prop, options)
       if (dir.valueCode)
-        props += `${dir.isDynamic ? '[' : `'`}${dir.argument || 'modelValue'}${dir.isDynamic ? ']' : `'`}: ${dir.valueCode[0]},`
+        props += `${dir.isDynamic ? '[' : `'`}${dir.argument || dir.argumentCode?.[0] || 'modelValue'}${dir.isDynamic ? ']' : `'`}: ${dir.valueCode[0]},`
       continue
     } else if (name.includes('_')) {
       name = name.split('_')[0]
