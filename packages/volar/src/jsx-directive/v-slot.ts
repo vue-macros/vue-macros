@@ -99,7 +99,7 @@ export function transformVSlot(
         )
 
         if (vForAttribute) {
-          result.push('})),')
+          result.push('})) as any,')
         }
 
         if (vIfAttribute && vIfAttributeName) {
