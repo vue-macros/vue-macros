@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -9,6 +8,7 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
+  type FilterPattern,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
@@ -38,13 +38,19 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'pre',
-      transformInclude: filter,
-      transform: transformExportRender,
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler: transformExportRender,
+      },
     }
   },
 )

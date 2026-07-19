@@ -1,22 +1,21 @@
 import process from 'node:process'
 import { resolveDtsHMR } from '@vue-macros/api'
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
-  normalizePath,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
+  type FilterPattern,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
 import { transformDefineProp, type Edition } from './core'
-import { helperCode, helperId } from './core/helper'
+import { HELPER_ID_REGEX, helperCode } from './core/helper'
 
 export interface Options extends BaseOptions {
   edition?: Edition
@@ -50,32 +49,48 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'pre',
 
-      resolveId(id) {
-        if (id === normalizePath(helperId)) return id
+      resolveId: {
+        filter: {
+          id: {
+            include: HELPER_ID_REGEX,
+          },
+        },
+        handler(id) {
+          return id
+        },
       },
 
-      loadInclude(id) {
-        return normalizePath(id) === helperId
+      load: {
+        filter: {
+          id: {
+            include: HELPER_ID_REGEX,
+          },
+        },
+        handler() {
+          return helperCode
+        },
       },
 
-      load(id) {
-        if (normalizePath(id) === helperId) return helperCode
-      },
-
-      transformInclude: filter,
-      transform(code, id) {
-        return transformDefineProp(
-          code,
-          id,
-          options.edition,
-          options.isProduction,
-        )
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler(code, id) {
+          return transformDefineProp(
+            code,
+            id,
+            options.edition,
+            options.isProduction,
+          )
+        },
       },
 
       vite: {

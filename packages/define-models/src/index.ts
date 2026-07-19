@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -10,6 +9,7 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
+  type FilterPattern,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
@@ -17,7 +17,9 @@ import { transformDefineModels } from './core'
 import {
   emitHelperCode,
   emitHelperId,
-  helperPrefix,
+  EMITTER_ID_REGEX,
+  HELPER_PREFIX_REGEX,
+  USE_VMODEL_ID_REGEX,
   useVmodelHelperCode,
   useVmodelHelperId,
 } from './core/helper'
@@ -47,29 +49,44 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'pre',
-
-      resolveId(id) {
-        if (normalizePath(id).startsWith(helperPrefix)) return id
+      resolveId: {
+        filter: {
+          id: {
+            include: HELPER_PREFIX_REGEX,
+          },
+        },
+        handler(id) {
+          return id
+        },
       },
 
-      loadInclude(id) {
-        return normalizePath(id).startsWith(helperPrefix)
+      load: {
+        filter: {
+          id: {
+            include: [EMITTER_ID_REGEX, USE_VMODEL_ID_REGEX],
+          },
+        },
+        handler(_id) {
+          const id = normalizePath(_id)
+          if (id === emitHelperId) return emitHelperCode
+          else if (id === useVmodelHelperId) return useVmodelHelperCode
+        },
       },
 
-      load(_id) {
-        const id = normalizePath(_id)
-        if (id === emitHelperId) return emitHelperCode
-        else if (id === useVmodelHelperId) return useVmodelHelperCode
-      },
-
-      transformInclude: filter,
-      transform(code, id) {
-        return transformDefineModels(code, id)
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler(code, id) {
+          return transformDefineModels(code, id)
+        },
       },
     }
   },
