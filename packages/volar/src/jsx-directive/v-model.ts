@@ -56,7 +56,11 @@ function transform(
     if (!valueCode) continue
 
     const start = attribute.name.getStart(ast)
-    const modifierProps = `__VLS_GetModifierProps<typeof ${ctxMap.get(node)}.props, '${getModifierPropName(argument || modelValue)}'>`
+    const resolvedArgument =
+      argument || argumentCode?.[0].slice(1, -1) || modelValue
+    const modifierProps = isDynamic
+      ? 'Record<string, true>'
+      : `__VLS_GetModifierProps<typeof ${ctxMap.get(node)}.props, '${getModifierPropName(resolvedArgument)}'>`
     if (!argument && !argumentCode) {
       const result = []
       result.push(
@@ -150,8 +154,7 @@ function transform(
         modifiersResult.push(
           ` {...`,
           modifiersCode,
-          isDynamic ? '' : ` satisfies (keyof ${modifierProps})[]`,
-          '}',
+          ` satisfies (keyof ${modifierProps})[]}`,
         )
       } else if (modifiers.length) {
         modifiersResult.push(
@@ -162,22 +165,21 @@ function transform(
               modify,
               start +
                 name.length +
-                argument.length +
-                (isDynamic ? 2 : 0) +
-                2 +
+                (argument ? argument.length : -1) +
+                (argument && isDynamic ? 4 : 2) +
                 (index ? modifiers.slice(0, index).join('').length + index : 0),
             ],
             modify ? `${modify.includes('-') ? `'` : ''}: true, ` : `'`,
           ]) as Code[]),
           '} satisfies ',
-          isDynamic ? 'Record<string, boolean>' : modifierProps,
+          modifierProps,
           '}',
         )
       }
 
-      emitsResult.push(
-        `${isDynamic ? '[`' : `'`}onUpdate:${isDynamic ? '${' : ''}${argument || argumentCode?.[0] || modelValue}${isDynamic ? '}`]' : `'`}: () => {}, `,
-      )
+      if (!isDynamic) {
+        emitsResult.push(`'onUpdate:${resolvedArgument}': () => {}, `)
+      }
     }
   }
 

@@ -49,7 +49,7 @@ export function getDirectiveArgs(
       modifiersCode = [elements[1].getText(ast), elements[1].getStart(ast)]
     } else {
       // argument
-      if (elements[1]) {
+      if (!argument && elements[1]) {
         isDynamic ||= !ts.isStringLiteral(elements[1])
         argumentCode = [elements[1].getText(ast), elements[1].getStart(ast)]
       }

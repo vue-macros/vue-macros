@@ -74,8 +74,8 @@ function transform(
               const offset =
                 start +
                 name.length +
-                (argument.length ? argument.length + 1 : 0) +
-                (isDynamic ? 2 : 0) +
+                (argument ? argument.length + 1 : 0) +
+                (argument && isDynamic ? 2 : 0) +
                 1 +
                 (index ? modifiers.slice(0, index).join('').length + index : 0)
               return [
