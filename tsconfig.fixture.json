@@ -11,7 +11,10 @@
     }
   ],
   "include": ["**/fixtures/**/*", "packages/macros/macros-global.d.ts"],
-  "exclude": ["./packages/define-prop/tests/fixtures/johnson-edition"],
+  "exclude": [
+    "./packages/define-prop/tests/fixtures/johnson-edition",
+    "./packages/define-prop/tests/fixtures/vue-2.7"
+  ],
   "vueCompilerOptions": {
     "plugins": ["vue-macros/volar"],
     "vueMacros": {

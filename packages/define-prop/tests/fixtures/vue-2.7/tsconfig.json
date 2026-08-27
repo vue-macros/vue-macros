@@ -1,0 +1,14 @@
+{
+  "extends": "../../../../../tsconfig.fixture.json",
+  "include": ["./*"],
+  "exclude": [],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": false,
+    "incremental": false,
+    "skipLibCheck": false,
+    "paths": {
+      "vue": ["./vue-2.7.16.d.ts"]
+    }
+  }
+}

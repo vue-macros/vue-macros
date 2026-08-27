@@ -32,6 +32,7 @@
     "typecheck:test": "vue-tsc --noEmit -p tsconfig.test.json",
     "typecheck:docs": "vue-tsc --noEmit -p ./docs/tsconfig.json",
     "typecheck:fixture": "vue-tsc --noEmit -p tsconfig.fixture.json",
+    "typecheck:fixture:vue2": "vue-tsc --noEmit -p ./packages/define-prop/tests/fixtures/vue-2.7/tsconfig.json",
     "typecheck:playground": "pnpm run -C ./playground/vue3 typecheck"
   },
   "devDependencies": {
