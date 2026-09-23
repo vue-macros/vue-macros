@@ -1,5 +1,4 @@
 import {
-  createFilter,
   createRollupFilter,
   detectVueVersion,
   FilterFileType,
@@ -43,7 +42,6 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
     const filterSFC = createRollupFilter(
       getFilterPattern(
         [FilterFileType.VUE_SFC_WITH_SETUP, FilterFileType.SETUP_SFC],
@@ -58,24 +56,25 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
         if (id === normalizePath(helperId)) return id
       },
 
-      loadInclude(id) {
-        return normalizePath(id) === helperId
+      load: {
+        filter: { id: /\/vue-macros\/reactivity-transform\/helper/ },
+        handler(id) {
+          if (normalizePath(id) === helperId) return helperCode
+        },
       },
 
-      load(id) {
-        if (normalizePath(id) === helperId) return helperCode
-      },
-
-      transformInclude: filter,
-      transform(code, id) {
-        if (filterSFC(id)) {
-          return transformVueSFC(code, id)
-        } else if (shouldTransform(code)) {
-          return transform(code, {
-            filename: id,
-            sourceMap: true,
-          })
-        }
+      transform: {
+        filter: { id: { include: options.include, exclude: options.exclude } },
+        handler(code, id) {
+          if (filterSFC(id)) {
+            return transformVueSFC(code, id)
+          } else if (shouldTransform(code)) {
+            return transform(code, {
+              filename: id,
+              sourceMap: true,
+            })
+          }
+        },
       },
     }
   },

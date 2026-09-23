@@ -33,8 +33,10 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name,
       enforce: 'pre',
 
-      transformInclude: filter,
-      transform: transformSetupSFC,
+      transform: {
+        filter: { id: { include: options.include, exclude: options.exclude } },
+        handler: transformSetupSFC,
+      },
 
       vite: {
         config() {

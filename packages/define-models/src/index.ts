@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -47,7 +46,6 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
@@ -57,19 +55,20 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
         if (normalizePath(id).startsWith(helperPrefix)) return id
       },
 
-      loadInclude(id) {
-        return normalizePath(id).startsWith(helperPrefix)
+      load: {
+        filter: { id: /\/vue-macros\/define-models\// },
+        handler(_id) {
+          const id = normalizePath(_id)
+          if (id === emitHelperId) return emitHelperCode
+          else if (id === useVmodelHelperId) return useVmodelHelperCode
+        },
       },
 
-      load(_id) {
-        const id = normalizePath(_id)
-        if (id === emitHelperId) return emitHelperCode
-        else if (id === useVmodelHelperId) return useVmodelHelperCode
-      },
-
-      transformInclude: filter,
-      transform(code, id) {
-        return transformDefineModels(code, id)
+      transform: {
+        filter: { id: { include: options.include, exclude: options.exclude } },
+        handler(code, id) {
+          return transformDefineModels(code, id)
+        },
       },
     }
   },

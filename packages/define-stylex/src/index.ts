@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -41,20 +40,23 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'pre',
-      transformInclude: filter,
-      transform: transformDefineStyleX,
+      transform: {
+        filter: { id: { include: options.include, exclude: options.exclude } },
+        handler: transformDefineStyleX,
+      },
       resolveId(id) {
         if (normalizePath(id).startsWith(helperPrefix)) return id
       },
-      loadInclude: (id) => normalizePath(id).startsWith(helperPrefix),
-      load(_id) {
-        const id = normalizePath(_id)
-        if (id === styleXAttrsId) return styleXAttrsCode
+      load: {
+        filter: { id: /\/vue-macros\/define-stylex\// },
+        handler(_id) {
+          const id = normalizePath(_id)
+          if (id === styleXAttrsId) return styleXAttrsCode
+        },
       },
     }
   },

@@ -36,7 +36,6 @@ const name = generatePluginName()
 export const PrePlugin: UnpluginInstance<Options | undefined, false> =
   createUnplugin((userOptions = {}) => {
     const options = resolveOptions(userOptions)
-    const filter = createFilter(options)
 
     const templateContent: TemplateContent = Object.create(null)
 
@@ -44,24 +43,31 @@ export const PrePlugin: UnpluginInstance<Options | undefined, false> =
       name: `${name}-pre`,
       enforce: 'pre',
 
-      loadInclude(id) {
-        return id.includes(QUERY_TEMPLATE)
+      load: {
+        filter: { id: /type=template&namedTemplate/ },
+        handler(id) {
+          const { filename, query } = parseVueRequest(id) as any
+          const content =
+            templateContent[filename]?.[
+              'mainTemplate' in query ? MAIN_TEMPLATE : query.name
+            ]
+          return content
+        },
       },
 
-      load(id) {
-        const { filename, query } = parseVueRequest(id) as any
-        const content =
-          templateContent[filename]?.[
-            'mainTemplate' in query ? MAIN_TEMPLATE : query.name
-          ]
-        return content
-      },
-
-      transformInclude(id) {
-        return filter(id) || id.includes(QUERY_NAMED_TEMPLATE)
-      },
-
-      transform(code, id) {
+      transform: {
+        filter: {
+          id: {
+            include: [
+              ...(Array.isArray(options.include)
+                ? options.include
+                : [options.include]),
+              /\?vue&type=named-template/,
+            ],
+            exclude: options.exclude,
+          },
+        },
+        handler(code, id) {
         if (id.includes(QUERY_NAMED_TEMPLATE)) {
           const { filename, query } = parseVueRequest(id)
           const { name } = query as any
@@ -77,6 +83,7 @@ render: (...args) => {
         } else {
           return preTransform(code, id, templateContent)
         }
+        },
       },
     }
   })
@@ -88,7 +95,7 @@ export const PostPlugin: UnpluginInstance<Options | undefined, false> =
     const filter = createFilter(options)
     const customBlocks: CustomBlocks = Object.create(null)
 
-    function transformInclude(id: string) {
+    function filterInclude(id: string) {
       return filter(id) || id.includes(QUERY_TEMPLATE)
     }
 
@@ -96,16 +103,28 @@ export const PostPlugin: UnpluginInstance<Options | undefined, false> =
       name: `${name}-post`,
       enforce: 'post',
 
-      transformInclude,
-      transform(code, id) {
-        return postTransform(code, id, customBlocks)
+      transform: {
+        filter: {
+          id: {
+            include: [
+              ...(Array.isArray(options.include)
+                ? options.include
+                : [options.include]),
+              /type=template&namedTemplate/,
+            ],
+            exclude: options.exclude,
+          },
+        },
+        handler(code, id) {
+          return postTransform(code, id, customBlocks)
+        },
       },
 
       rollup: {
         transform: {
           order: 'post',
           handler(code, id) {
-            if (!transformInclude(id)) return
+            if (!filterInclude(id)) return
             return postTransform(code, id, customBlocks)
           },
         },

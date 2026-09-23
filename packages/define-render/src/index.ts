@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   REGEX_SETUP_SFC,
   REGEX_VUE_SFC,
@@ -32,18 +31,16 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}) => {
     const options = resolveOptions(userOptions)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'post',
 
-      transformInclude(id) {
-        return filter(id)
-      },
-
-      transform(code, id) {
-        return transformDefineRender(code, id, options)
+      transform: {
+        filter: { id: { include: options.include, exclude: options.exclude } },
+        handler(code, id) {
+          return transformDefineRender(code, id, options)
+        },
       },
     }
   },

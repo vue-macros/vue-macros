@@ -15,6 +15,7 @@ import {
   hotUpdateSetupComponent,
   loadSetupComponent,
   SETUP_COMPONENT_ID_REGEX,
+  SETUP_COMPONENT_SUB_MODULE,
   transformPost,
   transformSetupComponent,
   type SetupComponentContext,
@@ -72,20 +73,18 @@ const PrePlugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
         }
       },
 
-      loadInclude(id) {
-        return SETUP_COMPONENT_ID_REGEX.test(id)
+      load: {
+        filter: { id: SETUP_COMPONENT_ID_REGEX },
+        handler(id) {
+          return loadSetupComponent(id, setupComponentContext, options.root)
+        },
       },
 
-      load(id) {
-        return loadSetupComponent(id, setupComponentContext, options.root)
-      },
-
-      transformInclude(id) {
-        return filter(id)
-      },
-
-      transform(code, id) {
-        return transformSetupComponent(code, id, setupComponentContext)
+      transform: {
+        filter: { id: { include: options.include, exclude: options.exclude } },
+        handler(code, id) {
+          return transformSetupComponent(code, id, setupComponentContext)
+        },
       },
 
       vite: {
@@ -109,11 +108,11 @@ const PostPlugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name: `${name}-post`,
       enforce: 'post',
 
-      transformInclude(id) {
-        return isSubModule(id)
-      },
-      transform(code, id) {
-        return transformPost(code, id)
+      transform: {
+        filter: { id: SETUP_COMPONENT_SUB_MODULE },
+        handler(code, id) {
+          return transformPost(code, id)
+        },
       },
 
       rollup: {
