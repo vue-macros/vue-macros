@@ -15,7 +15,6 @@ import {
 import {
   SETUP_COMPONENT_ID_REGEX,
   SETUP_COMPONENT_ID_SUFFIX,
-  SETUP_COMPONENT_SUB_MODULE,
   SETUP_COMPONENT_TYPE,
 } from './constants'
 import { isSubModule } from './sub-module'

@@ -36,7 +36,9 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       enforce: 'pre',
 
       transform: {
-        filter: { id: { include: options.include, exclude: options.exclude } },
+        filter: {
+          id: { include: options.include, exclude: options.exclude },
+        },
         handler(code, id) {
           return transformSetupBlock(code, id, options.defaultLang)
         },

@@ -52,7 +52,9 @@ export const plugin: UnpluginFactory<Options | undefined, false> = (
     enforce: 'pre',
 
     transform: {
-      filter: { id: { include: options.include, exclude: options.exclude } },
+      filter: {
+        id: { include: options.include, exclude: options.exclude },
+      },
       handler(code, id) {
         return transformJsxDirective(code, id, options)
       },

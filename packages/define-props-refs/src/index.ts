@@ -44,7 +44,9 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name,
       enforce: 'pre',
       transform: {
-        filter: { id: { include: options.include, exclude: options.exclude } },
+        filter: {
+          id: { include: options.include, exclude: options.exclude },
+        },
         handler: transformDefinePropsRefs,
       },
     }

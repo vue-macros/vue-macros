@@ -81,7 +81,9 @@ const PrePlugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       },
 
       transform: {
-        filter: { id: { include: options.include, exclude: options.exclude } },
+        filter: {
+          id: { include: options.include, exclude: options.exclude },
+        },
         handler(code, id) {
           return transformSetupComponent(code, id, setupComponentContext)
         },

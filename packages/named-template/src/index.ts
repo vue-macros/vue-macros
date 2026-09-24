@@ -68,11 +68,11 @@ export const PrePlugin: UnpluginInstance<Options | undefined, false> =
           },
         },
         handler(code, id) {
-        if (id.includes(QUERY_NAMED_TEMPLATE)) {
-          const { filename, query } = parseVueRequest(id)
-          const { name } = query as any
-          const request = `${filename}?vue&${QUERY_TEMPLATE}&name=${name}`
-          return `import { createTextVNode } from 'vue'
+          if (id.includes(QUERY_NAMED_TEMPLATE)) {
+            const { filename, query } = parseVueRequest(id)
+            const { name } = query as any
+            const request = `${filename}?vue&${QUERY_TEMPLATE}&name=${name}`
+            return `import { createTextVNode } from 'vue'
         import { render } from ${JSON.stringify(request)}
 export default {
 render: (...args) => {
@@ -80,9 +80,9 @@ render: (...args) => {
   return typeof r === 'string' ? createTextVNode(r) : r
 }
 }`
-        } else {
-          return preTransform(code, id, templateContent)
-        }
+          } else {
+            return preTransform(code, id, templateContent)
+          }
         },
       },
     }

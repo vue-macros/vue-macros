@@ -64,7 +64,9 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       },
 
       transform: {
-        filter: { id: { include: options.include, exclude: options.exclude } },
+        filter: {
+          id: { include: options.include, exclude: options.exclude },
+        },
         handler(code, id) {
           if (filterSFC(id)) {
             return transformVueSFC(code, id)
