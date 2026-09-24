@@ -1,7 +1,6 @@
 import process from 'node:process'
 import { resolveDtsHMR } from '@vue-macros/api'
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -44,21 +43,24 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'pre',
 
-      transformInclude: filter,
-      transform(code, id) {
-        return transformBetterDefine(code, id, options.isProduction).match(
-          (res) => res,
-          (error) => {
-            this.warn(`${name} ${error}`)
-            console.warn(error)
-          },
-        )
+      transform: {
+        filter: {
+          id: { include: options.include, exclude: options.exclude },
+        },
+        handler(code, id) {
+          return transformBetterDefine(code, id, options.isProduction).match(
+            (res) => res,
+            (error) => {
+              this.warn(`${name} ${error}`)
+              console.warn(error)
+            },
+          )
+        },
       },
 
       vite: {

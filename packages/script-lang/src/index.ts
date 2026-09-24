@@ -37,12 +37,13 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name,
       enforce: 'pre',
 
-      transformInclude(id) {
-        return filter(id)
-      },
-
-      transform(code, id) {
-        return transformScriptLang(code, id, options)
+      transform: {
+        filter: {
+          id: { include: options.include, exclude: options.exclude },
+        },
+        handler(code, id) {
+          return transformScriptLang(code, id, options)
+        },
       },
 
       vite: {

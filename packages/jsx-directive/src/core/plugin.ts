@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -47,15 +46,18 @@ export const plugin: UnpluginFactory<Options | undefined, false> = (
   { framework = 'vite' },
 ) => {
   const options = resolveOptions(userOptions, framework)
-  const filter = createFilter(options)
 
   return {
     name,
     enforce: 'pre',
 
-    transformInclude: filter,
-    transform(code, id) {
-      return transformJsxDirective(code, id, options)
+    transform: {
+      filter: {
+        id: { include: options.include, exclude: options.exclude },
+      },
+      handler(code, id) {
+        return transformJsxDirective(code, id, options)
+      },
     },
   }
 }

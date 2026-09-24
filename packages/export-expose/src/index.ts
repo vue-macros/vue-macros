@@ -1,5 +1,4 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
@@ -38,13 +37,16 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'pre',
-      transformInclude: filter,
-      transform: transformExportExpose,
+      transform: {
+        filter: {
+          id: { include: options.include, exclude: options.exclude },
+        },
+        handler: transformExportExpose,
+      },
     }
   },
 )
