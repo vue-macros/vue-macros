@@ -3,6 +3,7 @@ import {
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
+  hackViteHMR,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
@@ -47,6 +48,11 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       enforce: 'pre',
       transformInclude: filter,
       transform: transformDefinePropsRefs,
+      vite: {
+        handleHotUpdate(ctx) {
+          hackViteHMR(ctx, filter, transformDefinePropsRefs)
+        },
+      },
     }
   },
 )
