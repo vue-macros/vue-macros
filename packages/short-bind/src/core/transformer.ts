@@ -43,7 +43,6 @@ export function transformShortBind(options: Options = {}): NodeTransform {
               source: `"${valueName}"`,
             },
           }
-          prop.loc.start.offset = Number.POSITIVE_INFINITY
         } else if (prop.type === (7 satisfies NodeTypes.DIRECTIVE)) {
           const simpleExpression = createSimpleExpression(
             valueName,
@@ -65,9 +64,6 @@ export function transformShortBind(options: Options = {}): NodeTransform {
             },
             0 satisfies ConstantTypes.NOT_CONSTANT,
           )
-
-          if (prop.arg?.type === (4 satisfies NodeTypes.SIMPLE_EXPRESSION))
-            prop.arg.loc.start.offset = Number.POSITIVE_INFINITY
 
           prop.exp = processExpression(simpleExpression, context)
         }
