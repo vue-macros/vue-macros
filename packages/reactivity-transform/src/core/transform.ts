@@ -1,5 +1,6 @@
 import { parse, type ParserPlugin } from '@babel/parser'
 import {
+  isForStatement,
   isFunctionType,
   TS_NODE_TYPES,
   unwrapTSNode,
@@ -19,6 +20,9 @@ import type {
   BlockStatement,
   CallExpression,
   Expression,
+  ForInStatement,
+  ForOfStatement,
+  ForStatement,
   Identifier,
   ImportDeclaration,
   ImportDefaultSpecifier,
@@ -27,6 +31,8 @@ import type {
   Node,
   ObjectPattern,
   Program,
+  StaticBlock,
+  SwitchStatement,
   VariableDeclaration,
   VariableDeclarator,
 } from '@babel/types'
@@ -285,8 +291,16 @@ export function transformAST(
       .find(({ type }) => !TS_NODE_TYPES.includes(type as any))
   }
 
-  function walkScope(node: Program | BlockStatement, isRoot = false) {
-    for (const stmt of node.body) {
+  function walkScope(
+    node: Program | BlockStatement | StaticBlock | SwitchStatement,
+    isRoot = false,
+  ) {
+    // all cases of a switch share one block scope
+    const body =
+      node.type === 'SwitchStatement'
+        ? node.cases.flatMap((c) => c.consequent)
+        : node.body
+    for (const stmt of body) {
       if (stmt.type === 'VariableDeclaration') {
         walkVariableDeclaration(stmt, isRoot)
       } else if (
@@ -295,23 +309,37 @@ export function transformAST(
       ) {
         if (stmt.declare || !stmt.id) continue
         registerBinding(stmt.id)
-      } else if (
-        (stmt.type === 'ForOfStatement' || stmt.type === 'ForInStatement') &&
-        stmt.left.type === 'VariableDeclaration'
-      ) {
-        walkVariableDeclaration(stmt.left)
+      } else if (isForStatement(stmt)) {
+        walkForStatement(stmt, true)
       } else if (
         stmt.type === 'ExportNamedDeclaration' &&
         stmt.declaration &&
         stmt.declaration.type === 'VariableDeclaration'
       ) {
         walkVariableDeclaration(stmt.declaration, isRoot)
-      } else if (
-        stmt.type === 'LabeledStatement' &&
-        stmt.body.type === 'VariableDeclaration'
-      ) {
-        walkVariableDeclaration(stmt.body, isRoot)
+      } else if (stmt.type === 'LabeledStatement') {
+        if (stmt.body.type === 'VariableDeclaration') {
+          walkVariableDeclaration(stmt.body, isRoot)
+        } else if (isForStatement(stmt.body)) {
+          walkForStatement(stmt.body, true)
+        }
       }
+    }
+  }
+
+  // `var` in a for head belongs to the enclosing scope (isVar = true),
+  // `let` / `const` belong to the loop scope (isVar = false)
+  function walkForStatement(
+    stmt: ForStatement | ForInStatement | ForOfStatement,
+    isVar: boolean,
+  ) {
+    const variable = stmt.type === 'ForStatement' ? stmt.init : stmt.left
+    if (
+      variable &&
+      variable.type === 'VariableDeclaration' &&
+      (variable.kind === 'var') === isVar
+    ) {
+      walkVariableDeclaration(variable)
     }
   }
 
@@ -733,9 +761,30 @@ export function transformAST(
       }
 
       // non-function block scopes
-      if (node.type === 'BlockStatement' && !isFunctionType(parent!)) {
+      if (
+        (node.type === 'BlockStatement' && !isFunctionType(parent!)) ||
+        node.type === 'StaticBlock'
+      ) {
         scopeStack.push((currentScope = Object.create(null)))
         walkScope(node)
+        return
+      }
+
+      // for loop head scope, wraps the loop body
+      if (isForStatement(node)) {
+        scopeStack.push((currentScope = Object.create(null)))
+        walkForStatement(node, false)
+        return
+      }
+
+      // switch block scope, starts after the discriminant
+      if (
+        node.type === 'SwitchCase' &&
+        parent?.type === 'SwitchStatement' &&
+        node === parent.cases[0]
+      ) {
+        scopeStack.push((currentScope = Object.create(null)))
+        walkScope(parent)
         return
       }
 
@@ -815,8 +864,13 @@ export function transformAST(
       parent && parentStack.pop()
       if (
         (node.type === 'BlockStatement' && !isFunctionType(parent!)) ||
+        node.type === 'StaticBlock' ||
         isFunctionType(node) ||
-        node.type === 'CatchClause'
+        node.type === 'CatchClause' ||
+        isForStatement(node) ||
+        (node.type === 'SwitchCase' &&
+          parent?.type === 'SwitchStatement' &&
+          node === parent.cases.at(-1))
       ) {
         scopeStack.pop()
         currentScope = scopeStack.at(-1)!

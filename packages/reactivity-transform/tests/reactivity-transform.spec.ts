@@ -1,5 +1,6 @@
 import { parse } from '@babel/parser'
 import { describe, expect, test } from 'vitest'
+import { ref } from 'vue'
 import { transform } from '../src/core/transform'
 
 function assertCode(code: string) {
@@ -193,6 +194,119 @@ describe('cases that should not append .value', () => {
     }
     `)
     expect(code).not.toMatch(`a.value`)
+  })
+})
+
+describe('loop and switch scopes', () => {
+  function run(code: string) {
+    const logs: unknown[][] = []
+    const body = code.replace(
+      /^import \{ ref as _ref \} from 'vue'\n/,
+      'const _ref = ref\n',
+    )
+    new Function('ref', 'log', body)(ref, (...args: unknown[]) =>
+      logs.push(args),
+    )
+    return logs
+  }
+
+  test('for loop head bindings', () => {
+    const { code } = transform(`
+    let a = $ref(0)
+    for (const a of [1]) console.log(a) // of
+    for (const a in { x: 1 }) console.log(a) // in
+    for (let a = 0; a < 1; a++) console.log(a) // for
+    label: for (let a = 0; a < 1; a++) continue label
+    for (let i = 0; i < 1; i++) {
+      for (const a of [1]) console.log(a) // nested
+      console.log(a) // inner loop body
+    }
+    console.log(a) // after loops
+    function f() {
+      for (var a = 0; a < 1; a++) {}
+      return a // var
+    }
+    for (a of [1]) {}
+    for (let b = $ref(0); b < 1; b++) {}
+    `)
+    expect(code).toMatch(`console.log(a) // of`)
+    expect(code).toMatch(`console.log(a) // in`)
+    expect(code).toMatch(`for (let a = 0; a < 1; a++) console.log(a) // for`)
+    expect(code).toMatch(`label: for (let a = 0; a < 1; a++) continue label`)
+    expect(code).toMatch(`console.log(a) // nested`)
+    expect(code).toMatch(`console.log(a.value) // inner loop body`)
+    expect(code).toMatch(`console.log(a.value) // after loops`)
+    expect(code).toMatch(`return a // var`)
+    expect(code).toMatch(`for (a.value of [1]) {}`)
+    expect(code).toMatch(`for (let b = _ref(0); b.value < 1; b.value++) {}`)
+    assertCode(code)
+  })
+
+  test('switch bindings', () => {
+    const { code } = transform(`
+    let a = $ref(0)
+    let b = $ref(0)
+    switch (a) {
+      case 1:
+        const a = 1
+        function b() {}
+      default:
+        console.log(a, b) // case
+    }
+    switch (b) {
+      default:
+        console.log(a, b) // outer
+    }
+    `)
+    expect(code).toMatch(`switch (a.value) {`)
+    expect(code).toMatch(`console.log(a, b) // case`)
+    expect(code).toMatch(`switch (b.value) {`)
+    expect(code).toMatch(`console.log(a.value, b.value) // outer`)
+    assertCode(code)
+  })
+
+  test('class static block bindings', () => {
+    const { code } = transform(`
+    let a = $ref(0)
+    class Foo {
+      static {
+        const a = 1
+        console.log(a) // static
+      }
+    }
+    console.log(a) // outer
+    `)
+    expect(code).toMatch(`console.log(a) // static`)
+    expect(code).toMatch(`console.log(a.value) // outer`)
+    assertCode(code)
+  })
+
+  test('runtime result', () => {
+    const { code } = transform(`
+    let item = $ref('none')
+    for (const item of ['a', 'b']) {}
+    log(item)
+
+    let i = $ref(0)
+    for (let i = 0; i < 2; i++) log('loop', i)
+    log(i)
+
+    let mode = $ref('outer')
+    switch (mode) {
+      default:
+        const mode = 'inner'
+        log(mode)
+    }
+    log(mode)
+    `)
+    expect(run(code)).toStrictEqual([
+      ['none'],
+      ['loop', 0],
+      ['loop', 1],
+      [0],
+      ['inner'],
+      ['outer'],
+    ])
   })
 })
 
