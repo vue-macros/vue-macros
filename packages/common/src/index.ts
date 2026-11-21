@@ -3,7 +3,6 @@ export * from 'ast-kit'
 export {
   createFilter as createRollupFilter,
   normalizePath,
-  type FilterPattern,
 } from 'unplugin-utils'
 
 export * from './ast'

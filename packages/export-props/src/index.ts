@@ -44,8 +44,12 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
     return {
       name,
       enforce: 'pre',
-      transformInclude: filter,
-      transform: transformExportProps,
+      transform: {
+        filter: {
+          id: { include: options.include, exclude: options.exclude },
+        },
+        handler: transformExportProps,
+      },
       vite: {
         handleHotUpdate(ctx) {
           hackViteHMR(ctx, filter, transformExportProps)
