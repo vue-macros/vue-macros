@@ -1,20 +1,23 @@
 import {
-  createFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
-  normalizePath,
   type BaseOptions,
   type MarkRequired,
 } from '@vue-macros/common'
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
+  type FilterPattern,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
 import { transformDefineStyleX } from './core'
-import { helperPrefix, styleXAttrsCode, styleXAttrsId } from './core/helper'
+import {
+  HELPER_PREFIX_REGEX,
+  STYLEX_ATTRS_ID_REGEX,
+  styleXAttrsCode,
+} from './core/helper'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
@@ -41,20 +44,35 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
 
     return {
       name,
       enforce: 'pre',
-      transformInclude: filter,
-      transform: transformDefineStyleX,
-      resolveId(id) {
-        if (normalizePath(id).startsWith(helperPrefix)) return id
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler: transformDefineStyleX,
       },
-      loadInclude: (id) => normalizePath(id).startsWith(helperPrefix),
-      load(_id) {
-        const id = normalizePath(_id)
-        if (id === styleXAttrsId) return styleXAttrsCode
+
+      resolveId: {
+        filter: {
+          id: HELPER_PREFIX_REGEX,
+        },
+        handler(id) {
+          return id
+        },
+      },
+      load: {
+        filter: {
+          id: STYLEX_ATTRS_ID_REGEX,
+        },
+        handler() {
+          return styleXAttrsCode
+        },
       },
     }
   },

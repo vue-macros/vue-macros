@@ -1,10 +1,8 @@
 import {
-  createFilter,
   createRollupFilter,
   detectVueVersion,
   FilterFileType,
   getFilterPattern,
-  normalizePath,
   REGEX_NODE_MODULES,
   type BaseOptions,
   type MarkRequired,
@@ -12,11 +10,12 @@ import {
 import { generatePluginName } from '#macros' with { type: 'macro' }
 import {
   createUnplugin,
+  type FilterPattern,
   type UnpluginContextMeta,
   type UnpluginInstance,
 } from 'unplugin'
 import { shouldTransform, transform, transformVueSFC } from './core'
-import { helperCode, helperId } from './core/helper'
+import { HELPER_ID_REGEX, helperCode } from './core/helper'
 
 export type Options = BaseOptions
 export type OptionsResolved = MarkRequired<Options, 'include' | 'version'>
@@ -43,7 +42,6 @@ const name = generatePluginName()
 const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
   (userOptions = {}, { framework }) => {
     const options = resolveOptions(userOptions, framework)
-    const filter = createFilter(options)
     const filterSFC = createRollupFilter(
       getFilterPattern(
         [FilterFileType.VUE_SFC_WITH_SETUP, FilterFileType.SETUP_SFC],
@@ -54,28 +52,45 @@ const plugin: UnpluginInstance<Options | undefined, false> = createUnplugin(
       name,
       enforce: 'pre',
 
-      resolveId(id) {
-        if (id === normalizePath(helperId)) return id
+      resolveId: {
+        filter: {
+          id: {
+            include: HELPER_ID_REGEX,
+          },
+        },
+        handler(id) {
+          return id
+        },
       },
 
-      loadInclude(id) {
-        return normalizePath(id) === helperId
+      load: {
+        filter: {
+          id: {
+            include: HELPER_ID_REGEX,
+          },
+        },
+        handler() {
+          return helperCode
+        },
       },
 
-      load(id) {
-        if (normalizePath(id) === helperId) return helperCode
-      },
-
-      transformInclude: filter,
-      transform(code, id) {
-        if (filterSFC(id)) {
-          return transformVueSFC(code, id)
-        } else if (shouldTransform(code)) {
-          return transform(code, {
-            filename: id,
-            sourceMap: true,
-          })
-        }
+      transform: {
+        filter: {
+          id: {
+            include: options.include as FilterPattern,
+            exclude: options.exclude as FilterPattern,
+          },
+        },
+        handler(code, id) {
+          if (filterSFC(id)) {
+            return transformVueSFC(code, id)
+          } else if (shouldTransform(code)) {
+            return transform(code, {
+              filename: id,
+              sourceMap: true,
+            })
+          }
+        },
       },
     }
   },
